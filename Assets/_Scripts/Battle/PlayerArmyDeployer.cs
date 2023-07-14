@@ -71,12 +71,12 @@ public class PlayerArmyDeployer : MonoBehaviour
 
     public void OnPointerUp(InputAction.CallbackContext context)
     {
-        if (_wasDeployed) return;
-        _wasDeployed = true;
-
         if (!_wasInitialized) return;
         if (this == null) return;
         if (_creatureSpawnerInstance == null) return;
+
+        if (_wasDeployed) return;
+        _wasDeployed = true;
 
         if (_tooltipText.parent != null)
             _topPanel.Remove(_tooltipText);
