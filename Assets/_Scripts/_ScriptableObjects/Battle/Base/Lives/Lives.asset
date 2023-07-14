@@ -15,13 +15,14 @@ MonoBehaviour:
   Id: bb6d1149-205c-4533-b86d-c314d867ebe0
   Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
   Description: Allows you to buy more lives.
-  Purchased: 1
+  IsPurchased: 1
   Cost: 0
   Prefab: {fileID: 0}
+  CurrentLives: {fileID: 0}
   MaxLivesTree:
   - {fileID: 11400000, guid: afaa60baf4d6fd140b24f67c63ec58a4, type: 2}
   - {fileID: 11400000, guid: 369ea1e159c150f4a91e9aa808cc8d85, type: 2}
   - {fileID: 11400000, guid: 924eeb8ebf4882a499bc359571a72003, type: 2}
   - {fileID: 11400000, guid: ee19379d58f84454286ac164d3f436d3, type: 2}
   CurrentMaxLivesLevel: 0
-  RestoreLives: {fileID: 11400000, guid: c7f9155d9c8cd7543bdf64c2c3b4dd6b, type: 2}
+  RestoreLivesTree: {fileID: 11400000, guid: c7f9155d9c8cd7543bdf64c2c3b4dd6b, type: 2}

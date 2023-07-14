@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Troops Limit Upgrade 1
   m_EditorClassIdentifier: 
   Id: 522d7373-9f12-46d0-943e-85831da068b8
+  Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
   Cost: 0
   Value: 7
   IsInfinite: 0

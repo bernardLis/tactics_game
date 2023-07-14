@@ -10,14 +10,20 @@ public class BaseUpgradeLives : BaseUpgrade
     public List<BaseUpgradeLevel> MaxLivesTree = new();
     public int CurrentMaxLivesLevel;
 
-    public BaseUpgradeLevel RestoreLives;
+    public BaseUpgradeLevel RestoreLivesTree;
 
     public override void Initialize()
     {
         CurrentLives = ScriptableObject.CreateInstance<IntVariable>();
         CurrentLives.SetValue(MaxLivesTree[CurrentMaxLivesLevel].Value);
-        Debug.Log($"intialize lives {CurrentLives.Value}");
 
         base.Initialize();
+    }
+
+    public void RestoreLives(int number)
+    {
+        Mathf.Clamp(number, 0, MaxLivesTree[CurrentMaxLivesLevel].Value - CurrentLives.Value);
+        CurrentLives.SetValue(CurrentLives.Value + number);
+
     }
 }

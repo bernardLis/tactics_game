@@ -22,6 +22,7 @@ public class RerollButton : MyButton
         RegisterCallback<PointerEnterEvent>(evt => rerollIcon.AddToClassList(_ussCommonRerollIconHover));
         RegisterCallback<PointerLeaveEvent>(evt => rerollIcon.RemoveFromClassList(_ussCommonRerollIconHover));
 
+        // TODO: Get reroll cost 
         _rerollCost = new(200);
         Add(_rerollCost);
     }

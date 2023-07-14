@@ -14,6 +14,8 @@ public class BattleBaseElement : VisualElement
 
     GameManager _gameManager;
 
+    Base _base;
+
     public event Action OnClosed;
 
     public BattleBaseElement(Base baseObj)
@@ -29,7 +31,19 @@ public class BattleBaseElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
+        _base = baseObj;
 
+        foreach (BaseUpgrade upg in _base.AllBaseUpgrades)
+        {
+            if (upg is BaseUpgradeLives)
+            {
+                BaseLivesElement livesElement = new(upg as BaseUpgradeLives);
+                Add(livesElement);
+                continue;
+            }
+            BaseUpgradeElement upgElement = new BaseUpgradeElement(upg);
+            Add(upgElement);
+        }
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
         Add(continueButton);
