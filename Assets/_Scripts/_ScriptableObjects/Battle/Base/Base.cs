@@ -11,9 +11,6 @@ public class Base : BaseScriptableObject
     public BaseUpgradeTroops TroopsUpgrade;
     public BaseUpgradeMana ManaUpgrade;
 
-    //public IntVariable Lives;
-    //public IntVariable TroopsLimit;
-
     public GameObject BaseGameObject;
 
     GameManager _gameManager;
@@ -21,9 +18,6 @@ public class Base : BaseScriptableObject
     public void Initialize()
     {
         _gameManager = GameManager.Instance;
-
-        //   Lives = ScriptableObject.CreateInstance<IntVariable>();
-        //  TroopsLimit = ScriptableObject.CreateInstance<IntVariable>();
 
         foreach (BaseUpgrade u in _gameManager.GameDatabase.AllBaseUpgrades)
         {
@@ -37,9 +31,6 @@ public class Base : BaseScriptableObject
                 TroopsUpgrade = instance as BaseUpgradeTroops;
             if (instance is BaseUpgradeMana)
                 ManaUpgrade = instance as BaseUpgradeMana;
-
-            Debug.Log($"initalize {LivesUpgrade}");
-
         }
     }
 

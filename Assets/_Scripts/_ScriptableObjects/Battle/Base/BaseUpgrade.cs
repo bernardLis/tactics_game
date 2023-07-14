@@ -25,6 +25,7 @@ public class BaseUpgrade : BaseScriptableObject
         if (Prefab == null) return;
         Vector3 pos = new Vector3(0, 10, 0);
         GameObject instance = Instantiate(Prefab, pos, Quaternion.identity);
+        instance.transform.parent = BattleBase.Instance.transform;
     }
 }
 

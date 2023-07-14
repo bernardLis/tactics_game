@@ -37,6 +37,7 @@ public class BaseUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerEn
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("Base upgrade");
         _baseElement = new BattleBaseElement(_base);
         _baseElement.style.opacity = 0;
         _battleManager.Root.Add(_baseElement);

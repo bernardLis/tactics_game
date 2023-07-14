@@ -13,7 +13,6 @@ public class BattleBase : Singleton<BattleBase>
 
     Base _base;
 
-
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -22,6 +21,7 @@ public class BattleBase : Singleton<BattleBase>
         _tooltipManager = BattleTooltipManager.Instance;
 
         _base = _gameManager.SelectedBattle.Base;
-    }
 
+        transform.position = new Vector3(0, 1.89f, 0);
+    }
 }
