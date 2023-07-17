@@ -22,8 +22,8 @@ public class StoreyLives : Storey
 
     public void RestoreLives(int number)
     {
-        Mathf.Clamp(number, 0, MaxLivesTree[CurrentMaxLivesLevel].Value - CurrentLives.Value);
-        CurrentLives.SetValue(CurrentLives.Value + number);
-
+        int newLives = CurrentLives.Value + number;
+        newLives = Mathf.Clamp(newLives, 0, MaxLivesTree[CurrentMaxLivesLevel].Value);
+        CurrentLives.SetValue(newLives);
     }
 }

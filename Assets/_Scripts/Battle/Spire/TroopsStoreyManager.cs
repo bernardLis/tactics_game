@@ -11,7 +11,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     BattleTooltipManager _tooltipManager;
 
     Spire _base;
-    BattleSpireElement _baseElement;
+    SpireElement _baseElement;
 
     void Start()
     {
@@ -38,7 +38,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Base troops upgrade");
-        _baseElement = new BattleSpireElement(_base);
+        _baseElement = new SpireElement(_base);
         _baseElement.style.opacity = 0;
         _battleManager.Root.Add(_baseElement);
         _battleManager.PauseGame();

@@ -166,3 +166,10 @@
     -unity-text-align: middle-center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
 }
+
+.common__purchase-button {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
+    width: 150px;
+    justify-content: center;
+    align-items: center;
+}

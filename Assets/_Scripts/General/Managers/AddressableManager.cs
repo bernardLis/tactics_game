@@ -67,6 +67,6 @@ public enum StyleSheetType
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
-    SpireStyles,
+    SpireStyles, StoreyUpgradeStyles,
 
 }

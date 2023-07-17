@@ -5,17 +5,20 @@ using UnityEngine.UIElements;
 
 public class StoreyLivesElement : VisualElement
 {
-    StoreyLives _upgrade;
+    StoreyLives _storey;
 
-    List<UpgradeLevelElement> _maxLivesTree = new();
+    StoreyUpgradeElement _restoreLivesElement;
 
-    public StoreyLivesElement(StoreyLives upgrade)
+    Label _maxLivesTreeTitle;
+    List<StoreyUpgradeElement> _maxLivesTreeElements = new();
+
+    public StoreyLivesElement(StoreyLives storey)
     {
-        _upgrade = upgrade;
+        _storey = storey;
 
         style.flexDirection = FlexDirection.Row;
 
-        Label lives = new($"Lives: {_upgrade.CurrentLives.Value}");
+        Label lives = new($"Lives: {_storey.CurrentLives.Value}");
         Add(lives);
 
         VisualElement container = new();
@@ -24,24 +27,29 @@ public class StoreyLivesElement : VisualElement
         container.Add(new Label("----->"));
 
         AddMaxLivesTree();
-
         AddRestoreLivesTree();
     }
 
     void AddRestoreLivesTree()
     {
-        UpgradeLevelElement restoreLives = new(_upgrade.RestoreLivesTree);
-        Add(restoreLives);
+        _restoreLivesElement = new(_storey.RestoreLivesTree);
+        Add(_restoreLivesElement);
 
-        if (_upgrade.CurrentLives.Value == _upgrade.MaxLivesTree[_upgrade.CurrentMaxLivesLevel].Value)
-            restoreLives.SetEnabled(false);
+        _restoreLivesElement.OnPurchased += RestoreLives;
 
-        restoreLives.OnPurchased += RestoreLives;
+        UpdateRestoreLivesElement();
     }
 
-    void RestoreLives()
+    void RestoreLives(StoreyUpgrade storeyUpgrade)
     {
-        _upgrade.RestoreLives(5);
+        _storey.RestoreLives(5);
+        UpdateRestoreLivesElement();
+    }
+
+    void UpdateRestoreLivesElement()
+    {
+        if (_storey.CurrentLives.Value >= _storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value)
+            _restoreLivesElement.SetEnabled(false);
     }
 
     void AddMaxLivesTree()
@@ -50,27 +58,30 @@ public class StoreyLivesElement : VisualElement
         container.style.flexDirection = FlexDirection.Row;
         Add(container);
 
-        Label title = new($"Max Lives {_upgrade.MaxLivesTree[_upgrade.CurrentMaxLivesLevel].Value}");
-        container.Add(title);
+        _maxLivesTreeTitle = new($"Max Lives {_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value}");
+        container.Add(_maxLivesTreeTitle);
 
-        for (int i = 0; i < _upgrade.MaxLivesTree.Count; i++)
+        for (int i = 0; i < _storey.MaxLivesTree.Count; i++)
         {
-            UpgradeLevelElement el = new(_upgrade.MaxLivesTree[i]);
+            StoreyUpgradeElement el = new(_storey.MaxLivesTree[i]);
             Add(el);
-            _maxLivesTree.Add(el);
+            _maxLivesTreeElements.Add(el);
 
-            if (i != _upgrade.CurrentMaxLivesLevel + 1)
+            if (i != _storey.CurrentMaxLivesLevel + 1)
                 el.SetEnabled(false);
 
-            el.OnPurchased += () =>
-            {
-                title.text = $"Max Lives {_upgrade.MaxLivesTree[i].Value}";
-                _upgrade.CurrentMaxLivesLevel = i;
-                if (i != _upgrade.MaxLivesTree.Count - 1)
-                    _maxLivesTree[i + 1].SetEnabled(true);
-            };
+            el.OnPurchased += MaxLivesUpgradePurchased;
         }
     }
 
+    void MaxLivesUpgradePurchased(StoreyUpgrade storeyUpgrade)
+    {
+        _maxLivesTreeElements[_storey.CurrentMaxLivesLevel + 1].SetEnabled(false);
+        // add difference between values of current and next level to current lives
+        _storey.CurrentLives.ApplyChange(_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel + 1].Value - _storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value);
+        _storey.CurrentMaxLivesLevel++;
 
+        if (_storey.CurrentMaxLivesLevel < _storey.MaxLivesTree.Count - 1)
+            _maxLivesTreeElements[_storey.CurrentMaxLivesLevel + 1].SetEnabled(true);
+    }
 }

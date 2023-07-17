@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class BattleSpireElement : VisualElement
+public class SpireElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
@@ -18,7 +18,7 @@ public class BattleSpireElement : VisualElement
 
     public event Action OnClosed;
 
-    public BattleSpireElement(Spire spire)
+    public SpireElement(Spire spire)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);

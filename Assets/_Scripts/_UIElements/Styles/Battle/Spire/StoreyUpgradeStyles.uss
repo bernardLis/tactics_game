@@ -1,0 +1,10 @@
+.storey-upgrade__main {
+    justify-content: center;
+    align-items: center;
+
+}
+
+.storey-upgrade__icon {
+    width: 100px;
+    height: 100px;
+}
