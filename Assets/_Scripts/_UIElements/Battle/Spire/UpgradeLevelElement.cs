@@ -6,10 +6,10 @@ using UnityEngine.UIElements;
 
 public class UpgradeLevelElement : ElementWithTooltip
 {
-    BaseUpgradeLevel _upgradeLevel;
+    StoreyUpgrade _upgradeLevel;
 
     public event Action OnPurchased;
-    public UpgradeLevelElement(BaseUpgradeLevel upgradeLevel)
+    public UpgradeLevelElement(StoreyUpgrade upgradeLevel)
     {
         _upgradeLevel = upgradeLevel;
         
@@ -24,7 +24,6 @@ public class UpgradeLevelElement : ElementWithTooltip
         Add(purchaseButton);
     }
 
-
     void Purchase()
     {
         OnPurchased?.Invoke();
@@ -38,5 +37,4 @@ public class UpgradeLevelElement : ElementWithTooltip
         _tooltip = new(this, new Label(_upgradeLevel.Description));
         base.DisplayTooltip();
     }
-
 }

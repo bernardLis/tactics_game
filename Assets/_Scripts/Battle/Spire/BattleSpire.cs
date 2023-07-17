@@ -5,13 +5,13 @@ using UnityEngine.UIElements;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class BattleBase : Singleton<BattleBase>
+public class BattleSpire : Singleton<BattleSpire>
 {
     GameManager _gameManager;
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
-    Base _base;
+    Spire _base;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class BattleBase : Singleton<BattleBase>
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _base = _gameManager.SelectedBattle.Base;
+        _base = _gameManager.SelectedBattle.Spire;
 
         transform.position = new Vector3(0, 1.89f, 0);
     }

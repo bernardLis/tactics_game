@@ -5,43 +5,43 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class BattleBaseElement : VisualElement
+public class BattleSpireElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "battle-base__";
+    const string _ussClassName = "spire__";
     const string _ussMain = _ussClassName + "main";
 
     GameManager _gameManager;
 
-    Base _base;
+    Spire _spire;
 
     public event Action OnClosed;
 
-    public BattleBaseElement(Base baseObj)
+    public BattleSpireElement(Spire spire)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleBaseStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SpireStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
-        _base = baseObj;
+        _spire = spire;
 
-        foreach (BaseUpgrade upg in _base.AllBaseUpgrades)
+        foreach (Storey upg in _spire.Storeys)
         {
-            if (upg is BaseUpgradeLives)
+            if (upg is StoreyLives)
             {
-                BaseLivesElement livesElement = new(upg as BaseUpgradeLives);
+                StoreyLivesElement livesElement = new(upg as StoreyLives);
                 Add(livesElement);
                 continue;
             }
-            BaseUpgradeElement upgElement = new BaseUpgradeElement(upg);
+            SpireUpgradeElement upgElement = new SpireUpgradeElement(upg);
             Add(upgElement);
         }
 

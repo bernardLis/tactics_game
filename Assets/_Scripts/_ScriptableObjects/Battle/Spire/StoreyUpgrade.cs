@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Base/Upgrade Level")]
-public class BaseUpgradeLevel : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Spire/Storey Upgrade")]
+public class StoreyUpgrade : BaseScriptableObject
 {
     public Sprite Icon;
     public int Cost;

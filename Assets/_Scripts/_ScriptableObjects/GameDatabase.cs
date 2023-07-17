@@ -13,7 +13,7 @@ public class GameDatabase : BaseScriptableObject
     public BattleModifier GetRandomBattleModifier() { return BattleModifiers[Random.Range(0, BattleModifiers.Length)]; }
 
     [Header("Base")]
-    public List<BaseUpgrade> AllBaseUpgrades = new();
+    public List<Storey> AllBaseUpgrades = new();
     public GameObject BaseGameObject;
 
     [Header("General")]

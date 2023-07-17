@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Base/Base Upgrade")]
-public class BaseUpgrade : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Spire/Storey")]
+public class Storey : BaseScriptableObject
 {
     public Sprite Icon;
     public string Description;
@@ -23,10 +23,10 @@ public class BaseUpgrade : BaseScriptableObject
     {
         if (!IsPurchased) return;
         if (Prefab == null) return;
-        GameObject baseObject = BattleBase.Instance.gameObject;
+        GameObject storeyObject = BattleSpire.Instance.gameObject;
         Vector3 pos = new Vector3(0, 10, 0); // TODO: problem is many upgrades are initialized at the same time
         GameObject instance = Instantiate(Prefab, pos, Quaternion.identity);
-        instance.transform.parent = baseObject.transform;
+        instance.transform.parent = storeyObject.transform;
     }
 
     public void Purchased()

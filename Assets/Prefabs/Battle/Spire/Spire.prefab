@@ -19813,7 +19813,7 @@ GameObject:
   - component: {fileID: 5352201086639603061}
   - component: {fileID: 6077092626689603497}
   m_Layer: 0
-  m_Name: Base
+  m_Name: Spire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

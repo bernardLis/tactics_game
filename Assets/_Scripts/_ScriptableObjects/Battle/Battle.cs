@@ -10,7 +10,7 @@ public class Battle : BaseScriptableObject
     public Hero Opponent;
     public List<BattleWave> Waves = new();
 
-    public Base Base;
+    public Spire Spire;
 
     public int Duration = 15; // minutes
 
@@ -33,8 +33,8 @@ public class Battle : BaseScriptableObject
     {
         GameManager gameManager = GameManager.Instance;
 
-        Base = ScriptableObject.CreateInstance<Base>();
-        Base.Initialize();
+        Spire = ScriptableObject.CreateInstance<Spire>();
+        Spire.Initialize();
 
         Opponent = ScriptableObject.CreateInstance<Hero>();
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);

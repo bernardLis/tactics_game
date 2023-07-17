@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BaseUpgradeElement : VisualElement
+public class SpireUpgradeElement : VisualElement
 {
 
-    BaseUpgrade _upgrade;
+    Storey _upgrade;
 
     PurchaseButton _purchaseButton;
-    public BaseUpgradeElement(BaseUpgrade upgrade)
+    public SpireUpgradeElement(Storey upgrade)
     {
         _upgrade = upgrade;
         

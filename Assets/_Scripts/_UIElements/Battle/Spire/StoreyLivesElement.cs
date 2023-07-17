@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BaseLivesElement : VisualElement
+public class StoreyLivesElement : VisualElement
 {
-    BaseUpgradeLives _upgrade;
+    StoreyLives _upgrade;
 
     List<UpgradeLevelElement> _maxLivesTree = new();
 
-    public BaseLivesElement(BaseUpgradeLives upgrade)
+    public StoreyLivesElement(StoreyLives upgrade)
     {
         _upgrade = upgrade;
 

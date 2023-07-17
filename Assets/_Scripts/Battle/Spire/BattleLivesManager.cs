@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 
-public class BaseLivesManager : MonoBehaviour
+public class BattleLivesManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    Base _base;
+    Spire _base;
 
     MMF_Player _feelPlayer;
 
@@ -18,7 +18,7 @@ public class BaseLivesManager : MonoBehaviour
 
         _feelPlayer = GetComponent<MMF_Player>();
 
-        _base = _gameManager.SelectedBattle.Base;
+        _base = _gameManager.SelectedBattle.Spire;
     }
 
     void OnCollisionEnter(Collision collision)

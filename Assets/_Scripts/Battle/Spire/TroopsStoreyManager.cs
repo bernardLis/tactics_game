@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class BaseUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     GameManager _gameManager;
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
-    Base _base;
-    BattleBaseElement _baseElement;
+    Spire _base;
+    BattleSpireElement _baseElement;
 
     void Start()
     {
@@ -20,13 +20,13 @@ public class BaseUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerEn
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _base = _gameManager.SelectedBattle.Base;
+        _base = _gameManager.SelectedBattle.Spire;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Click for base upgrades");
+        _tooltipManager.ShowInfo($"Click for troops upgrades");
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -37,8 +37,8 @@ public class BaseUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerEn
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Base upgrade");
-        _baseElement = new BattleBaseElement(_base);
+        Debug.Log("Base troops upgrade");
+        _baseElement = new BattleSpireElement(_base);
         _baseElement.style.opacity = 0;
         _battleManager.Root.Add(_baseElement);
         _battleManager.PauseGame();

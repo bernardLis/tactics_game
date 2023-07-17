@@ -8,9 +8,9 @@ public class BattleInfoManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    BattleBase _battleBase;
+    BattleSpire _battleBase;
 
-    Base _base;
+    Spire _base;
 
     VisualElement _root;
     VisualElement _infoPanel;
@@ -23,9 +23,9 @@ public class BattleInfoManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        _battleBase = BattleBase.Instance;
+        _battleBase = BattleSpire.Instance;
 
-        _base = _gameManager.SelectedBattle.Base;
+        _base = _gameManager.SelectedBattle.Spire;
 
         _root = _battleManager.Root;
         _infoPanel = _root.Q<VisualElement>("infoPanel");

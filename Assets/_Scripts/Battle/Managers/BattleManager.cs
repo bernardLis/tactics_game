@@ -131,7 +131,7 @@ public class BattleManager : Singleton<BattleManager>
         _timerIsOn = true;
         StartCoroutine(UpdateTimer());
 
-        _gameManager.SelectedBattle.Base.InitializeBattle();
+        _gameManager.SelectedBattle.Spire.InitializeBattle();
         
         OnBattleInitialized?.Invoke();
     }

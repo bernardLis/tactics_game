@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Base/Base Upgrade Troops")]
-public class BaseUpgradeTroops : BaseUpgrade
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Spire/Storey Troops")]
+public class StoreyTroops : Storey
 {
     public IntVariable CurrentLimit;
 
-    public List<BaseUpgradeLevel> MaxTroopsTree = new();
+    public List<StoreyUpgrade> MaxTroopsTree = new();
     public int CurrentMaxTroopsLevel;
 
     public List<Creature> DeadTroops = new();
