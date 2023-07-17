@@ -8,7 +8,7 @@ public class BattleInfoManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    BattleSpire _battleBase;
+    BattleSpire _battleSpire;
 
     Spire _base;
 
@@ -19,11 +19,11 @@ public class BattleInfoManager : MonoBehaviour
     GoldElement _goldElement;
     SpiceElement _spiceElement;
 
-    public void Start()
+    void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        _battleBase = BattleSpire.Instance;
+        _battleSpire = BattleSpire.Instance;
 
         _base = _gameManager.SelectedBattle.Spire;
 
@@ -73,6 +73,9 @@ public class BattleInfoManager : MonoBehaviour
 
         _troopsLimitElement = new("");
         TroopsLimitContainer.Add(_troopsLimitElement);
+
+        Debug.Log($"_gameManager {_gameManager}");
+        Debug.Log($"_gameManager.PlayerHero {_gameManager.PlayerHero}");
 
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
         _base.TroopsUpgrade.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();

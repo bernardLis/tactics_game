@@ -47,7 +47,6 @@ public class BattleInitializer : MonoBehaviour
         _battleManager.Initialize(_playerHero);
         GetComponent<BattleWaveManager>().Initialize();
 
-
         yield return new WaitForSeconds(2f);
 
         _playerArmyDeployer.Initialize();

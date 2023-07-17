@@ -105,10 +105,11 @@ public class PlayerArmyDeployer : MonoBehaviour
         GameObject instance = Instantiate(_creatureSpawnerPrefab);
         _creatureSpawnerInstance = instance.GetComponent<EntitySpawner>();
         _creatureSpawnerInstance.ShowPortal(_gameManager.PlayerHero.Element);
-        StartCoroutine(UpdateGrabbedObjectPosition());
+        StartCoroutine(UpdatePortalPosition());
     }
 
-    IEnumerator UpdateGrabbedObjectPosition()
+    // TODO: does it stop?
+    IEnumerator UpdatePortalPosition()
     {
         while (_creatureSpawnerInstance != null)
         {
