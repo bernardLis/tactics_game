@@ -29,7 +29,7 @@ public class StoreyTroopsElement : VisualElement
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SpireStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StoreyTroopsStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -41,8 +41,6 @@ public class StoreyTroopsElement : VisualElement
         _content = new();
         _content.AddToClassList(_ussContent);
         Add(_content);
-
-
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
         _content.Add(continueButton);
