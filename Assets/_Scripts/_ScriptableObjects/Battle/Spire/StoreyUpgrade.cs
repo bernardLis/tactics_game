@@ -8,6 +8,7 @@ public class StoreyUpgrade : BaseScriptableObject
     public Sprite Icon;
     public int Cost;
     public int Value;
+    public bool IsPurchased;
     public string Description;
     public bool IsInfinite;
     public float CircleRadiusMultiplier;

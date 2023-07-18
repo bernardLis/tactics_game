@@ -1,0 +1,3 @@
+.spire-upgrade__main {
+    flex-direction: row;
+}

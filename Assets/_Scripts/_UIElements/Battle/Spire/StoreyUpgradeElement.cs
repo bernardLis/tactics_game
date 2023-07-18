@@ -35,7 +35,8 @@ public class StoreyUpgradeElement : ElementWithTooltip
         icon.style.backgroundImage = new StyleBackground(storeyUpgrade.Icon);
         Add(icon);
 
-        PurchaseButton purchaseButton = new(storeyUpgrade.Cost, callback: Purchase);
+        PurchaseButton purchaseButton = new(storeyUpgrade.Cost, callback: Purchase,
+                isInfinite: storeyUpgrade.IsInfinite, isPurchased: storeyUpgrade.IsPurchased);
         Add(purchaseButton);
     }
 
@@ -44,6 +45,7 @@ public class StoreyUpgradeElement : ElementWithTooltip
         OnPurchased?.Invoke(StoreyUpgrade);
 
         if (StoreyUpgrade.IsInfinite) return;
+        StoreyUpgrade.IsPurchased = true;
         SetEnabled(false);
     }
 

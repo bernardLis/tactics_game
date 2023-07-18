@@ -12,6 +12,7 @@ public class SpireElement : VisualElement
     const string _ussClassName = "spire__";
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
+    const string _ussUpgradesTitle = _ussClassName + "upgrades-title";
 
     GameManager _gameManager;
 
@@ -34,7 +35,6 @@ public class SpireElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
-
         _content = new();
         _content.AddToClassList(_ussContent);
         Add(_content);
@@ -47,8 +47,15 @@ public class SpireElement : VisualElement
             {
                 StoreyLivesElement livesElement = new(upg as StoreyLives);
                 _content.Add(livesElement);
-                continue;
             }
+        }
+
+        Label upgradesTitle = new("Spire Upgrades");
+        upgradesTitle.AddToClassList(_ussUpgradesTitle);
+        _content.Add(upgradesTitle);
+
+        foreach (Storey upg in _spire.Storeys)
+        {
             SpireUpgradeElement upgElement = new SpireUpgradeElement(upg);
             _content.Add(upgElement);
         }

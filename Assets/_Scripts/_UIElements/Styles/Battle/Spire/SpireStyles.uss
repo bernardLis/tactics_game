@@ -16,3 +16,7 @@
     padding-left: 30px;
     padding-top: 50px;
 }
+
+.spire__upgrades-title {
+    font-size: 36px;
+}

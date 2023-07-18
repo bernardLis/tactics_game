@@ -5,15 +5,23 @@ using UnityEngine.UIElements;
 
 public class SpireUpgradeElement : VisualElement
 {
+    const string _ussClassName = "spire-upgrade__";
+    const string _ussMain = _ussClassName + "main";
+
+    GameManager _gameManager;
 
     Storey _upgrade;
 
     PurchaseButton _purchaseButton;
     public SpireUpgradeElement(Storey upgrade)
     {
+        _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SpireUpgradeStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
         _upgrade = upgrade;
-        
-        style.flexDirection = FlexDirection.Row;
+        AddToClassList(_ussMain);
 
         VisualElement container = new();
         Add(container);
@@ -27,23 +35,12 @@ public class SpireUpgradeElement : VisualElement
         Label desc = new(upgrade.Description);
         Add(desc);
 
-        if (upgrade.IsPurchased)
-        {
-            Label p = new("Purchased");
-            Add(p);
-            return;
-        }
-
-        _purchaseButton = new(upgrade.Cost, callback: Purchased);
+        _purchaseButton = new(upgrade.Cost, callback: Purchased, isPurchased: upgrade.IsPurchased);
         Add(_purchaseButton);
     }
 
     void Purchased()
     {
         _upgrade.Purchased();
-
-        _purchaseButton.RemoveFromHierarchy();
-        Label p = new("Purchased");
-        Add(p);
     }
 }
