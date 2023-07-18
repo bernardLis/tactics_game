@@ -20,3 +20,7 @@
 .spire__upgrades-title {
     font-size: 36px;
 }
+
+.spire__upgrades-container {
+    flex-direction: row;
+}

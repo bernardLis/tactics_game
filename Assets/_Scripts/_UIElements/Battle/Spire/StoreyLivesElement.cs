@@ -36,7 +36,7 @@ public class StoreyLivesElement : VisualElement
         AddToClassList(_ussMain);
         _storey = storey;
 
-        _lives = new($"Lives: {_storey.CurrentLives.Value}/{_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value}");
+        _lives = new($"Lives {_storey.CurrentLives.Value}/{_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value}");
         _lives.AddToClassList(_ussTitle);
         Add(_lives);
 

@@ -7,13 +7,22 @@ public class StoreyLives : Storey
 {
     public IntVariable CurrentLives;
 
+    [SerializeField] List<StoreyUpgrade> MaxLivesTreeOriginals = new();
     public List<StoreyUpgrade> MaxLivesTree = new();
+
     public int CurrentMaxLivesLevel;
 
     public StoreyUpgrade RestoreLivesTree;
 
     public override void Initialize()
     {
+        MaxLivesTree = new();
+        foreach (StoreyUpgrade u in MaxLivesTreeOriginals)
+        {
+            StoreyUpgrade instance = Instantiate(u);
+            MaxLivesTree.Add(instance);
+        }
+
         CurrentLives = ScriptableObject.CreateInstance<IntVariable>();
         CurrentLives.SetValue(MaxLivesTree[CurrentMaxLivesLevel].Value);
 

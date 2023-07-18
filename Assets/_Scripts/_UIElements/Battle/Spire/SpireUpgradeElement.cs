@@ -3,44 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SpireUpgradeElement : VisualElement
+public class SpireUpgradeElement : ElementWithTooltip
 {
+    const string _ussCommonButtonBasic = "common__button-basic";
+
     const string _ussClassName = "spire-upgrade__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussIcon = _ussClassName + "icon";
 
     GameManager _gameManager;
 
-    Storey _upgrade;
+    Storey _storey;
 
     PurchaseButton _purchaseButton;
-    public SpireUpgradeElement(Storey upgrade)
+    public SpireUpgradeElement(Storey storey)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SpireUpgradeStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _upgrade = upgrade;
+        _storey = storey;
+
         AddToClassList(_ussMain);
 
-        VisualElement container = new();
-        Add(container);
+        Label name = new(Helpers.ParseScriptableObjectCloneName(storey.name));
+        Add(name);
 
-        Label name = new(upgrade.name);
-        container.Add(name);
         Label icon = new();
-        icon.style.backgroundImage = new StyleBackground(upgrade.Icon);
-        container.Add(icon);
+        icon.style.backgroundImage = new StyleBackground(storey.Icon);
+        icon.AddToClassList(_ussIcon);
+        Add(icon);
 
-        Label desc = new(upgrade.Description);
-        Add(desc);
-
-        _purchaseButton = new(upgrade.Cost, callback: Purchased, isPurchased: upgrade.IsPurchased);
+        _purchaseButton = new(storey.Cost, callback: Purchased, isPurchased: storey.IsPurchased);
         Add(_purchaseButton);
     }
 
     void Purchased()
     {
-        _upgrade.Purchased();
+        _storey.Purchased();
     }
+
+    protected override void DisplayTooltip()
+    {
+        _tooltip = new(this, new Label(_storey.Description));
+        base.DisplayTooltip();
+    }
+
+
 }

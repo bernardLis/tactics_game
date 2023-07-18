@@ -16,6 +16,7 @@ public class Storey : BaseScriptableObject
 
     public virtual void Initialize()
     {
+        
 
     }
 

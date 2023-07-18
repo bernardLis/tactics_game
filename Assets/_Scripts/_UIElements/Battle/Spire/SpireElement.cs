@@ -13,6 +13,7 @@ public class SpireElement : VisualElement
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
     const string _ussUpgradesTitle = _ussClassName + "upgrades-title";
+    const string _ussUpgradesContainer = _ussClassName + "upgrades-container";
 
     GameManager _gameManager;
 
@@ -54,10 +55,14 @@ public class SpireElement : VisualElement
         upgradesTitle.AddToClassList(_ussUpgradesTitle);
         _content.Add(upgradesTitle);
 
+        VisualElement upgradesContainer = new();
+        upgradesContainer.AddToClassList(_ussUpgradesContainer);
+        _content.Add(upgradesContainer);
+
         foreach (Storey upg in _spire.Storeys)
         {
             SpireUpgradeElement upgElement = new SpireUpgradeElement(upg);
-            _content.Add(upgElement);
+            upgradesContainer.Add(upgElement);
         }
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
