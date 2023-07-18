@@ -11,10 +11,13 @@ public class SpireElement : VisualElement
 
     const string _ussClassName = "spire__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussContent = _ussClassName + "content";
 
     GameManager _gameManager;
 
     Spire _spire;
+
+    VisualElement _content;
 
     public event Action OnClosed;
 
@@ -31,6 +34,11 @@ public class SpireElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
+
+        _content = new();
+        _content.AddToClassList(_ussContent);
+        Add(_content);
+
         _spire = spire;
 
         foreach (Storey upg in _spire.Storeys)
@@ -38,20 +46,21 @@ public class SpireElement : VisualElement
             if (upg is StoreyLives)
             {
                 StoreyLivesElement livesElement = new(upg as StoreyLives);
-                Add(livesElement);
+                _content.Add(livesElement);
                 continue;
             }
             SpireUpgradeElement upgElement = new SpireUpgradeElement(upg);
-            Add(upgElement);
+            _content.Add(upgElement);
         }
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
-        Add(continueButton);
+        _content.Add(continueButton);
     }
 
     void Close()
     {
-        DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
+        DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f).SetUpdate(true);
+        DOTween.To(x => _content.style.opacity = x, 1, 0, 0.5f)
             .SetUpdate(true)
             .OnComplete(() =>
                 {

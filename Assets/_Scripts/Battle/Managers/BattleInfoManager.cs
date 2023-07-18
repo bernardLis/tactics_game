@@ -73,9 +73,6 @@ public class BattleInfoManager : MonoBehaviour
         _troopsLimitElement = new("");
         TroopsLimitContainer.Add(_troopsLimitElement);
 
-        Debug.Log($"_gameManager {_gameManager}");
-        Debug.Log($"_gameManager.PlayerHero {_gameManager.PlayerHero}");
-
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
         _spire.TroopsUpgrade.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
     }

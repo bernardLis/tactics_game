@@ -1,0 +1,29 @@
+.storey-lives__main {
+    flex-direction: row;
+}
+
+.storey-lives__title {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    white-space: normal;
+    width: 110px;
+}
+
+.storey-lives__arrow-top {
+    -unity-text-align: middle-center;
+    rotate: -30deg;
+}
+
+.storey-lives__arrow-bottom {
+    -unity-text-align: middle-right;
+    rotate: 30deg;
+
+}
+
+.storey-lives__tree-container {
+    flex-direction: row;
+}
+
+.storey-lives__arrow-label {
+    -unity-text-align: middle-center;
+}

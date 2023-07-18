@@ -1,10 +1,18 @@
 .spire__main {
-    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.58);
+}
+
+.spire__content {
+    align-items: flex-start;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_desk.png?fileID=2800000&guid=16b8153d70e7e894190387e170de1093&type=3#Settings_desk');
     width: 80%;
     height: 90%;
     position: absolute;
     left: 10%;
     top: 5%;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    padding-top: 50px;
 }
