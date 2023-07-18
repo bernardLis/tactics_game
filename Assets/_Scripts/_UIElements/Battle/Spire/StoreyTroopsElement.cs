@@ -12,15 +12,23 @@ public class StoreyTroopsElement : VisualElement
     const string _ussClassName = "storey-troops__";
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
+    const string _ussTreeContainer = _ussClassName + "tree-container";
+    const string _ussArrowLabel = _ussClassName + "arrow-label";
+
     const string _ussUpgradesTitle = _ussClassName + "upgrades-title";
     const string _ussUpgradesContainer = _ussClassName + "upgrades-container";
 
     GameManager _gameManager;
 
+    StoreyTroops _storey;
+
     VisualElement _content;
 
+    VisualElement _topContainer;
+    VisualElement _bottomContainer;
 
-    StoreyTroops _storeyTroops;
+    TroopsLimitElement _troopsLimitElement;
+    List<StoreyUpgradeElement> _maxTroopsTreeElements = new();
 
     public event Action OnClosed;
     public StoreyTroopsElement(StoreyTroops storeyTroops)
@@ -36,17 +44,88 @@ public class StoreyTroopsElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
-        _storeyTroops = storeyTroops;
+        _storey = storeyTroops;
 
         _content = new();
         _content.AddToClassList(_ussContent);
         Add(_content);
 
+        AddTroopsLimitElement();
+
+        _topContainer = new();
+        _topContainer.AddToClassList(_ussTreeContainer);
+        _content.Add(_topContainer);
+
+        _bottomContainer = new();
+        _content.Add(_bottomContainer);
+
+
+
+
+        // upgrade troops limit
+        AddMaxTroopsTree();
+
+        // resurrect dead creatures
+
+
         ContinueButton continueButton = new ContinueButton(callback: Close);
         _content.Add(continueButton);
     }
 
+    void AddTroopsLimitElement()
+    {
+        VisualElement container = new();
+        container.style.width = Length.Percent(100);
+        container.style.alignItems = Align.Center;
+        _content.Add(container);
 
+        _troopsLimitElement = new($"{0}/{0}", 36);
+        container.Add(_troopsLimitElement);
+        UpdateTroopsLimit();
+    }
+
+
+    void AddMaxTroopsTree()
+    {
+        for (int i = 0; i < _storey.MaxTroopsTree.Count; i++)
+        {
+            if (i > 0)
+            {
+                Label arrow = new("--->");
+                arrow.AddToClassList(_ussArrowLabel);
+                _topContainer.Add(arrow);
+            }
+
+            StoreyUpgradeElement el = new(_storey.MaxTroopsTree[i]);
+            _topContainer.Add(el);
+            _maxTroopsTreeElements.Add(el);
+
+            if (i != _storey.CurrentMaxTroopsLevel + 1)
+                el.SetEnabled(false);
+
+            el.OnPurchased += MaxLivesUpgradePurchased;
+        }
+    }
+
+    void MaxLivesUpgradePurchased(StoreyUpgrade storeyUpgrade)
+    {
+        _maxTroopsTreeElements[_storey.CurrentMaxTroopsLevel + 1].SetEnabled(false);
+
+        _storey.CurrentLimit.SetValue(_storey.MaxTroopsTree[_storey.CurrentMaxTroopsLevel + 1].Value);
+        _storey.CurrentMaxTroopsLevel++;
+
+        if (_storey.CurrentMaxTroopsLevel < _storey.MaxTroopsTree.Count - 1)
+            _maxTroopsTreeElements[_storey.CurrentMaxTroopsLevel + 1].SetEnabled(true);
+
+        UpdateTroopsLimit();
+    }
+
+    void UpdateTroopsLimit()
+    {
+        _troopsLimitElement.UpdateCountContainer(
+                $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_storey.CurrentLimit.Value}"
+                , Color.white);
+    }
 
     void Close()
     {
@@ -59,5 +138,4 @@ public class StoreyTroopsElement : VisualElement
                     RemoveFromHierarchy();
                 });
     }
-
 }

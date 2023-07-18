@@ -16,3 +16,11 @@
     padding-left: 30px;
     padding-top: 50px;
 }
+
+.storey-troops__tree-container {
+    flex-direction: row;
+}
+
+.storey-troops__arrow-label {
+    -unity-text-align: middle-center;
+}
