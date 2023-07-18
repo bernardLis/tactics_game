@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af9a0b79e0769884caa57a8097cbbf6d, type: 3}
-  m_Name: Troops Limit Upgrade 3
+  m_Name: 15 Max Creatures
   m_EditorClassIdentifier: 
-  Id: 30c8d768-9e05-42ad-adf8-4e732ab30cef
+  Id: 39c4cf4d-189c-451f-9b45-b9daf5245fd9
   Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
-  Cost: 500
-  Value: 11
+  Cost: 1234
+  Value: 15
+  IsPurchased: 0
+  Description: More creatooorinos.
   IsInfinite: 0
   CircleRadiusMultiplier: 1.02

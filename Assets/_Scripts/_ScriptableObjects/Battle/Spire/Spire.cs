@@ -7,9 +7,9 @@ public class Spire : BaseScriptableObject
 {
     public List<Storey> Storeys = new();
 
-    public StoreyLives LivesUpgrade;
-    public StoreyTroops TroopsUpgrade;
-    public StoreyMana ManaUpgrade;
+    public StoreyLives StoreyLives { get; private set; }
+    public StoreyTroops StoreyTroops { get; private set; }
+    public StoreyMana StoreyMana { get; private set; }
 
     public GameObject SpireGameObject;
 
@@ -26,11 +26,11 @@ public class Spire : BaseScriptableObject
             Storeys.Add(instance);
 
             if (instance is StoreyLives)
-                LivesUpgrade = instance as StoreyLives;
+                StoreyLives = instance as StoreyLives;
             if (instance is StoreyTroops)
-                TroopsUpgrade = instance as StoreyTroops;
+                StoreyTroops = instance as StoreyTroops;
             if (instance is StoreyMana)
-                ManaUpgrade = instance as StoreyMana;
+                StoreyMana = instance as StoreyMana;
         }
     }
 

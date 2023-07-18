@@ -19,6 +19,12 @@ MonoBehaviour:
   Cost: 0
   Prefab: {fileID: 3777509045833753945, guid: 8611043e45d00f24f8ca5f0015ff0416, type: 3}
   CurrentLimit: {fileID: 0}
+  MaxTroopsTreeOriginals:
+  - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}
+  - {fileID: 11400000, guid: 5cf07309bc8578047bdc1af9821118a7, type: 2}
+  - {fileID: 11400000, guid: d02a8e98fef06be44959b6b32d97e453, type: 2}
+  - {fileID: 11400000, guid: 113664320a4a13d49a8d6c1f6b52e66d, type: 2}
+  - {fileID: 11400000, guid: 327f773fd17b1424e8d58861031b4d64, type: 2}
   MaxTroopsTree:
   - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}
   - {fileID: 11400000, guid: 5cf07309bc8578047bdc1af9821118a7, type: 2}

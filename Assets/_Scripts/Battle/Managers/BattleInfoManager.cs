@@ -56,12 +56,12 @@ public class BattleInfoManager : MonoBehaviour
     void ResolveLivesLabel()
     {
         _livesCountLabel.style.display = DisplayStyle.Flex;
-        _spire.LivesUpgrade.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
+        _spire.StoreyLives.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
     }
 
     void UpdateLivesLabel()
     {
-        _livesCountLabel.text = $"Lives: {_spire.LivesUpgrade.CurrentLives.Value}";
+        _livesCountLabel.text = $"Lives: {_spire.StoreyLives.CurrentLives.Value}";
         Helpers.DisplayTextOnElement(_root, _livesCountLabel, "-1", Color.red);
     }
 
@@ -74,12 +74,12 @@ public class BattleInfoManager : MonoBehaviour
         TroopsLimitContainer.Add(_troopsLimitElement);
 
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
-        _spire.TroopsUpgrade.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
+        _spire.StoreyTroops.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
     }
 
     void UpdateTroopsLimitElement()
     {
-        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.TroopsUpgrade.CurrentLimit.Value}", Color.white);
+        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.CurrentLimit.Value}", Color.white);
     }
 
     void AddGoldElement()

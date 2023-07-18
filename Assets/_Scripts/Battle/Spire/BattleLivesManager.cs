@@ -29,11 +29,11 @@ public class BattleLivesManager : MonoBehaviour
             if (battleEntity.Team == 0) return;
             if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;
 
-            _spire.LivesUpgrade.CurrentLives.ApplyChange(-1);
-            DisplayFloatingText($"Lives: {_spire.LivesUpgrade.CurrentLives.Value}", Color.white);
+            _spire.StoreyLives.CurrentLives.ApplyChange(-1);
+            DisplayFloatingText($"Lives: {_spire.StoreyLives.CurrentLives.Value}", Color.white);
             StartCoroutine(battleEntity.Die(hasPickup: false));
 
-            if (_spire.LivesUpgrade.CurrentLives.Value <= 0)
+            if (_spire.StoreyLives.CurrentLives.Value <= 0)
                 _battleManager.LoseBattle();
         }
     }
