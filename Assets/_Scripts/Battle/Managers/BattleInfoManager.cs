@@ -10,7 +10,7 @@ public class BattleInfoManager : MonoBehaviour
     BattleManager _battleManager;
     BattleSpire _battleSpire;
 
-    Spire _base;
+    Spire _spire;
 
     VisualElement _root;
     VisualElement _infoPanel;
@@ -24,8 +24,6 @@ public class BattleInfoManager : MonoBehaviour
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleSpire = BattleSpire.Instance;
-
-        _base = _gameManager.SelectedBattle.Spire;
 
         _root = _battleManager.Root;
         _infoPanel = _root.Q<VisualElement>("infoPanel");
@@ -41,6 +39,7 @@ public class BattleInfoManager : MonoBehaviour
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
+        _spire = _gameManager.SelectedBattle.Spire;
 
         ResolveLivesLabel();
         UpdateLivesLabel();
@@ -57,12 +56,12 @@ public class BattleInfoManager : MonoBehaviour
     void ResolveLivesLabel()
     {
         _livesCountLabel.style.display = DisplayStyle.Flex;
-        _base.LivesUpgrade.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
+        _spire.LivesUpgrade.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
     }
 
     void UpdateLivesLabel()
     {
-        _livesCountLabel.text = $"Lives: {_base.LivesUpgrade.CurrentLives.Value}";
+        _livesCountLabel.text = $"Lives: {_spire.LivesUpgrade.CurrentLives.Value}";
         Helpers.DisplayTextOnElement(_root, _livesCountLabel, "-1", Color.red);
     }
 
@@ -78,12 +77,12 @@ public class BattleInfoManager : MonoBehaviour
         Debug.Log($"_gameManager.PlayerHero {_gameManager.PlayerHero}");
 
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
-        _base.TroopsUpgrade.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
+        _spire.TroopsUpgrade.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
     }
 
     void UpdateTroopsLimitElement()
     {
-        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_base.TroopsUpgrade.CurrentLimit.Value}", Color.white);
+        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.TroopsUpgrade.CurrentLimit.Value}", Color.white);
     }
 
     void AddGoldElement()

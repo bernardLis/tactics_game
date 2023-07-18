@@ -10,7 +10,7 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
-    Spire _base;
+    Spire _spire;
     SpireElement _spireElement;
 
     void Start()
@@ -20,7 +20,7 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _base = _gameManager.SelectedBattle.Spire;
+        _spire = _gameManager.SelectedBattle.Spire;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -37,7 +37,9 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _spireElement = new SpireElement(_base);
+        if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;
+
+        _spireElement = new SpireElement(_spire);
         _spireElement.style.opacity = 0;
         _battleManager.Root.Add(_spireElement);
         _battleManager.PauseGame();

@@ -32,5 +32,7 @@ public class BattleSpireTestManager : MonoBehaviour
         _battleManager.Initialize(_gameManager.PlayerHero);
         _battleManager.GetComponent<BattleWaveManager>().Initialize();
 
+        _battleManager.GetComponent<BattleGrabManager>().Initialize();
+        _battleManager.GetComponent<BattleAbilityManager>().Initialize(_gameManager.PlayerHero);
     }
 }

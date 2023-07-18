@@ -31,6 +31,7 @@ public class Battle : BaseScriptableObject
 
     public void CreateRandom(int level)
     {
+        Debug.Log($"create random!");
         GameManager gameManager = GameManager.Instance;
 
         Spire = ScriptableObject.CreateInstance<Spire>();
@@ -39,12 +40,19 @@ public class Battle : BaseScriptableObject
         Opponent = ScriptableObject.CreateInstance<Hero>();
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
         Opponent.CreatureArmy.Clear();
+
+        Waves = new();
     }
 
     public BattleWave GetWave(int difficulty)
     {
         BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
         wave.CreateWave(difficulty);
+        Debug.Log($"wave {wave}");
+        Debug.Log($"Waves {Waves}");
+        if (Waves == null) Waves = new();
+        Debug.Log($"Waves.count {Waves.Count}");
+
         Waves.Add(wave);
 
         return wave;

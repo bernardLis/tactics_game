@@ -7,7 +7,7 @@ public class BattleLivesManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    Spire _base;
+    Spire _spire;
 
     MMF_Player _feelPlayer;
 
@@ -18,7 +18,7 @@ public class BattleLivesManager : MonoBehaviour
 
         _feelPlayer = GetComponent<MMF_Player>();
 
-        _base = _gameManager.SelectedBattle.Spire;
+        _spire = _gameManager.SelectedBattle.Spire;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -27,12 +27,13 @@ public class BattleLivesManager : MonoBehaviour
         if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == 0) return;
+            if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;
 
-            _base.LivesUpgrade.CurrentLives.ApplyChange(-1);
-            DisplayFloatingText($"Lives: {_base.LivesUpgrade.CurrentLives.Value}", Color.white);
+            _spire.LivesUpgrade.CurrentLives.ApplyChange(-1);
+            DisplayFloatingText($"Lives: {_spire.LivesUpgrade.CurrentLives.Value}", Color.white);
             StartCoroutine(battleEntity.Die(hasPickup: false));
 
-            if (_base.LivesUpgrade.CurrentLives.Value <= 0)
+            if (_spire.LivesUpgrade.CurrentLives.Value <= 0)
                 _battleManager.LoseBattle();
         }
     }
