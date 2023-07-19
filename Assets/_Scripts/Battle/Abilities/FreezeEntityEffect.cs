@@ -7,7 +7,6 @@ public class FreezeEntityEffect : MonoBehaviour
     [SerializeField] GameObject _box; // set not active
     [SerializeField] GameObject _crystalAnimation; // set active
 
-    // TODO: solve audio too...
     void OnEnable()
     {
         _box.SetActive(true);

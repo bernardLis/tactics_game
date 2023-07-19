@@ -5,20 +5,29 @@ using DG.Tweening;
 
 public class ThunderExecutor : AbilityExecutor
 {
+    public override void ExecuteAbility(Ability ability)
+    {
+        base.ExecuteAbility(ability);
+
+        _effectInstance.transform.localScale = Vector3.one * _selectedAbility.GetScale();
+    }
+
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
         Debug.Log($"Executing thunder on {_entitiesInArea.Count}");
-
+        List<GameObject> entityEffects = new();
         foreach (BattleEntity entity in _entitiesInArea)
         {
             _damageDealt += Mathf.RoundToInt(entity.Entity.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
+            Vector3 pos = new Vector3(entity.transform.position.x, 0, entity.transform.position.z);
+            GameObject instance = Instantiate(_entityEffectPrefab, pos, Quaternion.identity);
+            entityEffects.Add(instance);
         }
 
         yield return new WaitForSeconds(3f);
-        yield return _effectInstance.transform.DOScale(0f, 1f)
-                 .SetEase(Ease.OutCubic)
-                 .WaitForCompletion();
+        foreach (GameObject g in entityEffects)
+            Destroy(g);
 
         CancelAbility();
     }

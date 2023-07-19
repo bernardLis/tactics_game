@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7960816333064622034}
   - component: {fileID: 9220232910982329704}
   - component: {fileID: 4529154050606398475}
-  - component: {fileID: 2289762873314546637}
   m_Layer: 0
   m_Name: FrozenWave
   m_TagString: Untagged
@@ -4746,20 +4745,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2289762873314546637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575858582574913368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf96328d7865b44ea2756073339a74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RenderMobileDistortion: 0
-  ParticleBudgetForMobiles: 0.5
 --- !u!1 &3147270864046399869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4771,7 +4756,6 @@ GameObject:
   - component: {fileID: 9010241758884875959}
   - component: {fileID: 2869275557030685254}
   - component: {fileID: 3738806402023094968}
-  - component: {fileID: 859923954643877496}
   m_Layer: 0
   m_Name: FrozenExplosion
   m_TagString: Untagged
@@ -9506,20 +9490,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &859923954643877496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3147270864046399869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf96328d7865b44ea2756073339a74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RenderMobileDistortion: 0
-  ParticleBudgetForMobiles: 0.25
 --- !u!1 &5595091234059791065
 GameObject:
   m_ObjectHideFlags: 0
@@ -9552,7 +9522,7 @@ Transform:
   - {fileID: 9010241758884875959}
   - {fileID: 7709962770738408684}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6937520040527381913
 GameObject:
@@ -9565,7 +9535,6 @@ GameObject:
   - component: {fileID: 7709962770738408684}
   - component: {fileID: 1127075276908765074}
   - component: {fileID: 3132479504290576067}
-  - component: {fileID: 5046622769161783245}
   m_Layer: 0
   m_Name: FrozenFog
   m_TagString: Untagged
@@ -14242,17 +14211,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &5046622769161783245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6937520040527381913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf96328d7865b44ea2756073339a74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RenderMobileDistortion: 0
-  ParticleBudgetForMobiles: 0.25

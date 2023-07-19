@@ -74,7 +74,7 @@ public class AbilityExecutor : MonoBehaviour
     public void ClearEffect()
     {
         if (_effectInstance == null) return;
-        // HERE: ability scale testing Destroy(_effectInstance.gameObject);
+        Destroy(_effectInstance.gameObject);
     }
 
     void DestroySelf()

@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7989938889f354684faab29797fe65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _areaHighlightPrefab: {fileID: 7746959624516158215, guid: b6a454036e89b8a47ae911f8a9940590, type: 3}
-  _effectPrefab: {fileID: 7890567092429092223, guid: 002bf9b0c5ca6d3439c1fa871aa0e5f6, type: 3}
-  _entityEffectPrefab: {fileID: 0}
+  _areaHighlightPrefab: {fileID: 4980682954516097599, guid: a75cd7f213d7d2946912f787c2a023e6, type: 3}
+  _effectPrefab: {fileID: 1637172859881899120, guid: 1520107099f2fbf4980d8aef78b20d09, type: 3}
+  _entityEffectPrefab: {fileID: 7376912720313492496, guid: dd4436f81f3cd6640817de14b92c6fd3, type: 3}

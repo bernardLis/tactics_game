@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FreezeExecutor : AbilityExecutor
 {
-
     public override void ExecuteAbility(Ability ability)
     {
         base.ExecuteAbility(ability);
@@ -39,7 +38,6 @@ public class FreezeExecutor : AbilityExecutor
         yield return new WaitForSeconds(7f);
         foreach (GameObject g in entityEffects)
             Destroy(g);
-        entityEffects.Clear();
 
         CancelAbility();
     }

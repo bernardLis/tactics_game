@@ -21,7 +21,7 @@ public class BattleAbilityTestManager : MonoBehaviour
 
         SetupUI();
         CreateHero();
-        LevelUpAbilities(7);
+        // LevelUpAbilities(7);
 
         _gameManager.PlayerHero = _hero;
 
