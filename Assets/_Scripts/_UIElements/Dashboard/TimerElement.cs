@@ -15,6 +15,7 @@ public class TimerElement : VisualElement
     const string _ussSecondsLeftLabel = _ussClassName + "seconds-left-label";
 
     GameManager _gameManager;
+    BattleManager _battleManager;
 
     protected VisualElement _labelWrapper;
     Label _label;
@@ -32,7 +33,7 @@ public class TimerElement : VisualElement
     public TimerElement(float timeLeft, float totalTime, bool isLooping, string text)
     {
         _gameManager = GameManager.Instance;
-
+        _battleManager = BattleManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
@@ -47,8 +48,11 @@ public class TimerElement : VisualElement
         _isLooping = isLooping;
 
         _timer = schedule.Execute(UpdateTimer).Every(100);
-        if (!_gameManager.IsTimerOn)
+        if (!_battleManager.IsTimerOn)
             _timer.Pause();
+
+        _battleManager.OnGamePaused += Pause;
+        _battleManager.OnGameResumed += Resume;
     }
 
     protected VisualElement GetLabelWrapper()

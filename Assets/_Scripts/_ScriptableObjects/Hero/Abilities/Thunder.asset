@@ -19,13 +19,13 @@ MonoBehaviour:
   IsStartingAbility: 1
   AbilityNameSound: {fileID: 11400000, guid: 213c8194099e1a14ca76e82c749056f0, type: 2}
   _baseManaCost: 5
-  BasePower: 10
-  BaseCooldown: 3
-  BaseScale: 1
-  ManaCostLevelMultiplier: 1.2
-  PowerLevelMultiplier: 10
-  CooldownLevelMultiplier: 2
-  ScaleLevelMultiplier: 1
+  _basePower: 1
+  _baseCooldown: 1
+  _baseScale: 1
+  _manaCostLevelMultiplier: 1
+  _powerLevelMultiplier: 1
+  _cooldownLevelMultiplier: 1
+  _scaleLevelMultiplier: 1
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   KillCount: 0
   AbilityExecutorPrefab: {fileID: 8656372026121413001, guid: 2cd0d38ad734f814aa9b33d46e87d753, type: 3}

@@ -30,8 +30,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Gold { get; private set; }
     public int Spice { get; private set; }
 
-    public bool IsTimerOn { get; private set; }
-
     public Hero PlayerHero;
     public Hero OverseerHero;
     public Hero RivalHero;
@@ -78,7 +76,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public void StartGame()
     {
         LoadScene(Scenes.Battle);
-        IsTimerOn = true;
     }
 
     /* RESOURCES */

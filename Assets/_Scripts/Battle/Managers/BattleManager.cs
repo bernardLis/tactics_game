@@ -33,7 +33,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public float BattleTime { get; private set; }
 
-    bool _timerIsOn;
+    public bool IsTimerOn { get; private set; }
 
     public List<BattleEntity> PlayerEntities = new();
     public List<BattleEntity> OpponentEntities = new();
@@ -107,7 +107,7 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator UpdateTimer()
     {
-        while (_timerIsOn)
+        while (IsTimerOn)
         {
             BattleTime += 1f;
             TimeSpan time = TimeSpan.FromSeconds(BattleTime);
@@ -128,11 +128,11 @@ public class BattleManager : Singleton<BattleManager>
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
         }
-        _timerIsOn = true;
+        IsTimerOn = true;
         StartCoroutine(UpdateTimer());
 
         _gameManager.SelectedBattle.Spire.InitializeBattle();
-        
+
         OnBattleInitialized?.Invoke();
     }
 
