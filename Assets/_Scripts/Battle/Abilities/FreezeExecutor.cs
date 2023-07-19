@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class FreezeExecutor : AbilityExecutor
 {
+
+    public override void ExecuteAbility(Ability ability)
+    {
+        base.ExecuteAbility(ability);
+
+        foreach (Transform child in _effectInstance.transform)
+            child.localScale = Vector3.one * _selectedAbility.GetScale();
+    }
+
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
         Debug.Log($"Executing freeze on {_entitiesInArea.Count} entities");
