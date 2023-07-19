@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &68752523692572419
 MonoBehaviour:
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc39ade54d1ebc47bae799ca53633bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _areaHighlightPrefab: {fileID: 4773166559872586498, guid: b3bc736e64fcee244a14a8a676a0bd0c, type: 3}
-  _effectPrefab: {fileID: 141900, guid: 4e9b827447afca54dac2a8a4eee5c982, type: 3}
+  _areaHighlightPrefab: {fileID: 1342828358609062709, guid: 1fdd6ff743bd8364089b4de0caa476f0, type: 3}
+  _effectPrefab: {fileID: 8116602173128792576, guid: d213f489d634b864a830644648414ec4, type: 3}
   _entityEffectPrefab: {fileID: 0}

@@ -11,7 +11,6 @@ public class AbilityExecutor : MonoBehaviour
     [SerializeField] protected GameObject _effectPrefab;
     [SerializeField] protected GameObject _entityEffectPrefab;
 
-
     protected BattleAbilityArea _areaHighlightInstance;
     protected GameObject _effectInstance;
     protected List<BattleEntity> _entitiesInArea = new();
@@ -31,7 +30,7 @@ public class AbilityExecutor : MonoBehaviour
         _areaHighlightInstance.Initialize(ability);
     }
 
-    public void ExecuteAbility(Ability ability)
+    public virtual void ExecuteAbility(Ability ability)
     {
         if (_areaHighlightInstance == null) return;
 
@@ -75,7 +74,7 @@ public class AbilityExecutor : MonoBehaviour
     public void ClearEffect()
     {
         if (_effectInstance == null) return;
-        Destroy(_effectInstance.gameObject);
+        // HERE: ability scale testing Destroy(_effectInstance.gameObject);
     }
 
     void DestroySelf()

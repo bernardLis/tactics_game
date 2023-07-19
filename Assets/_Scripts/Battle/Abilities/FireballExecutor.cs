@@ -5,6 +5,20 @@ using DG.Tweening;
 
 public class FireballExecutor : AbilityExecutor
 {
+    public override void ExecuteAbility(Ability ability)
+    {
+        base.ExecuteAbility(ability);
+
+        ParticleSystem ps = _effectInstance.GetComponent<ParticleSystem>();
+        var shape = ps.shape;
+        float originalRadius = shape.radius;
+        shape.radius = originalRadius * _selectedAbility.GetScale();
+
+        var burst = ps.emission.GetBurst(0);
+        burst.count = ability.Level;
+        ps.emission.SetBurst(0, burst);
+    }
+
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
         Debug.Log($"Executing fireball on {_entitiesInArea.Count}");
@@ -15,12 +29,8 @@ public class FireballExecutor : AbilityExecutor
         }
 
         yield return new WaitForSeconds(6f);
-        Transform[] allChildren = _effectInstance.GetComponentsInChildren<Transform>();
 
-        foreach (Transform child in allChildren)
-            child.DOScale(0f, 1f);
 
-        yield return _effectInstance.transform.DOScale(0f, 1f).WaitForCompletion();
         CancelAbility();
     }
 
