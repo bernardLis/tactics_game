@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf060b4dc03dd64e9d5f2f042fb8031, type: 3}
+  m_Name: Mana Turn Length Node Tree
+  m_EditorClassIdentifier: 
+  Id: 5204d92a-84fe-4574-a3f9-e92078256ec2
+  CurrentValue: {fileID: 0}
+  OriginalNodes:
+  - {fileID: 11400000, guid: ea7eac7e154b99f4f935d205687ddcda, type: 2}
+  - {fileID: 11400000, guid: e3b7a09a8e6a8f9499f2502fe17f7818, type: 2}
+  - {fileID: 11400000, guid: 1840e42486c204d4595e677281625148, type: 2}
+  - {fileID: 11400000, guid: e180c53fe2f2dee4fbaf75e3f8210773, type: 2}
+  Nodes:
+  - {fileID: 11400000, guid: ea7eac7e154b99f4f935d205687ddcda, type: 2}
+  - {fileID: 11400000, guid: e3b7a09a8e6a8f9499f2502fe17f7818, type: 2}
+  - {fileID: 11400000, guid: 1840e42486c204d4595e677281625148, type: 2}
+  - {fileID: 11400000, guid: e180c53fe2f2dee4fbaf75e3f8210773, type: 2}
+  CurrentNodeIndex: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf060b4dc03dd64e9d5f2f042fb8031, type: 3}
+  m_Name: Mana Bank Capacity Node Tree
+  m_EditorClassIdentifier: 
+  Id: 5204d92a-84fe-4574-a3f9-e92078256ec2
+  CurrentValue: {fileID: 0}
+  OriginalNodes:
+  - {fileID: 11400000, guid: 4c7e80e2fa034ea4ba4a6abb15c9fee0, type: 2}
+  - {fileID: 11400000, guid: b493fc93dede52c4bb5b5978fa5ff2b4, type: 2}
+  - {fileID: 11400000, guid: a6cc27b5678b5bb4fb44bad19f5a7094, type: 2}
+  - {fileID: 11400000, guid: edd7f352e319b65439b1729d316e71fc, type: 2}
+  Nodes: []
+  CurrentNodeIndex: 0

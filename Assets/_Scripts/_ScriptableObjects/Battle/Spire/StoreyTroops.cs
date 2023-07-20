@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Spire/Storey Troops")]
 public class StoreyTroops : Storey
 {
-
     public IntVariable CurrentCreatureTier;
     [SerializeField] List<StoreyUpgrade> CreatureTierTreeOriginals = new();
     public List<StoreyUpgrade> CreatureTierTree = new();
@@ -41,5 +40,4 @@ public class StoreyTroops : Storey
 
         base.Initialize();
     }
-
 }

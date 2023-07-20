@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7385446002005940606}
   - component: {fileID: 4208120493296846739}
   - component: {fileID: 5868051963366028723}
+  - component: {fileID: 818746094519902339}
   m_Layer: 0
   m_Name: Mana Storey
   m_TagString: Untagged
@@ -133,3 +134,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &818746094519902339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143198231500213843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77eaa4fe9fd87df4bad3102738d069ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -15,9 +15,10 @@ MonoBehaviour:
   Id: 452409d0-dee2-4f60-93d9-399aba026c09
   Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
   Description: Manananan
-  Purchased: 0
+  IsPurchased: 1
   Cost: 200
   Prefab: {fileID: 143198231500213843, guid: 49ffc047ffcefe841b3ad296a0113a52, type: 3}
-  Blabla: []
-  CurrentMaxTroopsLevel: 0
-  bkasd: []
+  ManaInBank: {fileID: 0}
+  ManaBankCapacityTree: {fileID: 11400000, guid: 6237db742f5aa5c44a97789e79dba001, type: 2}
+  ManaPerTurnTree: {fileID: 11400000, guid: 64f9993bfc01dfb4d9f98823ec51b58f, type: 2}
+  ManaTurnLengthTree: {fileID: 11400000, guid: b99d97e7ea3e9f342a90c7de33b52f43, type: 2}

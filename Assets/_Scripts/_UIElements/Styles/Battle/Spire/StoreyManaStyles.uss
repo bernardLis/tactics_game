@@ -1,0 +1,32 @@
+.storey-mana__main {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.58);
+}
+
+.storey-mana__content {
+    align-items: flex-start;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
+    width: 80%;
+    height: 90%;
+    position: absolute;
+    left: 10%;
+    top: 5%;
+    justify-content: flex-start;
+    padding-left: 30px;
+    padding-top: 50px;
+}
+
+.storey-mana__title {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    white-space: normal;
+}
+
+.storey-mana__tree-container {
+    flex-direction: row;
+}
+
+.storey-mana__arrow-label {
+    -unity-text-align: middle-center;
+}

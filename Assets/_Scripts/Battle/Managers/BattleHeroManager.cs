@@ -11,13 +11,13 @@ public class BattleHeroManager : MonoBehaviour
     BattleManager _battleManager;
     VisualElement _root;
 
-    Hero _hero;
+    public Hero Hero { get; private set; }
     public void Initialize(Hero hero)
     {
         _battleManager = BattleManager.Instance;
         _root = GetComponent<UIDocument>().rootVisualElement;
 
-        _hero = hero;
+        Hero = hero;
         hero.BattleInitialize();
         hero.OnLevelUpReady += OnHeroLevelUp;
         hero.OnCreatureAdded += AddCreature;
@@ -29,7 +29,7 @@ public class BattleHeroManager : MonoBehaviour
     {
         VisualElement bottomPanel = _root.Q<VisualElement>("bottomPanel");
 
-        HeroCardStats card = new(_hero);
+        HeroCardStats card = new(Hero);
         bottomPanel.Insert(0, card);
         card.style.opacity = 0;
 
@@ -56,8 +56,8 @@ public class BattleHeroManager : MonoBehaviour
             _battleManager.ResumeGame();
             _root.Remove(rewardElement);
             _root.Remove(blackout);
-            _hero.CurrentMana.ApplyChange(_hero.BaseMana.Value - _hero.CurrentMana.Value);
-            _hero.AddExp(_hero.LeftoverExp);
+            Hero.CurrentMana.ApplyChange(Hero.BaseMana.Value - Hero.CurrentMana.Value);
+            Hero.AddExp(Hero.LeftoverExp);
         };
     }
 
