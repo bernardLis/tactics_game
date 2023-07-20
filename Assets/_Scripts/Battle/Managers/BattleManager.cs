@@ -48,8 +48,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
-    public event Action<int> OnPlayerEntityDeath;
-    public event Action<int> OnOpponentEntityDeath;
+    public event Action<BattleEntity> OnPlayerEntityDeath;
+    public event Action<BattleEntity> OnOpponentEntityDeath;
     public event Action OnBattleFinalized;
 
     public event Action OnGamePaused;
@@ -175,14 +175,19 @@ public class BattleManager : Singleton<BattleManager>
     {
         KilledPlayerEntities.Add(be);
         PlayerEntities.Remove(be);
-        OnPlayerEntityDeath?.Invoke(PlayerEntities.Count);
+        OnPlayerEntityDeath?.Invoke(be);
+        be.transform.DOMoveY(-1, 10f)
+            .OnComplete(() => Destroy(be.gameObject));
+
     }
 
     void OnOpponentDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
-        OnOpponentEntityDeath?.Invoke(OpponentEntities.Count);
+        OnOpponentEntityDeath?.Invoke(be);
+        be.transform.DOMoveY(-1, 10f)
+            .OnComplete(() => Destroy(be.gameObject));
 
         // TODO: price for experience
         if (killer is BattleCreature)

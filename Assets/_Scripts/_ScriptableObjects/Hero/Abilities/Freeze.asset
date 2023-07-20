@@ -22,9 +22,9 @@ MonoBehaviour:
   _basePower: 1
   _baseCooldown: 1
   _baseScale: 1
-  _manaCostLevelMultiplier: 1
-  _powerLevelMultiplier: 1
-  _cooldownLevelMultiplier: 1
+  _manaCostLevelMultiplier: 0.2
+  _powerLevelMultiplier: 0.3
+  _cooldownLevelMultiplier: 0.1
   _scaleLevelMultiplier: 0.1
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   KillCount: 0

@@ -37,9 +37,9 @@ public class BattleWaveManager : MonoBehaviour
         SpawnWave();
     }
 
-    void ResolveNextWave(int count)
+    void ResolveNextWave(BattleEntity ignored)
     {
-        if (count != 0) return;
+        if (_battleManager.OpponentEntities.Count != 0) return;
         _currentWaveIndex++;
         SpawnWave();
     }

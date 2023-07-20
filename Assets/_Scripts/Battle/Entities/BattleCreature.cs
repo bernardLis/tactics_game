@@ -245,8 +245,14 @@ public class BattleCreature : BattleEntity
     public void TriggerSpecialAction()
     {
         StartCoroutine(SpecialAbility());
-
     }
+
+    [ContextMenu("Trigger Death")]
+    public void TriggerDeath()
+    {
+        StartCoroutine(Die());
+    }
+
 #endif
 
 }

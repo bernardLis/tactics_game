@@ -61,7 +61,7 @@ public class BattleHeroManager : MonoBehaviour
         };
     }
 
-    void AddCreature(Creature c)
+    public void AddCreature(Creature c)
     {
         EntitySpawner instance = Instantiate(_spawnerPrefab, Vector3.forward, Quaternion.identity);
 

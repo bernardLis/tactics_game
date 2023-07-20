@@ -19,6 +19,8 @@ public class StoreyTroopsElement : VisualElement
     const string _ussUpgradesContainer = _ussClassName + "upgrades-container";
 
     GameManager _gameManager;
+    BattleManager _battleManager;
+    BattleHeroManager _battleHeroManager;
 
     StoreyTroops _storey;
 
@@ -31,7 +33,7 @@ public class StoreyTroopsElement : VisualElement
     List<StoreyUpgradeElement> _maxTroopsTreeElements = new();
 
     public event Action OnClosed;
-    public StoreyTroopsElement(StoreyTroops storeyTroops)
+    public StoreyTroopsElement(StoreyTroops storey)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -40,11 +42,13 @@ public class StoreyTroopsElement : VisualElement
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StoreyTroopsStyles);
         if (ss != null)
             styleSheets.Add(ss);
+        _battleManager = BattleManager.Instance;
+        _battleHeroManager = _battleManager.GetComponent<BattleHeroManager>();
 
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
-        _storey = storeyTroops;
+        _storey = storey;
 
         _content = new();
         _content.AddToClassList(_ussContent);
@@ -60,13 +64,10 @@ public class StoreyTroopsElement : VisualElement
         _content.Add(_bottomContainer);
 
 
-
-
         // upgrade troops limit
         AddMaxTroopsTree();
-
         // resurrect dead creatures
-
+        AddResurrectDeadCreatures();
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
         _content.Add(continueButton);
@@ -125,6 +126,38 @@ public class StoreyTroopsElement : VisualElement
         _troopsLimitElement.UpdateCountContainer(
                 $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_storey.CurrentLimit.Value}"
                 , Color.white);
+    }
+
+    void AddResurrectDeadCreatures()
+    {
+        if (_battleManager.KilledPlayerEntities.Count == 0) return;
+
+        Label title = new("Resurrect dead creatures");
+        title.AddToClassList(_ussUpgradesTitle);
+        _bottomContainer.Add(title);
+
+        VisualElement deadEntitiesContainer = new();
+        deadEntitiesContainer.style.flexDirection = FlexDirection.Row;
+        _bottomContainer.Add(deadEntitiesContainer);
+
+        List<BattleEntity> deadPlayerEntities = new(_battleManager.KilledPlayerEntities);
+        foreach (BattleEntity be in deadPlayerEntities)
+        {
+            if (be.Entity is not Creature) continue;
+
+            VisualElement container = new();
+            deadEntitiesContainer.Add(container);
+
+            EntityIcon icon = new(be.Entity);
+            container.Add(icon);
+
+            PurchaseButton pb = new(be.Entity.Level * 200, callback: () =>
+            {
+                _battleManager.KilledPlayerEntities.Remove(be);
+                _battleHeroManager.AddCreature((Creature)be.Entity);
+            });
+            container.Add(pb);
+        }
     }
 
     void Close()
