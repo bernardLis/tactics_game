@@ -18,6 +18,13 @@ MonoBehaviour:
   IsPurchased: 1
   Cost: 0
   Prefab: {fileID: 3777509045833753945, guid: 8611043e45d00f24f8ca5f0015ff0416, type: 3}
+  CurrentCreatureTier: {fileID: 0}
+  CreatureTierTreeOriginals:
+  - {fileID: 11400000, guid: 174a67315f8875441acf16e916f912cf, type: 2}
+  - {fileID: 11400000, guid: d67596baed2eadb48bedc06fef0729ba, type: 2}
+  - {fileID: 11400000, guid: 3d5edf4ca75891748ab5f03e15713764, type: 2}
+  CreatureTierTree: []
+  CurrentCreatureTierTreeLevel: 0
   CurrentLimit: {fileID: 0}
   MaxTroopsTreeOriginals:
   - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}

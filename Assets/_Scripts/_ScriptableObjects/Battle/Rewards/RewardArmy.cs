@@ -11,7 +11,9 @@ public class RewardArmy : Reward
     {
         base.CreateRandom(hero);
 
-        Creature baseCreature = _gameManager.HeroDatabase.GetRandomCreature();
+        int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CurrentCreatureTier.Value;
+
+        Creature baseCreature = _gameManager.HeroDatabase.GetRandomCreatureByUpgradeTierAndLower(maxTier);
         Creature = Instantiate(baseCreature);
     }
 

@@ -17,6 +17,13 @@
     padding-top: 50px;
 }
 
+.storey-troops__title {
+    -unity-text-align: middle-center;
+    font-size: 36px;
+    white-space: normal;
+}
+
+
 .storey-troops__tree-container {
     flex-direction: row;
 }

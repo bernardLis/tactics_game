@@ -15,7 +15,7 @@ public class StoreyTroopsElement : VisualElement
     const string _ussTreeContainer = _ussClassName + "tree-container";
     const string _ussArrowLabel = _ussClassName + "arrow-label";
 
-    const string _ussUpgradesTitle = _ussClassName + "upgrades-title";
+    const string _ussTitle = _ussClassName + "title";
     const string _ussUpgradesContainer = _ussClassName + "upgrades-container";
 
     GameManager _gameManager;
@@ -27,7 +27,11 @@ public class StoreyTroopsElement : VisualElement
     VisualElement _content;
 
     VisualElement _topContainer;
+    VisualElement _middleContainer;
     VisualElement _bottomContainer;
+
+    Label _creatureTierLabel;
+    List<StoreyUpgradeElement> _creatureTierTreeElements = new();
 
     TroopsLimitElement _troopsLimitElement;
     List<StoreyUpgradeElement> _maxTroopsTreeElements = new();
@@ -54,23 +58,77 @@ public class StoreyTroopsElement : VisualElement
         _content.AddToClassList(_ussContent);
         Add(_content);
 
-        AddTroopsLimitElement();
-
+        AddCreatureTierLabel();
         _topContainer = new();
         _topContainer.AddToClassList(_ussTreeContainer);
         _content.Add(_topContainer);
 
+        AddTroopsLimitElement();
+        _middleContainer = new();
+        _middleContainer.AddToClassList(_ussTreeContainer);
+        _content.Add(_middleContainer);
+
         _bottomContainer = new();
         _content.Add(_bottomContainer);
 
-
-        // upgrade troops limit
+        AddCreatureTierTree();
         AddMaxTroopsTree();
-        // resurrect dead creatures
         AddResurrectDeadCreatures();
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
         _content.Add(continueButton);
+    }
+
+    void AddCreatureTierLabel()
+    {
+        VisualElement container = new();
+        container.style.width = Length.Percent(100);
+        container.style.alignItems = Align.Center;
+        _content.Add(container);
+
+        _creatureTierLabel = new($"Creature tier: {0}");
+        _creatureTierLabel.AddToClassList(_ussTitle);
+        container.Add(_creatureTierLabel);
+        _storey.CurrentCreatureTier.OnValueChanged += UpdateCreatureTierLabel;
+        UpdateCreatureTierLabel(default);
+    }
+
+    void UpdateCreatureTierLabel(int bla)
+    {
+        _creatureTierLabel.text = $"Creature tier: {_storey.CurrentCreatureTier.Value}";
+    }
+
+    void AddCreatureTierTree()
+    {
+        for (int i = 0; i < _storey.CreatureTierTree.Count; i++)
+        {
+            if (i > 0)
+            {
+                Label arrow = new("--->");
+                arrow.AddToClassList(_ussArrowLabel);
+                _topContainer.Add(arrow);
+            }
+
+            StoreyUpgradeElement el = new(_storey.CreatureTierTree[i]);
+            _topContainer.Add(el);
+            _creatureTierTreeElements.Add(el);
+
+            if (i != _storey.CurrentCreatureTierTreeLevel + 1)
+                el.SetEnabled(false);
+
+            el.OnPurchased += CreatureTierUpgradePurchased;
+        }
+    }
+
+    void CreatureTierUpgradePurchased(StoreyUpgrade storeyUpgrade)
+    {
+        _creatureTierTreeElements[_storey.CurrentCreatureTierTreeLevel + 1].SetEnabled(false);
+
+        _storey.CurrentCreatureTier.SetValue(_storey.CreatureTierTree[_storey.CurrentCreatureTierTreeLevel + 1].Value);
+        _storey.CurrentCreatureTierTreeLevel++;
+
+        if (_storey.CurrentCreatureTierTreeLevel < _storey.CreatureTierTree.Count - 1)
+            _creatureTierTreeElements[_storey.CurrentCreatureTierTreeLevel + 1].SetEnabled(true);
     }
 
     void AddTroopsLimitElement()
@@ -94,11 +152,11 @@ public class StoreyTroopsElement : VisualElement
             {
                 Label arrow = new("--->");
                 arrow.AddToClassList(_ussArrowLabel);
-                _topContainer.Add(arrow);
+                _middleContainer.Add(arrow);
             }
 
             StoreyUpgradeElement el = new(_storey.MaxTroopsTree[i]);
-            _topContainer.Add(el);
+            _middleContainer.Add(el);
             _maxTroopsTreeElements.Add(el);
 
             if (i != _storey.CurrentMaxTroopsLevel + 1)
@@ -133,7 +191,7 @@ public class StoreyTroopsElement : VisualElement
         if (_battleManager.KilledPlayerEntities.Count == 0) return;
 
         Label title = new("Resurrect dead creatures");
-        title.AddToClassList(_ussUpgradesTitle);
+        title.AddToClassList(_ussTitle);
         _bottomContainer.Add(title);
 
         VisualElement deadEntitiesContainer = new();

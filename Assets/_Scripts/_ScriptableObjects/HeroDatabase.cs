@@ -17,6 +17,15 @@ public class HeroDatabase : ScriptableObject
 
         return creatures[Random.Range(0, creatures.Count)];
     }
+    public Creature GetRandomCreatureByUpgradeTierAndLower(int tier)
+    {
+        List<Creature> creatures = new();
+        foreach (Creature c in AllCreatures)
+            if (c.UpgradeTier <= tier)
+                creatures.Add(c);
+
+        return creatures[Random.Range(0, creatures.Count)];
+    }
 
     [SerializeField] Minion[] Minions;
 

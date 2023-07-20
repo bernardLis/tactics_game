@@ -27,7 +27,7 @@ public class StoreyUpgradeElement : ElementWithTooltip
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonButtonBasic);
 
-        Label title = new(storeyUpgrade.name);
+        Label title = new(Helpers.ParseScriptableObjectCloneName(storeyUpgrade.name));
         Add(title);
 
         Label icon = new();
