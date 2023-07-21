@@ -15,19 +15,29 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] int _speed;
 
-    protected BattleCreature _shooter;
+    BattleTurret _shooterTurret;
+    protected BattleCreature _shooterCreature;
     protected BattleEntity _target;
 
     public void Shoot(BattleCreature shooter, BattleEntity target, float power)
     {
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(_shootSound, transform.position);
-        _shooter = shooter;
+        _shooterCreature = shooter;
         _target = target;
-        StartCoroutine(ShootCoroutine(shooter, target, power));
+        StartCoroutine(ShootCoroutine(shooter.Creature.AttackRange, target, power));
     }
 
-    IEnumerator ShootCoroutine(BattleCreature shooter, BattleEntity target, float power)
+    public void Shoot(BattleTurret shooter, BattleEntity target, float power)
+    {
+        _audioManager = AudioManager.Instance;
+        _audioManager.PlaySFX(_shootSound, transform.position);
+        _shooterTurret = shooter;
+        _target = target;
+        StartCoroutine(ShootCoroutine(shooter.Range, target, power));
+    }
+
+    IEnumerator ShootCoroutine(float range, BattleEntity target, float power)
     {
         float targetScale = transform.localScale.x;
         transform.localScale = transform.localScale * 0.5f;
@@ -39,10 +49,10 @@ public class Projectile : MonoBehaviour
         Vector3 finalPos = target.Collider.bounds.center;
 
         Vector3 dir = (finalPos - startingPos).normalized;
-        Vector3 destination = startingPos + dir * shooter.Creature.AttackRange;
+        Vector3 destination = startingPos + dir * range;
 
         float t = 0;
-        float step = (_speed / _shooter.Creature.AttackRange) * Time.fixedDeltaTime;
+        float step = (_speed / range) * Time.fixedDeltaTime;
 
         while (t <= 1.0f)
         {
@@ -57,7 +67,9 @@ public class Projectile : MonoBehaviour
 
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
-        StartCoroutine(target.GetHit(_shooter));
+        if (_shooterCreature != null) StartCoroutine(target.GetHit(_shooterCreature));
+        if (_shooterTurret != null) StartCoroutine(target.GetHit(_shooterTurret));
+
         yield return DestroySelf(transform.position);
     }
 
@@ -72,13 +84,23 @@ public class Projectile : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
         {
-            if (battleEntity.Team == _shooter.Team) return;
-            if (battleEntity.IsDead) return;
+            if (!IsTargetValid(battleEntity)) return;
 
             StopAllCoroutines();
             StartCoroutine(HitTarget(battleEntity));
             return;
         }
+    }
+
+    bool IsTargetValid(BattleEntity battleEntity)
+    {
+        if (battleEntity.IsDead) return false;
+
+        if (_shooterCreature != null)
+            if (_shooterCreature.Team == battleEntity.Team) return false;
+        // HERE: turret could have team too...
+
+        return true;
     }
 
     public IEnumerator DestroySelf(Vector3 position)

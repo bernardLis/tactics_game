@@ -145,6 +145,19 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         StartCoroutine(UpdateGrabbedObjectPosition());
     }
 
+    public void TryGrabbing(BattleTurret turret)
+    {
+        if (!IsGrabbingAllowed()) return;
+        _objectYPosition = turret.transform.position.y;
+        _audioManager.PlaySFX("Grab", turret.transform.position);
+        Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
+        _grabbedObject = turret.gameObject;
+        turret.Grabbed();
+
+        StartCoroutine(UpdateGrabbedObjectPosition());
+    }
+
+
     public void TryGrabbing(GameObject obj)
     {
         if (!IsGrabbingAllowed()) return;
@@ -196,6 +209,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             entity.Released();
         if (_grabbedObject.TryGetComponent(out BattleGrabbableObstacle obstacle))
             obstacle.Released();
+        if (_grabbedObject.TryGetComponent(out BattleTurret turret))
+            turret.Released();
 
         _grabbedObject = null;
         StopAllCoroutines();

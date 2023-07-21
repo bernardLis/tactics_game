@@ -64,5 +64,21 @@ public class Entity : BaseScriptableObject
         return Mathf.RoundToInt(damage);
     }
 
+    public int CalculateDamage(BattleTurret bt)
+    {
+        // HERE: turret damage/element implement it
+        /*
+        float damage = ability.GetPower();
+
+        if (Element.StrongAgainst == ability.Element)
+            damage *= 0.5f;
+        if (Element.WeakAgainst == ability.Element)
+            damage *= 1.5f;
+*/
+        // abilities ignore armor
+        return Mathf.RoundToInt(20);
+    }
+
+
 
 }

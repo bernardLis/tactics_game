@@ -187,6 +187,23 @@ public class BattleEntity : MonoBehaviour
         if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
+    public virtual IEnumerator GetHit(BattleTurret turret)
+    {
+        if (IsDead) yield break;
+        EntityLog.Add($"{Time.time}: Entity gets attacked by {turret.name}");
+
+        BaseGetHit(Entity.CalculateDamage(turret), Color.magenta); // HERE: turret element color
+
+        if (CurrentHealth <= 0)
+        {
+            //   turret.IncreaseKillCount(); // HERE: turret kill count
+            yield return Die(); // start coroutine because I call stop all coroutines in base hit
+            yield break;
+        }
+
+        if (!_isGrabbed) StartRunEntityCoroutine();
+    }
+
     public virtual IEnumerator GetHit(BattleCreature attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
