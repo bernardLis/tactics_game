@@ -17,9 +17,20 @@
     padding-top: 50px;
 }
 
-.storey-mana__title {
+.storey-mana__arrow-top {
     -unity-text-align: middle-center;
-    font-size: 36px;
+    rotate: -30deg;
+}
+
+.storey-mana__arrow-bottom {
+    -unity-text-align: middle-right;
+    rotate: 30deg;
+}
+
+.storey-mana__title {
+    max-width: 150px;
+    -unity-text-align: middle-center;
+    font-size: 24px;
     white-space: normal;
 }
 

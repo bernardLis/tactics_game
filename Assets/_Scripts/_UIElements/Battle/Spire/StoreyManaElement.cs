@@ -12,6 +12,9 @@ public class StoreyManaElement : VisualElement
     const string _ussClassName = "storey-mana__";
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
+    const string _ussTitle = _ussClassName + "title";
+    const string _ussArrowTop = _ussClassName + "arrow-top";
+    const string _ussArrowBottom = _ussClassName + "arrow-bottom";
 
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -50,17 +53,39 @@ public class StoreyManaElement : VisualElement
         _content.AddToClassList(_ussContent);
         Add(_content);
 
+        VisualElement mainContainer = new();
+        mainContainer.style.flexDirection = FlexDirection.Row;
+        _content.Add(mainContainer);
+
         _title = new();
-        _content.Add(_title);
+        _title.AddToClassList(_ussTitle);
+        mainContainer.Add(_title);
         UpdateTitle(default);
 
-        _manaBankCapacityTreeElement = new(_storey.ManaBankCapacityTree);
-        _manaPerTurnTreeElement = new(_storey.ManaPerTurnTree);
-        _content.Add(_manaBankCapacityTreeElement);
-        _content.Add(_manaPerTurnTreeElement);
+        VisualElement anotherContainer = new();
+        mainContainer.Add(anotherContainer);
 
-        _storey.ManaBankCapacityTree.CurrentValue.OnValueChanged += UpdateTitle;
+        VisualElement topContainer = new();
+        topContainer.style.flexDirection = FlexDirection.Row;
+        anotherContainer.Add(topContainer);
+        VisualElement bottomContainer = new();
+        bottomContainer.style.flexDirection = FlexDirection.Row;
+        anotherContainer.Add(bottomContainer);
+
+        Label topArrow = new("-------->");
+        topArrow.AddToClassList(_ussArrowTop);
+        topContainer.Add(topArrow);
+        Label bottomArrow = new("-------->");
+        bottomArrow.AddToClassList(_ussArrowBottom);
+        bottomContainer.Add(bottomArrow);
+
+        _manaPerTurnTreeElement = new(_storey.ManaPerTurnTree);
+        _manaBankCapacityTreeElement = new(_storey.ManaBankCapacityTree);
+        topContainer.Add(_manaPerTurnTreeElement);
+        bottomContainer.Add(_manaBankCapacityTreeElement);
+
         _storey.ManaPerTurnTree.CurrentValue.OnValueChanged += UpdateTitle;
+        _storey.ManaBankCapacityTree.CurrentValue.OnValueChanged += UpdateTitle;
 
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
@@ -80,7 +105,7 @@ public class StoreyManaElement : VisualElement
 
     void UpdateTitle(int bla)
     {
-        _title.text = $"Mana shrine adds {_storey.ManaPerTurnTree.CurrentValue.Value} mana per 10s to bank. Mana bank capacity: {_storey.ManaBankCapacityTree.CurrentValue.Value}.";
+        _title.text = $"{_storey.ManaPerTurnTree.CurrentValue.Value} mana per 10s. Bank capacity: {_storey.ManaBankCapacityTree.CurrentValue.Value}.";
     }
 
     void GetManaFromBank(StoreyUpgrade storeyUpgrade)

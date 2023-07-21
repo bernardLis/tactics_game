@@ -9,10 +9,10 @@ public class StoreyMana : Storey
 
     public StoreyUpgradeTree ManaBankCapacityTree;
     public StoreyUpgradeTree ManaPerTurnTree;
-    
-    public StoreyUpgrade GetBankMana;
-    public StoreyUpgrade DirectManaRestorationUpgrade;
 
+    public StoreyUpgrade GetBankMana;
+    [SerializeField] StoreyUpgrade DirectManaRestorationUpgradeOriginal;
+    [HideInInspector] public StoreyUpgrade DirectManaRestorationUpgrade;
 
     public override void Initialize()
     {
@@ -21,6 +21,8 @@ public class StoreyMana : Storey
 
         ManaBankCapacityTree.Initialize();
         ManaPerTurnTree.Initialize();
+
+        DirectManaRestorationUpgrade = Instantiate(DirectManaRestorationUpgradeOriginal);
 
         base.Initialize();
     }

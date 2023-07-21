@@ -57,7 +57,7 @@ public class StoreyLivesElement : VisualElement
         Label bottomArrow = new("-------->");
         bottomArrow.AddToClassList(_ussArrowBottom);
         _bottomContainer.Add(bottomArrow);
-
+        
         _maxLivesTreeElement = new(_storey.MaxLivesTree);
         _topContainer.Add(_maxLivesTreeElement);
         _storey.MaxLivesTree.CurrentValue.OnValueChanged += UpdateLivesTitle;

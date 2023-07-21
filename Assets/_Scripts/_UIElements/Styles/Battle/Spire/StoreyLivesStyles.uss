@@ -17,7 +17,6 @@
 .storey-lives__arrow-bottom {
     -unity-text-align: middle-right;
     rotate: 30deg;
-
 }
 
 .storey-lives__tree-container {
