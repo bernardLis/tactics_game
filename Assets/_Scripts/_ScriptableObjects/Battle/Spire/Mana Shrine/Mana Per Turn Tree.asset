@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ddf060b4dc03dd64e9d5f2f042fb8031, type: 3}
-  m_Name: Mana Bank Capacity Node Tree
+  m_Name: Mana Per Turn Tree
   m_EditorClassIdentifier: 
   Id: 5204d92a-84fe-4574-a3f9-e92078256ec2
   CurrentValue: {fileID: 0}
   OriginalNodes:
-  - {fileID: 11400000, guid: 4c7e80e2fa034ea4ba4a6abb15c9fee0, type: 2}
-  - {fileID: 11400000, guid: b493fc93dede52c4bb5b5978fa5ff2b4, type: 2}
-  - {fileID: 11400000, guid: a6cc27b5678b5bb4fb44bad19f5a7094, type: 2}
-  - {fileID: 11400000, guid: edd7f352e319b65439b1729d316e71fc, type: 2}
+  - {fileID: 11400000, guid: e41a8ed086d358f4bbf822fc67a662a5, type: 2}
+  - {fileID: 11400000, guid: bf9dfced4c453b64eb725608bf27f57b, type: 2}
+  - {fileID: 11400000, guid: bbea5302dadc78a4fa9e552890d1ef63, type: 2}
+  - {fileID: 11400000, guid: b573407ec885a2b4cac435ecc35aed59, type: 2}
   Nodes: []
   CurrentNodeIndex: 0

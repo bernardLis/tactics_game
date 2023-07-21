@@ -6,6 +6,11 @@
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+    width: 200px;
+}
+
+.storey-upgrade__title {
+    white-space: normal;
 }
 
 .storey-upgrade__icon {

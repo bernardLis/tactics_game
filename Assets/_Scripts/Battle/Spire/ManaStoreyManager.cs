@@ -23,14 +23,10 @@ public class ManaStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnt
 
         _base = _gameManager.SelectedBattle.Spire;
 
-
-        ResetManaRestorationCoroutine(0);
-
-        _base.StoreyMana.ManaPerTurnTree.CurrentValue.OnValueChanged += ResetManaRestorationCoroutine;
-        _base.StoreyMana.ManaTurnLengthTree.CurrentValue.OnValueChanged += ResetManaRestorationCoroutine;
+        ResetManaRestorationCoroutine();
     }
 
-    void ResetManaRestorationCoroutine(int ignore)
+    void ResetManaRestorationCoroutine()
     {
         if (_manaRestorationCoroutine != null)
             StopCoroutine(_manaRestorationCoroutine);
@@ -41,14 +37,41 @@ public class ManaStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnt
 
     IEnumerator ManaRestorationCoroutine()
     {
-        Debug.Log($"Starting mana restoration coroutine");
         while (true)
         {
-            yield return new WaitForSeconds(_base.StoreyMana.ManaTurnLengthTree.CurrentValue.Value);
-            int totalMana = _base.StoreyMana.ManaPerTurnTree.CurrentValue.Value;
-            totalMana = Mathf.Clamp(totalMana, 0, _base.StoreyMana.ManaBankCapacityTree.CurrentValue.Value);
-            _base.StoreyMana.ManaInBank.SetValue(totalMana);
+            yield return new WaitForSeconds(10);
+            int manaGain = _base.StoreyMana.ManaPerTurnTree.CurrentValue.Value;
+            if (!_base.StoreyMana.DirectManaRestorationUpgrade.IsPurchased)
+            {
+                BankMana(manaGain);
+                continue;
+            }
+
+            // try restoring mana to hero if there is mana leftover bank it
+            Hero hero = _gameManager.PlayerHero;
+            int heroMissingMana = hero.BaseMana.Value - hero.CurrentMana.Value;
+
+            if (heroMissingMana <= 0)
+            {
+                BankMana(manaGain);
+                continue;
+            }
+
+            if (heroMissingMana >= manaGain)
+            {
+                hero.CurrentMana.ApplyChange(manaGain);
+                continue;
+            }
+
+            hero.CurrentMana.ApplyChange(heroMissingMana);
+            BankMana(manaGain - heroMissingMana);
         }
+    }
+
+    void BankMana(int mana)
+    {
+        mana = Mathf.Clamp(mana, 0, _base.StoreyMana.ManaBankCapacityTree.CurrentValue.Value);
+        _base.StoreyMana.ManaInBank.SetValue(mana);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

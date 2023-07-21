@@ -12,6 +12,8 @@ public class StoreyUpgradeTree : BaseScriptableObject
 
     public void Initialize()
     {
+        CurrentNodeIndex = 0;
+        
         Nodes = new();
         foreach (StoreyUpgrade u in OriginalNodes)
         {

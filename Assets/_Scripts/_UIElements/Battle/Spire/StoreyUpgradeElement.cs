@@ -9,11 +9,14 @@ public class StoreyUpgradeElement : ElementWithTooltip
     const string _ussCommonButtonBasic = "common__button-basic";
     const string _ussClassName = "storey-upgrade__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussTitle = _ussClassName + "title";
     const string _ussIcon = _ussClassName + "icon";
 
     GameManager _gameManager;
 
     public StoreyUpgrade StoreyUpgrade;
+
+    Label _title;
 
     public event Action<StoreyUpgrade> OnPurchased;
     public StoreyUpgradeElement(StoreyUpgrade storeyUpgrade)
@@ -27,8 +30,9 @@ public class StoreyUpgradeElement : ElementWithTooltip
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonButtonBasic);
 
-        Label title = new(Helpers.ParseScriptableObjectCloneName(storeyUpgrade.name));
-        Add(title);
+        _title = new(Helpers.ParseScriptableObjectCloneName(storeyUpgrade.name));
+        _title.AddToClassList(_ussTitle);
+        Add(_title);
 
         Label icon = new();
         icon.AddToClassList(_ussIcon);
@@ -38,6 +42,11 @@ public class StoreyUpgradeElement : ElementWithTooltip
         PurchaseButton purchaseButton = new(storeyUpgrade.Cost, callback: Purchase,
                 isInfinite: storeyUpgrade.IsInfinite, isPurchased: storeyUpgrade.IsPurchased);
         Add(purchaseButton);
+    }
+
+    public void UpdateTitle(string str)
+    {
+        _title.text = str;
     }
 
     void Purchase()

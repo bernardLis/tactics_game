@@ -25,7 +25,8 @@ public class StoreyManaElement : VisualElement
 
     StoreyUpgradeTreeElement _manaBankCapacityTreeElement;
     StoreyUpgradeTreeElement _manaPerTurnTreeElement;
-    StoreyUpgradeTreeElement _manaTurnLengthTreeElement;
+
+    StoreyUpgradeElement _getBankMana;
 
     public event Action OnClosed;
     public StoreyManaElement(StoreyMana storey)
@@ -55,23 +56,23 @@ public class StoreyManaElement : VisualElement
 
         _manaBankCapacityTreeElement = new(_storey.ManaBankCapacityTree);
         _manaPerTurnTreeElement = new(_storey.ManaPerTurnTree);
-        _manaTurnLengthTreeElement = new(_storey.ManaTurnLengthTree);
         _content.Add(_manaBankCapacityTreeElement);
         _content.Add(_manaPerTurnTreeElement);
-        _content.Add(_manaTurnLengthTreeElement);
 
         _storey.ManaBankCapacityTree.CurrentValue.OnValueChanged += UpdateTitle;
         _storey.ManaPerTurnTree.CurrentValue.OnValueChanged += UpdateTitle;
-        _storey.ManaTurnLengthTree.CurrentValue.OnValueChanged += UpdateTitle;
 
-        Label manaInBankLabel = new($"Mana in bank: {_storey.ManaInBank.Value}");
-        _storey.ManaInBank.OnValueChanged += (int value) => manaInBankLabel.text = $"Mana in bank: {value}";
-        _content.Add(manaInBankLabel);
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _content.Add(container);
 
-        MyButton getManaButton = new("Get mana", callback: GetManaFromBank);
-        _content.Add(getManaButton);
-        
-        // add button for ultimate upgrade
+        _getBankMana = new(_storey.GetBankMana);
+        _getBankMana.UpdateTitle($"Get mana from bank ({_storey.ManaInBank.Value} mana)");
+        _getBankMana.OnPurchased += GetManaFromBank;
+        container.Add(_getBankMana);
+
+        StoreyUpgradeElement el = new(_storey.DirectManaRestorationUpgrade);
+        container.Add(el);
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
         _content.Add(continueButton);
@@ -79,14 +80,21 @@ public class StoreyManaElement : VisualElement
 
     void UpdateTitle(int bla)
     {
-        _title.text = $"Mana shrine adds {_storey.ManaPerTurnTree.CurrentValue.Value} mana per {_storey.ManaTurnLengthTree.CurrentValue.Value} seconds to bank. Mana bank capacity: {_storey.ManaBankCapacityTree.CurrentValue.Value}.";
+        _title.text = $"Mana shrine adds {_storey.ManaPerTurnTree.CurrentValue.Value} mana per 10s to bank. Mana bank capacity: {_storey.ManaBankCapacityTree.CurrentValue.Value}.";
     }
 
-    void GetManaFromBank()
+    void GetManaFromBank(StoreyUpgrade storeyUpgrade)
     {
         int manaToGet = _storey.ManaInBank.Value;
-        manaToGet = Mathf.Clamp(manaToGet, 0, _battleHeroManager.Hero.BaseMana.Value);
+        int heroMissingMana = _battleHeroManager.Hero.BaseMana.Value - _battleHeroManager.Hero.CurrentMana.Value;
+        if (heroMissingMana <= 0)
+        {
+            Helpers.DisplayTextOnElement(Helpers.GetRoot(this), _getBankMana, "Hero has full mana", Color.blue);
+            return;
+        }
+        manaToGet = Mathf.Clamp(manaToGet, 0, heroMissingMana);
         _storey.ManaInBank.ApplyChange(-manaToGet);
+        _getBankMana.UpdateTitle($"Get mana from bank ({_storey.ManaInBank.Value} mana)");
         _battleHeroManager.Hero.CurrentMana.ApplyChange(manaToGet);
     }
 

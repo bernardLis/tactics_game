@@ -21,4 +21,5 @@ MonoBehaviour:
   ManaInBank: {fileID: 0}
   ManaBankCapacityTree: {fileID: 11400000, guid: 6237db742f5aa5c44a97789e79dba001, type: 2}
   ManaPerTurnTree: {fileID: 11400000, guid: 64f9993bfc01dfb4d9f98823ec51b58f, type: 2}
-  ManaTurnLengthTree: {fileID: 11400000, guid: b99d97e7ea3e9f342a90c7de33b52f43, type: 2}
+  GetBankMana: {fileID: 11400000, guid: 81b192088f1a6ec4583d5643f7f6edfe, type: 2}
+  DirectManaRestorationUpgrade: {fileID: 11400000, guid: 635fdf389fa2fd6449c4c91a14a8c2b5, type: 2}

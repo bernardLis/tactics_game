@@ -9,7 +9,9 @@ public class StoreyMana : Storey
 
     public StoreyUpgradeTree ManaBankCapacityTree;
     public StoreyUpgradeTree ManaPerTurnTree;
-    public StoreyUpgradeTree ManaTurnLengthTree;
+    public StoreyUpgrade GetBankMana;
+    public StoreyUpgrade DirectManaRestorationUpgrade;
+
 
     public override void Initialize()
     {
@@ -18,7 +20,6 @@ public class StoreyMana : Storey
 
         ManaBankCapacityTree.Initialize();
         ManaPerTurnTree.Initialize();
-        ManaTurnLengthTree.Initialize();
 
         base.Initialize();
     }
