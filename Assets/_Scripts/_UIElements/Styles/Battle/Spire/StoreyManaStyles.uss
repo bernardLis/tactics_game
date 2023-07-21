@@ -41,3 +41,9 @@
 .storey-mana__arrow-label {
     -unity-text-align: middle-center;
 }
+
+.storey-mana__button-container {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}

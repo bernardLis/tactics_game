@@ -31,10 +31,10 @@ public class StoreyTroopsElement : VisualElement
     VisualElement _bottomContainer;
 
     Label _creatureTierLabel;
-    List<StoreyUpgradeElement> _creatureTierTreeElements = new();
+    StoreyUpgradeTreeElement _creatureTierTreeElement;
 
     TroopsLimitElement _troopsLimitElement;
-    List<StoreyUpgradeElement> _maxTroopsTreeElements = new();
+    StoreyUpgradeTreeElement _maxTroopsTreeElement;
 
     public event Action OnClosed;
     public StoreyTroopsElement(StoreyTroops storey)
@@ -71,8 +71,12 @@ public class StoreyTroopsElement : VisualElement
         _bottomContainer = new();
         _content.Add(_bottomContainer);
 
-        AddCreatureTierTree();
-        AddMaxTroopsTree();
+        _creatureTierTreeElement = new(_storey.CreatureTierTree);
+        _topContainer.Add(_creatureTierTreeElement);
+
+        _maxTroopsTreeElement = new(_storey.MaxTroopsTree);
+        _middleContainer.Add(_maxTroopsTreeElement);
+
         AddResurrectDeadCreatures();
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
@@ -89,47 +93,48 @@ public class StoreyTroopsElement : VisualElement
         _creatureTierLabel = new($"Creature tier: {0}");
         _creatureTierLabel.AddToClassList(_ussTitle);
         container.Add(_creatureTierLabel);
-        _storey.CurrentCreatureTier.OnValueChanged += UpdateCreatureTierLabel;
+        _storey.CreatureTierTree.CurrentValue.OnValueChanged += UpdateCreatureTierLabel;
         UpdateCreatureTierLabel(default);
     }
 
     void UpdateCreatureTierLabel(int bla)
     {
-        _creatureTierLabel.text = $"Creature tier: {_storey.CurrentCreatureTier.Value}";
+        _creatureTierLabel.text = $"Creature tier: {_storey.CreatureTierTree.CurrentValue.Value}";
     }
-
-    void AddCreatureTierTree()
-    {
-        for (int i = 0; i < _storey.CreatureTierTree.Count; i++)
+    /*
+        void AddCreatureTierTree()
         {
-            if (i > 0)
+            for (int i = 0; i < _storey.CreatureTierTree.Count; i++)
             {
-                Label arrow = new("--->");
-                arrow.AddToClassList(_ussArrowLabel);
-                _topContainer.Add(arrow);
+                if (i > 0)
+                {
+                    Label arrow = new("--->");
+                    arrow.AddToClassList(_ussArrowLabel);
+                    _topContainer.Add(arrow);
+                }
+
+                StoreyUpgradeElement el = new(_storey.CreatureTierTree[i]);
+                _topContainer.Add(el);
+                _creatureTierTreeElements.Add(el);
+
+                if (i != _storey.CurrentCreatureTierTreeLevel + 1)
+                    el.SetEnabled(false);
+
+                el.OnPurchased += CreatureTierUpgradePurchased;
             }
-
-            StoreyUpgradeElement el = new(_storey.CreatureTierTree[i]);
-            _topContainer.Add(el);
-            _creatureTierTreeElements.Add(el);
-
-            if (i != _storey.CurrentCreatureTierTreeLevel + 1)
-                el.SetEnabled(false);
-
-            el.OnPurchased += CreatureTierUpgradePurchased;
         }
-    }
 
-    void CreatureTierUpgradePurchased(StoreyUpgrade storeyUpgrade)
-    {
-        _creatureTierTreeElements[_storey.CurrentCreatureTierTreeLevel + 1].SetEnabled(false);
+        void CreatureTierUpgradePurchased(StoreyUpgrade storeyUpgrade)
+        {
+            _creatureTierTreeElements[_storey.CurrentCreatureTierTreeLevel + 1].SetEnabled(false);
 
-        _storey.CurrentCreatureTier.SetValue(_storey.CreatureTierTree[_storey.CurrentCreatureTierTreeLevel + 1].Value);
-        _storey.CurrentCreatureTierTreeLevel++;
+            _storey.CurrentCreatureTier.SetValue(_storey.CreatureTierTree[_storey.CurrentCreatureTierTreeLevel + 1].Value);
+            _storey.CurrentCreatureTierTreeLevel++;
 
-        if (_storey.CurrentCreatureTierTreeLevel < _storey.CreatureTierTree.Count - 1)
-            _creatureTierTreeElements[_storey.CurrentCreatureTierTreeLevel + 1].SetEnabled(true);
-    }
+            if (_storey.CurrentCreatureTierTreeLevel < _storey.CreatureTierTree.Count - 1)
+                _creatureTierTreeElements[_storey.CurrentCreatureTierTreeLevel + 1].SetEnabled(true);
+        }
+        */
 
     void AddTroopsLimitElement()
     {
@@ -142,47 +147,48 @@ public class StoreyTroopsElement : VisualElement
         container.Add(_troopsLimitElement);
         UpdateTroopsLimit();
     }
+    /*
 
-
-    void AddMaxTroopsTree()
-    {
-        for (int i = 0; i < _storey.MaxTroopsTree.Count; i++)
+        void AddMaxTroopsTree()
         {
-            if (i > 0)
+            for (int i = 0; i < _storey.MaxTroopsTree.Count; i++)
             {
-                Label arrow = new("--->");
-                arrow.AddToClassList(_ussArrowLabel);
-                _middleContainer.Add(arrow);
+                if (i > 0)
+                {
+                    Label arrow = new("--->");
+                    arrow.AddToClassList(_ussArrowLabel);
+                    _middleContainer.Add(arrow);
+                }
+
+                StoreyUpgradeElement el = new(_storey.MaxTroopsTree[i]);
+                _middleContainer.Add(el);
+                _maxTroopsTreeElements.Add(el);
+
+                if (i != _storey.CurrentMaxTroopsLevel + 1)
+                    el.SetEnabled(false);
+
+                el.OnPurchased += MaxLivesUpgradePurchased;
             }
-
-            StoreyUpgradeElement el = new(_storey.MaxTroopsTree[i]);
-            _middleContainer.Add(el);
-            _maxTroopsTreeElements.Add(el);
-
-            if (i != _storey.CurrentMaxTroopsLevel + 1)
-                el.SetEnabled(false);
-
-            el.OnPurchased += MaxLivesUpgradePurchased;
         }
-    }
 
-    void MaxLivesUpgradePurchased(StoreyUpgrade storeyUpgrade)
-    {
-        _maxTroopsTreeElements[_storey.CurrentMaxTroopsLevel + 1].SetEnabled(false);
+        void MaxLivesUpgradePurchased(StoreyUpgrade storeyUpgrade)
+        {
+            _maxTroopsTreeElements[_storey.CurrentMaxTroopsLevel + 1].SetEnabled(false);
 
-        _storey.CurrentLimit.SetValue(_storey.MaxTroopsTree[_storey.CurrentMaxTroopsLevel + 1].Value);
-        _storey.CurrentMaxTroopsLevel++;
+            _storey.CurrentLimit.SetValue(_storey.MaxTroopsTree[_storey.CurrentMaxTroopsLevel + 1].Value);
+            _storey.CurrentMaxTroopsLevel++;
 
-        if (_storey.CurrentMaxTroopsLevel < _storey.MaxTroopsTree.Count - 1)
-            _maxTroopsTreeElements[_storey.CurrentMaxTroopsLevel + 1].SetEnabled(true);
+            if (_storey.CurrentMaxTroopsLevel < _storey.MaxTroopsTree.Count - 1)
+                _maxTroopsTreeElements[_storey.CurrentMaxTroopsLevel + 1].SetEnabled(true);
 
-        UpdateTroopsLimit();
-    }
+            UpdateTroopsLimit();
+        }
+        */
 
     void UpdateTroopsLimit()
     {
         _troopsLimitElement.UpdateCountContainer(
-                $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_storey.CurrentLimit.Value}"
+                $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_storey.MaxTroopsTree.CurrentValue.Value}"
                 , Color.white);
     }
 

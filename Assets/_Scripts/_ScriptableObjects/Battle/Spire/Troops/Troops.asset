@@ -18,25 +18,5 @@ MonoBehaviour:
   IsPurchased: 1
   Cost: 0
   Prefab: {fileID: 3777509045833753945, guid: 8611043e45d00f24f8ca5f0015ff0416, type: 3}
-  CurrentCreatureTier: {fileID: 0}
-  CreatureTierTreeOriginals:
-  - {fileID: 11400000, guid: 174a67315f8875441acf16e916f912cf, type: 2}
-  - {fileID: 11400000, guid: d67596baed2eadb48bedc06fef0729ba, type: 2}
-  - {fileID: 11400000, guid: 3d5edf4ca75891748ab5f03e15713764, type: 2}
-  CreatureTierTree: []
-  CurrentCreatureTierTreeLevel: 0
-  CurrentLimit: {fileID: 0}
-  MaxTroopsTreeOriginals:
-  - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}
-  - {fileID: 11400000, guid: 5cf07309bc8578047bdc1af9821118a7, type: 2}
-  - {fileID: 11400000, guid: d02a8e98fef06be44959b6b32d97e453, type: 2}
-  - {fileID: 11400000, guid: 113664320a4a13d49a8d6c1f6b52e66d, type: 2}
-  - {fileID: 11400000, guid: 327f773fd17b1424e8d58861031b4d64, type: 2}
-  MaxTroopsTree:
-  - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}
-  - {fileID: 11400000, guid: 5cf07309bc8578047bdc1af9821118a7, type: 2}
-  - {fileID: 11400000, guid: d02a8e98fef06be44959b6b32d97e453, type: 2}
-  - {fileID: 11400000, guid: 113664320a4a13d49a8d6c1f6b52e66d, type: 2}
-  - {fileID: 11400000, guid: 327f773fd17b1424e8d58861031b4d64, type: 2}
-  CurrentMaxTroopsLevel: 0
-  DeadTroops: []
+  CreatureTierTree: {fileID: 11400000, guid: ac1814bb1a322484bb3c284f18d9c771, type: 2}
+  MaxTroopsTree: {fileID: 11400000, guid: e02a25ca910acec4e85a8395293eea41, type: 2}

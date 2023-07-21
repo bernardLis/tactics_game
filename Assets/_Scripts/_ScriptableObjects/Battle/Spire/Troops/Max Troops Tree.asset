@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf060b4dc03dd64e9d5f2f042fb8031, type: 3}
+  m_Name: Max Troops Tree
+  m_EditorClassIdentifier: 
+  Id: b7ef229f-2a80-4cd0-b58b-c358e67b6bb7
+  CurrentValue: {fileID: 0}
+  OriginalNodes:
+  - {fileID: 11400000, guid: 9b7a974ae4c90f8488dbff60afeade25, type: 2}
+  - {fileID: 11400000, guid: 5cf07309bc8578047bdc1af9821118a7, type: 2}
+  - {fileID: 11400000, guid: d02a8e98fef06be44959b6b32d97e453, type: 2}
+  - {fileID: 11400000, guid: 113664320a4a13d49a8d6c1f6b52e66d, type: 2}
+  - {fileID: 11400000, guid: 327f773fd17b1424e8d58861031b4d64, type: 2}
+  Nodes: []
+  CurrentNodeIndex: 0

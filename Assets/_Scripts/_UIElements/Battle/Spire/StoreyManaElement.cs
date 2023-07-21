@@ -15,6 +15,7 @@ public class StoreyManaElement : VisualElement
     const string _ussTitle = _ussClassName + "title";
     const string _ussArrowTop = _ussClassName + "arrow-top";
     const string _ussArrowBottom = _ussClassName + "arrow-bottom";
+    const string _ussButtonContainer = _ussClassName + "button-container";
 
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -88,7 +89,7 @@ public class StoreyManaElement : VisualElement
         _storey.ManaBankCapacityTree.CurrentValue.OnValueChanged += UpdateTitle;
 
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+        container.AddToClassList(_ussButtonContainer);
         _content.Add(container);
 
         _getBankMana = new(_storey.GetBankMana);

@@ -74,12 +74,12 @@ public class BattleInfoManager : MonoBehaviour
         TroopsLimitContainer.Add(_troopsLimitElement);
 
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
-        _spire.StoreyTroops.CurrentLimit.OnValueChanged += (v) => UpdateTroopsLimitElement();
+        _spire.StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateTroopsLimitElement();
     }
 
     void UpdateTroopsLimitElement()
     {
-        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.CurrentLimit.Value}", Color.white);
+        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value}", Color.white);
     }
 
     void AddGoldElement()
