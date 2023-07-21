@@ -9,6 +9,7 @@ public class StoreyMana : Storey
 
     public StoreyUpgradeTree ManaBankCapacityTree;
     public StoreyUpgradeTree ManaPerTurnTree;
+    
     public StoreyUpgrade GetBankMana;
     public StoreyUpgrade DirectManaRestorationUpgrade;
 

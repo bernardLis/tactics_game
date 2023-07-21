@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 452409d0-dee2-4f60-93d9-399aba026c09
   Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
   Description: Manananan
-  IsPurchased: 1
+  IsPurchased: 0
   Cost: 200
   Prefab: {fileID: 143198231500213843, guid: 49ffc047ffcefe841b3ad296a0113a52, type: 3}
   ManaInBank: {fileID: 0}

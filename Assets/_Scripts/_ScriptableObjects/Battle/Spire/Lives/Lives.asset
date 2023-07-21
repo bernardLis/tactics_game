@@ -19,15 +19,5 @@ MonoBehaviour:
   Cost: 0
   Prefab: {fileID: 0}
   CurrentLives: {fileID: 0}
-  MaxLivesTreeOriginals:
-  - {fileID: 11400000, guid: afaa60baf4d6fd140b24f67c63ec58a4, type: 2}
-  - {fileID: 11400000, guid: 369ea1e159c150f4a91e9aa808cc8d85, type: 2}
-  - {fileID: 11400000, guid: 924eeb8ebf4882a499bc359571a72003, type: 2}
-  - {fileID: 11400000, guid: ee19379d58f84454286ac164d3f436d3, type: 2}
-  MaxLivesTree:
-  - {fileID: 11400000, guid: afaa60baf4d6fd140b24f67c63ec58a4, type: 2}
-  - {fileID: 11400000, guid: 369ea1e159c150f4a91e9aa808cc8d85, type: 2}
-  - {fileID: 11400000, guid: 924eeb8ebf4882a499bc359571a72003, type: 2}
-  - {fileID: 11400000, guid: ee19379d58f84454286ac164d3f436d3, type: 2}
-  CurrentMaxLivesLevel: 0
-  RestoreLivesTree: {fileID: 11400000, guid: c7f9155d9c8cd7543bdf64c2c3b4dd6b, type: 2}
+  MaxLivesTree: {fileID: 11400000, guid: 3939bf1ce959fd94aaa57e88f7ca71f2, type: 2}
+  RestoreLivesUpgrade: {fileID: 11400000, guid: c7f9155d9c8cd7543bdf64c2c3b4dd6b, type: 2}

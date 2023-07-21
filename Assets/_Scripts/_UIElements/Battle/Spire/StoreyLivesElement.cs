@@ -23,9 +23,10 @@ public class StoreyLivesElement : VisualElement
     VisualElement _bottomContainer;
 
     Label _lives;
+    StoreyUpgradeTreeElement _maxLivesTreeElement;
     StoreyUpgradeElement _restoreLivesElement;
 
-    List<StoreyUpgradeElement> _maxLivesTreeElements = new();
+    //  List<StoreyUpgradeElement> _maxLivesTreeElements = new();
 
     public StoreyLivesElement(StoreyLives storey)
     {
@@ -36,7 +37,7 @@ public class StoreyLivesElement : VisualElement
         AddToClassList(_ussMain);
         _storey = storey;
 
-        _lives = new($"Lives {_storey.CurrentLives.Value}/{_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value}");
+        _lives = new($"Lives {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}");
         _lives.AddToClassList(_ussTitle);
         Add(_lives);
 
@@ -57,13 +58,18 @@ public class StoreyLivesElement : VisualElement
         bottomArrow.AddToClassList(_ussArrowBottom);
         _bottomContainer.Add(bottomArrow);
 
-        AddMaxLivesTree();
-        AddRestoreLivesTree();
+        _maxLivesTreeElement = new(_storey.MaxLivesTree);
+        _topContainer.Add(_maxLivesTreeElement);
+        _storey.MaxLivesTree.CurrentValue.OnValueChanged += UpdateLivesTitle;
+        _storey.MaxLivesTree.CurrentValue.OnValueChanged += (v) => UpdateRestoreLivesElement();
+
+        UpdateLivesTitle(0);
+        AddRestoreLivesUpgrade();
     }
 
-    void AddRestoreLivesTree()
+    void AddRestoreLivesUpgrade()
     {
-        _restoreLivesElement = new(_storey.RestoreLivesTree);
+        _restoreLivesElement = new(_storey.RestoreLivesUpgrade);
         _bottomContainer.Add(_restoreLivesElement);
 
         _restoreLivesElement.OnPurchased += RestoreLives;
@@ -74,47 +80,20 @@ public class StoreyLivesElement : VisualElement
     void RestoreLives(StoreyUpgrade storeyUpgrade)
     {
         _storey.RestoreLives(5);
-        _lives.text = $"Lives: {_storey.CurrentLives.Value}/{_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value}";
+        UpdateLivesTitle(0);
         UpdateRestoreLivesElement();
+    }
+
+    void UpdateLivesTitle(int value)
+    {
+        _lives.text = $"Lives: {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}";
     }
 
     void UpdateRestoreLivesElement()
     {
-        if (_storey.CurrentLives.Value >= _storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value)
+        _restoreLivesElement.SetEnabled(true);
+
+        if (_storey.CurrentLives.Value >= _storey.MaxLivesTree.CurrentValue.Value)
             _restoreLivesElement.SetEnabled(false);
-    }
-
-    void AddMaxLivesTree()
-    {
-        for (int i = 0; i < _storey.MaxLivesTree.Count; i++)
-        {
-            if (i > 0)
-            {
-                Label arrow = new("--->");
-                arrow.AddToClassList(_ussArrowLabel);
-                _topContainer.Add(arrow);
-            }
-
-            StoreyUpgradeElement el = new(_storey.MaxLivesTree[i]);
-            _topContainer.Add(el);
-            _maxLivesTreeElements.Add(el);
-
-            if (i != _storey.CurrentMaxLivesLevel + 1)
-                el.SetEnabled(false);
-
-            el.OnPurchased += MaxLivesUpgradePurchased;
-        }
-    }
-
-    void MaxLivesUpgradePurchased(StoreyUpgrade storeyUpgrade)
-    {
-        _maxLivesTreeElements[_storey.CurrentMaxLivesLevel + 1].SetEnabled(false);
-        _storey.CurrentLives.ApplyChange(_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel + 1].Value - _storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value);
-        _storey.CurrentMaxLivesLevel++;
-
-        _lives.text = $"Lives: {_storey.CurrentLives.Value}/{_storey.MaxLivesTree[_storey.CurrentMaxLivesLevel].Value}";
-
-        if (_storey.CurrentMaxLivesLevel < _storey.MaxLivesTree.Count - 1)
-            _maxLivesTreeElements[_storey.CurrentMaxLivesLevel + 1].SetEnabled(true);
     }
 }

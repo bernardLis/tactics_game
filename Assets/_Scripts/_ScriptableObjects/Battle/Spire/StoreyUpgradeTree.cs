@@ -5,15 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Spire/Storey Upgrade Tree")]
 public class StoreyUpgradeTree : BaseScriptableObject
 {
-    public IntVariable CurrentValue;
+    [HideInInspector] public IntVariable CurrentValue;
     [SerializeField] List<StoreyUpgrade> OriginalNodes = new();
-    public List<StoreyUpgrade> Nodes = new();
+    [HideInInspector] public List<StoreyUpgrade> Nodes = new();
     public int CurrentNodeIndex;
 
     public void Initialize()
     {
         CurrentNodeIndex = 0;
-        
+
         Nodes = new();
         foreach (StoreyUpgrade u in OriginalNodes)
         {
