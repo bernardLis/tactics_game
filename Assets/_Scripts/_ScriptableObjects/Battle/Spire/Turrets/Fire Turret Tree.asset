@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf060b4dc03dd64e9d5f2f042fb8031, type: 3}
+  m_Name: Fire Turret Tree
+  m_EditorClassIdentifier: 
+  Id: 6bd9b310-6be2-4e59-82d0-7334c0d824eb
+  CurrentValue: {fileID: 0}
+  OriginalNodes:
+  - {fileID: 11400000, guid: 4117c5d5e1cba064caf61c011d3da410, type: 2}
+  - {fileID: 11400000, guid: d04feddd11ecd6b40b995805b5294de0, type: 2}
+  - {fileID: 11400000, guid: cc364688093f22a478bd842a42e6f51e, type: 2}
+  - {fileID: 11400000, guid: 23d22fc9be060864381cb8d5cbcc1365, type: 2}
+  - {fileID: 11400000, guid: 2ec59d537103a6b43b38ee972c96aaaf, type: 2}
+  - {fileID: 11400000, guid: 639c1bc9b290c274c8f947adb8ee3eca, type: 2}
+  Nodes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CurrentNodeIndex: 0

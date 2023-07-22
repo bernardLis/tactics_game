@@ -16,7 +16,7 @@ public class StoreyUpgradeTreeElement : VisualElement
 
     List<StoreyUpgradeElement> _upgradeElements = new();
 
-    public event Action<StoreyUpgrade> UpgradePurchased;
+    public event Action<StoreyUpgrade> OnUpgradePurchased;
     public StoreyUpgradeTreeElement(StoreyUpgradeTree tree)
     {
         _gameManager = GameManager.Instance;
@@ -46,10 +46,10 @@ public class StoreyUpgradeTreeElement : VisualElement
             Add(el);
             _upgradeElements.Add(el);
 
+            el.OnPurchased += NodePurchased;
+
             if (i != _tree.CurrentNodeIndex + 1)
                 el.SetEnabled(false);
-
-            el.OnPurchased += NodePurchased;
         }
     }
 
@@ -63,6 +63,6 @@ public class StoreyUpgradeTreeElement : VisualElement
         if (_tree.CurrentNodeIndex < _tree.Nodes.Count - 1)
             _upgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(true);
 
-        UpgradePurchased?.Invoke(storeyUpgrade);
+        OnUpgradePurchased?.Invoke(storeyUpgrade);
     }
 }

@@ -10,10 +10,6 @@ public class StoreyTurrets : Storey
     public StoreyUpgradeTree WaterTurretUpgradeTree;
     public StoreyUpgradeTree WindTurretUpgradeTree;
 
-    public BattleTurret EarthTurretPrefab;
-    public BattleTurret FireTurretPrefab;
-    public BattleTurret WaterTurretPrefab;
-    public BattleTurret WindTurretPrefab;
 
     public override void Initialize()
     {

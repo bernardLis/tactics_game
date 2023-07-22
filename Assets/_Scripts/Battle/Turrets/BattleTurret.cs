@@ -13,8 +13,6 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] Projectile _projectilePrefab;
     [SerializeField] GameObject _GFX;
 
-    int _team;
-
     public Turret Turret { get; private set; }
 
     BattleEntity _target;
@@ -24,23 +22,23 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void Start()
     {
         _battleManager = BattleManager.Instance;
-        _runTurretCoroutine = RunTurret();
-        StartCoroutine(_runTurretCoroutine);
     }
 
-    void Initialize(Turret turret)
+    public void Initialize(Turret turret)
     {
-        _team = 0;
         Turret = turret;
         Turret.OnTurretUpgradePurchased += UpdateGFX;
         UpdateGFX();
+
+        _runTurretCoroutine = RunTurret();
+        StartCoroutine(_runTurretCoroutine);
     }
 
     public void UpdateGFX()
     {
         // TODO: maybe some effect
         if (_GFX != null) Destroy(_GFX);
-        _GFX = Instantiate(Turret.GetCurrentUpgrade().GFXPrefab, transform.position, Quaternion.identity);
+        _GFX = Instantiate(Turret.GetCurrentUpgrade().GFXPrefab, transform.position + Vector3.up, Quaternion.identity);
         _GFX.transform.parent = transform;
     }
 
