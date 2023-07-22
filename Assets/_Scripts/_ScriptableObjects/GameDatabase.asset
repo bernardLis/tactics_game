@@ -28,12 +28,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38ffc0f173ff1484c94d2bbabdf58736, type: 2}
   - {fileID: 11400000, guid: 61c889540e3a6974498b440006d6c98e, type: 2}
   - {fileID: 11400000, guid: b1ce1f3dc88d3f04fa418c1c763015e6, type: 2}
+  - {fileID: 11400000, guid: ba2ceb3ececf34547be0b4b90ff94ba4, type: 2}
   - {fileID: 11400000, guid: 65b4d5453c2e17049b250d48cfa4ac01, type: 2}
+  - {fileID: 11400000, guid: 3419ab4d8442eb14088f343f014d3bfc, type: 2}
+  - {fileID: 11400000, guid: 90efad64278790c41987a3a1ce5b4398, type: 2}
   BaseGameObject: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-  EarthTurret: {fileID: 11400000, guid: f6068dfb486faa34882d832c3cabd2c1, type: 2}
-  FireTurret: {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
-  WaterTurret: {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
-  WindTurret: {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

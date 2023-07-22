@@ -5,79 +5,67 @@ using UnityEngine;
 public class BattleTurretsManager : MonoBehaviour
 {
     [Header("Turrets")]
-    [SerializeField] Turret _earthTurretOriginal;
-    [SerializeField] Turret _fireTurretOriginal;
-    [SerializeField] Turret _waterTurretOriginal;
-    [SerializeField] Turret _windTurretOriginal;
+    [SerializeField] Turret[] _allTurretsOriginal;
 
     BattleManager _battleManager;
 
-    BattleTurret _earthTurretInstance;
-    BattleTurret _fireTurretInstance;
-    BattleTurret _waterTurretInstance;
-    BattleTurret _windTurretInstance;
+    [SerializeField] List<BattleTurret> _turretInstances = new();
+
 
     void Start()
     {
         _battleManager = BattleManager.Instance;
     }
 
-    public void InstantiateEarthTurret()
+    public void InstantiateTurret(Element element)
     {
-        Turret scriptableObjectInstance = Instantiate(_earthTurretOriginal);
-        GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
+        foreach (Turret t in _allTurretsOriginal)
+        {
+            if (t.Element != element)
+                continue;
 
-        _earthTurretInstance = gameObjectInstance.GetComponent<BattleTurret>();
-        _earthTurretInstance.Initialize(scriptableObjectInstance);
-        gameObjectInstance.transform.position = new Vector3(0, 0, 2);
+            Turret scriptableObjectInstance = Instantiate(t);
+            GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
+            BattleTurret instance = gameObjectInstance.GetComponent<BattleTurret>();
+            instance.Initialize(scriptableObjectInstance);
+            _turretInstances.Add(instance);
+
+            gameObjectInstance.transform.position = new Vector3(0, 0, 2);
+        }
     }
 
-    public void UpgradeEarthTurret()
+    public Turret GetTurret(Element element)
     {
-        _earthTurretInstance.Turret.PurchaseUpgrade();
+        foreach (Turret t in _allTurretsOriginal)
+        {
+            if (t.Element != element)
+                continue;
+
+            return t;
+        }
+
+        return null;
     }
 
-    public void InstantiateFireTurret()
+    public void UpgradeTurret(Element el)
     {
-        Turret scriptableObjectInstance = Instantiate(_fireTurretOriginal);
-        GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
-        _fireTurretInstance = gameObjectInstance.GetComponent<BattleTurret>();
-        _fireTurretInstance.Initialize(scriptableObjectInstance);
-        gameObjectInstance.transform.position = new Vector3(0, 0, -2);
+        foreach (BattleTurret t in _turretInstances)
+        {
+            if (t.Turret.Element != el)
+                continue;
+
+            t.Turret.PurchaseUpgrade();
+        }
     }
 
-    public void UpgradeFireTurret()
+    public void SpecialUpgradePurchased(Element el)
     {
-        _fireTurretInstance.Turret.PurchaseUpgrade();
+        foreach (BattleTurret t in _turretInstances)
+        {
+            if (t.Turret.Element != el)
+                continue;
+
+            t.Turret.PurchaseSpecialUpgrade();
+        }
     }
-
-    public void InstantiateWaterTurret()
-    {
-        Turret scriptableObjectInstance = Instantiate(_waterTurretOriginal);
-        GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
-        _waterTurretInstance = gameObjectInstance.GetComponent<BattleTurret>();
-        _waterTurretInstance.Initialize(scriptableObjectInstance);
-        gameObjectInstance.transform.position = new Vector3(2, 0, 0);
-    }
-
-    public void UpgradeWaterTurret()
-    {
-        _waterTurretInstance.Turret.PurchaseUpgrade();
-    }
-
-    public void InstantiateWindTurret()
-    {
-        Turret scriptableObjectInstance = Instantiate(_windTurretOriginal);
-        GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
-        _windTurretInstance = gameObjectInstance.GetComponent<BattleTurret>();
-        _windTurretInstance.Initialize(scriptableObjectInstance);
-        gameObjectInstance.transform.position = new Vector3(-2, 0, 0);
-    }
-
-    public void UpgradeWindTurret()
-    {
-        _windTurretInstance.Turret.PurchaseUpgrade();
-    }
-
-
 }

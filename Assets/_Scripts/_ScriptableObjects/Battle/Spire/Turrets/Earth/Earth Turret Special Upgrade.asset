@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af9a0b79e0769884caa57a8097cbbf6d, type: 3}
-  m_Name: Dud
+  m_Name: Earth Turret Special Upgrade
   m_EditorClassIdentifier: 
   Id: 77ab6902-f06f-419c-92ed-9a6c60943377
   Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
-  Cost: 0
-  Value: 0
+  Cost: 9999
+  Value: 4
   IsPurchased: 0
-  Description: Earth turret.
+  Description: Not implemented
   IsInfinite: 0
   CircleRadiusMultiplier: 1

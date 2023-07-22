@@ -15,7 +15,6 @@ MonoBehaviour:
   Id: 00f9af38-98f6-4d96-824c-818ac6713631
   CurrentValue: {fileID: 0}
   OriginalNodes:
-  - {fileID: 11400000, guid: 4117c5d5e1cba064caf61c011d3da410, type: 2}
   - {fileID: 11400000, guid: a52626ce362f42f49bea0befaee70a1c, type: 2}
   - {fileID: 11400000, guid: 48d0b8389a8c9b447b86f2dfb36e6370, type: 2}
   - {fileID: 11400000, guid: 936b1b6fc2478fc4995ea2f29f8ba6c4, type: 2}

@@ -98,7 +98,8 @@ public class Projectile : MonoBehaviour
 
         if (_shooterCreature != null)
             if (_shooterCreature.Team == battleEntity.Team) return false;
-        // HERE: turret could have team too...
+        if (_shooterTurret != null)
+            if (_shooterTurret.Team == battleEntity.Team) return false;
 
         return true;
     }

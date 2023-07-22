@@ -1,10 +1,10 @@
-.storey-turrets__main {
+.storey-turret__main {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.58);
 }
 
-.storey-turrets__content {
+.storey-turret__content {
     align-items: flex-start;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
     width: 80%;
@@ -17,32 +17,32 @@
     padding-top: 50px;
 }
 
-.storey-turrets__arrow-top {
+.storey-turret__arrow-top {
     -unity-text-align: middle-center;
     rotate: -30deg;
 }
 
-.storey-turrets__arrow-bottom {
+.storey-turret__arrow-bottom {
     -unity-text-align: middle-right;
     rotate: 30deg;
 }
 
-.storey-turrets__title {
-    max-width: 150px;
+.storey-turret__title {
+    width: 100%;
     -unity-text-align: middle-center;
     font-size: 24px;
     white-space: normal;
 }
 
-.storey-turrets__tree-container {
+.storey-turret__tree-container {
     flex-direction: row;
 }
 
-.storey-turrets__arrow-label {
+.storey-turret__arrow-label {
     -unity-text-align: middle-center;
 }
 
-.storey-turrets__button-container {
+.storey-turret__button-container {
     flex-direction: row;
     width: 100%;
     justify-content: space-around;

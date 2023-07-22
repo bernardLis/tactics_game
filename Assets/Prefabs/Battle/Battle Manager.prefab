@@ -234,7 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66082d70c2944ea23bc781f482ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _earthTurretOriginal: {fileID: 11400000, guid: f6068dfb486faa34882d832c3cabd2c1, type: 2}
-  _fireTurretOriginal: {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
-  _waterTurretOriginal: {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
-  _windTurretOriginal: {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
+  _allTurretsOriginal:
+  - {fileID: 11400000, guid: f6068dfb486faa34882d832c3cabd2c1, type: 2}
+  - {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
+  - {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
+  - {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}

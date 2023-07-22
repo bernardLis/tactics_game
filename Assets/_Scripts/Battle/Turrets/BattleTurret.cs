@@ -13,6 +13,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] Projectile _projectilePrefab;
     [SerializeField] GameObject _GFX;
 
+    public int Team { get; private set; }
     public Turret Turret { get; private set; }
 
     BattleEntity _target;
@@ -29,6 +30,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Turret = turret;
         Turret.OnTurretUpgradePurchased += UpdateGFX;
         UpdateGFX();
+        Team = 0; // HERE: turret team
 
         _runTurretCoroutine = RunTurret();
         StartCoroutine(_runTurretCoroutine);

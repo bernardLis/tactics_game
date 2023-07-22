@@ -29,6 +29,11 @@ public class Turret : BaseScriptableObject
         return TurretUpgrades[CurrentTurretUpgradeIndex];
     }
 
+    public void PurchaseSpecialUpgrade()
+    {
+        //HERE: turret special ugprade
+    }
+
     public void IncreaseKillCount()
     {
         _killCount++;

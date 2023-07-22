@@ -23,4 +23,9 @@ public class StoreyUpgradeTree : BaseScriptableObject
         CurrentValue = ScriptableObject.CreateInstance<IntVariable>();
         CurrentValue.SetValue(Nodes[CurrentNodeIndex].Value);
     }
+
+    public StoreyUpgrade GetCurrentNode()
+    {
+        return Nodes[CurrentNodeIndex];
+    }
 }

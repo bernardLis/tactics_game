@@ -8,19 +8,27 @@ public class TurretStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
 {
     GameManager _gameManager;
     BattleManager _battleManager;
+    BattleTurretsManager _battleTurretsManager;
     BattleTooltipManager _tooltipManager;
 
     Spire _base;
-    StoreyTurretsElement _storeyTurretsElement;
+    StoreyTurret _storeyTurret;
+    StoreyTurretElement _storeyTurretElement;
+
+    [SerializeField] Element _element;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
+        _battleTurretsManager = _battleManager.GetComponent<BattleTurretsManager>();
+
+        _battleTurretsManager.InstantiateTurret(_element);
 
         _tooltipManager = BattleTooltipManager.Instance;
 
         _base = _gameManager.SelectedBattle.Spire;
+        _storeyTurret = _base.StoreyTurrets.Find(x => x.Element == _element);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -38,17 +46,17 @@ public class TurretStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     {
         Debug.Log("Turret upgrades");
 
-        _storeyTurretsElement = new(_base.StoreyTurrets);
-        _storeyTurretsElement.style.opacity = 0;
-        _battleManager.Root.Add(_storeyTurretsElement);
+        _storeyTurretElement = new(_storeyTurret);
+        _storeyTurretElement.style.opacity = 0;
+        _battleManager.Root.Add(_storeyTurretElement);
         _battleManager.PauseGame();
-        DOTween.To(x => _storeyTurretsElement.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+        DOTween.To(x => _storeyTurretElement.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
 
-        _storeyTurretsElement.OnClosed += () =>
+        _storeyTurretElement.OnClosed += () =>
         {
             _battleManager.ResumeGame();
-            _battleManager.Root.Remove(_storeyTurretsElement);
-            _storeyTurretsElement = null;
+            _battleManager.Root.Remove(_storeyTurretElement);
+            _storeyTurretElement = null;
         };
     }
 }
