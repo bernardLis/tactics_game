@@ -1315,6 +1315,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 8244998281391096318}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6041404735932410724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2430676998001584794, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 8244998281391096318}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd51d29965c9d04599a2fdc8a833c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8170272153511133696 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1335,9 +1346,10 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 735481989549ac2498a9f2cc095a601e, type: 2}
   _deathSound: {fileID: 11400000, guid: 100f40b8616cefa41867ba5b4b487323, type: 2}
-  _attackSound: {fileID: 11400000, guid: 9dceb739ef3ddb94ba3ff9dc538e0395, type: 2}
-  _specialAbilitySound: {fileID: 11400000, guid: 9c1f4bcac69b4df46b1144864bb2c24b, type: 2}
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
+  _teamHighlightDisc: {fileID: 6041404735932410724}
   IsShielded: 0
+  _attackSound: {fileID: 11400000, guid: 9dceb739ef3ddb94ba3ff9dc538e0395, type: 2}
+  _specialAbilitySound: {fileID: 11400000, guid: 9c1f4bcac69b4df46b1144864bb2c24b, type: 2}
   _shieldEffect: {fileID: 1895680990583707989, guid: 614d553abddeb664b9369fcbb7e532ac, type: 3}

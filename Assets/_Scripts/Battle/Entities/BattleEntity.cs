@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using MoreMountains.Feedbacks;
 using System.Linq;
 using UnityEngine.EventSystems;
+using Shapes;
 
 public class BattleEntity : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class BattleEntity : MonoBehaviour
     Material _material;
     Texture2D _emissionTexture;
     Color _defaultEmissionColor;
+    [SerializeField] Disc _teamHighlightDisc;
+
     public Animator Animator { get; private set; }
 
     public Entity Entity { get; private set; }
@@ -97,6 +100,12 @@ public class BattleEntity : MonoBehaviour
         _tooltipManager = BattleTooltipManager.Instance;
 
         Team = team;
+
+        _teamHighlightDisc.gameObject.SetActive(true);
+        Color highlightColor = Color.black;
+        if (Team == 0) highlightColor = new Color(0.53f, 0.72f, 1f, 0.2f);
+        if (Team == 1) highlightColor = new Color(1f, 0.72f, 0.53f, 0.2f);
+        _teamHighlightDisc.Color = highlightColor;
 
         BattleId = team + "_" + Helpers.ParseScriptableObjectCloneName(Entity.name)
                  + "_" + Helpers.GetRandomNumber(4);
@@ -268,6 +277,8 @@ public class BattleEntity : MonoBehaviour
         EntityLog.Add($"{Time.time}: Entity dies.");
 
         OnDeath?.Invoke(this, attacker, ability);
+
+        _teamHighlightDisc.gameObject.SetActive(false);
 
         Animator.SetTrigger("Die");
 

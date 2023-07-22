@@ -23,7 +23,6 @@ public class BattleLivesManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"collision: {collision.gameObject.name}");
         if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == 0) return;

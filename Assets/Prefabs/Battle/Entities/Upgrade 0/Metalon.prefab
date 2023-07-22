@@ -1724,13 +1724,24 @@ PrefabInstance:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 1266497902482617696}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1283830976017516023}
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+--- !u!114 &968730851549061510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2430676998001584794, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 3227638692538731292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd51d29965c9d04599a2fdc8a833c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3441978505357297890 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1751,11 +1762,12 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: ddcd213015c1c2c4da3616b9ce6c1522, type: 2}
   _deathSound: {fileID: 11400000, guid: 55917a66746165448925f78c726a9171, type: 2}
-  _attackSound: {fileID: 11400000, guid: 1af641eabd0578b4c83f69bb6f0cdc33, type: 2}
-  _specialAbilitySound: {fileID: 11400000, guid: 613472c95e3f23541b0e299f7387d803, type: 2}
   _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
+  _teamHighlightDisc: {fileID: 968730851549061510}
   IsShielded: 0
+  _attackSound: {fileID: 11400000, guid: 1af641eabd0578b4c83f69bb6f0cdc33, type: 2}
+  _specialAbilitySound: {fileID: 11400000, guid: 613472c95e3f23541b0e299f7387d803, type: 2}
   _specialEffectRadius: 5
 --- !u!4 &8724560309207090596 stripped
 Transform:

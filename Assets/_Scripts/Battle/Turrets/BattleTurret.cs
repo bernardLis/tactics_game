@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-public class BattleTurret : MonoBehaviour
+using UnityEngine.EventSystems;
+using Shapes;
+
+public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     BattleManager _battleManager;
+
+    [SerializeField] GameObject _rangeIndicator;
 
     BattleEntity _target;
     public float Range = 20f;
@@ -18,6 +23,19 @@ public class BattleTurret : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _runTurretCoroutine = RunTurret();
         StartCoroutine(_runTurretCoroutine);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _rangeIndicator.GetComponent<Disc>().Radius = Range;
+        // HERE: team color
+        //
+        _rangeIndicator.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _rangeIndicator.SetActive(false);
     }
 
     IEnumerator RunTurret()

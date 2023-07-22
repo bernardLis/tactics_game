@@ -103,7 +103,11 @@ public class BattleWaveManager : MonoBehaviour
     {
         be.transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
-                .OnComplete(() => Destroy(be.gameObject));
+                .OnComplete(() =>
+                {
+                    be.transform.DOKill();
+                    Destroy(be.gameObject);
+                });
     }
 
 
