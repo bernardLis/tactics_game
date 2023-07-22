@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _GFX
       value: 
       objectReference: {fileID: 8893603611916467334}
+    - target: {fileID: 2666157909072214098, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 4920841919012851782, guid: a250f3ee435146848b6751d29e62b925, type: 3}
     - target: {fileID: 6572836612390651302, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
       propertyPath: m_Name
       value: Fire Turret

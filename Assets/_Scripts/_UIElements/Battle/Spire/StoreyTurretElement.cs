@@ -21,7 +21,8 @@ public class StoreyTurretElement : VisualElement
     StoreyTurret _storey;
 
     VisualElement _content;
-    Label _title;
+    Label _statsLabel;
+    Label _killCountLabel;
     Turret _turret;
 
     StoreyUpgradeTreeElement _turretUpgradeTreeElement;
@@ -51,14 +52,25 @@ public class StoreyTurretElement : VisualElement
         _content.AddToClassList(_ussContent);
         Add(_content);
 
-        _title = new();
-        _title.text = $"{storey.Element.ElementName} turret. Range: {_turret.GetCurrentUpgrade().Range}, power: {_turret.GetCurrentUpgrade().Power}, rate of fire: {_turret.GetCurrentUpgrade().RateOfFire}";
-        _title.AddToClassList(_ussTitle);
-        _content.Add(_title);
+        Label title = new();
+        title.AddToClassList(_ussTitle);
+        title.text = $"{_storey.Element.ElementName} turret.";
+        _content.Add(title);
+
+        _statsLabel = new();
+        _statsLabel.AddToClassList(_ussTitle);
+        _content.Add(_statsLabel);
+        UpdateStats();
+
+        _killCountLabel = new();
+        _killCountLabel.AddToClassList(_ussTitle);
+        _content.Add(_killCountLabel);
+        _killCountLabel.text = $"Kill count: {_turret.KillCount}";
 
         _turretUpgradeTreeElement = new(_storey.TurretUpgradeTree);
         _turretUpgradeTreeElement.OnUpgradePurchased += TurretUpgradePurchased;
         _content.Add(_turretUpgradeTreeElement);
+        AddStatComparisonOnUpgradeHover();
 
         _specialUpgrade = new(_storey.SpecialUpgrade);
         _specialUpgrade.OnPurchased += SpecialUpgradePurchased;
@@ -68,15 +80,42 @@ public class StoreyTurretElement : VisualElement
         _content.Add(continueButton);
     }
 
+    void UpdateStats()
+    {
+        _statsLabel.text = $"Range: {_turret.GetCurrentUpgrade().Range}, Power: {_turret.GetCurrentUpgrade().Power}, Rate of Fire: {_turret.GetCurrentUpgrade().RateOfFire}";
+    }
+
+    void AddStatComparisonOnUpgradeHover()
+    {
+        foreach (StoreyUpgradeElement el in _turretUpgradeTreeElement.UpgradeElements)
+        {
+            el.RegisterCallback<PointerEnterEvent>(ev =>
+            {
+                if (el.StoreyUpgrade == null)
+                    return;
+                int index = _turretUpgradeTreeElement.UpgradeElements.IndexOf(el);
+                string r = $"Range: {_turret.TurretUpgrades[index].Range}";
+                string p = $", Power: {_turret.TurretUpgrades[index].Power}";
+                string f = $", Rate of Fire: {_turret.TurretUpgrades[index].RateOfFire}";
+                _statsLabel.text = r + p + f;
+            });
+
+            el.RegisterCallback<PointerLeaveEvent>(ev =>
+            {
+                UpdateStats();
+            });
+        }
+    }
+
     void TurretUpgradePurchased(StoreyUpgrade storeyUpgrade)
     {
         _battleTurretsManager.UpgradeTurret(_storey.Element);
+        UpdateStats();
     }
 
     void SpecialUpgradePurchased(StoreyUpgrade storeyUpgrade)
     {
         _battleTurretsManager.SpecialUpgradePurchased(_storey.Element);
-
     }
 
     void Close()

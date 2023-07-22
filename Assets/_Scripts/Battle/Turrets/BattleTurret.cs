@@ -89,7 +89,6 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void FireProjectile()
     {
-        Debug.Log($"pew pew");
         Projectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectileInstance.transform.parent = transform;
         projectileInstance.Shoot(this, _target, Turret.GetCurrentUpgrade().Power);

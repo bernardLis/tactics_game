@@ -14,7 +14,7 @@ public class StoreyUpgradeTreeElement : VisualElement
 
     StoreyUpgradeTree _tree;
 
-    List<StoreyUpgradeElement> _upgradeElements = new();
+    public List<StoreyUpgradeElement> UpgradeElements = new();
 
     public event Action<StoreyUpgrade> OnUpgradePurchased;
     public StoreyUpgradeTreeElement(StoreyUpgradeTree tree)
@@ -44,7 +44,7 @@ public class StoreyUpgradeTreeElement : VisualElement
 
             StoreyUpgradeElement el = new(_tree.Nodes[i]);
             Add(el);
-            _upgradeElements.Add(el);
+            UpgradeElements.Add(el);
 
             el.OnPurchased += NodePurchased;
 
@@ -55,13 +55,13 @@ public class StoreyUpgradeTreeElement : VisualElement
 
     void NodePurchased(StoreyUpgrade storeyUpgrade)
     {
-        _upgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(false);
+        UpgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(false);
 
         _tree.CurrentValue.SetValue(_tree.Nodes[_tree.CurrentNodeIndex + 1].Value);
         _tree.CurrentNodeIndex++;
 
         if (_tree.CurrentNodeIndex < _tree.Nodes.Count - 1)
-            _upgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(true);
+            UpgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(true);
 
         OnUpgradePurchased?.Invoke(storeyUpgrade);
     }

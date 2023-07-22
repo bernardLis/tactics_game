@@ -36,12 +36,12 @@ public class BattleTurretsManager : MonoBehaviour
 
     public Turret GetTurret(Element element)
     {
-        foreach (Turret t in _allTurretsOriginal)
+        foreach (BattleTurret t in _turretInstances)
         {
-            if (t.Element != element)
+            if (t.Turret.Element != element)
                 continue;
 
-            return t;
+            return t.Turret;
         }
 
         return null;

@@ -13,7 +13,7 @@ public class Turret : BaseScriptableObject
     public TurretUpgrade[] TurretUpgrades;
     public int CurrentTurretUpgradeIndex;
 
-    int _killCount;
+    public int KillCount;
 
     public GameObject Prefab;
 
@@ -36,7 +36,8 @@ public class Turret : BaseScriptableObject
 
     public void IncreaseKillCount()
     {
-        _killCount++;
+        Debug.Log($"kk {KillCount}");
+        KillCount++;
     }
 }
 
