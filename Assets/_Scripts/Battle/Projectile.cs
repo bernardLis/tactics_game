@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
         _audioManager.PlaySFX(_shootSound, transform.position);
         _shooterTurret = shooter;
         _target = target;
-        StartCoroutine(ShootCoroutine(shooter.Range, target, power));
+        StartCoroutine(ShootCoroutine(shooter.Turret.GetCurrentUpgrade().Range, target, power));
     }
 
     IEnumerator ShootCoroutine(float range, BattleEntity target, float power)

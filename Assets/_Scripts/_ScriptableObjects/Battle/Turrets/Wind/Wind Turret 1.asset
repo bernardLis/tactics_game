@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067c1bf914cf2714995164313212ebae, type: 3}
+  m_Name: Wind Turret 1
+  m_EditorClassIdentifier: 
+  Id: 96c2a69f-06ee-4e64-ae07-28dff8825c9e
+  Range: 7
+  Power: 4
+  RateOfFire: 2
+  GFXPrefab: {fileID: 1865379716769745145, guid: b3cbd036cc4d1a146ac0e0e3fd5001fc, type: 3}

@@ -10,11 +10,14 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     BattleManager _battleManager;
 
     [SerializeField] GameObject _rangeIndicator;
+    [SerializeField] Projectile _projectilePrefab;
+    [SerializeField] GameObject _GFX;
+
+    int _team;
+
+    public Turret Turret { get; private set; }
 
     BattleEntity _target;
-    public float Range = 20f;
-    [SerializeField] float _fireRate = 1f;
-    [SerializeField] Projectile _projectilePrefab;
 
     IEnumerator _runTurretCoroutine;
 
@@ -25,11 +28,28 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         StartCoroutine(_runTurretCoroutine);
     }
 
+    void Initialize(Turret turret)
+    {
+        _team = 0;
+        Turret = turret;
+        Turret.OnTurretUpgradePurchased += UpdateGFX;
+        UpdateGFX();
+    }
+
+    public void UpdateGFX()
+    {
+        // TODO: maybe some effect
+        if (_GFX != null) Destroy(_GFX);
+        _GFX = Instantiate(Turret.GetCurrentUpgrade().GFXPrefab, transform.position, Quaternion.identity);
+        _GFX.transform.parent = transform;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _rangeIndicator.GetComponent<Disc>().Radius = Range;
-        // HERE: team color
-        //
+        Disc d = _rangeIndicator.GetComponent<Disc>();
+        d.Radius = Turret.GetCurrentUpgrade().Range;
+        d.Color = new Color(0.53f, 0.72f, 1f, 0.2f); // HERE: team color
+
         _rangeIndicator.SetActive(true);
     }
 
@@ -42,7 +62,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         while (true)
         {
-            yield return new WaitForSeconds(_fireRate);
+            yield return new WaitForSeconds(Turret.GetCurrentUpgrade().RateOfFire);
             ChooseNewTarget();
             if (_target == null) continue;
             FireProjectile();
@@ -58,7 +78,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             if (be.IsDead) continue;
             float distance = Vector3.Distance(transform.position, be.transform.position);
-            if (distance <= Range)
+            if (distance <= Turret.GetCurrentUpgrade().Range)
                 distances.Add(be, distance);
         }
 
@@ -72,7 +92,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Debug.Log($"pew pew");
         Projectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectileInstance.transform.parent = transform;
-        projectileInstance.GetComponent<Projectile>().Shoot(this, _target, 20);// HERE: projectile power
+        projectileInstance.Shoot(this, _target, Turret.GetCurrentUpgrade().Power);
     }
 
     public void Grabbed()

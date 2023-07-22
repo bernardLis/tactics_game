@@ -36,14 +36,7 @@ public class Entity : BaseScriptableObject
         if (attacker.Entity.Hero != null)
             damage += attacker.Entity.Hero.Power.GetValue();
 
-        float elementalDamageBonus = 1f;
-        if (Element.StrongAgainst == attacker.Entity.Element)
-            elementalDamageBonus = 0.5f;
-        if (Element.WeakAgainst == attacker.Entity.Element)
-            elementalDamageBonus = 1.5f;
-
-        elementalDamageBonus += _elementalDamageMultiplier;
-        damage *= elementalDamageBonus;
+        damage *= GetElementalDamageMultiplier(attacker.Entity.Element);
 
         damage -= Armor;
         if (damage < 0)
@@ -55,10 +48,8 @@ public class Entity : BaseScriptableObject
     public int CalculateDamage(Ability ability)
     {
         float damage = ability.GetPower();
-        if (Element.StrongAgainst == ability.Element)
-            damage *= 0.5f;
-        if (Element.WeakAgainst == ability.Element)
-            damage *= 1.5f;
+
+        damage *= GetElementalDamageMultiplier(ability.Element);
 
         // abilities ignore armor
         return Mathf.RoundToInt(damage);
@@ -66,19 +57,25 @@ public class Entity : BaseScriptableObject
 
     public int CalculateDamage(BattleTurret bt)
     {
-        // HERE: turret damage/element implement it
-        /*
-        float damage = ability.GetPower();
+        float damage = bt.Turret.GetCurrentUpgrade().Power;
 
-        if (Element.StrongAgainst == ability.Element)
-            damage *= 0.5f;
-        if (Element.WeakAgainst == ability.Element)
-            damage *= 1.5f;
-*/
-        // abilities ignore armor
-        return Mathf.RoundToInt(20);
+        damage *= GetElementalDamageMultiplier(bt.Turret.Element);
+        damage -= Armor;
+        if (damage < 0)
+            damage = 0;
+
+        return Mathf.RoundToInt(damage);
     }
 
+    float GetElementalDamageMultiplier(Element attackerElement)
+    {
+        float elementalDamageBonus = 1f;
+        if (Element.StrongAgainst == attackerElement)
+            elementalDamageBonus = 0.5f;
+        if (Element.WeakAgainst == attackerElement)
+            elementalDamageBonus = 1.5f;
 
-
+        elementalDamageBonus += _elementalDamageMultiplier;
+        return elementalDamageBonus;
+    }
 }

@@ -8,7 +8,7 @@ public class TurretUpgrade : BaseScriptableObject
     public float Range;
     public float Power;
     public float RateOfFire;
-    public GameObject Prefab;
+    public GameObject GFXPrefab;
 }
 
 

@@ -201,11 +201,11 @@ public class BattleEntity : MonoBehaviour
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {turret.name}");
 
-        BaseGetHit(Entity.CalculateDamage(turret), Color.magenta); // HERE: turret element color
+        BaseGetHit(Entity.CalculateDamage(turret), turret.Turret.Element.Color);
 
         if (CurrentHealth <= 0)
         {
-            //   turret.IncreaseKillCount(); // HERE: turret kill count
+            turret.Turret.IncreaseKillCount();
             yield return Die(); // start coroutine because I call stop all coroutines in base hit
             yield break;
         }

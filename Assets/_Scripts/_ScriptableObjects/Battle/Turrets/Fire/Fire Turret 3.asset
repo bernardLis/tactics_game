@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067c1bf914cf2714995164313212ebae, type: 3}
+  m_Name: Fire Turret 3
+  m_EditorClassIdentifier: 
+  Id: 351112b2-6903-42a1-850d-7d65be95971d
+  Range: 15
+  Power: 7
+  RateOfFire: 2
+  GFXPrefab: {fileID: 1865379716769745145, guid: 439d49c6b1f174b4aa974b68f1dcbcfa, type: 3}
