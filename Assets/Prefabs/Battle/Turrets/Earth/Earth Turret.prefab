@@ -8,21 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2666157909072214098, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
-      propertyPath: _GFX
-      value: 
-      objectReference: {fileID: 4953445107088961036}
-    - target: {fileID: 2666157909072214098, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
-      propertyPath: _projectilePrefab
-      value: 
-      objectReference: {fileID: 5838336094007469816, guid: 0a05600f2739b604a9c00ac998f4aa66, type: 3}
     - target: {fileID: 6572836612390651302, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
       propertyPath: m_Name
       value: Earth Turret
       objectReference: {fileID: 0}
     - target: {fileID: 8238409355216126954, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8238409355216126954, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
       propertyPath: m_LocalPosition.x
@@ -69,8 +61,3 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
---- !u!1 &4953445107088961036 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2961916609564200181, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
-  m_PrefabInstance: {fileID: 7900716045462692601}
-  m_PrefabAsset: {fileID: 0}

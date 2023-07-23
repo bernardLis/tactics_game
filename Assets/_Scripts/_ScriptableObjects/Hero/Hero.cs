@@ -104,7 +104,6 @@ public class Hero : BaseScriptableObject
 
     public void LevelUpReady()
     {
-        Debug.Log($"level up ready on level: {Level}");
         _levelUpReady = true;
         AudioManager.Instance.PlayUI("Level Up");
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class SpireUpgradeElement : ElementWithTooltip
     Storey _storey;
 
     PurchaseButton _purchaseButton;
+
+    public event Action OnPurchased;
     public SpireUpgradeElement(Storey storey)
     {
         _gameManager = GameManager.Instance;
@@ -42,6 +45,7 @@ public class SpireUpgradeElement : ElementWithTooltip
     void Purchased()
     {
         _storey.Purchased();
+        OnPurchased?.Invoke();
     }
 
     protected override void DisplayTooltip()

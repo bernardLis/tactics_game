@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 9037198521051735104}
   - component: {fileID: 8300005922033865725}
   - component: {fileID: 4810545558572652240}
-  - component: {fileID: 5375851267845280565}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -222,20 +221,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd236773358092c4b8664dc1a4ce4a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5375851267845280565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7be66082d70c2944ea23bc781f482ee0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _allTurretsOriginal:
-  - {fileID: 11400000, guid: f6068dfb486faa34882d832c3cabd2c1, type: 2}
-  - {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
-  - {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
-  - {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}

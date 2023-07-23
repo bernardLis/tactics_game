@@ -177,8 +177,12 @@ public class BattleManager : Singleton<BattleManager>
         PlayerEntities.Remove(be);
         OnPlayerEntityDeath?.Invoke(be);
         be.transform.DOMoveY(-1, 10f)
-            .OnComplete(() => Destroy(be.gameObject));
-
+                .SetDelay(3f)
+                .OnComplete(() =>
+                {
+                    be.transform.DOKill();
+                    Destroy(be.gameObject);
+                });
     }
 
     void OnOpponentDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
@@ -187,7 +191,12 @@ public class BattleManager : Singleton<BattleManager>
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(be);
         be.transform.DOMoveY(-1, 10f)
-            .OnComplete(() => Destroy(be.gameObject));
+                .SetDelay(3f)
+                .OnComplete(() =>
+                {
+                    be.transform.DOKill();
+                    Destroy(be.gameObject);
+                });
 
         // TODO: price for experience
         if (killer is BattleCreature)

@@ -8,27 +8,26 @@ public class TurretStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    BattleTurretsManager _battleTurretsManager;
+    BattleGrabManager _battleGrabManager;
     BattleTooltipManager _tooltipManager;
 
-    Spire _base;
     StoreyTurret _storeyTurret;
+    BattleTurret _battleTurret;
     StoreyTurretElement _storeyTurretElement;
-
-    [SerializeField] Element _element;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        _battleTurretsManager = _battleManager.GetComponent<BattleTurretsManager>();
-
-        _battleTurretsManager.InstantiateTurret(_element);
+        _battleGrabManager = BattleGrabManager.Instance;
 
         _tooltipManager = BattleTooltipManager.Instance;
+    }
 
-        _base = _gameManager.SelectedBattle.Spire;
-        _storeyTurret = _base.StoreyTurrets.Find(x => x.Element == _element);
+    public void Initialize(StoreyTurret storeyTurret)
+    {
+        _storeyTurret = storeyTurret;
+        _battleTurret = GetComponent<BattleTurret>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -44,9 +43,10 @@ public class TurretStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (_battleGrabManager.IsGrabbingEnabled) return;
         Debug.Log("Turret upgrades");
 
-        _storeyTurretElement = new(_storeyTurret);
+        _storeyTurretElement = new(_storeyTurret, _battleTurret);
         _storeyTurretElement.style.opacity = 0;
         _battleManager.Root.Add(_storeyTurretElement);
         _battleManager.PauseGame();

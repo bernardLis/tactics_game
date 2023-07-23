@@ -129,7 +129,7 @@ public class BattlePickup : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 {
                     if (this == null) return;
                     gameObject.SetActive(false);
-                    Destroy(gameObject, 1f);
+                    //HERE: dotween errors Destroy(gameObject, 1f);
                 });
 
         DisplayFloatingText(Pickup.GetDisplayText(), Pickup.GetDisplayColor());

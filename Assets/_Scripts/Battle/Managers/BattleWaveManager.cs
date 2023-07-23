@@ -94,22 +94,7 @@ public class BattleWaveManager : MonoBehaviour
     void OnEntitySpawnComplete(List<BattleEntity> list)
     {
         _battleManager.AddOpponentArmyEntities(list);
-
-        foreach (BattleEntity be in list)
-            be.OnDeath += ClearBody;
     }
-
-    void ClearBody(BattleEntity be, BattleEntity killer, Ability ability)
-    {
-        be.transform.DOMoveY(-1, 10f)
-                .SetDelay(3f)
-                .OnComplete(() =>
-                {
-                    be.transform.DOKill();
-                    Destroy(be.gameObject);
-                });
-    }
-
 
     void UpdateWaveLabel()
     {

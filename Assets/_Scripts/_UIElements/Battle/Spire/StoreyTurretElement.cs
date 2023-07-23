@@ -16,9 +16,9 @@ public class StoreyTurretElement : VisualElement
 
     GameManager _gameManager;
     BattleManager _battleManager;
-    BattleTurretsManager _battleTurretsManager;
 
     StoreyTurret _storey;
+    BattleTurret _battleTurret;
 
     VisualElement _content;
     Label _statsLabel;
@@ -29,7 +29,7 @@ public class StoreyTurretElement : VisualElement
     StoreyUpgradeElement _specialUpgrade;
 
     public event Action OnClosed;
-    public StoreyTurretElement(StoreyTurret storey)
+    public StoreyTurretElement(StoreyTurret storey, BattleTurret battleTurret)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -40,14 +40,14 @@ public class StoreyTurretElement : VisualElement
             styleSheets.Add(ss);
 
         _battleManager = BattleManager.Instance;
-        _battleTurretsManager = _battleManager.GetComponent<BattleTurretsManager>();
-        _turret = _battleTurretsManager.GetTurret(storey.Element);
 
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
         _storey = storey;
-
+        _battleTurret = battleTurret;
+        _turret = _battleTurret.Turret;
+        
         _content = new();
         _content.AddToClassList(_ussContent);
         Add(_content);
@@ -109,13 +109,13 @@ public class StoreyTurretElement : VisualElement
 
     void TurretUpgradePurchased(StoreyUpgrade storeyUpgrade)
     {
-        _battleTurretsManager.UpgradeTurret(_storey.Element);
+        _battleTurret.Turret.PurchaseUpgrade();
         UpdateStats();
     }
 
     void SpecialUpgradePurchased(StoreyUpgrade storeyUpgrade)
     {
-        _battleTurretsManager.SpecialUpgradePurchased(_storey.Element);
+        _battleTurret.Turret.PurchaseSpecialUpgrade();
     }
 
     void Close()

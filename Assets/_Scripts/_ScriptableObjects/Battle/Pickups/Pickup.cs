@@ -33,7 +33,7 @@ public class Pickup : BaseScriptableObject
 
         SelectPrize(roll);
 
-        Debug.Log($"Initializing pickup {name}, roll: {roll}, gold: {Gold}, spice: {Spice}, item: {Item}");
+        //   Debug.Log($"Initializing pickup {name}, roll: {roll}, gold: {Gold}, spice: {Spice}, item: {Item}");
     }
 
     void SelectPrize(float v)

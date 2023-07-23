@@ -36,7 +36,6 @@ public class Turret : BaseScriptableObject
 
     public void IncreaseKillCount()
     {
-        Debug.Log($"kk {KillCount}");
         KillCount++;
     }
 }

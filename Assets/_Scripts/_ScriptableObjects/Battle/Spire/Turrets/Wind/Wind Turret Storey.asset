@@ -18,6 +18,7 @@ MonoBehaviour:
   IsPurchased: 0
   Cost: 1000
   Prefab: {fileID: 143198231500213843, guid: abd2c78ac28a04347a4d8c7252b99029, type: 3}
+  TurretOriginal: {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   TurretUpgradeTree: {fileID: 11400000, guid: a330641800aede34291362fc56d4b16c, type: 2}
   SpecialUpgradeOriginal: {fileID: 11400000, guid: 3f6c7520232262940b72ea2b6d35674e, type: 2}

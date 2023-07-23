@@ -40,6 +40,7 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
         if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;
 
         _spireElement = new SpireElement(_spire);
+        _spireElement.OnStoreyPurchased += ResolveStoreyPurchased;
         _spireElement.style.opacity = 0;
         _battleManager.Root.Add(_spireElement);
         _battleManager.PauseGame();
@@ -52,4 +53,26 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
             _spireElement = null;
         };
     }
+
+    void ResolveStoreyPurchased(Storey storey)
+    {
+        if (storey is StoreyTurret)
+        {
+            StoreyTurret st = storey as StoreyTurret;
+            InstantiateTurret(st);
+        }
+    }
+
+    public BattleTurret InstantiateTurret(StoreyTurret st)
+    {
+        Turret scriptableObjectInstance = Instantiate(st.TurretOriginal);
+        GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
+        gameObjectInstance.GetComponent<TurretStoreyManager>().Initialize(st);
+        BattleTurret instance = gameObjectInstance.GetComponent<BattleTurret>();
+        instance.Initialize(scriptableObjectInstance);
+
+        gameObjectInstance.transform.position = new Vector3(0, 0, 2);
+        return instance;
+    }
+
 }

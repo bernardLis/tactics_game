@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6670423812797630322}
   - component: {fileID: 2387225478919650417}
   - component: {fileID: 2666157909072214098}
+  - component: {fileID: 8362938376932142992}
   - component: {fileID: 237454697783194951}
   m_Layer: 0
   m_Name: Base Turret
@@ -35,7 +36,7 @@ Transform:
   - {fileID: 3451428614615642196}
   - {fileID: 2448250585648817154}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &6670423812797630322
 CapsuleCollider:
@@ -89,9 +90,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rangeIndicator: {fileID: 7405863077029358783}
-  Range: 20
-  _fireRate: 1
-  _projectilePrefab: {fileID: 5476634874921852733, guid: 165bd481ee1e0754c8a981b866f6ecbb, type: 3}
+  _projectilePrefab: {fileID: 5838336094007469816, guid: 0a05600f2739b604a9c00ac998f4aa66, type: 3}
+  _GFX: {fileID: 2961916609564200181}
+--- !u!114 &8362938376932142992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6572836612390651302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35f090fbfe33b4409bae0748c2cbb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _element: {fileID: 0}
 --- !u!114 &237454697783194951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,6 +312,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 658699968cba0ad48a1f7870ad5a306e, type: 3}
+--- !u!1 &2961916609564200181 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1865379716769745145, guid: 658699968cba0ad48a1f7870ad5a306e, type: 3}
+  m_PrefabInstance: {fileID: 3529132771494642700}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3451428614615642196 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2241683788761953368, guid: 658699968cba0ad48a1f7870ad5a306e, type: 3}

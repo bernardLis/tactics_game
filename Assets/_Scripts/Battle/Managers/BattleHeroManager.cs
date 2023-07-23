@@ -52,7 +52,6 @@ public class BattleHeroManager : MonoBehaviour
 
         rewardElement.OnContinueClicked += () =>
         {
-            Debug.Log($"continue clicked");
             _battleManager.ResumeGame();
             _root.Remove(rewardElement);
             _root.Remove(blackout);

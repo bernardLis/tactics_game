@@ -30,13 +30,11 @@ public class Storey : BaseScriptableObject
         instance.transform.parent = storeyObject.transform;
     }
 
-    public void Purchased()
+    public virtual void Purchased()
     {
         IsPurchased = true;
         InitializeBattle();
     }
-
-
 }
 
 

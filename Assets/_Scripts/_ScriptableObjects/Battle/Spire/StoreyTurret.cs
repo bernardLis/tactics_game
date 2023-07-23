@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Spire/Storey Turret")]
 public class StoreyTurret : Storey
 {
+    public Turret TurretOriginal;
+
     public Element Element;
     public StoreyUpgradeTree TurretUpgradeTree;
 
@@ -17,5 +19,10 @@ public class StoreyTurret : Storey
         SpecialUpgrade = Instantiate(SpecialUpgradeOriginal);
 
         base.Initialize();
+    }
+
+    public override void Purchased()
+    {
+        IsPurchased = true;
     }
 }

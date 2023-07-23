@@ -21,8 +21,8 @@ public class SpireElement : VisualElement
 
     VisualElement _content;
 
+    public event Action<Storey> OnStoreyPurchased;
     public event Action OnClosed;
-
     public SpireElement(Spire spire)
     {
         _gameManager = GameManager.Instance;
@@ -68,6 +68,7 @@ public class SpireElement : VisualElement
         foreach (Storey upg in _spire.Storeys)
         {
             SpireUpgradeElement upgElement = new SpireUpgradeElement(upg);
+            upgElement.OnPurchased += () => OnStoreyPurchased?.Invoke(upg);
             upgradesContainer.Add(upgElement);
         }
     }
