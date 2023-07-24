@@ -106,7 +106,7 @@ public class BattleMinimapManager : MonoBehaviour
 
     void AddCurrentEntities()
     {
-        foreach (BattleEntity be in _battleManager.PlayerEntities)
+        foreach (BattleEntity be in _battleManager.PlayerCreatures)
             AddEntity(be);
         foreach (BattleEntity be in _battleManager.OpponentEntities)
             AddEntity(be);

@@ -35,7 +35,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsTimerOn { get; private set; }
 
-    public List<BattleEntity> PlayerEntities = new();
+    public List<BattleEntity> PlayerCreatures = new();
     public List<BattleEntity> OpponentEntities = new();
 
     public List<BattleEntity> KilledPlayerEntities = new();
@@ -150,8 +150,8 @@ public class BattleManager : Singleton<BattleManager>
 
         b.InitializeBattle(0, ref OpponentEntities);
         b.gameObject.layer = 10;
-        PlayerEntities.Add(b);
-        b.OnDeath += OnPlayerDeath;
+        PlayerCreatures.Add(b);
+        b.OnDeath += OnPlayerCreatureDeath;
         if (b is BattleCreature)
             OnPlayerCreatureAdded?.Invoke((BattleCreature)b);
     }
@@ -166,17 +166,18 @@ public class BattleManager : Singleton<BattleManager>
     {
         b.transform.parent = EntityHolder;
 
-        b.InitializeBattle(1, ref PlayerEntities);
+        b.InitializeBattle(1, ref PlayerCreatures);
         b.gameObject.layer = 11;
         OpponentEntities.Add(b);
         b.OnDeath += OnOpponentDeath;
         OnOpponentEntityAdded?.Invoke(b);
     }
 
-    void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
+    void OnPlayerCreatureDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
     {
         KilledPlayerEntities.Add(be);
-        PlayerEntities.Remove(be);
+        PlayerCreatures.Remove(be);
+        _gameManager.PlayerHero.RemoveCreature((Creature)be.Entity);
         OnPlayerEntityDeath?.Invoke(be);
         be.transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
@@ -214,7 +215,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<BattleEntity> GetAllies(BattleEntity battleEntity)
     {
-        if (battleEntity.Team == 0) return PlayerEntities;
+        if (battleEntity.Team == 0) return PlayerCreatures;
         //if (battleEntity.Team == 1) 
         return OpponentEntities;
     }
@@ -268,7 +269,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void ClearAllEntities()
     {
-        PlayerEntities.Clear();
+        PlayerCreatures.Clear();
         OpponentEntities.Clear();
         foreach (Transform child in EntityHolder.transform)
         {

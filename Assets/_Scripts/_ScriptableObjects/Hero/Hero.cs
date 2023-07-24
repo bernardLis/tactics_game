@@ -52,6 +52,7 @@ public class Hero : BaseScriptableObject
     public event Action<Item> OnItemAdded;
     public event Action<HeroRank> OnRankChanged;
     public event Action<Creature> OnCreatureAdded;
+    public event Action<Creature> OnCreatureRemoved;
 
     public IntVariable CurrentMana;
     public void BattleInitialize()
@@ -71,6 +72,7 @@ public class Hero : BaseScriptableObject
     {
         Debug.Log($"Hero {name} removes {creature}");
         CreatureArmy.Remove(creature);
+        OnCreatureRemoved?.Invoke(creature);
     }
 
     public int GetExpForNextLevel()
