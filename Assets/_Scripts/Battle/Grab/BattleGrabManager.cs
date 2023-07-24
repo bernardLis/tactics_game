@@ -52,7 +52,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         VisualElement container = _root.Q(className: _ussAbilityContainer);
-        _grabButton = new(_grabAbility, "g");
+        _grabButton = new(_grabAbility, "G");
         _grabButton.RegisterCallback<PointerDownEvent>(evt => ToggleGrabbing());
         container.Add(_grabButton);
     }

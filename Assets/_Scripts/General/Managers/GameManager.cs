@@ -30,6 +30,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Gold { get; private set; }
     public int Spice { get; private set; }
 
+    public static Color PlayerTeamColor = Color.blue;
+    public static Color OpponentTeamColor = Color.red;
+
     public Hero PlayerHero;
     public Hero OverseerHero;
     public Hero RivalHero;
@@ -77,6 +80,17 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         LoadScene(Scenes.Battle);
     }
+
+    public void ChangePlayerTeamColor(Color col)
+    {
+        PlayerTeamColor = col;
+    }
+
+    public void ChangeOpponentTeamColor(Color col)
+    {
+        OpponentTeamColor = col;
+    }
+
 
     /* RESOURCES */
     public void ChangeGoldValue(int o)

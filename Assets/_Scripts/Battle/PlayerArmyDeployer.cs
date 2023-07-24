@@ -108,7 +108,6 @@ public class PlayerArmyDeployer : MonoBehaviour
         StartCoroutine(UpdatePortalPosition());
     }
 
-    // TODO: does it stop?
     IEnumerator UpdatePortalPosition()
     {
         while (_creatureSpawnerInstance != null)

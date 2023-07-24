@@ -48,7 +48,10 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         Disc d = _rangeIndicator.GetComponent<Disc>();
         d.Radius = Turret.GetCurrentUpgrade().Range;
-        d.Color = new Color(0.53f, 0.72f, 1f, 0.2f); // HERE: team color
+        
+        Color c = GameManager.PlayerTeamColor;
+        c.a = 0.3f;
+        d.Color = c;
 
         _rangeIndicator.SetActive(true);
     }
