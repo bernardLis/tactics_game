@@ -56,7 +56,6 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
     void Start()
     {
-
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
@@ -115,6 +114,9 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         _playerInput.actions["RotateCamera"].performed += RotateCamera;
         _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
         _playerInput.actions["CameraDefaultPosition"].performed += MoveCameraToDefaultPosition;
+        _playerInput.actions["RotateCameraLeft"].performed += RotateCameraLeft;
+        _playerInput.actions["RotateCameraRight"].performed += RotateCameraRight;
+
     }
 
     void UnsubscribeInputActions()
@@ -122,6 +124,8 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         _playerInput.actions["RotateCamera"].performed -= RotateCamera;
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
         _playerInput.actions["CameraDefaultPosition"].performed -= MoveCameraToDefaultPosition;
+        _playerInput.actions["RotateCameraLeft"].performed -= RotateCameraLeft;
+        _playerInput.actions["RotateCameraRight"].performed -= RotateCameraRight;
     }
 
     void UpdateVelocity()
@@ -182,6 +186,20 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
         float value = ctx.ReadValue<Vector2>().x;
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, value * _maxRotationSpeed + transform.eulerAngles.y, 0);
+        OnCameraRotated?.Invoke();
+    }
+
+    void RotateCameraLeft(InputAction.CallbackContext ctx)
+    {
+        if (this == null) return;
+        transform.DORotate(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y - 30f, 0f), 0.3f);
+        OnCameraRotated?.Invoke();
+    }
+
+    void RotateCameraRight(InputAction.CallbackContext ctx)
+    {
+        if (this == null) return;
+        transform.DORotate(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 30f, 0f), 0.3f);
         OnCameraRotated?.Invoke();
     }
 

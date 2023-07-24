@@ -404,6 +404,24 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCameraLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCameraRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7632cdc4-b0c3-4d81-b53a-b41839ede095"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -659,6 +677,28 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""EnableGrabbing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a034da1d-a9ce-4db9-8888-2d3368259811"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""RotateCameraLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1be51cf8-af2c-412f-b141-a5e095da8cc2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""RotateCameraRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -710,6 +750,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_Continue = m_Battle.FindAction("Continue", throwIfNotFound: true);
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
+        m_Battle_RotateCameraLeft = m_Battle.FindAction("RotateCameraLeft", throwIfNotFound: true);
+        m_Battle_RotateCameraRight = m_Battle.FindAction("RotateCameraRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -903,6 +945,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_Continue;
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_EnableGrabbing;
+    private readonly InputAction m_Battle_RotateCameraLeft;
+    private readonly InputAction m_Battle_RotateCameraRight;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -921,6 +965,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Continue => m_Wrapper.m_Battle_Continue;
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
+        public InputAction @RotateCameraLeft => m_Wrapper.m_Battle_RotateCameraLeft;
+        public InputAction @RotateCameraRight => m_Wrapper.m_Battle_RotateCameraRight;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -972,6 +1018,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @EnableGrabbing.started += instance.OnEnableGrabbing;
             @EnableGrabbing.performed += instance.OnEnableGrabbing;
             @EnableGrabbing.canceled += instance.OnEnableGrabbing;
+            @RotateCameraLeft.started += instance.OnRotateCameraLeft;
+            @RotateCameraLeft.performed += instance.OnRotateCameraLeft;
+            @RotateCameraLeft.canceled += instance.OnRotateCameraLeft;
+            @RotateCameraRight.started += instance.OnRotateCameraRight;
+            @RotateCameraRight.performed += instance.OnRotateCameraRight;
+            @RotateCameraRight.canceled += instance.OnRotateCameraRight;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -1018,6 +1070,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @EnableGrabbing.started -= instance.OnEnableGrabbing;
             @EnableGrabbing.performed -= instance.OnEnableGrabbing;
             @EnableGrabbing.canceled -= instance.OnEnableGrabbing;
+            @RotateCameraLeft.started -= instance.OnRotateCameraLeft;
+            @RotateCameraLeft.performed -= instance.OnRotateCameraLeft;
+            @RotateCameraLeft.canceled -= instance.OnRotateCameraLeft;
+            @RotateCameraRight.started -= instance.OnRotateCameraRight;
+            @RotateCameraRight.performed -= instance.OnRotateCameraRight;
+            @RotateCameraRight.canceled -= instance.OnRotateCameraRight;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -1073,5 +1131,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnContinue(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnEnableGrabbing(InputAction.CallbackContext context);
+        void OnRotateCameraLeft(InputAction.CallbackContext context);
+        void OnRotateCameraRight(InputAction.CallbackContext context);
     }
 }
