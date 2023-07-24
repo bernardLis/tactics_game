@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 
 // https://www.youtube.com/watch?v=3Y7TFN_DsoI
-public class BattleCameraManager : MonoBehaviour
+public class BattleCameraManager : Singleton<BattleCameraManager>
 {
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -44,13 +45,18 @@ public class BattleCameraManager : MonoBehaviour
 
     bool _disableUpdate;
 
-    void Awake()
+    public event Action OnCameraMoved;
+    public event Action OnCameraRotated;
+
+    protected override void Awake()
     {
+        base.Awake();
         _cameraTransform = GetComponentInChildren<Camera>().transform;
     }
 
     void Start()
     {
+
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
@@ -156,11 +162,13 @@ public class BattleCameraManager : MonoBehaviour
         {
             _speed = Mathf.Lerp(_speed, _maxSpeed, _acceleration * Time.deltaTime);
             transform.position += _targetPosition * _speed * Time.deltaTime;
+            OnCameraMoved?.Invoke();
         }
         else // slow down
         {
             _horizontalVelocity = Vector3.Lerp(_horizontalVelocity, Vector3.zero, _damping * Time.deltaTime);
             transform.position += _horizontalVelocity * Time.deltaTime;
+            OnCameraMoved?.Invoke();
         }
 
         _targetPosition = Vector3.zero;
@@ -174,6 +182,7 @@ public class BattleCameraManager : MonoBehaviour
 
         float value = ctx.ReadValue<Vector2>().x;
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, value * _maxRotationSpeed + transform.eulerAngles.y, 0);
+        OnCameraRotated?.Invoke();
     }
 
     void ZoomCamera(InputAction.CallbackContext ctx)

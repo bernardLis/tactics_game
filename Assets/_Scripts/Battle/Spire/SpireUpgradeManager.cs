@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class SpireUpgradeManager : Singleton<SpireUpgradeManager>, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -13,6 +14,7 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
     Spire _spire;
     SpireElement _spireElement;
 
+    public event Action<BattleTurret> OnTurretAdded;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -63,7 +65,7 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
         }
     }
 
-    public BattleTurret InstantiateTurret(StoreyTurret st)
+    public void InstantiateTurret(StoreyTurret st)
     {
         Turret scriptableObjectInstance = Instantiate(st.TurretOriginal);
         GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
@@ -72,7 +74,7 @@ public class SpireUpgradeManager : MonoBehaviour, IPointerDownHandler, IPointerE
         instance.Initialize(scriptableObjectInstance);
 
         gameObjectInstance.transform.position = new Vector3(0, 0, 2);
-        return instance;
+        OnTurretAdded?.Invoke(instance);
     }
 
 }

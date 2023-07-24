@@ -49,6 +49,7 @@ public class BattleManager : Singleton<BattleManager>
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
     public event Action<BattleEntity> OnPlayerEntityDeath;
+    public event Action<BattleEntity> OnOpponentEntityAdded;
     public event Action<BattleEntity> OnOpponentEntityDeath;
     public event Action OnBattleFinalized;
 
@@ -169,6 +170,7 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 11;
         OpponentEntities.Add(b);
         b.OnDeath += OnOpponentDeath;
+        OnOpponentEntityAdded?.Invoke(b);
     }
 
     void OnPlayerDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
