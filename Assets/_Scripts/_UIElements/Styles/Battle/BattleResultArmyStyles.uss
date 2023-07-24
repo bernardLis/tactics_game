@@ -1,9 +1,0 @@
-.battle-result-army__main {
-    height: 100%;
-    justify-content: center;
-}
-
-.battle-result-army__army-group-container {
-    height: 50%;
-    align-items: center;
-}

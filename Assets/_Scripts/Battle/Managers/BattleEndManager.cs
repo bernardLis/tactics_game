@@ -30,13 +30,10 @@ public class BattleEndManager : MonoBehaviour
     BattleEntity _currentEntity;
     BattleEntity _evolvedEntity;
 
-    public BattleResultElement BattleResult { get; private set; }
-
     Creature _creatureToEvolve;
 
     IEnumerator _cameraRotationCoroutine;
 
-    public event Action OnBattleResultShown;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -57,7 +54,6 @@ public class BattleEndManager : MonoBehaviour
         Debug.Log($"Begin End Battle Show");
 
         DisableBattle();
-        ShowUI();
 
         foreach (Creature c in _gameManager.PlayerHero.CreatureArmy)
         {
@@ -84,23 +80,10 @@ public class BattleEndManager : MonoBehaviour
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
-    void ShowUI()
-    {
-        _cameraManager.MoveCameraTo(Vector3.zero, Vector3.zero, 5);
-        VFXCameraManager.Instance.gameObject.SetActive(true);
-
-        StopAllCoroutines();
-        if (_gameManager.PlayerHero != null && _battleManager.LoadedBattle.Won)
-        {
-            BattleResult = new(_root);
-            OnBattleResultShown?.Invoke();
-        }
-    }
 
     void Evolve(Creature creature)
     {
         Debug.Log($"Evolving {creature.name}");
-        BattleResult.Hide();
         _creatureToEvolve = creature;
         StartCoroutine(RunShow());
     }
@@ -208,7 +191,6 @@ public class BattleEndManager : MonoBehaviour
             .OnComplete(() =>
             {
                 _continueButton.style.display = DisplayStyle.None;
-                BattleResult.Show();
                 CleanUp();
                 StopCoroutine(_cameraRotationCoroutine);
             });
