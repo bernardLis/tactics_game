@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 using DG.Tweening;
-
+// I am removing this
 public class BattleResultElement : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
