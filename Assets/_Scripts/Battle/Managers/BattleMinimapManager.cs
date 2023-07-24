@@ -95,6 +95,8 @@ public class BattleMinimapManager : MonoBehaviour
             {
                 Vector2 pos = new Vector2(kvp.Key.position.x, kvp.Key.position.z);
                 Vector2 miniMapPosition = GetMiniMapPosition(pos);
+
+                kvp.Value.style.visibility = Visibility.Visible;
                 kvp.Value.style.top = miniMapPosition.x;
                 kvp.Value.style.left = miniMapPosition.y;
             }
@@ -118,6 +120,7 @@ public class BattleMinimapManager : MonoBehaviour
             return;
         }
         VisualElement icon = new VisualElement();
+        icon.style.visibility = Visibility.Hidden;
         icon.usageHints = UsageHints.DynamicTransform;
         ResolveEntityIconStyle(be, icon);
         _entityIcons.Add(be.transform, icon);
@@ -157,6 +160,7 @@ public class BattleMinimapManager : MonoBehaviour
             return;
         }
         VisualElement icon = new VisualElement();
+        icon.style.visibility = Visibility.Hidden;
         icon.usageHints = UsageHints.DynamicTransform;
         icon.AddToClassList(_ussPlayerTurretIcon);
         _entityIcons.Add(turret.transform, icon);

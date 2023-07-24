@@ -29,6 +29,15 @@ public class BattleArmyHotkeys : MonoBehaviour
         icon.SmallIcon();
         _armyHotkeysContainer.Add(icon);
 
+        be.OnDeath += (a, b, c) =>
+        {
+            DOTween.To(x => icon.style.opacity = x, 0, 1, 0.5f).OnComplete(() =>
+            {
+                _armyHotkeysContainer.Remove(icon);
+                icon.RemoveFromHierarchy();
+            });
+        };
+
         icon.BlockAnimation();
         icon.BlockTooltip();
         icon.style.opacity = 0;
