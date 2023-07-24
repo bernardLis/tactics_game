@@ -941,8 +941,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
       propertyPath: m_Name
-      value: Base
+      value: Spire
       objectReference: {fileID: 0}
+    - target: {fileID: 5933524406361437765, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
+      propertyPath: ExplosionPrefab
+      value: 
+      objectReference: {fileID: 8368184424076865324, guid: 805234be6b2ecc640acf00fd3533aed3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

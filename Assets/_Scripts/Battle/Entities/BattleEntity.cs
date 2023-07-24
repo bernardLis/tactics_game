@@ -268,11 +268,8 @@ public class BattleEntity : MonoBehaviour
         if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
 
         DOTween.Kill(transform);
-        if (Team != 0 && hasPickup)
-        {
-            BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
-            bp.Initialize();
-        }
+
+        if (hasPickup) ResolvePickup();
 
         EntityLog.Add($"{Time.time}: Entity dies.");
 
@@ -284,6 +281,13 @@ public class BattleEntity : MonoBehaviour
 
         TurnHighlightOff();
         //StopAllCoroutines(); <- this breaks bomb exploding
+    }
+
+    void ResolvePickup()
+    {
+        if (Team == 0) return;
+        BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
+        bp.Initialize();
     }
 
     public IEnumerator GetPoisoned(BattleCreature attacker)
