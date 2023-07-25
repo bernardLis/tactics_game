@@ -36,10 +36,10 @@ public class BattleEntity : MonoBehaviour
     public string BattleId { get; private set; }
     public int Team { get; private set; }
     protected GameObject _GFX;
-    Material _material;
+    protected Material _material;
     Texture2D _emissionTexture;
     Color _defaultEmissionColor;
-    [SerializeField] Disc _teamHighlightDisc;
+    [SerializeField] protected Disc _teamHighlightDisc;
 
     public Animator Animator { get; private set; }
 
@@ -92,6 +92,7 @@ public class BattleEntity : MonoBehaviour
         _defaultEmissionColor = Color.black;
 
         _agent = GetComponent<NavMeshAgent>();
+        _agent.enabled = false;
 
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
         EntityLog.Add($"{Time.time}: Entity is spawned");
@@ -160,7 +161,8 @@ public class BattleEntity : MonoBehaviour
 
         if (_runEntityCoroutine != null)
             StopCoroutine(_runEntityCoroutine);
-        _agent.isStopped = true;
+            
+        if (_agent.isActiveAndEnabled) _agent.isStopped = true;
         _agent.enabled = false;
         Animator.SetBool("Move", false);
     }
@@ -285,7 +287,6 @@ public class BattleEntity : MonoBehaviour
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasPickup = true)
     {
-        Debug.Log($"Die {name}");
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
         if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();

@@ -16,6 +16,9 @@ public class GameDatabase : BaseScriptableObject
     public List<Storey> AllBaseUpgrades = new();
     public GameObject BaseGameObject;
 
+    [Header("Shaders")]
+    public Shader DissolveShader;
+    
 
     [Header("General")]
     [SerializeField] Sprite[] CoinSprites;

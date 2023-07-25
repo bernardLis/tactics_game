@@ -14,6 +14,12 @@ public class ShellEntity : BattleCreatureMelee
         base.Start();
     }
 
+    void OnDisabled()
+    {
+        if (_shieldEffectInstance != null)
+            Destroy(_shieldEffectInstance);
+    }
+
     protected override IEnumerator SpecialAbility()
     {
         if (IsShielded)
@@ -62,5 +68,12 @@ public class ShellEntity : BattleCreatureMelee
         IsShielded = false;
         if (_shieldEffectInstance != null)
             Destroy(_shieldEffectInstance);
+    }
+
+    protected override void Evolve()
+    {
+        if (_shieldEffectInstance != null)
+            Destroy(_shieldEffectInstance);
+        base.Evolve();
     }
 }

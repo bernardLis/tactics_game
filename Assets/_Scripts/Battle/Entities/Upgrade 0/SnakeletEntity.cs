@@ -23,7 +23,6 @@ public class Snakelet : BattleCreatureMelee
             yield break;
         }
 
-        Debug.Log($"special ability");
         transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
