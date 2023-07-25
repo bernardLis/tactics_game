@@ -20,7 +20,6 @@ public class RewardArmy : Reward
     public override void GetReward()
     {
         base.GetReward();
-
         _hero.AddCreature(Creature);
     }
 }

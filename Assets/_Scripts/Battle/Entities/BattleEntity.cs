@@ -13,6 +13,8 @@ using Shapes;
 
 public class BattleEntity : MonoBehaviour
 {
+    protected GameManager _gameManager;
+
     protected AudioManager _audioManager;
     protected BattleManager _battleManager;
 
@@ -53,6 +55,8 @@ public class BattleEntity : MonoBehaviour
     public bool IsDead { get; private set; }
     bool _isDeathCoroutineStarted;
 
+    protected bool _blockRunEntity;
+
     MMF_Player _feelPlayer;
 
     IEnumerator _runEntityCoroutine;
@@ -66,12 +70,14 @@ public class BattleEntity : MonoBehaviour
 
     void Awake()
     {
+        _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
     }
 
     public virtual void InitializeEntity(Entity entity)
     {
-        Entity = entity;
+        SetEntity(entity);
+
         _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
         _highlightDiamond.gameObject.SetActive(false);
         _feelPlayer = GetComponent<MMF_Player>();
@@ -86,12 +92,22 @@ public class BattleEntity : MonoBehaviour
         _defaultEmissionColor = Color.black;
 
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = Entity.Speed;
-
-        CurrentHealth = Entity.GetHealth();
 
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
         EntityLog.Add($"{Time.time}: Entity is spawned");
+
+        SetStats();
+    }
+
+    public void SetEntity(Entity entity)
+    {
+        Entity = entity;
+    }
+
+    public virtual void SetStats()
+    {
+        _agent.speed = Entity.Speed;
+        CurrentHealth = Entity.GetHealth();
     }
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
@@ -108,10 +124,6 @@ public class BattleEntity : MonoBehaviour
         highlightColor.a = 0.25f;
         _teamHighlightDisc.Color = highlightColor;
 
-        BattleId = team + "_" + Helpers.ParseScriptableObjectCloneName(Entity.name)
-                 + "_" + Helpers.GetRandomNumber(4);
-        name = BattleId;
-
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         if (team == 1)
         {
@@ -120,10 +132,21 @@ public class BattleEntity : MonoBehaviour
             _material.SetColor("_EmissionColor", _defaultEmissionColor);
             _material.SetFloat("_Metallic", 0.5f);
         }
+
+        SetBattleId();
+    }
+
+    protected void SetBattleId()
+    {
+        BattleId = Team + "_" + Helpers.ParseScriptableObjectCloneName(Entity.name)
+                 + "_" + Helpers.GetRandomNumber(4);
+        name = BattleId;
     }
 
     public void StartRunEntityCoroutine()
     {
+        if (_blockRunEntity) return;
+
         EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
         if (_runEntityCoroutine != null) StopCoroutine(_runEntityCoroutine);
 
@@ -137,6 +160,7 @@ public class BattleEntity : MonoBehaviour
 
         if (_runEntityCoroutine != null)
             StopCoroutine(_runEntityCoroutine);
+        _agent.isStopped = true;
         _agent.enabled = false;
         Animator.SetBool("Move", false);
     }
@@ -261,6 +285,7 @@ public class BattleEntity : MonoBehaviour
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasPickup = true)
     {
+        Debug.Log($"Die {name}");
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
         if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();

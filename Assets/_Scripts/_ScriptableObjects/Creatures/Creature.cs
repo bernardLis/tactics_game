@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
 public class Creature : Entity
 {
-
     public int UpgradeTier;
     public float BasePower;
     public float AttackRange; // stopping distance of agent
@@ -21,7 +20,10 @@ public class Creature : Entity
     [Header("Upgrade")]
     public Creature EvolvedCreature;
 
-
+    // exp
+    public IntVariable Experience;
+    public IntVariable ExpForNextLevel;
+    public int LeftoverExp;
 
     // battle
     [HideInInspector] public int OldKillCount;
@@ -39,10 +41,15 @@ public class Creature : Entity
     {
         base.InitializeBattle(hero);
 
+        Experience = ScriptableObject.CreateInstance<IntVariable>();
+        Experience.SetValue(0);
+
+        ExpForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
+        ExpForNextLevel.SetValue(GetExpForNextLevel());
+
         OldKillCount = TotalKillCount;
         OldDamageDealt = TotalDamageDealt;
         OldDamageTaken = TotalDamageTaken;
-
 
         // HERE: b modifier rework
         Battle b = GameManager.Instance.SelectedBattle;
@@ -56,6 +63,19 @@ public class Creature : Entity
         }
     }
 
+    public void ImportCreatureStats(Creature c)
+    {
+        Level = c.Level;
+        Experience.SetValue(c.Experience.Value);
+
+        TotalKillCount = c.TotalKillCount;
+        TotalDamageDealt = c.TotalDamageDealt;
+        TotalDamageTaken = c.TotalDamageTaken;
+        OldDamageDealt = c.OldDamageDealt;
+        OldDamageTaken = c.OldDamageTaken;
+        OldKillCount = c.OldKillCount;
+    }
+
     public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * (Level - 1)); }
 
     public void AddKill(int ignored) { TotalKillCount++; }
@@ -64,10 +84,18 @@ public class Creature : Entity
 
     public void AddExp(int gain)
     {
-        // TODO: creature exp - to implement
+        LeftoverExp = gain;
+        if (Experience.Value + gain >= ExpForNextLevel.Value)
+        {
+            LeftoverExp = Experience.Value + gain - ExpForNextLevel.Value;
+            LevelUp();
+        }
+
+        Experience.ApplyChange(LeftoverExp);
+        LeftoverExp = 0;
     }
 
-    public int NextLevelSpiceRequired()
+    public int GetExpForNextLevel()
     {
         // TODO: math
         return 10 * Level;
@@ -76,6 +104,8 @@ public class Creature : Entity
     public void LevelUp()
     {
         Level++;
+        Experience.SetValue(0);
+        ExpForNextLevel.SetValue(GetExpForNextLevel());
         OnLevelUp?.Invoke();
     }
 

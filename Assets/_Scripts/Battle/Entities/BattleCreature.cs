@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
+using DG.Tweening;
 
 public class BattleCreature : BattleEntity
 {
-
     [SerializeField] protected Sound _attackSound;
     [SerializeField] protected Sound _specialAbilitySound;
 
@@ -45,6 +45,7 @@ public class BattleCreature : BattleEntity
     {
         base.InitializeEntity(entity);
         Creature = (Creature)entity;
+        Creature.OnLevelUp += ResolveEvolution;
 
         OnEnemyKilled += Creature.AddKill;
         OnDamageDealt += Creature.AddDmgDealt;
@@ -175,7 +176,6 @@ public class BattleCreature : BattleEntity
         return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange + 0.5f;
     }
 
-
     protected void ChooseNewTarget()
     {
         // choose a random opponent with a bias towards closer opponents
@@ -240,7 +240,64 @@ public class BattleCreature : BattleEntity
         KilledEnemiesCount++;
         OnEnemyKilled?.Invoke(KilledEnemiesCount);
     }
+
+    /* EVOLUTION */
+    void ResolveEvolution()
+    {
+        int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
+        if (Creature.UpgradeTier >= maxTier) return;
+        if (Creature.ShouldEvolve())
+        {
+            StopAllCoroutines();
+            StartCoroutine(Evolve());
+        }
+    }
+
+    IEnumerator Evolve()
+    {
+        StopRunEntityCoroutine();
+        _blockRunEntity = true;
+        // HERE: evolution for now just evolve
+        // later, I want creature to start blinking and maybe the hotkey shows something
+        // and you have to click a button to evolve
+
+        yield return null;
+
+        EntityLog.Add($"{Time.time}: Creature is evolving...");
+
+        yield return transform.DOMoveY(5f, 2f).WaitForCompletion();
+
+        Creature oldCreature = Entity as Creature;
+        Hero hero = oldCreature.Hero;
+        Creature newCreature = Instantiate(oldCreature.EvolvedCreature);
+
+        hero.AddCreature(newCreature, true);
+        hero.RemoveCreature(oldCreature);
+
+        newCreature.InitializeBattle(hero);
+        newCreature.ImportCreatureStats(oldCreature);
+
+        Vector3 pos = transform.position;
+        GameObject instance = Instantiate(newCreature.Prefab, pos, transform.localRotation);
+        BattleEntity be = instance.GetComponent<BattleEntity>();
+        be.InitializeEntity(newCreature);
+
+        StartCoroutine(Die());
+
+
+        yield return new WaitForSeconds(4f);
+        _battleManager.AddPlayerArmyEntity(be);
+
+    }
+
+
 #if UNITY_EDITOR
+    [ContextMenu("Trigger Evolution")]
+    public void TriggerEvolution()
+    {
+        StartCoroutine(Evolve());
+    }
+
     [ContextMenu("Trigger Special Ability")]
     public void TriggerSpecialAction()
     {

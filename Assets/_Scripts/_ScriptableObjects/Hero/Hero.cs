@@ -61,10 +61,12 @@ public class Hero : BaseScriptableObject
         CurrentMana.SetValue(BaseMana.Value);
     }
 
-    public void AddCreature(Creature creature)
+    public void AddCreature(Creature creature, bool noDelegate = false)
     {
         Debug.Log($"Hero {name} adds army {creature}");
         CreatureArmy.Add(creature);
+        
+        if (noDelegate) return;
         OnCreatureAdded?.Invoke(creature);
     }
 

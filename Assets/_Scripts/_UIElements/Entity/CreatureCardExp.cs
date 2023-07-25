@@ -74,7 +74,7 @@ public class CreatureCardExp : VisualElement
         _currentSpice.SetValue(0);
 
         _spiceToNextLevel = ScriptableObject.CreateInstance<IntVariable>();
-        _spiceToNextLevel.SetValue(Creature.NextLevelSpiceRequired());
+        _spiceToNextLevel.SetValue(Creature.GetExpForNextLevel());
 
         _levelBar = new(Color.gray,
                 $"Chance to evolve on level up: {Creature.ChanceToEvolve(Creature.Level + 1)}",
@@ -110,7 +110,7 @@ public class CreatureCardExp : VisualElement
         _levelBar.OnAnimationFinished += () =>
         {
             _levelBar.ChangeValueNoAnimation(0);
-            _spiceToNextLevel.SetValue(Creature.NextLevelSpiceRequired());
+            _spiceToNextLevel.SetValue(Creature.GetExpForNextLevel());
 
             _buttonSpice.ChangeAmount(_spiceToNextLevel.Value);
             _levelUpButton.SetEnabled(true);

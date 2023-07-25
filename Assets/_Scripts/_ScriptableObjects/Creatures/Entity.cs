@@ -21,7 +21,6 @@ public class Entity : BaseScriptableObject
     [HideInInspector] public Hero Hero;
     protected float _elementalDamageMultiplier = 0f;
 
-
     public virtual void InitializeBattle(Hero hero)
     {
         if (hero != null) Hero = hero;
