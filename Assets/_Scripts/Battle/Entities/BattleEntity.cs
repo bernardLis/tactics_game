@@ -19,6 +19,7 @@ public class BattleEntity : MonoBehaviour
     protected BattleManager _battleManager;
 
     protected BattleHighlightDiamond _highlightDiamond;
+    protected BattleEntityShaders _battleEntityShaders;
 
     public List<string> EntityLog = new();
 
@@ -80,6 +81,9 @@ public class BattleEntity : MonoBehaviour
 
         _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
         _highlightDiamond.gameObject.SetActive(false);
+
+        _battleEntityShaders = GetComponent<BattleEntityShaders>();
+
         _feelPlayer = GetComponent<MMF_Player>();
 
         Collider = GetComponent<Collider>();
@@ -161,7 +165,7 @@ public class BattleEntity : MonoBehaviour
 
         if (_runEntityCoroutine != null)
             StopCoroutine(_runEntityCoroutine);
-            
+
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
         _agent.enabled = false;
         Animator.SetBool("Move", false);
@@ -283,6 +287,11 @@ public class BattleEntity : MonoBehaviour
         DisplayFloatingText(dmg.ToString(), color);
 
         Animator.SetTrigger("Take Damage");
+    }
+
+    public void TriggerDieCoroutine()
+    {
+        StartCoroutine(Die());
     }
 
     public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasPickup = true)

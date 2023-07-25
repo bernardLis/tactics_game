@@ -30,7 +30,7 @@ public class BattleCreature : BattleEntity
 
     public event Action<int> OnEnemyKilled;
     public event Action<int> OnDamageDealt;
-
+    public event Action<BattleCreature> OnEvolving;
     protected virtual void Start() { }
 
     protected virtual void Update()
@@ -61,8 +61,6 @@ public class BattleCreature : BattleEntity
 
         _currentAttackCooldown = 0;
         CurrentSpecialAbilityCooldown = 0;
-
-        Debug.Log($"initialize battle {name}");
 
         StartRunEntityCoroutine();
     }
@@ -250,6 +248,10 @@ public class BattleCreature : BattleEntity
         if (Creature.UpgradeTier >= maxTier) return;
         if (Creature.ShouldEvolve())
         {
+            // HERE: evolution for now just evolve
+            // later, I want creature to start blinking and maybe the hotkey shows something
+            // and you have to click a button to evolve
+
             StopAllCoroutines();
             Evolve();
         }
@@ -257,78 +259,13 @@ public class BattleCreature : BattleEntity
 
     protected virtual void Evolve()
     {
-        StartCoroutine(EvolveCoroutine());
-    }
-
-    IEnumerator EvolveCoroutine()
-    {
-        // HERE: evolution for now just evolve
-        // later, I want creature to start blinking and maybe the hotkey shows something
-        // and you have to click a button to evolve
-
-        StopRunEntityCoroutine();
+        SetDead();
         _blockRunEntity = true;
         _teamHighlightDisc.gameObject.SetActive(false);
 
         EntityLog.Add($"{Time.time}: Creature is evolving...");
-
-        yield return transform.DOMoveY(5f, 2f).WaitForCompletion();
-        DisplayFloatingText("Evolving!", Color.magenta);
-
-        DissolveCreature();
-
-        Entity.Hero.RemoveCreature(Entity as Creature);
-
-        BattleEntity be = InstantiateEvolvedCreature();
-        be.Collider.enabled = false;
-
-        Material mat = be.GetComponentInChildren<Renderer>().material;
-        Texture2D tex = mat.mainTexture as Texture2D;
-        Shader originalShader = mat.shader;
-        mat.shader = _gameManager.GameDatabase.DissolveShader;
-        mat.SetTexture("_Base_Texture", tex);
-        mat.SetFloat("_Dissolve_Value", 1f);
-        DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), 1, 0, 5f)
-                .OnComplete(() =>
-                {
-                    mat.shader = originalShader;
-                    _battleManager.AddPlayerArmyEntity(be);
-                });
-        be.transform.DOMoveY(1f, 2f).SetDelay(2f);
-    }
-
-    BattleEntity InstantiateEvolvedCreature()
-    {
-        Creature oldCreature = Entity as Creature;
-        Hero hero = oldCreature.Hero;
-
-        Creature newCreature = Instantiate(oldCreature.EvolvedCreature);
-
-        hero.AddCreature(newCreature, true);
-
-        newCreature.InitializeBattle(hero);
-        newCreature.ImportCreatureStats(oldCreature);
-
-        Vector3 pos = transform.position;
-        Debug.Log($"instantiation pos {pos}");
-        GameObject instance = Instantiate(newCreature.Prefab, pos, transform.localRotation);
-        BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(newCreature);
-
-        return be;
-    }
-
-    void DissolveCreature()
-    {
-        Texture2D tex = _material.mainTexture as Texture2D;
-        _material.shader = _gameManager.GameDatabase.DissolveShader;
-        _material.SetTexture("_Base_Texture", tex);
-        DOTween.To(x => _material.SetFloat("_Dissolve_Value", x), 0, 1, 5f)
-                .OnComplete(() =>
-                {
-                    StartCoroutine(Die());
-                    gameObject.SetActive(false);
-                });
+        StopRunEntityCoroutine();
+        OnEvolving?.Invoke(this);
     }
 
 
