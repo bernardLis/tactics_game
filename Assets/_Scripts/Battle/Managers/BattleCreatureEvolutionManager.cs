@@ -35,7 +35,8 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
 
     IEnumerator EvolutionCoroutine(BattleCreature originalEntity)
     {
-        Vector3 effectPos = new Vector3(originalEntity.transform.position.x, 0f, originalEntity.transform.position.z);
+        Vector3 effectPos = new Vector3(originalEntity.transform.position.x,
+                0f, originalEntity.transform.position.z);
         _effectInstance = Instantiate(_effectPrefab, effectPos, Quaternion.identity);
 
         yield return originalEntity.transform.DOMoveY(5f, 2f)
@@ -52,26 +53,10 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
             originalEntity.TriggerDieCoroutine();
         };
 
-        BattleEntity newEntity = InstantiateEvolvedCreature(originalEntity);
-        newEntity.GetComponent<BattleEntityShaders>().Dissolve(5f, true);
-
-        newEntity.transform.DOMoveY(1f, 2f)
-            .SetDelay(2f)
-            .OnComplete(() =>
-            {
-                newEntity.Collider.enabled = true;
-                _battleManager.AddPlayerArmyEntity(newEntity);
-
-                _effectInstance.transform.DOScale(0f, 1f)
-                    .OnComplete(() =>
-                    {
-                        Destroy(_effectInstance);
-                    });
-            });
-
+        InstantiateEvolvedCreature(originalEntity);
     }
 
-    BattleEntity InstantiateEvolvedCreature(BattleCreature originalCreature)
+    void InstantiateEvolvedCreature(BattleCreature originalCreature)
     {
         Creature oldCreature = originalCreature.Entity as Creature;
         Hero hero = oldCreature.Hero;
@@ -89,7 +74,18 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
         be.InitializeEntity(newCreature);
         be.Collider.enabled = false;
 
-        return be;
+        be.GetComponent<BattleEntityShaders>().Dissolve(5f, true);
+
+        be.transform.DOMoveY(1f, 2f)
+            .SetDelay(2f)
+            .OnComplete(() =>
+            {
+                be.Collider.enabled = true;
+                _battleManager.AddPlayerArmyEntity(be);
+
+                _effectInstance.transform.DOScale(0f, 1f)
+                    .OnComplete(() => Destroy(_effectInstance));
+            });
     }
 
 

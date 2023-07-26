@@ -26,6 +26,7 @@ public class BattleMinion : BattleEntity
         _agent.enabled = true;
         _agent.avoidancePriority = Random.Range(1, 100);
 
+        // HERE: get spire position
         while (!_agent.SetDestination(Vector3.zero)) yield return null;
         Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;

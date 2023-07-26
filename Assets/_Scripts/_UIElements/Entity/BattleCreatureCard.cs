@@ -5,11 +5,18 @@ using UnityEngine.UIElements;
 
 public class BattleCreatureCard : CreatureCard
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+
     const string _ussClassName = "battle-creature__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussExpContainer = _ussClassName + "exp-container";
     const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
     BattleCreature _battleCreature;
+
+    ResourceBarElement _expBar;
+
+    Label _level;
 
     Label _kills;
     Label _damageDealt;
@@ -43,11 +50,30 @@ public class BattleCreatureCard : CreatureCard
         _rightContainer.Add(new CreatureAbilityElement(battleCreature.Creature.CreatureAbility,
                 battleCreature.CurrentSpecialAbilityCooldown));
 
-        _battleCreature.OnHealthChanged += OnHealthChanged;
+        AddExpBar();
+
         _battleCreature.OnEnemyKilled += OnEnemyKilled;
         _battleCreature.OnDamageDealt += OnDamageDealt;
         _battleCreature.OnDamageTaken += OnDamageTaken;
         _battleCreature.OnDeath += OnDeath;
+    }
+
+    void AddExpBar()
+    {
+        VisualElement container = new();
+        container.AddToClassList(_ussExpContainer);
+
+        _expBar = new(Color.gray, "Experience", _battleCreature.Creature.Experience,
+                _battleCreature.Creature.ExpForNextLevel, thickness: 0);
+
+        _level = new Label($"Level {_battleCreature.Creature.Level}");
+        _level.style.position = Position.Absolute;
+        _level.AddToClassList(_ussCommonTextPrimary);
+        _expBar.Add(_level);
+        _battleCreature.Creature.OnLevelUp += () => _level.text = $"Level {_battleCreature.Creature.Level}";
+
+        container.Add(_expBar);
+        _middleContainer.Add(container);
     }
 
     void OnHealthChanged(float nvm)

@@ -36,7 +36,6 @@ public class Creature : Entity
     [HideInInspector] public int TotalDamageTaken;
 
     public event Action OnLevelUp;
-
     public override void InitializeBattle(Hero hero)
     {
         base.InitializeBattle(hero);
@@ -98,7 +97,13 @@ public class Creature : Entity
     public int GetExpForNextLevel()
     {
         // TODO: math
-        return 10 * Level;
+        float exponent = 3f;
+        float multiplier = 0.8f;
+        int baseExp = 100;
+
+        int result = Mathf.FloorToInt((multiplier * Mathf.Pow(Level, exponent)));
+        result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
+        return result + baseExp;
     }
 
     public void LevelUp()

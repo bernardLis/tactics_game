@@ -132,6 +132,7 @@ public class BattleMinimapManager : MonoBehaviour
         if (be.Team == 0)
         {
             icon.AddToClassList(_ussPlayerEntityIcon);
+            //  icon.style.backgroundImage = new StyleBackground(be.Entity.IconAnimation[0]);
             return;
         }
 

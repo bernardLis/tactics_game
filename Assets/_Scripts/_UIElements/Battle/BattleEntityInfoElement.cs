@@ -31,10 +31,7 @@ public class BattleEntityInfoElement : VisualElement
 
         IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
         totalHealth.SetValue((int)be.Entity.GetHealth());
-        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        currentHealth.SetValue((int)be.GetCurrentHealth());
-        be.OnHealthChanged += (float newVal) => currentHealth.SetValue((int)newVal);
-        ResourceBarElement bar = new(Helpers.GetColor("healthBarRed"), "health", totalIntVar: totalHealth, currentIntVar: currentHealth);
+        ResourceBarElement bar = new(Helpers.GetColor("healthBarRed"), "health", be.CurrentHealth, totalIntVar: totalHealth);
 
         name.style.position = Position.Absolute;
 
@@ -54,8 +51,5 @@ public class BattleEntityInfoElement : VisualElement
         bar.MissingBar.style.height = Length.Percent(100);
 
         Add(bar);
-
-
-
     }
 }

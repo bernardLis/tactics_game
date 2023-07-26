@@ -204,7 +204,6 @@ public class BattleManager : Singleton<BattleManager>
         // TODO: price for experience
         if (killer is BattleCreature)
         {
-            Debug.Log($"killer is creature");
             int gain = Mathf.RoundToInt(be.Entity.Price * 0.5f);
             _gameManager.PlayerHero.AddExp(gain);
             ((BattleCreature)killer).Creature.AddExp(gain);

@@ -31,7 +31,6 @@ public class BattleMinionCard : MinionCard
 
         _rightContainer.Add(_damageTaken);
 
-        _battleMinion.OnHealthChanged += OnHealthChanged;
         _battleMinion.OnDamageTaken += OnDamageTaken;
         _battleMinion.OnDeath += OnDeath;
     }

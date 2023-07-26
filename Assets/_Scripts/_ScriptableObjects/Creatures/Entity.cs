@@ -10,8 +10,8 @@ public class Entity : BaseScriptableObject
     public int Price;
     public Element Element;
 
-    public float BaseHealth;
-    public float Armor;
+    public int BaseHealth;
+    public int Armor;
 
     public float Speed;
 

@@ -79,6 +79,7 @@ public class Hero : BaseScriptableObject
 
     public int GetExpForNextLevel()
     {
+        // TODO: math
         float exponent = 3f;
         float multiplier = 0.8f;
         int baseExp = 100;

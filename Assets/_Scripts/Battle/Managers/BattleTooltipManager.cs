@@ -58,9 +58,9 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     public void DisplayTooltip(BattleEntity entity)
     {
         HideTooltip();
-        if (entity.GetType() == typeof(BattleMinion))
-            _tooltip = new BattleMinionCard((BattleMinion)entity);
-        else
+        if (entity is BattleMinion)
+            _tooltip = new BattleEntityCard(entity);
+        if (entity is BattleCreature)
             _tooltip = new BattleCreatureCard((BattleCreature)entity);
 
         _bottomPanel.Add(_tooltip);

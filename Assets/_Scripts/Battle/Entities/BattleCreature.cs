@@ -268,7 +268,6 @@ public class BattleCreature : BattleEntity
         OnEvolving?.Invoke(this);
     }
 
-
 #if UNITY_EDITOR
     [ContextMenu("Trigger Evolution")]
     public void TriggerEvolution()

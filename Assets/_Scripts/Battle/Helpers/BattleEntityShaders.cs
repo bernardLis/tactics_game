@@ -31,10 +31,6 @@ public class BattleEntityShaders : MonoBehaviour
         float startValue = isReverse ? 1f : 0f;
         float endValue = isReverse ? 0f : 1f;
 
-        Debug.Log($"name {name}");
-
-        Debug.Log($"isReverse {isReverse}, startValue {startValue}, endValue {endValue}");
-
         mat.SetFloat("_Dissolve_Value", startValue);
         DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), startValue, endValue, time)
                 .OnComplete(() =>
@@ -43,5 +39,4 @@ public class BattleEntityShaders : MonoBehaviour
                     OnDissolveComplete?.Invoke();
                 });
     }
-
 }

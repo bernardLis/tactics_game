@@ -45,7 +45,7 @@ public class BattleEntity : MonoBehaviour
     public Animator Animator { get; private set; }
 
     public Entity Entity { get; private set; }
-    public float CurrentHealth { get; private set; }
+    public IntVariable CurrentHealth { get; private set; }
 
     protected NavMeshAgent _agent;
 
@@ -64,11 +64,9 @@ public class BattleEntity : MonoBehaviour
 
     public int DamageTaken { get; private set; }
 
-    public event Action<float> OnHealthChanged;
     public event Action<int> OnDamageTaken;
 
     public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
-
     void Awake()
     {
         _gameManager = GameManager.Instance;
@@ -112,7 +110,9 @@ public class BattleEntity : MonoBehaviour
     public virtual void SetStats()
     {
         _agent.speed = Entity.Speed;
-        CurrentHealth = Entity.GetHealth();
+
+        CurrentHealth = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentHealth.SetValue(Entity.GetHealth());
     }
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
@@ -181,9 +181,9 @@ public class BattleEntity : MonoBehaviour
         yield return null;
     }
 
-    public bool HasFullHealth() { return CurrentHealth >= Entity.GetHealth(); }
+    public bool HasFullHealth() { return CurrentHealth.Value >= Entity.GetHealth(); }
     public float GetTotalHealth() { return Entity.GetHealth(); }
-    public float GetCurrentHealth() { return CurrentHealth; }
+    public float GetCurrentHealth() { return CurrentHealth.Value; }
 
     public int GetHealed(Ability ability)
     {
@@ -196,11 +196,10 @@ public class BattleEntity : MonoBehaviour
     {
         EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
 
-        CurrentHealth += value;
-        if (CurrentHealth > Entity.GetHealth())
-            CurrentHealth = Entity.GetHealth();
+        CurrentHealth.ApplyChange(value);
+        if (CurrentHealth.Value > Entity.GetHealth())
+            CurrentHealth.SetValue(Entity.GetHealth());
 
-        OnHealthChanged?.Invoke(CurrentHealth);
         DisplayFloatingText("+" + value, Color.green);
 
         GameObject obj = Instantiate<GameObject>(_healedEffect, transform.position, Quaternion.identity);
@@ -217,7 +216,7 @@ public class BattleEntity : MonoBehaviour
 
         BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color);
 
-        if (CurrentHealth <= 0)
+        if (CurrentHealth.Value <= 0)
         {
             ability.IncreaseKillCount();
             yield return Die(ability: ability); // start coroutine because I call stop all coroutines in base hit
@@ -234,7 +233,7 @@ public class BattleEntity : MonoBehaviour
 
         BaseGetHit(Entity.CalculateDamage(turret), turret.Turret.Element.Color);
 
-        if (CurrentHealth <= 0)
+        if (CurrentHealth.Value <= 0)
         {
             turret.Turret.IncreaseKillCount();
             yield return Die(); // start coroutine because I call stop all coroutines in base hit
@@ -259,7 +258,7 @@ public class BattleEntity : MonoBehaviour
         BaseGetHit(damage, attacker.Entity.Element.Color);
         EntityLog.Add($"{Time.time}: Current health is {CurrentHealth}");
 
-        if (CurrentHealth <= 0)
+        if (CurrentHealth.Value <= 0)
         {
             attacker.IncreaseKillCount();
             yield return Die(attacker: attacker);
@@ -276,13 +275,12 @@ public class BattleEntity : MonoBehaviour
         OnDamageTaken?.Invoke(dmg);
         DamageTaken += dmg;
 
-        CurrentHealth -= dmg;
-        if (CurrentHealth <= 0)
+        CurrentHealth.ApplyChange(-dmg);
+        if (CurrentHealth.Value <= 0)
         {
             IsDead = true;
-            CurrentHealth = 0;
+            CurrentHealth.SetValue(0);
         }
-        OnHealthChanged?.Invoke(CurrentHealth);
 
         DisplayFloatingText(dmg.ToString(), color);
 
@@ -343,14 +341,13 @@ public class BattleEntity : MonoBehaviour
         while (totalDamage > 0)
         {
             // poison can't kill
-            if (CurrentHealth > damageTick)
+            if (CurrentHealth.Value > damageTick)
             {
                 DisplayFloatingText(damageTick.ToString(), Color.green);
                 attacker.DealtDamage(damageTick);
                 OnDamageTaken?.Invoke(damageTick);
                 DamageTaken += damageTick;
-                CurrentHealth -= damageTick;
-                OnHealthChanged?.Invoke(CurrentHealth);
+                CurrentHealth.ApplyChange(-damageTick);
             }
             totalDamage -= damageTick;
 

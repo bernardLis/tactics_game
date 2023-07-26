@@ -961,6 +961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 6951536807849446544, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2460091108715632158, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
     - {fileID: 3849849297139869466, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}

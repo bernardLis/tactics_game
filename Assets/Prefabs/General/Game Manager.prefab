@@ -176,6 +176,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: afc68981-4f9d-4d4b-81a5-69c2811730ae
     m_ActionName: Battle/EnableGrabbing[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69
+    m_ActionName: Battle/RotateCameraLeft[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7632cdc4-b0c3-4d81-b53a-b41839ede095
+    m_ActionName: Battle/RotateCameraRight[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Battle
@@ -452,6 +460,10 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: ed19a6f9006416c4bb914bdb1454d677
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 2c5d53665b9fb84498cbab8dbbbe1aa7
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

@@ -1,6 +1,30 @@
-.battle-creature__main {
+.entity-card__main {
     flex-direction: row;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/paper_top_1.png?fileID=2800000&guid=4913489a90f0118448f22bd7ae275e84&type=3#paper_top_1');
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.entity-card__left-container {
+    margin-right: 20px;
+}
+
+.entity-card__middle-container {
+    width: 150px;
+}
+
+
+.entity-card__name {
+    font-size: 24px;
+}
+
+.entity-card__element {
+    position: absolute;
+    top: -20px;
+    right: -20px;
 }
 
 .battle-creature__exp-container {
@@ -8,7 +32,7 @@
     width: 100%;
 }
 
-.battle-creature__killed-overlay {
+.entity-card__killed-overlay {
     position: absolute;
     width: 100%;
     height: 100%;
