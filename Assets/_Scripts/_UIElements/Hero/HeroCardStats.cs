@@ -5,6 +5,19 @@ using UnityEngine.UIElements;
 
 public class HeroCardStats : VisualElement
 {
+
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "hero-stats-card__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussTopPanel = _ussClassName + "top-panel";
+    const string _ussTopLeftPanel = _ussClassName + "top-left-panel";
+    const string _ussTopMiddlePanel = _ussClassName + "top-middle-panel";
+    const string _ussTopRightPanel = _ussClassName + "top-right-panel";
+
+    const string _ussExpContainer = _ussClassName + "exp-container";
+    const string _ussManaContainer = _ussClassName + "mana-container";
+
     GameManager _gameManager;
 
     public Hero Hero;
@@ -21,17 +34,6 @@ public class HeroCardStats : VisualElement
     public ResourceBarElement ExpBar;
     public ResourceBarElement ManaBar;
 
-    const string _ussCommonTextPrimary = "common__text-primary";
-
-    const string _ussClassName = "hero-stats-card__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussTopPanel = _ussClassName + "top-panel";
-    const string _ussTopLeftPanel = _ussClassName + "top-left-panel";
-    const string _ussTopMiddlePanel = _ussClassName + "top-middle-panel";
-    const string _ussTopRightPanel = _ussClassName + "top-right-panel";
-
-    const string _ussExpContainer = _ussClassName + "exp-container";
-    const string _ussManaContainer = _ussClassName + "mana-container";
 
     public HeroCardStats(Hero hero)
     {
@@ -122,6 +124,7 @@ public class HeroCardStats : VisualElement
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.style.position = Position.Absolute;
+        _level.style.left = 5;
         _level.AddToClassList(_ussCommonTextPrimary);
         ExpBar.Add(_level);
 

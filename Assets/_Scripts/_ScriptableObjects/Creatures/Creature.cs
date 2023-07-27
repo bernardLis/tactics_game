@@ -114,6 +114,8 @@ public class Creature : Entity
         OnLevelUp?.Invoke();
     }
 
+    public bool IsAbilityUnlocked() { return Level >= CreatureAbility.UnlockLevel; }
+
     public bool ShouldEvolve()
     {
         return Random.value < ChanceToEvolve(Level);
@@ -137,7 +139,6 @@ public class Creature : Entity
         // level 9 -> 0.75
         // level 10 -> 0.9
         // level 11 -> 1.05
-
     }
 
     public CreatureData SerializeSelf()

@@ -247,16 +247,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b8eb874a98c603d45a8ed4c3d2c05b36
-    m_Address: Assets/_Scripts/_UIElements/Styles/Entity/BattleMinionCardStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b32c35970ecbbdf40a9b5e8a8bed4f99
-    m_Address: Assets/_Scripts/_UIElements/Styles/Entity/MinionCardStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a14340c79932792408dac21a9eed02ae
     m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleBaseStyles.uss
     m_ReadOnly: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleMinion : BattleEntity
 {
+    BattleSpire _spire;
     public Minion Minion { get; private set; }
 
     public override void InitializeEntity(Entity entity)
@@ -16,6 +17,8 @@ public class BattleMinion : BattleEntity
     {
         base.InitializeBattle(team, ref opponents);
 
+        _spire = BattleSpire.Instance;
+
         StartRunEntityCoroutine();
     }
 
@@ -26,8 +29,9 @@ public class BattleMinion : BattleEntity
         _agent.enabled = true;
         _agent.avoidancePriority = Random.Range(1, 100);
 
-        // HERE: get spire position
-        while (!_agent.SetDestination(Vector3.zero)) yield return null;
+        Vector3 pos = _spire.transform.position;
+        pos.y = transform.position.y;
+        while (!_agent.SetDestination(pos)) yield return null;
         Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
     }

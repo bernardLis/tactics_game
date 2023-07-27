@@ -87,7 +87,7 @@ public class BattleCreature : BattleEntity
             yield return new WaitForSeconds(0.5f); // TODO: lag
         }
 
-        if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAction && CanUseSpecialAbility())
             yield return SpecialAbility();
 
         if (Opponent == null || Opponent.IsDead)
@@ -100,11 +100,19 @@ public class BattleCreature : BattleEntity
         yield return _attackCoroutine;
     }
 
+    protected bool CanUseSpecialAbility()
+    {
+        if (Creature.CreatureAbility == null) return false;
+        if (CurrentSpecialAbilityCooldown > 0) return false;
+        if (!Creature.IsAbilityUnlocked()) return false;
+        return true;
+    }
+
     protected override IEnumerator PathToTarget()
     {
         EntityLog.Add($"{Time.time}: Path to target is called");
 
-        if (_hasSpecialMove && CurrentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
             PathToTarget();
@@ -121,7 +129,7 @@ public class BattleCreature : BattleEntity
         // path to target
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
-            if (_hasSpecialAction && CurrentSpecialAbilityCooldown <= 0)
+            if (_hasSpecialAction && CanUseSpecialAbility())
                 yield return SpecialAbility();
 
             if (Opponent.IsDead || Opponent == null) yield break;

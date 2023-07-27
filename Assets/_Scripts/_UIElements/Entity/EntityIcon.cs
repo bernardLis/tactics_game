@@ -124,10 +124,10 @@ public class EntityIcon : ElementWithTooltip
 
         VisualElement tooltip = new();
 
-        if (_entity.GetType() == typeof(Creature))
+        if (_entity is Creature)
             tooltip = new CreatureCard((Creature)_entity);
-        if (_entity.GetType() == typeof(Minion))
-            tooltip = new MinionCard((Minion)_entity);
+        if (_entity is Minion)
+            tooltip = new EntityCard((Minion)_entity);
 
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();

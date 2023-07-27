@@ -17,7 +17,7 @@ public class BattleCreatureRanged : BattleCreature
             yield break;
         }
 
-        if (_hasSpecialMove && CurrentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
             PathToTarget();
@@ -117,7 +117,7 @@ public class BattleCreatureRanged : BattleCreature
     {
         while (!CanAttack()) yield return null;
 
-        if (_hasSpecialAttack & CurrentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAttack & CanUseSpecialAbility())
         {
             yield return SpecialAbility();
             yield return base.Attack();

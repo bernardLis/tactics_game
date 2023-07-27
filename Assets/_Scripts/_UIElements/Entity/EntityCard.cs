@@ -96,6 +96,7 @@ public class EntityCard : VisualElement
     {
         _levelLabel = new Label($"Level {Entity.Level}");
         _levelLabel.style.position = Position.Absolute;
+        _levelLabel.style.left = 5;
         _levelLabel.AddToClassList(_ussCommonTextPrimary);
         _expBar.Add(_levelLabel);
     }

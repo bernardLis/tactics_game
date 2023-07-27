@@ -16,3 +16,4 @@ MonoBehaviour:
   Description: Shield self, blocking one attack fully.
   Icon: {fileID: 21300000, guid: 8743141abfc721548bc1bcbf7130076a, type: 3}
   Cooldown: 10
+  UnlockLevel: 6

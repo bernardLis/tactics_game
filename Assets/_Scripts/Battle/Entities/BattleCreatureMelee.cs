@@ -10,7 +10,7 @@ public class BattleCreatureMelee : BattleCreature
     {
         while (!CanAttack()) yield return null;
 
-        if (_hasSpecialAttack & CurrentSpecialAbilityCooldown <= 0)
+        if (_hasSpecialAttack & CanUseSpecialAbility())
         {
             yield return SpecialAbility();
             yield return base.Attack();

@@ -11,6 +11,8 @@ public class CreatureAbility : BaseScriptableObject
     public Sprite Icon;
     public int Cooldown;
 
+    public int UnlockLevel;
+
     public event Action OnAbilityUsed;
     public void Used() { OnAbilityUsed?.Invoke(); }
 }
