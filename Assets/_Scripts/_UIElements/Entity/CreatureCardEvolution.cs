@@ -63,7 +63,7 @@ public class CreatureCardEvolution : VisualElement
         _elementalElement = new ElementalElement(Creature.Element);
         _elementContainer.Add(_elementalElement);
 
-        _healthLabel = new Label($"Health: {creature.GetHealth()}");
+        _healthLabel = new Label($"Health: {creature.GetMaxHealth()}");
         _power = new Label($"Power: {creature.GetPower()}");
         _armor = new Label($"Armor: {creature.Armor}");
         _attackRange = new Label($"Attack Range: {creature.AttackRange}");
@@ -98,7 +98,7 @@ public class CreatureCardEvolution : VisualElement
         _elementContainer.Add(new Label(" -> "));
         _elementContainer.Add(new ElementalElement(creature.Element));
 
-        _healthLabel.text += $" -> {creature.GetHealth()}";
+        _healthLabel.text += $" -> {creature.GetMaxHealth()}";
         _power.text += $" -> {creature.GetPower()}";
         _armor.text += $" -> {creature.Armor}";
         _attackRange.text += $" -> {creature.AttackRange}";

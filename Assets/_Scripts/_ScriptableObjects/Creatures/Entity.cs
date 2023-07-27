@@ -19,15 +19,20 @@ public class Entity : BaseScriptableObject
 
     // BATTLE
     [HideInInspector] public Hero Hero;
+    [HideInInspector] public IntVariable MaxHealth;
+
     protected float _elementalDamageMultiplier = 0f;
 
     public virtual void InitializeBattle(Hero hero)
     {
         if (hero != null) Hero = hero;
+        MaxHealth = ScriptableObject.CreateInstance<IntVariable>();
+        MaxHealth.SetValue(GetMaxHealth());
+
     }
 
     // TODO: math
-    public int GetHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (Level - 1)); }
+    public int GetMaxHealth() { return Mathf.RoundToInt(BaseHealth + 0.2f * BaseHealth * (Level - 1)); }
 
     public virtual int CalculateDamage(BattleCreature attacker)
     {

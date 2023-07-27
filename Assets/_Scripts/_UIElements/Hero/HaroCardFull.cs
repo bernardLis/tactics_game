@@ -33,7 +33,7 @@ public class HeroCardFull : FullScreenElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        Initialize(root);
+        Initialize();
 
         Hero = hero;
 

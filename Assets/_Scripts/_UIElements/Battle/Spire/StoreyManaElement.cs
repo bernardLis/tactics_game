@@ -115,7 +115,7 @@ public class StoreyManaElement : VisualElement
         int heroMissingMana = _battleHeroManager.Hero.BaseMana.Value - _battleHeroManager.Hero.CurrentMana.Value;
         if (heroMissingMana <= 0)
         {
-            Helpers.DisplayTextOnElement(Helpers.GetRoot(this), _getBankMana, "Hero has full mana", Color.blue);
+            Helpers.DisplayTextOnElement(_gameManager.Root, _getBankMana, "Hero has full mana", Color.blue);
             return;
         }
         manaToGet = Mathf.Clamp(manaToGet, 0, heroMissingMana);

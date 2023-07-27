@@ -50,7 +50,7 @@ public class BattleLivesManager : MonoBehaviour
         be.transform.DOMove(pos, 0.5f).OnComplete(() =>
         {
             GameObject explosion = Instantiate(ExplosionPrefab, be.transform.position, Quaternion.identity);
-            Destroy(explosion, 1f);
+            explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
             be.gameObject.SetActive(false);
         });
     }

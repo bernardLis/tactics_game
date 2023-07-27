@@ -11,6 +11,7 @@ public class EntityCard : VisualElement
     const string _ussMain = _ussClassName + "main";
     const string _ussLeftContainer = _ussClassName + "left-container";
     const string _ussMiddleContainer = _ussClassName + "middle-container";
+    const string _ussRightContainer = _ussClassName + "right-container";
     const string _ussName = _ussClassName + "name";
     const string _ussElement = _ussClassName + "element";
     protected const string _ussKilledOverlay = _ussClassName + "killed-overlay";
@@ -45,6 +46,7 @@ public class EntityCard : VisualElement
         _middleContainer = new();
         _middleContainer.AddToClassList(_ussMiddleContainer);
         _rightContainer = new();
+        _rightContainer.AddToClassList(_ussRightContainer);
 
         Add(_leftContainer);
         Add(_middleContainer);

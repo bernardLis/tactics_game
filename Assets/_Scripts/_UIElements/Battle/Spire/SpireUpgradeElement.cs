@@ -30,7 +30,7 @@ public class SpireUpgradeElement : ElementWithTooltip
 
         AddToClassList(_ussMain);
 
-        Label name = new(Helpers.ParseScriptableObjectCloneName(storey.name));
+        Label name = new(Helpers.ParseScriptableObjectName(storey.name));
         Add(name);
 
         Label icon = new();

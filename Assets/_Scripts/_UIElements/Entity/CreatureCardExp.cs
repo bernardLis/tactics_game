@@ -96,7 +96,7 @@ public class CreatureCardExp : VisualElement
     {
         if (_gameManager.Spice < _spiceToNextLevel.Value)
         {
-            Helpers.DisplayTextOnElement(Helpers.GetRoot(this), _levelUpButton, "Not enough spice", Color.red);
+            Helpers.DisplayTextOnElement(_gameManager.Root, _levelUpButton, "Not enough spice", Color.red);
             return;
         }
 

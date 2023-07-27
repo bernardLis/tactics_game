@@ -111,6 +111,9 @@ public class Creature : Entity
         Level++;
         Experience.SetValue(0);
         ExpForNextLevel.SetValue(GetExpForNextLevel());
+
+        MaxHealth.SetValue(GetMaxHealth());
+
         OnLevelUp?.Invoke();
     }
 
@@ -124,21 +127,10 @@ public class Creature : Entity
     public float ChanceToEvolve(int level)
     {
         if (EvolvedCreature == null) return 0;
-        // starting from level 5 there is an increasing chance to evolve, 
-        // which caps at 100% at level 10
-        // starting from level 5 there is an increasing chance to evolve, 
-        // which caps at 100% at level 10 
         // TODO: math, and also tier 1 +10 levels
-        float chance = 0.1f * ((level - 4) * 1.5f);
+        float chance = 0.1f * ((level - 10) * 1.5f);
         if (chance < 0) return 0;
         return chance;
-        // level 5 -> 0.15
-        // level 6 -> 0.3
-        // level 7 -> 0.45
-        // level 8 -> 0.6
-        // level 9 -> 0.75
-        // level 10 -> 0.9
-        // level 11 -> 1.05
     }
 
     public CreatureData SerializeSelf()

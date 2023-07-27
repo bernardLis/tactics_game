@@ -29,9 +29,7 @@ public class BattleEntityInfoElement : VisualElement
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
-        IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
-        totalHealth.SetValue((int)be.Entity.GetHealth());
-        ResourceBarElement bar = new(Helpers.GetColor("healthBarRed"), "health", be.CurrentHealth, totalIntVar: totalHealth);
+        ResourceBarElement bar = new(Helpers.GetColor("healthBarRed"), "health", be.CurrentHealth, be.Entity.MaxHealth);
 
         name.style.position = Position.Absolute;
 

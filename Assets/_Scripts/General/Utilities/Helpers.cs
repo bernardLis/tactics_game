@@ -60,7 +60,7 @@ public static class Helpers
     }
 
 
-    public static string ParseScriptableObjectCloneName(string text)
+    public static string ParseScriptableObjectName(string text)
     {
         text = text.Replace("(Clone)", "");
         // https://stackoverflow.com/questions/3216085/split-a-pascalcase-string-into-separate-words
@@ -77,7 +77,7 @@ public static class Helpers
     public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
     {
         if (root == null)
-            root = GetRoot(element);
+            root = GameManager.Instance.Root; 
 
         Label l = new Label(text);
         l.AddToClassList(_ussCommonTextPrimary);
@@ -95,13 +95,14 @@ public static class Helpers
                     .OnComplete(() => root.Remove(arcMovementElement));
         };
     }
-
-    public static VisualElement GetRoot(VisualElement el)
-    {
-        if (el.parent == null)
-            return el;
-        return GetRoot(el.parent);
-    }
+    /*
+        public static VisualElement GetRoot(VisualElement el)
+        {
+            if (el.parent == null)
+                return el;
+            return GetRoot(el.parent);
+        }
+        */
 
     public static int GetRandomNumber(int digits)
     {

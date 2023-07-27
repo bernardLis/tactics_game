@@ -30,7 +30,7 @@ public class StoreyUpgradeElement : ElementWithTooltip
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonButtonBasic);
 
-        _title = new(Helpers.ParseScriptableObjectCloneName(storeyUpgrade.name));
+        _title = new(Helpers.ParseScriptableObjectName(storeyUpgrade.name));
         _title.AddToClassList(_ussTitle);
         Add(_title);
 

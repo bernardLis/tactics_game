@@ -23,7 +23,7 @@ public class CreatureAbilityTooltipElement : VisualElement
 
         AddToClassList(_ussMain);
 
-        Label name = new($"<b>{_ability.name}</b>");
+        Label name = new($"<b>{Helpers.ParseScriptableObjectName(_ability.name)}</b>");
         Add(name);
 
         Label description = new(_ability.Description);

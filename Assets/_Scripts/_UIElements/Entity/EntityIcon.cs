@@ -21,7 +21,7 @@ public class EntityIcon : ElementWithTooltip
 
     AnimationElement _animationElement;
     bool _isAnimationBlocked;
-    public EntityIcon(Entity creature, bool blockTooltip = false)
+    public EntityIcon(Entity creature, bool blockTooltip = false, bool blockClick = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
@@ -47,6 +47,7 @@ public class EntityIcon : ElementWithTooltip
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
+        if (!blockClick) RegisterCallback<MouseUpEvent>(OnMouseUp);
     }
 
     public void SmallIcon()
@@ -116,6 +117,18 @@ public class EntityIcon : ElementWithTooltip
     {
         if (_isAnimationBlocked) return;
         _animationElement.PauseAnimation();
+    }
+
+    void OnMouseUp(MouseUpEvent evt)
+    {
+        VisualElement root = _gameManager.Root;
+
+        //  if (_entity is Creature)
+        //      tooltip = new CreatureCard((Creature)_entity);
+        if (_entity is Minion)
+        {
+            new EntityCardFull((Minion)_entity);
+        }
     }
 
     protected override void DisplayTooltip()

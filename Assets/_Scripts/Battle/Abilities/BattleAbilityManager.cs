@@ -246,7 +246,7 @@ public class BattleAbilityManager : MonoBehaviour
 
         ElementalElement el = new(_selectedAbility.Element);
 
-        Label abilityName = new($"{Helpers.ParseScriptableObjectCloneName(_selectedAbility.name)}");
+        Label abilityName = new($"{Helpers.ParseScriptableObjectName(_selectedAbility.name)}");
         abilityName.style.fontSize = 48;
 
         container.Add(el);

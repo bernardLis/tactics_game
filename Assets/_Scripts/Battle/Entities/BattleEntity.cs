@@ -112,7 +112,7 @@ public class BattleEntity : MonoBehaviour
         _agent.speed = Entity.Speed;
 
         CurrentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        CurrentHealth.SetValue(Entity.GetHealth());
+        CurrentHealth.SetValue(Entity.GetMaxHealth());
     }
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
@@ -143,7 +143,7 @@ public class BattleEntity : MonoBehaviour
 
     protected void SetBattleId()
     {
-        BattleId = Team + "_" + Helpers.ParseScriptableObjectCloneName(Entity.name)
+        BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Entity.name)
                  + "_" + Helpers.GetRandomNumber(4);
         name = BattleId;
     }
@@ -181,8 +181,8 @@ public class BattleEntity : MonoBehaviour
         yield return null;
     }
 
-    public bool HasFullHealth() { return CurrentHealth.Value >= Entity.GetHealth(); }
-    public float GetTotalHealth() { return Entity.GetHealth(); }
+    public bool HasFullHealth() { return CurrentHealth.Value >= Entity.MaxHealth.Value; }
+    public float GetTotalHealth() { return Entity.MaxHealth.Value; }
     public float GetCurrentHealth() { return CurrentHealth.Value; }
 
     public int GetHealed(Ability ability)
@@ -197,8 +197,8 @@ public class BattleEntity : MonoBehaviour
         EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
 
         CurrentHealth.ApplyChange(value);
-        if (CurrentHealth.Value > Entity.GetHealth())
-            CurrentHealth.SetValue(Entity.GetHealth());
+        if (CurrentHealth.Value > Entity.GetMaxHealth())
+            CurrentHealth.SetValue(Entity.GetMaxHealth());
 
         DisplayFloatingText("+" + value, Color.green);
 

@@ -1,0 +1,22 @@
+.entity-card-full__main {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.entity-card-full__content {
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Popup_line3.png?fileID=2800000&guid=944125920118bfb468e72b41f2dfc710&type=3#Popup_line3');
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}

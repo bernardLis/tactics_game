@@ -1,9 +1,18 @@
-.creature-ability-element__main {
+.creature-ability__main {
     width: 100px;
     height: 100px;
 }
 
-.creature-ability-element__timer-label-wrapper {
+.creature-ability__timer-label-wrapper {
     width: 100%;
     justify-content: center;
+}
+
+.creature-ability__locked-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    justify-content: center;
+    align-items: center;
 }

@@ -94,6 +94,18 @@ public class ResourceBarElement : ElementWithTooltip
         DisplayMissingAmount();
     }
 
+    public void UpdateTrackedVariables(IntVariable current, IntVariable total)
+    {
+        _currentInt = current;
+        _displayedAmount = _currentInt.Value;
+        current.OnValueChanged += OnValueChanged;
+
+        _total = total.Value;
+        total.OnValueChanged += OnTotalChanged;
+
+        DisplayMissingAmount();
+    }
+
     public void OnTotalChanged(int total)
     {
         _total = total;

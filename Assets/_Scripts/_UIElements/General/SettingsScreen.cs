@@ -33,7 +33,7 @@ public class SettingsScreen : FullScreenElement
 
         _parent = parent;
 
-        Initialize(root);
+        Initialize();
         AddToClassList(_ussMain);
 
         // sound

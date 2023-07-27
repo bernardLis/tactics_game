@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using UnityEngine.UIElements;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
@@ -39,6 +40,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
 
+    public VisualElement Root { get; private set; }
+
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;
 
@@ -55,6 +58,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     void Start()
     {
         Debug.Log($"Game manager Start");
+        Root = GetComponent<UIDocument>().rootVisualElement;
         // HERE: testing
         // global save per 'game'
         //  if (PlayerPrefs.GetString("saveName").Length == 0)

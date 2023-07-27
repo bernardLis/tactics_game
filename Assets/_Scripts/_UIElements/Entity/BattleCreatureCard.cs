@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BattleCreatureCard : CreatureCard
+public class BattleCreatureCard : BattleEntityCard
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "battle-creature__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussExpContainer = _ussClassName + "exp-container";
-    const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
     BattleCreature _battleCreature;
 
-    ResourceBarElement _expBar;
+    CreatureAbilityElement _abilityElement;
 
-    Label _level;
-
-    Label _kills;
-    Label _damageDealt;
-    Label _damageTaken;
-
-    public BattleCreatureCard(BattleCreature battleCreature) : base(battleCreature.Creature)
+    public BattleCreatureCard(BattleCreature battleCreature) : base(battleCreature)
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleCreatureCardStyles);
         if (ss != null)
@@ -30,80 +21,35 @@ public class BattleCreatureCard : CreatureCard
 
         _battleCreature = battleCreature;
 
-        AddToClassList(_ussMain);
-
-        if (_battleCreature.Entity.Hero != null)
-            _power.text += " + " + Mathf.RoundToInt(_battleCreature.Entity.Hero.Power.GetValue());
-
-        _healthLabel.text = $"Health: {_battleCreature.CurrentHealth} / {_creature.GetHealth()}";
-
-        _kills = new($"Killed enemies: {_battleCreature.KilledEnemiesCount}");
-        _damageDealt = new($"Damage dealt: {_battleCreature.DamageDealt}");
-        _damageTaken = new($"Damage taken: {_battleCreature.DamageTaken}");
-
-        _rightContainer.Clear();
-
-        _rightContainer.Add(_kills);
-        _rightContainer.Add(_damageDealt);
-        _rightContainer.Add(_damageTaken);
-
-        _rightContainer.Add(new CreatureAbilityElement(battleCreature.Creature.CreatureAbility,
-                battleCreature.CurrentSpecialAbilityCooldown));
-
-        AddExpBar();
-
-        _battleCreature.OnEnemyKilled += OnEnemyKilled;
-        _battleCreature.OnDamageDealt += OnDamageDealt;
-        _battleCreature.OnDamageTaken += OnDamageTaken;
-        _battleCreature.OnDeath += OnDeath;
+        OverrideExpBar();
+        OverrideHealthBar();
+        HandleCreatureAbility();
     }
 
-    void AddExpBar()
+    void OverrideExpBar()
     {
-        VisualElement container = new();
-        container.AddToClassList(_ussExpContainer);
+        _expBar.UpdateTrackedVariables(_battleCreature.Creature.Experience, _battleCreature.Creature.ExpForNextLevel);
 
-        _expBar = new(Color.gray, "Experience", _battleCreature.Creature.Experience,
-                _battleCreature.Creature.ExpForNextLevel, thickness: 0);
-
-        _level = new Label($"Level {_battleCreature.Creature.Level}");
-        _level.style.position = Position.Absolute;
-        _level.AddToClassList(_ussCommonTextPrimary);
-        _expBar.Add(_level);
-        _battleCreature.Creature.OnLevelUp += () => _level.text = $"Level {_battleCreature.Creature.Level}";
-
-        container.Add(_expBar);
-        _middleContainer.Add(container);
+        _battleCreature.Creature.OnLevelUp += () => _levelLabel.text = $"Level {_battleCreature.Creature.Level}";
     }
 
-    void OnHealthChanged(float nvm)
+    void OverrideHealthBar()
     {
-        _healthLabel.text = $"Health: {_battleCreature.CurrentHealth} / {_creature.GetHealth()}";
+        _healthBar.UpdateTrackedVariables(_battleCreature.CurrentHealth, _battleCreature.Creature.MaxHealth);
     }
 
-    void OnEnemyKilled(int total)
+    void HandleCreatureAbility()
     {
-        _kills.text = $"Killed enemies: {total}";
-    }
+        if (_battleCreature.Creature.CreatureAbility == null) return;
 
-    void OnDamageDealt(int dmg)
-    {
-        _damageDealt.text = $"Damage dealt: {_battleCreature.DamageDealt}";
-    }
-
-    void OnDamageTaken(int dmg)
-    {
-        _damageTaken.text = $"Damage taken: {_battleCreature.DamageTaken}";
-    }
-
-    void OnDeath(BattleEntity entity, BattleEntity killer, Ability ability)
-    {
-        VisualElement overlay = new();
-        Label l = new Label("Defeated!");
-        l.style.fontSize = 36;
-        l.style.color = Color.white;
-        overlay.Add(l);
-        overlay.AddToClassList(_ussKilledOverlay);
-        Add(overlay);
+        _abilityElement = new(_battleCreature.Creature.CreatureAbility,
+                            _battleCreature.CurrentSpecialAbilityCooldown,
+                            !_battleCreature.Creature.IsAbilityUnlocked());
+        _battleCreature.Creature.OnLevelUp += () =>
+        {
+            if (_battleCreature.Creature.IsAbilityUnlocked())
+                _abilityElement.Unlock();
+        };
+        _rightContainer.Add(_abilityElement);
     }
 }

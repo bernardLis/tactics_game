@@ -24,7 +24,7 @@ public class AbilityTooltipElement : ElementWithTooltip
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
 
-        Label name = new(Helpers.ParseScriptableObjectCloneName(ability.name));
+        Label name = new(Helpers.ParseScriptableObjectName(ability.name));
         name.AddToClassList(_ussCommonTextPrimary);
         name.style.alignSelf = Align.Center;
         container.Add(new ElementalElement(ability.Element));

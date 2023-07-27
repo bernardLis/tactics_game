@@ -25,7 +25,7 @@ public class MenuScreen : FullScreenElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        Initialize(root);
+        Initialize();
         AddToClassList(_ussMain);
         AddButtons();
 
