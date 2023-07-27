@@ -12,8 +12,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleEntityElementStyles.uss?fileID=7433441132597879392&amp;guid=cfbdbbe13acd1e0478727ccd5ed27b2b&amp;type=3#BattleEntityElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardContainerStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#RewardContainerStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Dashboard/BattleResultStyles.uss?fileID=7433441132597879392&amp;guid=c97e24d9050e57749aee3099e5cbe6a7&amp;type=3#BattleResultStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardExpContainerStyles.uss?fileID=7433441132597879392&amp;guid=91b00a466ae631244bd0b2a23fdc1e74&amp;type=3#RewardExpContainerStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Army%20Entity/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute;">
         <ui:Button text="Restore Mana" display-tooltip-when-elided="true" name="restoreMana" />

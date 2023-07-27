@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 8888-6aef-4f8f-a757-9d06b20d9a51
   Name: Wolf Pup
-  UpgradeTier: 0
   IconAnimation:
   - {fileID: 21300000, guid: 943a1d6d9c18f4f4796d48bac287bf5c, type: 3}
   - {fileID: 21300000, guid: cf098c8b3eae9884cb235dd0826873fd, type: 3}
@@ -96,19 +95,24 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   BaseHealth: 100
   Armor: 0
+  Speed: 7
+  Prefab: {fileID: 7354756291987998506, guid: a2cdb7819cfdb674f8fc233a9f8a8bcc, type: 3}
+  Hero: {fileID: 0}
+  MaxHealth: {fileID: 0}
+  UpgradeTier: 0
   BasePower: 15
   AttackRange: 3
   AttackCooldown: 1.5
-  Speed: 7
   CreatureAbility: {fileID: 11400000, guid: 18d1386c3df7b0e43a6b692f461f6f0d, type: 2}
-  Prefab: {fileID: 7354756291987998506, guid: a2cdb7819cfdb674f8fc233a9f8a8bcc, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
   EvolvedCreature: {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0
-  TotalDamageDealt: 45
+  TotalDamageDealt: 0
   OldDamageTaken: 0
   TotalDamageTaken: 0
-  Hero: {fileID: 0}

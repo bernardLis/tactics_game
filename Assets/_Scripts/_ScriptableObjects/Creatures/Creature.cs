@@ -21,17 +21,15 @@ public class Creature : Entity
     public Creature EvolvedCreature;
 
     // exp
-    public IntVariable Experience;
-    public IntVariable ExpForNextLevel;
-    public int LeftoverExp;
+    [HideInInspector] public IntVariable Experience;
+    [HideInInspector] public IntVariable ExpForNextLevel;
+    [HideInInspector] public int LeftoverExp;
 
-    // battle
+    // battle stats
     [HideInInspector] public int OldKillCount;
     [HideInInspector] public int TotalKillCount;
-
     [HideInInspector] public int OldDamageDealt;
     [HideInInspector] public int TotalDamageDealt;
-
     [HideInInspector] public int OldDamageTaken;
     [HideInInspector] public int TotalDamageTaken;
 

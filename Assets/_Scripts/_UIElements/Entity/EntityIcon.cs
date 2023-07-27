@@ -123,12 +123,10 @@ public class EntityIcon : ElementWithTooltip
     {
         VisualElement root = _gameManager.Root;
 
-        //  if (_entity is Creature)
-        //      tooltip = new CreatureCard((Creature)_entity);
+        if (_entity is Creature)
+            new CreatureCardFull((Creature)_entity);
         if (_entity is Minion)
-        {
             new EntityCardFull((Minion)_entity);
-        }
     }
 
     protected override void DisplayTooltip()

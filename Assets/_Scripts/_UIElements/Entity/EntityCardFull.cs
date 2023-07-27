@@ -11,17 +11,26 @@ public class EntityCardFull : FullScreenElement
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
 
-    GameManager _gameManager;
+    protected GameManager _gameManager;
 
     public Entity Entity;
 
-    VisualElement _content;
-    VisualElement _leftContainer;
-    VisualElement _middleContainer;
-    VisualElement _rightContainer;
+    protected VisualElement _content;
+
+    protected VisualElement _topContainer;
+    protected VisualElement _bottomContainer;
+
+    protected VisualElement _topLeftContainer;
+    protected VisualElement _topMiddleContainer;
+    protected VisualElement _topRightContainer;
+
+    protected VisualElement _bottomLeftContainer;
+    protected VisualElement _bottomMiddleContainer;
+    protected VisualElement _bottomRightContainer;
+
 
     Label _nameLabel;
-    EntityIcon _entityIcon;
+    protected EntityIcon _entityIcon;
 
     Label _levelLabel;
     Label _priceLabel;
@@ -51,20 +60,41 @@ public class EntityCardFull : FullScreenElement
         _content.AddToClassList(_ussContent);
         Add(_content);
 
-        _leftContainer = new();
-        _middleContainer = new();
-        _rightContainer = new();
-
-        _content.Add(_leftContainer);
-        _content.Add(_middleContainer);
-        _content.Add(_rightContainer);
+        CreateContainers();
 
         AddIdentityInfo();
-        AddBasicStats();
-        AddBattleStats();
+        AddBasicInfo();
+        AddBattleCharacteristics();
 
         _continueButton = new("Continue", callback: Hide);
         Add(_continueButton);
+    }
+
+    void CreateContainers()
+    {
+        _topContainer = new();
+        _topContainer.style.flexDirection = FlexDirection.Row;
+        _bottomContainer = new();
+        _bottomContainer.style.flexDirection = FlexDirection.Row;
+
+        _content.Add(_topContainer);
+        _content.Add(_bottomContainer);
+
+        _topLeftContainer = new();
+        _topMiddleContainer = new();
+        _topRightContainer = new();
+
+        _topContainer.Add(_topLeftContainer);
+        _topContainer.Add(_topMiddleContainer);
+        _topContainer.Add(_topRightContainer);
+
+        _bottomLeftContainer = new();
+        _bottomMiddleContainer = new();
+        _bottomRightContainer = new();
+
+        _bottomContainer.Add(_bottomLeftContainer);
+        _bottomContainer.Add(_bottomMiddleContainer);
+        _bottomContainer.Add(_bottomRightContainer);
     }
 
     void AddIdentityInfo()
@@ -72,29 +102,30 @@ public class EntityCardFull : FullScreenElement
         _nameLabel = new($"<b>{Helpers.ParseScriptableObjectName(Entity.name)}<b>");
         _entityIcon = new(Entity, true, true);
 
-        _leftContainer.Add(_nameLabel);
-        _leftContainer.Add(_entityIcon);
+        _topLeftContainer.Add(_nameLabel);
+        _topLeftContainer.Add(_entityIcon);
     }
 
-    void AddBasicStats()
+    void AddBasicInfo()
     {
         _element = new(Entity.Element);
         _levelLabel = new($"Level: {Entity.Level}");
-        _maxHealth = new($"Max Health: {Entity.GetMaxHealth()}");
-
-        _middleContainer.Add(_element);
-        _middleContainer.Add(_levelLabel);
-        _middleContainer.Add(_maxHealth);
-    }
-
-    void AddBattleStats()
-    {
-        _armor = new($"Armor: {Entity.Armor}");
-        _speed = new($"Speed: {Entity.Speed}");
         _priceLabel = new($"Price: {Entity.Price}");
 
-        _rightContainer.Add(_armor);
-        _rightContainer.Add(_speed);
-        _rightContainer.Add(_priceLabel);
+        _topMiddleContainer.Add(_element);
+        _topMiddleContainer.Add(_levelLabel);
+        _topMiddleContainer.Add(_priceLabel);
+
+    }
+
+    void AddBattleCharacteristics()
+    {
+        _maxHealth = new($"Max Health: {Entity.GetMaxHealth()}");
+        _armor = new($"Armor: {Entity.Armor}");
+        _speed = new($"Speed: {Entity.Speed}");
+
+        _topRightContainer.Add(_maxHealth);
+        _topRightContainer.Add(_armor);
+        _topRightContainer.Add(_speed);
     }
 }
