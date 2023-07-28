@@ -8,7 +8,7 @@ public class RewardCardArmy : RewardCard
     public RewardCardArmy(Reward reward) : base(reward)
     {
         RewardArmy rewardArmy = reward as RewardArmy;
-
-        Add(new EntityIcon(rewardArmy.Creature));
+        EntityIcon icon = new(rewardArmy.Creature);
+        Add(icon);
     }
 }

@@ -25,10 +25,10 @@ public class RewardCard : ElementWithSound
 
         AddToClassList(_ussMain);
 
-        RegisterCallback<PointerUpEvent>(OnPointerUp);
+        RegisterCallback<ClickEvent>(OnPointerUp);
     }
 
-    void OnPointerUp(PointerUpEvent evt)
+    void OnPointerUp(ClickEvent evt)
     {
         if (evt.button != 0) return;
 
@@ -42,6 +42,6 @@ public class RewardCard : ElementWithSound
         AddToClassList(_ussDisabled);
     }
 
-    public void DisableClicks() { UnregisterCallback<PointerUpEvent>(OnPointerUp); }
+    public void DisableClicks() { UnregisterCallback<ClickEvent>(OnPointerUp); }
 
 }
