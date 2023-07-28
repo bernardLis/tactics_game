@@ -96,12 +96,14 @@ public class BattleManager : Singleton<BattleManager>
 
     public void PauseGame()
     {
+        IsTimerOn = false;
         Time.timeScale = 0f;
         OnGamePaused?.Invoke();
     }
 
     public void ResumeGame()
     {
+        IsTimerOn = true;
         Time.timeScale = 1f;
         OnGameResumed?.Invoke();
     }

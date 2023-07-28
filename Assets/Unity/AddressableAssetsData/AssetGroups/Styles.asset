@@ -77,11 +77,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d7df27be43e873a44b6156bc8a574926
-    m_Address: StarRankElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 345bbfaec402d074496719d46520316d
     m_Address: TooltipElementStyles
     m_ReadOnly: 0

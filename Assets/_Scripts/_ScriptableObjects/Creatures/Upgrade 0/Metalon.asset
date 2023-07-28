@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: asd-6aef-4f8f-a757-9d06b20d9a51
   Name: Metalon
+  Icon: {fileID: 21300000, guid: 06a042d8d1cba28468cb45ec7894c63b, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 5de6cdd5b7106134398f500118297b82, type: 3}
   - {fileID: 21300000, guid: 107d32ca4868c5146880477717768955, type: 3}

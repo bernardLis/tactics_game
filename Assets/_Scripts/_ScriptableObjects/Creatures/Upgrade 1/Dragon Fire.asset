@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: DragonFire-6aef-4f8f-a757-9d06b20d9a51
   Name: Dragon Fire
+  Icon: {fileID: 21300000, guid: b947ce4643bcca64295e35f22408ba4d, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 1d215699000d17a42be148306c462961, type: 3}
   - {fileID: 21300000, guid: 3bddab7fac66f1647b9c791696668fb2, type: 3}

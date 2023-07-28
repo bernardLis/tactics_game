@@ -4,6 +4,8 @@ using System;
 
 public class FullScreenElement : VisualElement
 {
+    const string _ussCommonMenuButton = "common__menu-button";
+
     GameManager _gameManager;
     BattleManager _battleManager;
 
@@ -11,7 +13,8 @@ public class FullScreenElement : VisualElement
 
     public event Action OnHide;
 
-    const string _ussCommonMenuButton = "common__menu-button";
+    bool _resumeGameOnHide;
+
 
     public void Initialize(bool enableNavigation = true)
     {
@@ -26,6 +29,7 @@ public class FullScreenElement : VisualElement
         _battleManager = BattleManager.Instance;
         if (_battleManager != null)
         {
+            if (_battleManager.IsTimerOn) _resumeGameOnHide = true;
             _root = _battleManager.Root;
             _battleManager.PauseGame();
         }
@@ -76,7 +80,8 @@ public class FullScreenElement : VisualElement
         OnHide?.Invoke();
         _gameManager.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
 
-        if (_battleManager != null) _battleManager.ResumeGame();
+        if (_battleManager != null && _resumeGameOnHide)
+            _battleManager.ResumeGame();
 
         this.SetEnabled(false);
         //  if (this.parent == _root)

@@ -13,6 +13,7 @@ public class BattleMinimapManager : MonoBehaviour
 
     BattleManager _battleManager;
     BattleCameraManager _battleCameraManager;
+    BattleTooltipManager _tooltipManager;
     SpireUpgradeManager _spireUpgradeManager;
 
     Vector2 mapSize = new Vector2(100, 100);
@@ -30,6 +31,7 @@ public class BattleMinimapManager : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
         _battleCameraManager = BattleCameraManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
         _spireUpgradeManager = SpireUpgradeManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
@@ -120,8 +122,31 @@ public class BattleMinimapManager : MonoBehaviour
             return;
         }
         VisualElement icon = new VisualElement();
+        icon.style.backgroundImage = new StyleBackground(be.Entity.Icon);
         icon.style.visibility = Visibility.Hidden;
+        icon.style.opacity = 0.8f;
         icon.usageHints = UsageHints.DynamicTransform;
+
+        icon.RegisterCallback<MouseUpEvent>((e) =>
+        {
+            if (e.button != 0) return;
+            _battleCameraManager.CenterCameraOnBattleEntity(be);
+            UpdateCameraIconRotation();
+            _tooltipManager.DisplayTooltip(be);
+        });
+
+        icon.RegisterCallback<MouseEnterEvent>((e) =>
+        {
+            icon.style.opacity = 1;
+            be.ShowHighlightDiamond(Color.white);
+        });
+
+        icon.RegisterCallback<MouseLeaveEvent>((e) =>
+        {
+            icon.style.opacity = 0.8f;
+            be.HideHighlightDiamond();
+        });
+
         ResolveEntityIconStyle(be, icon);
         _entityIcons.Add(be.transform, icon);
         _minimap.Add(icon);

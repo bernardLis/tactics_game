@@ -5,6 +5,7 @@ using UnityEngine;
 public class Entity : BaseScriptableObject
 {
     public string Name;
+    public Sprite Icon;
     public Sprite[] IconAnimation;
     public int Level;
     public int Price;

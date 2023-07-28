@@ -39,6 +39,8 @@ public class AbilityButton : ElementWithSound
         AddToClassList(_ussCommonButtonBasic);
 
         _icon = new AbilityIcon(ability, key);
+        Debug.Log($"ability {ability}");
+        Debug.Log($"icon {_icon}");
         Add(_icon);
     }
 

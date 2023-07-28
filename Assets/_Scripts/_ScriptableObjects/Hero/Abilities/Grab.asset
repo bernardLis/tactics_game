@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f2b1c683-3138-41a4-8a00-0357f3aff67b
   Description: Grab an entity and move it.
-  Icon: {fileID: 21300000, guid: 361e305fbd829384fa0e95cb53915e72, type: 3}
+  Icon: {fileID: 21300000, guid: d0bd63dc4e8d4a845a0f198c39644e18, type: 3}
   Level: 1
   IsStartingAbility: 0
   AbilityNameSound: {fileID: 0}

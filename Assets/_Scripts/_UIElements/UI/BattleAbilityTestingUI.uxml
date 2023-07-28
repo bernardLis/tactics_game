@@ -7,7 +7,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroPortraitStyles.uss?fileID=7433441132597879392&amp;guid=30cb1d7da388bcd46bd5f2295479366d&amp;type=3#HeroPortraitStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StarRankElementStyles.uss?fileID=7433441132597879392&amp;guid=d7df27be43e873a44b6156bc8a574926&amp;type=3#StarRankElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleEntityElementStyles.uss?fileID=7433441132597879392&amp;guid=cfbdbbe13acd1e0478727ccd5ed27b2b&amp;type=3#BattleEntityElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardCardStyles" />

@@ -803,6 +803,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.57
       objectReference: {fileID: 0}
+    - target: {fileID: 8538832651087049126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

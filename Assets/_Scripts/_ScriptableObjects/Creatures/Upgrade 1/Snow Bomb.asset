@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: snowBomb-6aef-4f8f-a757-9d06b20d9a51
   Name: Snow Bomb
+  Icon: {fileID: 21300000, guid: 7a5bd47e08161764bb079b7041bef8b5, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 88bab5880f3c8bd4fb07277f185a2c29, type: 3}
   - {fileID: 21300000, guid: 99e0921f7910f7141ab8a326c48b1624, type: 3}

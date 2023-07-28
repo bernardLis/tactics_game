@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: snake-6aef-4f8f-a757-9d06b20d9a51
   Name: Snake
+  Icon: {fileID: 21300000, guid: 369847203aee31c4ab727ecf6dc6b5ee, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: caf813891d398284aa1841531fc0e1b8, type: 3}
   - {fileID: 21300000, guid: 7c71a17c8bcc62c48a70d3c2caf0f59f, type: 3}
