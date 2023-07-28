@@ -35,7 +35,7 @@ public class ItemElement : ElementWithTooltip
         Label name = new(Item.ItemName);
         Label tooltipText = new(_tooltipText);
         Label rarity = new($"Rarity: {Item.Rarity}");
-        rarity.style.color = Helpers.GetColor(Item.Rarity.ToString());
+        rarity.style.color = GameManager.Instance.GameDatabase.GetColorByName(Item.Rarity.ToString()).Color;
         Label value = new($"Price: {Item.Price}");
 
         tooltip.Add(name);

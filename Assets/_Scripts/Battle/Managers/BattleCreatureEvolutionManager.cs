@@ -44,7 +44,7 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
             .WaitForCompletion();
 
         originalEntity.DisplayFloatingText("Evolving!", Color.magenta);
-        BattleEntityShaders sh = originalEntity.GetComponent<BattleEntityShaders>();
+        ObjectShaders sh = originalEntity.GetComponent<ObjectShaders>();
 
         sh.Dissolve(5f, false);
         sh.OnDissolveComplete += () =>
@@ -74,7 +74,7 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
         be.InitializeEntity(newCreature);
         be.Collider.enabled = false;
 
-        be.GetComponent<BattleEntityShaders>().Dissolve(5f, true);
+        be.GetComponent<ObjectShaders>().Dissolve(5f, true);
 
         be.transform.DOMoveY(1f, 2f)
             .SetDelay(2f)

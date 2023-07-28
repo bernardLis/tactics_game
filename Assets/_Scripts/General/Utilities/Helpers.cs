@@ -8,32 +8,6 @@ public static class Helpers
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    static Dictionary<string, Color> _colors = new()
-    {
-        { "healthBarRed", new Color(0.529f, 0.16f, 0.16f) },
-        { "manaBarBlue", new Color(0.168f, 0.149f, 0.85f) },
-        { "movementBlue", new Color(0.53f, 0.52f, 1f, 1f) },
-        { "healthGainGreen", new Color(0.42f, 1f, 0.42f, 1f) },
-        { "damageRed", new Color(1f, 0.42f, 0.42f, 1f) },
-        { "gray", new Color(0.22f, 0.22f, 0.22f, 1f) },
-
-        { ItemRarity.Common.ToString(), new Color(1f,1f,1f,1f) },
-        { ItemRarity.Uncommon.ToString(), new Color(0.31f,1f,0.69f,1f) },
-        { ItemRarity.Rare.ToString(), new Color(0.38f,0.51f,0.84f,1f) },
-        { ItemRarity.Epic.ToString(), new Color(0.32f,0.22f,0.44f,1f) },
-    };
-
-    public static Color GetColor(string name)
-    {
-        Color col;
-        if (!_colors.TryGetValue(name, out col))
-        {
-            Debug.LogError($"Color: {name} is not in the color dictionary");
-            return Color.black;
-        }
-        return col;
-    }
-
     public static Gradient GetGradient(Color color)
     {
         Gradient gradient = new Gradient();

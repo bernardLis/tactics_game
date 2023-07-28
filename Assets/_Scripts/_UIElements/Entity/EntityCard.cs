@@ -110,7 +110,8 @@ public class EntityCard : VisualElement
         IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
         totalHealth.SetValue(Entity.BaseHealth);
 
-        _healthBar = new(Helpers.GetColor("healthBarRed"), "health", currentHealth, totalHealth);
+        Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
+        _healthBar = new(c, "health", currentHealth, totalHealth);
         _middleContainer.Add(_healthBar);
     }
 }

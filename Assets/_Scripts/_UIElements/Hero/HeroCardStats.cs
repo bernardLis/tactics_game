@@ -150,7 +150,8 @@ public class HeroCardStats : VisualElement
         if (Hero.CurrentMana != null)
             currentMana = Hero.CurrentMana;
 
-        ManaBar = new(Helpers.GetColor("manaBarBlue"), "Mana", currentMana, totalValueStat: Hero.Mana);
+        Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
+        ManaBar = new(c, "Mana", currentMana, totalValueStat: Hero.Mana);
         container.Add(ManaBar);
 
         return container;

@@ -18,9 +18,12 @@ public class GameDatabase : BaseScriptableObject
 
     [Header("Shaders")]
     public Shader DissolveShader;
-    
+
 
     [Header("General")]
+    [SerializeField] ColorVariable[] _colors;
+    public ColorVariable GetColorByName(string name) { return _colors.FirstOrDefault(c => c.name == name); }
+
     [SerializeField] Sprite[] CoinSprites;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;

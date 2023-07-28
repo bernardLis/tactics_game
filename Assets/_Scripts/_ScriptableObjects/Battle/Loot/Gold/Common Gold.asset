@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15d6da0dc1d895845a2089f8d20c4642, type: 3}
+  m_Name: Common Gold
+  m_EditorClassIdentifier: 
+  Id: 0d8c90ee-b616-4d82-bfcb-9c56c52dbb27
+  LootChance: 15
+  LootColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
+  Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
+  Effect: {fileID: 3038484871448754765, guid: 978e459b0ff39cc40b6629977680af1c, type: 3}
+  ClickEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
+  DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: 0a64af2178640a045a68dff723adc9fc, type: 2}
+  GoldRange: {x: 100, y: 200}
+  Gold: 0

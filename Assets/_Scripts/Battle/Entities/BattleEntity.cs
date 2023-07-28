@@ -19,7 +19,7 @@ public class BattleEntity : MonoBehaviour
     protected BattleManager _battleManager;
 
     protected BattleHighlightDiamond _highlightDiamond;
-    protected BattleEntityShaders _battleEntityShaders;
+    protected ObjectShaders _battleEntityShaders;
 
     public List<string> EntityLog = new();
 
@@ -28,7 +28,6 @@ public class BattleEntity : MonoBehaviour
     [SerializeField] protected Sound _deathSound;
 
     [Header("Prefabs")]
-    [SerializeField] GameObject _battlePickupPrefab;
     [SerializeField] GameObject _healedEffect;
     BattleTooltipManager _tooltipManager;
 
@@ -80,7 +79,7 @@ public class BattleEntity : MonoBehaviour
         _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
         _highlightDiamond.gameObject.SetActive(false);
 
-        _battleEntityShaders = GetComponent<BattleEntityShaders>();
+        _battleEntityShaders = GetComponent<ObjectShaders>();
 
         _feelPlayer = GetComponent<MMF_Player>();
 
@@ -292,7 +291,7 @@ public class BattleEntity : MonoBehaviour
         StartCoroutine(Die());
     }
 
-    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasPickup = true)
+    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasLoot = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
@@ -303,7 +302,7 @@ public class BattleEntity : MonoBehaviour
 
         DOTween.Kill(transform);
 
-        if (hasPickup) ResolvePickup();
+        if (hasLoot) ResolveLoot();
 
         EntityLog.Add($"{Time.time}: Entity dies.");
 
@@ -317,11 +316,12 @@ public class BattleEntity : MonoBehaviour
         //StopAllCoroutines(); <- this breaks bomb exploding
     }
 
-    void ResolvePickup()
+    void ResolveLoot()
     {
+        // HERE: Loot
         if (Team == 0) return;
-        BattlePickup bp = Instantiate(_battlePickupPrefab, transform.position, Quaternion.identity).GetComponent<BattlePickup>();
-        bp.Initialize();
+        //    BattleLoot bp = Instantiate(_battleLootPrefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
+        //    bp.Initialize();
     }
 
     public IEnumerator GetPoisoned(BattleCreature attacker)

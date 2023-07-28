@@ -47,7 +47,7 @@ namespace MoreMountains.Feedbacks
 		public float FlashDuration = 0.2f;
 		/// the alpha of the flash
 		public float FlashAlpha = 1f;
-		/// the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health pickups, etc)
+		/// the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health Loots, etc)
 		public int FlashID = 0;
 	}
     

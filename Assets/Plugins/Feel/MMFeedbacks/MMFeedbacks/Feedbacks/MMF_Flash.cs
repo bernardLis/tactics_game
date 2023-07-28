@@ -34,8 +34,8 @@ namespace MoreMountains.Feedbacks
 		/// the alpha of the flash
 		[Tooltip("the alpha of the flash")]
 		public float FlashAlpha = 1f;
-		/// the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health pickups, etc)
-		[Tooltip("the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health pickups, etc)")]
+		/// the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health Loots, etc)
+		[Tooltip("the ID of the flash (usually 0). You can specify on each MMFlash object an ID, allowing you to have different flash images in one scene and call them separately (one for damage, one for health Loots, etc)")]
 		public int FlashID = 0;
 
 		/// <summary>

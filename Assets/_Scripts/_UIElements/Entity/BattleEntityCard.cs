@@ -9,7 +9,7 @@ public class BattleEntityCard : EntityCard
     public BattleEntityCard(BattleEntity entity) : base(entity.Entity)
     {
         _battleEntity = entity;
-        
+
         PopulateCard();
         _battleEntity.OnDeath += OnDeath;
     }
@@ -19,7 +19,8 @@ public class BattleEntityCard : EntityCard
         IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
         totalHealth.SetValue(Entity.BaseHealth);
 
-        _healthBar = new(Helpers.GetColor("healthBarRed"), "health", _battleEntity.CurrentHealth, totalHealth);
+        Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
+        _healthBar = new(c, "health", _battleEntity.CurrentHealth, totalHealth);
         _middleContainer.Add(_healthBar);
     }
 

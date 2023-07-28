@@ -29,7 +29,8 @@ public class BattleEntityInfoElement : VisualElement
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
-        ResourceBarElement bar = new(Helpers.GetColor("healthBarRed"), "health", be.CurrentHealth, be.Entity.MaxHealth);
+        Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
+        ResourceBarElement bar = new(c, "health", be.CurrentHealth, be.Entity.MaxHealth);
 
         name.style.position = Position.Absolute;
 

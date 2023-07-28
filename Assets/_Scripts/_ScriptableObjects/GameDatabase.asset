@@ -34,6 +34,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 90efad64278790c41987a3a1ce5b4398, type: 2}
   BaseGameObject: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}
+  _colors:
+  - {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
+  - {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
+  - {fileID: 11400000, guid: 2124c00715bc8564d9a70cc2ee4ba167, type: 2}
+  - {fileID: 11400000, guid: 474f053f103707c41917108b8bb11751, type: 2}
+  - {fileID: 11400000, guid: 713d618788e2864488ff113adcf64812, type: 2}
+  - {fileID: 11400000, guid: 48f19b64fecbd5246ae2877b798ae156, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

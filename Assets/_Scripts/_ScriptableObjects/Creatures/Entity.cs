@@ -12,8 +12,9 @@ public class Entity : BaseScriptableObject
 
     public int BaseHealth;
     public int Armor;
-
     public float Speed;
+
+    [SerializeField] List<Loot> Loot = new();
 
     public GameObject Prefab;
 
@@ -81,5 +82,10 @@ public class Entity : BaseScriptableObject
 
         elementalDamageBonus += _elementalDamageMultiplier;
         return elementalDamageBonus;
+    }
+
+    Loot GetLoot()
+    {
+        return null;
     }
 }

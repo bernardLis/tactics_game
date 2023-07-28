@@ -41,7 +41,7 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> KilledPlayerEntities = new();
     public List<BattleEntity> KilledOpponentEntities = new();
 
-    [HideInInspector] public List<Pickup> CollectedPickups = new();
+    [HideInInspector] public List<Loot> CollectedLoots = new();
 
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
@@ -219,7 +219,7 @@ public class BattleManager : Singleton<BattleManager>
         return OpponentEntities;
     }
 
-    public void CollectPickup(Pickup p) { CollectedPickups.Add(p); }
+    public void CollectLoot(Loot p) { CollectedLoots.Add(p); }
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }
     public void WinBattle() { StartCoroutine(BattleWon()); }
