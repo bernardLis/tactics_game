@@ -94,6 +94,13 @@ public class HeroCardExp : VisualElement
         Hero.OnRankChanged += OnRankChanged;
         Hero.Experience.OnValueChanged += OnExpValueChanged;
         Hero.Level.OnValueChanged += OnLevelUp;
+        RegisterCallback<DetachFromPanelEvent>((evt) =>
+        {
+            Debug.Log($"detach");
+            Hero.OnRankChanged -= OnRankChanged;
+            Hero.Experience.OnValueChanged -= OnExpValueChanged;
+            Hero.Level.OnValueChanged -= OnLevelUp;
+        });
 
         container.Add(_title);
         container.Add(_expBar);
@@ -111,6 +118,10 @@ public class HeroCardExp : VisualElement
         IntVariable currentMana = ScriptableObject.CreateInstance<IntVariable>();
         currentMana.SetValue(Hero.Mana.GetValue());
         Hero.Mana.OnValueChanged += currentMana.SetValue;
+        RegisterCallback<DetachFromPanelEvent>((evt) =>
+        {
+            Hero.Mana.OnValueChanged -= currentMana.SetValue;
+        });
 
         if (Hero.CurrentMana != null)
             currentMana = Hero.CurrentMana;
@@ -147,7 +158,6 @@ public class HeroCardExp : VisualElement
     {
         EnableStatUpButtons();
         PlayLevelUpAnimation();
-
     }
 
     VisualElement CreateStatGroup()

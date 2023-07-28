@@ -50,16 +50,21 @@ public class ResourceBarElement : ElementWithTooltip
         {
             _total = totalValueStat.GetValue();
             totalValueStat.OnValueChanged += OnTotalChanged;
+            RegisterCallback<DetachFromPanelEvent>((evt) => totalValueStat.OnValueChanged -= OnTotalChanged);
+
         }
         if (totalIntVar != null)
         {
             _total = totalIntVar.Value;
             totalIntVar.OnValueChanged += OnTotalChanged;
+            RegisterCallback<DetachFromPanelEvent>((evt) => totalIntVar.OnValueChanged -= OnTotalChanged);
+
         }
 
         _currentInt = currentIntVar;
         _displayedAmount = _currentInt.Value;
         currentIntVar.OnValueChanged += OnValueChanged;
+        RegisterCallback<DetachFromPanelEvent>((evt) => currentIntVar.OnValueChanged -= OnValueChanged);
 
         _isIncreasing = isIncreasing;
 
