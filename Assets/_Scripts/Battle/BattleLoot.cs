@@ -20,7 +20,6 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     [SerializeField] Texture2D _cursorTexture;
 
-    [SerializeField] List<Loot> _LootChoices = new();
     [HideInInspector] public Loot Loot;
 
     GameObject _GFX;
@@ -41,28 +40,9 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         _objectShaders = GetComponent<ObjectShaders>();
     }
 
-    public void Initialize()
+    public void Initialize(Loot loot)
     {
-        List<Loot> ordered = new(_LootChoices.OrderBy(o => o.LootChance).ToList());
-        float roll = Random.value;
-
-        foreach (Loot p in ordered)
-        {
-            if (roll <= p.LootChance)
-            {
-                Loot = Instantiate(p);
-                Loot.Initialize();
-                break;
-            }
-            roll -= p.LootChance; // TODO: it's weird but I don't know how to make it work otherwise "cumulative chance"
-        }
-
-        // TODO: bad design? 
-        if (Loot == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        Loot = loot;
 
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(Loot.DropSound, transform.position);
@@ -72,7 +52,7 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
         _GFX = GetComponentInChildren<MeshRenderer>().gameObject;
         _material = GetComponentInChildren<Renderer>().material;
-        _material.color = Loot.LootColor;
+        _material.color = Loot.PrefabColor.Color;
 
         float endY = Random.Range(2f, 4f);
         float timeY = Random.Range(1f, 3f);
@@ -94,12 +74,15 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (_isCollected) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (!CanBeCollected()) return;
+        
         _isCollected = true;
 
-        if (eventData.button != PointerEventData.InputButton.Left) return;
-        if (_grabManager.IsGrabbingEnabled) return;
-        if (_abilityManager.IsAbilitySelected) return;
+        DisplayFloatingText(Loot.GetDisplayText(), Loot.DisplayColor.Color);
+
+        _battleManager.CollectLoot(Loot);
+        Loot.Collect();
 
         Vector3 endScale = _GFX.transform.localScale * 1.01f;
         _GFX.transform.DOPunchScale(endScale, 0.5f, 5, 0.5f)
@@ -128,11 +111,15 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 transform.DOKill();
                 Destroy(gameObject, 1f);
             };
+    }
 
-        DisplayFloatingText(Loot.GetDisplayText(), Loot.GetDisplayColor());
+    bool CanBeCollected()
+    {
+        if (_grabManager.IsGrabbingEnabled) return false;
+        if (_abilityManager.IsAbilitySelected) return false;
+        if (_isCollected) return false;
 
-        _battleManager.CollectLoot(Loot);
-        Loot.Collect();
+        return true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

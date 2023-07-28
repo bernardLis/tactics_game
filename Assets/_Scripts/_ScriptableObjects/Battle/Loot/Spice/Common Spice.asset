@@ -9,24 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30a470bf825c5164c96fb70dba9a3e90, type: 3}
-  m_Name: Uncommon Loot
+  m_Script: {fileID: 11500000, guid: 3abb6a3df9a95c44c994e9a303a03a4b, type: 3}
+  m_Name: Common Spice
   m_EditorClassIdentifier: 
-  Id: uncommon-1867-4180-9efa-43a396a4e854
-  PickupChance: 0.2
-  PickupColor: {r: 1, g: 1, b: 1, a: 1}
-  GoldChance: 0.61
-  GoldRange: {x: 50, y: 100}
-  Gold: 0
-  SpiceChance: 0.2
-  SpiceRange: {x: 5, y: 10}
-  Spice: 0
-  CommonItemChance: 0.1
-  UncommonItemChance: 0.05
-  RareItemChance: 0.025
-  EpicItemChance: 0.015
-  Item: {fileID: 0}
+  Id: 8564719a-b56a-44a7-9dd7-8a88b6d68673
+  LootChance: 9
+  PrefabColor: {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
+  DisplayColor: {fileID: 11400000, guid: 901f39a11c0cc344e93cc70656cd692f, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   Effect: {fileID: 3038484871448754765, guid: 978e459b0ff39cc40b6629977680af1c, type: 3}
   ClickEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: dd58494d86697664683e0a4f7f581bc2, type: 2}
+  SpiceRange: {x: 5, y: 10}
+  Spice: 0

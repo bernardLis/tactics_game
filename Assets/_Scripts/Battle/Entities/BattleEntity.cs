@@ -318,8 +318,13 @@ public class BattleEntity : MonoBehaviour
 
     void ResolveLoot()
     {
-        // HERE: Loot
         if (Team == 0) return;
+
+        Loot loot = Entity.GetLoot();
+        if (loot == null) return;
+
+        BattleLoot bl = Instantiate(loot.Prefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
+        bl.Initialize(loot);
         //    BattleLoot bp = Instantiate(_battleLootPrefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
         //    bp.Initialize();
     }

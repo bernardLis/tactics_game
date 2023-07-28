@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: snake-6aef-4f8f-a757-9d06b20d9a51
   Name: Snake
-  UpgradeTier: 1
   IconAnimation:
   - {fileID: 21300000, guid: caf813891d398284aa1841531fc0e1b8, type: 3}
   - {fileID: 21300000, guid: 7c71a17c8bcc62c48a70d3c2caf0f59f, type: 3}
@@ -64,19 +63,37 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   BaseHealth: 0
   Armor: 5
+  Speed: 6
+  Loot:
+  - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
+  - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}
+  - {fileID: 11400000, guid: 5d2c3ab5459d404428636ab07c297ef3, type: 2}
+  - {fileID: 11400000, guid: 61ad4c7c43eba504298d749e96e4c000, type: 2}
+  - {fileID: 11400000, guid: 5a624f9d440d9344db15822956d74667, type: 2}
+  - {fileID: 11400000, guid: 3f8488aa8ca68a04b8e16210082973e5, type: 2}
+  - {fileID: 11400000, guid: 22288e8089a88114ab99528011a59a47, type: 2}
+  - {fileID: 11400000, guid: 8192a276520b0bc439e8a1ead55a4e3c, type: 2}
+  - {fileID: 11400000, guid: f71ba1a4d148a1347a0bf7dddc579928, type: 2}
+  - {fileID: 11400000, guid: 886d3613f43c3e7478278f81d9ef5e99, type: 2}
+  - {fileID: 11400000, guid: 755eca568c2137244b5085b92fc29c14, type: 2}
+  - {fileID: 11400000, guid: a746ad827f222b04aa2dca49784665ed, type: 2}
+  Prefab: {fileID: 3264181270930956438, guid: f8f879df92e45c044b4be3567bca42b6, type: 3}
+  Hero: {fileID: 0}
+  MaxHealth: {fileID: 0}
+  UpgradeTier: 1
   BasePower: 0
   AttackRange: 2.5
   AttackCooldown: 1.5
-  Speed: 6
   CreatureAbility: {fileID: 0}
-  Prefab: {fileID: 3264181270930956438, guid: f8f879df92e45c044b4be3567bca42b6, type: 3}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 976679230980922909, guid: 23078f3b934d01045a9b8571fb00a345, type: 3}
-  UpgradedCreature: {fileID: 0}
+  EvolvedCreature: {fileID: 0}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0
   TotalDamageDealt: 0
   OldDamageTaken: 0
   TotalDamageTaken: 0
-  Hero: {fileID: 0}

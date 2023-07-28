@@ -84,8 +84,30 @@ public class Entity : BaseScriptableObject
         return elementalDamageBonus;
     }
 
-    Loot GetLoot()
+    public Loot GetLoot()
     {
+        int v = Random.Range(0, 101);
+        List<Loot> possibleLoot = new();
+        foreach (Loot l in Loot)
+        {
+            if (v <= l.LootChance)
+                possibleLoot.Add(l);
+        }
+
+        // return the loot with the lowest chance
+        if (possibleLoot.Count > 0)
+        {
+            Loot lowestChanceLoot = possibleLoot[0];
+            foreach (Loot l in possibleLoot)
+            {
+                if (l.LootChance < lowestChanceLoot.LootChance)
+                    lowestChanceLoot = l;
+            }
+
+            Loot instance = Instantiate(lowestChanceLoot);
+            instance.Initialize();
+            return instance;
+        }
         return null;
     }
 }

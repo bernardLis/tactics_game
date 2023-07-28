@@ -5,7 +5,8 @@ using UnityEngine;
 public class Loot : BaseScriptableObject
 {
     public float LootChance;
-    public Color LootColor;
+    public ColorVariable PrefabColor;
+    public ColorVariable DisplayColor;
 
     public GameObject Prefab;
     public GameObject Effect;
@@ -19,14 +20,11 @@ public class Loot : BaseScriptableObject
     public void Initialize()
     {
         _gameManager = GameManager.Instance;
-
-        float roll = Random.value;
-        SelectPrize(roll);
-
+        SelectPrize();
         //   Debug.Log($"Initializing Loot {name}, roll: {roll}, gold: {Gold}, spice: {Spice}, item: {Item}");
     }
 
-    protected virtual void SelectPrize(float v)
+    protected virtual void SelectPrize()
     {
         // Meant to be overwritten
     }

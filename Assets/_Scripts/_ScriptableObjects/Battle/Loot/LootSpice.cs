@@ -8,7 +8,7 @@ public class LootSpice : Loot
     public Vector2Int SpiceRange;
     [HideInInspector] public int Spice;
 
-    protected override void SelectPrize(float v)
+    protected override void SelectPrize()
     {
         Spice = Random.Range(SpiceRange.x, SpiceRange.y);
     }

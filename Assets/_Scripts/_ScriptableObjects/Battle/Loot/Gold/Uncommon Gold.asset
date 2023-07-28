@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0d8c90ee-b616-4d82-bfcb-9c56c52dbb27
   LootChance: 30
-  LootColor: {r: 1, g: 1, b: 1, a: 1}
+  PrefabColor: {fileID: 11400000, guid: 48f19b64fecbd5246ae2877b798ae156, type: 2}
+  DisplayColor: {fileID: 11400000, guid: 73b4a5531ad7427409439da604d41d3a, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   Effect: {fileID: 3038484871448754765, guid: 978e459b0ff39cc40b6629977680af1c, type: 3}
   ClickEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}

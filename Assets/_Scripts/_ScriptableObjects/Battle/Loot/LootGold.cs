@@ -8,7 +8,7 @@ public class LootGold : Loot
     public Vector2Int GoldRange;
     [HideInInspector] public int Gold;
 
-    protected override void SelectPrize(float v)
+    protected override void SelectPrize()
     {
         Gold = Random.Range(GoldRange.x, GoldRange.y);
     }
