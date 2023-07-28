@@ -47,9 +47,7 @@ public class EntityIcon : ElementWithTooltip
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
-        if (!blockClick) RegisterCallback<ClickEvent>(OnMouseUp, TrickleDown.NoTrickleDown);
-
-        //      if (!blockClick) RegisterCallback<MouseUpEvent>(OnMouseUp, TrickleDown.NoTrickleDown);
+        if (!blockClick) RegisterCallback<ClickEvent>(OnClick, TrickleDown.NoTrickleDown);
     }
 
     public void SmallIcon()
@@ -121,7 +119,7 @@ public class EntityIcon : ElementWithTooltip
         _animationElement.PauseAnimation();
     }
 
-    void OnMouseUp(ClickEvent evt)
+    void OnClick(ClickEvent evt)
     {
         evt.StopImmediatePropagation();
         VisualElement root = _gameManager.Root;
