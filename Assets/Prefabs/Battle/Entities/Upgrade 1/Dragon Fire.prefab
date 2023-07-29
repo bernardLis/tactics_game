@@ -2873,6 +2873,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 5.19
       objectReference: {fileID: 0}
+    - target: {fileID: 4780772839949327987, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.75
+      objectReference: {fileID: 0}
     - target: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2988,7 +2992,6 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 0}
   _deathSound: {fileID: 0}
-  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 0}
   _teamHighlightDisc: {fileID: 1151075661771934194}
   IsShielded: 0

@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: c315cfdb-1414-46d8-8efe-73b64718301a
   Name: Nightingale
+  Icon: {fileID: 0}
   IconAnimation:
   - {fileID: 21300000, guid: 9c27f776fc204e8469420385f120b5c4, type: 3}
   Level: 1
   Price: 20
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  BaseHealth: 10
+  BaseHealth: 20
   Armor: 0
-  Speed: 1
+  Speed: 2
   Loot:
   - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
   - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}

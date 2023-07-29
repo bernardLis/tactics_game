@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5143ed1b-e748-4311-bc54-e7e0ba06d431
   Name: Venom
+  Icon: {fileID: 0}
   IconAnimation:
   - {fileID: 21300000, guid: d5af00c8fcf39704aa7ea8ec50502840, type: 3}
   Level: 1
   Price: 20
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  BaseHealth: 10
-  Armor: 0
+  BaseHealth: 30
+  Armor: 5
   Speed: 1
   Loot:
   - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}

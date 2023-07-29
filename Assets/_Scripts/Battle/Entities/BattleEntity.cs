@@ -150,6 +150,7 @@ public class BattleEntity : MonoBehaviour
     public void StartRunEntityCoroutine()
     {
         if (_blockRunEntity) return;
+        if (!isActiveAndEnabled) return;
 
         EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
         if (_runEntityCoroutine != null) StopCoroutine(_runEntityCoroutine);

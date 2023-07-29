@@ -234,3 +234,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707518a3ba37cfe4fb70f943c6c84b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _elementalSpherePrefab: {fileID: 7536091375171032144, guid: 209893499e151524f8636acdc67ce468, type: 3}

@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f6385442-c0c8-4f69-92c1-01a38f81d1e1
   Name: Cyclops
+  Icon: {fileID: 0}
   IconAnimation:
   - {fileID: 21300000, guid: e4a72eadae7f44e468fef0a2c07a7c0b, type: 3}
   Level: 1
   Price: 20
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  BaseHealth: 10
+  BaseHealth: 40
   Armor: 0
-  Speed: 1
+  Speed: 1.5
   Loot:
   - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
   - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}

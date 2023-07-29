@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 6ce2a527-4335-4ae0-ab33-4723c0c223e0
   Name: Fiery
+  Icon: {fileID: 0}
   IconAnimation:
   - {fileID: 21300000, guid: 3a7f9e4649e6d024e9a67e3345709459, type: 3}
   Level: 1
   Price: 20
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  BaseHealth: 10
+  BaseHealth: 30
   Armor: 0
-  Speed: 1
+  Speed: 1.7
   Loot:
   - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
   - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}

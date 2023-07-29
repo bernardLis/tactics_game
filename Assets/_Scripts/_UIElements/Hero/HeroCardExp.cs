@@ -95,7 +95,6 @@ public class HeroCardExp : VisualElement
         Hero.Level.OnValueChanged += OnLevelUp;
         RegisterCallback<DetachFromPanelEvent>((evt) =>
         {
-            Debug.Log($"detach");
             Hero.OnRankChanged -= OnRankChanged;
             Hero.Experience.OnValueChanged -= OnExpValueChanged;
             Hero.Level.OnValueChanged -= OnLevelUp;
