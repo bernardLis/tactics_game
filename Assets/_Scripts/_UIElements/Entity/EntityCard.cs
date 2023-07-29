@@ -90,7 +90,7 @@ public class EntityCard : VisualElement
         IntVariable expForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
         expForNextLevel.SetValue(100);
 
-        _expBar = new(Color.gray, "Experience", exp, expForNextLevel, thickness: 0);
+        _expBar = new(Color.gray, "Experience", exp, expForNextLevel);
         _middleContainer.Add(_expBar);
     }
 

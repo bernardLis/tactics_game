@@ -4,7 +4,6 @@ using System;
 
 public class ResourceBarElement : ElementWithTooltip
 {
-
     const string _ussCommonTextSecondary = "common__text-secondary";
 
     const string _ussClassName = "resource-bar";
@@ -13,6 +12,8 @@ public class ResourceBarElement : ElementWithTooltip
     const string _ussMissing = _ussClassName + "__missing";
     const string _ussBarText = _ussClassName + "__bar-text";
 
+    GameManager _gameManager;
+
     public VisualElement ResourceBar;
     public VisualElement MissingBar;
     Label _text;
@@ -20,7 +21,6 @@ public class ResourceBarElement : ElementWithTooltip
     int _displayedAmount;
     IntVariable _currentInt;
     IntVariable _totalInt;
-    bool _isIncreasing;
 
     IVisualElementScheduledItem _animation;
 
@@ -33,66 +33,57 @@ public class ResourceBarElement : ElementWithTooltip
 
     public ResourceBarElement(Color color, string tooltipText,
             IntVariable currentIntVar, IntVariable totalIntVar,
-            int thickness = 0, bool isIncreasing = false,
             int valueChangeDelayMs = 1000) : base()
     {
-        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
         _color = color;
         _valueChangeDelay = valueChangeDelayMs;
 
-        _totalInt = totalIntVar;
-        totalIntVar.OnValueChanged += OnTotalChanged;
-        RegisterCallback<DetachFromPanelEvent>((evt) => totalIntVar.OnValueChanged -= OnTotalChanged);
-        RegisterCallback<DetachFromPanelEvent>((evt) => Debug.Log($"bar detached"));
-
-        _currentInt = currentIntVar;
-        _displayedAmount = _currentInt.Value;
-        currentIntVar.OnValueChanged += OnValueChanged;
-        RegisterCallback<DetachFromPanelEvent>((evt) => currentIntVar.OnValueChanged -= OnValueChanged);
-
-        AddToClassList(_ussContainer);
-
         _tooltipText = tooltipText;
 
-        MissingBar = new();
-        _text = new();
-
         ResourceBar = new();
-        ResourceBar.AddToClassList(_ussMain);
-
-        _isIncreasing = isIncreasing;
-        if (_isIncreasing)
-            ResourceBar.style.flexDirection = FlexDirection.Row;
-        else
-            ResourceBar.style.flexDirection = FlexDirection.RowReverse;
-
+        ResourceBar.style.flexDirection = FlexDirection.RowReverse;
         ResourceBar.style.backgroundColor = color;
         Add(ResourceBar);
 
-        MissingBar.AddToClassList(_ussMissing);
-        _text.AddToClassList(_ussBarText);
+        MissingBar = new();
+        _text = new();
         _text.AddToClassList(_ussCommonTextSecondary);
-
-        if (thickness != 0)
-            style.height = thickness;
-
         ResourceBar.Add(MissingBar);
         ResourceBar.Add(_text);
 
+        UpdateStyles(_ussContainer, _ussMain, _ussMissing, _ussBarText);
+        UpdateTrackedVariables(currentIntVar, totalIntVar);
         DisplayMissingAmount();
+
+        RegisterCallback<DetachFromPanelEvent>(UnsubscribeFromValueChanges);
+    }
+
+    void UnsubscribeFromValueChanges(DetachFromPanelEvent evt)
+    {
+        if (_currentInt != null) _currentInt.OnValueChanged -= OnValueChanged;
+        if (_totalInt != null) _totalInt.OnValueChanged -= OnTotalChanged;
+    }
+
+    void UpdateStyles(string container, string main, string missing, string text)
+    {
+        AddToClassList(container);
+        ResourceBar.AddToClassList(main);
+        MissingBar.AddToClassList(missing);
+        _text.AddToClassList(text);
     }
 
     public void UpdateTrackedVariables(IntVariable current, IntVariable total)
     {
-        _currentInt.OnValueChanged -= OnValueChanged;
-        _totalInt.OnValueChanged -= OnTotalChanged;
-
+        UnsubscribeFromValueChanges(default);
+        
         _currentInt = current;
         _displayedAmount = _currentInt.Value;
         current.OnValueChanged += OnValueChanged;
@@ -103,7 +94,7 @@ public class ResourceBarElement : ElementWithTooltip
         DisplayMissingAmount();
     }
 
-    public void OnTotalChanged(int total)
+    void OnTotalChanged(int total)
     {
         DisplayMissingAmount();
     }
