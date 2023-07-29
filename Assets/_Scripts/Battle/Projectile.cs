@@ -39,15 +39,15 @@ public class Projectile : MonoBehaviour
 
     IEnumerator ShootCoroutine(float range, BattleEntity target, float power)
     {
+        if (target == null) DestroySelf(transform.position);
+
         float targetScale = transform.localScale.x;
         transform.localScale = transform.localScale * 0.5f;
         transform.DOScale(targetScale, 1f);
         transform.LookAt(target.transform);
 
         Vector3 startingPos = transform.position;
-
         Vector3 finalPos = target.Collider.bounds.center;
-
         Vector3 dir = (finalPos - startingPos).normalized;
         Vector3 destination = startingPos + dir * range;
 
@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        yield return DestroySelf(target.Collider.bounds.center);
+        yield return DestroySelf(transform.position);
     }
 
     protected virtual IEnumerator HitTarget(BattleEntity target)

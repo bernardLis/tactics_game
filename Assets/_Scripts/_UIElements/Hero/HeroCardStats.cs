@@ -142,16 +142,8 @@ public class HeroCardStats : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussManaContainer);
 
-        // TODO: this should be handled differently.
-        IntVariable currentMana = ScriptableObject.CreateInstance<IntVariable>();
-        currentMana.SetValue(Hero.Mana.GetValue());
-        Hero.Mana.OnValueChanged += currentMana.SetValue;
-
-        if (Hero.CurrentMana != null)
-            currentMana = Hero.CurrentMana;
-
         Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
-        ManaBar = new(c, "Mana", currentMana, totalValueStat: Hero.Mana);
+        ManaBar = new(c, "Mana", Hero.CurrentMana, Hero.TotalMana);
         container.Add(ManaBar);
 
         return container;

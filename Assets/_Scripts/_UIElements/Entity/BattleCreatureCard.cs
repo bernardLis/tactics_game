@@ -24,6 +24,8 @@ public class BattleCreatureCard : BattleEntityCard
         OverrideExpBar();
         OverrideHealthBar();
         HandleCreatureAbility();
+
+        RegisterCallback<DetachFromPanelEvent>((evt) => Debug.Log($"detached"));
     }
 
     void OverrideExpBar()

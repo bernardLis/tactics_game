@@ -29,7 +29,8 @@ public class Hero : BaseScriptableObject
     public IntVariable BaseArmor;
     public IntVariable BaseSpeed;
 
-    public Stat Mana { get; private set; }
+    public IntVariable TotalMana { get; private set; }
+
     public Stat Power { get; private set; }
     public Stat Armor { get; private set; }
     public Stat Speed { get; private set; }
@@ -65,7 +66,7 @@ public class Hero : BaseScriptableObject
     {
         Debug.Log($"Hero {name} adds army {creature}");
         CreatureArmy.Add(creature);
-        
+
         if (noDelegate) return;
         OnCreatureAdded?.Invoke(creature);
     }
@@ -176,7 +177,7 @@ public class Hero : BaseScriptableObject
     {
         // TODO: this if statement sucks.
         if (type == StatType.Mana)
-            Mana.ApplyBonusValueChange(value);
+            TotalMana.ApplyChange(value);
         if (type == StatType.Power)
             Power.ApplyBonusValueChange(value);
         if (type == StatType.Armor)
@@ -228,10 +229,9 @@ public class Hero : BaseScriptableObject
 
     void CreateStats()
     {
-        Mana = ScriptableObject.CreateInstance<Stat>();
-        Mana.StatType = StatType.Mana;
-        Mana.SetBaseValue(BaseMana.Value);
-        BaseMana.OnValueChanged += Mana.SetBaseValue;
+        TotalMana = ScriptableObject.CreateInstance<IntVariable>();
+        TotalMana.SetValue(BaseMana.Value);
+        BaseMana.OnValueChanged += (i) => TotalMana.ApplyChange(BaseMana.Value - TotalMana.Value);
 
         Power = ScriptableObject.CreateInstance<Stat>();
         Power.StatType = StatType.Power;

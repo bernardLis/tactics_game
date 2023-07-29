@@ -84,7 +84,7 @@ public class HeroCardExp : VisualElement
         _rankElement = new(Hero.Rank.Rank, 0.5f);
 
         _expBar = new(Color.gray, "Experience", Hero.Experience, Hero.ExpForNextLevel,
-                null, thickness: 0, isIncreasing: false);
+                 thickness: 0, isIncreasing: false);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);
@@ -114,20 +114,8 @@ public class HeroCardExp : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussManaContainer);
 
-        // TODO: this should be handled differently.
-        IntVariable currentMana = ScriptableObject.CreateInstance<IntVariable>();
-        currentMana.SetValue(Hero.Mana.GetValue());
-        Hero.Mana.OnValueChanged += currentMana.SetValue;
-        RegisterCallback<DetachFromPanelEvent>((evt) =>
-        {
-            Hero.Mana.OnValueChanged -= currentMana.SetValue;
-        });
-
-        if (Hero.CurrentMana != null)
-            currentMana = Hero.CurrentMana;
-
         Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
-        _manaBar = new(c, "Mana", currentMana, totalValueStat: Hero.Mana);
+        _manaBar = new(c, "Mana", Hero.CurrentMana, Hero.TotalMana);
         container.Add(_manaBar);
 
         return container;
