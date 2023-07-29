@@ -14,7 +14,6 @@ public class EntityCard : VisualElement
     const string _ussRightContainer = _ussClassName + "right-container";
     const string _ussName = _ussClassName + "name";
     const string _ussElement = _ussClassName + "element";
-    protected const string _ussKilledOverlay = _ussClassName + "killed-overlay";
 
     protected GameManager _gameManager;
 

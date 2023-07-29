@@ -11,7 +11,6 @@ public class BattleEntityCard : EntityCard
         _battleEntity = entity;
 
         PopulateCard();
-        _battleEntity.OnDeath += OnDeath;
     }
 
     protected override void HandleHealthBar()
@@ -23,16 +22,4 @@ public class BattleEntityCard : EntityCard
         _healthBar = new(c, "health", _battleEntity.CurrentHealth, totalHealth);
         _middleContainer.Add(_healthBar);
     }
-
-    void OnDeath(BattleEntity entity, BattleEntity killer, Ability ability)
-    {
-        VisualElement overlay = new();
-        Label l = new Label("Defeated!");
-        l.style.fontSize = 36;
-        l.style.color = Color.white;
-        overlay.Add(l);
-        overlay.AddToClassList(_ussKilledOverlay);
-        Add(overlay);
-    }
-
 }
