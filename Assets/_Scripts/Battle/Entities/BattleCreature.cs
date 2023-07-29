@@ -26,6 +26,7 @@ public class BattleCreature : BattleEntity
     protected bool _hasSpecialAction; // e.g. Shell's shield, can be fired at "any time"
     protected bool _hasSpecialMove;
     protected bool _hasSpecialAttack;
+    IEnumerator _pathCoroutine;
     IEnumerator _attackCoroutine;
 
     public event Action<int> OnEnemyKilled;
@@ -45,11 +46,12 @@ public class BattleCreature : BattleEntity
     {
         base.InitializeEntity(entity);
         Creature = (Creature)entity;
-        Creature.OnLevelUp += ResolveEvolution;
+        Creature.OnLevelUp += OnLevelUp;
 
         OnEnemyKilled += Creature.AddKill;
         OnDamageDealt += Creature.AddDmgDealt;
         OnDamageTaken += Creature.AddDmgTaken;
+
 
         _agent.stoppingDistance = Creature.AttackRange;
     }
@@ -229,7 +231,18 @@ public class BattleCreature : BattleEntity
         SetOpponent(_opponentList[Random.Range(0, _opponentList.Count)]);
     }
 
-    public void SetOpponent(BattleEntity opponent) { Opponent = opponent; }
+    public void SetOpponent(BattleEntity opponent)
+    {
+        Opponent = opponent;
+        Opponent.OnDeath += (a, b, c) =>
+        {
+            if (_pathCoroutine != null)
+                StopCoroutine(_pathCoroutine);
+            if (_attackCoroutine != null)
+                StopCoroutine(_attackCoroutine);
+            StartRunEntityCoroutine();
+        };
+    }
 
     public override void Grabbed()
     {
@@ -250,6 +263,12 @@ public class BattleCreature : BattleEntity
     }
 
     /* EVOLUTION */
+    void OnLevelUp()
+    {
+        DisplayFloatingText("Level Up!", Color.white);
+        ResolveEvolution();
+    }
+
     void ResolveEvolution()
     {
         int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;

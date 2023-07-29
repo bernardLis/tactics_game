@@ -44,7 +44,7 @@ public class TurretStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_battleGrabManager.IsGrabbingEnabled) return;
-        Debug.Log("Turret upgrades");
+        if (eventData.button != PointerEventData.InputButton.Left) return;
 
         _storeyTurretElement = new(_storeyTurret, _battleTurret);
         _storeyTurretElement.style.opacity = 0;

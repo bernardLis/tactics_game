@@ -39,6 +39,7 @@ public class SpireUpgradeManager : Singleton<SpireUpgradeManager>, IPointerDownH
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
         if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;
 
         _spireElement = new SpireElement(_spire);

@@ -88,7 +88,7 @@ public class ManaStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnt
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Mana shrine upgrade");
+        if (eventData.button != PointerEventData.InputButton.Left) return;
 
         _storeyManaElement = new(_base.StoreyMana);
         _storeyManaElement.style.opacity = 0;

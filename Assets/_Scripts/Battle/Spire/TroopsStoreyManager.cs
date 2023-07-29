@@ -37,7 +37,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Base troops upgrade");
+        if (eventData.button != PointerEventData.InputButton.Left) return;
 
         _storeyTroopsElement = new(_base.StoreyTroops);
         _storeyTroopsElement.style.opacity = 0;
