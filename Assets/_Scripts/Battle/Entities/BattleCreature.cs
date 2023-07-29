@@ -96,7 +96,7 @@ public class BattleCreature : BattleEntity
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
 
-        yield return PathToTarget();
+        yield return StartPathToTargetCoroutine();
 
         _attackCoroutine = Attack();
         yield return _attackCoroutine;
@@ -110,6 +110,16 @@ public class BattleCreature : BattleEntity
         return true;
     }
 
+    protected IEnumerator StartPathToTargetCoroutine()
+    {
+        if (_pathCoroutine != null)
+            StopCoroutine(_pathCoroutine);
+        _pathCoroutine = PathToTarget();
+        StartCoroutine(_pathCoroutine);
+
+        return _pathCoroutine;
+    }
+
     protected override IEnumerator PathToTarget()
     {
         EntityLog.Add($"{Time.time}: Path to target is called");
@@ -117,14 +127,14 @@ public class BattleCreature : BattleEntity
         if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
-            PathToTarget();
+            StartPathToTargetCoroutine();
             yield break;
         }
 
         _agent.enabled = true;
         _agent.avoidancePriority = Random.Range(1, 100);
 
-        while (!_agent.SetDestination(Opponent.transform.position)) yield return null;
+        while (Opponent != null && !_agent.SetDestination(Opponent.transform.position)) yield return null;
         Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
 
@@ -236,6 +246,7 @@ public class BattleCreature : BattleEntity
         Opponent = opponent;
         Opponent.OnDeath += (a, b, c) =>
         {
+            if (this == null) return;
             if (_pathCoroutine != null)
                 StopCoroutine(_pathCoroutine);
             if (_attackCoroutine != null)

@@ -20,7 +20,7 @@ public class BattleCreatureRanged : BattleCreature
         if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
-            PathToTarget();
+            StartPathToTargetCoroutine();
             yield break;
         }
 
@@ -40,7 +40,7 @@ public class BattleCreatureRanged : BattleCreature
             yield return new WaitForSeconds(0.1f);
             if (!HasOpponentInSight())
             {
-                yield return PathToTarget();
+                yield return StartPathToTargetCoroutine();
                 yield break;
             }
             // yield return PathToTarget();// <- could be used to refresh path if target moved
@@ -49,7 +49,7 @@ public class BattleCreatureRanged : BattleCreature
         // reached destination
         Animator.SetBool("Move", false);
         _agent.enabled = false;
-        yield return PathToTarget();
+        yield return StartPathToTargetCoroutine();
     }
 
     bool HasOpponentInSight()

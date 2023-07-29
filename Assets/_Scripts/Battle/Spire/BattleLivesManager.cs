@@ -45,14 +45,21 @@ public class BattleLivesManager : MonoBehaviour
 
     void ExplodeMinionOnSpire(BattleEntity be)
     {
+        be.Collider.enabled = false;
+        be.SetDead();
+        be.StopAllCoroutines();
+
         // TODO: VFX room for improvement
         Vector3 pos = transform.root.transform.position;
-        be.transform.DOMove(pos, 0.5f).OnComplete(() =>
-        {
-            GameObject explosion = Instantiate(ExplosionPrefab, be.transform.position, Quaternion.identity);
-            explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
-            be.gameObject.SetActive(false);
-        });
+
+        be.transform.DOMove(pos, 0.5f)
+            .OnComplete(() =>
+            {
+                GameObject explosion = Instantiate(ExplosionPrefab, be.transform.position, Quaternion.identity);
+                explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
+
+                StartCoroutine(be.Die());
+            });
     }
 
     public void DisplayFloatingText(string text, Color color)
