@@ -14,7 +14,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardExpStyles.uss?fileID=7433441132597879392&amp;guid=4496443c1c70fcf40a4dd27ff7628657&amp;type=3#HeroCardExpStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CutsceneStyles.uss?fileID=7433441132597879392&amp;guid=d73a8a21573b1ed44bce80194d7bda1d&amp;type=3#CutsceneStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/CreatureCardExpStyles.uss?fileID=7433441132597879392&amp;guid=238938f1c857a4941a46bbc638616475&amp;type=3#CreatureCardExpStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleModifierStyles.uss?fileID=7433441132597879392&amp;guid=c56f9f9d036fcad44b2603ccb497d2ec&amp;type=3#BattleModifierStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/SpireStyles.uss?fileID=7433441132597879392&amp;guid=a14340c79932792408dac21a9eed02ae&amp;type=3#SpireStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyLivesStyles.uss?fileID=7433441132597879392&amp;guid=caf37e186abe17144b52468aa45df4e0&amp;type=3#StoreyLivesStyles" />

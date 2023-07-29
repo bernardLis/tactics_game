@@ -42,8 +42,6 @@ public enum StyleSheetType
     CutsceneStyles,
     ElementChoiceStyles,
     TimerElementStyles,
-    BattleResultStyles,
-    BarMiniGameStyles,
     StarRankElementStyles,
     GoldElementStyles, SpiceElementStyles,
     HeroPortraitStyles, ResourceBarStyles, StatElementStyles, ElementalElementStyles,
@@ -53,16 +51,13 @@ public enum StyleSheetType
     HeroCardMiniStyles,
     HeroCardExpStyles,
 
-    CreatureCardEvolutionStyles, CreatureCardExpStyles,
     HeroCardFullStyles, HeroArmyElementStyles,
 
     BattleEntityInfoStyles,
-    BattleResultArmyStyles, BattleResultHeroStyles,
     BattleRewardStyles,
     RewardCardStyles, BattleModifierStyles,
 
     EntityIconStyles, EntityCardStyles, EntityCardFullStyles,
-    MinionCardStyles, BattleMinionCardStyles,
     CreatureCardStyles, BattleCreatureCardStyles,
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
