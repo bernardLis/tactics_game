@@ -8,13 +8,10 @@ using UnityEngine.UIElements;
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
-    public const float SecondsInDay = 10;
-
     LevelLoader _levelLoader;
 
     public GameDatabase GameDatabase;
     public HeroDatabase HeroDatabase;
-    public QuestDatabase QuestDatabase;
 
     SaveData _originalSaveData;
 
