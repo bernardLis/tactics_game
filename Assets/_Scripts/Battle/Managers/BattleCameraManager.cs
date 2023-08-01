@@ -247,7 +247,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         if (this == null) return;
 
         transform.DOMove(new Vector3(24f, 0f, -6f), 0.5f);
-        transform.DORotate(new Vector3(30f, -90f, 0f), 0.5f);
+        transform.DORotate(new Vector3(20f, -90f, 0f), 0.5f);
         _zoomHeight = _defaultZoomHeight;
     }
 
@@ -258,7 +258,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         _disableUpdate = true;
 
         transform.DOMove(new Vector3(24f, 0f, -6f), time);
-        transform.DORotate(new Vector3(30f, -90f, 0f), time);
+        transform.DORotate(new Vector3(20f, -90f, 0f), time);
 
         _cameraTransform.DOLocalMoveY(_defaultZoomHeight, time)
                 .OnComplete(() =>

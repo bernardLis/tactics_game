@@ -48,7 +48,7 @@ public class BattleMinimapManager : MonoBehaviour
 
     IEnumerator DelayedStart()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
 
         miniMapSize = new Vector2(_minimap.resolvedStyle.width, _minimap.resolvedStyle.height);
         Vector2 spirePos = GetMiniMapPosition(new Vector2(0, 0));
@@ -84,7 +84,8 @@ public class BattleMinimapManager : MonoBehaviour
         _battleManager.OnOpponentEntityAdded += (entity) => AddEntity(entity);
         _battleManager.OnPlayerEntityDeath += (entity) => RemoveEntity(entity);
         _battleManager.OnOpponentEntityDeath += (entity) => RemoveEntity(entity);
-        _spireUpgradeManager.OnTurretAdded += (turret) => AddTurret(turret);
+        //    if (_spireUpgradeManager == null) _spireUpgradeManager = SpireUpgradeManager.Instance;
+        //   _spireUpgradeManager.OnTurretAdded += (turret) => AddTurret(turret);
 
         StartCoroutine(UpdateEntityPositions());
     }
