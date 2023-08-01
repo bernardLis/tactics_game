@@ -25,12 +25,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public Transform EntityHolder;
 
-    // skybox rotation https://forum.unity.com/threads/rotate-a-skybox.130639/
-    int _rotationProperty;
-    float _initRot;
-    Material _skyMat;
-    [SerializeField] float _skyboxRotationSpeed = 0.2f;
-
     public float BattleTime { get; private set; }
 
     public bool IsTimerOn { get; private set; }
@@ -75,10 +69,6 @@ public class BattleManager : Singleton<BattleManager>
         LoadedBattle = _gameManager.SelectedBattle;
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
-        _rotationProperty = Shader.PropertyToID("_Rotation");
-        _skyMat = RenderSettings.skybox;
-        _initRot = _skyMat.GetFloat(_rotationProperty);
-
         AudioManager.Instance.PlayMusic(_battleMusic);
 
         _timerLabel.style.display = DisplayStyle.Flex;
@@ -86,11 +76,6 @@ public class BattleManager : Singleton<BattleManager>
 #if UNITY_EDITOR
         GetComponent<BattleInputManager>().OnEnterClicked += CheatWinBattle;
 #endif
-    }
-
-    void Update()
-    {
-        _skyMat.SetFloat(_rotationProperty, UnityEngine.Time.time * _skyboxRotationSpeed);
     }
 
     public void PauseGame()
