@@ -19462,6 +19462,10 @@ PrefabInstance:
       value: Portal Water
       objectReference: {fileID: 0}
     - target: {fileID: 646615956103713899, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
+      propertyPath: Element
+      value: 
+      objectReference: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+    - target: {fileID: 646615956103713899, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
       propertyPath: _portalEffect
       value: 
       objectReference: {fileID: 5556591873240860228}

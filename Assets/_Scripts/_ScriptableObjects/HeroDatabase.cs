@@ -26,10 +26,33 @@ public class HeroDatabase : ScriptableObject
 
         return creatures[Random.Range(0, creatures.Count)];
     }
+    public List<Creature> GetCreaturesByTierElement(int tier, Element element)
+    {
+        List<Creature> creatures = new();
+        foreach (Creature c in AllCreatures)
+            if (c.UpgradeTier <= tier)
+                creatures.Add(c);
+
+        for (int i = creatures.Count - 1; i >= 0; i--)
+            if (creatures[i].Element != element)
+                creatures.RemoveAt(i);
+
+        return creatures;
+    }
+
 
     [SerializeField] Minion[] Minions;
 
     public List<Minion> GetAllMinions() { return Minions.ToList(); }
+    public List<Minion> GetAllMinionsByElement(Element element)
+    {
+        List<Minion> minions = new();
+        foreach (Minion m in Minions)
+            if (m.Element == element)
+                minions.Add(m);
+        return minions;
+    }
+
     public Minion GetRandomMinion() { return Minions[Random.Range(0, Minions.Length)]; }
 
     [SerializeField] StartingArmy[] StartingArmies;

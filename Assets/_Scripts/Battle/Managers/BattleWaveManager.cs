@@ -11,12 +11,8 @@ public class BattleWaveManager : MonoBehaviour
 
     Battle _selectedBattle;
 
-    Transform _entityHolder;
 
-    Label _waveLabel;
-    int _currentWaveIndex;
-
-    [SerializeField] GameObject _entitySpawnerPrefab;
+    [SerializeField] BattleOpponentPortal[] _opponentPortals;
 
     void Start()
     {
@@ -24,81 +20,42 @@ public class BattleWaveManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
 
         _selectedBattle = _gameManager.SelectedBattle;
-
-        _entityHolder = _battleManager.EntityHolder;
-
-        _waveLabel = _battleManager.Root.Q<Label>("waveCount");
-        _waveLabel.style.display = DisplayStyle.Flex;
     }
 
     public void Initialize()
     {
-        _battleManager.OnOpponentEntityDeath += ResolveNextWave;
-        SpawnWave();
+        Debug.Log($"handle waves {_selectedBattle.Waves.Count}");
+        StartCoroutine(HandleWaves());
     }
 
-    void ResolveNextWave(BattleEntity ignored)
+    IEnumerator HandleWaves()
     {
-        if (_battleManager.OpponentEntities.Count != 0) return;
-        _currentWaveIndex++;
-        SpawnWave();
-    }
-
-    void SpawnWave()
-    {
-        UpdateWaveLabel();
-        BattleWave wave = _selectedBattle.GetWave(_currentWaveIndex);
-
-        InstantiateMinions(wave);
-        InstantiateCreatures(wave);
-    }
-
-    void InstantiateMinions(BattleWave wave)
-    {
-        // TODO: something more interesting, like split some armies
-        List<Element> elements = new(_gameManager.HeroDatabase.GetAllElements());
-        foreach (Element element in elements)
+        while (true)
         {
-            List<Minion> minions = wave.GetAllMinionsByElement(element);
-            if (minions.Count == 0) continue;
-
-            EntitySpawner creatureSpawner = InstantiateSpawner();
-            creatureSpawner.SpawnMinions(minions, portalElement: element);
-            creatureSpawner.OnSpawnComplete += OnEntitySpawnComplete;
+            foreach (BattleWave wave in _selectedBattle.Waves)
+                CheckWave(wave);
+            yield return new WaitForSeconds(1);
         }
     }
 
-    void InstantiateCreatures(BattleWave wave)
+    void CheckWave(BattleWave wave)
     {
-        foreach (Creature c in wave.Creatures)
+        if (wave.IsStarted) return;
+        if (wave.StartTime <= _battleManager.BattleTime)
+            StartWave(wave);
+    }
+
+    void StartWave(BattleWave wave)
+    {
+        Debug.Log($"start wave {wave.Element}");
+        wave.IsStarted = true;
+        foreach (BattleOpponentPortal portal in _opponentPortals)
         {
-            EntitySpawner creatureSpawner = InstantiateSpawner();
-            List<Creature> creatures = new List<Creature>() { c };
-            creatureSpawner.SpawnCreatures(creatures);
-            creatureSpawner.OnSpawnComplete += OnEntitySpawnComplete;
+            if (portal.Element == wave.Element)
+            {
+                portal.InitializeWave(wave);
+                return;
+            }
         }
     }
-
-    EntitySpawner InstantiateSpawner()
-    {
-        // https://forum.unity.com/threads/random-point-within-circle-with-min-max-radius.597523/
-        Vector2 point = Random.insideUnitCircle.normalized * Random.Range(50, 80);
-        Vector3 pos = new Vector3(point.x, 0, point.y);
-        Vector3 lookRotation = (pos - Vector3.zero).normalized; // TODO: math, this seems dumb
-
-        GameObject portal = Instantiate(_entitySpawnerPrefab, pos, Quaternion.LookRotation(lookRotation));
-
-        return portal.GetComponent<EntitySpawner>();
-    }
-
-    void OnEntitySpawnComplete(List<BattleEntity> list)
-    {
-        _battleManager.AddOpponentArmyEntities(list);
-    }
-
-    void UpdateWaveLabel()
-    {
-        _waveLabel.text = $"Wave: {_currentWaveIndex + 1}";
-    }
-
 }

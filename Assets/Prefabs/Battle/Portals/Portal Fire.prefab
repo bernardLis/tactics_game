@@ -19462,12 +19462,16 @@ PrefabInstance:
       value: Portal Fire
       objectReference: {fileID: 0}
     - target: {fileID: 646615956103713899, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
+      propertyPath: Element
+      value: 
+      objectReference: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+    - target: {fileID: 646615956103713899, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
       propertyPath: _portalEffect
       value: 
       objectReference: {fileID: 3161418087680625384}
     - target: {fileID: 3594846253527964793, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3594846253527964793, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
       propertyPath: m_LocalPosition.x

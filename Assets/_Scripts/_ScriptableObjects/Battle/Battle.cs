@@ -40,25 +40,15 @@ public class Battle : BaseScriptableObject
         Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
         Opponent.CreatureArmy.Clear();
 
+        // HERE: waves
         Waves = new();
-    }
-
-    public BattleWave GetWave(int difficulty)
-    {
-        BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
-        wave.CreateWave(difficulty);
-        if (Waves == null) Waves = new();
-        Waves.Add(wave);
-
-        return wave;
-    }
-
-    public int GetTotalNumberOfMinionsByName(string minionName)
-    {
-        int total = 0;
-        foreach (BattleWave wave in Waves)
-            total += wave.GetNumberOfMinionsByName(minionName);
-        return total;
+        for (int i = 0; i < 10; i++)
+        {
+            Element element = gameManager.HeroDatabase.GetRandomElement();
+            BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
+            wave.CreateWave(element, level + i, i * 30);
+            Waves.Add(wave);
+        }
     }
 
     public void AddModifier(BattleModifier modifier)

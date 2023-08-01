@@ -19458,6 +19458,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1334875178711008250, guid: e301a702ecb8e914f97b0fa777d0f096, type: 3}
+      propertyPath: Element
+      value: 
+      objectReference: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+    - target: {fileID: 1334875178711008250, guid: e301a702ecb8e914f97b0fa777d0f096, type: 3}
       propertyPath: _portalEffect
       value: 
       objectReference: {fileID: 7407981471860389572}
