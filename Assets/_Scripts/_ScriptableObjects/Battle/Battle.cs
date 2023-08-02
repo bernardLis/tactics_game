@@ -46,7 +46,7 @@ public class Battle : BaseScriptableObject
         {
             Element element = gameManager.HeroDatabase.GetRandomElement();
             BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
-            wave.CreateWave(element, level + i, i * 30);
+            wave.CreateWave(element, level + i, i * Random.Range(30, 60));
             Waves.Add(wave);
         }
     }

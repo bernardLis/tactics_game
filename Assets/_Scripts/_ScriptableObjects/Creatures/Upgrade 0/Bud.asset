@@ -129,9 +129,9 @@ MonoBehaviour:
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
+  OldKillCount: 2
+  TotalKillCount: 4
+  OldDamageDealt: 84
+  TotalDamageDealt: 209
   OldDamageTaken: 0
   TotalDamageTaken: 0

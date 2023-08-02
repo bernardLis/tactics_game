@@ -180,7 +180,7 @@ public class BattleManager : Singleton<BattleManager>
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(be);
-        
+
         // be.transform.DOMoveY(-1, 10f)
         //         .SetDelay(3f)
         //         .OnComplete(() =>

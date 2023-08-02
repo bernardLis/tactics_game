@@ -282,11 +282,9 @@ public class Hero : BaseScriptableObject
         UpdateRank();
 
         CreatureArmy = new();
-        foreach (Creature c in _gameManager.HeroDatabase.GetStartingArmy(element).Creatures)
-        {
-            Creature instance = Instantiate(c);
-            CreatureArmy.Add(instance);
-        }
+        // HERE: hero creation
+        Creature c = Instantiate(_gameManager.HeroDatabase.GetRandomCreatureByUpgradeTier(0));
+        CreatureArmy.Add(c);
     }
 
     public void CreateRandom(int level)

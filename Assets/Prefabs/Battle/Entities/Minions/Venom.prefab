@@ -12,9 +12,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Venom
       objectReference: {fileID: 0}
+    - target: {fileID: 2098491213415467078, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098491213415467078, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098491213415467078, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431810595566620705, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_RootOrder
@@ -126,7 +146,6 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 0}
   _deathSound: {fileID: 0}
-  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   _teamHighlightDisc: {fileID: 8377771309068280040}
   IsShielded: 0

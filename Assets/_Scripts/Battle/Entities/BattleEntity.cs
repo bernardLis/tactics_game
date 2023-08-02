@@ -119,6 +119,8 @@ public class BattleEntity : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
 
+        GetComponent<Rigidbody>().isKinematic = true; // HERE: minion kinematic
+
         Team = team;
 
         _teamHighlightDisc.gameObject.SetActive(true);

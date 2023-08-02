@@ -12,6 +12,8 @@ public class BattleOpponentPortal : MonoBehaviour
 
     BattleWave _currentWave;
 
+    List<BattleEntity> _spawnedEntities = new();
+
     void Start()
     {
         _battleManager = BattleManager.Instance;
@@ -19,7 +21,6 @@ public class BattleOpponentPortal : MonoBehaviour
 
     public void InitializeWave(BattleWave wave)
     {
-        Debug.Log($"portal initialize wave");
         _portalEffect.SetActive(true);
         _currentWave = wave;
         StartCoroutine(HandleSpawningGroups());
@@ -29,41 +30,48 @@ public class BattleOpponentPortal : MonoBehaviour
     {
         while (_currentWave.CurrentGroupIndex < _currentWave.OpponentGroups.Count)
         {
-            SpawnCurrentOpponentGroup();
+            yield return SpawnCurrentOpponentGroup();
             _currentWave.CurrentGroupIndex++;
-            Debug.Log($"delay between groups {_currentWave.DelayBetweenGroups}");
             yield return new WaitForSeconds(_currentWave.DelayBetweenGroups);
         }
-        Debug.Log($"end of wave {_currentWave.Element}");
         // HERE: spawn a reward chest?
         _portalEffect.SetActive(false);
     }
 
-    void SpawnCurrentOpponentGroup()
+    IEnumerator SpawnCurrentOpponentGroup()
     {
         OpponentGroup group = _currentWave.GetCurrentOpponentGroup();
-        Debug.Log($"spawning opp group with minions: {group.Minions.Count}");
 
         List<Entity> entities = new(group.Minions);
         entities.AddRange(group.Creatures);
+        float delay = 0.5f;
 
         foreach (Entity e in entities)
+        {
             SpawnEntity(e);
+            yield return new WaitForSeconds(delay);
+        }
+        yield return new WaitForSeconds(0.5f);
 
+        _battleManager.AddOpponentArmyEntities(_spawnedEntities);
+        _spawnedEntities.Clear();
     }
 
     void SpawnEntity(Entity entity)
     {
-        Debug.Log($"spawn entity {entity.name}");
         entity.InitializeBattle(null);
 
-        Vector3 pos = transform.position;
-        GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
+        Vector3 pos = _portalEffect.transform.position;
+        pos.y = 1;
+        GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.InitializeEntity(entity);
 
-        Vector3 jumpPos = pos + transform.forward * 2f + Vector3.up + Vector3.left * Random.Range(-2, 2);
+        Vector3 jumpPos = pos + _portalEffect.transform.forward * Random.Range(2f, 4f)
+            + Vector3.left * Random.Range(-2f, 2f);
+        jumpPos.y = 1;
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
-        _battleManager.AddOpponentArmyEntity(be);
+        // instance.GetComponent<Rigidbody>().isKinematic = false;// HERE: minion kinematic
+        _spawnedEntities.Add(be);
     }
 }
