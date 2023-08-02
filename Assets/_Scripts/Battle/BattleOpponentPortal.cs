@@ -71,7 +71,6 @@ public class BattleOpponentPortal : MonoBehaviour
             + Vector3.left * Random.Range(-2f, 2f);
         jumpPos.y = 1;
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
-        // instance.GetComponent<Rigidbody>().isKinematic = false;// HERE: minion kinematic
         _spawnedEntities.Add(be);
     }
 }

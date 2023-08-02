@@ -26,8 +26,6 @@ public class BattleCreature : BattleEntity
     protected bool _hasSpecialAction; // e.g. Shell's shield, can be fired at "any time"
     protected bool _hasSpecialMove;
     protected bool _hasSpecialAttack;
-    IEnumerator _pathCoroutine;
-    IEnumerator _attackCoroutine;
 
     public event Action<int> OnEnemyKilled;
     public event Action<int> OnDamageDealt;
@@ -52,7 +50,6 @@ public class BattleCreature : BattleEntity
         OnDamageDealt += Creature.AddDmgDealt;
         OnDamageTaken += Creature.AddDmgTaken;
 
-
         _agent.stoppingDistance = Creature.AttackRange;
     }
 
@@ -67,39 +64,41 @@ public class BattleCreature : BattleEntity
         StartRunEntityCoroutine();
     }
 
-    public override void StopRunEntityCoroutine()
-    {
-        base.StopRunEntityCoroutine();
-        if (_attackCoroutine != null)
-            StopCoroutine(_attackCoroutine);
-    }
-
     protected override IEnumerator RunEntity()
     {
-        if (IsDead) yield break;
-
-        while (_opponentList.Count == 0)
+        while (true)
         {
-            if (IsDead) yield break;
-            if (_battleManager.BattleFinalized)
-            {
-                yield return Celebrate();
-                yield break;
-            }
-            yield return new WaitForSeconds(0.5f); // TODO: lag
+            yield return ManageSpecialAbility();
+            yield return ManagePathing();
+            yield return ManageAttackCoroutine();
+            yield return new WaitForSeconds(0.3f);
         }
+    }
 
+    protected virtual IEnumerator ManageSpecialAbility()
+    {
         if (_hasSpecialAction && CanUseSpecialAbility())
             yield return SpecialAbility();
+    }
 
+    protected IEnumerator ManagePathing()
+    {
         if (Opponent == null || Opponent.IsDead)
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
 
-        yield return StartPathToTargetCoroutine();
+        if (_currentSecondaryCoroutine != null)
+            StopCoroutine(_currentSecondaryCoroutine);
+        _currentSecondaryCoroutine = PathToTarget();
+        yield return _currentSecondaryCoroutine;
+    }
 
-        _attackCoroutine = Attack();
-        yield return _attackCoroutine;
+    protected IEnumerator ManageAttackCoroutine()
+    {
+        if (_currentSecondaryCoroutine != null)
+            StopCoroutine(_currentSecondaryCoroutine);
+        _currentSecondaryCoroutine = Attack();
+        yield return _currentSecondaryCoroutine;
     }
 
     protected bool CanUseSpecialAbility()
@@ -110,16 +109,6 @@ public class BattleCreature : BattleEntity
         return true;
     }
 
-    protected IEnumerator StartPathToTargetCoroutine()
-    {
-        if (_pathCoroutine != null)
-            StopCoroutine(_pathCoroutine);
-        _pathCoroutine = PathToTarget();
-        StartCoroutine(_pathCoroutine);
-
-        return _pathCoroutine;
-    }
-
     protected override IEnumerator PathToTarget()
     {
         EntityLog.Add($"{Time.time}: Path to target is called");
@@ -127,7 +116,6 @@ public class BattleCreature : BattleEntity
         if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
-            StartPathToTargetCoroutine();
             yield break;
         }
 
@@ -143,8 +131,6 @@ public class BattleCreature : BattleEntity
         {
             if (_hasSpecialAction && CanUseSpecialAbility())
                 yield return SpecialAbility();
-
-            if (Opponent.IsDead || Opponent == null) yield break;
 
             _agent.SetDestination(Opponent.transform.position);
             yield return null;
@@ -163,9 +149,7 @@ public class BattleCreature : BattleEntity
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
-        _attackCoroutine = null;
         _currentAttackCooldown = Creature.AttackCooldown;
-        StartRunEntityCoroutine();
 
         yield break;
     }
@@ -247,10 +231,7 @@ public class BattleCreature : BattleEntity
         Opponent.OnDeath += (a, b, c) =>
         {
             if (this == null) return;
-            if (_pathCoroutine != null)
-                StopCoroutine(_pathCoroutine);
-            if (_attackCoroutine != null)
-                StopCoroutine(_attackCoroutine);
+            StopRunEntityCoroutine();
             StartRunEntityCoroutine();
         };
     }

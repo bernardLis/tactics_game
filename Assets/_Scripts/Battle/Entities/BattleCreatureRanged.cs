@@ -20,11 +20,11 @@ public class BattleCreatureRanged : BattleCreature
         if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
-            StartPathToTargetCoroutine();
+            ManagePathing();
             yield break;
         }
 
-        Vector3 point = ClosesPositionWithClearLOS();
+        Vector3 point = ClosestPositionWithClearLOS();
 
         // path to that point
         _agent.avoidancePriority = Random.Range(1, 100);
@@ -40,7 +40,7 @@ public class BattleCreatureRanged : BattleCreature
             yield return new WaitForSeconds(0.1f);
             if (!HasOpponentInSight())
             {
-                yield return StartPathToTargetCoroutine();
+                yield return ManagePathing();
                 yield break;
             }
             // yield return PathToTarget();// <- could be used to refresh path if target moved
@@ -49,7 +49,7 @@ public class BattleCreatureRanged : BattleCreature
         // reached destination
         Animator.SetBool("Move", false);
         _agent.enabled = false;
-        yield return StartPathToTargetCoroutine();
+        yield return ManagePathing();
     }
 
     bool HasOpponentInSight()
@@ -60,7 +60,7 @@ public class BattleCreatureRanged : BattleCreature
 
     }
 
-    protected Vector3 ClosesPositionWithClearLOS()
+    protected Vector3 ClosestPositionWithClearLOS()
     {
         Vector3 dir = transform.position - Opponent.transform.position;
         Dictionary<Vector3, float> distances = new();

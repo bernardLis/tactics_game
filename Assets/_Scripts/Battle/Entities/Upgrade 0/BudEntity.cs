@@ -23,7 +23,7 @@ public class BudEntity : BattleCreatureRanged
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
         _effectInstance.transform.parent = transform;
 
-        Vector3 point = ClosesPositionWithClearLOS();
+        Vector3 point = ClosestPositionWithClearLOS();
         transform.position = point;
 
         Invoke("CleanUp", 2f);

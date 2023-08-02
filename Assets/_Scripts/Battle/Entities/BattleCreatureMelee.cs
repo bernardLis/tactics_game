@@ -30,7 +30,7 @@ public class BattleCreatureMelee : BattleCreature
 
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
+        Quaternion q = Quaternion.Euler(0, -90, 0); // HERE: face camera
         _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
         _hitInstance.transform.parent = Opponent.transform;
 

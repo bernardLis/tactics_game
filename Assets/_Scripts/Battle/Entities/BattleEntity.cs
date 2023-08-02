@@ -59,7 +59,8 @@ public class BattleEntity : MonoBehaviour
 
     MMF_Player _feelPlayer;
 
-    IEnumerator _runEntityCoroutine;
+    protected IEnumerator _currentMainCoroutine;
+    protected IEnumerator _currentSecondaryCoroutine;
 
     public int DamageTaken { get; private set; }
 
@@ -74,7 +75,7 @@ public class BattleEntity : MonoBehaviour
 
     public virtual void InitializeEntity(Entity entity)
     {
-        SetEntity(entity);
+        Entity = entity;
 
         _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
         _highlightDiamond.gameObject.SetActive(false);
@@ -101,11 +102,6 @@ public class BattleEntity : MonoBehaviour
         SetStats();
     }
 
-    public void SetEntity(Entity entity)
-    {
-        Entity = entity;
-    }
-
     public virtual void SetStats()
     {
         _agent.speed = Entity.Speed;
@@ -117,9 +113,10 @@ public class BattleEntity : MonoBehaviour
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
         _battleManager = BattleManager.Instance;
+        _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         _tooltipManager = BattleTooltipManager.Instance;
 
-        GetComponent<Rigidbody>().isKinematic = true; // HERE: minion kinematic
+        GetComponent<Rigidbody>().isKinematic = true;
 
         Team = team;
 
@@ -155,21 +152,24 @@ public class BattleEntity : MonoBehaviour
         if (!isActiveAndEnabled) return;
 
         EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
-        if (_runEntityCoroutine != null) StopCoroutine(_runEntityCoroutine);
+        if (_currentMainCoroutine != null) StopCoroutine(_currentMainCoroutine);
 
-        _runEntityCoroutine = RunEntity();
-        StartCoroutine(_runEntityCoroutine);
+        _currentMainCoroutine = RunEntity();
+        StartCoroutine(_currentMainCoroutine);
     }
 
     public virtual void StopRunEntityCoroutine()
     {
         EntityLog.Add($"{Time.time}: Stop run entity coroutine is called");
 
-        if (_runEntityCoroutine != null)
-            StopCoroutine(_runEntityCoroutine);
+        if (_currentMainCoroutine != null)
+            StopCoroutine(_currentMainCoroutine);
+        if (_currentSecondaryCoroutine != null)
+            StopCoroutine(_currentSecondaryCoroutine);
 
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
         _agent.enabled = false;
+
         Animator.SetBool("Move", false);
     }
 
@@ -184,8 +184,6 @@ public class BattleEntity : MonoBehaviour
     }
 
     public bool HasFullHealth() { return CurrentHealth.Value >= Entity.MaxHealth.Value; }
-    public float GetTotalHealth() { return Entity.MaxHealth.Value; }
-    public float GetCurrentHealth() { return CurrentHealth.Value; }
 
     public int GetHealed(Ability ability)
     {
@@ -328,8 +326,6 @@ public class BattleEntity : MonoBehaviour
 
         BattleLoot bl = Instantiate(loot.Prefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
         bl.Initialize(loot);
-        //    BattleLoot bp = Instantiate(_battleLootPrefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
-        //    bp.Initialize();
     }
 
     public IEnumerator GetPoisoned(BattleCreature attacker)
@@ -369,6 +365,8 @@ public class BattleEntity : MonoBehaviour
     protected IEnumerator Celebrate()
     {
         if (IsDead) yield break;
+
+        StopRunEntityCoroutine();
 
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
         yield return transform.DODynamicLookAt(Camera.main.transform.position, 0.2f).WaitForCompletion();

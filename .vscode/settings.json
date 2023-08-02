@@ -66,6 +66,7 @@
         "Datas",
         "Grabbable",
         "Linecast",
+        "Pathing",
         "Polyline",
         "respawn",
         "Rigidbody",
