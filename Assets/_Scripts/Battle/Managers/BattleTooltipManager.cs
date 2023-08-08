@@ -45,8 +45,11 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     {
         _topContainer.Clear();
         _topContainer.style.display = DisplayStyle.Flex;
+        Label txt = new(text);
+        txt.style.backgroundColor = new(new Color(0f, 0f, 0f, 0.4f));
+        txt.style.fontSize = 32;
 
-        _topContainer.Add(new Label(text));
+        _topContainer.Add(txt);
     }
 
     public void HideInfo()
@@ -60,8 +63,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         HideTooltip();
         if (entity is BattleMinion)
             _tooltip = new BattleEntityCard(entity);
-        if (entity is BattleCreature)
-            _tooltip = new BattleCreatureCard((BattleCreature)entity);
+        if (entity is BattleCreature creature)
+            _tooltip = new BattleCreatureCard(creature);
 
         _bottomPanel.Add(_tooltip);
     }

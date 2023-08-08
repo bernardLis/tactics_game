@@ -339,6 +339,24 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "RotateCameraRight",
+                    "type": "Button",
+                    "id": "7632cdc4-b0c3-4d81-b53a-b41839ede095",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCameraLeft",
+                    "type": "Button",
+                    "id": "a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ZoomCamera",
                     "type": "Value",
                     "id": "0acae7ae-0888-49c3-a1cb-e12b00201f40",
@@ -384,18 +402,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateCameraLeft",
+                    "name": "Rotate",
                     "type": "Button",
-                    "id": "a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateCameraRight",
-                    "type": "Button",
-                    "id": "7632cdc4-b0c3-4d81-b53a-b41839ede095",
+                    "id": "50c37d5b-4a5f-430b-aab9-a8321a7bd8f8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -658,6 +667,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1be51cf8-af2c-412f-b141-a5e095da8cc2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "RotateCameraRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a034da1d-a9ce-4db9-8888-2d3368259811",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -669,12 +689,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1be51cf8-af2c-412f-b141-a5e095da8cc2",
-                    "path": "<Keyboard>/e",
+                    "id": "c74473a1-ab03-48f5-9772-5ed9512e041d",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "RotateCameraRight",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -361,6 +361,24 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""RotateCameraRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7632cdc4-b0c3-4d81-b53a-b41839ede095"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCameraLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ZoomCamera"",
                     ""type"": ""Value"",
                     ""id"": ""0acae7ae-0888-49c3-a1cb-e12b00201f40"",
@@ -406,18 +424,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateCameraLeft"",
+                    ""name"": ""Rotate"",
                     ""type"": ""Button"",
-                    ""id"": ""a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateCameraRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""7632cdc4-b0c3-4d81-b53a-b41839ede095"",
+                    ""id"": ""50c37d5b-4a5f-430b-aab9-a8321a7bd8f8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -680,6 +689,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1be51cf8-af2c-412f-b141-a5e095da8cc2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""RotateCameraRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a034da1d-a9ce-4db9-8888-2d3368259811"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
@@ -691,12 +711,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1be51cf8-af2c-412f-b141-a5e095da8cc2"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""c74473a1-ab03-48f5-9772-5ed9512e041d"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""RotateCameraRight"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -745,13 +765,14 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_RightMouseClick = m_Battle.FindAction("RightMouseClick", throwIfNotFound: true);
         m_Battle_CameraMovement = m_Battle.FindAction("CameraMovement", throwIfNotFound: true);
         m_Battle_RotateCamera = m_Battle.FindAction("RotateCamera", throwIfNotFound: true);
+        m_Battle_RotateCameraRight = m_Battle.FindAction("RotateCameraRight", throwIfNotFound: true);
+        m_Battle_RotateCameraLeft = m_Battle.FindAction("RotateCameraLeft", throwIfNotFound: true);
         m_Battle_ZoomCamera = m_Battle.FindAction("ZoomCamera", throwIfNotFound: true);
         m_Battle_CameraDefaultPosition = m_Battle.FindAction("CameraDefaultPosition", throwIfNotFound: true);
         m_Battle_Continue = m_Battle.FindAction("Continue", throwIfNotFound: true);
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
-        m_Battle_RotateCameraLeft = m_Battle.FindAction("RotateCameraLeft", throwIfNotFound: true);
-        m_Battle_RotateCameraRight = m_Battle.FindAction("RotateCameraRight", throwIfNotFound: true);
+        m_Battle_Rotate = m_Battle.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -940,13 +961,14 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_RightMouseClick;
     private readonly InputAction m_Battle_CameraMovement;
     private readonly InputAction m_Battle_RotateCamera;
+    private readonly InputAction m_Battle_RotateCameraRight;
+    private readonly InputAction m_Battle_RotateCameraLeft;
     private readonly InputAction m_Battle_ZoomCamera;
     private readonly InputAction m_Battle_CameraDefaultPosition;
     private readonly InputAction m_Battle_Continue;
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_EnableGrabbing;
-    private readonly InputAction m_Battle_RotateCameraLeft;
-    private readonly InputAction m_Battle_RotateCameraRight;
+    private readonly InputAction m_Battle_Rotate;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -960,13 +982,14 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @RightMouseClick => m_Wrapper.m_Battle_RightMouseClick;
         public InputAction @CameraMovement => m_Wrapper.m_Battle_CameraMovement;
         public InputAction @RotateCamera => m_Wrapper.m_Battle_RotateCamera;
+        public InputAction @RotateCameraRight => m_Wrapper.m_Battle_RotateCameraRight;
+        public InputAction @RotateCameraLeft => m_Wrapper.m_Battle_RotateCameraLeft;
         public InputAction @ZoomCamera => m_Wrapper.m_Battle_ZoomCamera;
         public InputAction @CameraDefaultPosition => m_Wrapper.m_Battle_CameraDefaultPosition;
         public InputAction @Continue => m_Wrapper.m_Battle_Continue;
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
-        public InputAction @RotateCameraLeft => m_Wrapper.m_Battle_RotateCameraLeft;
-        public InputAction @RotateCameraRight => m_Wrapper.m_Battle_RotateCameraRight;
+        public InputAction @Rotate => m_Wrapper.m_Battle_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1003,6 +1026,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @RotateCamera.started += instance.OnRotateCamera;
             @RotateCamera.performed += instance.OnRotateCamera;
             @RotateCamera.canceled += instance.OnRotateCamera;
+            @RotateCameraRight.started += instance.OnRotateCameraRight;
+            @RotateCameraRight.performed += instance.OnRotateCameraRight;
+            @RotateCameraRight.canceled += instance.OnRotateCameraRight;
+            @RotateCameraLeft.started += instance.OnRotateCameraLeft;
+            @RotateCameraLeft.performed += instance.OnRotateCameraLeft;
+            @RotateCameraLeft.canceled += instance.OnRotateCameraLeft;
             @ZoomCamera.started += instance.OnZoomCamera;
             @ZoomCamera.performed += instance.OnZoomCamera;
             @ZoomCamera.canceled += instance.OnZoomCamera;
@@ -1018,12 +1047,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @EnableGrabbing.started += instance.OnEnableGrabbing;
             @EnableGrabbing.performed += instance.OnEnableGrabbing;
             @EnableGrabbing.canceled += instance.OnEnableGrabbing;
-            @RotateCameraLeft.started += instance.OnRotateCameraLeft;
-            @RotateCameraLeft.performed += instance.OnRotateCameraLeft;
-            @RotateCameraLeft.canceled += instance.OnRotateCameraLeft;
-            @RotateCameraRight.started += instance.OnRotateCameraRight;
-            @RotateCameraRight.performed += instance.OnRotateCameraRight;
-            @RotateCameraRight.canceled += instance.OnRotateCameraRight;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -1055,6 +1081,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @RotateCamera.started -= instance.OnRotateCamera;
             @RotateCamera.performed -= instance.OnRotateCamera;
             @RotateCamera.canceled -= instance.OnRotateCamera;
+            @RotateCameraRight.started -= instance.OnRotateCameraRight;
+            @RotateCameraRight.performed -= instance.OnRotateCameraRight;
+            @RotateCameraRight.canceled -= instance.OnRotateCameraRight;
+            @RotateCameraLeft.started -= instance.OnRotateCameraLeft;
+            @RotateCameraLeft.performed -= instance.OnRotateCameraLeft;
+            @RotateCameraLeft.canceled -= instance.OnRotateCameraLeft;
             @ZoomCamera.started -= instance.OnZoomCamera;
             @ZoomCamera.performed -= instance.OnZoomCamera;
             @ZoomCamera.canceled -= instance.OnZoomCamera;
@@ -1070,12 +1102,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @EnableGrabbing.started -= instance.OnEnableGrabbing;
             @EnableGrabbing.performed -= instance.OnEnableGrabbing;
             @EnableGrabbing.canceled -= instance.OnEnableGrabbing;
-            @RotateCameraLeft.started -= instance.OnRotateCameraLeft;
-            @RotateCameraLeft.performed -= instance.OnRotateCameraLeft;
-            @RotateCameraLeft.canceled -= instance.OnRotateCameraLeft;
-            @RotateCameraRight.started -= instance.OnRotateCameraRight;
-            @RotateCameraRight.performed -= instance.OnRotateCameraRight;
-            @RotateCameraRight.canceled -= instance.OnRotateCameraRight;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -1126,12 +1155,13 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnRightMouseClick(InputAction.CallbackContext context);
         void OnCameraMovement(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
+        void OnRotateCameraRight(InputAction.CallbackContext context);
+        void OnRotateCameraLeft(InputAction.CallbackContext context);
         void OnZoomCamera(InputAction.CallbackContext context);
         void OnCameraDefaultPosition(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnEnableGrabbing(InputAction.CallbackContext context);
-        void OnRotateCameraLeft(InputAction.CallbackContext context);
-        void OnRotateCameraRight(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

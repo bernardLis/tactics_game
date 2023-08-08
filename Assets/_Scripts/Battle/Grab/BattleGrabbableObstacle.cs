@@ -17,7 +17,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     Material _material;
 
     Color _defaultColor;
-    Color _endColor = new Color(0.875f, 0.32f, 0.28f, 1f); // reddish
+    Color _endColor = new(0.875f, 0.32f, 0.28f, 1f); // reddish
 
     int _maxGrabbingTime = 5;
     int _secondsToBreak;
@@ -43,6 +43,7 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+
         if (_secondsToBreak <= 0)
         {
             DisplayText("No more grabbing!", Color.red);
@@ -118,12 +119,12 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         for (int i = 0; i < particleObjectCount; i++)
             SpawnDustParticle();
     }
-    
+
     void SpawnDustParticle()
     {
         Vector3 pos = new(Random.Range(_collider.bounds.min.x, _collider.bounds.max.x), 0.5f,
                 Random.Range(_collider.bounds.min.z, _collider.bounds.max.z));
-        Vector3 rotation = new Vector3(-90, 0, 0);
+        Vector3 rotation = new(-90, 0, 0);
         GameObject dust = Instantiate(_dustParticlePrefab, pos, Quaternion.Euler(rotation));
         dust.SetActive(true);
         dust.transform.parent = transform;

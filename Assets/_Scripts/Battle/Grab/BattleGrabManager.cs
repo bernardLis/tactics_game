@@ -16,6 +16,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     PlayerInput _playerInput;
     BattleAbilityManager _abilityManager;
     BattleDeploymentManager _playerArmyDeployer;
+    BattleTooltipManager _tooltipManager;
 
     VisualElement _root;
 
@@ -46,6 +47,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _abilityManager = GetComponent<BattleAbilityManager>();
         _floorLayerMask = LayerMask.GetMask("Floor");
@@ -124,6 +126,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["LeftMouseClick"].canceled += OnPointerUp;
         _playerInput.actions["RightMouseClick"].performed += evt => DisableGrabbing();
         _playerInput.actions["EnableGrabbing"].performed += evt => ToggleGrabbing();
+        _playerInput.actions["Rotate"].performed += RotateObject;
     }
 
     void UnsubscribeInputActions()
@@ -131,6 +134,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
         _playerInput.actions["RightMouseClick"].performed -= evt => DisableGrabbing();
         _playerInput.actions["EnableGrabbing"].performed -= evt => ToggleGrabbing();
+        _playerInput.actions["Rotate"].performed -= RotateObject;
+
     }
 
     public void TryGrabbing(BattleEntity entity)
@@ -161,11 +166,12 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     public void TryGrabbing(GameObject obj)
     {
         if (!IsGrabbingAllowed()) return;
-        _objectYPosition = 4f;
+        _objectYPosition = 3f;
         _audioManager.PlaySFX("Grab", obj.transform.position);
         Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
         _grabbedObject = obj;
 
+        _tooltipManager.ShowInfo("Press 'R' to rotate");
         StartCoroutine(UpdateGrabbedObjectPosition());
     }
 
@@ -174,14 +180,19 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         while (_grabbedObject != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _floorLayerMask))
             {
-                Vector3 pos = new Vector3(hit.point.x, _objectYPosition, hit.point.z);
+                Vector3 pos = new(hit.point.x, _objectYPosition, hit.point.z);
                 _grabbedObject.transform.position = pos;
             }
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    void RotateObject(InputAction.CallbackContext context)
+    {
+        if (_grabbedObject == null) return;
+        _grabbedObject.transform.Rotate(Vector3.up, 30f);
     }
 
     public bool IsGrabbingAllowed()
@@ -213,6 +224,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             turret.Released();
 
         _grabbedObject = null;
+        _tooltipManager.HideInfo();
         StopAllCoroutines();
     }
 
