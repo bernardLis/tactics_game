@@ -165,7 +165,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         if (_targetPosition.sqrMagnitude > 0.1f)
         {
             _speed = Mathf.Lerp(_speed, _maxSpeed, _acceleration * Time.deltaTime);
-            transform.position += _targetPosition * _speed * Time.deltaTime;
+            transform.position += _speed * Time.deltaTime * _targetPosition;
             OnCameraMoved?.Invoke();
         }
         else // slow down
@@ -283,7 +283,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         Vector3 pos = be.transform.forward * -10f + be.transform.position;
         transform.DOMove(pos, 0.5f);
 
-        Vector3 rot = new Vector3(30, be.transform.localEulerAngles.y, 0f);
+        Vector3 rot = new(30, be.transform.localEulerAngles.y, 0f);
         transform.DORotate(rot, 0.5f);
 
         _zoomHeight = _defaultZoomHeight;
