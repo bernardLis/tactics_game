@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wind Turret 2
   m_EditorClassIdentifier: 
   Id: 7430ead4-223d-4c33-9bb9-33c74a116003
+  Cost: 200
   Range: 10
   Power: 5
   RateOfFire: 1

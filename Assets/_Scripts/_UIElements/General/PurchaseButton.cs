@@ -38,6 +38,19 @@ public class PurchaseButton : MyButton
         clicked += Buy;
     }
 
+    public void UpdateCost(int cost)
+    {
+        _cost = cost;
+        _costGoldElement.ChangeAmount(cost);
+        if (_gameManager.Gold < cost)
+            SetEnabled(false);
+    }
+    
+    public void NoMoreInfinity()
+    {
+        _isInfinite = false;
+    }
+
     void Buy()
     {
         if (_gameManager.Gold < _cost)

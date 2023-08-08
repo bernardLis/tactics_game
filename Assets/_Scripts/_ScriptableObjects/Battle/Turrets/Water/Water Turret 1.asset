@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Water Turret 1
   m_EditorClassIdentifier: 
   Id: e86f057d-ec8e-4b1b-ad71-42ad2d1bc141
+  Cost: 200
   Range: 7
   Power: 6
   RateOfFire: 4

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Earth Turret 3
   m_EditorClassIdentifier: 
   Id: 484a07d6-ca59-4dec-bd04-c4734150bf7e
+  Cost: 200
   Range: 9
   Power: 20
   RateOfFire: 5

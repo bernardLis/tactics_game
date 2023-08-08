@@ -53,6 +53,5 @@ public class BattleInputManager : MonoBehaviour
     {
         _playerInput.actions["Continue"].performed -= evt => OnContinueClicked?.Invoke();
         _playerInput.actions["Enter"].performed -= evt => OnEnterClicked?.Invoke();
-
     }
 }

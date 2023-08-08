@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wind Turret 4
   m_EditorClassIdentifier: 
   Id: e789acb3-55e1-4d4b-94a9-a9ccc89d53f0
+  Cost: 200
   Range: 12
   Power: 7
   RateOfFire: 1

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Earth Turret 2
   m_EditorClassIdentifier: 
   Id: 00c5e8b6-c62e-4163-b7b4-0806f05573a7
+  Cost: 200
   Range: 7
   Power: 15
   RateOfFire: 5

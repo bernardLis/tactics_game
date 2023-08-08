@@ -184,6 +184,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7632cdc4-b0c3-4d81-b53a-b41839ede095
     m_ActionName: Battle/RotateCameraRight[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50c37d5b-4a5f-430b-aab9-a8321a7bd8f8
+    m_ActionName: Battle/Rotate[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Battle
@@ -451,6 +455,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: 590c5b2f2cb22e84d98e5c333879fbe8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   HeroDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
-  QuestDatabase: {fileID: 11400000, guid: 77c2e9814358a334aa793fb94725a9a7, type: 2}
   WasIntroCutscenePlayed: 0
   BattleNumber: 0
   PlayerHero: {fileID: 0}

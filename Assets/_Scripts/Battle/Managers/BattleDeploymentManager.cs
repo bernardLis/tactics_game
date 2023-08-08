@@ -75,7 +75,6 @@ public class BattleDeploymentManager : MonoBehaviour
         _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
     }
 
-
     public void HandlePlayerArmyDeployment()
     {
         _wasDeployed = false;
@@ -142,6 +141,7 @@ public class BattleDeploymentManager : MonoBehaviour
     {
         if (this == null) return;
         if (!_battleManager.IsTimerOn) return;
+        if (_deployedObjectInstance == null) return;
 
         if (_wasDeployed) return;
         _wasDeployed = true;

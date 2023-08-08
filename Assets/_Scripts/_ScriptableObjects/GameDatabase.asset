@@ -28,10 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38ffc0f173ff1484c94d2bbabdf58736, type: 2}
   - {fileID: 11400000, guid: 61c889540e3a6974498b440006d6c98e, type: 2}
   - {fileID: 11400000, guid: b1ce1f3dc88d3f04fa418c1c763015e6, type: 2}
-  - {fileID: 11400000, guid: ba2ceb3ececf34547be0b4b90ff94ba4, type: 2}
-  - {fileID: 11400000, guid: 65b4d5453c2e17049b250d48cfa4ac01, type: 2}
-  - {fileID: 11400000, guid: 3419ab4d8442eb14088f343f014d3bfc, type: 2}
-  - {fileID: 11400000, guid: 90efad64278790c41987a3a1ce5b4398, type: 2}
   BaseGameObject: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}
   _colors:

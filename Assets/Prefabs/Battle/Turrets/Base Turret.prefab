@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6670423812797630322}
   - component: {fileID: 2387225478919650417}
   - component: {fileID: 2666157909072214098}
-  - component: {fileID: 8362938376932142992}
   - component: {fileID: 237454697783194951}
   m_Layer: 0
   m_Name: Base Turret
@@ -92,19 +91,6 @@ MonoBehaviour:
   _rangeIndicator: {fileID: 7405863077029358783}
   _projectilePrefab: {fileID: 5838336094007469816, guid: 0a05600f2739b604a9c00ac998f4aa66, type: 3}
   _GFX: {fileID: 2961916609564200181}
---- !u!114 &8362938376932142992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572836612390651302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b35f090fbfe33b4409bae0748c2cbb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _element: {fileID: 0}
 --- !u!114 &237454697783194951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +163,7 @@ MonoBehaviour:
   stencilRefID: 0
   stencilReadMask: 255
   stencilWriteMask: 255
-  type: 0
+  type: 2
   colorMode: 0
   colorOuterStart: {r: 1, g: 1, b: 1, a: 1}
   colorInnerEnd: {r: 1, g: 1, b: 1, a: 1}
@@ -229,7 +215,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35eb9f982684e7745b8ef050ccf0604b, type: 2}
+  - {fileID: 2100000, guid: d72c5e047d4188246887ffb9389e25a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

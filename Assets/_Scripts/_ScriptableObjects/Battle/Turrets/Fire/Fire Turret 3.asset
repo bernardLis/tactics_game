@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fire Turret 3
   m_EditorClassIdentifier: 
   Id: 351112b2-6903-42a1-850d-7d65be95971d
+  Cost: 200
   Range: 15
   Power: 7
   RateOfFire: 2

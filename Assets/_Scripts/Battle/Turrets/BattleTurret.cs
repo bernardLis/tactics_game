@@ -5,9 +5,11 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using Shapes;
 
-public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     BattleManager _battleManager;
+    BattleTooltipManager _tooltipManager;
+
 
     [SerializeField] GameObject _rangeIndicator;
     [SerializeField] Projectile _projectilePrefab;
@@ -23,14 +25,24 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void Start()
     {
         _battleManager = BattleManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
     }
 
     public void Initialize(Turret turret)
     {
-        Turret = turret;
-        Turret.OnTurretUpgradePurchased += UpdateGFX;
-        UpdateGFX();
         Team = 0; // HERE: turret team
+
+        Turret = turret;
+        Turret.OnTurretUpgradePurchased += UpdateTurret;
+        UpdateTurret();
+
+        _rangeIndicator.SetActive(true);
+    }
+
+    void UpdateTurret()
+    {
+        UpdateGFX();
+        UpdateRangeIndicator();
     }
 
     public void UpdateGFX()
@@ -41,7 +53,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _GFX.transform.parent = transform;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void UpdateRangeIndicator()
     {
         Disc d = _rangeIndicator.GetComponent<Disc>();
         d.Radius = Turret.GetCurrentUpgrade().Range;
@@ -49,17 +61,28 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Color c = GameManager.PlayerTeamColor;
         c.a = 0.3f;
         d.Color = c;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_runTurretCoroutine == null) return;
 
         _rangeIndicator.SetActive(true);
+        _tooltipManager.ShowInfo($"Click for turret upgrades");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (_runTurretCoroutine == null) return;
+
         _rangeIndicator.SetActive(false);
+        _tooltipManager.HideInfo();
     }
 
     public void StartTurretCoroutine()
     {
+        _rangeIndicator.SetActive(false);
+
         _runTurretCoroutine = RunTurret();
         StartCoroutine(_runTurretCoroutine);
     }
@@ -78,7 +101,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void ChooseNewTarget()
     {
         _target = null;
-        // choose a random opponent with a bias towards closer opponents
+
         Dictionary<BattleEntity, float> distances = new();
         foreach (BattleEntity be in _battleManager.OpponentEntities)
         {
@@ -112,4 +135,34 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         StartCoroutine(_runTurretCoroutine);
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // TODO: turret upgrades
+        // display a turret card 
+        // with turret stats
+        // and a button to upgrade the turret
+        // subscribe to the button's OnClick event
+        if (_runTurretCoroutine == null) return;
+
+        Debug.Log($"turret click");
+        _tooltipManager.DisplayTooltip(Turret);
+
+        /*
+        if (_battleGrabManager.IsGrabbingEnabled) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        _storeyTurretElement = new(_storeyTurret, _battleTurret);
+        _storeyTurretElement.style.opacity = 0;
+        _battleManager.Root.Add(_storeyTurretElement);
+        _battleManager.PauseGame();
+        DOTween.To(x => _storeyTurretElement.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+
+        _storeyTurretElement.OnClosed += () =>
+        {
+            _battleManager.ResumeGame();
+            _battleManager.Root.Remove(_storeyTurretElement);
+            _storeyTurretElement = null;
+        };
+        */
+    }
 }

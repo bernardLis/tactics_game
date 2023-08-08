@@ -29,6 +29,14 @@ public class Turret : BaseScriptableObject
         return TurretUpgrades[CurrentTurretUpgradeIndex];
     }
 
+    public TurretUpgrade GetNextUpgrade()
+    {
+        if (CurrentTurretUpgradeIndex + 1 < TurretUpgrades.Length)
+            return TurretUpgrades[CurrentTurretUpgradeIndex + 1];
+            
+        return null;
+    }
+
     public void PurchaseSpecialUpgrade()
     {
         //HERE: turret special ugprade

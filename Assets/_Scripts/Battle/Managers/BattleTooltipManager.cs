@@ -69,6 +69,13 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _bottomPanel.Add(_tooltip);
     }
 
+    public void DisplayTooltip(Turret turret)
+    {
+        HideTooltip();
+        _tooltip = new TurretCard(turret);
+        _bottomPanel.Add(_tooltip);
+    }
+
     public void HideTooltip()
     {
         if (_tooltip == null) return;

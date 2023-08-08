@@ -74,7 +74,7 @@ public class BattleManager : Singleton<BattleManager>
         _timerLabel.style.display = DisplayStyle.Flex;
 
 #if UNITY_EDITOR
-        GetComponent<BattleInputManager>().OnEnterClicked += CheatWinBattle;
+        GetComponent<BattleInputManager>().OnEnterClicked += LevelUpHero;
 #endif
     }
 
