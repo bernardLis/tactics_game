@@ -5,21 +5,27 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class PlayerArmyDeployer : MonoBehaviour
+public class BattleDeploymentManager : MonoBehaviour
 {
     GameManager _gameManager;
     PlayerInput _playerInput;
     BattleManager _battleManager;
 
     [SerializeField] GameObject _creatureSpawnerPrefab;
+    [SerializeField] GameObject _obstaclePrefab;
+
+    GameObject _deployedObjectInstance;
+    EntitySpawner _creatureSpawnerInstance;
+    BattleGrabbableObstacle _obstacleInstance;
 
     VisualElement _topPanel;
     Label _tooltipText;
 
     int _floorLayerMask;
     bool _wasInitialized;
-    EntitySpawner _creatureSpawnerInstance;
     bool _wasDeployed;
+    int posY;
+
 
     public event Action OnPlayerArmyDeployed;
     void Start()
@@ -71,9 +77,9 @@ public class PlayerArmyDeployer : MonoBehaviour
 
     public void OnPointerUp(InputAction.CallbackContext context)
     {
-        if (!_wasInitialized) return;
+        //   if (!_wasInitialized) return;
         if (this == null) return;
-        if (_creatureSpawnerInstance == null) return;
+        if (!_battleManager.IsTimerOn) return;
 
         if (_wasDeployed) return;
         _wasDeployed = true;
@@ -81,43 +87,76 @@ public class PlayerArmyDeployer : MonoBehaviour
         if (_tooltipText.parent != null)
             _topPanel.Remove(_tooltipText);
 
+        if (_creatureSpawnerInstance != null) DeployArmy();
+        if (_obstacleInstance != null) PlaceObstacle();
+
+        StopAllCoroutines();
+    }
+
+    void DeployArmy()
+    {
         _creatureSpawnerInstance.SpawnHeroArmy(_gameManager.PlayerHero);
         _creatureSpawnerInstance.OnSpawnComplete += (list) =>
         {
             _battleManager.AddPlayerArmyEntities(list);
             _creatureSpawnerInstance.DestroySelf();
             OnPlayerArmyDeployed?.Invoke();
+            _creatureSpawnerInstance = null;
         };
-        StopAllCoroutines();
     }
 
-    public void Initialize()
+    void PlaceObstacle()
     {
-        if (_wasInitialized) return;
-        _wasInitialized = true;
+        _obstacleInstance.GetComponent<Rigidbody>().isKinematic = false;
+        _obstacleInstance = null;
+    }
 
-        _tooltipText = new("Click to deploy your army");
+    public void HandlePlayerArmyDeployment()
+    {
+        _wasDeployed = false;
+        posY = 0;
+
+        //  if (_wasInitialized) return;
+        //   _wasInitialized = true;
+        ShowTooltip("Click to deploy your army");
+
+        _deployedObjectInstance = Instantiate(_creatureSpawnerPrefab);
+        _creatureSpawnerInstance = _deployedObjectInstance.GetComponent<EntitySpawner>();
+        _creatureSpawnerInstance.ShowPortal(_gameManager.PlayerHero.Element);
+        StartCoroutine(UpdateObjectPosition());
+    }
+
+    public void HandleObstacleDeployment(Vector3 size)
+    {
+        _wasDeployed = false;
+        posY = 3;
+
+        ShowTooltip("Click to drop obstacle");
+
+        _deployedObjectInstance = Instantiate(_obstaclePrefab);
+        _obstacleInstance = _deployedObjectInstance.GetComponent<BattleGrabbableObstacle>();
+        _obstacleInstance.Initialize(size);
+        StartCoroutine(UpdateObjectPosition());
+    }
+
+    void ShowTooltip(string text)
+    {
+        _tooltipText = new(text);
         _tooltipText.AddToClassList("common__text-primary");
         _tooltipText.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
         _tooltipText.style.fontSize = 24;
         _topPanel.Add(_tooltipText);
-
-        GameObject instance = Instantiate(_creatureSpawnerPrefab);
-        _creatureSpawnerInstance = instance.GetComponent<EntitySpawner>();
-        _creatureSpawnerInstance.ShowPortal(_gameManager.PlayerHero.Element);
-        StartCoroutine(UpdatePortalPosition());
     }
 
-    IEnumerator UpdatePortalPosition()
+    IEnumerator UpdateObjectPosition()
     {
-        while (_creatureSpawnerInstance != null)
+        while (_deployedObjectInstance != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000f, _floorLayerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _floorLayerMask))
             {
-                Vector3 pos = new Vector3(hit.point.x, 0, hit.point.z);
-                _creatureSpawnerInstance.transform.position = pos;
+                Vector3 pos = new(hit.point.x, posY, hit.point.z);
+                _deployedObjectInstance.transform.position = pos;
             }
             yield return new WaitForFixedUpdate();
         }

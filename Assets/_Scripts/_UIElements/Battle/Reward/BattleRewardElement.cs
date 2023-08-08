@@ -164,6 +164,8 @@ public class BattleRewardElement : VisualElement
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
         _allRewardCards.Add(CreateRewardCardArmy());
+        _allRewardCards.Add(CreateRewardCardObstacle());
+
     }
 
     void ChooseRewardCards()
@@ -215,6 +217,14 @@ public class BattleRewardElement : VisualElement
         }
 
         return card;
+    }
+
+    RewardCard CreateRewardCardObstacle()
+    {
+        RewardObstacle reward = ScriptableObject.CreateInstance<RewardObstacle>();
+        reward.CreateRandom(_gameManager.PlayerHero);
+        reward.OnRewardSelected += RewardSelected;
+        return new RewardCardObstacle(reward);
     }
 
     void RewardSelected(Reward reward)

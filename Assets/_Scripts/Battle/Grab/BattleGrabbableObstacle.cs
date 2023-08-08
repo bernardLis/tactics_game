@@ -35,6 +35,11 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         _defaultColor = _material.color;
     }
 
+    public void Initialize(Vector3 size)
+    {
+        transform.localScale = new Vector3(size.x, size.y, size.z);
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
@@ -112,8 +117,8 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
         float particleObjectCount = Random.Range(2, 6);
         for (int i = 0; i < particleObjectCount; i++)
             SpawnDustParticle();
-
     }
+    
     void SpawnDustParticle()
     {
         Vector3 pos = new(Random.Range(_collider.bounds.min.x, _collider.bounds.max.x), 0.5f,

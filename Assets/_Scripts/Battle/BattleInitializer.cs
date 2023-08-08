@@ -11,9 +11,7 @@ public class BattleInitializer : MonoBehaviour
 
     BattleCameraManager _battleCameraManager;
     BattleInputManager _battleInputManager;
-    PlayerArmyDeployer _playerArmyDeployer;
-
-    Transform _entityHolder;
+    BattleDeploymentManager _battleDeploymentManager;
 
     Hero _playerHero;
 
@@ -23,9 +21,7 @@ public class BattleInitializer : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleCameraManager = _battleManager.GetComponent<BattleCameraManager>();
         _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
-        _playerArmyDeployer = _battleManager.GetComponent<PlayerArmyDeployer>();
-
-        _entityHolder = _battleManager.EntityHolder;
+        _battleDeploymentManager = _battleManager.GetComponent<BattleDeploymentManager>();
 
         _battleCameraManager = Camera.main.GetComponentInParent<BattleCameraManager>();
 
@@ -49,32 +45,7 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        _playerArmyDeployer.Initialize();
+        _battleDeploymentManager.HandlePlayerArmyDeployment();
         _battleInputManager.enabled = true;
-    }
-
-    // HERE: obstacle code
-    [SerializeField] GameObject _obstaclePrefab;
-    GameObject _obstacleInstance;
-    void PlaceObstacle()
-    {
-        if (_obstacleInstance != null)
-            Destroy(_obstacleInstance);
-
-        // between player and enemy
-        //   float posX = _playerSpawnPoint.transform.position.x + (_enemySpawnPoint.transform.position.x - _playerSpawnPoint.transform.position.x) / 2;
-        //   float posZ = _playerSpawnPoint.transform.position.z + (_enemySpawnPoint.transform.position.z - _playerSpawnPoint.transform.position.z) / 2;
-        Vector3 pos = new Vector3(Random.Range(-15, 15), 10, Random.Range(-15, 15));
-
-        float sizeY = Random.Range(3, 10);
-        float sizeX = Random.Range(10, 30);
-        float sizeZ = Random.Range(1, 5);
-        Vector3 size = new Vector3(sizeX, sizeY, sizeZ);
-
-        Vector3 rot = new Vector3(0, Random.Range(-45, 45), 0);
-
-        _obstacleInstance = Instantiate(_obstaclePrefab, pos, Quaternion.identity);
-        _obstacleInstance.transform.localScale = size;
-        _obstacleInstance.transform.Rotate(rot);
     }
 }

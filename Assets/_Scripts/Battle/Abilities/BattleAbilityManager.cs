@@ -14,7 +14,7 @@ public class BattleAbilityManager : MonoBehaviour
     GameManager _gameManager;
     AudioManager _audioManager;
     BattleGrabManager _battleGrabManager;
-    PlayerArmyDeployer _playerArmyDeployer;
+    BattleDeploymentManager _playerArmyDeployer;
 
     VisualElement _root;
 
@@ -35,7 +35,7 @@ public class BattleAbilityManager : MonoBehaviour
 
     void Start()
     {
-        _playerArmyDeployer = GetComponent<PlayerArmyDeployer>();
+        _playerArmyDeployer = GetComponent<BattleDeploymentManager>();
         _playerArmyDeployer.OnPlayerArmyDeployed += () => Initialize(_gameManager.PlayerHero);
     }
 

@@ -280,6 +280,12 @@ public class BattleManager : Singleton<BattleManager>
     {
         StartCoroutine(BattleWon());
     }
+    [ContextMenu("Level up hero")]
+    public void LevelUpHero()
+    {
+        _gameManager.PlayerHero.AddExp(_gameManager.PlayerHero.ExpForNextLevel.Value);
+    }
+
 #endif
 
 }

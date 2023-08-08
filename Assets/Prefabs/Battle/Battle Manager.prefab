@@ -75,7 +75,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
   EntityHolder: {fileID: 0}
-  _skyboxRotationSpeed: 0.2
   PlayerCreatures: []
   OpponentEntities: []
   KilledPlayerEntities: []
@@ -158,7 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2685ec49db263d46ac8cad404de18bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstaclePrefab: {fileID: 5282784951654651465, guid: 3cdb7704dd19c474fa64d0fdb4765bfd, type: 3}
 --- !u!114 &9037198521051735104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creatureSpawnerPrefab: {fileID: 9175160785698911493, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+  _obstaclePrefab: {fileID: 5282784951654651465, guid: 3cdb7704dd19c474fa64d0fdb4765bfd, type: 3}
 --- !u!114 &8300005922033865725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entitySpawnerPrefab: {fileID: 0}
+  _opponentPortals: []
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0

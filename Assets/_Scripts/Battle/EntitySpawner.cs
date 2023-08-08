@@ -105,7 +105,7 @@ public class EntitySpawner : MonoBehaviour
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct PortalElement
 {
     public ElementName ElementName;
