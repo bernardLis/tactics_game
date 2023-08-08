@@ -165,6 +165,7 @@ public class BattleRewardElement : VisualElement
         _allRewardCards.Add(CreateRewardCardGold());
         _allRewardCards.Add(CreateRewardCardArmy());
         _allRewardCards.Add(CreateRewardCardObstacle());
+        _allRewardCards.Add(CreateRewardCardTurret());
 
     }
 
@@ -225,6 +226,14 @@ public class BattleRewardElement : VisualElement
         reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
         return new RewardCardObstacle(reward);
+    }
+
+    RewardCard CreateRewardCardTurret()
+    {
+        RewardTurret reward = ScriptableObject.CreateInstance<RewardTurret>();
+        reward.CreateRandom(_gameManager.PlayerHero);
+        reward.OnRewardSelected += RewardSelected;
+        return new RewardCardTurret(reward);
     }
 
     void RewardSelected(Reward reward)

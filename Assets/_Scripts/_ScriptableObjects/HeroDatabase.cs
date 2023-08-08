@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class HeroDatabase : ScriptableObject
 {
+
     [Header("Creatures")]
     public List<Creature> AllCreatures = new();
     public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }
@@ -73,6 +74,12 @@ public class HeroDatabase : ScriptableObject
         public Element Element;
         public GameObject Prefab;
     }
+
+    [Header("Turrets")]
+    [SerializeField] Turret[] Turrets;
+    public List<Turret> GetAllTurrets() { return Turrets.ToList(); }
+    public Turret GetRandomTurret() { return Turrets[Random.Range(0, Turrets.Length)]; }
+
 
     [Header("Hero Stats")]
 

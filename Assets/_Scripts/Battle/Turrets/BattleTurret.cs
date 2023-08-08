@@ -31,9 +31,6 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Turret.OnTurretUpgradePurchased += UpdateGFX;
         UpdateGFX();
         Team = 0; // HERE: turret team
-
-        _runTurretCoroutine = RunTurret();
-        StartCoroutine(_runTurretCoroutine);
     }
 
     public void UpdateGFX()
@@ -48,7 +45,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         Disc d = _rangeIndicator.GetComponent<Disc>();
         d.Radius = Turret.GetCurrentUpgrade().Range;
-        
+
         Color c = GameManager.PlayerTeamColor;
         c.a = 0.3f;
         d.Color = c;
@@ -59,6 +56,12 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerExit(PointerEventData eventData)
     {
         _rangeIndicator.SetActive(false);
+    }
+
+    public void StartTurretCoroutine()
+    {
+        _runTurretCoroutine = RunTurret();
+        StartCoroutine(_runTurretCoroutine);
     }
 
     IEnumerator RunTurret()

@@ -17,12 +17,12 @@ public class BattleDeploymentManager : MonoBehaviour
     GameObject _deployedObjectInstance;
     EntitySpawner _creatureSpawnerInstance;
     BattleGrabbableObstacle _obstacleInstance;
+    BattleTurret _battleTurret;
 
     VisualElement _topPanel;
     Label _tooltipText;
 
     int _floorLayerMask;
-    bool _wasInitialized;
     bool _wasDeployed;
     int posY;
 
@@ -75,49 +75,12 @@ public class BattleDeploymentManager : MonoBehaviour
         _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
     }
 
-    public void OnPointerUp(InputAction.CallbackContext context)
-    {
-        //   if (!_wasInitialized) return;
-        if (this == null) return;
-        if (!_battleManager.IsTimerOn) return;
-
-        if (_wasDeployed) return;
-        _wasDeployed = true;
-
-        if (_tooltipText.parent != null)
-            _topPanel.Remove(_tooltipText);
-
-        if (_creatureSpawnerInstance != null) DeployArmy();
-        if (_obstacleInstance != null) PlaceObstacle();
-
-        StopAllCoroutines();
-    }
-
-    void DeployArmy()
-    {
-        _creatureSpawnerInstance.SpawnHeroArmy(_gameManager.PlayerHero);
-        _creatureSpawnerInstance.OnSpawnComplete += (list) =>
-        {
-            _battleManager.AddPlayerArmyEntities(list);
-            _creatureSpawnerInstance.DestroySelf();
-            OnPlayerArmyDeployed?.Invoke();
-            _creatureSpawnerInstance = null;
-        };
-    }
-
-    void PlaceObstacle()
-    {
-        _obstacleInstance.GetComponent<Rigidbody>().isKinematic = false;
-        _obstacleInstance = null;
-    }
 
     public void HandlePlayerArmyDeployment()
     {
         _wasDeployed = false;
         posY = 0;
 
-        //  if (_wasInitialized) return;
-        //   _wasInitialized = true;
         ShowTooltip("Click to deploy your army");
 
         _deployedObjectInstance = Instantiate(_creatureSpawnerPrefab);
@@ -136,6 +99,19 @@ public class BattleDeploymentManager : MonoBehaviour
         _deployedObjectInstance = Instantiate(_obstaclePrefab);
         _obstacleInstance = _deployedObjectInstance.GetComponent<BattleGrabbableObstacle>();
         _obstacleInstance.Initialize(size);
+        StartCoroutine(UpdateObjectPosition());
+    }
+
+    public void HandleTurretDeployment(Turret turret)
+    {
+        _wasDeployed = false;
+        posY = 0;
+
+        ShowTooltip("Click to deploy turret");
+
+        _deployedObjectInstance = Instantiate(turret.Prefab);
+        _battleTurret = _deployedObjectInstance.GetComponent<BattleTurret>();
+        _battleTurret.Initialize(turret);
         StartCoroutine(UpdateObjectPosition());
     }
 
@@ -161,4 +137,47 @@ public class BattleDeploymentManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
+
+    public void OnPointerUp(InputAction.CallbackContext context)
+    {
+        if (this == null) return;
+        if (!_battleManager.IsTimerOn) return;
+
+        if (_wasDeployed) return;
+        _wasDeployed = true;
+
+        if (_tooltipText.parent != null)
+            _topPanel.Remove(_tooltipText);
+
+        if (_creatureSpawnerInstance != null) DeployArmy();
+        if (_obstacleInstance != null) PlaceObstacle();
+        if (_battleTurret != null) PlaceTurret();
+
+        StopAllCoroutines();
+    }
+
+    void DeployArmy()
+    {
+        _creatureSpawnerInstance.SpawnHeroArmy(_gameManager.PlayerHero);
+        _creatureSpawnerInstance.OnSpawnComplete += (list) =>
+        {
+            _battleManager.AddPlayerArmyEntities(list);
+            _creatureSpawnerInstance.DestroySelf();
+            OnPlayerArmyDeployed?.Invoke();
+            _creatureSpawnerInstance = null;
+        };
+    }
+
+    void PlaceObstacle()
+    {
+        _obstacleInstance.GetComponent<Rigidbody>().isKinematic = false;
+        _obstacleInstance = null;
+    }
+
+    void PlaceTurret()
+    {
+        _battleTurret.StartTurretCoroutine();
+        _battleTurret = null;
+    }
+
 }

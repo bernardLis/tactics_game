@@ -73,6 +73,11 @@ MonoBehaviour:
     Prefab: {fileID: 2048183971171318672, guid: 8e20ede2f4ef4794a9fa2caad04a5ef3, type: 3}
   - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
     Prefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
+  Turrets:
+  - {fileID: 11400000, guid: f6068dfb486faa34882d832c3cabd2c1, type: 2}
+  - {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
+  - {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
+  - {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
   Abilities:
   - {fileID: 11400000, guid: 3d3663f58cc3d42418937cd90d26e3bd, type: 2}
   - {fileID: 11400000, guid: f5309cd13d284b7479f49fa99df8d14a, type: 2}

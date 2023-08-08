@@ -35,6 +35,7 @@ public class TurretStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
         if (_tooltipManager == null) return;
         _tooltipManager.ShowInfo($"Click for turret upgrades");
     }
+    
     public void OnPointerExit(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
