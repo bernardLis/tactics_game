@@ -22,6 +22,8 @@ public class FullScreenElement : VisualElement
     public FullScreenElement(bool isKeyNavigationEnabled = true)
     {
         _gameManager = GameManager.Instance;
+        _gameManager.GetComponent<GameUIManager>().BlockMenuInput(true);
+
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
@@ -45,27 +47,26 @@ public class FullScreenElement : VisualElement
         Focus();
 
         if (isKeyNavigationEnabled)
-            EnableNavigation();
+            schedule.Execute(EnableNavigation).StartingIn(500);
     }
 
     protected void EnableNavigation()
     {
         RegisterCallback<PointerDownEvent>(OnPointerDown);
-        // RegisterCallback<KeyDownEvent>(OnKeyDown); // HERE: full screen
+        RegisterCallback<KeyDownEvent>(OnKeyDown); // TODO: full screen management vs menu opening and closing
     }
 
     void OnPointerDown(PointerDownEvent evt)
     {
-        if (evt.button != 1) // only right mouse click
-            return;
+        // only right mouse click
+        if (evt.button != 1) return;
 
         Hide();
     }
 
     void OnKeyDown(KeyDownEvent evt)
     {
-        if (evt.keyCode != KeyCode.Escape)
-            return;
+        if (evt.keyCode != KeyCode.Escape) return;
 
         Hide();
     }
@@ -80,6 +81,8 @@ public class FullScreenElement : VisualElement
     {
         Debug.Log($"hide");
         OnHide?.Invoke();
+
+        _gameManager.GetComponent<GameUIManager>().BlockMenuInput(false);
 
         if (_battleManager != null && _resumeGameOnHide)
             _battleManager.ResumeGame();

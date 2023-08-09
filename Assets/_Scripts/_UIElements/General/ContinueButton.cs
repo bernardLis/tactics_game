@@ -14,6 +14,7 @@ public class ContinueButton : MyButton
     {
         style.opacity = 0;
         DOTween.To(x => style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+        
 
         RegisterCallback<ClickEvent>(evt =>
         {

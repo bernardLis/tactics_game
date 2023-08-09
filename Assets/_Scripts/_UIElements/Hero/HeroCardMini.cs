@@ -49,7 +49,6 @@ public class HeroCardMini : ElementWithTooltip
         _portrait = new HeroPortraitElement(hero);
         Add(_portrait);
 
-
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
@@ -65,12 +64,12 @@ public class HeroCardMini : ElementWithTooltip
         if (evt.button != 0) return;
         evt.StopPropagation();
 
-        HeroCardFull heroCardFull = new(Hero);
+        new HeroCardFull(Hero);
     }
 
     protected override void DisplayTooltip()
     {
-        HeroCardStats tooltip = new HeroCardStats(Hero);
+        HeroCardStats tooltip = new(Hero);
         _tooltip = new(this, tooltip, true);
         base.DisplayTooltip();
     }

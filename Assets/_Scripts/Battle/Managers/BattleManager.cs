@@ -55,7 +55,7 @@ public class BattleManager : Singleton<BattleManager>
         base.Awake();
 
         Root = GetComponent<UIDocument>().rootVisualElement;
-        VisualElement bottomPanel = Root.Q<VisualElement>("bottomPanel");
+
         _infoPanel = Root.Q<VisualElement>("infoPanel");
         _timerLabel = _infoPanel.Q<Label>("timer");
     }
@@ -102,7 +102,7 @@ public class BattleManager : Singleton<BattleManager>
             TimeSpan time = TimeSpan.FromSeconds(BattleTime);
             _timerLabel.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
             if (time.Minutes >= _gameManager.SelectedBattle.Duration)
-                BattleWon();
+                StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);
         }
     }
@@ -140,8 +140,8 @@ public class BattleManager : Singleton<BattleManager>
         b.gameObject.layer = 10;
         PlayerCreatures.Add(b);
         b.OnDeath += OnPlayerCreatureDeath;
-        if (b is BattleCreature)
-            OnPlayerCreatureAdded?.Invoke((BattleCreature)b);
+        if (b is BattleCreature creature)
+            OnPlayerCreatureAdded?.Invoke(creature);
     }
 
     public void AddOpponentArmyEntities(List<BattleEntity> list)
@@ -192,11 +192,11 @@ public class BattleManager : Singleton<BattleManager>
         //         });
 
         // TODO: price for experience
-        if (killer is BattleCreature)
+        if (killer is BattleCreature creature)
         {
             int heroExpTax = Mathf.RoundToInt(be.Entity.Price * 0.25f);
             _gameManager.PlayerHero.AddExp(heroExpTax);
-            ((BattleCreature)killer).Creature.AddExp(be.Entity.Price - heroExpTax);
+            creature.Creature.AddExp(be.Entity.Price - heroExpTax);
             return;
         }
         _gameManager.PlayerHero.AddExp(be.Entity.Price);
@@ -263,7 +263,7 @@ public class BattleManager : Singleton<BattleManager>
         foreach (Transform child in EntityHolder.transform)
         {
             child.transform.DOKill(child.transform);
-            GameObject.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 

@@ -22,7 +22,7 @@ public class HeroCardStats : VisualElement
 
     public Hero Hero;
 
-    public HeroPortraitElement PortraitVisualElement;
+    HeroCardMini _portrait;
     ElementalElement _elementalElement;
     Label _title;
     Label _level;
@@ -85,8 +85,9 @@ public class HeroCardStats : VisualElement
     void PopulateTopLeftPanel(VisualElement container)
     {
         container.AddToClassList(_ussTopLeftPanel);
-        PortraitVisualElement = new(Hero, this);
-        container.Add(PortraitVisualElement);
+        _portrait = new(Hero);
+        _portrait.BlockTooltip();
+        container.Add(_portrait);
     }
 
     void PopulateTopMiddlePanel(VisualElement container)
