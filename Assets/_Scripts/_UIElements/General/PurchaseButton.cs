@@ -45,7 +45,7 @@ public class PurchaseButton : MyButton
         if (_gameManager.Gold < cost)
             SetEnabled(false);
     }
-    
+
     public void NoMoreInfinity()
     {
         _isInfinite = false;

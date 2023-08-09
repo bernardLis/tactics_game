@@ -9,7 +9,7 @@ public class MyButton : Button
     protected GameManager _gameManager;
     AudioManager _audioManager;
 
-    Label _text;
+    protected Label _text;
 
     const string _ussCommonButtonBasic = "common__button-basic";
 
@@ -58,7 +58,7 @@ public class MyButton : Button
 
     public void ClearCallbacks() { clickable = new Clickable(() => { }); }
 
-    public void UpdateButtonText(string newText)
+    public void SetText(string newText)
     {
         _text.text = newText;
         _text.style.display = DisplayStyle.Flex;

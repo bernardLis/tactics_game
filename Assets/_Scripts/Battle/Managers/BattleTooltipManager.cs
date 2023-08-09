@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     VisualElement _tooltip;
 
+    public event Action OnTooltipHidden;
     void Start()
     {
         _battleManager = BattleManager.Instance;
@@ -69,18 +71,22 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _bottomPanel.Add(_tooltip);
     }
 
-    public void DisplayTooltip(Turret turret)
+    public TurretCard DisplayTooltip(Turret turret)
     {
         HideTooltip();
         _tooltip = new TurretCard(turret);
         _bottomPanel.Add(_tooltip);
+        return (TurretCard)_tooltip;
     }
 
     public void HideTooltip()
     {
         if (_tooltip == null) return;
+
         //_bottomPanel.Remove(_tooltip);
         _tooltip.RemoveFromHierarchy();
         _tooltip = null;
+        
+        OnTooltipHidden?.Invoke();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,10 @@ public class TurretCard : VisualElement
     PurchaseButton _upgradeButton;
 
     public Turret Turret { get; private set; }
+
+    public event Action OnShowTurretUpgrade;
+    public event Action OnHideTurretUpgrade;
+
     public TurretCard(Turret turret)
     {
         _gameManager = GameManager.Instance;
@@ -78,6 +83,13 @@ public class TurretCard : VisualElement
 
     void PopulateRightPanel()
     {
+        if (Turret.GetNextUpgrade() == null)
+        {
+            _upgradeButton = new(0, isPurchased: true);
+            _rightPanel.Add(_upgradeButton);
+            return;
+        }
+        
         _upgradeButton = new(Turret.GetNextUpgrade().Cost, isInfinite: true,
                 buttonText: "Upgrade", callback: Upgrade);
         _rightPanel.Add(_upgradeButton);
@@ -88,13 +100,13 @@ public class TurretCard : VisualElement
 
     void Upgrade()
     {
-        Turret.PurchaseUpgrade();
-        UpdateTurretInfo();
+        if (Turret.GetNextNextUpgrade() == null)
+            _upgradeButton.NoMoreInfinity();
 
         _upgradeButton.UpdateCost(Turret.GetNextUpgrade().Cost);
 
-        if (Turret.CurrentTurretUpgradeIndex == Turret.TurretUpgrades.Length - 1) // -2 is to early, -1 is to late....
-            _upgradeButton.NoMoreInfinity();
+        Turret.PurchaseUpgrade();
+        UpdateTurretInfo();
     }
 
     void OnUpgradeButtonPointerEnter(PointerEnterEvent e)
@@ -118,10 +130,12 @@ public class TurretCard : VisualElement
         if (currentUpgrade.RateOfFire > nextUpgrade.RateOfFire)
             _rateLabel.style.color = Color.green;
 
+        OnShowTurretUpgrade?.Invoke();
     }
 
     void OnUpgradeButtonPointerLeave(PointerLeaveEvent e)
     {
         UpdateTurretInfo();
+        OnHideTurretUpgrade?.Invoke();
     }
 }

@@ -33,13 +33,21 @@ public class Turret : BaseScriptableObject
     {
         if (CurrentTurretUpgradeIndex + 1 < TurretUpgrades.Length)
             return TurretUpgrades[CurrentTurretUpgradeIndex + 1];
-            
+
+        return null;
+    }
+
+    public TurretUpgrade GetNextNextUpgrade()
+    {
+        if (CurrentTurretUpgradeIndex + 2 < TurretUpgrades.Length)
+            return TurretUpgrades[CurrentTurretUpgradeIndex + 2];
+
         return null;
     }
 
     public void PurchaseSpecialUpgrade()
     {
-        //HERE: turret special ugprade
+        //HERE: turret special upgrade
     }
 
     public void IncreaseKillCount()

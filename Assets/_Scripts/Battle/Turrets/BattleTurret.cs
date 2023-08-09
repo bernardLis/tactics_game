@@ -10,8 +10,8 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
-
     [SerializeField] GameObject _rangeIndicator;
+    Disc _rangeDisc;
     [SerializeField] Projectile _projectilePrefab;
     [SerializeField] GameObject _GFX;
 
@@ -21,6 +21,8 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     BattleEntity _target;
 
     IEnumerator _runTurretCoroutine;
+
+    bool _isTooltipActive;
 
     void Start()
     {
@@ -55,12 +57,12 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void UpdateRangeIndicator()
     {
-        Disc d = _rangeIndicator.GetComponent<Disc>();
-        d.Radius = Turret.GetCurrentUpgrade().Range;
+        _rangeDisc = _rangeIndicator.GetComponent<Disc>();
+        _rangeDisc.Radius = Turret.GetCurrentUpgrade().Range;
 
         Color c = GameManager.PlayerTeamColor;
         c.a = 0.3f;
-        d.Color = c;
+        _rangeDisc.Color = c;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -75,7 +77,9 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         if (_runTurretCoroutine == null) return;
 
-        _rangeIndicator.SetActive(false);
+        if (!_isTooltipActive)
+            _rangeIndicator.SetActive(false);
+
         _tooltipManager.HideInfo();
     }
 
@@ -137,32 +141,20 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // TODO: turret upgrades
-        // display a turret card 
-        // with turret stats
-        // and a button to upgrade the turret
-        // subscribe to the button's OnClick event
         if (_runTurretCoroutine == null) return;
+        _isTooltipActive = true;
+        _rangeIndicator.SetActive(true);
+        TurretCard c = _tooltipManager.DisplayTooltip(Turret);
+        c.OnShowTurretUpgrade += () => _rangeDisc.Radius = Turret.GetNextUpgrade().Range;
+        c.OnHideTurretUpgrade += () => _rangeDisc.Radius = Turret.GetCurrentUpgrade().Range;
 
-        Debug.Log($"turret click");
-        _tooltipManager.DisplayTooltip(Turret);
+        _tooltipManager.OnTooltipHidden += OnTooltipHidden;
+    }
 
-        /*
-        if (_battleGrabManager.IsGrabbingEnabled) return;
-        if (eventData.button != PointerEventData.InputButton.Left) return;
-
-        _storeyTurretElement = new(_storeyTurret, _battleTurret);
-        _storeyTurretElement.style.opacity = 0;
-        _battleManager.Root.Add(_storeyTurretElement);
-        _battleManager.PauseGame();
-        DOTween.To(x => _storeyTurretElement.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
-
-        _storeyTurretElement.OnClosed += () =>
-        {
-            _battleManager.ResumeGame();
-            _battleManager.Root.Remove(_storeyTurretElement);
-            _storeyTurretElement = null;
-        };
-        */
+    void OnTooltipHidden()
+    {
+        _isTooltipActive = false;
+        _rangeIndicator.SetActive(false);
+        _tooltipManager.OnTooltipHidden -= OnTooltipHidden;
     }
 }
