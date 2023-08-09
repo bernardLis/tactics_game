@@ -60,7 +60,6 @@ public class GameUIManager : MonoBehaviour
 
     public void OpenMenu(InputAction.CallbackContext ctx)
     {
-        Debug.Log($"toggle menu");
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu) return;
 
         if (_menuScreen != null) return;

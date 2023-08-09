@@ -79,9 +79,9 @@ public class FullScreenElement : VisualElement
 
     public virtual void Hide()
     {
-        Debug.Log($"hide");
         OnHide?.Invoke();
 
+        // TODO: if open a second full screen and close one, then esc will open menu, but I don't care.
         _gameManager.GetComponent<GameUIManager>().BlockMenuInput(false);
 
         if (_battleManager != null && _resumeGameOnHide)
