@@ -11,12 +11,13 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using Shapes;
 
-public class BattleEntity : MonoBehaviour
+public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 {
     protected GameManager _gameManager;
 
     protected AudioManager _audioManager;
     protected BattleManager _battleManager;
+    protected BattleGrabManager _grabManager;
 
     protected BattleHighlightDiamond _highlightDiamond;
     protected ObjectShaders _battleEntityShaders;
@@ -115,6 +116,7 @@ public class BattleEntity : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         _tooltipManager = BattleTooltipManager.Instance;
+        _grabManager = BattleGrabManager.Instance;
 
         GetComponent<Rigidbody>().isKinematic = true;
 
@@ -376,6 +378,14 @@ public class BattleEntity : MonoBehaviour
     public void SetDead() { IsDead = true; }
 
     /* grab */
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (!CanBeGrabbed()) return;
+
+        _grabManager.TryGrabbing(gameObject);
+    }
+
     public bool CanBeGrabbed()
     {
         if (IsDead) return false;

@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 
-public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
+public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
 {
     [SerializeField] GameObject _dustParticlePrefab;
     BattleGrabManager _grabManager;
+    BattleTooltipManager _tooltipManager;
 
     Rigidbody _rb;
     Collider _collider;
@@ -26,13 +27,17 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
-        _secondsToBreak = _maxGrabbingTime;
         _grabManager = BattleGrabManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
+
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
+
         _feelPlayer = GetComponent<MMF_Player>();
         _material = GetComponent<Renderer>().material;
         _defaultColor = _material.color;
+
+        _secondsToBreak = _maxGrabbingTime;
     }
 
     public void Initialize(Vector3 size)
@@ -44,15 +49,25 @@ public class BattleGrabbableObstacle : MonoBehaviour, IPointerDownHandler
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
+        _grabManager.TryGrabbing(gameObject, 3f);
+    }
+
+    public bool CanBeGrabbed()
+    {
         if (_secondsToBreak <= 0)
         {
             DisplayText("No more grabbing!", Color.red);
-            return;
+            return false;
         }
-        if (!_grabManager.IsGrabbingAllowed()) return;
-        if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
-        _grabManager.TryGrabbing(gameObject);
 
+        return true;
+    }
+
+    public void Grabbed()
+    {
+        _tooltipManager.ShowInfo("Press 'R' to rotate");
+
+        if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
         StartCoroutine(GrabBreaker());
     }
 

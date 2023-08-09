@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 using DG.Tweening;
+
 public class BattleGrabManager : Singleton<BattleGrabManager>
 {
     const string _ussClassName = "battle__";
@@ -135,43 +136,23 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["RightMouseClick"].performed -= evt => DisableGrabbing();
         _playerInput.actions["EnableGrabbing"].performed -= evt => ToggleGrabbing();
         _playerInput.actions["Rotate"].performed -= RotateObject;
-
     }
 
-    public void TryGrabbing(BattleEntity entity)
+    public void TryGrabbing(GameObject obj, float yPosition = 0f)
     {
         if (!IsGrabbingAllowed()) return;
-        _objectYPosition = entity.transform.position.y;
-        _audioManager.PlaySFX("Grab", entity.transform.position);
-        Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
-        _grabbedObject = entity.gameObject;
-        entity.Grabbed();
 
-        StartCoroutine(UpdateGrabbedObjectPosition());
-    }
+        _objectYPosition = obj.transform.position.y;
+        if (yPosition != 0f)
+            _objectYPosition = yPosition;
 
-    public void TryGrabbing(BattleTurret turret)
-    {
-        if (!IsGrabbingAllowed()) return;
-        _objectYPosition = turret.transform.position.y;
-        _audioManager.PlaySFX("Grab", turret.transform.position);
-        Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
-        _grabbedObject = turret.gameObject;
-        turret.Grabbed();
-
-        StartCoroutine(UpdateGrabbedObjectPosition());
-    }
-
-
-    public void TryGrabbing(GameObject obj)
-    {
-        if (!IsGrabbingAllowed()) return;
-        _objectYPosition = 3f;
         _audioManager.PlaySFX("Grab", obj.transform.position);
         Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
-        _grabbedObject = obj;
 
-        _tooltipManager.ShowInfo("Press 'R' to rotate");
+        _grabbedObject = obj;
+        if (_grabbedObject.TryGetComponent(out IGrabbable g))
+            g.Grabbed();
+
         StartCoroutine(UpdateGrabbedObjectPosition());
     }
 
@@ -216,12 +197,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _grabAbility.StartCooldown();
         DisableGrabbing();
 
-        if (_grabbedObject.TryGetComponent(out BattleEntity entity))
-            entity.Released();
-        if (_grabbedObject.TryGetComponent(out BattleGrabbableObstacle obstacle))
-            obstacle.Released();
-        if (_grabbedObject.TryGetComponent(out BattleTurret turret))
-            turret.Released();
+        if (_grabbedObject.TryGetComponent(out IGrabbable g))
+            g.Released();
 
         _grabbedObject = null;
         _tooltipManager.HideInfo();

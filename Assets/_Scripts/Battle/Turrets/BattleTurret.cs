@@ -5,10 +5,11 @@ using System.Linq;
 using UnityEngine.EventSystems;
 using Shapes;
 
-public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
+    BattleGrabManager _grabManager;
 
     [SerializeField] GameObject _rangeIndicator;
     Disc _rangeDisc;
@@ -28,6 +29,7 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         _battleManager = BattleManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
+        _grabManager = BattleGrabManager.Instance;
     }
 
     public void Initialize(Turret turret)
@@ -127,6 +129,8 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         projectileInstance.Shoot(this, _target, Turret.GetCurrentUpgrade().Power);
     }
 
+    public bool CanBeGrabbed() { return true; }
+
     public void Grabbed()
     {
         if (_runTurretCoroutine != null)
@@ -149,6 +153,8 @@ public class BattleTurret : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         c.OnHideTurretUpgrade += () => _rangeDisc.Radius = Turret.GetCurrentUpgrade().Range;
 
         _tooltipManager.OnTooltipHidden += OnTooltipHidden;
+
+        _grabManager.TryGrabbing(gameObject);
     }
 
     void OnTooltipHidden()

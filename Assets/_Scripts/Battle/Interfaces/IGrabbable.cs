@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IGrabbable
 {
-    bool CanBeGrabbed();
+    public abstract bool CanBeGrabbed();
+    public abstract void Grabbed();
+    public abstract void Released();
 }

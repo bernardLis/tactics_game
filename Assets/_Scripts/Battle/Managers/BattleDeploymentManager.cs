@@ -16,7 +16,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     GameObject _deployedObjectInstance;
     EntitySpawner _creatureSpawnerInstance;
-    BattleGrabbableObstacle _obstacleInstance;
+    BattleObstacle _obstacleInstance;
     BattleTurret _battleTurret;
 
     VisualElement _topPanel;
@@ -96,7 +96,7 @@ public class BattleDeploymentManager : MonoBehaviour
         ShowTooltip("Click to drop obstacle");
 
         _deployedObjectInstance = Instantiate(_obstaclePrefab);
-        _obstacleInstance = _deployedObjectInstance.GetComponent<BattleGrabbableObstacle>();
+        _obstacleInstance = _deployedObjectInstance.GetComponent<BattleObstacle>();
         _obstacleInstance.Initialize(size);
         StartCoroutine(UpdateObjectPosition());
     }
