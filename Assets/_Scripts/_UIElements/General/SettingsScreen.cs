@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SettingsScreen : FullScreenElement
 {
-    GameManager _gameManager;
-    AudioManager _audioManger;
-    Toggle _fullScreenToggle;
-
-    VisualElement _parent;
-
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonUIContainer = "common__ui-container";
     const string _ussCommonMenuButton = "common__menu-button";
@@ -19,39 +13,40 @@ public class SettingsScreen : FullScreenElement
     const string _ussMain = _ussClassName + "main";
     const string _ussVolumeSlider = _ussClassName + "volume-slider";
 
-    public SettingsScreen(VisualElement root, VisualElement parent)
+    AudioManager _audioManger;
+
+    VisualElement _container;
+
+    Toggle _fullScreenToggle;
+
+    public SettingsScreen() : base()
     {
-        _gameManager = GameManager.Instance;
         _audioManger = AudioManager.Instance;
 
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SettingsMenuStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _parent = parent;
-
-        Initialize();
-        AddToClassList(_ussMain);
+        _container = new();
+        _container.AddToClassList(_ussMain);
+        _content.Add(_container);
 
         // sound
-        VisualElement soundContainer = new VisualElement();
+        VisualElement soundContainer = new();
         soundContainer.AddToClassList(_ussCommonUIContainer);
-        Label sound = new Label("Sound");
+        Label sound = new("Sound");
         sound.AddToClassList(_ussCommonTextPrimary);
         soundContainer.Add(sound);
-        Add(soundContainer);
+        _container.Add(soundContainer);
         AddVolumeSliders(soundContainer);
 
         // graphics
-        VisualElement graphicsContainer = new VisualElement();
+        VisualElement graphicsContainer = new();
         graphicsContainer.AddToClassList(_ussCommonUIContainer);
-        Label graphics = new Label("Graphics");
+        Label graphics = new("Graphics");
         graphics.AddToClassList(_ussCommonTextPrimary);
         graphicsContainer.Add(graphics);
-        Add(graphicsContainer);
+        _container.Add(graphicsContainer);
 
         AddFullScreenToggle(graphicsContainer);
         AddRadioResolutionGroup(graphicsContainer);
@@ -59,7 +54,7 @@ public class SettingsScreen : FullScreenElement
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
             AddClearSaveButton();
 
-        AddBackButton();
+        AddContinueButton();
     }
 
     void AddVolumeSliders(VisualElement parent)
@@ -100,9 +95,11 @@ public class SettingsScreen : FullScreenElement
     {
         //https://forum.unity.com/threads/changing-audio-mixer-group-volume-with-ui-slider.297884/
         VisualElement container = CreateContainer(name);
-        Slider volumeSlider = new Slider();
-        volumeSlider.lowValue = 0.001f;
-        volumeSlider.highValue = 1f;
+        Slider volumeSlider = new()
+        {
+            lowValue = 0.001f,
+            highValue = 1f
+        };
         volumeSlider.style.width = 200;
         volumeSlider.value = PlayerPrefs.GetFloat(name, 1);
 
@@ -189,7 +186,7 @@ public class SettingsScreen : FullScreenElement
         VisualElement container = CreateContainer("Resolution");
         parent.Add(container);
 
-        DropdownField dropdown = new DropdownField();
+        DropdownField dropdown = new();
         container.Add(dropdown);
 
         dropdown.value = Screen.currentResolution.ToString();
@@ -205,7 +202,7 @@ public class SettingsScreen : FullScreenElement
         int height = int.Parse(split1[0]);
         int hz = int.Parse(split1[1].Split(".")[0]);
         FullScreenMode fullScreenMode = (PlayerPrefs.GetInt("fullScreen", 1) != 0) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
-        RefreshRate rr = new RefreshRate() { numerator = (uint)hz, denominator = 1 };
+        RefreshRate rr = new() { numerator = (uint)hz, denominator = 1 };
         Screen.SetResolution(width, height, fullScreenMode, rr);
     }
 
@@ -213,23 +210,17 @@ public class SettingsScreen : FullScreenElement
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
-        Label label = new Label(labelText);
+        Label label = new(labelText);
         label.AddToClassList(_ussCommonTextPrimary);
         container.Add(label);
         return container;
     }
 
-    public override void Hide()
-    {
-        _parent.Focus();
-        base.Hide();
-    }
-
     void AddClearSaveButton()
     {
-        ConfirmPopUp popUp = new ConfirmPopUp();
-        MyButton button = new("Clear Save Data", _ussCommonMenuButton, () => popUp.Initialize(_root, ClearSaveData));
-        Add(button);
+        ConfirmPopUp popUp = new();
+        MyButton button = new("Clear Save Data", _ussCommonMenuButton, () => popUp.Initialize(GameManager.Instance.Root, ClearSaveData));
+        _container.Add(button);
     }
 
     void ClearSaveData() { _gameManager.ClearSaveData(); }

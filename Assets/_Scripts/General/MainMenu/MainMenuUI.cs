@@ -44,11 +44,11 @@ public class MainMenuUI : MonoBehaviour
         _gameManager.Play();
     }
 
-    void Settings() { new SettingsScreen(_root, _root); }
+    void Settings() { new SettingsScreen(); }
 
     void ConfirmQuit()
     {
-        ConfirmPopUp pop = new ConfirmPopUp();
+        ConfirmPopUp pop = new ();
         pop.Initialize(_root, Quit);
     }
 

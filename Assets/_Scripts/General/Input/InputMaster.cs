@@ -24,258 +24,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     ""name"": ""InputMaster"",
     ""maps"": [
         {
-            ""name"": ""Map"",
-            ""id"": ""342600f1-84d1-45cf-b9f5-5092c3c96e5b"",
-            ""actions"": [
-                {
-                    ""name"": ""ArrowMovement"",
-                    ""type"": ""Value"",
-                    ""id"": ""c5f6c6b2-b7ba-41fa-842c-bd527ef87bc0"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""OpenDesk"",
-                    ""type"": ""Button"",
-                    ""id"": ""0e794bfa-e59e-486d-b295-4c0ffb1d2ca3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CloseCurrentTab"",
-                    ""type"": ""Button"",
-                    ""id"": ""d4ab2cfa-149d-49d6-8625-2bc505c7c84f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleCommandLine"",
-                    ""type"": ""Button"",
-                    ""id"": ""e71b2f1d-50c9-4568-ac64-6b37d10cd15b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""OpenMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""47d0cca9-af75-471d-9fae-1d29668d84a9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Space"",
-                    ""type"": ""Button"",
-                    ""id"": ""507a58eb-548c-4788-a96d-cf7a1f345c5b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""10b3e4dc-1e78-41ac-8502-dae1dec61a1b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LeftMouseClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""ed617f9f-5f71-4804-8ba5-cadc58ab9c9e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RightMouseClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""7253dc2f-382f-4cb5-9ce4-7c04073634e5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Shift"",
-                    ""type"": ""Button"",
-                    ""id"": ""ead3ea3c-67b0-4a7e-9cd1-051608458fd7"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""4ba55dd0-4fff-47e6-b23a-42f0be4749cd"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""6f3c8180-2de6-4b93-adcd-4985a7ed4de2"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""0c40f68c-3848-4c68-9da2-affedc90d5de"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""26b505d9-c0ff-497b-bf05-dfe064f8bd35"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""d20f40a3-4317-4c3a-9d90-667d730270aa"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ArrowMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""72c20cbd-bd46-4f49-b6e9-c7045925af89"",
-                    ""path"": ""<Keyboard>/f1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""OpenDesk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3d1ff745-8a7c-40a1-abb4-b303fb285b49"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CloseCurrentTab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3e4f3d52-8e89-40ec-87a5-6ba9b29affa3"",
-                    ""path"": ""<Keyboard>/backquote"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ToggleCommandLine"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a5b06460-93de-42cd-b3cd-722160a2e604"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""OpenMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ff5d4f36-fbf0-4a3e-a977-06e261e6b308"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Space"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""aaf02242-12d9-4da6-b5e6-0a0b3d52aa4f"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""149206bb-9bed-42db-8157-c898d5b1b944"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LeftMouseClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""031003eb-bfa2-4882-8cd2-481c16928d92"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""RightMouseClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""eb7c720c-b0f1-44ce-83f3-54fc585e7693"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Shift"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Battle"",
             ""id"": ""db8f36eb-7f70-4b70-b0fe-4fc302187b58"",
             ""actions"": [
@@ -427,6 +175,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""name"": ""Rotate"",
                     ""type"": ""Button"",
                     ""id"": ""50c37d5b-4a5f-430b-aab9-a8321a7bd8f8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca7abc80-980a-4853-9771-b52a4f1792f4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -719,6 +476,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9b8dc67-1e67-4c34-84ff-9d98f04ebb0d"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ToggleMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -742,18 +510,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Map
-        m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
-        m_Map_ArrowMovement = m_Map.FindAction("ArrowMovement", throwIfNotFound: true);
-        m_Map_OpenDesk = m_Map.FindAction("OpenDesk", throwIfNotFound: true);
-        m_Map_CloseCurrentTab = m_Map.FindAction("CloseCurrentTab", throwIfNotFound: true);
-        m_Map_ToggleCommandLine = m_Map.FindAction("ToggleCommandLine", throwIfNotFound: true);
-        m_Map_OpenMenu = m_Map.FindAction("OpenMenu", throwIfNotFound: true);
-        m_Map_Space = m_Map.FindAction("Space", throwIfNotFound: true);
-        m_Map_Pause = m_Map.FindAction("Pause", throwIfNotFound: true);
-        m_Map_LeftMouseClick = m_Map.FindAction("LeftMouseClick", throwIfNotFound: true);
-        m_Map_RightMouseClick = m_Map.FindAction("RightMouseClick", throwIfNotFound: true);
-        m_Map_Shift = m_Map.FindAction("Shift", throwIfNotFound: true);
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_ToggleCommandLine = m_Battle.FindAction("ToggleCommandLine", throwIfNotFound: true);
@@ -773,6 +529,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
         m_Battle_Rotate = m_Battle.FindAction("Rotate", throwIfNotFound: true);
+        m_Battle_ToggleMenu = m_Battle.FindAction("ToggleMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -831,124 +588,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Map
-    private readonly InputActionMap m_Map;
-    private List<IMapActions> m_MapActionsCallbackInterfaces = new List<IMapActions>();
-    private readonly InputAction m_Map_ArrowMovement;
-    private readonly InputAction m_Map_OpenDesk;
-    private readonly InputAction m_Map_CloseCurrentTab;
-    private readonly InputAction m_Map_ToggleCommandLine;
-    private readonly InputAction m_Map_OpenMenu;
-    private readonly InputAction m_Map_Space;
-    private readonly InputAction m_Map_Pause;
-    private readonly InputAction m_Map_LeftMouseClick;
-    private readonly InputAction m_Map_RightMouseClick;
-    private readonly InputAction m_Map_Shift;
-    public struct MapActions
-    {
-        private @InputMaster m_Wrapper;
-        public MapActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @ArrowMovement => m_Wrapper.m_Map_ArrowMovement;
-        public InputAction @OpenDesk => m_Wrapper.m_Map_OpenDesk;
-        public InputAction @CloseCurrentTab => m_Wrapper.m_Map_CloseCurrentTab;
-        public InputAction @ToggleCommandLine => m_Wrapper.m_Map_ToggleCommandLine;
-        public InputAction @OpenMenu => m_Wrapper.m_Map_OpenMenu;
-        public InputAction @Space => m_Wrapper.m_Map_Space;
-        public InputAction @Pause => m_Wrapper.m_Map_Pause;
-        public InputAction @LeftMouseClick => m_Wrapper.m_Map_LeftMouseClick;
-        public InputAction @RightMouseClick => m_Wrapper.m_Map_RightMouseClick;
-        public InputAction @Shift => m_Wrapper.m_Map_Shift;
-        public InputActionMap Get() { return m_Wrapper.m_Map; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MapActions set) { return set.Get(); }
-        public void AddCallbacks(IMapActions instance)
-        {
-            if (instance == null || m_Wrapper.m_MapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_MapActionsCallbackInterfaces.Add(instance);
-            @ArrowMovement.started += instance.OnArrowMovement;
-            @ArrowMovement.performed += instance.OnArrowMovement;
-            @ArrowMovement.canceled += instance.OnArrowMovement;
-            @OpenDesk.started += instance.OnOpenDesk;
-            @OpenDesk.performed += instance.OnOpenDesk;
-            @OpenDesk.canceled += instance.OnOpenDesk;
-            @CloseCurrentTab.started += instance.OnCloseCurrentTab;
-            @CloseCurrentTab.performed += instance.OnCloseCurrentTab;
-            @CloseCurrentTab.canceled += instance.OnCloseCurrentTab;
-            @ToggleCommandLine.started += instance.OnToggleCommandLine;
-            @ToggleCommandLine.performed += instance.OnToggleCommandLine;
-            @ToggleCommandLine.canceled += instance.OnToggleCommandLine;
-            @OpenMenu.started += instance.OnOpenMenu;
-            @OpenMenu.performed += instance.OnOpenMenu;
-            @OpenMenu.canceled += instance.OnOpenMenu;
-            @Space.started += instance.OnSpace;
-            @Space.performed += instance.OnSpace;
-            @Space.canceled += instance.OnSpace;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
-            @LeftMouseClick.started += instance.OnLeftMouseClick;
-            @LeftMouseClick.performed += instance.OnLeftMouseClick;
-            @LeftMouseClick.canceled += instance.OnLeftMouseClick;
-            @RightMouseClick.started += instance.OnRightMouseClick;
-            @RightMouseClick.performed += instance.OnRightMouseClick;
-            @RightMouseClick.canceled += instance.OnRightMouseClick;
-            @Shift.started += instance.OnShift;
-            @Shift.performed += instance.OnShift;
-            @Shift.canceled += instance.OnShift;
-        }
-
-        private void UnregisterCallbacks(IMapActions instance)
-        {
-            @ArrowMovement.started -= instance.OnArrowMovement;
-            @ArrowMovement.performed -= instance.OnArrowMovement;
-            @ArrowMovement.canceled -= instance.OnArrowMovement;
-            @OpenDesk.started -= instance.OnOpenDesk;
-            @OpenDesk.performed -= instance.OnOpenDesk;
-            @OpenDesk.canceled -= instance.OnOpenDesk;
-            @CloseCurrentTab.started -= instance.OnCloseCurrentTab;
-            @CloseCurrentTab.performed -= instance.OnCloseCurrentTab;
-            @CloseCurrentTab.canceled -= instance.OnCloseCurrentTab;
-            @ToggleCommandLine.started -= instance.OnToggleCommandLine;
-            @ToggleCommandLine.performed -= instance.OnToggleCommandLine;
-            @ToggleCommandLine.canceled -= instance.OnToggleCommandLine;
-            @OpenMenu.started -= instance.OnOpenMenu;
-            @OpenMenu.performed -= instance.OnOpenMenu;
-            @OpenMenu.canceled -= instance.OnOpenMenu;
-            @Space.started -= instance.OnSpace;
-            @Space.performed -= instance.OnSpace;
-            @Space.canceled -= instance.OnSpace;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
-            @LeftMouseClick.started -= instance.OnLeftMouseClick;
-            @LeftMouseClick.performed -= instance.OnLeftMouseClick;
-            @LeftMouseClick.canceled -= instance.OnLeftMouseClick;
-            @RightMouseClick.started -= instance.OnRightMouseClick;
-            @RightMouseClick.performed -= instance.OnRightMouseClick;
-            @RightMouseClick.canceled -= instance.OnRightMouseClick;
-            @Shift.started -= instance.OnShift;
-            @Shift.performed -= instance.OnShift;
-            @Shift.canceled -= instance.OnShift;
-        }
-
-        public void RemoveCallbacks(IMapActions instance)
-        {
-            if (m_Wrapper.m_MapActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IMapActions instance)
-        {
-            foreach (var item in m_Wrapper.m_MapActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_MapActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public MapActions @Map => new MapActions(this);
-
     // Battle
     private readonly InputActionMap m_Battle;
     private List<IBattleActions> m_BattleActionsCallbackInterfaces = new List<IBattleActions>();
@@ -969,6 +608,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_EnableGrabbing;
     private readonly InputAction m_Battle_Rotate;
+    private readonly InputAction m_Battle_ToggleMenu;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -990,6 +630,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
         public InputAction @Rotate => m_Wrapper.m_Battle_Rotate;
+        public InputAction @ToggleMenu => m_Wrapper.m_Battle_ToggleMenu;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1050,6 +691,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
+            @ToggleMenu.started += instance.OnToggleMenu;
+            @ToggleMenu.performed += instance.OnToggleMenu;
+            @ToggleMenu.canceled += instance.OnToggleMenu;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -1105,6 +749,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
+            @ToggleMenu.started -= instance.OnToggleMenu;
+            @ToggleMenu.performed -= instance.OnToggleMenu;
+            @ToggleMenu.canceled -= instance.OnToggleMenu;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -1131,19 +778,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
-    public interface IMapActions
-    {
-        void OnArrowMovement(InputAction.CallbackContext context);
-        void OnOpenDesk(InputAction.CallbackContext context);
-        void OnCloseCurrentTab(InputAction.CallbackContext context);
-        void OnToggleCommandLine(InputAction.CallbackContext context);
-        void OnOpenMenu(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
-        void OnLeftMouseClick(InputAction.CallbackContext context);
-        void OnRightMouseClick(InputAction.CallbackContext context);
-        void OnShift(InputAction.CallbackContext context);
-    }
     public interface IBattleActions
     {
         void OnToggleCommandLine(InputAction.CallbackContext context);
@@ -1163,5 +797,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnEnter(InputAction.CallbackContext context);
         void OnEnableGrabbing(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnToggleMenu(InputAction.CallbackContext context);
     }
 }

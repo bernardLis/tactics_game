@@ -80,6 +80,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void PauseGame()
     {
+        Debug.Log($"Pausing the game...");
         IsTimerOn = false;
         Time.timeScale = 0f;
         OnGamePaused?.Invoke();
@@ -87,6 +88,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void ResumeGame()
     {
+        Debug.Log($"Resuming the game...");
         IsTimerOn = true;
         Time.timeScale = 1f;
         OnGameResumed?.Invoke();

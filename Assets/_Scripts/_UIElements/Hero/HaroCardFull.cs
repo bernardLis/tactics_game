@@ -15,41 +15,35 @@ public class HeroCardFull : FullScreenElement
     const string _ussMiddleContainer = _ussClassName + "middle-container";
     const string _ussBottomContainer = _ussClassName + "bottom-container";
 
-    GameManager _gameManager;
-
     public Hero Hero { get; private set; }
 
     VisualElement _topContainer;
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
 
-    public HeroCardFull(Hero hero, VisualElement root) : base()
+    public HeroCardFull(Hero hero) : base(true)
     {
-        _gameManager = GameManager.Instance;
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardFullStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        Initialize();
-
         Hero = hero;
 
-        AddToClassList(_ussMain);
+        VisualElement container = new();
+        container.AddToClassList(_ussMain);
+        _content.Add(container);
 
         _topContainer = new();
         _topContainer.AddToClassList(_ussTopContainer);
-        Add(_topContainer);
+        container.Add(_topContainer);
 
         _middleContainer = new();
         _middleContainer.AddToClassList(_ussMiddleContainer);
-        Add(_middleContainer);
+        container.Add(_middleContainer);
 
         _bottomContainer = new();
         _bottomContainer.AddToClassList(_ussBottomContainer);
-        Add(_bottomContainer);
+        container.Add(_bottomContainer);
 
         HeroCardStats card = new(Hero);
         _topContainer.Add(card);
@@ -63,6 +57,6 @@ public class HeroCardFull : FullScreenElement
         HeroArmyElement armyElement = new(Hero);
         _bottomContainer.Add(armyElement);
 
-        AddBackButton();
+        AddContinueButton();
     }
 }

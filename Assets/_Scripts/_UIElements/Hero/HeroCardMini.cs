@@ -56,7 +56,7 @@ public class HeroCardMini : ElementWithTooltip
     public void SmallCard()
     {
         style.minHeight = 100;
-        style.minWidth = 100; 
+        style.minWidth = 100;
         _portrait.SmallPortrait();
     }
 
@@ -65,7 +65,7 @@ public class HeroCardMini : ElementWithTooltip
         if (evt.button != 0) return;
         evt.StopPropagation();
 
-        HeroCardFull heroCardFull = new(Hero, BattleManager.Instance.Root);
+        HeroCardFull heroCardFull = new(Hero);
     }
 
     protected override void DisplayTooltip()

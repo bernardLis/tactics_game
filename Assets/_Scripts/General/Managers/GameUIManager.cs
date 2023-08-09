@@ -12,59 +12,66 @@ public class GameUIManager : MonoBehaviour
 
     PlayerInput _playerInput;
 
-    UIDocument _uiDocument;
-
     MenuScreen _menuScreen;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
+    }
+
+    /* INPUT */
+    void OnEnable()
+    {
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         UnsubscribeInputActions();
         SubscribeInputActions();
+    }
 
-        _uiDocument = GetComponent<UIDocument>();
+    void OnDisable()
+    {
+        if (_playerInput == null) return;
+
+        UnsubscribeInputActions();
+    }
+
+    void OnDestroy()
+    {
+        if (_playerInput == null) return;
+
+        UnsubscribeInputActions();
     }
 
     void SubscribeInputActions()
     {
-        EnableMenuButton();
+        _playerInput.actions["ToggleMenu"].performed += ToggleMenu;
     }
 
     public void UnsubscribeInputActions()
     {
-        DisableMenuButton();
-    }
-
-    public void EnableMenuButton()
-    {
-        if (_menuScreen != null)
-            return;
-
-        _playerInput.actions["OpenMenu"].performed += ToggleMenu;
-    }
-
-    public void DisableMenuButton()
-    {
-        _playerInput.actions["OpenMenu"].performed -= ToggleMenu;
+        _playerInput.actions["ToggleMenu"].performed -= ToggleMenu;
     }
 
     public void ToggleMenu(InputAction.CallbackContext ctx)
     {
-        if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
-            return;
+        Debug.Log($"toggle menu");
+        if (SceneManager.GetActiveScene().name == Scenes.MainMenu) return;
 
-        _menuScreen = new MenuScreen(_uiDocument.rootVisualElement);
-        _menuScreen.OnClose += MenuScreenClosed;
-        _playerInput.actions["OpenMenu"].performed -= ToggleMenu;
+        if (_menuScreen != null)
+        {
+            _menuScreen.Hide();
+            return;
+        }
+
+        _menuScreen = new MenuScreen();
+        _menuScreen.OnHide += MenuScreenClosed;
     }
 
     void MenuScreenClosed()
     {
-        _menuScreen.OnClose -= MenuScreenClosed;
-
         _menuScreen = null;
-        _playerInput.actions["OpenMenu"].performed += ToggleMenu;
     }
 
 }

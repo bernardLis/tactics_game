@@ -5,51 +5,53 @@ using System;
 public class FullScreenElement : VisualElement
 {
     const string _ussCommonMenuButton = "common__menu-button";
+    const string _ussCommonFullScreenMain = "common__full-screen-main";
+    const string _ussCommonFullScreenContent = "common__full-screen-content";
 
-    GameManager _gameManager;
+
+    protected GameManager _gameManager;
     BattleManager _battleManager;
-
-    protected VisualElement _root;
 
     public event Action OnHide;
 
     bool _resumeGameOnHide;
 
+    protected VisualElement _content;
+    protected ContinueButton _continueButton;
 
-    public void Initialize(bool enableNavigation = true)
+    public FullScreenElement(bool isKeyNavigationEnabled = true)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
 
-        _root = _gameManager.Root;
-        _gameManager.GetComponent<GameUIManager>().DisableMenuButton(); // TODO: ugh...
-
         _battleManager = BattleManager.Instance;
-        if (_battleManager != null)
+        if (_battleManager != null && _battleManager.IsTimerOn)
         {
-            if (_battleManager.IsTimerOn) _resumeGameOnHide = true;
-            _root = _battleManager.Root;
+            _resumeGameOnHide = true;
             _battleManager.PauseGame();
         }
-        _root.Add(this);
 
-        style.width = Length.Percent(100);
-        style.height = Length.Percent(100);
-        style.position = Position.Absolute;
+        _gameManager.Root.Add(this);
+
+        AddToClassList(_ussCommonFullScreenMain);
+
+        _content = new();
+        _content.AddToClassList(_ussCommonFullScreenContent);
+        Add(_content);
 
         focusable = true;
         Focus();
 
-        if (enableNavigation)
+        if (isKeyNavigationEnabled)
             EnableNavigation();
     }
 
     protected void EnableNavigation()
     {
         RegisterCallback<PointerDownEvent>(OnPointerDown);
-        RegisterCallback<KeyDownEvent>(OnKeyDown);
+        // RegisterCallback<KeyDownEvent>(OnKeyDown); // HERE: full screen
     }
 
     void OnPointerDown(PointerDownEvent evt)
@@ -68,25 +70,21 @@ public class FullScreenElement : VisualElement
         Hide();
     }
 
-    public void AddBackButton()
+    public void AddContinueButton()
     {
-        MyButton backButton = new("Back", _ussCommonMenuButton, Hide);
-        backButton.style.width = 200;
-        Add(backButton);
+        _continueButton = new("Continue", callback: Hide);
+        _content.Add(_continueButton);
     }
 
     public virtual void Hide()
     {
+        Debug.Log($"hide");
         OnHide?.Invoke();
-        _gameManager.GetComponent<GameUIManager>().EnableMenuButton(); // TODO: ugh...
 
         if (_battleManager != null && _resumeGameOnHide)
             _battleManager.ResumeGame();
 
-        this.SetEnabled(false);
-        //  if (this.parent == _root)
-        //        _root.Remove(this);
-        //    else
-        this.RemoveFromHierarchy();
+        SetEnabled(false);
+        RemoveFromHierarchy();
     }
 }

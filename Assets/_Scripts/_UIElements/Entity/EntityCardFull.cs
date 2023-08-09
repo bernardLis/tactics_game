@@ -11,11 +11,9 @@ public class EntityCardFull : FullScreenElement
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
 
-    protected GameManager _gameManager;
-
     public Entity Entity;
 
-    protected VisualElement _content;
+    protected VisualElement _container;
 
     protected VisualElement _topContainer;
     protected VisualElement _bottomContainer;
@@ -40,25 +38,20 @@ public class EntityCardFull : FullScreenElement
     Label _armor;
     Label _speed;
 
-    ContinueButton _continueButton;
-
-    public EntityCardFull(Entity entity)
+    public EntityCardFull(Entity entity) : base()
     {
-        _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardFullStyles);
         if (ss != null)
             styleSheets.Add(ss);
-
-        Initialize();
 
         Entity = entity;
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _content = new();
-        _content.AddToClassList(_ussContent);
-        Add(_content);
+        _container = new();
+        _container.AddToClassList(_ussContent);
+        _content.Add(_container);
 
         CreateContainers();
 
@@ -66,8 +59,7 @@ public class EntityCardFull : FullScreenElement
         AddBasicInfo();
         AddBattleCharacteristics();
 
-        _continueButton = new("Continue", callback: Hide);
-        Add(_continueButton);
+        AddContinueButton();
     }
 
     void CreateContainers()
@@ -77,8 +69,8 @@ public class EntityCardFull : FullScreenElement
         _bottomContainer = new();
         _bottomContainer.style.flexDirection = FlexDirection.Row;
 
-        _content.Add(_topContainer);
-        _content.Add(_bottomContainer);
+        _container.Add(_topContainer);
+        _container.Add(_bottomContainer);
 
         _topLeftContainer = new();
         _topMiddleContainer = new();

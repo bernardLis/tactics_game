@@ -50,12 +50,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Game manager Awake");
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
+        Root = GetComponent<UIDocument>().rootVisualElement;
     }
 
     void Start()
     {
         Debug.Log($"Game manager Start");
-        Root = GetComponent<UIDocument>().rootVisualElement;
         // HERE: testing
         // global save per 'game'
         //  if (PlayerPrefs.GetString("saveName").Length == 0)
