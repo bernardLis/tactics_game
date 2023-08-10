@@ -7,16 +7,13 @@ using DG.Tweening;
 public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     GameManager _gameManager;
-    BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
     Spire _base;
-    StoreyTroopsElement _storeyTroopsElement;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _battleManager = BattleManager.Instance;
 
         _tooltipManager = BattleTooltipManager.Instance;
 
@@ -39,17 +36,6 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
-        _storeyTroopsElement = new(_base.StoreyTroops);
-        _storeyTroopsElement.style.opacity = 0;
-        _battleManager.Root.Add(_storeyTroopsElement);
-        _battleManager.PauseGame();
-        DOTween.To(x => _storeyTroopsElement.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
-
-        _storeyTroopsElement.OnClosed += () =>
-        {
-            _battleManager.ResumeGame();
-            _battleManager.Root.Remove(_storeyTroopsElement);
-            _storeyTroopsElement = null;
-        };
+        new StoreyTroopsElement(_base.StoreyTroops);
     }
 }

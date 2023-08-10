@@ -38,6 +38,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public Battle SelectedBattle; // HERE: battle testing { get; private set; }
 
     public VisualElement Root { get; private set; }
+    public List<FullScreenElement> OpenFullScreens = new();
 
     public event Action<int> OnGoldChanged;
     public event Action<int> OnSpiceChanged;

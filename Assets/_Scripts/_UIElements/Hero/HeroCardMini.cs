@@ -59,6 +59,11 @@ public class HeroCardMini : ElementWithTooltip
         _portrait.SmallPortrait();
     }
 
+    public void BlockClick()
+    {
+        UnregisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
     void OnPointerUp(PointerUpEvent evt)
     {
         if (evt.button != 0) return;

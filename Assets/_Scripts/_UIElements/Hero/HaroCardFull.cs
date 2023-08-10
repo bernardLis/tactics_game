@@ -6,9 +6,6 @@ using UnityEngine.UIElements;
 
 public class HeroCardFull : FullScreenElement
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
-
     const string _ussClassName = "hero-card-full__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTopContainer = _ussClassName + "top-container";
@@ -21,7 +18,7 @@ public class HeroCardFull : FullScreenElement
     VisualElement _middleContainer;
     VisualElement _bottomContainer;
 
-    public HeroCardFull(Hero hero) : base(true)
+    public HeroCardFull(Hero hero) : base()
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroCardFullStyles);
         if (ss != null)
@@ -46,6 +43,7 @@ public class HeroCardFull : FullScreenElement
         container.Add(_bottomContainer);
 
         HeroCardStats card = new(Hero);
+        card.BlockClick();
         _topContainer.Add(card);
 
         HeroItemsElement itemsElement = new(Hero);

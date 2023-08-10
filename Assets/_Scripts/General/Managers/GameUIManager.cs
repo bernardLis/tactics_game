@@ -14,8 +14,6 @@ public class GameUIManager : MonoBehaviour
 
     MenuScreen _menuScreen;
 
-    bool _isMenuBlocked;
-
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -56,14 +54,11 @@ public class GameUIManager : MonoBehaviour
         _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
     }
 
-    public void BlockMenuInput(bool t) { _isMenuBlocked = t; }
-
     public void OpenMenu(InputAction.CallbackContext ctx)
     {
         if (SceneManager.GetActiveScene().name == Scenes.MainMenu) return;
-
+        if (_gameManager.OpenFullScreens.Count > 0) return;
         if (_menuScreen != null) return;
-        if (_isMenuBlocked) return;
 
         _menuScreen = new MenuScreen();
         _menuScreen.OnHide += MenuScreenClosed;

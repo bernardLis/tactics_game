@@ -29,9 +29,6 @@ public abstract class ElementWithTooltip : VisualElement
 
         RegisterCallback<MouseEnterEvent>((evt) => DisplayTooltip());
         RegisterCallback<MouseLeaveEvent>((evt) => OnMouseLeave());
-
-        // on destroy https://forum.unity.com/threads/callback-for-destroy-dispose.856948/
-        //  RegisterCallback<DetachFromPanelEvent>((evt) => HideTooltip()); maybe it is unnecessary? :)
     }
 
     public void SetTooltip(TooltipElement tooltip) { _setTooltipElement = tooltip; }
@@ -60,19 +57,8 @@ public abstract class ElementWithTooltip : VisualElement
 
     void ShowTooltip()
     {
-        if (!_isPointerOn)
-            return;
-        if (_blockTooltip)
-            return;
-        if (_isPointerDown)
-            return;
-        if (panel == null)
-            return;
-        if (panel.visualTree == null)
-            return;
-        if (_tooltip == null)
-            return;
-
+        if (!CanDisplayTooltip()) return;
+        
         _isTooltipDisplayed = true;
         var root = panel.visualTree;
 
@@ -89,6 +75,18 @@ public abstract class ElementWithTooltip : VisualElement
         DOTween.To(x => _tooltip.style.opacity = x, 0, 1, 0.3f)
                 .SetUpdate(true)
                 .SetId(tooltipTweenId);
+    }
+
+    bool CanDisplayTooltip()
+    {
+        if (!_isPointerOn) return false;
+        if (_blockTooltip) return false;
+        if (_isPointerDown) return false;
+        if (panel == null) return false;
+        if (panel.visualTree == null) return false;
+        if (_tooltip == null) return false;
+
+        return true;
     }
 
     protected void OnMouseLeave()

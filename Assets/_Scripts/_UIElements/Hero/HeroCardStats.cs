@@ -90,6 +90,11 @@ public class HeroCardStats : VisualElement
         container.Add(_portrait);
     }
 
+    public void BlockClick()
+    {
+        _portrait.BlockClick();
+    }
+
     void PopulateTopMiddlePanel(VisualElement container)
     {
         container.AddToClassList(_ussTopMiddlePanel);

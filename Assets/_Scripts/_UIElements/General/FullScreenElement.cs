@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using DG.Tweening;
 
 public class FullScreenElement : VisualElement
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonMenuButton = "common__menu-button";
     const string _ussCommonFullScreenMain = "common__full-screen-main";
     const string _ussCommonFullScreenContent = "common__full-screen-content";
@@ -16,28 +18,36 @@ public class FullScreenElement : VisualElement
 
     bool _resumeGameOnHide;
 
+    VisualElement _root;
+
     protected VisualElement _content;
     protected ContinueButton _continueButton;
 
-    public FullScreenElement(bool isKeyNavigationEnabled = true)
+    public FullScreenElement()
     {
         _gameManager = GameManager.Instance;
-        _gameManager.GetComponent<GameUIManager>().BlockMenuInput(true);
+        _gameManager.OpenFullScreens.Add(this);
+        _root = _gameManager.Root;
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
 
         _battleManager = BattleManager.Instance;
-        if (_battleManager != null && _battleManager.IsTimerOn)
+        if (_battleManager != null)
         {
-            _resumeGameOnHide = true;
-            _battleManager.PauseGame();
+            _root = _battleManager.Root;
+            if (_battleManager.IsTimerOn)
+            {
+                _resumeGameOnHide = true;
+                _battleManager.PauseGame();
+            }
         }
 
-        _gameManager.Root.Add(this);
+        _root.Add(this);
 
         AddToClassList(_ussCommonFullScreenMain);
+        AddToClassList(_ussCommonTextPrimary);
 
         _content = new();
         _content.AddToClassList(_ussCommonFullScreenContent);
@@ -46,8 +56,11 @@ public class FullScreenElement : VisualElement
         focusable = true;
         Focus();
 
-        if (isKeyNavigationEnabled)
-            schedule.Execute(EnableNavigation).StartingIn(500);
+
+        style.opacity = 0;
+        DOTween.To(x => style.opacity = x, style.opacity.value, 1, 0.5f)
+            .SetUpdate(true)
+            .OnComplete(EnableNavigation);
     }
 
     protected void EnableNavigation()
@@ -79,15 +92,23 @@ public class FullScreenElement : VisualElement
 
     public virtual void Hide()
     {
-        OnHide?.Invoke();
+        _root.Q<VisualElement>("tooltipContainer").style.display = DisplayStyle.None;
 
-        // TODO: if open a second full screen and close one, then esc will open menu, but I don't care.
-        _gameManager.GetComponent<GameUIManager>().BlockMenuInput(false);
+        Debug.Log($"hide");
+        DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f).SetUpdate(true);
+        DOTween.To(x => _content.style.opacity = x, 1, 0, 0.5f)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                OnHide?.Invoke();
 
-        if (_battleManager != null && _resumeGameOnHide)
-            _battleManager.ResumeGame();
+                _gameManager.OpenFullScreens.Remove(this);
+                if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
 
-        SetEnabled(false);
-        RemoveFromHierarchy();
+                if (_battleManager != null && _resumeGameOnHide) _battleManager.ResumeGame();
+
+                SetEnabled(false);
+                RemoveFromHierarchy();
+            });
     }
 }
