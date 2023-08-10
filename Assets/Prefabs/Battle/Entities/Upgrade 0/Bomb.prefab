@@ -10273,12 +10273,12 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 3bfce13ca501fc948b9986bb733ec170, type: 2}
   _deathSound: {fileID: 0}
-  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   _teamHighlightDisc: {fileID: 3157585844071885609}
   IsShielded: 0
   _attackSound: {fileID: 0}
   _specialAbilitySound: {fileID: 11400000, guid: 9c28a0715de0dea40a8e67621db5f037, type: 2}
+  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
   _projectileSpawnPoint: {fileID: 5768453582871689746}
   _explosionRadius: 5
   _explosionEffect: {fileID: 1913955008231385040, guid: 1cb6420f158ffcc468cff060385ede5c, type: 3}

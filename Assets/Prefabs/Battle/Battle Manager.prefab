@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 4810545558572652240}
   - component: {fileID: 6951536807849446544}
   - component: {fileID: 7161087863036619992}
-  - component: {fileID: 2197143066655396705}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -221,16 +220,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
---- !u!114 &2197143066655396705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707518a3ba37cfe4fb70f943c6c84b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _elementalSpherePrefab: {fileID: 7536091375171032144, guid: 209893499e151524f8636acdc67ce468, type: 3}

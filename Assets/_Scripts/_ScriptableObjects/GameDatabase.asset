@@ -30,6 +30,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b1ce1f3dc88d3f04fa418c1c763015e6, type: 2}
   BaseGameObject: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: ee7883bf85493b444ad650781d351876, type: 3}
+  GrayScaleShader: {fileID: 4800000, guid: 4303e1617f4f86b42898e34475ec45ed, type: 3}
   _colors:
   - {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
   - {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}

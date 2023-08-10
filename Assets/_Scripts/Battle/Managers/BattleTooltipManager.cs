@@ -71,12 +71,11 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _bottomPanel.Add(_tooltip);
     }
 
-    public TurretCard DisplayTooltip(Turret turret)
+    public void DisplayTooltip(VisualElement el)
     {
         HideTooltip();
-        _tooltip = new TurretCard(turret);
+        _tooltip = el;
         _bottomPanel.Add(_tooltip);
-        return (TurretCard)_tooltip;
     }
 
     public void HideTooltip()
@@ -86,7 +85,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         //_bottomPanel.Remove(_tooltip);
         _tooltip.RemoveFromHierarchy();
         _tooltip = null;
-        
+
         OnTooltipHidden?.Invoke();
     }
 }

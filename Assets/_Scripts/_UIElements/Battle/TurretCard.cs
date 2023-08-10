@@ -27,7 +27,6 @@ public class TurretCard : VisualElement
 
     public event Action OnShowTurretUpgrade;
     public event Action OnHideTurretUpgrade;
-
     public TurretCard(Turret turret)
     {
         _gameManager = GameManager.Instance;

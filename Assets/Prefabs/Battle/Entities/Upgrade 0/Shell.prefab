@@ -1346,10 +1346,10 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 735481989549ac2498a9f2cc095a601e, type: 2}
   _deathSound: {fileID: 11400000, guid: 100f40b8616cefa41867ba5b4b487323, type: 2}
-  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   _teamHighlightDisc: {fileID: 6041404735932410724}
   IsShielded: 0
   _attackSound: {fileID: 11400000, guid: 9dceb739ef3ddb94ba3ff9dc538e0395, type: 2}
   _specialAbilitySound: {fileID: 11400000, guid: 9c1f4bcac69b4df46b1144864bb2c24b, type: 2}
+  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
   _shieldEffect: {fileID: 1895680990583707989, guid: 614d553abddeb664b9369fcbb7e532ac, type: 3}

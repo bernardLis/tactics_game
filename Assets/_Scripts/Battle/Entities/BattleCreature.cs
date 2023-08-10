@@ -11,6 +11,8 @@ public class BattleCreature : BattleEntity
     [SerializeField] protected Sound _attackSound;
     [SerializeField] protected Sound _specialAbilitySound;
 
+    [SerializeField] GameObject _gravePrefab;
+
     public Creature Creature { get; private set; }
 
     List<BattleEntity> _opponentList = new();
@@ -252,6 +254,15 @@ public class BattleCreature : BattleEntity
     {
         KilledEnemiesCount++;
         OnEnemyKilled?.Invoke(KilledEnemiesCount);
+    }
+
+    public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasLoot = true)
+    {
+        yield return base.Die(attacker, ability, hasLoot);
+
+        if (Team != 0) yield break;
+        GameObject g = Instantiate(_gravePrefab, transform.position, Quaternion.identity);
+        g.GetComponent<BattleCreatureGrave>().Initialize(Creature);
     }
 
     /* EVOLUTION */

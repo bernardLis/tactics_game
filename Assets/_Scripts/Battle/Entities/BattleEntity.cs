@@ -316,6 +316,15 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         Animator.SetTrigger("Die");
 
         TurnHighlightOff();
+
+        transform.DOMoveY(-1, 10f)
+                .SetDelay(3f)
+                .OnComplete(() =>
+                {
+                    transform.DOKill();
+                    Destroy(gameObject);
+                });
+
         //StopAllCoroutines(); <- this breaks bomb exploding
     }
 

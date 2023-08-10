@@ -45,7 +45,7 @@ public class BombEntity : BattleCreatureRanged
         Invoke("CleanUp", 2f);
         Debug.Log($"before base die");
 
-        yield return base.Die(attacker, ability);
+        yield return base.Die(attacker, ability, hasLoot);
     }
 
     void CleanUp()

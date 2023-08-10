@@ -8,6 +8,7 @@ public class ObjectShaders : MonoBehaviour
 {
     GameManager _gameManager;
     Shader _dissolveShader;
+    Shader _grayScaleShader;
     Shader _originalShader;
 
     public event Action OnDissolveComplete;
@@ -15,6 +16,7 @@ public class ObjectShaders : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _dissolveShader = _gameManager.GameDatabase.DissolveShader;
+        _grayScaleShader = _gameManager.GameDatabase.GrayScaleShader;
     }
 
     public void Dissolve(float time, bool isReverse)

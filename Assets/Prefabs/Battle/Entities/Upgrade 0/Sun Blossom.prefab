@@ -1266,12 +1266,12 @@ MonoBehaviour:
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: e0298f1af643bdb47a713ac7df9f3bc9, type: 2}
   _deathSound: {fileID: 11400000, guid: 5327a06cecf70ff47b7ef0cc41351621, type: 2}
-  _battlePickupPrefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   _teamHighlightDisc: {fileID: 3732182363768247196}
   IsShielded: 0
   _attackSound: {fileID: 11400000, guid: 6e13260d5ab5ef64ab48fbb97bea53d4, type: 2}
   _specialAbilitySound: {fileID: 11400000, guid: 21ccc4a6426d00745b8d59fe006f4873, type: 2}
+  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
   _healEffect: {fileID: 2247497184909312135, guid: 88290fe09cc621d4eae26d399c3ed3c8, type: 3}
 --- !u!114 &3732182363768247196 stripped
 MonoBehaviour:

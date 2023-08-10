@@ -46,6 +46,19 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager.BlockBattleEnd = true;
         _currentAllCreaturesIndex = -1;
 
+        GameManager gameManager = GameManager.Instance;
+
+        Hero newChar = ScriptableObject.CreateInstance<Hero>();
+        newChar.CreateFromHeroCreation("asd", gameManager.HeroDatabase.GetRandomPortraitFemale(),
+                 gameManager.HeroDatabase.GetRandomElement());
+        gameManager.PlayerHero = newChar;
+
+        Battle battle = ScriptableObject.CreateInstance<Battle>();
+        battle.CreateRandom(1);
+        gameManager.SelectedBattle = battle;
+
+
+
         ResolveTestType();
     }
 

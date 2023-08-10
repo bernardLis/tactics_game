@@ -426,6 +426,7 @@ MonoBehaviour:
   IsShielded: 0
   _attackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
   _specialAbilitySound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
+  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
 --- !u!1 &378796256609413106
 GameObject:
   m_ObjectHideFlags: 0

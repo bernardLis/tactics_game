@@ -283,7 +283,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         Vector3 pos = be.transform.forward * -10f + be.transform.position;
         transform.DOMove(pos, 0.5f);
 
-        Vector3 rot = new(30, be.transform.localEulerAngles.y, 0f);
+        Vector3 rot = new(20f, be.transform.localEulerAngles.y, 0f);
         transform.DORotate(rot, 0.5f);
 
         _zoomHeight = _defaultZoomHeight;

@@ -2281,6 +2281,7 @@ MonoBehaviour:
   IsShielded: 0
   _attackSound: {fileID: 0}
   _specialAbilitySound: {fileID: 0}
+  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
   _projectileSpawnPoint: {fileID: 8335807207774238383}
 --- !u!4 &7074825891332485605 stripped
 Transform:
