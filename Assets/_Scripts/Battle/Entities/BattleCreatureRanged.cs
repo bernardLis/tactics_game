@@ -20,7 +20,7 @@ public class BattleCreatureRanged : BattleCreature
         if (_hasSpecialMove && CanUseSpecialAbility())
         {
             yield return SpecialAbility();
-            ManagePathing();
+            StartCoroutine(ManagePathing());
             yield break;
         }
 
@@ -54,9 +54,10 @@ public class BattleCreatureRanged : BattleCreature
 
     bool HasOpponentInSight()
     {
+        if (Opponent == null) return false;
         //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
         return !Physics.Linecast(transform.position, Opponent.transform.position,
-                    out RaycastHit hit, 1 << Tags.BattleObstacleLayer);
+                    out _, 1 << Tags.BattleObstacleLayer);
 
     }
 
@@ -74,7 +75,7 @@ public class BattleCreatureRanged : BattleCreature
             // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
             if (!Physics.Linecast(Opponent.transform.position, rotatedLine,
-                    out RaycastHit newHit, 1 << Tags.BattleObstacleLayer))
+                    out _, 1 << Tags.BattleObstacleLayer))
             {
                 //   Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
 

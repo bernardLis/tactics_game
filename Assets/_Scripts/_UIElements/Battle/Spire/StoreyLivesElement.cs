@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class StoreyLivesElement : VisualElement
+public class StoreyLivesElement : FullScreenElement
 {
     const string _ussClassName = "storey-lives__";
     const string _ussMain = _ussClassName + "main";
@@ -15,8 +15,6 @@ public class StoreyLivesElement : VisualElement
     const string _ussTreeContainer = _ussClassName + "tree-container";
     const string _ussArrowLabel = _ussClassName + "arrow-label";
 
-    GameManager _gameManager;
-
     StoreyLives _storey;
 
     VisualElement _topContainer;
@@ -26,23 +24,23 @@ public class StoreyLivesElement : VisualElement
     StoreyUpgradeTreeElement _maxLivesTreeElement;
     StoreyUpgradeElement _restoreLivesElement;
 
-    //  List<StoreyUpgradeElement> _maxLivesTreeElements = new();
-
     public StoreyLivesElement(StoreyLives storey)
     {
-        _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StoreyLivesStyles);
-        styleSheets.Add(ss);
+        if (ss != null) styleSheets.Add(ss);
 
-        AddToClassList(_ussMain);
         _storey = storey;
+
+        VisualElement mainContainer = new();
+        mainContainer.AddToClassList(_ussMain);
+        _content.Add(mainContainer);
 
         _lives = new($"Lives {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}");
         _lives.AddToClassList(_ussTitle);
-        Add(_lives);
+        mainContainer.Add(_lives);
 
         VisualElement container = new();
-        Add(container);
+        mainContainer.Add(container);
 
         _topContainer = new();
         _bottomContainer = new();
@@ -57,7 +55,7 @@ public class StoreyLivesElement : VisualElement
         Label bottomArrow = new("-------->");
         bottomArrow.AddToClassList(_ussArrowBottom);
         _bottomContainer.Add(bottomArrow);
-        
+
         _maxLivesTreeElement = new(_storey.MaxLivesTree);
         _topContainer.Add(_maxLivesTreeElement);
         _storey.MaxLivesTree.CurrentValue.OnValueChanged += UpdateLivesTitle;
@@ -65,6 +63,8 @@ public class StoreyLivesElement : VisualElement
 
         UpdateLivesTitle(0);
         AddRestoreLivesUpgrade();
+
+        AddContinueButton();
     }
 
     void AddRestoreLivesUpgrade()

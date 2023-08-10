@@ -16,24 +16,11 @@ public class Storey : BaseScriptableObject
 
     public virtual void Initialize()
     {
-        
-
-    }
-
-    public virtual void InitializeBattle()
-    {
-        if (!IsPurchased) return;
-        if (Prefab == null) return;
-        GameObject storeyObject = BattleSpire.Instance.gameObject;
-        Vector3 pos = new Vector3(0, 10, 0); // TODO: problem is many upgrades are initialized at the same time
-        GameObject instance = Instantiate(Prefab, pos, Quaternion.identity);
-        instance.transform.parent = storeyObject.transform;
     }
 
     public virtual void Purchased()
     {
         IsPurchased = true;
-        InitializeBattle();
     }
 }
 

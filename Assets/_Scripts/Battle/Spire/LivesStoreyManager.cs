@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class LivesStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     GameManager _gameManager;
     BattleTooltipManager _tooltipManager;
@@ -23,7 +23,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Click for troops upgrades");
+        _tooltipManager.ShowInfo($"Click for lives upgrades");
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -36,6 +36,6 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
-        new StoreyTroopsElement(_spire.StoreyTroops);
+        new StoreyLivesElement(_spire.StoreyLives);
     }
 }

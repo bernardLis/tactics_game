@@ -26,7 +26,7 @@ public class BattleLivesManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
+        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == 0) return;
             if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;

@@ -9,7 +9,6 @@ public class StoreyTroopsElement : FullScreenElement
 {
     const string _ussClassName = "storey-troops__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussContent = _ussClassName + "content";
     const string _ussTreeContainer = _ussClassName + "tree-container";
     const string _ussArrowLabel = _ussClassName + "arrow-label";
 
@@ -36,12 +35,10 @@ public class StoreyTroopsElement : FullScreenElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        AddToClassList(_ussMain);
-
         _storey = storey;
 
         _container = new();
-        _container.AddToClassList(_ussContent);
+        _container.AddToClassList(_ussMain);
         _content.Add(_container);
 
         AddCreatureTierLabel();

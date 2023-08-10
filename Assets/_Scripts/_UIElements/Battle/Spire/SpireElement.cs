@@ -42,18 +42,12 @@ public class SpireElement : VisualElement
 
         _spire = spire;
 
-        AddLivesElement();
         AddSpireUpgrades();
 
         ContinueButton continueButton = new ContinueButton(callback: Close);
         _content.Add(continueButton);
     }
 
-    void AddLivesElement()
-    {
-        StoreyLivesElement livesElement = new(_spire.StoreyLives);
-        _content.Add(livesElement);
-    }
 
     void AddSpireUpgrades()
     {

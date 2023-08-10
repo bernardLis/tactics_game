@@ -1,17 +1,7 @@
 .storey-troops__main {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.58);
-}
-
-.storey-troops__content {
+    flex-grow: 1;
     align-items: flex-start;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Main_bar.png?fileID=2800000&guid=2989a4dc4115a014490b11afadbdb163&type=3#Main_bar');
-    width: 80%;
-    height: 90%;
-    position: absolute;
-    left: 10%;
-    top: 5%;
     justify-content: flex-start;
     padding-left: 30px;
     padding-top: 50px;

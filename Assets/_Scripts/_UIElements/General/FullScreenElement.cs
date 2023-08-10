@@ -26,24 +26,20 @@ public class FullScreenElement : VisualElement
     public FullScreenElement()
     {
         _gameManager = GameManager.Instance;
+        _battleManager = BattleManager.Instance;
+
         _gameManager.OpenFullScreens.Add(this);
-        _root = _gameManager.Root;
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
+        if (commonStyles != null) styleSheets.Add(commonStyles);
 
-        _battleManager = BattleManager.Instance;
-        if (_battleManager != null)
+        if (_battleManager != null && _battleManager.IsTimerOn)
         {
-            _root = _battleManager.Root;
-            if (_battleManager.IsTimerOn)
-            {
-                _resumeGameOnHide = true;
-                _battleManager.PauseGame();
-            }
+            _resumeGameOnHide = true;
+            _battleManager.PauseGame();
         }
 
+        ResolveRoot();
         _root.Add(this);
 
         AddToClassList(_ussCommonFullScreenMain);
@@ -56,11 +52,16 @@ public class FullScreenElement : VisualElement
         focusable = true;
         Focus();
 
-
         style.opacity = 0;
         DOTween.To(x => style.opacity = x, style.opacity.value, 1, 0.5f)
             .SetUpdate(true)
             .OnComplete(EnableNavigation);
+    }
+
+    void ResolveRoot()
+    {
+        _root = _gameManager.Root;
+        if (_battleManager != null) _root = _battleManager.Root;
     }
 
     protected void EnableNavigation()

@@ -14,7 +14,6 @@ public class SpireUpgradeManager : Singleton<SpireUpgradeManager>, IPointerDownH
     Spire _spire;
     SpireElement _spireElement;
 
-    public event Action<BattleTurret> OnTurretAdded;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -43,7 +42,6 @@ public class SpireUpgradeManager : Singleton<SpireUpgradeManager>, IPointerDownH
         if (_spire == null) _spire = _gameManager.SelectedBattle.Spire;
 
         _spireElement = new SpireElement(_spire);
-        _spireElement.OnStoreyPurchased += ResolveStoreyPurchased;
         _spireElement.style.opacity = 0;
         _battleManager.Root.Add(_spireElement);
         _battleManager.PauseGame();
@@ -56,26 +54,4 @@ public class SpireUpgradeManager : Singleton<SpireUpgradeManager>, IPointerDownH
             _spireElement = null;
         };
     }
-
-    void ResolveStoreyPurchased(Storey storey)
-    {
-        if (storey is StoreyTurret)
-        {
-            StoreyTurret st = storey as StoreyTurret;
-            InstantiateTurret(st);
-        }
-    }
-
-    public void InstantiateTurret(StoreyTurret st)
-    {
-        Turret scriptableObjectInstance = Instantiate(st.TurretOriginal);
-        GameObject gameObjectInstance = Instantiate(scriptableObjectInstance.Prefab, _battleManager.EntityHolder);
-        gameObjectInstance.GetComponent<TurretStoreyManager>().Initialize(st);
-        BattleTurret instance = gameObjectInstance.GetComponent<BattleTurret>();
-        instance.Initialize(scriptableObjectInstance);
-
-        gameObjectInstance.transform.position = new Vector3(0, 0, 2);
-        OnTurretAdded?.Invoke(instance);
-    }
-
 }

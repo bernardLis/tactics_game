@@ -32,8 +32,6 @@ public class Spire : BaseScriptableObject
                 StoreyTroops = instance as StoreyTroops;
             if (instance is StoreyMana)
                 StoreyMana = instance as StoreyMana;
-            if (instance is StoreyTurret)
-                StoreyTurrets.Add(instance as StoreyTurret);
         }
     }
 
@@ -42,8 +40,5 @@ public class Spire : BaseScriptableObject
         if (_gameManager == null) _gameManager = GameManager.Instance;
 
         SpireGameObject = Instantiate(_gameManager.GameDatabase.BaseGameObject, Vector3.zero, Quaternion.identity);
-
-        foreach (Storey b in Storeys)
-            b.InitializeBattle();
     }
 }
