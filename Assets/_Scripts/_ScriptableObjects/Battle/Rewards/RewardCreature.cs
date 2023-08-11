@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Reward Army")]
-public class RewardArmy : Reward
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Reward Creature")]
+public class RewardCreature : Reward
 {
     public Creature Creature { get; private set; }
     public override void CreateRandom(Hero hero)
@@ -22,5 +22,8 @@ public class RewardArmy : Reward
         base.GetReward();
         Creature.InitializeBattle(_hero);
         _hero.AddCreature(Creature);
+
+        BattleDeploymentManager bdsm = BattleManager.Instance.GetComponent<BattleDeploymentManager>();
+        bdsm.HandlePlayerArmyDeployment(new List<Creature>() { Creature });
     }
 }

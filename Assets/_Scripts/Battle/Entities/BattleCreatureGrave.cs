@@ -4,8 +4,10 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class BattleCreatureGrave : MonoBehaviour, IPointerDownHandler
+public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    GameManager _gameManager;
+
     BattleTooltipManager _tooltipManager;
 
     [SerializeField] GameObject _entitySpawnerPrefab;
@@ -16,6 +18,7 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerDownHandler
 
     public void Initialize(Creature creature)
     {
+        _gameManager = GameManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
 
         Creature = creature;
@@ -43,6 +46,18 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerDownHandler
         Destroy(g);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (_tooltipManager == null) return;
+        _tooltipManager.ShowInfo($"Here lies {Creature.Name} RIP in peace.");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_tooltipManager == null) return;
+        _tooltipManager.HideInfo();
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
@@ -56,14 +71,13 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerDownHandler
 
     void Resurrect()
     {
-        // HERE: grave take into consideration the troops limit
-
         _tooltipManager.HideTooltip();
         GameObject g = Instantiate(_entitySpawnerPrefab, transform.position, Quaternion.identity);
         EntitySpawner es = g.GetComponent<EntitySpawner>();
         es.SpawnEntities(creatures: new List<Creature>() { Creature });
         es.OnSpawnComplete += (list) =>
         {
+            _model.transform.DOKill();
             BattleManager.Instance.AddPlayerArmyEntities(list);
             Destroy(gameObject, 0.2f);
         };

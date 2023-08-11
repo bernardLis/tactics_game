@@ -20,7 +20,6 @@ public class BattleHeroManager : MonoBehaviour
         Hero = hero;
         hero.BattleInitialize();
         hero.OnLevelUpReady += OnHeroLevelUp;
-        hero.OnCreatureAdded += AddCreature;
 
         AddHeroCard();
     }
@@ -57,20 +56,6 @@ public class BattleHeroManager : MonoBehaviour
             _root.Remove(blackout);
             Hero.CurrentMana.ApplyChange(Hero.BaseMana.Value - Hero.CurrentMana.Value);
             Hero.AddExp(Hero.LeftoverExp);
-        };
-    }
-
-    public void AddCreature(Creature c)
-    {
-        EntitySpawner instance = Instantiate(_spawnerPrefab, Vector3.forward, Quaternion.identity);
-
-        List<Creature> creatures = new();
-        creatures.Add(c);
-        instance.SpawnCreatures(creatures: creatures);
-        instance.OnSpawnComplete += (list) =>
-        {
-            _battleManager.AddPlayerArmyEntities(list);
-            instance.DestroySelf();
         };
     }
 }

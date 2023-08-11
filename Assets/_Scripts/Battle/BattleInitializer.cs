@@ -45,7 +45,7 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        _battleDeploymentManager.HandlePlayerArmyDeployment();
+        _battleDeploymentManager.HandlePlayerArmyDeployment(_playerHero.CreatureArmy);
         _battleInputManager.enabled = true;
     }
 }

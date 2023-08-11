@@ -95,7 +95,6 @@ public class FullScreenElement : VisualElement
     {
         _root.Q<VisualElement>("tooltipContainer").style.display = DisplayStyle.None;
 
-        Debug.Log($"hide");
         DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f).SetUpdate(true);
         DOTween.To(x => _content.style.opacity = x, 1, 0, 0.5f)
             .SetUpdate(true)

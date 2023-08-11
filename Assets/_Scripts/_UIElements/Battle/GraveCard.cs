@@ -12,6 +12,7 @@ public class GraveCard : VisualElement
     const string _ussMain = _ussClassName + "main";
 
     GameManager _gameManager;
+    BattleManager _battleManager;
 
     VisualElement _leftPanel;
     VisualElement _rightPanel;
@@ -30,6 +31,8 @@ public class GraveCard : VisualElement
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GraveCardStyles);
         if (ss != null)
             styleSheets.Add(ss);
+
+        _battleManager = BattleManager.Instance;
 
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
@@ -59,6 +62,14 @@ public class GraveCard : VisualElement
 
     void Resurrect()
     {
+        if (_battleManager.IsPlayerTeamFull())
+        {
+            Helpers.DisplayTextOnElement(_battleManager.Root, _resurrectButton,
+                    "Your team is full.", Color.red);
+            return;
+        }
+
+        _battleManager.PlayerHero.CreatureArmy.Add(_creature);
         OnResurrected?.Invoke();
     }
 }

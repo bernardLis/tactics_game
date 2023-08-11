@@ -206,10 +206,10 @@ public class BattleRewardElement : VisualElement
 
     RewardCard CreateRewardCardArmy()
     {
-        RewardArmy reward = ScriptableObject.CreateInstance<RewardArmy>();
+        RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
         reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
-        RewardCard card = new RewardCardArmy(reward);
+        RewardCard card = new RewardCardCreature(reward);
 
         if (_gameManager.PlayerHero.CreatureArmy.Count >= _gameManager.SelectedBattle.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
         {

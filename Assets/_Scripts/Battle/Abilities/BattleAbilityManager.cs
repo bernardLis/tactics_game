@@ -36,7 +36,13 @@ public class BattleAbilityManager : MonoBehaviour
     void Start()
     {
         _playerArmyDeployer = GetComponent<BattleDeploymentManager>();
-        _playerArmyDeployer.OnPlayerArmyDeployed += () => Initialize(_gameManager.PlayerHero);
+        _playerArmyDeployer.OnPlayerArmyDeployed += OnPlayerArmyDeployed;
+    }
+
+    void OnPlayerArmyDeployed()
+    {
+        _playerArmyDeployer.OnPlayerArmyDeployed -= OnPlayerArmyDeployed;
+        Initialize(_gameManager.PlayerHero);
     }
 
     public void Initialize(Hero hero)

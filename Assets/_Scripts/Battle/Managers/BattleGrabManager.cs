@@ -38,13 +38,14 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     void Start()
     {
         _playerArmyDeployer = GetComponent<BattleDeploymentManager>();
-        _playerArmyDeployer.OnPlayerArmyDeployed += () => Initialize();
+        _playerArmyDeployer.OnPlayerArmyDeployed += Initialize;
     }
 
     public void Initialize()
     {
         if (_wasInitialized) return;
         _wasInitialized = true;
+        _playerArmyDeployer.OnPlayerArmyDeployed -= Initialize;
 
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;

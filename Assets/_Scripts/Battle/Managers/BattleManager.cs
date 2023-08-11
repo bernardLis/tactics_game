@@ -29,6 +29,9 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsTimerOn { get; private set; }
 
+    public Hero PlayerHero { get; private set; }
+    public Spire Spire { get; private set; }
+
     public List<BattleEntity> PlayerCreatures = new();
     public List<BattleEntity> OpponentEntities = new();
 
@@ -113,6 +116,7 @@ public class BattleManager : Singleton<BattleManager>
 
         if (playerHero != null)
         {
+            PlayerHero = playerHero;
             _battleHeroManager = GetComponent<BattleHeroManager>();
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
@@ -120,7 +124,8 @@ public class BattleManager : Singleton<BattleManager>
         IsTimerOn = true;
         StartCoroutine(UpdateTimer());
 
-        _gameManager.SelectedBattle.Spire.InitializeBattle();
+        Spire = _gameManager.SelectedBattle.Spire;
+        Spire.InitializeBattle();
 
         OnBattleInitialized?.Invoke();
     }
@@ -197,6 +202,13 @@ public class BattleManager : Singleton<BattleManager>
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }
     public void WinBattle() { StartCoroutine(BattleWon()); }
+
+    public bool IsPlayerTeamFull()
+    {
+        if (PlayerCreatures.Count >= Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
+            return true;
+        return false;
+    }
 
     IEnumerator BattleLost()
     {

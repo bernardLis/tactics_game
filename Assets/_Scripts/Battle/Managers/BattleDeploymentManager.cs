@@ -24,8 +24,10 @@ public class BattleDeploymentManager : MonoBehaviour
 
     int _floorLayerMask;
     bool _wasDeployed;
+    bool _currentlyDeploying;
     int posY;
 
+    List<Creature> _creaturesToDeploy;
 
     public event Action OnPlayerArmyDeployed;
     void Start()
@@ -75,10 +77,12 @@ public class BattleDeploymentManager : MonoBehaviour
         _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
     }
 
-    public void HandlePlayerArmyDeployment()
+    public void HandlePlayerArmyDeployment(List<Creature> creaturesToDeploy)
     {
         _wasDeployed = false;
         posY = 0;
+
+        _creaturesToDeploy = creaturesToDeploy;
 
         ShowTooltip("Click to deploy your army");
 
@@ -142,6 +146,7 @@ public class BattleDeploymentManager : MonoBehaviour
         if (this == null) return;
         if (!_battleManager.IsTimerOn) return;
         if (_deployedObjectInstance == null) return;
+        if (_currentlyDeploying) return;
 
         if (_wasDeployed) return;
         _wasDeployed = true;
@@ -158,14 +163,22 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void DeployArmy()
     {
-        _creatureSpawnerInstance.SpawnHeroArmy(_gameManager.PlayerHero);
+        _currentlyDeploying = true;
+        _creatureSpawnerInstance.SpawnCreatures(_creaturesToDeploy);
         _creatureSpawnerInstance.OnSpawnComplete += (list) =>
         {
             _battleManager.AddPlayerArmyEntities(list);
             _creatureSpawnerInstance.DestroySelf();
             OnPlayerArmyDeployed?.Invoke();
             _creatureSpawnerInstance = null;
+            Invoke("ResetDeploying", 1f);
         };
+    }
+
+    void ResetDeploying()
+    {
+        _currentlyDeploying = false;
+
     }
 
     void PlaceObstacle()
