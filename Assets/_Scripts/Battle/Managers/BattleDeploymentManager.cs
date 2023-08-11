@@ -24,8 +24,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     int _floorLayerMask;
     bool _wasDeployed;
-    bool _currentlyDeploying;
-    int posY;
+    int _posY;
 
     List<Creature> _creaturesToDeploy;
 
@@ -79,12 +78,9 @@ public class BattleDeploymentManager : MonoBehaviour
 
     public void HandlePlayerArmyDeployment(List<Creature> creaturesToDeploy)
     {
-        _wasDeployed = false;
-        posY = 0;
+        BaseHandleDeployment("Click to deploy your army", 0);
 
         _creaturesToDeploy = creaturesToDeploy;
-
-        ShowTooltip("Click to deploy your army");
 
         _deployedObjectInstance = Instantiate(_creatureSpawnerPrefab);
         _creatureSpawnerInstance = _deployedObjectInstance.GetComponent<EntitySpawner>();
@@ -94,10 +90,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     public void HandleObstacleDeployment(Vector3 size)
     {
-        _wasDeployed = false;
-        posY = 3;
-
-        ShowTooltip("Click to drop obstacle");
+        BaseHandleDeployment("Click to deploy obstacle", 3);
 
         _deployedObjectInstance = Instantiate(_obstaclePrefab);
         _obstacleInstance = _deployedObjectInstance.GetComponent<BattleObstacle>();
@@ -107,15 +100,20 @@ public class BattleDeploymentManager : MonoBehaviour
 
     public void HandleTurretDeployment(Turret turret)
     {
-        _wasDeployed = false;
-        posY = 0;
-
-        ShowTooltip("Click to deploy turret");
+        BaseHandleDeployment("Click to deploy turret", 0);
 
         _deployedObjectInstance = Instantiate(turret.Prefab);
         _battleTurret = _deployedObjectInstance.GetComponent<BattleTurret>();
         _battleTurret.Initialize(turret);
         StartCoroutine(UpdateObjectPosition());
+    }
+
+    void BaseHandleDeployment(string tooltip, int posY)
+    {
+        _wasDeployed = false;
+        _posY = posY;
+        ShowTooltip(tooltip);
+        if (_deployedObjectInstance != null) Deploy();
     }
 
     void ShowTooltip(string text)
@@ -134,7 +132,7 @@ public class BattleDeploymentManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _floorLayerMask))
             {
-                Vector3 pos = new(hit.point.x, posY, hit.point.z);
+                Vector3 pos = new(hit.point.x, _posY, hit.point.z);
                 _deployedObjectInstance.transform.position = pos;
             }
             yield return new WaitForFixedUpdate();
@@ -146,7 +144,6 @@ public class BattleDeploymentManager : MonoBehaviour
         if (this == null) return;
         if (!_battleManager.IsTimerOn) return;
         if (_deployedObjectInstance == null) return;
-        if (_currentlyDeploying) return;
 
         if (_wasDeployed) return;
         _wasDeployed = true;
@@ -154,31 +151,29 @@ public class BattleDeploymentManager : MonoBehaviour
         if (_tooltipText.parent != null)
             _topPanel.Remove(_tooltipText);
 
-        if (_creatureSpawnerInstance != null) DeployArmy();
+        Deploy();
+    }
+
+    void Deploy()
+    {
+        if (_creatureSpawnerInstance != null) DeployArmy(_creatureSpawnerInstance);
         if (_obstacleInstance != null) PlaceObstacle();
         if (_battleTurret != null) PlaceTurret();
 
+        _deployedObjectInstance = null;
         StopAllCoroutines();
     }
 
-    void DeployArmy()
+    void DeployArmy(EntitySpawner spawner)
     {
-        _currentlyDeploying = true;
-        _creatureSpawnerInstance.SpawnCreatures(_creaturesToDeploy);
-        _creatureSpawnerInstance.OnSpawnComplete += (list) =>
+        spawner.SpawnCreatures(_creaturesToDeploy);
+        spawner.OnSpawnComplete += (list) =>
         {
             _battleManager.AddPlayerArmyEntities(list);
-            _creatureSpawnerInstance.DestroySelf();
+            spawner.DestroySelf();
             OnPlayerArmyDeployed?.Invoke();
-            _creatureSpawnerInstance = null;
-            Invoke("ResetDeploying", 1f);
+            if (_creatureSpawnerInstance == spawner) _creatureSpawnerInstance = null;
         };
-    }
-
-    void ResetDeploying()
-    {
-        _currentlyDeploying = false;
-
     }
 
     void PlaceObstacle()
