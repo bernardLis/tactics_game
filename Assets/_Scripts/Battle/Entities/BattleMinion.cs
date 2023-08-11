@@ -32,7 +32,8 @@ public class BattleMinion : BattleEntity
         Vector3 pos = _spire.transform.position;
         pos.y = transform.position.y;
         while (!_agent.SetDestination(pos)) yield return null;
-        Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
+        
+        Animator.SetBool("Move", true);
     }
 }

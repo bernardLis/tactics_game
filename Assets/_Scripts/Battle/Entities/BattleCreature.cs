@@ -70,6 +70,7 @@ public class BattleCreature : BattleEntity
     {
         while (true)
         {
+            if (IsDead) yield break;
             yield return ManageSpecialAbility();
             yield return ManagePathing();
             yield return ManageAttackCoroutine();
@@ -79,8 +80,13 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator ManageSpecialAbility()
     {
-        if (_hasSpecialAction && CanUseSpecialAbility())
-            yield return SpecialAbility();
+        if (!_hasSpecialAction) yield break;
+        if (!CanUseSpecialAbility()) yield break;
+
+        if (_currentSpecialAbilityCoroutine != null)
+            StopCoroutine(_currentSpecialAbilityCoroutine);
+        _currentSpecialAbilityCoroutine = SpecialAbility();
+        yield return _currentSpecialAbilityCoroutine;
     }
 
     protected IEnumerator ManagePathing()
@@ -117,7 +123,7 @@ public class BattleCreature : BattleEntity
 
         if (_hasSpecialMove && CanUseSpecialAbility())
         {
-            yield return SpecialAbility();
+            yield return ManageSpecialAbility();
             yield break;
         }
 
@@ -125,14 +131,17 @@ public class BattleCreature : BattleEntity
         _agent.avoidancePriority = Random.Range(1, 100);
 
         while (Opponent != null && !_agent.SetDestination(Opponent.transform.position)) yield return null;
-        Animator.SetBool("Move", true);
         while (_agent.pathPending) yield return null;
+        Animator.SetBool("Move", true);
 
         // path to target
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
             if (_hasSpecialAction && CanUseSpecialAbility())
-                yield return SpecialAbility();
+            {
+                yield return ManageSpecialAbility();
+                yield break;
+            }
 
             _agent.SetDestination(Opponent.transform.position);
             yield return null;
@@ -233,7 +242,6 @@ public class BattleCreature : BattleEntity
         Opponent.OnDeath += (a, b, c) =>
         {
             if (this == null) return;
-            StopRunEntityCoroutine();
             StartRunEntityCoroutine();
         };
     }
@@ -291,8 +299,8 @@ public class BattleCreature : BattleEntity
     {
         SetDead();
         _blockRunEntity = true;
-        _teamHighlightDisc.gameObject.SetActive(false);
-
+        _battleEntityHighlight.DisableHighlight();
+        
         EntityLog.Add($"{Time.time}: Creature is evolving...");
         StopRunEntityCoroutine();
         OnEvolving?.Invoke(this);
@@ -314,7 +322,7 @@ public class BattleCreature : BattleEntity
     [ContextMenu("Trigger Death")]
     public void TriggerDeath()
     {
-        StartCoroutine(Die());
+        TriggerDieCoroutine();
     }
 
 #endif

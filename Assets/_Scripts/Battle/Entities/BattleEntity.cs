@@ -30,7 +30,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     [Header("Prefabs")]
     [SerializeField] GameObject _healedEffect;
-    BattleTooltipManager _tooltipManager;
 
     public Collider Collider { get; private set; }
 
@@ -40,7 +39,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected Material _material;
     Texture2D _emissionTexture;
     Color _defaultEmissionColor;
-    [SerializeField] protected Disc _teamHighlightDisc;
+
+    protected BattleEntityHighlight _battleEntityHighlight;
+    //  [SerializeField] protected Disc _teamHighlightDisc;
 
     public Animator Animator { get; private set; }
 
@@ -62,6 +63,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected IEnumerator _currentMainCoroutine;
     protected IEnumerator _currentSecondaryCoroutine;
+    protected IEnumerator _currentSpecialAbilityCoroutine;
+
 
     public int DamageTaken { get; private set; }
 
@@ -94,6 +97,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _material.EnableKeyword("_EMISSION");
         _defaultEmissionColor = Color.black;
 
+        _battleEntityHighlight = GetComponent<BattleEntityHighlight>();
+
         _agent = GetComponent<NavMeshAgent>();
         _agent.enabled = false;
 
@@ -115,19 +120,14 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
-        _tooltipManager = BattleTooltipManager.Instance;
+
         _grabManager = BattleGrabManager.Instance;
 
         GetComponent<Rigidbody>().isKinematic = true;
 
         Team = team;
 
-        _teamHighlightDisc.gameObject.SetActive(true);
-        Color highlightColor = Color.black;
-        if (Team == 0) highlightColor = GameManager.PlayerTeamColor;
-        if (Team == 1) highlightColor = GameManager.OpponentTeamColor;
-        highlightColor.a = 0.25f;
-        _teamHighlightDisc.Color = highlightColor;
+        _battleEntityHighlight.Initialize(this);
 
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         if (team == 1)
@@ -154,7 +154,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (!isActiveAndEnabled) return;
 
         EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
-        if (_currentMainCoroutine != null) StopCoroutine(_currentMainCoroutine);
+        StopRunEntityCoroutine();
 
         _currentMainCoroutine = RunEntity();
         StartCoroutine(_currentMainCoroutine);
@@ -168,6 +168,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
             StopCoroutine(_currentMainCoroutine);
         if (_currentSecondaryCoroutine != null)
             StopCoroutine(_currentSecondaryCoroutine);
+        if (_currentSpecialAbilityCoroutine != null)
+            StopCoroutine(_currentSpecialAbilityCoroutine);
 
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
         _agent.enabled = false;
@@ -291,6 +293,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void TriggerDieCoroutine()
     {
+        IsDead = true;
         StartCoroutine(Die());
     }
 
@@ -298,6 +301,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
+
+        StopRunEntityCoroutine();
+
         if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
 
@@ -311,11 +317,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         OnDeath?.Invoke(this, attacker, ability);
 
-        _teamHighlightDisc.gameObject.SetActive(false);
-
         Animator.SetTrigger("Die");
 
-        TurnHighlightOff();
+        // HERE: highlight        TurnHighlightOff();
 
         transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
@@ -463,9 +467,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public Color GetHighlightColor()
     {
         if (Team == 0)
-            return Color.blue;
+            return GameManager.PlayerTeamColor;
         if (Team == 1)
-            return Color.red;
+            return GameManager.OpponentTeamColor;
         return Color.yellow;
     }
 }
