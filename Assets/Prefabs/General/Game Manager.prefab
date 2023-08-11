@@ -367,19 +367,11 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: a14340c79932792408dac21a9eed02ae
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 2bc0f58d0e54039498a8e2f58e009d0e
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: caf37e186abe17144b52468aa45df4e0
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: bbccf482a316a324284e93f9d46bd64f
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -392,10 +384,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 002a1c8d950a0ce49a3483c0d4212f1d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: ed19a6f9006416c4bb914bdb1454d677
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

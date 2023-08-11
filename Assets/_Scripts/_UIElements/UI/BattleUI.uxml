@@ -15,10 +15,8 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardExpStyles.uss?fileID=7433441132597879392&amp;guid=4496443c1c70fcf40a4dd27ff7628657&amp;type=3#HeroCardExpStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CutsceneStyles.uss?fileID=7433441132597879392&amp;guid=d73a8a21573b1ed44bce80194d7bda1d&amp;type=3#CutsceneStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleModifierStyles.uss?fileID=7433441132597879392&amp;guid=c56f9f9d036fcad44b2603ccb497d2ec&amp;type=3#BattleModifierStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/SpireStyles.uss?fileID=7433441132597879392&amp;guid=a14340c79932792408dac21a9eed02ae&amp;type=3#SpireStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyLivesStyles.uss?fileID=7433441132597879392&amp;guid=caf37e186abe17144b52468aa45df4e0&amp;type=3#StoreyLivesStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyUpgradeStyles.uss?fileID=7433441132597879392&amp;guid=2bc0f58d0e54039498a8e2f58e009d0e&amp;type=3#StoreyUpgradeStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/SpireUpgradeStyles.uss?fileID=7433441132597879392&amp;guid=bbccf482a316a324284e93f9d46bd64f&amp;type=3#SpireUpgradeStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyTroopsStyles.uss?fileID=7433441132597879392&amp;guid=92868221e7deb1347b9463dde7387f87&amp;type=3#StoreyTroopsStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyManaStyles.uss?fileID=7433441132597879392&amp;guid=38bf4d85490372243890bb2cab7e4693&amp;type=3#StoreyManaStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityCardStyles.uss?fileID=7433441132597879392&amp;guid=2c5d53665b9fb84498cbab8dbbbe1aa7&amp;type=3#EntityCardStyles" />

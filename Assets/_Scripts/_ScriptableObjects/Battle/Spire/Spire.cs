@@ -10,7 +10,6 @@ public class Spire : BaseScriptableObject
     public StoreyLives StoreyLives { get; private set; }
     public StoreyTroops StoreyTroops { get; private set; }
     public StoreyMana StoreyMana { get; private set; }
-    public List<StoreyTurret> StoreyTurrets = new();
 
     public GameObject SpireGameObject;
 

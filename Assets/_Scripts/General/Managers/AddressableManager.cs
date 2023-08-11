@@ -62,8 +62,8 @@ public enum StyleSheetType
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
-    SpireStyles, SpireUpgradeStyles,
-    StoreyUpgradeStyles, StoreyLivesStyles, StoreyTroopsStyles, StoreyManaStyles, StoreyTurretStyles,
+    SpireUpgradeStyles,
+    StoreyUpgradeStyles, StoreyLivesStyles, StoreyTroopsStyles, StoreyManaStyles,
     StoreyUpgradeTreeStyles, 
 
     TurretCardStyles, GraveCardStyles

@@ -14,7 +14,6 @@ public class BattleMinimapManager : MonoBehaviour
     BattleManager _battleManager;
     BattleCameraManager _battleCameraManager;
     BattleTooltipManager _tooltipManager;
-    SpireUpgradeManager _spireUpgradeManager;
 
     Vector2 mapSize = new Vector2(100, 100);
     Vector2 miniMapSize = new Vector2(400, 400);
@@ -32,7 +31,6 @@ public class BattleMinimapManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleCameraManager = BattleCameraManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
-        _spireUpgradeManager = SpireUpgradeManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _minimap = _root.Q<VisualElement>("minimapContainer");

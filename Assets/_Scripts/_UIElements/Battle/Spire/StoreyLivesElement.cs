@@ -40,6 +40,7 @@ public class StoreyLivesElement : FullScreenElement
         mainContainer.Add(_lives);
 
         VisualElement container = new();
+        container.style.alignSelf = Align.Center;
         mainContainer.Add(container);
 
         _topContainer = new();

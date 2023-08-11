@@ -232,11 +232,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a14340c79932792408dac21a9eed02ae
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleBaseStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bc0f58d0e54039498a8e2f58e009d0e
     m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyUpgradeStyles.uss
     m_ReadOnly: 0
@@ -244,11 +239,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: caf37e186abe17144b52468aa45df4e0
     m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyLivesStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bbccf482a316a324284e93f9d46bd64f
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/SpireUpgradeStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -264,11 +254,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 002a1c8d950a0ce49a3483c0d4212f1d
     m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyUpgradeTreeStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ed19a6f9006416c4bb914bdb1454d677
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyTurretsStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
