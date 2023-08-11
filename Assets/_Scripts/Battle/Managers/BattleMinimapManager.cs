@@ -137,13 +137,13 @@ public class BattleMinimapManager : MonoBehaviour
         icon.RegisterCallback<MouseEnterEvent>((e) =>
         {
             icon.style.opacity = 1;
-            be.ShowHighlightDiamond(Color.white);
+            be.TurnHighlightOn(Color.white);
         });
 
         icon.RegisterCallback<MouseLeaveEvent>((e) =>
         {
             icon.style.opacity = 0.8f;
-            be.HideHighlightDiamond();
+            be.TurnHighlightOff();
         });
 
         ResolveEntityIconStyle(be, icon);

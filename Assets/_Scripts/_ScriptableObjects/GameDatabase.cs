@@ -19,6 +19,8 @@ public class GameDatabase : BaseScriptableObject
     [Header("Shaders")]
     public Shader DissolveShader;
     public Shader GrayScaleShader;
+    public Shader SepiaToneShader;
+
 
     [Header("General")]
     [SerializeField] ColorVariable[] _colors;

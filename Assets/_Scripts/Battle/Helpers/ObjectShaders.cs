@@ -9,6 +9,7 @@ public class ObjectShaders : MonoBehaviour
     GameManager _gameManager;
     Shader _dissolveShader;
     Shader _grayScaleShader;
+    Shader _sepiaToneShader;
     Shader _originalShader;
 
     public event Action OnDissolveComplete;
@@ -17,6 +18,7 @@ public class ObjectShaders : MonoBehaviour
         _gameManager = GameManager.Instance;
         _dissolveShader = _gameManager.GameDatabase.DissolveShader;
         _grayScaleShader = _gameManager.GameDatabase.GrayScaleShader;
+        _sepiaToneShader = _gameManager.GameDatabase.SepiaToneShader;
     }
 
     public void Dissolve(float time, bool isReverse)

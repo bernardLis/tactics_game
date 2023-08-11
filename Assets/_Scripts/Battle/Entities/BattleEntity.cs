@@ -19,7 +19,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected BattleManager _battleManager;
     protected BattleGrabManager _grabManager;
 
-    protected BattleHighlightDiamond _highlightDiamond;
     protected ObjectShaders _battleEntityShaders;
 
     public List<string> EntityLog = new();
@@ -36,12 +35,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public string BattleId { get; private set; }
     public int Team { get; private set; }
     protected GameObject _GFX;
-    protected Material _material;
-    Texture2D _emissionTexture;
-    Color _defaultEmissionColor;
 
     protected BattleEntityHighlight _battleEntityHighlight;
-    //  [SerializeField] protected Disc _teamHighlightDisc;
 
     public Animator Animator { get; private set; }
 
@@ -65,7 +60,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected IEnumerator _currentSecondaryCoroutine;
     protected IEnumerator _currentSpecialAbilityCoroutine;
 
-
     public int DamageTaken { get; private set; }
 
     public event Action<int> OnDamageTaken;
@@ -81,22 +75,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         Entity = entity;
 
-        _highlightDiamond = GetComponentInChildren<BattleHighlightDiamond>();
-        _highlightDiamond.gameObject.SetActive(false);
-
         _battleEntityShaders = GetComponent<ObjectShaders>();
-
         _feelPlayer = GetComponent<MMF_Player>();
-
         Collider = GetComponent<Collider>();
-
         Animator = GetComponentInChildren<Animator>();
         _GFX = Animator.gameObject;
-        _material = _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material;
-        _emissionTexture = _material.GetTexture("_EmissionMap") as Texture2D;
-        _material.EnableKeyword("_EMISSION");
-        _defaultEmissionColor = Color.black;
-
         _battleEntityHighlight = GetComponent<BattleEntityHighlight>();
 
         _agent = GetComponent<NavMeshAgent>();
@@ -120,25 +103,15 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
-
         _grabManager = BattleGrabManager.Instance;
 
         GetComponent<Rigidbody>().isKinematic = true;
 
         Team = team;
-
         _battleEntityHighlight.Initialize(this);
-
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
-        if (team == 1)
-        {
-            // HERE: enemy team is not highlighted
-            _material.SetTexture("_EmissionMap", null);
-            _material.SetColor("_EmissionColor", _defaultEmissionColor);
-            _material.SetFloat("_Metallic", 0.5f);
-        }
-
         SetBattleId();
+
     }
 
     protected void SetBattleId()
@@ -351,7 +324,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         _isPoisoned = true;
         DisplayFloatingText("Poisoned", Color.green);
-        TurnHighlightOn(Color.green, false);
 
         // TODO: for now hardcoded
         int totalDamage = 20;
@@ -374,7 +346,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         }
 
         _isPoisoned = false;
-        TurnHighlightOff();
     }
 
     protected IEnumerator Celebrate()
@@ -430,38 +401,18 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _feelPlayer.PlayFeedbacks(transform.position);
     }
 
-    /* highlight */
+    public void TurnHighlightOn(Color c = default)
+    {
+        if (_battleEntityHighlight == null) return;
+        if (c == default) c = GetHighlightColor();
+
+        _battleEntityHighlight.Highlight(c);
+    }
+
     public void TurnHighlightOff()
     {
-        HideHighlightDiamond();
-
-        if (_emissionTexture != null && Team == 0)
-        {
-            _material.SetTexture("_EmissionMap", _emissionTexture);
-            _material.SetColor("_EmissionColor", Color.black);
-            return;
-        }
-
-        _material.SetColor("_EmissionColor", _defaultEmissionColor);
-    }
-
-    public void TurnHighlightOn(Color color, bool showDiamond = true)
-    {
-        if (IsDead) return;
-        if (showDiamond) ShowHighlightDiamond(GetHighlightColor());
-
-        _material.SetTexture("_EmissionMap", null);
-        _material.SetColor("_EmissionColor", color);
-    }
-
-    public void ShowHighlightDiamond(Color color)
-    {
-        _highlightDiamond.Enable(color);
-    }
-
-    public void HideHighlightDiamond()
-    {
-        _highlightDiamond.Disable();
+        if (_battleEntityHighlight == null) return;
+        _battleEntityHighlight.ClearHighlight();
     }
 
     public Color GetHighlightColor()

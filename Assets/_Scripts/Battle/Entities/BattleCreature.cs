@@ -64,6 +64,10 @@ public class BattleCreature : BattleEntity
         CurrentSpecialAbilityCooldown = 0;
 
         StartRunEntityCoroutine();
+
+        if (team == 0) return;
+        _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material.shader
+                = _gameManager.GameDatabase.SepiaToneShader;
     }
 
     protected override IEnumerator RunEntity()
@@ -299,8 +303,8 @@ public class BattleCreature : BattleEntity
     {
         SetDead();
         _blockRunEntity = true;
-        _battleEntityHighlight.DisableHighlight();
-        
+        _battleEntityHighlight.DisableHighlightFully();
+
         EntityLog.Add($"{Time.time}: Creature is evolving...");
         StopRunEntityCoroutine();
         OnEvolving?.Invoke(this);
