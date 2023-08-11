@@ -21,6 +21,8 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
         _gameManager = GameManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
 
+        AudioManager.Instance.PlaySFX("Bang", Camera.main.transform.position);
+
         Creature = creature;
 
         transform.parent = BattleManager.Instance.EntityHolder;
