@@ -11,8 +11,10 @@ public class BattleEntityTestManager : MonoBehaviour
 {
     BattleManager _battleManager;
 
-    public List<string> _entityTestLog = new();
+    VisualElement _root;
+    VisualElement _buttonContainer;
 
+    public List<string> _entityTestLog = new();
 
     [Space(10)]
     [Header("Specific Armies")]
@@ -40,6 +42,9 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void Start()
     {
+        _root = GetComponent<UIDocument>().rootVisualElement;
+        _buttonContainer = _root.Q<VisualElement>("buttonContainer");
+
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
         _currentAllCreaturesIndex = -1;
@@ -54,6 +59,55 @@ public class BattleEntityTestManager : MonoBehaviour
         Battle battle = ScriptableObject.CreateInstance<Battle>();
         battle.CreateRandom(1);
         gameManager.SelectedBattle = battle;
+
+        StartCoroutine(LateInitialize(newChar));
+    }
+
+    IEnumerator LateInitialize(Hero h)
+    {
+        yield return new WaitForSeconds(0.5f);
+        _battleManager.Initialize(h);
+        _battleManager.GetComponent<BattleGrabManager>().Initialize();
+        _battleManager.GetComponent<BattleAbilityManager>().Initialize(h);
+
+        AddButtons();
+    }
+
+    void AddButtons()
+    {
+        Button b = new() { text = "Random Pair" };
+        b.clickable.clicked += () =>
+        {
+            AddRandomCreature(0);
+            AddRandomCreature(1);
+        };
+        _buttonContainer.Add(b);
+
+        Button bLeft = new() { text = "Random Left" };
+        bLeft.clickable.clicked += () =>
+        {
+            AddRandomCreature(0);
+        };
+        _buttonContainer.Add(bLeft);
+
+        Button bRight = new() { text = "Random Right" };
+        bRight.clickable.clicked += () =>
+        {
+            AddRandomCreature(1);
+        };
+        _buttonContainer.Add(bRight);
+    }
+
+    void AddRandomCreature(int team)
+    {
+        Creature c = _allCreatures[Random.Range(0, _allCreatures.Count)];
+        c.InitializeBattle(null);
+        BattleEntity be = SpawnCreature(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
+        if (team == 0)
+            _battleManager.AddPlayerArmyEntity(be);
+        if (team == 1)
+            _battleManager.AddOpponentArmyEntity(be);
+
     }
 
     void ResolveTestType()
