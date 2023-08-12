@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7322656277729208700}
   - component: {fileID: 4271976448688130667}
   m_Layer: 0
-  m_Name: Healed Effect
+  m_Name: Heal Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

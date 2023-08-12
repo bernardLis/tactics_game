@@ -13,7 +13,7 @@ public class BombEntity : BattleCreatureRanged
 
     bool _isExploding;
 
-    public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasLoot = true)
+    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
     {
         if (_isExploding) yield break;
         _isExploding = true;
@@ -43,9 +43,8 @@ public class BombEntity : BattleCreatureRanged
         }
 
         Invoke("CleanUp", 2f);
-        Debug.Log($"before base die");
 
-        yield return base.Die(attacker, ability, hasLoot);
+        yield return base.Die(attacker, hasLoot);
     }
 
     void CleanUp()

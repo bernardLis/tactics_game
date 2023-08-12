@@ -78,7 +78,6 @@ public class BattleCreature : BattleEntity
             yield return ManageSpecialAbility();
             yield return ManagePathing();
             yield return ManageAttackCoroutine();
-            yield return new WaitForSeconds(0.3f);
         }
     }
 
@@ -98,6 +97,13 @@ public class BattleCreature : BattleEntity
         if (Opponent == null || Opponent.IsDead)
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
+
+        if (Opponent == null)
+        {
+            StopRunEntityCoroutine();
+            Invoke("StartRunEntityCoroutine", Random.Range(0.5f, 2f));
+            yield break;
+        }
 
         if (_currentSecondaryCoroutine != null)
             StopCoroutine(_currentSecondaryCoroutine);
@@ -162,10 +168,6 @@ public class BattleCreature : BattleEntity
         EntityLog.Add($"{Time.time}: Entity attacked {Opponent.name}");
 
         // meant to be overwritten
-
-        // it goes at the end... is that a good idea?
-        _currentAttackCooldown = Creature.AttackCooldown;
-
         yield break;
     }
 
@@ -197,6 +199,12 @@ public class BattleCreature : BattleEntity
 
     protected void ChooseNewTarget()
     {
+        if (_opponentList.Count == 0)
+        {
+            Opponent = null;
+            return;
+        }
+
         // choose a random opponent with a bias towards closer opponents
         Dictionary<BattleEntity, float> distances = new();
         foreach (BattleEntity be in _opponentList)
@@ -206,17 +214,15 @@ public class BattleCreature : BattleEntity
             distances.Add(be, distance);
         }
 
-        if (distances.Count == 0) return;
-
         var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
         float v = Random.value;
 
         Dictionary<BattleEntity, float> closestBiased = new();
 
-        // this number decides bias towards closer opponents
         float sum = 0;
         foreach (KeyValuePair<BattleEntity, float> entry in closest)
         {
+            // this number decides bias towards closer opponents
             float value = 1 / entry.Value; // 2 / entry.value or 0.1 / entry.value to changed bias
             closestBiased.Add(entry.Key, value);
             sum += value;
@@ -230,20 +236,18 @@ public class BattleCreature : BattleEntity
         {
             if (v < entry.Value)
             {
+                EntityLog.Add($"{Time.time}: Choosing {entry.Key.name} as new target, #{closestNormalized.Values.ToList().IndexOf(entry.Value)} closest.");
                 SetOpponent(entry.Key);
                 return;
             }
             v -= entry.Value;
         }
-
-        // should never get here...
-        SetOpponent(_opponentList[Random.Range(0, _opponentList.Count)]);
     }
 
     public void SetOpponent(BattleEntity opponent)
     {
         Opponent = opponent;
-        Opponent.OnDeath += (a, b, c) =>
+        Opponent.OnDeath += (_, _) =>
         {
             if (this == null) return;
             StartRunEntityCoroutine();
@@ -268,9 +272,9 @@ public class BattleCreature : BattleEntity
         OnEnemyKilled?.Invoke(KilledEnemiesCount);
     }
 
-    public override IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasLoot = true)
+    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
     {
-        yield return base.Die(attacker, ability, hasLoot);
+        yield return base.Die(attacker, hasLoot);
 
         if (Team != 0) yield break;
         GameObject g = Instantiate(_gravePrefab, transform.position, Quaternion.identity);

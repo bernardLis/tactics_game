@@ -166,7 +166,7 @@ public class BattleManager : Singleton<BattleManager>
         OnOpponentEntityAdded?.Invoke(b);
     }
 
-    void OnPlayerCreatureDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
+    void OnPlayerCreatureDeath(BattleEntity be, GameObject killer)
     {
         KilledPlayerEntities.Add(be);
         PlayerCreatures.Remove(be);
@@ -174,21 +174,25 @@ public class BattleManager : Singleton<BattleManager>
         OnPlayerEntityDeath?.Invoke(be);
     }
 
-    void OnOpponentDeath(BattleEntity be, BattleEntity killer, Ability killerAbility)
+    void OnOpponentDeath(BattleEntity be, GameObject killer)
     {
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(be);
 
         // TODO: price for experience
-        if (killer is BattleCreature creature)
+        if (killer == null)
+        {
+            _gameManager.PlayerHero.AddExp(be.Entity.Price);
+            return;
+        }
+
+        if (killer.TryGetComponent(out BattleCreature creature))
         {
             int heroExpTax = Mathf.RoundToInt(be.Entity.Price * 0.25f);
             _gameManager.PlayerHero.AddExp(heroExpTax);
             creature.Creature.AddExp(be.Entity.Price - heroExpTax);
-            return;
         }
-        _gameManager.PlayerHero.AddExp(be.Entity.Price);
     }
 
     public List<BattleEntity> GetAllies(BattleEntity battleEntity)

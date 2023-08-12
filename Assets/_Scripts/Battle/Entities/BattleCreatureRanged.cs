@@ -116,7 +116,10 @@ public class BattleCreatureRanged : BattleCreature
 
     protected override IEnumerator Attack()
     {
+        EntityLog.Add($"{Time.time}: Ranged attack is called");
+
         while (!CanAttack()) yield return null;
+        _currentAttackCooldown = Creature.AttackCooldown;
 
         if (_hasSpecialAttack & CanUseSpecialAbility())
         {

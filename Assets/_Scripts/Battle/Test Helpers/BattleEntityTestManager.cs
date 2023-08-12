@@ -157,7 +157,7 @@ public class BattleEntityTestManager : MonoBehaviour
         return be;
     }
 
-    void OnTeamADeath(BattleEntity self, BattleEntity killer, Ability killerAbility)
+    void OnTeamADeath(BattleEntity self, GameObject killer)
     {
         _teamA.Remove(self);
         if (_teamA.Count == 0)
@@ -171,7 +171,7 @@ public class BattleEntityTestManager : MonoBehaviour
         }
     }
 
-    void OnTeamBDeath(BattleEntity self, BattleEntity killer, Ability killerAbility)
+    void OnTeamBDeath(BattleEntity self, GameObject killer)
     {
         _teamB.Remove(self);
         if (_teamB.Count == 0)

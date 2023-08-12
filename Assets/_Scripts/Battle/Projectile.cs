@@ -82,7 +82,7 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.TryGetComponent<BattleEntity>(out BattleEntity battleEntity))
+        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
         {
             if (!IsTargetValid(battleEntity)) return;
 

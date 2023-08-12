@@ -63,8 +63,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public int DamageTaken { get; private set; }
 
     public event Action<int> OnDamageTaken;
-
-    public event Action<BattleEntity, BattleEntity, Ability> OnDeath;
+    public event Action<BattleEntity, GameObject> OnDeath;
     void Awake()
     {
         _gameManager = GameManager.Instance;
@@ -111,7 +110,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _battleEntityHighlight.Initialize(this);
         EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         SetBattleId();
-
     }
 
     protected void SetBattleId()
@@ -123,14 +121,27 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void StartRunEntityCoroutine()
     {
-        if (_blockRunEntity) return;
-        if (!isActiveAndEnabled) return;
+        if (!CanStartRunEntity())
+        {
+            Invoke("StartRunEntityCoroutine", Random.Range(1f, 2f));
+            return;
+        }
 
-        EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
         StopRunEntityCoroutine();
+        EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
 
         _currentMainCoroutine = RunEntity();
         StartCoroutine(_currentMainCoroutine);
+    }
+
+    bool CanStartRunEntity()
+    {
+        if (_blockRunEntity) return false;
+        if (!isActiveAndEnabled) return false;
+        if (_isGrabbed) return false;
+        if (IsDead) return false;
+
+        return true;
     }
 
     public virtual void StopRunEntityCoroutine()
@@ -166,24 +177,18 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         int value = ability.GetPower();
         GetHealed(value);
-        return Mathf.RoundToInt(value);
+        return value;
     }
 
     public void GetHealed(int value)
     {
         EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
 
-        CurrentHealth.ApplyChange(value);
-        if (CurrentHealth.Value > Entity.GetMaxHealth())
-            CurrentHealth.SetValue(Entity.GetMaxHealth());
+        int v = Mathf.Clamp(value, 0, Entity.GetMaxHealth() - CurrentHealth.Value);
+        CurrentHealth.ApplyChange(v);
 
-        DisplayFloatingText("+" + value, Color.green);
-
-        GameObject obj = Instantiate<GameObject>(_healedEffect, transform.position, Quaternion.identity);
-        obj.transform.parent = _GFX.transform;
-        obj.transform.DOScale(0, 0.5f)
-                .SetDelay(2f)
-                .OnComplete(() => Destroy(obj));
+        DisplayFloatingText("+" + v, Color.green);
+        _battleEntityHighlight.HealEffect();
     }
 
     public virtual IEnumerator GetHit(Ability ability)
@@ -194,30 +199,18 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color);
 
         if (CurrentHealth.Value <= 0)
-        {
             ability.IncreaseKillCount();
-            yield return Die(ability: ability); // start coroutine because I call stop all coroutines in base hit
-            yield break;
-        }
-
-        if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    public virtual IEnumerator GetHit(BattleTurret turret)
+    public virtual IEnumerator GetHit(BattleTurret battleTurret)
     {
         if (IsDead) yield break;
-        EntityLog.Add($"{Time.time}: Entity gets attacked by {turret.name}");
+        EntityLog.Add($"{Time.time}: Entity gets attacked by {battleTurret.name}");
 
-        BaseGetHit(Entity.CalculateDamage(turret), turret.Turret.Element.Color);
+        BaseGetHit(Entity.CalculateDamage(battleTurret), battleTurret.Turret.Element.Color);
 
         if (CurrentHealth.Value <= 0)
-        {
-            turret.Turret.IncreaseKillCount();
-            yield return Die(); // start coroutine because I call stop all coroutines in base hit
-            yield break;
-        }
-
-        if (!_isGrabbed) StartRunEntityCoroutine();
+            battleTurret.Turret.IncreaseKillCount();
     }
 
     public virtual IEnumerator GetHit(BattleCreature attacker, int specialDamage = 0)
@@ -225,52 +218,46 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {attacker.name}");
 
-        _audioManager.PlaySFX("Hit", transform.position);
-
         int damage = Entity.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
         attacker.DealtDamage(damage);
 
-        BaseGetHit(damage, attacker.Entity.Element.Color);
-        EntityLog.Add($"{Time.time}: Current health is {CurrentHealth}");
+        BaseGetHit(damage, attacker.Entity.Element.Color, attacker.gameObject);
 
         if (CurrentHealth.Value <= 0)
-        {
             attacker.IncreaseKillCount();
-            yield return Die(attacker: attacker);
-            yield break;
-        }
-
-        if (!_isGrabbed) StartRunEntityCoroutine();
     }
 
-    protected void BaseGetHit(int dmg, Color color)
+    protected void BaseGetHit(int dmg, Color color, GameObject attacker = null)
     {
+        EntityLog.Add($"{Time.time}: Entity takes damage {dmg}");
         StopRunEntityCoroutine();
+        _audioManager.PlaySFX("Hit", transform.position);
+        Animator.SetTrigger("Take Damage");
+        DisplayFloatingText(dmg.ToString(), color);
 
         OnDamageTaken?.Invoke(dmg);
         DamageTaken += dmg;
 
-        CurrentHealth.ApplyChange(-dmg);
+        int d = Mathf.Clamp(dmg, 0, CurrentHealth.Value);
+        CurrentHealth.ApplyChange(-d);
         if (CurrentHealth.Value <= 0)
         {
-            IsDead = true;
-            CurrentHealth.SetValue(0);
+            TriggerDieCoroutine(attacker);
+            return;
         }
 
-        DisplayFloatingText(dmg.ToString(), color);
-
-        Animator.SetTrigger("Take Damage");
+        StartRunEntityCoroutine();
     }
 
-    public void TriggerDieCoroutine()
+    public void TriggerDieCoroutine(GameObject attacker = null)
     {
         IsDead = true;
-        StartCoroutine(Die());
+        StartCoroutine(Die(attacker: attacker));
     }
 
-    public virtual IEnumerator Die(BattleEntity attacker = null, Ability ability = null, bool hasLoot = true)
+    public virtual IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
@@ -288,11 +275,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         EntityLog.Add($"{Time.time}: Entity dies.");
 
-        OnDeath?.Invoke(this, attacker, ability);
+        OnDeath?.Invoke(this, attacker);
 
         Animator.SetTrigger("Die");
-
-        // HERE: highlight        TurnHighlightOff();
 
         transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)

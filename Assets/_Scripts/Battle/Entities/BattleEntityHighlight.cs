@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Shapes;
+using DG.Tweening;
 
 public class BattleEntityHighlight : MonoBehaviour
 {
     [SerializeField] GameObject _highlightDiamondPrefab;
+    [SerializeField] GameObject _healEffectPrefab;
+
     BattleHighlightDiamond _highlightDiamond;
 
     BattleEntity _battleEntity;
@@ -14,7 +17,7 @@ public class BattleEntityHighlight : MonoBehaviour
     public void Initialize(BattleEntity battleEntity)
     {
         _battleEntity = battleEntity;
-        _battleEntity.OnDeath += (a, b, c) => DisableHighlightFully();
+        _battleEntity.OnDeath += (_, _) => DisableHighlightFully();
 
         InitializeDisc();
     }
@@ -58,6 +61,15 @@ public class BattleEntityHighlight : MonoBehaviour
     public void DisableHighlightFully()
     {
         _disc.gameObject.SetActive(false);
-        _highlightDiamond.Disable();
+        if (_highlightDiamond != null) _highlightDiamond.Disable();
+    }
+
+    public void HealEffect()
+    {
+        GameObject obj = Instantiate(_healEffectPrefab, transform.position, Quaternion.identity);
+        obj.transform.parent = _battleEntity.transform;
+        obj.transform.DOScale(0, 0.5f)
+                .SetDelay(2f)
+                .OnComplete(() => Destroy(obj));
     }
 }

@@ -7,8 +7,11 @@ public class BattleCreatureMelee : BattleCreature
     GameObject _hitInstance;
 
     protected override IEnumerator Attack()
-    {
+    {       
+        EntityLog.Add($"{Time.time}: Melee attack is called");
+
         while (!CanAttack()) yield return null;
+        _currentAttackCooldown = Creature.AttackCooldown;
 
         if (_hasSpecialAttack & CanUseSpecialAbility())
         {

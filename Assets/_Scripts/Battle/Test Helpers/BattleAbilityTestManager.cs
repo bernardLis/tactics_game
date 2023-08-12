@@ -85,8 +85,8 @@ public class BattleAbilityTestManager : MonoBehaviour
         GameObject instance = Instantiate(creature.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.InitializeEntity(creature);
-        be.OnDeath += (a, b, c) => StartCoroutine(SpawnCreature());
-        be.OnDeath += (a, b, c) => Destroy(be.gameObject, 2f);
+        be.OnDeath += (_, _) => StartCoroutine(SpawnCreature());
+        be.OnDeath += (_, _) => Destroy(be.gameObject, 2f);
         yield return new WaitForSeconds(0.1f);
         _battleManager.AddOpponentArmyEntity(be);
     }
