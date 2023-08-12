@@ -10,7 +10,7 @@ public class RFX4_DeactivateRigidbodyByTime : MonoBehaviour {
         var rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.detectCollisions = true;
-        Invoke("Deactivate", TimeDelayToDeactivate);
+        Invoke(nameof(Deactivate), TimeDelayToDeactivate);
     }
 
     void Deactivate()

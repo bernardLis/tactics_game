@@ -42,7 +42,7 @@ public class BattleWave : BaseScriptableObject
             Vector2Int minionLevelRange = new Vector2Int(1, 2);
             Vector2Int creatureLevelRange = new Vector2Int(1, 2);
 
-            Debug.Log($"group: difficulty {difficulty}, group number {i}, minions {numberOfMinions}, creatures {numberOfCreatures}, delay {DelayBetweenGroups}");
+            //  Debug.Log($"group: difficulty {difficulty}, group number {i}, minions {numberOfMinions}, creatures {numberOfCreatures}, delay {DelayBetweenGroups}");
 
             OpponentGroup group = ScriptableObject.CreateInstance<OpponentGroup>();
             group.CreateGroup(Element, numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);

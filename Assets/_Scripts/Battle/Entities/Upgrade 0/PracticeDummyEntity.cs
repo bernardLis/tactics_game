@@ -51,7 +51,7 @@ public class PracticeDummyEntity : BattleCreatureMelee
             }
         }
 
-        Invoke("CleanUp", 2f);
+        Invoke(nameof(CleanUp), 2f);
 
         yield return base.SpecialAbility();
 

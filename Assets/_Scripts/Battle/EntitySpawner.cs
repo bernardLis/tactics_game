@@ -71,7 +71,7 @@ public class EntitySpawner : MonoBehaviour
         }
 
         OnSpawnComplete?.Invoke(SpawnedEntities);
-        Invoke("DestroySelf", 1f);
+        Invoke(nameof(DestroySelf), 1f);
     }
 
     void SpawnEntity(Entity entity)

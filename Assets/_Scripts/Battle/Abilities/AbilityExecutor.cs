@@ -54,7 +54,7 @@ public class AbilityExecutor : MonoBehaviour
         yield return null;
     }
 
-    public void CancelAbility() { Invoke("DestroySelf", 0.1f); }
+    public void CancelAbility() { Invoke(nameof(DestroySelf), 0.1f); }
 
     public virtual void ClearAbilityHighlight()
     {

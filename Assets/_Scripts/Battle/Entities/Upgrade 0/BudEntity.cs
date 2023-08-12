@@ -26,7 +26,7 @@ public class BudEntity : BattleCreatureRanged
         Vector3 point = ClosestPositionWithClearLOS();
         transform.position = point;
 
-        Invoke("CleanUp", 2f);
+        Invoke(nameof(CleanUp), 2f);
 
         yield return base.SpecialAbility();
     }

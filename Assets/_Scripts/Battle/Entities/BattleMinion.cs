@@ -25,15 +25,9 @@ public class BattleMinion : BattleEntity
     protected override IEnumerator RunEntity()
     {
         if (IsDead) yield break;
-
-        _agent.enabled = true;
-        _agent.avoidancePriority = Random.Range(1, 100);
-
         Vector3 pos = _spire.transform.position;
         pos.y = transform.position.y;
-        while (!_agent.SetDestination(pos)) yield return null;
-        while (_agent.pathPending) yield return null;
-        
-        Animator.SetBool("Move", true);
+
+        yield return PathToPosition(pos);
     }
 }

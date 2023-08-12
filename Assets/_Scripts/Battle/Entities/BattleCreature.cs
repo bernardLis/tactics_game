@@ -98,16 +98,17 @@ public class BattleCreature : BattleEntity
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
 
+        // HERE: creature could be patrolling or sth
         if (Opponent == null)
         {
             StopRunEntityCoroutine();
-            Invoke("StartRunEntityCoroutine", Random.Range(0.5f, 2f));
+            Invoke(nameof(StartRunEntityCoroutine), Random.Range(0.5f, 2f));
             yield break;
         }
 
         if (_currentSecondaryCoroutine != null)
             StopCoroutine(_currentSecondaryCoroutine);
-        _currentSecondaryCoroutine = PathToTarget();
+        _currentSecondaryCoroutine = PathToOpponent();
         yield return _currentSecondaryCoroutine;
     }
 
@@ -127,24 +128,10 @@ public class BattleCreature : BattleEntity
         return true;
     }
 
-    protected override IEnumerator PathToTarget()
+    protected virtual IEnumerator PathToOpponent()
     {
-        EntityLog.Add($"{Time.time}: Path to target is called");
+        yield return PathToPosition(Opponent.transform.position);
 
-        if (_hasSpecialMove && CanUseSpecialAbility())
-        {
-            yield return ManageSpecialAbility();
-            yield break;
-        }
-
-        _agent.enabled = true;
-        _agent.avoidancePriority = Random.Range(1, 100);
-
-        while (Opponent != null && !_agent.SetDestination(Opponent.transform.position)) yield return null;
-        while (_agent.pathPending) yield return null;
-        Animator.SetBool("Move", true);
-
-        // path to target
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
             if (_hasSpecialAction && CanUseSpecialAbility())
@@ -154,13 +141,20 @@ public class BattleCreature : BattleEntity
             }
 
             _agent.SetDestination(Opponent.transform.position);
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
 
         // reached destination
         _agent.avoidancePriority = 0;
         Animator.SetBool("Move", false);
         _agent.enabled = false;
+    }
+
+    public override void Engage(BattleEntity engager)
+    {
+        base.Engage(engager);
+        Opponent = engager;
+        StartRunEntityCoroutine();
     }
 
     protected virtual IEnumerator Attack()

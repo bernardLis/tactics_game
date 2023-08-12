@@ -23,7 +23,7 @@ public class BattleSpireTestManager : MonoBehaviour
         b.CreateRandom(1);
         _gameManager.SelectedBattle = b;
 
-        Invoke("Initialize", 1f);
+        Invoke(nameof(Initialize), 1f);
     }
 
     void Initialize()

@@ -42,7 +42,7 @@ public class BombEntity : BattleCreatureRanged
             }
         }
 
-        Invoke("CleanUp", 2f);
+        Invoke(nameof(CleanUp), 2f);
 
         yield return base.Die(attacker, hasLoot);
     }

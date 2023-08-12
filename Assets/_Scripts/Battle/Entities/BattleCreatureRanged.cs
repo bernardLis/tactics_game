@@ -7,49 +7,22 @@ public class BattleCreatureRanged : BattleCreature
 {
     [SerializeField] protected GameObject _projectileSpawnPoint;
 
-    protected override IEnumerator PathToTarget()
+    protected override IEnumerator PathToOpponent()
     {
         // no obstacle blocking line of sight
         if (HasOpponentInSight())
         {
             _agent.stoppingDistance = Creature.AttackRange;
-            yield return base.PathToTarget();
-            yield break;
-        }
-
-        if (_hasSpecialMove && CanUseSpecialAbility())
-        {
-            yield return SpecialAbility();
-            StartCoroutine(ManagePathing());
+            yield return base.PathToOpponent();
             yield break;
         }
 
         Vector3 point = ClosestPositionWithClearLOS();
-
-        // path to that point
-        _agent.avoidancePriority = Random.Range(1, 100);
         _agent.stoppingDistance = 0;
-        _agent.enabled = true;
-        while (!_agent.SetDestination(point)) yield return null;
-        Animator.SetBool("Move", true);
-        while (_agent.pathPending) yield return null;
+        yield return PathToPosition(point);
 
-        // path to target
-        while (_agent.enabled && _agent.remainingDistance > 0.01f)
-        {
-            yield return new WaitForSeconds(0.1f);
-            if (!HasOpponentInSight())
-            {
-                yield return ManagePathing();
-                yield break;
-            }
-            // yield return PathToTarget();// <- could be used to refresh path if target moved
-        }
-
-        // reached destination
-        Animator.SetBool("Move", false);
-        _agent.enabled = false;
-        yield return ManagePathing();
+        yield return new WaitForSeconds(1f);
+        yield return PathToOpponent();
     }
 
     bool HasOpponentInSight()
@@ -58,7 +31,6 @@ public class BattleCreatureRanged : BattleCreature
         //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
         return !Physics.Linecast(transform.position, Opponent.transform.position,
                     out _, 1 << Tags.BattleObstacleLayer);
-
     }
 
     protected Vector3 ClosestPositionWithClearLOS()
@@ -103,7 +75,7 @@ public class BattleCreatureRanged : BattleCreature
     public Vector3 FindNearestPointOnLine(Vector3 origin, Vector3 end, Vector3 point)
     {
         //Get heading
-        Vector3 heading = (end - origin);
+        Vector3 heading = end - origin;
         float magnitudeMax = heading.magnitude;
         heading.Normalize();
 

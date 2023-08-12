@@ -6,8 +6,14 @@ public class BattleCreatureMelee : BattleCreature
 {
     GameObject _hitInstance;
 
+    protected override IEnumerator PathToOpponent()
+    {
+        yield return base.PathToOpponent();
+        Opponent.Engage(this); // otherwise, creature can't catch up
+    }
+
     protected override IEnumerator Attack()
-    {       
+    {
         EntityLog.Add($"{Time.time}: Melee attack is called");
 
         while (!CanAttack()) yield return null;
@@ -38,7 +44,7 @@ public class BattleCreatureMelee : BattleCreature
         _hitInstance.transform.parent = Opponent.transform;
 
         yield return Opponent.GetHit(this);
-        Invoke("DestroyHitInstance", 2f);
+        Invoke(nameof(DestroyHitInstance), 2f);
 
         yield return base.Attack();
     }

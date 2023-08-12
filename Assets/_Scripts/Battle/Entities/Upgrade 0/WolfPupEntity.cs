@@ -36,7 +36,7 @@ public class WolfPupEntity : BattleCreatureMelee
         }
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 
-        Invoke("CleanUp", 2f);
+        Invoke(nameof(CleanUp), 2f);
 
         yield return base.SpecialAbility();
     }

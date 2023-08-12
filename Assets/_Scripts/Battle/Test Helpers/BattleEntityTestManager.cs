@@ -13,8 +13,6 @@ public class BattleEntityTestManager : MonoBehaviour
 
     public List<string> _entityTestLog = new();
 
-    [Space(10)]
-    [SerializeField] TestType _testType;
 
     [Space(10)]
     [Header("Specific Armies")]
@@ -56,54 +54,52 @@ public class BattleEntityTestManager : MonoBehaviour
         Battle battle = ScriptableObject.CreateInstance<Battle>();
         battle.CreateRandom(1);
         gameManager.SelectedBattle = battle;
-
-
-
-        ResolveTestType();
     }
 
     void ResolveTestType()
     {
         _battleManager.ClearAllEntities();
 
-        if (_testType == TestType.SpecificTeams)
-        {
-            _entityTestLog.Add($"{Time.time}: Running Specific Teams Test ");
-            ResolveTeams(_teamACreatures, _teamBCreatures);
-        }
-        else if (_testType == TestType.OneCreatureVsAll)
-        {
-            _currentAllCreaturesIndex++;
-            if (_currentAllCreaturesIndex >= _allCreatures.Count)
-            {
-                _entityTestLog.Add($"{Time.time}: Finished One Creature Vs All Test.");
-                return;
-            }
+        /*
+                if (_testType == TestType.SpecificTeams)
+                {
+                    _entityTestLog.Add($"{Time.time}: Running Specific Teams Test ");
+                    ResolveTeams(_teamACreatures, _teamBCreatures);
+                }
+                else if (_testType == TestType.OneCreatureVsAll)
+                {
+                    _currentAllCreaturesIndex++;
+                    if (_currentAllCreaturesIndex >= _allCreatures.Count)
+                    {
+                        _entityTestLog.Add($"{Time.time}: Finished One Creature Vs All Test.");
+                        return;
+                    }
 
-            ResolveOneCreatureVsAll(_oneCreature);
-        }
-        else if (_testType == TestType.FullOneVOne)
-        {
-            _entityTestLog.Add($"{Time.time}: Running Full One Vs One Test. Index: {_currentAllCreaturesIndex}");
+                    ResolveOneCreatureVsAll(_oneCreature);
+                }
+                else if (_testType == TestType.FullOneVOne)
+                {
+                    _entityTestLog.Add($"{Time.time}: Running Full One Vs One Test. Index: {_currentAllCreaturesIndex}");
 
-            _currentAllCreaturesIndex++;
-            if (_currentAllCreaturesIndex >= _allCreatures.Count)
-            {
-                _currentFullOneVOneIndex++;
-                _currentAllCreaturesIndex = 0;
-            }
+                    _currentAllCreaturesIndex++;
+                    if (_currentAllCreaturesIndex >= _allCreatures.Count)
+                    {
+                        _currentFullOneVOneIndex++;
+                        _currentAllCreaturesIndex = 0;
+                    }
 
-            if (_currentFullOneVOneIndex >= _allCreatures.Count)
-            {
-                _entityTestLog.Add($"{Time.time}: Finished Full One Vs One Test.");
-                return;
-            }
+                    if (_currentFullOneVOneIndex >= _allCreatures.Count)
+                    {
+                        _entityTestLog.Add($"{Time.time}: Finished Full One Vs One Test.");
+                        return;
+                    }
 
-            List<Creature> teamA = new();
-            teamA.Add(_allCreatures[_currentFullOneVOneIndex]);
+                    List<Creature> teamA = new();
+                    teamA.Add(_allCreatures[_currentFullOneVOneIndex]);
 
-            ResolveOneCreatureVsAll(teamA);
-        }
+                    ResolveOneCreatureVsAll(teamA);
+                }
+                */
     }
 
     void ResolveOneCreatureVsAll(List<Creature> oneArmy)

@@ -32,7 +32,7 @@ public class Snakelet : BattleCreatureMelee
         _specialHitInstance.transform.parent = Opponent.transform;
         StartCoroutine(Opponent.GetPoisoned(this));
 
-        Invoke("CleanUp", 2f);
+        Invoke(nameof(CleanUp), 2f);
 
         yield return base.SpecialAbility();
     }

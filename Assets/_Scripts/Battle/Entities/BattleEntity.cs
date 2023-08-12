@@ -123,7 +123,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (!CanStartRunEntity())
         {
-            Invoke("StartRunEntityCoroutine", Random.Range(1f, 2f));
+            Invoke(nameof(StartRunEntityCoroutine), Random.Range(1f, 2f));
             return;
         }
 
@@ -166,9 +166,30 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         yield return null;
     }
 
-    protected virtual IEnumerator PathToTarget()
+    protected virtual IEnumerator PathToPosition(Vector3 position)
     {
-        yield return null;
+        EntityLog.Add($"{Time.time}: Path to destination is called {position}");
+
+        _agent.enabled = true;
+        _agent.avoidancePriority = Random.Range(1, 100);
+
+        while (!_agent.SetDestination(position)) yield return null;
+        while (_agent.pathPending) yield return null;
+
+        Animator.SetBool("Move", true);
+    }
+
+    public virtual void Engage(BattleEntity engager)
+    {
+        EntityLog.Add($"{Time.time}: Entity gets engaged by {engager.name}");
+        StopRunEntityCoroutine();
+        Invoke(nameof(Disengage), Random.Range(1.5f, 3f));
+    }
+
+    public virtual void Disengage()
+    {
+        EntityLog.Add($"{Time.time}: Entity disengages");
+        StartRunEntityCoroutine();
     }
 
     public bool HasFullHealth() { return CurrentHealth.Value >= Entity.MaxHealth.Value; }

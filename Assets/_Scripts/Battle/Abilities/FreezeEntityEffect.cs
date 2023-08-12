@@ -15,7 +15,7 @@ public class FreezeEntityEffect : MonoBehaviour
 
     public void SetDelays(float delay)
     {
-        Invoke("Run", delay);
+        Invoke(nameof(Run), delay);
     }
 
     void Run()
