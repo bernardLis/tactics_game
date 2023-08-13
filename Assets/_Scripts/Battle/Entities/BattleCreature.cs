@@ -103,7 +103,8 @@ public class BattleCreature : BattleEntity
         if (Opponent == null)
         {
             StopRunEntityCoroutine();
-            _battleManager.OnOpponentEntityAdded += OpponentWasAdded;
+            if (Team == 0) _battleManager.OnOpponentEntityAdded += OpponentWasAdded;
+            if (Team == 1) _battleManager.OnPlayerCreatureAdded += OpponentWasAdded;
             yield break;
         }
 
@@ -116,7 +117,8 @@ public class BattleCreature : BattleEntity
     void OpponentWasAdded(BattleEntity _)
     {
         StartRunEntityCoroutine();
-        _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+        if (Team == 0) _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+        if (Team == 1) _battleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
     }
 
     protected IEnumerator ManageAttackCoroutine()
@@ -291,7 +293,7 @@ public class BattleCreature : BattleEntity
     public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
     {
         yield return base.Die(attacker, hasLoot);
-        
+
         _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
 
         if (Team != 0) yield break;

@@ -121,7 +121,6 @@ public class BattleEntityTestManager : MonoBehaviour
         bMinions.clickable.clicked += () =>
         {
             int count = int.Parse(input.value);
-            Debug.Log($"click {count}");
 
             for (int i = 0; i < count; i++)
             {
