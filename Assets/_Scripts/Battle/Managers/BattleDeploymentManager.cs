@@ -114,6 +114,10 @@ public class BattleDeploymentManager : MonoBehaviour
         _posY = posY;
         ShowTooltip(tooltip);
         if (_deployedObjectInstance != null) Deploy();
+      
+        BattleGrabManager.Instance.OnPointerUp(default);
+        BattleAbilityManager.Instance.CancelAbility();
+        BattleManager.BlockBattleInput = true;
     }
 
     void ShowTooltip(string text)
@@ -162,6 +166,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
         _deployedObjectInstance = null;
         StopAllCoroutines();
+        BattleManager.BlockBattleInput = false;
     }
 
     void DeployArmy(EntitySpawner spawner)

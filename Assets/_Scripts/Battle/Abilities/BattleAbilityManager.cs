@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.AI;
 using DG.Tweening;
 
-public class BattleAbilityManager : MonoBehaviour
+public class BattleAbilityManager : Singleton<BattleAbilityManager>
 {
     const string _ussClassName = "battle__";
     const string _ussAbilityContainer = _ussClassName + "ability-container";
@@ -31,6 +31,7 @@ public class BattleAbilityManager : MonoBehaviour
     Hero _hero;
     List<AbilityButton> _abilityButtons = new();
 
+    bool _wasInitialized;
     public bool IsAbilitySelected { get; private set; }
 
     void Start()
@@ -47,6 +48,9 @@ public class BattleAbilityManager : MonoBehaviour
 
     public void Initialize(Hero hero)
     {
+        if (_wasInitialized) return;
+        _wasInitialized = true;
+
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
 
@@ -172,6 +176,7 @@ public class BattleAbilityManager : MonoBehaviour
 
     void HighlightAbilityArea(Ability ability, AbilityButton abilityButton)
     {
+        if (BattleManager.BlockBattleInput) return;
         if (_selectedAbility == ability) return;
         if (_selectedAbility != null) CancelAbility();
         if (_battleGrabManager.IsGrabbingEnabled) _battleGrabManager.CancelGrabbing();
@@ -223,7 +228,7 @@ public class BattleAbilityManager : MonoBehaviour
         CleanUp();
     }
 
-    void CancelAbility()
+    public void CancelAbility()
     {
         if (_abilityExecutor == null) return;
 

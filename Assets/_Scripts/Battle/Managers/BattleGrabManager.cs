@@ -73,6 +73,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void EnableGrabbing()
     {
+        if (BattleManager.BlockBattleInput) return;
         if (this == null) return;
         if (_grabButton == null) return;
         if (_grabButton.IsOnCooldown)
@@ -179,6 +180,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public bool IsGrabbingAllowed()
     {
+
         if (!_wasInitialized) return false;
         if (_abilityManager.IsAbilitySelected) return false;
         if (_grabbedObject != null) return false;

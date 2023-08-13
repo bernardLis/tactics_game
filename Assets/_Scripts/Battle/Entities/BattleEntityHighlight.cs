@@ -37,6 +37,7 @@ public class BattleEntityHighlight : MonoBehaviour
 
     void InitializeDiamond()
     {
+        if (_battleEntity == null) return;
         _highlightDiamond = Instantiate(_highlightDiamondPrefab, transform).GetComponent<BattleHighlightDiamond>();
         Bounds b = _battleEntity.GetComponentInChildren<SkinnedMeshRenderer>().bounds;
         float y = b.extents.y * 2;

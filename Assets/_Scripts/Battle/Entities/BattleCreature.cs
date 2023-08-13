@@ -103,7 +103,7 @@ public class BattleCreature : BattleEntity
         if (Opponent == null)
         {
             StopRunEntityCoroutine();
-            Invoke(nameof(StartRunEntityCoroutine), Random.Range(0.5f, 2f));
+            _battleManager.OnOpponentEntityAdded += OpponentWasAdded;
             yield break;
         }
 
@@ -111,6 +111,12 @@ public class BattleCreature : BattleEntity
             StopCoroutine(_currentSecondaryCoroutine);
         _currentSecondaryCoroutine = PathToOpponent();
         yield return _currentSecondaryCoroutine;
+    }
+
+    void OpponentWasAdded(BattleEntity _)
+    {
+        StartRunEntityCoroutine();
+        _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
     }
 
     protected IEnumerator ManageAttackCoroutine()

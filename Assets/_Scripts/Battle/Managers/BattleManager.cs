@@ -9,6 +9,8 @@ using DG.Tweening;
 
 public class BattleManager : Singleton<BattleManager>
 {
+    public static bool BlockBattleInput;
+     
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
