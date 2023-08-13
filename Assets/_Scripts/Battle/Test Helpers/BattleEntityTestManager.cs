@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class BattleEntityTestManager : MonoBehaviour
 {
+    GameManager _gameManager;
     BattleManager _battleManager;
 
     VisualElement _root;
@@ -42,6 +43,8 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void Start()
     {
+        _gameManager = GameManager.Instance;
+
         _root = GetComponent<UIDocument>().rootVisualElement;
         _buttonContainer = _root.Q<VisualElement>("buttonContainer");
 
@@ -110,36 +113,34 @@ public class BattleEntityTestManager : MonoBehaviour
         };
         _buttonContainer.Add(b);
 
+        /*MINIONS*/
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        TextField input = new() { value = "1" };
+        Button bMinions = new() { text = "Spawn Minions" };
+        bMinions.clickable.clicked += () =>
+        {
+            int count = int.Parse(input.value);
+            Debug.Log($"click {count}");
 
-        /*
-                Button b = new() { text = "Random Pair" };
-                b.clickable.clicked += () =>
-                {
-                    AddRandomCreature(0);
-                    AddRandomCreature(1);
-                };
-                _buttonContainer.Add(b);
+            for (int i = 0; i < count; i++)
+            {
+                Minion m = Instantiate(_gameManager.HeroDatabase.GetRandomMinion());
 
-                Button bLeft = new() { text = "Random Left" };
-                bLeft.clickable.clicked += () =>
-                {
-                    AddRandomCreature(0);
-                };
-                _buttonContainer.Add(bLeft);
-
-                Button bRight = new() { text = "Random Right" };
-                bRight.clickable.clicked += () =>
-                {
-                    AddRandomCreature(1);
-                };
-                _buttonContainer.Add(bRight);
-                */
+                m.InitializeBattle(null);
+                BattleEntity be = SpawnEntity(m, _teamBSpawnPoint.position);
+                _battleManager.AddOpponentArmyEntity(be);
+            }
+        };
+        container.Add(input);
+        container.Add(bMinions);
+        _buttonContainer.Add(container);
     }
 
     void AddCreature(Creature c, int team)
     {
         c.InitializeBattle(null);
-        BattleEntity be = SpawnCreature(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
+        BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
         if (team == 1)
@@ -150,7 +151,7 @@ public class BattleEntityTestManager : MonoBehaviour
     {
         Creature c = _allCreatures[Random.Range(0, _allCreatures.Count)];
         c.InitializeBattle(null);
-        BattleEntity be = SpawnCreature(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
+        BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
         if (team == 1)
@@ -219,13 +220,13 @@ public class BattleEntityTestManager : MonoBehaviour
 
         foreach (Creature c in teamACreatures)
         {
-            BattleEntity be = SpawnCreature(c, _teamASpawnPoint.position);
+            BattleEntity be = SpawnEntity(c, _teamASpawnPoint.position);
             _teamA.Add(be);
             be.OnDeath += OnTeamADeath;
         }
         foreach (Creature c in teamBCreatures)
         {
-            BattleEntity be = SpawnCreature(c, _teamBSpawnPoint.position);
+            BattleEntity be = SpawnEntity(c, _teamBSpawnPoint.position);
             _teamB.Add(be);
             be.OnDeath += OnTeamBDeath;
         }
@@ -245,12 +246,12 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager.AddOpponentArmyEntities(_teamB);
     }
 
-    BattleEntity SpawnCreature(Creature c, Vector3 spawnPos)
+    BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
     {
         Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
-        GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
+        GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(c);
+        be.InitializeEntity(entity);
         return be;
     }
 
