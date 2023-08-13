@@ -127,16 +127,16 @@ MonoBehaviour:
   BasePower: 25
   AttackRange: 4
   AttackCooldown: 4
-  CreatureAbility: {fileID: 11400000, guid: 6bf2ce3db22a5f348b009b6485deffd1, type: 2}
+  CreatureAbility: {fileID: 0}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
   EvolvedCreature: {fileID: 0}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  OldKillCount: 10
-  TotalKillCount: 69
-  OldDamageDealt: 540
-  TotalDamageDealt: 3601
-  OldDamageTaken: 0
-  TotalDamageTaken: 54
+  OldKillCount: 73
+  TotalKillCount: 73
+  OldDamageDealt: 4060
+  TotalDamageDealt: 4060
+  OldDamageTaken: 2297
+  TotalDamageTaken: 2297

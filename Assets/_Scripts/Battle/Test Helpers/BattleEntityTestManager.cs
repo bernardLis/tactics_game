@@ -149,7 +149,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddRandomCreature(int team)
     {
-        Creature c = _allCreatures[Random.Range(0, _allCreatures.Count)];
+        Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
         c.InitializeBattle(null);
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)

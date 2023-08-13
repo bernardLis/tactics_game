@@ -171,8 +171,20 @@ public class BattleCreature : BattleEntity
     {
         EntityLog.Add($"{Time.time}: Entity attacked {Opponent.name}");
 
-        // meant to be overwritten
-        yield break;
+        while (!CanAttack()) yield return null;
+        _currentAttackCooldown = Creature.AttackCooldown;
+
+        if (!IsOpponentInRange())
+        {
+            StartRunEntityCoroutine();
+            yield break;
+        }
+
+        if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
+        transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
+        Animator.SetTrigger("Attack");
+
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
     }
 
     protected virtual IEnumerator SpecialAbility()
@@ -279,6 +291,8 @@ public class BattleCreature : BattleEntity
     public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
     {
         yield return base.Die(attacker, hasLoot);
+        
+        _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
 
         if (Team != 0) yield break;
         GameObject g = Instantiate(_gravePrefab, transform.position, Quaternion.identity);

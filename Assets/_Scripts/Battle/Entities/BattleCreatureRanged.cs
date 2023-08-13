@@ -88,34 +88,12 @@ public class BattleCreatureRanged : BattleCreature
 
     protected override IEnumerator Attack()
     {
-        EntityLog.Add($"{Time.time}: Ranged attack is called");
+        yield return base.Attack();
 
-        while (!CanAttack()) yield return null;
-        _currentAttackCooldown = Creature.AttackCooldown;
-
-        if (_hasSpecialAttack & CanUseSpecialAbility())
-        {
-            yield return SpecialAbility();
-            yield return base.Attack();
-            yield break;
-        }
-
-        if (!IsOpponentInRange())
-        {
-            StartRunEntityCoroutine();
-            yield break;
-        }
-
-        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
-        Animator.SetTrigger("Attack");
-
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
 
         projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
-
-        yield return base.Attack();
     }
 
 }

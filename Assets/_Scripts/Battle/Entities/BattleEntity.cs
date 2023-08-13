@@ -139,6 +139,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     bool CanStartRunEntity()
     {
+        if (this == null) return false;
         if (_blockRunEntity) return false;
         if (!isActiveAndEnabled) return false;
         if (_isGrabbed) return false;
