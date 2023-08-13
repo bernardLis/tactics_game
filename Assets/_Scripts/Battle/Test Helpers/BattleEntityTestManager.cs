@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using TMPro;
 using Random = UnityEngine.Random;
-#if (UNITY_EDITOR) 
+#if (UNITY_EDITOR)
 
 public class BattleEntityTestManager : MonoBehaviour
 {
@@ -75,27 +75,75 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddButtons()
     {
-        Button b = new() { text = "Random Pair" };
+        List<string> choices = new()
+        {
+            "Random",
+            "-----"
+        };
+        choices.AddRange(_allCreatures.ConvertAll(x => x.Name));
+        var dropDownLeft = new DropdownField("Left Creature", choices, 0);
+        var dropDownRight = new DropdownField("Right Creature", choices, 0);
+        _buttonContainer.Add(dropDownLeft);
+        _buttonContainer.Add(dropDownRight);
+
+        Button b = new() { text = "Spawn" };
         b.clickable.clicked += () =>
         {
-            AddRandomCreature(0);
-            AddRandomCreature(1);
+            if (dropDownLeft.value == "Random")
+                AddRandomCreature(0);
+            if (dropDownRight.value == "Random")
+                AddRandomCreature(1);
+
+            // try to get creature from string name
+            Creature cLeft = _allCreatures.Find(x => x.Name == dropDownLeft.value);
+            if (cLeft != null)
+            {
+                Creature instance = Instantiate(cLeft);
+                AddCreature(instance, 0);
+            }
+            Creature cRight = _allCreatures.Find(x => x.Name == dropDownRight.value);
+            if (cRight != null)
+            {
+                Creature instance = Instantiate(cRight);
+                AddCreature(instance, 1);
+            }
         };
         _buttonContainer.Add(b);
 
-        Button bLeft = new() { text = "Random Left" };
-        bLeft.clickable.clicked += () =>
-        {
-            AddRandomCreature(0);
-        };
-        _buttonContainer.Add(bLeft);
 
-        Button bRight = new() { text = "Random Right" };
-        bRight.clickable.clicked += () =>
-        {
-            AddRandomCreature(1);
-        };
-        _buttonContainer.Add(bRight);
+        /*
+                Button b = new() { text = "Random Pair" };
+                b.clickable.clicked += () =>
+                {
+                    AddRandomCreature(0);
+                    AddRandomCreature(1);
+                };
+                _buttonContainer.Add(b);
+
+                Button bLeft = new() { text = "Random Left" };
+                bLeft.clickable.clicked += () =>
+                {
+                    AddRandomCreature(0);
+                };
+                _buttonContainer.Add(bLeft);
+
+                Button bRight = new() { text = "Random Right" };
+                bRight.clickable.clicked += () =>
+                {
+                    AddRandomCreature(1);
+                };
+                _buttonContainer.Add(bRight);
+                */
+    }
+
+    void AddCreature(Creature c, int team)
+    {
+        c.InitializeBattle(null);
+        BattleEntity be = SpawnCreature(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
+        if (team == 0)
+            _battleManager.AddPlayerArmyEntity(be);
+        if (team == 1)
+            _battleManager.AddOpponentArmyEntity(be);
     }
 
     void AddRandomCreature(int team)
@@ -107,7 +155,6 @@ public class BattleEntityTestManager : MonoBehaviour
             _battleManager.AddPlayerArmyEntity(be);
         if (team == 1)
             _battleManager.AddOpponentArmyEntity(be);
-
     }
 
     void ResolveTestType()

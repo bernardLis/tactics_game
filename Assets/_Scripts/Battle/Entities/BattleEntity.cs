@@ -416,6 +416,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void TurnHighlightOn(Color c = default)
     {
+        if (IsDead) return;
         if (_battleEntityHighlight == null) return;
         if (c == default) c = GetHighlightColor();
 

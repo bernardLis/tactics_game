@@ -43,7 +43,6 @@ public class BattleEntityHighlight : MonoBehaviour
 
         _highlightDiamond.Initialize(new Vector3(0, y, 0));
         _highlightDiamond.Disable();
-        _highlightDiamond.Enable(Color.cyan);
     }
 
     public void Highlight(Color c)
