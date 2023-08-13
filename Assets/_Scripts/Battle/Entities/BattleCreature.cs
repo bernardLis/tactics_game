@@ -75,6 +75,7 @@ public class BattleCreature : BattleEntity
         while (true)
         {
             if (IsDead) yield break;
+            yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
             yield return ManageSpecialAbility();
             yield return ManagePathing();
             yield return ManageAttackCoroutine();
@@ -152,7 +153,10 @@ public class BattleCreature : BattleEntity
 
     public override void Engage(BattleEntity engager)
     {
-        base.Engage(engager);
+        if (_isEngaged) return;
+        _isEngaged = true;
+
+        EntityLog.Add($"{Time.time}: Creature gets engaged by {engager.name}");
         Opponent = engager;
         StartRunEntityCoroutine();
     }

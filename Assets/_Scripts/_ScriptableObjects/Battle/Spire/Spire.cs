@@ -34,10 +34,10 @@ public class Spire : BaseScriptableObject
         }
     }
 
-    public void InitializeBattle()
+    public void InitializeBattle(Vector3 spirePos)
     {
         if (_gameManager == null) _gameManager = GameManager.Instance;
 
-        SpireGameObject = Instantiate(_gameManager.GameDatabase.BaseGameObject, Vector3.zero, Quaternion.identity);
+        SpireGameObject = Instantiate(_gameManager.GameDatabase.BaseGameObject, spirePos, Quaternion.identity);
     }
 }

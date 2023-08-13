@@ -46,6 +46,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected NavMeshAgent _agent;
 
     [HideInInspector] public bool IsShielded;
+    protected bool _isEngaged;
     bool _isPoisoned;
 
     bool _isGrabbed;
@@ -72,6 +73,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void InitializeEntity(Entity entity)
     {
+        EntityLog.Add($"{Time.time}: Entity is spawned");
+
         Entity = entity;
 
         _battleEntityShaders = GetComponent<ObjectShaders>();
@@ -85,7 +88,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _agent.enabled = false;
 
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
-        EntityLog.Add($"{Time.time}: Entity is spawned");
 
         SetStats();
     }
@@ -100,6 +102,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
+        EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
+
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         _grabManager = BattleGrabManager.Instance;
@@ -108,7 +112,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         Team = team;
         _battleEntityHighlight.Initialize(this);
-        EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
         SetBattleId();
     }
 
@@ -168,7 +171,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected virtual IEnumerator PathToPosition(Vector3 position)
     {
-        EntityLog.Add($"{Time.time}: Path to destination is called {position}");
+        EntityLog.Add($"{Time.time}: Path to position is called {position}");
 
         _agent.enabled = true;
         _agent.avoidancePriority = Random.Range(1, 100);
@@ -181,13 +184,17 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void Engage(BattleEntity engager)
     {
+        if (_isEngaged) return;
+        _isEngaged = true;
+
         EntityLog.Add($"{Time.time}: Entity gets engaged by {engager.name}");
         StopRunEntityCoroutine();
-        Invoke(nameof(Disengage), Random.Range(1.5f, 3f));
+        Invoke(nameof(Disengage), Random.Range(2f, 4f));
     }
 
     public virtual void Disengage()
     {
+        _isEngaged = false;
         EntityLog.Add($"{Time.time}: Entity disengages");
         StartRunEntityCoroutine();
     }

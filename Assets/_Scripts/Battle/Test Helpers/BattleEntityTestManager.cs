@@ -66,7 +66,7 @@ public class BattleEntityTestManager : MonoBehaviour
     IEnumerator LateInitialize(Hero h)
     {
         yield return new WaitForSeconds(0.5f);
-        _battleManager.Initialize(h);
+        _battleManager.Initialize(h, new Vector3(-60f, 0, 60f));
         _battleManager.GetComponent<BattleGrabManager>().Initialize();
         _battleManager.GetComponent<BattleAbilityManager>().Initialize(h);
 
@@ -200,7 +200,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
     BattleEntity SpawnCreature(Creature c, Vector3 spawnPos)
     {
-        Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+        Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(c.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.InitializeEntity(c);

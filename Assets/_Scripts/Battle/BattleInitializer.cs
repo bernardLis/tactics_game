@@ -40,7 +40,7 @@ public class BattleInitializer : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        _battleManager.Initialize(_playerHero);
+        _battleManager.Initialize(_playerHero, Vector3.zero);
         GetComponent<BattleWaveManager>().Initialize();
 
         yield return new WaitForSeconds(2f);

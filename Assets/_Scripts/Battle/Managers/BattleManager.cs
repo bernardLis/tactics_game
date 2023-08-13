@@ -110,7 +110,7 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
-    public void Initialize(Hero playerHero)
+    public void Initialize(Hero playerHero, Vector3 spirePos = default)
     {
         BattleFinalized = false;
 
@@ -125,7 +125,7 @@ public class BattleManager : Singleton<BattleManager>
         StartCoroutine(UpdateTimer());
 
         Spire = _gameManager.SelectedBattle.Spire;
-        Spire.InitializeBattle();
+        Spire.InitializeBattle(spirePos);
 
         OnBattleInitialized?.Invoke();
     }
