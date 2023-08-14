@@ -12,7 +12,6 @@ public class BattleCreatureRanged : BattleCreature
         // no obstacle blocking line of sight
         if (HasOpponentInSight())
         {
-            _agent.stoppingDistance = Creature.AttackRange;
             yield return base.PathToOpponent();
             yield break;
         }
@@ -95,5 +94,4 @@ public class BattleCreatureRanged : BattleCreature
 
         projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
     }
-
 }

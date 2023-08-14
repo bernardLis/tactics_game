@@ -141,14 +141,9 @@ public class BattleCreature : BattleEntity
     {
         yield return PathToPosition(Opponent.transform.position);
 
+        _agent.stoppingDistance = Creature.AttackRange;
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
-            if (_hasSpecialAction && CanUseSpecialAbility())
-            {
-                yield return ManageSpecialAbility();
-                yield break;
-            }
-
             _agent.SetDestination(Opponent.transform.position);
             yield return new WaitForSeconds(0.1f);
         }

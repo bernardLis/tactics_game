@@ -30,7 +30,6 @@ public class Entity : BaseScriptableObject
         if (hero != null) Hero = hero;
         MaxHealth = ScriptableObject.CreateInstance<IntVariable>();
         MaxHealth.SetValue(GetMaxHealth());
-
     }
 
     // TODO: math
@@ -39,8 +38,6 @@ public class Entity : BaseScriptableObject
     public virtual int CalculateDamage(BattleCreature attacker)
     {
         float damage = attacker.Creature.GetPower();
-        if (attacker.Entity.Hero != null)
-            damage += attacker.Entity.Hero.Power.GetValue();
 
         damage *= GetElementalDamageMultiplier(attacker.Entity.Element);
 
