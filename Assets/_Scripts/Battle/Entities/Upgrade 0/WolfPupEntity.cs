@@ -23,7 +23,10 @@ public class WolfPupEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
-        transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
+        yield return base.CreatureAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
+
+        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y).WaitForCompletion();
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -45,9 +48,7 @@ public class WolfPupEntity : BattleCreatureMelee
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 
         Invoke(nameof(CleanUp), 2f);
-        _currentAttackCooldown = Creature.AttackCooldown;
 
-        yield return base.CreatureAbility();
     }
 
     void CleanUp()

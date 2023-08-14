@@ -19,6 +19,10 @@ public class Snakelet : BattleCreatureMelee
     {
         if (!IsOpponentInRange())
             yield break;
+            
+        yield return base.CreatureAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
+
 
         transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
@@ -30,9 +34,7 @@ public class Snakelet : BattleCreatureMelee
         StartCoroutine(Opponent.GetPoisoned(this));
 
         Invoke(nameof(CleanUp), 2f);
-        _currentAttackCooldown = Creature.AttackCooldown;
 
-        yield return base.CreatureAbility();
     }
 
     void CleanUp()

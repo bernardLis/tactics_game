@@ -23,6 +23,9 @@ public class PracticeDummyEntity : BattleCreatureMelee
         if (!IsOpponentInRange())
             yield break;
 
+        yield return base.CreatureAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
+
         transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -50,7 +53,6 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
         Invoke(nameof(CleanUp), 2f);
 
-        yield return base.CreatureAbility();
 
     }
 

@@ -9,14 +9,16 @@ public class MetalonEntity : BattleCreatureMelee
 
     protected override IEnumerator Attack()
     {
-        yield return CreatureAbility();
+        yield return ManageCreatureAbility();
         yield return base.Attack();
     }
 
     protected override IEnumerator CreatureAbility()
     {
-        if (!IsOpponentInRange())
-            yield break;
+        if (!IsOpponentInRange()) yield break;
+
+        yield return base.CreatureAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -26,7 +28,7 @@ public class MetalonEntity : BattleCreatureMelee
         Collider[] colliders = Physics.OverlapSphere(transform.position, _specialEffectRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
+            if (collider.TryGetComponent(out BattleEntity entity))
             {
                 if (entity.Team == Team) continue;
                 if (entity.IsDead) continue;
@@ -40,9 +42,6 @@ public class MetalonEntity : BattleCreatureMelee
             }
         }
 
-        _currentAttackCooldown = Creature.AttackCooldown;
-
-        yield return base.CreatureAbility();
     }
 
 }

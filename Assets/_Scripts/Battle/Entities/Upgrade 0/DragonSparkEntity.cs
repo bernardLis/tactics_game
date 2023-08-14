@@ -19,6 +19,9 @@ public class DragonSparkEntity : BattleCreatureRanged
         if (!IsOpponentInRange())
             yield break;
 
+        yield return base.CreatureAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
+
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
 
         if (_creatureAbilitySound != null)
@@ -30,7 +33,5 @@ public class DragonSparkEntity : BattleCreatureRanged
         projectileInstance.transform.parent = _GFX.transform;
         projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
 
-        _currentAttackCooldown = Creature.AttackCooldown;
-        yield return base.CreatureAbility();
     }
 }

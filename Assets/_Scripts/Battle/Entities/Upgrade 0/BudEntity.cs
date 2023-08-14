@@ -16,6 +16,8 @@ public class BudEntity : BattleCreatureRanged
 
     protected override IEnumerator CreatureAbility()
     {
+        yield return base.CreatureAbility();
+
         // teleport
         if (_creatureAbilitySound != null)
             _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
@@ -31,7 +33,6 @@ public class BudEntity : BattleCreatureRanged
 
         Invoke(nameof(CleanUp), 2f);
 
-        yield return base.CreatureAbility();
     }
 
     void CleanUp()

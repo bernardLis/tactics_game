@@ -32,11 +32,10 @@ public class ShellEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
+        yield return base.CreatureAbility();
+
         if (IsShielded)
-        {
-            yield return base.CreatureAbility();
             yield break;
-        }
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -48,7 +47,6 @@ public class ShellEntity : BattleCreatureMelee
 
         IsShielded = true;
 
-        yield return base.CreatureAbility();
     }
 
     public override IEnumerator GetHit(Ability ability)

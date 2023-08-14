@@ -23,6 +23,8 @@ public class SunBlossomEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
+        yield return base.CreatureAbility();
+
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
@@ -44,6 +46,5 @@ public class SunBlossomEntity : BattleCreatureMelee
         _healEffectInstance = Instantiate(_healEffect, transform.position, Quaternion.identity);
         _healEffectInstance.transform.parent = _GFX.transform;
 
-        yield return base.CreatureAbility();
     }
 }

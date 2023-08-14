@@ -162,10 +162,8 @@ public class BattleCreature : BattleEntity
         EntityLog.Add($"{Time.time}: Entity attacked {Opponent.name}");
 
         while (!CanAttack()) yield return null;
+        if (!IsOpponentInRange()) yield break;
         _currentAttackCooldown = Creature.AttackCooldown;
-
-        if (!IsOpponentInRange())
-            yield break;
 
         if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
@@ -176,14 +174,14 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator CreatureAbility()
     {
-        EntityLog.Add($"{Time.time}: Entity used ability");
+        EntityLog.Add($"{Time.time}: Entity uses ability");
+
+        Creature.CreatureAbility.Used();
+        CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
+        yield return null;
 
         // meant to be overwritten
 
-        // it goes at the end... is that a good idea?
-        Creature.CreatureAbility.Used();
-        CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
-        yield break;
     }
 
     protected bool CanAttack()
