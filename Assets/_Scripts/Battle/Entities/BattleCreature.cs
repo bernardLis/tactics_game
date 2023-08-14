@@ -9,7 +9,7 @@ using DG.Tweening;
 public class BattleCreature : BattleEntity
 {
     [SerializeField] protected Sound _attackSound;
-    [SerializeField] protected Sound _specialAbilitySound;
+    [SerializeField] protected Sound _creatureAbilitySound;
 
     [SerializeField] GameObject _gravePrefab;
 
@@ -20,16 +20,11 @@ public class BattleCreature : BattleEntity
     public BattleEntity Opponent { get; private set; }
 
     protected float _currentAttackCooldown;
-    public float CurrentSpecialAbilityCooldown { get; private set; }
+    public float CurrentAbilityCooldown { get; private set; }
 
-    public int KilledEnemiesCount { get; private set; }
     public int DamageDealt { get; private set; }
 
-    protected bool _hasSpecialAction; // e.g. Shell's shield, can be fired at "any time"
-    protected bool _hasSpecialMove;
-    protected bool _hasSpecialAttack;
-
-    public event Action<int> OnEnemyKilled;
+    public event Action OnEnemyKilled;
     public event Action<int> OnDamageDealt;
     public event Action<BattleCreature> OnEvolving;
     protected virtual void Start() { }
@@ -38,8 +33,8 @@ public class BattleCreature : BattleEntity
     {
         if (_currentAttackCooldown >= 0)
             _currentAttackCooldown -= Time.deltaTime;
-        if (CurrentSpecialAbilityCooldown >= 0)
-            CurrentSpecialAbilityCooldown -= Time.deltaTime;
+        if (CurrentAbilityCooldown >= 0)
+            CurrentAbilityCooldown -= Time.deltaTime;
     }
 
     public override void InitializeEntity(Entity entity)
@@ -61,7 +56,7 @@ public class BattleCreature : BattleEntity
         _opponentList = opponents;
 
         _currentAttackCooldown = 0;
-        CurrentSpecialAbilityCooldown = 0;
+        CurrentAbilityCooldown = 0;
 
         StartRunEntityCoroutine();
 
@@ -76,21 +71,26 @@ public class BattleCreature : BattleEntity
         {
             if (IsDead) yield break;
             yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
-            yield return ManageSpecialAbility();
             yield return ManagePathing();
             yield return ManageAttackCoroutine();
         }
     }
 
-    protected virtual IEnumerator ManageSpecialAbility()
+    protected virtual IEnumerator ManageCreatureAbility()
     {
-        if (!_hasSpecialAction) yield break;
-        if (!CanUseSpecialAbility()) yield break;
+        if (!CanUseAbility()) yield break;
 
-        if (_currentSpecialAbilityCoroutine != null)
-            StopCoroutine(_currentSpecialAbilityCoroutine);
-        _currentSpecialAbilityCoroutine = SpecialAbility();
-        yield return _currentSpecialAbilityCoroutine;
+        if (_currentAbilityCoroutine != null)
+            StopCoroutine(_currentAbilityCoroutine);
+        _currentAbilityCoroutine = CreatureAbility();
+        yield return _currentAbilityCoroutine;
+    }
+
+    protected bool CanUseAbility()
+    {
+        if (!Creature.CanUseAbility()) return false;
+        if (CurrentAbilityCooldown > 0) return false;
+        return true;
     }
 
     protected IEnumerator ManagePathing()
@@ -129,13 +129,6 @@ public class BattleCreature : BattleEntity
         yield return _currentSecondaryCoroutine;
     }
 
-    protected bool CanUseSpecialAbility()
-    {
-        if (Creature.CreatureAbility == null) return false;
-        if (CurrentSpecialAbilityCooldown > 0) return false;
-        if (!Creature.IsAbilityUnlocked()) return false;
-        return true;
-    }
 
     protected virtual IEnumerator PathToOpponent()
     {
@@ -172,27 +165,24 @@ public class BattleCreature : BattleEntity
         _currentAttackCooldown = Creature.AttackCooldown;
 
         if (!IsOpponentInRange())
-        {
-            StartRunEntityCoroutine();
             yield break;
-        }
 
         if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
-        transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
+        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Attack");
 
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
     }
 
-    protected virtual IEnumerator SpecialAbility()
+    protected virtual IEnumerator CreatureAbility()
     {
-        EntityLog.Add($"{Time.time}: Entity used special ability");
+        EntityLog.Add($"{Time.time}: Entity used ability");
 
         // meant to be overwritten
 
         // it goes at the end... is that a good idea?
         Creature.CreatureAbility.Used();
-        CurrentSpecialAbilityCooldown = Creature.CreatureAbility.Cooldown;
+        CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
         yield break;
     }
 
@@ -281,8 +271,7 @@ public class BattleCreature : BattleEntity
 
     public void IncreaseKillCount()
     {
-        KilledEnemiesCount++;
-        OnEnemyKilled?.Invoke(KilledEnemiesCount);
+        OnEnemyKilled?.Invoke();
     }
 
     public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
@@ -336,10 +325,10 @@ public class BattleCreature : BattleEntity
         Evolve();
     }
 
-    [ContextMenu("Trigger Special Ability")]
-    public void TriggerSpecialAction()
+    [ContextMenu("Trigger Ability")]
+    public void TriggerAbility()
     {
-        StartCoroutine(SpecialAbility());
+        StartCoroutine(CreatureAbility());
     }
 
     [ContextMenu("Trigger Death")]

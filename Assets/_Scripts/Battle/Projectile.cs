@@ -19,6 +19,7 @@ public class Projectile : MonoBehaviour
     protected BattleCreature _shooterCreature;
     protected BattleEntity _target;
 
+    bool _hitConnected;
     public void Shoot(BattleCreature shooter, BattleEntity target, float power)
     {
         _audioManager = AudioManager.Instance;
@@ -52,7 +53,7 @@ public class Projectile : MonoBehaviour
         Vector3 destination = startingPos + dir * range;
 
         float t = 0;
-        float step = (_speed / range) * Time.fixedDeltaTime;
+        float step = _speed / range * Time.fixedDeltaTime;
 
         while (t <= 1.0f)
         {
@@ -67,6 +68,7 @@ public class Projectile : MonoBehaviour
 
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
+
         if (_shooterCreature != null) StartCoroutine(target.GetHit(_shooterCreature));
         if (_shooterTurret != null) StartCoroutine(target.GetHit(_shooterTurret));
 
@@ -75,8 +77,11 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (_hitConnected) return;
+
         if (collision.gameObject.layer == Tags.BattleObstacleLayer)
         {
+            _hitConnected = true;
             StopAllCoroutines();
             StartCoroutine(DestroySelf(transform.position));
             return;
@@ -86,6 +91,7 @@ public class Projectile : MonoBehaviour
         {
             if (!IsTargetValid(battleEntity)) return;
 
+            _hitConnected = true;
             StopAllCoroutines();
             StartCoroutine(HitTarget(battleEntity));
             return;

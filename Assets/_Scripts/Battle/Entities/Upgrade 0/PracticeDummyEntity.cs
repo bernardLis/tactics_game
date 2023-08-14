@@ -12,25 +12,22 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
     List<GameObject> _hitInstances = new();
 
-    protected override void Start()
+    protected override IEnumerator Attack()
     {
-        _hasSpecialAttack = true;
-        base.Start();
+        yield return ManageCreatureAbility();
+        yield return base.Attack();
     }
 
-    protected override IEnumerator SpecialAbility()
+    protected override IEnumerator CreatureAbility()
     {
         if (!IsOpponentInRange())
-        {
-            StartRunEntityCoroutine();
             yield break;
-        }
 
         transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         _specialEffectInstance = Instantiate(_specialEffect, transform.position, Quaternion.identity);
         _specialEffectInstance.transform.parent = _GFX.transform;
@@ -53,7 +50,7 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
         Invoke(nameof(CleanUp), 2f);
 
-        yield return base.SpecialAbility();
+        yield return base.CreatureAbility();
 
     }
 

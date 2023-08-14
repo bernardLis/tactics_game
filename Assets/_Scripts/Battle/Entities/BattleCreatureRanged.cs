@@ -91,7 +91,6 @@ public class BattleCreatureRanged : BattleCreature
 
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
-
         projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
     }
 }

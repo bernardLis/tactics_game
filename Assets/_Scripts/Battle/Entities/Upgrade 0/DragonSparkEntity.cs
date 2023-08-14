@@ -7,23 +7,22 @@ public class DragonSparkEntity : BattleCreatureRanged
 {
     [SerializeField] GameObject _specialProjectile;
 
-    protected override void Start()
+    protected override IEnumerator Attack()
     {
-        _hasSpecialAttack = true;
-        base.Start();
+        yield return ManageCreatureAbility();
+        yield return base.Attack();
     }
 
-    protected override IEnumerator SpecialAbility()
+    protected override IEnumerator CreatureAbility()
     {
+        Debug.Log($"ability");
         if (!IsOpponentInRange())
-        {
-            StartRunEntityCoroutine();
             yield break;
-        }
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
 
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        if (_creatureAbilitySound != null)
+            _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.5f);
@@ -31,6 +30,7 @@ public class DragonSparkEntity : BattleCreatureRanged
         projectileInstance.transform.parent = _GFX.transform;
         projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
 
-        yield return base.SpecialAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
+        yield return base.CreatureAbility();
     }
 }

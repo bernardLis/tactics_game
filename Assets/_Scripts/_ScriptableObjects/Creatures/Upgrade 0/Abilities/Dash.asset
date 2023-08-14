@@ -16,4 +16,4 @@ MonoBehaviour:
   Description: Dash to opponent. If already close, jump behind opponent.
   Icon: {fileID: 21300000, guid: d9bd3c9352ed03f45a39e5034bc31be9, type: 3}
   Cooldown: 10
-  UnlockLevel: 6
+  UnlockLevel: 1

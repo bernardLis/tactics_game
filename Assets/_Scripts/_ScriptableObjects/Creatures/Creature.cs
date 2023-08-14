@@ -75,7 +75,7 @@ public class Creature : Entity
 
     public int GetPower() { return Mathf.RoundToInt(BasePower + 0.1f * BasePower * (Level - 1)); }
 
-    public void AddKill(int ignored) { TotalKillCount++; }
+    public void AddKill() { TotalKillCount++; }
     public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }
     public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
 
@@ -117,6 +117,12 @@ public class Creature : Entity
 
     public bool IsAbilityUnlocked() { return Level >= CreatureAbility.UnlockLevel; }
 
+    public bool CanUseAbility()
+    {
+        if (CreatureAbility == null) return false;
+        return IsAbilityUnlocked();
+    }
+
     public bool ShouldEvolve()
     {
         return Random.value < ChanceToEvolve(Level);
@@ -133,15 +139,17 @@ public class Creature : Entity
 
     public CreatureData SerializeSelf()
     {
-        CreatureData data = new();
-        data.CreatureId = Id;
+        CreatureData data = new()
+        {
+            CreatureId = Id,
 
-        data.Name = Name;
-        data.Level = Level;
+            Name = Name,
+            Level = Level,
 
-        data.KillCount = TotalKillCount;
-        data.DamageDealt = TotalDamageDealt;
-        data.DamageTaken = TotalDamageTaken;
+            KillCount = TotalKillCount,
+            DamageDealt = TotalDamageDealt,
+            DamageTaken = TotalDamageTaken
+        };
 
         return data;
     }

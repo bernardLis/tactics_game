@@ -8,13 +8,20 @@ public class SunBlossomEntity : BattleCreatureMelee
     [SerializeField] GameObject _healEffect;
     GameObject _healEffectInstance;
 
-    protected override void Start()
+    //TODO: I'd prefer if it used its ability whenever it is off cooldown, it is not shielded and ability is available
+    protected override IEnumerator Attack()
     {
-        _hasSpecialAction = true;
-        base.Start();
+        yield return ManageCreatureAbility();
+        yield return base.Attack();
     }
 
-    protected override IEnumerator SpecialAbility()
+    protected override IEnumerator PathToOpponent()
+    {
+        yield return ManageCreatureAbility();
+        yield return base.PathToOpponent();
+    }
+
+    protected override IEnumerator CreatureAbility()
     {
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -32,11 +39,11 @@ public class SunBlossomEntity : BattleCreatureMelee
         if (!hasHealed)
             GetHealed(20); // TODO: hardcoded value
 
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         _healEffectInstance = Instantiate(_healEffect, transform.position, Quaternion.identity);
         _healEffectInstance.transform.parent = _GFX.transform;
 
-        yield return base.SpecialAbility();
+        yield return base.CreatureAbility();
     }
 }

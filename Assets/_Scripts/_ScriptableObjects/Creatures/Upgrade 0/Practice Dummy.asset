@@ -107,7 +107,7 @@ MonoBehaviour:
   BasePower: 15
   AttackRange: 3
   AttackCooldown: 1.5
-  CreatureAbility: {fileID: 0}
+  CreatureAbility: {fileID: 11400000, guid: 2a9160e333046f74a9b7a6e8050c5c71, type: 2}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
   EvolvedCreature: {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}

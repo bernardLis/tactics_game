@@ -9,38 +9,35 @@ public class Snakelet : BattleCreatureMelee
     [SerializeField] GameObject _specialHit;
     GameObject _specialHitInstance;
 
-    protected override void Start()
+    protected override IEnumerator Attack()
     {
-        _hasSpecialAttack = true;
-        base.Start();
+        yield return ManageCreatureAbility();
+        yield return base.Attack();
     }
 
-    protected override IEnumerator SpecialAbility()
+    protected override IEnumerator CreatureAbility()
     {
         if (!IsOpponentInRange())
-        {
-            StartRunEntityCoroutine();
             yield break;
-        }
 
         transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         _specialHitInstance = Instantiate(_specialHit, Opponent.transform.position, Quaternion.identity);
         _specialHitInstance.transform.parent = Opponent.transform;
         StartCoroutine(Opponent.GetPoisoned(this));
 
         Invoke(nameof(CleanUp), 2f);
+        _currentAttackCooldown = Creature.AttackCooldown;
 
-        yield return base.SpecialAbility();
+        yield return base.CreatureAbility();
     }
 
     void CleanUp()
     {
         if (_specialHitInstance != null)
             Destroy(_specialHitInstance);
-
     }
 }

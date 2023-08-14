@@ -59,7 +59,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected IEnumerator _currentMainCoroutine;
     protected IEnumerator _currentSecondaryCoroutine;
-    protected IEnumerator _currentSpecialAbilityCoroutine;
+    protected IEnumerator _currentAbilityCoroutine;
 
     public int DamageTaken { get; private set; }
 
@@ -156,8 +156,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
             StopCoroutine(_currentMainCoroutine);
         if (_currentSecondaryCoroutine != null)
             StopCoroutine(_currentSecondaryCoroutine);
-        if (_currentSpecialAbilityCoroutine != null)
-            StopCoroutine(_currentSpecialAbilityCoroutine);
+        if (_currentAbilityCoroutine != null)
+            StopCoroutine(_currentAbilityCoroutine);
 
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
         _agent.enabled = false;

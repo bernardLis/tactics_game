@@ -71,7 +71,8 @@ public class CreatureAbilityElement : ElementWithTooltip
     public void Unlock()
     {
         _isLocked = false;
-        Remove(_lockedOverlay);
+        if (_lockedOverlay != null)
+            Remove(_lockedOverlay);
     }
 
     void OnAbilityUsed()

@@ -7,15 +7,18 @@ public class BudEntity : BattleCreatureRanged
 {
     [SerializeField] GameObject _effect;
     GameObject _effectInstance;
-    protected override void Start()
+
+    protected override IEnumerator PathToOpponent()
     {
-        _hasSpecialMove = true;
-        base.Start();
+        yield return ManageCreatureAbility();
+        yield return base.PathToOpponent();
     }
 
-    protected override IEnumerator SpecialAbility()
+    protected override IEnumerator CreatureAbility()
     {
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        // teleport
+        if (_creatureAbilitySound != null)
+            _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
@@ -28,7 +31,7 @@ public class BudEntity : BattleCreatureRanged
 
         Invoke(nameof(CleanUp), 2f);
 
-        yield return base.SpecialAbility();
+        yield return base.CreatureAbility();
     }
 
     void CleanUp()

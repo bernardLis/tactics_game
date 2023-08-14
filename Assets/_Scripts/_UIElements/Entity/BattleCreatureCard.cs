@@ -43,7 +43,7 @@ public class BattleCreatureCard : BattleEntityCard
         if (_battleCreature.Creature.CreatureAbility == null) return;
 
         _abilityElement = new(_battleCreature.Creature.CreatureAbility,
-                            _battleCreature.CurrentSpecialAbilityCooldown,
+                            _battleCreature.CurrentAbilityCooldown,
                             !_battleCreature.Creature.IsAbilityUnlocked());
         _battleCreature.Creature.OnLevelUp += () =>
         {

@@ -7,20 +7,28 @@ public class WolfPupEntity : BattleCreatureMelee
 {
     [SerializeField] GameObject _effect;
     GameObject _effectInstance;
-    protected override void Start()
+
+    //TODO: I'd prefer if it used its ability whenever it is off cooldown, it is not shielded and ability is available
+    protected override IEnumerator Attack()
     {
-        _hasSpecialMove = true;
-        base.Start();
+        yield return ManageCreatureAbility();
+        yield return base.Attack();
     }
 
-    protected override IEnumerator SpecialAbility()
+    protected override IEnumerator PathToOpponent()
+    {
+        yield return ManageCreatureAbility();
+        yield return base.PathToOpponent();
+    }
+
+    protected override IEnumerator CreatureAbility()
     {
         transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
 
         Animator.SetTrigger("Special Attack");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
 
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
         _effectInstance.transform.parent = transform;
@@ -32,13 +40,14 @@ public class WolfPupEntity : BattleCreatureMelee
         if (IsOpponentInRange())
         {
             targetPosition = transform.position + normal * (_agent.stoppingDistance * 2);
-            StartCoroutine(Opponent.GetHit(this, (int)Creature.GetPower() * 3));
+            StartCoroutine(Opponent.GetHit(this, Creature.GetPower() * 3));
         }
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 
         Invoke(nameof(CleanUp), 2f);
+        _currentAttackCooldown = Creature.AttackCooldown;
 
-        yield return base.SpecialAbility();
+        yield return base.CreatureAbility();
     }
 
     void CleanUp()

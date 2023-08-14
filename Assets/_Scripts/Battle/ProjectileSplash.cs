@@ -10,7 +10,7 @@ public class ProjectileSplash : Projectile
         Collider[] colliders = Physics.OverlapSphere(target.Collider.bounds.center, _splashRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
+            if (collider.TryGetComponent(out BattleEntity entity))
             {
                 if (entity.Team == _shooterCreature.Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;

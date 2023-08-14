@@ -18,7 +18,7 @@ public class BombEntity : BattleCreatureRanged
         if (_isExploding) yield break;
         _isExploding = true;
         EntityLog.Add($"{Time.time}: Entity is exploding.");
-        if (_specialAbilitySound != null) _audioManager.PlaySFX(_specialAbilitySound, transform.position);
+        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         Animator.SetTrigger("Special Attack");
         //  yield return new WaitForSeconds(0.2f);
