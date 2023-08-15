@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class ArcMovementElement : VisualElement
 {
@@ -13,18 +14,30 @@ public class ArcMovementElement : VisualElement
     Vector3 _endPosition;
 
     float _percent;
+    public bool IsMoving;
 
     public event Action OnArcMovementFinished;
     public ArcMovementElement(VisualElement child, Vector3 startPosition, Vector3 endPosition)
     {
         usageHints = UsageHints.DynamicTransform;
-        
         style.position = Position.Absolute;
+
+        if (child != null) InitializeMovement(child, startPosition, endPosition);
+    }
+
+    public void InitializeMovement(VisualElement child, Vector3 startPosition, Vector3 endPosition)
+    {
+        if (IsMoving) return;
+        IsMoving = true;
+
+        _percent = 0;
+        Clear();
+        style.opacity = 1;
+        Add(child);
+
         transform.position = startPosition;
         _startPosition = startPosition;
         _endPosition = endPosition;
-
-        Add(child);
 
         _arcMovement = schedule.Execute(ArcMovement).Every(25);
     }
@@ -53,8 +66,8 @@ public class ArcMovementElement : VisualElement
 
     void ArcMovementFinished()
     {
+        schedule.Execute(() => IsMoving = false).StartingIn(1000);
         _arcMovement.Pause();
         OnArcMovementFinished?.Invoke();
     }
-
 }

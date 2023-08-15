@@ -61,6 +61,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         // global save per 'game'
         //  if (PlayerPrefs.GetString("saveName").Length == 0)
         //   {
+        Helpers.SetUpHelpers();
         CreateNewSaveFile();
 
         //  }

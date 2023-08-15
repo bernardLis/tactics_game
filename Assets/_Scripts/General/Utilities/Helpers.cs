@@ -3,10 +3,25 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System.Linq;
 
 public static class Helpers
 {
     const string _ussCommonTextPrimary = "common__text-primary";
+
+    static List<ArcMovementElement> _arcMovementElements = new();
+
+    public static void SetUpHelpers()
+    {
+        _arcMovementElements = new();
+        for (int i = 0; i < 50; i++)
+        {
+            ArcMovementElement el = new(null, Vector3.zero, Vector3.zero);
+            el.AddToClassList(_ussCommonTextPrimary);
+            _arcMovementElements.Add(el);
+            GameManager.Instance.Root.Add(el);
+        }
+    }
 
     public static Gradient GetGradient(Color color)
     {
@@ -33,7 +48,6 @@ public static class Helpers
         return gradient;
     }
 
-
     public static string ParseScriptableObjectName(string text)
     {
         text = text.Replace("(Clone)", "");
@@ -50,33 +64,18 @@ public static class Helpers
     /* UI toolkit */
     public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
     {
-        if (root == null)
-            root = GameManager.Instance.Root; 
-
         Label l = new Label(text);
-        l.AddToClassList(_ussCommonTextPrimary);
         l.style.color = color;
 
         Vector3 start = new Vector3(element.worldBound.xMin, element.worldBound.yMin, 0);
         Vector3 end = new Vector3(element.worldBound.xMin + Random.Range(-100, 100),
                 element.worldBound.yMin - 100, 0);
-        ArcMovementElement arcMovementElement = new(l, start, end);
-        root.Add(arcMovementElement);
-        arcMovementElement.OnArcMovementFinished += () =>
-        {
-            DOTween.To(x => l.style.opacity = x, 1, 0, 1)
-                    .SetUpdate(true)
-                    .OnComplete(() => root.Remove(arcMovementElement));
-        };
+
+        ArcMovementElement arcMovementElement = _arcMovementElements.FirstOrDefault(x => !x.IsMoving);
+        arcMovementElement.InitializeMovement(l, start, end);
+        arcMovementElement.OnArcMovementFinished += ()
+                => DOTween.To(x => arcMovementElement.style.opacity = x, 1, 0, 1).SetUpdate(true);
     }
-    /*
-        public static VisualElement GetRoot(VisualElement el)
-        {
-            if (el.parent == null)
-                return el;
-            return GetRoot(el.parent);
-        }
-        */
 
     public static int GetRandomNumber(int digits)
     {
