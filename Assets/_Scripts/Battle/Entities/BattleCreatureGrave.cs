@@ -54,7 +54,7 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Here lies {Creature.Name} RIP in peace.");
+        _tooltipManager.ShowInfo($"Here lies {Creature.EntityName} RIP in peace.");
     }
 
     public void OnPointerExit(PointerEventData eventData)

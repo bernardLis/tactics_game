@@ -99,7 +99,7 @@ public class Creature : Entity
         float multiplier = 0.8f;
         int baseExp = 100;
 
-        int result = Mathf.FloorToInt((multiplier * Mathf.Pow(Level, exponent)));
+        int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level, exponent));
         result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
         return result + baseExp;
     }
@@ -143,7 +143,7 @@ public class Creature : Entity
         {
             CreatureId = Id,
 
-            Name = Name,
+            Name = EntityName,
             Level = Level,
 
             KillCount = TotalKillCount,
@@ -156,7 +156,7 @@ public class Creature : Entity
 
     public void LoadFromData(CreatureData data)
     {
-        Name = data.Name;
+        EntityName = data.Name;
         Level = data.Level;
 
         TotalKillCount = data.KillCount;

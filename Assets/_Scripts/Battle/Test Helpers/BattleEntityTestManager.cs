@@ -69,7 +69,7 @@ public class BattleEntityTestManager : MonoBehaviour
             "Random",
             "-----"
         };
-        choices.AddRange(_allCreatures.ConvertAll(x => x.Name));
+        choices.AddRange(_allCreatures.ConvertAll(x => x.name));
         var dropDownLeft = new DropdownField("Left Creature", choices, 0);
         var dropDownRight = new DropdownField("Right Creature", choices, 0);
         _buttonContainer.Add(dropDownLeft);
@@ -84,13 +84,13 @@ public class BattleEntityTestManager : MonoBehaviour
                 AddRandomCreature(1);
 
             // try to get creature from string name
-            Creature cLeft = _allCreatures.Find(x => x.Name == dropDownLeft.value);
+            Creature cLeft = _allCreatures.Find(x => x.name == dropDownLeft.value);
             if (cLeft != null)
             {
                 Creature instance = Instantiate(cLeft);
                 AddCreature(instance, 0);
             }
-            Creature cRight = _allCreatures.Find(x => x.Name == dropDownRight.value);
+            Creature cRight = _allCreatures.Find(x => x.name == dropDownRight.value);
             if (cRight != null)
             {
                 Creature instance = Instantiate(cRight);

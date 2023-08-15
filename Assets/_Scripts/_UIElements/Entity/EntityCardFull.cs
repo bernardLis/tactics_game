@@ -15,6 +15,7 @@ public class EntityCardFull : FullScreenElement
 
     protected VisualElement _container;
 
+    protected VisualElement _nameContainer;
     protected VisualElement _topContainer;
     protected VisualElement _bottomContainer;
 
@@ -53,13 +54,22 @@ public class EntityCardFull : FullScreenElement
         _container.AddToClassList(_ussContent);
         _content.Add(_container);
 
+        AddName();
         CreateContainers();
-
         AddIdentityInfo();
         AddBasicInfo();
         AddBattleCharacteristics();
 
         AddContinueButton();
+    }
+
+    void AddName()
+    {
+        _nameContainer = new();
+        Label n = new(Entity.EntityName);
+        n.style.fontSize = 34;
+        _nameContainer.Add(n);
+        _container.Add(_nameContainer);
     }
 
     void CreateContainers()

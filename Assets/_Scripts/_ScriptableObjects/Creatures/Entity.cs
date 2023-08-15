@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Entity : BaseScriptableObject
 {
-    public string Name;
+    public string EntityName;
     public Sprite Icon;
     public Sprite[] IconAnimation;
     public int Level;
@@ -28,6 +28,7 @@ public class Entity : BaseScriptableObject
     public virtual void InitializeBattle(Hero hero)
     {
         if (hero != null) Hero = hero;
+        if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
         MaxHealth = ScriptableObject.CreateInstance<IntVariable>();
         MaxHealth.SetValue(GetMaxHealth());
     }

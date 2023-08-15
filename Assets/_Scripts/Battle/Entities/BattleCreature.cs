@@ -23,11 +23,9 @@ public class BattleCreature : BattleEntity
 
     public int DamageDealt { get; private set; }
 
-    public event Action OnInitialized;
     public event Action OnEnemyKilled;
     public event Action<int> OnDamageDealt;
     public event Action<BattleCreature> OnEvolving;
-    protected virtual void Start() { }
 
     protected virtual void Update()
     {
@@ -59,7 +57,6 @@ public class BattleCreature : BattleEntity
         CurrentAbilityCooldown = 0;
 
         StartRunEntityCoroutine();
-        OnInitialized?.Invoke();
 
         if (team == 0) return;
         _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material.shader
@@ -291,6 +288,7 @@ public class BattleCreature : BattleEntity
     {
         DisplayFloatingText("Level Up!", Color.white);
         ResolveEvolution();
+        CurrentHealth.SetValue(Creature.GetMaxHealth());
     }
 
     void ResolveEvolution()

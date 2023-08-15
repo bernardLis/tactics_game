@@ -27,6 +27,7 @@ public class FullScreenElement : VisualElement
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
+        BattleManager.BlockBattleInput = true;
 
         _gameManager.OpenFullScreens.Add(this);
 
@@ -107,6 +108,7 @@ public class FullScreenElement : VisualElement
                 if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
 
                 if (_battleManager != null && _resumeGameOnHide) _battleManager.ResumeGame();
+                BattleManager.BlockBattleInput = false;
 
                 SetEnabled(false);
                 RemoveFromHierarchy();

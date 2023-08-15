@@ -77,7 +77,7 @@ public class EntityCard : VisualElement
 
     protected virtual void HandleNameLabel()
     {
-        _nameLabel = new(Entity.Name);
+        _nameLabel = new(Entity.EntityName);
         _nameLabel.AddToClassList(_ussName);
         _middleContainer.Add(_nameLabel);
     }

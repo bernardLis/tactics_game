@@ -5,32 +5,28 @@ using UnityEngine;
 public class BattleCreatureBonding : MonoBehaviour
 {
     BattleCreature battleCreature;
-    // Start is called before the first frame update
+
     void Start()
     {
-        if (TryGetComponent(out BattleCreature bc))
-        {
-            battleCreature = bc;
-            bc.OnInitialized += Initialize;
-        }
+        Initialize();
     }
 
     void Initialize()
     {
-        battleCreature.Creature.OnLevelUp += OnLevelUp;
+        if (TryGetComponent(out battleCreature))
+            battleCreature.Creature.OnLevelUp += OnLevelUp;
     }
 
     void OnLevelUp()
     {
+        Debug.Log($"level up {battleCreature.Creature.Level}");
         if (battleCreature.Creature.Level == 3)
         {
-            new CreatureCardFull(battleCreature.Creature);
+            new CreatureCardFull(battleCreature.Creature, true);
         }
         if (battleCreature.Creature.Level == 6)
         {
             new CreatureCardFull(battleCreature.Creature);
         }
-
-
     }
 }

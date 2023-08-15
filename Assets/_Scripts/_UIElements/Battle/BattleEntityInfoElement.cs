@@ -25,7 +25,7 @@ public class BattleEntityInfoElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        Label name = new(be.Entity.Name);
+        Label name = new(be.Entity.EntityName);
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 

@@ -7,7 +7,7 @@ public class CreatureCardFull : EntityCardFull
 {
 
     public Creature Creature;
-    public CreatureCardFull(Creature creature) : base(creature)
+    public CreatureCardFull(Creature creature, bool isNameChange = false) : base(creature)
     {
         Creature = creature;
 
@@ -17,6 +17,37 @@ public class CreatureCardFull : EntityCardFull
         UpdateBattleCharacteristics();
         AddAbility();
         AddBattleStats();
+
+        if (isNameChange) SetUpNameChange();
+    }
+
+    void SetUpNameChange()
+    {
+        _nameContainer.Clear();
+        Label tt = new("Name your creature: ");
+        tt.style.fontSize = 34;
+        _nameContainer.Add(tt);
+
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _nameContainer.Add(container);
+
+        TextField nameField = new();
+        nameField.style.fontSize = 34;
+        nameField.style.minWidth = 300;
+        nameField.style.color = Color.black;
+        container.Add(nameField);
+
+        Button submit = new() { text = "Submit" };
+        container.Add(submit);
+        submit.clicked += () =>
+        {
+            Creature.EntityName = nameField.text;
+            _nameContainer.Clear();
+            Label name = new(Creature.EntityName);
+            name.style.fontSize = 34;
+            _nameContainer.Add(name);
+        };
     }
 
     void UpdateBasicStats()
