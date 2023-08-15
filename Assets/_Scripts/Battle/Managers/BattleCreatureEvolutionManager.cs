@@ -87,6 +87,4 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
                     .OnComplete(() => Destroy(_effectInstance));
             });
     }
-
-
 }

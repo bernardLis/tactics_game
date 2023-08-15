@@ -45,9 +45,10 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
     bool _disableUpdate;
 
+    IEnumerator _rotateAroundBattleEntityCoroutine;
+
     public event Action OnCameraMoved;
     public event Action OnCameraRotated;
-
     protected override void Awake()
     {
         base.Awake();
@@ -164,6 +165,8 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
     {
         if (_targetPosition.sqrMagnitude > 0.1f)
         {
+            StopRotatingAroundBattleEntity();
+
             _speed = Mathf.Lerp(_speed, _maxSpeed, _acceleration * Time.deltaTime);
             transform.position += _speed * Time.deltaTime * _targetPosition;
             OnCameraMoved?.Invoke();
@@ -242,6 +245,8 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         _targetPosition += moveDirection;
     }
 
+    public float GetZoomHeight() => _zoomHeight;
+
     void MoveCameraToDefaultPosition(InputAction.CallbackContext ctx)
     {
         if (this == null) return;
@@ -273,6 +278,8 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
     public void MoveCameraTo(Vector3 position, Vector3 rotation, float zoomHeight)
     {
+        StopRotatingAroundBattleEntity();
+
         transform.DOMove(position, 0.5f);
         transform.DORotate(rotation, 0.5f);
         _zoomHeight = zoomHeight;
@@ -281,11 +288,35 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
     public void CenterCameraOnBattleEntity(BattleEntity be)
     {
         Vector3 pos = be.transform.forward * -10f + be.transform.position;
-        transform.DOMove(pos, 0.5f);
+        transform.DOMove(pos, 0.5f).SetUpdate(true);
 
         Vector3 rot = new(20f, be.transform.localEulerAngles.y, 0f);
-        transform.DORotate(rot, 0.5f);
+        transform.DORotate(rot, 0.5f).SetUpdate(true);
 
         _zoomHeight = _defaultZoomHeight;
+    }
+
+    public void RotateCameraAroundBattleEntity(BattleEntity be)
+    {
+        CenterCameraOnBattleEntity(be);
+        _rotateAroundBattleEntityCoroutine = RotateAroundPoint(be.transform.position);
+        StartCoroutine(_rotateAroundBattleEntityCoroutine);
+    }
+
+    public void StopRotatingAroundBattleEntity()
+    {
+        if (_rotateAroundBattleEntityCoroutine != null)
+            StopCoroutine(_rotateAroundBattleEntityCoroutine);
+    }
+
+    IEnumerator RotateAroundPoint(Vector3 point)
+    {
+        float angle = 0f;
+        while (angle < 360f)
+        {
+            angle += 0.5f;
+            transform.RotateAround(point, Vector3.up, 0.5f);
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
     }
 }

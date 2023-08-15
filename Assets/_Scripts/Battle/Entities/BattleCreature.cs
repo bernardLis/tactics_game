@@ -283,47 +283,23 @@ public class BattleCreature : BattleEntity
         g.GetComponent<BattleCreatureGrave>().Initialize(Creature);
     }
 
-    /* EVOLUTION */
     void OnLevelUp()
     {
         DisplayFloatingText("Level Up!", Color.white);
-        ResolveEvolution();
         CurrentHealth.SetValue(Creature.GetMaxHealth());
     }
 
-    void ResolveEvolution()
-    {
-        int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
-        if (Creature.UpgradeTier >= maxTier) return;
-        if (Creature.ShouldEvolve())
-        {
-            // HERE: evolution for now just evolve
-            // later, I want creature to start blinking and maybe the hotkey shows something
-            // and you have to click a button to evolve
-
-            StopAllCoroutines();
-            Evolve();
-        }
-    }
-
-    protected virtual void Evolve()
+    public virtual void Evolve()
     {
         SetDead();
         _blockRunEntity = true;
         _battleEntityHighlight.DisableHighlightFully();
 
-        EntityLog.Add($"{Time.time}: Creature is evolving...");
         StopRunEntityCoroutine();
         OnEvolving?.Invoke(this);
     }
 
 #if UNITY_EDITOR
-    [ContextMenu("Trigger Evolution")]
-    public void TriggerEvolution()
-    {
-        Evolve();
-    }
-
     [ContextMenu("Trigger Ability")]
     public void TriggerAbility()
     {

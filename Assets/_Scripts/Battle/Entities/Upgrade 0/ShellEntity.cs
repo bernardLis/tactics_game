@@ -73,7 +73,7 @@ public class ShellEntity : BattleCreatureMelee
             Destroy(_shieldEffectInstance);
     }
 
-    protected override void Evolve()
+    public override void Evolve()
     {
         if (_shieldEffectInstance != null)
             Destroy(_shieldEffectInstance);

@@ -34,7 +34,6 @@ public class LockOverlayElement : ElementWithTooltip
 
     void ShakeIcon(PointerEnterEvent evt)
     {
-        Debug.Log($"shake");
         DOTween.Shake(() => _lockIcon.transform.position, x => _lockIcon.transform.position = x,
              0.5f, 10f).SetUpdate(true);
     }
@@ -42,7 +41,7 @@ public class LockOverlayElement : ElementWithTooltip
     public void Unlock()
     {
         DOTween.Shake(
-            () => _lockIcon.transform.position, x => _lockIcon.transform.position = x, 2f, 10f)
+            () => _lockIcon.transform.position, x => _lockIcon.transform.position = x, 1f, 10f)
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {

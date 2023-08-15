@@ -15,8 +15,6 @@ public class AbilityButton : ElementWithSound
     const string _ussMain = _ussClassName + "main";
     const string _ussHighlight = _ussClassName + "highlight";
 
-    const string _ussOverlay = _ussClassName + "overlay";
-
     OverlayTimerElement _cooldownTimer;
 
     public bool IsOnCooldown { get; private set; }

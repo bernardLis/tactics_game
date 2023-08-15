@@ -7,7 +7,8 @@ public class CreatureCardFull : EntityCardFull
 {
 
     public Creature Creature;
-    public CreatureCardFull(Creature creature, bool isChangingName = false, bool isUnlockingAbility = false)
+    public CreatureCardFull(Creature creature, bool isChangingName = false,
+            bool isUnlockingAbility = false, bool isEvolving = false)
             : base(creature)
     {
         Creature = creature;
@@ -21,22 +22,9 @@ public class CreatureCardFull : EntityCardFull
 
         if (isChangingName) SetUpNameChange();
         if (isUnlockingAbility) SetUpAbilityUnlock();
+        if (isEvolving) SetUpEvolution();
     }
 
-    void SetUpAbilityUnlock()
-    {
-        MyButton unlockButton = new("Unlock Ability");
-
-        void Unlock()
-        {
-            Debug.Log($"Some nice effect should be played");
-            unlockButton.RemoveFromHierarchy();
-            Creature.CreatureAbility.Unlock();
-        }
-
-        unlockButton.ChangeCallback(Unlock);
-        _container.Insert(0, unlockButton);
-    }
 
     void UpdateBasicStats()
     {
@@ -80,7 +68,7 @@ public class CreatureCardFull : EntityCardFull
 
     void SetUpNameChange()
     {
-        // HERE: bonding dotween
+        // HERE: bonding dotween & styles
         _nameContainer.Clear();
         Label tt = new("Name your creature: ");
         tt.style.fontSize = 34;
@@ -106,6 +94,26 @@ public class CreatureCardFull : EntityCardFull
             name.style.fontSize = 34;
             _nameContainer.Add(name);
         };
+    }
+
+    void SetUpAbilityUnlock()
+    {
+        MyButton unlockButton = new("Unlock Ability");
+
+        void Unlock()
+        {
+            unlockButton.RemoveFromHierarchy();
+            Creature.CreatureAbility.Unlock();
+        }
+
+        unlockButton.ChangeCallback(Unlock);
+        _container.Insert(0, unlockButton);
+    }
+
+    void SetUpEvolution()
+    {
+        MyButton unlockButton = new("Evolve", callback: Hide);
+        _container.Insert(0, unlockButton);
     }
 
 
