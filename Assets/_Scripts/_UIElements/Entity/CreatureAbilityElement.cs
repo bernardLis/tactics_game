@@ -10,7 +10,6 @@ public class CreatureAbilityElement : ElementWithTooltip
     const string _ussClassName = "creature-ability__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTimerLabelWrapper = _ussClassName + "timer-label-wrapper";
-    const string _ussLockedOverlay = _ussClassName + "locked-overlay";
 
     GameManager _gameManager;
 
@@ -18,7 +17,7 @@ public class CreatureAbilityElement : ElementWithTooltip
 
     bool _isLocked;
 
-    VisualElement _lockedOverlay;
+    LockOverlayElement _lockOverlay;
     OverlayTimerElement _timer;
     public CreatureAbilityElement(CreatureAbility ability, float currentCooldown = 0, bool isLocked = false)
     {
@@ -58,15 +57,11 @@ public class CreatureAbilityElement : ElementWithTooltip
     {
         if (!_isLocked) return;
 
-        _lockedOverlay = new();
-        _lockedOverlay.AddToClassList(_ussLockedOverlay);
-
         Label label = new($"Unlocked at level {_ability.UnlockLevel}.");
         label.style.whiteSpace = WhiteSpace.Normal;
-        label.AddToClassList(_ussCommonTextPrimary);
-        _lockedOverlay.Add(label);
 
-        Add(_lockedOverlay);
+        _lockOverlay = new(label);
+        Add(_lockOverlay);
 
         _ability.OnAbilityUnlocked += Unlock;
     }
@@ -74,8 +69,8 @@ public class CreatureAbilityElement : ElementWithTooltip
     public void Unlock()
     {
         _isLocked = false;
-        if (_lockedOverlay != null)
-            Remove(_lockedOverlay);
+        if (_lockOverlay != null)
+            _lockOverlay.Unlock();
     }
 
     void OnAbilityUsed()

@@ -25,13 +25,16 @@ public class CreatureCardFull : EntityCardFull
 
     void SetUpAbilityUnlock()
     {
-        MyButton unlockButton = new("Unlock Ability", callback: () =>
+        MyButton unlockButton = new("Unlock Ability");
+
+        void Unlock()
         {
             Debug.Log($"Some nice effect should be played");
-
+            unlockButton.RemoveFromHierarchy();
             Creature.CreatureAbility.Unlock();
-            _container.Remove(this);
-        });
+        }
+
+        unlockButton.ChangeCallback(Unlock);
         _container.Insert(0, unlockButton);
     }
 

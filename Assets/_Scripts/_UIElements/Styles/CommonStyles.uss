@@ -241,3 +241,27 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+.common__lock-overlay-main {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+
+.common__lock-overlay-icon {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/38_lock.png?fileID=2800000&guid=09a2538c67ad7e845a379265f3957fe1&type=3#38_lock');
+}
+
+.common__lock-overlay-icon-unlocked {
+    width: 50%;
+    height: 50%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/39_unlock.png?fileID=2800000&guid=345b005ffe8d5db47968d9c039e8b168&type=3#39_unlock');
+}
