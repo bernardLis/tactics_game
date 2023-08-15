@@ -60,12 +60,15 @@ public class CreatureAbilityElement : ElementWithTooltip
 
         _lockedOverlay = new();
         _lockedOverlay.AddToClassList(_ussLockedOverlay);
-        Label label = new("Unlocked at level 6."); // TODO: hardcoded value
+
+        Label label = new($"Unlocked at level {_ability.UnlockLevel}.");
         label.style.whiteSpace = WhiteSpace.Normal;
         label.AddToClassList(_ussCommonTextPrimary);
         _lockedOverlay.Add(label);
 
         Add(_lockedOverlay);
+
+        _ability.OnAbilityUnlocked += Unlock;
     }
 
     public void Unlock()

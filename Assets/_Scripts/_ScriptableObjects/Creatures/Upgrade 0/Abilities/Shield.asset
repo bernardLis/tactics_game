@@ -17,4 +17,4 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 8743141abfc721548bc1bcbf7130076a, type: 3}
   Cooldown: 10
   Sound: {fileID: 11400000, guid: 9c1f4bcac69b4df46b1144864bb2c24b, type: 2}
-  UnlockLevel: 1
+  UnlockLevel: 6

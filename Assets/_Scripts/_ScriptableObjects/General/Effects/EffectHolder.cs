@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using DG.Tweening;
-[CreateAssetMenu(menuName = "ScriptableObject/Dashboard/UI Effect Holder")]
+[CreateAssetMenu(menuName = "ScriptableObject/UI Effect Holder")]
 public class EffectHolder : BaseScriptableObject
 {
 

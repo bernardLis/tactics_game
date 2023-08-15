@@ -7,7 +7,8 @@ public class CreatureCardFull : EntityCardFull
 {
 
     public Creature Creature;
-    public CreatureCardFull(Creature creature, bool isNameChange = false) : base(creature)
+    public CreatureCardFull(Creature creature, bool isChangingName = false, bool isUnlockingAbility = false)
+            : base(creature)
     {
         Creature = creature;
 
@@ -15,14 +16,68 @@ public class CreatureCardFull : EntityCardFull
 
         UpdateBasicStats();
         UpdateBattleCharacteristics();
-        AddAbility();
+        AddAbility(isUnlockingAbility);
         AddBattleStats();
 
-        if (isNameChange) SetUpNameChange();
+        if (isChangingName) SetUpNameChange();
+        if (isUnlockingAbility) SetUpAbilityUnlock();
+    }
+
+    void SetUpAbilityUnlock()
+    {
+        MyButton unlockButton = new("Unlock Ability", callback: () =>
+        {
+            Debug.Log($"Some nice effect should be played");
+
+            Creature.CreatureAbility.Unlock();
+            _container.Remove(this);
+        });
+        _container.Insert(0, unlockButton);
+    }
+
+    void UpdateBasicStats()
+    {
+        Label upgradeTier = new($"Tier: {Creature.UpgradeTier}");
+        _topMiddleContainer.Add(upgradeTier);
+    }
+
+    void UpdateBattleCharacteristics()
+    {
+        Label basePower = new($"Base Power: {Creature.BasePower}");
+        _topRightContainer.Add(basePower);
+        Label attackRange = new($"Attack Range: {Creature.AttackRange}");
+        _topRightContainer.Add(attackRange);
+        Label attackCooldown = new($"Attack Cooldown: {Creature.AttackCooldown}");
+        _topRightContainer.Add(attackCooldown);
+    }
+
+
+    void AddAbility(bool isUnlockingAbility)
+    {
+        if (Creature.CreatureAbility == null) return;
+
+        bool isLocked = !Creature.IsAbilityUnlocked();
+        if (isUnlockingAbility) isLocked = true; // force it to "play effect" (that does not exist atm)
+        _topContainer.Add(new CreatureAbilityElement(Creature.CreatureAbility, isLocked: isLocked));
+    }
+
+    void AddBattleStats()
+    {
+        VisualElement container = new();
+        _topContainer.Add(container);
+
+        Label killCount = new($"Kill Count: {Creature.TotalKillCount}");
+        Label damageDealt = new($"Damage Dealt: {Creature.TotalDamageDealt}");
+        Label damageTaken = new($"Damage Taken: {Creature.TotalDamageTaken}");
+
+        container.Add(killCount);
+        container.Add(damageDealt);
+        container.Add(damageTaken);
     }
 
     void SetUpNameChange()
     {
+        // HERE: bonding dotween
         _nameContainer.Clear();
         Label tt = new("Name your creature: ");
         tt.style.fontSize = 34;
@@ -50,41 +105,5 @@ public class CreatureCardFull : EntityCardFull
         };
     }
 
-    void UpdateBasicStats()
-    {
-        Label upgradeTier = new($"Tier: {Creature.UpgradeTier}");
-        _topMiddleContainer.Add(upgradeTier);
-    }
-
-    void UpdateBattleCharacteristics()
-    {
-        Label basePower = new($"Base Power: {Creature.BasePower}");
-        _topRightContainer.Add(basePower);
-        Label attackRange = new($"Attack Range: {Creature.AttackRange}");
-        _topRightContainer.Add(attackRange);
-        Label attackCooldown = new($"Attack Cooldown: {Creature.AttackCooldown}");
-        _topRightContainer.Add(attackCooldown);
-    }
-
-
-    void AddAbility()
-    {
-        if (Creature.CreatureAbility != null)
-            _topContainer.Add(new CreatureAbilityElement(Creature.CreatureAbility));
-    }
-
-    void AddBattleStats()
-    {
-        VisualElement container = new();
-        _topContainer.Add(container);
-
-        Label killCount = new($"Kill Count: {Creature.TotalKillCount}");
-        Label damageDealt = new($"Damage Dealt: {Creature.TotalDamageDealt}");
-        Label damageTaken = new($"Damage Taken: {Creature.TotalDamageTaken}");
-
-        container.Add(killCount);
-        container.Add(damageDealt);
-        container.Add(damageTaken);
-    }
 
 }

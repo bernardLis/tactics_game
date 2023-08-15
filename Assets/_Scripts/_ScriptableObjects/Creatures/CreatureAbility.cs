@@ -16,4 +16,7 @@ public class CreatureAbility : BaseScriptableObject
 
     public event Action OnAbilityUsed;
     public void Used() { OnAbilityUsed?.Invoke(); }
+
+    public event Action OnAbilityUnlocked;
+    public void Unlock() { OnAbilityUnlocked?.Invoke(); }
 }

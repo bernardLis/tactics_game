@@ -19,14 +19,9 @@ public class BattleCreatureBonding : MonoBehaviour
 
     void OnLevelUp()
     {
-        Debug.Log($"level up {battleCreature.Creature.Level}");
         if (battleCreature.Creature.Level == 3)
-        {
-            new CreatureCardFull(battleCreature.Creature, true);
-        }
-        if (battleCreature.Creature.Level == 6)
-        {
-            new CreatureCardFull(battleCreature.Creature);
-        }
+            new CreatureCardFull(battleCreature.Creature, isChangingName: true);
+        if (battleCreature.Creature.Level == battleCreature.Creature.CreatureAbility.UnlockLevel)
+            new CreatureCardFull(battleCreature.Creature, isUnlockingAbility: true);
     }
 }
