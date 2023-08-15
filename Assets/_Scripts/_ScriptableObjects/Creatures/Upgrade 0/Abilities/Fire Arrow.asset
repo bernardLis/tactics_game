@@ -16,4 +16,5 @@ MonoBehaviour:
   Description: Splash damage projectile.
   Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
   Cooldown: 10
+  Sound: {fileID: 11400000, guid: 3acd7594d5909a54386c755fb3051fcd, type: 2}
   UnlockLevel: 1

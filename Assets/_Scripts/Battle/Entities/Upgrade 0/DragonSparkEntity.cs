@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class DragonSparkEntity : BattleCreatureRanged
 {
-    [SerializeField] GameObject _specialProjectile;
+    [SerializeField] GameObject _abilityProjectile;
 
     protected override IEnumerator Attack()
     {
@@ -21,7 +21,7 @@ public class DragonSparkEntity : BattleCreatureRanged
         yield return base.CreatureAbility();
         _currentAttackCooldown = Creature.AttackCooldown;
 
-        GameObject projectileInstance = Instantiate(_specialProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
         projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
     }

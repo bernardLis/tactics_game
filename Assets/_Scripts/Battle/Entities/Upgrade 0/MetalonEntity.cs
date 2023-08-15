@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class MetalonEntity : BattleCreatureMelee
 {
-    [SerializeField] float _specialEffectRadius = 5f;
+    [SerializeField] float _abilityEffectRadius = 5f;
 
     protected override IEnumerator Attack()
     {
@@ -21,7 +21,7 @@ public class MetalonEntity : BattleCreatureMelee
         yield return base.CreatureAbility();
         _currentAttackCooldown = Creature.AttackCooldown;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _specialEffectRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _abilityEffectRadius);
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent(out BattleEntity entity))

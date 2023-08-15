@@ -9,7 +9,6 @@ using DG.Tweening;
 public class BattleCreature : BattleEntity
 {
     [SerializeField] protected Sound _attackSound;
-    [SerializeField] protected Sound _creatureAbilitySound;
 
     [SerializeField] GameObject _gravePrefab;
 
@@ -180,9 +179,9 @@ public class BattleCreature : BattleEntity
         Creature.CreatureAbility.Used();
         CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
 
-        Animator.SetTrigger("Special Attack");
+        Animator.SetTrigger("Creature Ability");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
+        if (Creature.CreatureAbility.Sound != null) _audioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
 
         // meant to be overwritten
     }

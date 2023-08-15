@@ -16,4 +16,5 @@ MonoBehaviour:
   Description: 'Teleport to desired location. '
   Icon: {fileID: 21300000, guid: 4ff622af4a7edb6448293619d3ab1227, type: 3}
   Cooldown: 10
+  Sound: {fileID: 11400000, guid: 15938c58f62062547b8f31f9727d8b2e, type: 2}
   UnlockLevel: 1

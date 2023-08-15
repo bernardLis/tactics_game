@@ -16,4 +16,5 @@ MonoBehaviour:
   Description: Taunt opponents around you.
   Icon: {fileID: 21300000, guid: 8382d768c53d8a344ba77c1c0ff8ae18, type: 3}
   Cooldown: 10
+  Sound: {fileID: 11400000, guid: 613472c95e3f23541b0e299f7387d803, type: 2}
   UnlockLevel: 1

@@ -16,4 +16,5 @@ MonoBehaviour:
   Description: Poison your opponent.
   Icon: {fileID: 21300000, guid: 207ff4ed02b623148892f4a17be2acea, type: 3}
   Cooldown: 10
+  Sound: {fileID: 11400000, guid: 7fa27ee8ccbe4764387f13fa5eccb2fa, type: 2}
   UnlockLevel: 1

@@ -10,6 +10,7 @@ public class CreatureAbility : BaseScriptableObject
 
     public Sprite Icon;
     public int Cooldown;
+    public Sound Sound;
 
     public int UnlockLevel;
 

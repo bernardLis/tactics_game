@@ -5,10 +5,10 @@ using DG.Tweening;
 
 public class PracticeDummyEntity : BattleCreatureMelee
 {
-    [SerializeField] float _specialEffectRadius = 3f;
-    [SerializeField] GameObject _specialEffect;
+    [SerializeField] float _abilityEffectRadius = 3f;
+    [SerializeField] GameObject _abilityEffect;
 
-    GameObject _specialEffectInstance;
+    GameObject _abilityEffectInstance;
 
     List<GameObject> _hitInstances = new();
 
@@ -26,10 +26,10 @@ public class PracticeDummyEntity : BattleCreatureMelee
         yield return base.CreatureAbility();
         _currentAttackCooldown = Creature.AttackCooldown;
 
-        _specialEffectInstance = Instantiate(_specialEffect, transform.position, Quaternion.identity);
-        _specialEffectInstance.transform.parent = _GFX.transform;
+        _abilityEffectInstance = Instantiate(_abilityEffect, transform.position, Quaternion.identity);
+        _abilityEffectInstance.transform.parent = _GFX.transform;
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _specialEffectRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _abilityEffectRadius);
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent(out BattleEntity entity))
@@ -50,8 +50,8 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
     void CleanUp()
     {
-        if (_specialEffectInstance != null)
-            Destroy(_specialEffectInstance);
+        if (_abilityEffectInstance != null)
+            Destroy(_abilityEffectInstance);
 
         for (int i = _hitInstances.Count - 1; i >= 0; i--)
         {

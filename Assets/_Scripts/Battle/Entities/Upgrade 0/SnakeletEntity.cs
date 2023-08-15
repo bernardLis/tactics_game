@@ -6,8 +6,8 @@ using DG.Tweening;
 public class Snakelet : BattleCreatureMelee
 {
 
-    [SerializeField] GameObject _specialHit;
-    GameObject _specialHitInstance;
+    [SerializeField] GameObject _abilityHit;
+    GameObject _abilityHitInstance;
 
     protected override IEnumerator Attack()
     {
@@ -23,8 +23,8 @@ public class Snakelet : BattleCreatureMelee
         yield return base.CreatureAbility();
         _currentAttackCooldown = Creature.AttackCooldown;
 
-        _specialHitInstance = Instantiate(_specialHit, Opponent.transform.position, Quaternion.identity);
-        _specialHitInstance.transform.parent = Opponent.transform;
+        _abilityHitInstance = Instantiate(_abilityHit, Opponent.transform.position, Quaternion.identity);
+        _abilityHitInstance.transform.parent = Opponent.transform;
         StartCoroutine(Opponent.GetPoisoned(this));
 
         Invoke(nameof(CleanUp), 2f);
@@ -32,7 +32,7 @@ public class Snakelet : BattleCreatureMelee
 
     void CleanUp()
     {
-        if (_specialHitInstance != null)
-            Destroy(_specialHitInstance);
+        if (_abilityHitInstance != null)
+            Destroy(_abilityHitInstance);
     }
 }

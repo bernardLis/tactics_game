@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Bomb - Death Special Ability
+  m_Name: Dragon Spark - Fire Arrow
   m_EditorClassIdentifier: 
-  Id: 8696ee22-758a-4871-8dcf-152153ee9bd6
+  Id: dragonsa-fbb9-4952-8f15-4ad18f427d56
   Clips:
-  - {fileID: 8300000, guid: 1ce5fa625705a244a8b9ff6203a3c5af, type: 3}
+  - {fileID: 8300000, guid: 06f7ce028725944449765dff08e09df1, type: 3}
   Volume: 1
   Pitch: 1
   isPitchRandomized: 0

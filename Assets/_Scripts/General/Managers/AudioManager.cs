@@ -194,7 +194,8 @@ public class AudioManager : Singleton<AudioManager>
 
         a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
         a.loop = isLooping;
-        sound.Play(a);
+        Sound instance = Instantiate(sound);
+        instance.Play(a);
 
         return a;
     }
@@ -225,8 +226,9 @@ public class AudioManager : Singleton<AudioManager>
     {
         AudioSource a = _uiAudioSources.FirstOrDefault(s => s.isPlaying == false);
         if (a == null) return null;
-
-        sound.Play(a);
+        
+        Sound instance = Instantiate(sound);
+        instance.Play(a);
 
         return a;
     }
