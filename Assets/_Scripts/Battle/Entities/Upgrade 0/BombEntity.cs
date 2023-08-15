@@ -11,17 +11,16 @@ public class BombEntity : BattleCreatureRanged
     List<GameObject> _hitInstances = new();
     GameObject _explosionEffectInstance;
 
-    bool _isExploding;
-
     public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
     {
-        if (_isExploding) yield break;
-        _isExploding = true;
-        EntityLog.Add($"{Time.time}: Entity is exploding.");
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
+        yield return ManageCreatureAbility();
+        Invoke(nameof(CleanUp), 2f);
+        yield return base.Die(attacker, hasLoot);
+    }
 
-        Animator.SetTrigger("Special Attack");
-        //  yield return new WaitForSeconds(0.2f);
+    protected override IEnumerator CreatureAbility()
+    {
+        yield return base.CreatureAbility();
 
         _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         _explosionEffectInstance.transform.parent = _GFX.transform;
@@ -29,7 +28,7 @@ public class BombEntity : BattleCreatureRanged
         Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
+            if (collider.TryGetComponent(out BattleEntity entity))
             {
                 if (entity.Team == Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;
@@ -41,10 +40,6 @@ public class BombEntity : BattleCreatureRanged
                 _hitInstances.Add(hitInstance);
             }
         }
-
-        Invoke(nameof(CleanUp), 2f);
-
-        yield return base.Die(attacker, hasLoot);
     }
 
     void CleanUp()

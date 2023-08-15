@@ -112,7 +112,7 @@ public class BattleEntityTestManager : MonoBehaviour
             }
         };
         _buttonContainer.Add(b);
-
+        _buttonContainer.Add(new Label("-----"));
         /*MINIONS*/
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
@@ -134,6 +134,25 @@ public class BattleEntityTestManager : MonoBehaviour
         container.Add(input);
         container.Add(bMinions);
         _buttonContainer.Add(container);
+        _buttonContainer.Add(new Label("-----"));
+
+
+        /* CLEAR */
+        Button clearButton = new() { text = "Clear" };
+        clearButton.clickable.clicked += () =>
+        {
+            List<BattleEntity> collection = new(_battleManager.PlayerCreatures);
+            collection.AddRange(_battleManager.OpponentEntities);
+            foreach (BattleEntity e in collection)
+                e.TriggerDieCoroutine();
+            Invoke(nameof(Clear), 1f);
+        };
+        _buttonContainer.Add(clearButton);
+    }
+    
+    void Clear()
+    {
+        _battleManager.ClearAllEntities();
     }
 
     void AddCreature(Creature c, int team)

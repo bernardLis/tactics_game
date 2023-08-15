@@ -116,6 +116,7 @@ public class BattleCreature : BattleEntity
 
     void OpponentWasAdded(BattleEntity _)
     {
+        if (this == null) return;
         StartRunEntityCoroutine();
         if (Team == 0) _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
         if (Team == 1) _battleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
@@ -178,10 +179,12 @@ public class BattleCreature : BattleEntity
 
         Creature.CreatureAbility.Used();
         CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
-        yield return null;
+
+        Animator.SetTrigger("Special Attack");
+        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         // meant to be overwritten
-
     }
 
     protected bool CanAttack()

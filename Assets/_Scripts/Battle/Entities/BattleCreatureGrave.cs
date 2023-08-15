@@ -25,15 +25,18 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
 
         Creature = creature;
 
+        float scaleScaler = 0.5f;
+        if (Helpers.ParseScriptableObjectName(Creature.name) == "Metalon") scaleScaler = 0.2f;
+
         transform.parent = BattleManager.Instance.EntityHolder;
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
         GameObject g = Instantiate(creature.Prefab);
         _model = Instantiate(g.GetComponentInChildren<Animator>().gameObject, transform.position, Quaternion.identity);
-        //  _model.GetComponent<Animator>().enabled = false;
+
         _model.GetComponentInChildren<SkinnedMeshRenderer>().material.shader = GameManager.Instance.GameDatabase.GrayScaleShader;
         _model.transform.SetParent(transform);
-        _model.transform.localScale = Vector3.one * 0.5f;
+        _model.transform.localScale = Vector3.one * scaleScaler;
         _model.transform.localPosition = Vector3.zero;
 
         _model.transform.DOMoveY(1.2f, 2f)

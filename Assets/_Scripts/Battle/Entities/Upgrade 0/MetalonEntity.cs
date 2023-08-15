@@ -17,13 +17,9 @@ public class MetalonEntity : BattleCreatureMelee
     {
         if (!IsOpponentInRange()) yield break;
 
+        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         yield return base.CreatureAbility();
         _currentAttackCooldown = Creature.AttackCooldown;
-
-        Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, _specialEffectRadius);
         foreach (Collider collider in colliders)
@@ -34,14 +30,9 @@ public class MetalonEntity : BattleCreatureMelee
                 if (entity.IsDead) continue;
 
                 entity.DisplayFloatingText("Taunted", Color.red);
-
-                if (entity is BattleCreature creature)
-                    creature.SetOpponent(this);
-                if (entity is BattleMinion minion)
-                    StartCoroutine(entity.GetHit(this, Mathf.RoundToInt(Creature.GetPower() * 0.5f)));
+                entity.Engage(this);
             }
         }
-
     }
 
 }

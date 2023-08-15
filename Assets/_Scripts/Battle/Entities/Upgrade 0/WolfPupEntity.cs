@@ -23,15 +23,10 @@ public class WolfPupEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
-        yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown;
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y).WaitForCompletion();
-
-        Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
+        yield return base.CreatureAbility();
+        _currentAttackCooldown = Creature.AttackCooldown;
 
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
         _effectInstance.transform.parent = transform;

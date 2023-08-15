@@ -20,17 +20,11 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
-        if (!IsOpponentInRange())
-            yield break;
+        if (!IsOpponentInRange()) yield break;
 
+        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         yield return base.CreatureAbility();
         _currentAttackCooldown = Creature.AttackCooldown;
-
-        transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
-        Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         _specialEffectInstance = Instantiate(_specialEffect, transform.position, Quaternion.identity);
         _specialEffectInstance.transform.parent = _GFX.transform;
@@ -38,12 +32,12 @@ public class PracticeDummyEntity : BattleCreatureMelee
         Collider[] colliders = Physics.OverlapSphere(transform.position, _specialEffectRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<BattleEntity>(out BattleEntity entity))
+            if (collider.TryGetComponent(out BattleEntity entity))
             {
                 if (entity.Team == Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(this, (int)this.Creature.GetPower() * 2));
+                StartCoroutine(entity.GetHit(this, Creature.GetPower() * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                 GameObject hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
                 hitInstance.transform.parent = Opponent.transform;
@@ -52,8 +46,6 @@ public class PracticeDummyEntity : BattleCreatureMelee
         }
 
         Invoke(nameof(CleanUp), 2f);
-
-
     }
 
     void CleanUp()

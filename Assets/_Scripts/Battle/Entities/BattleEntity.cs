@@ -124,12 +124,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void StartRunEntityCoroutine()
     {
-        if (!CanStartRunEntity())
-        {
-            Invoke(nameof(StartRunEntityCoroutine), Random.Range(1f, 2f));
-            return;
-        }
-
         StopRunEntityCoroutine();
         EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
 

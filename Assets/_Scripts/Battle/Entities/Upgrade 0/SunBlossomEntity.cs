@@ -25,9 +25,6 @@ public class SunBlossomEntity : BattleCreatureMelee
     {
         yield return base.CreatureAbility();
 
-        Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-
         List<BattleEntity> copyOfAllies = new(BattleManager.Instance.GetAllies(this));
         bool hasHealed = false;
         foreach (BattleEntity b in copyOfAllies)
@@ -41,10 +38,7 @@ public class SunBlossomEntity : BattleCreatureMelee
         if (!hasHealed)
             GetHealed(20); // TODO: hardcoded value
 
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
-
         _healEffectInstance = Instantiate(_healEffect, transform.position, Quaternion.identity);
         _healEffectInstance.transform.parent = _GFX.transform;
-
     }
 }

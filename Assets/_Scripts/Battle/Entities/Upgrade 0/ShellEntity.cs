@@ -32,21 +32,15 @@ public class ShellEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
+        if (IsShielded) yield break;
+
         yield return base.CreatureAbility();
-
-        if (IsShielded)
-            yield break;
-
-        Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        if (_creatureAbilitySound != null) _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
 
         DisplayFloatingText("Shielded", Color.blue);
         _shieldEffectInstance = Instantiate(_shieldEffect, transform.position, Quaternion.identity);
         _shieldEffectInstance.transform.parent = _GFX.transform;
 
         IsShielded = true;
-
     }
 
     public override IEnumerator GetHit(Ability ability)

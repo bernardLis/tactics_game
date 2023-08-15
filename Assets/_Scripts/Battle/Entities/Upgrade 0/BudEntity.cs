@@ -19,12 +19,6 @@ public class BudEntity : BattleCreatureRanged
         yield return base.CreatureAbility();
 
         // teleport
-        if (_creatureAbilitySound != null)
-            _audioManager.PlaySFX(_creatureAbilitySound, transform.position);
-
-        Animator.SetTrigger("Special Attack");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
         _effectInstance.transform.parent = transform;
 

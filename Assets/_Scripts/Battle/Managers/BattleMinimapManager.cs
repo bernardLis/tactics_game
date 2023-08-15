@@ -94,6 +94,7 @@ public class BattleMinimapManager : MonoBehaviour
         {
             foreach (KeyValuePair<Transform, VisualElement> kvp in _entityIcons)
             {
+                if (kvp.Key == null) continue;
                 Vector2 pos = new Vector2(kvp.Key.position.x, kvp.Key.position.z);
                 Vector2 miniMapPosition = GetMiniMapPosition(pos);
 
