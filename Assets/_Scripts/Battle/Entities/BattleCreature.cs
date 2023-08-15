@@ -23,6 +23,7 @@ public class BattleCreature : BattleEntity
 
     public int DamageDealt { get; private set; }
 
+    public event Action OnInitialized;
     public event Action OnEnemyKilled;
     public event Action<int> OnDamageDealt;
     public event Action<BattleCreature> OnEvolving;
@@ -58,6 +59,7 @@ public class BattleCreature : BattleEntity
         CurrentAbilityCooldown = 0;
 
         StartRunEntityCoroutine();
+        OnInitialized?.Invoke();
 
         if (team == 0) return;
         _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material.shader
@@ -181,9 +183,8 @@ public class BattleCreature : BattleEntity
 
         Animator.SetTrigger("Creature Ability");
         yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
-        if (Creature.CreatureAbility.Sound != null) _audioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
-
-        // meant to be overwritten
+        if (Creature.CreatureAbility.Sound != null)
+            _audioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
     }
 
     protected bool CanAttack()
