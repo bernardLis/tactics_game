@@ -17,29 +17,9 @@ public class BattleEntityTestManager : MonoBehaviour
 
     public List<string> _entityTestLog = new();
 
-    [Space(10)]
-    [Header("Specific Armies")]
-    [SerializeField] List<Creature> _teamACreatures = new();
-    [SerializeField] List<Creature> _teamBCreatures = new();
-
-    [Space(10)]
-    [Header("One Army vs All")]
-    [SerializeField] List<Creature> _oneCreature = new();
-
-    [Space(10)]
-    [Header("Battle Setup")]
     [SerializeField] List<Creature> _allCreatures = new();
     [SerializeField] Transform _teamASpawnPoint;
     [SerializeField] Transform _teamBSpawnPoint;
-
-    List<BattleEntity> _teamA = new();
-    List<BattleEntity> _teamB = new();
-
-    int _currentAllCreaturesIndex;
-    int _currentFullOneVOneIndex;
-
-    List<Creature> _defeatedCreatures = new();
-    List<Creature> _lostToCreatures = new();
 
     void Start()
     {
@@ -50,7 +30,6 @@ public class BattleEntityTestManager : MonoBehaviour
 
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
-        _currentAllCreaturesIndex = -1;
 
         GameManager gameManager = GameManager.Instance;
 
@@ -77,6 +56,13 @@ public class BattleEntityTestManager : MonoBehaviour
     }
 
     void AddButtons()
+    {
+        AddCreatureButtons();
+        AddMinionButtons();
+        AddClearButton();
+    }
+
+    void AddCreatureButtons()
     {
         List<string> choices = new()
         {
@@ -112,47 +98,19 @@ public class BattleEntityTestManager : MonoBehaviour
             }
         };
         _buttonContainer.Add(b);
-        _buttonContainer.Add(new Label("-----"));
-        /*MINIONS*/
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        TextField input = new() { value = "1" };
-        Button bMinions = new() { text = "Spawn Minions" };
-        bMinions.clickable.clicked += () =>
+
+        Button levelUpButton = new() { text = "Level Up" };
+        levelUpButton.clickable.clicked += () =>
         {
-            int count = int.Parse(input.value);
-
-            for (int i = 0; i < count; i++)
+            foreach (BattleEntity e in _battleManager.PlayerCreatures)
             {
-                Minion m = Instantiate(_gameManager.HeroDatabase.GetRandomMinion());
-
-                m.InitializeBattle(null);
-                BattleEntity be = SpawnEntity(m, _teamBSpawnPoint.position);
-                _battleManager.AddOpponentArmyEntity(be);
+                BattleCreature bc = (BattleCreature)e;
+                bc.Creature.LevelUp();
             }
         };
-        container.Add(input);
-        container.Add(bMinions);
-        _buttonContainer.Add(container);
+        _buttonContainer.Add(levelUpButton);
+
         _buttonContainer.Add(new Label("-----"));
-
-
-        /* CLEAR */
-        Button clearButton = new() { text = "Clear" };
-        clearButton.clickable.clicked += () =>
-        {
-            List<BattleEntity> collection = new(_battleManager.PlayerCreatures);
-            collection.AddRange(_battleManager.OpponentEntities);
-            foreach (BattleEntity e in collection)
-                e.TriggerDieCoroutine();
-            Invoke(nameof(Clear), 1f);
-        };
-        _buttonContainer.Add(clearButton);
-    }
-    
-    void Clear()
-    {
-        _battleManager.ClearAllEntities();
     }
 
     void AddCreature(Creature c, int team)
@@ -176,93 +134,31 @@ public class BattleEntityTestManager : MonoBehaviour
             _battleManager.AddOpponentArmyEntity(be);
     }
 
-    void ResolveTestType()
+    void AddMinionButtons()
     {
-        _battleManager.ClearAllEntities();
-
-        /*
-                if (_testType == TestType.SpecificTeams)
-                {
-                    _entityTestLog.Add($"{Time.time}: Running Specific Teams Test ");
-                    ResolveTeams(_teamACreatures, _teamBCreatures);
-                }
-                else if (_testType == TestType.OneCreatureVsAll)
-                {
-                    _currentAllCreaturesIndex++;
-                    if (_currentAllCreaturesIndex >= _allCreatures.Count)
-                    {
-                        _entityTestLog.Add($"{Time.time}: Finished One Creature Vs All Test.");
-                        return;
-                    }
-
-                    ResolveOneCreatureVsAll(_oneCreature);
-                }
-                else if (_testType == TestType.FullOneVOne)
-                {
-                    _entityTestLog.Add($"{Time.time}: Running Full One Vs One Test. Index: {_currentAllCreaturesIndex}");
-
-                    _currentAllCreaturesIndex++;
-                    if (_currentAllCreaturesIndex >= _allCreatures.Count)
-                    {
-                        _currentFullOneVOneIndex++;
-                        _currentAllCreaturesIndex = 0;
-                    }
-
-                    if (_currentFullOneVOneIndex >= _allCreatures.Count)
-                    {
-                        _entityTestLog.Add($"{Time.time}: Finished Full One Vs One Test.");
-                        return;
-                    }
-
-                    List<Creature> teamA = new();
-                    teamA.Add(_allCreatures[_currentFullOneVOneIndex]);
-
-                    ResolveOneCreatureVsAll(teamA);
-                }
-                */
-    }
-
-    void ResolveOneCreatureVsAll(List<Creature> oneArmy)
-    {
-        _entityTestLog.Add($"{Time.time}: Running One Army Vs All Test. Index: {_currentAllCreaturesIndex}");
-        List<Creature> teamB = new();
-        teamB.Add(_allCreatures[_currentAllCreaturesIndex]);
-        ResolveTeams(oneArmy, teamB);
-
-    }
-
-    void ResolveTeams(List<Creature> teamACreatures, List<Creature> teamBCreatures)
-    {
-        _teamA = new();
-        _teamB = new();
-
-        foreach (Creature c in teamACreatures)
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        TextField input = new() { value = "1" };
+        Button bMinions = new() { text = "Spawn Minions" };
+        bMinions.clickable.clicked += () =>
         {
-            BattleEntity be = SpawnEntity(c, _teamASpawnPoint.position);
-            _teamA.Add(be);
-            be.OnDeath += OnTeamADeath;
-        }
-        foreach (Creature c in teamBCreatures)
-        {
-            BattleEntity be = SpawnEntity(c, _teamBSpawnPoint.position);
-            _teamB.Add(be);
-            be.OnDeath += OnTeamBDeath;
-        }
+            int count = int.Parse(input.value);
 
-        string teamANames = "";
-        string teamBNames = "";
+            for (int i = 0; i < count; i++)
+            {
+                Minion m = Instantiate(_gameManager.HeroDatabase.GetRandomMinion());
 
-        foreach (Creature c in teamACreatures)
-            teamANames += $"{c.Name}, ";
-        foreach (Creature c in teamBCreatures)
-            teamBNames += $"{c.Name}, ";
-
-        _entityTestLog.Add($"Team A: {teamANames} vs Team B: {teamBNames}");
-
-        _battleManager.Initialize(null);
-        _battleManager.AddPlayerArmyEntities(_teamA);
-        _battleManager.AddOpponentArmyEntities(_teamB);
+                m.InitializeBattle(null);
+                BattleEntity be = SpawnEntity(m, _teamBSpawnPoint.position);
+                _battleManager.AddOpponentArmyEntity(be);
+            }
+        };
+        container.Add(input);
+        container.Add(bMinions);
+        _buttonContainer.Add(container);
+        _buttonContainer.Add(new Label("-----"));
     }
+
 
     BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
     {
@@ -273,41 +169,24 @@ public class BattleEntityTestManager : MonoBehaviour
         return be;
     }
 
-    void OnTeamADeath(BattleEntity self, GameObject killer)
+    void AddClearButton()
     {
-        _teamA.Remove(self);
-        if (_teamA.Count == 0)
+        Button clearButton = new() { text = "Clear" };
+        clearButton.clickable.clicked += () =>
         {
-            string creaturesLeft = "";
-            foreach (BattleEntity be in _teamB)
-                creaturesLeft += $"{be.Entity.Name}, ";
+            List<BattleEntity> collection = new(_battleManager.PlayerCreatures);
+            collection.AddRange(_battleManager.OpponentEntities);
+            foreach (BattleEntity e in collection)
+                e.TriggerDieCoroutine();
+            Invoke(nameof(Clear), 1f);
+        };
+        _buttonContainer.Add(clearButton);
 
-            _entityTestLog.Add($"{Time.time}: Team B won! {creaturesLeft} left.");
-            ResolveTestType();
-        }
     }
-
-    void OnTeamBDeath(BattleEntity self, GameObject killer)
+    void Clear()
     {
-        _teamB.Remove(self);
-        if (_teamB.Count == 0)
-        {
-            string creaturesLeft = "";
-            foreach (BattleEntity be in _teamA)
-                creaturesLeft += $"{be.Entity.Name}, ";
-
-            _entityTestLog.Add($"{Time.time}: Team A won! {creaturesLeft} left.");
-            ResolveTestType();
-        }
+        _battleManager.ClearAllEntities();
     }
-}
-
-
-public enum TestType
-{
-    SpecificTeams,
-    OneCreatureVsAll,
-    FullOneVOne,
 }
 
 #endif
