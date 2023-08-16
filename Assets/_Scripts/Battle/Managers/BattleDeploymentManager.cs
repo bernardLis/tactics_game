@@ -114,6 +114,9 @@ public class BattleDeploymentManager : MonoBehaviour
         _posY = posY;
         ShowTooltip(tooltip);
         if (_deployedObjectInstance != null) Deploy();
+        _creatureSpawnerInstance = null;
+        _obstacleInstance = null;
+        _battleTurret = null;
 
         BattleGrabManager.Instance.OnPointerUp(default);
         BattleAbilityManager.Instance.CancelAbility();
@@ -149,7 +152,6 @@ public class BattleDeploymentManager : MonoBehaviour
         if (!_battleManager.IsTimerOn) return;
         if (_deployedObjectInstance == null) return;
 
-
         if (_tooltipText.parent != null)
             _topPanel.Remove(_tooltipText);
 
@@ -160,8 +162,6 @@ public class BattleDeploymentManager : MonoBehaviour
     {
         if (_wasDeployed) return;
         _wasDeployed = true;
-
-        Debug.Log($"deploy after check");
 
         if (_creatureSpawnerInstance != null) DeployArmy(_creatureSpawnerInstance);
         if (_obstacleInstance != null) PlaceObstacle();
@@ -174,8 +174,6 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void DeployArmy(EntitySpawner spawner)
     {
-        Debug.Log($"deploy army");
-
         spawner.SpawnCreatures(_creaturesToDeploy);
         spawner.OnSpawnComplete += (list) =>
         {
