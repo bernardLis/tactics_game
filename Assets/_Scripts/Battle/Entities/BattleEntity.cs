@@ -291,17 +291,12 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
 
         if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
-
         DOTween.Kill(transform);
-
         if (hasLoot) ResolveLoot();
 
         EntityLog.Add($"{Time.time}: Entity dies.");
-
         OnDeath?.Invoke(this, attacker);
-
         Animator.SetTrigger("Die");
-
         transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
                 .OnComplete(() =>

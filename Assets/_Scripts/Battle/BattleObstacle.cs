@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
+using UnityEngine.AI;
 
 public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
 {
@@ -12,6 +13,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     BattleGrabManager _grabManager;
     BattleTooltipManager _tooltipManager;
 
+    NavMeshObstacle _navMeshObstacle;
     Rigidbody _rb;
     Collider _collider;
     MMF_Player _feelPlayer;
@@ -29,6 +31,8 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         _grabManager = BattleGrabManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
+
+        _navMeshObstacle = GetComponent<NavMeshObstacle>();
 
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
@@ -49,7 +53,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
-        _grabManager.TryGrabbing(gameObject, 3f);
+        _grabManager.TryGrabbing(gameObject, 5f);
     }
 
     public bool CanBeGrabbed()

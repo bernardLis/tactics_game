@@ -49,13 +49,14 @@ public class BattleEntityHighlight : MonoBehaviour
     public void Highlight(Color c)
     {
         if (_highlightDiamond == null) InitializeDiamond();
-
-        _highlightDiamond.Enable(c);
+        if (_highlightDiamond != null)
+            _highlightDiamond.Enable(c);
     }
 
     public void ClearHighlight()
     {
-        _highlightDiamond.Disable();
+        if (_highlightDiamond != null)
+            _highlightDiamond.Disable();
     }
 
     public void DisableHighlightFully()
@@ -66,6 +67,8 @@ public class BattleEntityHighlight : MonoBehaviour
 
     public void HealEffect()
     {
+        if (_battleEntity == null) return;
+        
         GameObject obj = Instantiate(_healEffectPrefab, transform.position, Quaternion.identity);
         obj.transform.parent = _battleEntity.transform;
         obj.transform.DOScale(0, 0.5f)

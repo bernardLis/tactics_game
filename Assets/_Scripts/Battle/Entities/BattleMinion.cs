@@ -25,6 +25,8 @@ public class BattleMinion : BattleEntity
     protected override IEnumerator RunEntity()
     {
         if (IsDead) yield break;
+        if (_spire == null) yield break;
+
         Vector3 pos = _spire.transform.position;
         pos.y = transform.position.y;
 
