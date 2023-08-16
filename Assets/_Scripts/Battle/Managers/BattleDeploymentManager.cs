@@ -149,8 +149,6 @@ public class BattleDeploymentManager : MonoBehaviour
         if (!_battleManager.IsTimerOn) return;
         if (_deployedObjectInstance == null) return;
 
-        if (_wasDeployed) return;
-        _wasDeployed = true;
 
         if (_tooltipText.parent != null)
             _topPanel.Remove(_tooltipText);
@@ -160,6 +158,11 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void Deploy()
     {
+        if (_wasDeployed) return;
+        _wasDeployed = true;
+
+        Debug.Log($"deploy after check");
+
         if (_creatureSpawnerInstance != null) DeployArmy(_creatureSpawnerInstance);
         if (_obstacleInstance != null) PlaceObstacle();
         if (_battleTurret != null) PlaceTurret();
@@ -171,6 +174,8 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void DeployArmy(EntitySpawner spawner)
     {
+        Debug.Log($"deploy army");
+
         spawner.SpawnCreatures(_creaturesToDeploy);
         spawner.OnSpawnComplete += (list) =>
         {

@@ -13,7 +13,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     VisualElement _topContainer;
 
-    VisualElement _tooltip;
+    VisualElement _currentTooltip;
+    public GameObject CurrentTooltipDisplayer { get; private set; }
 
     public event Action OnTooltipHidden;
     void Start()
@@ -71,27 +72,32 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     {
         HideTooltip();
         if (entity is BattleMinion)
-            _tooltip = new BattleEntityCard(entity);
+            _currentTooltip = new BattleEntityCard(entity);
         if (entity is BattleCreature creature)
-            _tooltip = new BattleCreatureCard(creature);
+            _currentTooltip = new BattleCreatureCard(creature);
 
-        _bottomPanel.Add(_tooltip);
+        CurrentTooltipDisplayer = entity.gameObject;
+
+
+        _bottomPanel.Add(_currentTooltip);
     }
 
-    public void DisplayTooltip(VisualElement el)
+    public void DisplayTooltip(VisualElement el, GameObject go)
     {
         HideTooltip();
-        _tooltip = el;
-        _bottomPanel.Add(_tooltip);
+        _currentTooltip = el;
+        _bottomPanel.Add(_currentTooltip);
+        CurrentTooltipDisplayer = go;
     }
 
     public void HideTooltip()
     {
-        if (_tooltip == null) return;
+        if (_currentTooltip == null) return;
+        CurrentTooltipDisplayer = null;
 
         //_bottomPanel.Remove(_tooltip);
-        _tooltip.RemoveFromHierarchy();
-        _tooltip = null;
+        _currentTooltip.RemoveFromHierarchy();
+        _currentTooltip = null;
 
         OnTooltipHidden?.Invoke();
     }

@@ -147,9 +147,13 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
     {
         if (_runTurretCoroutine == null) return;
         _isTooltipActive = true;
-        _rangeIndicator.SetActive(true);
+
+        if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
         TurretCard c = new(Turret);
-        _tooltipManager.DisplayTooltip(c);
+        _tooltipManager.DisplayTooltip(c, gameObject);
+
+        _rangeIndicator.SetActive(true);
+
         c.OnShowTurretUpgrade += () => _rangeDisc.Radius = Turret.GetNextUpgrade().Range;
         c.OnHideTurretUpgrade += () => _rangeDisc.Radius = Turret.GetCurrentUpgrade().Range;
 

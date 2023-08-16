@@ -67,9 +67,9 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
-        Debug.Log($"click click");
+        if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
         GraveCard c = new(Creature);
-        _tooltipManager.DisplayTooltip(c);
+        _tooltipManager.DisplayTooltip(c, gameObject);
 
         c.OnResurrected += Resurrect;
     }
