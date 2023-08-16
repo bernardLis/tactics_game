@@ -41,6 +41,8 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> KilledPlayerEntities = new();
     public List<BattleEntity> KilledOpponentEntities = new();
 
+    public List<BattleTurret> PlayerTurrets = new();
+
     [HideInInspector] public List<Loot> CollectedLoots = new();
 
     public bool BlockBattleEnd;
@@ -51,6 +53,7 @@ public class BattleManager : Singleton<BattleManager>
     public event Action<BattleEntity> OnPlayerEntityDeath;
     public event Action<BattleEntity> OnOpponentEntityAdded;
     public event Action<BattleEntity> OnOpponentEntityDeath;
+    public event Action<BattleTurret> OnPlayerTurretAdded;
     public event Action OnBattleFinalized;
 
     public event Action OnGamePaused;
@@ -218,6 +221,11 @@ public class BattleManager : Singleton<BattleManager>
     }
 
     public void AddPortal(BattleOpponentPortal portal) { OpponentPortals.Add(portal); }
+    public void AddPlayerTurret(BattleTurret turret)
+    {
+        PlayerTurrets.Add(turret);
+        OnPlayerTurretAdded?.Invoke(turret);
+    }
 
     IEnumerator BattleLost()
     {

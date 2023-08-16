@@ -114,7 +114,7 @@ public class BattleDeploymentManager : MonoBehaviour
         _posY = posY;
         ShowTooltip(tooltip);
         if (_deployedObjectInstance != null) Deploy();
-      
+
         BattleGrabManager.Instance.OnPointerUp(default);
         BattleAbilityManager.Instance.CancelAbility();
         BattleManager.BlockBattleInput = true;
@@ -189,6 +189,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void PlaceTurret()
     {
+        _battleManager.AddPlayerTurret(_battleTurret);
         _battleTurret.StartTurretCoroutine();
         _battleTurret = null;
     }
