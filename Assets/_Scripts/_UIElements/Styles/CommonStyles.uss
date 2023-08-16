@@ -208,7 +208,6 @@
 
 .common__minimap-opponent-creature-icon {
     flex-grow: 1;
-    background-color: rgb(166, 41, 5);
     width: 25px;
     height: 25px;
     position: absolute;
@@ -216,6 +215,7 @@
     border-bottom-left-radius: 30px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/77_action.png?fileID=2800000&guid=0b72c4e337504d54192a89a56854391a&type=3#77_action');
 }
 
 .common__minimap-opponent-minion-icon {
@@ -240,6 +240,13 @@
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+.common__minimap-portal-icon {
+    position: absolute;
+    opacity: 0.8;
+    width: 20px;
+    height: 20px;
 }
 
 .common__lock-overlay-main {

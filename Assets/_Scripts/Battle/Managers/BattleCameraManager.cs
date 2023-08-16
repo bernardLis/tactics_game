@@ -285,21 +285,21 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         _zoomHeight = zoomHeight;
     }
 
-    public void CenterCameraOnBattleEntity(BattleEntity be)
+    public void CenterCameraOnTransform(Transform t)
     {
-        Vector3 pos = be.transform.forward * -10f + be.transform.position;
+        Vector3 pos = t.forward * -10f + t.position;
         transform.DOMove(pos, 0.5f).SetUpdate(true);
 
-        Vector3 rot = new(20f, be.transform.localEulerAngles.y, 0f);
+        Vector3 rot = new(20f, t.localEulerAngles.y, 0f);
         transform.DORotate(rot, 0.5f).SetUpdate(true);
 
         _zoomHeight = _defaultZoomHeight;
     }
 
-    public void RotateCameraAroundBattleEntity(BattleEntity be)
+    public void RotateCameraAroundTransform(Transform t)
     {
-        CenterCameraOnBattleEntity(be);
-        _rotateAroundBattleEntityCoroutine = RotateAroundPoint(be.transform.position);
+        CenterCameraOnTransform(t);
+        _rotateAroundBattleEntityCoroutine = RotateAroundPoint(t.position);
         StartCoroutine(_rotateAroundBattleEntityCoroutine);
     }
 

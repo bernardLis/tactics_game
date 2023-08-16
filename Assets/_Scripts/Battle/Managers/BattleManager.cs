@@ -10,7 +10,7 @@ using DG.Tweening;
 public class BattleManager : Singleton<BattleManager>
 {
     public static bool BlockBattleInput;
-     
+
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
@@ -33,6 +33,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public Hero PlayerHero { get; private set; }
     public Spire Spire { get; private set; }
+    public List<BattleOpponentPortal> OpponentPortals = new();
 
     public List<BattleEntity> PlayerCreatures = new();
     public List<BattleEntity> OpponentEntities = new();
@@ -215,6 +216,8 @@ public class BattleManager : Singleton<BattleManager>
             return true;
         return false;
     }
+
+    public void AddPortal(BattleOpponentPortal portal) { OpponentPortals.Add(portal); }
 
     IEnumerator BattleLost()
     {

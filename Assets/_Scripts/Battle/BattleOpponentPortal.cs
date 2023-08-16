@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
+using Random = UnityEngine.Random;
 
 public class BattleOpponentPortal : MonoBehaviour
 {
@@ -9,18 +11,24 @@ public class BattleOpponentPortal : MonoBehaviour
     [SerializeField] GameObject _portalEffect;
 
     BattleManager _battleManager;
+    BattleTooltipManager _tooltipManager;
 
     BattleWave _currentWave;
 
     List<BattleEntity> _spawnedEntities = new();
 
+    public event Action OnWaveSpawned;
     void Start()
     {
         _battleManager = BattleManager.Instance;
+        _battleManager.AddPortal(this);
+        _tooltipManager = BattleTooltipManager.Instance;
     }
 
     public void InitializeWave(BattleWave wave)
     {
+        _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
+        
         _portalEffect.SetActive(true);
         _currentWave = wave;
         StartCoroutine(HandleSpawningGroups());
@@ -55,6 +63,7 @@ public class BattleOpponentPortal : MonoBehaviour
 
         _battleManager.AddOpponentArmyEntities(_spawnedEntities);
         _spawnedEntities.Clear();
+        OnWaveSpawned?.Invoke();
     }
 
     void SpawnEntity(Entity entity)

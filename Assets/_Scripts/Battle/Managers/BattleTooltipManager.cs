@@ -54,6 +54,13 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _topContainer.Add(txt);
     }
 
+    public void ShowInfo(string text, float duration)
+    {
+        ShowInfo(text);
+        Invoke(nameof(HideInfo), duration);
+    }
+
+
     public void HideInfo()
     {
         _topContainer.style.display = DisplayStyle.None;

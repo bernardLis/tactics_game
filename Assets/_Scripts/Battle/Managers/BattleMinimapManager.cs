@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BattleMinimapManager : MonoBehaviour
 {
+    const string _ussPortalIcon = "common__minimap-portal-icon";
+
     const string _ussPlayerEntityIcon = "common__minimap-player-entity-icon";
     const string _ussPlayerTurretIcon = "common__minimap-player-turret-icon";
 
@@ -53,6 +56,7 @@ public class BattleMinimapManager : MonoBehaviour
         _spireIcon.style.top = spirePos.x; //- _spireIcon.resolvedStyle.width * 0.5f;
         _spireIcon.style.left = spirePos.y; //- _spireIcon.resolvedStyle.height * 0.5f;
 
+        AddPortals();
         HandleEntities();
 
         _battleCameraManager.OnCameraMoved += UpdateCameraIconPosition;
@@ -75,12 +79,56 @@ public class BattleMinimapManager : MonoBehaviour
         _cameraIcon.transform.rotation = Quaternion.Euler(0, 0, _battleCameraManager.transform.eulerAngles.y + 90);
     }
 
+    void AddPortals()
+    {
+        Debug.Log($"_battleManager.OpponentPortals.Count {_battleManager.OpponentPortals.Count}");
+        foreach (BattleOpponentPortal portal in _battleManager.OpponentPortals)
+        {
+            VisualElement icon = new VisualElement();
+            icon.AddToClassList(_ussPortalIcon);
+            icon.style.backgroundImage = new StyleBackground(portal.Element.Icon);
+            Vector2 pos = new Vector2(portal.transform.position.x, portal.transform.position.z);
+            Vector2 miniMapPosition = GetMiniMapPosition(pos);
+            icon.style.top = miniMapPosition.x;
+            icon.style.left = miniMapPosition.y;
+
+            icon.RegisterCallback<MouseUpEvent>((e) =>
+            {
+                if (e.button != 0) return;
+                _battleCameraManager.CenterCameraOnTransform(portal.transform);
+                // _tooltipManager.DisplayTooltip(portal);
+            });
+
+            icon.RegisterCallback<MouseEnterEvent>((e) =>
+            {
+                icon.style.opacity = 1;
+            });
+
+            icon.RegisterCallback<MouseLeaveEvent>((e) =>
+            {
+                icon.style.opacity = 0.8f;
+            });
+
+            _minimap.Add(icon);
+
+            portal.OnWaveSpawned += () =>
+            {
+                icon.style.opacity = 1;
+
+                DOTween.To(() => icon.transform.scale, x => icon.transform.scale = x, Vector3.one * 1.5f, 0.5f)
+                    .SetLoops(4, LoopType.Yoyo)
+                    .SetEase(Ease.Flash);
+            };
+        }
+    }
+
     void HandleEntities()
     {
         AddCurrentEntities();
         _battleManager.OnPlayerCreatureAdded += (creature) => AddEntity(creature);
-        _battleManager.OnOpponentEntityAdded += (entity) => AddEntity(entity);
         _battleManager.OnPlayerEntityDeath += (entity) => RemoveEntity(entity);
+
+        _battleManager.OnOpponentEntityAdded += (entity) => AddEntity(entity);
         _battleManager.OnOpponentEntityDeath += (entity) => RemoveEntity(entity);
         //    if (_spireUpgradeManager == null) _spireUpgradeManager = SpireUpgradeManager.Instance;
         //   _spireUpgradeManager.OnTurretAdded += (turret) => AddTurret(turret);
@@ -110,8 +158,6 @@ public class BattleMinimapManager : MonoBehaviour
     {
         foreach (BattleEntity be in _battleManager.PlayerCreatures)
             AddEntity(be);
-        foreach (BattleEntity be in _battleManager.OpponentEntities)
-            AddEntity(be);
     }
 
     void AddEntity(BattleEntity be)
@@ -130,7 +176,7 @@ public class BattleMinimapManager : MonoBehaviour
         icon.RegisterCallback<MouseUpEvent>((e) =>
         {
             if (e.button != 0) return;
-            _battleCameraManager.CenterCameraOnBattleEntity(be);
+            _battleCameraManager.CenterCameraOnTransform(be.transform);
             UpdateCameraIconRotation();
             _tooltipManager.DisplayTooltip(be);
         });
@@ -157,14 +203,10 @@ public class BattleMinimapManager : MonoBehaviour
         if (be.Team == 0)
         {
             icon.AddToClassList(_ussPlayerEntityIcon);
-            //  icon.style.backgroundImage = new StyleBackground(be.Entity.IconAnimation[0]);
             return;
         }
 
-        if (be is BattleMinion)
-            icon.AddToClassList(_ussOpponentMinionIcon);
-        else
-            icon.AddToClassList(_ussOpponentCreatureIcon);
+        icon.AddToClassList(_ussOpponentCreatureIcon);
     }
 
     void RemoveEntity(BattleEntity be)
