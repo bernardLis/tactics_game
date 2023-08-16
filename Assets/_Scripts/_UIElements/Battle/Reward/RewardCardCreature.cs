@@ -10,5 +10,8 @@ public class RewardCardCreature : RewardCard
         RewardCreature rewardCreature = reward as RewardCreature;
         EntityIcon icon = new(rewardCreature.Creature);
         Add(icon);
+
+        Add(new Label(Helpers.ParseScriptableObjectName(rewardCreature.Creature.name)));
+
     }
 }

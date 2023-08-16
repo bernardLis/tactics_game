@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wind Turret
   m_EditorClassIdentifier: 
   Id: a3ed4b72-e656-4bfe-b167-48441959225f
-  Icon: {fileID: 21300000, guid: 6b1c444e5f1016043b032bbbdb5ab838, type: 3}
+  Icon: {fileID: 21300000, guid: 17a71625fdd59be428dfcc74862e7814, type: 3}
   Description: Wind turret
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   TurretUpgrades:
@@ -23,4 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8186a4ee54b7c784eb608b36e1fd4dc5, type: 2}
   - {fileID: 11400000, guid: 93653244b824afe41adc751685bc7a5f, type: 2}
   CurrentTurretUpgradeIndex: 0
+  KillCount: 0
   Prefab: {fileID: 7800699760027420959, guid: 1cb83a27dcb56ab4b9e58fc850d501c7, type: 3}

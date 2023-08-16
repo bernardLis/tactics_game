@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire Turret
   m_EditorClassIdentifier: 
   Id: 191fe94d-4866-4095-ba03-f96db3fbad59
-  Icon: {fileID: 21300000, guid: 6b1c444e5f1016043b032bbbdb5ab838, type: 3}
+  Icon: {fileID: 21300000, guid: 7f77905194bac21428a9b4d155cd3615, type: 3}
   Description: Fire turret
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   TurretUpgrades:
@@ -23,4 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 92bda9d008238314789aa32f20dbb4c3, type: 2}
   - {fileID: 11400000, guid: d7360ed1cb03a664c90be6978b9e35dc, type: 2}
   CurrentTurretUpgradeIndex: 0
+  KillCount: 0
   Prefab: {fileID: 667045361582618069, guid: 36f7302be03731b479ab6601ed81bcfe, type: 3}
