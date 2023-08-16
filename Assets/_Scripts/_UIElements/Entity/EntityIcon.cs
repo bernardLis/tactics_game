@@ -21,14 +21,14 @@ public class EntityIcon : ElementWithTooltip
 
     AnimationElement _animationElement;
     bool _isAnimationBlocked;
-    public EntityIcon(Entity creature, bool blockTooltip = false, bool blockClick = false)
+    public EntityIcon(Entity entity, bool blockTooltip = false, bool blockClick = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _entity = creature;
+        _entity = entity;
         _blockTooltip = blockTooltip;
 
         AddToClassList(_ussMain);
@@ -36,7 +36,7 @@ public class EntityIcon : ElementWithTooltip
         _iconContainer = new();
         _iconContainer.AddToClassList(_ussIconContainer);
 
-        _animationElement = new(creature.IconAnimation, 50, true);
+        _animationElement = new(entity.IconAnimation, 50, true);
         _iconContainer.Add(_animationElement);
 
         Frame = new();
@@ -122,7 +122,6 @@ public class EntityIcon : ElementWithTooltip
     void OnClick(ClickEvent evt)
     {
         evt.StopImmediatePropagation();
-        VisualElement root = _gameManager.Root;
 
         if (_entity is Creature)
             new CreatureCardFull((Creature)_entity);

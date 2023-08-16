@@ -14,6 +14,7 @@ public class TurretCard : VisualElement
     GameManager _gameManager;
 
     VisualElement _leftPanel;
+    VisualElement _middlePanel;
     VisualElement _rightPanel;
 
     Label _nameLabel;
@@ -43,25 +44,35 @@ public class TurretCard : VisualElement
         Turret = turret;
 
         _leftPanel = new();
+        _middlePanel = new();
         _rightPanel = new();
         Add(_leftPanel);
+        Add(_middlePanel);
         Add(_rightPanel);
 
         PopulateLeftPanel();
+        PopulateMiddlePanel();
         PopulateRightPanel();
     }
 
     void PopulateLeftPanel()
     {
         _nameLabel = new();
+        _leftPanel.Add(_nameLabel);
+
+        TurretIcon turretIcon = new(Turret, blockTooltip: true);
+        _leftPanel.Add(turretIcon);
+    }
+
+    void PopulateMiddlePanel()
+    {
         _rangeLabel = new();
         _powerLabel = new();
         _rateLabel = new();
 
-        _leftPanel.Add(_nameLabel);
-        _leftPanel.Add(_rangeLabel);
-        _leftPanel.Add(_powerLabel);
-        _leftPanel.Add(_rateLabel);
+        _middlePanel.Add(_rangeLabel);
+        _middlePanel.Add(_powerLabel);
+        _middlePanel.Add(_rateLabel);
 
         UpdateTurretInfo();
     }
@@ -88,9 +99,8 @@ public class TurretCard : VisualElement
             _rightPanel.Add(_upgradeButton);
             return;
         }
-        
-        _upgradeButton = new(Turret.GetNextUpgrade().Cost, isInfinite: true,
-                buttonText: "Upgrade", callback: Upgrade);
+
+        _upgradeButton = new(Turret.GetNextUpgrade().Cost, isInfinite: true, callback: Upgrade);
         _rightPanel.Add(_upgradeButton);
 
         _upgradeButton.RegisterCallback<PointerEnterEvent>(OnUpgradeButtonPointerEnter);
