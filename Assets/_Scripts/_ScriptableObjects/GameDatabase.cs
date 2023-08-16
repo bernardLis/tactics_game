@@ -31,6 +31,7 @@ public class GameDatabase : BaseScriptableObject
     public Sprite[] TroopsElementAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
+    public Sprite ObstacleIcon;
 
     public Sprite GetCoinSprite(int amount)
     {

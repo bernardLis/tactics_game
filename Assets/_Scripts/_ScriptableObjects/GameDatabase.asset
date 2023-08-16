@@ -24,6 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f729a9c9d523647b5b68ef9b321939, type: 2}
   - {fileID: 11400000, guid: 7cd448c6dce89a94c8fbe97e92a7ff44, type: 2}
   - {fileID: 11400000, guid: 1333b309038e6b44bb05312d358b9985, type: 2}
+  ObstacleIcon: {fileID: 21300000, guid: 8ff884ae8c77c3d4fad86a0d76b781f7, type: 3}
   AllBaseUpgrades:
   - {fileID: 11400000, guid: 38ffc0f173ff1484c94d2bbabdf58736, type: 2}
   - {fileID: 11400000, guid: 61c889540e3a6974498b440006d6c98e, type: 2}
