@@ -93,8 +93,7 @@ public class BattleWaveCard : VisualElement
         Debug.Log($"_battleWave.DelayBetweenGroups {_battleWave.DelayBetweenGroups}");
         Debug.Log($"_battleWave.OpponentGroups.Count {_battleWave.OpponentGroups.Count}");
 
-        // it takes 1s to spawn each group, but does it matter - yes, it does...
-        float totalTime = (_battleWave.DelayBetweenGroups + 1) * (_battleWave.OpponentGroups.Count - 2);
+        float totalTime = _battleWave.DelayBetweenGroups * (_battleWave.OpponentGroups.Count - 2);
         Debug.Log($"total time: {totalTime}");
         float timePassedFromStart = Time.time - _battleWave.StartTime;
         Debug.Log($"timePassedFromStart {timePassedFromStart}");
@@ -129,7 +128,7 @@ public class BattleWaveCard : VisualElement
     void PopulateBottomPanel()
     {
         float timeLeft = _battleWave.DelayBetweenGroups - (Time.time - _lastWaveSpawnTime);
-        _nextGroupTimer = new(timeLeft, _battleWave.DelayBetweenGroups + 1, true, "Next group in: ");
+        _nextGroupTimer = new(timeLeft, _battleWave.DelayBetweenGroups, true, "Next group in: ");
         _bottomPanel.Add(_nextGroupTimer);
 
     }

@@ -45,7 +45,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
             _lastWaveSpawnTime = Time.time;
             _currentWave.SpawningGroupFinished();
             if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count - 1) // don't wait after the last one is spawned
-                yield return new WaitForSeconds(_currentWave.DelayBetweenGroups);
+                yield return new WaitForSeconds(_currentWave.DelayBetweenGroups - 1); // -1  to account for the 1s delay in spawning the group  
         }
         // HERE: spawn a reward chest?
         _portalEffect.SetActive(false);

@@ -14,7 +14,7 @@ public class Battle : BaseScriptableObject
 
     public Spire Spire;
 
-    public int Duration = 900; // seconds
+    public int Duration = 600; // seconds
 
     // modifiers
     public float CreatureSpeedMultiplier = 1f;
@@ -59,15 +59,29 @@ public class Battle : BaseScriptableObject
             availableElements.Remove(element);
 
             BattleWave wave = CreateInstance<BattleWave>();
-            wave.CreateWave(element, level + i, i * Random.Range(30, 60));
+            float startTime = GetWaveStartTime(element, i);
+            int difficulty = 1 + Mathf.FloorToInt(i * 0.25f);// every 4 waves, difficulty increases by 1
+            wave.CreateWave(element, difficulty, startTime);
             Waves.Add(wave);
         }
 
         foreach (BattleWave w in Waves)
         {
-            Debug.Log($"wave: {w.Element}, start time {w.StartTime}, planned end time {w.StartTime + w.DelayBetweenGroups * w.OpponentGroups.Count}");
+            Debug.Log($"wave: {w.Element}, diff {w.Difficulty}, start time {w.StartTime}, planned end time {w.GetPlannedEndTime()}");
         }
 
+    }
+
+    public float GetWaveStartTime(Element element, int waveIndex)
+    {
+        float startTime = waveIndex * Random.Range(45f, 75f);
+
+        // make sure that the wave doesn't start before the previous one of the same element ends
+        foreach (BattleWave w in Waves)
+            if (w.Element == element && w.GetPlannedEndTime() > startTime)
+                startTime = w.GetPlannedEndTime() + 10;
+
+        return startTime;
     }
 
     public void AddModifier(BattleModifier modifier)

@@ -35,7 +35,7 @@ public class BattleWave : BaseScriptableObject
         */
         // TODO: math for wave difficulty
 
-        DelayBetweenGroups = Random.Range(10, 20);
+        DelayBetweenGroups = Random.Range(15, 25) - difficulty;
         int numberOfGroups = 5 + difficulty;
         for (int i = 0; i < numberOfGroups; i++)
         {
@@ -47,10 +47,15 @@ public class BattleWave : BaseScriptableObject
 
             //  Debug.Log($"group: difficulty {difficulty}, group number {i}, minions {numberOfMinions}, creatures {numberOfCreatures}, delay {DelayBetweenGroups}");
 
-            OpponentGroup group = ScriptableObject.CreateInstance<OpponentGroup>();
+            OpponentGroup group = CreateInstance<OpponentGroup>();
             group.CreateGroup(Element, numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
             OpponentGroups.Add(group);
         }
+    }
+
+    public float GetPlannedEndTime()
+    {
+        return StartTime + DelayBetweenGroups * OpponentGroups.Count;
     }
 
     public void SpawningGroupFinished()
