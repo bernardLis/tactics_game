@@ -12,7 +12,7 @@ public class Battle : BaseScriptableObject
 
     public Spire Spire;
 
-    public int Duration = 15; // minutes
+    public int Duration = 900; // seconds
 
     // modifiers
     public float CreatureSpeedMultiplier = 1f;

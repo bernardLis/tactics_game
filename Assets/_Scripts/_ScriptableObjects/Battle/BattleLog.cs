@@ -8,7 +8,7 @@ public class BattleLog : BaseScriptableObject
 
     public void SetTime()
     {
-        Time = BattleManager.Instance.BattleTime;
+        Time = BattleManager.Instance.GetTime();
     }
 
 }

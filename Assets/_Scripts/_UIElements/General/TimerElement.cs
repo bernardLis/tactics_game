@@ -53,9 +53,11 @@ public class TimerElement : VisualElement
 
         _battleManager.OnGamePaused += Pause;
         _battleManager.OnGameResumed += Resume;
+
+        AddLabelWrapper();
     }
 
-    protected VisualElement GetLabelWrapper()
+    protected VisualElement AddLabelWrapper()
     {
         _labelWrapper = new();
         Add(_labelWrapper);

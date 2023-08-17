@@ -41,7 +41,7 @@ public class BattleWaveManager : MonoBehaviour
     void CheckWave(BattleWave wave)
     {
         if (wave.IsStarted) return;
-        if (wave.StartTime <= _battleManager.BattleTime)
+        if (wave.StartTime <= Time.time)
             StartWave(wave);
     }
 

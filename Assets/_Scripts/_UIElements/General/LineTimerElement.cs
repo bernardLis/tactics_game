@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class LineTimerElement : TimerElement
 {
     const string _ussLineMain = _ussClassName + "line-main";
-    const string _ussWrapper = _ussClassName + "wrapper";
+    const string _ussLineWrapper = _ussClassName + "line-wrapper";
     const string _ussLine = _ussClassName + "line";
 
     VisualElement _wrapper;
@@ -28,9 +28,16 @@ public class LineTimerElement : TimerElement
 
         _wrapper = new();
         Add(_wrapper);
-        _wrapper.AddToClassList(_ussWrapper);
+        _wrapper.AddToClassList(_ussLineWrapper);
 
-        Add(GetLabelWrapper());
+
+        _labelWrapper.style.position = Position.Absolute;
+        // Add(AddLabelWrapper());
+    }
+
+    public void HideLabel()
+    {
+        _labelWrapper.style.display = DisplayStyle.None;
     }
 
     public void SetStyles(string wrapperClass, string lineClass)

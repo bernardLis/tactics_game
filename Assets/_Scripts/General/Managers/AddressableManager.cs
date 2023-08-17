@@ -66,6 +66,6 @@ public enum StyleSheetType
     StoreyUpgradeStyles, StoreyLivesStyles, StoreyTroopsStyles, StoreyManaStyles,
     StoreyUpgradeTreeStyles,
 
-    TurretIconStyles, TurretCardStyles, GraveCardStyles
+    TurretIconStyles, TurretCardStyles, GraveCardStyles, BattleWaveCardStyles,
 
 }

@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using System.Runtime.Remoting.Messaging;
 
 public class BattleManager : Singleton<BattleManager>
 {
@@ -26,8 +27,6 @@ public class BattleManager : Singleton<BattleManager>
 
 
     public Transform EntityHolder;
-
-    public float BattleTime { get; private set; }
 
     public bool IsTimerOn { get; private set; }
 
@@ -107,14 +106,16 @@ public class BattleManager : Singleton<BattleManager>
     {
         while (IsTimerOn)
         {
-            BattleTime += 1f;
-            TimeSpan time = TimeSpan.FromSeconds(BattleTime);
-            _timerLabel.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
-            if (time.Minutes >= _gameManager.SelectedBattle.Duration)
+            int minutes = Mathf.FloorToInt(Time.time / 60F);
+            int seconds = Mathf.FloorToInt(Time.time - minutes * 60);
+
+            _timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+            if (Time.time >= _gameManager.SelectedBattle.Duration)
                 StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);
         }
     }
+    public float GetTime() { return Time.time; }
 
     public void Initialize(Hero playerHero, Vector3 spirePos = default)
     {

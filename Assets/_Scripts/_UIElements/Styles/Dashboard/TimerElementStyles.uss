@@ -1,26 +1,4 @@
-.timer-element__line-main {
-    height: 50px;
-    width: 100%;
-    flex-direction: row-reverse;
-}
-
-.timer-element__wrapper {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background-image: none;
-}
-
-.timer-element__line {
-    -unity-background-scale-mode: scale-and-crop;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Ex_line.png?fileID=2800000&guid=53b3ae5b52ccce740a2ebcc392ea9822&type=3#Ex_line');
-}
-
 .timer-element__label-wrapper {
-    position: absolute;
     width: 100%;
     height: 100%;
     flex-direction: row;
@@ -50,4 +28,34 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.timer-element__line-main {
+    height: 50px;
+    width: 100%;
+    min-width: 200px;
+    flex-direction: row-reverse;
+}
+
+.timer-element__line-wrapper {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+
+    height: 100%;
+    width: 100%;
+    background-image: none;
+}
+
+.timer-element__line {
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Ex_line.png?fileID=2800000&guid=53b3ae5b52ccce740a2ebcc392ea9822&type=3#Ex_line');
 }

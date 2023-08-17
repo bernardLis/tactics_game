@@ -19,7 +19,7 @@ public class OverlayTimerElement : TimerElement
         _overlayMask.AddToClassList(_ussOverlayMask);
 
         Add(_overlayMask);
-        Add(GetLabelWrapper());
+        //     Add(AddLabelWrapper());
     }
 
     public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)
