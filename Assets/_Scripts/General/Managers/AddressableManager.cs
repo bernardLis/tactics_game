@@ -67,5 +67,6 @@ public enum StyleSheetType
     StoreyUpgradeTreeStyles,
 
     TurretIconStyles, TurretCardStyles, GraveCardStyles, BattleWaveCardStyles,
+    OpponentGroupMarkerStyles,
 
 }

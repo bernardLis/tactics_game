@@ -84,7 +84,6 @@ public class BattleWaveCard : VisualElement
             icon.AddToClassList(_ussDifficultyIcon);
             container.Add(icon);
         }
-
     }
 
     void PopulateMiddlePanel()
@@ -108,12 +107,9 @@ public class BattleWaveCard : VisualElement
         for (int i = 0; i < _battleWave.OpponentGroups.Count; i++)
         {
             float leftPos = i * spaceBetween;
-            VisualElement marker = new();
+            OpponentGroupMarkerElement marker = new(_battleWave.OpponentGroups[i]);
             marker.style.position = Position.Absolute;
             marker.style.left = leftPos;
-            marker.style.width = 10;
-            marker.style.height = 20;
-            marker.style.backgroundColor = Color.red;
             _lineTimerElement.Add(marker);
         }
     }

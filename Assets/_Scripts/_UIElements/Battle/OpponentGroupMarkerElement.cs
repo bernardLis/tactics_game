@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class OpponentGroupMarkerElement : ElementWithTooltip
+{
+    GameManager _gameManager;
+
+    const string _ussClassName = "opponent-group-marker__";
+    const string _ussMain = _ussClassName + "main";
+
+    OpponentGroup _opponentGroup;
+    public OpponentGroupMarkerElement(OpponentGroup opponentGroup)
+    {
+        _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.OpponentGroupMarkerStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
+        _opponentGroup = opponentGroup;
+        AddToClassList(_ussMain);
+
+    }
+
+    protected override void DisplayTooltip()
+    {
+
+        OpponentGroupCard tooltip = new(_opponentGroup);
+
+        _tooltip = new(this, tooltip);
+        base.DisplayTooltip();
+    }
+
+}
