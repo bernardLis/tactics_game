@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BattleWave : BaseScriptableObject
 {
@@ -15,6 +17,7 @@ public class BattleWave : BaseScriptableObject
 
     GameManager _gameManager;
 
+    public event Action OnGroupSpawned;
     public void CreateWave(Element element, int difficulty, float startTime)
     {
         _gameManager = GameManager.Instance;
@@ -48,6 +51,12 @@ public class BattleWave : BaseScriptableObject
             group.CreateGroup(Element, numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
             OpponentGroups.Add(group);
         }
+    }
+
+    public void SpawningGroupFinished()
+    {
+        CurrentGroupIndex++;
+        OnGroupSpawned?.Invoke();
     }
 
     public OpponentGroup GetCurrentOpponentGroup()

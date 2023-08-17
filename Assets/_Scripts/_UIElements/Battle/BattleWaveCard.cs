@@ -77,15 +77,16 @@ public class BattleWaveCard : VisualElement
 
     void PopulateMiddlePanel()
     {
-        Debug.Log($"_battleWave.DelayBetweenGroups {_battleWave.DelayBetweenGroups}");
-        Debug.Log($"_battleWave.OpponentGroups.Count {_battleWave.OpponentGroups.Count}");
+        //   Debug.Log($"_battleWave.DelayBetweenGroups {_battleWave.DelayBetweenGroups}");
+        //   Debug.Log($"_battleWave.OpponentGroups.Count {_battleWave.OpponentGroups.Count}");
 
-        float totalTime = _battleWave.DelayBetweenGroups * _battleWave.OpponentGroups.Count;
-        Debug.Log($"total time: {totalTime}");
+        // it takes 1s to spawn each group, but does it matter - yes, it does...
+        float totalTime = (_battleWave.DelayBetweenGroups + 1) * _battleWave.OpponentGroups.Count;
+        //   Debug.Log($"total time: {totalTime}");
         float timePassedFromStart = Time.time - _battleWave.StartTime;
-        Debug.Log($"timePassedFromStart {timePassedFromStart}");
+        //    Debug.Log($"timePassedFromStart {timePassedFromStart}");
         float timeLeft = totalTime - timePassedFromStart;
-        Debug.Log($"timeLeft {timeLeft}");
+        //  Debug.Log($"timeLeft {timeLeft}");
 
         _lineTimerElement = new(timeLeft, totalTime, false, "");
         _lineTimerElement.HideLabel();
@@ -112,8 +113,10 @@ public class BattleWaveCard : VisualElement
 
     void PopulateBottomPanel()
     {
+        Debug.Log($"_battleWave.DelayBetweenGroups {_battleWave.DelayBetweenGroups}");
+        Debug.Log($"Time.time - _lastWaveSpawnTime {Time.time - _lastWaveSpawnTime}");
         float timeLeft = _battleWave.DelayBetweenGroups - (Time.time - _lastWaveSpawnTime);
-        TimerElement timerElement = new(timeLeft, _battleWave.DelayBetweenGroups, true, "Next group in: ");
+        TimerElement timerElement = new(timeLeft, _battleWave.DelayBetweenGroups + 1, true, "Next group in: ");
         _bottomPanel.Add(timerElement);
 
     }

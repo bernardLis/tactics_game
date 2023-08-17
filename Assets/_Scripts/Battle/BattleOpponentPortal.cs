@@ -43,8 +43,9 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             yield return SpawnCurrentOpponentGroup();
             _lastWaveSpawnTime = Time.time;
-            _currentWave.CurrentGroupIndex++;
-            yield return new WaitForSeconds(_currentWave.DelayBetweenGroups);
+            _currentWave.SpawningGroupFinished();
+            if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count - 1) // don't wait after the last one is spawned
+                yield return new WaitForSeconds(_currentWave.DelayBetweenGroups);
         }
         // HERE: spawn a reward chest?
         _portalEffect.SetActive(false);
@@ -56,14 +57,13 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         List<Entity> entities = new(group.Minions);
         entities.AddRange(group.Creatures);
-        float delay = 0.5f;
+        float delay = 1f / entities.Count;
 
         foreach (Entity e in entities)
         {
             SpawnEntity(e);
             yield return new WaitForSeconds(delay);
         }
-        yield return new WaitForSeconds(0.5f);
 
         _battleManager.AddOpponentArmyEntities(_spawnedEntities);
         _spawnedEntities.Clear();
