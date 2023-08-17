@@ -109,7 +109,7 @@ public class BattleManager : Singleton<BattleManager>
             int minutes = Mathf.FloorToInt(Time.time / 60F);
             int seconds = Mathf.FloorToInt(Time.time - minutes * 60);
 
-            _timerLabel.text = string.Format("{0:0}:{1:00}", minutes, seconds);
+            _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             if (Time.time >= _gameManager.SelectedBattle.Duration)
                 StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);

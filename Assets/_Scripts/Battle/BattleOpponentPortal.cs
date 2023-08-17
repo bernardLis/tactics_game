@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 
 public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+
     public Element Element;
     [SerializeField] GameObject _portalEffect;
 
@@ -15,6 +16,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     BattleTooltipManager _tooltipManager;
 
     BattleWave _currentWave;
+    [SerializeField] List<string> _portalLog = new();
+
 
     List<BattleEntity> _spawnedEntities = new();
 
@@ -30,6 +33,10 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void InitializeWave(BattleWave wave)
     {
+        _portalLog.Add($"{Time.time} Initializing wave. Wave start time {wave.StartTime}");
+        _portalLog.Add($"Delay between groups {wave.DelayBetweenGroups}");
+        _portalLog.Add($"Number of groups {wave.OpponentGroups.Count - 1}");
+
         _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
 
         _portalEffect.SetActive(true);
@@ -44,8 +51,9 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
             yield return SpawnCurrentOpponentGroup();
             _lastWaveSpawnTime = Time.time;
             _currentWave.SpawningGroupFinished();
-            if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count - 1) // don't wait after the last one is spawned
-                yield return new WaitForSeconds(_currentWave.DelayBetweenGroups - 1); // -1  to account for the 1s delay in spawning the group  
+            _portalLog.Add($"{Time.time} Finished spawning group index: {_currentWave.CurrentGroupIndex}");
+            // if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count - 1) // don't wait after the last one is spawned
+            yield return new WaitForSeconds(_currentWave.DelayBetweenGroups - 1); // -1  to account for the 1s delay in spawning the group  
         }
         // HERE: spawn a reward chest?
         _portalEffect.SetActive(false);
@@ -53,6 +61,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     IEnumerator SpawnCurrentOpponentGroup()
     {
+        _portalLog.Add($"{Time.time} Started spawning group index: {_currentWave.CurrentGroupIndex}");
+
         OpponentGroup group = _currentWave.GetCurrentOpponentGroup();
 
         List<Entity> entities = new(group.Minions);

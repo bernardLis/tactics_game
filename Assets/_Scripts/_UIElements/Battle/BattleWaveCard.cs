@@ -66,7 +66,6 @@ public class BattleWaveCard : VisualElement
         {
             _nextGroupTimer.RemoveFromHierarchy();
             _bottomPanel.Add(new Label("Last group spawned")); // HERE: time to next wave
-
         }
     }
 
@@ -90,15 +89,9 @@ public class BattleWaveCard : VisualElement
 
     void PopulateMiddlePanel()
     {
-        Debug.Log($"_battleWave.DelayBetweenGroups {_battleWave.DelayBetweenGroups}");
-        Debug.Log($"_battleWave.OpponentGroups.Count {_battleWave.OpponentGroups.Count}");
-
-        float totalTime = _battleWave.DelayBetweenGroups * (_battleWave.OpponentGroups.Count - 2);
-        Debug.Log($"total time: {totalTime}");
+        float totalTime = _battleWave.DelayBetweenGroups * (_battleWave.OpponentGroups.Count - 1);
         float timePassedFromStart = Time.time - _battleWave.StartTime;
-        Debug.Log($"timePassedFromStart {timePassedFromStart}");
         float timeLeft = totalTime - timePassedFromStart;
-        Debug.Log($"timeLeft {timeLeft}");
 
         _lineTimerElement = new(timeLeft, totalTime, false, "");
         _lineTimerElement.HideLabel();
@@ -109,8 +102,8 @@ public class BattleWaveCard : VisualElement
 
     void AddGroupMarkers()
     {
-        float spaceBetween = _lineTimerElement.resolvedStyle.width / _battleWave.OpponentGroups.Count - 1;
-        spaceBetween += spaceBetween / _battleWave.OpponentGroups.Count - 2;
+        float spaceBetween = _lineTimerElement.resolvedStyle.width / _battleWave.OpponentGroups.Count;
+        spaceBetween += spaceBetween / _battleWave.OpponentGroups.Count;
 
         for (int i = 0; i < _battleWave.OpponentGroups.Count; i++)
         {
@@ -128,8 +121,7 @@ public class BattleWaveCard : VisualElement
     void PopulateBottomPanel()
     {
         float timeLeft = _battleWave.DelayBetweenGroups - (Time.time - _lastWaveSpawnTime);
-        _nextGroupTimer = new(timeLeft, _battleWave.DelayBetweenGroups, true, "Next group in: ");
+        _nextGroupTimer = new(timeLeft, _battleWave.DelayBetweenGroups - 1, true, "Next group in: ");// -1 looks better
         _bottomPanel.Add(_nextGroupTimer);
-
     }
 }
