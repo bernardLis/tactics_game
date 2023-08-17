@@ -83,7 +83,6 @@ public class BattleMinimapManager : MonoBehaviour
 
     void AddPortals()
     {
-        Debug.Log($"_battleManager.OpponentPortals.Count {_battleManager.OpponentPortals.Count}");
         foreach (BattleOpponentPortal portal in _battleManager.OpponentPortals)
         {
             VisualElement icon = new VisualElement();

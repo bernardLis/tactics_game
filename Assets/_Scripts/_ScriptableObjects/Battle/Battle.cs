@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Map/Battle")]
 public class Battle : BaseScriptableObject
 {
+    GameManager _gameManager;
+
     public Hero Opponent;
     public List<BattleWave> Waves = new();
 
@@ -28,27 +30,44 @@ public class Battle : BaseScriptableObject
     public bool Won;
 
     public event Action<BattleModifier> OnBattleModifierAdded;
-
     public void CreateRandom(int level)
     {
-        GameManager gameManager = GameManager.Instance;
+        _gameManager = GameManager.Instance;
 
-        Spire = ScriptableObject.CreateInstance<Spire>();
+        Spire = CreateInstance<Spire>();
         Spire.Initialize();
 
-        Opponent = ScriptableObject.CreateInstance<Hero>();
-        Opponent.CreateRandom(gameManager.PlayerHero.Level.Value);
+        Opponent = CreateInstance<Hero>();
+        Opponent.CreateRandom(_gameManager.PlayerHero.Level.Value);
         Opponent.CreatureArmy.Clear();
 
-        // HERE: waves
+        CreateWaves(level);
+    }
+
+    public void CreateWaves(int level)
+    {
+        // HERE: waves - make sure that there are no overlapping waves
+
+        List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());
         Waves = new();
         for (int i = 0; i < 10; i++)
         {
-            Element element = gameManager.HeroDatabase.GetRandomElement();
-            BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
+            if (availableElements.Count == 0)
+                availableElements = new(_gameManager.HeroDatabase.GetAllElements());
+
+            Element element = availableElements[Random.Range(0, availableElements.Count)];
+            availableElements.Remove(element);
+
+            BattleWave wave = CreateInstance<BattleWave>();
             wave.CreateWave(element, level + i, i * Random.Range(30, 60));
             Waves.Add(wave);
         }
+
+        foreach (BattleWave w in Waves)
+        {
+            Debug.Log($"wave: {w.Element}, start time {w.StartTime}, planned end time {w.StartTime + w.DelayBetweenGroups * w.OpponentGroups.Count}");
+        }
+
     }
 
     public void AddModifier(BattleModifier modifier)

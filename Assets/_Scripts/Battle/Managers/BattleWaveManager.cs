@@ -24,7 +24,6 @@ public class BattleWaveManager : MonoBehaviour
 
     public void Initialize()
     {
-        Debug.Log($"handle waves {_selectedBattle.Waves.Count}");
         StartCoroutine(HandleWaves());
     }
 
