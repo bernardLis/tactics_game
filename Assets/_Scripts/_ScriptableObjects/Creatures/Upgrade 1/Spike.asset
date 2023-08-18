@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spike
   m_EditorClassIdentifier: 
   Id: spike-6aef-4f8f-a757-9d06b20d9a51
-  Name: Spike
+  EntityName: 
   Icon: {fileID: 21300000, guid: ba5fba8cb0a2eb046ab1858853e7e9d8, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: f17af875e672c7049a8816cc45a232d9, type: 3}
@@ -122,7 +122,7 @@ MonoBehaviour:
   Level: 0
   Price: 60
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  BaseHealth: 0
+  BaseHealth: 200
   Armor: 5
   Speed: 6
   Loot:
@@ -142,7 +142,7 @@ MonoBehaviour:
   Hero: {fileID: 0}
   MaxHealth: {fileID: 0}
   UpgradeTier: 1
-  BasePower: 0
+  BasePower: 20
   AttackRange: 3.5
   AttackCooldown: 1.5
   CreatureAbility: {fileID: 0}
