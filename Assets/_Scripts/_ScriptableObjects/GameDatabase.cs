@@ -32,6 +32,12 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
     public Sprite ObstacleIcon;
+    [SerializeField] OpponentGroupIcon[] OpponentGroupIcons;
+    public Sprite GetOpponentGroupIcon(Element element, bool hasCreatures)
+    {
+        OpponentGroupIcon icon = OpponentGroupIcons.FirstOrDefault(i => i.Element == element);
+        return hasCreatures ? icon.SpriteCreature : icon.SpriteMinion;
+    }
 
     public Sprite GetCoinSprite(int amount)
     {
@@ -83,6 +89,15 @@ public struct StatIcon
     public string StatName;
     public Sprite Sprite;
 }
+
+[System.Serializable]
+public struct OpponentGroupIcon
+{
+    public Element Element;
+    public Sprite SpriteCreature;
+    public Sprite SpriteMinion;
+}
+
 
 
 

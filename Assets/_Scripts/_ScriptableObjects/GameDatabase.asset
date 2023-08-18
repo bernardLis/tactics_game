@@ -24,7 +24,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f729a9c9d523647b5b68ef9b321939, type: 2}
   - {fileID: 11400000, guid: 7cd448c6dce89a94c8fbe97e92a7ff44, type: 2}
   - {fileID: 11400000, guid: 1333b309038e6b44bb05312d358b9985, type: 2}
-  ObstacleIcon: {fileID: 21300000, guid: 8ff884ae8c77c3d4fad86a0d76b781f7, type: 3}
   AllBaseUpgrades:
   - {fileID: 11400000, guid: 38ffc0f173ff1484c94d2bbabdf58736, type: 2}
   - {fileID: 11400000, guid: 61c889540e3a6974498b440006d6c98e, type: 2}
@@ -450,3 +449,17 @@ MonoBehaviour:
     - {fileID: 21300000, guid: dde15f56be9393b41ab81108f7efc0a2, type: 3}
     - {fileID: 21300000, guid: 279f39ddcb117ee4587fc238e5e623ab, type: 3}
     - {fileID: 21300000, guid: d497bd3531bc97140904d19c4c273569, type: 3}
+  ObstacleIcon: {fileID: 21300000, guid: 8ff884ae8c77c3d4fad86a0d76b781f7, type: 3}
+  OpponentGroupIcons:
+  - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+    SpriteMinion: {fileID: 21300000, guid: c27ebd63d7170f14ab13fe6a78ea568f, type: 3}
+    SpriteCreature: {fileID: 21300000, guid: 0567b9b1f7261cd4f8306447f153f95a, type: 3}
+  - Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+    SpriteMinion: {fileID: 21300000, guid: 7470bd0458dbaa24e81b666094df064e, type: 3}
+    SpriteCreature: {fileID: 21300000, guid: a34d0615405f33940b68cc63b17995a6, type: 3}
+  - Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+    SpriteMinion: {fileID: 21300000, guid: 9eab21c67aa77244696a946bd00802b0, type: 3}
+    SpriteCreature: {fileID: 21300000, guid: 5ddf7c73ada69a442b3534b04f923f47, type: 3}
+  - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+    SpriteMinion: {fileID: 21300000, guid: 3a1a72d5eeaabb34dbd9058affa199c5, type: 3}
+    SpriteCreature: {fileID: 21300000, guid: a32ec6e9f38d368419dab45ceb9a4ef9, type: 3}

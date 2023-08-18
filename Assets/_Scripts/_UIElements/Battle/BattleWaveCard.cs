@@ -109,7 +109,7 @@ public class BattleWaveCard : VisualElement
             float leftPos = i * spaceBetween;
             OpponentGroupMarkerElement marker = new(_battleWave.OpponentGroups[i]);
             marker.style.position = Position.Absolute;
-            marker.style.left = leftPos;
+            marker.style.left = leftPos - 12;
             _lineTimerElement.Add(marker);
         }
     }

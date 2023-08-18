@@ -1,5 +1,4 @@
 .opponent-group-marker__main {
-    width: 20px;
-    height: 20px;
-    background-image: url('project://database/Assets/Art/Sprites/Battle/opponentGroupIcon.png?fileID=2800000&guid=a5505eb21dbb38e41bcdcf34d69609ee&type=3#opponentGroupIcon');
+    width: 25px;
+    height: 25px;
 }

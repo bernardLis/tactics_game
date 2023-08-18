@@ -21,11 +21,12 @@ public class OpponentGroupMarkerElement : ElementWithTooltip
         _opponentGroup = opponentGroup;
         AddToClassList(_ussMain);
 
+        style.backgroundImage = new StyleBackground(_opponentGroup.Icon);
+        style.unityBackgroundImageTintColor = _opponentGroup.Element.Color;
     }
 
     protected override void DisplayTooltip()
     {
-
         OpponentGroupCard tooltip = new(_opponentGroup);
 
         _tooltip = new(this, tooltip);
