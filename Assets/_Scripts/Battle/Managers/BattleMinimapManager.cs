@@ -179,7 +179,7 @@ public class BattleMinimapManager : MonoBehaviour
             if (e.button != 0) return;
             _battleCameraManager.CenterCameraOnTransform(be.transform);
             UpdateCameraIconRotation();
-            _tooltipManager.DisplayTooltip(be);
+            _tooltipManager.ShowTooltip(be);
         });
 
         icon.RegisterCallback<MouseEnterEvent>((e) =>

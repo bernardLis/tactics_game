@@ -6,6 +6,7 @@ public class BattleCreatureBonding : MonoBehaviour
 {
     GameManager _gameManager;
     BattleCameraManager _battleCameraManager;
+    BattleTooltipManager _battleTooltipManager;
 
     BattleCreature _battleCreature;
     Creature _creature;
@@ -18,6 +19,7 @@ public class BattleCreatureBonding : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _battleCameraManager = BattleCameraManager.Instance;
+        _battleTooltipManager = BattleTooltipManager.Instance;
         Initialize();
     }
 
@@ -36,13 +38,13 @@ public class BattleCreatureBonding : MonoBehaviour
         {
             RotateCameraAroundBattleEntity();
             CreatureCardFull card = new(_creature, isChangingName: true);
-            card.OnHide += ReturnCameraToOriginal;
+            card.OnHide += CreatureCardFullHidden;
         }
         if (_creature.Level == _creature.CreatureAbility.UnlockLevel)
         {
             RotateCameraAroundBattleEntity();
             CreatureCardFull card = new(_creature, isUnlockingAbility: true);
-            card.OnHide += ReturnCameraToOriginal;
+            card.OnHide += CreatureCardFullHidden;
         }
 
         ResolveEvolution();
@@ -58,16 +60,17 @@ public class BattleCreatureBonding : MonoBehaviour
 
     }
 
-    void ReturnCameraToOriginal()
+    void CreatureCardFullHidden()
     {
+        _battleTooltipManager.ShowTooltip(_battleCreature);
         _battleCameraManager.MoveCameraTo(_originalCamPos, _originalCamRot, _originalCamZoomHeight);
     }
 
     /* EVOLUTION */
     void ResolveEvolution()
     {
-        //  int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
-        //    if (_creature.UpgradeTier >= maxTier) return;
+        int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
+        if (_creature.UpgradeTier >= maxTier) return;
         if (_creature.ShouldEvolve())
         {
             // HERE: evolution camera management

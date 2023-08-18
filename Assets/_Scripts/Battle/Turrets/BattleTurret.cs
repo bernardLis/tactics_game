@@ -150,7 +150,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
         TurretCard c = new(Turret);
-        _tooltipManager.DisplayTooltip(c, gameObject);
+        _tooltipManager.ShowTooltip(c, gameObject);
 
         _rangeIndicator.SetActive(true);
 

@@ -68,7 +68,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _topContainer.Clear();
     }
 
-    public void DisplayTooltip(BattleEntity entity)
+    public void ShowTooltip(BattleEntity entity)
     {
         HideTooltip();
         if (entity is BattleMinion)
@@ -82,7 +82,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _bottomPanel.Add(_currentTooltip);
     }
 
-    public void DisplayTooltip(VisualElement el, GameObject go)
+    public void ShowTooltip(VisualElement el, GameObject go)
     {
         HideTooltip();
         _currentTooltip = el;

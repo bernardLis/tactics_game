@@ -69,7 +69,7 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
 
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
         GraveCard c = new(Creature);
-        _tooltipManager.DisplayTooltip(c, gameObject);
+        _tooltipManager.ShowTooltip(c, gameObject);
 
         c.OnResurrected += Resurrect;
     }

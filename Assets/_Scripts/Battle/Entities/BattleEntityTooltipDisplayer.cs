@@ -16,7 +16,7 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     
     public void OnPointerDown(PointerEventData eventData)
     {
-        _tooltipManager.DisplayTooltip(_battleEntity);
+        _tooltipManager.ShowTooltip(_battleEntity);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

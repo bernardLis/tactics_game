@@ -115,7 +115,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
         BattleWaveCard c = new(_currentWave, _lastWaveSpawnTime);
-        _tooltipManager.DisplayTooltip(c, gameObject);
+        _tooltipManager.ShowTooltip(c, gameObject);
     }
 
 }
