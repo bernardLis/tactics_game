@@ -8,12 +8,14 @@ using UnityEngine.EventSystems;
 
 public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    BattleManager _battleManager;
+    BattleTooltipManager _tooltipManager;
+
+    [SerializeField] GameObject RewardChestPrefab;
 
     public Element Element;
     [SerializeField] GameObject _portalEffect;
-
-    BattleManager _battleManager;
-    BattleTooltipManager _tooltipManager;
+    Vector3 _portalEffectScale;
 
     BattleWave _currentWave;
     [SerializeField] List<string> _portalLog = new();
@@ -29,6 +31,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _battleManager = BattleManager.Instance;
         _battleManager.AddPortal(this);
         _tooltipManager = BattleTooltipManager.Instance;
+
+        _portalEffectScale = _portalEffect.transform.localScale;
     }
 
     public void InitializeWave(BattleWave wave)
@@ -39,7 +43,13 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
 
-        _portalEffect.SetActive(true);
+        _portalEffect.transform.localScale = Vector3.zero;
+        _portalEffect.transform.DOScale(_portalEffectScale, 0.5f)
+            .OnComplete(() =>
+            {
+                _portalEffect.SetActive(true);
+            });
+
         _currentWave = wave;
         StartCoroutine(HandleSpawningGroups());
     }
@@ -52,11 +62,11 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
             _lastWaveSpawnTime = Time.time;
             _currentWave.SpawningGroupFinished();
             _portalLog.Add($"{Time.time} Finished spawning group index: {_currentWave.CurrentGroupIndex}");
-            // if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count - 1) // don't wait after the last one is spawned
-            yield return new WaitForSeconds(_currentWave.DelayBetweenGroups - 1); // -1  to account for the 1s delay in spawning the group  
+            if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count) // don't wait after the last one is spawned
+                yield return new WaitForSeconds(_currentWave.DelayBetweenGroups - 1); // -1  to account for the 1s delay in spawning the group  
         }
-        // HERE: spawn a reward chest?
-        _portalEffect.SetActive(false);
+
+        yield return ClosePortal();
     }
 
     IEnumerator SpawnCurrentOpponentGroup()
@@ -95,6 +105,27 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         jumpPos.y = 1;
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
         _spawnedEntities.Add(be);
+    }
+
+    IEnumerator ClosePortal()
+    {
+        yield return new WaitForSeconds(3f);
+
+        _portalLog.Add($"{Time.time} Closing portal");
+        Vector3 pos = _portalEffect.transform.position;
+        GameObject chest = Instantiate(RewardChestPrefab, pos, Quaternion.identity);
+        chest.transform.LookAt(Vector3.zero);
+        Vector3 jumpPos = pos + _portalEffect.transform.forward * Random.Range(2f, 4f);
+        chest.transform.DOJump(jumpPos, 1f, 1, 0.5f);
+
+        yield return new WaitForSeconds(0.8f);
+
+        _portalEffect.transform.DOScale(0, 0.5f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() =>
+            {
+                _portalEffect.SetActive(false);
+            });
     }
 
     public void OnPointerEnter(PointerEventData eventData)

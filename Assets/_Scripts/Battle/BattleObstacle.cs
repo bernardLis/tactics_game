@@ -13,7 +13,6 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     BattleGrabManager _grabManager;
     BattleTooltipManager _tooltipManager;
 
-    NavMeshObstacle _navMeshObstacle;
     Rigidbody _rb;
     Collider _collider;
     MMF_Player _feelPlayer;
@@ -31,8 +30,6 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         _grabManager = BattleGrabManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
-
-        _navMeshObstacle = GetComponent<NavMeshObstacle>();
 
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
