@@ -49,7 +49,7 @@ public class LockOverlayElement : ElementWithTooltip
                     _lockIcon.AddToClassList(_ussLockIconUnlocked);
 
                     DOTween.To(x => style.opacity = x, 0, 1, 0.5f)
-                            .SetDelay(1f)
+                            .SetDelay(0.5f)
                             .SetUpdate(true)
                             .OnComplete(() => RemoveFromHierarchy());
                 });

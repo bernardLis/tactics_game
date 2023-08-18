@@ -272,13 +272,14 @@ public class BattleCreature : BattleEntity
         OnEnemyKilled?.Invoke();
     }
 
-    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
+    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true, bool hasGrave = true)
     {
         yield return base.Die(attacker, hasLoot);
 
         _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
 
         if (Team != 0) yield break;
+        if (!hasGrave) yield break;
         GameObject g = Instantiate(_gravePrefab, transform.position, Quaternion.identity);
         g.GetComponent<BattleCreatureGrave>().Initialize(Creature);
     }
@@ -309,7 +310,7 @@ public class BattleCreature : BattleEntity
     [ContextMenu("Trigger Death")]
     public void TriggerDeath()
     {
-        TriggerDieCoroutine();
+        TriggerDieCoroutine(hasGrave: true);
     }
 
 #endif

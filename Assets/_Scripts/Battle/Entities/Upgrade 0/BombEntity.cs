@@ -11,11 +11,11 @@ public class BombEntity : BattleCreatureRanged
     List<GameObject> _hitInstances = new();
     GameObject _explosionEffectInstance;
 
-    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
+    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true, bool hasGrave = true)
     {
         yield return ManageCreatureAbility();
         Invoke(nameof(CleanUp), 2f);
-        yield return base.Die(attacker, hasLoot);
+        yield return base.Die(attacker, hasLoot, hasGrave);
     }
 
     protected override IEnumerator CreatureAbility()

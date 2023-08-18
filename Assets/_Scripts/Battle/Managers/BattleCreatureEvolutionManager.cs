@@ -60,11 +60,9 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
     {
         Creature oldCreature = originalCreature.Entity as Creature;
         Hero hero = oldCreature.Hero;
-
         Creature newCreature = Instantiate(oldCreature.EvolvedCreature);
 
         hero.AddCreature(newCreature, true);
-
         newCreature.InitializeBattle(hero);
         newCreature.ImportCreatureStats(oldCreature);
 

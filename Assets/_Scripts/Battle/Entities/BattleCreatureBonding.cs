@@ -66,8 +66,8 @@ public class BattleCreatureBonding : MonoBehaviour
     /* EVOLUTION */
     void ResolveEvolution()
     {
-        int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
-        if (_creature.UpgradeTier >= maxTier) return;
+        //  int maxTier = _gameManager.SelectedBattle.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
+        //    if (_creature.UpgradeTier >= maxTier) return;
         if (_creature.ShouldEvolve())
         {
             // HERE: evolution camera management

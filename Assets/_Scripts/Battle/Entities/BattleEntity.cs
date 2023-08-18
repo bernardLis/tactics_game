@@ -274,13 +274,13 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         StartRunEntityCoroutine();
     }
 
-    public void TriggerDieCoroutine(GameObject attacker = null)
+    public void TriggerDieCoroutine(GameObject attacker = null, bool hasGrave = false)
     {
         IsDead = true;
-        StartCoroutine(Die(attacker: attacker));
+        StartCoroutine(Die(attacker: attacker, hasGrave: hasGrave));
     }
 
-    public virtual IEnumerator Die(GameObject attacker = null, bool hasLoot = true)
+    public virtual IEnumerator Die(GameObject attacker = null, bool hasLoot = true, bool hasGrave = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
@@ -376,6 +376,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public bool CanBeGrabbed()
     {
         if (IsDead) return false;
+        if (_grabManager == null) return false;
         return true;
     }
 

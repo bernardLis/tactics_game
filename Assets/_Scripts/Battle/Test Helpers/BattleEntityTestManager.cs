@@ -31,16 +31,14 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
 
-        GameManager gameManager = GameManager.Instance;
-
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateFromHeroCreation("asd", gameManager.HeroDatabase.GetRandomPortraitFemale(),
-                 gameManager.HeroDatabase.GetRandomElement());
-        gameManager.PlayerHero = newChar;
+        newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
+                 _gameManager.HeroDatabase.GetRandomElement());
+        _gameManager.PlayerHero = newChar;
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();
         battle.CreateRandom(1);
-        gameManager.SelectedBattle = battle;
+        _gameManager.SelectedBattle = battle;
 
         StartCoroutine(LateInitialize(newChar));
     }
@@ -115,7 +113,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddCreature(Creature c, int team)
     {
-        c.InitializeBattle(null);
+        c.InitializeBattle(team == 0 ? _gameManager.PlayerHero : null);
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
@@ -126,7 +124,7 @@ public class BattleEntityTestManager : MonoBehaviour
     void AddRandomCreature(int team)
     {
         Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
-        c.InitializeBattle(null);
+        c.InitializeBattle(team == 0 ? _gameManager.PlayerHero : null);
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);

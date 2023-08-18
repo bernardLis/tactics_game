@@ -62,6 +62,7 @@ public class Creature : Entity
 
     public void ImportCreatureStats(Creature c)
     {
+        EntityName = c.EntityName;
         Level = c.Level;
         Experience.SetValue(c.Experience.Value);
 
