@@ -228,72 +228,72 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c56f9f9d036fcad44b2603ccb497d2ec
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleModifierStyles.uss
+    m_Address: BattleModifierStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bc0f58d0e54039498a8e2f58e009d0e
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyUpgradeStyles.uss
+    m_Address: StoreyUpgradeStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: caf37e186abe17144b52468aa45df4e0
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyLivesStyles.uss
+    m_Address: StoreyLivesStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 92868221e7deb1347b9463dde7387f87
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyTroopsStyles.uss
+    m_Address: StoreyTroopsStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 38bf4d85490372243890bb2cab7e4693
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyManaStyles.uss
+    m_Address: StoreyManaStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 002a1c8d950a0ce49a3483c0d4212f1d
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Spire/StoreyUpgradeTreeStyles.uss
+    m_Address: StoreyUpgradeTreeStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c5d53665b9fb84498cbab8dbbbe1aa7
-    m_Address: Assets/_Scripts/_UIElements/Styles/Entity/EntityCardStyles.uss
+    m_Address: EntityCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cea2238035ac76f46842572405990147
-    m_Address: Assets/_Scripts/_UIElements/Styles/Entity/EntityCardFullStyles.uss
+    m_Address: EntityCardFullStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 590c5b2f2cb22e84d98e5c333879fbe8
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/TurretCardStyles.uss
+    m_Address: TurretCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6ad505463fffd6f48951e4f094be8783
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/GraveCardStyles.uss
+    m_Address: GraveCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 78710e345d14d424393c02462d9ee261
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/TurretIconStyles.uss
+    m_Address: TurretIconStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dee90f91364511a4b8da86b1fa181765
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleWaveCardStyles.uss
+    m_Address: BattleWaveCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c835ca606f8bae4e876be95d207b2c5
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/OpponentGroupMarkerStyles.uss
+    m_Address: OpponentGroupMarkerStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2863cf82474d3a04eaa40996db0f600b
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/OpponentPortalCardStyles.uss
+    m_Address: OpponentPortalCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -302,3 +302,4 @@ MonoBehaviour:
   m_SchemaSet:
     m_Schemas:
     - {fileID: 11400000, guid: b949a3b7703ee3e459b733f63653c4ec, type: 2}
+    - {fileID: 11400000, guid: 15e6c94b7aa6f2143afaafe561914ec1, type: 2}

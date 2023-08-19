@@ -11,15 +11,16 @@ public static class Helpers
 
     static List<ArcMovementElement> _arcMovementElements = new();
 
-    public static void SetUpHelpers()
+    public static void SetUpHelpers(VisualElement root)
     {
+        Debug.Log($"Setting up helpers {root}");
         _arcMovementElements = new();
         for (int i = 0; i < 50; i++)
         {
             ArcMovementElement el = new(null, Vector3.zero, Vector3.zero);
             el.AddToClassList(_ussCommonTextPrimary);
             _arcMovementElements.Add(el);
-            GameManager.Instance.Root.Add(el);
+            root.Add(el);
         }
     }
 

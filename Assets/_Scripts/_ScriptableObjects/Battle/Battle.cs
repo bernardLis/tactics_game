@@ -46,6 +46,7 @@ public class Battle : BaseScriptableObject
 
     public void CreateWaves(int level)
     {
+
         // HERE: waves - make sure that there are no overlapping waves
 
         List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());

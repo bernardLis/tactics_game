@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using UnityEngine.UIElements;
+using System.Collections;
+
+using Unity.Services.Analytics;
+using Unity.Services.Core;
+
 
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
@@ -52,16 +57,41 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         base.Awake();
         _levelLoader = GetComponent<LevelLoader>();
         Root = GetComponent<UIDocument>().rootVisualElement;
+
+        // Services();
+    }
+
+    async void Services()
+    {
+        await UnityServices.InitializeAsync();
+        // TODO: analytics - need opt in flow
+        AnalyticsService.Instance.StartDataCollection();
+
+        HandleCustomEvent();
+    }
+
+    void HandleCustomEvent()
+    {
+        Dictionary<string, object> parameters = new Dictionary<string, object>()
+        {
+            { "fabulousString", "hello there" },
+            { "sparklingInt", 1337 },
+            { "spectacularFloat", 0.451f },
+            { "peculiarBool", true },
+        };
+
+        AnalyticsService.Instance.CustomData("gameStart", parameters);
     }
 
     void Start()
     {
+
         Debug.Log($"Game manager Start");
         // HERE: testing
         // global save per 'game'
         //  if (PlayerPrefs.GetString("saveName").Length == 0)
         //   {
-        Helpers.SetUpHelpers();
+        Helpers.SetUpHelpers(Root);
         CreateNewSaveFile();
 
         //  }

@@ -134,7 +134,8 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 08e9aa22577882d4ebc9379ebfe20818, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -604,7 +605,7 @@ PlayerSettings:
     PS5: UNITY_POST_PROCESSING_STACK_V2
     QNX: UNITY_POST_PROCESSING_STACK_V2
     Stadia: UNITY_POST_PROCESSING_STACK_V2
-    Standalone: UNITY_POST_PROCESSING_STACK_V2;SHAPES_URP;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
+    Standalone: UNITY_POST_PROCESSING_STACK_V2;SHAPES_URP;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED;UNITY_ANALYTICS_EVENT_LOGS
     VisionOS: UNITY_POST_PROCESSING_STACK_V2
     WebGL: UNITY_POST_PROCESSING_STACK_V2;SHAPES_URP;MOREMOUNTAINS_NICEVIBRATIONS_INSTALLED
     Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2;SHAPES_URP
@@ -704,11 +705,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 743bb5c5-d86b-43f5-a857-b6733feccca1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Tactics Bu
+  organizationId: bernard5lis
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
