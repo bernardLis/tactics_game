@@ -21,7 +21,7 @@ public class ManaStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnt
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _base = _gameManager.SelectedBattle.Spire;
+        _base = _gameManager.CurrentBattle.Spire;
 
         ResetManaRestorationCoroutine();
     }

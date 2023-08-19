@@ -49,7 +49,7 @@ public class Creature : Entity
         OldDamageTaken = TotalDamageTaken;
 
         // HERE: b modifier rework
-        Battle b = GameManager.Instance.SelectedBattle;
+        Battle b = GameManager.Instance.CurrentBattle;
 
         Speed *= b.CreatureSpeedMultiplier;
         _elementalDamageMultiplier = b.ElementalDamageMultiplier;

@@ -65,7 +65,7 @@ public class BattleWaveCard : VisualElement
         if (_battleWave.CurrentGroupIndex == _battleWave.OpponentGroups.Count)
         {
             _nextGroupTimer.RemoveFromHierarchy();
-            _bottomPanel.Add(new Label("Last group spawned")); // HERE: time to next wave
+            _bottomPanel.Add(new Label("Last group spawned"));
         }
     }
 

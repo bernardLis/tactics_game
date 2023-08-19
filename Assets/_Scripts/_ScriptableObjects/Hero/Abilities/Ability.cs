@@ -41,7 +41,7 @@ public class Ability : BaseScriptableObject
 
     public void InitializeBattle()
     {
-        Battle b = GameManager.Instance.SelectedBattle;
+        Battle b = GameManager.Instance.CurrentBattle;
 
         _battleDamageMultiplier = b.AbilityDamage;
         _battleCooldownMultiplier = b.AbilityCooldown;

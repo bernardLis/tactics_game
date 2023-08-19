@@ -38,7 +38,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();
         battle.CreateRandom(1);
-        _gameManager.SelectedBattle = battle;
+        _gameManager.CurrentBattle = battle;
 
         StartCoroutine(LateInitialize(newChar));
     }

@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
@@ -20,10 +21,10 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     BattleWave _currentWave;
     [SerializeField] List<string> _portalLog = new();
 
-
     List<BattleEntity> _spawnedEntities = new();
 
     float _lastWaveSpawnTime;
+    bool _isPortalActive;
 
     public event Action OnWaveSpawned;
     void Start()
@@ -50,7 +51,13 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
                 _portalEffect.SetActive(true);
             });
 
+        Debug.Log($"initializing wave {Element.ElementName}");
+        _isPortalActive = true;
         _currentWave = wave;
+        _lastWaveSpawnTime = Time.time;
+        if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
+            ShowTooltip(); // refreshing tooltip
+
         StartCoroutine(HandleSpawningGroups());
     }
 
@@ -109,6 +116,10 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     IEnumerator ClosePortal()
     {
+        _isPortalActive = false;
+        if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
+            ShowTooltip(); // refreshing tooltip
+
         yield return new WaitForSeconds(3f);
 
         _portalLog.Add($"{Time.time} Closing portal");
@@ -143,10 +154,17 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
-
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
-        BattleWaveCard c = new(_currentWave, _lastWaveSpawnTime);
-        _tooltipManager.ShowTooltip(c, gameObject);
+
+        ShowTooltip();
     }
 
+    void ShowTooltip()
+    {
+        Debug.Log($"show tooltip is called {Element.ElementName}, is portal active: {_isPortalActive}");
+        VisualElement tt = new OpponentPortalCard(Element);
+        if (_isPortalActive)
+            tt = new BattleWaveCard(_currentWave, _lastWaveSpawnTime);
+        _tooltipManager.ShowTooltip(tt, gameObject);
+    }
 }

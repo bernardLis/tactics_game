@@ -39,7 +39,7 @@ public class BattleInfoManager : MonoBehaviour
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
 
         if (_gameManager == null) _gameManager = GameManager.Instance;
-        _spire = _gameManager.SelectedBattle.Spire;
+        _spire = _gameManager.CurrentBattle.Spire;
 
         ResolveLivesLabel();
         UpdateLivesLabel();
@@ -114,9 +114,9 @@ public class BattleInfoManager : MonoBehaviour
 
     void ResolveBattleModifiers()
     {
-        if (_gameManager.SelectedBattle.BattleModifiers == null) return;
+        if (_gameManager.CurrentBattle.BattleModifiers == null) return;
 
-        foreach (BattleModifier b in _gameManager.SelectedBattle.BattleModifiers)
+        foreach (BattleModifier b in _gameManager.CurrentBattle.BattleModifiers)
             _infoPanel.Add(new BattleModifierElement(b, true));
     }
 }

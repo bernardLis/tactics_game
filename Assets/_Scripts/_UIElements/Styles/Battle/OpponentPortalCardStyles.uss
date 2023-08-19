@@ -1,0 +1,15 @@
+.opponent-portal-card__main {
+    min-width: 300px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    justify-content: center;
+    align-items: center;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/paper_top_1.png?fileID=2800000&guid=4913489a90f0118448f22bd7ae275e84&type=3#paper_top_1');
+}
+
+.opponent-portal-card__difficulty-icon {
+    width: 30px;
+    height: 30px;
+    background-image: url('project://database/Assets/Art/Sprites/Battle/skull.PNG?fileID=2800000&guid=2030dcdadf41e224c8e4cdd8ffedb612&type=3#skull');
+}

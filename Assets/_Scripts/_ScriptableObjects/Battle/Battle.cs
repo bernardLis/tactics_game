@@ -69,7 +69,6 @@ public class Battle : BaseScriptableObject
         {
             Debug.Log($"wave: {w.Element}, diff {w.Difficulty}, start time {w.StartTime}, planned end time {w.GetPlannedEndTime()}");
         }
-
     }
 
     public float GetWaveStartTime(Element element, int waveIndex)

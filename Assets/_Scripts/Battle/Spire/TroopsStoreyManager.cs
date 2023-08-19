@@ -17,7 +17,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _spire = _gameManager.SelectedBattle.Spire;
+        _spire = _gameManager.CurrentBattle.Spire;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

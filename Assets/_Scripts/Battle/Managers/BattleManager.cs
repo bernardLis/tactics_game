@@ -74,7 +74,7 @@ public class BattleManager : Singleton<BattleManager>
 
         _gameManager = GameManager.Instance;
         _gameManager.SaveJsonData();
-        LoadedBattle = _gameManager.SelectedBattle;
+        LoadedBattle = _gameManager.CurrentBattle;
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         AudioManager.Instance.PlayMusic(_battleMusic);
@@ -110,7 +110,7 @@ public class BattleManager : Singleton<BattleManager>
             int seconds = Mathf.FloorToInt(Time.time - minutes * 60);
 
             _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            if (Time.time >= _gameManager.SelectedBattle.Duration)
+            if (Time.time >= _gameManager.CurrentBattle.Duration)
                 StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);
         }
@@ -131,7 +131,7 @@ public class BattleManager : Singleton<BattleManager>
         IsTimerOn = true;
         StartCoroutine(UpdateTimer());
 
-        Spire = _gameManager.SelectedBattle.Spire;
+        Spire = _gameManager.CurrentBattle.Spire;
         Spire.InitializeBattle(spirePos);
 
         OnBattleInitialized?.Invoke();

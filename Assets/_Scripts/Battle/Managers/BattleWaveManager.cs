@@ -19,7 +19,7 @@ public class BattleWaveManager : MonoBehaviour
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
 
-        _selectedBattle = _gameManager.SelectedBattle;
+        _selectedBattle = _gameManager.CurrentBattle;
     }
 
     public void Initialize()

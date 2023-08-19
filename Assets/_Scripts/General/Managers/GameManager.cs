@@ -35,7 +35,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public Hero OverseerHero;
     public Hero RivalHero;
 
-    public Battle SelectedBattle; // HERE: battle testing { get; private set; }
+    public Battle CurrentBattle; // HERE: battle testing { get; private set; }
 
     public VisualElement Root { get; private set; }
     public List<FullScreenElement> OpenFullScreens = new();
