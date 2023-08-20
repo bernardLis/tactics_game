@@ -1,5 +1,0 @@
-.hero-army__main {
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-}
