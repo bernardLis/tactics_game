@@ -22,7 +22,7 @@ public class OpponentGroupMarkerElement : ElementWithTooltip
         AddToClassList(_ussMain);
 
         style.backgroundImage = new StyleBackground(_opponentGroup.Icon);
-        style.unityBackgroundImageTintColor = _opponentGroup.Element.Color;
+        style.unityBackgroundImageTintColor = _opponentGroup.Element.Color.Color;
     }
 
     protected override void DisplayTooltip()

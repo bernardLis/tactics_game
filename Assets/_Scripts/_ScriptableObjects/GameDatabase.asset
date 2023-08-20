@@ -34,11 +34,18 @@ MonoBehaviour:
   SepiaToneShader: {fileID: 4800000, guid: b11af97c1da75e749879fd6f40c33449, type: 3}
   _colors:
   - {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
+  - {fileID: 11400000, guid: 56988719a9e791d43b0d64e35a56f0f0, type: 2}
   - {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
+  - {fileID: 11400000, guid: c18879a5f4d4ed04caa5a0734f1b0da6, type: 2}
+  - {fileID: 11400000, guid: 896bb5a956a55fc4fba4686b1c922714, type: 2}
+  - {fileID: 11400000, guid: 73b4a5531ad7427409439da604d41d3a, type: 2}
   - {fileID: 11400000, guid: 2124c00715bc8564d9a70cc2ee4ba167, type: 2}
   - {fileID: 11400000, guid: 474f053f103707c41917108b8bb11751, type: 2}
   - {fileID: 11400000, guid: 713d618788e2864488ff113adcf64812, type: 2}
+  - {fileID: 11400000, guid: 901f39a11c0cc344e93cc70656cd692f, type: 2}
   - {fileID: 11400000, guid: 48f19b64fecbd5246ae2877b798ae156, type: 2}
+  - {fileID: 11400000, guid: 597281f48fbf00b409fa205b661c141e, type: 2}
+  - {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
@@ -452,14 +459,14 @@ MonoBehaviour:
   ObstacleIcon: {fileID: 21300000, guid: 8ff884ae8c77c3d4fad86a0d76b781f7, type: 3}
   OpponentGroupIcons:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-    SpriteMinion: {fileID: 21300000, guid: c27ebd63d7170f14ab13fe6a78ea568f, type: 3}
     SpriteCreature: {fileID: 21300000, guid: 0567b9b1f7261cd4f8306447f153f95a, type: 3}
+    SpriteMinion: {fileID: 21300000, guid: c27ebd63d7170f14ab13fe6a78ea568f, type: 3}
   - Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-    SpriteMinion: {fileID: 21300000, guid: 7470bd0458dbaa24e81b666094df064e, type: 3}
     SpriteCreature: {fileID: 21300000, guid: a34d0615405f33940b68cc63b17995a6, type: 3}
+    SpriteMinion: {fileID: 21300000, guid: 7470bd0458dbaa24e81b666094df064e, type: 3}
   - Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-    SpriteMinion: {fileID: 21300000, guid: 9eab21c67aa77244696a946bd00802b0, type: 3}
     SpriteCreature: {fileID: 21300000, guid: 5ddf7c73ada69a442b3534b04f923f47, type: 3}
+    SpriteMinion: {fileID: 21300000, guid: 9eab21c67aa77244696a946bd00802b0, type: 3}
   - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-    SpriteMinion: {fileID: 21300000, guid: 3a1a72d5eeaabb34dbd9058affa199c5, type: 3}
     SpriteCreature: {fileID: 21300000, guid: a32ec6e9f38d368419dab45ceb9a4ef9, type: 3}
+    SpriteMinion: {fileID: 21300000, guid: 3a1a72d5eeaabb34dbd9058affa199c5, type: 3}

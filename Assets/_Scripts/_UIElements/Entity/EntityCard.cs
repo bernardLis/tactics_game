@@ -89,7 +89,8 @@ public class EntityCard : VisualElement
         IntVariable expForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
         expForNextLevel.SetValue(100);
 
-        _expBar = new(Color.gray, "Experience", exp, expForNextLevel);
+        _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color, 
+                "Experience", exp, expForNextLevel);
         _middleContainer.Add(_expBar);
     }
 

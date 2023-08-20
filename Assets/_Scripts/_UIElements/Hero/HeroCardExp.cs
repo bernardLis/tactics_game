@@ -83,7 +83,8 @@ public class HeroCardExp : VisualElement
         _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
         _rankElement = new(Hero.Rank.Rank, 0.5f);
 
-        _expBar = new(Color.gray, "Experience", Hero.Experience, Hero.ExpForNextLevel);
+        _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color,
+                 "Experience", Hero.Experience, Hero.ExpForNextLevel);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);

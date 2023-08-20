@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: d0608e29-a4d7-4dae-840f-865f4c6e5654
   ElementName: 1
   Icon: {fileID: 21300000, guid: a6742db7c89f6ab4a8fa1c40d75499af, type: 3}
-  Color: {r: 0.23018867, g: 0.5333765, b: 1, a: 1}
+  Color: {fileID: 11400000, guid: 597281f48fbf00b409fa205b661c141e, type: 2}
   Description: Water - strong against fire weak against wind
   StrongAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   WeakAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}

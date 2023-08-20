@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 30392fe9-de49-48d9-b87f-53f504e1ee77
   ElementName: 0
   Icon: {fileID: 21300000, guid: f9604419f9c09df469e00aef2d43b4e2, type: 3}
-  Color: {r: 0.6981132, g: 0.20651671, b: 0, a: 1}
+  Color: {fileID: 11400000, guid: 896bb5a956a55fc4fba4686b1c922714, type: 2}
   Description: Fire - strong against earh weak against water
   StrongAgainst: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   WeakAgainst: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}

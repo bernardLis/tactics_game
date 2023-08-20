@@ -92,11 +92,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3d872669deb721f44bdfa6897d1dc942
-    m_Address: DashboardStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 63f1a6af3aabe544aa3592a0a0d767a6
     m_Address: SpiceElementStyles
     m_ReadOnly: 0
@@ -109,11 +104,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e55454fed2ddfb4f90604f7fee33a32
     m_Address: MenuStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4bba9aca015f7e445805ecebf6b39c78
-    m_Address: BarMiniGameStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -132,48 +122,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cdae14e4552087d4d9dd9f22b6e5582f
-    m_Address: CastleElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea02981aef537be44982c8f81265ef08
-    m_Address: BuildingElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 80e329f258d630443914f47dfb41a14b
-    m_Address: ProductionBuildingElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 33f0f69a2abd646488810cf929758d3e
-    m_Address: HeroCastleElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 685d8f293aa04654c89a53b8b5fdfaa2
-    m_Address: BuildingSpriteElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5fd606b68fb97d846a0f816344bc5b12
     m_Address: HeroCardElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4d079bcd1c6a68f469b8fd28f7f31ece
-    m_Address: CastleControlsButtonStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ea43a0f0f7ca777499db2e46dc7e5792
-    m_Address: HeroControlsButtonStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec099da415fab4f42b139aa2a7685a96
-    m_Address: ControlButtonStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

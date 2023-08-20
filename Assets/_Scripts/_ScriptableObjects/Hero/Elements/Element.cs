@@ -7,7 +7,7 @@ public class Element : BaseScriptableObject
 {
     public ElementName ElementName;
     public Sprite Icon;
-    public Color Color;
+    public ColorVariable Color;
     public string Description;
     public Element StrongAgainst;
     public Element WeakAgainst;

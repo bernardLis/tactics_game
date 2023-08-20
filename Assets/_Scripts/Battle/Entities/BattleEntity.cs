@@ -219,7 +219,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {ability.name}");
 
-        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color);
+        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Color);
 
         if (CurrentHealth.Value <= 0)
             ability.IncreaseKillCount();
@@ -230,7 +230,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (IsDead) yield break;
         EntityLog.Add($"{Time.time}: Entity gets attacked by {battleTurret.name}");
 
-        BaseGetHit(Entity.CalculateDamage(battleTurret), battleTurret.Turret.Element.Color);
+        BaseGetHit(Entity.CalculateDamage(battleTurret), battleTurret.Turret.Element.Color.Color);
 
         if (CurrentHealth.Value <= 0)
             battleTurret.Turret.IncreaseKillCount();
@@ -246,7 +246,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         attacker.DealtDamage(damage);
 
-        BaseGetHit(damage, attacker.Entity.Element.Color, attacker.gameObject);
+        BaseGetHit(damage, attacker.Entity.Element.Color.Color, attacker.gameObject);
 
         if (CurrentHealth.Value <= 0)
             attacker.IncreaseKillCount();
