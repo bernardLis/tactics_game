@@ -106,11 +106,6 @@ public class BattleRewardElement : VisualElement
 
     void RunCardShow()
     {
-        _rerollButton.style.visibility = Visibility.Visible;
-        DOTween.To(x => _rerollButton.style.opacity = x, 0, 1, 0.5f)
-            .SetDelay(0.5f)
-            .SetUpdate(true);
-
         schedule.Execute(() =>
         {
             CreateRewardCards();
@@ -133,6 +128,13 @@ public class BattleRewardElement : VisualElement
             }
         }).StartingIn(10);
 
+        // tutorial
+        if (_gameManager.PlayerHero.Level.Value == 1) return;
+
+        _rerollButton.style.visibility = Visibility.Visible;
+        DOTween.To(x => _rerollButton.style.opacity = x, 0, 1, 0.5f)
+            .SetDelay(0.5f)
+            .SetUpdate(true);
     }
 
     void RerollReward()
@@ -160,6 +162,15 @@ public class BattleRewardElement : VisualElement
 
     void CreateRewardCards()
     {
+        // Tutorial - forcing a specific reward
+        if (_gameManager.PlayerHero.Level.Value == 2)
+        {
+            _allRewardCards.Add(CreateRewardCardAbility());
+            _allRewardCards.Add(CreateRewardCardAbility());
+            _allRewardCards.Add(CreateRewardCardAbility());
+            return;
+        }
+
         _allRewardCards.Add(CreateRewardCardItem());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
