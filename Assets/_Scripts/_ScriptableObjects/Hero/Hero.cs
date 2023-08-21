@@ -58,7 +58,7 @@ public class Hero : BaseScriptableObject
     public IntVariable CurrentMana;
     public void BattleInitialize()
     {
-        CurrentMana = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentMana = CreateInstance<IntVariable>();
         CurrentMana.SetValue(BaseMana.Value);
     }
 
@@ -85,9 +85,12 @@ public class Hero : BaseScriptableObject
         float multiplier = 0.8f;
         int baseExp = 100;
 
-        int result = Mathf.FloorToInt((multiplier * Mathf.Pow(Level.Value, exponent)));
+        int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
         result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
-        return result + baseExp;
+        int expRequired = result + baseExp;
+        if (Level.Value == 1)
+            expRequired = 20; // HERE: tutorial
+        return expRequired;
     }
 
     public virtual void AddExp(int gain)
@@ -218,32 +221,32 @@ public class Hero : BaseScriptableObject
 
     void CreateBaseStats()
     {
-        Level = ScriptableObject.CreateInstance<IntVariable>();
-        Experience = ScriptableObject.CreateInstance<IntVariable>();
-        ExpForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
-        BaseMana = ScriptableObject.CreateInstance<IntVariable>();
-        BasePower = ScriptableObject.CreateInstance<IntVariable>();
-        BaseArmor = ScriptableObject.CreateInstance<IntVariable>();
-        BaseSpeed = ScriptableObject.CreateInstance<IntVariable>();
+        Level = CreateInstance<IntVariable>();
+        Experience = CreateInstance<IntVariable>();
+        ExpForNextLevel = CreateInstance<IntVariable>();
+        BaseMana = CreateInstance<IntVariable>();
+        BasePower = CreateInstance<IntVariable>();
+        BaseArmor = CreateInstance<IntVariable>();
+        BaseSpeed = CreateInstance<IntVariable>();
     }
 
     void CreateStats()
     {
-        TotalMana = ScriptableObject.CreateInstance<IntVariable>();
+        TotalMana = CreateInstance<IntVariable>();
         TotalMana.SetValue(BaseMana.Value);
         BaseMana.OnValueChanged += (i) => TotalMana.ApplyChange(BaseMana.Value - TotalMana.Value);
 
-        Power = ScriptableObject.CreateInstance<Stat>();
+        Power = CreateInstance<Stat>();
         Power.StatType = StatType.Power;
         Power.SetBaseValue(BasePower.Value);
         BasePower.OnValueChanged += Power.SetBaseValue;
 
-        Armor = ScriptableObject.CreateInstance<Stat>();
+        Armor = CreateInstance<Stat>();
         Armor.StatType = StatType.Armor;
         Armor.SetBaseValue(BaseArmor.Value);
         BaseArmor.OnValueChanged += Armor.SetBaseValue;
 
-        Speed = ScriptableObject.CreateInstance<Stat>();
+        Speed = CreateInstance<Stat>();
         Speed.StatType = StatType.Speed;
         Speed.SetBaseValue(BaseSpeed.Value);
         BaseSpeed.OnValueChanged += Speed.SetBaseValue;
@@ -277,22 +280,20 @@ public class Hero : BaseScriptableObject
         Items = new();
 
         Abilities = new();
-        AddAbility(_gameManager.HeroDatabase.GetStartingAbility(element));
 
         UpdateRank();
 
         CreatureArmy = new();
         // HERE: hero creation
-        Creature c = Instantiate(_gameManager.HeroDatabase.GetRandomCreatureByUpgradeTier(0));
+        Creature c = Instantiate(_gameManager.HeroDatabase.GetStartingArmy(element).Creatures[0]);
         CreatureArmy.Add(c);
     }
 
     public void CreateRandom(int level)
     {
         _gameManager = GameManager.Instance;
-
-        GameDatabase gameDatabase = _gameManager.GameDatabase;
         HeroDatabase heroDatabase = _gameManager.HeroDatabase;
+
         bool isMale = Random.value > 0.5f;
 
         Id = Guid.NewGuid().ToString();
@@ -322,7 +323,7 @@ public class Hero : BaseScriptableObject
 
         CreateStats();
 
-        List<Item> Items = new();
+        Items = new();
         Abilities = new();
 
         // TODO: something smarter maybe the higher level the better army too?        
@@ -341,7 +342,6 @@ public class Hero : BaseScriptableObject
     {
         _gameManager = GameManager.Instance;
 
-        GameDatabase gameDatabase = _gameManager.GameDatabase;
         HeroDatabase heroDatabase = _gameManager.HeroDatabase;
 
         name = data.HeroName;
@@ -389,20 +389,22 @@ public class Hero : BaseScriptableObject
 
     public HeroData SerializeSelf()
     {
-        HeroData data = new();
-        data.Id = Id;
-        data.HeroName = HeroName;
-        data.Portrait = Portrait.Id;
+        HeroData data = new()
+        {
+            Id = Id,
+            HeroName = HeroName,
+            Portrait = Portrait.Id,
 
-        data.Element = Element.ElementName.ToString();
+            Element = Element.ElementName.ToString(),
 
-        data.Level = Level.Value;
-        data.Experience = Experience.Value;
+            Level = Level.Value,
+            Experience = Experience.Value,
 
-        data.BaseMana = BaseMana.Value;
-        data.BasePower = BasePower.Value;
-        data.BaseArmor = BaseArmor.Value;
-        data.BaseSpeed = BaseSpeed.Value;
+            BaseMana = BaseMana.Value,
+            BasePower = BasePower.Value,
+            BaseArmor = BaseArmor.Value,
+            BaseSpeed = BaseSpeed.Value
+        };
 
         List<AbilityData> abilityData = new();
         foreach (Ability a in Abilities)
@@ -422,7 +424,7 @@ public class Hero : BaseScriptableObject
     }
 }
 
-[System.Serializable]
+[Serializable]
 public struct HeroData
 {
     public string Id;

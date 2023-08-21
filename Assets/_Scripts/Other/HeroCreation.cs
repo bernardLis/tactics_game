@@ -69,7 +69,6 @@ public class HeroCreation : MonoBehaviour
         _starEffect = _gameManager.GetComponent<EffectManager>()
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
 
-
         // HERE: testing
         _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
         Hero newChar = ScriptableObject.CreateInstance<Hero>();

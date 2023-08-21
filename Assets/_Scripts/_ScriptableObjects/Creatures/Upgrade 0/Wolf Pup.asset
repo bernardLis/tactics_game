@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
   m_Name: Wolf Pup
   m_EditorClassIdentifier: 
-  Id: 8888-6aef-4f8f-a757-9d06b20d9a51
-  Name: Wolf Pup
+  Id: wolfpup-6aef-4f8f-a757-9d06b20d9a51
+  EntityName: 
   Icon: {fileID: 21300000, guid: 1f8c5bd40d28bfd48a6accad9e36ce3c, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 943a1d6d9c18f4f4796d48bac287bf5c, type: 3}

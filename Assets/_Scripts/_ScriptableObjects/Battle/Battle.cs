@@ -46,9 +46,7 @@ public class Battle : BaseScriptableObject
 
     public void CreateWaves(int level)
     {
-
         // HERE: waves - make sure that there are no overlapping waves
-
         List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());
         Waves = new();
         for (int i = 0; i < 10; i++)
@@ -57,6 +55,7 @@ public class Battle : BaseScriptableObject
                 availableElements = new(_gameManager.HeroDatabase.GetAllElements());
 
             Element element = availableElements[Random.Range(0, availableElements.Count)];
+            if (i == 0) element = _gameManager.PlayerHero.Element.StrongAgainst;
             availableElements.Remove(element);
 
             BattleWave wave = CreateInstance<BattleWave>();

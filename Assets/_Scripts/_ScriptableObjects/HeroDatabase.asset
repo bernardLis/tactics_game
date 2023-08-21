@@ -47,23 +47,15 @@ MonoBehaviour:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
     Creatures:
     - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
-    - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
-    - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
   - Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
     Creatures:
-    - {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
-    - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
     - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
   - Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
     Creatures:
     - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
-    - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
-    - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
   - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
     Creatures:
-    - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
     - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
-    - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
   ElementalHitPrefabs:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
     Prefab: {fileID: 687239542062312524, guid: 26feedd1d2f069b4a8748327b16a6338, type: 3}
