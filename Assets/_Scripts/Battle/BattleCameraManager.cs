@@ -7,14 +7,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 
-public class CameraTarget : MonoBehaviour
+public class BattleCameraManager : Singleton<BattleCameraManager>
 {
     GameManager _gameManager;
     BattleManager _battleManager;
     PlayerInput _playerInput;
 
     [SerializeField] Transform _cameraTransform;
-
 
     Vector3 _movementDirection;
     bool _disableUpdate;
@@ -30,32 +29,24 @@ public class CameraTarget : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] float _maxRotationSpeed = 0.1f;
 
-    public event Action OnCameraMoved;
-    public event Action OnCameraRotated;
-
     void Start()
     {
         _battleManager = BattleManager.Instance;
-        // _battleManager.OnGamePaused += () => _disableUpdate = true;
-        // _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
+        _battleManager.OnGamePaused += () => _disableUpdate = true;
+        _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
     }
 
-    // IEnumerator DelayedStart()
-    // {
-    //     yield return new WaitForSeconds(0.1f);
-    //     _disableUpdate = false;
-    // }
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _disableUpdate = false;
+    }
 
-    // void Update()
-    // {
-
-    //     GetKeyboardMovement();
-    //     // CheckMouseAtScreenEdge();
-
-    //     // UpdateVelocity();
-    //     // UpdateCameraPosition();
-    //     // UpdateBasePosition();
-    // }
+    void FixedUpdate()
+    {
+        if (_disableUpdate) return;
+        transform.Translate(_movementDirection * _moveSpeed * Time.fixedDeltaTime);
+    }
 
     /* INPUT */
     void OnEnable()
@@ -68,9 +59,7 @@ public class CameraTarget : MonoBehaviour
         UnsubscribeInputActions();
         SubscribeInputActions();
 
-        // _zoomHeight = _cameraTransform.localPosition.y;
-        // _lastPosition = transform.position;
-        // _movement = _playerInput.actions["CameraMovement"];
+        _zoomHeight = transform.localPosition.y;
     }
 
     void OnDisable()
@@ -93,11 +82,12 @@ public class CameraTarget : MonoBehaviour
         _playerInput.actions["CameraMovement"].canceled += StopCameraMovement;
 
         _playerInput.actions["RotateCamera"].performed += RotateCamera;
-        _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
-        // _playerInput.actions["CameraDefaultPosition"].performed += MoveCameraToDefaultPosition;
         _playerInput.actions["RotateCameraLeft"].performed += RotateCameraLeft;
         _playerInput.actions["RotateCameraRight"].performed += RotateCameraRight;
 
+        _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
+
+        _playerInput.actions["CameraDefaultPosition"].performed += MoveCameraToDefaultPosition;
     }
 
     void UnsubscribeInputActions()
@@ -106,24 +96,20 @@ public class CameraTarget : MonoBehaviour
         _playerInput.actions["CameraMovement"].canceled -= StopCameraMovement;
 
         _playerInput.actions["RotateCamera"].performed -= RotateCamera;
-        _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
-        // _playerInput.actions["CameraDefaultPosition"].performed -= MoveCameraToDefaultPosition;
         _playerInput.actions["RotateCameraLeft"].performed -= RotateCameraLeft;
         _playerInput.actions["RotateCameraRight"].performed -= RotateCameraRight;
+
+        _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
+
+        _playerInput.actions["CameraDefaultPosition"].performed -= MoveCameraToDefaultPosition;
     }
 
     void CameraMovement(InputAction.CallbackContext context)
     {
-
-
         Vector3 inputValue = context.ReadValue<Vector2>();
         inputValue = inputValue.normalized;
-        Debug.Log($"inputValue {inputValue}");
 
         _movementDirection = new Vector3(-inputValue.x, 0, -inputValue.y);
-
-        // if (inputValue.sqrMagnitude > 0.1f)
-        //     transform.position += inputValue;
     }
 
     void StopCameraMovement(InputAction.CallbackContext context)
@@ -131,11 +117,6 @@ public class CameraTarget : MonoBehaviour
         _movementDirection = Vector3.zero;
     }
 
-    void FixedUpdate()
-    {
-        if (_disableUpdate) return;
-        transform.Translate(_movementDirection * _moveSpeed * Time.fixedDeltaTime);
-    }
 
     void RotateCamera(InputAction.CallbackContext ctx)
     {
@@ -143,25 +124,21 @@ public class CameraTarget : MonoBehaviour
 
         if (!Mouse.current.middleButton.isPressed) return;
 
-        Debug.Log($"rotate camera");
-
         float value = ctx.ReadValue<Vector2>().x;
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, value * _maxRotationSpeed + transform.eulerAngles.y, 0);
-        OnCameraRotated?.Invoke();
+        // OnCameraRotated?.Invoke();
     }
 
     void RotateCameraLeft(InputAction.CallbackContext ctx)
     {
         if (this == null) return;
         transform.DORotate(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y - 30f, 0f), 0.3f);
-        OnCameraRotated?.Invoke();
     }
 
     void RotateCameraRight(InputAction.CallbackContext ctx)
     {
         if (this == null) return;
         transform.DORotate(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 30f, 0f), 0.3f);
-        OnCameraRotated?.Invoke();
     }
 
     void ZoomCamera(InputAction.CallbackContext ctx)
@@ -174,10 +151,57 @@ public class CameraTarget : MonoBehaviour
         _zoomHeight = transform.localPosition.y + value * _stepSize;
         _zoomHeight = Mathf.Clamp(_zoomHeight, _minHeight, _maxHeight);
 
-        Debug.Log($"zoom height {_zoomHeight}");
         transform.DOLocalMoveY(_zoomHeight, 0.3f);
     }
 
+    void MoveCameraToDefaultPosition(InputAction.CallbackContext ctx)
+    {
+        if (this == null) return;
+        MoveCameraToDefaultPosition(0.5f);
+    }
 
+    public void MoveCameraToDefaultPosition(float time)
+    {
+        if (this == null) return;
 
+        _disableUpdate = true;
+
+        transform.DOMove(Vector3.zero, time);
+        transform.DORotate(new Vector3(0, 90f, 0f), time);
+
+        transform.DOLocalMoveY(_defaultZoomHeight, time)
+                .OnComplete(() =>
+                {
+                    _disableUpdate = false;
+                });
+    }
+
+    public void MoveCameraTo(Vector3 position, Vector3 rotation, float zoomHeight)
+    {
+        StopRotatingAround();
+
+        transform.DOMove(position, 0.5f);
+        transform.DORotate(rotation, 0.5f);
+        transform.DOLocalMoveY(zoomHeight, 0.5f);
+    }
+
+    public void CenterCameraOn(Transform t)
+    {
+        transform.DOMove(t.position, 0.5f).SetUpdate(true);
+    }
+
+    public void RotateCameraAround(Transform t)
+    {
+        CenterCameraOn(t);
+        transform.DOLocalRotate(Vector3.up * 360f, 60f, RotateMode.FastBeyond360)
+                .SetLoops(-1, LoopType.Incremental)
+                .SetUpdate(true)
+                .SetEase(Ease.Linear)
+                .SetId("bla");
+    }
+
+    public void StopRotatingAround()
+    {
+        DOTween.Kill("bla");
+    }
 }

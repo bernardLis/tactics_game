@@ -54,9 +54,9 @@ public class BattleCreatureBonding : MonoBehaviour
     {
         _originalCamPos = _battleCameraManager.transform.position;
         _originalCamRot = _battleCameraManager.transform.rotation.eulerAngles;
-        _originalCamZoomHeight = _battleCameraManager.GetZoomHeight();
+        _originalCamZoomHeight = _battleCameraManager.transform.localPosition.y;
 
-        _battleCameraManager.RotateCameraAroundTransform(_battleCreature.transform);
+        _battleCameraManager.RotateCameraAround(_battleCreature.transform);
 
     }
 

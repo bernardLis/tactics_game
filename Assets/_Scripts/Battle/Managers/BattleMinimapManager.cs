@@ -60,10 +60,6 @@ public class BattleMinimapManager : MonoBehaviour
         HandleEntities();
 
         _battleManager.OnPlayerTurretAdded += AddTurret;
-
-        // HERE: camera setup
-        //    _battleCameraManager.OnCameraMoved += UpdateCameraIconPosition;
-        //   _battleCameraManager.OnCameraRotated += UpdateCameraIconRotation;
     }
 
     void UpdateCameraIconPosition()
@@ -79,7 +75,8 @@ public class BattleMinimapManager : MonoBehaviour
 
     void UpdateCameraIconRotation()
     {
-        _cameraIcon.transform.rotation = Quaternion.Euler(0, 0, _battleCameraManager.transform.eulerAngles.y + 90);
+        _cameraIcon.transform.rotation = Quaternion.Euler(0, 0,
+                _battleCameraManager.transform.eulerAngles.y - 90);
     }
 
     void AddPortals()
@@ -97,7 +94,7 @@ public class BattleMinimapManager : MonoBehaviour
             icon.RegisterCallback<MouseUpEvent>((e) =>
             {
                 if (e.button != 0) return;
-                _battleCameraManager.CenterCameraOnTransform(portal.transform);
+                _battleCameraManager.CenterCameraOn(portal.transform);
                 // _tooltipManager.DisplayTooltip(portal);
             });
 
@@ -132,26 +129,27 @@ public class BattleMinimapManager : MonoBehaviour
 
         _battleManager.OnOpponentEntityAdded += (entity) => AddEntity(entity);
         _battleManager.OnOpponentEntityDeath += (entity) => RemoveEntity(entity);
-        //    if (_spireUpgradeManager == null) _spireUpgradeManager = SpireUpgradeManager.Instance;
-        //   _spireUpgradeManager.OnTurretAdded += (turret) => AddTurret(turret);
 
-        StartCoroutine(UpdateEntityPositions());
+        StartCoroutine(UpdateIcons());
     }
 
-    IEnumerator UpdateEntityPositions()
+    IEnumerator UpdateIcons()
     {
         while (true)
         {
             foreach (KeyValuePair<Transform, VisualElement> kvp in _entityIcons)
             {
                 if (kvp.Key == null) continue;
-                Vector2 pos = new Vector2(kvp.Key.position.x, kvp.Key.position.z);
+                Vector2 pos = new(kvp.Key.position.x, kvp.Key.position.z);
                 Vector2 miniMapPosition = GetMiniMapPosition(pos);
 
                 kvp.Value.style.visibility = Visibility.Visible;
                 kvp.Value.style.top = miniMapPosition.x;
                 kvp.Value.style.left = miniMapPosition.y;
             }
+
+            UpdateCameraIconPosition();
+            UpdateCameraIconRotation();
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -178,7 +176,7 @@ public class BattleMinimapManager : MonoBehaviour
         icon.RegisterCallback<MouseUpEvent>((e) =>
         {
             if (e.button != 0) return;
-            _battleCameraManager.CenterCameraOnTransform(be.transform);
+            _battleCameraManager.CenterCameraOn(be.transform);
             UpdateCameraIconRotation();
             _tooltipManager.ShowTooltip(be);
         });
