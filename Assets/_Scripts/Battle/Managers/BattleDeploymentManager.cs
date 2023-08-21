@@ -110,10 +110,11 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void BaseHandleDeployment(string tooltip, int posY)
     {
+        if (_deployedObjectInstance != null) Deploy();
         _wasDeployed = false;
         _posY = posY;
         ShowTooltip(tooltip);
-        if (_deployedObjectInstance != null) Deploy();
+
         _creatureSpawnerInstance = null;
         _obstacleInstance = null;
         _battleTurret = null;
@@ -163,7 +164,7 @@ public class BattleDeploymentManager : MonoBehaviour
         if (_wasDeployed) return;
         _wasDeployed = true;
 
-        if (_creatureSpawnerInstance != null) DeployArmy(_creatureSpawnerInstance);
+        if (_creatureSpawnerInstance != null) PlaceArmy(_creatureSpawnerInstance);
         if (_obstacleInstance != null) PlaceObstacle();
         if (_battleTurret != null) PlaceTurret();
 
@@ -172,7 +173,7 @@ public class BattleDeploymentManager : MonoBehaviour
         BattleManager.BlockBattleInput = false;
     }
 
-    void DeployArmy(EntitySpawner spawner)
+    void PlaceArmy(EntitySpawner spawner)
     {
         spawner.SpawnCreatures(_creaturesToDeploy);
         spawner.OnSpawnComplete += (list) =>
