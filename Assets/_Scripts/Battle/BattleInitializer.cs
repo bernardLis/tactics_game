@@ -23,7 +23,7 @@ public class BattleInitializer : MonoBehaviour
         _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
         _battleDeploymentManager = _battleManager.GetComponent<BattleDeploymentManager>();
 
-        _battleCameraManager = Camera.main.GetComponentInParent<BattleCameraManager>();
+        _battleCameraManager = BattleCameraManager.Instance;
 
         _playerHero = _gameManager.PlayerHero;
 

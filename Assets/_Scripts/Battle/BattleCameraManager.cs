@@ -13,8 +13,6 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
     BattleManager _battleManager;
     PlayerInput _playerInput;
 
-    [SerializeField] Transform _cameraTransform;
-
     Vector3 _movementDirection;
     bool _disableUpdate;
     public float _moveSpeed = 10f;
