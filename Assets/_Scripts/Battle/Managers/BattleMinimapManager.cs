@@ -61,8 +61,9 @@ public class BattleMinimapManager : MonoBehaviour
 
         _battleManager.OnPlayerTurretAdded += AddTurret;
 
-        _battleCameraManager.OnCameraMoved += UpdateCameraIconPosition;
-        _battleCameraManager.OnCameraRotated += UpdateCameraIconRotation;
+        // HERE: camera setup
+        //    _battleCameraManager.OnCameraMoved += UpdateCameraIconPosition;
+        //   _battleCameraManager.OnCameraRotated += UpdateCameraIconRotation;
     }
 
     void UpdateCameraIconPosition()
