@@ -206,7 +206,7 @@ public class AudioManager : Singleton<AudioManager>
     }
     IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         PlayUI(soundName);
     }
 

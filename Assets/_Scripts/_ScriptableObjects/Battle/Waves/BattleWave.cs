@@ -35,6 +35,7 @@ public class BattleWave : BaseScriptableObject
         */
         // TODO: math for wave difficulty
 
+        // HERE: wave
         DelayBetweenGroups = Random.Range(15, 25) - difficulty;
         int numberOfGroups = 5 + difficulty;
         for (int i = 0; i < numberOfGroups; i++)
