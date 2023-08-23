@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
+  m_Name: Minion Get Hit Sound
+  m_EditorClassIdentifier: 
+  Id: 8cdeb53c-5a5c-466b-974d-ef7736ccbe24
+  Clips:
+  - {fileID: 8300000, guid: aa1a021d4a707fe43b24eecc9230c66e, type: 3}
+  - {fileID: 8300000, guid: d31e104585a3cd440859adf8f9ad8ad6, type: 3}
+  - {fileID: 8300000, guid: da3f78f9931077543941943dd1231422, type: 3}
+  - {fileID: 8300000, guid: 3437440ed378f1e4dbd7e424ca30224f, type: 3}
+  - {fileID: 8300000, guid: df95befedb47703469d5a286ab8762b0, type: 3}
+  - {fileID: 8300000, guid: 030ca3e2975cc4549ab8995538d61f46, type: 3}
+  - {fileID: 8300000, guid: 9730773f952458f418e6df88d5e01d22, type: 3}
+  - {fileID: 8300000, guid: 62196acbef9557340b37fd9de17e0a0e, type: 3}
+  - {fileID: 8300000, guid: cecaf34e1d6b83049a21f218d220e688, type: 3}
+  Volume: 1
+  Pitch: 1.02
+  isPitchRandomized: 0
+  PitchRange: {x: 0, y: 0}
+  Source: {fileID: 0}

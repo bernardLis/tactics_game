@@ -26,7 +26,6 @@ public class BattleCreature : BattleEntity
     public event Action OnEnemyKilled;
     public event Action<int> OnDamageDealt;
     public event Action<BattleCreature> OnEvolving;
-
     protected virtual void Update()
     {
         if (_currentAttackCooldown >= 0)

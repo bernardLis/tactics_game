@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BattleMinion : BattleEntity
 {
+    [Header("Minion")]
+    [SerializeField] Sound _reachedSpireSound;
     BattleSpire _spire;
     public Minion Minion { get; private set; }
 
@@ -31,5 +33,10 @@ public class BattleMinion : BattleEntity
         pos.y = transform.position.y;
 
         yield return PathToPosition(pos);
+    }
+
+    public void ReachedSpire()
+    {
+        _audioManager.PlaySFX(_reachedSpireSound, transform.position);
     }
 }

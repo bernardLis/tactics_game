@@ -26,6 +26,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     [Header("Sounds")]
     [SerializeField] Sound _spawnSound;
     [SerializeField] protected Sound _deathSound;
+    [SerializeField] protected Sound _getHitSound;
 
     [Header("Prefabs")]
     [SerializeField] GameObject _healedEffect;
@@ -256,7 +257,10 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         EntityLog.Add($"{Time.time}: Entity takes damage {dmg}");
         StopRunEntityCoroutine();
-        _audioManager.PlaySFX("Hit", transform.position);
+
+        if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
+        else _audioManager.PlaySFX("Hit", transform.position);
+
         Animator.SetTrigger("Take Damage");
         DisplayFloatingText(dmg.ToString(), color);
 
@@ -368,6 +372,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        _audioManager.PlaySFX(_spawnSound, transform.position);
+
         if (!CanBeGrabbed()) return;
 
         _grabManager.TryGrabbing(gameObject);

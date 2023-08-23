@@ -9,9 +9,14 @@ using UnityEngine.AI;
 
 public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
 {
-    [SerializeField] GameObject _dustParticlePrefab;
+    AudioManager _audioManager;
     BattleGrabManager _grabManager;
     BattleTooltipManager _tooltipManager;
+
+    [SerializeField] Sound _grabSound;
+    [SerializeField] Sound _groundHitSound;
+
+    [SerializeField] GameObject _dustParticlePrefab;
 
     Rigidbody _rb;
     Collider _collider;
@@ -28,6 +33,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     void Start()
     {
+        _audioManager = AudioManager.Instance;
         _grabManager = BattleGrabManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
 
@@ -49,7 +55,8 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
-
+        if (!CanBeGrabbed()) return;
+        _audioManager.PlaySFX(_grabSound, transform.position);
         _grabManager.TryGrabbing(gameObject, 5f);
     }
 
@@ -130,6 +137,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
     void FloorCollision()
     {
         _rb.isKinematic = true;
+        _audioManager.PlaySFX(_groundHitSound, transform.position);
 
         float particleObjectCount = Random.Range(2, 6);
         for (int i = 0; i < particleObjectCount; i++)

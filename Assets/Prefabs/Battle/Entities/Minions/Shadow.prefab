@@ -144,22 +144,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityLog: []
-  _spawnSound: {fileID: 0}
-  _deathSound: {fileID: 0}
+  _spawnSound: {fileID: 11400000, guid: ca937dfc405cf7943aa6e21526f3a57e, type: 2}
+  _deathSound: {fileID: 11400000, guid: 9d94c1ad15f84bf49a705eed1c845854, type: 2}
+  _getHitSound: {fileID: 11400000, guid: d580ca4677ea82b4d81cfa640abf5945, type: 2}
   _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
-  _teamHighlightDisc: {fileID: 8377771309068280040}
   IsShielded: 0
---- !u!114 &8377771309068280040 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2430676998001584794, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 6194891810920303218}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd51d29965c9d04599a2fdc8a833c6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _reachedSpireSound: {fileID: 11400000, guid: a13dcc0a6adc9ca4a859745bf9b2a146, type: 2}
 --- !u!1001 &6966875426955892546
 PrefabInstance:
   m_ObjectHideFlags: 0
