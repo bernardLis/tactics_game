@@ -13,6 +13,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
+    [SerializeField] Sound _portalElementalAlarmSound;
+
     [SerializeField] Sound _portalOpenSound;
     [SerializeField] Sound _portalCloseSound;
     [SerializeField] Sound _portalHumSound;
@@ -53,6 +55,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
 
         _portalEffect.transform.localScale = Vector3.zero;
+        _audioManager.PlayUI(_portalElementalAlarmSound);
         _audioManager.PlaySFX(_portalOpenSound, transform.position);
         _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
         _portalEffect.transform.DOScale(_portalEffectScale, 0.5f)
@@ -173,7 +176,6 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     void ShowTooltip()
     {
-        Debug.Log($"show tooltip is called {Element.ElementName}, is portal active: {_isPortalActive}");
         VisualElement tt = new OpponentPortalCard(Element);
         if (_isPortalActive)
             tt = new BattleWaveCard(_currentWave, _lastWaveSpawnTime);

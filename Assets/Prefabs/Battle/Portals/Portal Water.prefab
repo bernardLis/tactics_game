@@ -19473,6 +19473,10 @@ PrefabInstance:
       propertyPath: RewardChestPrefab
       value: 
       objectReference: {fileID: 7174296884494392200, guid: 69a6f89f1b0b9a24081b529d9090a706, type: 3}
+    - target: {fileID: 646615956103713899, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
+      propertyPath: _portalElementalAlarmSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 23c88f12b2c2ddb4fb7e75ac3f11b010, type: 2}
     - target: {fileID: 3594846253527964793, guid: 8d4fa579f92861046b14e241105c8d74, type: 3}
       propertyPath: m_RootOrder
       value: 7

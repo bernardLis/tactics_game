@@ -19469,6 +19469,10 @@ PrefabInstance:
       propertyPath: RewardChestPrefab
       value: 
       objectReference: {fileID: 7174296884494392200, guid: 69a6f89f1b0b9a24081b529d9090a706, type: 3}
+    - target: {fileID: 1334875178711008250, guid: e301a702ecb8e914f97b0fa777d0f096, type: 3}
+      propertyPath: _portalElementalAlarmSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 13b750d5513d68e4385e79dfefb17cea, type: 2}
     - target: {fileID: 2153044455583692721, guid: e301a702ecb8e914f97b0fa777d0f096, type: 3}
       propertyPath: m_Name
       value: Portal Earth
