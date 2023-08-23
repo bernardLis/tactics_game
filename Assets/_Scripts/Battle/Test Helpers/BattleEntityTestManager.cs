@@ -21,6 +21,8 @@ public class BattleEntityTestManager : MonoBehaviour
     [SerializeField] Transform _teamASpawnPoint;
     [SerializeField] Transform _teamBSpawnPoint;
 
+    [SerializeField] GameObject _chestPrefab;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -58,6 +60,7 @@ public class BattleEntityTestManager : MonoBehaviour
         AddCreatureButtons();
         AddMinionButtons();
         AddClearButton();
+        AddSpawnChestButton();
     }
 
     void AddCreatureButtons()
@@ -179,11 +182,21 @@ public class BattleEntityTestManager : MonoBehaviour
             Invoke(nameof(Clear), 1f);
         };
         _buttonContainer.Add(clearButton);
-
+        _buttonContainer.Add(new Label("-----"));
     }
     void Clear()
     {
         _battleManager.ClearAllEntities();
+    }
+
+    void AddSpawnChestButton()
+    {
+        Button spawnChestButton = new() { text = "Spawn Chest" };
+        spawnChestButton.clickable.clicked += () =>
+        {
+            GameObject instance = Instantiate(_chestPrefab, _teamBSpawnPoint.position, Quaternion.identity);
+        };
+        _buttonContainer.Add(spawnChestButton);
     }
 }
 

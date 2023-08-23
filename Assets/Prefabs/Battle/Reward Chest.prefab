@@ -5308,6 +5308,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e2a91d1c70c8947b06248f3e6eb783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnSound: {fileID: 11400000, guid: a3fe64c550d70894ca2c17d4e4b2e821, type: 2}
+  _openSound: {fileID: 11400000, guid: 09812b976f3474745be851ad425381ef, type: 2}
+  _closeSound: {fileID: 11400000, guid: 1e590e8fceb116a4aaa6c1075dd7d31b, type: 2}
   _lid: {fileID: 1234507114097428264}
   _glowEffect: {fileID: 7527697949889830171}
   _beamEffect: {fileID: 176147830059959238}

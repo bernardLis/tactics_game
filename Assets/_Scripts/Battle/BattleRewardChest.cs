@@ -7,8 +7,13 @@ using MoreMountains.Feedbacks;
 
 public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    AudioManager _audioManager;
     BattleTooltipManager _tooltipManager;
     MMF_Player _feelPlayer;
+
+    [SerializeField] Sound _spawnSound;
+    [SerializeField] Sound _openSound;
+    [SerializeField] Sound _closeSound;
 
     [SerializeField] GameObject _lid;
     [SerializeField] GameObject _glowEffect;
@@ -18,14 +23,19 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     void Start()
     {
+        _audioManager = AudioManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
+
+        _audioManager.PlaySFX(_spawnSound, transform.position);
     }
 
     IEnumerator Open()
     {
         if (_isOpened) yield break;
         _isOpened = true;
+
+        _audioManager.PlaySFX(_openSound, transform.position);
 
         transform.DOShakePosition(0.5f, 0.1f);
         transform.DOShakeScale(0.5f, 0.2f);
@@ -48,6 +58,7 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _beamEffect.transform.DOScale(0, 0.5f)
             .OnComplete(() => _beamEffect.SetActive(false));
         yield return new WaitForSeconds(1f);
+        _audioManager.PlaySFX(_closeSound, transform.position);
         _lid.transform.DOLocalRotate(new Vector3(0, 0, 0), 1f)
                     .SetEase(Ease.OutBack);
         yield return new WaitForSeconds(1f);
