@@ -97329,6 +97329,7 @@ MonoBehaviour:
   _portalOpenSound: {fileID: 11400000, guid: eadc67701106a0d41a6b93832c29d715, type: 2}
   _portalCloseSound: {fileID: 11400000, guid: a1b555a187c85734ab4cf16a90378339, type: 2}
   _portalHumSound: {fileID: 11400000, guid: 022200feef2172d40a261952c1f4d8df, type: 2}
+  _portalPopEntitySound: {fileID: 11400000, guid: ec1db661222268e49a4ab1dda8419c0f, type: 2}
   _portalElements:
   - ElementName: 0
     Portal: {fileID: 580590278122253311}

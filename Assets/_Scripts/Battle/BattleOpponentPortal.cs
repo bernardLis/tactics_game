@@ -18,6 +18,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField] Sound _portalOpenSound;
     [SerializeField] Sound _portalCloseSound;
     [SerializeField] Sound _portalHumSound;
+    [SerializeField] Sound _portalPopEntitySound;
 
     [SerializeField] GameObject RewardChestPrefab;
 
@@ -64,7 +65,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
                 _portalEffect.SetActive(true);
             });
 
-        Debug.Log($"initializing wave {Element.ElementName}");
+        Debug.Log($"Initializing wave {Element.ElementName}");
         _isPortalActive = true;
         _currentWave = wave;
         _lastWaveSpawnTime = Time.time;
@@ -112,6 +113,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     void SpawnEntity(Entity entity)
     {
+        _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
+
         entity.InitializeBattle(null);
 
         Vector3 pos = _portalEffect.transform.position;

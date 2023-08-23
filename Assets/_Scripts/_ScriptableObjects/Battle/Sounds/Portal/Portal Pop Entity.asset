@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
   m_Name: Portal Pop Entity
   m_EditorClassIdentifier: 
-  Id: portal2-90fa-4c8b-b1ae-442e9dcb127e
+  Id: 55002373-0c7f-4ca6-90ad-fc52677a799d
   Clips:
-  - {fileID: 8300000, guid: 01dafe8ee0da988498878626095f122a, type: 3}
+  - {fileID: 8300000, guid: 94bcf68806b86594eaed533a303c9685, type: 3}
   Volume: 1
   Pitch: 0
   isPitchRandomized: 1
