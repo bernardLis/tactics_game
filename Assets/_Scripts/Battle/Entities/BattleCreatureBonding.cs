@@ -5,8 +5,11 @@ using UnityEngine;
 public class BattleCreatureBonding : MonoBehaviour
 {
     GameManager _gameManager;
+    AudioManager _audioManager;
     BattleCameraManager _battleCameraManager;
     BattleTooltipManager _battleTooltipManager;
+
+    [SerializeField] Sound _bondingLevelSound;
 
     BattleCreature _battleCreature;
     Creature _creature;
@@ -18,6 +21,7 @@ public class BattleCreatureBonding : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
         _battleCameraManager = BattleCameraManager.Instance;
         _battleTooltipManager = BattleTooltipManager.Instance;
         Initialize();
@@ -36,12 +40,16 @@ public class BattleCreatureBonding : MonoBehaviour
     {
         if (_creature.Level == 3) // name change
         {
+            _audioManager.PlaySFX(_bondingLevelSound, transform.position);
             RotateCameraAroundBattleEntity();
             CreatureCardFull card = new(_creature, isChangingName: true);
             card.OnHide += CreatureCardFullHidden;
         }
         if (_creature.Level == _creature.CreatureAbility.UnlockLevel)
         {
+            if (_battleTooltipManager.CurrentTooltipDisplayer == gameObject)
+                _battleTooltipManager.HideTooltip(); // TODO: this is a workaround for multiple sounds playing when unlocking ability
+            _audioManager.PlaySFX(_bondingLevelSound, transform.position);
             RotateCameraAroundBattleEntity();
             CreatureCardFull card = new(_creature, isUnlockingAbility: true);
             card.OnHide += CreatureCardFullHidden;
@@ -57,12 +65,10 @@ public class BattleCreatureBonding : MonoBehaviour
         _originalCamZoomHeight = _battleCameraManager.transform.localPosition.y;
 
         _battleCameraManager.RotateCameraAround(_battleCreature.transform);
-
     }
 
     void CreatureCardFullHidden()
     {
-        _battleTooltipManager.ShowTooltip(_battleCreature);
         _battleCameraManager.MoveCameraTo(_originalCamPos, _originalCamRot, _originalCamZoomHeight);
     }
 

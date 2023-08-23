@@ -68,9 +68,15 @@ public class CreatureAbilityElement : ElementWithTooltip
 
     public void Unlock()
     {
-        _isLocked = false;
+        // TODO: this is called twice, idk why...
+        // Debug.Log($"is unlock in ability element called twice?");
+        // if (!_isLocked) return;
+        // _isLocked = false;
+        // _ability.OnAbilityUnlocked -= Unlock;
+
         if (_lockOverlay != null)
             _lockOverlay.Unlock();
+
     }
 
     void OnAbilityUsed()

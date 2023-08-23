@@ -88,6 +88,7 @@ public class CreatureCardFull : EntityCardFull
         container.Add(submit);
         submit.clicked += () =>
         {
+            AudioManager.Instance.PlayUI("Creature Bonding Name");
             Creature.EntityName = nameField.text;
             _nameContainer.Clear();
             Label name = new(Creature.EntityName);

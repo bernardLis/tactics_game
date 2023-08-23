@@ -451,6 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478bd81d55b47fc49acd2612394725fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bondingLevelSound: {fileID: 11400000, guid: 4276a2ffa007b8040b0dd25847c589a2, type: 2}
 --- !u!1 &378796256609413106
 GameObject:
   m_ObjectHideFlags: 0
