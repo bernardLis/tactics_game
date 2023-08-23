@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 11 Max Creatures
   m_EditorClassIdentifier: 
   Id: 30c8d768-9e05-42ad-adf8-4e732ab30cef
-  Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
+  Icon: {fileID: 21300000, guid: 43b2f7051736c544da62eb804fce8fe0, type: 3}
   Cost: 500
   Value: 11
   IsPurchased: 0

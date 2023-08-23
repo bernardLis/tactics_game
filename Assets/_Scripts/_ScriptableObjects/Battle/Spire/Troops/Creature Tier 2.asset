@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Creature Tier 2
   m_EditorClassIdentifier: 
   Id: de195258-0539-42ed-9115-dba8146a6ab4
-  Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
-  Cost: 222
+  Icon: {fileID: 21300000, guid: 68e24a42a36be2b428b10cf2aa6d568f, type: 3}
+  Cost: 2147483647
   Value: 2
   IsPurchased: 0
   Description: (NOT IMPLEMENTED) Tier 2 creatures will be avaiable.

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Creature Tier 0
   m_EditorClassIdentifier: 
   Id: 77ab6902-f06f-419c-92ed-9a6c60943377
-  Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
+  Icon: {fileID: 21300000, guid: 6efb91ba90ad94648aa09a71434f3706, type: 3}
   Cost: 0
   Value: 0
   IsPurchased: 1

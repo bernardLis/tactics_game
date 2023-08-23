@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Creature Tier 1
   m_EditorClassIdentifier: 
   Id: ea926573-1f60-460f-8abc-38b2a7bdcbe8
-  Icon: {fileID: 21300000, guid: 83dc5aafa16707a48b22327db85eb437, type: 3}
-  Cost: 111
+  Icon: {fileID: 21300000, guid: f2dd8eb2260272e4ab86c4f450eb9764, type: 3}
+  Cost: 2147483647
   Value: 1
   IsPurchased: 0
-  Description: Tier 1 creatures will be avaiable.
+  Description: (NOT IMPLEMENTED) Tier 1 creatures will be avaiable.
   IsInfinite: 0
   CircleRadiusMultiplier: 1.02
