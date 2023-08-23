@@ -7,6 +7,12 @@ using Random = UnityEngine.Random;
 
 public class EntitySpawner : MonoBehaviour
 {
+    AudioManager _audioManager;
+
+    [SerializeField] Sound _portalOpenSound;
+    [SerializeField] Sound _portalCloseSound;
+    [SerializeField] Sound _portalHumSound;
+
     Hero _hero;
     Element _portalElement;
     List<Entity> _entities = new();
@@ -15,16 +21,23 @@ public class EntitySpawner : MonoBehaviour
 
     float _delay;
     bool _portalShown;
+    AudioSource _portalHumSource;
 
     public List<BattleEntity> SpawnedEntities = new();
 
     public event Action<List<BattleEntity>> OnSpawnComplete;
+    void Awake()
+    {
+        _audioManager = AudioManager.Instance;
+    }
 
     public void ShowPortal(Element element)
     {
         if (_portalShown) return;
         _portalShown = true;
 
+        _audioManager.PlaySFX(_portalOpenSound, transform.position);
+        _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
         if (element == null)
         {
             _blackPortal.SetActive(true);
@@ -90,6 +103,9 @@ public class EntitySpawner : MonoBehaviour
 
     public void DestroySelf()
     {
+        _audioManager.PlaySFX(_portalCloseSound, transform.position);
+        _portalHumSource.Stop();
+
         transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
         Destroy(gameObject, 1f);
     }

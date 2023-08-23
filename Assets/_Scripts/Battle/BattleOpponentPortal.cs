@@ -9,8 +9,13 @@ using UnityEngine.UIElements;
 
 public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    AudioManager _audioManager;
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
+
+    [SerializeField] Sound _portalOpenSound;
+    [SerializeField] Sound _portalCloseSound;
+    [SerializeField] Sound _portalHumSound;
 
     [SerializeField] GameObject RewardChestPrefab;
 
@@ -26,9 +31,12 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     float _lastWaveSpawnTime;
     bool _isPortalActive;
 
+    AudioSource _portalHumSource;
+
     public event Action OnWaveSpawned;
     void Start()
     {
+        _audioManager = AudioManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleManager.AddPortal(this);
         _tooltipManager = BattleTooltipManager.Instance;
@@ -45,6 +53,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
 
         _portalEffect.transform.localScale = Vector3.zero;
+        _audioManager.PlaySFX(_portalOpenSound, transform.position);
+        _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
         _portalEffect.transform.DOScale(_portalEffectScale, 0.5f)
             .OnComplete(() =>
             {
@@ -131,6 +141,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         yield return new WaitForSeconds(0.8f);
 
+        _audioManager.PlaySFX(_portalCloseSound, transform.position);
+        _portalHumSource.Stop();
         _portalEffect.transform.DOScale(0, 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
