@@ -28,6 +28,7 @@ public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
     {
         if (Instance != null)
         {
+            Debug.Log($"instance not null {gameObject.GetInstanceID()}");
             Destroy(gameObject);
             return;
         }

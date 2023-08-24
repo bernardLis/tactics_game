@@ -55,12 +55,30 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public event Action OnClearSaveData;
     protected override void Awake()
     {
-        Debug.Log($"Game manager Awake");
         base.Awake();
+        Debug.Log($"Game manager Awake {gameObject.GetInstanceID()}");
+
+        // Services();
+    }
+
+    void Start()
+    {
+
+        Debug.Log($"Game manager Start");
+
         _levelLoader = GetComponent<LevelLoader>();
         Root = GetComponent<UIDocument>().rootVisualElement;
 
-        // Services();
+        // HERE: testing
+        // global save per 'game'
+        //  if (PlayerPrefs.GetString("saveName").Length == 0)
+        //   {
+        Helpers.SetUpHelpers(Root);
+        CreateNewSaveFile();
+
+        //  }
+        //   else
+        //     LoadFromSaveFile();
     }
 
     async void Services()
@@ -85,21 +103,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         AnalyticsService.Instance.CustomData("gameStart", parameters);
     }
 
-    void Start()
-    {
-
-        Debug.Log($"Game manager Start");
-        // HERE: testing
-        // global save per 'game'
-        //  if (PlayerPrefs.GetString("saveName").Length == 0)
-        //   {
-        Helpers.SetUpHelpers(Root);
-        CreateNewSaveFile();
-
-        //  }
-        //   else
-        //     LoadFromSaveFile();
-    }
 
     public void Play()
     {

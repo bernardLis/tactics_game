@@ -5,6 +5,7 @@ using System.Linq;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] Sound _mainMenuTheme;
+    [SerializeField] GameObject _gameManagerPrefab;
 
     GameManager _gameManager;
 
@@ -19,9 +20,17 @@ public class MainMenuUI : MonoBehaviour
 
     const string _ussCommonMenuButton = "common__menu-button";
 
+
+    void Awake()
+    {
+        // TODO: is this a good idea? When game manager was in the scene there was a bug when you were coming back to main menu.
+        _gameManager = GameManager.Instance;
+        if (_gameManager == null)
+            _gameManager = Instantiate(_gameManagerPrefab).GetComponent<GameManager>();
+    }
+
     void Start()
     {
-        _gameManager = GameManager.Instance;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _continueButton = new MyButton("Play", _ussCommonMenuButton, Continue);
@@ -48,7 +57,7 @@ public class MainMenuUI : MonoBehaviour
 
     void ConfirmQuit()
     {
-        ConfirmPopUp pop = new ();
+        ConfirmPopUp pop = new();
         pop.Initialize(_root, Quit);
     }
 
