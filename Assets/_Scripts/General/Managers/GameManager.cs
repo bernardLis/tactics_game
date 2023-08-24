@@ -132,6 +132,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         if (o == 0)
             return;
 
+        if (o > 0) TotalGoldCollected += o;
+        
         Gold += o;
         OnGoldChanged?.Invoke(Gold);
     }

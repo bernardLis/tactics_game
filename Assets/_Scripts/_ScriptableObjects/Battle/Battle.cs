@@ -41,15 +41,15 @@ public class Battle : BaseScriptableObject
         Opponent.CreateRandom(_gameManager.PlayerHero.Level.Value);
         Opponent.CreatureArmy.Clear();
 
-        CreateWaves(level);
+        Waves = new();
+        CreateWaves();
     }
 
-    public void CreateWaves(int level)
+    public void CreateWaves()
     {
         // HERE: waves - make sure that there are no overlapping waves
         List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());
-        Waves = new();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 12; i++)
         {
             if (availableElements.Count == 0)
                 availableElements = new(_gameManager.HeroDatabase.GetAllElements());
@@ -59,8 +59,8 @@ public class Battle : BaseScriptableObject
             availableElements.Remove(element);
 
             BattleWave wave = CreateInstance<BattleWave>();
-            float startTime = GetWaveStartTime(element, i);
-            int difficulty = 1 + Mathf.FloorToInt(i * 0.25f);// every 4 waves, difficulty increases by 1
+            float startTime = GetWaveStartTime(element, Waves.Count);
+            int difficulty = 1 + Mathf.FloorToInt(Waves.Count * 0.25f);// every 4 waves, difficulty increases by 1
             wave.CreateWave(element, difficulty, startTime);
             Waves.Add(wave);
         }
@@ -73,7 +73,8 @@ public class Battle : BaseScriptableObject
 
     public float GetWaveStartTime(Element element, int waveIndex)
     {
-        float startTime = 5 + waveIndex * Random.Range(45f, 75f);
+        
+        float startTime = 5; //HERE: waves + waveIndex * Random.Range(45f, 75f);
 
         // make sure that the wave doesn't start before the previous one of the same element ends
         foreach (BattleWave w in Waves)

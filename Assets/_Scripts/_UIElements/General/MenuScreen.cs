@@ -25,7 +25,25 @@ public class MenuScreen : FullScreenElement
         _content.Add(_container);
 
         AddContinueButton();
+        AddTotalGoldCollected();
         AddMenuButtons();
+    }
+
+    void AddTotalGoldCollected()
+    {
+        VisualElement goldContainer = new();
+        goldContainer.style.flexDirection = FlexDirection.Row;
+        goldContainer.AddToClassList(_ussCommonTextPrimary);
+        _container.Add(goldContainer);
+
+        Label goldLabel = new()
+        {
+            text = $"Total Gold Collected: "
+        };
+        goldContainer.Add(goldLabel);
+
+        GoldElement el = new(_gameManager.TotalGoldCollected);
+        goldContainer.Add(el);
     }
 
     void AddMenuButtons()

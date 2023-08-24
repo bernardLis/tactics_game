@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System;
 
 public class BattleWaveManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BattleWaveManager : MonoBehaviour
 
     Battle _selectedBattle;
 
+    int _currentWaveIndex;
 
     [SerializeField] BattleOpponentPortal[] _opponentPortals;
 
@@ -31,17 +33,15 @@ public class BattleWaveManager : MonoBehaviour
     {
         while (true)
         {
-            foreach (BattleWave wave in _selectedBattle.Waves)
-                CheckWave(wave);
-            yield return new WaitForSeconds(1);
-        }
-    }
+            StartWave(_selectedBattle.Waves[_currentWaveIndex]);
+            _currentWaveIndex++;
 
-    void CheckWave(BattleWave wave)
-    {
-        if (wave.IsStarted) return;
-        if (wave.StartTime <= Time.time)
-            StartWave(wave);
+            if (_currentWaveIndex == _selectedBattle.Waves.Count - 3)
+                _selectedBattle.CreateWaves();
+
+            // how long do you need to wait for next wave
+            yield return new WaitForSeconds(_selectedBattle.Waves[_currentWaveIndex].StartTime - Time.time);
+        }
     }
 
     void StartWave(BattleWave wave)
