@@ -6,15 +6,15 @@ using UnityEngine.UIElements;
 
 public class BattleMinimapManager : MonoBehaviour
 {
-    const string _ussPortalIcon = "common__minimap-portal-icon";
+    const string _ussClassName = "minimap__";
+    const string _ussPortalIcon = _ussClassName + "portal-icon";
+    const string _ussPlayerEntityIcon = _ussClassName + "player-entity-icon";
+    const string _ussPlayerTurretIcon = _ussClassName + "player-turret-icon";
+    const string _ussPlayerEntityGraveIcon = _ussClassName + "grave-icon";
+    const string _ussOpponentMinionIcon = _ussClassName + "opponent-minion-icon";
+    const string _ussOpponentCreatureIcon = _ussClassName + "opponent-creature-icon";
 
-    const string _ussPlayerEntityIcon = "common__minimap-player-entity-icon";
-    const string _ussPlayerTurretIcon = "common__minimap-player-turret-icon";
-    const string _ussPlayerEntityGraveIcon = "common__minimap-grave-icon";
-
-    const string _ussOpponentMinionIcon = "common__minimap-opponent-minion-icon";
-    const string _ussOpponentCreatureIcon = "common__minimap-opponent-creature-icon";
-
+    GameManager _gameManager;
     BattleManager _battleManager;
     BattleCameraManager _battleCameraManager;
     BattleTooltipManager _tooltipManager;
@@ -32,7 +32,13 @@ public class BattleMinimapManager : MonoBehaviour
 
     void Start()
     {
+        _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
+
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.MinimapStyles);
+        if (ss != null)
+            _battleManager.Root.styleSheets.Add(ss);
+
         _battleCameraManager = BattleCameraManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
 

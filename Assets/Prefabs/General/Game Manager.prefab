@@ -411,6 +411,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: 91d6e3f790fad8c4694d19f1354fa1cb
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,6 +467,7 @@ MonoBehaviour:
   HeroDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   WasIntroCutscenePlayed: 0
   BattleNumber: 0
+  GoldAdvantage: 0
   PlayerHero: {fileID: 0}
   OverseerHero: {fileID: 0}
   RivalHero: {fileID: 0}
