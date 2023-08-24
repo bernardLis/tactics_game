@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using System;
 
 public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    GameManager _gameManager;
-
+    BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
     [SerializeField] GameObject _entitySpawnerPrefab;
-
     public Creature Creature { get; private set; }
 
     GameObject _model;
 
+    public event Action OnResurrected;
     public void Initialize(Creature creature)
     {
-        _gameManager = GameManager.Instance;
+        _battleManager = BattleManager.Instance;
+        _battleManager.GetComponent<BattleMinimapManager>().AddGrave(this);
         _tooltipManager = BattleTooltipManager.Instance;
 
-        AudioManager.Instance.PlaySFX("Bang", Camera.main.transform.position);
+        AudioManager.Instance.PlayUI("Bang");
 
         Creature = creature;
 
@@ -82,8 +83,9 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
         es.SpawnEntities(creatures: new List<Creature>() { Creature });
         es.OnSpawnComplete += (list) =>
         {
+            OnResurrected?.Invoke();
             _model.transform.DOKill();
-            BattleManager.Instance.AddPlayerArmyEntities(list);
+            _battleManager.AddPlayerArmyEntities(list);
             Destroy(gameObject, 0.2f);
         };
     }

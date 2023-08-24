@@ -207,6 +207,15 @@
     border-bottom-right-radius: 30px;
 }
 
+.common__minimap-grave-icon {
+    flex-grow: 1;
+    background-color: black;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+}
+
+
 .common__minimap-opponent-creature-icon {
     flex-grow: 1;
     width: 15px;
@@ -220,6 +229,8 @@
     border-color: red;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/77_action.png?fileID=2800000&guid=0b72c4e337504d54192a89a56854391a&type=3#77_action');
 }
+
+
 
 .common__minimap-opponent-minion-icon {
     flex-grow: 1;

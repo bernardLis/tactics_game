@@ -10,6 +10,7 @@ public class BattleMinimapManager : MonoBehaviour
 
     const string _ussPlayerEntityIcon = "common__minimap-player-entity-icon";
     const string _ussPlayerTurretIcon = "common__minimap-player-turret-icon";
+    const string _ussPlayerEntityGraveIcon = "common__minimap-grave-icon";
 
     const string _ussOpponentMinionIcon = "common__minimap-opponent-minion-icon";
     const string _ussOpponentCreatureIcon = "common__minimap-opponent-creature-icon";
@@ -207,6 +208,20 @@ public class BattleMinimapManager : MonoBehaviour
         }
 
         icon.AddToClassList(_ussOpponentCreatureIcon);
+    }
+
+    public void AddGrave(BattleCreatureGrave grave)
+    {
+        VisualElement graveIcon = new();
+        graveIcon.AddToClassList(_ussPlayerEntityGraveIcon);
+        _minimap.Add(graveIcon);
+        Vector2 pos = new(grave.transform.position.x, grave.transform.position.z);
+        Vector2 miniMapPosition = GetMiniMapPosition(pos);
+
+        graveIcon.style.top = miniMapPosition.x;
+        graveIcon.style.left = miniMapPosition.y;
+
+        grave.OnResurrected += () => _minimap.Remove(graveIcon);
     }
 
     void RemoveEntity(BattleEntity be)
