@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class MenuScreen : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
 
     const string _ussClassName = "menu__";
     const string _ussContainer = _ussClassName + "container";

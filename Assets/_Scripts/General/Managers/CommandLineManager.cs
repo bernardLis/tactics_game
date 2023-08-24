@@ -23,7 +23,7 @@ public class CommandLineManager : MonoBehaviour
 
     [SerializeField] Creature _metalon;
 
-    void Awake()
+    void Start()
     {
         _gameManager = GetComponent<GameManager>();
         _playerInput = GetComponent<PlayerInput>();

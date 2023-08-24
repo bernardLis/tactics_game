@@ -399,6 +399,18 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: fc6b8e71b22b0d54fb6719bf94998476
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 7b533c43a2f43134aa562b1314c74e86
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 0bfa3127b4e60d746b46b36a26eb57ab
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class SettingsScreen : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonUIContainer = "common__ui-container";
-    const string _ussCommonMenuButton = "common__menu-button";
 
     const string _ussClassName = "settings-menu__";
     const string _ussMain = _ussClassName + "main";

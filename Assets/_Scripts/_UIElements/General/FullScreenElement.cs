@@ -6,7 +6,7 @@ using DG.Tweening;
 public class FullScreenElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
+    protected const string _ussCommonMenuButton = "common__menu-button";
     const string _ussCommonFullScreenMain = "common__full-screen-main";
     const string _ussCommonFullScreenContent = "common__full-screen-content";
 

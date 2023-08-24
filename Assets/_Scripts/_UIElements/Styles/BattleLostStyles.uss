@@ -1,0 +1,4 @@
+.battle-lost__main {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Defeat_window.png?fileID=2800000&guid=cf8bbdf9fdb025c4888b8d122048380c&type=3#Defeat_window');
+    -unity-background-scale-mode: scale-to-fit;
+}

@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class BattleLostScreen : BattleFinishedScreen
+{
+    const string _ussClassName = "battle-lost__";
+    const string _ussMain = _ussClassName + "main";
+
+    public BattleLostScreen()
+    {
+        _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleLostStyles);
+        if (ss != null)
+            styleSheets.Add(ss);
+
+        AddToClassList(_ussMain);
+        AddButtons();
+    }
+
+    protected override void AddTitle()
+    {
+        // meant to be overwritten
+        Label text = new("Battle lost!");
+        text.style.fontSize = 34;
+
+        _mainContainer.Add(text);
+    }
+
+    void AddButtons()
+    {
+        VisualElement container = new();
+        container.style.alignItems = Align.Center;
+        _mainContainer.Add(container);
+
+        Label text = new("Hey, you lost but you did very well! If you want to give it another go I will give you a bonus 1 000 gold. (it stacks)");
+        text.style.whiteSpace = WhiteSpace.Normal;
+        container.Add(text);
+
+        Button takeAdvantage = new() { text = "Easy money!" };
+        takeAdvantage.AddToClassList(_ussCommonMenuButton);
+        takeAdvantage.clicked += () =>
+        {
+            _gameManager.GoldAdvantage++;
+            _gameManager.ClearSaveData();
+            _gameManager.LoadScene(Scenes.MainMenu);
+        };
+        container.Add(takeAdvantage);
+
+        Button noAdvantage = new() { text = "I don't need your charity!" };
+        noAdvantage.AddToClassList(_ussCommonMenuButton);
+        noAdvantage.clicked += () =>
+        {
+            _gameManager.GoldAdvantage++;
+            _gameManager.ClearSaveData();
+            _gameManager.LoadScene(Scenes.MainMenu);
+        };
+        container.Add(noAdvantage);
+    }
+
+
+}

@@ -23,6 +23,8 @@ public class GameDatabase : BaseScriptableObject
 
 
     [Header("General")]
+    public RewardIcon[] RewardIcons;
+
     [SerializeField] ColorVariable[] _colors;
     public ColorVariable GetColorByName(string name) { return _colors.FirstOrDefault(c => c.name == name); }
 
@@ -82,6 +84,13 @@ public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Mana, Armor, Speed }
 
 public enum ElementName { Fire, Water, Wind, Earth }
+
+[System.Serializable]
+public struct RewardIcon
+{
+    public string Text;
+    public Sprite Sprite;
+}
 
 [System.Serializable]
 public struct StatIcon

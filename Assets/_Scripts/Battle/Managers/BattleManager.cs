@@ -230,28 +230,34 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleLost()
     {
-        LoadedBattle.Won = false;
+        // LoadedBattle.Won = false;
 
-        ConfirmPopUp popUp = new();
-        popUp.Initialize(Root, () => _gameManager.ClearSaveData(),
-                "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
-        popUp.HideCancelButton();
+        BattleLostScreen lostScreen = new();
         yield return null;
+        // ConfirmPopUp popUp = new();
+        // popUp.Initialize(Root, () => _gameManager.ClearSaveData(),
+        //         "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
+        // popUp.HideCancelButton();
+        // yield return null;
+        yield return FinalizeBattle();
+
     }
 
     IEnumerator BattleWon()
     {
-        LoadedBattle.Won = true;
+        // LoadedBattle.Won = true;
+        BattleWonScreen lostScreen = new();
+        yield return null;
 
-        VisualElement topPanel = Root.Q<VisualElement>("topPanel");
-        topPanel.Clear();
+        // VisualElement topPanel = Root.Q<VisualElement>("topPanel");
+        // topPanel.Clear();
 
-        Label label = new("Battle won!");
-        label.AddToClassList("battle__won-label");
-        label.style.opacity = 0;
-        DOTween.To(x => label.style.opacity = x, 0, 1, 0.5f);
+        // Label label = new("Battle won!");
+        // label.AddToClassList("battle__won-label");
+        // label.style.opacity = 0;
+        // DOTween.To(x => label.style.opacity = x, 0, 1, 0.5f);
 
-        topPanel.Add(label);
+        // topPanel.Add(label);
 
         yield return FinalizeBattle();
     }
@@ -291,11 +297,18 @@ public class BattleManager : Singleton<BattleManager>
             StartCoroutine(be.Die());
         }
     }
-    [ContextMenu("Alternative Win Battle")]
+    [ContextMenu("Force Win Battle")]
     public void WinBattleAlternative()
     {
         StartCoroutine(BattleWon());
     }
+
+    [ContextMenu("Force Lose Battle")]
+    public void LoseBattleAlternative()
+    {
+        StartCoroutine(BattleLost());
+    }
+
     [ContextMenu("Level up hero")]
     public void LevelUpHero()
     {

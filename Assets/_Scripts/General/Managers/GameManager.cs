@@ -29,6 +29,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int Seed { get; private set; }
 
     public int BattleNumber;
+    public int GoldAdvantage;
 
     public int TotalGoldCollected { get; private set; }
     public int Gold { get; private set; }
@@ -133,7 +134,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
             return;
 
         if (o > 0) TotalGoldCollected += o;
-        
+
         Gold += o;
         OnGoldChanged?.Invoke(Gold);
     }
@@ -151,6 +152,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     /* LEVELS */
     public void LoadScene(string level)
     {
+        Time.timeScale = 1f;
         _levelLoader.LoadLevel(level);
         OnLevelLoaded?.Invoke(level);
     }
@@ -166,7 +168,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Seed = System.Environment.TickCount;
 
         BattleNumber = 0;
-        Gold = 10000;
+        Gold = GoldAdvantage * 1000;
         Spice = 500;
 
         PlayerHero = null;
@@ -178,7 +180,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         RivalHero.CreateRandom(3);
 
         // new save
-        string guid = System.Guid.NewGuid().ToString();
+        string guid = Guid.NewGuid().ToString();
         string fileName = guid + ".dat";
         FileManager.CreateFile(fileName);
         PlayerPrefs.SetString("saveName", fileName);
@@ -242,7 +244,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = saveData.Gold;
         Spice = saveData.Spice;
 
-        PlayerHero = (Hero)ScriptableObject.CreateInstance<Hero>();
+        PlayerHero = ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
     }
 
@@ -255,7 +257,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Seed = System.Environment.TickCount;
         BattleNumber = 0;
 
-        Gold = 10000;
+        Gold = GoldAdvantage * 1000;
         Spice = 500;
 
         PlayerHero = null;
