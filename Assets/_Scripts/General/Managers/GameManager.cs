@@ -30,6 +30,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int BattleNumber;
 
+    public int TotalGoldCollected { get; private set; }
     public int Gold { get; private set; }
     public int Spice { get; private set; }
 

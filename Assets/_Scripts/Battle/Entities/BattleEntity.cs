@@ -271,7 +271,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         CurrentHealth.ApplyChange(-d);
         if (CurrentHealth.Value <= 0)
         {
-            TriggerDieCoroutine(attacker);
+            TriggerDieCoroutine(attacker, true);
             return;
         }
 
