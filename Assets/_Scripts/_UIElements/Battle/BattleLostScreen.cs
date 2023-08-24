@@ -38,25 +38,23 @@ public class BattleLostScreen : BattleFinishedScreen
         text.style.whiteSpace = WhiteSpace.Normal;
         container.Add(text);
 
-        Button takeAdvantage = new() { text = "Easy money!" };
-        takeAdvantage.AddToClassList(_ussCommonMenuButton);
-        takeAdvantage.clicked += () =>
-        {
-            _gameManager.GoldAdvantage++;
-            _gameManager.ClearSaveData();
-            _gameManager.LoadScene(Scenes.MainMenu);
-        };
+        MyButton takeAdvantage = new("Easy money!", _ussCommonMenuButton, AdvantageButton);
         container.Add(takeAdvantage);
 
-        Button noAdvantage = new() { text = "I don't need your charity!" };
-        noAdvantage.AddToClassList(_ussCommonMenuButton);
-        noAdvantage.clicked += () =>
-        {
-            _gameManager.GoldAdvantage++;
-            _gameManager.ClearSaveData();
-            _gameManager.LoadScene(Scenes.MainMenu);
-        };
+        MyButton noAdvantage = new("I don't need your charity!", _ussCommonMenuButton, QuitButton);
         container.Add(noAdvantage);
+    }
+
+    void AdvantageButton()
+    {
+        _gameManager.GoldAdvantage++;
+        QuitButton();
+    }
+
+    void QuitButton()
+    {
+        _gameManager.ClearSaveData();
+        _gameManager.LoadScene(Scenes.MainMenu);
     }
 
 

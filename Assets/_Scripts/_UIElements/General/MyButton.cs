@@ -24,6 +24,7 @@ public class MyButton : Button
         _audioManager = AudioManager.Instance;
 
         _text = new Label(buttonText);
+        _text.style.whiteSpace = WhiteSpace.Normal;
         Add(_text);
         if (buttonText == "")
             _text.style.display = DisplayStyle.None;

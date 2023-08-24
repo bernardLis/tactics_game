@@ -85,7 +85,7 @@
     padding-top: 0;
     padding-bottom: 0;
     width: 400px;
-    height: 90px;
+    min-height: 90px;
     transition-property: all;
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
@@ -209,13 +209,15 @@
 
 .common__minimap-opponent-creature-icon {
     flex-grow: 1;
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+    border-width: 1px;
+    border-color: red;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/77_action.png?fileID=2800000&guid=0b72c4e337504d54192a89a56854391a&type=3#77_action');
 }
 

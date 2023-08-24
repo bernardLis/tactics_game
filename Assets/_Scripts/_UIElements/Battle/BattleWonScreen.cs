@@ -39,32 +39,27 @@ public class BattleWonScreen : BattleFinishedScreen
         text.style.whiteSpace = WhiteSpace.Normal;
         container.Add(text);
 
-        Button takeAdvantage = new() { text = "Continue playing!" };
-        takeAdvantage.AddToClassList(_ussCommonMenuButton);
-        takeAdvantage.clicked += () =>
-        {
-            Hide();
-        };
-        container.Add(takeAdvantage);
+        MyButton continuePlaying = new("Continue playing", _ussCommonMenuButton,
+                 callback: () => Hide());
+        container.Add(continuePlaying);
 
-        Button advantage = new() { text = "Quit and get advantage for your next run. (1k)" };
-        advantage.AddToClassList(_ussCommonMenuButton);
-        advantage.clicked += () =>
-        {
-            _gameManager.GoldAdvantage++;
-            _gameManager.ClearSaveData();
-            _gameManager.LoadScene(Scenes.MainMenu);
-        };
+        MyButton advantage = new("Quit (+1k gold next time)",
+                _ussCommonMenuButton, callback: AdvantageButton);
         container.Add(advantage);
 
-        Button noAdvantage = new() { text = "Quit" };
-        noAdvantage.AddToClassList(_ussCommonMenuButton);
-        noAdvantage.clicked += () =>
-        {
-            _gameManager.GoldAdvantage++;
-            _gameManager.ClearSaveData();
-            _gameManager.LoadScene(Scenes.MainMenu);
-        };
+        MyButton noAdvantage = new("Quit", _ussCommonMenuButton, callback: QuiteButton);
         container.Add(noAdvantage);
+    }
+
+    void AdvantageButton()
+    {
+        _gameManager.GoldAdvantage++;
+        QuiteButton();
+    }
+
+    void QuiteButton()
+    {
+        _gameManager.ClearSaveData();
+        _gameManager.LoadScene(Scenes.MainMenu);
     }
 }

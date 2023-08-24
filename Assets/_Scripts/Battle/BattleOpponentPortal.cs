@@ -148,7 +148,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         yield return new WaitForSeconds(0.8f);
 
         _audioManager.PlaySFX(_portalCloseSound, transform.position);
-        _portalHumSource.Stop();
+        if (_portalHumSource != null) _portalHumSource.Stop();
+        
         _portalEffect.transform.DOScale(0, 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
