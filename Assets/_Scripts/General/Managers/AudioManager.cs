@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 //https://www.youtube.com/watch?v=6OT43pvUyfY
 public class AudioManager : Singleton<AudioManager>
@@ -122,17 +123,7 @@ public class AudioManager : Singleton<AudioManager>
 
     IEnumerator FadeOutCoroutine(AudioSource audioSource, float duration)
     {
-        Debug.Log($"Fading {audioSource.name} out.");
-        float currentTime = 0f;
-        float start = audioSource.volume;
-        float end = 0f;
-
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(start, end, currentTime / duration);
-            yield return null;
-        }
+        yield return audioSource.DOFade(0, duration).WaitForCompletion();
     }
 
     IEnumerator FadeInCoroutine(AudioSource audioSource, Sound sound, float duration)
@@ -143,16 +134,7 @@ public class AudioManager : Singleton<AudioManager>
         audioSource.clip = sound.Clips[0];
         audioSource.Play();
 
-        float currentTime = 0f;
-        float start = 0f;
-        float end = sound.Volume;
-
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(start, end, currentTime / duration);
-            yield return null;
-        }
+        yield return audioSource.DOFade(1, duration).WaitForCompletion();
     }
 
     public void PlayDialogue(Sound sound)
@@ -226,7 +208,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         AudioSource a = _uiAudioSources.FirstOrDefault(s => s.isPlaying == false);
         if (a == null) return null;
-        
+
         Sound instance = Instantiate(sound);
         instance.Play(a);
 
