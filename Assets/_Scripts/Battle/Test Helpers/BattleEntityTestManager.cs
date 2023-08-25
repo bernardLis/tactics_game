@@ -48,7 +48,7 @@ public class BattleEntityTestManager : MonoBehaviour
     IEnumerator LateInitialize(Hero h)
     {
         yield return new WaitForSeconds(0.5f);
-        _battleManager.Initialize(h, new Vector3(-60f, 0, 60f));
+        _battleManager.Initialize(h);
         _battleManager.GetComponent<BattleGrabManager>().Initialize();
         _battleManager.GetComponent<BattleAbilityManager>().Initialize(h);
 

@@ -34,8 +34,8 @@ public class Battle : BaseScriptableObject
     {
         _gameManager = GameManager.Instance;
 
-        Spire = CreateInstance<Spire>();
-        Spire.Initialize();
+        // Spire = CreateInstance<Spire>();
+        // Spire.Initialize();
 
         Opponent = CreateInstance<Hero>();
         Opponent.CreateRandom(_gameManager.PlayerHero.Level.Value);
@@ -73,9 +73,8 @@ public class Battle : BaseScriptableObject
 
     public float GetWaveStartTime(Element element, int waveIndex)
     {
-        
-        float startTime = 5; //HERE: waves + waveIndex * Random.Range(45f, 75f);
-
+        float startTime = waveIndex * Random.Range(45f, 75f);
+        if (waveIndex == 0) startTime = 30; // first wave starts at 30 seconds
         // make sure that the wave doesn't start before the previous one of the same element ends
         foreach (BattleWave w in Waves)
             if (w.Element == element && w.GetPlannedEndTime() > startTime)

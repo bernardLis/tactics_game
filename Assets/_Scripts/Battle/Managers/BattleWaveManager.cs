@@ -22,6 +22,7 @@ public class BattleWaveManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
 
         _selectedBattle = _gameManager.CurrentBattle;
+        BattleIntroCameraManager.Instance.OnIntroFinished += Initialize;
     }
 
     public void Initialize()

@@ -26,25 +26,32 @@ public class BattleInitializer : MonoBehaviour
         _battleCameraManager = BattleCameraManager.Instance;
 
         _playerHero = _gameManager.PlayerHero;
-
-        StartCoroutine(BattleStartShow());
-    }
-
-    IEnumerator BattleStartShow()
-    {
         _battleInputManager.enabled = false;
 
+        BattleIntroCameraManager.Instance.OnIntroFinished += BattleStartShow;
+        StartCoroutine(DelayedStart());
+        //OnIntroFinished
+    }
+
+    IEnumerator DelayedStart()
+    {
         yield return new WaitForSeconds(0.5f);
+        _battleManager.Initialize(_playerHero);
+    }
 
-        _battleCameraManager.MoveCameraToDefaultPosition(3f);
+    void BattleStartShow()
+    {
 
-        yield return new WaitForSeconds(1f);
+        // yield return new WaitForSeconds(0.5f);
 
-        _battleManager.Initialize(_playerHero, Vector3.zero);
+        // _battleCameraManager.MoveCameraToDefaultPosition(3f);
+
+        // yield return new WaitForSeconds(1f);
+
+
+        // yield return new WaitForSeconds(30f); // hardcoded
+
         GetComponent<BattleWaveManager>().Initialize();
-
-        yield return new WaitForSeconds(2f);
-
         _battleDeploymentManager.HandlePlayerArmyDeployment(_playerHero.CreatureArmy);
         _battleInputManager.enabled = true;
     }

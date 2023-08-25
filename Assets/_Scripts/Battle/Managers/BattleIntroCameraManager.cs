@@ -2,68 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
-public class BattleIntroCameraManager : MonoBehaviour
+public class BattleIntroCameraManager : Singleton<BattleIntroCameraManager>
 {
     [SerializeField] CinemachineVirtualCamera _mainCamera;
 
-    [SerializeField] GameObject LookAt1;
-    [SerializeField] GameObject LookAt2;
-    [SerializeField] GameObject LookAt3;
-    [SerializeField] GameObject LookAt4;
-    [SerializeField] GameObject LookAt5;
-    [SerializeField] GameObject LookAt6;
-    [SerializeField] GameObject LookAt7;
+    [SerializeField] List<GameObject> _lookAtTargets = new();
 
     CinemachineVirtualCamera _introCamera;
     CinemachineDollyCart _dollyCart;
     CinemachineSmoothPath _path;
 
-    int _numberOfWaypoints;
+    int _currentLookAtIndex = 0;
+
+    public event Action OnIntroFinished;
 
     void Start()
     {
         _introCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         _dollyCart = GetComponentInChildren<CinemachineDollyCart>();
         _path = GetComponentInChildren<CinemachineSmoothPath>();
-        _numberOfWaypoints = _path.m_Waypoints.Length;
 
         StartCoroutine(CameraIntroCoroutine());
     }
 
     IEnumerator CameraIntroCoroutine()
     {
-        float nextBreak = 1;
-        while (_dollyCart.m_Position < _numberOfWaypoints)
+        // TODO: this is meh, but it works for now
+        float nextBreak = 1f / (float)_lookAtTargets.Count;
+        float breakPointEvery = nextBreak;
+
+        while (_dollyCart.m_Position < 1) // normalized position
         {
             if (_dollyCart.m_Position >= nextBreak)
             {
-                nextBreak++;
-                SetLookAt(_dollyCart.m_Position);
+                nextBreak += breakPointEvery;
+                LookAtNextTarget();
             }
             yield return new WaitForSeconds(0.1f);
         }
-        Debug.Log($"end");
+
         _mainCamera.gameObject.SetActive(true);
         _introCamera.gameObject.SetActive(false);
+        BattleCameraManager.Instance.enabled = true;
+        OnIntroFinished?.Invoke();
     }
 
-    void SetLookAt(float waypointIndex)
+    void LookAtNextTarget()
     {
-        Debug.Log($"set look at");
-        if (waypointIndex > 0 && waypointIndex < 1)
-            _introCamera.LookAt = LookAt1.transform;
-        else if (waypointIndex > 1 && waypointIndex < 2)
-            _introCamera.LookAt = LookAt2.transform;
-        else if (waypointIndex > 2 && waypointIndex < 3)
-            _introCamera.LookAt = LookAt3.transform;
-        else if (waypointIndex > 3 && waypointIndex < 4)
-            _introCamera.LookAt = LookAt4.transform;
-        else if (waypointIndex > 4 && waypointIndex < 5)
-            _introCamera.LookAt = LookAt5.transform;
-        else if (waypointIndex > 5 && waypointIndex < 6)
-            _introCamera.LookAt = LookAt6.transform;
-        else if (waypointIndex > 6 && waypointIndex < 7)
-            _introCamera.LookAt = LookAt7.transform;
+        _currentLookAtIndex++;
+        _currentLookAtIndex = Mathf.Clamp(_currentLookAtIndex, 0, _lookAtTargets.Count - 1);
+        _introCamera.LookAt = _lookAtTargets[_currentLookAtIndex].transform;
     }
 }

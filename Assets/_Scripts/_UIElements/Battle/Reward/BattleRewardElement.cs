@@ -222,7 +222,7 @@ public class BattleRewardElement : VisualElement
         reward.OnRewardSelected += RewardSelected;
         RewardCard card = new RewardCardCreature(reward);
 
-        if (_gameManager.PlayerHero.CreatureArmy.Count >= _gameManager.CurrentBattle.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
+        if (_gameManager.PlayerHero.CreatureArmy.Count >= BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
         {
             card.DisableCard();
             card.Add(new Label("Your army is full!"));

@@ -38,8 +38,9 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
 
-        if (_gameManager == null) _gameManager = GameManager.Instance;
-        _spire = _gameManager.CurrentBattle.Spire;
+        // if (_gameManager == null) _gameManager = GameManager.Instance;
+        // _spire = _gameManager.CurrentBattle.Spire;
+        _spire = _battleSpire.Spire;
 
         ResolveLivesLabel();
         UpdateLivesLabel();

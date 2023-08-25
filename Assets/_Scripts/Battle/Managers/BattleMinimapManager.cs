@@ -207,6 +207,8 @@ public class BattleMinimapManager : MonoBehaviour
 
     void ResolveEntityIconStyle(BattleEntity be, VisualElement icon)
     {
+        if (be is not BattleCreature bc) return;
+        
         if (be.Team == 0)
         {
             icon.AddToClassList(_ussPlayerEntityIcon);

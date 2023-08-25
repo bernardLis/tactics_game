@@ -31,7 +31,6 @@ public class BattleManager : Singleton<BattleManager>
     public bool IsTimerOn { get; private set; }
 
     public Hero PlayerHero { get; private set; }
-    public Spire Spire { get; private set; }
     public List<BattleOpponentPortal> OpponentPortals = new();
 
     public List<BattleEntity> PlayerCreatures = new();
@@ -102,6 +101,24 @@ public class BattleManager : Singleton<BattleManager>
         OnGameResumed?.Invoke();
     }
 
+
+    public void Initialize(Hero playerHero)
+    {
+        BattleFinalized = false;
+
+        if (playerHero != null)
+        {
+            PlayerHero = playerHero;
+            _battleHeroManager = GetComponent<BattleHeroManager>();
+            _battleHeroManager.enabled = true;
+            _battleHeroManager.Initialize(playerHero);
+        }
+        IsTimerOn = true;
+        StartCoroutine(UpdateTimer());
+
+        OnBattleInitialized?.Invoke();
+    }
+
     IEnumerator UpdateTimer()
     {
         while (IsTimerOn)
@@ -116,27 +133,6 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
     public float GetTime() { return Time.time; }
-
-    public void Initialize(Hero playerHero, Vector3 spirePos = default)
-    {
-        BattleFinalized = false;
-
-        if (playerHero != null)
-        {
-            PlayerHero = playerHero;
-            _battleHeroManager = GetComponent<BattleHeroManager>();
-            _battleHeroManager.enabled = true;
-            _battleHeroManager.Initialize(playerHero);
-        }
-        IsTimerOn = true;
-        StartCoroutine(UpdateTimer());
-
-        Spire = _gameManager.CurrentBattle.Spire;
-        Spire.InitializeBattle(spirePos);
-
-        OnBattleInitialized?.Invoke();
-    }
-
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)
     {
@@ -216,7 +212,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsPlayerTeamFull()
     {
-        if (PlayerCreatures.Count >= Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
+        if (PlayerCreatures.Count >= BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
             return true;
         return false;
     }

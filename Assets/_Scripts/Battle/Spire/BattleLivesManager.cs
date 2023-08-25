@@ -21,7 +21,7 @@ public class BattleLivesManager : MonoBehaviour
 
         _feelPlayer = GetComponent<MMF_Player>();
 
-        _spire = _gameManager.CurrentBattle.Spire;
+        _spire = BattleSpire.Instance.Spire;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -29,7 +29,7 @@ public class BattleLivesManager : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == 0) return;
-            if (_spire == null) _spire = _gameManager.CurrentBattle.Spire;
+            if (_spire == null) _spire = BattleSpire.Instance.Spire;
             if (battleEntity is not BattleMinion) return;
 
             (battleEntity as BattleMinion).ReachedSpire();

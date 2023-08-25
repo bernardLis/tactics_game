@@ -17,7 +17,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _spire = _gameManager.CurrentBattle.Spire;
+        _spire = BattleSpire.Instance.Spire;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,6 +35,8 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (_spire == null)
+            _spire = BattleSpire.Instance.Spire;
 
         new StoreyTroopsElement(_spire.StoreyTroops);
     }

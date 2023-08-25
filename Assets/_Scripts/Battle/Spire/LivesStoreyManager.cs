@@ -17,7 +17,7 @@ public class LivesStoreyManager : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         _tooltipManager = BattleTooltipManager.Instance;
 
-        _spire = _gameManager.CurrentBattle.Spire;
+        _spire = BattleSpire.Instance.Spire;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,6 +35,7 @@ public class LivesStoreyManager : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (_spire == null) _spire = BattleSpire.Instance.Spire;
 
         new StoreyLivesElement(_spire.StoreyLives);
     }
