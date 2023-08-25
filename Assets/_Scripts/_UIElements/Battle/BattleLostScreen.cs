@@ -17,6 +17,9 @@ public class BattleLostScreen : BattleFinishedScreen
 
         AddToClassList(_ussMain);
         AddButtons();
+
+        AudioManager audioManager = AudioManager.Instance;
+        audioManager.PlayDialogue(audioManager.GetSound("You Lost"));
     }
 
     protected override void AddTitle()

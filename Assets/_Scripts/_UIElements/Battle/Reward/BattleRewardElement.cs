@@ -58,6 +58,12 @@ public class BattleRewardElement : VisualElement
         Add(spacer);
 
         AddRewardContainer();
+
+
+        if (_gameManager.PlayerHero.Level.Value == 1)
+            _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
+
+
     }
 
     void AddHeroCard()
@@ -269,6 +275,9 @@ public class BattleRewardElement : VisualElement
 
     public void MoveAway()
     {
+        if (_gameManager.PlayerHero.Level.Value == 2)
+            _audioManager.PlayDialogue(_audioManager.GetSound("On level 1 closed"));
+
         style.position = Position.Absolute;
         DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
             .SetUpdate(true)

@@ -16,8 +16,10 @@ public class BattleWonScreen : BattleFinishedScreen
             styleSheets.Add(ss);
 
         AddToClassList(_ussMain);
-
         AddButtons();
+
+        AudioManager audioManager = AudioManager.Instance;
+        audioManager.PlayDialogue(audioManager.GetSound("You Won"));
     }
 
     protected override void AddTitle()

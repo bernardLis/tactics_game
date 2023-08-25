@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Hero/Player")]
 public class Hero : BaseScriptableObject
 {
-    static Vector2Int MaxManaGainPerLevelRange = new(5, 15);
+    static Vector2Int MaxManaGainPerLevelRange = new(3, 7);
 
     GameManager _gameManager;
 
