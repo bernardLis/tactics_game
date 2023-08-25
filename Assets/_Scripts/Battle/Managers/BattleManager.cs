@@ -76,8 +76,6 @@ public class BattleManager : Singleton<BattleManager>
         LoadedBattle = _gameManager.CurrentBattle;
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
-        AudioManager.Instance.PlayMusic(_battleMusic);
-
         _timerLabel.style.display = DisplayStyle.Flex;
 
 #if UNITY_EDITOR
@@ -115,6 +113,8 @@ public class BattleManager : Singleton<BattleManager>
         }
         IsTimerOn = true;
         StartCoroutine(UpdateTimer());
+
+        BattleIntroManager.Instance.OnIntroFinished += () => AudioManager.Instance.PlayMusic(_battleMusic);
 
         OnBattleInitialized?.Invoke();
     }

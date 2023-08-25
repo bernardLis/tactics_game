@@ -876,8 +876,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ab98a0e66169944b5a5b13640ae846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _introVO: {fileID: 11400000, guid: 52f00b1491375254abe8d316348daf72, type: 2}
   _mainCamera: {fileID: 1287333636}
   _lookAtTargets:
+  - {fileID: 1389841363}
   - {fileID: 1389841363}
   - {fileID: 819425544}
   - {fileID: 1790560898}

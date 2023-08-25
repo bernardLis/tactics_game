@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: rewardf-6949-4b43-a9ae-978acb199b05
   Clips:
   - {fileID: 8300000, guid: 167bfdae23947ea488bcb2c8678d37e3, type: 3}
-  Volume: 1
+  Volume: 0.8
   Pitch: 2.07
   isPitchRandomized: 1
   PitchRange: {x: 1, y: 1.1}

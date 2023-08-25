@@ -4,15 +4,16 @@ using UnityEngine;
 using Cinemachine;
 using System;
 
-public class BattleIntroCameraManager : Singleton<BattleIntroCameraManager>
+public class BattleIntroManager : Singleton<BattleIntroManager>
 {
+    [SerializeField] Sound _introVO;
+
     [SerializeField] CinemachineVirtualCamera _mainCamera;
 
     [SerializeField] List<GameObject> _lookAtTargets = new();
 
     CinemachineVirtualCamera _introCamera;
     CinemachineDollyCart _dollyCart;
-    CinemachineSmoothPath _path;
 
     int _currentLookAtIndex = 0;
 
@@ -22,9 +23,15 @@ public class BattleIntroCameraManager : Singleton<BattleIntroCameraManager>
     {
         _introCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         _dollyCart = GetComponentInChildren<CinemachineDollyCart>();
-        _path = GetComponentInChildren<CinemachineSmoothPath>();
 
         StartCoroutine(CameraIntroCoroutine());
+        StartCoroutine(PlayIntroVO());
+    }
+
+    IEnumerator PlayIntroVO()
+    {
+        yield return new WaitForSeconds(1f);
+        AudioManager.Instance.PlayDialogue(_introVO);
     }
 
     IEnumerator CameraIntroCoroutine()

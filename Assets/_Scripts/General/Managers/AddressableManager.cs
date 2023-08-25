@@ -9,7 +9,7 @@ using System.Linq;
 
 public class AddressableManager : MonoBehaviour
 {
-    [SerializeField] AssetReference[] StyleSheetReferences;
+    [SerializeField] List<AssetReference> StyleSheetReferences = new();
     List<StyleSheet> _styleSheets = new();
 
     void Start()

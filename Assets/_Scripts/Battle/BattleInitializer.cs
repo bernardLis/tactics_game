@@ -28,7 +28,7 @@ public class BattleInitializer : MonoBehaviour
         _playerHero = _gameManager.PlayerHero;
         _battleInputManager.enabled = false;
 
-        BattleIntroCameraManager.Instance.OnIntroFinished += BattleStartShow;
+        BattleIntroManager.Instance.OnIntroFinished += BattleStartShow;
         StartCoroutine(DelayedStart());
         //OnIntroFinished
     }

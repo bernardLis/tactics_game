@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 784365c7-63ad-4384-a9b2-d755efbdafca
   Clips:
   - {fileID: 8300000, guid: 06c07a5848b396845a0d71c4770cc333, type: 3}
-  Volume: 1
+  Volume: 0.8
   Pitch: 0.96
   isPitchRandomized: 0
   PitchRange: {x: 0, y: 0}

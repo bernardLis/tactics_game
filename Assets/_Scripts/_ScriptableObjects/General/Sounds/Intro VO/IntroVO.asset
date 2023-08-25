@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Level Up
+  m_Name: IntroVO
   m_EditorClassIdentifier: 
-  Id: f2666bef-ab64-4637-8446-5f63d19ec99c
+  Id: 784365c7-63ad-4384-a9b2-d755efbdafca
   Clips:
-  - {fileID: 8300000, guid: e951c49f3e4fdba409fbb61b1516b7c6, type: 3}
+  - {fileID: 8300000, guid: 27be37c80a928874b837f89f88a768c1, type: 3}
   Volume: 1
-  Pitch: 1
+  Pitch: 1.01
   isPitchRandomized: 0
   PitchRange: {x: 0, y: 0}
   Source: {fileID: 0}

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
+  m_Name: Level Up
+  m_EditorClassIdentifier: 
+  Id: afaae941-46c6-4db2-afb1-6b5af961e93f
+  Clips:
+  - {fileID: 8300000, guid: 84d544b26109b434b9a86688e6153da3, type: 3}
+  - {fileID: 8300000, guid: b93ef4796e098de47a0fc82d0b6290c0, type: 3}
+  - {fileID: 8300000, guid: 4c354f8a43452da4ab9ae6f26a50858c, type: 3}
+  - {fileID: 8300000, guid: ca9f43dc333bf064895933b71e56682d, type: 3}
+  - {fileID: 8300000, guid: 61effa5ef3e1e24429d45b8b31205f93, type: 3}
+  - {fileID: 8300000, guid: 97ad81600cc12a54baf45d031ba691a7, type: 3}
+  - {fileID: 8300000, guid: 3b25a0ab59050c14084cd185cc4b021e, type: 3}
+  - {fileID: 8300000, guid: 850e0e253dffc304489aacc8d6d5859c, type: 3}
+  - {fileID: 8300000, guid: 2280ba2dd68a24148b9c5c13ccca8f42, type: 3}
+  - {fileID: 8300000, guid: 4ed4fc55fac9db04a9158bb04eaa3766, type: 3}
+  - {fileID: 8300000, guid: edebb74e75c23884bba604b1954aebb4, type: 3}
+  - {fileID: 8300000, guid: 739e2319207e5554ab59a3ea078121f7, type: 3}
+  - {fileID: 8300000, guid: 86976e41bff4b7a4d946468c11e1cfc1, type: 3}
+  - {fileID: 8300000, guid: ae9b8b445f944404f967f663b1dab97f, type: 3}
+  - {fileID: 8300000, guid: 53b1b1b80da87634f87e4d31ab196752, type: 3}
+  - {fileID: 8300000, guid: 6d44cd878ffa0b849a5b403f3256fb16, type: 3}
+  Volume: 0.8
+  Pitch: 1
+  isPitchRandomized: 0
+  PitchRange: {x: 1, y: 3}
+  Source: {fileID: 0}

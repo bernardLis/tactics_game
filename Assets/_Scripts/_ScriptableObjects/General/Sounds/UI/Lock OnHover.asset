@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: lockonhoverf-6949-4b43-a9ae-978acb199b05
   Clips:
   - {fileID: 8300000, guid: 8720e274e9de0e04b9a0ff102a9cd4de, type: 3}
-  Volume: 1
+  Volume: 0.8
   Pitch: 1.07
   isPitchRandomized: 1
   PitchRange: {x: 0.9, y: 1.1}
