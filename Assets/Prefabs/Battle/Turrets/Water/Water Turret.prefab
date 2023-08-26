@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _GFX
       value: 
       objectReference: {fileID: 4406051436639292307}
+    - target: {fileID: 2666157909072214098, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
+      propertyPath: _projectilePrefab
+      value: 
+      objectReference: {fileID: 5476634874921852733, guid: 165bd481ee1e0754c8a981b866f6ecbb, type: 3}
     - target: {fileID: 6572836612390651302, guid: 43f3c26b050596c49a003e52b5cd9773, type: 3}
       propertyPath: m_Name
       value: Water Turret
