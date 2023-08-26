@@ -18,7 +18,7 @@ MonoBehaviour:
   Level: 1
   IsStartingAbility: 0
   AbilityNameSound: {fileID: 0}
-  _baseManaCost: 5
+  _baseManaCost: 0
   _basePower: 1
   _baseCooldown: 1
   _baseScale: 1

@@ -88,8 +88,13 @@ public class Hero : BaseScriptableObject
         int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
         result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
         int expRequired = result + baseExp;
+
         if (Level.Value == 1)
+        {
+            Debug.Log($"level = 1");
             expRequired = 20; // HERE: tutorial
+
+        }
         return expRequired;
     }
 

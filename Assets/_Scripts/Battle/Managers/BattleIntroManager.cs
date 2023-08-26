@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
+using UnityEngine.InputSystem;
 
 public class BattleIntroManager : Singleton<BattleIntroManager>
 {
+    BattleInputManager _battleInputManager;
+
     [SerializeField] Sound _introVO;
 
     [SerializeField] CinemachineVirtualCamera _mainCamera;
@@ -21,11 +24,21 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
 
     void Start()
     {
+        _battleInputManager = BattleManager.Instance.GetComponent<BattleInputManager>();
+        _battleInputManager.OnContinueClicked += SkipIntro;
+
         _introCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         _dollyCart = GetComponentInChildren<CinemachineDollyCart>();
 
         StartCoroutine(CameraIntroCoroutine());
         StartCoroutine(PlayIntroVO());
+    }
+
+    void SkipIntro()
+    {
+        StopAllCoroutines();
+        AudioManager.Instance.StopDialogue();
+        FinishIntro();
     }
 
     IEnumerator PlayIntroVO()
@@ -49,11 +62,16 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
             }
             yield return new WaitForSeconds(0.1f);
         }
+        FinishIntro();
+    }
 
+    void FinishIntro()
+    {
         _mainCamera.gameObject.SetActive(true);
         _introCamera.gameObject.SetActive(false);
         BattleCameraManager.Instance.enabled = true;
         OnIntroFinished?.Invoke();
+
     }
 
     void LookAtNextTarget()

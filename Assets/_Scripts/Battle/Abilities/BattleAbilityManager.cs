@@ -202,7 +202,7 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
         _abilityExecutor.HighlightAbilityArea(_selectedAbility);
 
         DisplayAbilityInfo();
-        _audioManager.PlayUI(_selectedAbility.AbilityNameSound);
+        //_audioManager.PlayUI(_selectedAbility.AbilityNameSound);
     }
 
     void LeftMouseClick(InputAction.CallbackContext context)
