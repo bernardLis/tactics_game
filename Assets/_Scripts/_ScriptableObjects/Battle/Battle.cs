@@ -79,6 +79,7 @@ public class Battle : BaseScriptableObject
         foreach (BattleWave w in Waves)
             if (w.Element == element && w.GetPlannedEndTime() > startTime)
                 startTime = w.GetPlannedEndTime() + 10;
+        Debug.Log($"wave index {waveIndex}, startTime {startTime}");
 
         return startTime;
     }

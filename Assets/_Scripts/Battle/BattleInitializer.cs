@@ -51,7 +51,6 @@ public class BattleInitializer : MonoBehaviour
 
         // yield return new WaitForSeconds(30f); // hardcoded
 
-        GetComponent<BattleWaveManager>().Initialize();
         _battleDeploymentManager.HandlePlayerArmyDeployment(_playerHero.CreatureArmy);
         _battleInputManager.enabled = true;
     }

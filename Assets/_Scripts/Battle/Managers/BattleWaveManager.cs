@@ -22,7 +22,9 @@ public class BattleWaveManager : MonoBehaviour
         _battleManager = BattleManager.Instance;
 
         _selectedBattle = _gameManager.CurrentBattle;
-        BattleIntroManager.Instance.OnIntroFinished += Initialize;
+
+        if (BattleIntroManager.Instance != null)
+            BattleIntroManager.Instance.OnIntroFinished += Initialize;
     }
 
     public void Initialize()
@@ -32,14 +34,19 @@ public class BattleWaveManager : MonoBehaviour
 
     IEnumerator HandleWaves()
     {
+        Debug.Log($"handle waves");
         while (true)
         {
             StartWave(_selectedBattle.Waves[_currentWaveIndex]);
             _currentWaveIndex++;
+            Debug.Log($"current wave index {_currentWaveIndex}");
 
             if (_currentWaveIndex == _selectedBattle.Waves.Count - 3)
                 _selectedBattle.CreateWaves();
 
+            Debug.Log($"start time: {_selectedBattle.Waves[_currentWaveIndex].StartTime}");
+            Debug.Log($"current time: {Time.time}");
+            Debug.Log($"wait for: {_selectedBattle.Waves[_currentWaveIndex].StartTime - Time.time}");
             // how long do you need to wait for next wave
             yield return new WaitForSeconds(_selectedBattle.Waves[_currentWaveIndex].StartTime - Time.time);
         }

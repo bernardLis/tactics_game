@@ -6,8 +6,11 @@ using DG.Tweening;
 
 public class BattleControlGuideManager : MonoBehaviour
 {
+
     GameManager _gameManager;
     BattleManager _battleManager;
+    BattleIntroManager _battleIntroManager;
+
 
     VisualElement _root;
 
@@ -21,7 +24,9 @@ public class BattleControlGuideManager : MonoBehaviour
         _root = _battleManager.Root;
         _controlGuideContainer = _root.Q<VisualElement>("controlGuideContainer");
 
-        BattleIntroManager.Instance.OnIntroFinished += ShowControlGuide;
+        _battleIntroManager = BattleIntroManager.Instance;
+        if (_battleIntroManager != null)
+            BattleIntroManager.Instance.OnIntroFinished += ShowControlGuide;
     }
 
     void ShowControlGuide()

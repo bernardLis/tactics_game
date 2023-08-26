@@ -49,9 +49,11 @@ public class BattleMinimapManager : MonoBehaviour
 
         StartCoroutine(DelayedStart());
 
-        BattleIntroManager.Instance.OnIntroFinished += () =>
-                DOTween.To(x => _minimap.style.opacity = x, 0, 1, 0.5f).SetDelay(2f);
-
+        if (BattleIntroManager.Instance != null)
+            BattleIntroManager.Instance.OnIntroFinished += () =>
+                    DOTween.To(x => _minimap.style.opacity = x, 0, 1, 0.5f).SetDelay(2f);
+        else
+            DOTween.To(x => _minimap.style.opacity = x, 0, 1, 0.5f);
         // TODO: minimap if it is resized then update the minimap size (and spire icon position)
         // TODO: minimap if the battle field is resized then update the size
     }

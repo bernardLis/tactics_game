@@ -114,7 +114,6 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         _movementDirection = Vector3.zero;
     }
 
-
     void RotateCamera(InputAction.CallbackContext ctx)
     {
         if (this == null) return;
@@ -176,19 +175,24 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
     public void MoveCameraTo(Vector3 position, Vector3 rotation, float zoomHeight)
     {
         StopRotatingAround();
+        _disableUpdate = true;
 
         transform.DOMove(position, 0.5f);
         transform.DORotate(rotation, 0.5f);
-        transform.DOLocalMoveY(zoomHeight, 0.5f);
+        transform.DOLocalMoveY(zoomHeight, 0.5f).OnComplete(() => _disableUpdate = false);
     }
 
     public void CenterCameraOn(Transform t)
     {
-        transform.DOMove(t.position, 0.5f).SetUpdate(true);
+        _disableUpdate = true;
+
+        transform.DOMove(t.position, 0.5f).SetUpdate(true).OnComplete(() => _disableUpdate = false);
     }
 
     public void RotateCameraAround(Transform t)
     {
+        _disableUpdate = true;
+
         CenterCameraOn(t);
         transform.DOLocalRotate(Vector3.up * 360f, 60f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Incremental)
@@ -199,6 +203,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
     public void StopRotatingAround()
     {
+        _disableUpdate = false;
         DOTween.Kill("bla");
     }
 }

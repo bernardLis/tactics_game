@@ -29,9 +29,10 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel = _root.Q<VisualElement>("infoPanel");
         _livesCountLabel = _root.Q<Label>("livesCount");
 
-        BattleIntroManager.Instance.OnIntroFinished += ResolveInfoPanel;
-
-        //  _battleManager.OnBattleInitialized +=ResolveInfoPanel ;
+        if (BattleIntroManager.Instance != null)
+            BattleIntroManager.Instance.OnIntroFinished += ResolveInfoPanel;
+        else
+            _battleManager.OnBattleInitialized += ResolveInfoPanel;
     }
 
     void ResolveInfoPanel()
