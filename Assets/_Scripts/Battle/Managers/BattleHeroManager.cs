@@ -21,7 +21,7 @@ public class BattleHeroManager : MonoBehaviour
         hero.BattleInitialize();
         hero.OnLevelUpReady += OnHeroLevelUp;
 
-        AddHeroCard();
+        BattleIntroManager.Instance.OnIntroFinished += AddHeroCard;
     }
 
     void AddHeroCard()

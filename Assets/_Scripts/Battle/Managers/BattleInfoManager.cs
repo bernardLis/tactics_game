@@ -29,14 +29,16 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel = _root.Q<VisualElement>("infoPanel");
         _livesCountLabel = _root.Q<Label>("livesCount");
 
-        _battleManager.OnBattleInitialized += ResolveInfoPanel;
+        BattleIntroManager.Instance.OnIntroFinished += ResolveInfoPanel;
+
+        //  _battleManager.OnBattleInitialized +=ResolveInfoPanel ;
     }
 
     void ResolveInfoPanel()
     {
         _infoPanel.style.opacity = 0f;
         _infoPanel.style.display = DisplayStyle.Flex;
-        DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(0.5f);
+        DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
         // if (_gameManager == null) _gameManager = GameManager.Instance;
         // _spire = _gameManager.CurrentBattle.Spire;
