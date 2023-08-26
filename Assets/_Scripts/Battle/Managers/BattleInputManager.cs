@@ -11,7 +11,6 @@ public class BattleInputManager : MonoBehaviour
 
     public event Action OnContinueClicked;
     public event Action OnEnterClicked;
-    public event Action OnEscClicked;
     void Start()
     {
         _gameManager = GameManager.Instance;

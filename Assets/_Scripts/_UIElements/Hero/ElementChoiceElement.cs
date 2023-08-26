@@ -27,8 +27,8 @@ public class ElementChoiceElement : VisualElement
 
         AddToClassList(_ussMain);
 
-        //   Label header = new("Choose your element:");
-        //  Add(header);
+        Label header = new("Choose your element:");
+        Add(header);
 
         VisualElement elementContainer = new();
         elementContainer.style.flexDirection = FlexDirection.Row;

@@ -70,37 +70,37 @@ public class HeroCreation : MonoBehaviour
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
 
         // HERE: testing
-        _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
-        Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
-                 _chosenElement);
-        _gameManager.PlayerHero = newChar;
-        StartGame();
-        /*
+        // _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
+        // Hero newChar = ScriptableObject.CreateInstance<Hero>();
+        // newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
+        //          _chosenElement);
+        // _gameManager.PlayerHero = newChar;
+        // StartGame();
 
-        _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
-        _cutsceneManager.Initialize(_root);
-        _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
+
+        // _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
+        // _cutsceneManager.Initialize(_root);
+        // _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
 
         NameFieldSetup();
         PortraitSetup();
         CreatePortraitButtons();
 
-        StartCoroutine(StartShow());
-        */
+        // StartCoroutine(StartShow());
 
+        NameCutsceneFinished(null);
 
     }
 
-    IEnumerator StartShow()
-    {
-        yield return new WaitForSeconds(0.5f);
-        _cutsceneManager.PlayCutscene(_nameCutscene);
-    }
+    // IEnumerator StartShow()
+    // {
+    //     yield return new WaitForSeconds(0.5f);
+    //     _cutsceneManager.PlayCutscene(_nameCutscene);
+    // }
 
     void NameCutsceneFinished(Cutscene c)
     {
-        _cutsceneManager.OnCutsceneFinished -= NameCutsceneFinished;
+        // _cutsceneManager.OnCutsceneFinished -= NameCutsceneFinished;
 
         _nameField.style.display = DisplayStyle.Flex;
         _background.BringToFront();
@@ -112,30 +112,32 @@ public class HeroCreation : MonoBehaviour
 
             _nameField.style.display = DisplayStyle.None;
             _wrapper.Remove(_submitButton);
-            _cutsceneManager.PlayCutscene(_looksCutscene);
-            _cutsceneManager.OnCutsceneFinished += LooksCutsceneFinished;
+            LooksCutsceneFinished(null);
+            // _cutsceneManager.PlayCutscene(_looksCutscene);
+            // _cutsceneManager.OnCutsceneFinished += LooksCutsceneFinished;
         });
         _wrapper.Add(_submitButton);
     }
 
     void LooksCutsceneFinished(Cutscene c)
     {
-        _cutsceneManager.OnCutsceneFinished -= LooksCutsceneFinished;
+        // _cutsceneManager.OnCutsceneFinished -= LooksCutsceneFinished;
 
         _portraitContainer.style.display = DisplayStyle.Flex;
         _submitButton = new("Submit", _ussCommonMenuButton, () =>
         {
             _portraitContainer.style.display = DisplayStyle.None;
             _wrapper.Remove(_submitButton);
-            _cutsceneManager.PlayCutscene(_elementCutscene);
-            _cutsceneManager.OnCutsceneFinished += ElementCutsceneFinished;
+            ElementCutsceneFinished(null);
+            // _cutsceneManager.PlayCutscene(_elementCutscene);
+            // _cutsceneManager.OnCutsceneFinished += ElementCutsceneFinished;
         });
         _wrapper.Add(_submitButton);
     }
 
     void ElementCutsceneFinished(Cutscene c)
     {
-        _cutsceneManager.OnCutsceneFinished -= ElementCutsceneFinished;
+        // _cutsceneManager.OnCutsceneFinished -= ElementCutsceneFinished;
         _elementChoiceContainer.style.display = DisplayStyle.Flex;
 
         ElementChoiceElement elementChoiceElement = new();
@@ -151,8 +153,9 @@ public class HeroCreation : MonoBehaviour
         CreateHero();
 
         _elementChoiceContainer.style.display = DisplayStyle.None;
-        _cutsceneManager.PlayCutscene(_endCutscene);
-        _cutsceneManager.OnCutsceneFinished += EndHeroCreation;
+        EndHeroCreation(null);
+        // _cutsceneManager.PlayCutscene(_endCutscene);
+        // _cutsceneManager.OnCutsceneFinished += EndHeroCreation;
     }
 
     void NameFieldSetup()
@@ -200,7 +203,7 @@ public class HeroCreation : MonoBehaviour
 
     void EndHeroCreation(Cutscene c)
     {
-        _cutsceneManager.OnCutsceneFinished -= EndHeroCreation;
+        // _cutsceneManager.OnCutsceneFinished -= EndHeroCreation;
         StartGame();
         _gameManager.SaveJsonData();
     }
