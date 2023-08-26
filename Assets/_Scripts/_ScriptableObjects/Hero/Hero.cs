@@ -55,6 +55,7 @@ public class Hero : BaseScriptableObject
     public event Action<Creature> OnCreatureAdded;
     public event Action<Creature> OnCreatureRemoved;
 
+    bool _tutorialCompleted;
     public IntVariable CurrentMana;
     public void BattleInitialize()
     {
@@ -89,11 +90,10 @@ public class Hero : BaseScriptableObject
         result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
         int expRequired = result + baseExp;
 
-        if (Level.Value == 1)
+        if (!_tutorialCompleted)
         {
-            Debug.Log($"level = 1");
+            _tutorialCompleted = true;
             expRequired = 20; // HERE: tutorial
-
         }
         return expRequired;
     }

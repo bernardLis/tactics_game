@@ -70,25 +70,17 @@ public class HeroCreation : MonoBehaviour
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
 
         // HERE: testing
-        // _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
-        // Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        // newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
-        //          _chosenElement);
-        // _gameManager.PlayerHero = newChar;
-        // StartGame();
+        _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
+        Hero newChar = ScriptableObject.CreateInstance<Hero>();
+        newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
+                 _chosenElement);
+        _gameManager.PlayerHero = newChar;
+        StartGame();
 
-
-        // _cutsceneManager = _gameManager.GetComponent<CutsceneManager>();
-        // _cutsceneManager.Initialize(_root);
-        // _cutsceneManager.OnCutsceneFinished += NameCutsceneFinished;
-
-        NameFieldSetup();
-        PortraitSetup();
-        CreatePortraitButtons();
-
-        // StartCoroutine(StartShow());
-
-        NameCutsceneFinished(null);
+        // NameFieldSetup();
+        // PortraitSetup();
+        // CreatePortraitButtons();
+        // NameCutsceneFinished(null);
 
     }
 

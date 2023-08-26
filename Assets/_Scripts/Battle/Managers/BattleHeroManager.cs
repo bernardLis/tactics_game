@@ -8,7 +8,9 @@ public class BattleHeroManager : MonoBehaviour
 {
     [SerializeField] EntitySpawner _spawnerPrefab;
 
+
     BattleManager _battleManager;
+    BattleIntroManager _battleIntroManager;
     VisualElement _root;
 
     public Hero Hero { get; private set; }
@@ -21,7 +23,11 @@ public class BattleHeroManager : MonoBehaviour
         hero.BattleInitialize();
         hero.OnLevelUpReady += OnHeroLevelUp;
 
-        BattleIntroManager.Instance.OnIntroFinished += AddHeroCard;
+        _battleIntroManager = BattleIntroManager.Instance;
+        if (_battleIntroManager != null)
+            _battleIntroManager.OnIntroFinished += AddHeroCard;
+        else
+            AddHeroCard();
     }
 
     void AddHeroCard()

@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
-using System.Runtime.Remoting.Messaging;
 
 public class BattleManager : Singleton<BattleManager>
 {
@@ -15,6 +14,7 @@ public class BattleManager : Singleton<BattleManager>
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
+    BattleIntroManager _battleIntroManager;
 
     [SerializeField] Sound _battleMusic;
 
@@ -114,7 +114,9 @@ public class BattleManager : Singleton<BattleManager>
         IsTimerOn = true;
         StartCoroutine(UpdateTimer());
 
-        BattleIntroManager.Instance.OnIntroFinished += () => AudioManager.Instance.PlayMusic(_battleMusic);
+        _battleIntroManager = BattleIntroManager.Instance;
+        if (_battleIntroManager != null)
+            _battleIntroManager.OnIntroFinished += () => AudioManager.Instance.PlayMusic(_battleMusic);
 
         OnBattleInitialized?.Invoke();
     }

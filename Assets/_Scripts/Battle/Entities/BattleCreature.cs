@@ -300,11 +300,18 @@ public class BattleCreature : BattleEntity
     }
 
 #if UNITY_EDITOR
+    [ContextMenu("Level up")]
+    public void LevelUp()
+    {
+        Creature.LevelUp();
+    }
+
     [ContextMenu("Trigger Ability")]
     public void TriggerAbility()
     {
         StartCoroutine(CreatureAbility());
     }
+
 
     [ContextMenu("Trigger Death")]
     public void TriggerDeath()
