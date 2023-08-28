@@ -47,15 +47,13 @@ public class Battle : BaseScriptableObject
 
     public void CreateWaves()
     {
-        // HERE: waves - make sure that there are no overlapping waves
         List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());
         for (int i = 0; i < 12; i++)
         {
             if (availableElements.Count == 0)
                 availableElements = new(_gameManager.HeroDatabase.GetAllElements());
 
-            Element element = availableElements[Random.Range(0, availableElements.Count)];
-            if (i == 0) element = _gameManager.PlayerHero.Element.StrongAgainst;
+            Element element = GetWaveElement(availableElements);
             availableElements.Remove(element);
 
             BattleWave wave = CreateInstance<BattleWave>();
@@ -71,15 +69,37 @@ public class Battle : BaseScriptableObject
         }
     }
 
+    public Element GetWaveElement(List<Element> elements)
+    {
+        if (Waves.Count == 0) return _gameManager.PlayerHero.Element.StrongAgainst;
+
+        Element lastWaveElement = Waves[Waves.Count - 1].Element;
+        elements.Remove(lastWaveElement);
+
+        // no waves of the same element in a row
+        if (elements.Count > 0)
+            return elements[Random.Range(0, elements.Count)];
+
+        return _gameManager.HeroDatabase.GetRandomElement();
+    }
+
     public float GetWaveStartTime(Element element, int waveIndex)
     {
+        if (waveIndex == 0) return 30; // first wave starts at 30 seconds
+
         float startTime = waveIndex * Random.Range(40f, 60f);
-        if (waveIndex == 0) startTime = 30; // first wave starts at 30 seconds
-        // make sure that the wave doesn't start before the previous one of the same element ends
+
+        // the wave can't start before the previous one of the same element ends
         foreach (BattleWave w in Waves)
             if (w.Element == element && w.GetPlannedEndTime() > startTime)
-                startTime = w.GetPlannedEndTime() + 10;
-        Debug.Log($"wave index {waveIndex}, startTime {startTime}");
+                return w.GetPlannedEndTime() + 10;
+
+        // the wave can't start later then middle of previous wave (of any element)
+        // HERE: I am not sure if it makes sense to have this
+        // this could make everything above useless
+        float middleOfPreviousWave = Waves[waveIndex - 1].StartTime + Waves[waveIndex - 1].GetPlannedEndTime() / 2;
+        if (startTime < middleOfPreviousWave)
+            return middleOfPreviousWave + Random.Range(0, 15f);
 
         return startTime;
     }
