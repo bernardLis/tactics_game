@@ -34,6 +34,7 @@ public class AudioManager : Singleton<AudioManager>
         GameObject musicGameObject = new("Music");
         musicGameObject.transform.parent = transform;
         _musicAudioSource = musicGameObject.AddComponent<AudioSource>();
+        _musicAudioSource.loop = true;
         _musicAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Music")[0];
 
         GameObject ambienceGameObject = new("Ambience");
@@ -123,7 +124,9 @@ public class AudioManager : Singleton<AudioManager>
 
     IEnumerator FadeOutCoroutine(AudioSource audioSource, float duration)
     {
-        yield return audioSource.DOFade(0, duration).WaitForCompletion();
+        yield return audioSource.DOFade(0, duration)
+                .SetUpdate(true)
+                .WaitForCompletion();
     }
 
     IEnumerator FadeInCoroutine(AudioSource audioSource, Sound sound, float duration)
@@ -134,7 +137,9 @@ public class AudioManager : Singleton<AudioManager>
         audioSource.clip = sound.Clips[0];
         audioSource.Play();
 
-        yield return audioSource.DOFade(1, duration).WaitForCompletion();
+        yield return audioSource.DOFade(sound.Volume, duration)
+                .SetUpdate(true)
+                .WaitForCompletion();
     }
 
     public void PlayDialogue(Sound sound)
