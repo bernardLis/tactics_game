@@ -183,7 +183,7 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
         if (abilityButton.IsOnCooldown)
         {
             _audioManager.PlayUI("Ability Unavailable");
-            Helpers.DisplayTextOnElement(_root, abilityButton, "Cool down, mate!", Color.red);
+            Helpers.DisplayTextOnElement(_root, abilityButton, "On cooldown!", Color.red);
             return;
         }
         if (_hero.CurrentMana.Value < ability.GetManaCost())

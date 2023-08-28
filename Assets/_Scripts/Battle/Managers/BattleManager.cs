@@ -46,6 +46,8 @@ public class BattleManager : Singleton<BattleManager>
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
 
+    IEnumerator _timerCoroutine;
+
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
     public event Action<BattleEntity> OnPlayerEntityDeath;
@@ -86,6 +88,8 @@ public class BattleManager : Singleton<BattleManager>
     public void PauseGame()
     {
         Debug.Log($"Pausing the game...");
+        StopCoroutine(_timerCoroutine);
+
         IsTimerOn = false;
         Time.timeScale = 0f;
         OnGamePaused?.Invoke();
@@ -93,9 +97,14 @@ public class BattleManager : Singleton<BattleManager>
 
     public void ResumeGame()
     {
+
         Debug.Log($"Resuming the game...");
         IsTimerOn = true;
         Time.timeScale = 1f;
+
+        _timerCoroutine = UpdateTimer();
+        StartCoroutine(_timerCoroutine);
+
         OnGameResumed?.Invoke();
     }
 
@@ -111,8 +120,10 @@ public class BattleManager : Singleton<BattleManager>
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
         }
+        
         IsTimerOn = true;
-        StartCoroutine(UpdateTimer());
+        _timerCoroutine = UpdateTimer();
+        StartCoroutine(_timerCoroutine);
 
         _battleIntroManager = BattleIntroManager.Instance;
         if (_battleIntroManager != null)
@@ -123,7 +134,7 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator UpdateTimer()
     {
-        while (IsTimerOn)
+        while (true)
         {
             int minutes = Mathf.FloorToInt(Time.time / 60F);
             int seconds = Mathf.FloorToInt(Time.time - minutes * 60);

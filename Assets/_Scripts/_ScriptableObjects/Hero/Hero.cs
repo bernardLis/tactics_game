@@ -82,8 +82,8 @@ public class Hero : BaseScriptableObject
     public int GetExpForNextLevel()
     {
         // TODO: math
-        float exponent = 3f;
-        float multiplier = 0.8f;
+        float exponent = 2.5f;
+        float multiplier = 0.7f;
         int baseExp = 100;
 
         int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));

@@ -15,10 +15,10 @@ public class Ability : BaseScriptableObject
 
     public Sound AbilityNameSound;
 
-    [SerializeField] int _baseManaCost;
-    [SerializeField] int _basePower;
-    [SerializeField] int _baseCooldown;
-    [SerializeField] int _baseScale;
+    [SerializeField] float _baseManaCost;
+    [SerializeField] float _basePower;
+    [SerializeField] float _baseCooldown;
+    [SerializeField] float _baseScale;
 
     [SerializeField] float _manaCostLevelMultiplier;
     [SerializeField] float _powerLevelMultiplier;

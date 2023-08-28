@@ -73,7 +73,7 @@ public class Battle : BaseScriptableObject
 
     public float GetWaveStartTime(Element element, int waveIndex)
     {
-        float startTime = waveIndex * Random.Range(45f, 75f);
+        float startTime = waveIndex * Random.Range(40f, 60f);
         if (waveIndex == 0) startTime = 30; // first wave starts at 30 seconds
         // make sure that the wave doesn't start before the previous one of the same element ends
         foreach (BattleWave w in Waves)
