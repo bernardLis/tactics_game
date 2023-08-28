@@ -6,8 +6,10 @@ using DG.Tweening;
 
 public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+
     GameManager _gameManager;
     BattleTooltipManager _tooltipManager;
+    BattleSpireLight _battleSpireLight;
 
     Spire _spire;
 
@@ -18,18 +20,23 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
         _tooltipManager = BattleTooltipManager.Instance;
 
         _spire = BattleSpire.Instance.Spire;
+        _battleSpireLight = GetComponentInChildren<BattleSpireLight>();
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
         _tooltipManager.ShowInfo($"Click for troops upgrades");
+        _battleSpireLight.PauseLight();
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
         _tooltipManager.HideInfo();
+        _battleSpireLight.ResumeLight();
     }
 
     public void OnPointerDown(PointerEventData eventData)
