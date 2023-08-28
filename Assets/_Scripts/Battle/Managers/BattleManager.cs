@@ -48,6 +48,7 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator _timerCoroutine;
     int _battleTime;
+    bool _isPlayingForever;
 
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
@@ -141,7 +142,6 @@ public class BattleManager : Singleton<BattleManager>
         StartCoroutine(_timerCoroutine);
     }
 
-
     IEnumerator UpdateTimer()
     {
         while (true)
@@ -151,11 +151,12 @@ public class BattleManager : Singleton<BattleManager>
             int seconds = Mathf.FloorToInt(_battleTime - minutes * 60);
 
             _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            if (_battleTime >= _gameManager.CurrentBattle.Duration)
+            if (_battleTime >= _gameManager.CurrentBattle.Duration && !_isPlayingForever)
                 StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);
         }
     }
+
     public float GetTime() { return _battleTime; }
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)
@@ -250,44 +251,24 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleLost()
     {
-        // LoadedBattle.Won = false;
-
         BattleLostScreen lostScreen = new();
-        yield return null;
-        // ConfirmPopUp popUp = new();
-        // popUp.Initialize(Root, () => _gameManager.ClearSaveData(),
-        //         "Oh... you lost, for now the only choice is to go to main menu, and try again. Do you want do it?");
-        // popUp.HideCancelButton();
-        // yield return null;
         yield return FinalizeBattle();
-
     }
 
     IEnumerator BattleWon()
     {
-        // LoadedBattle.Won = true;
-        BattleWonScreen lostScreen = new();
-        yield return null;
-
-        // VisualElement topPanel = Root.Q<VisualElement>("topPanel");
-        // topPanel.Clear();
-
-        // Label label = new("Battle won!");
-        // label.AddToClassList("battle__won-label");
-        // label.style.opacity = 0;
-        // DOTween.To(x => label.style.opacity = x, 0, 1, 0.5f);
-
-        // topPanel.Add(label);
-
+        BattleWonScreen wonScreen = new();
+        wonScreen.OnHide += () => _isPlayingForever = true;
         yield return FinalizeBattle();
     }
 
     IEnumerator FinalizeBattle()
     {
-        _gameManager.BattleNumber++; // TODO: hihihihihi
         // if entities die "at the same time" it triggers twice
         if (BattleFinalized) yield break;
         BattleFinalized = true;
+
+        _gameManager.BattleNumber++; // TODO: hihihihihi
 
         yield return new WaitForSeconds(3f);
 
