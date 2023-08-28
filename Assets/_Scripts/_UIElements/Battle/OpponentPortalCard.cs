@@ -37,6 +37,7 @@ public class OpponentPortalCard : VisualElement
         List<BattleWave> waves = new(battle.Waves.Where(w => w.Element == _element));
 
         Label header = new("Portal of " + _element.ElementName);
+        Add(header);
 
         // get next wave
         BattleWave nextWave = waves.FirstOrDefault(w => w.StartTime > _battleManager.GetTime());

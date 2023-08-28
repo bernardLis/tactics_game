@@ -97,7 +97,7 @@ public class Battle : BaseScriptableObject
         // the wave can't start later then middle of previous wave (of any element)
         // HERE: I am not sure if it makes sense to have this
         // this could make everything above useless
-        float middleOfPreviousWave = Waves[waveIndex - 1].StartTime + Waves[waveIndex - 1].GetPlannedEndTime() / 2;
+        float middleOfPreviousWave = (Waves[waveIndex - 1].StartTime + Waves[waveIndex - 1].GetPlannedEndTime()) * 0.5f;
         if (startTime < middleOfPreviousWave)
             return middleOfPreviousWave + Random.Range(0, 15f);
 

@@ -43,6 +43,9 @@ public class BattleWaveCard : VisualElement
         _battleWave = battleWave;
         _lastWaveSpawnTime = lastWaveSpawnTime;
 
+        Label header = new("Portal of " + battleWave.Element.ElementName);
+        Add(header);
+
         _topPanel = new();
         _middlePanel = new();
         _bottomPanel = new();
