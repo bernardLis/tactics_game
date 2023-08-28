@@ -9,14 +9,17 @@ public class BattleFinishedScreen : FullScreenElement
     const string _ussClassName = "battle-finished__";
     const string _ussMain = _ussClassName + "main";
 
+    BattleManager _battleManager;
+
     protected VisualElement _mainContainer;
 
     public BattleFinishedScreen()
     {
-        _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleFinishedStyles);
         if (ss != null)
             styleSheets.Add(ss);
+
+        _battleManager = BattleManager.Instance;
 
         _mainContainer = new();
         _mainContainer.AddToClassList(_ussMain);
@@ -53,8 +56,8 @@ public class BattleFinishedScreen : FullScreenElement
 
     void AddTimeSurvived()
     {
-        int minutes = Mathf.FloorToInt(Time.time / 60F);
-        int seconds = Mathf.FloorToInt(Time.time - minutes * 60);
+        int minutes = Mathf.FloorToInt(_battleManager.GetTime() / 60f);
+        int seconds = Mathf.FloorToInt(_battleManager.GetTime() - minutes * 60);
 
         string timerText = string.Format("{0:00}:{1:00}", minutes, seconds);
 
@@ -73,7 +76,7 @@ public class BattleFinishedScreen : FullScreenElement
 
         Label text = new($"Score: ");
 
-        int score = Mathf.FloorToInt(Time.time * _gameManager.TotalGoldCollected);
+        int score = Mathf.FloorToInt(_battleManager.GetTime() * _gameManager.TotalGoldCollected);
         ChangingValueElement el = new();
         el.Initialize(score, 34);
 

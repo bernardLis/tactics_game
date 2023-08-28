@@ -57,7 +57,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (eventData.button != PointerEventData.InputButton.Left) return;
         if (!CanBeGrabbed()) return;
         _audioManager.PlaySFX(_grabSound, transform.position);
-        _grabManager.TryGrabbing(gameObject, 5f);
+        _grabManager.TryGrabbing(gameObject, 3f);
     }
 
     public bool CanBeGrabbed()

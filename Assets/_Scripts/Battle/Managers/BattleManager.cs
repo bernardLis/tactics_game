@@ -47,6 +47,7 @@ public class BattleManager : Singleton<BattleManager>
     public bool BattleFinalized { get; private set; }
 
     IEnumerator _timerCoroutine;
+    int _battleTime;
 
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
@@ -85,33 +86,10 @@ public class BattleManager : Singleton<BattleManager>
 #endif
     }
 
-    public void PauseGame()
-    {
-        Debug.Log($"Pausing the game...");
-        StopCoroutine(_timerCoroutine);
-
-        IsTimerOn = false;
-        Time.timeScale = 0f;
-        OnGamePaused?.Invoke();
-    }
-
-    public void ResumeGame()
-    {
-
-        Debug.Log($"Resuming the game...");
-        IsTimerOn = true;
-        Time.timeScale = 1f;
-
-        _timerCoroutine = UpdateTimer();
-        StartCoroutine(_timerCoroutine);
-
-        OnGameResumed?.Invoke();
-    }
-
-
     public void Initialize(Hero playerHero)
     {
         BattleFinalized = false;
+        _battleTime = 0;
 
         if (playerHero != null)
         {
@@ -120,10 +98,8 @@ public class BattleManager : Singleton<BattleManager>
             _battleHeroManager.enabled = true;
             _battleHeroManager.Initialize(playerHero);
         }
-        
-        IsTimerOn = true;
-        _timerCoroutine = UpdateTimer();
-        StartCoroutine(_timerCoroutine);
+
+        ResumeTimer();
 
         _battleIntroManager = BattleIntroManager.Instance;
         if (_battleIntroManager != null)
@@ -132,20 +108,55 @@ public class BattleManager : Singleton<BattleManager>
         OnBattleInitialized?.Invoke();
     }
 
+    public void PauseGame()
+    {
+        Debug.Log($"Pausing the game...");
+        Time.timeScale = 0f;
+        PauseTimer();
+        OnGamePaused?.Invoke();
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log($"Resuming the game...");
+        Time.timeScale = 1f;
+        ResumeTimer();
+        OnGameResumed?.Invoke();
+    }
+
+    void PauseTimer()
+    {
+        IsTimerOn = false;
+        if (_timerCoroutine != null)
+            StopCoroutine(_timerCoroutine);
+    }
+
+    void ResumeTimer()
+    {
+        IsTimerOn = true;
+        if (_timerCoroutine != null)
+            StopCoroutine(_timerCoroutine);
+
+        _timerCoroutine = UpdateTimer();
+        StartCoroutine(_timerCoroutine);
+    }
+
+
     IEnumerator UpdateTimer()
     {
         while (true)
         {
-            int minutes = Mathf.FloorToInt(Time.time / 60F);
-            int seconds = Mathf.FloorToInt(Time.time - minutes * 60);
+            _battleTime++;
+            int minutes = Mathf.FloorToInt(_battleTime / 60f);
+            int seconds = Mathf.FloorToInt(_battleTime - minutes * 60);
 
             _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            if (Time.time >= _gameManager.CurrentBattle.Duration)
+            if (_battleTime >= _gameManager.CurrentBattle.Duration)
                 StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);
         }
     }
-    public float GetTime() { return Time.time; }
+    public float GetTime() { return _battleTime; }
 
     public void AddPlayerArmyEntities(List<BattleEntity> list)
     {

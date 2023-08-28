@@ -37,7 +37,7 @@ public class OpponentPortalCard : VisualElement
         List<BattleWave> waves = new(battle.Waves.Where(w => w.Element == _element));
 
         // get next wave
-        BattleWave nextWave = waves.FirstOrDefault(w => w.StartTime > Time.time);
+        BattleWave nextWave = waves.FirstOrDefault(w => w.StartTime > _battleManager.GetTime());
         if (nextWave == null)
         {
             Add(new Label("No more waves"));
@@ -50,7 +50,7 @@ public class OpponentPortalCard : VisualElement
 
     void AddTimerToNextWave(BattleWave wave)
     {
-        float timeUntilWave = wave.StartTime - Time.time;
+        float timeUntilWave = wave.StartTime - _battleManager.GetTime();
         TimerElement nextWaveTimer = new(timeUntilWave, timeUntilWave, false, "Next wave in: ");
         Add(nextWaveTimer);
     }

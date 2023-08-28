@@ -150,14 +150,14 @@ public class BattleCreature : BattleEntity
         if (_isEngaged) return;
         _isEngaged = true;
 
-        EntityLog.Add($"{Time.time}: Creature gets engaged by {engager.name}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Creature gets engaged by {engager.name}");
         Opponent = engager;
         StartRunEntityCoroutine();
     }
 
     protected virtual IEnumerator Attack()
     {
-        EntityLog.Add($"{Time.time}: Entity attacked {Opponent.name}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity attacked {Opponent.name}");
 
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) yield break;
@@ -172,7 +172,7 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator CreatureAbility()
     {
-        EntityLog.Add($"{Time.time}: Entity uses ability");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity uses ability");
 
         Creature.CreatureAbility.Used();
         CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
@@ -236,7 +236,7 @@ public class BattleCreature : BattleEntity
         {
             if (v < entry.Value)
             {
-                EntityLog.Add($"{Time.time}: Choosing {entry.Key.name} as new target, #{closestNormalized.Values.ToList().IndexOf(entry.Value)} closest.");
+                EntityLog.Add($"{_battleManager.GetTime()}: Choosing {entry.Key.name} as new target, #{closestNormalized.Values.ToList().IndexOf(entry.Value)} closest.");
                 SetOpponent(entry.Key);
                 return;
             }

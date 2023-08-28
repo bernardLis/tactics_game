@@ -177,7 +177,7 @@ public class BattleRewardElement : VisualElement
             return;
         }
 
-        _allRewardCards.Add(CreateRewardCardItem());
+        // _allRewardCards.Add(CreateRewardCardItem());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
         _allRewardCards.Add(CreateRewardCardArmy());

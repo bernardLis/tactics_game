@@ -89,7 +89,7 @@ public class BattleWaveCard : VisualElement
     void PopulateMiddlePanel()
     {
         float totalTime = _battleWave.DelayBetweenGroups * (_battleWave.OpponentGroups.Count - 1);
-        float timePassedFromStart = Time.time - _battleWave.StartTime;
+        float timePassedFromStart = _battleManager.GetTime() - _battleWave.StartTime;
         float timeLeft = totalTime - timePassedFromStart;
 
         _lineTimerElement = new(timeLeft, totalTime, false, "");
@@ -116,7 +116,7 @@ public class BattleWaveCard : VisualElement
 
     void PopulateBottomPanel()
     {
-        float timeLeft = _battleWave.DelayBetweenGroups - (Time.time - _lastWaveSpawnTime);
+        float timeLeft = _battleWave.DelayBetweenGroups - (_battleManager.GetTime() - _lastWaveSpawnTime);
         _nextGroupTimer = new(timeLeft, _battleWave.DelayBetweenGroups - 1, true, "Next group in: ");// -1 looks better
         _bottomPanel.Add(_nextGroupTimer);
     }

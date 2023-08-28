@@ -49,7 +49,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void InitializeWave(BattleWave wave)
     {
-        _portalLog.Add($"{Time.time} Initializing wave. Wave start time {wave.StartTime}");
+        _portalLog.Add($"{_battleManager.GetTime()} Initializing wave. Wave start time {wave.StartTime}");
         _portalLog.Add($"Delay between groups {wave.DelayBetweenGroups}");
         _portalLog.Add($"Number of groups {wave.OpponentGroups.Count - 1}");
 
@@ -68,7 +68,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         Debug.Log($"Initializing wave {Element.ElementName}");
         _isPortalActive = true;
         _currentWave = wave;
-        _lastWaveSpawnTime = Time.time;
+        _lastWaveSpawnTime = _battleManager.GetTime();
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip
 
@@ -80,9 +80,9 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         while (_currentWave.CurrentGroupIndex < _currentWave.OpponentGroups.Count)
         {
             yield return SpawnCurrentOpponentGroup();
-            _lastWaveSpawnTime = Time.time;
+            _lastWaveSpawnTime = _battleManager.GetTime();
             _currentWave.SpawningGroupFinished();
-            _portalLog.Add($"{Time.time} Finished spawning group index: {_currentWave.CurrentGroupIndex}");
+            _portalLog.Add($"{_battleManager.GetTime()} Finished spawning group index: {_currentWave.CurrentGroupIndex}");
             if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count) // don't wait after the last one is spawned
                 yield return new WaitForSeconds(_currentWave.DelayBetweenGroups - 1); // -1  to account for the 1s delay in spawning the group  
         }
@@ -92,7 +92,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     IEnumerator SpawnCurrentOpponentGroup()
     {
-        _portalLog.Add($"{Time.time} Started spawning group index: {_currentWave.CurrentGroupIndex}");
+        _portalLog.Add($"{_battleManager.GetTime()} Started spawning group index: {_currentWave.CurrentGroupIndex}");
 
         OpponentGroup group = _currentWave.GetCurrentOpponentGroup();
 
@@ -138,7 +138,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         yield return new WaitForSeconds(3f);
 
-        _portalLog.Add($"{Time.time} Closing portal");
+        _portalLog.Add($"{_battleManager.GetTime()} Closing portal");
         Vector3 pos = _portalEffect.transform.position;
         GameObject chest = Instantiate(RewardChestPrefab, pos, Quaternion.identity);
         chest.transform.LookAt(Vector3.zero);
@@ -149,7 +149,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         _audioManager.PlaySFX(_portalCloseSound, transform.position);
         if (_portalHumSource != null) _portalHumSource.Stop();
-        
+
         _portalEffect.transform.DOScale(0, 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>

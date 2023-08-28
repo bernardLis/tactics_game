@@ -74,7 +74,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void InitializeEntity(Entity entity)
     {
-        EntityLog.Add($"{Time.time}: Entity is spawned");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity is spawned");
 
         Entity = entity;
 
@@ -103,7 +103,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
-        EntityLog.Add($"{Time.time}: Entity is initialized, team: {team}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized, team: {team}");
 
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
@@ -126,7 +126,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public void StartRunEntityCoroutine()
     {
         StopRunEntityCoroutine();
-        EntityLog.Add($"{Time.time}: Start run entity coroutine is called");
+        EntityLog.Add($"{_battleManager.GetTime()}: Start run entity coroutine is called");
 
         _currentMainCoroutine = RunEntity();
         StartCoroutine(_currentMainCoroutine);
@@ -145,7 +145,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void StopRunEntityCoroutine()
     {
-        EntityLog.Add($"{Time.time}: Stop run entity coroutine is called");
+        EntityLog.Add($"{_battleManager.GetTime()}: Stop run entity coroutine is called");
 
         if (_currentMainCoroutine != null)
             StopCoroutine(_currentMainCoroutine);
@@ -167,7 +167,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected virtual IEnumerator PathToPosition(Vector3 position)
     {
-        EntityLog.Add($"{Time.time}: Path to position is called {position}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
 
         _agent.enabled = true;
         _agent.avoidancePriority = Random.Range(1, 100);
@@ -183,7 +183,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (_isEngaged) return;
         _isEngaged = true;
 
-        EntityLog.Add($"{Time.time}: Entity gets engaged by {engager.name}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets engaged by {engager.name}");
         StopRunEntityCoroutine();
         Invoke(nameof(Disengage), Random.Range(2f, 4f));
     }
@@ -191,7 +191,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public virtual void Disengage()
     {
         _isEngaged = false;
-        EntityLog.Add($"{Time.time}: Entity disengages");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity disengages");
         StartRunEntityCoroutine();
     }
 
@@ -206,7 +206,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void GetHealed(int value)
     {
-        EntityLog.Add($"{Time.time}: Entity gets healed by {value}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets healed by {value}");
 
         int v = Mathf.Clamp(value, 0, Entity.GetMaxHealth() - CurrentHealth.Value);
         CurrentHealth.ApplyChange(v);
@@ -218,7 +218,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public virtual IEnumerator GetHit(Ability ability)
     {
         if (IsDead) yield break;
-        EntityLog.Add($"{Time.time}: Entity gets attacked by {ability.name}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {ability.name}");
 
         BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Color);
 
@@ -229,7 +229,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public virtual IEnumerator GetHit(BattleTurret battleTurret)
     {
         if (IsDead) yield break;
-        EntityLog.Add($"{Time.time}: Entity gets attacked by {battleTurret.name}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {battleTurret.name}");
 
         BaseGetHit(Entity.CalculateDamage(battleTurret), battleTurret.Turret.Element.Color.Color);
 
@@ -240,7 +240,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public virtual IEnumerator GetHit(BattleCreature attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
-        EntityLog.Add($"{Time.time}: Entity gets attacked by {attacker.name}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {attacker.name}");
 
         int damage = Entity.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
@@ -255,7 +255,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected void BaseGetHit(int dmg, Color color, GameObject attacker = null)
     {
-        EntityLog.Add($"{Time.time}: Entity takes damage {dmg}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
         StopRunEntityCoroutine();
 
         if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
@@ -298,7 +298,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         DOTween.Kill(transform);
         if (hasLoot) ResolveLoot();
 
-        EntityLog.Add($"{Time.time}: Entity dies.");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity dies.");
         OnDeath?.Invoke(this, attacker);
         Animator.SetTrigger("Die");
         transform.DOMoveY(-1, 10f)
@@ -327,7 +327,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (_isPoisoned) yield break;
         if (IsDead) yield break;
-        EntityLog.Add($"{Time.time}: Entity gets poisoned by {attacker.name}.");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets poisoned by {attacker.name}.");
 
         _isPoisoned = true;
         DisplayFloatingText("Poisoned", Color.green);

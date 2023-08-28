@@ -16,6 +16,8 @@ public class BattleWaveManager : MonoBehaviour
 
     [SerializeField] BattleOpponentPortal[] _opponentPortals;
 
+    bool _isInitialized;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -29,6 +31,9 @@ public class BattleWaveManager : MonoBehaviour
 
     public void Initialize()
     {
+        if (_isInitialized) return;
+        _isInitialized = true;
+
         StartCoroutine(HandleWaves());
     }
 
@@ -45,10 +50,10 @@ public class BattleWaveManager : MonoBehaviour
                 _selectedBattle.CreateWaves();
 
             Debug.Log($"start time: {_selectedBattle.Waves[_currentWaveIndex].StartTime}");
-            Debug.Log($"current time: {Time.time}");
-            Debug.Log($"wait for: {_selectedBattle.Waves[_currentWaveIndex].StartTime - Time.time}");
+            Debug.Log($"current time: {_battleManager.GetTime()}");
+            Debug.Log($"wait for: {_selectedBattle.Waves[_currentWaveIndex].StartTime - _battleManager.GetTime()}");
             // how long do you need to wait for next wave
-            yield return new WaitForSeconds(_selectedBattle.Waves[_currentWaveIndex].StartTime - Time.time);
+            yield return new WaitForSeconds(_selectedBattle.Waves[_currentWaveIndex].StartTime - _battleManager.GetTime());
         }
     }
 
