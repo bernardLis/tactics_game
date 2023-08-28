@@ -22,7 +22,7 @@ public class StoreyLives : Storey
 
     public void RestoreLives(int number)
     {
-        int newLives = MaxLivesTree.CurrentValue.Value + number;
+        int newLives = CurrentLives.Value + number;
         newLives = Mathf.Clamp(newLives, 0, MaxLivesTree.CurrentValue.Value);
         CurrentLives.SetValue(newLives);
     }

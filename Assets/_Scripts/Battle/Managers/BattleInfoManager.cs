@@ -41,8 +41,6 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
-        // if (_gameManager == null) _gameManager = GameManager.Instance;
-        // _spire = _gameManager.CurrentBattle.Spire;
         _spire = _battleSpire.Spire;
 
         ResolveLivesLabel();
@@ -60,13 +58,14 @@ public class BattleInfoManager : MonoBehaviour
     void ResolveLivesLabel()
     {
         _livesCountLabel.style.display = DisplayStyle.Flex;
+        _spire.StoreyLives.MaxLivesTree.CurrentValue.OnValueChanged += (v) => UpdateLivesLabel();
         _spire.StoreyLives.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
     }
 
     void UpdateLivesLabel()
     {
         _livesCountLabel.text = $"Lives: {_spire.StoreyLives.CurrentLives.Value}";
-        Helpers.DisplayTextOnElement(_root, _livesCountLabel, "-1", Color.red);
+        Helpers.DisplayTextOnElement(_root, _livesCountLabel, $"{_spire.StoreyLives.CurrentLives.PreviousValue - _spire.StoreyLives.CurrentLives.Value}", Color.red);
     }
 
     void AddTroopsLimitElement()
