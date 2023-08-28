@@ -49,6 +49,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void InitializeWave(BattleWave wave)
     {
+        if (_battleManager == null) _battleManager = BattleManager.Instance;
+
         _portalLog.Add($"{_battleManager.GetTime()} Initializing wave. Wave start time {wave.StartTime}");
         _portalLog.Add($"Delay between groups {wave.DelayBetweenGroups}");
         _portalLog.Add($"Number of groups {wave.OpponentGroups.Count - 1}");

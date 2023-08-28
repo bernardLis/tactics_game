@@ -74,7 +74,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void InitializeEntity(Entity entity)
     {
-        EntityLog.Add($"{_battleManager.GetTime()}: Entity is spawned");
+        EntityLog.Add($"{Time.time}: (GAME TIME) Entity is spawned");
 
         Entity = entity;
 
@@ -103,8 +103,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
-        EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized, team: {team}");
-
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         _grabManager = BattleGrabManager.Instance;
@@ -114,6 +112,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         Team = team;
         _battleEntityHighlight.Initialize(this);
         SetBattleId();
+
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized, team: {team}");
     }
 
     protected void SetBattleId()
