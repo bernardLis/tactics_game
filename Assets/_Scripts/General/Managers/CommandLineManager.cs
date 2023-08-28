@@ -105,6 +105,15 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
             _gameManager.PlayerHero.LevelUpReady();
+        if (_commandTextField.text.ToLower() == "dragon")
+            LevelUpCreatures();
+
+    }
+
+    void LevelUpCreatures()
+    {
+        foreach (Creature creature in _gameManager.PlayerHero.CreatureArmy)
+            creature.LevelUp();
     }
 
     public void Log(string logString, string stackTrace, LogType type)

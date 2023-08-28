@@ -40,13 +40,7 @@ public class BattleCreatureBonding : MonoBehaviour
     {
         if (_creature.Level == 3) // name change
         {
-            // StartCoroutine(NameChangeCoroutine());
-            _audioManager.PlaySFX(_bondingLevelSound, transform.position);
-
-            CreatureCardFull card = new(_creature, isChangingName: true);
-            card.OnHide += CreatureCardFullHidden;
-            RotateCameraAroundBattleEntity();
-
+            NameChange();
         }
         if (_creature.Level == _creature.CreatureAbility.UnlockLevel)
         {
@@ -61,12 +55,15 @@ public class BattleCreatureBonding : MonoBehaviour
         ResolveEvolution();
     }
 
-    // IEnumerator NameChangeCoroutine()
-    // {
+    void NameChange()
+    {
+        _audioManager.PlaySFX(_bondingLevelSound, transform.position);
 
-    //      yield return new WaitForSeconds(0.5f);
-    //
-    //  }
+        CreatureCardFull card = new(_creature, isChangingName: true);
+        card.OnHide += CreatureCardFullHidden;
+
+        RotateCameraAroundBattleEntity();
+    }
 
     void RotateCameraAroundBattleEntity()
     {

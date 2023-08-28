@@ -177,9 +177,9 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
         StopRotatingAround();
         _disableUpdate = true;
 
-        transform.DOMove(position, 0.5f);
-        transform.DORotate(rotation, 0.5f);
-        transform.DOLocalMoveY(zoomHeight, 0.5f).OnComplete(() => _disableUpdate = false);
+        transform.DOMove(position, 0.5f).SetUpdate(true);
+        transform.DORotate(rotation, 0.5f).SetUpdate(true);
+        transform.DOLocalMoveY(zoomHeight, 0.5f).SetUpdate(true).OnComplete(() => _disableUpdate = false);
     }
 
     public void CenterCameraOn(Transform t)
