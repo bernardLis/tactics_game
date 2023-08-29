@@ -87,7 +87,6 @@ public class HeroDatabase : ScriptableObject
     public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
-    public Ability GetStartingAbility(Element element) { return Abilities.FirstOrDefault(x => x.Element == element && x.IsStartingAbility); }
 
     [SerializeField] Item[] Items;
     public List<Item> GetAllItems() { return Items.ToList(); }

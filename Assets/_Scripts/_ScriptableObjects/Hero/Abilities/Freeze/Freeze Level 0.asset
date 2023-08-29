@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62df120f5241fe447afccb5c311b8b22, type: 3}
+  m_Name: Freeze Level 0
+  m_EditorClassIdentifier: 
+  Id: 93b526f6-aca9-4bbe-86da-af334abca4f2
+  Level: 0
+  ManaCost: 3
+  Power: 5
+  Cooldown: 1.5
+  Scale: 1

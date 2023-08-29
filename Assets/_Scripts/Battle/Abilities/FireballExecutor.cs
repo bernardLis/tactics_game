@@ -15,7 +15,7 @@ public class FireballExecutor : AbilityExecutor
         shape.radius = originalRadius * _selectedAbility.GetScale();
 
         var burst = ps.emission.GetBurst(0);
-        burst.count = ability.Level;
+        burst.count = ability.Level + 1;
         ps.emission.SetBurst(0, burst);
     }
 

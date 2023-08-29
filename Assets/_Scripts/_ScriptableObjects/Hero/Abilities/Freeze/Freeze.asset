@@ -15,17 +15,15 @@ MonoBehaviour:
   Id: 53d40d49-b351-4d80-97d1-46a31749e5ff
   Description: Eating ice cream = brain freeze!
   Icon: {fileID: 21300000, guid: ad4985dfa7f9ecf41a583101ce088a71, type: 3}
-  Level: 1
-  IsStartingAbility: 1
+  Level: 0
+  IsStartingAbility: 0
+  Levels:
+  - {fileID: 11400000, guid: b4a24cf32c9cbbf46823e632d5ebe975, type: 2}
+  - {fileID: 11400000, guid: d6192220c43ccc047b1a4841c0855358, type: 2}
+  - {fileID: 11400000, guid: 36029063016ec694a9867cf277a7ff3c, type: 2}
+  - {fileID: 11400000, guid: 88694b24a94d2514087e16fa15dbb265, type: 2}
+  - {fileID: 11400000, guid: 2557e46591de82e4ab15b9642450d03f, type: 2}
   AbilityNameSound: {fileID: 11400000, guid: 8c88035757b778a499742cfaa33eda6f, type: 2}
-  _baseManaCost: 8
-  _basePower: 5
-  _baseCooldown: 3.5
-  _baseScale: 1
-  _manaCostLevelMultiplier: 0.2
-  _powerLevelMultiplier: 0.3
-  _cooldownLevelMultiplier: 0.1
-  _scaleLevelMultiplier: 0.1
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   KillCount: 0
   AbilityExecutorPrefab: {fileID: 2256416241831629224, guid: 5770bd13787d8a04dac4c8ed95990294, type: 3}

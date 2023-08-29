@@ -15,17 +15,15 @@ MonoBehaviour:
   Id: f069b0f2-3350-4a88-b093-e851008d9b12
   Description: Thunderinno!
   Icon: {fileID: 21300000, guid: a32194b91d70b6a49a10d6fed56ad25d, type: 3}
-  Level: 1
-  IsStartingAbility: 1
+  Level: 0
+  IsStartingAbility: 0
+  Levels:
+  - {fileID: 11400000, guid: f87c31c443ec9e744b4955d11ded40ce, type: 2}
+  - {fileID: 11400000, guid: 35696af35de89f549909d2d44ff96fcc, type: 2}
+  - {fileID: 11400000, guid: 312106d5834d4904ead6af700c7b2ae1, type: 2}
+  - {fileID: 11400000, guid: 986278f58a5446045b01a39baa16f209, type: 2}
+  - {fileID: 11400000, guid: 398833629c58af6488be4bafda328972, type: 2}
   AbilityNameSound: {fileID: 11400000, guid: 213c8194099e1a14ca76e82c749056f0, type: 2}
-  _baseManaCost: 8
-  _basePower: 20
-  _baseCooldown: 3.5
-  _baseScale: 1
-  _manaCostLevelMultiplier: 0.2
-  _powerLevelMultiplier: 0.3
-  _cooldownLevelMultiplier: 0.1
-  _scaleLevelMultiplier: 0.15
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   KillCount: 0
   AbilityExecutorPrefab: {fileID: 8656372026121413001, guid: 2cd0d38ad734f814aa9b33d46e87d753, type: 3}

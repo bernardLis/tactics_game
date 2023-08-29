@@ -2,7 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityLevel : MonoBehaviour
+
+[CreateAssetMenu(menuName = "ScriptableObject/Hero/Ability Level")]
+public class AbilityLevel : BaseScriptableObject
 {
+    public int Level;
+
+    public float ManaCost;
+    public float Power;
+    public float Cooldown;
+    public float Scale;
 
 }

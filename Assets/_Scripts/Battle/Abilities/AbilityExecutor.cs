@@ -43,7 +43,7 @@ public class AbilityExecutor : MonoBehaviour
         _areaHighlightInstance.ClearHighlightedEntities();
         ClearAbilityHighlight();
 
-        if (_effectInstance.TryGetComponent<AbilityEffectScaler>(out AbilityEffectScaler aes))
+        if (_effectInstance.TryGetComponent(out AbilityEffectScaler aes))
             aes.Initialize(ability.GetScale());
 
         StartCoroutine(ExecuteAbilityCoroutine());
@@ -74,7 +74,7 @@ public class AbilityExecutor : MonoBehaviour
     public void ClearEffect()
     {
         if (_effectInstance == null) return;
-        Destroy(_effectInstance.gameObject);
+        Destroy(_effectInstance);
     }
 
     void DestroySelf()

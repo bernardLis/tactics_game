@@ -11,19 +11,10 @@ public class Ability : BaseScriptableObject
     public string Description = "New Description";
     public Sprite Icon;
     public int Level;
-    public bool IsStartingAbility;
+
+    public List<AbilityLevel> Levels;
 
     public Sound AbilityNameSound;
-
-    [SerializeField] float _baseManaCost;
-    [SerializeField] float _basePower;
-    [SerializeField] float _baseCooldown;
-    [SerializeField] float _baseScale;
-
-    [SerializeField] float _manaCostLevelMultiplier;
-    [SerializeField] float _powerLevelMultiplier;
-    [SerializeField] float _cooldownLevelMultiplier;
-    [SerializeField] float _scaleLevelMultiplier;
 
     // battle modifiers
     float _battleDamageMultiplier = 1f;
@@ -56,26 +47,27 @@ public class Ability : BaseScriptableObject
 
     public int GetManaCost()
     {
-        int manaCost = Mathf.RoundToInt(_baseManaCost + ((Level - 1) * _manaCostLevelMultiplier));
-        return Mathf.RoundToInt(manaCost * _battleManaCostMultiplier);
+        return Mathf.FloorToInt(Levels[Level].ManaCost * _battleManaCostMultiplier);
     }
 
     public int GetPower()
     {
-        int power = Mathf.RoundToInt(_basePower + ((Level - 1) * _powerLevelMultiplier));
-        return Mathf.RoundToInt(power * _battleDamageMultiplier);
+        return Mathf.FloorToInt(Levels[Level].Power * _battleDamageMultiplier);
     }
 
     public int GetCooldown()
     {
-        int cooldown = Mathf.RoundToInt(_baseCooldown + ((Level - 1) * _cooldownLevelMultiplier));
-        return Mathf.RoundToInt(cooldown * _battleCooldownMultiplier);
+        return Mathf.FloorToInt(Levels[Level].Cooldown * _battleCooldownMultiplier);
     }
 
     public float GetScale()
     {
-        int scale = Mathf.RoundToInt(_baseScale + ((Level - 1) * _scaleLevelMultiplier));
-        return scale * _battleScaleMultiplier;
+        return Levels[Level].Scale * _battleScaleMultiplier;
+    }
+
+    public bool IsMaxLevel()
+    {
+        return Level == Levels.Count - 1;
     }
 
     public void IncreaseKillCount() { KillCount++; }
