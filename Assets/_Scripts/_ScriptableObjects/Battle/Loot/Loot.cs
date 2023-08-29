@@ -21,7 +21,6 @@ public class Loot : BaseScriptableObject
     {
         _gameManager = GameManager.Instance;
         SelectPrize();
-        //   Debug.Log($"Initializing Loot {name}, roll: {roll}, gold: {Gold}, spice: {Spice}, item: {Item}");
     }
 
     protected virtual void SelectPrize()

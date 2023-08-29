@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15d6da0dc1d895845a2089f8d20c4642, type: 3}
-  m_Name: Epic Gold
+  m_Script: {fileID: 11500000, guid: f2cb83a72dd093a44b4dfa2ee5465c29, type: 3}
+  m_Name: Epic Mana
   m_EditorClassIdentifier: 
-  Id: 0d8c90ee-b616-4d82-bfcb-9c56c52dbb27
-  LootChance: 5
+  Id: af45de65-9be6-4bf3-b15b-f10d2c5fe2b4
+  LootChance: 1
   PrefabColor: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
-  DisplayColor: {fileID: 11400000, guid: 73b4a5531ad7427409439da604d41d3a, type: 2}
+  DisplayColor: {fileID: 11400000, guid: 474f053f103707c41917108b8bb11751, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
   Effect: {fileID: 4577507224819663240, guid: dbf1928b656a3fb4fb903ad6d832642c, type: 3}
   ClickEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
-  CollectSound: {fileID: 11400000, guid: 0a64af2178640a045a68dff723adc9fc, type: 2}
-  GoldRange: {x: 300, y: 500}
-  Gold: 0
+  CollectSound: {fileID: 11400000, guid: dd58494d86697664683e0a4f7f581bc2, type: 2}
+  ManaRange: {x: 20, y: 40}
+  Mana: 0

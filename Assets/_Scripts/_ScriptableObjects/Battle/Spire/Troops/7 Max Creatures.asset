@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 522d7373-9f12-46d0-943e-85831da068b8
   Icon: {fileID: 21300000, guid: f4000ddb15bd7874f8b3aac5cb2b6389, type: 3}
   Cost: 0
-  Value: 1
+  Value: 7
   IsPurchased: 1
   Description: More creatooorinos.
   IsInfinite: 0

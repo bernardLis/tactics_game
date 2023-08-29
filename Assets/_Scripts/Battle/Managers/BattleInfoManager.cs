@@ -50,7 +50,8 @@ public class BattleInfoManager : MonoBehaviour
         UpdateTroopsLimitElement();
 
         AddGoldElement();
-        AddSpiceElement();
+        // HERE: spice
+        // AddSpiceElement();
 
         ResolveBattleModifiers();
     }

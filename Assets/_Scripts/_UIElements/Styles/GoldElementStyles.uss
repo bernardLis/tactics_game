@@ -13,14 +13,12 @@
     height: 30px;
     padding-right: 0px;
     margin-right: 0px;
-
 }
 
 .gold-element__value {
     padding-left: 0px;
     margin-left: 0px;
 }
-
 
 .gold-element__clickable {
     flex-direction: row;

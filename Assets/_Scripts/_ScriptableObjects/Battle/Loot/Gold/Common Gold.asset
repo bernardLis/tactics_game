@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Common Gold
   m_EditorClassIdentifier: 
   Id: 0d8c90ee-b616-4d82-bfcb-9c56c52dbb27
-  LootChance: 40
+  LootChance: 30
   PrefabColor: {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
   DisplayColor: {fileID: 11400000, guid: 73b4a5531ad7427409439da604d41d3a, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}

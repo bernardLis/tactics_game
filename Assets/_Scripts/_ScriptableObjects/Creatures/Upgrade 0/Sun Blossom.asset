@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sun Blossom
   m_EditorClassIdentifier: 
   Id: 7777-6aef-4f8f-a757-9d06b20d9a51
-  Name: Sun Blossom
+  EntityName: 
   Icon: {fileID: 21300000, guid: 88bfc829c2c9b6e47bb74802d2e51819, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 4e329b134e90ae24b9b5726dd474a06f, type: 3}
@@ -82,14 +82,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}
   - {fileID: 11400000, guid: 5d2c3ab5459d404428636ab07c297ef3, type: 2}
   - {fileID: 11400000, guid: 61ad4c7c43eba504298d749e96e4c000, type: 2}
-  - {fileID: 11400000, guid: 5a624f9d440d9344db15822956d74667, type: 2}
-  - {fileID: 11400000, guid: 3f8488aa8ca68a04b8e16210082973e5, type: 2}
-  - {fileID: 11400000, guid: 22288e8089a88114ab99528011a59a47, type: 2}
-  - {fileID: 11400000, guid: 8192a276520b0bc439e8a1ead55a4e3c, type: 2}
-  - {fileID: 11400000, guid: 886d3613f43c3e7478278f81d9ef5e99, type: 2}
-  - {fileID: 11400000, guid: f71ba1a4d148a1347a0bf7dddc579928, type: 2}
-  - {fileID: 11400000, guid: 755eca568c2137244b5085b92fc29c14, type: 2}
-  - {fileID: 11400000, guid: a746ad827f222b04aa2dca49784665ed, type: 2}
+  - {fileID: 11400000, guid: 941358683b4596844a2e3673c7e9eba9, type: 2}
+  - {fileID: 11400000, guid: 12f51bda6ecc72841b2007c6a0151f3a, type: 2}
+  - {fileID: 11400000, guid: 2be247948fd3bb44a9ff1bf760b24602, type: 2}
+  - {fileID: 11400000, guid: c04bd6602a8ad1044889258bbc20ae25, type: 2}
   Prefab: {fileID: 1260623825003051768, guid: 7f68d8bd4c8a1134d9d5d24651a1af8e, type: 3}
   Hero: {fileID: 0}
   MaxHealth: {fileID: 0}

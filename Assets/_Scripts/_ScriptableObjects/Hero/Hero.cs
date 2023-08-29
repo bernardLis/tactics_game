@@ -63,6 +63,23 @@ public class Hero : BaseScriptableObject
         CurrentMana.SetValue(BaseMana.Value);
     }
 
+    // returns leftover
+    public int RestoreMana(int amount)
+    {
+        int manaMissing = TotalMana.Value - CurrentMana.Value;
+        if (manaMissing <= 0)
+            return amount;
+
+        if (manaMissing >= amount)
+        {
+            CurrentMana.ApplyChange(amount);
+            return 0;
+        }
+
+        CurrentMana.ApplyChange(manaMissing);
+        return amount - manaMissing;
+    }
+
     public void AddCreature(Creature creature, bool noDelegate = false)
     {
         Debug.Log($"Hero {name} adds army {creature}");
