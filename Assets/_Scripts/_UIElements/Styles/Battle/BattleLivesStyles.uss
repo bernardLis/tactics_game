@@ -1,0 +1,9 @@
+.battle-lives__main {
+    flex-direction: row;
+}
+
+.battle-lives__icon {
+    width: 30px;
+    height: 30px;
+    background-image: url('project://database/Assets/Art/Sprites/Battle/Heart.png?fileID=2800000&guid=ad5973426f8de9745bd17b1d89d8d433&type=3#Heart');
+}

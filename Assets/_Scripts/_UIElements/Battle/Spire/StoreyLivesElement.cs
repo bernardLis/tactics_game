@@ -20,7 +20,7 @@ public class StoreyLivesElement : FullScreenElement
     VisualElement _topContainer;
     VisualElement _bottomContainer;
 
-    Label _lives;
+    // Label _lives;
     StoreyUpgradeTreeElement _maxLivesTreeElement;
     StoreyUpgradeElement _restoreLivesElement;
 
@@ -35,9 +35,11 @@ public class StoreyLivesElement : FullScreenElement
         mainContainer.AddToClassList(_ussMain);
         _content.Add(mainContainer);
 
-        _lives = new($"Lives {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}");
-        _lives.AddToClassList(_ussTitle);
-        mainContainer.Add(_lives);
+        BattleLivesElement livesElement = new();
+
+        // _lives = new($"Lives {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}");
+        // _lives.AddToClassList(_ussTitle);
+        mainContainer.Add(livesElement);
 
         VisualElement container = new();
         container.style.alignSelf = Align.Center;
@@ -59,10 +61,10 @@ public class StoreyLivesElement : FullScreenElement
 
         _maxLivesTreeElement = new(_storey.MaxLivesTree);
         _topContainer.Add(_maxLivesTreeElement);
-        _storey.MaxLivesTree.CurrentValue.OnValueChanged += UpdateLivesTitle;
+        // _storey.MaxLivesTree.CurrentValue.OnValueChanged += UpdateLivesTitle;
         _storey.MaxLivesTree.CurrentValue.OnValueChanged += (v) => UpdateRestoreLivesElement();
 
-        UpdateLivesTitle(0);
+        // UpdateLivesTitle(0);
         AddRestoreLivesUpgrade();
 
         AddContinueButton();
@@ -81,14 +83,14 @@ public class StoreyLivesElement : FullScreenElement
     void RestoreLives(StoreyUpgrade storeyUpgrade)
     {
         _storey.RestoreLives(5);
-        UpdateLivesTitle(0);
+        // UpdateLivesTitle(0);
         UpdateRestoreLivesElement();
     }
 
-    void UpdateLivesTitle(int value)
-    {
-        _lives.text = $"Lives: {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}";
-    }
+    // void UpdateLivesTitle(int value)
+    // {
+    //     _lives.text = $"Lives: {_storey.CurrentLives.Value}/{_storey.MaxLivesTree.CurrentValue.Value}";
+    // }
 
     void UpdateRestoreLivesElement()
     {

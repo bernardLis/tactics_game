@@ -28,8 +28,8 @@ public class TroopsLimitElement : ElementWithTooltip
             _fontSize = fontSize;
 
         _animationContainer = new();
-        _animationContainer.style.width = 50;
-        _animationContainer.style.height = 50;
+        _animationContainer.style.width = 30;
+        _animationContainer.style.height = 30;
 
         Sprite[] animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
         AnimationElement el = new AnimationElement(animationSprites, 100, true);

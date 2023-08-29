@@ -43,39 +43,49 @@ public class BattleInfoManager : MonoBehaviour
 
         _spire = _battleSpire.Spire;
 
-        ResolveLivesLabel();
-        UpdateLivesLabel();
+        AddLivesElement();
+        // UpdateLivesLabel();
+
+        AddGoldElement();
 
         AddTroopsLimitElement();
         UpdateTroopsLimitElement();
 
-        AddGoldElement();
         // HERE: spice
         // AddSpiceElement();
 
         ResolveBattleModifiers();
     }
 
-    void ResolveLivesLabel()
+    void AddLivesElement()
     {
-        _livesCountLabel.style.display = DisplayStyle.Flex;
-        _spire.StoreyLives.MaxLivesTree.CurrentValue.OnValueChanged += (v) => UpdateLivesLabel();
-        _spire.StoreyLives.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
+        _infoPanel.Add(new BattleLivesElement());
     }
 
-    void UpdateLivesLabel()
+    // void ResolveLivesLabel()
+    // {
+    //     _livesCountLabel.style.display = DisplayStyle.Flex;
+    //     _spire.StoreyLives.MaxLivesTree.CurrentValue.OnValueChanged += (v) => UpdateLivesLabel();
+    //     _spire.StoreyLives.CurrentLives.OnValueChanged += (v) => UpdateLivesLabel();
+    // }
+
+    // void UpdateLivesLabel()
+    // {
+    //     _livesCountLabel.text = $"Lives: {_spire.StoreyLives.CurrentLives.Value}";
+    //     Helpers.DisplayTextOnElement(_root, _livesCountLabel, $"{_spire.StoreyLives.CurrentLives.PreviousValue - _spire.StoreyLives.CurrentLives.Value}", Color.red);
+    // }
+
+    void AddGoldElement()
     {
-        _livesCountLabel.text = $"Lives: {_spire.StoreyLives.CurrentLives.Value}";
-        Helpers.DisplayTextOnElement(_root, _livesCountLabel, $"{_spire.StoreyLives.CurrentLives.PreviousValue - _spire.StoreyLives.CurrentLives.Value}", Color.red);
+        _goldElement = new(_gameManager.Gold);
+        _gameManager.OnGoldChanged += OnGoldChanged;
+        _infoPanel.Add(_goldElement);
     }
 
     void AddTroopsLimitElement()
     {
-        VisualElement TroopsLimitContainer = _battleManager.Root.Q<VisualElement>("troopsLimitContainer");
-        TroopsLimitContainer.style.display = DisplayStyle.Flex;
-
         _troopsLimitElement = new("");
-        TroopsLimitContainer.Add(_troopsLimitElement);
+        _infoPanel.Add(_troopsLimitElement);
 
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
         _gameManager.PlayerHero.OnCreatureRemoved += (c) => UpdateTroopsLimitElement();
@@ -88,12 +98,6 @@ public class BattleInfoManager : MonoBehaviour
         _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value}", Color.white);
     }
 
-    void AddGoldElement()
-    {
-        _goldElement = new(_gameManager.Gold);
-        _gameManager.OnGoldChanged += OnGoldChanged;
-        _infoPanel.Add(_goldElement);
-    }
 
     void AddSpiceElement()
     {

@@ -16,7 +16,6 @@ public class GoldElement : ChangingValueElement
     GameManager _gameManager;
     VisualElement _icon;
 
-
     public GoldElement(int amount)
     {
         _gameManager = GameManager.Instance;
