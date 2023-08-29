@@ -45,6 +45,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public IntVariable CurrentHealth { get; private set; }
 
     protected NavMeshAgent _agent;
+    protected Vector2Int _avoidancePriorityRange = new Vector2Int(20, 100);
 
     [HideInInspector] public bool IsShielded;
     protected bool _isEngaged;
@@ -170,7 +171,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
 
         _agent.enabled = true;
-        _agent.avoidancePriority = Random.Range(1, 100);
+        // TODO: pitiful solution for making entities push each other
+        _agent.avoidancePriority = Random.Range(_avoidancePriorityRange.x, _avoidancePriorityRange.y);
 
         while (!_agent.SetDestination(position)) yield return null;
         while (_agent.pathPending) yield return null;

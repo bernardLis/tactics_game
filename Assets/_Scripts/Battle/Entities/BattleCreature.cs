@@ -45,6 +45,7 @@ public class BattleCreature : BattleEntity
         OnDamageTaken += Creature.AddDmgTaken;
 
         _agent.stoppingDistance = Creature.AttackRange;
+        _avoidancePriorityRange = new Vector2Int(0, 20);
     }
 
     public override void InitializeBattle(int team, ref List<BattleEntity> opponents)
