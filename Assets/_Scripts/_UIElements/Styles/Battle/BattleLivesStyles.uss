@@ -1,5 +1,7 @@
 .battle-lives__main {
     flex-direction: row;
+    height: 50px;
+    align-items: center;
 }
 
 .battle-lives__icon {

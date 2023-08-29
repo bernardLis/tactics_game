@@ -23,7 +23,7 @@ public class ChangingValueElement : ElementWithTooltip
         Add(_text);
     }
 
-    public void ChangeAmount(int newValue)
+    public virtual void ChangeAmount(int newValue)
     {
         if (newValue == Amount)
             return;

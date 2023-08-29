@@ -50,6 +50,7 @@ public class TroopsLimitElement : ElementWithTooltip
         _countContainer.Add(l);
         _countContainer.style.justifyContent = Justify.Center;
         l.text = text;
+        l.style.marginLeft = 10;
         l.style.marginBottom = 0;
         l.style.paddingBottom = 0;
         

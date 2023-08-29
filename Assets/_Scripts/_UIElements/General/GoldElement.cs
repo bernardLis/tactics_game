@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class GoldElement : ChangingValueElement
 {
@@ -43,6 +44,14 @@ public class GoldElement : ChangingValueElement
         Add(_text);
 
         ChangeAmount(amount);
+    }
+
+    public override void ChangeAmount(int newValue)
+    {
+        base.ChangeAmount(newValue);
+        DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x,
+            0.5f, 5f).SetUpdate(true);
+
     }
 
     protected override void NumberAnimation()
