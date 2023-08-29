@@ -34,8 +34,14 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
         StartCoroutine(PlayIntroVO());
     }
 
+    void OnDisable()
+    {
+        _battleInputManager.OnContinueClicked -= SkipIntro;
+    }
+
     void SkipIntro()
     {
+        if (this == null) return;
         StopAllCoroutines();
         AudioManager.Instance.StopDialogue();
         FinishIntro();

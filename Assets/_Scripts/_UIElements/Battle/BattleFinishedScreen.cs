@@ -28,7 +28,7 @@ public class BattleFinishedScreen : FullScreenElement
         AddTitle();
         AddTotalGold();
         AddTimeSurvived();
-        AddScore();
+        AddStats();
         AddRewardIcon();
     }
 
@@ -68,13 +68,13 @@ public class BattleFinishedScreen : FullScreenElement
         DOTween.To(x => text.style.opacity = x, 0, 1, 0.5f).SetDelay(2f).SetUpdate(true);
     }
 
-    void AddScore()
+    void AddStats()
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         _mainContainer.Add(container);
 
-        Label text = new($"Score: ");
+        Label text = new($"Waves survived: ");
 
         int score = Mathf.FloorToInt(_battleManager.GetTime() * _gameManager.TotalGoldCollected);
         ChangingValueElement el = new();

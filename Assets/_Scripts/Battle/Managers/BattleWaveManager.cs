@@ -12,7 +12,7 @@ public class BattleWaveManager : MonoBehaviour
 
     Battle _selectedBattle;
 
-    int _currentWaveIndex;
+    public int CurrentWaveIndex { get; private set; }
 
     [SerializeField] BattleOpponentPortal[] _opponentPortals;
 
@@ -41,13 +41,13 @@ public class BattleWaveManager : MonoBehaviour
     {
         while (true)
         {
-            StartWave(_selectedBattle.Waves[_currentWaveIndex]);
-            _currentWaveIndex++;
+            StartWave(_selectedBattle.Waves[CurrentWaveIndex]);
+            CurrentWaveIndex++;
 
-            if (_currentWaveIndex == _selectedBattle.Waves.Count - 3)
+            if (CurrentWaveIndex == _selectedBattle.Waves.Count - 3)
                 _selectedBattle.CreateWaves();
 
-            float nextWaveIn = _selectedBattle.Waves[_currentWaveIndex].StartTime
+            float nextWaveIn = _selectedBattle.Waves[CurrentWaveIndex].StartTime
                     - _battleManager.GetTime();
             yield return new WaitForSeconds(nextWaveIn);
         }

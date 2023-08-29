@@ -258,8 +258,9 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         BattleWonScreen wonScreen = new();
-        wonScreen.OnHide += () => _isPlayingForever = true;
-        yield return FinalizeBattle();
+        wonScreen.OnContinuePlaying += () => _isPlayingForever = true;
+        wonScreen.OnFinishedPlaying += () => StartCoroutine(FinalizeBattle());
+        yield return null;
     }
 
     IEnumerator FinalizeBattle()
@@ -272,7 +273,7 @@ public class BattleManager : Singleton<BattleManager>
 
         yield return new WaitForSeconds(3f);
 
-        ClearAllEntities();
+        // ClearAllEntities();
 
         OnBattleFinalized?.Invoke();
     }

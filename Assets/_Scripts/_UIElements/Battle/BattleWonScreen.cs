@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class BattleWonScreen : BattleFinishedScreen
     const string _ussClassName = "battle-won__";
     const string _ussMain = _ussClassName + "main";
 
+    public event Action OnContinuePlaying;
+    public event Action OnFinishedPlaying;
     public BattleWonScreen()
     {
         _gameManager = GameManager.Instance;
@@ -42,7 +45,7 @@ public class BattleWonScreen : BattleFinishedScreen
         container.Add(text);
 
         MyButton continuePlaying = new("Continue playing", _ussCommonMenuButton,
-                 callback: () => Hide());
+                 callback: ContinuePlaying);
         container.Add(continuePlaying);
 
         MyButton advantage = new("Quit (+1k gold next time)",
@@ -53,6 +56,12 @@ public class BattleWonScreen : BattleFinishedScreen
         container.Add(noAdvantage);
     }
 
+    void ContinuePlaying()
+    {
+        OnContinuePlaying?.Invoke();
+        Hide();
+    }
+
     void AdvantageButton()
     {
         _gameManager.GoldAdvantage++;
@@ -61,6 +70,7 @@ public class BattleWonScreen : BattleFinishedScreen
 
     void QuiteButton()
     {
+        OnFinishedPlaying?.Invoke();
         _gameManager.ClearSaveData();
         _gameManager.LoadScene(Scenes.MainMenu);
     }
