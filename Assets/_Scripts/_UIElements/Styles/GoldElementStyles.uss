@@ -5,10 +5,11 @@
     transition-property: all;
     transition-duration: 1s;
     transition-timing-function: ease-in-out;
-    width: 60px;
+    width: 100px;
 }
 
 .gold-element__icon {
+    flex-shrink: 0;
     width: 30px;
     height: 30px;
     padding-right: 0px;
@@ -16,6 +17,7 @@
 }
 
 .gold-element__value {
+    flex-shrink: 0;
     padding-left: 0px;
     margin-left: 0px;
 }
