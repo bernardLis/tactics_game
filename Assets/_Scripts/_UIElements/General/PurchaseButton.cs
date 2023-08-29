@@ -57,7 +57,6 @@ public class PurchaseButton : MyButton
     void Buy()
     {
         if (!CanBePurchased()) return;
-        Debug.Log($"after can be purchased");
 
         _gameManager.ChangeGoldValue(-_cost);
 

@@ -20,7 +20,6 @@ public class HeroCardExp : VisualElement
     const string _ussStatUpButton = _ussClassName + "stat-up-button";
     const string _ussStatUpButtonAnimation = _ussClassName + "stat-up-button-animation";
 
-
     GameManager _gameManager;
     AudioManager _audioManager;
     public Hero Hero;

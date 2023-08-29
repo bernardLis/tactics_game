@@ -45,11 +45,12 @@ public class BattleRewardElement : VisualElement
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
 
-        _rewardTooltip = new Label("Add stat point");
-        _rewardTooltip.style.opacity = 0;
-        _rewardTooltip.style.fontSize = 32;
-        Add(_rewardTooltip);
-        DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+        //HERE: disable hero stats
+        // _rewardTooltip = new Label("Add stat point");
+        // _rewardTooltip.style.opacity = 0;
+        // _rewardTooltip.style.fontSize = 32;
+        // Add(_rewardTooltip);
+        // DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
 
         AddHeroCard();
 
@@ -59,15 +60,13 @@ public class BattleRewardElement : VisualElement
 
         AddRewardContainer();
 
-
         if (_gameManager.PlayerHero.Level.Value == 1)
             _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
-
-
     }
 
     void AddHeroCard()
     {
+        /* HERE: disable hero stats
         HeroCardExp card = new(_gameManager.PlayerHero);
         Add(card);
         card.style.opacity = 0;
@@ -84,9 +83,21 @@ public class BattleRewardElement : VisualElement
                     _rewardTooltip.text = "Choose reward:";
                     DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
                 });
-
             RunCardShow();
         };
+*/
+
+        HeroCardStats card = new(_gameManager.PlayerHero);
+        Add(card);
+        card.style.opacity = 0;
+
+        DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                _gameManager.PlayerHero.LevelUp();
+                RunCardShow();
+            });
     }
 
     void AddRewardContainer()

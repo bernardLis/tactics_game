@@ -21,5 +21,5 @@ MonoBehaviour:
   ClickEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   CollectSound: {fileID: 11400000, guid: 0a64af2178640a045a68dff723adc9fc, type: 2}
-  GoldRange: {x: 100, y: 200}
+  GoldRange: {x: 10, y: 20}
   Gold: 0

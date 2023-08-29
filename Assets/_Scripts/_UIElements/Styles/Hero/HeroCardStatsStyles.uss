@@ -17,7 +17,7 @@
 
 .hero-stats-card__top-left-panel {
     position: absolute;
-    left: 0;
+    left: 30px;
     top: -30px;
 }
 
@@ -27,6 +27,8 @@
 
 .hero-stats-card__top-right-panel {
     min-width: 200px;
+    padding-right: 10px;
+    padding-top: 10px;
 }
 
 .hero-stats-card__exp-container {

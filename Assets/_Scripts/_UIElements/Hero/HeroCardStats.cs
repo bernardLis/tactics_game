@@ -58,7 +58,8 @@ public class HeroCardStats : VisualElement
         VisualElement topMiddlePanel = new();
         VisualElement topRightPanel = new();
         topPanel.Add(topLeftPanel);
-        topPanel.Add(topMiddlePanel);
+        // //HERE: disable hero stats
+        // topPanel.Add(topMiddlePanel);
         topPanel.Add(topRightPanel);
 
         PopulateTopLeftPanel(topLeftPanel);
