@@ -1,0 +1,23 @@
+.battle-stats__main {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    background-image: none;
+}
+
+.battle-stats__panel {
+    height: 100%;
+    align-items: flex-start;
+}
+
+.battle-stats__creature-icon {
+    flex-grow: 1;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}

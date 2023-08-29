@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuScreen : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonSpacer = "common__horizontal-spacer";
 
     const string _ussClassName = "menu__";
     const string _ussContainer = _ussClassName + "container";
@@ -23,26 +24,13 @@ public class MenuScreen : FullScreenElement
         _container.AddToClassList(_ussContainer);
         _content.Add(_container);
 
-        AddContinueButton();
-        AddTotalGoldCollected();
+        _container.Add(new BattleStatsElement());
+        VisualElement spacer = new();
+        spacer.AddToClassList(_ussCommonSpacer);
+        _container.Add(spacer);
+
         AddMenuButtons();
-    }
-
-    void AddTotalGoldCollected()
-    {
-        VisualElement goldContainer = new();
-        goldContainer.style.flexDirection = FlexDirection.Row;
-        goldContainer.AddToClassList(_ussCommonTextPrimary);
-        _container.Add(goldContainer);
-
-        Label goldLabel = new()
-        {
-            text = $"Total Gold Collected: "
-        };
-        goldContainer.Add(goldLabel);
-
-        GoldElement el = new(_gameManager.TotalGoldCollected);
-        goldContainer.Add(el);
+        AddContinueButton();
     }
 
     void AddMenuButtons()

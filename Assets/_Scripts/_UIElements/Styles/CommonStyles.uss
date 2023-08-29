@@ -57,7 +57,7 @@
 }
 
 .common__menu-button {
-    font-size: 36px;
+    font-size: 24px;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0);
     margin-bottom: 5px;
@@ -79,12 +79,12 @@
     transition-duration: 0.5s;
     margin-left: 0;
     margin-right: 0;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_little.png?fileID=2800000&guid=b0f16d180a490934686f65df10e187a3&type=3#Button_little');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    width: 400px;
+    width: 300px;
     min-height: 90px;
     transition-property: all;
     -unity-text-outline-color: rgb(255, 255, 255);
@@ -114,12 +114,10 @@
 }
 
 .common__horizontal-spacer {
-    flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
+    height: 50px;
     width: 100%;
-    height: 20px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');
-    position: relative;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2');
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .vfx {
@@ -215,7 +213,6 @@
     position: absolute;
 }
 
-
 .common__minimap-opponent-creature-icon {
     flex-grow: 1;
     width: 15px;
@@ -229,8 +226,6 @@
     border-color: red;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/77_action.png?fileID=2800000&guid=0b72c4e337504d54192a89a56854391a&type=3#77_action');
 }
-
-
 
 .common__minimap-opponent-minion-icon {
     flex-grow: 1;

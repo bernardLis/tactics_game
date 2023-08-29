@@ -3,7 +3,8 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag_vert.png?fileID=2800000&guid=f7f4c53029691c14590b260b68c02ff7&type=3#Flag_vert');
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Main_bar_hori.png?fileID=2800000&guid=455b4694deb662245b4cbfaee5e6c318&type=3#Main_bar_hori');
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .menu__button-container {

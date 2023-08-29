@@ -6,15 +6,16 @@ using UnityEngine.UIElements;
 
 public class GoldElement : ChangingValueElement
 {
-    GameManager _gameManager;
-    Label _icon;
-
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "gold-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussIcon = _ussClassName + "icon";
     const string _ussValue = _ussClassName + "value";
+
+    GameManager _gameManager;
+    VisualElement _icon;
+
 
     public GoldElement(int amount)
     {

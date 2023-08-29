@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class BattleFinishedScreen : FullScreenElement
 {
+    const string _ussCommonSpacer = "common__horizontal-spacer";
+
     const string _ussClassName = "battle-finished__";
     const string _ussMain = _ussClassName + "main";
 
@@ -26,83 +28,15 @@ public class BattleFinishedScreen : FullScreenElement
         _content.Add(_mainContainer);
 
         AddTitle();
-        AddTotalGold();
-        AddTimeSurvived();
-        AddStats();
-        AddRewardIcon();
+
+        _mainContainer.Add(new BattleStatsElement());
+        VisualElement spacer = new();
+        spacer.AddToClassList(_ussCommonSpacer);
+        _mainContainer.Add(spacer);
     }
 
     protected virtual void AddTitle()
     {
         // meant to be overwritten
     }
-
-    void AddTotalGold()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        _mainContainer.Add(container);
-
-        Label text = new("Total gold collected: ");
-        container.Add(text);
-
-        GoldElement el = new(_gameManager.TotalGoldCollected);
-        container.Add(el);
-
-        container.style.opacity = 0;
-        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f).SetDelay(1.5f).SetUpdate(true);
-
-    }
-
-    void AddTimeSurvived()
-    {
-        int minutes = Mathf.FloorToInt(_battleManager.GetTime() / 60f);
-        int seconds = Mathf.FloorToInt(_battleManager.GetTime() - minutes * 60);
-
-        string timerText = string.Format("{0:00}:{1:00}", minutes, seconds);
-
-        Label text = new($"Time survived: {timerText}");
-        _mainContainer.Add(text);
-
-        text.style.opacity = 0;
-        DOTween.To(x => text.style.opacity = x, 0, 1, 0.5f).SetDelay(2f).SetUpdate(true);
-    }
-
-    void AddStats()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        _mainContainer.Add(container);
-
-        Label text = new($"Waves survived: ");
-
-        int score = Mathf.FloorToInt(_battleManager.GetTime() * _gameManager.TotalGoldCollected);
-        ChangingValueElement el = new();
-        el.Initialize(score, 34);
-
-        container.Add(text);
-        container.Add(el);
-
-        container.style.opacity = 0;
-        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f).SetDelay(2.5f).SetUpdate(true);
-
-    }
-
-    void AddRewardIcon()
-    {
-        VisualElement container = new();
-
-        RewardIcon rewardIcon = _gameManager.GameDatabase.RewardIcons[Random.Range(0, _gameManager.GameDatabase.RewardIcons.Length)];
-
-        Label icon = new();
-        icon.style.backgroundImage = new StyleBackground(rewardIcon.Sprite);
-        container.Add(icon);
-
-        Label text = new(rewardIcon.Text);
-        container.Add(text);
-
-        container.style.opacity = 0;
-        DOTween.To(x => container.style.opacity = x, 0, 1, 0.5f).SetDelay(3f).SetUpdate(true);
-    }
-
 }

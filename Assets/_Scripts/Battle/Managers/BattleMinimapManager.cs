@@ -94,7 +94,7 @@ public class BattleMinimapManager : MonoBehaviour
     {
         foreach (BattleOpponentPortal portal in _battleManager.OpponentPortals)
         {
-            VisualElement icon = new VisualElement();
+            VisualElement icon = new();
             icon.AddToClassList(_ussPortalIcon);
             icon.style.backgroundImage = new StyleBackground(portal.Element.Icon);
             Vector2 pos = new Vector2(portal.transform.position.x, portal.transform.position.z);
@@ -178,7 +178,7 @@ public class BattleMinimapManager : MonoBehaviour
             Debug.LogError("Entity already exists in minimap");
             return;
         }
-        VisualElement icon = new VisualElement();
+        VisualElement icon = new();
         icon.style.backgroundImage = new StyleBackground(be.Entity.Icon);
         icon.style.visibility = Visibility.Hidden;
         icon.style.opacity = 0.8f;

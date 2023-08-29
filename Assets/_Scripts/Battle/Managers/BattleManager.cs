@@ -127,6 +127,8 @@ public class BattleManager : Singleton<BattleManager>
 
     void PauseTimer()
     {
+        if (this == null) return;
+        
         IsTimerOn = false;
         if (_timerCoroutine != null)
             StopCoroutine(_timerCoroutine);
