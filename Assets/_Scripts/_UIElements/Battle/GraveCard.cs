@@ -56,20 +56,26 @@ public class GraveCard : VisualElement
 
     void PopulateRightPanel()
     {
-        _resurrectButton = new(_creature.Level * 200, buttonText: "Resurrect", callback: Resurrect);
+        _resurrectButton = new(_creature.Level * 200, buttonText: "Resurrect");
+        _resurrectButton.OnPurchased += Resurrect;
+
+        UpdateResurrectButton();
+        _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateResurrectButton();
+        _gameManager.PlayerHero.OnCreatureRemoved += (c) => UpdateResurrectButton();
+        BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateResurrectButton();
+
         _rightPanel.Add(_resurrectButton);
+    }
+
+    void UpdateResurrectButton()
+    {
+        _resurrectButton.UnblockPurchase();
+        if (_battleManager.IsPlayerTeamFull()) _resurrectButton.BlockPurchase("Your team is full.");
     }
 
     void Resurrect()
     {
-        if (_battleManager.IsPlayerTeamFull())
-        {
-            Helpers.DisplayTextOnElement(_battleManager.Root, _resurrectButton,
-                    "Your team is full.", Color.red);
-            return;
-        }
-
-        _battleManager.PlayerHero.CreatureArmy.Add(_creature);
+        _battleManager.PlayerHero.AddCreature(_creature);
         OnResurrected?.Invoke();
     }
 }

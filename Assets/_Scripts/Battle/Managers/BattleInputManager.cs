@@ -9,6 +9,8 @@ public class BattleInputManager : MonoBehaviour
     GameManager _gameManager;
     PlayerInput _playerInput;
 
+    MenuScreen _menuScreen;
+
     public event Action OnContinueClicked;
     public event Action OnEnterClicked;
     void Start()
@@ -47,11 +49,30 @@ public class BattleInputManager : MonoBehaviour
     {
         _playerInput.actions["Continue"].performed += evt => OnContinueClicked?.Invoke();
         _playerInput.actions["Enter"].performed += evt => OnEnterClicked?.Invoke();
+        _playerInput.actions["ToggleMenu"].performed += OpenMenu;
+
     }
 
     void UnsubscribeInputActions()
     {
         _playerInput.actions["Continue"].performed -= evt => OnContinueClicked?.Invoke();
         _playerInput.actions["Enter"].performed -= evt => OnEnterClicked?.Invoke();
+        _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
     }
+
+
+    public void OpenMenu(InputAction.CallbackContext ctx)
+    {
+        if (_gameManager.OpenFullScreens.Count > 0) return;
+        if (_menuScreen != null) return;
+
+        _menuScreen = new MenuScreen();
+        _menuScreen.OnHide += MenuScreenClosed;
+    }
+
+    void MenuScreenClosed()
+    {
+        _menuScreen = null;
+    }
+
 }
