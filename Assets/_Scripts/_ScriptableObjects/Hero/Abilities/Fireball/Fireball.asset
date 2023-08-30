@@ -16,13 +16,8 @@ MonoBehaviour:
   Description: Eh... I need to change the name and everything...
   Icon: {fileID: 21300000, guid: 6b1c444e5f1016043b032bbbdb5ab838, type: 3}
   Level: 0
-  IsStartingAbility: 0
   Levels:
   - {fileID: 11400000, guid: c3cba697367c89a4e83d8867783bf536, type: 2}
-  - {fileID: 11400000, guid: c545c4506ea229644981a52905184632, type: 2}
-  - {fileID: 11400000, guid: 3ae354ac4a6c0f34293b3b24718a9baa, type: 2}
-  - {fileID: 11400000, guid: e4a624ecda0f5ad408362e7159cd6d94, type: 2}
-  - {fileID: 11400000, guid: 6401cb2bdf704e049bc7375e105632a7, type: 2}
   AbilityNameSound: {fileID: 11400000, guid: d9839f0666ea7834a9be1186ff974faf, type: 2}
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   KillCount: 0

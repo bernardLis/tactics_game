@@ -34,19 +34,19 @@ public class AbilityTooltipElement : ElementWithTooltip
         description.AddToClassList(_ussCommonTextSecondary);
         description.style.whiteSpace = WhiteSpace.Normal;
 
-        Label level = new("Level: " + ability.Level.ToString());
+        Label level = new($"Level: {ability.Level + 1}");
         level.AddToClassList(_ussCommonTextSecondary);
 
-        Label manaCost = new("Mana cost: " + ability.GetManaCost().ToString());
+        Label manaCost = new("Mana cost: " + ability.GetManaCost());
         manaCost.AddToClassList(_ussCommonTextSecondary);
 
-        Label power = new("Power: " + ability.GetPower().ToString());
+        Label power = new("Power: " + ability.GetPower());
         power.AddToClassList(_ussCommonTextSecondary);
 
-        Label cooldown = new("Cooldown: " + ability.GetCooldown().ToString());
+        Label cooldown = new("Cooldown: " + ability.GetCooldown());
         cooldown.AddToClassList(_ussCommonTextSecondary);
 
-        Label scale = new("Scale: " + ability.GetScale().ToString());
+        Label scale = new("Scale: " + ability.GetScale());
         scale.AddToClassList(_ussCommonTextSecondary);
 
         Add(container);

@@ -27,14 +27,14 @@ public class RewardAbility : Reward
 
     public Ability GetValidAbility()
     {
-        // TODO: possibly error if no abilities to choose from
         List<Ability> abilities = new(_gameManager.HeroDatabase.GetAllAbilities());
         if (_hero.Abilities.Count == 4) // only 4 ability buttons
             abilities = new(_hero.Abilities);
-        foreach (Ability a in abilities)
-            if (a.IsMaxLevel())
-                abilities.Remove(a);
+        for (int i = abilities.Count - 1; i >= 0; i--)
+            if (!abilities[i].HasMoreUpgrades())
+                abilities.Remove(abilities[i]);
 
+        // TODO: possibly error if no abilities to choose from
         if (abilities.Count == 0)
         {
             Debug.LogError("Reward - no abilities to choose from");

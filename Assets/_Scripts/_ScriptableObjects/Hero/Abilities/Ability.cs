@@ -65,9 +65,9 @@ public class Ability : BaseScriptableObject
         return Levels[Level].Scale * _battleScaleMultiplier;
     }
 
-    public bool IsMaxLevel()
+    public bool HasMoreUpgrades()
     {
-        return Level == Levels.Count - 1;
+        return Level < Levels.Count - 1;
     }
 
     public void IncreaseKillCount() { KillCount++; }

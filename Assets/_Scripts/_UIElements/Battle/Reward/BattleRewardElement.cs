@@ -28,6 +28,8 @@ public class BattleRewardElement : VisualElement
     RerollButton _rerollButton;
     ContinueButton _continueButton;
 
+    int _numberOfRewards = 3;
+
     public event Action OnRewardSelected;
     public event Action OnContinueClicked;
 
@@ -107,7 +109,7 @@ public class BattleRewardElement : VisualElement
         Add(_rewardContainer);
 
         _hiddenCards = new();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < _numberOfRewards; i++)
         {
             RewardCard card = CreateRewardCardGold();
             _hiddenCards.Add(card);
@@ -126,7 +128,7 @@ public class BattleRewardElement : VisualElement
         schedule.Execute(() =>
         {
             CreateRewardCards();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < _numberOfRewards; i++)
             {
                 RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
                 _allRewardCards.Remove(card);
@@ -182,24 +184,23 @@ public class BattleRewardElement : VisualElement
         // Tutorial - forcing a specific reward
         if (_gameManager.PlayerHero.Level.Value == 2)
         {
-            _allRewardCards.Add(CreateRewardCardAbility());
-            _allRewardCards.Add(CreateRewardCardAbility());
-            _allRewardCards.Add(CreateRewardCardAbility());
+            for (int i = 0; i < _numberOfRewards; i++)
+                _allRewardCards.Add(CreateRewardCardAbility());
             return;
         }
 
+        _allRewardCards.Clear();
         // _allRewardCards.Add(CreateRewardCardItem());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
         _allRewardCards.Add(CreateRewardCardArmy());
         _allRewardCards.Add(CreateRewardCardObstacle());
         _allRewardCards.Add(CreateRewardCardTurret());
-
     }
 
     void ChooseRewardCards()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < _numberOfRewards; i++)
         {
             RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
             _allRewardCards.Remove(card);
@@ -221,7 +222,8 @@ public class BattleRewardElement : VisualElement
         RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
         reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
-        return new RewardCardAbility(reward);
+        RewardCardAbility card = new(reward);
+        return card;
     }
 
     RewardCard CreateRewardCardGold()
@@ -229,7 +231,8 @@ public class BattleRewardElement : VisualElement
         RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
         reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
-        return new RewardCardGold(reward);
+        RewardCardGold card = new(reward);
+        return card;
     }
 
     RewardCard CreateRewardCardArmy()
