@@ -18,6 +18,9 @@ public class BattleLivesElement : ElementWithTooltip
 
     Label _icon;
     Label _text;
+
+    Tween _shakeTween;
+
     public BattleLivesElement()
     {
         _gameManager = GameManager.Instance;
@@ -50,10 +53,13 @@ public class BattleLivesElement : ElementWithTooltip
 
     void UpdateText(int _)
     {
-        DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x,
-            0.5f, 5f).SetUpdate(true);
-
         _text.text = $"{_battleSpire.Spire.StoreyLives.CurrentLives.Value} / {_battleSpire.Spire.StoreyLives.MaxLivesTree.CurrentValue.Value}";
+
+        if (_shakeTween.IsActive()) return;
+
+        _shakeTween = DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x,
+             0.5f, 5f).SetUpdate(true);
+
     }
 
     protected override void DisplayTooltip()

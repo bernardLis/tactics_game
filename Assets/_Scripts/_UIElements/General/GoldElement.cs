@@ -17,6 +17,8 @@ public class GoldElement : ChangingValueElement
     GameManager _gameManager;
     VisualElement _icon;
 
+    Tween _shakeTween;
+
     public GoldElement(int amount)
     {
         _gameManager = GameManager.Instance;
@@ -49,9 +51,10 @@ public class GoldElement : ChangingValueElement
     public override void ChangeAmount(int newValue)
     {
         base.ChangeAmount(newValue);
-        DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x,
-            0.5f, 5f).SetUpdate(true);
+        if (_shakeTween.IsActive()) return;
 
+        _shakeTween = DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x, 0.5f, 5f)
+                  .SetUpdate(true);
     }
 
     protected override void NumberAnimation()

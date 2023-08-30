@@ -38,10 +38,10 @@ public class Creature : Entity
     {
         base.InitializeBattle(hero);
 
-        Experience = ScriptableObject.CreateInstance<IntVariable>();
+        Experience = CreateInstance<IntVariable>();
         Experience.SetValue(0);
 
-        ExpForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
+        ExpForNextLevel = CreateInstance<IntVariable>();
         ExpForNextLevel.SetValue(GetExpForNextLevel());
 
         OldKillCount = TotalKillCount;
@@ -97,8 +97,8 @@ public class Creature : Entity
     {
         // TODO: math
         float exponent = 3f;
-        float multiplier = 0.8f;
-        int baseExp = 100;
+        float multiplier = 0.4f;
+        int baseExp = 50;
 
         int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level, exponent));
         result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
