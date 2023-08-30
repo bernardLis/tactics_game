@@ -10,6 +10,10 @@ public class BattleStatsElement : VisualElement
     const string _ussClassName = "battle-stats__";
     const string _ussMain = _ussClassName + "main";
     const string _ussPanel = _ussClassName + "panel";
+
+
+    const string _ussCreatureContainer = _ussClassName + "creature-container";
+    const string _ussCreatureLabel = _ussClassName + "creature-label";
     const string _ussCreatureIcon = _ussClassName + "creature-icon";
 
     GameManager _gameManager;
@@ -138,11 +142,15 @@ public class BattleStatsElement : VisualElement
     void AddCreatureKills()
     {
         VisualElement container = new();
-        Label text = new("Creatures defeated:");
-        container.Add(text);
+        container.AddToClassList(_ussCreatureContainer);
         _rightPanel.Add(container);
 
+        Label text = new("Creatures defeated:");
+        text.AddToClassList(_ussCreatureLabel);
+        container.Add(text);
+
         VisualElement iconContainer = new();
+        iconContainer.style.flexWrap = Wrap.Wrap;
         iconContainer.style.flexDirection = FlexDirection.Row;
         container.Add(iconContainer);
 
