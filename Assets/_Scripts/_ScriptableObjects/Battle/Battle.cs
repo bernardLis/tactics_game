@@ -85,21 +85,22 @@ public class Battle : BaseScriptableObject
 
     public float GetWaveStartTime(Element element, int waveIndex)
     {
-        if (waveIndex == 0) return 30; // first wave starts at 30 seconds
+        if (waveIndex == 0) return 30; // first wave starts at 30 seconds (actually it starts when intro ends)
 
-        float startTime = waveIndex * Random.Range(40f, 60f);
+        float startTime = waveIndex * Random.Range(30f, 50f);
 
         // the wave can't start before the previous one of the same element ends
         foreach (BattleWave w in Waves)
             if (w.Element == element && w.GetPlannedEndTime() > startTime)
-                return w.GetPlannedEndTime() + 10;
+                return w.GetPlannedEndTime() + 5;
 
-        // the wave can't start later then middle of previous wave (of any element)
+        // the wave can't start later then quarter of previous wave (of any element)
         // HERE: I am not sure if it makes sense to have this
         // this could make everything above useless
-        float middleOfPreviousWave = (Waves[waveIndex - 1].StartTime + Waves[waveIndex - 1].GetPlannedEndTime()) * 0.5f;
+        float middleOfPreviousWave = (Waves[waveIndex - 1].StartTime + Waves[waveIndex - 1].GetPlannedEndTime())
+                 * 0.25f;
         if (startTime < middleOfPreviousWave)
-            return middleOfPreviousWave + Random.Range(0, 15f);
+            return middleOfPreviousWave + Random.Range(0, 10f);
 
         return startTime;
     }

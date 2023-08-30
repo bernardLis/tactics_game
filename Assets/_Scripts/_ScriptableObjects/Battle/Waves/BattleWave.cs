@@ -15,13 +15,9 @@ public class BattleWave : BaseScriptableObject
     public int CurrentGroupIndex;
     public float DelayBetweenGroups;
 
-    GameManager _gameManager;
-
     public event Action OnGroupSpawned;
     public void CreateWave(Element element, int difficulty, float startTime)
     {
-        _gameManager = GameManager.Instance;
-
         Element = element;
         Difficulty = difficulty;
         StartTime = startTime;
@@ -36,11 +32,11 @@ public class BattleWave : BaseScriptableObject
         // TODO: math for wave difficulty
 
         // HERE: waves
-        DelayBetweenGroups = Random.Range(10, 20) - difficulty;
-        int numberOfGroups = 4 + difficulty;
+        DelayBetweenGroups = Random.Range(7, 15) - difficulty;
+        int numberOfGroups = Random.Range(3, 6);
         for (int i = 0; i < numberOfGroups; i++)
         {
-            int numberOfMinions = 2 + (difficulty * i);
+            int numberOfMinions = 2 + Mathf.FloorToInt(difficulty * i * 1.5f);
             int numberOfCreatures = GetNumberOfCreatures(i, numberOfGroups, difficulty);
             Vector2Int minionLevelRange = new Vector2Int(difficulty, difficulty + 5);
             Vector2Int creatureLevelRange = new Vector2Int(1, difficulty - 1);
@@ -55,10 +51,8 @@ public class BattleWave : BaseScriptableObject
 
     int GetNumberOfCreatures(int i, int numberOfGroups, int difficulty)
     {
-        if (i != numberOfGroups - 1) return 0;
-        if (difficulty < 2) return 0;
-
-        return 1;
+        if (i != numberOfGroups - 1) return 0; // only last group has a creature
+        return Mathf.FloorToInt(difficulty * 0.5f);
     }
 
     public float GetPlannedEndTime()
