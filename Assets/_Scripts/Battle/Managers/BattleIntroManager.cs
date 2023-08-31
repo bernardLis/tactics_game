@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class BattleIntroManager : Singleton<BattleIntroManager>
 {
+    BattleManager _battleManager;
     BattleInputManager _battleInputManager;
 
     [SerializeField] Sound _introVO;
@@ -20,16 +21,21 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
 
     int _currentLookAtIndex = 0;
 
+    TextPrintingElement _introTextElement;
+
     public event Action OnIntroFinished;
 
     void Start()
     {
-        _battleInputManager = BattleManager.Instance.GetComponent<BattleInputManager>();
+        _battleManager = BattleManager.Instance;
+        _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
         _battleInputManager.OnContinueClicked += SkipIntro;
 
         _introCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         _dollyCart = GetComponentInChildren<CinemachineDollyCart>();
 
+        _introTextElement = new("You wake up confused. You have a feeling that your fate is connected to the structure in the middle. For some reason you think if you survive 10 minutes you will win and if enough enemies reach the middle you will lose. You don’t know where you are but you feel bad vibes from portals in the map corners. It is you and your trusty creature against this foreign place. Now spawn your creature and good luck.", 30f);
+        _battleManager.Root.Add(_introTextElement);
         StartCoroutine(CameraIntroCoroutine());
         StartCoroutine(PlayIntroVO());
     }
@@ -73,6 +79,8 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
 
     void FinishIntro()
     {
+        _battleManager.Root.Remove(_introTextElement);
+
         _mainCamera.gameObject.SetActive(true);
         _introCamera.gameObject.SetActive(false);
         BattleCameraManager.Instance.enabled = true;

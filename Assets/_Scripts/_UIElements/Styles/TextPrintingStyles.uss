@@ -1,0 +1,10 @@
+.text-printing__main {
+    width: 80%;
+    height: 20%;
+    margin-left: 10%;
+    position: absolute;
+    bottom: 5%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 50px;
+}
