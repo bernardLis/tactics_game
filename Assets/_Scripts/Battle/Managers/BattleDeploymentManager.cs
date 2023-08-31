@@ -10,6 +10,7 @@ public class BattleDeploymentManager : MonoBehaviour
     GameManager _gameManager;
     PlayerInput _playerInput;
     BattleManager _battleManager;
+    BattleTooltipManager _tooltipManager;
 
     [SerializeField] GameObject _creatureSpawnerPrefab;
     [SerializeField] GameObject _obstaclePrefab;
@@ -20,7 +21,7 @@ public class BattleDeploymentManager : MonoBehaviour
     BattleTurret _battleTurret;
 
     VisualElement _topPanel;
-    Label _tooltipText;
+    //Label _tooltipText;
 
     int _floorLayerMask;
     bool _wasDeployed;
@@ -36,6 +37,7 @@ public class BattleDeploymentManager : MonoBehaviour
         _floorLayerMask = LayerMask.GetMask("Floor");
 
         _battleManager = BattleManager.Instance;
+        _tooltipManager = BattleTooltipManager.Instance;
 
         _topPanel = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("topPanel");
     }
@@ -126,11 +128,14 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void ShowTooltip(string text)
     {
+        _tooltipManager.ShowInfo(new BattleInfoElement(text), true);
+        /*
         _tooltipText = new(text);
         _tooltipText.AddToClassList("common__text-primary");
         _tooltipText.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
         _tooltipText.style.fontSize = 24;
         _topPanel.Add(_tooltipText);
+        */
     }
 
     IEnumerator UpdateObjectPosition()
@@ -153,8 +158,9 @@ public class BattleDeploymentManager : MonoBehaviour
         if (!_battleManager.IsTimerOn) return;
         if (_deployedObjectInstance == null) return;
 
-        if (_tooltipText.parent != null)
-            _topPanel.Remove(_tooltipText);
+        _tooltipManager.RemoveInfoPriority();
+        // if (_tooltipText.parent != null)
+        //       _topPanel.Remove(_tooltipText);
 
         Deploy();
     }

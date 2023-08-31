@@ -69,6 +69,6 @@ public enum StyleSheetType
 
     TurretIconStyles, TurretCardStyles, GraveCardStyles, BattleWaveCardStyles,
     OpponentGroupMarkerStyles, OpponentPortalCardStyles,
-    BattleStatsStyles, BattleLivesStyles
+    BattleStatsStyles, BattleLivesStyles, BattleInfoStyles
 
 }

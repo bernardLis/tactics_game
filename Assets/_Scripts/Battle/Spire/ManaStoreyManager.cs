@@ -77,7 +77,7 @@ public class ManaStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnt
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Click for mana shrine upgrades");
+        _tooltipManager.ShowInfo(new BattleInfoElement("Mana Shrine Upgrades"));
     }
 
     public void OnPointerExit(PointerEventData eventData)

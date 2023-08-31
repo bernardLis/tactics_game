@@ -26,7 +26,7 @@ public class LivesStoreyManager : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Click for lives upgrades");
+        _tooltipManager.ShowInfo(new BattleInfoElement("Lives Upgrades"));
         _battleSpireLight.PauseLight();
     }
 

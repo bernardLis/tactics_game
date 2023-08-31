@@ -16,6 +16,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     VisualElement _currentTooltip;
     public GameObject CurrentTooltipDisplayer { get; private set; }
 
+    bool _isPrioritizedInfoShown;
+
     public event Action OnTooltipHidden;
     void Start()
     {
@@ -35,6 +37,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void ShowInfo(BattleEntity entity)
     {
+        if (_isPrioritizedInfoShown) return;
+
         if (entity.IsDead) return;
 
         _topContainer.Clear();
@@ -46,6 +50,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void ShowInfo(string text)
     {
+        if (_isPrioritizedInfoShown) return;
+
         _topContainer.Clear();
         _topContainer.style.display = DisplayStyle.Flex;
         Label txt = new(text);
@@ -53,6 +59,22 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         txt.style.fontSize = 32;
 
         _topContainer.Add(txt);
+    }
+
+    public void ShowInfo(VisualElement element, bool priority = false)
+    {
+        if (_isPrioritizedInfoShown) return;
+        _isPrioritizedInfoShown = priority;
+
+        _topContainer.Clear();
+        _topContainer.style.display = DisplayStyle.Flex;
+
+        _topContainer.Add(element);
+    }
+
+    public void RemoveInfoPriority()
+    {
+        _isPrioritizedInfoShown = false;
     }
 
     public void ShowInfo(string text, float duration)

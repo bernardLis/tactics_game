@@ -73,7 +73,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void Grabbed()
     {
-        _tooltipManager.ShowInfo("Press 'R' to rotate");
+        _tooltipManager.ShowInfo(new BattleInfoElement("Rotate", true));
 
         if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
         StartCoroutine(GrabBreaker());

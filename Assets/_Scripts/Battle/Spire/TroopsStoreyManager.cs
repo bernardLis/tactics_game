@@ -27,7 +27,7 @@ public class TroopsStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Click for troops upgrades");
+        _tooltipManager.ShowInfo(new BattleInfoElement("Troops Upgrades"));
         _battleSpireLight.PauseLight();
 
     }

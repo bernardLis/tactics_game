@@ -163,7 +163,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.ShowInfo($"Click for details.");
+        _tooltipManager.ShowInfo(new BattleInfoElement("Details"));
     }
 
     public void OnPointerExit(PointerEventData eventData)
