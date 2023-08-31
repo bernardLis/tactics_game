@@ -22,6 +22,7 @@ public class HeroCreation : MonoBehaviour
     VisualElement _background;
 
     VisualElement _wrapper;
+    VisualElement _nameContainer;
     TextField _nameField;
 
     VisualElement _portraitContainer;
@@ -54,6 +55,7 @@ public class HeroCreation : MonoBehaviour
         _background = _root.Q<VisualElement>("background");
 
         _wrapper = _root.Q<VisualElement>("wrapper");
+        _nameContainer = _root.Q<VisualElement>("nameContainer");
         _nameField = _root.Q<TextField>("nameField");
 
         _portraitContainer = _root.Q<VisualElement>("portraitGroupContainer");
@@ -70,17 +72,17 @@ public class HeroCreation : MonoBehaviour
                 .PlayEffectWithName("TwinklingStarEffect", Vector3.zero, Vector3.one);
 
         // HERE: testing
-        _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
-        Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
-                 _chosenElement);
-        _gameManager.PlayerHero = newChar;
-        StartGame();
+        // _chosenElement = _gameManager.HeroDatabase.GetRandomElement();
+        // Hero newChar = ScriptableObject.CreateInstance<Hero>();
+        // newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
+        //          _chosenElement);
+        // _gameManager.PlayerHero = newChar;
+        // StartGame();
 
-        // NameFieldSetup();
-        // PortraitSetup();
-        // CreatePortraitButtons();
-        // NameCutsceneFinished(null);
+        NameFieldSetup();
+        PortraitSetup();
+        CreatePortraitButtons();
+        NameCutsceneFinished(null);
 
     }
 
@@ -93,7 +95,7 @@ public class HeroCreation : MonoBehaviour
     void NameCutsceneFinished(Cutscene c)
     {
         // _cutsceneManager.OnCutsceneFinished -= NameCutsceneFinished;
-
+        _nameContainer.style.display = DisplayStyle.Flex;
         _nameField.style.display = DisplayStyle.Flex;
         _background.BringToFront();
         _submitButton = new("Submit", _ussCommonMenuButton, () =>
@@ -102,13 +104,13 @@ public class HeroCreation : MonoBehaviour
             newChar.HeroName = _nameField.value;
             _gameManager.PlayerHero = newChar;
 
-            _nameField.style.display = DisplayStyle.None;
-            _wrapper.Remove(_submitButton);
+            _nameContainer.style.display = DisplayStyle.None;
+            _nameContainer.Remove(_submitButton);
             LooksCutsceneFinished(null);
             // _cutsceneManager.PlayCutscene(_looksCutscene);
             // _cutsceneManager.OnCutsceneFinished += LooksCutsceneFinished;
         });
-        _wrapper.Add(_submitButton);
+        _nameContainer.Add(_submitButton);
     }
 
     void LooksCutsceneFinished(Cutscene c)

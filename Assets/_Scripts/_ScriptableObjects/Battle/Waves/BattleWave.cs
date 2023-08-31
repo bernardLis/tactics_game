@@ -38,8 +38,8 @@ public class BattleWave : BaseScriptableObject
         {
             int numberOfMinions = 2 + Mathf.FloorToInt(difficulty * i * 1.5f);
             int numberOfCreatures = GetNumberOfCreatures(i, numberOfGroups, difficulty);
-            Vector2Int minionLevelRange = new Vector2Int(difficulty, difficulty + 5);
-            Vector2Int creatureLevelRange = new Vector2Int(1, difficulty - 1);
+            Vector2Int minionLevelRange = new Vector2Int(1, difficulty + 1);
+            Vector2Int creatureLevelRange = new Vector2Int(1, 2);
 
             //  Debug.Log($"group: difficulty {difficulty}, group number {i}, minions {numberOfMinions}, creatures {numberOfCreatures}, delay {DelayBetweenGroups}");
 
@@ -52,7 +52,10 @@ public class BattleWave : BaseScriptableObject
     int GetNumberOfCreatures(int i, int numberOfGroups, int difficulty)
     {
         if (i != numberOfGroups - 1) return 0; // only last group has a creature
-        return Mathf.FloorToInt(difficulty * 0.5f);
+        if (difficulty == 1) return 0;
+        if (difficulty == 2 || difficulty == 3 || difficulty == 4) return 1;
+        if (difficulty == 5 || difficulty == 6 || difficulty == 7) return 2;
+        return 3;
     }
 
     public float GetPlannedEndTime()

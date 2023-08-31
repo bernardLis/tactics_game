@@ -73,7 +73,8 @@ public class BattleManager : Singleton<BattleManager>
 
     void Start()
     {
-        VFXCameraManager.Instance.gameObject.SetActive(false);
+        // HERE: render texture issue unity must resolve
+        // VFXCameraManager.Instance.gameObject.SetActive(false);
 
         _gameManager = GameManager.Instance;
         _gameManager.SaveJsonData();
@@ -128,7 +129,7 @@ public class BattleManager : Singleton<BattleManager>
     void PauseTimer()
     {
         if (this == null) return;
-        
+
         IsTimerOn = false;
         if (_timerCoroutine != null)
             StopCoroutine(_timerCoroutine);

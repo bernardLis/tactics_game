@@ -24,6 +24,9 @@ public class FireballExecutor : AbilityExecutor
         Debug.Log($"Executing fireball on {_entitiesInArea.Count}");
         foreach (BattleEntity entity in _entitiesInArea)
         {
+            if (entity.IsDead) continue;
+            if (entity == null) continue;
+
             _damageDealt += Mathf.RoundToInt(entity.Entity.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
         }

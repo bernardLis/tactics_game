@@ -13,11 +13,14 @@ public class ThunderExecutor : AbilityExecutor
     }
 
     protected override IEnumerator ExecuteAbilityCoroutine()
-    {
+{
         Debug.Log($"Executing thunder on {_entitiesInArea.Count}");
         List<GameObject> entityEffects = new();
         foreach (BattleEntity entity in _entitiesInArea)
         {
+            if (entity.IsDead) continue;
+            if (entity == null) continue;
+
             _damageDealt += Mathf.RoundToInt(entity.Entity.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
             Vector3 pos = new Vector3(entity.transform.position.x, 0, entity.transform.position.z);

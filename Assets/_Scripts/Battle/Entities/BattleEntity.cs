@@ -126,6 +126,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void StartRunEntityCoroutine()
     {
+        if (IsDead) return;
+        
         StopRunEntityCoroutine();
         EntityLog.Add($"{_battleManager.GetTime()}: Start run entity coroutine is called");
 
@@ -192,6 +194,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void Disengage()
     {
+        if (IsDead) return;
+
         _isEngaged = false;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity disengages");
         StartRunEntityCoroutine();

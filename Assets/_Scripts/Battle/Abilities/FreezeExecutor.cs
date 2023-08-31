@@ -18,6 +18,9 @@ public class FreezeExecutor : AbilityExecutor
         List<GameObject> entityEffects = new();
         foreach (BattleEntity entity in _entitiesInArea)
         {
+            if (entity.IsDead) continue;
+            if (entity == null) continue;
+
             entity.StopRunEntityCoroutine();
             entity.GetComponentInChildren<Animator>().enabled = false;
             Vector3 pos = new Vector3(entity.transform.position.x, 0, entity.transform.position.z);
@@ -31,6 +34,9 @@ public class FreezeExecutor : AbilityExecutor
         yield return new WaitForSeconds(_selectedAbility.GetPower() + 0.2f);
         foreach (BattleEntity entity in _entitiesInArea)
         {
+            if (entity.IsDead) continue;
+            if (entity == null) continue;
+
             entity.GetComponentInChildren<Animator>().enabled = true;
             entity.StartRunEntityCoroutine();
         }

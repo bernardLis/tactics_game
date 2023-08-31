@@ -36,6 +36,18 @@ public class BattleCreatureBonding : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        if (_creature != null)
+            _creature.OnLevelUp -= OnLevelUp;
+    }
+
+    void OnDestroy()
+    {
+        if (_creature != null)
+            _creature.OnLevelUp -= OnLevelUp;
+    }
+
     void OnLevelUp()
     {
         if (_creature.Level == 3) // name change

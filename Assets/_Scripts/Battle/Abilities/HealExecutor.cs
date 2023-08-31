@@ -14,7 +14,7 @@ public class HealExecutor : AbilityExecutor
         foreach (ParticleSystem ps in _effectInstance.GetComponentsInChildren<ParticleSystem>())
         {
             var burst = ps.emission.GetBurst(0);
-            burst.count = ability.Level * 2;
+            burst.count = 1 + ability.Level * 2;
             ps.emission.SetBurst(0, burst);
         }
     }
@@ -22,7 +22,12 @@ public class HealExecutor : AbilityExecutor
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
         foreach (BattleEntity entity in _entitiesInArea)
+        {
+            if (entity.IsDead) continue;
+            if (entity == null) continue;
+            
             _damageDealt += entity.GetHealed(_selectedAbility);
+        }
 
         yield return new WaitForSeconds(3f);
         CancelAbility();
