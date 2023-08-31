@@ -140,9 +140,10 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput.actions["Rotate"].performed -= RotateObject;
     }
 
-    public void TryGrabbing(GameObject obj, float yPosition = 0f)
+    // returns true if successful
+    public bool TryGrabbing(GameObject obj, float yPosition = 0f)
     {
-        if (!IsGrabbingAllowed()) return;
+        if (!IsGrabbingAllowed()) return false;
 
         _objectYPosition = obj.transform.position.y;
         if (yPosition != 0f)
@@ -156,6 +157,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             g.Grabbed();
 
         StartCoroutine(UpdateGrabbedObjectPosition());
+        return true;
     }
 
     IEnumerator UpdateGrabbedObjectPosition()
