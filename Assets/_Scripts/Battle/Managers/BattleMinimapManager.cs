@@ -29,6 +29,7 @@ public class BattleMinimapManager : MonoBehaviour
     VisualElement _cameraIcon;
 
     Dictionary<Transform, VisualElement> _entityIcons = new();
+    List<Transform> _keysToRemove = new();
 
     void Start()
     {
@@ -148,8 +149,7 @@ public class BattleMinimapManager : MonoBehaviour
     {
         while (true)
         {
-            Dictionary<Transform, VisualElement> copy = new(_entityIcons);
-            foreach (KeyValuePair<Transform, VisualElement> kvp in copy)
+            foreach (KeyValuePair<Transform, VisualElement> kvp in _entityIcons)
             {
                 if (kvp.Key == null) continue;
                 Vector2 pos = new(kvp.Key.position.x, kvp.Key.position.z);
@@ -159,6 +159,17 @@ public class BattleMinimapManager : MonoBehaviour
                 kvp.Value.style.top = miniMapPosition.x;
                 kvp.Value.style.left = miniMapPosition.y;
             }
+
+            foreach (Transform key in _keysToRemove)
+            {
+                if (_entityIcons.ContainsKey(key))
+                {
+                    _minimap.Remove(_entityIcons[key]);
+                    _entityIcons.Remove(key);
+                }
+            }
+
+            _keysToRemove.Clear();
 
             UpdateCameraIconPosition();
             UpdateCameraIconRotation();
@@ -241,14 +252,12 @@ public class BattleMinimapManager : MonoBehaviour
 
     void RemoveEntity(BattleEntity be)
     {
-        if (be is not BattleCreature bc) return;
+        if (be is not BattleCreature) return;
         if (!_entityIcons.ContainsKey(be.transform))
         {
             Debug.LogError("Entity does not exist in minimap");
             return;
         }
-        _minimap.Remove(_entityIcons[be.transform]);
-        _entityIcons.Remove(be.transform);
     }
 
     void AddTurret(BattleTurret turret)

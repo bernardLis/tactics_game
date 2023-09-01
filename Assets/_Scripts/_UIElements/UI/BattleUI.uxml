@@ -43,7 +43,7 @@
         <ui:VisualElement name="abilityContainer" class="battle__ability-container" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); opacity: 0;" />
     </ui:VisualElement>
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
-    <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px;" />
+    <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px; display: none;" />
     <ui:VisualElement name="controlGuideContainer" style="flex-grow: 1; position: absolute; left: auto; right: 20px; bottom: 50%; width: 150px; opacity: 0;">
         <ui:VisualElement name="cameraMoveGuide" style="flex-grow: 1; flex-direction: row; height: 70px;">
             <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/Sprites/Key%20Guide/Keyboard%20and%20Mouse/W_Key_Light.png?fileID=2800000&amp;guid=c0e9bbecc034a0949b49883c28fcbbeb&amp;type=3#W_Key_Light&apos;); width: 25px; height: 25px; position: absolute; top: 0; left: 30px;" />
