@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fire Turret 2
   m_EditorClassIdentifier: 
   Id: ea18f309-5874-4c55-b5ba-fb328c16207f
-  Cost: 200
+  Cost: 400
   Range: 12
-  Power: 7
+  Power: 12
   RateOfFire: 3
   GFXPrefab: {fileID: 1865379716769745145, guid: d00c89d23b1608f40906d55540fe76bc, type: 3}

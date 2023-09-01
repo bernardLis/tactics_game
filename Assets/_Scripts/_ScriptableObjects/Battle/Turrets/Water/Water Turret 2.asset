@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Water Turret 2
   m_EditorClassIdentifier: 
   Id: 920c9b15-4615-4528-8847-0f5021ef8bdb
-  Cost: 200
+  Cost: 400
   Range: 10
-  Power: 8
+  Power: 14
   RateOfFire: 4
   GFXPrefab: {fileID: 1865379716769745145, guid: 827a9075597510e4381b278443aecaaa, type: 3}

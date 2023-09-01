@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Wind Turret 0
   m_EditorClassIdentifier: 
   Id: 96b70a37-811d-46d3-931a-563b5c1eac00
+  Cost: 0
   Range: 5
-  Power: 2
+  Power: 5
   RateOfFire: 2
   GFXPrefab: {fileID: 1865379716769745145, guid: 658699968cba0ad48a1f7870ad5a306e, type: 3}

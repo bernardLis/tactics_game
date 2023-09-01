@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Earth Turret 3
   m_EditorClassIdentifier: 
   Id: 484a07d6-ca59-4dec-bd04-c4734150bf7e
-  Cost: 200
+  Cost: 600
   Range: 9
-  Power: 20
+  Power: 25
   RateOfFire: 5
   GFXPrefab: {fileID: 1865379716769745145, guid: 051e37010f66bcd46984ce3d26fa7fa0, type: 3}

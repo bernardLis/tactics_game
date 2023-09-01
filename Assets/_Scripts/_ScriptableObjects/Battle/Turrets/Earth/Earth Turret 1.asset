@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: cd3cc1f0-08f9-4d40-9b3c-f1701e85e05f
   Cost: 200
   Range: 5
-  Power: 15
+  Power: 20
   RateOfFire: 6
   GFXPrefab: {fileID: 1865379716769745145, guid: 6d089fcc5206fb448be90bf564187efa, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Common Mana
   m_EditorClassIdentifier: 
   Id: 38cd7a4a-f447-407b-9dba-faf9d1ce912e
-  LootChance: 10
+  LootChance: 5
   PrefabColor: {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
   DisplayColor: {fileID: 11400000, guid: 474f053f103707c41917108b8bb11751, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}
@@ -21,5 +21,5 @@ MonoBehaviour:
   ClickEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   CollectSound: {fileID: 11400000, guid: dd58494d86697664683e0a4f7f581bc2, type: 2}
-  ManaRange: {x: 1, y: 4}
+  ManaRange: {x: 5, y: 10}
   Mana: 0

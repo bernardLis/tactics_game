@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class CommandLineManager : MonoBehaviour
 {
@@ -107,7 +108,17 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.PlayerHero.LevelUpReady();
         if (_commandTextField.text.ToLower() == "dragon")
             LevelUpCreatures();
+        if (_commandTextField.text.ToLower() == "tween")
+            DoTweenSeeAllTweens();
 
+    }
+
+    void DoTweenSeeAllTweens()
+    {
+        foreach (Tween tween in DOTween.PlayingTweens())
+        {
+            Debug.Log($"{tween} is tweening | tween target: {tween.target}");
+        }
     }
 
     void LevelUpCreatures()

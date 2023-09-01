@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Wind Turret 2
   m_EditorClassIdentifier: 
   Id: 7430ead4-223d-4c33-9bb9-33c74a116003
-  Cost: 200
+  Cost: 400
   Range: 10
-  Power: 5
+  Power: 12
   RateOfFire: 1
   GFXPrefab: {fileID: 1865379716769745145, guid: ff9f7f06ca147474da2411ef8ad63fba, type: 3}

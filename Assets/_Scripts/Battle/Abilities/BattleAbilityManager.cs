@@ -216,6 +216,7 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
         if (_selectedAbility == null) return;
 
         _abilityExecutor.ExecuteAbility(_selectedAbility);
+        if (_selectedAbility == null) return; // hmm... something seems to break when level up is caused by ability maybe this will help?
         _hero.CurrentMana.ApplyChange(-_selectedAbility.GetManaCost());
         _selectedAbility.StartCooldown();
         CleanUp();

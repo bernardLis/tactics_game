@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rare Mana
   m_EditorClassIdentifier: 
   Id: 706d8aec-8461-4b7e-95b9-d9af322fd3b7
-  LootChance: 3
+  LootChance: 1.5
   PrefabColor: {fileID: 11400000, guid: 713d618788e2864488ff113adcf64812, type: 2}
   DisplayColor: {fileID: 11400000, guid: 474f053f103707c41917108b8bb11751, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}

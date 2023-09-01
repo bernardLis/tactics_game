@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Earth Turret 0
   m_EditorClassIdentifier: 
   Id: 750ec7f8-51e7-4273-8cd9-5d5941bf3de3
+  Cost: 0
   Range: 5
-  Power: 10
+  Power: 15
   RateOfFire: 6
   GFXPrefab: {fileID: 1865379716769745145, guid: 2de723e394ec0af488235c3d616d138d, type: 3}

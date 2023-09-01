@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Epic Mana
   m_EditorClassIdentifier: 
   Id: af45de65-9be6-4bf3-b15b-f10d2c5fe2b4
-  LootChance: 1
+  LootChance: 0.5
   PrefabColor: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
   DisplayColor: {fileID: 11400000, guid: 474f053f103707c41917108b8bb11751, type: 2}
   Prefab: {fileID: 2030130713399812887, guid: 425007d7bbde680469d1cf9d5e35f39f, type: 3}

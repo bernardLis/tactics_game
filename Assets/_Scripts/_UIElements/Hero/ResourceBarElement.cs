@@ -83,7 +83,7 @@ public class ResourceBarElement : ElementWithTooltip
     public void UpdateTrackedVariables(IntVariable current, IntVariable total)
     {
         UnsubscribeFromValueChanges(default);
-        
+
         _currentInt = current;
         _displayedAmount = _currentInt.Value;
         current.OnValueChanged += OnValueChanged;
@@ -128,7 +128,8 @@ public class ResourceBarElement : ElementWithTooltip
         if (change == 0)
             return;
 
-        Helpers.DisplayTextOnElement(null, this, $"{change}", _color);
+        if (this != null)
+            Helpers.DisplayTextOnElement(null, this, $"{change}", _color);
 
         if (_animation != null)
         {
