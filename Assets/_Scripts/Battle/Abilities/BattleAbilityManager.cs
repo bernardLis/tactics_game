@@ -13,6 +13,7 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
 
     GameManager _gameManager;
     AudioManager _audioManager;
+    BattleManager _battleManager;
     BattleGrabManager _battleGrabManager;
     BattleDeploymentManager _playerArmyDeployer;
 
@@ -53,8 +54,10 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
 
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
+        _battleManager = BattleManager.Instance;
 
-        BattleManager.Instance.OnBattleFinalized += CancelAbility;
+        _battleManager.OnBattleFinalized += CancelAbility;
+        _battleManager.OnGamePaused += CancelAbility;
         _battleGrabManager = GetComponent<BattleGrabManager>();
 
         _root = GetComponent<UIDocument>().rootVisualElement;

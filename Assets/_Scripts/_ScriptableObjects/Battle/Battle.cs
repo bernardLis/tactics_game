@@ -14,7 +14,7 @@ public class Battle : BaseScriptableObject
 
     public Spire Spire;
 
-    public int Duration = 600; // seconds
+    public int Duration = 900; // seconds
 
     // modifiers
     public float CreatureSpeedMultiplier = 1f;
@@ -48,7 +48,7 @@ public class Battle : BaseScriptableObject
     public void CreateWaves()
     {
         List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 24; i++)
         {
             if (availableElements.Count == 0)
                 availableElements = new(_gameManager.HeroDatabase.GetAllElements());

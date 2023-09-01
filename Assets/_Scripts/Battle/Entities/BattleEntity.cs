@@ -127,7 +127,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public void StartRunEntityCoroutine()
     {
         if (IsDead) return;
-        
+
         StopRunEntityCoroutine();
         EntityLog.Add($"{_battleManager.GetTime()}: Start run entity coroutine is called");
 
@@ -224,6 +224,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public virtual IEnumerator GetHit(Ability ability)
     {
         if (IsDead) yield break;
+        if (_battleManager == null) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {ability.name}");
 
         BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Color);
