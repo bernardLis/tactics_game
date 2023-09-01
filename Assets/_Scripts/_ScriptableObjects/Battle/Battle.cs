@@ -65,10 +65,7 @@ public class Battle : BaseScriptableObject
 
         foreach (BattleWave w in Waves)
         {
-            Debug.Log(@$"wave: {w.Element} |
-              diff {w.Difficulty} |
-              start time {w.StartTime} | 
-              planned end time {w.GetPlannedEndTime()}");
+            Debug.Log($"wave: {w.Element} | diff {w.Difficulty} | start time {w.StartTime} | planned end time {w.GetPlannedEndTime()}");
         }
     }
 

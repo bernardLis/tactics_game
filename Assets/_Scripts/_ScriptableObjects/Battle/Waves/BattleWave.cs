@@ -52,7 +52,9 @@ public class BattleWave : BaseScriptableObject
     int GetNumberOfCreatures(int i, int numberOfGroups, int difficulty)
     {
         if (i != numberOfGroups - 1) return 0; // only last group has a creature
+
         if (difficulty == 1) return 0;
+        
         if (difficulty == 2 || difficulty == 3 || difficulty == 4) return 1;
         if (difficulty == 5 || difficulty == 6 || difficulty == 7) return 2;
         return 3;

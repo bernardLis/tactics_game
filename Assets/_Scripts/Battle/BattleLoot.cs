@@ -76,7 +76,7 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
         if (!CanBeCollected()) return;
-        
+
         _isCollected = true;
 
         DisplayFloatingText(Loot.GetDisplayText(), Loot.DisplayColor.Color);
@@ -115,7 +115,7 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     bool CanBeCollected()
     {
-        if (_grabManager.IsGrabbingEnabled) return false;
+        // if (_grabManager.IsGrabbingEnabled) return false;
         if (_abilityManager.IsAbilitySelected) return false;
         if (_isCollected) return false;
 

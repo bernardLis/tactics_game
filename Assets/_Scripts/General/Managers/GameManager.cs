@@ -56,7 +56,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log($"Game manager Awake {gameObject.GetInstanceID()}");
+        Debug.Log($"Game manager Awake");
 
         // Services();
     }
