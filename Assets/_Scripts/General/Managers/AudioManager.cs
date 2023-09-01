@@ -142,11 +142,13 @@ public class AudioManager : Singleton<AudioManager>
                 .WaitForCompletion();
     }
 
-    public void PlayDialogue(Sound sound)
+    public AudioSource PlayDialogue(Sound sound)
     {
         _dialogueAudioSource.pitch = sound.Pitch;
         _dialogueAudioSource.volume = sound.Volume;
         sound.Play(_dialogueAudioSource);
+
+        return _dialogueAudioSource;
     }
 
     public void StopDialogue() { _dialogueAudioSource.Stop(); }

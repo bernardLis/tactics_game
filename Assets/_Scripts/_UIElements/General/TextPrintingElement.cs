@@ -1,7 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 using System.Threading.Tasks;
+using System;
+using System.Text.RegularExpressions;
 
 public class TextPrintingElement : VisualElement
 {
@@ -15,11 +18,16 @@ public class TextPrintingElement : VisualElement
     Label _textLabel;
 
     string _textToPrint;
+    float _durationMs;
+
     int _currentLetterIndex = 0;
-    int _letterDelay;
+
+    List<string> _sentencesToPrint = new();
+    int _currentSentenceIndex = 0;
 
     IVisualElementScheduledItem _textPrintingScheduler;
 
+    public event Action OnFinishedPrinting;
     public TextPrintingElement(string text, float durationSeconds)
     {
         _gameManager = GameManager.Instance;
@@ -38,15 +46,37 @@ public class TextPrintingElement : VisualElement
         _textLabel.style.whiteSpace = WhiteSpace.Normal;
         Add(_textLabel);
 
+        _durationMs = durationSeconds * 1000;
         _textToPrint = text;
-        _letterDelay = Mathf.RoundToInt(durationSeconds / text.Length * 1000);
-
-        PrintText();
     }
 
-    void PrintText()
+    public void PrintSentences()
     {
-        _textPrintingScheduler = schedule.Execute(AddLetter).Every(_letterDelay);
+        _sentencesToPrint = new();
+        string[] parts = Regex.Split(_textToPrint, @"(?<=[.!?])");
+        _sentencesToPrint.AddRange(parts);
+
+        int sentenceDelay = Mathf.RoundToInt(_durationMs / _sentencesToPrint.Count);
+        _textPrintingScheduler = schedule.Execute(AddSentence).Every(sentenceDelay);
+    }
+
+    void AddSentence()
+    {
+        _textLabel.text = _sentencesToPrint[_currentSentenceIndex];
+        _currentSentenceIndex++;
+
+        if (_currentSentenceIndex >= _sentencesToPrint.Count)
+        {
+            _textPrintingScheduler.Pause();
+            OnFinishedPrinting?.Invoke();
+            return;
+        }
+    }
+
+    public void PrintLetters()
+    {
+        int letterDelay = Mathf.RoundToInt(_durationMs / _textToPrint.Length);
+        _textPrintingScheduler = schedule.Execute(AddLetter).Every(letterDelay);
     }
 
     void AddLetter()
@@ -54,6 +84,7 @@ public class TextPrintingElement : VisualElement
         if (_currentLetterIndex >= _textToPrint.Length)
         {
             _textPrintingScheduler.Pause();
+            OnFinishedPrinting?.Invoke();
             return;
         }
 

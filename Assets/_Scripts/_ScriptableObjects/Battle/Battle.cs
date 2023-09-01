@@ -65,7 +65,10 @@ public class Battle : BaseScriptableObject
 
         foreach (BattleWave w in Waves)
         {
-            Debug.Log($"wave: {w.Element}, diff {w.Difficulty}, start time {w.StartTime}, planned end time {w.GetPlannedEndTime()}");
+            Debug.Log(@$"wave: {w.Element} |
+              diff {w.Difficulty} |
+              start time {w.StartTime} | 
+              planned end time {w.GetPlannedEndTime()}");
         }
     }
 
@@ -99,8 +102,6 @@ public class Battle : BaseScriptableObject
         for (int i = Waves.Count - 1; i >= 0; i--)
             if (Waves[i].Element == element && Waves[i].GetPlannedEndTime() > startTime)
                 return Waves[i].GetPlannedEndTime() + 5;
-
-        Debug.Log($"index: {waveIndex} | factor {factor} | previous wave planned end time {previousWave.GetPlannedEndTime()} | start time {startTime} |  ");
         return startTime;
     }
 

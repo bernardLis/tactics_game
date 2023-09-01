@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using System;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class BattleIntroManager : Singleton<BattleIntroManager>
 {
@@ -36,6 +37,17 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
 
         _introTextElement = new("You wake up confused. You have a feeling that your fate is connected to the structure in the middle. For some reason you think if you survive 10 minutes you will win and if enough enemies reach the middle you will lose. You don’t know where you are but you feel bad vibes from portals in the map corners. It is you and your trusty creature against this foreign place. Now spawn your creature and good luck.", 30f);
         _battleManager.Root.Add(_introTextElement);
+        _introTextElement.style.opacity = 0;
+        DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f);
+        _introTextElement.OnFinishedPrinting += () =>
+        {
+            DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f)
+                    .OnComplete(() =>
+                    {
+                        _battleManager.Root.Remove(_introTextElement);
+                    });
+        };
+
         StartCoroutine(CameraIntroCoroutine());
         StartCoroutine(PlayIntroVO());
     }
@@ -50,12 +62,16 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
         if (this == null) return;
         StopAllCoroutines();
         AudioManager.Instance.StopDialogue();
+        _battleManager.Root.Remove(_introTextElement);
         FinishIntro();
     }
 
     IEnumerator PlayIntroVO()
     {
+        _introTextElement.PrintSentences();
+
         yield return new WaitForSeconds(1f);
+
         AudioManager.Instance.PlayDialogue(_introVO);
     }
 
@@ -79,8 +95,6 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
 
     void FinishIntro()
     {
-        _battleManager.Root.Remove(_introTextElement);
-
         _mainCamera.gameObject.SetActive(true);
         _introCamera.gameObject.SetActive(false);
         BattleCameraManager.Instance.enabled = true;

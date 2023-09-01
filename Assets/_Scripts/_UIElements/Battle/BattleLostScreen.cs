@@ -38,6 +38,7 @@ public class BattleLostScreen : BattleFinishedScreen
         _mainContainer.Add(container);
 
         Label text = new("Hey, you lost but you did very well! If you want to give it another go I will give you a bonus 1 000 gold. (it stacks)");
+        text.style.fontSize = 24;
         text.style.whiteSpace = WhiteSpace.Normal;
         container.Add(text);
 

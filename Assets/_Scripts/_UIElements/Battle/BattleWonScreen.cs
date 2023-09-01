@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class BattleWonScreen : BattleFinishedScreen
 {
@@ -42,6 +43,7 @@ public class BattleWonScreen : BattleFinishedScreen
 
         Label text = new("You won, congratz! Here, I am giving you a virtual handshake <handshake>… If you want you can continue playing, the game can go on forever, but I have not balanced it. Let me know what you think about this experience. Cheers!");
         text.style.whiteSpace = WhiteSpace.Normal;
+        text.style.fontSize = 24;
         container.Add(text);
 
         MyButton continuePlaying = new("Continue playing", _ussCommonMenuButton,

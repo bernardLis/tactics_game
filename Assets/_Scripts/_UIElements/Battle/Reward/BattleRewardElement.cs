@@ -63,7 +63,48 @@ public class BattleRewardElement : VisualElement
         AddRewardContainer();
 
         if (_gameManager.PlayerHero.Level.Value == 1)
-            _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
+            LevelOneShow();
+
+
+    }
+
+    void LevelOneShow()
+    {
+        _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
+        /*
+        TextPrintingElement el = new("Power surges through you. It feels more like recollecting a memory than acquiring new power. Were you incredibly powerful 'before'?", 10f);
+        BattleManager.Instance.Root.Add(el);
+        el.style.opacity = 0;
+        DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f);
+        el.OnFinishedPrinting += () =>
+        {
+            DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f)
+                    .OnComplete(() =>
+                    {
+                        BattleManager.Instance.Root.Remove(el);
+                    });
+        };
+        */
+    }
+
+    void LevelOneClosedShow()
+    {
+        _audioManager.PlayDialogue(_audioManager.GetSound("On level 1 closed"));
+        /*
+        string s = "You have remembered how to use fireball. In game press 1 or the icon to summon a powerful ball of fire.";
+        TextPrintingElement el = new(s, 8f);
+        BattleManager.Instance.Root.Add(el);
+        el.style.opacity = 0;
+        DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f);
+        el.OnFinishedPrinting += () =>
+        {
+            DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f)
+                    .OnComplete(() =>
+                    {
+                        BattleManager.Instance.Root.Remove(el);
+                    });
+        };
+        */
     }
 
     void AddHeroCard()
@@ -87,7 +128,7 @@ public class BattleRewardElement : VisualElement
                 });
             RunCardShow();
         };
-*/
+    */
 
         HeroCardStats card = new(_gameManager.PlayerHero);
         Add(card);
@@ -290,7 +331,9 @@ public class BattleRewardElement : VisualElement
     public void MoveAway()
     {
         if (_gameManager.PlayerHero.Level.Value == 2)
-            _audioManager.PlayDialogue(_audioManager.GetSound("On level 1 closed"));
+        {
+            LevelOneClosedShow();
+        }
 
         style.position = Position.Absolute;
         DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
