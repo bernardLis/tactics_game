@@ -148,7 +148,8 @@ public class BattleMinimapManager : MonoBehaviour
     {
         while (true)
         {
-            foreach (KeyValuePair<Transform, VisualElement> kvp in _entityIcons)
+            Dictionary<Transform, VisualElement> copy = new(_entityIcons);
+            foreach (KeyValuePair<Transform, VisualElement> kvp in copy)
             {
                 if (kvp.Key == null) continue;
                 Vector2 pos = new(kvp.Key.position.x, kvp.Key.position.z);
@@ -173,6 +174,8 @@ public class BattleMinimapManager : MonoBehaviour
 
     void AddEntity(BattleEntity be)
     {
+        if (be is not BattleCreature bc) return;
+
         if (_entityIcons.ContainsKey(be.transform))
         {
             Debug.LogError("Entity already exists in minimap");
@@ -238,6 +241,7 @@ public class BattleMinimapManager : MonoBehaviour
 
     void RemoveEntity(BattleEntity be)
     {
+        if (be is not BattleCreature bc) return;
         if (!_entityIcons.ContainsKey(be.transform))
         {
             Debug.LogError("Entity does not exist in minimap");

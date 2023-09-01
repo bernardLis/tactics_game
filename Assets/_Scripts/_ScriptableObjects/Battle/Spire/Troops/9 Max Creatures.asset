@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: a6144f09-0bb9-4dfc-b74f-48e3486bee87
   Icon: {fileID: 21300000, guid: 855d993f9641afb428099a8eb582a0d4, type: 3}
-  Cost: 400
+  Cost: 500
   Value: 9
   IsPurchased: 0
   Description: More creatooorinos.

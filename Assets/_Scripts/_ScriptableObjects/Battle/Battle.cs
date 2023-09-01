@@ -85,7 +85,7 @@ public class Battle : BaseScriptableObject
 
     public float GetWaveStartTime(Element element, int waveIndex)
     {
-        if (waveIndex == 0) return 30; // first wave starts at 30 seconds (actually it starts when intro ends)
+        if (waveIndex == 0) return 25; // first wave starts at 25 seconds (actually it starts when intro ends)
 
         // wave starts in the "middle" of the previous wave
         BattleWave previousWave = Waves[waveIndex - 1];

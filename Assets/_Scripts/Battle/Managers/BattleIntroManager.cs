@@ -35,7 +35,7 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
         _introCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         _dollyCart = GetComponentInChildren<CinemachineDollyCart>();
 
-        _introTextElement = new("You wake up confused. You have a feeling that your fate is connected to the structure in the middle. For some reason you think if you survive 10 minutes you will win and if enough enemies reach the middle you will lose. You don’t know where you are but you feel bad vibes from portals in the map corners. It is you and your trusty creature against this foreign place. Now spawn your creature and good luck.", 30f);
+        _introTextElement = new("You wake up confused. You have a feeling that your fate is connected to the structure in the middle. You sense that if you survive 15 minutes you will win. You feel bad vibes from portals in the map corners. It seems like whatever comes from there shouldn't reach the middle. It is you and your trusty creature against this foreign place. Now spawn your creature and good luck.", 30f);
         _battleManager.Root.Add(_introTextElement);
         _introTextElement.style.opacity = 0;
         DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f);
