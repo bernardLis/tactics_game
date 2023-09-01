@@ -89,11 +89,11 @@ public class Battle : BaseScriptableObject
 
         // wave starts in the "middle" of the previous wave
         BattleWave previousWave = Waves[waveIndex - 1];
-        float factor = 1f - waveIndex * 0.1f;
+        float waveSpawnFactor = 1f - waveIndex * 0.08f; // how quickly waves spawn after each other
 
-        factor = Mathf.Clamp(factor, 0.1f, 1f);
+        waveSpawnFactor = Mathf.Clamp(waveSpawnFactor, 0.1f, 1f);
         //  float startTime = (previousWave.StartTime + previousWave.GetPlannedEndTime()) * factor;
-        float startTime = previousWave.StartTime + (previousWave.GetPlannedEndTime() - previousWave.StartTime) * factor;
+        float startTime = previousWave.StartTime + (previousWave.GetPlannedEndTime() - previousWave.StartTime) * waveSpawnFactor;
 
         // the wave can't start before the previous one of the same element ends
         for (int i = Waves.Count - 1; i >= 0; i--)

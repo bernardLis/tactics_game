@@ -107,7 +107,8 @@ public class EntitySpawner : MonoBehaviour
     public void DestroySelf()
     {
         _audioManager.PlaySFX(_portalCloseSound, transform.position);
-        _portalHumSource.Stop();
+        if (_portalHumSource != null)
+            _portalHumSource.Stop();
 
         transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
         Destroy(gameObject, 1f);

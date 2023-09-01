@@ -21,7 +21,7 @@ public class FireballExecutor : AbilityExecutor
 
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        Debug.Log($"Executing fireball on {_entitiesInArea.Count}");
+        //    Debug.Log($"Executing fireball on {_entitiesInArea.Count}");
         foreach (BattleEntity entity in _entitiesInArea)
         {
             if (entity.IsDead) continue;

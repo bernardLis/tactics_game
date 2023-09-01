@@ -13,8 +13,8 @@ public class ThunderExecutor : AbilityExecutor
     }
 
     protected override IEnumerator ExecuteAbilityCoroutine()
-{
-        Debug.Log($"Executing thunder on {_entitiesInArea.Count}");
+    {
+        //   Debug.Log($"Executing thunder on {_entitiesInArea.Count}");
         List<GameObject> entityEffects = new();
         foreach (BattleEntity entity in _entitiesInArea)
         {

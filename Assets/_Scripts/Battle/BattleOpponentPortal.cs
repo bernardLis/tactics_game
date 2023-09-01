@@ -54,7 +54,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         if (_battleManager == null) _battleManager = BattleManager.Instance;
 
-        _portalLog.Add($"{_battleManager.GetTime()} Initializing wave. Wave start time {wave.StartTime}");
+        _portalLog.Add($"{_battleManager.GetTime()}: Initializing wave. Wave start time {wave.StartTime}");
         _portalLog.Add($"Delay between groups {wave.DelayBetweenGroups}");
         _portalLog.Add($"Number of groups {wave.OpponentGroups.Count - 1}");
 
@@ -98,7 +98,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     IEnumerator SpawnCurrentOpponentGroup()
     {
-        _portalLog.Add($"{_battleManager.GetTime()} Started spawning group index: {_currentWave.CurrentGroupIndex}");
+        _portalLog.Add($"{_battleManager.GetTime()}: Started spawning group index: {_currentWave.CurrentGroupIndex}");
 
         OpponentGroup group = _currentWave.GetCurrentOpponentGroup();
 
@@ -146,7 +146,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         yield return new WaitForSeconds(3f);
 
-        _portalLog.Add($"{_battleManager.GetTime()} Closing portal");
+        _portalLog.Add($"{_battleManager.GetTime()}: Closing portal");
         Vector3 pos = _portalEffect.transform.position;
         GameObject chest = Instantiate(RewardChestPrefab, pos, Quaternion.identity);
         chest.transform.LookAt(Vector3.zero);

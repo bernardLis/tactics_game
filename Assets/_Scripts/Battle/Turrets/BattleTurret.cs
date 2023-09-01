@@ -40,6 +40,8 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         Turret.OnTurretUpgradePurchased += UpdateTurret;
         UpdateTurret();
 
+        transform.parent = _battleManager.EntityHolder;
+
         _rangeIndicator.SetActive(true);
     }
 

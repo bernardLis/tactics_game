@@ -72,6 +72,7 @@ public static class Helpers
         Vector3 end = new Vector3(element.worldBound.xMin + Random.Range(-100, 100),
                 element.worldBound.yMin - 100, 0);
 
+        if (element == null) return;
         ArcMovementElement arcMovementElement = _arcMovementElements.FirstOrDefault(x => !x.IsMoving);
         arcMovementElement.InitializeMovement(l, start, end);
         arcMovementElement.OnArcMovementFinished += ()
