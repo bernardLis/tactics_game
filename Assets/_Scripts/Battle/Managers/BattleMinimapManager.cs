@@ -121,7 +121,7 @@ public class BattleMinimapManager : MonoBehaviour
 
             _minimap.Add(icon);
 
-            portal.OnWaveSpawned += () =>
+            portal.OnGroupSpawned += () =>
             {
                 icon.style.opacity = 1;
 

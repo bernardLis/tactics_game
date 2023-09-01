@@ -36,7 +36,10 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     AudioSource _portalHumSource;
 
-    public event Action OnWaveSpawned;
+    public event Action<BattleOpponentPortal> OnPortalOpened;
+    public event Action<BattleOpponentPortal> OnPortalClosed;
+
+    public event Action OnGroupSpawned;
     void Start()
     {
         _audioManager = AudioManager.Instance;
@@ -74,6 +77,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip
 
+        OnPortalOpened?.Invoke(this);
         StartCoroutine(HandleSpawningGroups());
     }
 
@@ -110,7 +114,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         _battleManager.AddOpponentArmyEntities(_spawnedEntities);
         _spawnedEntities.Clear();
-        OnWaveSpawned?.Invoke();
+        OnGroupSpawned?.Invoke();
     }
 
     void SpawnEntity(Entity entity)
@@ -134,6 +138,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     IEnumerator ClosePortal()
     {
+        OnPortalClosed?.Invoke(this);
+        
         _isPortalActive = false;
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip

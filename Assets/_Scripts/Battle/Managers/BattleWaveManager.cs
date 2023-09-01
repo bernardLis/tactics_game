@@ -34,6 +34,8 @@ public class BattleWaveManager : MonoBehaviour
         if (_isInitialized) return;
         _isInitialized = true;
 
+        Debug.Log($"Initializing battle wave manager");
+
         StartCoroutine(HandleWaves());
     }
 
@@ -41,6 +43,8 @@ public class BattleWaveManager : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log($"Starting wave {CurrentWaveIndex}");
+
             StartWave(_selectedBattle.Waves[CurrentWaveIndex]);
             CurrentWaveIndex++;
 

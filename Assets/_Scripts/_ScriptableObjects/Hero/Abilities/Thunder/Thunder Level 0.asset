@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0e3676d7-dd3a-4acd-b2db-6840304468bc
   Level: 0
-  ManaCost: 6
+  ManaCost: 10
   Power: 15
   Cooldown: 1.5
   Scale: 1
