@@ -54,7 +54,7 @@ public class BattleWonScreen : BattleFinishedScreen
                 _ussCommonMenuButton, callback: AdvantageButton);
         container.Add(advantage);
 
-        MyButton noAdvantage = new("Quit", _ussCommonMenuButton, callback: QuiteButton);
+        MyButton noAdvantage = new("Quit", _ussCommonMenuButton, callback: QuitButton);
         container.Add(noAdvantage);
     }
 
@@ -67,13 +67,12 @@ public class BattleWonScreen : BattleFinishedScreen
     void AdvantageButton()
     {
         _gameManager.GoldAdvantage++;
-        QuiteButton();
+        QuitButton();
     }
 
-    void QuiteButton()
+    void QuitButton()
     {
         OnFinishedPlaying?.Invoke();
-        _gameManager.ClearSaveData();
         _gameManager.LoadScene(Scenes.MainMenu);
     }
 }

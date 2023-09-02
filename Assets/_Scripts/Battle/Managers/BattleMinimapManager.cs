@@ -31,6 +31,7 @@ public class BattleMinimapManager : MonoBehaviour
     Dictionary<Transform, VisualElement> _entityIcons = new();
     List<Transform> _keysToRemove = new();
 
+    IEnumerator _updateIconsCoroutine;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -49,6 +50,12 @@ public class BattleMinimapManager : MonoBehaviour
         _spireIcon = _root.Q<VisualElement>("spireIcon");
 
         StartCoroutine(DelayedStart());
+
+        _battleManager.OnBattleFinalized += () =>
+        {
+            if (_updateIconsCoroutine != null)
+                StopCoroutine(_updateIconsCoroutine);
+        };
 
         if (BattleIntroManager.Instance != null)
             BattleIntroManager.Instance.OnIntroFinished += () =>
@@ -141,8 +148,8 @@ public class BattleMinimapManager : MonoBehaviour
 
         _battleManager.OnOpponentEntityAdded += (entity) => AddEntity(entity);
         _battleManager.OnOpponentEntityDeath += (entity) => RemoveEntity(entity);
-
-        StartCoroutine(UpdateIcons());
+        _updateIconsCoroutine = UpdateIcons();
+        StartCoroutine(_updateIconsCoroutine);
     }
 
     IEnumerator UpdateIcons()
