@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: portal2-90fa-4c8b-b1ae-442e9dcb127e
   Clips:
   - {fileID: 8300000, guid: e706a09ab62c26a4fba1457b2495400f, type: 3}
-  Volume: 0.336
+  Volume: 0.51
   Pitch: 0
   isPitchRandomized: 1
   PitchRange: {x: 0.9, y: 1.1}
