@@ -68,7 +68,7 @@ public class BattleCreature : BattleEntity
         while (true)
         {
             if (IsDead) yield break;
-            yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
+
             yield return ManagePathing();
             yield return ManageAttackCoroutine();
         }
@@ -168,7 +168,15 @@ public class BattleCreature : BattleEntity
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Attack");
 
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+        while (true)
+        {
+            bool isAttack = Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack");
+            bool isAttackFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
+
+            if (isAttack && isAttackFinished) break;
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     protected virtual IEnumerator CreatureAbility()
@@ -179,9 +187,19 @@ public class BattleCreature : BattleEntity
         CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
 
         Animator.SetTrigger("Creature Ability");
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f);
+
         if (Creature.CreatureAbility.Sound != null)
             _audioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
+
+        while (true)
+        {
+            bool isAbility = Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Creature Ability");
+            bool isAbilityFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
+
+            if (isAbility && isAbilityFinished) break;
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     protected bool CanAttack()

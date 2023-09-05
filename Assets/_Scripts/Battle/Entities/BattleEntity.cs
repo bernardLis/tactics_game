@@ -368,7 +368,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         StopRunEntityCoroutine();
 
-        yield return new WaitWhile(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1f);
         yield return transform.DODynamicLookAt(Camera.main.transform.position, 0.2f).WaitForCompletion();
         Animator.SetBool("Celebrate", true);
     }
