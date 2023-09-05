@@ -6,8 +6,6 @@ using UnityEngine;
 public class CutsceneSpeaker : BaseScriptableObject
 {
     public bool PlayerIsSpeaker;
-    public bool OverseerIsSpeaker;
-    public bool RivalIsSpeaker;
 
     public Hero SpeakerHero;
 
@@ -19,9 +17,5 @@ public class CutsceneSpeaker : BaseScriptableObject
         GameManager gm = GameManager.Instance;
         if (PlayerIsSpeaker)
             SpeakerHero = gm.PlayerHero;
-        if (OverseerIsSpeaker)
-            SpeakerHero = gm.OverseerHero;
-        if (RivalIsSpeaker)
-            SpeakerHero = gm.RivalHero;
     }
 }

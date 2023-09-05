@@ -142,8 +142,6 @@ public class HeroCreation : MonoBehaviour
     void ElementChosen(Element element)
     {
         _chosenElement = element;
-        _gameManager.RivalHero.Element = element.WeakAgainst;
-        _gameManager.RivalHero.CreatureArmy = new(_gameManager.HeroDatabase.GetStartingArmy(element.WeakAgainst).Creatures);
         CreateHero();
 
         _elementChoiceContainer.style.display = DisplayStyle.None;

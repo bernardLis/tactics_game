@@ -39,8 +39,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public static Color OpponentTeamColor = Color.red;
 
     public Hero PlayerHero;
-    public Hero OverseerHero;
-    public Hero RivalHero;
 
     public Battle CurrentBattle; // HERE: battle testing { get; private set; }
 
@@ -175,12 +173,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Spice = 500;
 
         PlayerHero = null;
-
-        OverseerHero = ScriptableObject.CreateInstance<Hero>();
-        OverseerHero.CreateRandom(99);
-
-        RivalHero = ScriptableObject.CreateInstance<Hero>();
-        RivalHero.CreateRandom(3);
 
         // new save
         string guid = Guid.NewGuid().ToString();

@@ -22,10 +22,6 @@ public class CutsceneLine : BaseScriptableObject
         string p = Text;
         if (gm.PlayerHero != null)
             p = Text.Replace("{heroName}", gm.PlayerHero.HeroName);
-        if (gm.OverseerHero != null)
-            p = p.Replace("{overseerName}", gm.OverseerHero.HeroName);
-        if (gm.RivalHero != null)
-            p = p.Replace("{rivalName}", gm.RivalHero.HeroName);
 
         ParsedText = p;
 
