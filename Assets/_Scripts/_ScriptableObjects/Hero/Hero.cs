@@ -24,16 +24,15 @@ public class Hero : BaseScriptableObject
 
     public Element Element;
 
-    public IntVariable BaseMana;
+    public IntVariable BaseTotalMana;
     public IntVariable BasePower;
     public IntVariable BaseArmor;
     public IntVariable BaseSpeed;
 
-    public IntVariable TotalMana { get; private set; }
-
     public Stat Power { get; private set; }
     public Stat Armor { get; private set; }
     public Stat Speed { get; private set; }
+    public Stat TotalMana { get; private set; }
 
     public HeroRank Rank { get; private set; }
 
@@ -60,13 +59,13 @@ public class Hero : BaseScriptableObject
     public void BattleInitialize()
     {
         CurrentMana = CreateInstance<IntVariable>();
-        CurrentMana.SetValue(BaseMana.Value);
+        CurrentMana.SetValue(TotalMana.GetValue());
     }
 
     // returns leftover
     public int RestoreMana(int amount)
     {
-        int manaMissing = TotalMana.Value - CurrentMana.Value;
+        int manaMissing = TotalMana.GetValue() - CurrentMana.Value;
         if (manaMissing <= 0)
             return amount;
 
@@ -148,7 +147,7 @@ public class Hero : BaseScriptableObject
         ExpForNextLevel.SetValue(GetExpForNextLevel());
 
         Level.ApplyChange(1);
-        BaseMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
+        BaseTotalMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
         OnLevelUp?.Invoke();
         UpdateRank();
     }
@@ -202,7 +201,7 @@ public class Hero : BaseScriptableObject
     {
         // TODO: this if statement sucks.
         if (type == StatType.Mana)
-            TotalMana.ApplyChange(value);
+            BaseTotalMana.ApplyChange(value);
         if (type == StatType.Power)
             Power.ApplyBonusValueChange(value);
         if (type == StatType.Armor)
@@ -246,7 +245,7 @@ public class Hero : BaseScriptableObject
         Level = CreateInstance<IntVariable>();
         Experience = CreateInstance<IntVariable>();
         ExpForNextLevel = CreateInstance<IntVariable>();
-        BaseMana = CreateInstance<IntVariable>();
+        BaseTotalMana = CreateInstance<IntVariable>();
         BasePower = CreateInstance<IntVariable>();
         BaseArmor = CreateInstance<IntVariable>();
         BaseSpeed = CreateInstance<IntVariable>();
@@ -254,9 +253,10 @@ public class Hero : BaseScriptableObject
 
     void CreateStats()
     {
-        TotalMana = CreateInstance<IntVariable>();
-        TotalMana.SetValue(BaseMana.Value);
-        BaseMana.OnValueChanged += (i) => TotalMana.ApplyChange(BaseMana.Value - TotalMana.Value);
+        TotalMana = CreateInstance<Stat>();
+        TotalMana.StatType = StatType.Mana;
+        TotalMana.SetBaseValue(BaseTotalMana.Value);
+        TotalMana.OnValueChanged += TotalMana.SetBaseValue;
 
         Power = CreateInstance<Stat>();
         Power.StatType = StatType.Power;
@@ -291,8 +291,7 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(0);
         ExpForNextLevel.SetValue(GetExpForNextLevel());
 
-        BaseMana.SetValue(30);
-
+        BaseTotalMana.SetValue(30);
         BasePower.SetValue(5);
         BaseArmor.SetValue(0);
         BaseSpeed.SetValue(3);
@@ -332,7 +331,7 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(0);
         ExpForNextLevel.SetValue(GetExpForNextLevel());
 
-        BaseMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
+        BaseTotalMana.SetValue(30 + Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y) * level);
 
         int totalPointsLeft = level;
         int powerLevelBonus = Random.Range(0, totalPointsLeft + 1);
@@ -380,7 +379,7 @@ public class Hero : BaseScriptableObject
         Experience.SetValue(data.Experience);
         ExpForNextLevel.SetValue(GetExpForNextLevel());
 
-        BaseMana.SetValue(data.BaseMana);
+        BaseTotalMana.SetValue(data.BaseMana);
         BasePower.SetValue(data.BasePower);
         BaseArmor.SetValue(data.BaseArmor);
         BaseSpeed.SetValue(data.BaseSpeed);
@@ -422,7 +421,7 @@ public class Hero : BaseScriptableObject
             Level = Level.Value,
             Experience = Experience.Value,
 
-            BaseMana = BaseMana.Value,
+            BaseMana = BaseTotalMana.Value,
             BasePower = BasePower.Value,
             BaseArmor = BaseArmor.Value,
             BaseSpeed = BaseSpeed.Value

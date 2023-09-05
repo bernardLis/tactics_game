@@ -113,7 +113,7 @@ public class HeroCardExp : VisualElement
         container.AddToClassList(_ussManaContainer);
 
         Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
-        _manaBar = new(c, "Mana", Hero.CurrentMana, Hero.TotalMana);
+        _manaBar = new(c, "Mana", Hero.CurrentMana, Hero.BaseTotalMana);
         container.Add(_manaBar);
 
         return container;
