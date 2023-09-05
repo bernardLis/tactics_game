@@ -32,7 +32,9 @@ public class CreatureAbilityElement : ElementWithTooltip
         AddToClassList(_ussMain);
 
         style.backgroundImage = _ability.Icon.texture;
+        
         _ability.OnAbilityUsed += OnAbilityUsed;
+        RegisterCallback<DetachFromPanelEvent>(e => _ability.OnAbilityUsed -= OnAbilityUsed);
 
         AddTimer();
         AddLockedOverlay();
@@ -72,7 +74,7 @@ public class CreatureAbilityElement : ElementWithTooltip
         // Debug.Log($"is unlock in ability element called twice?");
         // if (!_isLocked) return;
         // _isLocked = false;
-        // _ability.OnAbilityUnlocked -= Unlock;
+        _ability.OnAbilityUnlocked -= Unlock;
 
         if (_lockOverlay != null)
             _lockOverlay.Unlock();
@@ -83,6 +85,7 @@ public class CreatureAbilityElement : ElementWithTooltip
     {
         _timer.UpdateTimerValues(_ability.Cooldown, _ability.Cooldown);
         _timer.style.display = DisplayStyle.Flex;
+        _timer.Resume();
     }
 
     protected override void DisplayTooltip()
