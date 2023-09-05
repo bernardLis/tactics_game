@@ -7,13 +7,13 @@ public class EntityCardFull : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "entity-card-full__";
+    protected const string _ussClassName = "entity-card-full__";
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
 
     public Entity Entity;
 
-    protected VisualElement _container;
+    protected VisualElement _mainCardContainer;
 
     protected VisualElement _nameContainer;
     protected VisualElement _topContainer;
@@ -50,9 +50,9 @@ public class EntityCardFull : FullScreenElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        _container = new();
-        _container.AddToClassList(_ussContent);
-        _content.Add(_container);
+        _mainCardContainer = new();
+        _mainCardContainer.AddToClassList(_ussContent);
+        _content.Add(_mainCardContainer);
 
         AddName();
         CreateContainers();
@@ -69,7 +69,7 @@ public class EntityCardFull : FullScreenElement
         Label n = new(Entity.EntityName);
         n.style.fontSize = 34;
         _nameContainer.Add(n);
-        _container.Add(_nameContainer);
+        _mainCardContainer.Add(_nameContainer);
     }
 
     void CreateContainers()
@@ -79,8 +79,8 @@ public class EntityCardFull : FullScreenElement
         _bottomContainer = new();
         _bottomContainer.style.flexDirection = FlexDirection.Row;
 
-        _container.Add(_topContainer);
-        _container.Add(_bottomContainer);
+        _mainCardContainer.Add(_topContainer);
+        _mainCardContainer.Add(_bottomContainer);
 
         _topLeftContainer = new();
         _topMiddleContainer = new();

@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 public class CreatureCardFull : EntityCardFull
 {
+    const string _ussTitle = _ussClassName + "title";
+    const string _ussNameField = _ussClassName + "name-field";
+    const string _ussUnlockAbilityButton = _ussClassName + "unlock-ability-button";
 
     public Creature Creature;
     public CreatureCardFull(Creature creature, bool isChangingName = false,
@@ -34,14 +37,13 @@ public class CreatureCardFull : EntityCardFull
 
     void UpdateBattleCharacteristics()
     {
-        Label basePower = new($"Base Power: {Creature.BasePower}");
+        Label basePower = new($"Power: {Creature.GetPower()}");
         _topRightContainer.Add(basePower);
         Label attackRange = new($"Attack Range: {Creature.AttackRange}");
         _topRightContainer.Add(attackRange);
         Label attackCooldown = new($"Attack Cooldown: {Creature.AttackCooldown}");
         _topRightContainer.Add(attackCooldown);
     }
-
 
     void AddAbility(bool isUnlockingAbility)
     {
@@ -66,12 +68,24 @@ public class CreatureCardFull : EntityCardFull
         container.Add(damageTaken);
     }
 
+    void AddLevelUpTitle()
+    {
+        VisualElement container = new();
+        container.AddToClassList(_ussTitle);
+
+        Label levelUp = new($"{Creature.EntityName} level {Creature.Level}");
+        container.Add(levelUp);
+
+        _mainCardContainer.Insert(0, container);
+    }
+
     void SetUpNameChange()
     {
+        AddLevelUpTitle();
         // HERE: bonding dotween & styles
         _nameContainer.Clear();
         Label tt = new("Name your creature: ");
-        tt.style.fontSize = 34;
+        tt.style.fontSize = 24;
         _nameContainer.Add(tt);
 
         VisualElement container = new();
@@ -79,9 +93,7 @@ public class CreatureCardFull : EntityCardFull
         _nameContainer.Add(container);
 
         TextField nameField = new();
-        nameField.style.fontSize = 34;
-        nameField.style.minWidth = 300;
-        nameField.style.color = Color.black;
+        nameField.AddToClassList(_ussNameField);
         container.Add(nameField);
         nameField.RegisterCallback<InputEvent>(ev =>
         {
@@ -91,21 +103,28 @@ public class CreatureCardFull : EntityCardFull
 
     void SetUpAbilityUnlock()
     {
-        MyButton unlockButton = new("Unlock Ability");
+        AddLevelUpTitle();
+
+        _content.Remove(_continueButton);
+
+        MyButton unlockButton = new("Unlock Ability", _ussUnlockAbilityButton);
 
         void Unlock()
         {
             unlockButton.RemoveFromHierarchy();
             Creature.CreatureAbility.Unlock();
+            AddContinueButton();
         }
 
         unlockButton.ChangeCallback(Unlock);
-        _container.Insert(0, unlockButton);
+        _mainCardContainer.Add(unlockButton);
+
+        //   _mainCardContainer.Insert(0, unlockButton);
     }
 
     void SetUpEvolution()
     {
         MyButton unlockButton = new("Evolve", callback: Hide);
-        _container.Insert(0, unlockButton);
+        _mainCardContainer.Insert(0, unlockButton);
     }
 }

@@ -32,7 +32,7 @@ public class CreatureAbilityElement : ElementWithTooltip
         AddToClassList(_ussMain);
 
         style.backgroundImage = _ability.Icon.texture;
-        
+
         _ability.OnAbilityUsed += OnAbilityUsed;
         RegisterCallback<DetachFromPanelEvent>(e => _ability.OnAbilityUsed -= OnAbilityUsed);
 
@@ -58,7 +58,6 @@ public class CreatureAbilityElement : ElementWithTooltip
     void AddLockedOverlay()
     {
         if (!_isLocked) return;
-
         Label label = new($"Unlocked at level {_ability.UnlockLevel}.");
         label.style.whiteSpace = WhiteSpace.Normal;
 
@@ -71,14 +70,12 @@ public class CreatureAbilityElement : ElementWithTooltip
     public void Unlock()
     {
         // TODO: this is called twice, idk why...
-        // Debug.Log($"is unlock in ability element called twice?");
+        //   Debug.Log($"is unlock in ability element called twice?");
         // if (!_isLocked) return;
         // _isLocked = false;
         _ability.OnAbilityUnlocked -= Unlock;
 
-        if (_lockOverlay != null)
-            _lockOverlay.Unlock();
-
+        _lockOverlay?.Unlock();
     }
 
     void OnAbilityUsed()
