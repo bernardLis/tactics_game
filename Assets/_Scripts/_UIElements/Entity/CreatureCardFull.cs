@@ -83,18 +83,10 @@ public class CreatureCardFull : EntityCardFull
         nameField.style.minWidth = 300;
         nameField.style.color = Color.black;
         container.Add(nameField);
-
-        Button submit = new() { text = "Submit" };
-        container.Add(submit);
-        submit.clicked += () =>
+        nameField.RegisterCallback<InputEvent>(ev =>
         {
-            AudioManager.Instance.PlayUI("Creature Bonding Name");
             Creature.EntityName = nameField.text;
-            _nameContainer.Clear();
-            Label name = new(Creature.EntityName);
-            name.style.fontSize = 34;
-            _nameContainer.Add(name);
-        };
+        });
     }
 
     void SetUpAbilityUnlock()
@@ -116,6 +108,4 @@ public class CreatureCardFull : EntityCardFull
         MyButton unlockButton = new("Evolve", callback: Hide);
         _container.Insert(0, unlockButton);
     }
-
-
 }

@@ -18,6 +18,8 @@ public class BattleCreatureBonding : MonoBehaviour
     Vector3 _originalCamRot;
     float _originalCamZoomHeight;
 
+    CreatureCardFull _card;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -51,29 +53,33 @@ public class BattleCreatureBonding : MonoBehaviour
     void OnLevelUp()
     {
         if (_creature.Level == 3) // name change
-        {
-            NameChange();
-        }
+            HandleNameChange();
         if (_creature.Level == _creature.CreatureAbility.UnlockLevel)
-        {
-            if (_battleTooltipManager.CurrentTooltipDisplayer == gameObject)
-                _battleTooltipManager.HideTooltip(); // TODO: this is a workaround for multiple sounds playing when unlocking ability
-            _audioManager.PlaySFX(_bondingLevelSound, transform.position);
-            RotateCameraAroundBattleEntity();
-            CreatureCardFull card = new(_creature, isUnlockingAbility: true);
-            card.OnHide += CreatureCardFullHidden;
-        }
+            HandleAbilityUnlock();
 
         ResolveEvolution();
     }
 
-    void NameChange()
+    void HandleNameChange()
     {
+        BaseBondingShow();
+        _card = new(_creature, isChangingName: true);
+        _card.OnHide += NameChangeHide;
+
+    }
+
+    void HandleAbilityUnlock()
+    {
+        BaseBondingShow();
+        _card = new(_creature, isUnlockingAbility: true);
+        _card.OnHide += CreatureCardFullHidden;
+    }
+
+    void BaseBondingShow()
+    {
+        if (_battleTooltipManager.CurrentTooltipDisplayer == gameObject)
+            _battleTooltipManager.HideTooltip(); // TODO: this is a workaround for multiple sounds playing when unlocking ability
         _audioManager.PlaySFX(_bondingLevelSound, transform.position);
-
-        CreatureCardFull card = new(_creature, isChangingName: true);
-        card.OnHide += CreatureCardFullHidden;
-
         RotateCameraAroundBattleEntity();
     }
 
@@ -86,9 +92,17 @@ public class BattleCreatureBonding : MonoBehaviour
         _battleCameraManager.RotateCameraAround(_battleCreature.transform);
     }
 
+    void NameChangeHide()
+    {
+        AudioManager.Instance.PlayUI("Creature Bonding Name");
+        CreatureCardFullHidden();
+        _card.OnHide -= NameChangeHide;
+    }
+
     void CreatureCardFullHidden()
     {
         _battleCameraManager.MoveCameraTo(_originalCamPos, _originalCamRot, _originalCamZoomHeight);
+        _card.OnHide -= CreatureCardFullHidden;
     }
 
     /* EVOLUTION */
@@ -100,13 +114,14 @@ public class BattleCreatureBonding : MonoBehaviour
         {
             // HERE: evolution camera management
 
-            CreatureCardFull card = new(_creature, isEvolving: true);
-            card.OnHide += Evolve;
+            _card = new(_creature, isEvolving: true);
+            _card.OnHide += Evolve;
         }
     }
 
     void Evolve()
     {
+        _card.OnHide -= Evolve;
         _battleCreature.Evolve();
     }
 }
