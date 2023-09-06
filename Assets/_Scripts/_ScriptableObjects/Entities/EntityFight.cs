@@ -23,9 +23,9 @@ public class EntityFight : EntityMovement
     [HideInInspector] public int OldDamageDealt;
     [HideInInspector] public int TotalDamageDealt;
 
-    public override void InitializeBattle()
+    public override void InitializeBattle(int team)
     {
-        base.InitializeBattle();
+        base.InitializeBattle(team);
         OldKillCount = TotalKillCount;
         OldDamageDealt = TotalDamageDealt;
     }

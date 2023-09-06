@@ -12,9 +12,9 @@ public class Hero : EntityMovement
     public HeroPortrait Portrait;
 
 
-    public override void InitializeBattle()
+    public override void InitializeBattle(int team)
     {
-        base.InitializeBattle();
+        base.InitializeBattle(team);
 
         CurrentMana = CreateInstance<IntVariable>();
         CurrentMana.SetValue(TotalMana.GetValue());

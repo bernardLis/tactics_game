@@ -20,7 +20,7 @@ public class BattleHeroManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
 
         Hero = hero;
-        hero.InitializeBattle();
+        hero.InitializeBattle(0);
         hero.OnLevelUpReady += OnHeroLevelUp;
 
         _battleIntroManager = BattleIntroManager.Instance;

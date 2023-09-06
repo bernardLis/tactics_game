@@ -12,10 +12,10 @@ public class ProjectileSplash : Projectile
         {
             if (collider.TryGetComponent(out BattleEntity entity))
             {
-                if (entity.Team == _shooterCreature.Team) continue; // splash damage is player friendly
+                if (entity.Team == _shooter.Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(_shooterCreature));
+                StartCoroutine(entity.GetHit(_shooter));
             }
         }
         yield return DestroySelf(transform.position);

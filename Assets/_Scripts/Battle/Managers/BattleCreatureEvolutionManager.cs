@@ -64,7 +64,7 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
 
         // TODO: could be nicer.
         GameManager.Instance.PlayerHero.AddCreature(newCreature, true);
-        newCreature.InitializeBattle();
+        newCreature.InitializeBattle(0);
         newCreature.ImportCreatureStats(oldCreature);
 
         Vector3 pos = originalCreature.transform.position;

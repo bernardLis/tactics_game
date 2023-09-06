@@ -234,18 +234,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
             ability.IncreaseKillCount();
     }
 
-    public virtual IEnumerator GetHit(BattleTurret battleTurret)
-    {
-        if (IsDead) yield break;
-        EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {battleTurret.name}");
-
-        BaseGetHit(EntityBase.CalculateDamage(battleTurret), battleTurret.Turret.Element.Color.Color);
-
-        if (CurrentHealth.Value <= 0)
-            battleTurret.Turret.IncreaseKillCount();
-    }
-
-    public virtual IEnumerator GetHit(BattleCreature attacker, int specialDamage = 0)
+    public virtual IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {attacker.name}");
@@ -253,12 +242,12 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         int damage = EntityBase.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
-        attacker.DealtDamage(damage);
+        attacker.AddDmgDealt(damage);
 
-        BaseGetHit(damage, attacker.EntityBase.Element.Color.Color, attacker.gameObject);
+        BaseGetHit(damage, attacker.Element.Color.Color);
 
         if (CurrentHealth.Value <= 0)
-            attacker.IncreaseKillCount();
+            attacker.AddKill();
     }
 
     protected void BaseGetHit(int dmg, Color color, GameObject attacker = null)

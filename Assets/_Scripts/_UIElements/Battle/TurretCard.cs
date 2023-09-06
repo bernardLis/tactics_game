@@ -26,8 +26,8 @@ public class TurretCard : VisualElement
 
     public Turret Turret { get; private set; }
 
-    public event Action OnShowTurretUpgrade;
-    public event Action OnHideTurretUpgrade;
+    // public event Action OnShowTurretUpgrade;
+    // public event Action OnHideTurretUpgrade;
     public TurretCard(Turret turret)
     {
         _gameManager = GameManager.Instance;
@@ -80,10 +80,10 @@ public class TurretCard : VisualElement
     void UpdateTurretInfo()
     {
         _nameLabel.text = Helpers.ParseScriptableObjectName(Turret.name)
-                 + " " + Turret.CurrentTurretUpgradeIndex;
-        _rangeLabel.text = "Range: " + Turret.GetCurrentUpgrade().Range;
-        _powerLabel.text = "Power: " + Turret.GetCurrentUpgrade().Power;
-        _rateLabel.text = "Rate of fire: " + Turret.GetCurrentUpgrade().RateOfFire;
+                 + " " + Turret.Level.Value;
+        _rangeLabel.text = "Range: " + Turret.AttackRange.GetValue();
+        _powerLabel.text = "Power: " + Turret.Power.GetValue();
+        _rateLabel.text = "Rate of fire: " + Turret.AttackCooldown.GetValue();
 
         _nameLabel.style.color = Color.white;
         _rangeLabel.style.color = Color.white;
@@ -93,58 +93,59 @@ public class TurretCard : VisualElement
 
     void PopulateRightPanel()
     {
-        if (Turret.GetNextUpgrade() == null)
-        {
-            _upgradeButton = new(0, isPurchased: true);
-            _rightPanel.Add(_upgradeButton);
-            return;
-        }
+        // if (Turret.GetNextUpgrade() == null)
+        // {
+        //     _upgradeButton = new(0, isPurchased: true);
+        //     _rightPanel.Add(_upgradeButton);
+        //     return;
+        // }
 
-        _upgradeButton = new(Turret.GetNextUpgrade().Cost, isInfinite: true, callback: Upgrade);
+        _upgradeButton = new(Turret.UpgradeCost, isInfinite: true, callback: Upgrade);
         _rightPanel.Add(_upgradeButton);
 
-        _upgradeButton.RegisterCallback<PointerEnterEvent>(OnUpgradeButtonPointerEnter);
-        _upgradeButton.RegisterCallback<PointerLeaveEvent>(OnUpgradeButtonPointerLeave);
+        // _upgradeButton.RegisterCallback<PointerEnterEvent>(OnUpgradeButtonPointerEnter);
+        //  _upgradeButton.RegisterCallback<PointerLeaveEvent>(OnUpgradeButtonPointerLeave);
     }
 
     void Upgrade()
     {
-        if (Turret.GetNextNextUpgrade() == null)
-            _upgradeButton.NoMoreInfinity();
+        // if (Turret.GetNextNextUpgrade() == null)
+        //     _upgradeButton.NoMoreInfinity();
 
-        _upgradeButton.UpdateCost(Turret.GetNextUpgrade().Cost);
+        _upgradeButton.UpdateCost(Turret.UpgradeCost);
 
         Turret.PurchaseUpgrade();
         UpdateTurretInfo();
     }
+    /*
+        void OnUpgradeButtonPointerEnter(PointerEnterEvent e)
+        {
+            TurretUpgrade currentUpgrade = Turret.GetCurrentUpgrade();
+            TurretUpgrade nextUpgrade = Turret.GetNextUpgrade();
+            if (nextUpgrade == null) return;
 
-    void OnUpgradeButtonPointerEnter(PointerEnterEvent e)
-    {
-        TurretUpgrade currentUpgrade = Turret.GetCurrentUpgrade();
-        TurretUpgrade nextUpgrade = Turret.GetNextUpgrade();
-        if (nextUpgrade == null) return;
+            _nameLabel.text = Helpers.ParseScriptableObjectName(Turret.name)
+                     + " " + (Turret.CurrentTurretUpgradeIndex + 1);
+            _rangeLabel.text = "Range: " + nextUpgrade.Range;
+            _powerLabel.text = "Power: " + nextUpgrade.Power;
+            _rateLabel.text = "Rate of fire: " + nextUpgrade.RateOfFire;
 
-        _nameLabel.text = Helpers.ParseScriptableObjectName(Turret.name)
-                 + " " + (Turret.CurrentTurretUpgradeIndex + 1);
-        _rangeLabel.text = "Range: " + nextUpgrade.Range;
-        _powerLabel.text = "Power: " + nextUpgrade.Power;
-        _rateLabel.text = "Rate of fire: " + nextUpgrade.RateOfFire;
+            _nameLabel.style.color = Color.green;
 
-        _nameLabel.style.color = Color.green;
+            if (currentUpgrade.Range < nextUpgrade.Range)
+                _rangeLabel.style.color = Color.green;
+            if (currentUpgrade.Power < nextUpgrade.Power)
+                _powerLabel.style.color = Color.green;
+            if (currentUpgrade.RateOfFire > nextUpgrade.RateOfFire)
+                _rateLabel.style.color = Color.green;
 
-        if (currentUpgrade.Range < nextUpgrade.Range)
-            _rangeLabel.style.color = Color.green;
-        if (currentUpgrade.Power < nextUpgrade.Power)
-            _powerLabel.style.color = Color.green;
-        if (currentUpgrade.RateOfFire > nextUpgrade.RateOfFire)
-            _rateLabel.style.color = Color.green;
+            OnShowTurretUpgrade?.Invoke();
+        }
 
-        OnShowTurretUpgrade?.Invoke();
-    }
-
-    void OnUpgradeButtonPointerLeave(PointerLeaveEvent e)
-    {
-        UpdateTurretInfo();
-        OnHideTurretUpgrade?.Invoke();
-    }
+        void OnUpgradeButtonPointerLeave(PointerLeaveEvent e)
+        {
+            UpdateTurretInfo();
+            OnHideTurretUpgrade?.Invoke();
+        }
+        */
 }

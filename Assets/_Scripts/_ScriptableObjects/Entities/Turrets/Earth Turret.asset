@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756b8ba1e9cecff4699e4172432011e0, type: 3}
+  m_Name: Earth Turret
+  m_EditorClassIdentifier: 
+  Id: d946eefd-339b-4578-a37a-e238e4037d98
+  EntityName: 
+  Icon: {fileID: 21300000, guid: 17d8437f4aa35774c894cff7e8fd708b, type: 3}
+  IconAnimation: []
+  Price: 0
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Prefab: {fileID: 3932649013856331615, guid: dfdfa1f09eb142544bcda89e4988c8dc, type: 3}
+  Level: {fileID: 11400000, guid: 0534d0f9bf8a82448b445b9ad80c7e1b, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Team: 0
+  BaseTotalHealth: {fileID: 11400000, guid: ddb1eee2c59146740973365bca06d074, type: 2}
+  HealthGrowthPerLevel: {x: 0, y: 0}
+  BaseArmor: {fileID: 11400000, guid: f6128e2396164f9489ab6a722849360a, type: 2}
+  ArmorGrowthPerLevel: {x: 0, y: 0}
+  Loot: []
+  BaseSpeed: {fileID: 11400000, guid: 09c7f70ec9c30a742aa15d0e33d0cb1c, type: 2}
+  SpeedGrowthPerLevel: {x: 0, y: 0}
+  BasePower: {fileID: 11400000, guid: dc5a97d6cd298854ba7b095a6cfd90f1, type: 2}
+  BaseAttackRange: {fileID: 11400000, guid: 4e3c2020676ec9f4faff67eba3e23a76, type: 2}
+  BaseAttackCooldown: {fileID: 11400000, guid: 8328c1889717cf348a7c486835bc7c86, type: 2}
+  PowerGrowthPerLevel: {x: 1, y: 10}
+  AttackRangeGrowthPerLevel: {x: 1, y: 2}
+  AttackCooldownGrowthPerLevel: {x: 1, y: 2}
+  OldKillCount: 0
+  TotalKillCount: 0
+  OldDamageDealt: 0
+  TotalDamageDealt: 0
+  UpgradeCost: 0

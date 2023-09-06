@@ -26,7 +26,7 @@ public class OpponentGroup : BaseScriptableObject
         {
             Minion minion = Instantiate(minionList[Random.Range(0, minionList.Count)]);
             minion.Level.SetValue(Random.Range(minionLevelRange.x, minionLevelRange.y));
-            minion.InitializeBattle();
+            minion.InitializeBattle(1);
             Minions.Add(minion);
         }
 

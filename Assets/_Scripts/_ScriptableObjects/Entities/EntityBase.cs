@@ -24,8 +24,12 @@ public class EntityBase : BaseScriptableObject
     [HideInInspector] public int OldDamageTaken;
     [HideInInspector] public int TotalDamageTaken;
 
-    public virtual void InitializeBattle()
+    [HideInInspector] public int Team;
+
+    public virtual void InitializeBattle(int team)
     {
+        Team = team;
+
         CreateStats();
         OldDamageTaken = TotalDamageTaken;
 
@@ -96,25 +100,12 @@ public class EntityBase : BaseScriptableObject
     }
 
     /* DAMAGE */
-    public virtual int CalculateDamage(BattleCreature attacker)
+    public virtual int CalculateDamage(EntityFight attacker)
     {
-        // HERE: possibly could merge with battle turret, if both derive from EntityFight
-        float damage = attacker.Creature.Power.GetValue();
+        float damage = attacker.Power.GetValue();
 
-        damage *= GetElementalDamageMultiplier(attacker.Creature.Element);
+        damage *= GetElementalDamageMultiplier(attacker.Element);
 
-        damage -= Armor.GetValue();
-        if (damage < 0)
-            damage = 0;
-
-        return Mathf.RoundToInt(damage);
-    }
-
-    public int CalculateDamage(BattleTurret bt)
-    {
-        float damage = bt.Turret.GetCurrentUpgrade().Power;
-
-        damage *= GetElementalDamageMultiplier(bt.Turret.Element);
         damage -= Armor.GetValue();
         if (damage < 0)
             damage = 0;

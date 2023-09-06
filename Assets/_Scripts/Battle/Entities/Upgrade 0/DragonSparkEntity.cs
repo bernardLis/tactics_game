@@ -23,6 +23,6 @@ public class DragonSparkEntity : BattleCreatureRanged
 
         GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
-        projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.Power.GetValue());
+        projectileInstance.GetComponent<Projectile>().Shoot(Creature, Opponent, Creature.Power.GetValue());
     }
 }

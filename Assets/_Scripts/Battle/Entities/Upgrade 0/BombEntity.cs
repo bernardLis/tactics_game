@@ -33,7 +33,7 @@ public class BombEntity : BattleCreatureRanged
                 if (entity.Team == Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(this, 50));
+                StartCoroutine(entity.GetHit(Creature, 50));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                 GameObject hitInstance = Instantiate(Creature.HitPrefab, collider.bounds.center, q);
                 hitInstance.transform.parent = entity.transform;

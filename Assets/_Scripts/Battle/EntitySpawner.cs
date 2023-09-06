@@ -14,7 +14,6 @@ public class EntitySpawner : MonoBehaviour
     [SerializeField] Sound _portalHumSound;
     [SerializeField] Sound _portalPopEntitySound;
 
-    Hero _hero;
     Element _portalElement;
     List<EntityBase> _entities = new();
     [SerializeField] List<PortalElement> _portalElements = new();
@@ -92,7 +91,7 @@ public class EntitySpawner : MonoBehaviour
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 
-        entity.InitializeBattle();
+        entity.InitializeBattle(0);
 
         Vector3 pos = transform.position;
         GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);

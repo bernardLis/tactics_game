@@ -121,7 +121,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 
-        entity.InitializeBattle();
+        entity.InitializeBattle(1);
 
         Vector3 pos = _portalEffect.transform.position;
         pos.y = 1;

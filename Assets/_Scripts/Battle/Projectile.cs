@@ -15,27 +15,17 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] int _speed;
 
-    BattleTurret _shooterTurret;
-    protected BattleCreature _shooterCreature;
+    protected EntityFight _shooter;
     protected BattleEntity _target;
 
     bool _hitConnected;
-    public void Shoot(BattleCreature shooter, BattleEntity target, float power)
+    public void Shoot(EntityFight shooter, BattleEntity target, float power)
     {
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(_shootSound, transform.position);
-        _shooterCreature = shooter;
+        _shooter = shooter;
         _target = target;
-        StartCoroutine(ShootCoroutine(shooter.Creature.AttackRange.GetValue(), target, power));
-    }
-
-    public void Shoot(BattleTurret shooter, BattleEntity target, float power)
-    {
-        _audioManager = AudioManager.Instance;
-        _audioManager.PlaySFX(_shootSound, transform.position);
-        _shooterTurret = shooter;
-        _target = target;
-        StartCoroutine(ShootCoroutine(shooter.Turret.GetCurrentUpgrade().Range, target, power));
+        StartCoroutine(ShootCoroutine(shooter.AttackRange.GetValue(), target, power));
     }
 
     IEnumerator ShootCoroutine(float range, BattleEntity target, float power)
@@ -69,8 +59,7 @@ public class Projectile : MonoBehaviour
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
 
-        if (_shooterCreature != null) StartCoroutine(target.GetHit(_shooterCreature));
-        if (_shooterTurret != null) StartCoroutine(target.GetHit(_shooterTurret));
+        if (_shooter != null) StartCoroutine(target.GetHit(_shooter));
 
         yield return DestroySelf(transform.position);
     }
@@ -102,10 +91,7 @@ public class Projectile : MonoBehaviour
     {
         if (battleEntity.IsDead) return false;
 
-        if (_shooterCreature != null)
-            if (_shooterCreature.Team == battleEntity.Team) return false;
-        if (_shooterTurret != null)
-            if (_shooterTurret.Team == battleEntity.Team) return false;
+        if (_shooter != null && _shooter.Team == battleEntity.Team) return false;
 
         return true;
     }

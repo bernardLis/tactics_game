@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.EventSystems;
 using Shapes;
+using DG.Tweening;
 
 public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
@@ -39,9 +40,8 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         Team = 0; // HERE: turret team
 
         Turret = turret;
-        Turret.OnTurretUpgradePurchased += UpdateTurret;
+        Turret.OnLevelUp += UpdateTurret;
         UpdateTurret();
-
 
         _rangeIndicator.SetActive(true);
     }
@@ -54,16 +54,20 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
     public void UpdateGFX()
     {
+        _GFX.transform.DOScale(_GFX.transform.localScale * 1.1f, 0.5f)
+            .SetEase(Ease.InFlash);
+        /*
         // TODO: maybe some effect
         if (_GFX != null) Destroy(_GFX);
         _GFX = Instantiate(Turret.GetCurrentUpgrade().GFXPrefab, transform.position + Vector3.up, Quaternion.identity);
         _GFX.transform.parent = transform;
+        */
     }
 
     void UpdateRangeIndicator()
     {
         _rangeDisc = _rangeIndicator.GetComponent<Disc>();
-        _rangeDisc.Radius = Turret.GetCurrentUpgrade().Range;
+        _rangeDisc.Radius = Turret.AttackRange.GetValue();
 
         Color c = GameManager.PlayerTeamColor;
         c.a = 0.3f;
@@ -100,7 +104,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
     {
         while (true)
         {
-            yield return new WaitForSeconds(Turret.GetCurrentUpgrade().RateOfFire);
+            yield return new WaitForSeconds(Turret.AttackCooldown.GetValue());
             ChooseNewTarget();
             if (_target == null) continue;
             FireProjectile();
@@ -116,7 +120,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         {
             if (be.IsDead) continue;
             float distance = Vector3.Distance(transform.position, be.transform.position);
-            if (distance <= Turret.GetCurrentUpgrade().Range)
+            if (distance <= Turret.AttackRange.GetValue())
                 distances.Add(be, distance);
         }
 
@@ -129,7 +133,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
     {
         Projectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectileInstance.transform.parent = transform;
-        projectileInstance.Shoot(this, _target, Turret.GetCurrentUpgrade().Power);
+        projectileInstance.Shoot(Turret, _target, Turret.Power.GetValue());
     }
 
     public bool CanBeGrabbed() { return true; }
@@ -159,11 +163,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
         _rangeIndicator.SetActive(true);
 
-        c.OnShowTurretUpgrade += () => _rangeDisc.Radius = Turret.GetNextUpgrade().Range;
-        c.OnHideTurretUpgrade += () => _rangeDisc.Radius = Turret.GetCurrentUpgrade().Range;
-
         _tooltipManager.OnTooltipHidden += OnTooltipHidden;
-
     }
 
     void OnTooltipHidden()

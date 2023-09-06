@@ -2,57 +2,44 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Turret")]
-public class Turret : BaseScriptableObject
+public class Turret : EntityFight
 {
-    public Sprite Icon;
-    public string Description;
-    public Element Element;
 
-    public TurretUpgrade[] TurretUpgrades;
-    public int CurrentTurretUpgradeIndex;
+    [Header("Turret")]
+    public int UpgradeCost;
 
-    public int KillCount;
+    public override void InitializeBattle(int team)
+    {
+        base.InitializeBattle(team);
 
-    public GameObject Prefab;
+        UpgradeCost = 200 * Level.Value;
+    }
 
-    public event Action OnTurretUpgradePurchased;
     public void PurchaseUpgrade()
     {
-        CurrentTurretUpgradeIndex++;
-        OnTurretUpgradePurchased?.Invoke();
+        LevelUp();
     }
 
-    public TurretUpgrade GetCurrentUpgrade()
+    public override void LevelUp()
     {
-        return TurretUpgrades[CurrentTurretUpgradeIndex];
-    }
+        base.LevelUp();
 
-    public TurretUpgrade GetNextUpgrade()
-    {
-        if (CurrentTurretUpgradeIndex + 1 < TurretUpgrades.Length)
-            return TurretUpgrades[CurrentTurretUpgradeIndex + 1];
+        BasePower.ApplyChange(Random.Range(PowerGrowthPerLevel.x, PowerGrowthPerLevel.y));
+        BaseAttackRange.ApplyChange(Random.Range(AttackRangeGrowthPerLevel.x, AttackRangeGrowthPerLevel.y));
+      
+        int newAttackCooldown = BaseAttackCooldown.Value - Random.Range(AttackCooldownGrowthPerLevel.x, AttackCooldownGrowthPerLevel.y);
+        newAttackCooldown = Mathf.Clamp(newAttackCooldown, 1, int.MaxValue);
+        BaseAttackCooldown.SetValue(newAttackCooldown);
 
-        return null;
-    }
-
-    public TurretUpgrade GetNextNextUpgrade()
-    {
-        if (CurrentTurretUpgradeIndex + 2 < TurretUpgrades.Length)
-            return TurretUpgrades[CurrentTurretUpgradeIndex + 2];
-
-        return null;
+        UpgradeCost = 200 * Level.Value;
     }
 
     public void PurchaseSpecialUpgrade()
     {
         //HERE: turret special upgrade
-    }
-
-    public void IncreaseKillCount()
-    {
-        KillCount++;
     }
 }
 

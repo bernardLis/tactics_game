@@ -116,7 +116,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddCreature(Creature c, int team)
     {
-        c.InitializeBattle();
+        c.InitializeBattle(team);
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
@@ -127,7 +127,7 @@ public class BattleEntityTestManager : MonoBehaviour
     void AddRandomCreature(int team)
     {
         Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
-        c.InitializeBattle();
+        c.InitializeBattle(team);
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
@@ -149,7 +149,7 @@ public class BattleEntityTestManager : MonoBehaviour
             {
                 Minion m = Instantiate(_gameManager.HeroDatabase.GetRandomMinion());
 
-                m.InitializeBattle();
+                m.InitializeBattle(1);
                 BattleEntity be = SpawnEntity(m, _teamBSpawnPoint.position);
                 _battleManager.AddOpponentArmyEntity(be);
             }

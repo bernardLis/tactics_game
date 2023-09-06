@@ -13,6 +13,7 @@ public class RewardTurret : Reward
         base.CreateRandom(hero);
 
         Turret = Instantiate(_gameManager.HeroDatabase.GetRandomTurret());
+        Turret.InitializeBattle(0);
     }
 
     public override void GetReward()
