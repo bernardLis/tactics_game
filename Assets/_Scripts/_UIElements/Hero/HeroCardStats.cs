@@ -75,7 +75,7 @@ public class HeroCardStats : VisualElement
 
     void OnRankChanged(HeroRank rank)
     {
-        _title.text = $"[{rank.Title}] {Hero.HeroName}";
+        _title.text = $"[{rank.Title}] {Hero.EntityName}";
     }
 
     void OnPanelDetached(DetachFromPanelEvent evt)
@@ -101,7 +101,7 @@ public class HeroCardStats : VisualElement
         container.AddToClassList(_ussTopMiddlePanel);
 
         HeroDatabase db = _gameManager.HeroDatabase;
-        _power = new(db.GetStatIconByName("Power"), Hero.Power);
+        // _power = new(db.GetStatIconByName("Power"), Hero.Power);
         _armor = new(db.GetStatIconByName("Armor"), Hero.Armor);
         _speed = new(db.GetStatIconByName("Speed"), Hero.Speed);
 
@@ -114,7 +114,7 @@ public class HeroCardStats : VisualElement
     {
         container.AddToClassList(_ussTopRightPanel);
 
-        _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
+        _title = new($"[{Hero.Rank.Title}] {Hero.EntityName}");
         container.Add(_title);
 
         container.Add(CreateExpGroup());
@@ -126,7 +126,7 @@ public class HeroCardStats : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
 
-        ExpBar = new(Color.gray, "Experience", Hero.Experience, Hero.ExpForNextLevel);
+        ExpBar = new(Color.gray, "Experience", currentIntVar: Hero.Experience, totalIntVar: Hero.ExpForNextLevel);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.style.position = Position.Absolute;

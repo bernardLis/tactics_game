@@ -11,7 +11,7 @@ public class EntityCardFull : FullScreenElement
     const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
 
-    public Entity Entity;
+    public EntityBase Entity;
 
     protected VisualElement _mainCardContainer;
 
@@ -39,7 +39,7 @@ public class EntityCardFull : FullScreenElement
     Label _armor;
     Label _speed;
 
-    public EntityCardFull(Entity entity) : base()
+    public EntityCardFull(EntityBase entity) : base()
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardFullStyles);
         if (ss != null)
@@ -122,12 +122,12 @@ public class EntityCardFull : FullScreenElement
 
     void AddBattleCharacteristics()
     {
-        _maxHealth = new($"Max Health: {Entity.GetMaxHealth()}");
-        _armor = new($"Armor: {Entity.Armor}");
-        _speed = new($"Speed: {Entity.Speed}");
+        _maxHealth = new($"Max Health: {Entity.TotalHealth.GetValue()}");
+        _armor = new($"Armor: {Entity.Armor.GetValue()}");
+        // _speed = new($"Speed: {Entity.Speed.GetValue()}");
 
         _topRightContainer.Add(_maxHealth);
         _topRightContainer.Add(_armor);
-        _topRightContainer.Add(_speed);
+        //   _topRightContainer.Add(_speed);
     }
 }

@@ -24,7 +24,7 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         _abilityEffectInstance = Instantiate(_abilityEffect, transform.position, Quaternion.identity);
         _abilityEffectInstance.transform.parent = _GFX.transform;
@@ -37,7 +37,7 @@ public class PracticeDummyEntity : BattleCreatureMelee
                 if (entity.Team == Team) continue; // splash damage is player friendly
                 if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(this, Creature.GetPower() * 2));
+                StartCoroutine(entity.GetHit(this, Creature.Power.GetValue() * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                 GameObject hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
                 hitInstance.transform.parent = Opponent.transform;

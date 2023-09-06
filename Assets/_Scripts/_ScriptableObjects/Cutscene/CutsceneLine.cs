@@ -21,7 +21,7 @@ public class CutsceneLine : BaseScriptableObject
         GameManager gm = GameManager.Instance;
         string p = Text;
         if (gm.PlayerHero != null)
-            p = Text.Replace("{heroName}", gm.PlayerHero.HeroName);
+            p = Text.Replace("{heroName}", gm.PlayerHero.EntityName);
 
         ParsedText = p;
 

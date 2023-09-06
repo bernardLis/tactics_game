@@ -34,7 +34,7 @@ public class BattleCreature : BattleEntity
             CurrentAbilityCooldown -= Time.deltaTime;
     }
 
-    public override void InitializeEntity(Entity entity)
+    public override void InitializeEntity(EntityBase entity)
     {
         base.InitializeEntity(entity);
         Creature = (Creature)entity;
@@ -44,7 +44,7 @@ public class BattleCreature : BattleEntity
         OnDamageDealt += Creature.AddDmgDealt;
         OnDamageTaken += Creature.AddDmgTaken;
 
-        _agent.stoppingDistance = Creature.AttackRange;
+        _agent.stoppingDistance = Creature.AttackRange.GetValue();
         _avoidancePriorityRange = new Vector2Int(0, 20);
     }
 
@@ -133,7 +133,7 @@ public class BattleCreature : BattleEntity
     {
         yield return PathToPosition(Opponent.transform.position);
 
-        _agent.stoppingDistance = Creature.AttackRange;
+        _agent.stoppingDistance = Creature.AttackRange.GetValue();
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
             _agent.SetDestination(Opponent.transform.position);
@@ -162,7 +162,7 @@ public class BattleCreature : BattleEntity
 
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) yield break;
-        _currentAttackCooldown = Creature.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
@@ -213,7 +213,7 @@ public class BattleCreature : BattleEntity
         if (Opponent.IsDead) return false;
 
         // +0.5 wiggle room
-        return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange + 0.5f;
+        return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange.GetValue() + 0.5f;
     }
 
     protected void ChooseNewTarget()
@@ -305,7 +305,7 @@ public class BattleCreature : BattleEntity
     void OnLevelUp()
     {
         DisplayFloatingText("Level Up!", Color.white);
-        CurrentHealth.SetValue(Creature.GetMaxHealth());
+        CurrentHealth.SetValue(Creature.TotalHealth.GetValue());
     }
 
     public virtual void Evolve()

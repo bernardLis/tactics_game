@@ -79,11 +79,11 @@ public class HeroCardExp : VisualElement
         VisualElement container = new();
         container.AddToClassList(_ussExpContainer);
 
-        _title = new($"[{Hero.Rank.Title}] {Hero.HeroName}");
+        _title = new($"[{Hero.Rank.Title}] {Hero.EntityName}");
         _rankElement = new(Hero.Rank.Rank, 0.5f);
 
         _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color,
-                 "Experience", Hero.Experience, Hero.ExpForNextLevel);
+                 "Experience", totalIntVar: Hero.Experience, currentIntVar: Hero.ExpForNextLevel);
 
         _level = new Label($"Level {Hero.Level.Value}");
         _level.AddToClassList(_ussCommonTextPrimary);
@@ -122,7 +122,7 @@ public class HeroCardExp : VisualElement
     void OnRankChanged(HeroRank rank)
     {
         _rankElement.SetRank(rank.Rank);
-        _title.text = $"[{rank.Title}] {Hero.HeroName}";
+        _title.text = $"[{rank.Title}] {Hero.EntityName}";
     }
 
     void OnExpValueChanged(int newValue)
@@ -159,7 +159,7 @@ public class HeroCardExp : VisualElement
         _rangeStatContainer.AddToClassList(_ussStatContainer);
 
         HeroDatabase db = GameManager.Instance.HeroDatabase;
-        _power = new(db.GetStatIconByName("Power"), Hero.Power);
+        // _power = new(db.GetStatIconByName("Power"), Hero.Power);
         _armor = new(db.GetStatIconByName("Armor"), Hero.Armor);
         _range = new(db.GetStatIconByName("Speed"), Hero.Speed);
 

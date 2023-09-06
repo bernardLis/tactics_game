@@ -52,9 +52,9 @@ public class BattleCreatureBonding : MonoBehaviour
 
     void OnLevelUp()
     {
-        if (_creature.Level == 3) // name change
+        if (_creature.Level.Value == 3) // name change
             HandleNameChange();
-        if (_creature.Level == _creature.CreatureAbility.UnlockLevel)
+        if (_creature.Level.Value == _creature.CreatureAbility.UnlockLevel)
             HandleAbilityUnlock();
 
         ResolveEvolution();

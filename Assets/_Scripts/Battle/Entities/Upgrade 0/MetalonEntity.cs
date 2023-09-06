@@ -19,7 +19,7 @@ public class MetalonEntity : BattleCreatureMelee
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, _abilityEffectRadius);
         foreach (Collider collider in colliders)

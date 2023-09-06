@@ -41,7 +41,7 @@ public class BattleCreatureRanged : BattleCreature
         for (int i = 0; i < numberOfLines; i++)
         {
             Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
-            rotatedLine = rotatedLine.normalized * Creature.AttackRange;
+            rotatedLine = rotatedLine.normalized * Creature.AttackRange.GetValue();
 
             // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
@@ -91,6 +91,6 @@ public class BattleCreatureRanged : BattleCreature
 
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
-        projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
+        projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.Power.GetValue());
     }
 }

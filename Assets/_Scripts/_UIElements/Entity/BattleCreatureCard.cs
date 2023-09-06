@@ -35,7 +35,7 @@ public class BattleCreatureCard : BattleEntityCard
 
     void OverrideHealthBar()
     {
-        _healthBar.UpdateTrackedVariables(_battleCreature.CurrentHealth, _battleCreature.Creature.MaxHealth);
+        _healthBar.UpdateTrackedVariables(_battleCreature.CurrentHealth, _battleCreature.Creature.BaseTotalHealth);
     }
 
     void HandleCreatureAbility()

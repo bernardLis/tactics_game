@@ -21,7 +21,7 @@ public class Snakelet : BattleCreatureMelee
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         _abilityHitInstance = Instantiate(_abilityHit, Opponent.transform.position, Quaternion.identity);
         _abilityHitInstance.transform.parent = Opponent.transform;

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
+  m_Name: Cyclops
+  m_EditorClassIdentifier: 
+  Id: f6385442-c0c8-4f69-92c1-01a38f81d1e1
+  EntityName: 
+  Icon: {fileID: 0}
+  IconAnimation:
+  - {fileID: 21300000, guid: e4a72eadae7f44e468fef0a2c07a7c0b, type: 3}
+  Price: 20
+  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Prefab: {fileID: 6266213777921296780, guid: 9226efbdb8715d84c913a3ec7d87f55f, type: 3}
+  Level: {fileID: 11400000, guid: 0b0da3a316b689741b92578fd62d398b, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  BaseTotalHealth: {fileID: 11400000, guid: 2495cf3d02e7b744f8037c3dce88c0dd, type: 2}
+  HealthGrowthPerLevel: {x: 0, y: 0}
+  BaseArmor: {fileID: 11400000, guid: ad3dcb1f3844af643a98d9ed377e76e2, type: 2}
+  ArmorGrowthPerLevel: {x: 0, y: 0}
+  Loot:
+  - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
+  - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}
+  - {fileID: 11400000, guid: 5d2c3ab5459d404428636ab07c297ef3, type: 2}
+  - {fileID: 11400000, guid: 61ad4c7c43eba504298d749e96e4c000, type: 2}
+  - {fileID: 11400000, guid: 941358683b4596844a2e3673c7e9eba9, type: 2}
+  - {fileID: 11400000, guid: c04bd6602a8ad1044889258bbc20ae25, type: 2}
+  BaseSpeed: {fileID: 11400000, guid: 64ee7e7c25f689547a1118c573fd5457, type: 2}
+  SpeedGrowthPerLevel: {x: 0, y: 0}

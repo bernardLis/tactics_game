@@ -20,7 +20,7 @@ public class RewardCreature : Reward
     public override void GetReward()
     {
         base.GetReward();
-        Creature.InitializeBattle(_hero);
+        Creature.InitializeBattle();
         _hero.AddCreature(Creature);
 
         BattleDeploymentManager bdsm = BattleManager.Instance.GetComponent<BattleDeploymentManager>();

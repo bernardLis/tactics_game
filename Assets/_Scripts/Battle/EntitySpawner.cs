@@ -16,7 +16,7 @@ public class EntitySpawner : MonoBehaviour
 
     Hero _hero;
     Element _portalElement;
-    List<Entity> _entities = new();
+    List<EntityBase> _entities = new();
     [SerializeField] List<PortalElement> _portalElements = new();
     [SerializeField] GameObject _blackPortal;
 
@@ -88,11 +88,11 @@ public class EntitySpawner : MonoBehaviour
         Invoke(nameof(DestroySelf), 1f);
     }
 
-    void SpawnEntity(Entity entity)
+    void SpawnEntity(EntityBase entity)
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 
-        entity.InitializeBattle(_hero);
+        entity.InitializeBattle();
 
         Vector3 pos = transform.position;
         GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);

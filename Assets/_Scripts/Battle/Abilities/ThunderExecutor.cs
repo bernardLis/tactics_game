@@ -21,7 +21,7 @@ public class ThunderExecutor : AbilityExecutor
             if (entity.IsDead) continue;
             if (entity == null) continue;
 
-            _damageDealt += Mathf.RoundToInt(entity.Entity.CalculateDamage(_selectedAbility));
+            _damageDealt += Mathf.RoundToInt(entity.EntityBase.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
             Vector3 pos = new Vector3(entity.transform.position.x, 0, entity.transform.position.z);
             GameObject instance = Instantiate(_entityEffectPrefab, pos, Quaternion.identity);

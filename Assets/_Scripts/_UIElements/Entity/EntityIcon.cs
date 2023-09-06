@@ -13,7 +13,7 @@ public class EntityIcon : ElementWithTooltip
 
     GameManager _gameManager;
 
-    Entity _entity;
+    EntityBase _entity;
     bool _blockTooltip;
 
     VisualElement _iconContainer;
@@ -21,7 +21,7 @@ public class EntityIcon : ElementWithTooltip
 
     AnimationElement _animationElement;
     bool _isAnimationBlocked;
-    public EntityIcon(Entity entity, bool blockTooltip = false, bool blockClick = false)
+    public EntityIcon(EntityBase entity, bool blockTooltip = false, bool blockClick = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
@@ -74,13 +74,13 @@ public class EntityIcon : ElementWithTooltip
         _iconContainer.style.height = 180;
     }
 
-    public void SetEntity(Entity entity)
+    public void SetEntity(EntityBase entity)
     {
         _entity = entity;
         _animationElement.SwapAnimationSprites(entity.IconAnimation);
     }
 
-    public void SwapCreature(Entity newEntity)
+    public void SwapCreature(EntityBase newEntity)
     {
         _entity = newEntity;
 

@@ -19,10 +19,10 @@ public class DragonSparkEntity : BattleCreatureRanged
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
         yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
-        projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.GetPower());
+        projectileInstance.GetComponent<Projectile>().Shoot(this, Opponent, Creature.Power.GetValue());
     }
 }

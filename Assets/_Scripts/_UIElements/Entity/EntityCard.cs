@@ -28,8 +28,8 @@ public class EntityCard : VisualElement
     protected Label _levelLabel;
     protected ResourceBarElement _healthBar;
 
-    public Entity Entity;
-    public EntityCard(Entity entity)
+    public EntityBase Entity;
+    public EntityCard(EntityBase entity)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardStyles);
@@ -89,14 +89,14 @@ public class EntityCard : VisualElement
         IntVariable expForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
         expForNextLevel.SetValue(100);
 
-        _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color, 
-                "Experience", exp, expForNextLevel);
+        _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color,
+                "Experience", totalIntVar: exp, currentIntVar: expForNextLevel);
         _middleContainer.Add(_expBar);
     }
 
     protected virtual void HandleLevelLabel()
     {
-        _levelLabel = new Label($"Level {Entity.Level}");
+        _levelLabel = new Label($"Level {Entity.Level.Value}");
         _levelLabel.style.position = Position.Absolute;
         _levelLabel.style.left = 5;
         _levelLabel.AddToClassList(_ussCommonTextPrimary);
@@ -105,13 +105,8 @@ public class EntityCard : VisualElement
 
     protected virtual void HandleHealthBar()
     {
-        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        currentHealth.SetValue(Entity.BaseHealth);
-        IntVariable totalHealth = ScriptableObject.CreateInstance<IntVariable>();
-        totalHealth.SetValue(Entity.BaseHealth);
-
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        _healthBar = new(c, "health", currentHealth, totalHealth);
+        _healthBar = new(c, "health", currentIntVar: Entity.BaseTotalHealth, totalIntVar: Entity.BaseTotalHealth);
         _middleContainer.Add(_healthBar);
     }
 }

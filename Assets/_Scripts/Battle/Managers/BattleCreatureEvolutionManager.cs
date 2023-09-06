@@ -49,7 +49,8 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
         sh.Dissolve(5f, false);
         sh.OnDissolveComplete += () =>
         {
-            originalEntity.Entity.Hero.RemoveCreature(originalEntity.Entity as Creature);
+            // TODO: could be nicer.
+            GameManager.Instance.PlayerHero.RemoveCreature(originalEntity.EntityBase as Creature);
             originalEntity.TriggerDieCoroutine();
         };
 
@@ -58,12 +59,12 @@ public class BattleCreatureEvolutionManager : MonoBehaviour
 
     void InstantiateEvolvedCreature(BattleCreature originalCreature)
     {
-        Creature oldCreature = originalCreature.Entity as Creature;
-        Hero hero = oldCreature.Hero;
+        Creature oldCreature = originalCreature.EntityBase as Creature;
         Creature newCreature = Instantiate(oldCreature.EvolvedCreature);
 
-        hero.AddCreature(newCreature, true);
-        newCreature.InitializeBattle(hero);
+        // TODO: could be nicer.
+        GameManager.Instance.PlayerHero.AddCreature(newCreature, true);
+        newCreature.InitializeBattle();
         newCreature.ImportCreatureStats(oldCreature);
 
         Vector3 pos = originalCreature.transform.position;

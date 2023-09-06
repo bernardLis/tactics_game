@@ -10,7 +10,9 @@ public class OpponentGroup : BaseScriptableObject
     public List<Minion> Minions = new();
     public List<Creature> Creatures = new();
 
-    public void CreateGroup(Element element, int minions, Vector2Int minionLevelRange, int creatures, Vector2Int creatureLevelRange)
+    public void CreateGroup(Element element,
+            int minions, Vector2Int minionLevelRange,
+            int creatures, Vector2Int creatureLevelRange)
     {
         GameManager _gameManager = GameManager.Instance;
 
@@ -23,14 +25,15 @@ public class OpponentGroup : BaseScriptableObject
         for (int i = 0; i < minions; i++)
         {
             Minion minion = Instantiate(minionList[Random.Range(0, minionList.Count)]);
-            minion.InitializeMinion(Random.Range(minionLevelRange.x, minionLevelRange.y));
+            minion.Level.SetValue(Random.Range(minionLevelRange.x, minionLevelRange.y));
+            minion.InitializeBattle();
             Minions.Add(minion);
         }
 
         for (int i = 0; i < creatures; i++)
         {
             Creature creature = Instantiate(creatureList[Random.Range(0, creatureList.Count)]);
-            creature.Level = Random.Range(creatureLevelRange.x, creatureLevelRange.y);
+            creature.Level.SetValue(Random.Range(creatureLevelRange.x, creatureLevelRange.y));
             Creatures.Add(creature);
         }
 

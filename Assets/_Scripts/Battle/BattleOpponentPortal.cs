@@ -102,11 +102,11 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         OpponentGroup group = _currentWave.GetCurrentOpponentGroup();
 
-        List<Entity> entities = new(group.Minions);
+        List<EntityBase> entities = new(group.Minions);
         entities.AddRange(group.Creatures);
         float delay = 1f / entities.Count;
 
-        foreach (Entity e in entities)
+        foreach (EntityBase e in entities)
         {
             SpawnEntity(e);
             yield return new WaitForSeconds(delay);
@@ -117,11 +117,11 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         OnGroupSpawned?.Invoke();
     }
 
-    void SpawnEntity(Entity entity)
+    void SpawnEntity(EntityBase entity)
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 
-        entity.InitializeBattle(null);
+        entity.InitializeBattle();
 
         Vector3 pos = _portalEffect.transform.position;
         pos.y = 1;
@@ -139,7 +139,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     IEnumerator ClosePortal()
     {
         OnPortalClosed?.Invoke(this);
-        
+
         _isPortalActive = false;
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip

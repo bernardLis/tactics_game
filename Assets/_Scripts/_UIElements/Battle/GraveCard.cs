@@ -56,7 +56,7 @@ public class GraveCard : VisualElement
 
     void PopulateRightPanel()
     {
-        _resurrectButton = new(_creature.Level * 200, buttonText: "Resurrect");
+        _resurrectButton = new(_creature.Level.Value * 200, buttonText: "Resurrect");
         _resurrectButton.OnPurchased += Resurrect;
 
         UpdateResurrectButton();

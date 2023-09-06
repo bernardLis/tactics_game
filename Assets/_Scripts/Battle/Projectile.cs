@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         _audioManager.PlaySFX(_shootSound, transform.position);
         _shooterCreature = shooter;
         _target = target;
-        StartCoroutine(ShootCoroutine(shooter.Creature.AttackRange, target, power));
+        StartCoroutine(ShootCoroutine(shooter.Creature.AttackRange.GetValue(), target, power));
     }
 
     public void Shoot(BattleTurret shooter, BattleEntity target, float power)

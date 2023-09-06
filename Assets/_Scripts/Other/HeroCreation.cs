@@ -101,7 +101,7 @@ public class HeroCreation : MonoBehaviour
         _submitButton = new("Submit", _ussCommonMenuButton, () =>
         {
             Hero newChar = ScriptableObject.CreateInstance<Hero>();
-            newChar.HeroName = _nameField.value;
+            newChar.EntityName = _nameField.value;
             _gameManager.PlayerHero = newChar;
 
             _nameContainer.style.display = DisplayStyle.None;

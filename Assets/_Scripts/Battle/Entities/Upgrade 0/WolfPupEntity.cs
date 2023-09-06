@@ -26,7 +26,7 @@ public class WolfPupEntity : BattleCreatureMelee
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y).WaitForCompletion();
         yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown;
+        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
         _effectInstance.transform.parent = transform;
@@ -38,7 +38,7 @@ public class WolfPupEntity : BattleCreatureMelee
         if (IsOpponentInRange())
         {
             targetPosition = transform.position + normal * (_agent.stoppingDistance * 2);
-            StartCoroutine(Opponent.GetHit(this, Creature.GetPower() * 3));
+            StartCoroutine(Opponent.GetHit(this, Creature.Power.GetValue() * 3));
         }
         transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 

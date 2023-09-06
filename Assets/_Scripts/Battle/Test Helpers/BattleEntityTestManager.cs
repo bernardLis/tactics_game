@@ -116,7 +116,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddCreature(Creature c, int team)
     {
-        c.InitializeBattle(team == 0 ? _gameManager.PlayerHero : null);
+        c.InitializeBattle();
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
@@ -127,7 +127,7 @@ public class BattleEntityTestManager : MonoBehaviour
     void AddRandomCreature(int team)
     {
         Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
-        c.InitializeBattle(team == 0 ? _gameManager.PlayerHero : null);
+        c.InitializeBattle();
         BattleEntity be = SpawnEntity(c, team == 0 ? _teamASpawnPoint.position : _teamBSpawnPoint.position);
         if (team == 0)
             _battleManager.AddPlayerArmyEntity(be);
@@ -149,7 +149,7 @@ public class BattleEntityTestManager : MonoBehaviour
             {
                 Minion m = Instantiate(_gameManager.HeroDatabase.GetRandomMinion());
 
-                m.InitializeBattle(null);
+                m.InitializeBattle();
                 BattleEntity be = SpawnEntity(m, _teamBSpawnPoint.position);
                 _battleManager.AddOpponentArmyEntity(be);
             }
@@ -161,7 +161,7 @@ public class BattleEntityTestManager : MonoBehaviour
     }
 
 
-    BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
+    BattleEntity SpawnEntity(EntityBase entity, Vector3 spawnPos)
     {
         Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
