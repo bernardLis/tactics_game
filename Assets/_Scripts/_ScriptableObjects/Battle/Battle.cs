@@ -9,7 +9,6 @@ public class Battle : BaseScriptableObject
 {
     GameManager _gameManager;
 
-    public Hero Opponent;
     public List<BattleWave> Waves = new();
 
     public Spire Spire;
@@ -36,10 +35,6 @@ public class Battle : BaseScriptableObject
 
         // Spire = CreateInstance<Spire>();
         // Spire.Initialize();
-
-        Opponent = CreateInstance<Hero>();
-        Opponent.CreateRandom(_gameManager.PlayerHero.Level.Value);
-        Opponent.CreatureArmy.Clear();
 
         Waves = new();
         CreateWaves();
