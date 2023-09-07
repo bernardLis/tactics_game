@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CreatureCardFull : EntityCardFull
+public class CreatureCardFull : EntityBaseCardFull
 {
     const string _ussTitle = _ussClassName + "title";
     const string _ussNameField = _ussClassName + "name-field";
@@ -18,8 +18,6 @@ public class CreatureCardFull : EntityCardFull
 
         _entityIcon.PlayAnimationAlways();
 
-        UpdateBasicStats();
-        UpdateBattleCharacteristics();
         AddAbility(isUnlockingAbility);
         AddBattleStats();
 
@@ -29,20 +27,24 @@ public class CreatureCardFull : EntityCardFull
     }
 
 
-    void UpdateBasicStats()
+    protected override void AddOtherBasicInfo()
     {
+        base.AddOtherBasicInfo();
         Label upgradeTier = new($"Tier: {Creature.UpgradeTier}");
-        _topMiddleContainer.Add(upgradeTier);
+        _basicInfoContainer.Add(upgradeTier);
     }
 
-    void UpdateBattleCharacteristics()
+
+    protected override void AddStats()
     {
+        base.AddStats();
         StatElement power = new(Creature.Power);
-        _topRightContainer.Add(power);
+        _statsContainer.Add(power);
         StatElement attackRange = new(Creature.AttackRange);
-        _topRightContainer.Add(attackRange);
+        _statsContainer.Add(attackRange);
         StatElement attackCooldown = new(Creature.AttackCooldown);
-        _topRightContainer.Add(attackCooldown);
+        _statsContainer.Add(attackCooldown);
+
     }
 
     void AddAbility(bool isUnlockingAbility)
@@ -51,13 +53,13 @@ public class CreatureCardFull : EntityCardFull
 
         bool isLocked = !Creature.IsAbilityUnlocked();
         if (isUnlockingAbility) isLocked = true; // force it to "play effect" (that does not exist atm)
-        _topContainer.Add(new CreatureAbilityElement(Creature.CreatureAbility, isLocked: isLocked));
+        _otherContainer.Add(new CreatureAbilityElement(Creature.CreatureAbility, isLocked: isLocked));
     }
 
     void AddBattleStats()
     {
         VisualElement container = new();
-        _topContainer.Add(container);
+        _otherContainer.Add(container);
 
         Label killCount = new($"Kill Count: {Creature.TotalKillCount}");
         Label damageDealt = new($"Damage Dealt: {Creature.TotalDamageDealt}");

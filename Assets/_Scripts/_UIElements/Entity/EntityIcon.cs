@@ -126,7 +126,7 @@ public class EntityIcon : ElementWithTooltip
         if (_entity is Creature)
             new CreatureCardFull((Creature)_entity);
         if (_entity is Minion)
-            new EntityCardFull((Minion)_entity);
+            new EntityBaseCardFull((Minion)_entity);
     }
 
     protected override void DisplayTooltip()

@@ -35,8 +35,6 @@ public class StatElement : ElementWithTooltip
 
     void BaseStatVisual()
     {
-        style.flexDirection = FlexDirection.Row;
-
         Icon = new();
         Icon.AddToClassList(_ussIcon);
         Icon.style.backgroundImage = new StyleBackground(_stat.Icon);
