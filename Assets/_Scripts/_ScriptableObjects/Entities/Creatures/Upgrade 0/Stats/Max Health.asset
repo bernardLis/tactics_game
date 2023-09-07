@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Max Health
   m_EditorClassIdentifier: 
   Id: 1b340b0e-4251-4537-9c35-6e78ce2eecfc
-  StatType: 0
+  StatType: 1
   Icon: {fileID: 0}
+  Description: 
   BaseValue: 100
   BonusValue: 0
   IsDecreasingPerLevel: 0

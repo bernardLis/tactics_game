@@ -37,11 +37,11 @@ public class CreatureCardFull : EntityCardFull
 
     void UpdateBattleCharacteristics()
     {
-        Label basePower = new($"Power: {Creature.Power.GetValue()}");
-        _topRightContainer.Add(basePower);
-        Label attackRange = new($"Attack Range: {Creature.AttackRange}");
+        StatElement power = new(Creature.Power);
+        _topRightContainer.Add(power);
+        StatElement attackRange = new(Creature.AttackRange);
         _topRightContainer.Add(attackRange);
-        Label attackCooldown = new($"Attack Cooldown: {Creature.AttackCooldown}");
+        StatElement attackCooldown = new(Creature.AttackCooldown);
         _topRightContainer.Add(attackCooldown);
     }
 

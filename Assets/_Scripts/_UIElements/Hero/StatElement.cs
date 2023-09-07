@@ -3,6 +3,14 @@ using UnityEngine.UIElements;
 
 public class StatElement : ElementWithTooltip
 {
+    const string _ussCommonTextPrimary = "common__text-primary";
+
+    const string _ussClassName = "stat-element__";
+    const string _ussIcon = _ussClassName + "icon";
+    const string _ussValue = _ussClassName + "value";
+
+    GameManager _gameManager;
+
     public Label Icon;
     public Label Value;
 
@@ -10,35 +18,28 @@ public class StatElement : ElementWithTooltip
 
     string _tooltipText;
 
-    const string _ussCommonTextPrimary = "common__text-primary";
-
-    const string _ussClassName = "stat-element";
-
-    const string _ussIcon = _ussClassName + "__icon";
-    const string _ussValue = _ussClassName + "__value";
-
-    // when there are no Stats => stats won't be interacted with
-    public StatElement(Sprite icon, Stat stat) : base()
+    public StatElement(Stat stat) : base()
     {
-        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+        _gameManager = GameManager.Instance;
+        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StatElementStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StatElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
         _stat = stat;
-        BaseStatVisual(icon);
+        BaseStatVisual();
         _stat.OnValueChanged += UpdateValue;
     }
 
-    void BaseStatVisual(Sprite icon)
+    void BaseStatVisual()
     {
         style.flexDirection = FlexDirection.Row;
 
         Icon = new();
         Icon.AddToClassList(_ussIcon);
-        Icon.style.backgroundImage = new StyleBackground(icon);
+        Icon.style.backgroundImage = new StyleBackground(_stat.Icon);
         Add(Icon);
 
         Value = new();
@@ -47,7 +48,10 @@ public class StatElement : ElementWithTooltip
         Value.text = _stat.GetValue().ToString();
         Add(Value);
 
-        _tooltipText = _stat.StatType.ToString();
+        string description = _stat.Description;
+        if (description.Length == 0)
+            description = _stat.StatType.ToString();
+        _tooltipText = description;
     }
 
     public void UpdateValue(int value) { Value.text = value.ToString(); }

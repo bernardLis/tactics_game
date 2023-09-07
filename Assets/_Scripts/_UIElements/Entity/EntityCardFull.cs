@@ -33,11 +33,11 @@ public class EntityCardFull : FullScreenElement
 
     Label _levelLabel;
     Label _priceLabel;
-    Label _maxHealth;
-
     ElementalElement _element;
-    Label _armor;
-    Label _speed;
+
+    StatElement _maxHealth;
+    StatElement _armor;
+    StatElement _speed;
 
     public EntityCardFull(EntityBase entity) : base()
     {
@@ -122,8 +122,8 @@ public class EntityCardFull : FullScreenElement
 
     void AddBattleCharacteristics()
     {
-        _maxHealth = new($"Max Health: {Entity.MaxHealth.GetValue()}");
-        _armor = new($"Armor: {Entity.Armor.GetValue()}");
+        _maxHealth = new(Entity.MaxHealth);
+        _armor = new(Entity.Armor);
         // _speed = new($"Speed: {Entity.Speed.GetValue()}");
 
         _topRightContainer.Add(_maxHealth);

@@ -6,10 +6,12 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu]
 public class Stat : BaseScriptableObject
 {
+    [Header("Stat Info")]
     public StatType StatType;
     public Sprite Icon;
     public string Description;
 
+    [Header("Stat Values")]
     public int BaseValue;
     [HideInInspector] public int BonusValue;
     public bool IsDecreasingPerLevel;
