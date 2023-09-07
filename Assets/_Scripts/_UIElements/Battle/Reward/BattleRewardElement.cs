@@ -222,13 +222,13 @@ public class BattleRewardElement : VisualElement
 
     void CreateRewardCards()
     {
-        // Tutorial - forcing a specific reward
-        if (_gameManager.PlayerHero.Level.Value == 2)
-        {
-            for (int i = 0; i < _numberOfRewards; i++)
-                _allRewardCards.Add(CreateRewardCardAbility());
-            return;
-        }
+        // // HERE: Tutorial - forcing a specific reward
+        // if (_gameManager.PlayerHero.Level.Value == 2)
+        // {
+        //     for (int i = 0; i < _numberOfRewards; i++)
+        //         _allRewardCards.Add(CreateRewardCardAbility());
+        //     return;
+        // }
 
         _allRewardCards.Clear();
         // _allRewardCards.Add(CreateRewardCardItem());

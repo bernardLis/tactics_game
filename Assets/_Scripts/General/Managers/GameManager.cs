@@ -169,7 +169,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Seed = System.Environment.TickCount;
 
         BattleNumber = 0;
-        Gold = GoldAdvantage * 1000;
+        Gold = 10000 + GoldAdvantage * 1000;
         Spice = 500;
 
         PlayerHero = null;

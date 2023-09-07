@@ -59,7 +59,7 @@ public enum StyleSheetType
     RewardCardStyles, BattleModifierStyles,
 
     EntityIconStyles, EntityCardStyles, EntityCardFullStyles,
-    CreatureCardStyles, BattleCreatureCardStyles,
+    BattleCreatureCardStyles,
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
@@ -67,7 +67,7 @@ public enum StyleSheetType
     StoreyUpgradeStyles, StoreyLivesStyles, StoreyTroopsStyles, StoreyManaStyles,
     StoreyUpgradeTreeStyles,
 
-    TurretIconStyles, TurretCardStyles, GraveCardStyles, BattleWaveCardStyles,
+    TurretIconStyles, GraveCardStyles, BattleWaveCardStyles,
     OpponentGroupMarkerStyles, OpponentPortalCardStyles,
     BattleStatsStyles, BattleLivesStyles, BattleInfoStyles,
     TextPrintingStyles,

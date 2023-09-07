@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc3d76b8063c97e4c94a908f2c9adc97, type: 3}
-  m_Name: Attack Range
+  m_Name: Max Health
   m_EditorClassIdentifier: 
-  Id: 797f5c70-1311-423f-a3e7-dfe389369af8
-  StatType: 5
+  Id: eab39b57-b1d8-47c4-bebc-9d44ee02053b
+  StatType: 1
   Icon: {fileID: 0}
   Description: 
-  BaseValue: 5
+  BaseValue: 100
   BonusValue: 0
   IsDecreasingPerLevel: 0
-  GrowthPerLevelRange: {x: 1, y: 3}
-  MaxMinValue: {x: 1, y: 15}
+  GrowthPerLevelRange: {x: 0, y: 0}
+  MaxMinValue: {x: 0, y: 100}

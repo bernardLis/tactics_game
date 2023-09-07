@@ -84,13 +84,8 @@ public class EntityCard : VisualElement
 
     protected virtual void HandleExpBar()
     {
-        IntVariable exp = ScriptableObject.CreateInstance<IntVariable>();
-        exp.SetValue(0);
-        IntVariable expForNextLevel = ScriptableObject.CreateInstance<IntVariable>();
-        expForNextLevel.SetValue(100);
-
         _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color,
-                "Experience", totalIntVar: exp, currentIntVar: expForNextLevel);
+                "Experience", Entity.Experience, Entity.ExpForNextLevel);
         _middleContainer.Add(_expBar);
     }
 
@@ -101,6 +96,11 @@ public class EntityCard : VisualElement
         _levelLabel.style.left = 5;
         _levelLabel.AddToClassList(_ussCommonTextPrimary);
         _expBar.Add(_levelLabel);
+
+        Entity.Level.OnValueChanged += (i) =>
+        {
+            _levelLabel.text = $"Level {i}";
+        };
     }
 
     protected virtual void HandleHealthBar()

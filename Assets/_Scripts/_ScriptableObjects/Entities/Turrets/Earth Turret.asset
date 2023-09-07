@@ -15,7 +15,8 @@ MonoBehaviour:
   Id: d946eefd-339b-4578-a37a-e238e4037d98
   EntityName: 
   Icon: {fileID: 21300000, guid: 17d8437f4aa35774c894cff7e8fd708b, type: 3}
-  IconAnimation: []
+  IconAnimation:
+  - {fileID: 21300000, guid: 17d8437f4aa35774c894cff7e8fd708b, type: 3}
   Price: 0
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 3932649013856331615, guid: dfdfa1f09eb142544bcda89e4988c8dc, type: 3}
@@ -26,19 +27,13 @@ MonoBehaviour:
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Team: 0
-  BaseTotalHealth: {fileID: 11400000, guid: ddb1eee2c59146740973365bca06d074, type: 2}
-  HealthGrowthPerLevel: {x: 0, y: 0}
-  BaseArmor: {fileID: 11400000, guid: f6128e2396164f9489ab6a722849360a, type: 2}
-  ArmorGrowthPerLevel: {x: 0, y: 0}
+  MaxHealth: {fileID: 11400000, guid: c81f95373ef0b164580929c625ad157f, type: 2}
+  Armor: {fileID: 11400000, guid: dacc5a2c951f9b0498b7a58f60281caa, type: 2}
   Loot: []
-  BaseSpeed: {fileID: 11400000, guid: 09c7f70ec9c30a742aa15d0e33d0cb1c, type: 2}
-  SpeedGrowthPerLevel: {x: 0, y: 0}
-  BasePower: {fileID: 11400000, guid: dc5a97d6cd298854ba7b095a6cfd90f1, type: 2}
-  BaseAttackRange: {fileID: 11400000, guid: 4e3c2020676ec9f4faff67eba3e23a76, type: 2}
-  BaseAttackCooldown: {fileID: 11400000, guid: 8328c1889717cf348a7c486835bc7c86, type: 2}
-  PowerGrowthPerLevel: {x: 1, y: 10}
-  AttackRangeGrowthPerLevel: {x: 1, y: 2}
-  AttackCooldownGrowthPerLevel: {x: 1, y: 2}
+  Speed: {fileID: 11400000, guid: e5675e89dd7d8c341920b6e650ebda1f, type: 2}
+  Power: {fileID: 11400000, guid: bef9e0e4942052642b2f2028e056b219, type: 2}
+  AttackRange: {fileID: 11400000, guid: 1c01f13041f706e45ae8e8634716e816, type: 2}
+  AttackCooldown: {fileID: 11400000, guid: bf847f491d4106946bc79fc2abb53d02, type: 2}
   OldKillCount: 0
   TotalKillCount: 0
   OldDamageDealt: 0

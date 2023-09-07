@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Armor
   m_EditorClassIdentifier: 
   Id: 2b2ff216-0110-487e-9ef2-db90a7c1b4c0
-  StatType: 0
+  StatType: 3
   Icon: {fileID: 0}
+  Description: 
   BaseValue: 0
   BonusValue: 0
   IsDecreasingPerLevel: 0

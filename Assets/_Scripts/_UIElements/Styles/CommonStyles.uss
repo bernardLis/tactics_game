@@ -184,7 +184,8 @@
 
 .common__purchase-button {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
-    width: 150px;
+    min-width: 150px;
+    min-height: 70px;
     justify-content: center;
     align-items: center;
 }

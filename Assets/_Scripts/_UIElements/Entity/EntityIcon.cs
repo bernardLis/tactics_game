@@ -124,11 +124,14 @@ public class EntityIcon : ElementWithTooltip
         evt.StopImmediatePropagation();
 
         EntityBaseCardFull card = null;
-        if (_entity is Creature)
-            card = new CreatureCardFull((Creature)_entity);
-        if (_entity is Minion)
-            card = new EntityBaseCardFull((Minion)_entity);
-        card.Initialize();
+        if (_entity is Creature creature)
+            card = new CreatureCardFull(creature);
+        if (_entity is Turret turret)
+            card = new EntityFightCardFull(turret);
+        if (_entity is Minion minion)
+            card = new EntityMovementCardFull(minion);
+
+        card?.Initialize();
     }
 
     protected override void DisplayTooltip()
@@ -137,10 +140,10 @@ public class EntityIcon : ElementWithTooltip
 
         VisualElement tooltip = new();
 
-        if (_entity is Creature)
-            tooltip = new CreatureCard((Creature)_entity);
-        if (_entity is Minion)
-            tooltip = new EntityCard((Minion)_entity);
+        if (_entity is Creature creature)
+            tooltip = new CreatureCard(creature);
+        if (_entity is Minion minion)
+            tooltip = new EntityCard(minion);
 
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
