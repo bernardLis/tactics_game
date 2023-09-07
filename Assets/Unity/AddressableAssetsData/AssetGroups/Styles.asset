@@ -147,11 +147,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a113e1f55f0831d40a7c75a2297662aa
-    m_Address: EntityElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4b3a7778407648c41ad4f6cbd288265d
     m_Address: ElementChoiceStyles
     m_ReadOnly: 0
@@ -214,11 +209,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cea2238035ac76f46842572405990147
     m_Address: EntityCardFullStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 590c5b2f2cb22e84d98e5c333879fbe8
-    m_Address: TurretCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

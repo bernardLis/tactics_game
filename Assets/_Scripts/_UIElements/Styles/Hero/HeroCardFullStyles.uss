@@ -2,14 +2,16 @@
     flex-grow: 1;
     align-items: center;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Popup_window_paper.png?fileID=2800000&guid=594e9c41c31245046a19374f8754c2d7&type=3#Popup_window_paper');
-
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/paper.png?fileID=2800000&guid=856bfb1bae43ab042b2838bd15710c06&type=3#paper');
     margin-top: 50px;
-
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 80px;
     padding-bottom: 25px;
+    -unity-slice-left: 7;
+    -unity-slice-top: 7;
+    -unity-slice-right: 7;
+    -unity-slice-bottom: 7;
 }
 
 .hero-card-full__top-container {

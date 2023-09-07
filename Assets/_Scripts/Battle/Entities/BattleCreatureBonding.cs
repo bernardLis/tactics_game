@@ -52,27 +52,28 @@ public class BattleCreatureBonding : MonoBehaviour
 
     void OnLevelUp()
     {
-        if (_creature.Level.Value == 3) // name change
-            HandleNameChange();
-        if (_creature.Level.Value == _creature.CreatureAbility.UnlockLevel)
-            HandleAbilityUnlock();
+        // TODO: skipping bonding for now...
+        // if (_creature.Level.Value == 3) // name change
+        //     HandleNameChange();
+        // if (_creature.Level.Value == _creature.CreatureAbility.UnlockLevel)
+        //     HandleAbilityUnlock();
 
-        ResolveEvolution();
+        // ResolveEvolution();
     }
 
     void HandleNameChange()
     {
         BaseBondingShow();
-        _card = new(_creature, isChangingName: true);
-        _card.OnHide += NameChangeHide;
+        //    _card = new(_creature, isChangingName: true);
+        //    _card.OnHide += NameChangeHide;
 
     }
 
     void HandleAbilityUnlock()
     {
         BaseBondingShow();
-        _card = new(_creature, isUnlockingAbility: true);
-        _card.OnHide += CreatureCardFullHidden;
+        //  _card = new(_creature, isUnlockingAbility: true);
+        //   _card.OnHide += CreatureCardFullHidden;
     }
 
     void BaseBondingShow()
@@ -114,8 +115,8 @@ public class BattleCreatureBonding : MonoBehaviour
         {
             // HERE: evolution camera management
 
-            _card = new(_creature, isEvolving: true);
-            _card.OnHide += Evolve;
+            //    _card = new(_creature, isEvolving: true);
+            //     _card.OnHide += Evolve;
         }
     }
 
