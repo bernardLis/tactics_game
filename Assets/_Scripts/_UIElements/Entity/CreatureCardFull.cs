@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CreatureCardFull : EntityBaseCardFull
+public class CreatureCardFull : EntityFightCardFull
 {
     const string _ussTitle = _ussClassName + "title";
     const string _ussNameField = _ussClassName + "name-field";
@@ -30,7 +30,6 @@ public class CreatureCardFull : EntityBaseCardFull
         _entityIcon.PlayAnimationAlways();
 
         AddAbility(_isUnlockingAbility);
-        AddBattleStats();
     }
 
 
@@ -41,16 +40,6 @@ public class CreatureCardFull : EntityBaseCardFull
         _otherContainer.Add(upgradeTier);
     }
 
-    protected override void AddStats()
-    {
-        base.AddStats();
-        StatElement power = new(Creature.Power);
-        _statsContainer.Add(power);
-        StatElement attackRange = new(Creature.AttackRange);
-        _statsContainer.Add(attackRange);
-        StatElement attackCooldown = new(Creature.AttackCooldown);
-        _statsContainer.Add(attackCooldown);
-    }
 
     void AddAbility(bool isUnlockingAbility)
     {
@@ -61,19 +50,6 @@ public class CreatureCardFull : EntityBaseCardFull
         _otherContainer.Insert(0, new CreatureAbilityElement(Creature.CreatureAbility, isLocked: isLocked));
     }
 
-    void AddBattleStats()
-    {
-        VisualElement container = new();
-        _otherContainer.Add(container);
-
-        Label killCount = new($"Kill Count: {Creature.TotalKillCount}");
-        Label damageDealt = new($"Damage Dealt: {Creature.TotalDamageDealt}");
-        Label damageTaken = new($"Damage Taken: {Creature.TotalDamageTaken}");
-
-        container.Add(killCount);
-        container.Add(damageDealt);
-        container.Add(damageTaken);
-    }
 
     void AddLevelUpTitle()
     {

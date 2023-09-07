@@ -6,9 +6,16 @@ public class EntityMovementCardFull : EntityBaseCardFull
 {
 
     EntityMovement _entityMovement;
-    StatElement _speed;
     public EntityMovementCardFull(EntityMovement entity) : base(entity)
     {
+        _entityMovement = entity;
+    }
 
+    protected override void AddStats()
+    {
+        base.AddStats();
+        
+        StatElement speed = new(_entityMovement.Speed);
+        _statsContainer.Add(speed);
     }
 }

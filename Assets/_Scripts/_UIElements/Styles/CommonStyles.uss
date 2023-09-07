@@ -137,6 +137,7 @@
 }
 
 .common__full-screen-content {
+    top: -5%;
     width: 80%;
     height: 80%;
 }
