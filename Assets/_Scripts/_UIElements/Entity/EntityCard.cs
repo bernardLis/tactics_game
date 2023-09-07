@@ -91,14 +91,17 @@ public class EntityCard : VisualElement
 
     protected virtual void HandleLevelLabel()
     {
-        _levelLabel = new Label($"Level {Entity.Level.Value}");
+        _levelLabel = new();
+        _levelLabel.text = $"Level {Entity.Level.Value}";
         _levelLabel.style.position = Position.Absolute;
         _levelLabel.style.left = 5;
         _levelLabel.AddToClassList(_ussCommonTextPrimary);
         _expBar.Add(_levelLabel);
 
+        // HERE: something weeird with level
         Entity.Level.OnValueChanged += (i) =>
         {
+            Debug.Log($"bla {i}");
             _levelLabel.text = $"Level {i}";
         };
     }

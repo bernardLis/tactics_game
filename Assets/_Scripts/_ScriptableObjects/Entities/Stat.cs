@@ -31,12 +31,13 @@ public class Stat : BaseScriptableObject
     public void LevelUp()
     {
         int growth = Random.Range(GrowthPerLevelRange.x, GrowthPerLevelRange.y + 1);
-        growth = Mathf.Clamp(growth, MaxMinValue.x, MaxMinValue.y);
 
         if (IsDecreasingPerLevel)
             growth *= -1;
 
         BaseValue += growth;
+        BaseValue = Mathf.Clamp(BaseValue, MaxMinValue.x, MaxMinValue.y);
+
         OnValueChanged?.Invoke(GetValue());
     }
 
