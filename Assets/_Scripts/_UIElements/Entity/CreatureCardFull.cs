@@ -10,20 +10,27 @@ public class CreatureCardFull : EntityBaseCardFull
     const string _ussUnlockAbilityButton = _ussClassName + "unlock-ability-button";
 
     public Creature Creature;
+
+    bool _isUnlockingAbility;
     public CreatureCardFull(Creature creature, bool isChangingName = false,
             bool isUnlockingAbility = false, bool isEvolving = false)
             : base(creature)
     {
         Creature = creature;
-
-        _entityIcon.PlayAnimationAlways();
-
-        AddAbility(isUnlockingAbility);
-        AddBattleStats();
+        _isUnlockingAbility = isUnlockingAbility;
 
         if (isChangingName) SetUpNameChange();
         if (isUnlockingAbility) SetUpAbilityUnlock();
         if (isEvolving) SetUpEvolution();
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        _entityIcon.PlayAnimationAlways();
+
+        AddAbility(_isUnlockingAbility);
+        AddBattleStats();
     }
 
 
@@ -31,9 +38,8 @@ public class CreatureCardFull : EntityBaseCardFull
     {
         base.AddOtherBasicInfo();
         Label upgradeTier = new($"Tier: {Creature.UpgradeTier}");
-        _basicInfoContainer.Add(upgradeTier);
+        _otherContainer.Add(upgradeTier);
     }
-
 
     protected override void AddStats()
     {
@@ -44,7 +50,6 @@ public class CreatureCardFull : EntityBaseCardFull
         _statsContainer.Add(attackRange);
         StatElement attackCooldown = new(Creature.AttackCooldown);
         _statsContainer.Add(attackCooldown);
-
     }
 
     void AddAbility(bool isUnlockingAbility)
@@ -53,7 +58,7 @@ public class CreatureCardFull : EntityBaseCardFull
 
         bool isLocked = !Creature.IsAbilityUnlocked();
         if (isUnlockingAbility) isLocked = true; // force it to "play effect" (that does not exist atm)
-        _otherContainer.Add(new CreatureAbilityElement(Creature.CreatureAbility, isLocked: isLocked));
+        _otherContainer.Insert(0, new CreatureAbilityElement(Creature.CreatureAbility, isLocked: isLocked));
     }
 
     void AddBattleStats()

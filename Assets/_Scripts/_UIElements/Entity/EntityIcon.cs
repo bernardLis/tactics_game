@@ -123,10 +123,12 @@ public class EntityIcon : ElementWithTooltip
     {
         evt.StopImmediatePropagation();
 
+        EntityBaseCardFull card = null;
         if (_entity is Creature)
-            new CreatureCardFull((Creature)_entity);
+            card = new CreatureCardFull((Creature)_entity);
         if (_entity is Minion)
-            new EntityBaseCardFull((Minion)_entity);
+            card = new EntityBaseCardFull((Minion)_entity);
+        card.Initialize();
     }
 
     protected override void DisplayTooltip()

@@ -6,10 +6,13 @@ using UnityEngine.UIElements;
 public class EntityBaseCardFull : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
     protected const string _ussClassName = "entity-card-full__";
-    const string _ussMain = _ussClassName + "main";
     const string _ussContent = _ussClassName + "content";
+    const string _ussInfoContainer = _ussClassName + "info-container";
+    const string _ussStatsContainer = _ussClassName + "stats-container";
+    const string _ussOtherContainer = _ussClassName + "other-container";
 
     public EntityBase Entity;
 
@@ -22,15 +25,7 @@ public class EntityBaseCardFull : FullScreenElement
     protected VisualElement _statsContainer;
     protected VisualElement _otherContainer;
 
-    Label _nameLabel;
     protected EntityIcon _entityIcon;
-
-    Label _levelLabel;
-    Label _priceLabel;
-    ElementalElement _element;
-
-    StatElement _maxHealth;
-    StatElement _armor;
 
     public EntityBaseCardFull(EntityBase entity) : base()
     {
@@ -40,13 +35,15 @@ public class EntityBaseCardFull : FullScreenElement
 
         Entity = entity;
 
-        AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
         _mainCardContainer = new();
         _mainCardContainer.AddToClassList(_ussContent);
         _content.Add(_mainCardContainer);
+    }
 
+    public virtual void Initialize()
+    {
         CreateContainers();
         AddName();
         AddIcon();
@@ -64,9 +61,23 @@ public class EntityBaseCardFull : FullScreenElement
         _statsContainer = new();
         _otherContainer = new();
 
-        Add(_basicInfoContainer);
-        Add(_statsContainer);
-        Add(_otherContainer);
+        _basicInfoContainer.AddToClassList(_ussInfoContainer);
+        _statsContainer.AddToClassList(_ussStatsContainer);
+        _otherContainer.AddToClassList(_ussOtherContainer);
+
+        _mainCardContainer.Add(_basicInfoContainer);
+
+        VisualElement spacer = new();
+        spacer.AddToClassList(_ussCommonHorizontalSpacer);
+        _mainCardContainer.Add(spacer);
+
+        _mainCardContainer.Add(_statsContainer);
+
+        VisualElement spacer1 = new();
+        spacer1.AddToClassList(_ussCommonHorizontalSpacer);
+        _mainCardContainer.Add(spacer1);
+
+        _mainCardContainer.Add(_otherContainer);
     }
 
     void AddName()
@@ -86,7 +97,7 @@ public class EntityBaseCardFull : FullScreenElement
 
     void AddLevel()
     {
-        Label l = new($"Level: {Entity.Level.Value} <b>{Helpers.ParseScriptableObjectName(Entity.name)}<b>");
+        Label l = new($"<b>Level {Entity.Level.Value} {Helpers.ParseScriptableObjectName(Entity.name)}<b>");
         _basicInfoContainer.Add(l);
     }
 
@@ -96,18 +107,19 @@ public class EntityBaseCardFull : FullScreenElement
         _basicInfoContainer.Add(e);
     }
 
-    protected virtual void AddOtherBasicInfo()
-    {
-        _priceLabel = new($"Price: {Entity.Price}");
-        _basicInfoContainer.Add(_priceLabel);
-    }
-
     protected virtual void AddStats()
     {
-        _maxHealth = new(Entity.MaxHealth);
-        _armor = new(Entity.Armor);
+        StatElement maxHealth = new(Entity.MaxHealth);
+        StatElement armor = new(Entity.Armor);
 
-        _statsContainer.Add(_maxHealth);
-        _statsContainer.Add(_armor);
+        _statsContainer.Add(maxHealth);
+        _statsContainer.Add(armor);
     }
+
+    protected virtual void AddOtherBasicInfo()
+    {
+        Label price = new($"Price: {Entity.Price}");
+        _otherContainer.Add(price);
+    }
+
 }

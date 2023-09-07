@@ -6,6 +6,7 @@ public class StatElement : ElementWithTooltip
     const string _ussCommonTextPrimary = "common__text-primary";
 
     const string _ussClassName = "stat-element__";
+    const string _ussMain = _ussClassName + "main";
     const string _ussIcon = _ussClassName + "icon";
     const string _ussValue = _ussClassName + "value";
 
@@ -28,6 +29,7 @@ public class StatElement : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
+        AddToClassList(_ussMain);
         _stat = stat;
         BaseStatVisual();
         _stat.OnValueChanged += UpdateValue;
