@@ -106,11 +106,22 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
             _gameManager.PlayerHero.LevelUpReady();
+        if (_commandTextField.text.ToLower() == "killbill")
+            KillAllPlayerCreatures();
         if (_commandTextField.text.ToLower() == "dragon")
             LevelUpCreatures();
         if (_commandTextField.text.ToLower() == "tween")
             DoTweenSeeAllTweens();
 
+    }
+
+    void KillAllPlayerCreatures()
+    {
+        BattleManager battleManager = BattleManager.Instance;
+        if (battleManager == null) return;
+        List<BattleEntity> creatures = new(battleManager.PlayerCreatures);
+        foreach (BattleCreature creature in creatures)
+            creature.TriggerDeath();
     }
 
     void DoTweenSeeAllTweens()

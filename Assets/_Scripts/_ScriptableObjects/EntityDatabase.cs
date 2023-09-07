@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-public class HeroDatabase : ScriptableObject
+public class EntityDatabase : ScriptableObject
 {
 
     [Header("Creatures")]
@@ -80,14 +80,13 @@ public class HeroDatabase : ScriptableObject
     public List<Turret> GetAllTurrets() { return Turrets.ToList(); }
     public Turret GetRandomTurret() { return Turrets[Random.Range(0, Turrets.Length)]; }
 
-
-    [Header("Hero Stats")]
-
+    [Header("Abilities")]
     [SerializeField] Ability[] Abilities;
     public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
 
+    [Header("Items")]
     [SerializeField] Item[] Items;
     public List<Item> GetAllItems() { return Items.ToList(); }
     public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
@@ -102,9 +101,18 @@ public class HeroDatabase : ScriptableObject
         return items[Random.Range(0, items.Count)];
     }
 
-    [SerializeField] StatIcon[] StatIcons;
-    public Sprite GetStatIconByName(string name) { return StatIcons.FirstOrDefault(x => x.StatName == name).Sprite; }
+    [Header("Stats")]
+    [SerializeField] StatBasics[] StatBasics;
+    public Sprite GetStatIconByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Sprite; }
+    public string GetStatDescriptionByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Description; }
 
+    [Header("Elements")]
+    [SerializeField] Element[] Elements;
+    public List<Element> GetAllElements() { return Elements.ToList(); }
+    public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
+    public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
+
+    [Header("Hero General")]
     [SerializeField] List<HeroRank> HeroRanks = new();
     public HeroRank GetRankByPoints(int points)
     {
@@ -117,13 +125,6 @@ public class HeroDatabase : ScriptableObject
 
         return r;
     }
-
-    [SerializeField] Element[] Elements;
-    public List<Element> GetAllElements() { return Elements.ToList(); }
-    public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
-    public Element GetElementByName(ElementName name) { return Elements.FirstOrDefault(x => x.ElementName == name); }
-
-    [Header("Hero General")]
 
     public List<HeroPortrait> PortraitsMale = new();
     public List<HeroPortrait> PortraitsFemale = new();

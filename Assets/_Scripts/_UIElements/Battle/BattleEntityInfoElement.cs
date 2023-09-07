@@ -30,7 +30,8 @@ public class BattleEntityInfoElement : VisualElement
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        ResourceBarElement bar = new(c, "health", be.CurrentHealth, be.EntityBase.BaseTotalHealth);
+        ResourceBarElement bar = new(c, "health", be.CurrentHealth,
+                totalStat: be.EntityBase.MaxHealth);
 
         name.style.position = Position.Absolute;
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
-  m_Name: HeroDatabase
+  m_Name: EntityDatabse
   m_EditorClassIdentifier: 
   AllCreatures:
   - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
@@ -93,12 +93,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32d9c135d7e711047b6a359ed7d7dfc5, type: 2}
   - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
   StatIcons:
-  - StatName: Power
-    Sprite: {fileID: 706532537, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Health
+    Sprite: {fileID: 986832273, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - StatName: Armor
     Sprite: {fileID: -1650342666, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - StatName: Speed
     Sprite: {fileID: -417598653, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Power
+    Sprite: {fileID: 706532537, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Mana
+    Sprite: {fileID: -1342020009, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Attack Range
+    Sprite: {fileID: 1291813762, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - StatName: Attack Cooldown
+    Sprite: {fileID: 751918526, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  Elements:
+  - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   HeroRanks:
   - {fileID: 11400000, guid: ba11998d4c1716d41b7ff7a56468880c, type: 2}
   - {fileID: 11400000, guid: e2c506d512af45e4e96380801d467420, type: 2}
@@ -106,11 +119,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 80ced388a1313ce459c477b40ac1ae50, type: 2}
   - {fileID: 11400000, guid: b218fa4db8f680a4c8ec5dff68ef5465, type: 2}
   - {fileID: 11400000, guid: e6ef06986fe9587429dc15536536f460, type: 2}
-  Elements:
-  - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   PortraitsMale:
   - {fileID: 11400000, guid: 14ced6087fa030d4fab5cd546da3dc65, type: 2}
   - {fileID: 11400000, guid: 729ee4233ce84ae418f5abb43920b82a, type: 2}

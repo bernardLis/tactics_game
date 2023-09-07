@@ -16,7 +16,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     LevelLoader _levelLoader;
 
     public GameDatabase GameDatabase;
-    public HeroDatabase HeroDatabase;
+    public EntityDatabase EntityDatabase;
 
     SaveData _originalSaveData;
 

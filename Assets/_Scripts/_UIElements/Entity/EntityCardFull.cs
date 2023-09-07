@@ -111,7 +111,7 @@ public class EntityCardFull : FullScreenElement
     void AddBasicInfo()
     {
         _element = new(Entity.Element);
-        _levelLabel = new($"Level: {Entity.Level}");
+        _levelLabel = new($"Level: {Entity.Level.Value}");
         _priceLabel = new($"Price: {Entity.Price}");
 
         _topMiddleContainer.Add(_element);
@@ -122,7 +122,7 @@ public class EntityCardFull : FullScreenElement
 
     void AddBattleCharacteristics()
     {
-        _maxHealth = new($"Max Health: {Entity.TotalHealth.GetValue()}");
+        _maxHealth = new($"Max Health: {Entity.MaxHealth.GetValue()}");
         _armor = new($"Armor: {Entity.Armor.GetValue()}");
         // _speed = new($"Speed: {Entity.Speed.GetValue()}");
 

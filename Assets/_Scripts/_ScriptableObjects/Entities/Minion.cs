@@ -10,10 +10,14 @@ public class Minion : EntityMovement
         base.InitializeBattle(team);
         if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
 
-        BaseTotalHealth.ApplyChange(Random.Range(HealthGrowthPerLevel.x, HealthGrowthPerLevel.y) * Level.Value);
-        BaseArmor.ApplyChange(Random.Range(ArmorGrowthPerLevel.x, ArmorGrowthPerLevel.y) * Level.Value);
+        if (Level.Value <= 1) return;
 
-        BaseSpeed.ApplyChange(Random.Range(SpeedGrowthPerLevel.x, SpeedGrowthPerLevel.y) * Level.Value);
+        for (int i = 1; i < Level.Value; i++)
+        {
+            MaxHealth.LevelUp();
+            Armor.LevelUp();
+            Speed.LevelUp();
+        }
     }
 }
 

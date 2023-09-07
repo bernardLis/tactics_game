@@ -52,23 +52,6 @@ public class Creature : EntityFight
         return result + baseExp;
     }
 
-    public override void LevelUp()
-    {
-        base.LevelUp();
-
-        BaseTotalHealth.ApplyChange(Random.Range(HealthGrowthPerLevel.x, HealthGrowthPerLevel.y));
-        BaseArmor.ApplyChange(Random.Range(ArmorGrowthPerLevel.x, ArmorGrowthPerLevel.y));
-
-        BaseSpeed.ApplyChange(Random.Range(SpeedGrowthPerLevel.x, SpeedGrowthPerLevel.y));
-
-        BasePower.ApplyChange(Random.Range(PowerGrowthPerLevel.x, PowerGrowthPerLevel.y));
-        BaseAttackRange.ApplyChange(Random.Range(AttackRangeGrowthPerLevel.x, AttackRangeGrowthPerLevel.y));
-
-        int newAttackCooldown = BaseAttackCooldown.Value - Random.Range(AttackCooldownGrowthPerLevel.x, AttackCooldownGrowthPerLevel.y);
-        newAttackCooldown = Mathf.Clamp(newAttackCooldown, 1, int.MaxValue);
-        BaseAttackCooldown.SetValue(newAttackCooldown);
-    }
-
     public bool IsAbilityUnlocked() { return Level.Value >= CreatureAbility.UnlockLevel; }
 
     public bool CanUseAbility()

@@ -19,7 +19,7 @@ public class Item : BaseScriptableObject
 
     public void LoadFromData(ItemData data)
     {
-        HeroDatabase db = GameManager.Instance.HeroDatabase;
+        EntityDatabase db = GameManager.Instance.EntityDatabase;
         Item i = db.GetItemById(data.ItemId);
         Id = data.ItemId;
         ItemName = i.ItemName;

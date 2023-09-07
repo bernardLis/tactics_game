@@ -305,7 +305,7 @@ public class BattleCreature : BattleEntity
     void OnLevelUp()
     {
         DisplayFloatingText("Level Up!", Color.white);
-        CurrentHealth.SetValue(Creature.TotalHealth.GetValue());
+        CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
     }
 
     public virtual void Evolve()

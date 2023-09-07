@@ -16,7 +16,8 @@ public class BattleEntityCard : EntityCard
     protected override void HandleHealthBar()
     {
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        _healthBar = new(c, "health", _battleEntity.CurrentHealth, _battleEntity.EntityBase.BaseTotalHealth);
+        _healthBar = new(c, "health", _battleEntity.CurrentHealth,
+                totalStat: _battleEntity.EntityBase.MaxHealth);
         _middleContainer.Add(_healthBar);
     }
 }

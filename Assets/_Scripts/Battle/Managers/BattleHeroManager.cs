@@ -60,7 +60,7 @@ public class BattleHeroManager : MonoBehaviour
             _battleManager.ResumeGame();
             _root.Remove(rewardElement);
             _root.Remove(blackout);
-            Hero.CurrentMana.ApplyChange(Hero.BaseTotalMana.Value - Hero.CurrentMana.Value);
+            Hero.CurrentMana.ApplyChange(Hero.MaxMana.GetValue() - Hero.CurrentMana.Value);
             Hero.AddExp(Hero.LeftoverExp);
         };
     }

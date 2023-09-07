@@ -34,10 +34,10 @@ public class ElementChoiceElement : VisualElement
         elementContainer.style.flexDirection = FlexDirection.Row;
         Add(elementContainer);
 
-        Element fire = _gameManager.HeroDatabase.GetElementByName(ElementName.Fire);
-        Element earth = _gameManager.HeroDatabase.GetElementByName(ElementName.Earth);
-        Element wind = _gameManager.HeroDatabase.GetElementByName(ElementName.Wind);
-        Element water = _gameManager.HeroDatabase.GetElementByName(ElementName.Water);
+        Element fire = _gameManager.EntityDatabase.GetElementByName(ElementName.Fire);
+        Element earth = _gameManager.EntityDatabase.GetElementByName(ElementName.Earth);
+        Element wind = _gameManager.EntityDatabase.GetElementByName(ElementName.Wind);
+        Element water = _gameManager.EntityDatabase.GetElementByName(ElementName.Water);
 
         _fireElement = new(fire, 200);
         _earthElement = new(earth, 200);

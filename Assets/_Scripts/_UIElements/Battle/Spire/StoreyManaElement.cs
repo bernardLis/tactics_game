@@ -112,7 +112,7 @@ public class StoreyManaElement : VisualElement
     void GetManaFromBank(StoreyUpgrade storeyUpgrade)
     {
         int manaToGet = _storey.ManaInBank.Value;
-        int heroMissingMana = _battleHeroManager.Hero.BaseTotalMana.Value - _battleHeroManager.Hero.CurrentMana.Value;
+        int heroMissingMana = _battleHeroManager.Hero.MaxMana.GetValue() - _battleHeroManager.Hero.CurrentMana.Value;
         if (heroMissingMana <= 0)
         {
             Helpers.DisplayTextOnElement(_gameManager.Root, _getBankMana, "Hero has full mana", Color.blue);

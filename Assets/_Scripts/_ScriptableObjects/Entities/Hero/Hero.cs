@@ -17,17 +17,16 @@ public class Hero : EntityMovement
         base.InitializeBattle(team);
 
         CurrentMana = CreateInstance<IntVariable>();
-        CurrentMana.SetValue(TotalMana.GetValue());
+        CurrentMana.SetValue(MaxMana.GetValue());
     }
 
     protected override void CreateStats()
     {
         base.CreateStats();
 
-        TotalMana = CreateInstance<Stat>();
-        TotalMana.StatType = StatType.Mana;
-        TotalMana.SetBaseValue(BaseTotalMana.Value);
-        TotalMana.OnValueChanged += TotalMana.SetBaseValue;
+        MaxMana = Instantiate(MaxMana);
+        MaxMana.Initialize();
+        OnLevelUp += MaxMana.LevelUp;
     }
 
     /* LEVELING */
@@ -80,12 +79,12 @@ public class Hero : EntityMovement
 
     public void AddArmor()
     {
-        BaseArmor.ApplyChange(1);
+        // BaseArmor.ApplyChange(1);
     }
 
     public void AddSpeed()
     {
-        BaseSpeed.ApplyChange(1);
+        // BaseSpeed.ApplyChange(1);
     }
 
     public override void LevelUp()
@@ -93,20 +92,17 @@ public class Hero : EntityMovement
         base.LevelUp();
         _levelUpReady = false;
 
-        BaseTotalMana.ApplyChange(Random.Range(MaxManaGainPerLevelRange.x, MaxManaGainPerLevelRange.y));
         UpdateRank();
     }
 
 
     [Header("Mana")]
-    public IntVariable BaseTotalMana;
-    public Stat TotalMana { get; protected set; }
-    Vector2Int MaxManaGainPerLevelRange = new(2, 5);
+    public Stat MaxMana;
     public IntVariable CurrentMana;
 
     public float RestoreMana(int amount)
     {
-        int manaMissing = TotalMana.GetValue() - CurrentMana.Value;
+        int manaMissing = MaxMana.GetValue() - CurrentMana.Value;
         if (manaMissing <= 0)
             return amount;
 
@@ -202,7 +198,7 @@ public class Hero : EntityMovement
     public void UpdateRank()
     {
         int points = CountRankPoints();
-        HeroRank newRank = _gameManager.HeroDatabase.GetRankByPoints(points);
+        HeroRank newRank = _gameManager.EntityDatabase.GetRankByPoints(points);
         if (newRank == Rank)
             return;
 
@@ -250,23 +246,23 @@ public class Hero : EntityMovement
         UpdateRank();
 
         CreatureArmy = new();
-        Creature c = Instantiate(_gameManager.HeroDatabase.GetStartingArmy(element).Creatures[0]);
+        Creature c = Instantiate(_gameManager.EntityDatabase.GetStartingArmy(element).Creatures[0]);
         CreatureArmy.Add(c);
     }
 
     void CreateBaseStats()
     {
         Level = CreateInstance<IntVariable>();
-        BaseTotalHealth = CreateInstance<IntVariable>();
-        BaseTotalMana = CreateInstance<IntVariable>();
-        BaseArmor = CreateInstance<IntVariable>();
-        BaseSpeed = CreateInstance<IntVariable>();
+        MaxHealth = CreateInstance<Stat>();
+        MaxMana = CreateInstance<Stat>();
+        Armor = CreateInstance<Stat>();
+        Speed = CreateInstance<Stat>();
 
         Level.SetValue(1);
-        BaseTotalHealth.SetValue(100);
-        BaseTotalMana.SetValue(30);
-        BaseArmor.SetValue(0);
-        BaseSpeed.SetValue(3);
+        MaxHealth.SetBaseValue(100);
+        MaxMana.SetBaseValue(30);
+        Armor.SetBaseValue(0);
+        Speed.SetBaseValue(3);
     }
 
 
@@ -278,7 +274,7 @@ public class Hero : EntityMovement
             EntityMovementData = base.SerializeSelf(),
 
             Portrait = Portrait.Id,
-            BaseMana = BaseTotalMana.Value,
+            BaseMana = MaxMana.BaseValue,
         };
 
         List<AbilityData> abilityData = new();
@@ -302,7 +298,7 @@ public class Hero : EntityMovement
     public void LoadFromData(HeroData data)
     {
         _gameManager = GameManager.Instance;
-        HeroDatabase heroDatabase = _gameManager.HeroDatabase;
+        EntityDatabase heroDatabase = _gameManager.EntityDatabase;
 
         Id = data.Id;
         Portrait = heroDatabase.GetPortraitById(data.Portrait);
@@ -310,7 +306,7 @@ public class Hero : EntityMovement
         CreateBaseStats();
         LoadFromData(data.EntityMovementData);
 
-        BaseTotalMana.SetValue(data.BaseMana);
+        MaxMana.SetBaseValue(data.BaseMana);
 
         CreateStats();
 

@@ -45,27 +45,19 @@ public class EntityBase : BaseScriptableObject
     public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
 
     [Header("Stats")]
-    public IntVariable BaseTotalHealth;
-    public Stat TotalHealth { get; private set; }
-    public Vector2Int HealthGrowthPerLevel;
-
-    public IntVariable BaseArmor;
-    public Stat Armor { get; private set; }
-    public Vector2Int ArmorGrowthPerLevel;
+    public Stat MaxHealth;
+    public Stat Armor;
 
     protected virtual void CreateStats()
     {
-        BaseTotalHealth = Instantiate(BaseTotalHealth);
-        TotalHealth = CreateInstance<Stat>();
-        TotalHealth.StatType = StatType.Health;
-        TotalHealth.SetBaseValue(BaseTotalHealth.Value);
-        BaseTotalHealth.OnValueChanged += TotalHealth.SetBaseValue;
+        MaxHealth = Instantiate(MaxHealth);
+        Armor = Instantiate(Armor);
+        
+        MaxHealth.Initialize();
+        Armor.Initialize();
 
-        BaseArmor = Instantiate(BaseArmor);
-        Armor = CreateInstance<Stat>();
-        Armor.StatType = StatType.Armor;
-        Armor.SetBaseValue(BaseArmor.Value);
-        BaseArmor.OnValueChanged += Armor.SetBaseValue;
+        OnLevelUp += MaxHealth.LevelUp;
+        OnLevelUp += Armor.LevelUp;
     }
 
     /* LEVEL */

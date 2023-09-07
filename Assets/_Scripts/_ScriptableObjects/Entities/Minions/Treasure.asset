@@ -26,10 +26,9 @@ MonoBehaviour:
   LeftoverExp: 0
   OldDamageTaken: 0
   TotalDamageTaken: 0
-  BaseTotalHealth: {fileID: 11400000, guid: 2495cf3d02e7b744f8037c3dce88c0dd, type: 2}
-  HealthGrowthPerLevel: {x: 0, y: 0}
-  BaseArmor: {fileID: 11400000, guid: ad3dcb1f3844af643a98d9ed377e76e2, type: 2}
-  ArmorGrowthPerLevel: {x: 0, y: 0}
+  Team: 0
+  MaxHealth: {fileID: 11400000, guid: c8ba901baa9d13a4aa6f033ce6ab102e, type: 2}
+  Armor: {fileID: 11400000, guid: 56df2ac61848b6a47b96e4d0bf196a32, type: 2}
   Loot:
   - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
   - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}
@@ -37,5 +36,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 61ad4c7c43eba504298d749e96e4c000, type: 2}
   - {fileID: 11400000, guid: 941358683b4596844a2e3673c7e9eba9, type: 2}
   - {fileID: 11400000, guid: c04bd6602a8ad1044889258bbc20ae25, type: 2}
-  BaseSpeed: {fileID: 11400000, guid: 64ee7e7c25f689547a1118c573fd5457, type: 2}
-  SpeedGrowthPerLevel: {x: 0, y: 0}
+  Speed: {fileID: 11400000, guid: 053f7f9c45aa38440ac61acacf8fa219, type: 2}

@@ -13,7 +13,7 @@ public class RewardCreature : Reward
 
         int maxTier = BattleSpire.Instance.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
 
-        Creature baseCreature = _gameManager.HeroDatabase.GetRandomCreatureByUpgradeTierAndLower(maxTier);
+        Creature baseCreature = _gameManager.EntityDatabase.GetRandomCreatureByUpgradeTierAndLower(maxTier);
         Creature = Instantiate(baseCreature);
     }
 

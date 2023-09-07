@@ -54,14 +54,9 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
     public void UpdateGFX()
     {
+        // TODO: maybe some effect
         _GFX.transform.DOScale(_GFX.transform.localScale * 1.1f, 0.5f)
             .SetEase(Ease.InFlash);
-        /*
-        // TODO: maybe some effect
-        if (_GFX != null) Destroy(_GFX);
-        _GFX = Instantiate(Turret.GetCurrentUpgrade().GFXPrefab, transform.position + Vector3.up, Quaternion.identity);
-        _GFX.transform.parent = transform;
-        */
     }
 
     void UpdateRangeIndicator()

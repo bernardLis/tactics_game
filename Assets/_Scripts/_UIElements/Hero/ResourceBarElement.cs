@@ -21,6 +21,7 @@ public class ResourceBarElement : ElementWithTooltip
     int _displayedAmount;
     IntVariable _currentInt;
     IntVariable _totalInt;
+    Stat _totalStat;
 
     IVisualElementScheduledItem _animation;
 
@@ -32,7 +33,8 @@ public class ResourceBarElement : ElementWithTooltip
     public event Action OnAnimationFinished;
 
     public ResourceBarElement(Color color, string tooltipText,
-            IntVariable currentIntVar, IntVariable totalIntVar,
+            IntVariable currentIntVar,
+            IntVariable totalIntVar = null, Stat totalStat = null,
             int valueChangeDelayMs = 1000) : base()
     {
         _gameManager = GameManager.Instance;
@@ -60,7 +62,7 @@ public class ResourceBarElement : ElementWithTooltip
         ResourceBar.Add(_text);
 
         UpdateStyles(_ussContainer, _ussMain, _ussMissing, _ussBarText);
-        UpdateTrackedVariables(currentIntVar, totalIntVar);
+        UpdateTrackedVariables(currentIntVar, totalIntVar, totalStat);
         DisplayMissingAmount();
 
         RegisterCallback<DetachFromPanelEvent>(UnsubscribeFromValueChanges);
@@ -70,6 +72,8 @@ public class ResourceBarElement : ElementWithTooltip
     {
         if (_currentInt != null) _currentInt.OnValueChanged -= OnValueChanged;
         if (_totalInt != null) _totalInt.OnValueChanged -= OnTotalChanged;
+        if (_totalStat != null) _totalStat.OnValueChanged -= _totalInt.SetValue;
+
     }
 
     void UpdateStyles(string container, string main, string missing, string text)
@@ -80,7 +84,7 @@ public class ResourceBarElement : ElementWithTooltip
         _text.AddToClassList(text);
     }
 
-    public void UpdateTrackedVariables(IntVariable current, IntVariable total)
+    public void UpdateTrackedVariables(IntVariable current, IntVariable totalInt = null, Stat totalStat = null)
     {
         UnsubscribeFromValueChanges(default);
 
@@ -88,8 +92,17 @@ public class ResourceBarElement : ElementWithTooltip
         _displayedAmount = _currentInt.Value;
         current.OnValueChanged += OnValueChanged;
 
-        _totalInt = total;
-        total.OnValueChanged += OnTotalChanged;
+        _totalInt = totalInt;
+
+        if (totalStat != null)
+        {
+            _totalStat = totalStat;
+            _totalInt = ScriptableObject.CreateInstance<IntVariable>();
+            _totalInt.SetValue(totalStat.GetValue());
+            _totalStat.OnValueChanged += _totalInt.SetValue;
+        }
+
+        _totalInt.OnValueChanged += OnTotalChanged;
 
         DisplayMissingAmount();
     }

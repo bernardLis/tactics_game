@@ -42,11 +42,11 @@ public class Battle : BaseScriptableObject
 
     public void CreateWaves()
     {
-        List<Element> availableElements = new(_gameManager.HeroDatabase.GetAllElements());
+        List<Element> availableElements = new(_gameManager.EntityDatabase.GetAllElements());
         for (int i = 0; i < 24; i++)
         {
             if (availableElements.Count == 0)
-                availableElements = new(_gameManager.HeroDatabase.GetAllElements());
+                availableElements = new(_gameManager.EntityDatabase.GetAllElements());
 
             Element element = GetWaveElement(availableElements);
             availableElements.Remove(element);
@@ -75,7 +75,7 @@ public class Battle : BaseScriptableObject
         if (elements.Count > 0)
             return elements[Random.Range(0, elements.Count)];
 
-        return _gameManager.HeroDatabase.GetRandomElement();
+        return _gameManager.EntityDatabase.GetRandomElement();
     }
 
     public float GetWaveStartTime(Element element, int waveIndex)

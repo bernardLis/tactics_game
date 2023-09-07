@@ -100,7 +100,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
             _agent.speed = em.Speed.GetValue();
 
         CurrentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        CurrentHealth.SetValue(EntityBase.TotalHealth.GetValue());
+        CurrentHealth.SetValue(EntityBase.MaxHealth.GetValue());
     }
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
@@ -202,7 +202,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         StartRunEntityCoroutine();
     }
 
-    public bool HasFullHealth() { return CurrentHealth.Value >= EntityBase.TotalHealth.GetValue(); }
+    public bool HasFullHealth() { return CurrentHealth.Value >= EntityBase.MaxHealth.GetValue(); }
 
     public int GetHealed(Ability ability)
     {
@@ -215,7 +215,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets healed by {value}");
 
-        int v = Mathf.Clamp(value, 0, EntityBase.TotalHealth.GetValue() - CurrentHealth.Value);
+        int v = Mathf.Clamp(value, 0, EntityBase.MaxHealth.GetValue() - CurrentHealth.Value);
         CurrentHealth.ApplyChange(v);
 
         DisplayFloatingText("+" + v, Color.green);

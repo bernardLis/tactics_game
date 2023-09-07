@@ -18,7 +18,7 @@ public class RewardAbility : Reward
 
         // Tutorial
         if (hero.Level.Value == 2)
-            Ability = _gameManager.HeroDatabase.GetAbilityById("fireball-7f5d-4f59-86f9-bb8f8676274d");
+            Ability = _gameManager.EntityDatabase.GetAbilityById("fireball-7f5d-4f59-86f9-bb8f8676274d");
 
         foreach (Ability heroAbility in _hero.Abilities)
             if (heroAbility.Id == Ability.Id)
@@ -27,7 +27,7 @@ public class RewardAbility : Reward
 
     public Ability GetValidAbility()
     {
-        List<Ability> abilities = new(_gameManager.HeroDatabase.GetAllAbilities());
+        List<Ability> abilities = new(_gameManager.EntityDatabase.GetAllAbilities());
         if (_hero.Abilities.Count == 4) // only 4 ability buttons
             abilities = new(_hero.Abilities);
         for (int i = abilities.Count - 1; i >= 0; i--)

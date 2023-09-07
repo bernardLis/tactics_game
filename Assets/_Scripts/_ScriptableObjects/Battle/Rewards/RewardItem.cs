@@ -21,13 +21,13 @@ public class RewardItem : Reward
         float epicChance = EpicItemChancePerLevel * _hero.Level.Value;
 
         if (chance < uncommonChance)
-            Item = _gameManager.HeroDatabase.GetRandomItem(ItemRarity.Uncommon);
+            Item = _gameManager.EntityDatabase.GetRandomItem(ItemRarity.Uncommon);
         else if (chance < rareChance)
-            Item = _gameManager.HeroDatabase.GetRandomItem(ItemRarity.Rare);
+            Item = _gameManager.EntityDatabase.GetRandomItem(ItemRarity.Rare);
         else if (chance < epicChance)
-            Item = _gameManager.HeroDatabase.GetRandomItem(ItemRarity.Epic);
+            Item = _gameManager.EntityDatabase.GetRandomItem(ItemRarity.Epic);
         else
-            Item = _gameManager.HeroDatabase.GetRandomItem(ItemRarity.Common);
+            Item = _gameManager.EntityDatabase.GetRandomItem(ItemRarity.Common);
     }
 
     public override void GetReward()

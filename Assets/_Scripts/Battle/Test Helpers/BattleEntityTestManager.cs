@@ -34,8 +34,8 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager.BlockBattleEnd = true;
 
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateFromHeroCreation("asd", _gameManager.HeroDatabase.GetRandomPortraitFemale(),
-                 _gameManager.HeroDatabase.GetRandomElement());
+        newChar.CreateFromHeroCreation("asd", _gameManager.EntityDatabase.GetRandomPortraitFemale(),
+                 _gameManager.EntityDatabase.GetRandomElement());
         _gameManager.PlayerHero = newChar;
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();
@@ -147,7 +147,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
             for (int i = 0; i < count; i++)
             {
-                Minion m = Instantiate(_gameManager.HeroDatabase.GetRandomMinion());
+                Minion m = Instantiate(_gameManager.EntityDatabase.GetRandomMinion());
 
                 m.InitializeBattle(1);
                 BattleEntity be = SpawnEntity(m, _teamBSpawnPoint.position);

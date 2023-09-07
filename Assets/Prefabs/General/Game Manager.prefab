@@ -483,13 +483,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
-  HeroDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
+  EntityDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   WasIntroCutscenePlayed: 0
   BattleNumber: 0
   GoldAdvantage: 0
   PlayerHero: {fileID: 0}
-  OverseerHero: {fileID: 0}
-  RivalHero: {fileID: 0}
   CurrentBattle: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:

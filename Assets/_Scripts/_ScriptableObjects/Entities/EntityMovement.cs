@@ -6,19 +6,15 @@ using UnityEngine;
 public class EntityMovement : EntityBase
 {
     [Header("Movement")]
-    public IntVariable BaseSpeed;
-    public Stat Speed { get; protected set; }
-    public Vector2Int SpeedGrowthPerLevel;
+    public Stat Speed;
 
     protected override void CreateStats()
     {
         base.CreateStats();
 
-        BaseSpeed = Instantiate(BaseSpeed);
-        Speed = CreateInstance<Stat>();
-        Speed.StatType = StatType.Speed;
-        Speed.SetBaseValue(BaseSpeed.Value);
-        BaseSpeed.OnValueChanged += Speed.SetBaseValue;
+        Speed = Instantiate(Speed);
+        Speed.Initialize();
+        OnLevelUp += Speed.LevelUp;
     }
 
     /* SERIALIZATION */
@@ -29,7 +25,7 @@ public class EntityMovement : EntityBase
         {
             EntityBaseData = base.SerializeSelf(),
 
-            Speed = BaseSpeed.Value,
+            Speed = Speed.BaseValue,
         };
 
         return data;

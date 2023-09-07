@@ -49,7 +49,7 @@ public class ManaStoreyManager : MonoBehaviour, IPointerDownHandler, IPointerEnt
 
             // try restoring mana to hero if there is mana leftover bank it
             Hero hero = _gameManager.PlayerHero;
-            int heroMissingMana = hero.BaseTotalMana.Value - hero.CurrentMana.Value;
+            int heroMissingMana = hero.MaxMana.GetValue() - hero.CurrentMana.Value;
 
             if (heroMissingMana <= 0)
             {

@@ -113,7 +113,7 @@ public class HeroCardExp : VisualElement
         container.AddToClassList(_ussManaContainer);
 
         Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
-        _manaBar = new(c, "Mana", Hero.CurrentMana, Hero.BaseTotalMana);
+        _manaBar = new(c, "Mana", Hero.CurrentMana, totalStat: Hero.MaxMana);
         container.Add(_manaBar);
 
         return container;
@@ -158,10 +158,10 @@ public class HeroCardExp : VisualElement
         _armorStatContainer.AddToClassList(_ussStatContainer);
         _rangeStatContainer.AddToClassList(_ussStatContainer);
 
-        HeroDatabase db = GameManager.Instance.HeroDatabase;
+        EntityDatabase db = GameManager.Instance.EntityDatabase;
         // _power = new(db.GetStatIconByName("Power"), Hero.Power);
-        _armor = new(db.GetStatIconByName("Armor"), Hero.Armor);
-        _range = new(db.GetStatIconByName("Speed"), Hero.Speed);
+        // _armor = new(db.GetStatIconByType("Armor"), Hero.Armor);
+        // _range = new(db.GetStatIconByType("Speed"), Hero.Speed);
 
         _powerStatContainer.Add(_power);
         _armorStatContainer.Add(_armor);

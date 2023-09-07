@@ -93,10 +93,11 @@ public struct RewardIcon
 }
 
 [System.Serializable]
-public struct StatIcon
+public struct StatBasics
 {
-    public string StatName;
+    public StatType StatType;
     public Sprite Sprite;
+    public string Description;
 }
 
 [System.Serializable]

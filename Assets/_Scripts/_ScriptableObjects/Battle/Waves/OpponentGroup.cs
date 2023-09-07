@@ -19,8 +19,8 @@ public class OpponentGroup : BaseScriptableObject
         Element = element;
         Icon = _gameManager.GameDatabase.GetOpponentGroupIcon(element, creatures > 0);
 
-        List<Minion> minionList = new(_gameManager.HeroDatabase.GetAllMinionsByElement(element));
-        List<Creature> creatureList = new(_gameManager.HeroDatabase.GetCreaturesByTierElement(0, element));
+        List<Minion> minionList = new(_gameManager.EntityDatabase.GetAllMinionsByElement(element));
+        List<Creature> creatureList = new(_gameManager.EntityDatabase.GetCreaturesByTierElement(0, element));
 
         for (int i = 0; i < minions; i++)
         {

@@ -10,7 +10,7 @@ public class LootItem : Loot
     [HideInInspector] public Item Item;
     protected override void SelectPrize()
     {
-        Item = GameManager.Instance.HeroDatabase.GetRandomItem(Rarity);
+        Item = GameManager.Instance.EntityDatabase.GetRandomItem(Rarity);
         return;
     }
 

@@ -100,10 +100,10 @@ public class HeroCardStats : VisualElement
     {
         container.AddToClassList(_ussTopMiddlePanel);
 
-        HeroDatabase db = _gameManager.HeroDatabase;
+        EntityDatabase db = _gameManager.EntityDatabase;
         // _power = new(db.GetStatIconByName("Power"), Hero.Power);
-        _armor = new(db.GetStatIconByName("Armor"), Hero.Armor);
-        _speed = new(db.GetStatIconByName("Speed"), Hero.Speed);
+        // _armor = new(db.GetStatIconByType("Armor"), Hero.Armor);
+        // _speed = new(db.GetStatIconByType("Speed"), Hero.Speed);
 
         container.Add(_power);
         container.Add(_armor);
@@ -149,7 +149,7 @@ public class HeroCardStats : VisualElement
         container.AddToClassList(_ussManaContainer);
 
         Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
-        ManaBar = new(c, "Mana", Hero.CurrentMana, Hero.BaseTotalMana);
+        ManaBar = new(c, "Mana", Hero.CurrentMana, totalStat: Hero.MaxMana);
         container.Add(ManaBar);
 
         return container;

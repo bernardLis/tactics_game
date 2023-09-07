@@ -106,7 +106,10 @@ public class EntityCard : VisualElement
     protected virtual void HandleHealthBar()
     {
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        _healthBar = new(c, "health", currentIntVar: Entity.BaseTotalHealth, totalIntVar: Entity.BaseTotalHealth);
+        // TODO: idk what to do with this
+        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
+        currentHealth.SetValue(Entity.MaxHealth.GetValue());
+        _healthBar = new(c, "health", currentIntVar: currentHealth, totalStat: Entity.MaxHealth);
         _middleContainer.Add(_healthBar);
     }
 }

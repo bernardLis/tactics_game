@@ -27,13 +27,6 @@ public class Turret : EntityFight
     {
         base.LevelUp();
 
-        BasePower.ApplyChange(Random.Range(PowerGrowthPerLevel.x, PowerGrowthPerLevel.y));
-        BaseAttackRange.ApplyChange(Random.Range(AttackRangeGrowthPerLevel.x, AttackRangeGrowthPerLevel.y));
-      
-        int newAttackCooldown = BaseAttackCooldown.Value - Random.Range(AttackCooldownGrowthPerLevel.x, AttackCooldownGrowthPerLevel.y);
-        newAttackCooldown = Mathf.Clamp(newAttackCooldown, 1, int.MaxValue);
-        BaseAttackCooldown.SetValue(newAttackCooldown);
-
         UpgradeCost = 200 * Level.Value;
     }
 
