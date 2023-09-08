@@ -168,9 +168,11 @@ public class BattleCreature : BattleEntity
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
         Animator.SetTrigger("Attack");
 
+        bool isAttack = false;
         while (true)
         {
-            bool isAttack = Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack");
+            if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack"))
+                isAttack = true;
             bool isAttackFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
 
             if (isAttack && isAttackFinished) break;
@@ -191,9 +193,12 @@ public class BattleCreature : BattleEntity
         if (Creature.CreatureAbility.Sound != null)
             _audioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
 
+
+        bool isAbility = false;
         while (true)
         {
-            bool isAbility = Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Creature Ability");
+            if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Creature Ability"))
+                isAbility = true;
             bool isAbilityFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
 
             if (isAbility && isAbilityFinished) break;
@@ -212,7 +217,6 @@ public class BattleCreature : BattleEntity
         if (Opponent == null) return false;
         if (Opponent.IsDead) return false;
 
-        Debug.Log($"Creature.AttackRange.GetValue(): {Creature.AttackRange.GetValue()}");
         // +0.5 wiggle room
         return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange.GetValue() + 0.5f;
     }

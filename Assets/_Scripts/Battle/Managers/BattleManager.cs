@@ -211,7 +211,6 @@ public class BattleManager : Singleton<BattleManager>
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(be);
 
-        Debug.Log($"killer {killer}");
         // TODO: price for experience
         if (killer != null)
         {

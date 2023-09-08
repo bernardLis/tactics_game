@@ -20,6 +20,7 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
     protected override IEnumerator CreatureAbility()
     {
+        Debug.Log($"ability");
         if (!IsOpponentInRange()) yield break;
 
         yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
@@ -39,7 +40,7 @@ public class PracticeDummyEntity : BattleCreatureMelee
 
                 StartCoroutine(entity.GetHit(Creature, Creature.Power.GetValue() * 2));
                 Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-                GameObject hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
+                GameObject hitInstance = Instantiate(Creature.HitPrefab, entity.Collider.bounds.center, q);
                 hitInstance.transform.parent = Opponent.transform;
                 _hitInstances.Add(hitInstance);
             }
