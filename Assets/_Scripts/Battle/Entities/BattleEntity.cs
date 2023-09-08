@@ -97,10 +97,17 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public virtual void SetStats()
     {
         if (EntityBase is EntityMovement em)
+        {
             _agent.speed = em.Speed.GetValue();
+            em.Speed.OnValueChanged += (i) => _agent.speed = i;
+        }
 
         CurrentHealth = ScriptableObject.CreateInstance<IntVariable>();
         CurrentHealth.SetValue(EntityBase.MaxHealth.GetValue());
+    }
+
+    public void UpdateSpeed()
+    {
     }
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
@@ -172,9 +179,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected virtual IEnumerator PathToPosition(Vector3 position)
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
-        
-        if (EntityBase is EntityMovement em)
-            _agent.speed = em.Speed.GetValue();
 
         _agent.enabled = true;
         // TODO: pitiful solution for making entities push each other
