@@ -172,6 +172,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected virtual IEnumerator PathToPosition(Vector3 position)
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
+        
+        if (EntityBase is EntityMovement em)
+            _agent.speed = em.Speed.GetValue();
 
         _agent.enabled = true;
         // TODO: pitiful solution for making entities push each other
