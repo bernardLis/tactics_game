@@ -16,7 +16,7 @@ public class Stat : BaseScriptableObject
     [HideInInspector] public int BonusValue;
     public bool IsDecreasingPerLevel;
     public Vector2Int GrowthPerLevelRange;
-    public Vector2Int MaxMinValue;
+    public Vector2Int MaxMinValue = new Vector2Int(0, 999);
 
     public event Action<int> OnValueChanged;
 

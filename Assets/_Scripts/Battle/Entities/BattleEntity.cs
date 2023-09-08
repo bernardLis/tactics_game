@@ -66,7 +66,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public int DamageTaken { get; private set; }
 
     public event Action<int> OnDamageTaken;
-    public event Action<BattleEntity, GameObject> OnDeath;
+    public event Action<BattleEntity, EntityFight> OnDeath;
     void Awake()
     {
         _gameManager = GameManager.Instance;
@@ -244,13 +244,13 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         attacker.AddDmgDealt(damage);
 
-        BaseGetHit(damage, attacker.Element.Color.Color);
+        BaseGetHit(damage, attacker.Element.Color.Color, attacker);
 
         if (CurrentHealth.Value <= 0)
             attacker.AddKill();
     }
 
-    protected void BaseGetHit(int dmg, Color color, GameObject attacker = null)
+    protected void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
         StopRunEntityCoroutine();
@@ -275,13 +275,13 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         StartRunEntityCoroutine();
     }
 
-    public void TriggerDieCoroutine(GameObject attacker = null, bool hasGrave = false)
+    public void TriggerDieCoroutine(EntityFight attacker = null, bool hasGrave = false)
     {
         IsDead = true;
         StartCoroutine(Die(attacker: attacker, hasGrave: hasGrave));
     }
 
-    public virtual IEnumerator Die(GameObject attacker = null, bool hasLoot = true, bool hasGrave = true)
+    public virtual IEnumerator Die(EntityFight attacker = null, bool hasLoot = true, bool hasGrave = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;

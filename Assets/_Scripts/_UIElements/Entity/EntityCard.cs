@@ -101,7 +101,6 @@ public class EntityCard : VisualElement
         // HERE: something weeird with level
         Entity.Level.OnValueChanged += (i) =>
         {
-            Debug.Log($"bla {i}");
             _levelLabel.text = $"Level {i}";
         };
     }

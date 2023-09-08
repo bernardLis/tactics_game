@@ -212,6 +212,7 @@ public class BattleCreature : BattleEntity
         if (Opponent == null) return false;
         if (Opponent.IsDead) return false;
 
+        Debug.Log($"Creature.AttackRange.GetValue(): {Creature.AttackRange.GetValue()}");
         // +0.5 wiggle room
         return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange.GetValue() + 0.5f;
     }
@@ -290,7 +291,7 @@ public class BattleCreature : BattleEntity
         OnEnemyKilled?.Invoke();
     }
 
-    public override IEnumerator Die(GameObject attacker = null, bool hasLoot = true, bool hasGrave = true)
+    public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true, bool hasGrave = true)
     {
         yield return base.Die(attacker, hasLoot);
 

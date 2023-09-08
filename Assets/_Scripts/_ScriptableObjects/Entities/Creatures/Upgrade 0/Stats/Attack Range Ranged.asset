@@ -15,8 +15,9 @@ MonoBehaviour:
   Id: 24672f03-30d5-4468-8428-fda2c35035e4
   StatType: 5
   Icon: {fileID: 0}
+  Description: 
   BaseValue: 50
   BonusValue: 0
   IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 0, y: 0}
-  MaxMinValue: {x: 0, y: 0}
+  MaxMinValue: {x: 0, y: 100}

@@ -21,7 +21,7 @@ public class BattleCreatureCard : BattleEntityCard
 
         _battleCreature = battleCreature;
 
-        OverrideExpBar();
+        // OverrideExpBar();
         OverrideHealthBar();
         HandleCreatureAbility();
     }
