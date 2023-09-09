@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EntityBaseCardFull : FullScreenElement
+public class EntityCardFull : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
@@ -14,7 +14,7 @@ public class EntityBaseCardFull : FullScreenElement
     const string _ussStatsContainer = _ussClassName + "stats-container";
     const string _ussOtherContainer = _ussClassName + "other-container";
 
-    public EntityBase Entity;
+    public Entity Entity;
 
     protected ScrollView _mainCardContainer;
 
@@ -27,7 +27,7 @@ public class EntityBaseCardFull : FullScreenElement
 
     protected EntityIcon _entityIcon;
 
-    public EntityBaseCardFull(EntityBase entity) : base()
+    public EntityCardFull(Entity entity) : base()
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardFullStyles);
         if (ss != null)

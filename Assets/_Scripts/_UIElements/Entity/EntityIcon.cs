@@ -13,7 +13,7 @@ public class EntityIcon : ElementWithTooltip
 
     GameManager _gameManager;
 
-    EntityBase _entity;
+    Entity _entity;
     bool _blockTooltip;
 
     VisualElement _iconContainer;
@@ -21,7 +21,7 @@ public class EntityIcon : ElementWithTooltip
 
     AnimationElement _animationElement;
     bool _isAnimationBlocked;
-    public EntityIcon(EntityBase entity, bool blockTooltip = false, bool blockClick = false)
+    public EntityIcon(Entity entity, bool blockTooltip = false, bool blockClick = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
@@ -74,13 +74,13 @@ public class EntityIcon : ElementWithTooltip
         _iconContainer.style.height = 180;
     }
 
-    public void SetEntity(EntityBase entity)
+    public void SetEntity(Entity entity)
     {
         _entity = entity;
         _animationElement.SwapAnimationSprites(entity.IconAnimation);
     }
 
-    public void SwapCreature(EntityBase newEntity)
+    public void SwapCreature(Entity newEntity)
     {
         _entity = newEntity;
 
@@ -123,7 +123,7 @@ public class EntityIcon : ElementWithTooltip
     {
         evt.StopImmediatePropagation();
 
-        EntityBaseCardFull card = null;
+        EntityCardFull card = null;
         if (_entity is Creature creature)
             card = new CreatureCardFull(creature);
         if (_entity is Turret turret)

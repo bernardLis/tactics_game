@@ -102,11 +102,11 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         OpponentGroup group = _currentWave.GetCurrentOpponentGroup();
 
-        List<EntityBase> entities = new(group.Minions);
+        List<Entity> entities = new(group.Minions);
         entities.AddRange(group.Creatures);
         float delay = 1f / entities.Count;
 
-        foreach (EntityBase e in entities)
+        foreach (Entity e in entities)
         {
             SpawnEntity(e);
             yield return new WaitForSeconds(delay);
@@ -117,7 +117,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         OnGroupSpawned?.Invoke();
     }
 
-    void SpawnEntity(EntityBase entity)
+    void SpawnEntity(Entity entity)
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 

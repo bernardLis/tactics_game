@@ -6,18 +6,10 @@ using UnityEngine.UIElements;
 public class BattleEntityCard : EntityCard
 {
     BattleEntity _battleEntity;
-    public BattleEntityCard(BattleEntity entity) : base(entity.EntityBase)
+    public BattleEntityCard(BattleEntity entity) : base(entity.Entity)
     {
         _battleEntity = entity;
 
         PopulateCard();
-    }
-
-    protected override void HandleHealthBar()
-    {
-        Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        _healthBar = new(c, "health", _battleEntity.CurrentHealth,
-                totalStat: _battleEntity.EntityBase.MaxHealth);
-        _middleContainer.Add(_healthBar);
     }
 }

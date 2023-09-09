@@ -161,7 +161,7 @@ public class BattleEntityTestManager : MonoBehaviour
     }
 
 
-    BattleEntity SpawnEntity(EntityBase entity, Vector3 spawnPos)
+    BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
     {
         Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);

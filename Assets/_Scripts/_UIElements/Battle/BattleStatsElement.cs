@@ -160,7 +160,7 @@ public class BattleStatsElement : VisualElement
 
             VisualElement icon = new();
             icon.AddToClassList(_ussCreatureIcon);
-            icon.style.backgroundImage = new StyleBackground(be.EntityBase.Icon);
+            icon.style.backgroundImage = new StyleBackground(be.Entity.Icon);
             iconContainer.Add(icon);
         }
     }

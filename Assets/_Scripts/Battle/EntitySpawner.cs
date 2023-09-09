@@ -15,7 +15,7 @@ public class EntitySpawner : MonoBehaviour
     [SerializeField] Sound _portalPopEntitySound;
 
     Element _portalElement;
-    List<EntityBase> _entities = new();
+    List<Entity> _entities = new();
     [SerializeField] List<PortalElement> _portalElements = new();
     [SerializeField] GameObject _blackPortal;
 
@@ -87,7 +87,7 @@ public class EntitySpawner : MonoBehaviour
         Invoke(nameof(DestroySelf), 1f);
     }
 
-    void SpawnEntity(EntityBase entity)
+    void SpawnEntity(Entity entity)
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 

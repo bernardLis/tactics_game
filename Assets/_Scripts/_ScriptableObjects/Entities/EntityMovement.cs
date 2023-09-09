@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityMovement : EntityBase
+public class EntityMovement : Entity
 {
     [Header("Movement")]
     public Stat Speed;

@@ -27,7 +27,7 @@ public class FireballExecutor : AbilityExecutor
             if (entity.IsDead) continue;
             if (entity == null) continue;
 
-            _damageDealt += Mathf.RoundToInt(entity.EntityBase.CalculateDamage(_selectedAbility));
+            _damageDealt += Mathf.RoundToInt(entity.Entity.CalculateDamage(_selectedAbility));
             StartCoroutine(entity.GetHit(_selectedAbility));
         }
 

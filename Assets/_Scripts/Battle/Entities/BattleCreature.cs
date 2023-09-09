@@ -34,7 +34,7 @@ public class BattleCreature : BattleEntity
             CurrentAbilityCooldown -= Time.deltaTime;
     }
 
-    public override void InitializeEntity(EntityBase entity)
+    public override void InitializeEntity(Entity entity)
     {
         base.InitializeEntity(entity);
         Creature = (Creature)entity;
@@ -310,7 +310,7 @@ public class BattleCreature : BattleEntity
     void OnLevelUp()
     {
         DisplayFloatingText("Level Up!", Color.white);
-        CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
+        Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
     }
 
     public virtual void Evolve()

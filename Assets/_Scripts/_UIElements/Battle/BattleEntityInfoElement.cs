@@ -25,13 +25,13 @@ public class BattleEntityInfoElement : VisualElement
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        Label name = new(be.EntityBase.EntityName);
+        Label name = new(be.Entity.EntityName);
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        ResourceBarElement bar = new(c, "health", be.CurrentHealth,
-                totalStat: be.EntityBase.MaxHealth);
+        ResourceBarElement bar = new(c, "health", be.Entity.CurrentHealth,
+                totalStat: be.Entity.MaxHealth);
 
         name.style.position = Position.Absolute;
 

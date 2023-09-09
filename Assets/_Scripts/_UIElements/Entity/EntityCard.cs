@@ -28,8 +28,8 @@ public class EntityCard : VisualElement
     protected Label _levelLabel;
     protected ResourceBarElement _healthBar;
 
-    public EntityBase Entity;
-    public EntityCard(EntityBase entity)
+    public Entity Entity;
+    public EntityCard(Entity entity)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardStyles);
@@ -108,10 +108,7 @@ public class EntityCard : VisualElement
     protected virtual void HandleHealthBar()
     {
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        // TODO: idk what to do with this
-        IntVariable currentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        currentHealth.SetValue(Entity.MaxHealth.GetValue());
-        _healthBar = new(c, "health", currentIntVar: currentHealth, totalStat: Entity.MaxHealth);
+        _healthBar = new(c, "health", currentIntVar: Entity.CurrentHealth, totalStat: Entity.MaxHealth);
         _middleContainer.Add(_healthBar);
     }
 }

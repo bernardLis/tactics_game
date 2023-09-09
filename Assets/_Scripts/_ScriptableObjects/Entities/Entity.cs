@@ -4,22 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EntityBase : BaseScriptableObject
+public class Entity : BaseScriptableObject
 {
-    [Header("Entity Base")]
+    [Header("Entity")]
     public string EntityName;
     public Sprite Icon;
     public Sprite[] IconAnimation;
     public int Price;
     public Element Element;
     public GameObject Prefab;
-
-    [Header("Level")]
-    public IntVariable Level;
-    [HideInInspector] public IntVariable Experience;
-    [HideInInspector] public IntVariable ExpForNextLevel;
-    [HideInInspector] public int LeftoverExp;
-    public event Action OnLevelUp;
 
     [HideInInspector] public int OldDamageTaken;
     [HideInInspector] public int TotalDamageTaken;
@@ -40,19 +33,23 @@ public class EntityBase : BaseScriptableObject
 
         ExpForNextLevel = CreateInstance<IntVariable>();
         ExpForNextLevel.SetValue(GetExpForNextLevel());
+
+        CurrentHealth = CreateInstance<IntVariable>();
+        CurrentHealth.SetValue(MaxHealth.GetValue());
     }
 
     public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
 
     [Header("Stats")]
     public Stat MaxHealth;
+    public IntVariable CurrentHealth;
     public Stat Armor;
 
     protected virtual void CreateStats()
     {
         MaxHealth = Instantiate(MaxHealth);
         Armor = Instantiate(Armor);
-        
+
         MaxHealth.Initialize();
         Armor.Initialize();
 
@@ -61,6 +58,13 @@ public class EntityBase : BaseScriptableObject
     }
 
     /* LEVEL */
+    [Header("Level")]
+    public IntVariable Level;
+    [HideInInspector] public IntVariable Experience;
+    [HideInInspector] public IntVariable ExpForNextLevel;
+    [HideInInspector] public int LeftoverExp;
+    public event Action OnLevelUp;
+
     public virtual int GetExpForNextLevel()
     {
         // meant to be overwritten

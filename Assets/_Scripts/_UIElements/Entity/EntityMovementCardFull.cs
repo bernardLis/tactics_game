@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityMovementCardFull : EntityBaseCardFull
+public class EntityMovementCardFull : EntityCardFull
 {
 
     EntityMovement _entityMovement;

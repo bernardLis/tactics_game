@@ -14,12 +14,12 @@ using Shapes;
 public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 {
     protected GameManager _gameManager;
-
     protected AudioManager _audioManager;
     protected BattleManager _battleManager;
     protected BattleGrabManager _grabManager;
 
     protected ObjectShaders _battleEntityShaders;
+    protected BattleEntityHighlight _battleEntityHighlight;
 
     public List<string> EntityLog = new();
 
@@ -28,21 +28,15 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     [SerializeField] protected Sound _deathSound;
     [SerializeField] protected Sound _getHitSound;
 
-    [Header("Prefabs")]
-    [SerializeField] GameObject _healedEffect;
-
     public Collider Collider { get; private set; }
 
     public string BattleId { get; private set; }
     public int Team { get; private set; }
+
     protected GameObject _GFX;
-
-    protected BattleEntityHighlight _battleEntityHighlight;
-
     public Animator Animator { get; private set; }
 
-    public EntityBase EntityBase { get; private set; }
-    public IntVariable CurrentHealth { get; private set; }
+    public Entity Entity { get; private set; }
 
     protected NavMeshAgent _agent;
     protected Vector2Int _avoidancePriorityRange = new Vector2Int(20, 100);
@@ -50,7 +44,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     [HideInInspector] public bool IsShielded;
     protected bool _isEngaged;
     bool _isPoisoned;
-
     bool _isGrabbed;
     public bool IsDead { get; private set; }
     bool _isDeathCoroutineStarted;
@@ -63,8 +56,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected IEnumerator _currentSecondaryCoroutine;
     protected IEnumerator _currentAbilityCoroutine;
 
-    public int DamageTaken { get; private set; }
-
     public event Action<int> OnDamageTaken;
     public event Action<BattleEntity, EntityFight> OnDeath;
     void Awake()
@@ -73,11 +64,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _audioManager = AudioManager.Instance;
     }
 
-    public virtual void InitializeEntity(EntityBase entity)
+    public virtual void InitializeEntity(Entity entity)
     {
         EntityLog.Add($"{Time.time}: (GAME TIME) Entity is spawned");
 
-        EntityBase = entity;
+        Entity = entity;
 
         _battleEntityShaders = GetComponent<ObjectShaders>();
         _feelPlayer = GetComponent<MMF_Player>();
@@ -96,18 +87,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public virtual void SetStats()
     {
-        if (EntityBase is EntityMovement em)
+        if (Entity is EntityMovement em)
         {
             _agent.speed = em.Speed.GetValue();
             em.Speed.OnValueChanged += (i) => _agent.speed = i;
         }
-
-        CurrentHealth = ScriptableObject.CreateInstance<IntVariable>();
-        CurrentHealth.SetValue(EntityBase.MaxHealth.GetValue());
-    }
-
-    public void UpdateSpeed()
-    {
     }
 
     public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
@@ -127,7 +111,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected void SetBattleId()
     {
-        BattleId = Team + "_" + Helpers.ParseScriptableObjectName(EntityBase.name)
+        BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Entity.name)
                  + "_" + Helpers.GetRandomNumber(4);
         name = BattleId;
     }
@@ -209,7 +193,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         StartRunEntityCoroutine();
     }
 
-    public bool HasFullHealth() { return CurrentHealth.Value >= EntityBase.MaxHealth.GetValue(); }
+    public bool HasFullHealth() { return Entity.CurrentHealth.Value >= Entity.MaxHealth.GetValue(); }
 
     public int GetHealed(Ability ability)
     {
@@ -222,8 +206,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets healed by {value}");
 
-        int v = Mathf.Clamp(value, 0, EntityBase.MaxHealth.GetValue() - CurrentHealth.Value);
-        CurrentHealth.ApplyChange(v);
+        int v = Mathf.Clamp(value, 0, Entity.MaxHealth.GetValue() - Entity.CurrentHealth.Value);
+        Entity.CurrentHealth.ApplyChange(v);
 
         DisplayFloatingText("+" + v, Color.green);
         _battleEntityHighlight.HealEffect();
@@ -235,9 +219,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (_battleManager == null) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {ability.name}");
 
-        BaseGetHit(EntityBase.CalculateDamage(ability), ability.Element.Color.Color);
+        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Color);
 
-        if (CurrentHealth.Value <= 0)
+        if (Entity.CurrentHealth.Value <= 0)
             ability.IncreaseKillCount();
     }
 
@@ -246,14 +230,14 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (IsDead) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {attacker.name}");
 
-        int damage = EntityBase.CalculateDamage(attacker);
+        int damage = Entity.CalculateDamage(attacker);
         if (specialDamage > 0) damage = specialDamage;
 
         attacker.AddDmgDealt(damage);
 
         BaseGetHit(damage, attacker.Element.Color.Color, attacker);
 
-        if (CurrentHealth.Value <= 0)
+        if (Entity.CurrentHealth.Value <= 0)
             attacker.AddKill();
     }
 
@@ -269,11 +253,10 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         DisplayFloatingText(dmg.ToString(), color);
 
         OnDamageTaken?.Invoke(dmg);
-        DamageTaken += dmg;
 
-        int d = Mathf.Clamp(dmg, 0, CurrentHealth.Value);
-        CurrentHealth.ApplyChange(-d);
-        if (CurrentHealth.Value <= 0)
+        int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
+        Entity.CurrentHealth.ApplyChange(-d);
+        if (Entity.CurrentHealth.Value <= 0)
         {
             TriggerDieCoroutine(attacker, true);
             return;
@@ -320,7 +303,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (Team == 0) return;
 
-        Loot loot = EntityBase.GetLoot();
+        Loot loot = Entity.GetLoot();
         if (loot == null) return;
 
         BattleLoot bl = Instantiate(loot.Prefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
@@ -343,13 +326,12 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         while (totalDamage > 0)
         {
             // poison can't kill
-            if (CurrentHealth.Value > damageTick)
+            if (Entity.CurrentHealth.Value > damageTick)
             {
                 DisplayFloatingText(damageTick.ToString(), Color.green);
                 attacker.DealtDamage(damageTick);
                 OnDamageTaken?.Invoke(damageTick);
-                DamageTaken += damageTick;
-                CurrentHealth.ApplyChange(-damageTick);
+                Entity.CurrentHealth.ApplyChange(-damageTick);
             }
             totalDamage -= damageTick;
 

@@ -200,7 +200,7 @@ public class BattleMinimapManager : MonoBehaviour
             return;
         }
         VisualElement icon = new();
-        icon.style.backgroundImage = new StyleBackground(be.EntityBase.Icon);
+        icon.style.backgroundImage = new StyleBackground(be.Entity.Icon);
         icon.style.visibility = Visibility.Hidden;
         icon.style.opacity = 0.8f;
         icon.usageHints = UsageHints.DynamicTransform;

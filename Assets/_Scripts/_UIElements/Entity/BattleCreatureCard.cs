@@ -20,23 +20,7 @@ public class BattleCreatureCard : BattleEntityCard
             styleSheets.Add(ss);
 
         _battleCreature = battleCreature;
-
-        // OverrideExpBar();
-        OverrideHealthBar();
         HandleCreatureAbility();
-    }
-
-    void OverrideExpBar()
-    {
-        _expBar.UpdateTrackedVariables(_battleCreature.Creature.Experience, _battleCreature.Creature.ExpForNextLevel);
-
-        _battleCreature.Creature.OnLevelUp += () => _levelLabel.text = $"Level {_battleCreature.Creature.Level}";
-    }
-
-    void OverrideHealthBar()
-    {
-        _healthBar.UpdateTrackedVariables(_battleCreature.CurrentHealth,
-                totalStat: _battleCreature.Creature.MaxHealth);
     }
 
     void HandleCreatureAbility()

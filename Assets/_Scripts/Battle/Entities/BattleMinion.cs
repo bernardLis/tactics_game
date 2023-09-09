@@ -9,7 +9,7 @@ public class BattleMinion : BattleEntity
     BattleSpire _spire;
     public Minion Minion { get; private set; }
 
-    public override void InitializeEntity(EntityBase entity)
+    public override void InitializeEntity(Entity entity)
     {
         base.InitializeEntity(entity);
         Minion = (Minion)entity;
