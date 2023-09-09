@@ -31,7 +31,6 @@ public class MainMenuUI : MonoBehaviour
 
     void Start()
     {
-
         _root = GetComponent<UIDocument>().rootVisualElement;
         _continueButton = new MyButton("Play", _ussCommonMenuButton, Continue);
         _settingsButton = new MyButton("Settings", _ussCommonMenuButton, Settings);

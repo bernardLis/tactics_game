@@ -8,7 +8,7 @@ using DG.Tweening;
 //https://www.youtube.com/watch?v=6OT43pvUyfY
 public class AudioManager : Singleton<AudioManager>
 {
-    public List<Sound> sounds = new();
+    public List<Sound> Sounds = new();
 
     [SerializeField] AudioMixer _mixer;
 
@@ -20,6 +20,9 @@ public class AudioManager : Singleton<AudioManager>
 
     IEnumerator _xFadeMusicCoroutine;
     IEnumerator _xFadeAmbienceCoroutine;
+
+    Sound _currentMusicSound;
+    int _currentMusicClipIndex;
 
     protected override void Awake()
     {
@@ -82,64 +85,48 @@ public class AudioManager : Singleton<AudioManager>
             Debug.LogError("No music to play");
             return;
         }
-
-        if (_musicAudioSource.isPlaying)
-        {
-            _xFadeMusicCoroutine = CrossFadeCoroutine(_musicAudioSource, 5, 5, sound);
-            StartCoroutine(_xFadeMusicCoroutine);
-        }
-        else
-        {
-            _xFadeMusicCoroutine = FadeInCoroutine(_musicAudioSource, sound, 5);
-            StartCoroutine(_xFadeMusicCoroutine);
-        }
+        _currentMusicSound = sound;
+        _currentMusicClipIndex = 0;
+        _musicAudioSource.pitch = sound.Pitch;
+        StartCoroutine(PlayMusicCoroutine());
     }
 
+    IEnumerator PlayMusicCoroutine()
+    {
+        if (_musicAudioSource.isPlaying)
+        {
+            yield return _musicAudioSource.DOFade(0, 5)
+                    .SetUpdate(true)
+                    .WaitForCompletion();
+        }
+
+        _musicAudioSource.volume = 0;
+        _musicAudioSource.clip = _currentMusicSound.Clips[_currentMusicClipIndex];
+        _musicAudioSource.Play();
+
+        yield return _musicAudioSource.DOFade(_currentMusicSound.Volume, 5)
+                .SetUpdate(true)
+                .WaitForCompletion();
+
+        yield return new WaitForSecondsRealtime(_musicAudioSource.clip.length - 10);
+
+        _currentMusicClipIndex++;
+        if (_currentMusicClipIndex >= _currentMusicSound.Clips.Length)
+            _currentMusicClipIndex = 0;
+
+        StartCoroutine(PlayMusicCoroutine());
+    }
+
+    // TODO: I never use ambience, but it should be handled similarly to music, 
+    // I just don't know how to use one coroutine schema for both...
     public void PlayAmbience(Sound sound)
     {
+        Debug.LogError($"not implemented");
         if (sound == null)
         {
             Debug.LogError("no ambience to play");
             return;
         }
-
-        if (_ambienceAudioSource.isPlaying)
-        {
-            _xFadeAmbienceCoroutine = CrossFadeCoroutine(_ambienceAudioSource, 5, 5, sound);
-            StartCoroutine(_xFadeAmbienceCoroutine);
-        }
-        else
-        {
-            _xFadeAmbienceCoroutine = FadeInCoroutine(_ambienceAudioSource, sound, 5);
-            StartCoroutine(_xFadeAmbienceCoroutine);
-        }
-    }
-
-    IEnumerator CrossFadeCoroutine(AudioSource audioSource, float fadeOutDuration, float fadeInDuration, Sound newSound)
-    {
-        Debug.Log($"Cross fade coroutine started.");
-        yield return FadeOutCoroutine(audioSource, fadeOutDuration);
-        yield return FadeInCoroutine(audioSource, newSound, fadeInDuration);
-    }
-
-    IEnumerator FadeOutCoroutine(AudioSource audioSource, float duration)
-    {
-        yield return audioSource.DOFade(0, duration)
-                .SetUpdate(true)
-                .WaitForCompletion();
-    }
-
-    IEnumerator FadeInCoroutine(AudioSource audioSource, Sound sound, float duration)
-    {
-        Debug.Log($"Fading {sound.name} in.");
-        audioSource.pitch = sound.Pitch;
-        audioSource.volume = 0;
-        audioSource.clip = sound.Clips[0];
-        audioSource.Play();
-
-        yield return audioSource.DOFade(sound.Volume, duration)
-                .SetUpdate(true)
-                .WaitForCompletion();
     }
 
     public AudioSource PlayDialogue(Sound sound)
@@ -150,7 +137,6 @@ public class AudioManager : Singleton<AudioManager>
 
         return _dialogueAudioSource;
     }
-
     public void StopDialogue() { _dialogueAudioSource.Stop(); }
 
     public void PlaySFXDelayed(string soundName, Vector3 pos, float delay)
@@ -165,7 +151,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioSource PlaySFX(string soundName, Vector3 pos)
     {
-        Sound sound = sounds.First(s => s.name == soundName);
+        Sound sound = Sounds.First(s => s.name == soundName);
         if (sound == null)
         {
             Debug.LogError($"No sound {soundName} in library");
@@ -201,7 +187,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioSource PlayUI(string soundName)
     {
-        Sound sound = sounds.First(s => s.name == soundName);
+        Sound sound = Sounds.First(s => s.name == soundName);
         if (sound == null)
         {
             Debug.LogError($"No sound {soundName} in library");
@@ -224,7 +210,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public Sound GetSound(string name)
     {
-        Sound s = sounds.First(s => s.name == name);
+        Sound s = Sounds.First(s => s.name == name);
         if (s == null)
             Debug.LogError($"No sound with name {name} in library");
         return s;
@@ -233,11 +219,12 @@ public class AudioManager : Singleton<AudioManager>
     /* volume setters */
     void SetPlayerPrefVolume()
     {
-        SetMasterVolume(PlayerPrefs.GetFloat("Master", 1));
-        SetMusicVolume(PlayerPrefs.GetFloat("Master", 1));
-        SetAmbienceVolume(PlayerPrefs.GetFloat("Master", 1));
-        SetDialogueVolume(PlayerPrefs.GetFloat("Master", 1));
-        SetSFXVolume(PlayerPrefs.GetFloat("Master", 1));
+        SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 1));
+        SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 1));
+        SetAmbienceVolume(PlayerPrefs.GetFloat("AmbienceVolume", 1));
+        SetDialogueVolume(PlayerPrefs.GetFloat("DialogueVolume", 1));
+        SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 1));
+        SetUIVolume(PlayerPrefs.GetFloat("UIVolume", 1));
     }
 
     // https://forum.unity.com/threads/changing-audio-mixer-group-volume-with-ui-slider.297884/ 
@@ -268,7 +255,6 @@ public class AudioManager : Singleton<AudioManager>
 
     public void SetUIVolume(float volume)
     {
-        Debug.Log($"set ui volume {volume}");
         _mixer.SetFloat("UIVolume", Mathf.Log(volume) * 20);
     }
 
