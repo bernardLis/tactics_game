@@ -53,6 +53,7 @@ public class MyButton : Button
     void OnPointerUp(PointerUpEvent evt)
     {
         this.Blur();
+        _cursorManager.ClearCursor();
     }
 
     public void ChangeCallback(Action newCallback)

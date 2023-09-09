@@ -115,6 +115,8 @@ public class BattleManager : Singleton<BattleManager>
         Debug.Log($"Pausing the game...");
         Time.timeScale = 0f;
         PauseTimer();
+        BlockBattleInput = true;
+
         OnGamePaused?.Invoke();
     }
 
@@ -123,6 +125,8 @@ public class BattleManager : Singleton<BattleManager>
         Debug.Log($"Resuming the game...");
         Time.timeScale = 1f;
         ResumeTimer();
+        BlockBattleInput = false;
+
         OnGameResumed?.Invoke();
     }
 

@@ -31,44 +31,29 @@ public class EntitySpawner : MonoBehaviour
         _audioManager = AudioManager.Instance;
     }
 
-    public void ShowPortal(Element element)
+    public void ShowPortal(Element element, Vector3 scale = default)
     {
         if (_portalShown) return;
         _portalShown = true;
 
+        if (scale == default) scale = Vector3.one * 3f;
+
         _audioManager.PlaySFX(_portalOpenSound, transform.position);
         _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
-        if (element == null)
-        {
-            _blackPortal.SetActive(true);
-            return;
-        }
+        GameObject portal = _blackPortal;
+        if (element != null)
+            portal = _portalElements.Find(x => x.ElementName == element.ElementName).Portal;
 
-        _portalElements.Find(x => x.ElementName == element.ElementName).Portal.SetActive(true);
+        portal.transform.localScale = Vector3.zero;
+        portal.SetActive(true);
+        portal.transform.DOScale(scale, 0.5f).SetEase(Ease.OutBack);
     }
 
-    public void SpawnCreatures(List<Creature> creatures, float duration = 2f)
+    public void SpawnEntities(List<Entity> entities, Element portalElement = null, float duration = 2f)
     {
-        _delay = duration / creatures.Count;
-        _portalElement = creatures[0].Element;
-
-        SpawnEntities(creatures: creatures);
-    }
-
-    public void SpawnMinions(List<Minion> minions, Element portalElement = null, float duration = 2f)
-    {
+        _entities = new(entities);
         _portalElement = portalElement;
-        _delay = duration / minions.Count;
-
-        SpawnEntities(minions: minions);
-    }
-
-    public void SpawnEntities(List<Creature> creatures = null, List<Minion> minions = null)
-    {
-        if (creatures != null)
-            _entities = new(creatures);
-        if (minions != null)
-            _entities = new(minions);
+        _delay = duration / _entities.Count;
 
         StartCoroutine(SpawnShow());
     }

@@ -80,7 +80,7 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
         _tooltipManager.HideTooltip();
         GameObject g = Instantiate(_entitySpawnerPrefab, transform.position, Quaternion.identity);
         EntitySpawner es = g.GetComponent<EntitySpawner>();
-        es.SpawnEntities(creatures: new List<Creature>() { Creature });
+        es.SpawnEntities(new List<Entity>() { Creature });
         es.OnSpawnComplete += (list) =>
         {
             OnResurrected?.Invoke();

@@ -129,13 +129,6 @@ public class BattleDeploymentManager : MonoBehaviour
     void ShowTooltip(string text)
     {
         _tooltipManager.ShowInfo(new BattleInfoElement(text), true);
-        /*
-        _tooltipText = new(text);
-        _tooltipText.AddToClassList("common__text-primary");
-        _tooltipText.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
-        _tooltipText.style.fontSize = 24;
-        _topPanel.Add(_tooltipText);
-        */
     }
 
     IEnumerator UpdateObjectPosition()
@@ -159,8 +152,6 @@ public class BattleDeploymentManager : MonoBehaviour
         if (_deployedObjectInstance == null) return;
 
         _tooltipManager.RemoveInfoPriority();
-        // if (_tooltipText.parent != null)
-        //       _topPanel.Remove(_tooltipText);
 
         Deploy();
     }
@@ -181,7 +172,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void PlaceArmy(EntitySpawner spawner)
     {
-        spawner.SpawnCreatures(_creaturesToDeploy);
+        spawner.SpawnEntities(new List<Entity>(_creaturesToDeploy));
         spawner.OnSpawnComplete += (list) =>
         {
             _battleManager.AddPlayerArmyEntities(list);
