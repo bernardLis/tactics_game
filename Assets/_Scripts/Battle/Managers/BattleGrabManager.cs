@@ -14,6 +14,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     GameManager _gameManager;
     AudioManager _audioManager;
+    CursorManager _cursorManager;
     PlayerInput _playerInput;
     BattleAbilityManager _abilityManager;
     BattleDeploymentManager _playerArmyDeployer;
@@ -49,6 +50,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
+        _cursorManager = CursorManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _abilityManager = GetComponent<BattleAbilityManager>();
@@ -81,7 +83,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             Helpers.DisplayTextOnElement(_root, _grabButton, "On cooldown!", Color.red);
             return;
         }
-        Cursor.SetCursor(_cursorGrabbingEnabled, Vector2.zero, CursorMode.Auto);
+        _cursorManager.SetCursorByName("Grab");
         _grabButton.Highlight();
 
         IsGrabbingEnabled = true;
@@ -92,7 +94,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         if (this == null) return;
         if (_grabButton == null) return;
 
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        _cursorManager.ClearCursor();
         _grabButton.ClearHighlight();
 
         IsGrabbingEnabled = false;
@@ -150,7 +152,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             _objectYPosition = yPosition;
 
         _audioManager.PlaySFX("Grab", obj.transform.position);
-        Cursor.SetCursor(_cursorGrabbed, Vector2.zero, CursorMode.Auto);
+        _cursorManager.SetCursorByName("Hold");
 
         _grabbedObject = obj;
         if (_grabbedObject.TryGetComponent(out IGrabbable g))

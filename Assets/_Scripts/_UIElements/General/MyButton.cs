@@ -8,6 +8,7 @@ public class MyButton : Button
 {
     protected GameManager _gameManager;
     AudioManager _audioManager;
+    CursorManager _cursorManager;
 
     protected Label _text;
 
@@ -22,6 +23,7 @@ public class MyButton : Button
             styleSheets.Add(ss);
 
         _audioManager = AudioManager.Instance;
+        _cursorManager = CursorManager.Instance;
 
         _text = new Label(buttonText);
         _text.style.whiteSpace = WhiteSpace.Normal;
@@ -42,7 +44,9 @@ public class MyButton : Button
             clicked += callback;
         }
 
-        RegisterCallback<MouseEnterEvent>(PlayClick);
+        RegisterCallback<PointerEnterEvent>(OnPointerEnter);
+        RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
+
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
 
@@ -65,12 +69,19 @@ public class MyButton : Button
         _text.style.display = DisplayStyle.Flex;
     }
 
-    void PlayClick(MouseEnterEvent evt)
+    void OnPointerEnter(PointerEnterEvent evt)
     {
         if (!enabledSelf)
             return;
         if (_audioManager != null)
             _audioManager.PlayUI("UI Click");
+        if (_cursorManager != null)
+            _cursorManager.SetCursorByName("Hover");
+    }
+
+    void OnPointerLeave(PointerLeaveEvent evt)
+    {
+        _cursorManager.ClearCursor();
     }
 
     void PreventInteraction(MouseEnterEvent evt)
@@ -81,14 +92,18 @@ public class MyButton : Button
 
     void OnDisable()
     {
-        UnregisterCallback<MouseEnterEvent>(PlayClick);
+        UnregisterCallback<PointerEnterEvent>(OnPointerEnter);
+        UnregisterCallback<PointerLeaveEvent>(OnPointerLeave);
+
         // https://forum.unity.com/threads/hover-state-control-from-code.914504/
         RegisterCallback<MouseEnterEvent>(PreventInteraction);
     }
 
     void OnEnable()
     {
-        RegisterCallback<MouseEnterEvent>(PlayClick);
+        RegisterCallback<PointerEnterEvent>(OnPointerEnter);
+        RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
+
         UnregisterCallback<MouseEnterEvent>(PreventInteraction);
     }
 

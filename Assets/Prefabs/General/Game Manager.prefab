@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 3609328160265785649}
   - component: {fileID: 5229503471192617615}
   - component: {fileID: 4186435637351100778}
+  - component: {fileID: 9006272408855850639}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -467,6 +468,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec1db661222268e49a4ab1dda8419c0f, type: 2}
   - {fileID: 11400000, guid: 23c88f12b2c2ddb4fb7e75ac3f11b010, type: 2}
   - {fileID: 11400000, guid: fd544c6480001fc40a153218e983deac, type: 2}
+  - {fileID: 11400000, guid: 1e3d7cf526f21ae4ab6121e41f1a7648, type: 2}
+  - {fileID: 11400000, guid: ae9dca4ca7fb7a94689bc698f8b09e2c, type: 2}
+  - {fileID: 11400000, guid: d9839f0666ea7834a9be1186ff974faf, type: 2}
+  - {fileID: 11400000, guid: 8c88035757b778a499742cfaa33eda6f, type: 2}
+  - {fileID: 11400000, guid: 35030e3ad004ef34eb9a255aecbeeca5, type: 2}
+  - {fileID: 11400000, guid: 213c8194099e1a14ca76e82c749056f0, type: 2}
   _mixer: {fileID: 24100000, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}
 --- !u!114 &1475728751920290888
 MonoBehaviour:
@@ -540,3 +547,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cutscenes:
   - {fileID: 11400000, guid: b6ba1b2aaec323840a2d9b026de37025, type: 2}
+--- !u!114 &9006272408855850639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154333484900981485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e854aa90a39040a4e97705e870cd6a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursors:
+  - {fileID: 11400000, guid: d58650271eda4284cbc6393ac51dbe19, type: 2}
+  - {fileID: 11400000, guid: f55c29af9cdb088478fa4b9f8e479286, type: 2}
+  - {fileID: 11400000, guid: 399a148a623e98e4e972302b9cc997f9, type: 2}
+  - {fileID: 11400000, guid: 249fbfad3b55d7a4e8be6bb03ed9a6ee, type: 2}
+  - {fileID: 11400000, guid: 4c37d8800e592cb48a62f60ac7478201, type: 2}
+  _defaultCursor: {fileID: 11400000, guid: d58650271eda4284cbc6393ac51dbe19, type: 2}

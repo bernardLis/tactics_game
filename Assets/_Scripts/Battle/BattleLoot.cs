@@ -10,9 +10,9 @@ using Cursor = UnityEngine.Cursor;
 public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     AudioManager _audioManager;
+    CursorManager _cursorManager;
 
     BattleManager _battleManager;
-    BattleGrabManager _grabManager;
     BattleAbilityManager _abilityManager;
 
     MMF_Player _feelPlayer;
@@ -31,9 +31,9 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     void Start()
     {
         _audioManager = AudioManager.Instance;
+        _cursorManager = CursorManager.Instance;
         _battleManager = BattleManager.Instance;
         transform.parent = _battleManager.EntityHolder;
-        _grabManager = BattleGrabManager.Instance;
         _abilityManager = _battleManager.GetComponent<BattleAbilityManager>();
 
         _feelPlayer = GetComponent<MMF_Player>();
@@ -88,7 +88,7 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         _GFX.transform.DOPunchScale(endScale, 0.5f, 5, 0.5f)
             .OnComplete(() => DOTween.Kill(_GFX.transform));
 
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        _cursorManager.ClearCursor();
 
         GetComponent<Collider>().enabled = false;
 
@@ -126,7 +126,7 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if (_isCollected) return;
 
-        Cursor.SetCursor(_cursorTexture, Vector2.zero, CursorMode.Auto);
+        _cursorManager.SetCursorByName("Loot");
         _material.EnableKeyword("_EMISSION");
     }
 
@@ -134,7 +134,7 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if (_isCollected) return;
 
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        _cursorManager.ClearCursor();
         _material.DisableKeyword("_EMISSION");
     }
 
