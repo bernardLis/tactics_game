@@ -18,6 +18,8 @@ public class Minion : EntityMovement
             Armor.LevelUp();
             Speed.LevelUp();
         }
+
+        CurrentHealth.SetValue(MaxHealth.GetValue());
     }
 }
 

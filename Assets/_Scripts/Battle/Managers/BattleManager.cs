@@ -6,10 +6,14 @@ using TMPro;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using Cinemachine;
 
 public class BattleManager : Singleton<BattleManager>
 {
     public static bool BlockBattleInput;
+
+    // HERE: mega speed testing
+    public CinemachineVirtualCamera _cinemachineVirtualCamera;
 
     GameManager _gameManager;
 

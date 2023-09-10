@@ -61,6 +61,7 @@ public class BattleCreature : BattleEntity
         if (team == 0) return;
         _GFX.GetComponentInChildren<SkinnedMeshRenderer>().material.shader
                 = _gameManager.GameDatabase.SepiaToneShader;
+
     }
 
     protected override IEnumerator RunEntity()

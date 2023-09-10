@@ -41,7 +41,11 @@ public class Stat : BaseScriptableObject
         OnValueChanged?.Invoke(GetValue());
     }
 
-    public int GetValue() { return BaseValue + BonusValue; }
+    public int GetValue()
+    {
+        int totalValue = BaseValue + BonusValue;
+        return Mathf.Clamp(totalValue, MaxMinValue.x, MaxMinValue.y);
+    }
 
     public void SetBaseValue(int value)
     {
