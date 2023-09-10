@@ -7,6 +7,7 @@ public class FullScreenElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     protected const string _ussCommonMenuButton = "common__menu-button";
+    protected const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
     const string _ussCommonFullScreenMain = "common__full-screen-main";
     const string _ussCommonFullScreenContent = "common__full-screen-content";
 
@@ -15,8 +16,6 @@ public class FullScreenElement : VisualElement
     BattleManager _battleManager;
 
     public event Action OnHide;
-
-    bool _resumeGameOnHide;
 
     VisualElement _root;
 
@@ -27,21 +26,14 @@ public class FullScreenElement : VisualElement
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        BattleManager.BlockBattleInput = true;
-
-        _gameManager.OpenFullScreens.Add(this);
 
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null) styleSheets.Add(commonStyles);
 
-        if (_battleManager != null && _battleManager.IsTimerOn)
-        {
-            _resumeGameOnHide = true;
-            _battleManager.PauseGame();
-        }
-
         ResolveRoot();
-        _root.Add(this);
+
+        _gameManager.OpenFullScreens.Add(this);
+        if (_battleManager != null) _battleManager.PauseGame();
 
         AddToClassList(_ussCommonFullScreenMain);
         AddToClassList(_ussCommonTextPrimary);
@@ -63,6 +55,8 @@ public class FullScreenElement : VisualElement
     {
         _root = _gameManager.Root;
         if (_battleManager != null) _root = _battleManager.Root;
+
+        _root.Add(this);
     }
 
     protected void EnableNavigation()

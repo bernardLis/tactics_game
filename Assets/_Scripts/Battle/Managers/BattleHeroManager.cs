@@ -43,24 +43,10 @@ public class BattleHeroManager : MonoBehaviour
 
     void OnHeroLevelUp()
     {
-        // HERE: BattleRewardElement should be a full screen element
-
-        _battleManager.PauseGame();
-
-        VisualElement blackout = new();
-        blackout.style.backgroundColor = new Color(0, 0, 0, 0.3f);
-        blackout.style.position = Position.Absolute;
-        blackout.style.width = Length.Percent(100);
-        blackout.style.height = Length.Percent(100);
-        _root.Add(blackout);
-
         BattleRewardElement rewardElement = new();
-        _root.Add(rewardElement);
 
-        rewardElement.OnContinueClicked += () =>
+        rewardElement.OnHide += () =>
         {
-            _root.Remove(rewardElement);
-            _root.Remove(blackout);
             Hero.CurrentMana.ApplyChange(Hero.MaxMana.GetValue() - Hero.CurrentMana.Value);
             Hero.AddExp(Hero.LeftoverExp);
         };

@@ -11,10 +11,3 @@
 }
 
 .battle-reward__header {}
-
-.battle-reward__spacer {
-    height: 50px;
-    width: 100%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2');
-    -unity-background-scale-mode: scale-to-fit;
-}

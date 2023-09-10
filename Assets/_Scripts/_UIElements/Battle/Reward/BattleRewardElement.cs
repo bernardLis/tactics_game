@@ -6,33 +6,25 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 
-public class BattleRewardElement : VisualElement
+public class BattleRewardElement : FullScreenElement
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
-
     const string _ussClassName = "battle-reward__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussSpacer = _ussClassName + "spacer";
 
-    GameManager _gameManager;
     AudioManager _audioManager;
 
     VisualElement _rewardContainer;
-    Label _rewardTooltip;
+    Label _title;
     List<RewardCard> _hiddenCards = new();
 
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
 
     RerollButton _rerollButton;
-    ContinueButton _continueButton;
 
     int _numberOfRewards = 3;
 
     public event Action OnRewardSelected;
-    public event Action OnContinueClicked;
-
     public BattleRewardElement()
     {
         _gameManager = GameManager.Instance;
@@ -44,28 +36,24 @@ public class BattleRewardElement : VisualElement
         if (ss != null)
             styleSheets.Add(ss);
 
-        AddToClassList(_ussCommonTextPrimary);
-        AddToClassList(_ussMain);
+        _content.AddToClassList(_ussMain);
 
-        //HERE: disable hero stats
-        // _rewardTooltip = new Label("Add stat point");
-        // _rewardTooltip.style.opacity = 0;
-        // _rewardTooltip.style.fontSize = 32;
-        // Add(_rewardTooltip);
-        // DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+        _title = new Label("Level Up!");
+        _title.style.opacity = 0;
+        _title.style.fontSize = 32;
+        _content.Add(_title);
+        DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
 
         AddHeroCard();
 
         VisualElement spacer = new();
-        spacer.AddToClassList(_ussSpacer);
-        Add(spacer);
+        spacer.AddToClassList(_ussCommonHorizontalSpacer);
+        _content.Add(spacer);
 
         AddRewardContainer();
 
         if (_gameManager.PlayerHero.Level.Value == 1)
             LevelOneShow();
-
-
     }
 
     void LevelOneShow()
@@ -111,7 +99,7 @@ public class BattleRewardElement : VisualElement
     {
         /* HERE: disable hero stats
         HeroCardExp card = new(_gameManager.PlayerHero);
-        Add(card);
+        _content.Add(card);
         card.style.opacity = 0;
         DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
             .SetUpdate(true)
@@ -131,7 +119,7 @@ public class BattleRewardElement : VisualElement
     */
 
         HeroCardStats card = new(_gameManager.PlayerHero);
-        Add(card);
+        _content.Add(card);
         card.style.opacity = 0;
 
         DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
@@ -147,7 +135,7 @@ public class BattleRewardElement : VisualElement
     {
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
-        Add(_rewardContainer);
+        _content.Add(_rewardContainer);
 
         _hiddenCards = new();
         for (int i = 0; i < _numberOfRewards; i++)
@@ -161,7 +149,7 @@ public class BattleRewardElement : VisualElement
         _rerollButton = new(callback: RerollReward);
         _rerollButton.style.opacity = 0;
         _rerollButton.style.visibility = Visibility.Hidden;
-        Add(_rerollButton);
+        _content.Add(_rerollButton);
     }
 
     void RunCardShow()
@@ -324,20 +312,14 @@ public class BattleRewardElement : VisualElement
 
         OnRewardSelected?.Invoke();
 
-        _continueButton = new(callback: MoveAway);
-        Add(_continueButton);
+        AddContinueButton();
     }
 
-    public void MoveAway()
+    public override void Hide()
     {
         if (_gameManager.PlayerHero.Level.Value == 2)
-        {
             LevelOneClosedShow();
-        }
 
-        style.position = Position.Absolute;
-        DOTween.To(x => style.opacity = x, 1, 0, 0.5f)
-            .SetUpdate(true)
-            .OnComplete(() => OnContinueClicked?.Invoke());
+        base.Hide();
     }
 }

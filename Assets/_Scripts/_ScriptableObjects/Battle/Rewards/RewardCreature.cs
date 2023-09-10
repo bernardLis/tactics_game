@@ -15,12 +15,12 @@ public class RewardCreature : Reward
 
         Creature baseCreature = _gameManager.EntityDatabase.GetRandomCreatureByUpgradeTierAndLower(maxTier);
         Creature = Instantiate(baseCreature);
+        Creature.InitializeBattle(0);
     }
 
     public override void GetReward()
     {
         base.GetReward();
-        Creature.InitializeBattle(0);
         _hero.AddCreature(Creature);
 
         BattleDeploymentManager bdsm = BattleManager.Instance.GetComponent<BattleDeploymentManager>();

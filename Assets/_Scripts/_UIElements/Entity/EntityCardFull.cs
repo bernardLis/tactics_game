@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class EntityCardFull : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
 
     protected const string _ussClassName = "entity-card-full__";
     const string _ussContent = _ussClassName + "content";
