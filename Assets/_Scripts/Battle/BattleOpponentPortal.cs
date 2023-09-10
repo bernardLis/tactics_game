@@ -15,26 +15,21 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     [SerializeField] Sound _portalElementalAlarmSound;
 
-    [SerializeField] Sound _portalOpenSound;
-    [SerializeField] Sound _portalCloseSound;
-    [SerializeField] Sound _portalHumSound;
-    [SerializeField] Sound _portalPopEntitySound;
+    [SerializeField] EntitySpawner _entitySpawnerPrefab;
+    EntitySpawner _entitySpawnerInstance;
 
     [SerializeField] GameObject RewardChestPrefab;
 
     public Element Element;
-    [SerializeField] GameObject _portalEffect;
-    Vector3 _portalEffectScale;
+
+    Vector3 _portalPosition = new(1.1f, 1.8f, 0f);
+    Vector3 _portalEffectScale = new(1.6f, 1.9f, 2f);
 
     BattleWave _currentWave;
     [SerializeField] List<string> _portalLog = new();
 
-    List<BattleEntity> _spawnedEntities = new();
-
     float _lastWaveSpawnTime;
     bool _isPortalActive;
-
-    AudioSource _portalHumSource;
 
     public event Action<BattleOpponentPortal> OnPortalOpened;
     public event Action<BattleOpponentPortal> OnPortalClosed;
@@ -46,8 +41,6 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _battleManager = BattleManager.Instance;
         _battleManager.AddPortal(this);
         _tooltipManager = BattleTooltipManager.Instance;
-
-        _portalEffectScale = _portalEffect.transform.localScale;
     }
 
     public void InitializeWave(BattleWave wave)
@@ -58,17 +51,12 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _portalLog.Add($"Delay between groups {wave.DelayBetweenGroups}");
         _portalLog.Add($"Number of groups {wave.OpponentGroups.Count - 1}");
 
-        _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
+        _entitySpawnerInstance = Instantiate(_entitySpawnerPrefab, transform);
+        _entitySpawnerInstance.transform.localPosition = _portalPosition;
+        _entitySpawnerInstance.ShowPortal(Element, _portalEffectScale);
 
-        _portalEffect.transform.localScale = Vector3.zero;
+        _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
         _audioManager.PlayUI(_portalElementalAlarmSound);
-        _audioManager.PlaySFX(_portalOpenSound, transform.position);
-        _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
-        _portalEffect.transform.DOScale(_portalEffectScale, 0.5f)
-            .OnComplete(() =>
-            {
-                _portalEffect.SetActive(true);
-            });
 
         Debug.Log($"Initializing wave {Element.ElementName}");
         _isPortalActive = true;
@@ -104,36 +92,16 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
         List<Entity> entities = new(group.Minions);
         entities.AddRange(group.Creatures);
-        float delay = 1f / entities.Count;
 
-        foreach (Entity e in entities)
+        _entitySpawnerInstance.SpawnEntities(entities, Element, 2, true);
+        _entitySpawnerInstance.OnSpawnComplete += (list) =>
         {
-            SpawnEntity(e);
-            yield return new WaitForSeconds(delay);
-        }
+            _battleManager.AddOpponentArmyEntities(new(list));
+            OnGroupSpawned?.Invoke();
+            _entitySpawnerInstance.ClearSpawnedEntities();
+        };
 
-        _battleManager.AddOpponentArmyEntities(_spawnedEntities);
-        _spawnedEntities.Clear();
-        OnGroupSpawned?.Invoke();
-    }
-
-    void SpawnEntity(Entity entity)
-    {
-        _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
-
-        entity.InitializeBattle(1);
-
-        Vector3 pos = _portalEffect.transform.position;
-        pos.y = 1;
-        GameObject instance = Instantiate(entity.Prefab, pos, Quaternion.identity);
-        BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(entity);
-
-        Vector3 jumpPos = pos + _portalEffect.transform.forward * Random.Range(2f, 4f)
-            + Vector3.left * Random.Range(-2f, 2f);
-        jumpPos.y = 1;
-        instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
-        _spawnedEntities.Add(be);
+        yield return null;
     }
 
     IEnumerator ClosePortal()
@@ -144,26 +112,22 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
         _portalLog.Add($"{_battleManager.GetTime()}: Closing portal");
-        Vector3 pos = _portalEffect.transform.position;
+        yield return SpawnChest();
+
+        _entitySpawnerInstance.DestroySelf();
+    }
+
+    IEnumerator SpawnChest()
+    {
+        Vector3 pos = _entitySpawnerInstance.transform.position;
         GameObject chest = Instantiate(RewardChestPrefab, pos, Quaternion.identity);
         chest.transform.LookAt(Vector3.zero);
-        Vector3 jumpPos = pos + _portalEffect.transform.forward * Random.Range(2f, 4f);
-        chest.transform.DOJump(jumpPos, 1f, 1, 0.5f);
-
-        yield return new WaitForSeconds(0.8f);
-
-        _audioManager.PlaySFX(_portalCloseSound, transform.position);
-        if (_portalHumSource != null) _portalHumSource.Stop();
-
-        _portalEffect.transform.DOScale(0, 0.5f)
-            .SetEase(Ease.InBack)
-            .OnComplete(() =>
-            {
-                _portalEffect.SetActive(false);
-            });
+        Vector3 jumpPos = pos + _entitySpawnerInstance.transform.forward * Random.Range(2f, 4f);
+        yield return chest.transform.DOJump(jumpPos, 1f, 1, 0.5f).WaitForCompletion();
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

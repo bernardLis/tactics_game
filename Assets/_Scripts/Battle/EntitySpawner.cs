@@ -36,29 +36,30 @@ public class EntitySpawner : MonoBehaviour
         if (_portalShown) return;
         _portalShown = true;
 
-        if (scale == default) scale = Vector3.one * 3f;
-
         _audioManager.PlaySFX(_portalOpenSound, transform.position);
         _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
         GameObject portal = _blackPortal;
         if (element != null)
             portal = _portalElements.Find(x => x.ElementName == element.ElementName).Portal;
 
+        if (scale == default) scale = Vector3.one * 3f;
+
         portal.transform.localScale = Vector3.zero;
         portal.SetActive(true);
         portal.transform.DOScale(scale, 0.5f).SetEase(Ease.OutBack);
     }
 
-    public void SpawnEntities(List<Entity> entities, Element portalElement = null, float duration = 2f)
+    public void SpawnEntities(List<Entity> entities, Element portalElement = null,
+            float duration = 2f, bool staysOpen = false)
     {
         _entities = new(entities);
         _portalElement = portalElement;
         _delay = duration / _entities.Count;
 
-        StartCoroutine(SpawnShow());
+        StartCoroutine(SpawnShow(staysOpen));
     }
 
-    IEnumerator SpawnShow()
+    IEnumerator SpawnShow(bool staysOpen)
     {
         ShowPortal(_portalElement);
 
@@ -69,7 +70,8 @@ public class EntitySpawner : MonoBehaviour
         }
 
         OnSpawnComplete?.Invoke(SpawnedEntities);
-        Invoke(nameof(DestroySelf), 1f);
+        if (!staysOpen)
+            Invoke(nameof(DestroySelf), 1f);
     }
 
     void SpawnEntity(Entity entity)
@@ -78,14 +80,22 @@ public class EntitySpawner : MonoBehaviour
 
         entity.InitializeBattle(0);
 
-        Vector3 pos = transform.position;
-        GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
+        GameObject instance = Instantiate(entity.Prefab, transform.position, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         be.InitializeEntity(entity);
         SpawnedEntities.Add(be);
 
-        Vector3 jumpPos = pos + transform.forward * 2f + Vector3.up + Vector3.left * Random.Range(-2, 2);
+        Vector3 jumpPos = transform.position + transform.forward * Random.Range(2, 5);
+        if (_entities.Count > 1)
+            jumpPos += Vector3.left * Random.Range(-2, 2);
+        jumpPos.y = 1;
+
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
+    }
+
+    public void ClearSpawnedEntities()
+    {
+        SpawnedEntities.Clear();
     }
 
     public void DestroySelf()

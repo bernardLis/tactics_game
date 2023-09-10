@@ -31,25 +31,28 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
         _battleManager = BattleManager.Instance;
         _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
         _battleInputManager.OnContinueClicked += SkipIntro;
-
         _introCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         _dollyCart = GetComponentInChildren<CinemachineDollyCart>();
 
         _introTextElement = new("You wake up confused. You have a feeling that your fate is connected to the structure in the middle. You sense that if you survive 15 minutes you will win. You feel bad vibes from portals in the map corners. It seems like whatever comes from there shouldn't reach the middle. It is you and your trusty creature against this foreign place. Now spawn your creature and good luck.", 30f);
         _battleManager.Root.Add(_introTextElement);
-        _introTextElement.style.opacity = 0;
-        DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f);
-        _introTextElement.OnFinishedPrinting += () =>
-        {
-            DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f)
-                    .OnComplete(() =>
-                    {
-                        _battleManager.Root.Remove(_introTextElement);
-                    });
-        };
 
-        StartCoroutine(CameraIntroCoroutine());
-        StartCoroutine(PlayIntroVO());
+        // HERE: testing
+        DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f).OnComplete(SkipIntro);
+
+        // _introTextElement.style.opacity = 0;
+        // DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f);
+        // _introTextElement.OnFinishedPrinting += () =>
+        // {
+        //     DOTween.To(x => _introTextElement.style.opacity = x, 0, 1, 0.5f)
+        //             .OnComplete(() =>
+        //             {
+        //                 _battleManager.Root.Remove(_introTextElement);
+        //             });
+        // };
+
+        // StartCoroutine(CameraIntroCoroutine());
+        // StartCoroutine(PlayIntroVO());
     }
 
     void OnDisable()

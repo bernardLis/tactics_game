@@ -80,7 +80,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     public void HandlePlayerArmyDeployment(List<Creature> creaturesToDeploy)
     {
-        BaseHandleDeployment("Click to deploy your army", 0);
+        BaseHandleDeployment("Click to deploy your army", 3);
 
         _creaturesToDeploy = creaturesToDeploy;
 
