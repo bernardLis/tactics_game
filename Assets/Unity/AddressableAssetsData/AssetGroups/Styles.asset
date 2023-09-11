@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 15b9d2ba76c859c4097a6e3fdb754e84
-    m_Address: GameManager
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 30cb1d7da388bcd46bd5f2295479366d
     m_Address: CharacterPortraitStyles
     m_ReadOnly: 0
@@ -219,11 +214,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 78710e345d14d424393c02462d9ee261
     m_Address: TurretIconStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dee90f91364511a4b8da86b1fa181765
-    m_Address: BattleWaveCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

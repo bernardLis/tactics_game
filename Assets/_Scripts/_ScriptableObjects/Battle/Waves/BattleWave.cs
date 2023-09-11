@@ -10,6 +10,7 @@ public class BattleWave : BaseScriptableObject
     public int Difficulty;
     public float StartTime;
     public bool IsStarted;
+    public float LastGroupSpawnTime;
 
     public List<OpponentGroup> OpponentGroups = new();
     public int CurrentGroupIndex;
@@ -42,8 +43,6 @@ public class BattleWave : BaseScriptableObject
             Vector2Int minionLevelRange = new Vector2Int(1, difficulty + 1);
             Vector2Int creatureLevelRange = new Vector2Int(1, 2);
 
-            //     Debug.Log($"group: difficulty {difficulty}, group number {i}, minions {numberOfMinions}, creatures {numberOfCreatures}, delay {DelayBetweenGroups}");
-
             OpponentGroup group = CreateInstance<OpponentGroup>();
             group.CreateGroup(Element, numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
             OpponentGroups.Add(group);
@@ -68,6 +67,7 @@ public class BattleWave : BaseScriptableObject
     public void SpawningGroupFinished()
     {
         CurrentGroupIndex++;
+        LastGroupSpawnTime = BattleManager.Instance.GetTime();
         OnGroupSpawned?.Invoke();
     }
 

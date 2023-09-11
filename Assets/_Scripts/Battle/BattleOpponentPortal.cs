@@ -29,9 +29,6 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     BattleWave _currentWave;
     [SerializeField] List<string> _portalLog = new();
 
-    float _lastWaveSpawnTime;
-    bool _isPortalActive;
-
     public event Action<BattleOpponentPortal> OnPortalOpened;
     public event Action<BattleOpponentPortal> OnPortalClosed;
 
@@ -47,6 +44,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void GetWave(BattleWave wave)
     {
+        _currentWave = wave;
+
         if (_battleManager.GetTime() >= wave.StartTime)
         {
             InitializeWave(wave);
@@ -79,9 +78,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
         _audioManager.PlayUI(_portalElementalAlarmSound);
 
-        _isPortalActive = true;
-        _currentWave = wave;
-        _lastWaveSpawnTime = _battleManager.GetTime();
+        _currentWave.IsStarted = true;
+
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip
 
@@ -94,7 +92,6 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         while (_currentWave.CurrentGroupIndex < _currentWave.OpponentGroups.Count)
         {
             yield return SpawnCurrentOpponentGroup();
-            _lastWaveSpawnTime = _battleManager.GetTime();
             _currentWave.SpawningGroupFinished();
             _portalLog.Add($"{_battleManager.GetTime()} Finished spawning group index: {_currentWave.CurrentGroupIndex}");
             if (_currentWave.CurrentGroupIndex != _currentWave.OpponentGroups.Count) // don't wait after the last one is spawned
@@ -128,7 +125,6 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         OnPortalClosed?.Invoke(this);
 
-        _isPortalActive = false;
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
             ShowTooltip(); // refreshing tooltip
 
@@ -172,9 +168,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     void ShowTooltip()
     {
-        VisualElement tt = new OpponentPortalCard(Element);
-        if (_isPortalActive)
-            tt = new BattleWaveCard(_currentWave, _lastWaveSpawnTime);
+        OpponentPortalCard tt = new OpponentPortalCard(Element, _currentWave);
         _tooltipManager.ShowTooltip(tt, gameObject);
     }
 }
