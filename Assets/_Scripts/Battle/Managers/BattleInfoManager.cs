@@ -69,7 +69,7 @@ public class BattleInfoManager : MonoBehaviour
 
         _infoPanel.Add(container);
 
-        foreach (BattleOpponentPortal portal in _battleManager.OpponentPortals)
+        foreach (BattleOpponentPortal portal in BattleWaveManager.Instance.OpponentPortals)
         {
             VisualElement icon = new();
             icon.style.width = 30;

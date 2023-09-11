@@ -100,7 +100,7 @@ public class BattleMinimapManager : MonoBehaviour
 
     void AddPortals()
     {
-        foreach (BattleOpponentPortal portal in _battleManager.OpponentPortals)
+        foreach (BattleOpponentPortal portal in BattleWaveManager.Instance.OpponentPortals)
         {
             VisualElement icon = new();
             icon.AddToClassList(_ussPortalIcon);

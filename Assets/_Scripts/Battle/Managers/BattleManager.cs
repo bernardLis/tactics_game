@@ -35,7 +35,6 @@ public class BattleManager : Singleton<BattleManager>
     public bool IsTimerOn { get; private set; }
 
     public Hero PlayerHero { get; private set; }
-    public List<BattleOpponentPortal> OpponentPortals = new();
 
     public List<BattleEntity> PlayerCreatures = new();
     public List<BattleEntity> OpponentEntities = new();
@@ -250,7 +249,6 @@ public class BattleManager : Singleton<BattleManager>
         return false;
     }
 
-    public void AddPortal(BattleOpponentPortal portal) { OpponentPortals.Add(portal); }
     public void AddPlayerTurret(BattleTurret turret)
     {
         PlayerTurrets.Add(turret);

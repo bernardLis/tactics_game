@@ -11,6 +11,7 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 {
     AudioManager _audioManager;
     BattleManager _battleManager;
+    BattleWaveManager _battleWaveManager;
     BattleTooltipManager _tooltipManager;
 
     [SerializeField] Sound _portalElementalAlarmSound;
@@ -39,8 +40,15 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         _audioManager = AudioManager.Instance;
         _battleManager = BattleManager.Instance;
-        _battleManager.AddPortal(this);
+        _battleWaveManager = BattleWaveManager.Instance;
+        _battleWaveManager.AddPortal(this);
         _tooltipManager = BattleTooltipManager.Instance;
+    }
+
+    public void GetWave(BattleWave wave)
+    {
+        // HERE: portal implement
+        //InitializeWave(wave);
     }
 
     public void InitializeWave(BattleWave wave)
@@ -58,7 +66,6 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
         _tooltipManager.ShowInfo($"{Element.ElementName} portal is active.", 2f);
         _audioManager.PlayUI(_portalElementalAlarmSound);
 
-        Debug.Log($"Initializing wave {Element.ElementName}");
         _isPortalActive = true;
         _currentWave = wave;
         _lastWaveSpawnTime = _battleManager.GetTime();
