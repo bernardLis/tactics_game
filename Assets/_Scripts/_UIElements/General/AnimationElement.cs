@@ -16,7 +16,7 @@ public class AnimationElement : VisualElement
     bool _isFinished;
 
     public event Action OnAnimationFinished;
-    public AnimationElement(Sprite[] animationSprites, int delay, bool isLoop, bool noStyles = false)
+    public AnimationElement(Sprite[] animationSprites, int delayBetweenSprites, bool isLoop, bool noStyles = false)
     {
         if (!noStyles)
         {
@@ -26,7 +26,7 @@ public class AnimationElement : VisualElement
         }
 
         _animationSprites = animationSprites;
-        _delay = delay;
+        _delay = delayBetweenSprites;
         _isLoop = isLoop;
 
         style.backgroundImage = new StyleBackground(_animationSprites[0]);

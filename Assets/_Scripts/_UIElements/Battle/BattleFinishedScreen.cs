@@ -18,8 +18,7 @@ public class BattleFinishedScreen : FullScreenElement
     public BattleFinishedScreen()
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleFinishedStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        if (ss != null) styleSheets.Add(ss);
 
         _battleManager = BattleManager.Instance;
 
@@ -33,6 +32,8 @@ public class BattleFinishedScreen : FullScreenElement
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonSpacer);
         _mainContainer.Add(spacer);
+
+        DisableNavigation();
     }
 
     protected virtual void AddTitle()

@@ -22,6 +22,8 @@ public class FullScreenElement : VisualElement
     protected VisualElement _content;
     protected ContinueButton _continueButton;
 
+    bool _isNavigationDisabled;
+
     public FullScreenElement()
     {
         _gameManager = GameManager.Instance;
@@ -65,16 +67,26 @@ public class FullScreenElement : VisualElement
         RegisterCallback<KeyDownEvent>(OnKeyDown); // TODO: full screen management vs menu opening and closing
     }
 
+    public void DisableNavigation()
+    {
+        _isNavigationDisabled = true;
+        UnregisterCallback<PointerDownEvent>(OnPointerDown);
+        UnregisterCallback<KeyDownEvent>(OnKeyDown);
+
+    }
+
     void OnPointerDown(PointerDownEvent evt)
     {
-        // only right mouse click
-        if (evt.button != 1) return;
+        if (_isNavigationDisabled) return;
+        if (evt.button != 1) return; // only right mouse click
+
 
         Hide();
     }
 
     void OnKeyDown(KeyDownEvent evt)
     {
+        if (_isNavigationDisabled) return;
         if (evt.keyCode != KeyCode.Escape) return;
 
         Hide();

@@ -10,6 +10,7 @@ public class BattleRewardElement : FullScreenElement
 {
     const string _ussClassName = "battle-reward__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussLevelUpLabel = _ussClassName + "level-up-label";
 
     AudioManager _audioManager;
 
@@ -27,23 +28,38 @@ public class BattleRewardElement : FullScreenElement
     public event Action OnRewardSelected;
     public BattleRewardElement()
     {
-        _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleRewardStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        if (ss != null) styleSheets.Add(ss);
 
         _content.AddToClassList(_ussMain);
 
-        _title = new Label("Level Up!");
-        _title.style.opacity = 0;
-        _title.style.fontSize = 32;
-        _content.Add(_title);
-        DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
+        PlayLevelUpAnimation();
+        AddElements();
+    }
 
+    void PlayLevelUpAnimation()
+    {
+        VisualElement container = new();
+        container.style.position = Position.Absolute;
+        container.style.width = Length.Percent(100);
+        container.style.height = Length.Percent(100);
+
+        Label label = new("Level Up!");
+        label.AddToClassList(_ussLevelUpLabel);
+        container.Add(label);
+        DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
+
+        AnimationElement anim = new(_gameManager.GameDatabase.LevelUpAnimationSprites, 50, false);
+        container.Add(anim);
+        anim.PlayAnimation();
+
+        Add(container);
+        anim.OnAnimationFinished += () => Remove(container);
+    }
+
+    void AddElements()
+    {
         AddHeroCard();
 
         VisualElement spacer = new();
@@ -54,6 +70,8 @@ public class BattleRewardElement : FullScreenElement
 
         if (_gameManager.PlayerHero.Level.Value == 1)
             LevelOneShow();
+
+        DisableNavigation();
     }
 
     void LevelOneShow()
