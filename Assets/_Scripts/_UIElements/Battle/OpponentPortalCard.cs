@@ -33,8 +33,7 @@ public class OpponentPortalCard : VisualElement
 
         _element = element;
 
-        Battle battle = _gameManager.CurrentBattle;
-        List<BattleWave> waves = new(battle.Waves.Where(w => w.Element == _element));
+        List<BattleWave> waves = new(BattleWaveManager.Instance.Waves.Where(w => w.Element == _element));
 
         Label header = new("Portal of " + _element.ElementName);
         Add(header);

@@ -13,7 +13,7 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
 
     Battle _selectedBattle;
 
-    [SerializeField] List<BattleWave> _waves = new();
+    public List<BattleWave> Waves = new();
 
     public int CurrentDifficulty { get; private set; }
     public int CurrentWaveIndex { get; private set; }
@@ -43,7 +43,7 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
 
     void HandleWaveSpawned(BattleOpponentPortal portal)
     {
-        // portal receives new wave right after the previous one is spawned
+        // portal receives new wave right after the previous one is done
         BattleWave bw = CreateWave(portal.Element);
         portal.GetWave(bw);
     }
@@ -76,7 +76,7 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
 
         CreateWave(lastElement);
 
-        foreach (BattleWave wave in _waves)
+        foreach (BattleWave wave in Waves)
             foreach (BattleOpponentPortal portal in OpponentPortals)
                 if (portal.Element == wave.Element)
                     portal.GetWave(wave);
@@ -88,7 +88,7 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
         float startTime = GetWaveStartTime(element);
         bw.CreateWave(element, CurrentDifficulty, startTime);
 
-        _waves.Add(bw);
+        Waves.Add(bw);
         CurrentWaveIndex++;
         if (CurrentWaveIndex % 4 == 0)
             CurrentDifficulty++;
@@ -96,24 +96,25 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
         return bw;
     }
 
-
     public float GetWaveStartTime(Element element)
     {
         if (CurrentWaveIndex == 0) return _battleManager.GetTime(); // first wave should spawn right away
 
         // wave starts in the "middle" of the previous wave
-        BattleWave previousWave = _waves[CurrentWaveIndex - 1];
+        BattleWave previousWave = Waves[CurrentWaveIndex - 1];
         float waveSpawnFactor = 1f - CurrentWaveIndex * 0.08f; // how quickly waves spawn after each other
-
         waveSpawnFactor = Mathf.Clamp(waveSpawnFactor, 0.1f, 1f);
-        float startTime = previousWave.StartTime + (previousWave.GetPlannedEndTime() - previousWave.StartTime) * waveSpawnFactor;
+
+        float startTime = previousWave.StartTime
+                        + (previousWave.GetPlannedEndTime() - previousWave.StartTime)
+                        * waveSpawnFactor;
 
         // the wave can't start before the previous one of the same element ends
-        for (int i = _waves.Count - 1; i >= 0; i--)
-            if (_waves[i].Element == element && _waves[i].GetPlannedEndTime() > startTime)
+        for (int i = Waves.Count - 1; i >= 0; i--)
+            if (Waves[i].Element == element && Waves[i].GetPlannedEndTime() > startTime)
             {
                 Debug.LogError($"Wave creation gone wrong, I should not be seeing this...");
-                return _waves[i].GetPlannedEndTime() + 5;
+                return Waves[i].GetPlannedEndTime() + 5;
             }
 
         return startTime;

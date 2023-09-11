@@ -21,6 +21,7 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
     CinemachineDollyCart _dollyCart;
 
     int _currentLookAtIndex = 0;
+    bool _isIntroFinished;
 
     TextPrintingElement _introTextElement;
 
@@ -63,6 +64,7 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
     void SkipIntro()
     {
         if (this == null) return;
+        if (_isIntroFinished) return;
         StopAllCoroutines();
         AudioManager.Instance.StopDialogue();
         _battleManager.Root.Remove(_introTextElement);
@@ -98,11 +100,11 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
 
     void FinishIntro()
     {
+        _isIntroFinished = true;
         _mainCamera.gameObject.SetActive(true);
         _introCamera.gameObject.SetActive(false);
         BattleCameraManager.Instance.enabled = true;
         OnIntroFinished?.Invoke();
-
     }
 
     void LookAtNextTarget()

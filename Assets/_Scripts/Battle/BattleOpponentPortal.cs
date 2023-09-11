@@ -47,8 +47,21 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void GetWave(BattleWave wave)
     {
-        // HERE: portal implement
-        //InitializeWave(wave);
+        if (_battleManager.GetTime() >= wave.StartTime)
+        {
+            InitializeWave(wave);
+            return;
+        }
+
+        StartCoroutine(WaitToSpawnWave(wave));
+    }
+
+    IEnumerator WaitToSpawnWave(BattleWave wave)
+    {
+        float timeToWait = wave.StartTime - _battleManager.GetTime();
+        _portalLog.Add($"{_battleManager.GetTime()}: Waiting to spawn wave. Time to wait {timeToWait}");
+        yield return new WaitForSeconds(timeToWait);
+        InitializeWave(wave);
     }
 
     public void InitializeWave(BattleWave wave)

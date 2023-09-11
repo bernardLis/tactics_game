@@ -14,8 +14,8 @@
     font-size: 22px;
     top: 20%;
     -unity-font-style: bold;
-    color: rgb(245, 178, 105);
-    -unity-text-outline-width: 4px;
+    color: rgb(224, 224, 224);
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(24, 24, 24);
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }

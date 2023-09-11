@@ -55,7 +55,12 @@ public class BattleRewardElement : FullScreenElement
         anim.PlayAnimation();
 
         Add(container);
-        anim.OnAnimationFinished += () => Remove(container);
+        anim.OnAnimationFinished += () =>
+        {
+            DOTween.To(x => container.style.opacity = x, 1, 0, 0.5f)
+                    .SetUpdate(true)
+                    .OnComplete(() => Remove(container));
+        };
     }
 
     void AddElements()
