@@ -102,6 +102,7 @@ public class ThirdPersonController : MonoBehaviour
         if (_disableUpdate) return;
         Move();
         RotatePlayer();
+        GroundedCheck();
     }
     // void LateUpdate()
     // {
@@ -138,12 +139,16 @@ public class ThirdPersonController : MonoBehaviour
     {
         _playerInput.actions["CameraMovement"].performed += GetMovementVector;
         _playerInput.actions["CameraMovement"].canceled += ResetMovementVector;
+        _playerInput.actions["RotateCameraLeft"].performed += (d) => _animator.SetTrigger("Dance");
+
     }
 
     void UnsubscribeInputActions()
     {
         _playerInput.actions["CameraMovement"].performed -= GetMovementVector;
         _playerInput.actions["CameraMovement"].canceled -= ResetMovementVector;
+        _playerInput.actions["RotateCameraLeft"].performed -= (d) => _animator.SetTrigger("Dance");
+
     }
 
     void GetMovementVector(InputAction.CallbackContext context)
