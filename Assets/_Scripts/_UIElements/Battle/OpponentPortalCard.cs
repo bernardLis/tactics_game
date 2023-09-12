@@ -13,7 +13,6 @@ public class OpponentPortalCard : VisualElement
     const string _ussTopPanel = _ussClassName + "top-panel";
     const string _ussDifficultyIcon = _ussClassName + "difficulty-icon";
 
-
     GameManager _gameManager;
     BattleManager _battleManager;
 

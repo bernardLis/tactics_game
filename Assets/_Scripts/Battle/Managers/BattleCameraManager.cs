@@ -14,7 +14,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
 
     Vector3 _movementDirection;
     bool _disableUpdate;
-    public float _moveSpeed = 10f;
+    public float MoveSpeed = 10f;
 
     [Header("Vertical Motion - zooming")]
     [SerializeField] float _stepSize = 1f;
@@ -42,7 +42,7 @@ public class BattleCameraManager : Singleton<BattleCameraManager>
     void FixedUpdate()
     {
         if (_disableUpdate) return;
-        transform.Translate(_movementDirection * _moveSpeed * Time.fixedDeltaTime);
+        transform.Translate(_movementDirection * MoveSpeed * Time.fixedDeltaTime);
     }
 
     /* INPUT */
