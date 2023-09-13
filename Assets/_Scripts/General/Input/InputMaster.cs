@@ -91,7 +91,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CameraMovement"",
+                    ""name"": ""PlayerMovement"",
                     ""type"": ""Value"",
                     ""id"": ""0ee4eba9-19cd-4e20-83fc-65833f2af581"",
                     ""expectedControlType"": ""Vector2"",
@@ -264,7 +264,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -275,7 +275,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -286,7 +286,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -297,7 +297,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -308,7 +308,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -319,7 +319,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -330,7 +330,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -341,7 +341,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -352,7 +352,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -363,7 +363,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CameraMovement"",
+                    ""action"": ""PlayerMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -519,7 +519,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle__4 = m_Battle.FindAction("4", throwIfNotFound: true);
         m_Battle_LeftMouseClick = m_Battle.FindAction("LeftMouseClick", throwIfNotFound: true);
         m_Battle_RightMouseClick = m_Battle.FindAction("RightMouseClick", throwIfNotFound: true);
-        m_Battle_CameraMovement = m_Battle.FindAction("CameraMovement", throwIfNotFound: true);
+        m_Battle_PlayerMovement = m_Battle.FindAction("PlayerMovement", throwIfNotFound: true);
         m_Battle_RotateCamera = m_Battle.FindAction("RotateCamera", throwIfNotFound: true);
         m_Battle_RotateCameraRight = m_Battle.FindAction("RotateCameraRight", throwIfNotFound: true);
         m_Battle_RotateCameraLeft = m_Battle.FindAction("RotateCameraLeft", throwIfNotFound: true);
@@ -598,7 +598,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle__4;
     private readonly InputAction m_Battle_LeftMouseClick;
     private readonly InputAction m_Battle_RightMouseClick;
-    private readonly InputAction m_Battle_CameraMovement;
+    private readonly InputAction m_Battle_PlayerMovement;
     private readonly InputAction m_Battle_RotateCamera;
     private readonly InputAction m_Battle_RotateCameraRight;
     private readonly InputAction m_Battle_RotateCameraLeft;
@@ -620,7 +620,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @_4 => m_Wrapper.m_Battle__4;
         public InputAction @LeftMouseClick => m_Wrapper.m_Battle_LeftMouseClick;
         public InputAction @RightMouseClick => m_Wrapper.m_Battle_RightMouseClick;
-        public InputAction @CameraMovement => m_Wrapper.m_Battle_CameraMovement;
+        public InputAction @PlayerMovement => m_Wrapper.m_Battle_PlayerMovement;
         public InputAction @RotateCamera => m_Wrapper.m_Battle_RotateCamera;
         public InputAction @RotateCameraRight => m_Wrapper.m_Battle_RotateCameraRight;
         public InputAction @RotateCameraLeft => m_Wrapper.m_Battle_RotateCameraLeft;
@@ -661,9 +661,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @RightMouseClick.started += instance.OnRightMouseClick;
             @RightMouseClick.performed += instance.OnRightMouseClick;
             @RightMouseClick.canceled += instance.OnRightMouseClick;
-            @CameraMovement.started += instance.OnCameraMovement;
-            @CameraMovement.performed += instance.OnCameraMovement;
-            @CameraMovement.canceled += instance.OnCameraMovement;
+            @PlayerMovement.started += instance.OnPlayerMovement;
+            @PlayerMovement.performed += instance.OnPlayerMovement;
+            @PlayerMovement.canceled += instance.OnPlayerMovement;
             @RotateCamera.started += instance.OnRotateCamera;
             @RotateCamera.performed += instance.OnRotateCamera;
             @RotateCamera.canceled += instance.OnRotateCamera;
@@ -719,9 +719,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @RightMouseClick.started -= instance.OnRightMouseClick;
             @RightMouseClick.performed -= instance.OnRightMouseClick;
             @RightMouseClick.canceled -= instance.OnRightMouseClick;
-            @CameraMovement.started -= instance.OnCameraMovement;
-            @CameraMovement.performed -= instance.OnCameraMovement;
-            @CameraMovement.canceled -= instance.OnCameraMovement;
+            @PlayerMovement.started -= instance.OnPlayerMovement;
+            @PlayerMovement.performed -= instance.OnPlayerMovement;
+            @PlayerMovement.canceled -= instance.OnPlayerMovement;
             @RotateCamera.started -= instance.OnRotateCamera;
             @RotateCamera.performed -= instance.OnRotateCamera;
             @RotateCamera.canceled -= instance.OnRotateCamera;
@@ -787,7 +787,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void On_4(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
         void OnRightMouseClick(InputAction.CallbackContext context);
-        void OnCameraMovement(InputAction.CallbackContext context);
+        void OnPlayerMovement(InputAction.CallbackContext context);
         void OnRotateCamera(InputAction.CallbackContext context);
         void OnRotateCameraRight(InputAction.CallbackContext context);
         void OnRotateCameraLeft(InputAction.CallbackContext context);

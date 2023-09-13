@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CameraMovement",
+                    "name": "PlayerMovement",
                     "type": "Value",
                     "id": "0ee4eba9-19cd-4e20-83fc-65833f2af581",
                     "expectedControlType": "Vector2",
@@ -242,7 +242,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -253,7 +253,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -264,7 +264,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -275,7 +275,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -286,7 +286,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -297,7 +297,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -308,7 +308,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -319,7 +319,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -330,7 +330,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -341,7 +341,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CameraMovement",
+                    "action": "PlayerMovement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

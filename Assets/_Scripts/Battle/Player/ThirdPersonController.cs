@@ -36,13 +36,18 @@ public class ThirdPersonController : MonoBehaviour
     [Tooltip("What layers the character uses as ground")]
     public LayerMask GroundLayers;
 
+    [Header("Zoom")]
+    [SerializeField] float _stepSize = 1f;
+    [SerializeField] float _minHeight = 0f;
+    [SerializeField] float _maxHeight = 20f;
+    [SerializeField] float _defaultZoomHeight = 0f;
+
     GameManager _gameManager;
     BattleManager _battleManager;
     PlayerInput _playerInput;
 
     private Animator _animator;
     private CharacterController _controller;
-    private GameObject _mainCamera;
 
     Vector3 _movementDirection;
     bool _disableUpdate;
@@ -70,8 +75,6 @@ public class ThirdPersonController : MonoBehaviour
 
     void Start()
     {
-        _mainCamera = Camera.main.gameObject;
-
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
@@ -104,10 +107,6 @@ public class ThirdPersonController : MonoBehaviour
         RotatePlayer();
         GroundedCheck();
     }
-    // void LateUpdate()
-    // {
-    //     CameraRotation();
-    // }
 
     /* INPUT */
     void OnEnable()
@@ -137,18 +136,19 @@ public class ThirdPersonController : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        _playerInput.actions["CameraMovement"].performed += GetMovementVector;
-        _playerInput.actions["CameraMovement"].canceled += ResetMovementVector;
-        _playerInput.actions["RotateCameraLeft"].performed += (d) => _animator.SetTrigger("Dance");
+        _playerInput.actions["PlayerMovement"].performed += GetMovementVector;
+        _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
+
+        _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
 
     }
 
     void UnsubscribeInputActions()
     {
-        _playerInput.actions["CameraMovement"].performed -= GetMovementVector;
-        _playerInput.actions["CameraMovement"].canceled -= ResetMovementVector;
-        _playerInput.actions["RotateCameraLeft"].performed -= (d) => _animator.SetTrigger("Dance");
+        _playerInput.actions["PlayerMovement"].performed -= GetMovementVector;
+        _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
 
+        _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
     }
 
     void GetMovementVector(InputAction.CallbackContext context)
@@ -183,55 +183,42 @@ public class ThirdPersonController : MonoBehaviour
     private void Move()
     {
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = MoveSpeed;//_input.sprint ? SprintSpeed : MoveSpeed;
+        float targetSpeed = MoveSpeed; //_input.sprint ? SprintSpeed : MoveSpeed;
 
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
-        // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is no input, set the target speed to 0
         if (_movementDirection.z == 0) targetSpeed = 0.0f;
 
         // a reference to the players current horizontal velocity
-        float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+        float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f,
+                                            _controller.velocity.z).magnitude;
 
         float speedOffset = 0.1f;
         float inputMagnitude = _movementDirection.magnitude;//_input.analogMovement ? _input.move.magnitude : 1f;
 
         // accelerate or decelerate to target speed
+        _speed = targetSpeed;
         if (currentHorizontalSpeed < targetSpeed - speedOffset ||
             currentHorizontalSpeed > targetSpeed + speedOffset)
         {
             // creates curved result rather than a linear one giving a more organic speed change
             // note T in Lerp is clamped, so we don't need to clamp our speed
             _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                Time.deltaTime * SpeedChangeRate);
-
-            // round speed to 3 decimal places
-            _speed = Mathf.Round(_speed * 1000f) / 1000f;
-        }
-        else
-        {
-            _speed = targetSpeed;
+                                Time.deltaTime * SpeedChangeRate);
+            _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
         }
 
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-        // normalize input direction
         Vector3 inputDirection = _movementDirection.normalized;
-
-        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-        // if there is a move input rotate player when the player is moving
-
-
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f)
                                * Vector3.forward
                                * inputDirection.z;
 
-        // move the player
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
 
         // update animator if using character
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_animationBlend < 0.01f) _animationBlend = 0f;
+
         float motionSpeed = inputDirection.z == 0 ? 0 : 1;
         if (_hasAnimator)
         {
@@ -253,6 +240,19 @@ public class ThirdPersonController : MonoBehaviour
                                         ref _rotationVelocity,
                                         RotationSmoothTime);
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+    }
+
+    void ZoomCamera(InputAction.CallbackContext context)
+    {
+        if (this == null) return;
+
+        // float value = -ctx.ReadValue<Vector2>().y / 100f; // I prefer to scroll to myself to zoom out
+        // if (Mathf.Abs(value) < 0.01f) return;
+
+        // _zoomHeight = transform.localPosition.y + value * _stepSize;
+        // _zoomHeight = Mathf.Clamp(_zoomHeight, _minHeight, _maxHeight);
+
+        // transform.DOLocalMoveY(_zoomHeight, 0.3f);
     }
 
 
