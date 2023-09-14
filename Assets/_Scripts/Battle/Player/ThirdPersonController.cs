@@ -39,20 +39,15 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] float _stepSize = 1f;
     [SerializeField] float _minZoom = 5f;
     [SerializeField] float _maxZoom = 25f;
-    // [SerializeField] float _defaultZoomHeight = 15f;
 
     [Header("Camera Rotation")]
     [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
     [SerializeField] CinemachineVirtualCamera _cinemachineVirtualCamera;
     [SerializeField] GameObject _cinemachineCameraTarget;
-    [SerializeField] Vector3 _defaultCameraRotation = new Vector3(50f, 0f, 0f);
+    Vector3 _defaultCameraRotation = new Vector3(50f, 0f, 0f);
     float _threshold = 0.01f;
     float _cinemachineTargetYaw;
     float _cinemachineTargetPitch;
-    [Tooltip("How far in degrees can you move the camera up")]
-    float _topClamp = 70.0f;
-    [Tooltip("How far in degrees can you move the camera down")]
-    float _bottomClamp = -30.0f;
 
     [Header("Audio")]
     [SerializeField] Sound _footstepSound;
@@ -121,7 +116,6 @@ public class ThirdPersonController : MonoBehaviour
         if (_disableUpdate) return;
         Move();
         RotatePlayer();
-        GroundedCheck();
     }
 
     void LateUpdate()
@@ -162,8 +156,6 @@ public class ThirdPersonController : MonoBehaviour
         _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
 
         _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
-
-        // _playerInput.actions["RotateCamera"].performed += RotateCamera;
     }
 
     void UnsubscribeInputActions()
@@ -172,8 +164,6 @@ public class ThirdPersonController : MonoBehaviour
         _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
 
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
-
-        // _playerInput.actions["RotateCamera"].performed -= RotateCamera;
     }
 
     void GetMovementVector(InputAction.CallbackContext context)
@@ -186,29 +176,13 @@ public class ThirdPersonController : MonoBehaviour
 
     void ResetMovementVector(InputAction.CallbackContext context)
     {
-
         _movementDirection = Vector3.zero;
-    }
-
-    void GroundedCheck()
-    {
-        // set sphere position, with offset
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-            transform.position.z);
-        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-            QueryTriggerInteraction.Ignore);
-
-        // update animator if using character
-        if (_hasAnimator)
-        {
-            _animator.SetBool(_animIDGrounded, Grounded);
-        }
     }
 
     private void Move()
     {
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = MoveSpeed; //_input.sprint ? SprintSpeed : MoveSpeed;
+        float targetSpeed = MoveSpeed;
 
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
         // if there is no input, set the target speed to 0
@@ -298,11 +272,11 @@ public class ThirdPersonController : MonoBehaviour
 
         if (value.sqrMagnitude < _threshold) return;
 
-        _cinemachineTargetPitch += value.y;// * deltaTimeMultiplier;
-        _cinemachineTargetYaw += value.x;// * deltaTimeMultiplier;
+        _cinemachineTargetPitch += value.y;
+        _cinemachineTargetYaw += value.x;
 
         // clamp our rotations so our values are limited 360 degrees
-        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
+        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, float.MinValue, float.MaxValue);
         _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
 
         _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch,
@@ -320,10 +294,6 @@ public class ThirdPersonController : MonoBehaviour
     // not used coz no jumps
     void OnLand(AnimationEvent animationEvent)
     {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
-        {
-            // AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-        }
     }
 
     float ClampAngle(float lfAngle, float lfMin, float lfMax)

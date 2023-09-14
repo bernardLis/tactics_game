@@ -103,7 +103,6 @@ public class BattleIntroManager : Singleton<BattleIntroManager>
         _isIntroFinished = true;
         _mainCamera.gameObject.SetActive(true);
         _introCamera.gameObject.SetActive(false);
-        BattleCameraManager.Instance.enabled = true;
         OnIntroFinished?.Invoke();
     }
 
