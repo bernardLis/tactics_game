@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -23,6 +24,7 @@ public class ThirdPersonController : MonoBehaviour
     [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
     public GameObject CinemachineCameraTarget;
 
+
     [Header("Player Grounded")]
     [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
     public bool Grounded = true;
@@ -37,10 +39,11 @@ public class ThirdPersonController : MonoBehaviour
     public LayerMask GroundLayers;
 
     [Header("Zoom")]
+    [SerializeField] CinemachineFollowZoom _cinemachineFollowZoom;
     [SerializeField] float _stepSize = 1f;
-    [SerializeField] float _minHeight = 0f;
-    [SerializeField] float _maxHeight = 20f;
-    [SerializeField] float _defaultZoomHeight = 0f;
+    [SerializeField] float _minZoom = 5f;
+    [SerializeField] float _maxZoom = 25f;
+    [SerializeField] float _defaultZoomHeight = 15f;
 
     GameManager _gameManager;
     BattleManager _battleManager;
@@ -246,13 +249,13 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (this == null) return;
 
-        // float value = -ctx.ReadValue<Vector2>().y / 100f; // I prefer to scroll to myself to zoom out
-        // if (Mathf.Abs(value) < 0.01f) return;
 
-        // _zoomHeight = transform.localPosition.y + value * _stepSize;
-        // _zoomHeight = Mathf.Clamp(_zoomHeight, _minHeight, _maxHeight);
+        float value = -context.ReadValue<Vector2>().y / 100f; // I prefer to scroll to myself to zoom out
+        if (Mathf.Abs(value) < 0.01f) return;
 
-        // transform.DOLocalMoveY(_zoomHeight, 0.3f);
+        float zoomValue = _cinemachineFollowZoom.m_Width + value * _stepSize;
+        _cinemachineFollowZoom.m_Width = Mathf.Clamp(zoomValue,
+                 _minZoom, _maxZoom);
     }
 
 
