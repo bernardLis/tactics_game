@@ -3290,9 +3290,10 @@ MonoBehaviour:
     m_Bits: 64
   _cinemachineFollowZoom: {fileID: 974579346}
   _stepSize: 1
-  _minHeight: 0
-  _maxHeight: 20
-  _defaultZoomHeight: 0
+  _minZoom: 5
+  _maxZoom: 25
+  _defaultZoomHeight: 15
+  _footstepSound: {fileID: 11400000, guid: b9cad646c645e4942b28ee4f5bd4fd39, type: 2}
 --- !u!195 &6982812147646051035
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3693,7 +3694,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 136623475008264574, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.007312937
+      value: -0.0073127192
       objectReference: {fileID: 0}
     - target: {fileID: 136623475008264574, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3717,7 +3718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2838368748754121713, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0007550639
+      value: -0.0007550842
       objectReference: {fileID: 0}
     - target: {fileID: 2838368748754121713, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.y

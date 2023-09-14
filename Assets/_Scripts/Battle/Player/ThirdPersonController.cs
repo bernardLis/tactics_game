@@ -45,7 +45,11 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] float _maxZoom = 25f;
     [SerializeField] float _defaultZoomHeight = 15f;
 
+    [Header("Audio")]
+    [SerializeField] Sound _footstepSound;
+
     GameManager _gameManager;
+    AudioManager _audioManager;
     BattleManager _battleManager;
     PlayerInput _playerInput;
 
@@ -78,6 +82,9 @@ public class ThirdPersonController : MonoBehaviour
 
     void Start()
     {
+        _gameManager = GameManager.Instance;
+        _audioManager = AudioManager.Instance;
+
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
@@ -262,13 +269,8 @@ public class ThirdPersonController : MonoBehaviour
     private void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
-        {
-            // if (FootstepAudioClips.Length > 0)
-            // {
-            //     var index = Random.Range(0, FootstepAudioClips.Length);
-            //     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            // }
-        }
+            if (_footstepSound != null)
+                _audioManager.PlaySFX(_footstepSound, transform.TransformPoint(_controller.center));
     }
 
     private void OnLand(AnimationEvent animationEvent)
