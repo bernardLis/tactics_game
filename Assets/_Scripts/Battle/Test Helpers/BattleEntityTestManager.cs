@@ -22,6 +22,7 @@ public class BattleEntityTestManager : MonoBehaviour
     [SerializeField] Transform _teamBSpawnPoint;
 
     [SerializeField] GameObject _chestPrefab;
+    [SerializeField] GameObject _expOrbPrefab;
 
     void Start()
     {
@@ -61,6 +62,7 @@ public class BattleEntityTestManager : MonoBehaviour
         AddMinionButtons();
         AddClearButton();
         AddSpawnChestButton();
+        AddExpOrbButton();
     }
 
     void AddCreatureButtons()
@@ -197,6 +199,16 @@ public class BattleEntityTestManager : MonoBehaviour
             GameObject instance = Instantiate(_chestPrefab, _teamBSpawnPoint.position, Quaternion.identity);
         };
         _buttonContainer.Add(spawnChestButton);
+    }
+
+    void AddExpOrbButton()
+    {
+        Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
+        spawnExpOrbButton.clickable.clicked += () =>
+        {
+            GameObject instance = Instantiate(_expOrbPrefab, _teamBSpawnPoint.position, Quaternion.identity);
+        };
+        _buttonContainer.Add(spawnExpOrbButton);
     }
 }
 

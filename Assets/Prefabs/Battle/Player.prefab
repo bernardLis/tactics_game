@@ -1324,6 +1324,7 @@ GameObject:
   - component: {fileID: 8726178864225808001}
   - component: {fileID: 6853659913400333514}
   - component: {fileID: 3515150904775730401}
+  - component: {fileID: 5024510876388207595}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1471,6 +1472,18 @@ MonoBehaviour:
   _cinemachineVirtualCamera: {fileID: 0}
   _cinemachineCameraTarget: {fileID: 296476706855487059}
   _footstepSound: {fileID: 11400000, guid: b9cad646c645e4942b28ee4f5bd4fd39, type: 2}
+--- !u!114 &5024510876388207595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632361364057405493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa89725b2c902647bb6b3f9aa43b635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5670492309254171287
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,7 +61,19 @@ namespace DG.Tweening
             TweenerCore<Vector3, Vector3, VectorOptions> t = DOTween.To(() => target.position, target.MovePosition, new Vector3(0, 0, endValue), duration);
             t.SetOptions(AxisConstraint.Z, snapping).SetTarget(target);
             return t;
+         }
+
+        public static TweenerCore<Vector3, Vector3, VectorOptions> DOMoveUpdatePosition(this Transform transform, Transform target, Vector3 targetLocalEndPosition, float duration)
+        {
+            var t = DOTween.To(
+                () => transform.position - target.transform.position, // Value getter
+                x => transform.position = x + target.transform.position, // Value setter
+                targetLocalEndPosition,
+                duration);
+            t.SetTarget(transform);
+            return t;
         }
+
 
         /// <summary>Tweens a Rigidbody's rotation to the given value.
         /// Also stores the rigidbody as the tween's target so it can be used for filtered operations</summary>
