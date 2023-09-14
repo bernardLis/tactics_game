@@ -370,9 +370,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""23aa9bfa-5fe0-47d2-b858-55f68f641b90"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)"",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""RotateCamera"",
                     ""isComposite"": false,

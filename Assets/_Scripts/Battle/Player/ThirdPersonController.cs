@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using DG.Tweening;
 
 /* BASED ON UNITY'S STARTER ASSET */
 public class ThirdPersonController : MonoBehaviour
 {
 
-    [Header("Player")]
+    [Header("Player Movement")]
     [Tooltip("Move speed of the character in m/s")]
     public float MoveSpeed = 2.0f;
 
@@ -19,10 +19,6 @@ public class ThirdPersonController : MonoBehaviour
 
     [Tooltip("Acceleration and deceleration")]
     public float SpeedChangeRate = 10.0f;
-
-    [Header("Cinemachine")]
-    [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-    public GameObject CinemachineCameraTarget;
 
 
     [Header("Player Grounded")]
@@ -43,7 +39,20 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] float _stepSize = 1f;
     [SerializeField] float _minZoom = 5f;
     [SerializeField] float _maxZoom = 25f;
-    [SerializeField] float _defaultZoomHeight = 15f;
+    // [SerializeField] float _defaultZoomHeight = 15f;
+
+    [Header("Camera Rotation")]
+    [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+    [SerializeField] CinemachineVirtualCamera _cinemachineVirtualCamera;
+    [SerializeField] GameObject _cinemachineCameraTarget;
+    [SerializeField] Vector3 _defaultCameraRotation = new Vector3(50f, 0f, 0f);
+    float _threshold = 0.01f;
+    float _cinemachineTargetYaw;
+    float _cinemachineTargetPitch;
+    [Tooltip("How far in degrees can you move the camera up")]
+    float _topClamp = 70.0f;
+    [Tooltip("How far in degrees can you move the camera down")]
+    float _bottomClamp = -30.0f;
 
     [Header("Audio")]
     [SerializeField] Sound _footstepSound;
@@ -72,12 +81,6 @@ public class ThirdPersonController : MonoBehaviour
     int _animIDFreeFall;
     int _animIDMotionSpeed;
 
-
-    // camera rotation
-    float _threshold = 0.01f;
-    private float _cinemachineTargetYaw;
-    private float _cinemachineTargetPitch;
-
     private bool _hasAnimator;
 
     void Start()
@@ -91,6 +94,9 @@ public class ThirdPersonController : MonoBehaviour
 
         _hasAnimator = TryGetComponent(out _animator);
         _controller = GetComponent<CharacterController>();
+
+        _cinemachineTargetPitch = _defaultCameraRotation.x;
+        _cinemachineTargetYaw = _defaultCameraRotation.y;
 
         AssignAnimationIDs();
     }
@@ -110,12 +116,18 @@ public class ThirdPersonController : MonoBehaviour
         _disableUpdate = false;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (_disableUpdate) return;
         Move();
         RotatePlayer();
         GroundedCheck();
+    }
+
+    void LateUpdate()
+    {
+        if (_disableUpdate) return;
+        RotateCamera();
     }
 
     /* INPUT */
@@ -151,6 +163,7 @@ public class ThirdPersonController : MonoBehaviour
 
         _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
 
+        // _playerInput.actions["RotateCamera"].performed += RotateCamera;
     }
 
     void UnsubscribeInputActions()
@@ -159,6 +172,8 @@ public class ThirdPersonController : MonoBehaviour
         _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
 
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
+
+        // _playerInput.actions["RotateCamera"].performed -= RotateCamera;
     }
 
     void GetMovementVector(InputAction.CallbackContext context)
@@ -171,6 +186,7 @@ public class ThirdPersonController : MonoBehaviour
 
     void ResetMovementVector(InputAction.CallbackContext context)
     {
+
         _movementDirection = Vector3.zero;
     }
 
@@ -188,7 +204,6 @@ public class ThirdPersonController : MonoBehaviour
             _animator.SetBool(_animIDGrounded, Grounded);
         }
     }
-
 
     private void Move()
     {
@@ -223,8 +238,6 @@ public class ThirdPersonController : MonoBehaviour
                                * Vector3.forward
                                * inputDirection.z;
 
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
-
         // update animator if using character
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
@@ -236,6 +249,9 @@ public class ThirdPersonController : MonoBehaviour
             _animator.SetFloat(_animIDMotionSpeed, motionSpeed);
         }
 
+        if (_speed == 0) return;
+
+        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
     }
 
     void RotatePlayer()
@@ -256,8 +272,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (this == null) return;
 
-
-        float value = -context.ReadValue<Vector2>().y / 100f; // I prefer to scroll to myself to zoom out
+        float value = -context.ReadValue<Vector2>().y / 100f;
         if (Mathf.Abs(value) < 0.01f) return;
 
         float zoomValue = _cinemachineFollowZoom.m_Width + value * _stepSize;
@@ -265,15 +280,45 @@ public class ThirdPersonController : MonoBehaviour
                  _minZoom, _maxZoom);
     }
 
+    void RotateCamera()
+    {
+        if (this == null) return;
+        if (!Mouse.current.middleButton.isPressed) return;
+        _cinemachineCameraTarget.transform.DOKill();
+        _cinemachineCameraTarget.transform.DOLocalRotate(_defaultCameraRotation, 1f)
+            .SetEase(Ease.InOutSine)
+            .SetDelay(0.5f)
+            .OnComplete(() =>
+            {
+                _cinemachineTargetPitch = _defaultCameraRotation.x;
+                _cinemachineTargetYaw = _defaultCameraRotation.y;
+            });
 
-    private void OnFootstep(AnimationEvent animationEvent)
+        Vector2 value = _playerInput.actions["RotateCamera"].ReadValue<Vector2>();
+
+        if (value.sqrMagnitude < _threshold) return;
+
+        _cinemachineTargetPitch += value.y;// * deltaTimeMultiplier;
+        _cinemachineTargetYaw += value.x;// * deltaTimeMultiplier;
+
+        // clamp our rotations so our values are limited 360 degrees
+        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, _bottomClamp, _topClamp);
+        _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+
+        _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch,
+                                                     _cinemachineTargetYaw, 0);
+    }
+
+
+    void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
             if (_footstepSound != null)
                 _audioManager.PlaySFX(_footstepSound, transform.TransformPoint(_controller.center));
     }
 
-    private void OnLand(AnimationEvent animationEvent)
+    // not used coz no jumps
+    void OnLand(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
@@ -281,5 +326,11 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
+    float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
 
 }

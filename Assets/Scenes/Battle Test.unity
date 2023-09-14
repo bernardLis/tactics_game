@@ -3281,7 +3281,6 @@ MonoBehaviour:
   MoveSpeed: 7
   RotationSmoothTime: 0.3
   SpeedChangeRate: 10
-  CinemachineCameraTarget: {fileID: 8338988565308492611}
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.28
@@ -3293,6 +3292,10 @@ MonoBehaviour:
   _minZoom: 5
   _maxZoom: 25
   _defaultZoomHeight: 15
+  _cinemachineVirtualCamera: {fileID: 974579345}
+  _cinemachineCameraTarget: {fileID: 8338988565308492611}
+  _defaultCameraRotation: {x: 50, y: 0, z: 0}
+  _maxRotationSpeed: 0.1
   _footstepSound: {fileID: 11400000, guid: b9cad646c645e4942b28ee4f5bd4fd39, type: 2}
 --- !u!195 &6982812147646051035
 NavMeshAgent:
@@ -3694,7 +3697,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 136623475008264574, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0073127192
+      value: -0.007312292
       objectReference: {fileID: 0}
     - target: {fileID: 136623475008264574, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3718,7 +3721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2838368748754121713, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0007550842
+      value: -0.0007551253
       objectReference: {fileID: 0}
     - target: {fileID: 2838368748754121713, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.y
