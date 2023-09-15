@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Height
-      value: 1.23
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
@@ -218,6 +218,5 @@ MonoBehaviour:
   _spawnSound: {fileID: 11400000, guid: ca937dfc405cf7943aa6e21526f3a57e, type: 2}
   _deathSound: {fileID: 11400000, guid: 9d94c1ad15f84bf49a705eed1c845854, type: 2}
   _getHitSound: {fileID: 11400000, guid: d580ca4677ea82b4d81cfa640abf5945, type: 2}
-  _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
   IsShielded: 0
   _reachedSpireSound: {fileID: 11400000, guid: a13dcc0a6adc9ca4a859745bf9b2a146, type: 2}

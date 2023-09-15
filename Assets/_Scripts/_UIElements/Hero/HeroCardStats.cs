@@ -32,7 +32,7 @@ public class HeroCardStats : VisualElement
     StatElement _speed;
 
     public ResourceBarElement ExpBar;
-    public ResourceBarElement ManaBar;
+    public ResourceBarElement HealthBar;
 
 
     public HeroCardStats(Hero hero)
@@ -118,7 +118,7 @@ public class HeroCardStats : VisualElement
         container.Add(_title);
 
         container.Add(CreateExpGroup());
-        container.Add(CreateManaGroup());
+        container.Add(CreateHealthGroup());
     }
 
     VisualElement CreateExpGroup()
@@ -143,14 +143,14 @@ public class HeroCardStats : VisualElement
         _level.text = $"Level {Hero.Level.Value}";
     }
 
-    VisualElement CreateManaGroup()
+    VisualElement CreateHealthGroup()
     {
         VisualElement container = new();
         container.AddToClassList(_ussManaContainer);
 
-        Color c = _gameManager.GameDatabase.GetColorByName("Mana").Color;
-        ManaBar = new(c, "Mana", Hero.CurrentMana, totalStat: Hero.MaxMana);
-        container.Add(ManaBar);
+        Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
+        HealthBar = new(c, "Mana", Hero.CurrentHealth, totalStat: Hero.MaxHealth);
+        container.Add(HealthBar);
 
         return container;
     }

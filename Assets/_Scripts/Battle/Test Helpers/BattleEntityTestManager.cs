@@ -145,7 +145,7 @@ public class BattleEntityTestManager : MonoBehaviour
         Button bMinions = new() { text = "Spawn Minions" };
         bMinions.clickable.clicked += () =>
         {
-            int count = int.Parse(input.value);
+            if (!int.TryParse(input.value, out int count)) return;
 
             for (int i = 0; i < count; i++)
             {
