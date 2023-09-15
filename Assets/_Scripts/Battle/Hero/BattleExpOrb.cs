@@ -7,20 +7,25 @@ using MoreMountains.Feedbacks;
 
 public class BattleExpOrb : MonoBehaviour
 {
-    public Ease Ease;
+    AudioManager _audioManager;
     MMF_Player _feelPlayer;
-    Color _color;
 
-    void Start()
+    ExpOrb _expOrb;
+
+    public void Initialize(ExpOrb expOrb)
     {
+        _expOrb = expOrb;
+        _audioManager = AudioManager.Instance;
+
+        _audioManager.PlaySFX(_expOrb.DropSound, transform.position);
+
         _feelPlayer = GetComponent<MMF_Player>();
 
-        _color = new Color(
-            Random.Range(0f, 1f),
-            Random.Range(0f, 1f),
-            Random.Range(0f, 1f));
-
-        GetComponent<Sphere>().Color = _color;
+        transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y + 1f,
+            transform.position.z
+        );
 
         float endY = Random.Range(2f, 4f);
         float timeY = Random.Range(1f, 3f);
@@ -35,8 +40,13 @@ public class BattleExpOrb : MonoBehaviour
     {
         if (collider.TryGetComponent(out BattleHero hero))
         {
-            DisplayText(Ease.ToString(), _color);
+            GetComponent<SphereCollider>().enabled = false;
+
             transform.DOKill();
+
+            _audioManager.PlaySFX(_expOrb.CollectSound, transform.position);
+            Destroy(Instantiate(_expOrb.CollectEffect, transform.position, Quaternion.identity), 1f);
+            DisplayText($"+{_expOrb.Exp} EXP", _expOrb.Color.Color);
 
             float punchDuration = 0.5f;
             transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1, 1f);
@@ -47,17 +57,17 @@ public class BattleExpOrb : MonoBehaviour
                 hero.transform.position.z
             );
             float jumpDuration = 0.6f;
-            
+
             transform.DOScale(0, jumpDuration)
                 .SetDelay(punchDuration);
 
             transform.DOJump(jumpPos, 5f, 1, jumpDuration)
                     .SetDelay(punchDuration)
-                    .SetEase(Ease)
                     .OnComplete(() =>
                     {
-                        hero.CollectExpOrb(this);
-                        Destroy(gameObject);
+                        _expOrb.Collected(hero.Hero);
+
+                        Destroy(gameObject, 1f);
                     });
         }
     }

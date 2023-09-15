@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BattleHero : MonoBehaviour
 {
-
-    public void CollectExpOrb(BattleExpOrb orb)
+    public Hero Hero { get; private set; }
+    public void InitializeHero(Hero hero)
     {
-        Debug.Log($"yay collected");
+        Hero = hero;
     }
 }

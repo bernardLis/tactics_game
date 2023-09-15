@@ -110,7 +110,6 @@ public class FullScreenElement : VisualElement
             {
                 OnHide?.Invoke();
 
-                Debug.Log($"_gameManager.OpenFullScreens.Count {_gameManager.OpenFullScreens.Count}");
                 _gameManager.OpenFullScreens.Remove(this);
                 if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
                 else _battleManager.ResumeGame();

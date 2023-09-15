@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6001bbe2eae6743b73913caf5b9f3b, type: 3}
+  m_Name: Epic Exp Orb
+  m_EditorClassIdentifier: 
+  Id: 815ef72f-0dae-466f-a040-1cbf6a7accf8
+  Exp: 40
+  Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
+  Prefab: {fileID: 2002269581931545974, guid: 2612bb3f64ddb6d4ca043ee778196e93, type: 3}
+  CollectEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}
+  DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}

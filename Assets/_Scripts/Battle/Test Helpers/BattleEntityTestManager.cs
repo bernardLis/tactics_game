@@ -22,7 +22,7 @@ public class BattleEntityTestManager : MonoBehaviour
     [SerializeField] Transform _teamBSpawnPoint;
 
     [SerializeField] GameObject _chestPrefab;
-    [SerializeField] GameObject _expOrbPrefab;
+    [SerializeField] ExpOrb[] _expOrbs;
 
     void Start()
     {
@@ -206,7 +206,10 @@ public class BattleEntityTestManager : MonoBehaviour
         Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
         spawnExpOrbButton.clickable.clicked += () =>
         {
-            GameObject instance = Instantiate(_expOrbPrefab, _teamBSpawnPoint.position, Quaternion.identity);
+            ExpOrb expOrb = Instantiate(_expOrbs[Random.Range(0, _expOrbs.Length)]);
+            BattleExpOrb instance = Instantiate(expOrb.Prefab, _teamBSpawnPoint.position,
+                                    Quaternion.identity).GetComponent<BattleExpOrb>();
+            instance.Initialize(expOrb);
         };
         _buttonContainer.Add(spawnExpOrbButton);
     }
