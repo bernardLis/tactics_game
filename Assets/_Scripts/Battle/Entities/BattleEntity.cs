@@ -271,7 +271,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         StartCoroutine(Die(attacker: attacker, hasGrave: hasGrave));
     }
 
-    public virtual IEnumerator Die(EntityFight attacker = null, bool hasLoot = true, bool hasGrave = true)
+    public virtual IEnumerator Die(EntityFight attacker = null, bool givesExp = true, bool hasGrave = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
@@ -283,7 +283,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
         DOTween.Kill(transform);
-        if (hasLoot) ResolveLoot();
+        if (givesExp) ResolveLoot();
 
         EntityLog.Add($"{_battleManager.GetTime()}: Entity dies.");
         OnDeath?.Invoke(this, attacker);
@@ -303,11 +303,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (Team == 0) return;
 
-        Loot loot = Entity.GetLoot();
-        if (loot == null) return;
+        ExpOrb expOrb = Entity.GetExpOrb();
+        if (expOrb == null) return;
 
-        BattleLoot bl = Instantiate(loot.Prefab, transform.position, Quaternion.identity).GetComponent<BattleLoot>();
-        bl.Initialize(loot);
+        BattleExpOrb bl = Instantiate(expOrb.Prefab, transform.position, Quaternion.identity).GetComponent<BattleExpOrb>();
+        bl.Initialize(expOrb);
     }
 
     public IEnumerator GetPoisoned(BattleCreature attacker)

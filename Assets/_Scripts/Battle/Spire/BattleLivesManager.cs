@@ -35,7 +35,7 @@ public class BattleLivesManager : MonoBehaviour
             (battleEntity as BattleMinion).ReachedSpire();
             _spire.StoreyLives.CurrentLives.ApplyChange(-1);
             DisplayFloatingText($"Lives: {_spire.StoreyLives.CurrentLives.Value}", Color.white);
-            StartCoroutine(battleEntity.Die(hasLoot: false));
+            StartCoroutine(battleEntity.Die(givesExp: false));
 
             ExplodeMinionOnSpire(battleEntity);
 

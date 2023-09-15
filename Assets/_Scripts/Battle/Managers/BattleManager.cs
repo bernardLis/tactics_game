@@ -221,9 +221,7 @@ public class BattleManager : Singleton<BattleManager>
         // TODO: price for experience
         if (killer != null)
         {
-            int heroExpTax = Mathf.RoundToInt(be.Entity.Price * 0.25f);
-            _gameManager.PlayerHero.AddExp(heroExpTax);
-            killer.AddExp(be.Entity.Price - heroExpTax);
+            killer.AddExp(be.Entity.Price);
             return;
         }
 

@@ -15,6 +15,7 @@ MonoBehaviour:
   Id: 6f3900d3-1ede-4be7-b4f6-81a4866dd590
   Exp: 10
   Color: {fileID: 11400000, guid: 48f19b64fecbd5246ae2877b798ae156, type: 2}
+  OrbChance: 15
   Prefab: {fileID: 2002269581931545974, guid: 1ebc05d4cd0116543b2fbbbc3cbf479d, type: 3}
   CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}

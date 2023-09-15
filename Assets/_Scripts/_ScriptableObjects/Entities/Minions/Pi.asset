@@ -20,20 +20,19 @@ MonoBehaviour:
   Price: 20
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 6266213777921296780, guid: 5f0151fd9638813478f023631709db1b, type: 3}
-  Level: {fileID: 11400000, guid: 0b0da3a316b689741b92578fd62d398b, type: 2}
-  Experience: {fileID: 0}
-  ExpForNextLevel: {fileID: 0}
-  LeftoverExp: 0
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: c8ba901baa9d13a4aa6f033ce6ab102e, type: 2}
+  CurrentHealth: {fileID: 0}
   Armor: {fileID: 11400000, guid: 56df2ac61848b6a47b96e4d0bf196a32, type: 2}
-  Loot:
-  - {fileID: 11400000, guid: c59bfd59b1c135a4e953ad3cde5ea6f1, type: 2}
-  - {fileID: 11400000, guid: 5d856efead317b94ba5e8ab9287328ec, type: 2}
-  - {fileID: 11400000, guid: 5d2c3ab5459d404428636ab07c297ef3, type: 2}
-  - {fileID: 11400000, guid: 61ad4c7c43eba504298d749e96e4c000, type: 2}
-  - {fileID: 11400000, guid: 941358683b4596844a2e3673c7e9eba9, type: 2}
-  - {fileID: 11400000, guid: c04bd6602a8ad1044889258bbc20ae25, type: 2}
+  Level: {fileID: 11400000, guid: 0b0da3a316b689741b92578fd62d398b, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  ExpOrbs:
+  - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
+  - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
+  - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
+  - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
   Speed: {fileID: 11400000, guid: 053f7f9c45aa38440ac61acacf8fa219, type: 2}

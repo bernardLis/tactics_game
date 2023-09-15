@@ -132,30 +132,29 @@ public class Entity : BaseScriptableObject
     }
 
     /* LOOT */
-    [Header("Loot")]
-    [SerializeField] List<Loot> Loot = new();
-    public Loot GetLoot()
+    [Header("Exp Orbs")]
+    [SerializeField] List<ExpOrb> ExpOrbs = new();
+    public ExpOrb GetExpOrb()
     {
         int v = Random.Range(0, 101);
-        List<Loot> possibleLoot = new();
-        foreach (Loot l in Loot)
+        List<ExpOrb> possibleOrbs = new();
+        foreach (ExpOrb orb in ExpOrbs)
         {
-            if (v <= l.LootChance)
-                possibleLoot.Add(l);
+            if (v <= orb.OrbChance)
+                possibleOrbs.Add(orb);
         }
 
-        // return the loot with the lowest chance
-        if (possibleLoot.Count > 0)
+        // return the exp orb with the lowest chance
+        if (possibleOrbs.Count > 0)
         {
-            Loot lowestChanceLoot = possibleLoot[0];
-            foreach (Loot l in possibleLoot)
+            ExpOrb lowestChanceOrb = possibleOrbs[0];
+            foreach (ExpOrb l in possibleOrbs)
             {
-                if (l.LootChance < lowestChanceLoot.LootChance)
-                    lowestChanceLoot = l;
+                if (l.OrbChance < lowestChanceOrb.OrbChance)
+                    lowestChanceOrb = l;
             }
 
-            Loot instance = Instantiate(lowestChanceLoot);
-            instance.Initialize();
+            ExpOrb instance = Instantiate(lowestChanceOrb);
             return instance;
         }
         return null;

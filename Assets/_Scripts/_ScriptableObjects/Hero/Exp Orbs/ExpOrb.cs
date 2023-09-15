@@ -7,6 +7,7 @@ public class ExpOrb : BaseScriptableObject
 {
     public int Exp;
     public ColorVariable Color;
+    public int OrbChance;
 
     public GameObject Prefab;
     public GameObject CollectEffect;
