@@ -31,7 +31,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public Collider Collider { get; private set; }
 
     public string BattleId { get; private set; }
-    public int Team { get; private set; }
+    public int Team { get; protected set; }
 
     protected GameObject _GFX;
     public Animator Animator { get; private set; }
@@ -71,12 +71,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         Entity = entity;
 
         _battleEntityShaders = GetComponent<ObjectShaders>();
-        _feelPlayer = GetComponent<MMF_Player>();
         Collider = GetComponent<Collider>();
         Animator = GetComponentInChildren<Animator>();
         _GFX = Animator.gameObject;
         _battleEntityHighlight = GetComponent<BattleEntityHighlight>();
-
+        _feelPlayer = GetComponent<MMF_Player>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.enabled = false;
 
@@ -160,6 +159,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         yield return null;
     }
 
+
     protected virtual IEnumerator PathToPosition(Vector3 position)
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
@@ -170,6 +170,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         while (!_agent.SetDestination(position)) yield return null;
         while (_agent.pathPending) yield return null;
+
+        // HERE: while not reached position, update desitnation to current positon
 
         Animator.SetBool("Move", true);
     }
@@ -280,6 +282,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();
         if (_agent.isActiveAndEnabled) _agent.isStopped = true;
+
+        Collider.enabled = false;
 
         if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
         DOTween.Kill(transform);

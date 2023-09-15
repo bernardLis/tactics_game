@@ -1,30 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
-public class BattleHero : MonoBehaviour
+public class BattleHero : BattleEntity
 {
+
     public Hero Hero { get; private set; }
-    public void InitializeHero(Hero hero)
+
+    List<BattleEntity> _hitters = new();
+
+    public override void InitializeEntity(Entity entity)
     {
-        Hero = hero;
+        base.InitializeEntity(entity);
 
-
+        Hero = (Hero)entity;
+        Team = 0;
     }
-    void OnControllerColliderHit(ControllerColliderHit hit)
+
+    void OnCollisionEnter(Collision collision)
     {
-        if (hit.collider.TryGetComponent(out BattleEntity entity))
+        if (collision.collider.TryGetComponent(out BattleEntity entity))
+            if (entity.Team != 0 && !_hitters.Contains(entity))
+                GetHit(entity);
+    }
+
+    void GetHit(BattleEntity entity)
+    {
+        _hitters.Add(entity);
+        Hero.CurrentHealth.ApplyChange(-5);
+        DisplayFloatingText($"{-5}", _gameManager.GameDatabase.GetColorByName("Health").Color);
+
+        if (Hero.CurrentHealth.Value <= 0)
         {
-            Debug.Log($"entityname {entity.gameObject.name}");
+            Die();
+            return;
         }
 
+        StartCoroutine(Invulnerability(entity));
     }
-    void OnTriggerEnter(Collider collider)
+
+    IEnumerator Invulnerability(BattleEntity entity)
     {
-        if (collider.TryGetComponent(out BattleEntity entity))
-        {
-            Debug.Log($"entityname {entity.gameObject.name}");
-        }
+        yield return new WaitForSeconds(1f);
+        _hitters.Remove(entity);
+    }
+
+    void Die()
+    {
+        Debug.Log($"Hero dies...");
     }
 
 }

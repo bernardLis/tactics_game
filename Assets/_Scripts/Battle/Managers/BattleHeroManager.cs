@@ -13,7 +13,7 @@ public class BattleHeroManager : MonoBehaviour
     BattleIntroManager _battleIntroManager;
     VisualElement _root;
 
-    [SerializeField] BattleHero _battleHero;
+    public BattleHero BattleHero;
 
     public Hero Hero { get; private set; }
     public void Initialize(Hero hero)
@@ -25,7 +25,7 @@ public class BattleHeroManager : MonoBehaviour
         hero.InitializeBattle(0);
         hero.OnLevelUpReady += OnHeroLevelUp;
 
-        _battleHero.InitializeHero(hero);
+        BattleHero.InitializeEntity(hero);
 
         _battleIntroManager = BattleIntroManager.Instance;
         if (_battleIntroManager != null)

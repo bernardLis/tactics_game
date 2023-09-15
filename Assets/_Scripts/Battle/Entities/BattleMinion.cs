@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleMinion : BattleEntity
+public class BattleMinion : BattleCreatureMelee
 {
     [Header("Minion")]
     [SerializeField] Sound _reachedSpireSound;
-    BattleSpire _spire;
     public Minion Minion { get; private set; }
+
+    BattleHero _targetHero;
 
     public override void InitializeEntity(Entity entity)
     {
@@ -19,7 +20,7 @@ public class BattleMinion : BattleEntity
     {
         base.InitializeBattle(team, ref opponents);
 
-        _spire = BattleSpire.Instance;
+        _targetHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
 
         StartRunEntityCoroutine();
     }
@@ -27,11 +28,11 @@ public class BattleMinion : BattleEntity
     protected override IEnumerator RunEntity()
     {
         if (IsDead) yield break;
-        if (_spire == null) yield break;
+        SetOpponent(_targetHero);
 
-        Vector3 pos = _spire.transform.position;
+        Vector3 pos = _targetHero.transform.position;
         pos.y = transform.position.y;
-        yield return PathToPosition(pos);
+        yield return PathToOpponent();
     }
 
     public void ReachedSpire()

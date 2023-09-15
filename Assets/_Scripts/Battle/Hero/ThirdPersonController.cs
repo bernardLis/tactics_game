@@ -57,8 +57,8 @@ public class ThirdPersonController : MonoBehaviour
     BattleManager _battleManager;
     PlayerInput _playerInput;
 
-    private Animator _animator;
-    private CharacterController _controller;
+    Animator _animator;
+    CharacterController _controller;
 
     Vector3 _movementDirection;
     bool _disableUpdate;
@@ -224,7 +224,6 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         if (_speed == 0) return;
-
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
     }
 

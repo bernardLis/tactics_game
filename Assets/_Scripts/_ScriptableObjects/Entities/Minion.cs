@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Minion")]
-public class Minion : EntityMovement
+public class Minion : EntityFight
 {
     public override void InitializeBattle(int team)
     {

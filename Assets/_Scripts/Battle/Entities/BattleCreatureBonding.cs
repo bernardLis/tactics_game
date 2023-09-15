@@ -33,6 +33,7 @@ public class BattleCreatureBonding : MonoBehaviour
     {
         if (TryGetComponent(out _battleCreature))
         {
+            if (_battleCreature.Creature == null) return;
             _creature = _battleCreature.Creature;
             _creature.OnLevelUp += OnLevelUp;
         }
