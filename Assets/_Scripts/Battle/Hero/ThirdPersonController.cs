@@ -179,7 +179,12 @@ public class ThirdPersonController : MonoBehaviour
         _movementDirection = Vector3.zero;
     }
 
-    private void Move()
+    public void SetMoveSpeed(int speed)
+    {
+        MoveSpeed = speed;
+    }
+
+    void Move()
     {
         // set target speed based on move speed, sprint speed and if sprint is pressed
         float targetSpeed = MoveSpeed;

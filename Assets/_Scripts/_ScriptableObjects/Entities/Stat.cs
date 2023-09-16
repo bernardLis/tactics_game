@@ -22,9 +22,10 @@ public class Stat : BaseScriptableObject
 
     public void Initialize()
     {
+        Debug.Log($"StatType {StatType}");
         if (Icon == null)
             Icon = GameManager.Instance.EntityDatabase.GetStatIconByType(StatType);
-        if (Description.Length == 0)
+        if (Description == null || Description.Length == 0)
             Description = GameManager.Instance.EntityDatabase.GetStatDescriptionByType(StatType);
     }
 

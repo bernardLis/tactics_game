@@ -243,11 +243,13 @@ public class BattleRewardElement : FullScreenElement
 
         _allRewardCards.Clear();
         // _allRewardCards.Add(CreateRewardCardItem());
+        _allRewardCards.Add(CreateRewardCardHeroStat());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
         _allRewardCards.Add(CreateRewardCardArmy());
         _allRewardCards.Add(CreateRewardCardObstacle());
         _allRewardCards.Add(CreateRewardCardTurret());
+
     }
 
     void ChooseRewardCards()
@@ -267,6 +269,15 @@ public class BattleRewardElement : FullScreenElement
         reward.CreateRandom(_gameManager.PlayerHero);
         reward.OnRewardSelected += RewardSelected;
         return new RewardCardItem(reward);
+    }
+
+    RewardCard CreateRewardCardHeroStat()
+    {
+        RewardHeroStat reward = ScriptableObject.CreateInstance<RewardHeroStat>();
+        reward.CreateRandom(_gameManager.PlayerHero);
+        reward.OnRewardSelected += RewardSelected;
+        RewardCardHeroStat card = new(reward);
+        return card;
     }
 
     RewardCard CreateRewardCardAbility()
