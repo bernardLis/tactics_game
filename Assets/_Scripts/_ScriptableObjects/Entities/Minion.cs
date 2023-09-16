@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Minion")]
-public class Minion : EntityFight
+public class Minion : EntityMovement
 {
+    [Header("Minion")]
+    public GameObject ExplosionPrefab;
+    public Sound ExplosionSound;
+
     public override void InitializeBattle(int team)
     {
         base.InitializeBattle(team);

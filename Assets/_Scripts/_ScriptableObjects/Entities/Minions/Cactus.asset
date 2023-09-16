@@ -36,3 +36,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
   - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
   Speed: {fileID: 11400000, guid: 053f7f9c45aa38440ac61acacf8fa219, type: 2}
+  ExplosionPrefab: {fileID: 3099836912634429520, guid: 469f3c50e47891e459cc6d8829cfe2d5, type: 3}
+  ExplosionSound: {fileID: 11400000, guid: a13dcc0a6adc9ca4a859745bf9b2a146, type: 2}

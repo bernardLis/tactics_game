@@ -32,7 +32,7 @@ public class BattleLivesManager : MonoBehaviour
             if (_spire == null) _spire = BattleSpire.Instance.Spire;
             if (battleEntity is not BattleMinion) return;
 
-            (battleEntity as BattleMinion).ReachedSpire();
+        //    (battleEntity as BattleMinion).ReachedSpire();
             _spire.StoreyLives.CurrentLives.ApplyChange(-1);
             DisplayFloatingText($"Lives: {_spire.StoreyLives.CurrentLives.Value}", Color.white);
             StartCoroutine(battleEntity.Die(givesExp: false));
