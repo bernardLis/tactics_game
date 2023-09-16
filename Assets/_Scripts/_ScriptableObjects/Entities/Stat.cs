@@ -22,7 +22,6 @@ public class Stat : BaseScriptableObject
 
     public void Initialize()
     {
-        Debug.Log($"StatType {StatType}");
         if (Icon == null)
             Icon = GameManager.Instance.EntityDatabase.GetStatIconByType(StatType);
         if (Description == null || Description.Length == 0)

@@ -8,9 +8,6 @@ public class BattleInfoManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-    BattleSpire _battleSpire;
-
-    Spire _spire;
 
     VisualElement _root;
     VisualElement _infoPanel;
@@ -23,7 +20,6 @@ public class BattleInfoManager : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        _battleSpire = BattleSpire.Instance;
 
         _root = _battleManager.Root;
         _infoPanel = _root.Q<VisualElement>("infoPanel");
@@ -41,15 +37,13 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
-        _spire = _battleSpire.Spire;
-
         AddLivesElement();
         // UpdateLivesLabel();
 
         AddGoldElement();
 
         AddTroopsLimitElement();
-        UpdateTroopsLimitElement();
+        // UpdateTroopsLimitElement();
 
         // HERE: spice
         // AddSpiceElement();
@@ -120,16 +114,16 @@ public class BattleInfoManager : MonoBehaviour
         _troopsLimitElement = new("");
         _infoPanel.Add(_troopsLimitElement);
 
-        _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
-        _gameManager.PlayerHero.OnCreatureRemoved += (c) => UpdateTroopsLimitElement();
+        // _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
+        // _gameManager.PlayerHero.OnCreatureRemoved += (c) => UpdateTroopsLimitElement();
 
-        _spire.StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateTroopsLimitElement();
+        // StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateTroopsLimitElement();
     }
 
-    void UpdateTroopsLimitElement()
-    {
-        _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value}", Color.white);
-    }
+    // void UpdateTroopsLimitElement()
+    // {
+    //     _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value}", Color.white);
+    // }
 
 
     void AddSpiceElement()

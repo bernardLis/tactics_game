@@ -110,7 +110,7 @@ public class BattleCreatureBonding : MonoBehaviour
     /* EVOLUTION */
     void ResolveEvolution()
     {
-        int maxTier = BattleSpire.Instance.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
+        int maxTier = 0;//BattleSpire.Instance.Spire.StoreyTroops.CreatureTierTree.CurrentValue.Value;
         if (_creature.UpgradeTier >= maxTier) return;
         if (_creature.ShouldEvolve())
         {

@@ -14,7 +14,7 @@ public class BattleLivesElement : ElementWithTooltip
     const string _ussIcon = _ussClassName + "icon";
 
     GameManager _gameManager;
-    BattleSpire _battleSpire;
+    // BattleSpire _battleSpire;
 
     Label _icon;
     Label _text;
@@ -28,12 +28,12 @@ public class BattleLivesElement : ElementWithTooltip
         if (ss != null)
             styleSheets.Add(ss);
 
-        _battleSpire = BattleSpire.Instance;
-        if (_battleSpire == null)
-        {
-            Debug.LogError("No spire found.");
-            return;
-        }
+        // _battleSpire = BattleSpire.Instance;
+        // if (_battleSpire == null)
+        // {
+        //     Debug.LogError("No spire found.");
+        //     return;
+        // }
 
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussMain);
@@ -45,15 +45,15 @@ public class BattleLivesElement : ElementWithTooltip
         _text = new();
         Add(_text);
 
-        _battleSpire.Spire.StoreyLives.CurrentLives.OnValueChanged += UpdateText;
-        _battleSpire.Spire.StoreyLives.MaxLivesTree.CurrentValue.OnValueChanged += UpdateText;
+        // _battleSpire.Spire.StoreyLives.CurrentLives.OnValueChanged += UpdateText;
+        // _battleSpire.Spire.StoreyLives.MaxLivesTree.CurrentValue.OnValueChanged += UpdateText;
 
         UpdateText(default);
     }
 
     void UpdateText(int _)
     {
-        _text.text = $"{_battleSpire.Spire.StoreyLives.CurrentLives.Value} / {_battleSpire.Spire.StoreyLives.MaxLivesTree.CurrentValue.Value}";
+        // _text.text = $"{_battleSpire.Spire.StoreyLives.CurrentLives.Value} / {_battleSpire.Spire.StoreyLives.MaxLivesTree.CurrentValue.Value}";
 
         if (_shakeTween.IsActive()) return;
 

@@ -310,72 +310,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5516297320357195677, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
   m_PrefabInstance: {fileID: 791088638}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &791088641 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5024510876388207595, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
+  m_PrefabInstance: {fileID: 791088638}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa89725b2c902647bb6b3f9aa43b635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &819425544 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4411321186243828348, guid: fbe8c17e39ecd354e91a84f3d60c4292, type: 3}
   m_PrefabInstance: {fileID: 5970342214275579756}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &819859455
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1633126723}
-    m_Modifications:
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5342128357525200296, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-      propertyPath: m_Name
-      value: Spire
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
---- !u!4 &819859456 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5142721895091775752, guid: 4e316e8b4c452554da3c677396deb9b7, type: 3}
-  m_PrefabInstance: {fileID: 819859455}
   m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &918639826
 LightingSettings:
@@ -882,7 +831,6 @@ Transform:
   - {fileID: 5119385660492297294}
   - {fileID: 1942892701}
   - {fileID: 5970342214275579757}
-  - {fileID: 819859456}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663653924
@@ -1387,6 +1335,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: BattleHero
+      value: 
+      objectReference: {fileID: 791088641}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: EntityHolder
       value: 

@@ -238,7 +238,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsPlayerTeamFull()
     {
-        if (PlayerCreatures.Count >= BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
+        if (PlayerCreatures.Count >= 7) // HERE: troops BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
             return true;
         return false;
     }
