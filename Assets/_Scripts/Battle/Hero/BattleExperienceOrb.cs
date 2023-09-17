@@ -5,14 +5,14 @@ using DG.Tweening;
 using Shapes;
 using MoreMountains.Feedbacks;
 
-public class BattleExpOrb : MonoBehaviour
+public class BattleExperienceOrb : MonoBehaviour
 {
     AudioManager _audioManager;
     MMF_Player _feelPlayer;
 
-    ExpOrb _expOrb;
+    ExperienceOrb _expOrb;
 
-    public void Initialize(ExpOrb expOrb)
+    public void Initialize(ExperienceOrb expOrb)
     {
         _expOrb = expOrb;
         _audioManager = AudioManager.Instance;
@@ -46,7 +46,7 @@ public class BattleExpOrb : MonoBehaviour
 
             _audioManager.PlaySFX(_expOrb.CollectSound, transform.position);
             Destroy(Instantiate(_expOrb.CollectEffect, transform.position, Quaternion.identity), 1f);
-            DisplayText($"+{_expOrb.Exp} EXP", _expOrb.Color.Color);
+            DisplayText($"+{_expOrb.Amount} EXP", _expOrb.Color.Color);
 
             float punchDuration = 0.5f;
             transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1, 1f);

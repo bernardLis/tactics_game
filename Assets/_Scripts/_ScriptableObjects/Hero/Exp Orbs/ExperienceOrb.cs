@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Hero/Exp Orb")]
-public class ExpOrb : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Hero/Experience Orb")]
+public class ExperienceOrb : BaseScriptableObject
 {
-    public int Exp;
+    public int Amount;
     public ColorVariable Color;
     public int OrbChance;
 
@@ -17,6 +17,6 @@ public class ExpOrb : BaseScriptableObject
 
     public void Collected(Hero hero)
     {
-        hero.AddExp(Exp);
+        hero.AddExp(Amount);
     }
 }

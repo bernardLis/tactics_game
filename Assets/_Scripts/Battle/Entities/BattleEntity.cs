@@ -307,10 +307,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         if (Team == 0) return;
 
-        ExpOrb expOrb = Entity.GetExpOrb();
+        ExperienceOrb expOrb = Entity.GetExpOrb();
         if (expOrb == null) return;
 
-        BattleExpOrb bl = Instantiate(expOrb.Prefab, transform.position, Quaternion.identity).GetComponent<BattleExpOrb>();
+        BattleExperienceOrb bl = Instantiate(expOrb.Prefab, transform.position, Quaternion.identity)
+                                .GetComponent<BattleExperienceOrb>();
         bl.Initialize(expOrb);
     }
 
