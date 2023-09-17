@@ -216,7 +216,7 @@ public class ThirdPersonController : MonoBehaviour
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f)
                                * Vector3.forward
                                * inputDirection.z;
-
+        targetDirection.y = -0.01f;
         // update animator if using character
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;

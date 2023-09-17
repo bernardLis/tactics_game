@@ -78,7 +78,7 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
     void Resurrect()
     {
         _tooltipManager.HideTooltip();
-        GameObject g = Instantiate(_entitySpawnerPrefab, transform.position, Quaternion.identity);
+        GameObject g = Instantiate(_entitySpawnerPrefab, transform.position + Vector3.up * 3, Quaternion.identity);
         EntitySpawner es = g.GetComponent<EntitySpawner>();
         es.SpawnEntities(new List<Entity>() { Creature });
         es.OnSpawnComplete += (list) =>

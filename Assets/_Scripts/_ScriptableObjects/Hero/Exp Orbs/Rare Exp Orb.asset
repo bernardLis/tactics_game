@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rare Exp Orb
   m_EditorClassIdentifier: 
   Id: d0053d43-53bd-47ac-aa8a-5487702fa664
-  Exp: 20
+  Amount: 10
   Color: {fileID: 11400000, guid: 713d618788e2864488ff113adcf64812, type: 2}
   OrbChance: 5
   Prefab: {fileID: 2002269581931545974, guid: bcba16026ce1d2c43ae031beeefb4588, type: 3}
