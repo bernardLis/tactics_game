@@ -254,17 +254,17 @@ public class BattleEntityTestManager : MonoBehaviour
         };
         heroFoldout.Add(levelUpButton);
 
-        Button increaseGatherStrength = new() { text = "Increase Gather Strength" };
+        Button increaseGatherStrength = new() { text = "Increase Pull" };
         increaseGatherStrength.clickable.clicked += () =>
         {
-            hero.GatherStrength.SetBaseValue(hero.GatherStrength.GetValue() + 1);
+            hero.Pull.SetBaseValue(hero.Pull.GetValue() + 1);
         };
         heroFoldout.Add(increaseGatherStrength);
 
-        Button decreaseGatherStrength = new() { text = "Decrease Gather Strength" };
+        Button decreaseGatherStrength = new() { text = "Decrease Pull" };
         decreaseGatherStrength.clickable.clicked += () =>
         {
-            hero.GatherStrength.SetBaseValue(hero.GatherStrength.GetValue() - 1);
+            hero.Pull.SetBaseValue(hero.Pull.GetValue() - 1);
         };
         heroFoldout.Add(decreaseGatherStrength);
 

@@ -81,7 +81,7 @@ public class GameDatabase : BaseScriptableObject
 }
 
 public enum ItemRarity { Common, Uncommon, Rare, Epic }
-public enum StatType { Power, Health, Armor, Speed, AttackRange, AttackCooldown, GatherStrength }
+public enum StatType { Power, Health, Armor, Speed, AttackRange, AttackCooldown, Pull }
 
 public enum ElementName { Fire, Water, Wind, Earth }
 

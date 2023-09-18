@@ -11,13 +11,13 @@ public class BattlePickUp : MonoBehaviour
         _hero = BattleManager.Instance.GetComponent<BattleHeroManager>().BattleHero.Hero;
         _sphereCollider = GetComponent<SphereCollider>();
 
-        SetPickUpRadius(_hero.GatherStrength.GetValue());
-        _hero.GatherStrength.OnValueChanged += SetPickUpRadius;
+        SetPickUpRadius(_hero.Pull.GetValue());
+        _hero.Pull.OnValueChanged += SetPickUpRadius;
     }
 
     void OnDestroy()
     {
-        _hero.GatherStrength.OnValueChanged -= SetPickUpRadius;
+        _hero.Pull.OnValueChanged -= SetPickUpRadius;
     }
 
     void SetPickUpRadius(int i)
