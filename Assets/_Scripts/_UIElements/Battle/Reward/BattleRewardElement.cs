@@ -81,7 +81,7 @@ public class BattleRewardElement : FullScreenElement
 
     void LevelOneShow()
     {
-        _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
+        // _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
         /*
         TextPrintingElement el = new("Power surges through you. It feels more like recollecting a memory than acquiring new power. Were you incredibly powerful 'before'?", 10f);
         BattleManager.Instance.Root.Add(el);
@@ -100,7 +100,7 @@ public class BattleRewardElement : FullScreenElement
 
     void LevelOneClosedShow()
     {
-        _audioManager.PlayDialogue(_audioManager.GetSound("On level 1 closed"));
+        // _audioManager.PlayDialogue(_audioManager.GetSound("On level 1 closed"));
         /*
         string s = "You have remembered how to use fireball. In game press 1 or the icon to summon a powerful ball of fire.";
         TextPrintingElement el = new(s, 8f);

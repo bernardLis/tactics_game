@@ -1691,9 +1691,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityLog: []
-  _spawnSound: {fileID: 0}
-  _deathSound: {fileID: 0}
-  _getHitSound: {fileID: 0}
+  _spawnSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _deathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _getHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   IsShielded: 0
 --- !u!136 &6932563447686287987
 CapsuleCollider:
