@@ -14,6 +14,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
     VisualElement _root;
     VisualElement _buttonContainer;
+    Foldout _otherFoldout;
 
     public List<string> _entityTestLog = new();
 
@@ -30,6 +31,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _buttonContainer = _root.Q<VisualElement>("buttonContainer");
+
 
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
@@ -58,15 +60,25 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddButtons()
     {
+        AddHeroButtons();
         AddCreatureButtons();
         AddMinionButtons();
-        AddClearButton();
+
         AddSpawnChestButton();
         AddExpOrbButton();
+
+        AddClearButton();
     }
 
     void AddCreatureButtons()
     {
+        Foldout creatureFoldout = new()
+        {
+            text = "Creatures",
+            value = false
+        };
+        _buttonContainer.Add(creatureFoldout);
+
         List<string> choices = new()
         {
             "Random",
@@ -75,8 +87,8 @@ public class BattleEntityTestManager : MonoBehaviour
         choices.AddRange(_allCreatures.ConvertAll(x => x.name));
         var dropDownLeft = new DropdownField("Left Creature", choices, 0);
         var dropDownRight = new DropdownField("Right Creature", choices, 0);
-        _buttonContainer.Add(dropDownLeft);
-        _buttonContainer.Add(dropDownRight);
+        creatureFoldout.Add(dropDownLeft);
+        creatureFoldout.Add(dropDownRight);
 
         Button b = new() { text = "Spawn" };
         b.clickable.clicked += () =>
@@ -100,7 +112,7 @@ public class BattleEntityTestManager : MonoBehaviour
                 AddCreature(instance, 1);
             }
         };
-        _buttonContainer.Add(b);
+        creatureFoldout.Add(b);
 
         Button levelUpButton = new() { text = "Level Up" };
         levelUpButton.clickable.clicked += () =>
@@ -111,9 +123,7 @@ public class BattleEntityTestManager : MonoBehaviour
                 bc.Creature.LevelUp();
             }
         };
-        _buttonContainer.Add(levelUpButton);
-
-        _buttonContainer.Add(new Label("-----"));
+        creatureFoldout.Add(levelUpButton);
     }
 
     void AddCreature(Creature c, int team)
@@ -139,6 +149,13 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddMinionButtons()
     {
+        Foldout minionFoldout = new()
+        {
+            text = "Minions",
+            value = false
+        };
+        _buttonContainer.Add(minionFoldout);
+
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
         TextField input = new() { value = "1" };
@@ -158,8 +175,7 @@ public class BattleEntityTestManager : MonoBehaviour
         };
         container.Add(input);
         container.Add(bMinions);
-        _buttonContainer.Add(container);
-        _buttonContainer.Add(new Label("-----"));
+        minionFoldout.Add(container);
     }
 
 
@@ -184,7 +200,6 @@ public class BattleEntityTestManager : MonoBehaviour
             Invoke(nameof(Clear), 1f);
         };
         _buttonContainer.Add(clearButton);
-        _buttonContainer.Add(new Label("-----"));
     }
     void Clear()
     {
@@ -193,12 +208,19 @@ public class BattleEntityTestManager : MonoBehaviour
 
     void AddSpawnChestButton()
     {
+        _otherFoldout = new()
+        {
+            text = "Other",
+            value = false
+        };
+        _buttonContainer.Add(_otherFoldout);
+
         Button spawnChestButton = new() { text = "Spawn Chest" };
         spawnChestButton.clickable.clicked += () =>
         {
             GameObject instance = Instantiate(_chestPrefab, _teamBSpawnPoint.position, Quaternion.identity);
         };
-        _buttonContainer.Add(spawnChestButton);
+        _otherFoldout.Add(spawnChestButton);
     }
 
     void AddExpOrbButton()
@@ -211,7 +233,41 @@ public class BattleEntityTestManager : MonoBehaviour
                                     Quaternion.identity).GetComponent<BattleExperienceOrb>();
             instance.Initialize(expOrb);
         };
-        _buttonContainer.Add(spawnExpOrbButton);
+        _otherFoldout.Add(spawnExpOrbButton);
+    }
+
+    void AddHeroButtons()
+    {
+        Foldout heroFoldout = new()
+        {
+            text = "Hero",
+            value = false
+        };
+        _buttonContainer.Add(heroFoldout);
+
+        Hero hero = _gameManager.PlayerHero;
+
+        Button levelUpButton = new() { text = "Level up" };
+        levelUpButton.clickable.clicked += () =>
+        {
+            hero.AddExp(hero.GetExpForNextLevel() - hero.Experience.Value);
+        };
+        heroFoldout.Add(levelUpButton);
+
+        Button increaseGatherStrength = new() { text = "Increase Gather Strength" };
+        increaseGatherStrength.clickable.clicked += () =>
+        {
+            hero.GatherStrength.SetBaseValue(hero.GatherStrength.GetValue() + 1);
+        };
+        heroFoldout.Add(increaseGatherStrength);
+
+        Button decreaseGatherStrength = new() { text = "Decrease Gather Strength" };
+        decreaseGatherStrength.clickable.clicked += () =>
+        {
+            hero.GatherStrength.SetBaseValue(hero.GatherStrength.GetValue() - 1);
+        };
+        heroFoldout.Add(decreaseGatherStrength);
+
     }
 }
 
