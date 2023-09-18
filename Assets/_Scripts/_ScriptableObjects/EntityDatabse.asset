@@ -70,11 +70,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
   - {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
   - {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
-  Abilities:
-  - {fileID: 11400000, guid: 3d3663f58cc3d42418937cd90d26e3bd, type: 2}
-  - {fileID: 11400000, guid: f5309cd13d284b7479f49fa99df8d14a, type: 2}
-  - {fileID: 11400000, guid: fdab67d255342074ea8aed7bcde79016, type: 2}
-  - {fileID: 11400000, guid: b39c5809cc0a8a8409b1538ec48bd11e, type: 2}
+  Abilities: []
   Items:
   - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}
   - {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}

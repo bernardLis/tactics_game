@@ -15,8 +15,7 @@ MonoBehaviour:
   Id: 2e31b700-5569-4ef1-8e65-a8e595dc8db3
   Description: Heal!
   Icon: {fileID: 21300000, guid: ea4492c6217e8644db2fa985d49af341, type: 3}
-  Level: 0
-  IsStartingAbility: 0
+  Level: 5
   Levels:
   - {fileID: 11400000, guid: a65100f5a735d0f4c9304344668b30fe, type: 2}
   - {fileID: 11400000, guid: 44f027cfef26cb5478b959f166239baa, type: 2}

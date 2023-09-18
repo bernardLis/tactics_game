@@ -37,9 +37,6 @@ public class AbilityTooltipElement : ElementWithTooltip
         Label level = new($"Level: {ability.Level + 1}");
         level.AddToClassList(_ussCommonTextSecondary);
 
-        Label manaCost = new("Mana cost: " + ability.GetManaCost());
-        manaCost.AddToClassList(_ussCommonTextSecondary);
-
         Label power = new("Power: " + ability.GetPower());
         power.AddToClassList(_ussCommonTextSecondary);
 
@@ -52,7 +49,6 @@ public class AbilityTooltipElement : ElementWithTooltip
         Add(container);
         Add(description);
         Add(level);
-        Add(manaCost);
         Add(power);
         Add(cooldown);
         Add(scale);

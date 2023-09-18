@@ -12,9 +12,6 @@ public class GameDatabase : BaseScriptableObject
     public List<BattleModifier> GetAllBattleModifiers() { return new(BattleModifiers); }
     public BattleModifier GetRandomBattleModifier() { return BattleModifiers[Random.Range(0, BattleModifiers.Length)]; }
 
-    [Header("Base")]
-    public List<Building> AllBaseUpgrades = new();
-    public GameObject BaseGameObject;
 
     [Header("Shaders")]
     public Shader DissolveShader;

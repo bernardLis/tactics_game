@@ -19,7 +19,6 @@ public class Ability : BaseScriptableObject
     // battle modifiers
     float _battleDamageMultiplier = 1f;
     float _battleCooldownMultiplier = 1f;
-    float _battleManaCostMultiplier = 1f;
     float _battleScaleMultiplier = 1f;
 
     public Element Element;
@@ -42,11 +41,6 @@ public class Ability : BaseScriptableObject
     public void StartCooldown()
     {
         OnCooldownStarted?.Invoke();
-    }
-
-    public int GetManaCost()
-    {
-        return Mathf.FloorToInt(Levels[Level].ManaCost * _battleManaCostMultiplier);
     }
 
     public int GetPower()

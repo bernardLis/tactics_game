@@ -8,7 +8,6 @@ public class AbilityLevel : BaseScriptableObject
 {
     public int Level;
 
-    public float ManaCost;
     public float Power;
     public float Cooldown;
     public float Scale;
