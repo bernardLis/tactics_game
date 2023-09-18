@@ -51,7 +51,6 @@ public class BattleHeroManager : MonoBehaviour
 
         rewardElement.OnHide += () =>
         {
-            Hero.CurrentMana.ApplyChange(Hero.MaxMana.GetValue() - Hero.CurrentMana.Value);
             Hero.AddExp(Hero.LeftoverExp);
         };
     }

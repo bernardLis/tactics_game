@@ -53,8 +53,6 @@ public class BattleMinion : BattleEntity
 
     void ReachedHero()
     {
-        _targetHero.GetHit(this);
-
         Collider.enabled = false;
         SetDead();
         StopAllCoroutines();
@@ -70,6 +68,8 @@ public class BattleMinion : BattleEntity
             {
                 GameObject explosion = Instantiate(Minion.ExplosionPrefab, transform.position, Quaternion.identity);
                 explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
+
+                _targetHero.GetHit(this);
 
                 _GFX.SetActive(false);
                 StartCoroutine(Die());

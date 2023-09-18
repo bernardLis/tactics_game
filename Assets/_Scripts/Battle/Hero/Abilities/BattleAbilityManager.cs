@@ -189,12 +189,12 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
             Helpers.DisplayTextOnElement(_root, abilityButton, "On cooldown!", Color.red);
             return;
         }
-        if (_hero.CurrentMana.Value < ability.GetManaCost())
-        {
-            _audioManager.PlayUI("Ability Unavailable");
-            Helpers.DisplayTextOnElement(_root, abilityButton, "Not enough mana!", Color.red);
-            return;
-        }
+        // if (_hero.CurrentMana.Value < ability.GetManaCost())
+        // {
+        //     _audioManager.PlayUI("Ability Unavailable");
+        //     Helpers.DisplayTextOnElement(_root, abilityButton, "Not enough mana!", Color.red);
+        //     return;
+        // }
 
         abilityButton.Highlight();
         IsAbilitySelected = true;
@@ -217,7 +217,7 @@ public class BattleAbilityManager : Singleton<BattleAbilityManager>
 
         _abilityExecutor.ExecuteAbility(_selectedAbility);
         if (_selectedAbility == null) return; // hmm... something seems to break when level up is caused by ability maybe this will help?
-        _hero.CurrentMana.ApplyChange(-_selectedAbility.GetManaCost());
+        // _hero.CurrentMana.ApplyChange(-_selectedAbility.GetManaCost());
         _selectedAbility.StartCooldown();
         CleanUp();
     }

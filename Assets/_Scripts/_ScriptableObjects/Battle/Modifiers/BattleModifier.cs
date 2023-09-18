@@ -20,7 +20,6 @@ public enum BattleModifierType
     CreatureAbilityCooldown,
     AbilityDamage,
     AbilityAOE,
-    AbilityManaCost,
     AbilityCooldown
 }
 

@@ -111,9 +111,6 @@ MonoBehaviour:
   - StatType: 6
     Sprite: {fileID: 21300000, guid: 91eba2b2388797a4692740407715ba06, type: 3}
     Description: Attack Cooldown
-  - StatType: 2
-    Sprite: {fileID: 21300000, guid: e5022fa3ed2f801458dcf24a5d5fdc1a, type: 3}
-    Description: 
   Elements:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}

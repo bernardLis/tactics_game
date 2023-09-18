@@ -15,18 +15,11 @@ public class Hero : EntityMovement
     public override void InitializeBattle(int team)
     {
         base.InitializeBattle(team);
-
-        CurrentMana = CreateInstance<IntVariable>();
-        CurrentMana.SetValue(MaxMana.GetValue());
     }
 
     protected override void CreateStats()
     {
         base.CreateStats();
-
-        MaxMana = Instantiate(MaxMana);
-        MaxMana.Initialize();
-        OnLevelUp += MaxMana.LevelUp;
     }
 
     /* LEVELING */
@@ -72,48 +65,12 @@ public class Hero : EntityMovement
         OnLevelUpReady?.Invoke();
     }
 
-    public void AddPower()
-    {
-        // BasePower.ApplyChange(1);
-    }
-
-    public void AddArmor()
-    {
-        // BaseArmor.ApplyChange(1);
-    }
-
-    public void AddSpeed()
-    {
-        // BaseSpeed.ApplyChange(1);
-    }
-
     public override void LevelUp()
     {
         base.LevelUp();
         _levelUpReady = false;
 
         UpdateRank();
-    }
-
-
-    [Header("Mana")]
-    public Stat MaxMana;
-    public IntVariable CurrentMana;
-
-    public float RestoreMana(int amount)
-    {
-        int manaMissing = MaxMana.GetValue() - CurrentMana.Value;
-        if (manaMissing <= 0)
-            return amount;
-
-        if (manaMissing >= amount)
-        {
-            CurrentMana.ApplyChange(amount);
-            return 0;
-        }
-
-        CurrentMana.ApplyChange(manaMissing);
-        return amount - manaMissing;
     }
 
     [Header("Army")]
@@ -254,13 +211,11 @@ public class Hero : EntityMovement
     {
         Level = CreateInstance<IntVariable>();
         MaxHealth = CreateInstance<Stat>();
-        MaxMana = CreateInstance<Stat>();
         Armor = CreateInstance<Stat>();
         Speed = CreateInstance<Stat>();
 
         Level.SetValue(1);
         MaxHealth.SetBaseValue(100);
-        MaxMana.SetBaseValue(30);
         Armor.SetBaseValue(0);
         Speed.SetBaseValue(3);
     }
@@ -274,7 +229,6 @@ public class Hero : EntityMovement
             EntityMovementData = base.SerializeSelf(),
 
             Portrait = Portrait.Id,
-            BaseMana = MaxMana.BaseValue,
         };
 
         List<AbilityData> abilityData = new();
@@ -305,8 +259,6 @@ public class Hero : EntityMovement
 
         CreateBaseStats();
         LoadFromData(data.EntityMovementData);
-
-        MaxMana.SetBaseValue(data.BaseMana);
 
         CreateStats();
 

@@ -36,7 +36,6 @@ public class Ability : BaseScriptableObject
 
         _battleDamageMultiplier = b.AbilityDamage;
         _battleCooldownMultiplier = b.AbilityCooldown;
-        _battleManaCostMultiplier = b.AbilityManaCost;
         _battleScaleMultiplier = b.AbilityScale;
     }
 

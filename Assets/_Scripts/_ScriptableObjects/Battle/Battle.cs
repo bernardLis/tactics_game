@@ -17,7 +17,6 @@ public class Battle : BaseScriptableObject
     public float CreatureAbilityCooldown = 1f;
     public float AbilityDamage = 1f;
     public float AbilityScale = 1f;
-    public float AbilityManaCost = 1f;
     public float AbilityCooldown = 1f;
 
     public List<BattleModifier> BattleModifiers = new();
@@ -45,8 +44,6 @@ public class Battle : BaseScriptableObject
             AbilityDamage *= modifier.Multiplier;
         if (modifier.BattleModifierType == BattleModifierType.AbilityAOE)
             AbilityScale *= modifier.Multiplier;
-        if (modifier.BattleModifierType == BattleModifierType.AbilityManaCost)
-            AbilityManaCost *= modifier.Multiplier;
         if (modifier.BattleModifierType == BattleModifierType.AbilityCooldown)
             AbilityCooldown *= modifier.Multiplier;
     }
