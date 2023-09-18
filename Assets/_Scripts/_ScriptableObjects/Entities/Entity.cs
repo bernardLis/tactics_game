@@ -92,7 +92,7 @@ public class Entity : BaseScriptableObject
         OnLevelUp?.Invoke();
 
         // HERE: entity rework - probably need to scale stats with level - change base values
-        // but that would be different for creature and for 
+        // but that would be different for creature and for hero
     }
 
     /* DAMAGE */

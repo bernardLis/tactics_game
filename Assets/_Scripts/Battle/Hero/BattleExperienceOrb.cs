@@ -5,16 +5,18 @@ using DG.Tweening;
 using Shapes;
 using MoreMountains.Feedbacks;
 
-public class BattleExperienceOrb : MonoBehaviour
+public class BattleExperienceOrb : BattlePickUp
 {
     AudioManager _audioManager;
     MMF_Player _feelPlayer;
 
     ExperienceOrb _expOrb;
 
-    public void Initialize(ExperienceOrb expOrb)
+    public override void Initialize(PickUp pickUp)
     {
-        _expOrb = expOrb;
+        base.Initialize(pickUp);
+
+        _expOrb = pickUp as ExperienceOrb;
         _audioManager = AudioManager.Instance;
 
         _audioManager.PlaySFX(_expOrb.DropSound, transform.position);

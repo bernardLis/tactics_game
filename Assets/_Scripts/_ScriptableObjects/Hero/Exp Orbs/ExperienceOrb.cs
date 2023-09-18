@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Hero/Experience Orb")]
-public class ExperienceOrb : BaseScriptableObject
+public class ExperienceOrb : PickUp
 {
     public int Amount;
     public ColorVariable Color;

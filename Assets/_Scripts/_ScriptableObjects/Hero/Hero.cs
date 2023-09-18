@@ -11,6 +11,7 @@ public class Hero : EntityMovement
 
     public HeroPortrait Portrait;
 
+    public Stat GatherStrength;
 
     public override void InitializeBattle(int team)
     {
@@ -20,6 +21,8 @@ public class Hero : EntityMovement
     protected override void CreateStats()
     {
         base.CreateStats();
+        GatherStrength = Instantiate(GatherStrength);
+
     }
 
     /* LEVELING */
@@ -213,11 +216,13 @@ public class Hero : EntityMovement
         MaxHealth = CreateInstance<Stat>();
         Armor = CreateInstance<Stat>();
         Speed = CreateInstance<Stat>();
+        GatherStrength = CreateInstance<Stat>();
 
         Level.SetValue(1);
         MaxHealth.SetBaseValue(100);
         Armor.SetBaseValue(0);
         Speed.SetBaseValue(3);
+        GatherStrength.SetBaseValue(7);
     }
 
 

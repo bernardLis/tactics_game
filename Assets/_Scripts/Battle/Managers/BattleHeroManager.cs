@@ -8,7 +8,6 @@ public class BattleHeroManager : MonoBehaviour
 {
     [SerializeField] EntitySpawner _spawnerPrefab;
 
-
     BattleManager _battleManager;
     BattleIntroManager _battleIntroManager;
     VisualElement _root;

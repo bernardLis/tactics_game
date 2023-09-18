@@ -38,4 +38,22 @@ public class BattleHero : BattleEntity
         Debug.Log($"Hero dies...");
     }
 
+
+#if UNITY_EDITOR
+    [ContextMenu("Increase Gather Strength")]
+    public void LevelUp()
+    {
+        Hero.GatherStrength.SetBaseValue(Hero.GatherStrength.GetValue() + 1);
+    }
+
+    [ContextMenu("Decrease Gather Radius")]
+    public void TriggerAbility()
+    {
+        Hero.GatherStrength.SetBaseValue(Hero.GatherStrength.GetValue() - 1);
+    }
+
+#endif
+
+
+
 }
