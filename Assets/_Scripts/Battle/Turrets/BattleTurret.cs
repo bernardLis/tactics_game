@@ -128,6 +128,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
     {
         Projectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectileInstance.transform.parent = transform;
+        projectileInstance.Initialize(Team);
         projectileInstance.Shoot(Turret, _target, Turret.Power.GetValue());
     }
 

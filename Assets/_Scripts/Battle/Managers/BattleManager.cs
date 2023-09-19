@@ -231,6 +231,13 @@ public class BattleManager : Singleton<BattleManager>
         return OpponentEntities;
     }
 
+    public List<BattleEntity> GetOpponents(int team)
+    {
+        if (team == 0) return OpponentEntities;
+        //if (battleEntity.Team == 1) 
+        return PlayerCreatures;
+    }
+
     public void CollectLoot(Loot p) { CollectedLoots.Add(p); }
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }

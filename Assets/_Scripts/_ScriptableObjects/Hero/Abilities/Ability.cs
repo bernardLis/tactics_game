@@ -14,8 +14,6 @@ public class Ability : BaseScriptableObject
 
     public List<AbilityLevel> Levels;
 
-    public Sound AbilityNameSound;
-
     // battle modifiers
     float _battleDamageMultiplier = 1f;
     float _battleCooldownMultiplier = 1f;
@@ -25,7 +23,7 @@ public class Ability : BaseScriptableObject
     [HideInInspector] public int KillCount;
 
     [Header("Battle GameObjects")]
-    public GameObject AbilityExecutorPrefab;
+    public GameObject AbilityManagerPrefab;
 
     public event Action OnCooldownStarted;
 

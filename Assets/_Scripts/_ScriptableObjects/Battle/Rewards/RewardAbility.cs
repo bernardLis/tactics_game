@@ -16,10 +16,6 @@ public class RewardAbility : Reward
 
         Ability = GetValidAbility();
 
-        // Tutorial
-        if (hero.Level.Value == 2)
-            Ability = _gameManager.EntityDatabase.GetAbilityById("fireball-7f5d-4f59-86f9-bb8f8676274d");
-
         foreach (Ability heroAbility in _hero.Abilities)
             if (heroAbility.Id == Ability.Id)
                 IsUpgrade = true;

@@ -13,16 +13,22 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject _gfx;
     [SerializeField] GameObject _explosion;
 
-    [SerializeField] int _speed;
+    [SerializeField] protected int _speed;
 
+    protected int _team;
     protected EntityFight _shooter;
     protected BattleEntity _target;
 
     bool _hitConnected;
-    public void Shoot(EntityFight shooter, BattleEntity target, float power)
+    public virtual void Initialize(int Team)
     {
+        _team = Team;
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(_shootSound, transform.position);
+    }
+
+    public void Shoot(EntityFight shooter, BattleEntity target, float power)
+    {
         _shooter = shooter;
         _target = target;
         StartCoroutine(ShootCoroutine(shooter.AttackRange.GetValue(), target, power));
@@ -58,7 +64,6 @@ public class Projectile : MonoBehaviour
 
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
-
         if (_shooter != null) StartCoroutine(target.GetHit(_shooter));
 
         yield return DestroySelf(transform.position);
@@ -91,7 +96,7 @@ public class Projectile : MonoBehaviour
     {
         if (battleEntity.IsDead) return false;
         if (battleEntity is BattleHero) return false; // HERE: projectile for now...
-        if (_shooter != null && _shooter.Team == battleEntity.Team) return false;
+        if (_team == battleEntity.Team) return false;
 
         return true;
     }
