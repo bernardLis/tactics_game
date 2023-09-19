@@ -16,7 +16,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     AudioManager _audioManager;
     CursorManager _cursorManager;
     PlayerInput _playerInput;
-    BattleAbilityManager _abilityManager;
     BattleDeploymentManager _playerArmyDeployer;
     BattleTooltipManager _tooltipManager;
 
@@ -53,11 +52,10 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _cursorManager = CursorManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
-        _abilityManager = GetComponent<BattleAbilityManager>();
         _floorLayerMask = LayerMask.GetMask("Floor");
 
         _root = GetComponent<UIDocument>().rootVisualElement;
-        VisualElement container = _root.Q(className: _ussAbilityContainer);
+        VisualElement container = _root.Q<VisualElement>("abilityContainer");
         _grabButton = new(_grabAbility, "G");
         _grabButton.RegisterCallback<PointerDownEvent>(evt => ToggleGrabbing());
         container.Add(_grabButton);
@@ -186,7 +184,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     {
 
         if (!_wasInitialized) return false;
-        if (_abilityManager.IsAbilitySelected) return false;
         if (_grabbedObject != null) return false;
         if (!IsGrabbingEnabled) return false;
 
@@ -197,7 +194,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     {
         if (!_wasInitialized) return;
         if (this == null) return;
-        if (_abilityManager.IsAbilitySelected) return;
         if (_grabbedObject == null) return;
 
         _audioManager.PlaySFX("Grab", _grabbedObject.transform.position);

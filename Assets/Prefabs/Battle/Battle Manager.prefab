@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5119385659013104313}
   - component: {fileID: 5119385659013104312}
   - component: {fileID: 5119385659013104318}
-  - component: {fileID: 5119385659013104315}
   - component: {fileID: 5119385659013104314}
   - component: {fileID: 1771743886305221010}
   - component: {fileID: 4066842339892764640}
@@ -73,9 +72,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092e14af062d33a489ad0e4c55a5fe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cinemachineVirtualCamera: {fileID: 0}
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
   EntityHolder: {fileID: 0}
-  OpponentPortals: []
   PlayerCreatures: []
   OpponentEntities: []
   KilledPlayerEntities: []
@@ -83,18 +82,6 @@ MonoBehaviour:
   PlayerTurrets: []
   CollectedLoots: []
   BlockBattleEnd: 0
---- !u!114 &5119385659013104315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42de93ffb45e1ef4aadd5e3fed61bec0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5119385659013104314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+  BattleHero: {fileID: 0}
 --- !u!114 &1771743886305221010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _opponentPortals: []
+  Waves: []
+  OpponentPortals: []
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0

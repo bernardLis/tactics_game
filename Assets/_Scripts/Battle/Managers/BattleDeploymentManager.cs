@@ -122,7 +122,6 @@ public class BattleDeploymentManager : MonoBehaviour
         _battleTurret = null;
 
         BattleGrabManager.Instance.OnPointerUp(default);
-        BattleAbilityManager.Instance.CancelAbility();
         BattleManager.BlockBattleInput = true;
     }
 

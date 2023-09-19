@@ -53,7 +53,6 @@ public class BattleEntityTestManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _battleManager.Initialize(h);
         _battleManager.GetComponent<BattleGrabManager>().Initialize();
-        _battleManager.GetComponent<BattleAbilityManager>().Initialize(h);
 
         AddButtons();
     }

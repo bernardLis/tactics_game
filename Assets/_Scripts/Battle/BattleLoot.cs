@@ -13,7 +13,6 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     CursorManager _cursorManager;
 
     BattleManager _battleManager;
-    BattleAbilityManager _abilityManager;
 
     MMF_Player _feelPlayer;
     ObjectShaders _objectShaders;
@@ -34,7 +33,6 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         _cursorManager = CursorManager.Instance;
         _battleManager = BattleManager.Instance;
         transform.parent = _battleManager.EntityHolder;
-        _abilityManager = _battleManager.GetComponent<BattleAbilityManager>();
 
         _feelPlayer = GetComponent<MMF_Player>();
         _objectShaders = GetComponent<ObjectShaders>();
@@ -115,8 +113,6 @@ public class BattleLoot : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     bool CanBeCollected()
     {
-        // if (_grabManager.IsGrabbingEnabled) return false;
-        if (_abilityManager.IsAbilitySelected) return false;
         if (_isCollected) return false;
 
         return true;
