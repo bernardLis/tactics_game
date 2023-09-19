@@ -23,7 +23,8 @@ public class BattleAbility : MonoBehaviour
         {
             _fireAbilityCoroutine = FireAbilityCoroutine();
             StartCoroutine(_fireAbilityCoroutine);
-
+            
+            _ability.StartCooldown();
             yield return new WaitForSeconds(_ability.GetCooldown());
         }
 

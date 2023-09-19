@@ -11,4 +11,6 @@ public class AbilityLevel : BaseScriptableObject
     public float Power;
     public float Cooldown;
     public float Scale;
+
+
 }

@@ -7,6 +7,11 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "ScriptableObject/Hero/Ability")]
 public class Ability : BaseScriptableObject
 {
+#if UNITY_EDITOR
+    [Multiline]
+    public string DeveloperComment = "";
+#endif
+
     [Header("Base Characteristics")]
     public string Description = "New Description";
     public Sprite Icon;
