@@ -9,6 +9,8 @@ public class BattleHero : BattleEntity
 
     ThirdPersonController _thirdPersonController;
 
+    Dictionary<Ability, GameObject> _battleAbilities = new();
+
     public override void InitializeEntity(Entity entity)
     {
         base.InitializeEntity(entity);
@@ -16,9 +18,34 @@ public class BattleHero : BattleEntity
         Hero = (Hero)entity;
         Team = 0;
 
+        Hero.OnAbilityAdded += AddAbility;
+        Hero.OnAbilityRemoved += RemoveAbility;
+
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
         Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
+    }
+
+    void OnDestroy()
+    {
+        Hero.OnAbilityAdded -= AddAbility;
+        Hero.OnAbilityRemoved -= RemoveAbility;
+    }
+
+    void AddAbility(Ability ability)
+    {
+        GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab);
+        abilityPrefab.transform.SetParent(transform);
+        abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
+
+        _battleAbilities.Add(ability, abilityPrefab);
+    }
+
+    void RemoveAbility(Ability ability)
+    {
+        // TODO: idk if it works...
+        Destroy(_battleAbilities[ability]);
+        _battleAbilities.Remove(ability);
     }
 
     public void GetHit(BattleEntity entity)

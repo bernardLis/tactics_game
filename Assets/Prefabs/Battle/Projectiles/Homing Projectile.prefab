@@ -73428,6 +73428,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Homing Projectile
       objectReference: {fileID: 0}
+    - target: {fileID: 6163057434876474257, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163057434876474257, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6931093565468034904, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: m_UseGravity
       value: 0

@@ -5,17 +5,11 @@ using UnityEngine;
 public class BattleAbility : MonoBehaviour
 {
 
-    [SerializeField] protected Ability _ability; // HERE: for now
+    protected Ability _ability; // HERE: for now
     protected IEnumerator _runAbilityCoroutine;
     protected IEnumerator _fireAbilityCoroutine;
 
-    // HERE: for now
-    void Start()
-    {
-        Initialize(_ability);
-    }
-    
-    public void Initialize(Ability ability)
+    public virtual void Initialize(Ability ability)
     {
         _ability = ability;
 

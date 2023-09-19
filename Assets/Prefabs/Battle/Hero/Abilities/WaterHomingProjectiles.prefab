@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1926360969617151815}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.37, y: 6.27, z: 5.23}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdecdb731e82ab4f8709093712bb022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 0}
   _projectilePrefab: {fileID: 3388587843351458929, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
 --- !u!114 &4316762759719260232
 MonoBehaviour:
@@ -63,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendMode: 1
   scaleMode: 0
-  color: {r: 0.7264151, g: 0.3522428, b: 0.3522428, a: 1}
+  color: {r: 0.4264507, g: 0.48120546, b: 0.9339623, a: 1}
   detailLevel: 2
   renderQueue: -1
   zTest: 4
@@ -75,7 +74,7 @@ MonoBehaviour:
   stencilRefID: 0
   stencilReadMask: 255
   stencilWriteMask: 255
-  radius: 1
+  radius: 0.1
   radiusSpace: 0
 --- !u!33 &4686159465039519240
 MeshFilter:

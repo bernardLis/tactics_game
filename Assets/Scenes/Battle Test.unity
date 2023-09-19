@@ -1079,79 +1079,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5516297320357195677, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
   m_PrefabInstance: {fileID: 3516646208497490021}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1398259610612200654
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1926360969617151815, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_Name
-      value: WaterHomingProjectiles
-      objectReference: {fileID: 0}
-    - target: {fileID: 4162466072728218502, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: _ability
-      value: 
-      objectReference: {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
-    - target: {fileID: 4316762759719260232, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: color.b
-      value: 0.9339623
-      objectReference: {fileID: 0}
-    - target: {fileID: 4316762759719260232, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: color.g
-      value: 0.48120546
-      objectReference: {fileID: 0}
-    - target: {fileID: 4316762759719260232, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: color.r
-      value: 0.4264507
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 5.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345754537730756457, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4b27bb41bc6cad945840b5654d4f8215, type: 3}
 --- !u!1001 &2825879504915094879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1557,11 +1484,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 136623475008264574, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.007291941
+      value: -0.0072888643
       objectReference: {fileID: 0}
     - target: {fileID: 2838368748754121713, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00075741444
+      value: -0.00075777894
       objectReference: {fileID: 0}
     - target: {fileID: 3103854539076747417, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
       propertyPath: m_Follow
@@ -1647,4 +1574,3 @@ SceneRoots:
   - {fileID: 86405065}
   - {fileID: 296518730}
   - {fileID: 3516646208497490021}
-  - {fileID: 1398259610612200654}

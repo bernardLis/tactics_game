@@ -41,22 +41,14 @@ public class ProjectileHoming : Projectile
         List<BattleEntity> battleEntities = _battleManager.GetOpponents(_team);
         if (battleEntities.Count == 0)
         {
-            yield return DestroySelf(transform.position);
+            yield return GoForward(0.5f);
+            yield return HomingCoroutine();
             yield break;
         }
         // get closest enemy
         _target = GetClosestEntity(battleEntities);
-
-        // go forward for 0.5s
-        float t = 0;
-        float step = _speed * Time.fixedDeltaTime;
-        while (t <= 0.5f)
-        {
-            t += step;
-            Vector3 newPos = transform.position + transform.forward * t;
-            _rb.MovePosition(newPos);
-            yield return new WaitForFixedUpdate();
-        }
+        
+        yield return GoForward(0.5f);
 
         // then start homing 
         while (_target != null)
@@ -76,8 +68,14 @@ public class ProjectileHoming : Projectile
             yield return new WaitForFixedUpdate();
         }
 
-        // if the target dies or something start over
+        // if the target dies or disappears
         yield return HomingCoroutine();
+    }
+
+    IEnumerator GoForward(float timeInSeconds)
+    {
+        _rb.velocity = transform.forward * _speed;
+        yield return new WaitForSeconds(timeInSeconds);
     }
 
     protected override IEnumerator HitTarget(BattleEntity target)

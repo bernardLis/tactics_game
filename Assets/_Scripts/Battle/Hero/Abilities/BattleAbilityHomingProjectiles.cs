@@ -6,6 +6,12 @@ public class BattleAbilityHomingProjectiles : BattleAbility
 {
     [SerializeField] GameObject _projectilePrefab;
 
+    public override void Initialize(Ability ability)
+    {
+        base.Initialize(ability);
+        transform.localPosition = new Vector3(0, 1f, 0.5f);
+    }
+
     protected override IEnumerator FireAbilityCoroutine()
     {
         yield return base.FireAbilityCoroutine();
@@ -15,12 +21,14 @@ public class BattleAbilityHomingProjectiles : BattleAbility
         for (int i = 0; i < projectileCount; i++)
         {
 
-            Quaternion q = Quaternion.Euler(Random.Range(0f, 360f),
+            Quaternion q = Quaternion.Euler(Random.Range(180f, 360f),
                                             Random.Range(0f, 360f),
                                             Random.Range(0f, 360f));
 
             GameObject projectileInstance = Instantiate(_projectilePrefab,
                                         transform.position, q);
+            projectileInstance.transform.SetParent(transform);
+
             ProjectileHoming projectile = projectileInstance.GetComponent<ProjectileHoming>();
             projectile.Initialize(0); // hardcoded for now
             projectile.StartHoming(_ability);
