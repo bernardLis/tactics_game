@@ -21,9 +21,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/OpponentGroupMarkerStyles.uss?fileID=7433441132597879392&amp;guid=4c835ca606f8bae4e876be95d207b2c5&amp;type=3#OpponentGroupMarkerStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleLostStyles.uss?fileID=7433441132597879392&amp;guid=7b533c43a2f43134aa562b1314c74e86&amp;type=3#BattleLostStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleWonStyles.uss?fileID=7433441132597879392&amp;guid=0bfa3127b4e60d746b46b36a26eb57ab&amp;type=3#BattleWonStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MinimapStyles.uss?fileID=7433441132597879392&amp;guid=91d6e3f790fad8c4694d19f1354fa1cb&amp;type=3#MinimapStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss?fileID=7433441132597879392&amp;guid=7e08b85dd0f53b34f80b86917c0bf5f9&amp;type=3#BattleStatsStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleLivesStyles.uss?fileID=7433441132597879392&amp;guid=2c0f5f93cd44e4d419f131b15cd2f8d9&amp;type=3#BattleLivesStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleInfoStyles.uss?fileID=7433441132597879392&amp;guid=394833a8037c9a44cb3f403d5ebe50c2&amp;type=3#BattleInfoStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroCardFullStyles.uss?fileID=7433441132597879392&amp;guid=5fd606b68fb97d846a0f816344bc5b12&amp;type=3#HeroCardFullStyles" />
     <ui:VisualElement name="infoPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; right: 0; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag_vert_2.png?fileID=2800000&amp;guid=9662f21ea2a1ff14fbcab7768ec0c94d&amp;type=3#Flag_vert_2&apos;); padding-bottom: 14px; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 5px; display: none; width: auto; flex-direction: column; flex-shrink: 0;">
@@ -51,12 +49,6 @@
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 25px; background-image: url(&apos;project://database/Assets/Art/Sprites/Key%20Guide/Keyboard%20and%20Mouse/E_Key_Light.png?fileID=2800000&amp;guid=3a77362b88530ad409afb1f4827eb2c4&amp;type=3#E_Key_Light&apos;); position: absolute; top: 3px; left: 16px; bottom: -28px; height: 25px;" />
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 25px; height: 25px; background-image: url(&apos;project://database/Assets/Art/Sprites/Key%20Guide/Keyboard%20and%20Mouse/Q_Key_Light.png?fileID=2800000&amp;guid=8317b55a350659243a81c93e12d4774f&amp;type=3#Q_Key_Light&apos;); position: absolute; top: 2px; left: 44px;" />
             <ui:VisualElement style="flex-grow: 1; width: 65px; height: 65px; position: absolute; background-image: url(&apos;project://database/Assets/Art/Sprites/Key%20Guide/rotate%20camera.png?fileID=2800000&amp;guid=50a80e27fe669a14191e4a60b1ae6879&amp;type=3#rotate camera&apos;); top: 0; left: 79px;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="minimapContainer" usage-hints="GroupTransform" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); width: 200px; height: 200px; position: absolute; right: 0; bottom: 0; opacity: 0; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/paper.png?fileID=2800000&amp;guid=856bfb1bae43ab042b2838bd15710c06&amp;type=3#paper&apos;); -unity-background-scale-mode: stretch-to-fill; display: none;">
-        <ui:VisualElement name="spireIcon" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 30px; height: 30px; position: absolute; left: 50%; top: 50%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/22_cross.png?fileID=2800000&amp;guid=104b670fb730e0347ac4e4ed9055bcc2&amp;type=3#22_cross&apos;); transform-origin: center; translate: -15px -15px;" />
-        <ui:VisualElement name="cameraIcon" usage-hints="DynamicTransform" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; background-image: none; rotate: 0; translate: -19px 0; width: 80px; height: 80px;">
-            <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="----&gt;" style="rotate: 270deg;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -53,7 +53,6 @@ public enum StyleSheetType
     HeroCardExpStyles,
 
     HeroCardFullStyles, HeroArmyElementStyles,
-    MinimapStyles,
     BattleEntityInfoStyles,
     BattleRewardStyles,
     RewardCardStyles, BattleModifierStyles,

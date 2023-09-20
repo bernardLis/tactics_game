@@ -19,7 +19,6 @@ public class BattleCreatureGrave : MonoBehaviour, IPointerEnterHandler, IPointer
     public void Initialize(Creature creature)
     {
         _battleManager = BattleManager.Instance;
-        //  _battleManager.GetComponent<BattleMinimapManager>().AddGrave(this);
         _tooltipManager = BattleTooltipManager.Instance;
 
         AudioManager.Instance.PlayUI("Bang");
