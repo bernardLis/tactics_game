@@ -34402,7 +34402,7 @@ GameObject:
   - component: {fileID: 8912574746566878188}
   - component: {fileID: 4865422071035455408}
   m_Layer: 0
-  m_Name: FireMeteors
+  m_Name: Fire Meteors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
+  m_Name: Wind Tornado
+  m_EditorClassIdentifier: 
+  Id: 966c0ca5-6153-42fe-bc6b-d117f29964f3
+  DeveloperComment: Scale = number of tornados
+  Description: New Description
+  Icon: {fileID: 21300000, guid: 38093eefa189a104b9157acbc6a1b805, type: 3}
+  Level: 0
+  Levels:
+  - {fileID: 11400000, guid: 65869c06e627c8c4fa935922493605fe, type: 2}
+  - {fileID: 11400000, guid: 42f6f11c868046c4c8bde08a29ec44f5, type: 2}
+  - {fileID: 11400000, guid: 1e4da38d81968c941a670728bd31ee2a, type: 2}
+  - {fileID: 11400000, guid: 7db957348adf3c2419f66a03c2b2d4db, type: 2}
+  - {fileID: 11400000, guid: ebf79ca45fb7ca1428932c31bcb9de15, type: 2}
+  - {fileID: 11400000, guid: 805d1b8aebfb8f447b32db08460e9508, type: 2}
+  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  KillCount: 25
+  AbilityManagerPrefab: {fileID: 5463534861461547643, guid: b1f5fd3fa5478ce4a8b07518f094cb1b, type: 3}

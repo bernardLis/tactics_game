@@ -73,23 +73,7 @@ MonoBehaviour:
   Abilities:
   - {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
   - {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
-  Items:
-  - {fileID: 11400000, guid: 653ed2c41395a0d4b8e6453cafff0f00, type: 2}
-  - {fileID: 11400000, guid: 1f4b32a79e11845419f1b8ddea037b28, type: 2}
-  - {fileID: 11400000, guid: 456dbaa7a77f72a4eb5b7a36f121556b, type: 2}
-  - {fileID: 11400000, guid: 33f8e2c6905680a43aef9268c59fafae, type: 2}
-  - {fileID: 11400000, guid: e2ae84c9098a17541b16d6b4c38af97a, type: 2}
-  - {fileID: 11400000, guid: 96e8516842fbbf24baa445f76b024262, type: 2}
-  - {fileID: 11400000, guid: c99842b22cbb6444c81b574b1d01ef65, type: 2}
-  - {fileID: 11400000, guid: 2aeb94181c038f044ae88fd9cae056f3, type: 2}
-  - {fileID: 11400000, guid: 1f0632a91b9587044bac4a2d2d564b5a, type: 2}
-  - {fileID: 11400000, guid: b09ee58957b83344399309d681c50151, type: 2}
-  - {fileID: 11400000, guid: 0d85a0c12c2c0dd48b3e8715894054c8, type: 2}
-  - {fileID: 11400000, guid: 99cb218141598814b8aa8ac1a39a7303, type: 2}
-  - {fileID: 11400000, guid: fd310e1f51ede2047bf2c672e55721f4, type: 2}
-  - {fileID: 11400000, guid: b3264555a8281774d80c503dec6b48d0, type: 2}
-  - {fileID: 11400000, guid: 32d9c135d7e711047b6a359ed7d7dfc5, type: 2}
-  - {fileID: 11400000, guid: daef64c9c9eccb648be50ea4a4e5f9de, type: 2}
+  - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
   StatBasics:
   - StatType: 1
     Sprite: {fileID: 21300000, guid: 6cd7b56c2c64e11488db124808380608, type: 3}
