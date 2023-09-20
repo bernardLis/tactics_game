@@ -14688,7 +14688,7 @@ GameObject:
   - component: {fileID: 3893617451813271925}
   - component: {fileID: 7074132921736026419}
   m_Layer: 0
-  m_Name: Epic Loot Click
+  m_Name: Epic Small Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

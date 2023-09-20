@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Gold Loot
+  m_Name: Collect Gold
   m_EditorClassIdentifier: 
   Id: gold-617c-476a-8c1a-dbd9e697f334
   Clips:

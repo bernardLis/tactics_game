@@ -7,6 +7,7 @@ using MoreMountains.Feedbacks;
 
 public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    GameManager _gameManager;
     AudioManager _audioManager;
     BattleTooltipManager _tooltipManager;
     MMF_Player _feelPlayer;
@@ -23,6 +24,7 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     void Start()
     {
+        _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
         _feelPlayer = GetComponent<MMF_Player>();
@@ -46,11 +48,9 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
         yield return new WaitForSeconds(0.5f);
 
         _beamEffect.SetActive(true);
-        LootGold lootGold = ScriptableObject.CreateInstance<LootGold>();
-        lootGold.GoldRange = new Vector2Int(500, 1000);
-        lootGold.Initialize();
-        lootGold.Collect();
-        DisplayText(lootGold.GetDisplayText(), lootGold.GetDisplayColor());
+        int gold = Random.Range(500, 1000);
+        DisplayText($"+{gold} Gold", _gameManager.GameDatabase.GetColorByName("Gold").Color);
+        _audioManager.PlaySFX("Collect Gold", transform.position);
 
         yield return new WaitForSeconds(3f);
         _glowEffect.transform.DOScale(0, 0.5f)

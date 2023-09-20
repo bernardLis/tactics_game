@@ -44,8 +44,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<BattleTurret> PlayerTurrets = new();
 
-    [HideInInspector] public List<Loot> CollectedLoots = new();
-
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
 
@@ -237,8 +235,6 @@ public class BattleManager : Singleton<BattleManager>
         //if (battleEntity.Team == 1) 
         return PlayerCreatures;
     }
-
-    public void CollectLoot(Loot p) { CollectedLoots.Add(p); }
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }
     public void WinBattle() { StartCoroutine(BattleWon()); }

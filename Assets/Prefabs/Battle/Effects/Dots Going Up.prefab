@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2059304149483546900}
   - component: {fileID: 5688712062615129274}
   m_Layer: 0
-  m_Name: Loot Effect
+  m_Name: Dots Going Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
