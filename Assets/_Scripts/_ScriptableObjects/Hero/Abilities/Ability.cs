@@ -63,6 +63,8 @@ public class Ability : BaseScriptableObject
 
     public bool HasMoreUpgrades()
     {
+        if (Level == 0) return true;
+        
         return Level < Levels.Count - 1;
     }
 

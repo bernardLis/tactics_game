@@ -242,14 +242,12 @@ public class BattleRewardElement : FullScreenElement
         // }
 
         _allRewardCards.Clear();
-        // _allRewardCards.Add(CreateRewardCardItem());
         _allRewardCards.Add(CreateRewardCardHeroStat());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
         _allRewardCards.Add(CreateRewardCardArmy());
         _allRewardCards.Add(CreateRewardCardObstacle());
         _allRewardCards.Add(CreateRewardCardTurret());
-
     }
 
     void ChooseRewardCards()

@@ -24,8 +24,9 @@ public class RewardAbility : Reward
     public Ability GetValidAbility()
     {
         List<Ability> abilities = new(_gameManager.EntityDatabase.GetAllAbilities());
-        if (_hero.Abilities.Count == 4) // only 4 ability buttons
+        if (_hero.Abilities.Count == 4) // only 4 ability buttons // HERE: ability limit
             abilities = new(_hero.Abilities);
+       
         for (int i = abilities.Count - 1; i >= 0; i--)
             if (!abilities[i].HasMoreUpgrades())
                 abilities.Remove(abilities[i]);
