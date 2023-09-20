@@ -57,11 +57,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3c7abefaad358754e9e3c40e171398d2
-    m_Address: ItemSlotStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b1acffc56042b4b42913969a21594f22
     m_Address: AbilitySlotStyles
     m_ReadOnly: 0
@@ -239,11 +234,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e08b85dd0f53b34f80b86917c0bf5f9
     m_Address: Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2c0f5f93cd44e4d419f131b15cd2f8d9
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleLivesStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

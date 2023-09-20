@@ -62,7 +62,7 @@ public class GraveCard : VisualElement
         UpdateResurrectButton();
         _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateResurrectButton();
         _gameManager.PlayerHero.OnCreatureRemoved += (c) => UpdateResurrectButton();
-        // HERE: troops BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateResurrectButton();
+        // HERE: troops limit BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateResurrectButton();
 
         _rightPanel.Add(_resurrectButton);
     }

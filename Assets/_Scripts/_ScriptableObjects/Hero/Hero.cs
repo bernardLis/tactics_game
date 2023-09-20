@@ -116,40 +116,6 @@ public class Hero : EntityMovement
         OnAbilityRemoved?.Invoke(ability);
     }
 
-    [Header("Items")]
-    public List<Item> Items = new();
-    public event Action<Item> OnItemAdded;
-    public event Action<Item> OnItemRemoved;
-
-    public void AddItem(Item item)
-    {
-        Items.Add(item);
-        // UpdateStat(item.InfluencedStat, item.Value);
-        UpdateRank();
-        OnItemAdded?.Invoke(item);
-    }
-
-    public void RemoveItem(Item item)
-    {
-        Items.Remove(item);
-        // UpdateStat(item.InfluencedStat, -item.Value);
-        UpdateRank();
-        OnItemRemoved?.Invoke(item);
-    }
-
-    // void UpdateStat(StatType type, int value)
-    // {
-    //     // TODO: this if statement sucks.
-    //     if (type == StatType.Mana)
-    //         BaseTotalMana.ApplyChange(value);
-    //     if (type == StatType.Power)
-    //         Power.ApplyBonusValueChange(value);
-    //     if (type == StatType.Armor)
-    //         Armor.ApplyBonusValueChange(value);
-    //     if (type == StatType.Speed)
-    //         Speed.ApplyBonusValueChange(value);
-    // }
-
     /* HERO RANK */
     public HeroRank Rank { get; private set; }
     public event Action<HeroRank> OnRankChanged;
@@ -168,19 +134,6 @@ public class Hero : EntityMovement
     public int CountRankPoints()
     {
         int total = Level.Value;
-
-        foreach (Item i in Items)
-        {
-            if (i.Rarity == ItemRarity.Common)
-                total += 1;
-            if (i.Rarity == ItemRarity.Uncommon)
-                total += 2;
-            if (i.Rarity == ItemRarity.Rare)
-                total += 4;
-            if (i.Rarity == ItemRarity.Epic)
-                total += 8;
-        }
-
         return total;
     }
 
@@ -199,7 +152,6 @@ public class Hero : EntityMovement
 
         CreateBaseStats();
 
-        Items = new();
         Abilities = new();
 
         UpdateRank();
@@ -240,11 +192,6 @@ public class Hero : EntityMovement
             abilityData.Add(a.SerializeSelf());
         data.AbilityData = abilityData;
 
-        List<string> itemIds = new();
-        foreach (Item i in Items)
-            itemIds.Add(i.Id);
-        data.ItemIds = new(itemIds);
-
         data.CreatureDatas = new();
         foreach (Creature c in CreatureArmy)
             data.CreatureDatas.Add(c.SerializeSelf());
@@ -273,9 +220,6 @@ public class Hero : EntityMovement
             Abilities.Add(a);
         }
 
-        foreach (string id in data.ItemIds)
-            AddItem(heroDatabase.GetItemById(id));
-
         CreatureArmy = new();
         foreach (CreatureData d in data.CreatureDatas)
         {
@@ -297,11 +241,7 @@ public struct HeroData
     public string Id;
     public string Portrait;
 
-
-    public int BaseMana;
-
     public List<AbilityData> AbilityData;
-    public List<string> ItemIds;
 
     public List<CreatureData> CreatureDatas;
 }

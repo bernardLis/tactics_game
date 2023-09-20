@@ -84,8 +84,8 @@ public class BattleEntityTestManager : MonoBehaviour
             "-----"
         };
         choices.AddRange(_allCreatures.ConvertAll(x => x.name));
-        var dropDownLeft = new DropdownField("Left Creature", choices, 0);
-        var dropDownRight = new DropdownField("Right Creature", choices, 0);
+        var dropDownLeft = new DropdownField("Team 0", choices, 0);
+        var dropDownRight = new DropdownField("Team 1", choices, 0);
         creatureFoldout.Add(dropDownLeft);
         creatureFoldout.Add(dropDownRight);
 

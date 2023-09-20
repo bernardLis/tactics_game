@@ -46,9 +46,6 @@ public class HeroCardFull : FullScreenElement
         card.BlockClick();
         _topContainer.Add(card);
 
-        HeroItemsElement itemsElement = new(Hero);
-        _middleContainer.Add(itemsElement);
-
         HeroAbilitiesElement abilitiesElement = new(Hero);
         _middleContainer.Add(abilitiesElement);
 

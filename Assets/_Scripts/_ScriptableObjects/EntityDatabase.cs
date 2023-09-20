@@ -86,21 +86,6 @@ public class EntityDatabase : ScriptableObject
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
 
-    [Header("Items")]
-    [SerializeField] Item[] Items;
-    public List<Item> GetAllItems() { return Items.ToList(); }
-    public Item GetItemById(string id) { return Items.FirstOrDefault(x => x.Id == id); }
-    public Item GetRandomItem() { return Items[Random.Range(0, Items.Length)]; }
-    public Item GetRandomItem(ItemRarity rarity)
-    {
-        List<Item> items = new();
-        foreach (Item i in Items)
-            if (i.Rarity == rarity)
-                items.Add(i);
-
-        return items[Random.Range(0, items.Count)];
-    }
-
     [Header("Stats")]
     [SerializeField] StatBasics[] StatBasics;
     public Sprite GetStatIconByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Sprite; }

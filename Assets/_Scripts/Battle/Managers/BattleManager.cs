@@ -12,9 +12,6 @@ public class BattleManager : Singleton<BattleManager>
 {
     public static bool BlockBattleInput;
 
-    // HERE: mega speed testing
-    public CinemachineVirtualCamera _cinemachineVirtualCamera;
-
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
@@ -241,7 +238,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsPlayerTeamFull()
     {
-        if (PlayerCreatures.Count >= 7) // HERE: troops BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
+        if (PlayerCreatures.Count >= 7) // HERE: troops limit
             return true;
         return false;
     }

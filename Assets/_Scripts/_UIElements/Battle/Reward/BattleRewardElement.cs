@@ -263,14 +263,6 @@ public class BattleRewardElement : FullScreenElement
         }
     }
 
-    RewardCard CreateRewardCardItem()
-    {
-        RewardItem reward = ScriptableObject.CreateInstance<RewardItem>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardItem(reward);
-    }
-
     RewardCard CreateRewardCardHeroStat()
     {
         RewardHeroStat reward = ScriptableObject.CreateInstance<RewardHeroStat>();
@@ -305,7 +297,7 @@ public class BattleRewardElement : FullScreenElement
         reward.OnRewardSelected += RewardSelected;
         RewardCard card = new RewardCardCreature(reward);
 
-        if (_gameManager.PlayerHero.CreatureArmy.Count >= 7)// HERE: troops BattleSpire.Instance.Spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value)
+        if (_gameManager.PlayerHero.CreatureArmy.Count >= 7)// HERE: troops limit
         {
             card.DisableCard();
             card.Add(new Label("Your army is full!"));
