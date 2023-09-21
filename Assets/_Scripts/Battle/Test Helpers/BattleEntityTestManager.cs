@@ -267,6 +267,33 @@ public class BattleEntityTestManager : MonoBehaviour
         };
         heroFoldout.Add(decreaseGatherStrength);
 
+        List<string> abilityChoices = new();
+        abilityChoices.AddRange(_gameManager.EntityDatabase.GetAllAbilities().ConvertAll(x => x.name));
+        var abilityDropdown = new DropdownField("Ability", abilityChoices, 0);
+        Button b = new() { text = "Add Ability" };
+        b.clickable.clicked += () =>
+        {
+            Ability a = _gameManager.EntityDatabase.GetAllAbilities().Find(x => x.name == abilityDropdown.value);
+            if (a != null)
+            {
+                hero.AddAbility(a);
+            }
+        };
+
+        heroFoldout.Add(abilityDropdown);
+        heroFoldout.Add(b);
+
+        Button abilityLevelUp = new() { text = "Level up abilities" };
+        abilityLevelUp.clickable.clicked += () =>
+        {
+            foreach (Ability a in hero.Abilities)
+            {
+                a.LevelUp();
+            }
+        };
+        heroFoldout.Add(abilityLevelUp);
+
+
     }
 }
 

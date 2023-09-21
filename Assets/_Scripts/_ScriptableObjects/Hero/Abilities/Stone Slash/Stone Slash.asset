@@ -19,6 +19,11 @@ MonoBehaviour:
   Level: 0
   Levels:
   - {fileID: 11400000, guid: a4755adab78c0b547890b91f3cddbe39, type: 2}
+  - {fileID: 11400000, guid: 1795d836bb6fda543b2f47c7b037b244, type: 2}
+  - {fileID: 11400000, guid: 7853f54f27d34ae4f8c7d1dadcd576f4, type: 2}
+  - {fileID: 11400000, guid: ec1c5486f6dd4ed4b860122f69c509c2, type: 2}
+  - {fileID: 11400000, guid: ca52324b3c09e9c439c67189d2f69110, type: 2}
+  - {fileID: 11400000, guid: 2699ceed084a1d34c83123eea2e61508, type: 2}
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   KillCount: 0
   AbilityManagerPrefab: {fileID: 5437731499957775799, guid: df93a021cbf9cca4cb02c887bf8d8294, type: 3}

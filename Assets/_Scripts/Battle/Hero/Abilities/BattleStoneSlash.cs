@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Codice.CM.Client.Differences.Graphic;
 public class BattleStoneSlash : MonoBehaviour
 {
     [SerializeField] GameObject col;
@@ -11,10 +12,11 @@ public class BattleStoneSlash : MonoBehaviour
     {
         _ability = ability;
 
-        Invoke(nameof(DestroySelf), 0.5f);
+        Invoke(nameof(DestroySelf), 2f);
 
         Vector3 colliderRotation = new(90f, 0f, -45f);
-        col.transform.DOLocalRotate(colliderRotation, 0.3f);
+        col.transform.DOLocalRotate(colliderRotation, 0.3f)
+                    .OnComplete(() => col.SetActive(false));
     }
 
     void OnCollisionEnter(Collision collision)

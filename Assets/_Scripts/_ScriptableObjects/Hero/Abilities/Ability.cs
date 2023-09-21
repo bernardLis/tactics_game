@@ -64,13 +64,17 @@ public class Ability : BaseScriptableObject
     public bool HasMoreUpgrades()
     {
         if (Level == 0) return true;
-        
+
         return Level < Levels.Count - 1;
     }
 
     public void IncreaseKillCount() { KillCount++; }
 
-    public void LevelUp() { Level++; }
+    public void LevelUp()
+    {
+        Debug.Log($"level up");
+        Level++;
+    }
 
     public void LevelDown() { Level--; }
 

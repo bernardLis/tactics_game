@@ -21,9 +21,11 @@ public class BattleAbilityStoneSlash : BattleAbility
         for (int i = 0; i < 1; i++)
         {
             Vector3 pos = transform.position;
-            Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
+            Quaternion rot = transform.parent.rotation; // risky bisquits, I want to get player's rotation
             GameObject instance = Instantiate(_slashPrefab, pos, rot);
-            //    instance.transform.parent = transform;
+            instance.transform.localScale = Vector3.one * _ability.GetScale();
+
+            Debug.Log($"Vector3.one * _ability.GetScale() {Vector3.one * _ability.GetScale()}");
             instance.transform.localRotation = rot;
             instance.SetActive(true);
             instance.GetComponent<BattleStoneSlash>().Initialize(_ability);
