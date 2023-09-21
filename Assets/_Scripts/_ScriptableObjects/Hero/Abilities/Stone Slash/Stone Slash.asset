@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
+  m_Name: Stone Slash
+  m_EditorClassIdentifier: 
+  Id: cee7129c-162c-4965-998a-cecea1c13378
+  DeveloperComment: 
+  Description: Stony stone!
+  Icon: {fileID: 21300000, guid: a2576351bb5f0424db00aabbf30d094b, type: 3}
+  Level: 0
+  Levels:
+  - {fileID: 11400000, guid: a4755adab78c0b547890b91f3cddbe39, type: 2}
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  KillCount: 0
+  AbilityManagerPrefab: {fileID: 5437731499957775799, guid: df93a021cbf9cca4cb02c887bf8d8294, type: 3}

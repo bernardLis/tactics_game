@@ -24,9 +24,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     [SerializeField] Ability _grabAbility; // for visual purposes
     AbilityButton _grabButton;
 
-    [SerializeField] Texture2D _cursorGrabbingEnabled;
-    [SerializeField] Texture2D _cursorGrabbed;
-
     public bool IsGrabbingEnabled { get; private set; }
 
     GameObject _grabbedObject;
