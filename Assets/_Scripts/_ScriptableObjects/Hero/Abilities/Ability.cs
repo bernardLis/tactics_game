@@ -72,11 +72,15 @@ public class Ability : BaseScriptableObject
 
     public void LevelUp()
     {
-        Debug.Log($"level up");
-        Level++;
+        if (Level < Levels.Count - 1)
+            Level++;
     }
 
-    public void LevelDown() { Level--; }
+    public void LevelDown()
+    {
+        if (Level > 0)
+            Level--;
+    }
 
     public void LoadFromData(AbilityData data)
     {

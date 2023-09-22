@@ -25,7 +25,6 @@ public class BattleAbilityStoneSlash : BattleAbility
             GameObject instance = Instantiate(_slashPrefab, pos, rot);
             instance.transform.localScale = Vector3.one * _ability.GetScale();
 
-            Debug.Log($"Vector3.one * _ability.GetScale() {Vector3.one * _ability.GetScale()}");
             instance.transform.localRotation = rot;
             instance.SetActive(true);
             instance.GetComponent<BattleStoneSlash>().Initialize(_ability);
