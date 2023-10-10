@@ -60,8 +60,6 @@ public class BattleStatsElement : VisualElement
 
     void PopulateLeftPanel()
     {
-        HeroCardMini hc = new(_gameManager.PlayerHero);
-        _leftPanel.Add(hc);
     }
 
     void PopulateMiddlePanel()
