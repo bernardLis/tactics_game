@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
+using Cinemachine;
 
 public class BattleHero : BattleEntity
 {
     public Hero Hero { get; private set; }
 
     ThirdPersonController _thirdPersonController;
+    BattleHeroHealthBar _battleHeroHealthBar;
 
     Dictionary<Ability, GameObject> _battleAbilities = new();
 
     public override void InitializeEntity(Entity entity)
     {
         base.InitializeEntity(entity);
-
+        _agent.enabled = true;
+        
         Hero = (Hero)entity;
         Team = 0;
 
@@ -24,6 +27,9 @@ public class BattleHero : BattleEntity
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
         Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
+
+        _battleHeroHealthBar = GetComponentInChildren<BattleHeroHealthBar>();
+        _battleHeroHealthBar.Initialize(Hero);
     }
 
     void OnDestroy()

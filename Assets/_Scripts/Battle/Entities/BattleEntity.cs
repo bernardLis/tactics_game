@@ -79,6 +79,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _agent = GetComponent<NavMeshAgent>();
         _agent.enabled = false;
 
+        if (_audioManager == null) _audioManager = AudioManager.Instance;
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
 
         SetStats();

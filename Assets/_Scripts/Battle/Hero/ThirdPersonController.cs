@@ -4,6 +4,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using Codice.CM.Common;
 
 /* BASED ON UNITY'S STARTER ASSET */
 public class ThirdPersonController : MonoBehaviour
@@ -42,7 +43,6 @@ public class ThirdPersonController : MonoBehaviour
 
     [Header("Camera Rotation")]
     [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-    [SerializeField] CinemachineVirtualCamera _cinemachineVirtualCamera;
     [SerializeField] GameObject _cinemachineCameraTarget;
     Vector3 _defaultCameraRotation = new Vector3(50f, 0f, 0f);
     float _threshold = 0.01f;

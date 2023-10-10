@@ -32,7 +32,6 @@ public class BattleEntityTestManager : MonoBehaviour
         _root = GetComponent<UIDocument>().rootVisualElement;
         _buttonContainer = _root.Q<VisualElement>("buttonContainer");
 
-
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
 

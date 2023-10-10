@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Cinemachine;
 
 public class BattleHeroManager : MonoBehaviour
 {
-    [SerializeField] EntitySpawner _spawnerPrefab;
-
     VisualElement _root;
 
     public BattleHero BattleHero;
-
     public Hero Hero { get; private set; }
     public void Initialize(Hero hero)
     {
