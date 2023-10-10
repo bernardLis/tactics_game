@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class BattleHeroHealthBar : MonoBehaviour
 {
     Slider _healthBarSlider;
+    [SerializeField] Image _fill;
 
     Hero _hero;
 
     public void Initialize(Hero hero)
     {
         _healthBarSlider = GetComponent<Slider>();
+        _fill.color = GameManager.Instance.GameDatabase.GetColorByName("Health").Color;
 
         _hero = hero;
         _hero.MaxHealth.OnValueChanged += UpdateHealthBar;

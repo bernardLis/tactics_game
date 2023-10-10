@@ -25,8 +25,6 @@ public class Hero : EntityMovement
     }
 
     /* LEVELING */
-    bool _levelUpReady;
-    public event Action OnLevelUpReady;
     public override int GetExpForNextLevel()
     {
         // TODO: math
@@ -41,39 +39,6 @@ public class Hero : EntityMovement
         return expRequired;
     }
 
-    public override void AddExp(int gain)
-    {
-        if (_levelUpReady)
-        {
-            LeftoverExp += gain;
-            return;
-        }
-        if (Experience.Value + gain >= ExpForNextLevel.Value)
-        {
-            LeftoverExp = Experience.Value + gain - ExpForNextLevel.Value;
-            Experience.SetValue(ExpForNextLevel.Value);
-            LevelUpReady();
-            return;
-        }
-
-        Experience.ApplyChange(gain);
-    }
-
-    public void LevelUpReady()
-    {
-        _levelUpReady = true;
-        AudioManager.Instance.PlayUI("Level Up");
-
-        OnLevelUpReady?.Invoke();
-    }
-
-    public override void LevelUp()
-    {
-        base.LevelUp();
-        _levelUpReady = false;
-
-        UpdateRank();
-    }
 
     [Header("Army")]
     public List<Creature> CreatureArmy = new();

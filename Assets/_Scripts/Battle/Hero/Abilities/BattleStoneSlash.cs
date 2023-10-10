@@ -21,7 +21,6 @@ public class BattleStoneSlash : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision " + collision.gameObject.name);
         if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == 0) return; // TODO: hardcoded team number
