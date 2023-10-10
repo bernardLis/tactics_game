@@ -43,9 +43,16 @@ public class AbilityButton : ElementWithSound
     void StartCooldown()
     {
         IsOnCooldown = true;
-        SetEnabled(false);
-        _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown(), Ability.GetCooldown(), false, "");
-        _icon.Add(_cooldownTimer);
+
+        _icon.style.opacity = 0.5f;
+        transform.scale = Vector3.one * 0.8f;
+
+        // SetEnabled(false);
+        _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown() - 0.5f, Ability.GetCooldown(), false, "");
+        _cooldownTimer.style.width = Length.Percent(90);
+        _cooldownTimer.style.height = Length.Percent(90);
+
+        Add(_cooldownTimer);
         _cooldownTimer.OnTimerFinished += OnCooldownFinished;
     }
 
@@ -53,8 +60,12 @@ public class AbilityButton : ElementWithSound
     {
         _audioManager.PlayUI("Ability Available");
         IsOnCooldown = false;
-        SetEnabled(true);
-        _icon.Remove(_cooldownTimer);
+
+        _icon.style.opacity = 1f;
+        transform.scale = Vector3.one;
+
+        // SetEnabled(true);
+        Remove(_cooldownTimer);
         _cooldownTimer.OnTimerFinished -= OnCooldownFinished; // TODO: is it necessary?
     }
 

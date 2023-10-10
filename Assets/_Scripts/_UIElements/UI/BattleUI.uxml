@@ -31,7 +31,7 @@
     <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px; width: auto;">
         <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
-    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;" />
+    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
     <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px; display: none;" />
     <ui:VisualElement name="controlGuideContainer" style="flex-grow: 1; position: absolute; left: auto; right: 20px; bottom: 50%; width: 150px; opacity: 0;">

@@ -18,8 +18,7 @@ public class OverlayTimerElement : TimerElement
         _overlayMask = new();
         _overlayMask.AddToClassList(_ussOverlayMask);
 
-        Add(_overlayMask);
-        //     Add(AddLabelWrapper());
+        Insert(0, _overlayMask);
     }
 
     public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)

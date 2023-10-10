@@ -11,6 +11,7 @@ public class BattleHeroManager : MonoBehaviour
 
     VisualElement _root;
     VisualElement _bottomPanel;
+    VisualElement _heroInfoContainer;
     ResourceBarElement _expBar;
     Label _levelLabel;
 
@@ -20,6 +21,11 @@ public class BattleHeroManager : MonoBehaviour
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
         _bottomPanel = _root.Q<VisualElement>("bottomPanel");
+        _heroInfoContainer = new();
+        _heroInfoContainer.style.flexDirection = FlexDirection.Row;
+        _heroInfoContainer.style.width = Length.Percent(100);
+        _heroInfoContainer.style.justifyContent = Justify.SpaceBetween;
+        _bottomPanel.Add(_heroInfoContainer);
 
         Hero = hero;
         hero.InitializeBattle(0);
@@ -27,7 +33,9 @@ public class BattleHeroManager : MonoBehaviour
 
         BattleHero.InitializeEntity(hero);
 
-        AddExpBar();
+        HandleExpBar();
+        HandleAbilityIcons();
+        HandleHeroStatIcons();
     }
 
     void OnHeroLevelUp()
@@ -42,7 +50,7 @@ public class BattleHeroManager : MonoBehaviour
         _levelLabel.text = $"Level {Hero.Level.Value}";
     }
 
-    void AddExpBar()
+    void HandleExpBar()
     {
         Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Color;
         _expBar = new(c, "Experience", Hero.Experience, Hero.ExpForNextLevel);
@@ -53,5 +61,42 @@ public class BattleHeroManager : MonoBehaviour
         _expBar.Add(_levelLabel);
 
         _bottomPanel.Add(_expBar);
+    }
+
+    void HandleAbilityIcons()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _heroInfoContainer.Add(container);
+
+        foreach (Ability a in Hero.Abilities)
+        {
+            AbilityButton abilityIcon = new(a);
+            container.Add(abilityIcon);
+        }
+
+        Hero.OnAbilityAdded += (Ability a) =>
+        {
+            AbilityButton abilityIcon = new(a);
+            container.Add(abilityIcon);
+        };
+        // HERE: On Ability Removed
+    }
+
+    void HandleHeroStatIcons()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _heroInfoContainer.Add(container);
+
+        Label a = new("ASD 15");
+        Label b = new("ASD 15");
+        Label c = new("ASD 15");
+        Label d = new("ASD 15");
+
+        container.Add(a);
+        container.Add(b);
+        container.Add(c);
+        container.Add(d);
     }
 }
