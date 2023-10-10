@@ -6,7 +6,6 @@ public class BattleCreatureBonding : MonoBehaviour
 {
     GameManager _gameManager;
     AudioManager _audioManager;
-    BattleCameraManager _battleCameraManager;
     BattleTooltipManager _battleTooltipManager;
 
     [SerializeField] Sound _bondingLevelSound;
@@ -24,7 +23,6 @@ public class BattleCreatureBonding : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
-        _battleCameraManager = BattleCameraManager.Instance;
         _battleTooltipManager = BattleTooltipManager.Instance;
         Initialize();
     }
@@ -82,17 +80,8 @@ public class BattleCreatureBonding : MonoBehaviour
         if (_battleTooltipManager.CurrentTooltipDisplayer == gameObject)
             _battleTooltipManager.HideTooltip(); // TODO: this is a workaround for multiple sounds playing when unlocking ability
         _audioManager.PlaySFX(_bondingLevelSound, transform.position);
-        RotateCameraAroundBattleEntity();
     }
 
-    void RotateCameraAroundBattleEntity()
-    {
-        _originalCamPos = _battleCameraManager.transform.position;
-        _originalCamRot = _battleCameraManager.transform.rotation.eulerAngles;
-        _originalCamZoomHeight = _battleCameraManager.transform.localPosition.y;
-
-        _battleCameraManager.RotateCameraAround(_battleCreature.transform);
-    }
 
     void NameChangeHide()
     {
@@ -103,7 +92,6 @@ public class BattleCreatureBonding : MonoBehaviour
 
     void CreatureCardFullHidden()
     {
-        _battleCameraManager.MoveCameraTo(_originalCamPos, _originalCamRot, _originalCamZoomHeight);
         _card.OnHide -= CreatureCardFullHidden;
     }
 

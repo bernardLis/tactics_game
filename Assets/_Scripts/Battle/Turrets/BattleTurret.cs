@@ -14,7 +14,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
     [SerializeField] GameObject _rangeIndicator;
     Disc _rangeDisc;
-    [SerializeField] Projectile _projectilePrefab;
+    [SerializeField] BattleProjectile _projectilePrefab;
     [SerializeField] GameObject _GFX;
 
     public int Team { get; private set; }
@@ -126,7 +126,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
     void FireProjectile()
     {
-        Projectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+        BattleProjectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectileInstance.transform.parent = transform;
         projectileInstance.Initialize(Team);
         projectileInstance.Shoot(Turret, _target, Turret.Power.GetValue());

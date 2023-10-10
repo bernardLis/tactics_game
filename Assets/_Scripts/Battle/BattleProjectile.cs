@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Projectile : MonoBehaviour
+public class BattleProjectile : MonoBehaviour
 {
     AudioManager _audioManager;
 

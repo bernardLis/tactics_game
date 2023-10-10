@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHoming : Projectile
+public class ProjectileHoming : BattleProjectile
 {
     BattleManager _battleManager;
 
