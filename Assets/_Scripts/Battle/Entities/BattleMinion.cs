@@ -21,7 +21,6 @@ public class BattleMinion : BattleEntity
         base.InitializeBattle(team, ref opponents);
 
         _targetHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
-
         StartRunEntityCoroutine();
     }
 
