@@ -8,7 +8,7 @@ public class BattleHero : BattleEntity
 {
     public Hero Hero { get; private set; }
 
-    ThirdPersonController _thirdPersonController;
+    BattleHeroController _thirdPersonController;
     BattleHeroHealthBar _battleHeroHealthBar;
 
     Dictionary<Ability, GameObject> _battleAbilities = new();
@@ -24,7 +24,7 @@ public class BattleHero : BattleEntity
         Hero.OnAbilityAdded += AddAbility;
         Hero.OnAbilityRemoved += RemoveAbility;
 
-        _thirdPersonController = GetComponent<ThirdPersonController>();
+        _thirdPersonController = GetComponent<BattleHeroController>();
         _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
         Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
 

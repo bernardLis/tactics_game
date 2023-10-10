@@ -4,10 +4,9 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using Codice.CM.Common;
 
 /* BASED ON UNITY'S STARTER ASSET */
-public class ThirdPersonController : MonoBehaviour
+public class BattleHeroController : MonoBehaviour
 {
 
     [Header("Player Movement")]
