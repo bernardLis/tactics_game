@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileSplash : BattleProjectile
+public class BattleProjectileSplash : BattleProjectile
 {
     [SerializeField] float _splashRadius = 3f;
     protected override IEnumerator HitTarget(BattleEntity target)

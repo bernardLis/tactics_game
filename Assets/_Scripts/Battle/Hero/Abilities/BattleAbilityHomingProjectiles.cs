@@ -29,7 +29,7 @@ public class BattleAbilityHomingProjectiles : BattleAbility
                                         transform.position, q);
             projectileInstance.transform.SetParent(transform);
 
-            ProjectileHoming projectile = projectileInstance.GetComponent<ProjectileHoming>();
+            BattleProjectileHoming projectile = projectileInstance.GetComponent<BattleProjectileHoming>();
             projectile.Initialize(0); // hardcoded for now
             projectile.StartHoming(_ability);
             yield return new WaitForSeconds(0.1f);

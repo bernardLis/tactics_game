@@ -16,7 +16,7 @@ public class BattleDeploymentManager : MonoBehaviour
     [SerializeField] GameObject _obstaclePrefab;
 
     GameObject _deployedObjectInstance;
-    EntitySpawner _creatureSpawnerInstance;
+    BattleEntitySpawner _creatureSpawnerInstance;
     BattleObstacle _obstacleInstance;
     BattleTurret _battleTurret;
 
@@ -85,7 +85,7 @@ public class BattleDeploymentManager : MonoBehaviour
         _creaturesToDeploy = creaturesToDeploy;
 
         _deployedObjectInstance = Instantiate(_creatureSpawnerPrefab);
-        _creatureSpawnerInstance = _deployedObjectInstance.GetComponent<EntitySpawner>();
+        _creatureSpawnerInstance = _deployedObjectInstance.GetComponent<BattleEntitySpawner>();
         _creatureSpawnerInstance.ShowPortal(_gameManager.PlayerHero.Element);
         StartCoroutine(UpdateObjectPosition());
     }
@@ -169,7 +169,7 @@ public class BattleDeploymentManager : MonoBehaviour
         BattleManager.BlockBattleInput = false;
     }
 
-    void PlaceArmy(EntitySpawner spawner)
+    void PlaceArmy(BattleEntitySpawner spawner)
     {
         spawner.SpawnEntities(new List<Entity>(_creaturesToDeploy));
         spawner.OnSpawnComplete += (list) =>

@@ -16,8 +16,8 @@ public class BattleOpponentPortal : MonoBehaviour, IPointerEnterHandler, IPointe
 
     [SerializeField] Sound _portalElementalAlarmSound;
 
-    [SerializeField] EntitySpawner _entitySpawnerPrefab;
-    EntitySpawner _entitySpawnerInstance;
+    [SerializeField] BattleEntitySpawner _entitySpawnerPrefab;
+    BattleEntitySpawner _entitySpawnerInstance;
 
     [SerializeField] GameObject RewardChestPrefab;
 

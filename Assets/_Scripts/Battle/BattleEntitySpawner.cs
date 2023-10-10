@@ -5,7 +5,7 @@ using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
 
-public class EntitySpawner : MonoBehaviour
+public class BattleEntitySpawner : MonoBehaviour
 {
     AudioManager _audioManager;
 

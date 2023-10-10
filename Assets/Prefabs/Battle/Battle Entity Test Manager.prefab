@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7145388959955883547}
   - component: {fileID: 5553388727352441539}
+  - component: {fileID: 2803711837821305799}
   m_Layer: 0
   m_Name: Battle Entity Test Manager
   m_TagString: Untagged
@@ -24,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808751737114936783}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.7296395, y: -2.8484836, z: -6.199449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5553388727352441539
 MonoBehaviour:
@@ -44,22 +45,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25767a370391ef4e82694a46193681a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllGroups:
-  - {fileID: 11400000, guid: 288ee849e9a0d784ebec2895b573097b, type: 2}
-  - {fileID: 11400000, guid: 823990fa37b8d674d87073bc2823dc6f, type: 2}
-  - {fileID: 11400000, guid: 61ddd5316d4afa34c8cb44243857566d, type: 2}
-  - {fileID: 11400000, guid: 9284f634c811c0342b04d5a99c1d02a3, type: 2}
-  - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
-  - {fileID: 11400000, guid: 3d9043fe6c20e8743aed06480d4718cd, type: 2}
-  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
-  - {fileID: 11400000, guid: 517db7d749d242244bb8a0eeece149e6, type: 2}
-  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
-  _testSpecificTeams: 1
-  TeamAArmies:
-  - {fileID: 11400000, guid: 4dc58bf026c85be4fa40d8d595b102d3, type: 2}
-  TeamBArmies:
-  - {fileID: 11400000, guid: f11406f24c473e8498dc2a64c10df48a, type: 2}
-  _oneArmyVsAll: 0
-  _oneArmy:
-  - {fileID: 11400000, guid: 83d966fb655781647bc2c93d37e27730, type: 2}
-  _fullOneVOnes: 0
+  _entityTestLog: []
+  _allCreatures:
+  - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+  - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+  - {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
+  - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+  - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
+  - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
+  - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
+  - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
+  _teamASpawnPoint: {fileID: 0}
+  _teamBSpawnPoint: {fileID: 0}
+  _chestPrefab: {fileID: 7174296884494392200, guid: 69a6f89f1b0b9a24081b529d9090a706, type: 3}
+  _expOrbs:
+  - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
+  - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
+  - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
+  - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
+--- !u!114 &2803711837821305799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808751737114936783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 06f358e92b9b4814d85fb22048c7a5ca, type: 3}
+  m_SortingOrder: 0
