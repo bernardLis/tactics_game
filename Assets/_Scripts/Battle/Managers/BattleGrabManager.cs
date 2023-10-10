@@ -50,12 +50,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _tooltipManager = BattleTooltipManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _floorLayerMask = LayerMask.GetMask("Floor");
-
-        _root = GetComponent<UIDocument>().rootVisualElement;
-        VisualElement container = _root.Q<VisualElement>("abilityContainer");
-        _grabButton = new(_grabAbility, "G");
-        _grabButton.RegisterCallback<PointerDownEvent>(evt => ToggleGrabbing());
-        container.Add(_grabButton);
     }
 
     public void ToggleGrabbing()

@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 9037198521051735104}
   - component: {fileID: 8300005922033865725}
   - component: {fileID: 4810545558572652240}
-  - component: {fileID: 6951536807849446544}
   - component: {fileID: 7161087863036619992}
   - component: {fileID: 1226316387709054792}
   m_Layer: 0
@@ -72,7 +71,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092e14af062d33a489ad0e4c55a5fe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cinemachineVirtualCamera: {fileID: 0}
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
   EntityHolder: {fileID: 0}
   PlayerCreatures: []
@@ -80,7 +78,6 @@ MonoBehaviour:
   KilledPlayerEntities: []
   KilledOpponentEntities: []
   PlayerTurrets: []
-  CollectedLoots: []
   BlockBattleEnd: 0
 --- !u!114 &5119385659013104314
 MonoBehaviour:
@@ -109,8 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabAbility: {fileID: 11400000, guid: 9d0d3e78910ddd24a8b6c35929fcdf4b, type: 2}
-  _cursorGrabbingEnabled: {fileID: 2800000, guid: 0f45821c9378469498c0044ff9068ea2, type: 3}
-  _cursorGrabbed: {fileID: 2800000, guid: 92f064f728a70f04f9cf729774eebd72, type: 3}
 --- !u!114 &4066842339892764640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,18 +180,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd236773358092c4b8664dc1a4ce4a99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6951536807849446544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d5372dd201243419307f58a5048185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7161087863036619992

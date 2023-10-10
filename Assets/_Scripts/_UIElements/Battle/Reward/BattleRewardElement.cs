@@ -65,7 +65,13 @@ public class BattleRewardElement : FullScreenElement
 
     void AddElements()
     {
-        AddHeroCard();
+        _title = new("Choose a reward:");
+        _title.style.fontSize = 48;
+        _title.style.opacity = 0;
+        _content.Add(_title);
+        DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f)
+            .SetUpdate(true)
+            .OnComplete(() => RunCardShow());
 
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonHorizontalSpacer);
@@ -73,85 +79,7 @@ public class BattleRewardElement : FullScreenElement
 
         AddRewardContainer();
 
-        if (_gameManager.PlayerHero.Level.Value == 1)
-            LevelOneShow();
-
         DisableNavigation();
-    }
-
-    void LevelOneShow()
-    {
-        // _audioManager.PlayDialogue(_audioManager.GetSound("Level 1"));
-        /*
-        TextPrintingElement el = new("Power surges through you. It feels more like recollecting a memory than acquiring new power. Were you incredibly powerful 'before'?", 10f);
-        BattleManager.Instance.Root.Add(el);
-        el.style.opacity = 0;
-        DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f);
-        el.OnFinishedPrinting += () =>
-        {
-            DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f)
-                    .OnComplete(() =>
-                    {
-                        BattleManager.Instance.Root.Remove(el);
-                    });
-        };
-        */
-    }
-
-    void LevelOneClosedShow()
-    {
-        // _audioManager.PlayDialogue(_audioManager.GetSound("On level 1 closed"));
-        /*
-        string s = "You have remembered how to use fireball. In game press 1 or the icon to summon a powerful ball of fire.";
-        TextPrintingElement el = new(s, 8f);
-        BattleManager.Instance.Root.Add(el);
-        el.style.opacity = 0;
-        DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f);
-        el.OnFinishedPrinting += () =>
-        {
-            DOTween.To(x => el.style.opacity = x, 0, 1, 0.5f)
-                    .OnComplete(() =>
-                    {
-                        BattleManager.Instance.Root.Remove(el);
-                    });
-        };
-        */
-    }
-
-    void AddHeroCard()
-    {
-        /* HERE: disable hero stats
-        HeroCardExp card = new(_gameManager.PlayerHero);
-        _content.Add(card);
-        card.style.opacity = 0;
-        DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
-            .SetUpdate(true)
-            .OnComplete(card.LeveledUp);
-
-        card.OnPointAdded += () =>
-        {
-            DOTween.To(x => _rewardTooltip.style.opacity = x, 1, 0, 0.5f)
-                .SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    _rewardTooltip.text = "Choose reward:";
-                    DOTween.To(x => _rewardTooltip.style.opacity = x, 0, 1, 0.5f).SetUpdate(true);
-                });
-            RunCardShow();
-        };
-    */
-
-        HeroCardStats card = new(_gameManager.PlayerHero);
-        _content.Add(card);
-        card.style.opacity = 0;
-
-        DOTween.To(x => card.style.opacity = x, 0, 1, 0.5f)
-            .SetUpdate(true)
-            .OnComplete(() =>
-            {
-                _gameManager.PlayerHero.LevelUp();
-                RunCardShow();
-            });
     }
 
     void AddRewardContainer()
@@ -199,9 +127,6 @@ public class BattleRewardElement : FullScreenElement
             }
         }).StartingIn(10);
 
-        // tutorial
-        if (_gameManager.PlayerHero.Level.Value == 1) return;
-
         _rerollButton.style.visibility = Visibility.Visible;
         DOTween.To(x => _rerollButton.style.opacity = x, 0, 1, 0.5f)
             .SetDelay(0.5f)
@@ -233,14 +158,6 @@ public class BattleRewardElement : FullScreenElement
 
     void CreateRewardCards()
     {
-        // // HERE: Tutorial - forcing a specific reward
-        // if (_gameManager.PlayerHero.Level.Value == 2)
-        // {
-        //     for (int i = 0; i < _numberOfRewards; i++)
-        //         _allRewardCards.Add(CreateRewardCardAbility());
-        //     return;
-        // }
-
         _allRewardCards.Clear();
         _allRewardCards.Add(CreateRewardCardHeroStat());
         _allRewardCards.Add(CreateRewardCardAbility());
@@ -341,9 +258,6 @@ public class BattleRewardElement : FullScreenElement
 
     public override void Hide()
     {
-        if (_gameManager.PlayerHero.Level.Value == 2)
-            LevelOneClosedShow();
-
         base.Hide();
     }
 }

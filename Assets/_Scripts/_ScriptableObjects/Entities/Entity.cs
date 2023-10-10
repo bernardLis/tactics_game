@@ -161,20 +161,20 @@ public class Entity : BaseScriptableObject
     }
 
     /* SERIALIZATION */
-    public EntityBaseData SerializeSelf()
+    public EntityData SerializeSelf()
     {
         // TODO: to be implemented
 
-        return new EntityBaseData();
+        return new EntityData();
     }
 
-    public void LoadFromData(EntityBaseData data)
+    public void LoadFromData(EntityData data)
     {
     }
 }
 
 [Serializable]
-public struct EntityBaseData
+public struct EntityData
 {
     public string Name;
 

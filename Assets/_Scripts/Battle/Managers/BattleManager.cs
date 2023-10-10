@@ -26,7 +26,6 @@ public class BattleManager : Singleton<BattleManager>
     VisualElement _infoPanel;
     Label _timerLabel;
 
-
     public Transform EntityHolder;
 
     public bool IsTimerOn { get; private set; }
@@ -46,7 +45,6 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator _timerCoroutine;
     int _battleTime;
-    bool _isPlayingForever;
 
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
@@ -156,8 +154,6 @@ public class BattleManager : Singleton<BattleManager>
             int seconds = Mathf.FloorToInt(_battleTime - minutes * 60);
 
             _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            if (_battleTime >= _gameManager.CurrentBattle.Duration && !_isPlayingForever)
-                StartCoroutine(BattleWon());
             yield return new WaitForSeconds(1f);
         }
     }
@@ -258,7 +254,6 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator BattleWon()
     {
         BattleWonScreen wonScreen = new();
-        wonScreen.OnContinuePlaying += () => _isPlayingForever = true;
         wonScreen.OnFinishedPlaying += () => StartCoroutine(FinalizeBattle());
         yield return null;
     }

@@ -41,7 +41,7 @@ public class EntityMovement : Entity
 [Serializable]
 public struct EntityMovementData
 {
-    public EntityBaseData EntityBaseData;
+    public EntityData EntityBaseData;
 
     public int Speed;
 }
