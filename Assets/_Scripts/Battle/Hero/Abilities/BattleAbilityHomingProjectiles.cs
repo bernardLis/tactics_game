@@ -9,7 +9,7 @@ public class BattleAbilityHomingProjectiles : BattleAbility
     public override void Initialize(Ability ability)
     {
         base.Initialize(ability);
-        transform.localPosition = new Vector3(0, 1f, 0.5f);
+        transform.localPosition = new Vector3(0, 1.6f, 0f);
     }
 
     protected override IEnumerator FireAbilityCoroutine()

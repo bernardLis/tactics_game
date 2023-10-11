@@ -5,7 +5,6 @@ public class AbilityButton : ElementWithSound
 {
     AbilityIcon _icon;
 
-    public string Key;
     public Ability Ability;
 
     const string _ussCommonTextPrimary = "common__text-primary";
@@ -19,7 +18,7 @@ public class AbilityButton : ElementWithSound
 
     public bool IsOnCooldown { get; private set; }
 
-    public AbilityButton(Ability ability, string key = null) : base()
+    public AbilityButton(Ability ability) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -30,18 +29,20 @@ public class AbilityButton : ElementWithSound
 
         Ability = ability;
         Ability.OnCooldownStarted += StartCooldown;
-        Key = key;
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussCommonButtonBasic);
 
-        _icon = new AbilityIcon(ability, key);
+        _icon = new AbilityIcon(ability);
         Add(_icon);
+
+        Debug.Log($"Ability button initialized");
     }
 
     void StartCooldown()
     {
+        Debug.Log($"start cooldown in ability button");
         IsOnCooldown = true;
 
         _icon.style.opacity = 0.5f;

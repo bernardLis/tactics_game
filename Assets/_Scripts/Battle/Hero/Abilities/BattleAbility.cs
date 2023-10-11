@@ -19,11 +19,12 @@ public class BattleAbility : MonoBehaviour
 
     IEnumerator RunAbilityCoroutine()
     {
+        yield return new WaitForSeconds(0.1f); // time to initialize button
         while (true)
         {
             _fireAbilityCoroutine = FireAbilityCoroutine();
             StartCoroutine(_fireAbilityCoroutine);
-            
+
             _ability.StartCooldown();
             yield return new WaitForSeconds(_ability.GetCooldown());
         }
