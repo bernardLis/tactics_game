@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Attack Cooldown
   m_EditorClassIdentifier: 
   Id: 0156f547-c316-4fda-bc17-0b6941e832f5
-  StatType: 6
+  StatType: 5
   Icon: {fileID: 0}
+  Description: 
   BaseValue: 3
   BonusValue: 0
   IsDecreasingPerLevel: 1

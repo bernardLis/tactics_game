@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   Id: ff5e235d-f5de-4fba-9367-53795925b11f
-  StatType: 4
+  StatType: 3
   Icon: {fileID: 0}
   Description: 
   BaseValue: 5

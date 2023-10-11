@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Armor
   m_EditorClassIdentifier: 
   Id: 4ea7378f-1a52-48a7-ab04-e1697291097d
-  StatType: 3
+  StatType: 2
   Icon: {fileID: 0}
+  Description: 
   BaseValue: 0
   BonusValue: 0
+  IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 0, y: 0}
   MaxMinValue: {x: 0, y: 10}

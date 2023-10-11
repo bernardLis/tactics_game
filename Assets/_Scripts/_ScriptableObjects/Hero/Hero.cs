@@ -130,9 +130,20 @@ public class Hero : EntityMovement
     {
         Level = CreateInstance<IntVariable>();
         MaxHealth = CreateInstance<Stat>();
+        MaxHealth.StatType = StatType.Health;
+        MaxHealth.Initialize();
+
         Armor = CreateInstance<Stat>();
+        Armor.StatType = StatType.Armor;
+        Armor.Initialize();
+
         Speed = CreateInstance<Stat>();
+        Speed.StatType = StatType.Speed;
+        Speed.Initialize();
+
         Pull = CreateInstance<Stat>();
+        Pull.StatType = StatType.Pull;
+        Pull.Initialize();
 
         Level.SetValue(1);
         MaxHealth.SetBaseValue(100);
@@ -140,7 +151,6 @@ public class Hero : EntityMovement
         Speed.SetBaseValue(3);
         Pull.SetBaseValue(7);
     }
-
 
     /* SERIALIZATION */
     new public HeroData SerializeSelf()
@@ -163,7 +173,6 @@ public class Hero : EntityMovement
 
         return data;
     }
-
 
     public void LoadFromData(HeroData data)
     {

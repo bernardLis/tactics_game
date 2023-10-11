@@ -120,6 +120,14 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.common__vertical-spacer {
+    height: 100%;
+    width: 20px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+
 .vfx {
     background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
     position: absolute;

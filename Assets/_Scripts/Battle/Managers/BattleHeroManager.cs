@@ -8,6 +8,7 @@ using Cinemachine;
 public class BattleHeroManager : MonoBehaviour
 {
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonVerticalSpacer = "common__vertical-spacer";
 
     VisualElement _root;
     VisualElement _bottomPanel;
@@ -82,7 +83,7 @@ public class BattleHeroManager : MonoBehaviour
             _abilityButtons.Add(abilityIcon);
             container.Add(abilityIcon);
         };
-        
+
         Hero.OnAbilityRemoved += (Ability removedAbility) =>
         {
             foreach (AbilityButton button in _abilityButtons)
@@ -93,18 +94,20 @@ public class BattleHeroManager : MonoBehaviour
 
     void HandleHeroStatIcons()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        _heroInfoContainer.Add(container);
+        VisualElement rowContainer = new();
+        rowContainer.style.flexDirection = FlexDirection.Row;
+        rowContainer.style.alignItems = Align.Center;
+        rowContainer.style.backgroundColor = new Color(0, 0, 0, 0.5f);
+        _heroInfoContainer.Add(rowContainer);
 
-        Label a = new("ASD 15");
-        Label b = new("ASD 15");
-        Label c = new("ASD 15");
-        Label d = new("ASD 15");
+        StatElement maxHealth = new(Hero.MaxHealth);
+        StatElement armor = new(Hero.Armor);
+        StatElement speed = new(Hero.Speed);
+        StatElement pull = new(Hero.Pull);
 
-        container.Add(a);
-        container.Add(b);
-        container.Add(c);
-        container.Add(d);
+        rowContainer.Add(maxHealth);
+        rowContainer.Add(armor);
+        rowContainer.Add(speed);
+        rowContainer.Add(pull);
     }
 }
