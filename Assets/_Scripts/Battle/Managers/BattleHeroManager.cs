@@ -14,6 +14,7 @@ public class BattleHeroManager : MonoBehaviour
     VisualElement _heroInfoContainer;
     ResourceBarElement _expBar;
     Label _levelLabel;
+    List<AbilityButton> _abilityButtons = new();
 
     public BattleHero BattleHero;
     public Hero Hero { get; private set; }
@@ -78,9 +79,16 @@ public class BattleHeroManager : MonoBehaviour
         Hero.OnAbilityAdded += (Ability a) =>
         {
             AbilityButton abilityIcon = new(a);
+            _abilityButtons.Add(abilityIcon);
             container.Add(abilityIcon);
         };
-        // HERE: On Ability Removed
+        
+        Hero.OnAbilityRemoved += (Ability removedAbility) =>
+        {
+            foreach (AbilityButton button in _abilityButtons)
+                if (button.Ability == removedAbility)
+                    container.Remove(button);
+        };
     }
 
     void HandleHeroStatIcons()
