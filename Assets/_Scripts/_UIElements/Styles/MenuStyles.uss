@@ -1,6 +1,7 @@
 .menu__container {
     width: 100%;
     height: 100%;
+    padding-top: 30px;
     justify-content: center;
     align-items: center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Main_bar_hori.png?fileID=2800000&guid=455b4694deb662245b4cbfaee5e6c318&type=3#Main_bar_hori');
@@ -9,7 +10,8 @@
 
 .menu__button-container {
     width: 100%;
-    height: 70%;
+    flex-grow: 1;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
 }

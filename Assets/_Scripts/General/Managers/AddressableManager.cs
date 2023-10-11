@@ -69,6 +69,7 @@ public enum StyleSheetType
     OpponentGroupMarkerStyles, OpponentPortalCardStyles,
     BattleStatsStyles, BattleLivesStyles, BattleInfoStyles,
     TextPrintingStyles,
+    HeroBattleStyles,
 
 
 }

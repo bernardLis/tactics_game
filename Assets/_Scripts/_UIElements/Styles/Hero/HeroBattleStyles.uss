@@ -1,0 +1,15 @@
+.hero-battle__main {
+    width: 100%;
+}
+
+.hero-battle__info-container {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hero-battle__stat-container {
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
