@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Cutscene/Cutscene Line")]
 public class CutsceneLine : BaseScriptableObject
 {
-    public CutsceneSpeaker Speaker;
     [TextArea(2, 5)]
     [SerializeField] string Text;
     [HideInInspector] public string ParsedText;
@@ -16,8 +15,6 @@ public class CutsceneLine : BaseScriptableObject
 
     public void Initialize()
     {
-        Speaker.Initialize();
-
         GameManager gm = GameManager.Instance;
         string p = Text;
         if (gm.PlayerHero != null)

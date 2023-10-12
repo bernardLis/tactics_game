@@ -22,21 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 30cb1d7da388bcd46bd5f2295479366d
-    m_Address: CharacterPortraitStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0775735fdeffaf543964a3806de2cc2f
-    m_Address: CharacterCardStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6592743390324724eba0b66a33b0dc93
-    m_Address: CharacterCardMiniStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fd3c461a5e9409b40a91dec9c08cf28a
     m_Address: ResourceBarStyles
     m_ReadOnly: 0
@@ -54,11 +39,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 73a23192c66321b49874edb0a26a5d1b
     m_Address: AbilityIconStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b1acffc56042b4b42913969a21594f22
-    m_Address: AbilitySlotStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -107,11 +87,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5fd606b68fb97d846a0f816344bc5b12
-    m_Address: HeroCardElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cfbdbbe13acd1e0478727ccd5ed27b2b
     m_Address: BattleEntityElementStyles
     m_ReadOnly: 0
@@ -132,11 +107,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4b3a7778407648c41ad4f6cbd288265d
-    m_Address: ElementChoiceStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2011cd210d470a14298a10c23ccd0898
     m_Address: BattleEntityInfoStyles
     m_ReadOnly: 0
@@ -149,11 +119,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c446088f6798ec240a9e067ccd097b3b
     m_Address: EntityAbilityTooltipStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d73a8a21573b1ed44bce80194d7bda1d
-    m_Address: CutsceneStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

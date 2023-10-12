@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 2154333484900981486}
   - component: {fileID: 3609328160265785649}
   - component: {fileID: 5229503471192617615}
-  - component: {fileID: 4186435637351100778}
   - component: {fileID: 9006272408855850639}
   m_Layer: 0
   m_Name: Game Manager
@@ -223,18 +222,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 30cb1d7da388bcd46bd5f2295479366d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 0775735fdeffaf543964a3806de2cc2f
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 6592743390324724eba0b66a33b0dc93
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: fd3c461a5e9409b40a91dec9c08cf28a
     m_SubObjectName: 
     m_SubObjectType: 
@@ -248,10 +235,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: 73a23192c66321b49874edb0a26a5d1b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: b1acffc56042b4b42913969a21594f22
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -291,10 +274,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 5fd606b68fb97d846a0f816344bc5b12
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: cfbdbbe13acd1e0478727ccd5ed27b2b
     m_SubObjectName: 
     m_SubObjectType: 
@@ -320,14 +299,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: c446088f6798ec240a9e067ccd097b3b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: d73a8a21573b1ed44bce80194d7bda1d
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 4b3a7778407648c41ad4f6cbd288265d
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -514,20 +485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effects:
   - {fileID: 11400000, guid: 86ffa90ab0f2e2e4b8d64201fda01861, type: 2}
---- !u!114 &4186435637351100778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154333484900981485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91caef7e4f809074088551b773ae93ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cutscenes:
-  - {fileID: 11400000, guid: b6ba1b2aaec323840a2d9b026de37025, type: 2}
 --- !u!114 &9006272408855850639
 MonoBehaviour:
   m_ObjectHideFlags: 0

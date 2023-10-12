@@ -36,8 +36,7 @@ public class BattleEntityTestManager : MonoBehaviour
         _battleManager.BlockBattleEnd = true;
 
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateFromHeroCreation("asd", _gameManager.EntityDatabase.GetRandomPortraitFemale(),
-                 _gameManager.EntityDatabase.GetRandomElement());
+        newChar.CreateFromHeroCreation("asd", _gameManager.EntityDatabase.GetRandomElement());
         _gameManager.PlayerHero = newChar;
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();

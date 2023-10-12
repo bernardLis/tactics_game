@@ -9,8 +9,6 @@ public class Hero : EntityMovement
 {
     GameManager _gameManager;
 
-    public HeroPortrait Portrait;
-
     public Stat Pull;
 
     public override void InitializeBattle(int team)
@@ -70,41 +68,19 @@ public class Hero : EntityMovement
     {
         Ability instance = Instantiate(ability);
         Abilities.Add(instance);
-        UpdateRank();
         OnAbilityAdded?.Invoke(instance);
     }
 
     public void RemoveAbility(Ability ability)
     {
         Abilities.Remove(ability);
-        UpdateRank();
         OnAbilityRemoved?.Invoke(ability);
     }
 
-    /* HERO RANK */
-    public HeroRank Rank { get; private set; }
-    public event Action<HeroRank> OnRankChanged;
-
-    public void UpdateRank()
-    {
-        int points = CountRankPoints();
-        HeroRank newRank = _gameManager.EntityDatabase.GetRankByPoints(points);
-        if (newRank == Rank)
-            return;
-
-        Rank = newRank;
-        OnRankChanged?.Invoke(Rank);
-    }
-
-    public int CountRankPoints()
-    {
-        int total = Level.Value;
-        return total;
-    }
 
     /* HERO CREATION */
 
-    public void CreateFromHeroCreation(string heroName, HeroPortrait portrait, Element element)
+    public void CreateFromHeroCreation(string heroName, Element element)
     {
         _gameManager = GameManager.Instance;
 
@@ -112,14 +88,11 @@ public class Hero : EntityMovement
         name = heroName;
 
         EntityName = heroName;
-        Portrait = portrait;
         Element = element;
 
         CreateBaseStats();
 
         Abilities = new();
-
-        UpdateRank();
 
         CreatureArmy = new();
         Creature c = Instantiate(_gameManager.EntityDatabase.GetStartingArmy(element).Creatures[0]);
@@ -158,8 +131,6 @@ public class Hero : EntityMovement
         HeroData data = new()
         {
             EntityMovementData = base.SerializeSelf(),
-
-            Portrait = Portrait.Id,
         };
 
         List<AbilityData> abilityData = new();
@@ -180,7 +151,6 @@ public class Hero : EntityMovement
         EntityDatabase heroDatabase = _gameManager.EntityDatabase;
 
         Id = data.Id;
-        Portrait = heroDatabase.GetPortraitById(data.Portrait);
 
         CreateBaseStats();
         LoadFromData(data.EntityMovementData);
@@ -202,8 +172,6 @@ public class Hero : EntityMovement
             c.LoadFromData(d);
             CreatureArmy.Add(c);
         }
-
-        UpdateRank();
     }
 
 }
@@ -213,7 +181,6 @@ public struct HeroData
 {
     public EntityMovementData EntityMovementData;
     public string Id;
-    public string Portrait;
 
     public List<AbilityData> AbilityData;
 
