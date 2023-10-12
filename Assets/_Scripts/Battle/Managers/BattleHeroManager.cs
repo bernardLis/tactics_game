@@ -11,7 +11,10 @@ public class BattleHeroManager : MonoBehaviour
     VisualElement _bottomPanel;
     HeroBattleElement _heroBattleElement;
 
-    public BattleHero BattleHero;
+    [SerializeField] AudioListener _placeholderAudioListener;
+
+    [SerializeField] GameObject _heroPrefab;
+    [HideInInspector] public BattleHero BattleHero;
     public Hero Hero { get; private set; }
     public void Initialize(Hero hero)
     {
@@ -22,6 +25,9 @@ public class BattleHeroManager : MonoBehaviour
         hero.InitializeBattle(0);
         hero.OnLevelUp += OnHeroLevelUp;
 
+        BattleHero = Instantiate(_heroPrefab, Vector3.zero, Quaternion.identity)
+                .GetComponent<BattleHero>();
+        _placeholderAudioListener.enabled = false;
         BattleHero.InitializeEntity(hero);
 
         _heroBattleElement = new(hero);

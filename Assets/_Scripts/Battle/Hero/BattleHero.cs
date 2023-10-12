@@ -17,7 +17,7 @@ public class BattleHero : BattleEntity
     {
         base.InitializeEntity(entity);
         _agent.enabled = true;
-        
+
         Hero = (Hero)entity;
         Team = 0;
 
@@ -30,6 +30,8 @@ public class BattleHero : BattleEntity
 
         _battleHeroHealthBar = GetComponentInChildren<BattleHeroHealthBar>();
         _battleHeroHealthBar.Initialize(Hero);
+
+        Animator.enabled = true;
     }
 
     void OnDestroy()

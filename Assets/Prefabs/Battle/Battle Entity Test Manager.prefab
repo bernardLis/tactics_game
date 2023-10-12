@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7145388959955883547}
-  - component: {fileID: 5553388727352441539}
   - component: {fileID: 2803711837821305799}
+  - component: {fileID: 5553388727352441539}
   m_Layer: 0
   m_Name: Battle Entity Test Manager
   m_TagString: Untagged
@@ -33,6 +33,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2803711837821305799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808751737114936783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 06f358e92b9b4814d85fb22048c7a5ca, type: 3}
+  m_SortingOrder: 0
 --- !u!114 &5553388727352441539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,19 +80,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
   - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
   - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
---- !u!114 &2803711837821305799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 808751737114936783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 9a27b15c0df67394caaa469e635a50b3, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 06f358e92b9b4814d85fb22048c7a5ca, type: 3}
-  m_SortingOrder: 0

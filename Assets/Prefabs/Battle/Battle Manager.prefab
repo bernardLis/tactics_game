@@ -15,12 +15,13 @@ GameObject:
   - component: {fileID: 1771743886305221010}
   - component: {fileID: 4066842339892764640}
   - component: {fileID: 3686241382488041892}
-  - component: {fileID: 3849849297139869466}
   - component: {fileID: 9037198521051735104}
   - component: {fileID: 8300005922033865725}
   - component: {fileID: 4810545558572652240}
   - component: {fileID: 7161087863036619992}
   - component: {fileID: 1226316387709054792}
+  - component: {fileID: 1803897707696964957}
+  - component: {fileID: 1813988017654575525}
   m_Layer: 0
   m_Name: Battle Manager
   m_TagString: Untagged
@@ -86,12 +87,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41fecc272b4585543bfd21746d4d2eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+  _placeholderAudioListener: {fileID: 1813988017654575525}
+  _heroPrefab: {fileID: 5632361364057405493, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
   BattleHero: {fileID: 0}
 --- !u!114 &1771743886305221010
 MonoBehaviour:
@@ -128,18 +130,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 814c1792bbb473e46a1d8ca54e6d6317, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3849849297139869466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2685ec49db263d46ac8cad404de18bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &9037198521051735104
@@ -207,3 +197,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2e39581c866834d8f11fda31ae946a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1803897707696964957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef96c7dc29573348920862407aec0ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+--- !u!81 &1813988017654575525
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1

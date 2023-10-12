@@ -121,7 +121,7 @@ public class Hero : EntityMovement
         Level.SetValue(1);
         MaxHealth.SetBaseValue(100);
         Armor.SetBaseValue(0);
-        Speed.SetBaseValue(3);
+        Speed.SetBaseValue(7);
         Pull.SetBaseValue(7);
     }
 

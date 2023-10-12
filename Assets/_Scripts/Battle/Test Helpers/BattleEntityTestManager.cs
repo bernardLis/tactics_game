@@ -11,6 +11,7 @@ public class BattleEntityTestManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
+    BattleAreaManager _battleAreaManager;
 
     VisualElement _root;
     VisualElement _buttonContainer;
@@ -34,6 +35,7 @@ public class BattleEntityTestManager : MonoBehaviour
 
         _battleManager = BattleManager.Instance;
         _battleManager.BlockBattleEnd = true;
+        _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
         newChar.CreateFromHeroCreation("asd", _gameManager.EntityDatabase.GetRandomElement());
@@ -49,7 +51,12 @@ public class BattleEntityTestManager : MonoBehaviour
     IEnumerator LateInitialize(Hero h)
     {
         yield return new WaitForSeconds(0.5f);
+        _battleAreaManager.Initialize();
+
+        yield return new WaitForSeconds(0.5f);
+
         _battleManager.Initialize(h);
+
         _battleManager.GetComponent<BattleGrabManager>().Initialize();
 
         AddButtons();
