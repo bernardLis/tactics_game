@@ -7,7 +7,7 @@ public class BattleAreaManager : MonoBehaviour
     [SerializeField] GameObject _tilePrefab;
     Vector2 _areaSize = new Vector2(5, 5); // has to be even for now
 
-    List<GameObject> _tiles = new List<GameObject>();
+    List<BattleLandTile> _tiles = new List<BattleLandTile>();
 
     // Start is called before the first frame update
     public void Initialize()
@@ -27,13 +27,47 @@ public class BattleAreaManager : MonoBehaviour
                 float posZ = y * _tilePrefab.transform.localScale.z * 10; // TODO: idk why * 10...
                 Vector3 pos = new Vector3(posX, 0, posZ);
                 GameObject tile = Instantiate(_tilePrefab, pos, Quaternion.identity);
-                _tiles.Add(tile);
+                _tiles.Add(tile.GetComponent<BattleLandTile>());
                 tile.transform.SetParent(transform);
 
                 if (pos == Vector3.zero) continue;
                 tile.SetActive(false);
             }
         }
-        
     }
+
+    // TODO: there must be a smarter way to get adjacent tiles
+    public List<BattleLandTile> GetAdjacentTiles(BattleLandTile tile)
+    {
+        float tileScale = tile.transform.localScale.x * 10;
+        List<BattleLandTile> adjacentTiles = new List<BattleLandTile>();
+        Vector3 tilePos = tile.transform.position;
+        foreach (BattleLandTile t in _tiles)
+        {
+            if (t.transform.position == tilePos) continue;
+
+            if (t.transform.position.x == tilePos.x)
+            {
+                if (t.transform.position.z == tilePos.z + tileScale ||
+                    t.transform.position.z == tilePos.z - tileScale)
+                {
+                    adjacentTiles.Add(t);
+                }
+            }
+            else if (t.transform.position.z == tilePos.z)
+            {
+                if (t.transform.position.x == tilePos.x + tileScale ||
+                    t.transform.position.x == tilePos.x - tileScale)
+                {
+                    adjacentTiles.Add(t);
+                }
+            }
+        }
+
+        Debug.Log($"adjacentTiles {adjacentTiles.Count}");
+
+        return adjacentTiles;
+    }
+
+
 }
