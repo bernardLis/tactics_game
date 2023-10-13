@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BattleAreaManager : MonoBehaviour
 {
     [SerializeField] GameObject _tilePrefab;
-    Vector2 _areaSize = new Vector2(5, 5); // has to be even for now
+    Vector2 _areaSize = new Vector2(5, 5);
 
+    BattleLandTile _homeTile;
     List<BattleLandTile> _tiles = new List<BattleLandTile>();
 
-    // Start is called before the first frame update
     public void Initialize()
     {
         CreateArea();
@@ -30,11 +32,16 @@ public class BattleAreaManager : MonoBehaviour
                 _tiles.Add(tile.GetComponent<BattleLandTile>());
                 tile.transform.SetParent(transform);
 
-                if (pos == Vector3.zero) continue;
                 tile.SetActive(false);
+
+                if (pos == Vector3.zero)
+                    _homeTile = tile.GetComponent<BattleLandTile>();
             }
         }
+
+        _homeTile.EnableTile();
     }
+
 
     // TODO: there must be a smarter way to get adjacent tiles
     public List<BattleLandTile> GetAdjacentTiles(BattleLandTile tile)
@@ -63,11 +70,6 @@ public class BattleAreaManager : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log($"adjacentTiles {adjacentTiles.Count}");
-
         return adjacentTiles;
     }
-
-
 }

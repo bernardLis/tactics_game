@@ -251,9 +251,21 @@ PrefabInstance:
       propertyPath: _cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 1476269811}
+    - target: {fileID: 5407848919813673418, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0072231293
+      objectReference: {fileID: 0}
     - target: {fileID: 5632361364057405493, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893124552047115077, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00077819824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993453378913209609, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01031208
       objectReference: {fileID: 0}
     - target: {fileID: 8272579967263195434, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
       propertyPath: m_LocalPosition.x
@@ -661,7 +673,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
 --- !u!4 &1476269810 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7496674274679555548, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
+  m_CorrespondingSourceObject: {fileID: 136623475008264574, guid: 06006062675b7b441aee8fe6009dbacd, type: 3}
   m_PrefabInstance: {fileID: 1476269809}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1476269811 stripped
