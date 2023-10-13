@@ -138,7 +138,7 @@ Material:
     - _NoiseTiling: {r: 1, g: 1, b: 0, a: 0}
     - _NoisespeedUV: {r: 0, g: 1, b: 0, a: 0}
     - _SpeedMainTexUVNoiseUV: {r: 0.1, g: 1, b: 0, a: 0}
-    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0.6, b: 0, a: 0}
+    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0.2, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5477655572876712498

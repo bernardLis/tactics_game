@@ -86,7 +86,9 @@ public class BattleLandTile : MonoBehaviour
                                 * transform.localScale.x * 10 * 0.5f; // magic 10
             Vector3 borderRotation = Vector3.zero;
             Vector3 borderScale = new Vector3(0.2f, 1f, 10f); // magic 10
-            if (directionToTile.z != 0) borderRotation = new Vector3(0f, 90f, 0f);
+            if (directionToTile.z > 0) borderRotation = new Vector3(0f, 90f, 0f);
+            if (directionToTile.x > 0) borderRotation = new Vector3(0f, 180f, 0f); // for the effect to stack nicely...
+            if (directionToTile.z < 0) borderRotation = new Vector3(0f, 270f, 0f); // for the effect to stack nicely...
 
             GameObject border = Instantiate(_borderPrefab,
                                     borderPosition,

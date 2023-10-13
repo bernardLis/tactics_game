@@ -117,7 +117,7 @@ Material:
     - _BumpScale: 1
     - _CullMode: 0
     - _Cutoff: 0.5
-    - _Depthpower: 1
+    - _Depthpower: 4.28
     - _DetailNormalMapScale: 1
     - _Distortionpower: 0.02
     - _DstBlend: 0
@@ -128,7 +128,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opacity: 1
+    - _Opacity: 4
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -137,7 +137,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _Usecenterglow: 0
-    - _Usedepth: 0
+    - _Usedepth: 1
     - __dirty: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
