@@ -6,9 +6,7 @@ using Random = UnityEngine.Random;
 
 public class BattleWave : BaseScriptableObject
 {
-    public Element Element;
     public int Difficulty;
-    public float StartTime;
     public bool IsStarted;
     public float LastGroupSpawnTime;
 
@@ -17,11 +15,9 @@ public class BattleWave : BaseScriptableObject
     public float DelayBetweenGroups;
 
     public event Action OnGroupSpawned;
-    public void CreateWave(Element element, int difficulty, float startTime)
+    public void CreateWave(int difficulty)
     {
-        Element = element;
         Difficulty = difficulty;
-        StartTime = startTime;
         /*
         params that I can use:
         - number of minions
@@ -33,7 +29,7 @@ public class BattleWave : BaseScriptableObject
         // TODO: math for wave difficulty
 
         DelayBetweenGroups = Random.Range(10, 20);
-        int numberOfGroups = Random.Range(4, 7);
+        int numberOfGroups = Random.Range(1, 3);
         for (int i = 0; i < numberOfGroups; i++)
         {
             int numberOfMinions = 2 + Mathf.FloorToInt(difficulty * i * 1.1f);
@@ -43,9 +39,14 @@ public class BattleWave : BaseScriptableObject
             Vector2Int creatureLevelRange = new Vector2Int(1, 2);
 
             OpponentGroup group = CreateInstance<OpponentGroup>();
-            group.CreateGroup(Element, numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
+            group.CreateGroup(numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
             OpponentGroups.Add(group);
         }
+    }
+
+    public bool IsFinished()
+    {
+        return CurrentGroupIndex >= OpponentGroups.Count;
     }
 
     int GetNumberOfCreatures(int i, int numberOfGroups, int difficulty)
@@ -56,11 +57,6 @@ public class BattleWave : BaseScriptableObject
 
         if (difficulty == 2 || difficulty == 3 || difficulty == 4 || difficulty == 5) return 1;
         return 2;
-    }
-
-    public float GetPlannedEndTime()
-    {
-        return StartTime + DelayBetweenGroups * OpponentGroups.Count;
     }
 
     public void SpawningGroupFinished()

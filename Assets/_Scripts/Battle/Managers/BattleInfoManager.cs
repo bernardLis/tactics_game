@@ -46,39 +46,6 @@ public class BattleInfoManager : MonoBehaviour
         // AddSpiceElement();
 
         ResolveBattleModifiers();
-
-        AddActivePortalsElement();
-    }
-
-    void AddActivePortalsElement()
-    {
-        VisualElement container = new();
-        container.style.height = 45;
-        container.style.minWidth = 140;
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.alignItems = Align.Center;
-
-        _infoPanel.Add(container);
-
-        foreach (BattleOpponentPortal portal in BattleWaveManager.Instance.OpponentPortals)
-        {
-            VisualElement icon = new();
-            icon.style.width = 30;
-            icon.style.height = 30;
-            icon.style.marginLeft = 5;
-
-            portal.OnPortalOpened += (p) =>
-            {
-                icon.style.backgroundImage = new StyleBackground(p.Element.Icon);
-                container.Add(icon);
-            };
-
-            portal.OnPortalClosed += (p) =>
-            {
-                container.Remove(icon);
-            };
-        }
-
     }
 
     void AddGoldElement()

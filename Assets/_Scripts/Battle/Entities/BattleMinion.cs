@@ -46,8 +46,14 @@ public class BattleMinion : BattleEntity
         _agent.avoidancePriority = 0;
         Animator.SetBool("Move", false);
         _agent.enabled = false;
-
-        ReachedHero();
+        Debug.Log($"dist {Vector3.Distance(transform.position, _targetHero.transform.position)}");
+        if (Vector3.Distance(transform.position, _targetHero.transform.position) < 2f)
+            ReachedHero();
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return RunEntity();
+        }
     }
 
     void ReachedHero()

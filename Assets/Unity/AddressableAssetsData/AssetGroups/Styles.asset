@@ -167,11 +167,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2863cf82474d3a04eaa40996db0f600b
-    m_Address: OpponentPortalCardStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7b533c43a2f43134aa562b1314c74e86
     m_Address: Assets/_Scripts/_UIElements/Styles/BattleLostStyles.uss
     m_ReadOnly: 0

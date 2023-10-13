@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2032302593909863357}
   - component: {fileID: 3557915693885365277}
   m_Layer: 0
-  m_Name: Land Purchase Sign
+  m_Name: Tile Purchase Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

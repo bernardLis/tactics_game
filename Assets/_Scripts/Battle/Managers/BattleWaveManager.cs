@@ -5,120 +5,143 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
+using System.Threading;
 
 public class BattleWaveManager : Singleton<BattleWaveManager>
 {
     GameManager _gameManager;
     BattleManager _battleManager;
 
-    Battle _selectedBattle;
-
-    public List<BattleWave> Waves = new();
-
     public int CurrentDifficulty { get; private set; }
     public int CurrentWaveIndex { get; private set; }
 
-    public List<BattleOpponentPortal> OpponentPortals = new();
+    BattleLandTile _currentTile;
 
-    bool _isInitialized;
+    public List<BattleWave> Waves = new();
+    BattleWave _currentWave;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-
-        _selectedBattle = _gameManager.CurrentBattle;
-
-        if (BattleIntroManager.Instance != null)
-            BattleIntroManager.Instance.OnIntroFinished += Initialize;
-    }
-
-    public void AddPortal(BattleOpponentPortal portal)
-    {
-        if (OpponentPortals.Contains(portal)) return;
-        OpponentPortals.Add(portal);
-
-        portal.OnPortalClosed += HandleWaveSpawned;
-    }
-
-    void HandleWaveSpawned(BattleOpponentPortal portal)
-    {
-        // portal receives new wave right after the previous one is done
-        BattleWave bw = CreateWave(portal.Element);
-        portal.GetWave(bw);
-    }
-
-    public void Initialize()
-    {
-        if (_isInitialized) return;
-        _isInitialized = true;
-
-        Debug.Log($"Initializing battle wave manager");
-
-        if (OpponentPortals.Count == 0)
-            foreach (var item in FindObjectsOfType<BattleOpponentPortal>())
-                AddPortal(item);
+        _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
 
         CurrentDifficulty = 1;
+    }
+
+    public void InitializeWaves(BattleLandTile tile)
+    {
+        _currentTile = tile;
+        StartCoroutine(TileFightCoroutine());
+
+    }
+
+    IEnumerator TileFightCoroutine()
+    {
         CurrentWaveIndex = 0;
+        CreateWaves();
+        yield return StartWave();
 
-        // so, the first wave is always the opposite element of the player's element
-        Element firstElement = _gameManager.PlayerHero.Element.StrongAgainst;
-        CreateWave(firstElement);
-
-        Element lastElement = _gameManager.PlayerHero.Element.WeakAgainst;
-        List<Element> availableElements = new(_gameManager.EntityDatabase.GetAllElements());
-        availableElements.Remove(firstElement);
-        availableElements.Remove(lastElement);
-
-        foreach (Element el in availableElements)
-            CreateWave(el);
-
-        CreateWave(lastElement);
-
-        foreach (BattleWave wave in Waves)
-            foreach (BattleOpponentPortal portal in OpponentPortals)
-                if (portal.Element == wave.Element)
-                    portal.GetWave(wave);
+        // spawn opponent groups on tile edge
+        // on wave end
+        CurrentDifficulty++;
     }
 
-    BattleWave CreateWave(Element element)
+    void CreateWaves()
     {
-        BattleWave bw = ScriptableObject.CreateInstance<BattleWave>();
-        float startTime = GetWaveStartTime(element);
-        bw.CreateWave(element, CurrentDifficulty, startTime);
-
-        Waves.Add(bw);
-        CurrentWaveIndex++;
-        if (CurrentWaveIndex % 4 == 0)
-            CurrentDifficulty++;
-
-        return bw;
+        int wavesCount = 1;
+        for (int i = 0; i < wavesCount; i++)
+        {
+            BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
+            wave.CreateWave(CurrentDifficulty);
+            Waves.Add(wave);
+        }
     }
 
-    public float GetWaveStartTime(Element element)
+    IEnumerator Countdown(int seconds)
     {
-        if (CurrentWaveIndex == 0) return _battleManager.GetTime(); // first wave should spawn right away
-
-        // wave starts in the "middle" of the previous wave
-        BattleWave previousWave = Waves[CurrentWaveIndex - 1];
-        float waveSpawnFactor = 1f - CurrentWaveIndex * 0.08f; // how quickly waves spawn after each other
-        waveSpawnFactor = Mathf.Clamp(waveSpawnFactor, 0.1f, 1f);
-
-        float startTime = previousWave.StartTime
-                        + (previousWave.GetPlannedEndTime() - previousWave.StartTime)
-                        * waveSpawnFactor;
-
-        // the wave can't start before the previous one of the same element ends
-        for (int i = Waves.Count - 1; i >= 0; i--)
-            if (Waves[i].Element == element && Waves[i].GetPlannedEndTime() > startTime)
-            {
-                Debug.LogError($"Wave creation gone wrong, I should not be seeing this...");
-                return Waves[i].GetPlannedEndTime() + 5;
-            }
-
-        return startTime;
+        for (int i = seconds; i > 0; i--)
+        {
+            Debug.Log(i);
+            yield return new WaitForSeconds(1);
+        }
     }
 
+    IEnumerator StartWave()
+    {
+        yield return Countdown(3);
 
+        Debug.Log($"starting wave {CurrentWaveIndex}");
+
+        _currentWave = Waves[CurrentWaveIndex];
+        foreach (OpponentGroup g in _currentWave.OpponentGroups)
+        {
+            Debug.Log($"spawning group {g}");
+
+            StartCoroutine(SpawnOpponentGroup(g));
+            yield return new WaitForSeconds(_currentWave.DelayBetweenGroups);
+        }
+
+    }
+
+    void OnOpponentEntityDeath(BattleEntity _)
+    {
+        if (_battleManager.OpponentEntities.Count != 0) return;
+        if (!_currentWave.IsFinished()) return;
+
+        if (CurrentWaveIndex < Waves.Count - 1)
+        {
+            CurrentWaveIndex++;
+            StartCoroutine(StartWave());
+        }
+        else
+        {
+            Debug.Log("Tile secured");
+            _currentTile.Secured();
+        }
+
+    }
+
+    IEnumerator SpawnOpponentGroup(OpponentGroup group)
+    {
+        yield return SpawnMinions(group);
+        _currentWave.SpawningGroupFinished();
+    }
+
+    IEnumerator SpawnMinions(OpponentGroup group)
+    {
+        Debug.Log($"spawning minions {group.Minions.Count}");
+
+        float theta = 0;
+        float thetaStep = 2 * Mathf.PI / group.Minions.Count;
+        for (int i = 0; i < group.Minions.Count; i++)
+        {
+            Minion m = group.Minions[i];
+            m.InitializeBattle(1);
+
+            float radius = _currentTile.transform.localScale.x * 5 - 2; // magic 5
+            Vector3 center = _currentTile.transform.position;
+            float x = Mathf.Cos(theta) * radius + center.x;
+            float y = 1f;
+            float z = Mathf.Sin(theta) * radius + center.z;
+            Vector3 pos = new(x, y, z);
+            //pos (-4.00, 1.00, 0.00)
+            // want to spawn at 20
+            Debug.Log($"theta {theta}");
+            Debug.Log($"pos {pos}");
+
+            BattleEntity be = SpawnEntity(m, pos);
+            _battleManager.AddOpponentArmyEntity(be);
+            theta += thetaStep;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
+    {
+        GameObject instance = Instantiate(entity.Prefab, spawnPos, transform.localRotation);
+        BattleEntity be = instance.GetComponent<BattleEntity>();
+        be.InitializeEntity(entity);
+        return be;
+    }
 }
