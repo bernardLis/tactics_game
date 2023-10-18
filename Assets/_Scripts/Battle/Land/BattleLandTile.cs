@@ -19,7 +19,7 @@ public class BattleLandTile : MonoBehaviour
     public List<BattleLandPurchaseSign> _signs = new();
     public List<GameObject> _borders = new();
 
-    float _scale;
+    public float Scale { get; private set; }
 
     public event Action<BattleLandTile> OnEnabled;
 
@@ -29,7 +29,7 @@ public class BattleLandTile : MonoBehaviour
 
     public void Initialize(float scale)
     {
-        _scale = scale;
+        Scale = scale;
         MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
         _surface.transform.localScale = new Vector3(scale, 0.1f, scale);
         mr.material = _materials[Random.Range(0, _materials.Length)];
@@ -69,7 +69,7 @@ public class BattleLandTile : MonoBehaviour
             if (i == 2) directionToTile = Vector3.back;
             if (i == 3) directionToTile = Vector3.left;
 
-            Vector3 borderPosition = _scale * 0.5f * directionToTile;
+            Vector3 borderPosition = Scale * 0.5f * directionToTile;
 
             InstantiateBorder(borderPosition, new Color(1f, 0.22f, 0f, 0.2f));// magic color
         }
@@ -137,7 +137,7 @@ public class BattleLandTile : MonoBehaviour
             if (tile.gameObject.activeSelf) continue;
 
             Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
-            Vector3 borderPosition = _scale * 0.5f * directionToTile;
+            Vector3 borderPosition = Scale * 0.5f * directionToTile;
 
             InstantiateBorder(borderPosition, default);
         }
@@ -153,7 +153,7 @@ public class BattleLandTile : MonoBehaviour
         GameObject border = Instantiate(_borderPrefab, transform);
         border.transform.localPosition = borderPosition;
         border.transform.localEulerAngles = borderRotation;
-        Vector3 borderScale = new Vector3(0.05f, 2f, _scale);
+        Vector3 borderScale = new Vector3(0.05f, 2f, Scale);
         border.transform.localScale = borderScale;
 
         border.GetComponent<BattleLandBorder>().EnableBorder(color);

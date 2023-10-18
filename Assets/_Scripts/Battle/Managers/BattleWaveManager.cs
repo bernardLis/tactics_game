@@ -119,14 +119,12 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
             Minion m = group.Minions[i];
             m.InitializeBattle(1);
 
-            float radius = _currentTile.transform.localScale.x - 2; // TODO: magic number 2 is the border width
+            float radius = _currentTile.Scale * 0.5f - 1;
             Vector3 center = _currentTile.transform.position;
             float x = Mathf.Cos(theta) * radius + center.x;
             float y = 1f;
             float z = Mathf.Sin(theta) * radius + center.z;
             Vector3 pos = new(x, y, z);
-            Debug.Log($"theta {theta}");
-            Debug.Log($"pos {pos}");
 
             BattleEntity be = SpawnEntity(m, pos);
             _battleManager.AddOpponentArmyEntity(be);
