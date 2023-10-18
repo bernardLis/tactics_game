@@ -5,26 +5,26 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
-using System.Threading;
 
-public class BattleWaveManager : Singleton<BattleWaveManager>
+public class BattleFightManager : Singleton<BattleFightManager>
 {
     GameManager _gameManager;
     BattleManager _battleManager;
+    BattleTooltipManager _battleTooltipManager;
 
     public int CurrentDifficulty { get; private set; }
-    public int CurrentWaveIndex { get; private set; }
 
     BattleLandTile _currentTile;
 
-    public List<BattleWave> Waves = new();
-    BattleWave _currentWave;
+    public List<Fight> Fights = new();
+    Fight _currentFight;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
+        _battleTooltipManager = BattleTooltipManager.Instance;
 
         CurrentDifficulty = 1;
     }
@@ -33,53 +33,41 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
     {
         _currentTile = tile;
         StartCoroutine(TileFightCoroutine());
-
     }
 
     IEnumerator TileFightCoroutine()
     {
-        CurrentWaveIndex = 0;
-        CreateWaves();
-        yield return StartWave();
-
-        // spawn opponent groups on tile edge
-        // on wave end
+        CreateFight();
+        yield return StartFight();
         CurrentDifficulty++;
     }
 
-    void CreateWaves()
+    void CreateFight()
     {
-        int wavesCount = 1;
-        for (int i = 0; i < wavesCount; i++)
-        {
-            BattleWave wave = ScriptableObject.CreateInstance<BattleWave>();
-            wave.CreateWave(CurrentDifficulty);
-            Waves.Add(wave);
-        }
+        Fight fight = ScriptableObject.CreateInstance<Fight>();
+        fight.CreateFight(CurrentDifficulty);
+        _currentFight = fight;
+        Fights.Add(fight);
     }
 
     IEnumerator Countdown(int seconds)
     {
         for (int i = seconds; i > 0; i--)
         {
-            Debug.Log(i);
+            _battleTooltipManager.ShowInfo(i.ToString(), 0.8f);
             yield return new WaitForSeconds(1);
         }
     }
 
-    IEnumerator StartWave()
+    IEnumerator StartFight()
     {
         yield return Countdown(3);
 
-        Debug.Log($"starting wave {CurrentWaveIndex}");
-
-        _currentWave = Waves[CurrentWaveIndex];
-        foreach (OpponentGroup g in _currentWave.OpponentGroups)
+        foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
-            Debug.Log($"spawning group {g}");
-
-            StartCoroutine(SpawnOpponentGroup(g));
-            yield return new WaitForSeconds(_currentWave.DelayBetweenGroups);
+            _battleTooltipManager.ShowInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
+            StartCoroutine(SpawnOpponentGroup(wave));
+            yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
         }
 
     }
@@ -87,31 +75,20 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
     void OnOpponentEntityDeath(BattleEntity _)
     {
         if (_battleManager.OpponentEntities.Count != 0) return;
-        if (!_currentWave.IsFinished()) return;
+        if (!_currentFight.IsFinished()) return;
 
-        if (CurrentWaveIndex < Waves.Count - 1)
-        {
-            CurrentWaveIndex++;
-            StartCoroutine(StartWave());
-        }
-        else
-        {
-            Debug.Log("Tile secured");
-            _currentTile.Secured();
-        }
-
+        _battleTooltipManager.ShowInfo("Tile secured!", 1.5f);
+        _currentTile.Secured();
     }
 
-    IEnumerator SpawnOpponentGroup(OpponentGroup group)
+    IEnumerator SpawnOpponentGroup(EnemyWave group)
     {
         yield return SpawnMinions(group);
-        _currentWave.SpawningGroupFinished();
+        _currentFight.SpawningGroupFinished();
     }
 
-    IEnumerator SpawnMinions(OpponentGroup group)
+    IEnumerator SpawnMinions(EnemyWave group)
     {
-        Debug.Log($"spawning minions {group.Minions.Count}");
-
         float theta = 0;
         float thetaStep = 2 * Mathf.PI / group.Minions.Count;
         for (int i = 0; i < group.Minions.Count; i++)

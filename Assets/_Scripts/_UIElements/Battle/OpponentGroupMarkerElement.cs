@@ -10,8 +10,8 @@ public class OpponentGroupMarkerElement : ElementWithTooltip
     const string _ussClassName = "opponent-group-marker__";
     const string _ussMain = _ussClassName + "main";
 
-    OpponentGroup _opponentGroup;
-    public OpponentGroupMarkerElement(OpponentGroup opponentGroup)
+    EnemyWave _opponentGroup;
+    public OpponentGroupMarkerElement(EnemyWave opponentGroup)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.OpponentGroupMarkerStyles);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentGroup : BaseScriptableObject
+public class EnemyWave : BaseScriptableObject
 {
     public Sprite Icon;
     public Element Element;
@@ -10,7 +10,7 @@ public class OpponentGroup : BaseScriptableObject
     public List<Minion> Minions = new();
     public List<Creature> Creatures = new();
 
-    public void CreateGroup(
+    public void CreateWave(
             int minions, Vector2Int minionLevelRange,
             int creatures, Vector2Int creatureLevelRange)
     {

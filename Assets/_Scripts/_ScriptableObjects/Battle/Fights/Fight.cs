@@ -4,18 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BattleWave : BaseScriptableObject
+public class Fight : BaseScriptableObject
 {
     public int Difficulty;
-    public bool IsStarted;
-    public float LastGroupSpawnTime;
+    public float LastWaveSpawnTime;
 
-    public List<OpponentGroup> OpponentGroups = new();
-    public int CurrentGroupIndex;
-    public float DelayBetweenGroups;
+    public List<EnemyWave> EnemyWaves = new();
+    public int CurrentWaveIndex;
+    public float DelayBetweenWaves;
 
-    public event Action OnGroupSpawned;
-    public void CreateWave(int difficulty)
+    public event Action OnWaveSpawned;
+    public void CreateFight(int difficulty)
     {
         Difficulty = difficulty;
         /*
@@ -28,25 +27,25 @@ public class BattleWave : BaseScriptableObject
         */
         // TODO: math for wave difficulty
 
-        DelayBetweenGroups = Random.Range(10, 20);
-        int numberOfGroups = Random.Range(1, 3);
-        for (int i = 0; i < numberOfGroups; i++)
+        DelayBetweenWaves = Random.Range(10, 20);
+        int numberOfWaves = Random.Range(1, 3);
+        for (int i = 0; i < numberOfWaves; i++)
         {
             int numberOfMinions = 2 + Mathf.FloorToInt(difficulty * i * 1.1f);
             numberOfMinions = Mathf.Clamp(numberOfMinions, 2, 50);
-            int numberOfCreatures = GetNumberOfCreatures(i, numberOfGroups, difficulty);
+            int numberOfCreatures = GetNumberOfCreatures(i, numberOfWaves, difficulty);
             Vector2Int minionLevelRange = new Vector2Int(1, difficulty + 1);
             Vector2Int creatureLevelRange = new Vector2Int(1, 2);
 
-            OpponentGroup group = CreateInstance<OpponentGroup>();
-            group.CreateGroup(numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
-            OpponentGroups.Add(group);
+            EnemyWave wave = CreateInstance<EnemyWave>();
+            wave.CreateWave(numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
+            EnemyWaves.Add(wave);
         }
     }
 
     public bool IsFinished()
     {
-        return CurrentGroupIndex >= OpponentGroups.Count;
+        return CurrentWaveIndex >= EnemyWaves.Count;
     }
 
     int GetNumberOfCreatures(int i, int numberOfGroups, int difficulty)
@@ -61,13 +60,13 @@ public class BattleWave : BaseScriptableObject
 
     public void SpawningGroupFinished()
     {
-        CurrentGroupIndex++;
-        LastGroupSpawnTime = BattleManager.Instance.GetTime();
-        OnGroupSpawned?.Invoke();
+        CurrentWaveIndex++;
+        LastWaveSpawnTime = BattleManager.Instance.GetTime();
+        OnWaveSpawned?.Invoke();
     }
 
-    public OpponentGroup GetCurrentOpponentGroup()
+    public EnemyWave GetCurrentOpponentGroup()
     {
-        return OpponentGroups[CurrentGroupIndex];
+        return EnemyWaves[CurrentWaveIndex];
     }
 }

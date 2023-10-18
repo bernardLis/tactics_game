@@ -35,7 +35,7 @@ public class BattleMinion : BattleEntity
     {
         yield return PathToPosition(_targetHero.transform.position);
 
-        _agent.stoppingDistance = 1.5f;
+        _agent.stoppingDistance = 2f;
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
             _agent.SetDestination(_targetHero.transform.position);
@@ -46,14 +46,7 @@ public class BattleMinion : BattleEntity
         _agent.avoidancePriority = 0;
         Animator.SetBool("Move", false);
         _agent.enabled = false;
-        Debug.Log($"dist {Vector3.Distance(transform.position, _targetHero.transform.position)}");
-        if (Vector3.Distance(transform.position, _targetHero.transform.position) < 2f)
-            ReachedHero();
-        else
-        {
-            yield return new WaitForSeconds(0.5f);
-            yield return RunEntity();
-        }
+        ReachedHero();
     }
 
     void ReachedHero()

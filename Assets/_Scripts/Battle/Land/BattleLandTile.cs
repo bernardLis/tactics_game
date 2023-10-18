@@ -9,7 +9,7 @@ public class BattleLandTile : MonoBehaviour
 
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
-    BattleWaveManager _battleWaveManager;
+    BattleFightManager _battleWaveManager;
 
     [SerializeField] Material[] _materials;
     [SerializeField] GameObject _landPurchaseSignPrefab;
@@ -39,7 +39,7 @@ public class BattleLandTile : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-        _battleWaveManager = _battleManager.GetComponent<BattleWaveManager>();
+        _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
 
         gameObject.SetActive(true);
         HandleBorders();

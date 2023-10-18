@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class OpponentGroupCard : VisualElement
 {
-    public OpponentGroupCard(OpponentGroup opponentGroup)
+    public OpponentGroupCard(EnemyWave opponentGroup)
     {
         style.backgroundColor = new Color(0, 0, 0, 0.5f);
         Add(new Label($"Number of minions: {opponentGroup.Minions.Count}"));
