@@ -15,7 +15,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityCardFullStyles.uss?fileID=7433441132597879392&amp;guid=cea2238035ac76f46842572405990147&amp;type=3#EntityCardFullStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MenuStyles.uss?fileID=7433441132597879392&amp;guid=5e55454fed2ddfb4f90604f7fee33a32&amp;type=3#MenuStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/TimerElementStyles.uss?fileID=7433441132597879392&amp;guid=55a2dab2e6ce8254ca54368106c488d6&amp;type=3#TimerElementStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/OpponentGroupMarkerStyles.uss?fileID=7433441132597879392&amp;guid=4c835ca606f8bae4e876be95d207b2c5&amp;type=3#OpponentGroupMarkerStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleLostStyles.uss?fileID=7433441132597879392&amp;guid=7b533c43a2f43134aa562b1314c74e86&amp;type=3#BattleLostStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleWonStyles.uss?fileID=7433441132597879392&amp;guid=0bfa3127b4e60d746b46b36a26eb57ab&amp;type=3#BattleWonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss?fileID=7433441132597879392&amp;guid=7e08b85dd0f53b34f80b86917c0bf5f9&amp;type=3#BattleStatsStyles" />

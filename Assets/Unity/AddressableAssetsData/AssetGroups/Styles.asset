@@ -162,11 +162,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4c835ca606f8bae4e876be95d207b2c5
-    m_Address: OpponentGroupMarkerStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7b533c43a2f43134aa562b1314c74e86
     m_Address: Assets/_Scripts/_UIElements/Styles/BattleLostStyles.uss
     m_ReadOnly: 0
