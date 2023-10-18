@@ -7,6 +7,8 @@ using Cinemachine;
 
 public class BattleHeroManager : MonoBehaviour
 {
+    BattleAreaManager _battleAreaManager;
+
     VisualElement _root;
     VisualElement _bottomPanel;
     HeroBattleElement _heroBattleElement;
@@ -18,6 +20,7 @@ public class BattleHeroManager : MonoBehaviour
     public Hero Hero { get; private set; }
     public void Initialize(Hero hero)
     {
+        _battleAreaManager = GetComponent<BattleAreaManager>();
         _root = GetComponent<UIDocument>().rootVisualElement;
         _bottomPanel = _root.Q<VisualElement>("bottomPanel");
 
@@ -25,7 +28,7 @@ public class BattleHeroManager : MonoBehaviour
         hero.InitializeBattle(0);
         hero.OnLevelUp += OnHeroLevelUp;
 
-        BattleHero = Instantiate(_heroPrefab, Vector3.zero, Quaternion.identity)
+        BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position, Quaternion.identity)
                 .GetComponent<BattleHero>();
         _placeholderAudioListener.enabled = false;
         BattleHero.InitializeEntity(hero);

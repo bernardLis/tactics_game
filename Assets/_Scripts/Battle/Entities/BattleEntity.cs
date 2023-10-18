@@ -172,8 +172,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         while (!_agent.SetDestination(position)) yield return null;
         while (_agent.pathPending) yield return null;
 
-        // HERE: while not reached position, update desitnation to current positon
-
         Animator.SetBool("Move", true);
     }
 

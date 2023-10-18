@@ -119,14 +119,12 @@ public class BattleWaveManager : Singleton<BattleWaveManager>
             Minion m = group.Minions[i];
             m.InitializeBattle(1);
 
-            float radius = _currentTile.transform.localScale.x * 5 - 2; // magic 5
+            float radius = _currentTile.transform.localScale.x - 2; // TODO: magic number 2 is the border width
             Vector3 center = _currentTile.transform.position;
             float x = Mathf.Cos(theta) * radius + center.x;
             float y = 1f;
             float z = Mathf.Sin(theta) * radius + center.z;
             Vector3 pos = new(x, y, z);
-            //pos (-4.00, 1.00, 0.00)
-            // want to spawn at 20
             Debug.Log($"theta {theta}");
             Debug.Log($"pos {pos}");
 

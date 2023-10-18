@@ -6,40 +6,51 @@ using UnityEngine.AI;
 
 public class BattleAreaManager : MonoBehaviour
 {
+    [SerializeField] Transform _floorHolder;
+    [SerializeField] GameObject _floorPrefab;
     [SerializeField] GameObject _tilePrefab;
-    Vector2 _areaSize = new Vector2(5, 5);
 
-    BattleLandTile _homeTile;
+    GameObject _floor;
+
+    [HideInInspector] public BattleLandTile HomeTile;
     List<BattleLandTile> _tiles = new List<BattleLandTile>();
 
     public void Initialize()
     {
+        float tileScale = _floorPrefab.transform.localScale.x;
+        _floor = Instantiate(_floorPrefab,
+                new Vector3(-tileScale * 0.5f, 0, -tileScale * 0.5f), // floor offset to make tiles centered
+                Quaternion.identity);
+        _floor.transform.SetParent(_floorHolder);
+
         CreateArea();
     }
 
     void CreateArea()
     {
-        int halfAreaSizeX = (int)(_areaSize.x * 0.5f);
-        int halfAreaSizeY = (int)(_areaSize.y * 0.5f);
-        for (int x = -halfAreaSizeX; x <= halfAreaSizeX; x++)
-        {
-            for (int y = -halfAreaSizeY; y <= halfAreaSizeY; y++)
-            {
-                float posX = x * _tilePrefab.transform.localScale.x * 10;
-                float posZ = y * _tilePrefab.transform.localScale.z * 10; // TODO: idk why * 10...
-                Vector3 pos = new Vector3(posX, 0, posZ);
-                GameObject tile = Instantiate(_tilePrefab, pos, Quaternion.identity);
-                _tiles.Add(tile.GetComponent<BattleLandTile>());
-                tile.transform.SetParent(transform);
+        // TODO: create area magic numbers
+        // current set-up only works when
+        // I get 100 tiles with surface scaled to floor scale
 
+        float tileScale = _floorPrefab.transform.localScale.x;
+        for (int x = -5; x < 5; x++)
+        {
+            for (int z = -5; z < 5; z++)
+            {
+                GameObject tile = Instantiate(_tilePrefab, _floorHolder);
+                Vector3 pos = new Vector3(x * tileScale, 0, z * tileScale);
+                tile.transform.position = pos;
+                BattleLandTile bt = tile.GetComponent<BattleLandTile>();
+                bt.Initialize(tileScale);
+                _tiles.Add(bt);
                 tile.SetActive(false);
 
                 if (pos == Vector3.zero)
-                    _homeTile = tile.GetComponent<BattleLandTile>();
+                    HomeTile = tile.GetComponent<BattleLandTile>();
             }
         }
 
-        _homeTile.EnableTile();
+        HomeTile.EnableTile();
     }
 
 
