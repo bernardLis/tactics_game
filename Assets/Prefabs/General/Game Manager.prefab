@@ -334,10 +334,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 4c835ca606f8bae4e876be95d207b2c5
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: fc6b8e71b22b0d54fb6719bf94998476
     m_SubObjectName: 
     m_SubObjectType: 
@@ -466,7 +462,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6da27739bfa18249876a09789a22071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _metalon: {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+  _allCreatures:
+  - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
+  - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
+  - {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
+  - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+  - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
+  - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
+  - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
+  - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
+  _chestPrefab: {fileID: 7174296884494392200, guid: 69a6f89f1b0b9a24081b529d9090a706, type: 3}
+  _expOrbs:
+  - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
+  - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
+  - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
+  - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
 --- !u!114 &5229503471192617615
 MonoBehaviour:
   m_ObjectHideFlags: 0
