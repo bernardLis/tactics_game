@@ -28,10 +28,10 @@ public class Fight : BaseScriptableObject
         // TODO: math for wave difficulty
 
         DelayBetweenWaves = Random.Range(10, 20);
-        int numberOfWaves = Random.Range(1, 3);
+        int numberOfWaves = Random.Range(1, 2);
         for (int i = 0; i < numberOfWaves; i++)
         {
-            int numberOfMinions = 2 + Mathf.FloorToInt(difficulty * i * 1.1f);
+            int numberOfMinions = 25;//2 + Mathf.FloorToInt(difficulty * i * 1.1f);
             numberOfMinions = Mathf.Clamp(numberOfMinions, 2, 50);
             int numberOfCreatures = GetNumberOfCreatures(i, numberOfWaves, difficulty);
             Vector2Int minionLevelRange = new Vector2Int(1, difficulty + 1);

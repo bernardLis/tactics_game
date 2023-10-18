@@ -5043,9 +5043,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1850459432149905946}
   - component: {fileID: 5056011556160780910}
+  - component: {fileID: 3332899954544731601}
   - component: {fileID: 8814747850124250967}
   - component: {fileID: 1820990276771402770}
-  - component: {fileID: 3332899954544731601}
   m_Layer: 0
   m_Name: Reward Chest
   m_TagString: Untagged
@@ -5092,6 +5092,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1647449, y: 0.468608, z: 0.8101473}
   m_Center: {x: -0.00000032782555, y: 0.234304, z: -0.00000047683716}
+--- !u!54 &3332899954544731601
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174296884494392200}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 3519
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &8814747850124250967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5314,33 +5341,6 @@ MonoBehaviour:
   _lid: {fileID: 1234507114097428264}
   _glowEffect: {fileID: 7527697949889830171}
   _beamEffect: {fileID: 176147830059959238}
---- !u!54 &3332899954544731601
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7174296884494392200}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 3519
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &7527697949889830171
 GameObject:
   m_ObjectHideFlags: 0

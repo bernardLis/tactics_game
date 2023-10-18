@@ -52,16 +52,16 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
         DisplayText($"+{gold} Gold", _gameManager.GameDatabase.GetColorByName("Gold").Color);
         _audioManager.PlaySFX("Collect Gold", transform.position);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         _glowEffect.transform.DOScale(0, 0.5f)
             .OnComplete(() => _glowEffect.SetActive(false));
         _beamEffect.transform.DOScale(0, 0.5f)
             .OnComplete(() => _beamEffect.SetActive(false));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         _audioManager.PlaySFX(_closeSound, transform.position);
         _lid.transform.DOLocalRotate(new Vector3(0, 0, 0), 1f)
                     .SetEase(Ease.OutBack);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         transform.DOScale(0, 1f).OnComplete(() => Destroy(gameObject));
     }

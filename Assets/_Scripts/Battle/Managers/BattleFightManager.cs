@@ -29,7 +29,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
         CurrentDifficulty = 1;
     }
 
-    public void InitializeWaves(BattleLandTile tile)
+    public void InitializeFight(BattleLandTile tile)
     {
         _currentTile = tile;
         StartCoroutine(TileFightCoroutine());
@@ -61,7 +61,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     IEnumerator StartFight()
     {
-        yield return Countdown(3);
+        yield return Countdown(1); // HERE: testing 3
 
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
@@ -69,7 +69,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
             StartCoroutine(SpawnOpponentGroup(wave));
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
         }
-
     }
 
     void OnOpponentEntityDeath(BattleEntity _)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class BattleAreaManager : MonoBehaviour
 {
@@ -57,7 +58,6 @@ public class BattleAreaManager : MonoBehaviour
     // TODO: there must be a smarter way to get adjacent tiles
     public List<BattleLandTile> GetAdjacentTiles(BattleLandTile tile)
     {
-        float tileScale = tile.transform.localScale.x * 10;
         List<BattleLandTile> adjacentTiles = new List<BattleLandTile>();
         Vector3 tilePos = tile.transform.position;
         foreach (BattleLandTile t in _tiles)
@@ -66,16 +66,16 @@ public class BattleAreaManager : MonoBehaviour
 
             if (t.transform.position.x == tilePos.x)
             {
-                if (t.transform.position.z == tilePos.z + tileScale ||
-                    t.transform.position.z == tilePos.z - tileScale)
+                if (t.transform.position.z == tilePos.z + HomeTile.Scale ||
+                    t.transform.position.z == tilePos.z - HomeTile.Scale)
                 {
                     adjacentTiles.Add(t);
                 }
             }
             else if (t.transform.position.z == tilePos.z)
             {
-                if (t.transform.position.x == tilePos.x + tileScale ||
-                    t.transform.position.x == tilePos.x - tileScale)
+                if (t.transform.position.x == tilePos.x + HomeTile.Scale ||
+                    t.transform.position.x == tilePos.x - HomeTile.Scale)
                 {
                     adjacentTiles.Add(t);
                 }

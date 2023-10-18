@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using DG.Tweening;
 using Random = UnityEngine.Random;
+
 public class BattleLandTile : MonoBehaviour
 {
 
@@ -12,9 +14,10 @@ public class BattleLandTile : MonoBehaviour
     BattleFightManager _battleWaveManager;
 
     [SerializeField] Material[] _materials;
-    [SerializeField] GameObject _landPurchaseSignPrefab;
-    [SerializeField] GameObject _borderPrefab;
     [SerializeField] GameObject _surface;
+    [SerializeField] GameObject _borderPrefab;
+    [SerializeField] GameObject _landPurchaseSignPrefab;
+    [SerializeField] GameObject _rewardChestPrefab;
 
     public List<BattleLandPurchaseSign> _signs = new();
     public List<GameObject> _borders = new();
@@ -23,9 +26,6 @@ public class BattleLandTile : MonoBehaviour
 
     public event Action<BattleLandTile> OnEnabled;
 
-    void Start()
-    {
-    }
 
     public void Initialize(float scale)
     {
@@ -50,35 +50,28 @@ public class BattleLandTile : MonoBehaviour
     public void StartTileFight()
     {
         // TODO: make sure player is on the tile
+
         EnableAllBorders();
-
-        // start spawning waves via wave manager
-        _battleWaveManager.InitializeWaves(this);
-
-        // on waves end:
-        // TileSecured();
-    }
-
-    void EnableAllBorders()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Vector3 directionToTile = Vector3.zero;
-            if (i == 0) directionToTile = Vector3.forward;
-            if (i == 1) directionToTile = Vector3.right;
-            if (i == 2) directionToTile = Vector3.back;
-            if (i == 3) directionToTile = Vector3.left;
-
-            Vector3 borderPosition = Scale * 0.5f * directionToTile;
-
-            InstantiateBorder(borderPosition, new Color(1f, 0.22f, 0f, 0.2f));// magic color
-        }
+        _battleWaveManager.InitializeFight(this);
     }
 
     public void Secured()
     {
+        // battle wave manager calls this when the fight is finished
+
         HandleBorders();
+        SpawnReward();
         ShowSigns();
+    }
+
+    void SpawnReward()
+    {
+        // TODO: make sure that position is empty
+        Vector3 chestPosition = transform.position + Vector3.up * 3.5f;
+        GameObject chest = Instantiate(_rewardChestPrefab, chestPosition, Quaternion.identity);
+        chest.transform.localScale = Vector3.zero;
+        chest.transform.DOScale(2f, 1f);
+        chest.transform.SetParent(transform);
     }
 
     public void ShowSigns()
@@ -91,7 +84,7 @@ public class BattleLandTile : MonoBehaviour
             Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
             Vector3 signPosition = transform.position
                                 + directionToTile
-                                * transform.localScale.x * 0.4f;
+                                * Scale * 0.4f;
 
             BattleLandPurchaseSign sign = Instantiate(_landPurchaseSignPrefab,
                     signPosition, Quaternion.identity).GetComponent<BattleLandPurchaseSign>();
@@ -112,6 +105,23 @@ public class BattleLandTile : MonoBehaviour
         }
 
         HandleBorders();
+    }
+
+    /* BORDERS */
+    void EnableAllBorders()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Vector3 directionToTile = Vector3.zero;
+            if (i == 0) directionToTile = Vector3.forward;
+            if (i == 1) directionToTile = Vector3.right;
+            if (i == 2) directionToTile = Vector3.back;
+            if (i == 3) directionToTile = Vector3.left;
+
+            Vector3 borderPosition = Scale * 0.5f * directionToTile;
+
+            InstantiateBorder(borderPosition, new Color(1f, 0.22f, 0f, 0.2f)); // magic color
+        }
     }
 
     void HandleBorders()
@@ -145,15 +155,16 @@ public class BattleLandTile : MonoBehaviour
 
     void InstantiateBorder(Vector3 borderPosition, Color color)
     {
+        // for the effect to stack nicely
         Vector3 borderRotation = Vector3.zero;
-        if (borderPosition.z > 0) borderRotation = new Vector3(0f, 90f, 0f);
-        if (borderPosition.x > 0) borderRotation = new Vector3(0f, 180f, 0f); // for the effect to stack nicely...
-        if (borderPosition.z < 0) borderRotation = new Vector3(0f, 270f, 0f); // for the effect to stack nicely...
+        if (borderPosition.z > 0) borderRotation = new(0f, 90f, 0f);
+        if (borderPosition.x > 0) borderRotation = new(0f, 180f, 0f);
+        if (borderPosition.z < 0) borderRotation = new(0f, 270f, 0f);
 
         GameObject border = Instantiate(_borderPrefab, transform);
         border.transform.localPosition = borderPosition;
         border.transform.localEulerAngles = borderRotation;
-        Vector3 borderScale = new Vector3(0.05f, 2f, Scale);
+        Vector3 borderScale = new(0.05f, 2f, Scale);
         border.transform.localScale = borderScale;
 
         border.GetComponent<BattleLandBorder>().EnableBorder(color);
