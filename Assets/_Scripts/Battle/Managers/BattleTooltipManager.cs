@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class BattleTooltipManager : Singleton<BattleTooltipManager>
 {
+    GameManager _gameManager;
+    PlayerInput _playerInput;
     BattleManager _battleManager;
 
     VisualElement _root;
@@ -30,6 +34,49 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _textInfoContainer = _root.Q<VisualElement>("textInfoContainer");
         _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
     }
+
+    /* INPUT */
+    void OnEnable()
+    {
+        if (_gameManager == null)
+            _gameManager = GameManager.Instance;
+
+        _playerInput = _gameManager.GetComponent<PlayerInput>();
+        _playerInput.SwitchCurrentActionMap("Battle");
+        UnsubscribeInputActions();
+        SubscribeInputActions();
+    }
+
+    void OnDisable()
+    {
+        if (_playerInput == null) return;
+
+        UnsubscribeInputActions();
+    }
+
+    void OnDestroy()
+    {
+        if (_playerInput == null) return;
+
+        UnsubscribeInputActions();
+    }
+
+    void SubscribeInputActions()
+    {
+        _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
+    }
+
+    void UnsubscribeInputActions()
+    {
+        _playerInput.actions["RightMouseClick"].performed -= RightMouseClick;
+    }
+
+    void RightMouseClick(InputAction.CallbackContext ctx)
+    {
+        if (CurrentTooltipDisplayer == null) return;
+        HideTooltip();
+    }
+
 
     void OnBattleFinalized()
     {
@@ -99,24 +146,38 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void ShowTooltip(BattleEntity entity)
     {
-        HideTooltip();
+        VisualElement el = null;
         if (entity is BattleMinion)
-            _currentTooltip = new BattleEntityCard(entity);
+            el = new BattleEntityCard(entity);
         if (entity is BattleCreature creature)
-            _currentTooltip = new BattleCreatureCard(creature);
+            el = new BattleCreatureCard(creature);
 
-        CurrentTooltipDisplayer = entity.gameObject;
-
-
-        _entityTooltipContainer.Add(_currentTooltip);
+        ShowTooltip(el, entity.gameObject);
     }
 
     public void ShowTooltip(VisualElement el, GameObject go)
     {
-        HideTooltip();
+        bool tooltipAnimation = _currentTooltip == null;
+
         _currentTooltip = el;
         _entityTooltipContainer.Add(_currentTooltip);
         CurrentTooltipDisplayer = go;
+
+        StartCoroutine(ShowTooltipCoroutine(tooltipAnimation));
+    }
+
+    IEnumerator ShowTooltipCoroutine(bool isAnimated)
+    {
+        _entityTooltipContainer.Clear();
+        _entityTooltipContainer.Add(_currentTooltip);
+
+        if (!isAnimated) yield break;
+        yield return new WaitForSeconds(0.1f);
+
+        _entityTooltipContainer.style.left = -_currentTooltip.resolvedStyle.width;
+        _entityTooltipContainer.style.visibility = Visibility.Visible;
+        DOTween.To(x => _entityTooltipContainer.style.left = x, -_currentTooltip.resolvedStyle.width, 0, 0.5f)
+                .SetEase(Ease.InOutSine);
     }
 
     public void HideTooltip()
@@ -124,9 +185,14 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         if (_currentTooltip == null) return;
         CurrentTooltipDisplayer = null;
 
-        _currentTooltip.RemoveFromHierarchy();
-        _currentTooltip = null;
+        DOTween.To(x => _entityTooltipContainer.style.left = x, 0, -_currentTooltip.worldBound.width, 0.5f)
+                        .SetEase(Ease.InOutSine)
+                        .OnComplete(() =>
+                        {
+                            _currentTooltip.RemoveFromHierarchy();
+                            _currentTooltip = null;
 
-        OnTooltipHidden?.Invoke();
+                            OnTooltipHidden?.Invoke();
+                        });
     }
 }
