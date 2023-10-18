@@ -3,14 +3,13 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleRewardStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#BattleRewardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/BattleCreatureCardStyles.uss?fileID=7433441132597879392&amp;guid=cfbdbbe13acd1e0478727ccd5ed27b2b&amp;type=3#BattleCreatureCardStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ElementalElementStyles.uss?fileID=7433441132597879392&amp;guid=06dac8c48602d3f4e859c4ff45cfa55f&amp;type=3#ElementalElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityIconStyles.uss?fileID=7433441132597879392&amp;guid=73a23192c66321b49874edb0a26a5d1b&amp;type=3#AbilityIconStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityButtonStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityButtonStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CutsceneStyles.uss?fileID=7433441132597879392&amp;guid=d73a8a21573b1ed44bce80194d7bda1d&amp;type=3#CutsceneStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleModifierStyles.uss?fileID=7433441132597879392&amp;guid=c56f9f9d036fcad44b2603ccb497d2ec&amp;type=3#BattleModifierStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityCardStyles.uss?fileID=7433441132597879392&amp;guid=2c5d53665b9fb84498cbab8dbbbe1aa7&amp;type=3#EntityCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityCardFullStyles.uss?fileID=7433441132597879392&amp;guid=cea2238035ac76f46842572405990147&amp;type=3#EntityCardFullStyles" />
@@ -26,9 +25,11 @@
         <ui:Label tabindex="-1" text="Enemies left: 15" display-tooltip-when-elided="true" name="livesCount" class="common__text-primary" style="display: none; width: 70px; -unity-text-align: upper-center;" />
     </ui:VisualElement>
     <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px; width: auto;">
+        <ui:VisualElement name="textInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
         <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
     <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;" />
+    <ui:VisualElement name="entityTooltipContainer" style="flex-grow: 1; position: absolute; right: auto; bottom: 50%;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
     <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px; display: none;" />
     <ui:VisualElement name="controlGuideContainer" style="flex-grow: 1; position: absolute; left: auto; right: 20px; bottom: 50%; width: 150px; opacity: 0;">

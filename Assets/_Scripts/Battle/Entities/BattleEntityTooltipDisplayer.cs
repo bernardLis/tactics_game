@@ -29,7 +29,7 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!CanDisplayTooltip()) return;
-        _tooltipManager.HideInfo();
+        _tooltipManager.HideEntityInfo();
     }
 
     bool CanDisplayTooltip()

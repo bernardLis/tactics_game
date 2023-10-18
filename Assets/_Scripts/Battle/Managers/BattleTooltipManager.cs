@@ -9,9 +9,10 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     BattleManager _battleManager;
 
     VisualElement _root;
-    VisualElement _bottomPanel;
+    VisualElement _entityTooltipContainer;
 
-    VisualElement _topContainer;
+    VisualElement _textInfoContainer;
+    VisualElement _entityInfoContainer;
 
     VisualElement _currentTooltip;
     public GameObject CurrentTooltipDisplayer { get; private set; }
@@ -25,8 +26,9 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _battleManager.OnBattleFinalized += OnBattleFinalized;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _bottomPanel = _root.Q<VisualElement>("bottomPanel");
-        _topContainer = _root.Q<VisualElement>("entityInfoContainer");
+        _entityTooltipContainer = _root.Q<VisualElement>("entityTooltipContainer");
+        _textInfoContainer = _root.Q<VisualElement>("textInfoContainer");
+        _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
     }
 
     void OnBattleFinalized()
@@ -41,24 +43,24 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
         if (entity.IsDead) return;
 
-        _topContainer.Clear();
-        _topContainer.style.display = DisplayStyle.Flex;
+        _entityInfoContainer.Clear();
+        _entityInfoContainer.style.display = DisplayStyle.Flex;
 
         BattleEntityInfoElement info = new(entity);
-        _topContainer.Add(info);
+        _entityInfoContainer.Add(info);
     }
 
     public void ShowInfo(string text)
     {
         if (_isPrioritizedInfoShown) return;
 
-        _topContainer.Clear();
-        _topContainer.style.display = DisplayStyle.Flex;
+        _textInfoContainer.Clear();
+        _textInfoContainer.style.display = DisplayStyle.Flex;
         Label txt = new(text);
         txt.style.backgroundColor = new(new Color(0f, 0f, 0f, 0.4f));
         txt.style.fontSize = 32;
 
-        _topContainer.Add(txt);
+        _textInfoContainer.Add(txt);
     }
 
     public void ShowInfo(VisualElement element, bool priority = false)
@@ -66,10 +68,10 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         if (_isPrioritizedInfoShown) return;
         _isPrioritizedInfoShown = priority;
 
-        _topContainer.Clear();
-        _topContainer.style.display = DisplayStyle.Flex;
+        _textInfoContainer.Clear();
+        _textInfoContainer.style.display = DisplayStyle.Flex;
 
-        _topContainer.Add(element);
+        _textInfoContainer.Add(element);
     }
 
     public void RemoveInfoPriority()
@@ -83,11 +85,16 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         Invoke(nameof(HideInfo), duration);
     }
 
+    public void HideEntityInfo()
+    {
+        _entityInfoContainer.style.display = DisplayStyle.None;
+        _entityInfoContainer.Clear();
+    }
 
     public void HideInfo()
     {
-        _topContainer.style.display = DisplayStyle.None;
-        _topContainer.Clear();
+        _textInfoContainer.style.display = DisplayStyle.None;
+        _textInfoContainer.Clear();
     }
 
     public void ShowTooltip(BattleEntity entity)
@@ -101,14 +108,14 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         CurrentTooltipDisplayer = entity.gameObject;
 
 
-        _bottomPanel.Add(_currentTooltip);
+        _entityTooltipContainer.Add(_currentTooltip);
     }
 
     public void ShowTooltip(VisualElement el, GameObject go)
     {
         HideTooltip();
         _currentTooltip = el;
-        _bottomPanel.Add(_currentTooltip);
+        _entityTooltipContainer.Add(_currentTooltip);
         CurrentTooltipDisplayer = go;
     }
 
@@ -117,7 +124,6 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         if (_currentTooltip == null) return;
         CurrentTooltipDisplayer = null;
 
-        //_bottomPanel.Remove(_tooltip);
         _currentTooltip.RemoveFromHierarchy();
         _currentTooltip = null;
 
