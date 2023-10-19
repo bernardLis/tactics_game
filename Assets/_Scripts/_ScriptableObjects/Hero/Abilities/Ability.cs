@@ -43,7 +43,6 @@ public class Ability : BaseScriptableObject
 
     public void StartCooldown()
     {
-        Debug.Log($"cooldown started in ability");
         OnCooldownStarted?.Invoke();
     }
 

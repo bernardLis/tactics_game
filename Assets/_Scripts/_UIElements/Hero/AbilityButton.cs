@@ -36,13 +36,10 @@ public class AbilityButton : ElementWithSound
 
         _icon = new AbilityIcon(ability);
         Add(_icon);
-
-        Debug.Log($"Ability button initialized");
     }
 
     void StartCooldown()
     {
-        Debug.Log($"start cooldown in ability button");
         IsOnCooldown = true;
 
         _icon.style.opacity = 0.5f;

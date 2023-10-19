@@ -8,7 +8,7 @@ public class BattleInitializer : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
-
+    BattleAreaManager _battleAreaManager;
     BattleInputManager _battleInputManager;
     BattleDeploymentManager _battleDeploymentManager;
 
@@ -18,36 +18,27 @@ public class BattleInitializer : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
-        _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
-        _battleDeploymentManager = _battleManager.GetComponent<BattleDeploymentManager>();
+        _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
-        _playerHero = _gameManager.PlayerHero;
-        _battleInputManager.enabled = false;
+        Hero newChar = ScriptableObject.CreateInstance<Hero>();
+        newChar.CreateFromHeroCreation("asd", _gameManager.EntityDatabase.GetRandomElement());
+        _gameManager.PlayerHero = newChar;
 
-        BattleIntroManager.Instance.OnIntroFinished += BattleStartShow;
-        StartCoroutine(DelayedStart());
-        //OnIntroFinished
+        Battle battle = ScriptableObject.CreateInstance<Battle>();
+        battle.CreateRandom(1);
+        _gameManager.CurrentBattle = battle;
+
+        StartCoroutine(DelayedStart(newChar));
     }
 
-    IEnumerator DelayedStart()
+    IEnumerator DelayedStart(Hero h)
     {
         yield return new WaitForSeconds(0.5f);
-        _battleManager.Initialize(_playerHero);
-    }
+        _battleAreaManager.Initialize();
 
-    void BattleStartShow()
-    {
+        yield return new WaitForSeconds(0.5f);
 
-        // yield return new WaitForSeconds(0.5f);
-
-        // _battleCameraManager.MoveCameraToDefaultPosition(3f);
-
-        // yield return new WaitForSeconds(1f);
-
-
-        // yield return new WaitForSeconds(30f); // hardcoded
-
-        _battleDeploymentManager.HandlePlayerArmyDeployment(_playerHero.CreatureArmy);
-        _battleInputManager.enabled = true;
+        _battleManager.Initialize(h);
+        _battleManager.GetComponent<BattleGrabManager>().Initialize();
     }
 }

@@ -95,7 +95,7 @@ public class BattleAbilityMeteors : BattleAbility
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _floorLayerMask))
             {
-                Vector3 pos = new(hit.point.x, 0, hit.point.z);
+                Vector3 pos = new(hit.point.x, 0.1f, hit.point.z);
                 _circleInstance.transform.position = pos;
             }
             yield return new WaitForFixedUpdate();

@@ -24,6 +24,9 @@ public class BattleHero : BattleEntity
         Hero.OnAbilityAdded += AddAbility;
         Hero.OnAbilityRemoved += RemoveAbility;
 
+        foreach (Ability a in Hero.Abilities)
+            AddAbility(a);
+
         _thirdPersonController = GetComponent<BattleHeroController>();
         _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
         Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;

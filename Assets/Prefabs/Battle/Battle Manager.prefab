@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5119385659013104313}
   - component: {fileID: 5119385659013104312}
+  - component: {fileID: 384380943856056604}
   - component: {fileID: 5119385659013104318}
   - component: {fileID: 5119385659013104314}
   - component: {fileID: 1771743886305221010}
@@ -60,6 +61,18 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 929959fc04bbe4f44bf0908cdf4d31bf, type: 3}
   m_SortingOrder: 0
+--- !u!114 &384380943856056604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2685ec49db263d46ac8cad404de18bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5119385659013104318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waves: []
+  Fights: []
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,8 +221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef96c7dc29573348920862407aec0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _floorHolder: {fileID: 0}
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
   _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+  HomeTile: {fileID: 0}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0
