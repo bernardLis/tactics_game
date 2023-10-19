@@ -14,7 +14,7 @@ public class BattleAreaManager : MonoBehaviour
     GameObject _floor;
 
     [HideInInspector] public BattleLandTile HomeTile;
-    List<BattleLandTile> _tiles = new List<BattleLandTile>();
+    List<BattleLandTile> _tiles = new();
 
     public void Initialize()
     {
@@ -34,18 +34,16 @@ public class BattleAreaManager : MonoBehaviour
         // I get 100 tiles with surface scaled to floor scale
 
         float tileScale = _floorPrefab.transform.localScale.x;
-        int i = 0;// HERE: testing minion spawning
         for (int x = -5; x < 5; x++)
         {
             for (int z = -5; z < 5; z++)
             {
                 GameObject tile = Instantiate(_tilePrefab, _floorHolder);
-                Vector3 pos = new Vector3(x * tileScale, 0, z * tileScale);
+                Vector3 pos = new(x * tileScale, 0, z * tileScale);
                 tile.transform.position = pos;
                 BattleLandTile bt = tile.GetComponent<BattleLandTile>();
-                
-                bt.Initialize(tileScale, i);  // HERE: testing minion spawning
-                i++;
+
+                bt.Initialize(tileScale);
 
                 _tiles.Add(bt);
                 tile.SetActive(false);
@@ -54,8 +52,7 @@ public class BattleAreaManager : MonoBehaviour
                     HomeTile = tile.GetComponent<BattleLandTile>();
             }
         }
-
-        HomeTile.EnableTile(true); // HERE: testing minion spawning
+        HomeTile.EnableTile();
     }
 
 

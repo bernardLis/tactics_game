@@ -93,8 +93,7 @@ public class Hero : EntityMovement
         CreateBaseStats();
 
         Abilities = new();
-        // HERE: testing minion spawning
-        // AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
+        AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
 
         CreatureArmy = new();
         Creature c = Instantiate(_gameManager.EntityDatabase.GetStartingArmy(element).Creatures[0]);

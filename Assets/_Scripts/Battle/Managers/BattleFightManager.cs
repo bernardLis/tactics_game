@@ -93,7 +93,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
             Minion m = group.Minions[i];
             m.InitializeBattle(1);
 
-            Vector3 pos = _currentTile.GetMinionPosition(CurrentDifficulty, i, group.Minions.Count);
+            Vector3 pos = _currentTile.GetMinionPosition(i, group.Minions.Count);
 
             BattleEntity be = SpawnEntity(m, pos);
             _battleManager.AddOpponentArmyEntity(be);
