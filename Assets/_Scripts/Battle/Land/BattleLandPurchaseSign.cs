@@ -11,6 +11,7 @@ public class BattleLandPurchaseSign : MonoBehaviour
     public void Initialize(BattleLandTile tile)
     {
         _tileToPurchase = tile;
+        GetComponent<MeshRenderer>().material = tile.ChosenMaterial;
     }
 
     public void OnTriggerEnter(Collider collider)

@@ -15,6 +15,7 @@ public class BattleLandTile : MonoBehaviour
     BattleTooltipManager _battleTooltipManager;
 
     [SerializeField] Material[] _materials;
+    public Material ChosenMaterial { get; private set; } // HERE: testing
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
     [SerializeField] GameObject _landPurchaseSignPrefab;
@@ -31,16 +32,14 @@ public class BattleLandTile : MonoBehaviour
     bool _minionPositionExecuteOnce;
     List<Vector3> _minionPositions = new();
 
-
-
-
     public event Action<BattleLandTile> OnEnabled;
     public void Initialize(float scale)
     {
         Scale = scale;
         MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
         _surface.transform.localScale = new Vector3(scale, 0.1f, scale);
-        mr.material = _materials[Random.Range(0, _materials.Length)];
+        ChosenMaterial = _materials[Random.Range(0, _materials.Length)];
+        mr.material = ChosenMaterial;
     }
 
     public void EnableTile()
