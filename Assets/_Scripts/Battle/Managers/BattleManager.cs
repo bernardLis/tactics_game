@@ -81,6 +81,8 @@ public class BattleManager : Singleton<BattleManager>
 
 #if UNITY_EDITOR
         GetComponent<BattleInputManager>().OnEnterClicked += LevelUpHero;
+        GetComponent<BattleInputManager>().OnContinueClicked += KillAllOpponents;
+
 #endif
     }
 
@@ -286,7 +288,7 @@ public class BattleManager : Singleton<BattleManager>
 
 #if UNITY_EDITOR
     [ContextMenu("Kill All Opponents")]
-    public void CheatWinBattle()
+    public void KillAllOpponents()
     {
         List<BattleEntity> copy = new(OpponentEntities);
         foreach (BattleEntity be in copy)

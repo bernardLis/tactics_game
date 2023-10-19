@@ -65,7 +65,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
-            _battleTooltipManager.ShowInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
+            // _battleTooltipManager.ShowInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
             StartCoroutine(SpawnOpponentGroup(wave));
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
         }
@@ -88,26 +88,19 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     IEnumerator SpawnMinions(EnemyWave group)
     {
-        float theta = 0;
-        float thetaStep = 2 * Mathf.PI / group.Minions.Count;
         for (int i = 0; i < group.Minions.Count; i++)
         {
             Minion m = group.Minions[i];
             m.InitializeBattle(1);
 
-            float radius = _currentTile.Scale * 0.5f - 1;
-            Vector3 center = _currentTile.transform.position;
-            float x = Mathf.Cos(theta) * radius + center.x;
-            float y = 1f;
-            float z = Mathf.Sin(theta) * radius + center.z;
-            Vector3 pos = new(x, y, z);
+            Vector3 pos = _currentTile.GetMinionPosition(CurrentDifficulty, i, group.Minions.Count);
 
             BattleEntity be = SpawnEntity(m, pos);
             _battleManager.AddOpponentArmyEntity(be);
-            theta += thetaStep;
             yield return new WaitForSeconds(0.1f);
         }
     }
+
 
     BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
     {

@@ -12,6 +12,7 @@ public class BattleLandTile : MonoBehaviour
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
     BattleFightManager _battleWaveManager;
+    BattleTooltipManager _battleTooltipManager;
 
     [SerializeField] Material[] _materials;
     [SerializeField] GameObject _surface;
@@ -24,35 +25,126 @@ public class BattleLandTile : MonoBehaviour
 
     public float Scale { get; private set; }
 
+    bool _minionPositionExecuteOnce;
+    List<Vector3> _minionPositions = new();
+
     public event Action<BattleLandTile> OnEnabled;
 
 
-    public void Initialize(float scale)
+    public void Initialize(float scale, int index)
     {
         Scale = scale;
         MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
         _surface.transform.localScale = new Vector3(scale, 0.1f, scale);
-        mr.material = _materials[Random.Range(0, _materials.Length)];
+        mr.material = _materials[index % _materials.Length];
     }
 
-    public void EnableTile()
+    public void EnableTile(bool autoWin = false)
     {
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
+        _battleTooltipManager = BattleTooltipManager.Instance;
 
         gameObject.SetActive(true);
         HandleBorders();
+
+        // HERE: testing minion spawning
+        if (autoWin)
+        {
+            Secured();
+            return;
+        }
+
         StartTileFight();
         OnEnabled?.Invoke(this);
     }
 
     public void StartTileFight()
     {
-        // TODO: make sure player is on the tile
+        _minionPositionExecuteOnce = false;
+        _minionPositions = new();
 
         EnableAllBorders();
         _battleWaveManager.InitializeFight(this);
+
+        _battleTooltipManager.ShowInfo("Surround Middle", 1.5f); // HERE: testing minion spawning
+
+    }
+
+    public Vector3 GetMinionPosition(int difficulty, int currentIndex, int numberOfMinions)
+    {
+        // TODO: once there are stuff on the tile, make sure the position is empty
+        // if (difficulty > 1)
+        //     return transform.position + Vector3.up * 0.5f;
+
+        return GetMinionPositionSurroundMiddle(currentIndex, numberOfMinions);
+    }
+
+    Vector3 GetMinionPositionFewGroups(int currentIndex, int numberOfMinions)
+    {
+        int numberOfGroups = 3;
+
+        if (!_minionPositionExecuteOnce)
+        {
+            _minionPositions = new();
+            for (int i = 0; i < numberOfGroups; i++)
+                _minionPositions.Add(GetMinionPositionRandom(0, 0));
+
+            _minionPositionExecuteOnce = true;
+        }
+
+        int minionsPerGroup = numberOfMinions / numberOfGroups;
+        int groupIndex = currentIndex / minionsPerGroup;
+        if (groupIndex >= numberOfGroups) groupIndex = numberOfGroups - 1;
+
+        return _minionPositions[groupIndex] + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+    }
+
+
+    Vector3 GetMinionPositionOneGroup(int currentIndex, int numberOfMinions)
+    {
+        return transform.position + new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2));
+    }
+
+    Vector3 GetMinionPositionGrid(int currentIndex, int numberOfMinions)
+    {
+        int numberOfGroups = 5;
+        int minionsPerGroup = numberOfMinions / numberOfGroups;
+        float rowOffset = Scale / numberOfGroups;
+        float columnOffset = Scale / minionsPerGroup;
+
+        Vector3 startPoint = transform.position
+                            + Vector3.left * Scale * 0.4f
+                            + Vector3.back * Scale * 0.4f;
+        startPoint.y = 1f;
+
+        int groupIndex = currentIndex / minionsPerGroup;
+        if (groupIndex >= numberOfGroups) groupIndex = numberOfGroups - 1;
+
+        return startPoint
+                + Vector3.forward * rowOffset * groupIndex
+                + Vector3.right * columnOffset * (currentIndex % minionsPerGroup);
+    }
+
+    Vector3 GetMinionPositionRandom(int currentIndex, int numberOfMinions)
+    {
+        float halfScale = Scale * 0.5f;
+        return transform.position +
+                new Vector3(Random.Range(-halfScale, halfScale), 1,
+                                                Random.Range(-halfScale, halfScale));
+    }
+
+    Vector3 GetMinionPositionSurroundMiddle(int currentIndex, int numberOfMinions)
+    {
+        float theta = currentIndex * 2 * Mathf.PI / numberOfMinions;
+        float radius = Scale * 0.5f - 1;
+        Vector3 center = transform.position;
+        float x = Mathf.Cos(theta) * radius + center.x;
+        float y = 1f;
+        float z = Mathf.Sin(theta) * radius + center.z;
+
+        return new(x, y, z);
     }
 
     public void Secured()
@@ -60,7 +152,7 @@ public class BattleLandTile : MonoBehaviour
         // battle wave manager calls this when the fight is finished
 
         HandleBorders();
-        SpawnReward();
+        // SpawnReward();         // HERE: testing minion spawning
         ShowSigns();
     }
 
