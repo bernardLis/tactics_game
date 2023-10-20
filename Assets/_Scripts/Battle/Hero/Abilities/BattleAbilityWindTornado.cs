@@ -8,9 +8,9 @@ public class BattleAbilityWindTornado : BattleAbility
     [SerializeField] GameObject _tornadoPrefab;
     List<GameObject> _tornadoInstances = new();
 
-    public override void Initialize(Ability ability)
+    public override void Initialize(Ability ability, bool startAbility = true)
     {
-        base.Initialize(ability);
+        base.Initialize(ability, startAbility);
         transform.localPosition = new Vector3(0.5f, 1f, 0.5f);
     }
 

@@ -6,9 +6,9 @@ public class BattleAbilityHomingProjectiles : BattleAbility
 {
     [SerializeField] GameObject _projectilePrefab;
 
-    public override void Initialize(Ability ability)
+    public override void Initialize(Ability ability, bool startAbility = true)
     {
-        base.Initialize(ability);
+        base.Initialize(ability, startAbility);
         transform.localPosition = new Vector3(0, 1.6f, 0f);
     }
 

@@ -15,9 +15,9 @@ public class BattleAbilityMeteors : BattleAbility
 
     IEnumerator _updateCirclePositionCoroutine;
 
-    public override void Initialize(Ability ability)
+    public override void Initialize(Ability ability, bool startAbility)
     {
-        base.Initialize(ability);
+        base.Initialize(ability, startAbility);
         transform.localPosition = new Vector3(-0.5f, 1f, 0f);
     }
 
@@ -35,7 +35,7 @@ public class BattleAbilityMeteors : BattleAbility
         }
 
         _circleInstance.transform.DOScale(0, 0.5f).OnComplete(() => Destroy(_circleInstance));
-        _meteorInstance.transform.DOScale(0, 0.5f).OnComplete(() => Destroy(_meteorInstance));  
+        _meteorInstance.transform.DOScale(0, 0.5f).OnComplete(() => Destroy(_meteorInstance));
     }
 
     void ExplosionDamage()

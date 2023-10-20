@@ -8,21 +8,21 @@ using Random = UnityEngine.Random;
 
 public class BattleFightManager : Singleton<BattleFightManager>
 {
-    GameManager _gameManager;
     BattleManager _battleManager;
     BattleTooltipManager _battleTooltipManager;
 
     public int CurrentDifficulty { get; private set; }
-
+    public bool IsFightActive { get; private set; }
     BattleTile _currentTile;
 
     public List<Fight> Fights = new();
     Fight _currentFight;
 
+    public event Action OnFightStarted;
+    public event Action OnFightEnded;
     public event Action OnWaveSpawned;
     void Start()
     {
-        _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
         _battleTooltipManager = BattleTooltipManager.Instance;
@@ -62,7 +62,11 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     IEnumerator StartFight()
     {
+        IsFightActive = true;
+        OnFightStarted?.Invoke();
+
         yield return Countdown(1); // HERE: testing 3
+
 
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
@@ -78,8 +82,10 @@ public class BattleFightManager : Singleton<BattleFightManager>
         if (_battleManager.OpponentEntities.Count != 0) return;
         if (!_currentFight.IsFinished()) return;
 
+        IsFightActive = false;
         _battleTooltipManager.ShowInfo("Tile secured!", 1.5f);
         _currentTile.Secured();
+        OnFightEnded?.Invoke();
     }
 
     IEnumerator SpawnOpponentGroup(EnemyWave group)

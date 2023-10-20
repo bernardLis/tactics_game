@@ -9,13 +9,23 @@ public class BattleAbility : MonoBehaviour
     protected IEnumerator _runAbilityCoroutine;
     protected IEnumerator _fireAbilityCoroutine;
 
-    public virtual void Initialize(Ability ability)
+    public virtual void Initialize(Ability ability, bool startAbility = true)
     {
         _ability = ability;
+        if (startAbility) StartAbility();
+    }
 
+    public void StartAbility()
+    {
         _runAbilityCoroutine = RunAbilityCoroutine();
         StartCoroutine(_runAbilityCoroutine);
     }
+
+    public void StopAbility()
+    {
+        StopCoroutine(_runAbilityCoroutine);
+    }
+
 
     IEnumerator RunAbilityCoroutine()
     {

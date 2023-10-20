@@ -73480,7 +73480,9 @@ MonoBehaviour:
   _shootSound: {fileID: 11400000, guid: e8abc68cc5952e945a69e1c09c57e3dd, type: 2}
   _gfx: {fileID: 4329521036851478517}
   _explosion: {fileID: 5195289844860730981}
-  _speed: 5
+  _speed: 10
+  _homingDurationSeconds: 7
+  _rotateSpeed: 0.06
 --- !u!4 &4445669335262592270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4865320723727955223, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}

@@ -8,6 +8,8 @@ public class BattleHero : BattleEntity
 {
     public Hero Hero { get; private set; }
 
+    BattleFightManager _battleFightManager;
+
     BattleHeroController _thirdPersonController;
     BattleHeroHealthBar _battleHeroHealthBar;
 
@@ -21,12 +23,6 @@ public class BattleHero : BattleEntity
         Hero = (Hero)entity;
         Team = 0;
 
-        Hero.OnAbilityAdded += AddAbility;
-        Hero.OnAbilityRemoved += RemoveAbility;
-
-        foreach (Ability a in Hero.Abilities)
-            AddAbility(a);
-
         _thirdPersonController = GetComponent<BattleHeroController>();
         _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
         Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
@@ -35,6 +31,37 @@ public class BattleHero : BattleEntity
         _battleHeroHealthBar.Initialize(Hero);
 
         Animator.enabled = true;
+
+        HandleAbilities();
+
+    }
+
+    void HandleAbilities()
+    {
+        Hero.OnAbilityAdded += AddAbility;
+        Hero.OnAbilityRemoved += RemoveAbility;
+
+        _battleFightManager = BattleFightManager.Instance;
+        _battleFightManager.OnFightStarted += OnFightStarted;
+        _battleFightManager.OnFightEnded += OnFightEnded;
+
+        foreach (Ability a in Hero.Abilities)
+            AddAbility(a);
+
+    }
+
+    void OnFightStarted()
+    {
+        foreach (GameObject g in _battleAbilities.Values)
+            g.GetComponent<BattleAbility>().StartAbility();
+
+
+    }
+
+    void OnFightEnded()
+    {
+        foreach (GameObject g in _battleAbilities.Values)
+            g.GetComponent<BattleAbility>().StopAbility();
     }
 
     void OnDestroy()
@@ -47,8 +74,8 @@ public class BattleHero : BattleEntity
     {
         GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab);
         abilityPrefab.transform.SetParent(transform);
-        abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
-
+        abilityPrefab.GetComponent<BattleAbility>().Initialize(ability,
+                                                        _battleFightManager.IsFightActive);
         _battleAbilities.Add(ability, abilityPrefab);
     }
 

@@ -28,8 +28,8 @@ public class BattleHeroManager : MonoBehaviour
         hero.InitializeBattle(0);
         hero.OnLevelUp += OnHeroLevelUp;
 
-        BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position, Quaternion.identity)
-                .GetComponent<BattleHero>();
+        BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position,
+                                Quaternion.identity).GetComponent<BattleHero>();
         _placeholderAudioListener.enabled = false;
         BattleHero.InitializeEntity(hero);
 
@@ -41,10 +41,7 @@ public class BattleHeroManager : MonoBehaviour
     {
         BattleRewardElement rewardElement = new();
 
-        rewardElement.OnHide += () =>
-        {
-            Hero.AddExp(Hero.LeftoverExp);
-        };
+        rewardElement.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
     }
 
 }

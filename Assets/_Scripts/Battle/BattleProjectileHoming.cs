@@ -8,8 +8,8 @@ public class BattleProjectileHoming : BattleProjectile
 
     Rigidbody _rb;
 
-    int _homingDurationSeconds = 5;
-    float _rotateSpeed = 0.03f;
+    [SerializeField] int _homingDurationSeconds = 5;
+    [SerializeField] float _rotateSpeed = 0.03f;
 
     Ability _ability;
 
@@ -47,7 +47,7 @@ public class BattleProjectileHoming : BattleProjectile
         }
         // get closest enemy
         _target = GetClosestEntity(battleEntities);
-        
+
         yield return GoForward(0.5f);
 
         // then start homing 
