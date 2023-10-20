@@ -10,14 +10,11 @@ public class EnemyWave : BaseScriptableObject
     public List<Minion> Minions = new();
     public List<Creature> Creatures = new();
 
-    public void CreateWave(
-            int minions, Vector2Int minionLevelRange,
-            int creatures, Vector2Int creatureLevelRange)
+    public void CreateWave(int minions, Vector2Int minionLevelRange)
     {
         GameManager _gameManager = GameManager.Instance;
 
         List<Minion> minionList = new(_gameManager.EntityDatabase.GetAllMinions());
-        // List<Creature> creatureList = new(_gameManager.EntityDatabase.GetCreaturesByTierElement(0, element));
 
         for (int i = 0; i < minions; i++)
         {
@@ -26,13 +23,5 @@ public class EnemyWave : BaseScriptableObject
             minion.InitializeBattle(1);
             Minions.Add(minion);
         }
-
-        // for (int i = 0; i < creatures; i++)
-        // {
-        //     Creature creature = Instantiate(creatureList[Random.Range(0, creatureList.Count)]);
-        //     creature.Level.SetValue(Random.Range(creatureLevelRange.x, creatureLevelRange.y));
-        //     Creatures.Add(creature);
-        // }
-
     }
 }

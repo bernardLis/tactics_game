@@ -79,7 +79,6 @@ public class Hero : EntityMovement
 
 
     /* HERO CREATION */
-
     public void CreateFromHeroCreation(string heroName, Element element)
     {
         _gameManager = GameManager.Instance;

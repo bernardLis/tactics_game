@@ -104,11 +104,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void Play()
     {
-        if (PlayerHero == null)
-        {
-            LoadScene(Scenes.HeroCreation);
-            return;
-        }
         StartGame();
     }
 

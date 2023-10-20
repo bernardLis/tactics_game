@@ -33,12 +33,10 @@ public class Fight : BaseScriptableObject
         {
             int numberOfMinions = 25;//2 + Mathf.FloorToInt(difficulty * i * 1.1f);
             numberOfMinions = Mathf.Clamp(numberOfMinions, 2, 50);
-            int numberOfCreatures = GetNumberOfCreatures(i, numberOfWaves, difficulty);
             Vector2Int minionLevelRange = new Vector2Int(1, difficulty + 1);
-            Vector2Int creatureLevelRange = new Vector2Int(1, 2);
 
             EnemyWave wave = CreateInstance<EnemyWave>();
-            wave.CreateWave(numberOfMinions, minionLevelRange, numberOfCreatures, creatureLevelRange);
+            wave.CreateWave(numberOfMinions, minionLevelRange);
             EnemyWaves.Add(wave);
         }
     }
