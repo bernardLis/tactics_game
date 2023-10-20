@@ -13,8 +13,8 @@ public class BattleAreaManager : MonoBehaviour
 
     GameObject _floor;
 
-    [HideInInspector] public BattleLandTile HomeTile;
-    List<BattleLandTile> _tiles = new();
+    [HideInInspector] public BattleTile HomeTile;
+    List<BattleTile> _tiles = new();
 
     public void Initialize()
     {
@@ -41,7 +41,7 @@ public class BattleAreaManager : MonoBehaviour
                 GameObject tile = Instantiate(_tilePrefab, _floorHolder);
                 Vector3 pos = new(x * tileScale, 0, z * tileScale);
                 tile.transform.position = pos;
-                BattleLandTile bt = tile.GetComponent<BattleLandTile>();
+                BattleTile bt = tile.GetComponent<BattleTile>();
 
                 bt.Initialize(tileScale);
 
@@ -49,7 +49,7 @@ public class BattleAreaManager : MonoBehaviour
                 tile.SetActive(false);
 
                 if (pos == Vector3.zero)
-                    HomeTile = tile.GetComponent<BattleLandTile>();
+                    HomeTile = tile.GetComponent<BattleTile>();
             }
         }
         HomeTile.EnableTile();
@@ -57,11 +57,11 @@ public class BattleAreaManager : MonoBehaviour
 
 
     // TODO: there must be a smarter way to get adjacent tiles
-    public List<BattleLandTile> GetAdjacentTiles(BattleLandTile tile)
+    public List<BattleTile> GetAdjacentTiles(BattleTile tile)
     {
-        List<BattleLandTile> adjacentTiles = new List<BattleLandTile>();
+        List<BattleTile> adjacentTiles = new List<BattleTile>();
         Vector3 tilePos = tile.transform.position;
-        foreach (BattleLandTile t in _tiles)
+        foreach (BattleTile t in _tiles)
         {
             if (t.transform.position == tilePos) continue;
 

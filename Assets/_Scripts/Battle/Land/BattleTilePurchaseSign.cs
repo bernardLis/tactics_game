@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleLandPurchaseSign : MonoBehaviour
+public class BattleTilePurchaseSign : MonoBehaviour
 {
-    public BattleLandTile _tileToPurchase;
+    public BattleTile _tileToPurchase;
 
     public event Action OnPurchased;
-    public void Initialize(BattleLandTile tile)
+    public void Initialize(BattleTile tile)
     {
         _tileToPurchase = tile;
         GetComponent<MeshRenderer>().material = tile.ChosenMaterial;

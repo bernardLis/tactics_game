@@ -6,13 +6,11 @@ using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
 
-public class BattleLandTile : MonoBehaviour
+public class BattleTile : MonoBehaviour
 {
-
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
     BattleFightManager _battleWaveManager;
-    BattleTooltipManager _battleTooltipManager;
 
     [SerializeField] Material[] _materials;
     public Material ChosenMaterial { get; private set; } // HERE: testing
@@ -21,7 +19,7 @@ public class BattleLandTile : MonoBehaviour
     [SerializeField] GameObject _landPurchaseSignPrefab;
     [SerializeField] GameObject _rewardChestPrefab;
 
-    public List<BattleLandPurchaseSign> _signs = new();
+    public List<BattleTilePurchaseSign> _signs = new();
     public List<GameObject> _borders = new();
 
     public float Scale { get; private set; }
@@ -32,7 +30,7 @@ public class BattleLandTile : MonoBehaviour
     bool _minionPositionExecuteOnce;
     List<Vector3> _minionPositions = new();
 
-    public event Action<BattleLandTile> OnEnabled;
+    public event Action<BattleTile> OnEnabled;
     public void Initialize(float scale)
     {
         Scale = scale;
@@ -47,7 +45,6 @@ public class BattleLandTile : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
-        _battleTooltipManager = BattleTooltipManager.Instance;
 
         gameObject.SetActive(true);
         HandleBorders();
@@ -172,8 +169,8 @@ public class BattleLandTile : MonoBehaviour
 
     public void ShowSigns()
     {
-        List<BattleLandTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
-        foreach (BattleLandTile tile in adjacentTiles)
+        List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
+        foreach (BattleTile tile in adjacentTiles)
         {
             if (tile.gameObject.activeSelf) continue;
 
@@ -182,8 +179,8 @@ public class BattleLandTile : MonoBehaviour
                                 + directionToTile
                                 * Scale * 0.4f;
 
-            BattleLandPurchaseSign sign = Instantiate(_landPurchaseSignPrefab,
-                    signPosition, Quaternion.identity).GetComponent<BattleLandPurchaseSign>();
+            BattleTilePurchaseSign sign = Instantiate(_landPurchaseSignPrefab,
+                    signPosition, Quaternion.identity).GetComponent<BattleTilePurchaseSign>();
             sign.transform.SetParent(transform);
             sign.Initialize(tile);
 
@@ -194,7 +191,7 @@ public class BattleLandTile : MonoBehaviour
 
     void OnTilePurchased()
     {
-        foreach (BattleLandPurchaseSign sign in _signs)
+        foreach (BattleTilePurchaseSign sign in _signs)
         {
             sign.gameObject.SetActive(false);
             sign.OnPurchased -= OnTilePurchased;
@@ -224,8 +221,8 @@ public class BattleLandTile : MonoBehaviour
     {
         UpdateTileBorders();
 
-        List<BattleLandTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
-        foreach (BattleLandTile tile in adjacentTiles)
+        List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
+        foreach (BattleTile tile in adjacentTiles)
         {
             if (!tile.gameObject.activeSelf) continue;
             tile.UpdateTileBorders();
@@ -237,8 +234,8 @@ public class BattleLandTile : MonoBehaviour
         foreach (GameObject b in _borders)
             Destroy(b);
 
-        List<BattleLandTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
-        foreach (BattleLandTile tile in adjacentTiles)
+        List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
+        foreach (BattleTile tile in adjacentTiles)
         {
             if (tile.gameObject.activeSelf) continue;
 
@@ -263,7 +260,7 @@ public class BattleLandTile : MonoBehaviour
         Vector3 borderScale = new(0.05f, 2f, Scale);
         border.transform.localScale = borderScale;
 
-        border.GetComponent<BattleLandBorder>().EnableBorder(color);
+        border.GetComponent<BattleTileBorder>().EnableBorder(color);
         _borders.Add(border);
     }
 }

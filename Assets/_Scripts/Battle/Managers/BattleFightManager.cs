@@ -14,7 +14,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     public int CurrentDifficulty { get; private set; }
 
-    BattleLandTile _currentTile;
+    BattleTile _currentTile;
 
     public List<Fight> Fights = new();
     Fight _currentFight;
@@ -29,7 +29,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
         CurrentDifficulty = 1;
     }
 
-    public void InitializeFight(BattleLandTile tile)
+    public void InitializeFight(BattleTile tile)
     {
         _currentTile = tile;
         StartCoroutine(TileFightCoroutine());

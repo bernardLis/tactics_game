@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleLandBorder : MonoBehaviour
+public class BattleTileBorder : MonoBehaviour
 {
     [SerializeField] ParticleSystem _auraParticleSystem;
     [SerializeField] Color defaultColor;
