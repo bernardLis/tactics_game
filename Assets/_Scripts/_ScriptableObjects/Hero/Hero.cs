@@ -38,27 +38,6 @@ public class Hero : EntityMovement
     }
 
 
-    [Header("Army")]
-    public List<Creature> CreatureArmy = new();
-    public event Action<Creature> OnCreatureAdded;
-    public event Action<Creature> OnCreatureRemoved;
-
-    public void AddCreature(Creature creature, bool noDelegate = false)
-    {
-        Debug.Log($"Hero {name} adds army {creature}");
-        CreatureArmy.Add(creature);
-
-        if (noDelegate) return;
-        OnCreatureAdded?.Invoke(creature);
-    }
-
-    public void RemoveCreature(Creature creature)
-    {
-        Debug.Log($"Hero {name} removes {creature}");
-        CreatureArmy.Remove(creature);
-        OnCreatureRemoved?.Invoke(creature);
-    }
-
     [Header("Abilities")]
     public List<Ability> Abilities = new();
     public event Action<Ability> OnAbilityAdded;
@@ -77,9 +56,7 @@ public class Hero : EntityMovement
         OnAbilityRemoved?.Invoke(ability);
     }
 
-
-    /* HERO CREATION */
-    public void CreateFromHeroCreation(string heroName, Element element)
+    public void CreateRandomHero(string heroName, Element element)
     {
         _gameManager = GameManager.Instance;
 
@@ -93,10 +70,6 @@ public class Hero : EntityMovement
 
         Abilities = new();
         AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
-
-        CreatureArmy = new();
-        Creature c = Instantiate(_gameManager.EntityDatabase.GetStartingArmy(element).Creatures[0]);
-        CreatureArmy.Add(c);
     }
 
     void CreateBaseStats()
@@ -138,10 +111,6 @@ public class Hero : EntityMovement
             abilityData.Add(a.SerializeSelf());
         data.AbilityData = abilityData;
 
-        data.CreatureDatas = new();
-        foreach (Creature c in CreatureArmy)
-            data.CreatureDatas.Add(c.SerializeSelf());
-
         return data;
     }
 
@@ -163,15 +132,6 @@ public class Hero : EntityMovement
             a.LoadFromData(abilityData);
             Abilities.Add(a);
         }
-
-        CreatureArmy = new();
-        foreach (CreatureData d in data.CreatureDatas)
-        {
-            Creature baseCreature = heroDatabase.GetCreatureById(d.CreatureId);
-            Creature c = Instantiate(baseCreature);
-            c.LoadFromData(d);
-            CreatureArmy.Add(c);
-        }
     }
 
 }
@@ -183,6 +143,4 @@ public struct HeroData
     public string Id;
 
     public List<AbilityData> AbilityData;
-
-    public List<CreatureData> CreatureDatas;
 }
