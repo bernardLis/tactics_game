@@ -97292,7 +97292,7 @@ GameObject:
   - component: {fileID: 1540904501172948608}
   - component: {fileID: 4923369291984236664}
   m_Layer: 0
-  m_Name: Entity Spawner
+  m_Name: Battle Entity Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

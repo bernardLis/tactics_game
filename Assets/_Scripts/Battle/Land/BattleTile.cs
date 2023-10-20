@@ -10,8 +10,9 @@ public class BattleTile : MonoBehaviour
 {
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
-    BattleFightManager _battleWaveManager;
+    protected BattleFightManager _battleWaveManager;
 
+    [Header("Tile")]
     [SerializeField] Material[] _materials;
     public Material ChosenMaterial { get; private set; } // HERE: testing
     [SerializeField] GameObject _surface;
@@ -40,7 +41,7 @@ public class BattleTile : MonoBehaviour
         mr.material = ChosenMaterial;
     }
 
-    public void EnableTile()
+    public virtual void EnableTile()
     {
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
@@ -52,7 +53,7 @@ public class BattleTile : MonoBehaviour
         OnEnabled?.Invoke(this);
     }
 
-    public void StartTileFight()
+    public virtual void StartTileFight()
     {
         _minionPositionExecuteOnce = false;
         _minionPositions = new();
@@ -102,7 +103,6 @@ public class BattleTile : MonoBehaviour
         return _minionPositions[groupIndex] + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
     }
 
-
     Vector3 GetMinionPositionOneGroup(int currentIndex, int numberOfMinions)
     {
         return transform.position + new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2));
@@ -148,10 +148,9 @@ public class BattleTile : MonoBehaviour
         return new(x, y, z);
     }
 
-    public void Secured()
+    public virtual void Secured()
     {
         // battle wave manager calls this when the fight is finished
-
         HandleBorders();
         SpawnReward();
         ShowSigns();

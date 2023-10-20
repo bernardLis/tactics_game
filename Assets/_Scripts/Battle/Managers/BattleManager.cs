@@ -289,6 +289,7 @@ public class BattleManager : Singleton<BattleManager>
     [ContextMenu("Kill All Opponents")]
     public void KillAllOpponents()
     {
+        if (this == null) return;
         List<BattleEntity> copy = new(OpponentEntities);
         foreach (BattleEntity be in copy)
         {

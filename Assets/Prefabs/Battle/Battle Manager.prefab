@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 9037198521051735104}
   - component: {fileID: 8300005922033865725}
   - component: {fileID: 4810545558572652240}
-  - component: {fileID: 7161087863036619992}
   - component: {fileID: 1226316387709054792}
   - component: {fileID: 1803897707696964957}
   - component: {fileID: 1813988017654575525}
@@ -184,19 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd236773358092c4b8664dc1a4ce4a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7161087863036619992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb2b850ed11e25d4f9ed7b727a8c8752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _effectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
 --- !u!114 &1226316387709054792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +209,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floorHolder: {fileID: 0}
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
-  _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+  _homeTilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+  _tilePrefabs:
+  - {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+  - {fileID: 2306574095906893523, guid: d4e97159b90f8bd488fa3b1b2b358776, type: 3}
   HomeTile: {fileID: 0}
 --- !u!81 &1813988017654575525
 AudioListener:

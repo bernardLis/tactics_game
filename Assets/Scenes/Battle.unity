@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 38469475}
-  m_IndirectSpecularColor: {r: 0.7004271, g: 0.77887654, b: 0.7672576, a: 1}
+  m_IndirectSpecularColor: {r: 0.65046597, g: 0.7369764, b: 0.7464676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -840,6 +840,14 @@ PrefabInstance:
       propertyPath: _floorHolder
       value: 
       objectReference: {fileID: 1815445464}
+    - target: {fileID: 1803897707696964957, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _tilePrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803897707696964957, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _tilePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2306574095906893523, guid: d4e97159b90f8bd488fa3b1b2b358776, type: 3}
     - target: {fileID: 5119385659013104313, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -9,7 +9,8 @@ public class BattleAreaManager : MonoBehaviour
 {
     [SerializeField] Transform _floorHolder;
     [SerializeField] GameObject _floorPrefab;
-    [SerializeField] GameObject _tilePrefab;
+    [SerializeField] GameObject _homeTilePrefab;
+    [SerializeField] List<GameObject> _tilePrefabs;
 
     GameObject _floor;
 
@@ -38,18 +39,20 @@ public class BattleAreaManager : MonoBehaviour
         {
             for (int z = -5; z < 5; z++)
             {
-                GameObject tile = Instantiate(_tilePrefab, _floorHolder);
                 Vector3 pos = new(x * tileScale, 0, z * tileScale);
+                GameObject prefab = _tilePrefabs[Random.Range(0, _tilePrefabs.Count)];
+                if (pos == Vector3.zero)
+                    prefab = _homeTilePrefab;
+
+                GameObject tile = Instantiate(prefab, _floorHolder); ;
                 tile.transform.position = pos;
                 BattleTile bt = tile.GetComponent<BattleTile>();
-
                 bt.Initialize(tileScale);
-
                 _tiles.Add(bt);
                 tile.SetActive(false);
 
                 if (pos == Vector3.zero)
-                    HomeTile = tile.GetComponent<BattleTile>();
+                    HomeTile = bt;
             }
         }
         HomeTile.EnableTile();

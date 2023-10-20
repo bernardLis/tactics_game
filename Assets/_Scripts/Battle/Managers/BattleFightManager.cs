@@ -19,6 +19,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
     public List<Fight> Fights = new();
     Fight _currentFight;
 
+    public event Action OnWaveSpawned;
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -65,8 +66,9 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
-            // _battleTooltipManager.ShowInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
+            _battleTooltipManager.ShowInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
             StartCoroutine(SpawnOpponentGroup(wave));
+            OnWaveSpawned?.Invoke();
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
         }
     }
