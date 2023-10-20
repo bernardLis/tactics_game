@@ -133,7 +133,6 @@ public class Hero : EntityMovement
             Abilities.Add(a);
         }
     }
-
 }
 
 [Serializable]

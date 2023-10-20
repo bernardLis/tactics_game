@@ -152,11 +152,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6ad505463fffd6f48951e4f094be8783
-    m_Address: GraveCardStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 78710e345d14d424393c02462d9ee261
     m_Address: TurretIconStyles
     m_ReadOnly: 0

@@ -97,8 +97,8 @@ public class BuildingTroopsElement : FullScreenElement
 
     void UpdateTroopsLimit()
     {
-        _troopsLimitElement.UpdateCountContainer(
-                $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_building.MaxTroopsTree.CurrentValue.Value}"
-                , Color.white);
+        // _troopsLimitElement.UpdateCountContainer(
+        //         $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_building.MaxTroopsTree.CurrentValue.Value}"
+        //         , Color.white);
     }
 }

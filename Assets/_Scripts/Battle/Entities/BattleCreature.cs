@@ -10,8 +10,6 @@ public class BattleCreature : BattleEntity
 {
     [SerializeField] protected Sound _attackSound;
 
-    [SerializeField] GameObject _gravePrefab;
-
     public Creature Creature { get; private set; }
 
     List<BattleEntity> _opponentList = new();
@@ -303,9 +301,6 @@ public class BattleCreature : BattleEntity
         _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
 
         if (Team != 0) yield break;
-        if (!hasGrave) yield break;
-        GameObject g = Instantiate(_gravePrefab, transform.position, Quaternion.identity);
-        g.GetComponent<BattleCreatureGrave>().Initialize(Creature);
     }
 
     void OnLevelUp()

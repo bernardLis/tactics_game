@@ -367,8 +367,6 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.PlayerHero.LevelUp();
         if (_commandTextField.text.ToLower() == "killbill")
             KillAllPlayerCreatures();
-        if (_commandTextField.text.ToLower() == "dragon")
-            LevelUpCreatures();
         if (_commandTextField.text.ToLower() == "tween")
             DoTweenSeeAllTweens();
 
@@ -389,12 +387,6 @@ public class CommandLineManager : MonoBehaviour
         {
             Debug.Log($"{tween} is tweening | tween target: {tween.target}");
         }
-    }
-
-    void LevelUpCreatures()
-    {
-        foreach (Creature creature in _gameManager.PlayerHero.CreatureArmy)
-            creature.LevelUp();
     }
 
     public void Log(string logString, string stackTrace, LogType type)

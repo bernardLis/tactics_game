@@ -201,7 +201,6 @@ public class BattleManager : Singleton<BattleManager>
     {
         KilledPlayerEntities.Add(be);
         PlayerCreatures.Remove(be);
-        _gameManager.PlayerHero.RemoveCreature((Creature)be.Entity);
         OnPlayerEntityDeath?.Invoke(be);
     }
 

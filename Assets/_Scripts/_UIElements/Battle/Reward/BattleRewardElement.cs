@@ -162,7 +162,6 @@ public class BattleRewardElement : FullScreenElement
         _allRewardCards.Add(CreateRewardCardHeroStat());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
-        _allRewardCards.Add(CreateRewardCardArmy());
         _allRewardCards.Add(CreateRewardCardObstacle());
         _allRewardCards.Add(CreateRewardCardTurret());
     }
@@ -205,21 +204,6 @@ public class BattleRewardElement : FullScreenElement
         return card;
     }
 
-    RewardCard CreateRewardCardArmy()
-    {
-        RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        RewardCard card = new RewardCardCreature(reward);
-
-        if (_gameManager.PlayerHero.CreatureArmy.Count >= 7)// HERE: troops limit
-        {
-            card.DisableCard();
-            card.Add(new Label("Your army is full!"));
-        }
-
-        return card;
-    }
 
     RewardCard CreateRewardCardObstacle()
     {
