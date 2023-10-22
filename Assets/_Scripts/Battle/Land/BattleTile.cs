@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
+using UnityEngine.AI;
 
 public class BattleTile : MonoBehaviour
 {
@@ -64,21 +64,6 @@ public class BattleTile : MonoBehaviour
         _battleWaveManager.InitializeFight(this);
     }
 
-    public Vector3 GetMinionPosition(int currentIndex, int numberOfMinions)
-    {
-        if (_minionSpawningPattern == MinionSpawningPattern.SurroundMiddle)
-            return GetPositionAroundMiddle(currentIndex, numberOfMinions);
-        if (_minionSpawningPattern == MinionSpawningPattern.Random)
-            return GetPositionRandom(currentIndex, numberOfMinions);
-        if (_minionSpawningPattern == MinionSpawningPattern.FewGroups)
-            return GetPositionFewGroups(currentIndex, numberOfMinions);
-        if (_minionSpawningPattern == MinionSpawningPattern.OneGroup)
-            return GetPositionOne(currentIndex, numberOfMinions);
-        if (_minionSpawningPattern == MinionSpawningPattern.Grid)
-            return GetPositionGrid(currentIndex, numberOfMinions);
-
-        return Vector3.zero;
-    }
 
 
     public virtual void Secured()
@@ -91,7 +76,7 @@ public class BattleTile : MonoBehaviour
     void SpawnReward()
     {
         // TODO: make sure that position is empty
-        Vector3 chestPosition = transform.position + Vector3.up * 3.5f;
+        Vector3 chestPosition = GetPositionOne(0, 0) + Vector3.up * 3.5f;
         GameObject chest = Instantiate(_rewardChestPrefab, chestPosition, Quaternion.identity);
         chest.transform.localScale = Vector3.zero;
         chest.transform.DOScale(2f, 1f);
@@ -158,7 +143,7 @@ public class BattleTile : MonoBehaviour
 
             InstantiateBorder(borderPosition, color);
         }
-        
+
         if (adjacentTiles.Count < 4)
             UpdateGameBorders(adjacentTiles);
     }
@@ -199,6 +184,22 @@ public class BattleTile : MonoBehaviour
     }
 
     /* POSITIONS ON TILE */
+    public Vector3 GetMinionPosition(int currentIndex, int numberOfMinions)
+    {
+        if (_minionSpawningPattern == MinionSpawningPattern.SurroundMiddle)
+            return GetPositionAroundMiddle(currentIndex, numberOfMinions);
+        if (_minionSpawningPattern == MinionSpawningPattern.Random)
+            return GetPositionRandom(currentIndex, numberOfMinions);
+        if (_minionSpawningPattern == MinionSpawningPattern.FewGroups)
+            return GetPositionFewGroups(currentIndex, numberOfMinions);
+        if (_minionSpawningPattern == MinionSpawningPattern.OneGroup)
+            return GetPositionOne(currentIndex, numberOfMinions);
+        if (_minionSpawningPattern == MinionSpawningPattern.Grid)
+            return GetPositionGrid(currentIndex, numberOfMinions);
+
+        return Vector3.zero;
+    }
+
     Vector3 GetPositionFewGroups(int currentIndex, int numberOfMinions)
     {
         int numberOfGroups = numberOfMinions / 5;
@@ -222,8 +223,14 @@ public class BattleTile : MonoBehaviour
 
     Vector3 GetPositionOne(int currentIndex, int totalCount)
     {
-        // TODO: make sure that position is empty
-        return transform.position + new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2));
+        if (!_minionPositionExecuteOnce)
+        {
+            _minionPositions = new();
+            _minionPositions.Add(GetPositionRandom(0, 0));
+            _minionPositionExecuteOnce = true;
+        }
+
+        return _minionPositions[0] + new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2));
     }
 
     Vector3 GetPositionGrid(int currentIndex, int totalCount)
@@ -248,10 +255,15 @@ public class BattleTile : MonoBehaviour
 
     Vector3 GetPositionRandom(int currentIndex, int totalCount)
     {
-        float halfScale = Scale * 0.5f;
-        return transform.position +
+        float halfScale = Scale * 0.5f - 2;
+
+        Vector3 point = transform.position +
                 new Vector3(Random.Range(-halfScale, halfScale), 1,
-                                                Random.Range(-halfScale, halfScale));
+                            Random.Range(-halfScale, halfScale));
+
+        if (IsPositionOnNavMesh(point, out Vector3 result))
+            return result;
+        return GetPositionRandom(0, 0);
     }
 
     Vector3 GetPositionAroundMiddle(int currentIndex, int totalCount)
@@ -266,10 +278,17 @@ public class BattleTile : MonoBehaviour
         return new(x, y, z);
     }
 
-    bool IsPositionOnNavMesh()
+    bool IsPositionOnNavMesh(Vector3 point, out Vector3 result)
     {
+        NavMeshHit hit;
         //https://docs.unity3d.com/540/Documentation/ScriptReference/NavMesh.SamplePosition.html
+        if (NavMesh.SamplePosition(point, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            result = hit.position;
+            return true;
+        }
 
+        result = Vector3.zero;
         return false;
     }
 
