@@ -5,7 +5,7 @@ using UnityEngine;
 public class BattleTileWolfLair : BattleTile
 {
     [Header("Wolf Lair")]
-    [SerializeField] BattleWolfLair _wolfLair;
+    BattleWolfLair _wolfLair;
     public override void EnableTile()
     {
         base.EnableTile();

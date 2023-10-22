@@ -209,11 +209,6 @@ public class BattleManager : Singleton<BattleManager>
         KilledOpponentEntities.Add(be);
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(be);
-
-        if (killer == null) return;
-
-        // TODO: price for experience
-        killer.AddExp(be.Entity.Price);
     }
 
     public List<BattleEntity> GetAllies(BattleEntity battleEntity)

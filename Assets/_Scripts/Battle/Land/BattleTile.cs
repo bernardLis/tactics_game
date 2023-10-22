@@ -14,11 +14,11 @@ public class BattleTile : MonoBehaviour
 
     [Header("Tile")]
     [SerializeField] Material[] _materials;
-    public Material ChosenMaterial { get; private set; } // HERE: testing
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
     [SerializeField] GameObject _landPurchaseSignPrefab;
     [SerializeField] GameObject _rewardChestPrefab;
+    public GameObject TileIndicationPrefab;
 
     public List<BattleTilePurchaseSign> _signs = new();
     public List<GameObject> _borders = new();
@@ -35,8 +35,7 @@ public class BattleTile : MonoBehaviour
         Scale = scale;
         MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
         _surface.transform.localScale = new Vector3(scale, 0.1f, scale);
-        ChosenMaterial = _materials[Random.Range(0, _materials.Length)];
-        mr.material = ChosenMaterial;
+        mr.material = _materials[Random.Range(0, _materials.Length)];
     }
 
     public virtual void EnableTile()
@@ -109,7 +108,7 @@ public class BattleTile : MonoBehaviour
     {
         foreach (BattleTilePurchaseSign sign in _signs)
         {
-            sign.gameObject.SetActive(false);
+            sign.DestroySelf();
             sign.OnPurchased -= OnTilePurchased;
         }
     }

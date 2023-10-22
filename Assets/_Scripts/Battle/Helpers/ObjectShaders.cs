@@ -12,13 +12,26 @@ public class ObjectShaders : MonoBehaviour
     Shader _sepiaToneShader;
     Shader _originalShader;
 
-    public event Action OnDissolveComplete;
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _dissolveShader = _gameManager.GameDatabase.DissolveShader;
-        _grayScaleShader = _gameManager.GameDatabase.GrayScaleShader;
-        _sepiaToneShader = _gameManager.GameDatabase.SepiaToneShader;
+    }
+
+    public void GrayScale()
+    {
+        if (_grayScaleShader == null)
+            _grayScaleShader = GameManager.Instance.GameDatabase.GrayScaleShader;
+
+        List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+        foreach (Renderer r in renderers)
+        {
+            Material mat = r.material;
+
+            Texture2D tex = mat.mainTexture as Texture2D;
+            _originalShader = mat.shader;
+            mat.shader = _grayScaleShader;
+            mat.SetTexture("_Base_Texture", tex);
+        }
     }
 
     public void Dissolve(float time, bool isReverse)
@@ -26,21 +39,21 @@ public class ObjectShaders : MonoBehaviour
         if (_dissolveShader == null)
             _dissolveShader = GameManager.Instance.GameDatabase.DissolveShader;
 
-        Material mat = GetComponentInChildren<Renderer>().material;
-        Texture2D tex = mat.mainTexture as Texture2D;
-        _originalShader = mat.shader;
-        mat.shader = _dissolveShader;
-        mat.SetTexture("_Base_Texture", tex);
+        List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+        foreach (Renderer r in renderers)
+        {
+            Material mat = r.material;
 
-        float startValue = isReverse ? 1f : 0f;
-        float endValue = isReverse ? 0f : 1f;
+            Texture2D tex = mat.mainTexture as Texture2D;
+            _originalShader = mat.shader;
+            mat.shader = _dissolveShader;
+            mat.SetTexture("_Base_Texture", tex);
 
-        mat.SetFloat("_Dissolve_Value", startValue);
-        DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), startValue, endValue, time)
-                .OnComplete(() =>
-                {
-                    // mat.shader = originalShader;
-                    OnDissolveComplete?.Invoke();
-                });
+            float startValue = isReverse ? 1f : 0f;
+            float endValue = isReverse ? 0f : 1f;
+
+            mat.SetFloat("_Dissolve_Value", startValue);
+            DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), startValue, endValue, time);
+        }
     }
 }
