@@ -56,8 +56,8 @@ public class BattleAreaManager : MonoBehaviour
             }
         }
         HomeTile.EnableTile();
+        HomeTile.HandleBorders(new Color(1f, 0.22f, 0f, 0.2f)); // magic color
     }
-
 
     // TODO: there must be a smarter way to get adjacent tiles
     public List<BattleTile> GetAdjacentTiles(BattleTile tile)

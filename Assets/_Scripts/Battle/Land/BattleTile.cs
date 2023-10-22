@@ -48,7 +48,6 @@ public class BattleTile : MonoBehaviour
         _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
 
         gameObject.SetActive(true);
-        HandleBorders();
         StartTileFight();
         OnEnabled?.Invoke(this);
     }
@@ -63,7 +62,6 @@ public class BattleTile : MonoBehaviour
         if (_battleWaveManager.CurrentDifficulty == 1)
             _minionSpawningPattern = MinionSpawningPattern.SurroundMiddle;
 
-        EnableAllBorders();
         _battleWaveManager.InitializeFight(this);
     }
 
@@ -87,7 +85,7 @@ public class BattleTile : MonoBehaviour
     public virtual void Secured()
     {
         // battle wave manager calls this when the fight is finished
-        HandleBorders();
+        HandleBorders(default);
         SpawnReward();
         ShowSigns();
     }
@@ -132,7 +130,7 @@ public class BattleTile : MonoBehaviour
             sign.OnPurchased -= OnTilePurchased;
         }
 
-        HandleBorders();
+        HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
     }
 
     /* BORDERS */
@@ -152,19 +150,19 @@ public class BattleTile : MonoBehaviour
         }
     }
 
-    void HandleBorders()
+    public void HandleBorders(Color color)
     {
-        UpdateTileBorders();
+        UpdateTileBorders(color);
 
         List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
         foreach (BattleTile tile in adjacentTiles)
         {
             if (!tile.gameObject.activeSelf) continue;
-            tile.UpdateTileBorders();
+            tile.UpdateTileBorders(color);
         }
     }
 
-    public void UpdateTileBorders()
+    public void UpdateTileBorders(Color color)
     {
         foreach (GameObject b in _borders)
             Destroy(b);
@@ -177,7 +175,7 @@ public class BattleTile : MonoBehaviour
             Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
             Vector3 borderPosition = Scale * 0.5f * directionToTile;
 
-            InstantiateBorder(borderPosition, default);
+            InstantiateBorder(borderPosition, color);
         }
     }
 
