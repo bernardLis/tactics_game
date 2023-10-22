@@ -82,6 +82,8 @@ public enum StatType { Power, Health, Armor, Speed, AttackRange, AttackCooldown,
 
 public enum ElementName { Fire, Water, Wind, Earth }
 
+public enum MinionSpawningPattern { SurroundMiddle, Random, FewGroups, OneGroup, Grid }
+
 [System.Serializable]
 public struct RewardIcon
 {

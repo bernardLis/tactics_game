@@ -45,7 +45,8 @@ public class AbilityButton : ElementWithSound
         _icon.style.opacity = 0.5f;
         transform.scale = Vector3.one * 0.8f;
 
-        // SetEnabled(false);
+        if (_cooldownTimer != null) RemoveCooldownTimer();
+
         _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown() - 0.5f, Ability.GetCooldown(), false, "");
         _cooldownTimer.style.width = Length.Percent(90);
         _cooldownTimer.style.height = Length.Percent(90);
@@ -62,9 +63,17 @@ public class AbilityButton : ElementWithSound
         _icon.style.opacity = 1f;
         transform.scale = Vector3.one;
 
-        // SetEnabled(true);
-        Remove(_cooldownTimer);
-        _cooldownTimer.OnTimerFinished -= OnCooldownFinished; // TODO: is it necessary?
+        RemoveCooldownTimer();
+    }
+
+    void RemoveCooldownTimer()
+    {
+        if (_cooldownTimer != null)
+        {
+            Remove(_cooldownTimer);
+            _cooldownTimer.OnTimerFinished -= OnCooldownFinished;
+            _cooldownTimer = null;
+        }
     }
 
     public void Highlight() { AddToClassList(_ussHighlight); }

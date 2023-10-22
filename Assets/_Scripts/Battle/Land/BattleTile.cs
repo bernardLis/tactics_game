@@ -25,8 +25,6 @@ public class BattleTile : MonoBehaviour
 
     public float Scale { get; private set; }
 
-    public enum MinionSpawningPattern { SurroundMiddle, Random, FewGroups, OneGroup, Grid }
-
     MinionSpawningPattern _minionSpawningPattern;
     bool _minionPositionExecuteOnce;
     List<Vector3> _minionPositions = new();
@@ -48,6 +46,7 @@ public class BattleTile : MonoBehaviour
         _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
 
         gameObject.SetActive(true);
+        HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
         StartTileFight();
         OnEnabled?.Invoke(this);
     }
@@ -72,7 +71,7 @@ public class BattleTile : MonoBehaviour
         if (_minionSpawningPattern == MinionSpawningPattern.Random)
             return GetPositionRandom(currentIndex, numberOfMinions);
         if (_minionSpawningPattern == MinionSpawningPattern.FewGroups)
-            return GetMinionPositionFewGroups(currentIndex, numberOfMinions);
+            return GetPositionFewGroups(currentIndex, numberOfMinions);
         if (_minionSpawningPattern == MinionSpawningPattern.OneGroup)
             return GetPositionOne(currentIndex, numberOfMinions);
         if (_minionSpawningPattern == MinionSpawningPattern.Grid)
@@ -85,7 +84,6 @@ public class BattleTile : MonoBehaviour
     public virtual void Secured()
     {
         // battle wave manager calls this when the fight is finished
-        HandleBorders(default);
         SpawnReward();
         ShowSigns();
     }
@@ -129,37 +127,20 @@ public class BattleTile : MonoBehaviour
             sign.gameObject.SetActive(false);
             sign.OnPurchased -= OnTilePurchased;
         }
-
-        HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
     }
 
     /* BORDERS */
-    void EnableAllBorders()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            Vector3 directionToTile = Vector3.zero;
-            if (i == 0) directionToTile = Vector3.forward;
-            if (i == 1) directionToTile = Vector3.right;
-            if (i == 2) directionToTile = Vector3.back;
-            if (i == 3) directionToTile = Vector3.left;
-
-            Vector3 borderPosition = Scale * 0.5f * directionToTile;
-
-            InstantiateBorder(borderPosition, new Color(1f, 0.22f, 0f, 0.2f)); // magic color
-        }
-    }
 
     public void HandleBorders(Color color)
     {
-        UpdateTileBorders(color);
-
         List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
         foreach (BattleTile tile in adjacentTiles)
         {
             if (!tile.gameObject.activeSelf) continue;
             tile.UpdateTileBorders(color);
         }
+
+        UpdateTileBorders(color);
     }
 
     public void UpdateTileBorders(Color color)
@@ -177,9 +158,29 @@ public class BattleTile : MonoBehaviour
 
             InstantiateBorder(borderPosition, color);
         }
+        
+        if (adjacentTiles.Count < 4)
+            UpdateGameBorders(adjacentTiles);
     }
 
-    void InstantiateBorder(Vector3 borderPosition, Color color)
+    void UpdateGameBorders(List<BattleTile> adjacentTiles)
+    {
+        // check which tile is missing and instantiate border there
+        List<Vector3> directions = new() { Vector3.forward, Vector3.right, Vector3.back, Vector3.left };
+        foreach (BattleTile tile in adjacentTiles)
+        {
+            Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
+            directions.Remove(directionToTile);
+        }
+
+        foreach (Vector3 dir in directions)
+        {
+            Vector3 borderPosition = Scale * 0.5f * dir;
+            InstantiateBorder(borderPosition, Color.magenta, true);
+        }
+    }
+
+    void InstantiateBorder(Vector3 borderPosition, Color color, bool isGameBorder = false)
     {
         // for the effect to stack nicely
         Vector3 borderRotation = Vector3.zero;
@@ -193,12 +194,12 @@ public class BattleTile : MonoBehaviour
         Vector3 borderScale = new(0.05f, 2f, Scale);
         border.transform.localScale = borderScale;
 
-        border.GetComponent<BattleTileBorder>().EnableBorder(color);
+        border.GetComponent<BattleTileBorder>().EnableBorder(color, isGameBorder);
         _borders.Add(border);
     }
 
-
-    Vector3 GetMinionPositionFewGroups(int currentIndex, int numberOfMinions)
+    /* POSITIONS ON TILE */
+    Vector3 GetPositionFewGroups(int currentIndex, int numberOfMinions)
     {
         int numberOfGroups = numberOfMinions / 5;
 
@@ -219,7 +220,6 @@ public class BattleTile : MonoBehaviour
     }
 
 
-    /* POSITIONS ON TILE */
     Vector3 GetPositionOne(int currentIndex, int totalCount)
     {
         // TODO: make sure that position is empty
