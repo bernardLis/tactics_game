@@ -34,6 +34,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public int Team { get; protected set; }
 
     protected GameObject _GFX;
+    Rigidbody _rigidbody;
     public Animator Animator { get; private set; }
 
     public Entity Entity { get; private set; }
@@ -100,10 +101,11 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         _grabManager = BattleGrabManager.Instance;
 
-        GetComponent<Rigidbody>().isKinematic = true;
+        _rigidbody = GetComponent<Rigidbody>();
+        if (_rigidbody != null) _rigidbody.isKinematic = true;
 
         Team = team;
-        _battleEntityHighlight.Initialize(this);
+        if (_battleEntityHighlight != null) _battleEntityHighlight.Initialize(this);
         SetBattleId();
 
         EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized, team: {team}");

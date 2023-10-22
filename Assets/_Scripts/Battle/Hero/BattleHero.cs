@@ -54,8 +54,6 @@ public class BattleHero : BattleEntity
     {
         foreach (GameObject g in _battleAbilities.Values)
             g.GetComponent<BattleAbility>().StartAbility();
-
-
     }
 
     void OnFightEnded()
@@ -86,6 +84,8 @@ public class BattleHero : BattleEntity
         _battleAbilities.Remove(ability);
     }
 
+    public override void Engage(BattleEntity engager) { }
+
     public void GetHit(BattleEntity entity)
     {
         Hero.CurrentHealth.ApplyChange(-5);
@@ -96,6 +96,19 @@ public class BattleHero : BattleEntity
             Die();
             return;
         }
+    }
+
+    public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
+    {
+        Hero.CurrentHealth.ApplyChange(-5);
+        DisplayFloatingText($"{-5}", _gameManager.GameDatabase.GetColorByName("Health").Color);
+
+        if (Hero.CurrentHealth.Value <= 0)
+        {
+            Die();
+            yield break;
+        }
+        yield return null;
     }
 
     void Die()

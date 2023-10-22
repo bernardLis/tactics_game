@@ -7,6 +7,7 @@ using Cinemachine;
 
 public class BattleHeroManager : MonoBehaviour
 {
+    BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
 
     VisualElement _root;
@@ -20,6 +21,7 @@ public class BattleHeroManager : MonoBehaviour
     public Hero Hero { get; private set; }
     public void Initialize(Hero hero)
     {
+        _battleManager = GetComponent<BattleManager>();
         _battleAreaManager = GetComponent<BattleAreaManager>();
         _root = GetComponent<UIDocument>().rootVisualElement;
         _bottomPanel = _root.Q<VisualElement>("bottomPanel");
@@ -32,6 +34,7 @@ public class BattleHeroManager : MonoBehaviour
                                 Quaternion.identity).GetComponent<BattleHero>();
         _placeholderAudioListener.enabled = false;
         BattleHero.InitializeEntity(hero);
+        _battleManager.AddPlayerArmyEntity(BattleHero);
 
         _heroBattleElement = new(hero);
         _bottomPanel.Add(_heroBattleElement);
