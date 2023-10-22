@@ -72,11 +72,4 @@ public class ShellEntity : BattleCreatureMelee
         if (_shieldEffectInstance != null)
             Destroy(_shieldEffectInstance);
     }
-
-    public override void Evolve()
-    {
-        if (_shieldEffectInstance != null)
-            Destroy(_shieldEffectInstance);
-        base.Evolve();
-    }
 }

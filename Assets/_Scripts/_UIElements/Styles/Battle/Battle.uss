@@ -8,35 +8,6 @@
     padding-bottom: 20px;
 }
 
-.battle__evolution-info-container {
-    position: absolute;
-    align-items: center;
-    align-content: center;
-    justify-content: flex-start;
-    left: auto;
-    top: auto;
-    min-width: 300px;
-    min-height: 900px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/paper.png?fileID=2800000&guid=856bfb1bae43ab042b2838bd15710c06&type=3#paper');
-    padding-top: 20px;
-    margin-top: 30px;
-    margin-left: 15px;
-}
-
-.battle__evolution-continue-button {
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    position: absolute;
-    align-self: center;
-    font-size: 36px;
-    bottom: 50px;
-    width: 320px;
-    height: 200px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
-    color: cornsilk;
-}
-
 .battle__won-label {
     font-size: 64px;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/horizontal_flag.png?fileID=2800000&guid=719587235c52756429cfbea86a7e8082&type=3#horizontal_flag');

@@ -23,7 +23,6 @@ public class BattleCreature : BattleEntity
 
     public event Action OnEnemyKilled;
     public event Action<int> OnDamageDealt;
-    public event Action<BattleCreature> OnEvolving;
     protected virtual void Update()
     {
         if (_currentAttackCooldown >= 0)
@@ -309,15 +308,6 @@ public class BattleCreature : BattleEntity
         Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
     }
 
-    public virtual void Evolve()
-    {
-        SetDead();
-        _blockRunEntity = true;
-        _battleEntityHighlight.DisableHighlightFully();
-
-        StopRunEntityCoroutine();
-        OnEvolving?.Invoke(this);
-    }
 
 #if UNITY_EDITOR
     [ContextMenu("Level up")]

@@ -82,7 +82,6 @@ GameObject:
   - component: {fileID: 7988765233820874705}
   - component: {fileID: 1288290802793613283}
   - component: {fileID: 103601588217443043}
-  - component: {fileID: 4937348910851755702}
   m_Layer: 0
   m_Name: Base Entity
   m_TagString: Enemy
@@ -424,7 +423,6 @@ MonoBehaviour:
   _getHitSound: {fileID: 0}
   IsShielded: 0
   _attackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
-  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
 --- !u!114 &103601588217443043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,19 +437,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _highlightDiamondPrefab: {fileID: 2291264481074307018, guid: b2d212f1a666afd4cb6616c53889f7a9, type: 3}
   _healEffectPrefab: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
---- !u!114 &4937348910851755702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220321774683407358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 478bd81d55b47fc49acd2612394725fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bondingLevelSound: {fileID: 11400000, guid: 4276a2ffa007b8040b0dd25847c589a2, type: 2}
 --- !u!1 &378796256609413106
 GameObject:
   m_ObjectHideFlags: 0
