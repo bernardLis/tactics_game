@@ -10,12 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4268173089379824077, guid: ad59aa68a7ffabc4393258f32ec92cc7, type: 3}
       propertyPath: m_Name
-      value: Rare Exp Orb
+      value: Rare Experience Orb
       objectReference: {fileID: 0}
     - target: {fileID: 5750881876947354666, guid: ad59aa68a7ffabc4393258f32ec92cc7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e18ded4b611aa8f4a9f0f261d2f29537, type: 2}
+      objectReference: {fileID: 2100000, guid: 9ef4927737d0c5d4f9cf29ed834d0165, type: 2}
     - target: {fileID: 6903957657355542177, guid: ad59aa68a7ffabc4393258f32ec92cc7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

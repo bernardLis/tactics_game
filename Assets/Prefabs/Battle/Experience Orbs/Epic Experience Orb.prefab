@@ -10,12 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4268173089379824077, guid: ad59aa68a7ffabc4393258f32ec92cc7, type: 3}
       propertyPath: m_Name
-      value: Epic Exp Orb
+      value: Epic Experience Orb
       objectReference: {fileID: 0}
     - target: {fileID: 5750881876947354666, guid: ad59aa68a7ffabc4393258f32ec92cc7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 68d9464d0cd4fbf48a81abf378167c7f, type: 2}
+      objectReference: {fileID: 2100000, guid: 600f717ac4f9a9043866d3d0610932c9, type: 2}
     - target: {fileID: 6903957657355542177, guid: ad59aa68a7ffabc4393258f32ec92cc7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -81,6 +81,10 @@ PrefabInstance:
     - target: {fileID: 4577507224819663240, guid: dbf1928b656a3fb4fb903ad6d832642c, type: 3}
       propertyPath: m_Name
       value: Epic Loot Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4577507224819663240, guid: dbf1928b656a3fb4fb903ad6d832642c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4963453254209170862, guid: dbf1928b656a3fb4fb903ad6d832642c, type: 3}
       propertyPath: m_LocalScale.x

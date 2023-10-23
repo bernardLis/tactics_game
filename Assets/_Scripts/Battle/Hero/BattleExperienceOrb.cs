@@ -25,17 +25,11 @@ public class BattleExperienceOrb : BattlePickUp
 
         transform.position = new Vector3(
             transform.position.x,
-            transform.position.y + 1f,
+            0.5f, //+ 1f,
             transform.position.z
         );
 
-        float endY = Random.Range(2f, 4f);
-        float timeY = Random.Range(1f, 3f);
-
-        transform.DOMoveY(endY, timeY)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo)
-            .SetId(transform);
+        GetComponentInChildren<Light>().color = _expOrb.Color.Color;
     }
 
     void OnTriggerEnter(Collider collider)
