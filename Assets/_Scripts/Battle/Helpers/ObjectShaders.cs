@@ -14,8 +14,6 @@ public class ObjectShaders : MonoBehaviour
     Shader _grayScaleShader;
     Shader _sepiaToneShader;
 
-
-
     void Start()
     {
         _gameManager = GameManager.Instance;

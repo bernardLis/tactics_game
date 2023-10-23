@@ -13,12 +13,15 @@ public class BattleTile : MonoBehaviour
     protected BattleFightManager _battleWaveManager;
 
     [Header("Tile")]
+    ObjectShaders _objectShaders;
+
     [SerializeField] Material[] _materials;
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
     [SerializeField] GameObject _landPurchaseSignPrefab;
     [SerializeField] GameObject _rewardChestPrefab;
     public GameObject TileIndicationPrefab;
+
 
     public List<BattleTilePurchaseSign> _signs = new();
     public List<GameObject> _borders = new();
@@ -32,6 +35,7 @@ public class BattleTile : MonoBehaviour
     public event Action<BattleTile> OnEnabled;
     public void Initialize(float scale)
     {
+        _objectShaders = GetComponent<ObjectShaders>();
         Scale = scale;
         MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
         _surface.transform.localScale = new Vector3(scale, 0.1f, scale);
@@ -45,7 +49,15 @@ public class BattleTile : MonoBehaviour
         _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
 
         gameObject.SetActive(true);
+        StartCoroutine(EnableTileCoroutine());
+    }
+
+    IEnumerator EnableTileCoroutine()
+    {
+        _objectShaders.Dissolve(5f, true);
         HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
+
+        yield return new WaitForSeconds(3f);
         StartTileFight();
         OnEnabled?.Invoke(this);
     }

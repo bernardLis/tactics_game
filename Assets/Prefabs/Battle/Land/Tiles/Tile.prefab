@@ -114,6 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5103032281565103522}
+  - component: {fileID: 4567954077695690055}
   - component: {fileID: 6651828067793884842}
   m_Layer: 6
   m_Name: Tile
@@ -138,6 +139,18 @@ Transform:
   - {fileID: 8710173155117523878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4567954077695690055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525327832846669260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086cfca3730834b49aca4438ba33dcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6651828067793884842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +168,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 981abf7a53e6a964fba6bc48555ec31a, type: 2}
   - {fileID: 2100000, guid: 4084a843b9ef6af45a63b7163f9fbefb, type: 2}
   - {fileID: 2100000, guid: dfc08c90188302847afb04f628582097, type: 2}
-  - {fileID: 2100000, guid: 2ab8149ec4775284bada96c1b85b4a09, type: 2}
   _surface: {fileID: 456923907186743427}
   _borderPrefab: {fileID: 516943767338688193, guid: 77ec57d2b3dd1fc44bf4a7ecb1b06a3e, type: 3}
   _landPurchaseSignPrefab: {fileID: 5078287019892464739, guid: 1f76cd1e504e67341813f3c147cf62b4, type: 3}
