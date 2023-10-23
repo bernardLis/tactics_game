@@ -75,8 +75,6 @@ public class BattleTile : MonoBehaviour
         _battleWaveManager.InitializeFight(this);
     }
 
-
-
     public virtual void Secured()
     {
         // battle wave manager calls this when the fight is finished

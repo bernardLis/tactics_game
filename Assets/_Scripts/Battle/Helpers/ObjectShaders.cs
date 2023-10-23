@@ -14,6 +14,9 @@ public class ObjectShaders : MonoBehaviour
     Shader _grayScaleShader;
     Shader _sepiaToneShader;
 
+    List<Shader> _originalShaders = new();
+
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -58,19 +61,26 @@ public class ObjectShaders : MonoBehaviour
             _dissolveShader = GameManager.Instance.GameDatabase.DissolveShader;
 
         List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+        _originalShaders = new();
         foreach (Renderer r in renderers)
         {
             Material mat = r.material;
+            _originalShaders.Add(mat.shader);
 
+            Vector2 texScale = mat.mainTextureScale; // tiling
             Texture2D tex = mat.mainTexture as Texture2D;
+            Texture2D metallicMap = mat.GetTexture("_MetallicGlossMap") as Texture2D;
+
             mat.shader = _dissolveShader;
             mat.SetTexture("_Base_Texture", tex);
+            mat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
+            mat.SetVector("_Tiling", texScale);
 
             float startValue = isReverse ? 1f : 0f;
             float endValue = isReverse ? 0f : 1f;
 
-            mat.SetFloat("_Dissolve_Value", startValue);
-            DOTween.To(x => mat.SetFloat("_Dissolve_Value", x), startValue, endValue, time);
+            mat.SetFloat("_Dissolve", startValue);
+            DOTween.To(x => mat.SetFloat("_Dissolve", x), startValue, endValue, time);
         }
     }
 }
