@@ -25,7 +25,7 @@ public class BattleExperienceOrb : BattlePickUp
 
         transform.position = new Vector3(
             transform.position.x,
-            0.5f, //+ 1f,
+            0.5f,
             transform.position.z
         );
 
