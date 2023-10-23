@@ -26,6 +26,10 @@ public class BattleTilePurchaseSign : MonoBehaviour
                     .SetLoops(-1, LoopType.Yoyo)
                     .SetEase(Ease.InOutSine);
 
+        _tileIndicator.transform.DORotate(new Vector3(0f, 360f, 0f), 8f, RotateMode.FastBeyond360)
+                    .SetLoops(-1, LoopType.Restart)
+                    .SetEase(Ease.Linear);
+
         GetComponent<ObjectShaders>().Dissolve(3f, true);
     }
 
