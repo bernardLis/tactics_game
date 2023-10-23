@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139015598634510097}
   - component: {fileID: 5233664740708011379}
+  - component: {fileID: 2403388112181551544}
   m_Layer: 0
   m_Name: Wolf Lair
   m_TagString: Untagged
@@ -51,6 +52,18 @@ MonoBehaviour:
   _wolfCount: 3
   _spawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
   _spawnPoint: {fileID: 8149307017514102586}
+--- !u!114 &2403388112181551544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265301038077194360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086cfca3730834b49aca4438ba33dcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &309137920481526107
 GameObject:
   m_ObjectHideFlags: 0

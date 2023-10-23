@@ -19,7 +19,7 @@ public class BattleEntityHighlight : MonoBehaviour
         _battleEntity = battleEntity;
         _battleEntity.OnDeath += (_, _) => DisableHighlightFully();
 
-        InitializeDisc();
+        // InitializeDisc();
     }
 
     void InitializeDisc()
@@ -61,14 +61,14 @@ public class BattleEntityHighlight : MonoBehaviour
 
     public void DisableHighlightFully()
     {
-        _disc.gameObject.SetActive(false);
+        if (_disc != null) _disc.gameObject.SetActive(false);
         if (_highlightDiamond != null) _highlightDiamond.Disable();
     }
 
     public void HealEffect()
     {
         if (_battleEntity == null) return;
-        
+
         GameObject obj = Instantiate(_healEffectPrefab, transform.position, Quaternion.identity);
         obj.transform.parent = _battleEntity.transform;
         obj.transform.DOScale(0, 0.5f)

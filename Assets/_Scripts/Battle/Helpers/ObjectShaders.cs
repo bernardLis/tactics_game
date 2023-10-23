@@ -7,14 +7,35 @@ using DG.Tweening;
 public class ObjectShaders : MonoBehaviour
 {
     GameManager _gameManager;
+
+    Shader _litShader;
+
     Shader _dissolveShader;
     Shader _grayScaleShader;
     Shader _sepiaToneShader;
-    Shader _originalShader;
+
+
 
     void Start()
     {
         _gameManager = GameManager.Instance;
+    }
+
+    public void LitShader()
+    {
+        if (_litShader == null)
+            _litShader = GameManager.Instance.GameDatabase.LitShader;
+
+        List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+        foreach (Renderer r in renderers)
+        {
+            Material mat = r.material;
+
+            Texture2D tex = mat.mainTexture as Texture2D;
+            mat.shader = _litShader;
+            mat.SetTexture("_Base_Texture", tex);
+        }
+
     }
 
     public void GrayScale()
@@ -28,7 +49,6 @@ public class ObjectShaders : MonoBehaviour
             Material mat = r.material;
 
             Texture2D tex = mat.mainTexture as Texture2D;
-            _originalShader = mat.shader;
             mat.shader = _grayScaleShader;
             mat.SetTexture("_Base_Texture", tex);
         }
@@ -45,7 +65,6 @@ public class ObjectShaders : MonoBehaviour
             Material mat = r.material;
 
             Texture2D tex = mat.mainTexture as Texture2D;
-            _originalShader = mat.shader;
             mat.shader = _dissolveShader;
             mat.SetTexture("_Base_Texture", tex);
 

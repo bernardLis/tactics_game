@@ -23,7 +23,8 @@ public class BattleTileWolfLair : BattleTile
     public override void Secured()
     {
         base.Secured();
-
+        _wolfLair.Secured();
+        
         _battleWaveManager.OnWaveSpawned -= OnWaveSpawned;
     }
 

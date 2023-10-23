@@ -5,6 +5,7 @@ using UnityEngine;
 public class BattleWolfLair : MonoBehaviour
 {
     BattleManager _battleManager;
+    ObjectShaders _objectShaders;
 
     [SerializeField] Creature _wolf;
     [SerializeField] int _wolfCount;
@@ -14,6 +15,9 @@ public class BattleWolfLair : MonoBehaviour
     public void Initialize()
     {
         _battleManager = BattleManager.Instance;
+        _objectShaders = GetComponent<ObjectShaders>();
+
+        _objectShaders.GrayScale();
         // rotate lair to face player
         transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
     }
@@ -31,5 +35,11 @@ public class BattleWolfLair : MonoBehaviour
             _battleManager.AddOpponentArmyEntities(l);
             spawner.DestroySelf();
         };
+    }
+
+    public void Secured()
+    {
+        _objectShaders.LitShader();
+
     }
 }
