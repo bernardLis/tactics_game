@@ -4973,11 +4973,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2884388801255358222}
-  - component: {fileID: 3394570734201534556}
   - component: {fileID: 7697323469410379890}
   - component: {fileID: 4674658588507560060}
   - component: {fileID: 5412190781991213203}
   - component: {fileID: 147549143869815893}
+  - component: {fileID: 3394570734201534556}
   m_Layer: 0
   m_Name: Tile Purchase Sign
   m_TagString: Untagged
@@ -5002,19 +5002,6 @@ Transform:
   - {fileID: 1196251211516177945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3394570734201534556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5078287019892464739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91b5a793125f8d7438b5bf70fe2e70cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tileToPurchase: {fileID: 0}
 --- !u!65 &7697323469410379890
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5030,7 +5017,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -5098,3 +5085,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086cfca3730834b49aca4438ba33dcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3394570734201534556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5078287019892464739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b5a793125f8d7438b5bf70fe2e70cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tileToPurchase: {fileID: 0}
