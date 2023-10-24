@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2124342092119922158}
   - component: {fileID: 9210373782897752303}
   - component: {fileID: 5351360323578935983}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Experience Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 775868527107348402}
   - component: {fileID: 2303706552258924565}
   - component: {fileID: 4072598936223547563}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,6 +454,10 @@ PrefabInstance:
     - target: {fileID: 3038484871448754765, guid: 978e459b0ff39cc40b6629977680af1c, type: 3}
       propertyPath: m_Name
       value: Loot Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038484871448754765, guid: 978e459b0ff39cc40b6629977680af1c, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3038484871448754765, guid: 978e459b0ff39cc40b6629977680af1c, type: 3}
       propertyPath: m_IsActive

@@ -173,7 +173,8 @@ public class BattleManager : Singleton<BattleManager>
         b.transform.parent = EntityHolder;
 
         b.InitializeBattle(0, ref OpponentEntities);
-        b.gameObject.layer = 10;
+        if (b is BattleHero hero) b.gameObject.layer = 8;
+        else b.gameObject.layer = 10;
         PlayerCreatures.Add(b);
         b.OnDeath += OnPlayerCreatureDeath;
         if (b is BattleCreature creature)
@@ -227,13 +228,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }
     public void WinBattle() { StartCoroutine(BattleWon()); }
-
-    public bool IsPlayerTeamFull()
-    {
-        if (PlayerCreatures.Count >= 7) // HERE: troops limit
-            return true;
-        return false;
-    }
 
     public void AddPlayerTurret(BattleTurret turret)
     {

@@ -33,7 +33,6 @@ public class BattleHero : BattleEntity
         Animator.enabled = true;
 
         HandleAbilities();
-
     }
 
     void HandleAbilities()
