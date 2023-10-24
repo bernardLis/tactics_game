@@ -7,7 +7,10 @@ using MoreMountains.Feedbacks;
 
 public class BattleExperienceOrb : BattlePickUp
 {
+
     AudioManager _audioManager;
+    BattleManager _battleManager;
+
     MMF_Player _feelPlayer;
 
     ExperienceOrb _expOrb;
@@ -15,6 +18,9 @@ public class BattleExperienceOrb : BattlePickUp
     public override void Initialize(PickUp pickUp)
     {
         base.Initialize(pickUp);
+
+        _battleManager = BattleManager.Instance;
+        transform.parent = _battleManager.EntityHolder;
 
         _expOrb = pickUp as ExperienceOrb;
         _audioManager = AudioManager.Instance;
@@ -34,38 +40,36 @@ public class BattleExperienceOrb : BattlePickUp
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.TryGetComponent(out BattleHero hero))
-        {
-            GetComponent<SphereCollider>().enabled = false;
+        if (!collider.TryGetComponent(out BattleHero hero)) return;
 
-            transform.DOKill();
+        GetComponent<SphereCollider>().enabled = false;
+        transform.DOKill();
 
-            _audioManager.PlaySFX(_expOrb.CollectSound, transform.position);
-            Destroy(Instantiate(_expOrb.CollectEffect, transform.position, Quaternion.identity), 1f);
-            DisplayText($"+{_expOrb.Amount} EXP", _expOrb.Color.Color);
+        _audioManager.PlaySFX(_expOrb.CollectSound, transform.position);
+        Destroy(Instantiate(_expOrb.CollectEffect, transform.position, Quaternion.identity), 1f);
+        DisplayText($"+{_expOrb.Amount} EXP", _expOrb.Color.Color);
 
-            float punchDuration = 0.5f;
-            transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1, 1f);
+        float punchDuration = 0.5f;
+        transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1, 1f);
 
-            Vector3 jumpPos = new Vector3(
-                hero.transform.position.x,
-                hero.transform.position.y + 2f,
-                hero.transform.position.z
-            );
-            float jumpDuration = 0.6f;
+        Vector3 jumpPos = new Vector3(
+            hero.transform.position.x,
+            hero.transform.position.y + 2f,
+            hero.transform.position.z
+        );
+        float jumpDuration = 0.6f;
 
-            transform.DOScale(0, jumpDuration)
-                .SetDelay(punchDuration);
+        transform.DOScale(0, jumpDuration)
+            .SetDelay(punchDuration);
 
-            transform.DOJump(jumpPos, 5f, 1, jumpDuration)
-                    .SetDelay(punchDuration)
-                    .OnComplete(() =>
-                    {
-                        _expOrb.Collected(hero.Hero);
+        transform.DOJump(jumpPos, 5f, 1, jumpDuration)
+                .SetDelay(punchDuration)
+                .OnComplete(() =>
+                {
+                    _expOrb.Collected(hero.Hero);
 
-                        Destroy(gameObject, 1f);
-                    });
-        }
+                    Destroy(gameObject, 1f);
+                });
     }
 
     void DisplayText(string text, Color color)
