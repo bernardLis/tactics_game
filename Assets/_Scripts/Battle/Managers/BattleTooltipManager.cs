@@ -15,13 +15,11 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     VisualElement _root;
     VisualElement _entityTooltipContainer;
 
-    VisualElement _textInfoContainer;
-    VisualElement _entityInfoContainer;
+    VisualElement _gameInfoContainer;
+    VisualElement _hoverInfoContainer; // shows mouse hover info 
 
     VisualElement _currentTooltip;
     public GameObject CurrentTooltipDisplayer { get; private set; }
-
-    bool _isPrioritizedInfoShown;
 
     public event Action OnTooltipHidden;
     void Start()
@@ -31,8 +29,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _entityTooltipContainer = _root.Q<VisualElement>("entityTooltipContainer");
-        _textInfoContainer = _root.Q<VisualElement>("textInfoContainer");
-        _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
+        _gameInfoContainer = _root.Q<VisualElement>("textInfoContainer");
+        _hoverInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
     }
 
     /* INPUT */
@@ -77,72 +75,58 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         HideTooltip();
     }
 
-
     void OnBattleFinalized()
     {
-        HideInfo();
+        HideHoverInfo();
         HideTooltip();
     }
 
-    public void ShowInfo(BattleEntity entity)
+    public void ShowHoverInfo(VisualElement el)
     {
-        if (_isPrioritizedInfoShown) return;
+        _hoverInfoContainer.Clear();
+        _hoverInfoContainer.style.display = DisplayStyle.Flex;
 
-        if (entity.IsDead) return;
-
-        _entityInfoContainer.Clear();
-        _entityInfoContainer.style.display = DisplayStyle.Flex;
-
-        BattleEntityInfoElement info = new(entity);
-        _entityInfoContainer.Add(info);
+        _hoverInfoContainer.Add(el);
     }
 
-    public void ShowInfo(string text)
+    public void ShowEntityInfo(BattleEntity entity)
     {
-        if (_isPrioritizedInfoShown) return;
+        if (entity.IsDead) return;
 
-        _textInfoContainer.Clear();
-        _textInfoContainer.style.display = DisplayStyle.Flex;
+        BattleEntityInfoElement info = new(entity);
+        ShowHoverInfo(info);
+    }
+
+    public void HideHoverInfo()
+    {
+        _hoverInfoContainer.style.display = DisplayStyle.None;
+        _hoverInfoContainer.Clear();
+    }
+
+
+    public void ShowGameInfo(string text, float duration)
+    {
+        ShowGameInfo(text);
+        Invoke(nameof(HideGameInfo), duration);
+    }
+
+    public void ShowGameInfo(string text)
+    {
+        _gameInfoContainer.Clear();
+        _gameInfoContainer.style.display = DisplayStyle.Flex;
         Label txt = new(text);
         txt.style.backgroundColor = new(new Color(0f, 0f, 0f, 0.4f));
         txt.style.fontSize = 32;
 
-        _textInfoContainer.Add(txt);
+        _gameInfoContainer.Add(txt);
     }
 
-    public void ShowInfo(VisualElement element, bool priority = false)
+    public void HideGameInfo()
     {
-        if (_isPrioritizedInfoShown) return;
-        _isPrioritizedInfoShown = priority;
-
-        _textInfoContainer.Clear();
-        _textInfoContainer.style.display = DisplayStyle.Flex;
-
-        _textInfoContainer.Add(element);
+        _gameInfoContainer.style.display = DisplayStyle.None;
+        _gameInfoContainer.Clear();
     }
 
-    public void RemoveInfoPriority()
-    {
-        _isPrioritizedInfoShown = false;
-    }
-
-    public void ShowInfo(string text, float duration)
-    {
-        ShowInfo(text);
-        Invoke(nameof(HideInfo), duration);
-    }
-
-    public void HideEntityInfo()
-    {
-        _entityInfoContainer.style.display = DisplayStyle.None;
-        _entityInfoContainer.Clear();
-    }
-
-    public void HideInfo()
-    {
-        _textInfoContainer.style.display = DisplayStyle.None;
-        _textInfoContainer.Clear();
-    }
 
     public void ShowTooltip(BattleEntity entity)
     {

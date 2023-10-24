@@ -52,6 +52,9 @@ MonoBehaviour:
   _wolfCount: 3
   _spawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
   _spawnPoint: {fileID: 8149307017514102586}
+  _delayBetweenWolfSpawns: 5
+  _maxFriendlyWolves: 3
+  _friendlyWolves: []
 --- !u!114 &2403388112181551544
 MonoBehaviour:
   m_ObjectHideFlags: 0

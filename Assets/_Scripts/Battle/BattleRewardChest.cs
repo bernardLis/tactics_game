@@ -71,14 +71,14 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (_tooltipManager == null) return;
         if (_isOpened) return;
 
-        _tooltipManager.ShowInfo(new BattleInfoElement("Open"));
+        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Open"));
         transform.DOShakePosition(0.5f, 0.1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.HideInfo();
+        _tooltipManager.HideHoverInfo();
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -54,14 +54,14 @@ public class BattleTilePurchaseSign : MonoBehaviour, IPointerEnterHandler, IPoin
         if (_tooltipManager == null) return;
         if (_interactionBlocked) return;
 
-        _tooltipManager.ShowInfo(new BattleInfoElement("Enable Tile"));
+        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Enable Tile"));
         transform.DOShakePosition(0.5f, 0.1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.HideInfo();
+        _tooltipManager.HideHoverInfo();
     }
 
     public void OnPointerDown(PointerEventData eventData)

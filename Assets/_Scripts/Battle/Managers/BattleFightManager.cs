@@ -55,7 +55,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
     {
         for (int i = seconds; i > 0; i--)
         {
-            _battleTooltipManager.ShowInfo(i.ToString(), 0.8f);
+            _battleTooltipManager.ShowGameInfo(i.ToString(), 0.8f);
             yield return new WaitForSeconds(1);
         }
     }
@@ -70,7 +70,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
-            _battleTooltipManager.ShowInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
+            _battleTooltipManager.ShowGameInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
             StartCoroutine(SpawnOpponentGroup(wave));
             OnWaveSpawned?.Invoke();
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
@@ -83,7 +83,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
         if (!_currentFight.IsFinished()) return;
 
         IsFightActive = false;
-        _battleTooltipManager.ShowInfo("Tile secured!", 1.5f);
+        _battleTooltipManager.ShowGameInfo("Tile secured!", 1.5f);
         OnFightEnded?.Invoke();
     }
 

@@ -195,7 +195,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
             g.Released();
 
         _grabbedObject = null;
-        _tooltipManager.HideInfo();
+        _tooltipManager.HideHoverInfo();
         StopAllCoroutines();
     }
 

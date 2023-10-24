@@ -127,7 +127,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void ShowTooltip(string text)
     {
-        _tooltipManager.ShowInfo(new BattleInfoElement(text), true);
+        _tooltipManager.ShowHoverInfo(new BattleInfoElement(text));
     }
 
     IEnumerator UpdateObjectPosition()
@@ -149,8 +149,6 @@ public class BattleDeploymentManager : MonoBehaviour
         if (this == null) return;
         if (!_battleManager.IsTimerOn) return;
         if (_deployedObjectInstance == null) return;
-
-        _tooltipManager.RemoveInfoPriority();
 
         Deploy();
     }

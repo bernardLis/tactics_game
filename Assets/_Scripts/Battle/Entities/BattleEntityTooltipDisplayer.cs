@@ -23,13 +23,13 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!CanDisplayTooltip()) return;
-        _tooltipManager.ShowInfo(_battleEntity);
+        _tooltipManager.ShowEntityInfo(_battleEntity);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!CanDisplayTooltip()) return;
-        _tooltipManager.HideEntityInfo();
+        _tooltipManager.HideHoverInfo();
     }
 
     bool CanDisplayTooltip()
