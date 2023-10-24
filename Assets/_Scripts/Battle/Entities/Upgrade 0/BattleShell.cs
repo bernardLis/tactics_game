@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ShellEntity : BattleCreatureMelee
+public class BattleShell : BattleCreatureMelee
 {
     [SerializeField] GameObject _shieldEffect;
     GameObject _shieldEffectInstance;

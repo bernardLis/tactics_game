@@ -40,6 +40,8 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<BattleTurret> PlayerTurrets = new();
 
+    public List<BattlePickUp> Pickups = new();
+
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
 
@@ -233,6 +235,12 @@ public class BattleManager : Singleton<BattleManager>
     {
         PlayerTurrets.Add(turret);
         OnPlayerTurretAdded?.Invoke(turret);
+    }
+
+    public void AddPickup(BattlePickUp pickup)
+    {
+        Pickups.Add(pickup);
+        pickup.OnPickedUp += () => Pickups.Remove(pickup);
     }
 
     IEnumerator BattleLost()

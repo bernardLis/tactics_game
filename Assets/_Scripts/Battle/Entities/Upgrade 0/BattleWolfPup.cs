@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class WolfPupEntity : BattleCreatureMelee
+public class BattleWolfPup : BattleCreatureMelee
 {
     [SerializeField] GameObject _effect;
     GameObject _effectInstance;

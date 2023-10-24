@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PracticeDummyEntity : BattleCreatureMelee
+public class BattlePracticeDummy : BattleCreatureMelee
 {
     [SerializeField] float _abilityEffectRadius = 3f;
     [SerializeField] GameObject _abilityEffect;

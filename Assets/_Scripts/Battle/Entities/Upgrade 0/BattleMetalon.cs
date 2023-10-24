@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MetalonEntity : BattleCreatureMelee
+public class BattleMetalon : BattleCreatureMelee
 {
     [SerializeField] float _abilityEffectRadius = 5f;
 

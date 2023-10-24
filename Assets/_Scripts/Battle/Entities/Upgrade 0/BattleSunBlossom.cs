@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SunBlossomEntity : BattleCreatureMelee
+public class BattleSunBlossom : BattleCreatureMelee
 {
     [SerializeField] GameObject _healEffect;
     GameObject _healEffectInstance;

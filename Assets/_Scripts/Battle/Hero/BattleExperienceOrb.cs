@@ -8,8 +8,6 @@ using MoreMountains.Feedbacks;
 public class BattleExperienceOrb : BattlePickUp
 {
 
-    AudioManager _audioManager;
-    BattleManager _battleManager;
 
     MMF_Player _feelPlayer;
 
@@ -19,11 +17,9 @@ public class BattleExperienceOrb : BattlePickUp
     {
         base.Initialize(pickUp);
 
-        _battleManager = BattleManager.Instance;
         transform.parent = _battleManager.EntityHolder;
 
         _expOrb = pickUp as ExperienceOrb;
-        _audioManager = AudioManager.Instance;
 
         _audioManager.PlaySFX(_expOrb.DropSound, transform.position);
 
@@ -42,8 +38,12 @@ public class BattleExperienceOrb : BattlePickUp
     {
         if (!collider.TryGetComponent(out BattleHero hero)) return;
 
-        GetComponent<SphereCollider>().enabled = false;
-        transform.DOKill();
+        PickUp(hero);
+    }
+
+    protected override void PickUp(BattleHero hero)
+    {
+        base.PickUp(hero);
 
         _audioManager.PlaySFX(_expOrb.CollectSound, transform.position);
         Destroy(Instantiate(_expOrb.CollectEffect, transform.position, Quaternion.identity), 1f);

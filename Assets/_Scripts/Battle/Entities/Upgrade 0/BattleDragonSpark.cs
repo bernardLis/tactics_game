@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class DragonSparkEntity : BattleCreatureRanged
+public class BattleDragonSpark : BattleCreatureRanged
 {
     [SerializeField] GameObject _abilityProjectile;
 
