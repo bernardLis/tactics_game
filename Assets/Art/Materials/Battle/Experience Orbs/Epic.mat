@@ -129,7 +129,7 @@ Material:
     - _Usedepth: 0
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 0.6745098, g: 0.21176471, b: 1, a: 1}
+    - _Color: {r: 0.9734455, g: 0.4910209, b: 0.00091058103, a: 1}
     - _DistortionSpeedXYPowerZ: {r: -0.1, g: -0.2, b: 0.05, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlowTiling: {r: 1, g: 1, b: 0, a: 0}

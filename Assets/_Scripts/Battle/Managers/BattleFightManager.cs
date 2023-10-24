@@ -108,7 +108,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
         }
     }
 
-
     BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
     {
         GameObject instance = Instantiate(entity.Prefab, spawnPos, transform.localRotation);
