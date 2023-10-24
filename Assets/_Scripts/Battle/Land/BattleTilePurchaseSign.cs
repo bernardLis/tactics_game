@@ -3,18 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
-public class BattleTilePurchaseSign : MonoBehaviour
+public class BattleTilePurchaseSign : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    BattleTooltipManager _tooltipManager;
+
     public BattleTile _tileToPurchase;
 
     GameObject _tileIndicator;
 
+    bool _interactionBlocked;
     public event Action OnPurchased;
     public void Initialize(BattleTile tile)
     {
+        _tooltipManager = BattleTooltipManager.Instance;
+
         _tileToPurchase = tile;
 
+        StartCoroutine(InitializationCoroutine());
+    }
+
+    IEnumerator InitializationCoroutine()
+    {
+        GetComponent<ObjectShaders>().Dissolve(3f, true);
+        yield return new WaitForSeconds(1.5f);
+        HandleTileIndicator();
+    }
+
+    void HandleTileIndicator()
+    {
         _tileIndicator = Instantiate(_tileToPurchase.TileIndicationPrefab, transform);
         _tileIndicator.transform.localPosition = new Vector3(0f, 3f, 0f);
         _tileIndicator.transform.localScale = Vector3.one * 0.6f;
@@ -29,28 +47,42 @@ public class BattleTilePurchaseSign : MonoBehaviour
         _tileIndicator.transform.DORotate(new Vector3(0f, 360f, 0f), 8f, RotateMode.FastBeyond360)
                     .SetLoops(-1, LoopType.Restart)
                     .SetEase(Ease.Linear);
-
-        GetComponent<ObjectShaders>().Dissolve(3f, true);
     }
 
-    public void OnTriggerEnter(Collider collider)
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if (collider.TryGetComponent(out BattleHero hero))
-            PurchaseTile();
+        if (_tooltipManager == null) return;
+        if (_interactionBlocked) return;
+
+        _tooltipManager.ShowInfo(new BattleInfoElement("Enable Tile"));
+        transform.DOShakePosition(0.5f, 0.1f);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_tooltipManager == null) return;
+        _tooltipManager.HideInfo();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        PurchaseTile();
     }
 
     void PurchaseTile()
     {
+        if (_interactionBlocked) return;
+
         _tileToPurchase.EnableTile();
         OnPurchased?.Invoke();
     }
 
     public void DestroySelf()
     {
-        _tileIndicator.transform.DOKill();
-        if (_tileIndicator.TryGetComponent(out ObjectShaders objectShaders))
-            objectShaders.Dissolve(4f, false);
+        _interactionBlocked = true;
 
+        _tileIndicator.transform.DOKill();
         GetComponent<ObjectShaders>().Dissolve(5f, false);
         Destroy(gameObject, 6f);
     }
