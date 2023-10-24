@@ -770,14 +770,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 5929398342076876422, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7157823423258887735, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
-      propertyPath: m_EventMask.m_Bits
-      value: 3323
-      objectReference: {fileID: 0}
     - target: {fileID: 8112583467354781403, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -817,14 +809,6 @@ PrefabInstance:
     - target: {fileID: 8112583467354781403, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151092764313656870, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
-      propertyPath: m_EventMask.m_Bits
-      value: 3323
-      objectReference: {fileID: 0}
-    - target: {fileID: 9192097542255010049, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
-      propertyPath: field of view
-      value: 39.255962
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

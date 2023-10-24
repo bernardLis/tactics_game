@@ -61,9 +61,47 @@ public class BattleCreature : BattleEntity
         while (true)
         {
             if (IsDead) yield break;
+            if (_opponentList.Count == 0) StartHangOutCoroutine();
 
             yield return ManagePathing();
             yield return ManageAttackCoroutine();
+        }
+    }
+
+    void StartHangOutCoroutine()
+    {
+        if (Team == 0) _battleManager.OnOpponentEntityAdded += OpponentWasAdded;
+        if (Team == 1) _battleManager.OnPlayerCreatureAdded += OpponentWasAdded;
+
+        if (_currentMainCoroutine != null)
+            StopCoroutine(_currentMainCoroutine);
+        _currentMainCoroutine = HangOut();
+        StartCoroutine(_currentMainCoroutine);
+    }
+
+    void OpponentWasAdded(BattleEntity _)
+    {
+        if (this == null) return;
+        StartRunEntityCoroutine();
+        if (Team == 0) _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+        if (Team == 1) _battleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
+    }
+
+    protected virtual IEnumerator HangOut()
+    {
+        while (true)
+        {
+            // need to make sure that position is reachable
+            // what if it is opp and hero is dead?
+            BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
+            yield return PathToPosition(battleHero.transform.position
+                                        + Vector3.right * Random.Range(-10f, 10f)
+                                        + Vector3.forward * Random.Range(-10f, 10f));
+
+            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+                yield return new WaitForSeconds(0.1f);
+            Animator.SetBool("Move", false);
+            yield return new WaitForSeconds(Random.Range(3f, 6f));
         }
     }
 
@@ -90,14 +128,7 @@ public class BattleCreature : BattleEntity
             ChooseNewTarget();
         yield return new WaitForSeconds(0.1f);
 
-        // HERE: creature could be patrolling or sth
-        if (Opponent == null)
-        {
-            StopRunEntityCoroutine();
-            if (Team == 0) _battleManager.OnOpponentEntityAdded += OpponentWasAdded;
-            if (Team == 1) _battleManager.OnPlayerCreatureAdded += OpponentWasAdded;
-            yield break;
-        }
+        if (Opponent == null) yield break;
 
         if (_currentSecondaryCoroutine != null)
             StopCoroutine(_currentSecondaryCoroutine);
@@ -105,13 +136,6 @@ public class BattleCreature : BattleEntity
         yield return _currentSecondaryCoroutine;
     }
 
-    void OpponentWasAdded(BattleEntity _)
-    {
-        if (this == null) return;
-        StartRunEntityCoroutine();
-        if (Team == 0) _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
-        if (Team == 1) _battleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
-    }
 
     protected IEnumerator ManageAttackCoroutine()
     {
@@ -120,7 +144,6 @@ public class BattleCreature : BattleEntity
         _currentSecondaryCoroutine = Attack();
         yield return _currentSecondaryCoroutine;
     }
-
 
     protected virtual IEnumerator PathToOpponent()
     {
