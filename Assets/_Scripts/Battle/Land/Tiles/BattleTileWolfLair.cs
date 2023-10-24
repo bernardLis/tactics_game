@@ -23,19 +23,19 @@ public class BattleTileWolfLair : BattleTile
     {
         base.StartTileFight();
 
-        _battleWaveManager.OnWaveSpawned += OnWaveSpawned;
+        _battleFightManager.OnWaveSpawned += OnWaveSpawned;
     }
 
     public override void Secured()
     {
         base.Secured();
 
-        _battleWaveManager.OnWaveSpawned -= OnWaveSpawned;
+        _battleFightManager.OnWaveSpawned -= OnWaveSpawned;
     }
 
     void OnWaveSpawned()
     {
-        _wolfLair.SpawnWave(_battleWaveManager.CurrentDifficulty);
+        _wolfLair.SpawnWave(_battleFightManager.CurrentDifficulty);
     }
 
 }

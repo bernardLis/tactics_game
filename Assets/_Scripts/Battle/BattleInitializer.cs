@@ -36,7 +36,7 @@ public class BattleInitializer : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _battleAreaManager.Initialize();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.5f);
 
         _battleManager.Initialize(h);
         _battleManager.GetComponent<BattleGrabManager>().Initialize();

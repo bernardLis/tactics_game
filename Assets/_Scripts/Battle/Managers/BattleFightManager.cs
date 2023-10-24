@@ -84,7 +84,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         IsFightActive = false;
         _battleTooltipManager.ShowInfo("Tile secured!", 1.5f);
-        _currentTile.Secured();
         OnFightEnded?.Invoke();
     }
 
@@ -105,7 +104,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
             BattleEntity be = SpawnEntity(m, pos);
             _battleManager.AddOpponentArmyEntity(be);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

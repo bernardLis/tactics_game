@@ -10,7 +10,7 @@ public class BattleTile : MonoBehaviour
 {
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
-    protected BattleFightManager _battleWaveManager;
+    protected BattleFightManager _battleFightManager;
 
     [Header("Tile")]
     ObjectShaders _objectShaders;
@@ -22,9 +22,8 @@ public class BattleTile : MonoBehaviour
     [SerializeField] GameObject _rewardChestPrefab;
     public GameObject TileIndicationPrefab;
 
-
     public List<BattleTilePurchaseSign> _signs = new();
-    public List<GameObject> _borders = new();
+    public List<BattleTileBorder> _borders = new();
 
     public float Scale { get; private set; }
 
@@ -46,7 +45,7 @@ public class BattleTile : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-        _battleWaveManager = _battleManager.GetComponent<BattleFightManager>();
+        _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
 
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
@@ -55,9 +54,12 @@ public class BattleTile : MonoBehaviour
     IEnumerator EnableTileCoroutine()
     {
         _objectShaders.Dissolve(5f, true);
+
+        yield return new WaitForSeconds(1.5f);
+
         HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         StartTileFight();
         OnEnabled?.Invoke(this);
     }
@@ -69,22 +71,23 @@ public class BattleTile : MonoBehaviour
 
         _minionSpawningPattern = (MinionSpawningPattern)Random.Range(0,
                         Enum.GetNames(typeof(MinionSpawningPattern)).Length);
-        if (_battleWaveManager.CurrentDifficulty == 1)
+        if (_battleFightManager.CurrentDifficulty == 1)
             _minionSpawningPattern = MinionSpawningPattern.SurroundMiddle;
 
-        _battleWaveManager.InitializeFight(this);
+        _battleFightManager.InitializeFight(this);
+        _battleFightManager.OnFightEnded += Secured;
     }
 
     public virtual void Secured()
     {
-        // battle wave manager calls this when the fight is finished
+        _battleFightManager.OnFightEnded -= Secured;
+
         SpawnReward();
         ShowSigns();
     }
 
     void SpawnReward()
     {
-        // TODO: make sure that position is empty
         Vector3 chestPosition = GetPositionOne(0, 0) + Vector3.up * 3.5f;
         GameObject chest = Instantiate(_rewardChestPrefab, chestPosition, Quaternion.identity);
         chest.transform.localScale = Vector3.zero;
@@ -124,7 +127,6 @@ public class BattleTile : MonoBehaviour
     }
 
     /* BORDERS */
-
     public void HandleBorders(Color color)
     {
         List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
@@ -139,27 +141,38 @@ public class BattleTile : MonoBehaviour
 
     public void UpdateTileBorders(Color color)
     {
-        foreach (GameObject b in _borders)
-            Destroy(b);
-
         List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
         foreach (BattleTile tile in adjacentTiles)
         {
-            if (tile.gameObject.activeSelf) continue;
-
             Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
-            Vector3 borderPosition = Scale * 0.5f * directionToTile;
+            Vector3 borderPosition = Scale * 0.5f * directionToTile + Vector3.up;
+            BattleTileBorder battleTileBorder = BorderAtPosition(borderPosition);
 
-            InstantiateBorder(borderPosition, color);
+            if (tile.gameObject.activeSelf && battleTileBorder != null)
+            {
+                battleTileBorder.DestroySelf();
+                continue;
+            }
+
+            if (!tile.gameObject.activeSelf && battleTileBorder == null)
+                InstantiateBorder(borderPosition, color);
         }
 
         if (adjacentTiles.Count < 4)
             UpdateGameBorders(adjacentTiles);
     }
 
+    BattleTileBorder BorderAtPosition(Vector3 position)
+    {
+        foreach (BattleTileBorder b in _borders)
+            if (b != null && b.transform.localPosition == position)
+                return b;
+
+        return null;
+    }
+
     void UpdateGameBorders(List<BattleTile> adjacentTiles)
     {
-        // check which tile is missing and instantiate border there
         List<Vector3> directions = new() { Vector3.forward, Vector3.right, Vector3.back, Vector3.left };
         foreach (BattleTile tile in adjacentTiles)
         {
@@ -188,8 +201,9 @@ public class BattleTile : MonoBehaviour
         Vector3 borderScale = new(0.05f, 2f, Scale);
         border.transform.localScale = borderScale;
 
-        border.GetComponent<BattleTileBorder>().EnableBorder(color, isGameBorder);
-        _borders.Add(border);
+        BattleTileBorder b = border.GetComponent<BattleTileBorder>();
+        b.EnableBorder(color, isGameBorder);
+        _borders.Add(b);
     }
 
     /* POSITIONS ON TILE */

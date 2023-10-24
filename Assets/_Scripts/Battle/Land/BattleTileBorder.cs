@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BattleTileBorder : MonoBehaviour
 {
@@ -62,6 +63,16 @@ public class BattleTileBorder : MonoBehaviour
             _battleFightManager.OnFightStarted -= OnFightStarted;
             _battleFightManager.OnFightEnded -= OnFightEnded;
         }
+    }
+
+    public void DestroySelf()
+    {
+        if (this == null) return;
+        Unsubscribe();
+
+        transform.DOScaleY(0, 0.5f)
+                .SetEase(Ease.InOutSine)
+                .OnComplete(() => Destroy(gameObject));
     }
 
 }
