@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Home/Building Troops")]
-public class BuildingTroops : Building
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Home/Global Upgrade Troops")]
+public class GlobalUpgradeTroops : GlobalUpgrade
 {
-    public BuildingUpgradeTree CreatureTierTree;
-    public BuildingUpgradeTree MaxTroopsTree;
+    public GlobalUpgradeTree CreatureTierTree;
+    public GlobalUpgradeTree MaxTroopsTree;
 
     public override void Initialize()
     {

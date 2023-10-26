@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Building Upgrade Tree")]
-public class BuildingUpgradeTree : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Battle/Global Upgrade Tree")]
+public class GlobalUpgradeTree : BaseScriptableObject
 {
     [HideInInspector] public IntVariable CurrentValue;
-    [SerializeField] List<BuildingUpgrade> OriginalNodes = new();
-    [HideInInspector] public List<BuildingUpgrade> Nodes = new();
+    [SerializeField] List<GlobalUpgradeLevel> OriginalNodes = new();
+    [HideInInspector] public List<GlobalUpgradeLevel> Nodes = new();
     public int CurrentNodeIndex;
 
     public void Initialize()
@@ -15,16 +15,16 @@ public class BuildingUpgradeTree : BaseScriptableObject
         CurrentNodeIndex = 0;
 
         Nodes = new();
-        foreach (BuildingUpgrade u in OriginalNodes)
+        foreach (GlobalUpgradeLevel u in OriginalNodes)
         {
-            BuildingUpgrade instance = Instantiate(u);
+            GlobalUpgradeLevel instance = Instantiate(u);
             Nodes.Add(instance);
         }
         CurrentValue = ScriptableObject.CreateInstance<IntVariable>();
         CurrentValue.SetValue(Nodes[CurrentNodeIndex].Value);
     }
 
-    public BuildingUpgrade GetCurrentNode()
+    public GlobalUpgradeLevel GetCurrentNode()
     {
         return Nodes[CurrentNodeIndex];
     }

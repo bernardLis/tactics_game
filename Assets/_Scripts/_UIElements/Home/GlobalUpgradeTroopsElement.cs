@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class BuildingTroopsElement : FullScreenElement
+public class GlobalUpgradeTroopsElement : FullScreenElement
 {
-    const string _ussClassName = "building-troops__";
+    const string _ussClassName = "global-troops__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTreeContainer = _ussClassName + "tree-container";
     const string _ussArrowLabel = _ussClassName + "arrow-label";
@@ -15,7 +15,7 @@ public class BuildingTroopsElement : FullScreenElement
     const string _ussTitle = _ussClassName + "title";
     const string _ussUpgradesContainer = _ussClassName + "upgrades-container";
 
-    BuildingTroops _building;
+    GlobalUpgradeTroops _global;
 
     VisualElement _container;
 
@@ -24,18 +24,18 @@ public class BuildingTroopsElement : FullScreenElement
     VisualElement _bottomContainer;
 
     Label _creatureTierLabel;
-    BuildingUpgradeTreeElement _creatureTierTreeElement;
+    GlobalUpgradeTreeElement _creatureTierTreeElement;
 
     TroopsLimitElement _troopsLimitElement;
-    BuildingUpgradeTreeElement _maxTroopsTreeElement;
+    GlobalUpgradeTreeElement _maxTroopsTreeElement;
 
-    public BuildingTroopsElement(BuildingTroops building) : base()
+    public GlobalUpgradeTroopsElement(GlobalUpgradeTroops global) : base()
     {
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BuildingTroopsStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeTroopsStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        _building = building;
+        _global = global;
 
         _container = new();
         _container.AddToClassList(_ussMain);
@@ -54,10 +54,10 @@ public class BuildingTroopsElement : FullScreenElement
         _bottomContainer = new();
         _container.Add(_bottomContainer);
 
-        _creatureTierTreeElement = new(_building.CreatureTierTree);
+        _creatureTierTreeElement = new(_global.CreatureTierTree);
         _topContainer.Add(_creatureTierTreeElement);
 
-        _maxTroopsTreeElement = new(_building.MaxTroopsTree);
+        _maxTroopsTreeElement = new(_global.MaxTroopsTree);
         _maxTroopsTreeElement.OnUpgradePurchased += (d) => UpdateTroopsLimit();
         _middleContainer.Add(_maxTroopsTreeElement);
 
@@ -74,13 +74,13 @@ public class BuildingTroopsElement : FullScreenElement
         _creatureTierLabel = new($"Creature tier: {0}");
         _creatureTierLabel.AddToClassList(_ussTitle);
         container.Add(_creatureTierLabel);
-        _building.CreatureTierTree.CurrentValue.OnValueChanged += UpdateCreatureTierLabel;
+        _global.CreatureTierTree.CurrentValue.OnValueChanged += UpdateCreatureTierLabel;
         UpdateCreatureTierLabel(default);
     }
 
     void UpdateCreatureTierLabel(int bla)
     {
-        _creatureTierLabel.text = $"Creature tier: {_building.CreatureTierTree.CurrentValue.Value}";
+        _creatureTierLabel.text = $"Creature tier: {_global.CreatureTierTree.CurrentValue.Value}";
     }
 
     void AddTroopsLimitElement()
@@ -98,7 +98,7 @@ public class BuildingTroopsElement : FullScreenElement
     void UpdateTroopsLimit()
     {
         // _troopsLimitElement.UpdateCountContainer(
-        //         $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_building.MaxTroopsTree.CurrentValue.Value}"
+        //         $"{_gameManager.PlayerHero.CreatureArmy.Count}/{_global.MaxTroopsTree.CurrentValue.Value}"
         //         , Color.white);
     }
 }

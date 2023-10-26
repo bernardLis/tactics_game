@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Building")]
-public class Building : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Global Upgrade")]
+public class GlobalUpgrade : BaseScriptableObject
 {
     public Sprite Icon;
     public string Description;

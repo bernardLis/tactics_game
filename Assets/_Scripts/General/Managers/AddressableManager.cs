@@ -54,8 +54,8 @@ public enum StyleSheetType
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
-    BuildingUpgradeStyles, BuildingTroopsStyles,
-    BuildingUpgradeTreeStyles,
+    GlobalUpgradeStyles, GlobalUpgradeTroopsStyles,
+    GlobalUpgradeTreeStyles,
 
     TurretIconStyles, GraveCardStyles,
     BattleStatsStyles, BattleInfoStyles,

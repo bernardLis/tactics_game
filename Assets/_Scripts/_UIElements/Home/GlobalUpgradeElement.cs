@@ -4,43 +4,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BuildingUpgradeElement : ElementWithTooltip
+public class GlobalUpgradeElement : ElementWithTooltip
 {
     const string _ussCommonButtonBasic = "common__button-basic";
-    const string _ussClassName = "building-upgrade__";
+    const string _ussClassName = "global-upgrade__";
     const string _ussMain = _ussClassName + "main";
     const string _ussTitle = _ussClassName + "title";
     const string _ussIcon = _ussClassName + "icon";
 
     GameManager _gameManager;
 
-    public BuildingUpgrade BuildingUpgrade;
+    public GlobalUpgradeLevel GlobalUpgrade;
 
     Label _title;
 
-    public event Action<BuildingUpgrade> OnPurchased;
-    public BuildingUpgradeElement(BuildingUpgrade buildingUpgrade)
+    public event Action<GlobalUpgradeLevel> OnPurchased;
+    public GlobalUpgradeElement(GlobalUpgradeLevel globalUpgrade)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BuildingUpgradeStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        BuildingUpgrade = buildingUpgrade;
+        GlobalUpgrade = globalUpgrade;
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonButtonBasic);
 
-        _title = new(Helpers.ParseScriptableObjectName(buildingUpgrade.name));
+        _title = new(Helpers.ParseScriptableObjectName(globalUpgrade.name));
         _title.AddToClassList(_ussTitle);
         Add(_title);
 
         Label icon = new();
         icon.AddToClassList(_ussIcon);
-        icon.style.backgroundImage = new StyleBackground(buildingUpgrade.Icon);
+        icon.style.backgroundImage = new StyleBackground(globalUpgrade.Icon);
         Add(icon);
 
-        PurchaseButton purchaseButton = new(buildingUpgrade.Cost, callback: Purchase,
-                isInfinite: buildingUpgrade.IsInfinite, isPurchased: buildingUpgrade.IsPurchased);
+        PurchaseButton purchaseButton = new(globalUpgrade.Cost, callback: Purchase,
+                isInfinite: globalUpgrade.IsInfinite, isPurchased: globalUpgrade.IsPurchased);
         Add(purchaseButton);
     }
 
@@ -51,16 +51,16 @@ public class BuildingUpgradeElement : ElementWithTooltip
 
     void Purchase()
     {
-        OnPurchased?.Invoke(BuildingUpgrade);
+        OnPurchased?.Invoke(GlobalUpgrade);
 
-        if (BuildingUpgrade.IsInfinite) return;
-        BuildingUpgrade.IsPurchased = true;
+        if (GlobalUpgrade.IsInfinite) return;
+        GlobalUpgrade.IsPurchased = true;
         SetEnabled(false);
     }
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, new Label(BuildingUpgrade.Description));
+        _tooltip = new(this, new Label(GlobalUpgrade.Description));
         base.DisplayTooltip();
     }
 }

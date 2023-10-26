@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BuildingUpgradeTreeElement : VisualElement
+public class GlobalUpgradeTreeElement : VisualElement
 {
-    const string _ussClassName = "building-upgrade-tree__";
+    const string _ussClassName = "global-upgrade-tree__";
     const string _ussMain = _ussClassName + "main";
     const string _ussArrowLabel = _ussClassName + "arrow-label";
 
     GameManager _gameManager;
 
-    BuildingUpgradeTree _tree;
+    GlobalUpgradeTree _tree;
 
-    public List<BuildingUpgradeElement> UpgradeElements = new();
+    public List<GlobalUpgradeElement> UpgradeElements = new();
 
-    public event Action<BuildingUpgrade> OnUpgradePurchased;
-    public BuildingUpgradeTreeElement(BuildingUpgradeTree tree)
+    public event Action<GlobalUpgradeLevel> OnUpgradePurchased;
+    public GlobalUpgradeTreeElement(GlobalUpgradeTree tree)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BuildingUpgradeTreeStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeTreeStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
@@ -42,7 +42,7 @@ public class BuildingUpgradeTreeElement : VisualElement
                 Add(arrow);
             }
 
-            BuildingUpgradeElement el = new(_tree.Nodes[i]);
+            GlobalUpgradeElement el = new(_tree.Nodes[i]);
             Add(el);
             UpgradeElements.Add(el);
 
@@ -53,7 +53,7 @@ public class BuildingUpgradeTreeElement : VisualElement
         }
     }
 
-    void NodePurchased(BuildingUpgrade buildingUpgrade)
+    void NodePurchased(GlobalUpgradeLevel globalUpgrade)
     {
         UpgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(false);
 
@@ -63,6 +63,6 @@ public class BuildingUpgradeTreeElement : VisualElement
         if (_tree.CurrentNodeIndex < _tree.Nodes.Count - 1)
             UpgradeElements[_tree.CurrentNodeIndex + 1].SetEnabled(true);
 
-        OnUpgradePurchased?.Invoke(buildingUpgrade);
+        OnUpgradePurchased?.Invoke(globalUpgrade);
     }
 }

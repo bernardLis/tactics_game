@@ -1,4 +1,4 @@
-.building-upgrade__main {
+.global-upgrade__main {
     justify-content: center;
     align-items: center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Metal_frame_options_little.png?fileID=2800000&guid=8f95acb20c4b1af46b5c67199f50665b&type=3#Metal_frame_options_little');
@@ -9,11 +9,11 @@
     width: 200px;
 }
 
-.building-upgrade__title {
+.global-upgrade__title {
     white-space: normal;
 }
 
-.building-upgrade__icon {
+.global-upgrade__icon {
     width: 100px;
     height: 100px;
 }

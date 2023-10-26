@@ -1,13 +1,13 @@
-.building-upgrade-tree__title {
+.global-upgrade-tree__title {
     -unity-text-align: middle-center;
     font-size: 36px;
     white-space: normal;
 }
 
-.building-upgrade-tree__main {
+.global-upgrade-tree__main {
     flex-direction: row;
 }
 
-.building-upgrade-tree__arrow-label {
+.global-upgrade-tree__arrow-label {
     -unity-text-align: middle-center;
 }
