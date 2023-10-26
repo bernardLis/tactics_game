@@ -1,0 +1,17 @@
+.tooltip-card__main {
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.tooltip-card__background {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Popup_line3.png?fileID=2800000&guid=944125920118bfb468e72b41f2dfc710&type=3#Popup_line3');
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+}

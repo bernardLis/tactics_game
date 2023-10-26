@@ -57,10 +57,11 @@ public enum StyleSheetType
     GlobalUpgradeStyles, GlobalUpgradeTroopsStyles,
     GlobalUpgradeTreeStyles,
 
-    TurretIconStyles, GraveCardStyles,
+    TurretIconStyles,
     BattleStatsStyles, BattleInfoStyles,
     TextPrintingStyles,
     HeroBattleStyles,
+    TooltipCardStyles,
 
 
 }

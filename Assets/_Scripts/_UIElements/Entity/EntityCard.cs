@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EntityCard : VisualElement
+public class EntityCard : TooltipCard
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
 
     const string _ussClassName = "entity-card__";
     const string _ussMain = _ussClassName + "main";
@@ -15,8 +13,6 @@ public class EntityCard : VisualElement
     const string _ussRightContainer = _ussClassName + "right-container";
     const string _ussName = _ussClassName + "name";
     const string _ussElement = _ussClassName + "element";
-
-    protected GameManager _gameManager;
 
     protected VisualElement _leftContainer;
     protected VisualElement _middleContainer;
@@ -31,10 +27,10 @@ public class EntityCard : VisualElement
     public Entity Entity;
     public EntityCard(Entity entity)
     {
-        _gameManager = GameManager.Instance;
+        Initialize();
+
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        if (ss != null) styleSheets.Add(ss);
 
         Entity = entity;
 
@@ -86,7 +82,6 @@ public class EntityCard : VisualElement
     {
         _levelLabel = new();
         _levelLabel.text = $"Level {Entity.Level.Value}";
-        _levelLabel.AddToClassList(_ussCommonTextPrimaryBlack);
         _middleContainer.Add(_levelLabel);
 
         // HERE: something weeird with level

@@ -16,8 +16,10 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] Transform _spawnPoint;
 
     IEnumerator _friendlyWolfSpawnCoroutine;
-
+    float _currentProductionDelaySecond;
     public List<BattleCreature> _friendlyWolves = new();
+
+
 
     public void Initialize()
     {
@@ -73,9 +75,20 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         while (_friendlyWolves.Count < _wolfLair.GetCurrentUpgrade().ProductionLimit)
         {
             SpawnFriendlyWolf();
-            yield return new WaitForSeconds(_wolfLair.GetCurrentUpgrade().ProductionDelay);
+            yield return ProductionDelay();
         }
         _friendlyWolfSpawnCoroutine = null;
+    }
+
+    IEnumerator ProductionDelay()
+    {
+        float totalDelay = _wolfLair.GetCurrentUpgrade().ProductionDelay;
+        _currentProductionDelaySecond = 0f;
+        while (_currentProductionDelaySecond < totalDelay)
+        {
+            _currentProductionDelaySecond += 1;
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     void SpawnFriendlyWolf()
