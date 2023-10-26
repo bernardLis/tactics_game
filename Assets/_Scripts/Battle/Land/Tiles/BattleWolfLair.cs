@@ -15,6 +15,7 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] BattleEntitySpawner _spawnerPrefab;
     [SerializeField] Transform _spawnPoint;
 
+    [SerializeField] GameObject _banner;
     IEnumerator _friendlyWolfSpawnCoroutine;
     float _currentProductionDelaySecond;
     public List<BattleCreature> _friendlyWolves = new();
@@ -57,6 +58,7 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void Secured()
     {
+        _banner.SetActive(true);
         _wolfLair.Secure();
         StartFriendlyWolfSpawnCoroutine();
     }
