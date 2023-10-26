@@ -127,15 +127,10 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _gameInfoContainer.Clear();
     }
 
-
+    /*TOOLTIP CARD*/
     public void ShowTooltip(BattleEntity entity)
     {
-        VisualElement el = null;
-        if (entity is BattleMinion)
-            el = new BattleEntityCard(entity);
-        if (entity is BattleCreature creature)
-            el = new BattleCreatureCard(creature);
-
+        VisualElement el = new BattleEntityCard(entity);
         ShowTooltip(el, entity.gameObject);
     }
 

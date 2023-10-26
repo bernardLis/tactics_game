@@ -2,7 +2,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleRewardStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#BattleRewardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardCardStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardCardStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/BattleCreatureCardStyles.uss?fileID=7433441132597879392&amp;guid=cfbdbbe13acd1e0478727ccd5ed27b2b&amp;type=3#BattleCreatureCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/ElementalElementStyles.uss?fileID=7433441132597879392&amp;guid=06dac8c48602d3f4e859c4ff45cfa55f&amp;type=3#ElementalElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityIconStyles.uss?fileID=7433441132597879392&amp;guid=73a23192c66321b49874edb0a26a5d1b&amp;type=3#AbilityIconStyles" />
@@ -29,7 +28,7 @@
     </ui:VisualElement>
     <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;" />
     <ui:VisualElement name="entityTooltipContainer" style="flex-grow: 1; position: absolute; right: auto; bottom: 50%; visibility: hidden;" />
-    <ui:VisualElement name="tooltipContainer" style="position: absolute;" />
+    <ui:VisualElement name="tooltipContainer" style="position: absolute; bottom: 15%;" />
     <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px; display: none;" />
     <ui:VisualElement name="controlGuideContainer" style="flex-grow: 1; position: absolute; left: auto; right: 20px; bottom: 50%; width: 150px; opacity: 0;">
         <ui:VisualElement name="cameraMoveGuide" style="flex-grow: 1; flex-direction: row; height: 70px;">

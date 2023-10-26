@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class EntityCard : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
+    const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
 
     const string _ussClassName = "entity-card__";
     const string _ussMain = _ussClassName + "main";
@@ -24,7 +25,6 @@ public class EntityCard : VisualElement
     public EntityIcon EntityIcon;
     protected ElementalElement _elementalElement;
     protected Label _nameLabel;
-    protected ResourceBarElement _expBar;
     protected Label _levelLabel;
     protected ResourceBarElement _healthBar;
 
@@ -57,7 +57,6 @@ public class EntityCard : VisualElement
         HandleEntityIcon();
         HandleElementalElement();
         HandleNameLabel();
-        HandleExpBar();
         HandleLevelLabel();
         HandleHealthBar();
     }
@@ -82,21 +81,13 @@ public class EntityCard : VisualElement
         _middleContainer.Add(_nameLabel);
     }
 
-    protected virtual void HandleExpBar()
-    {
-        _expBar = new(_gameManager.GameDatabase.GetColorByName("Experience").Color,
-                "Experience", Entity.Experience, Entity.ExpForNextLevel);
-        _middleContainer.Add(_expBar);
-    }
 
     protected virtual void HandleLevelLabel()
     {
         _levelLabel = new();
         _levelLabel.text = $"Level {Entity.Level.Value}";
-        _levelLabel.style.position = Position.Absolute;
-        _levelLabel.style.left = 5;
-        _levelLabel.AddToClassList(_ussCommonTextPrimary);
-        _expBar.Add(_levelLabel);
+        _levelLabel.AddToClassList(_ussCommonTextPrimaryBlack);
+        _middleContainer.Add(_levelLabel);
 
         // HERE: something weeird with level
         Entity.Level.OnValueChanged += (i) =>
