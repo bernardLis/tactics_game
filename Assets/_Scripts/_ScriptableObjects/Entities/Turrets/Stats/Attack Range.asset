@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Attack Range
   m_EditorClassIdentifier: 
   Id: 797f5c70-1311-423f-a3e7-dfe389369af8
-  StatType: 5
+  StatType: 4
   Icon: {fileID: 0}
   Description: 
   BaseValue: 5

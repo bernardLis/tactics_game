@@ -90,7 +90,7 @@ public class EntityCardFull : FullScreenElement
 
     void AddIcon()
     {
-        _entityIcon = new(Entity, true, true);
+        _entityIcon = new(Entity, true);
         _basicInfoContainer.Add(_entityIcon);
     }
 

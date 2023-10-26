@@ -63,7 +63,7 @@ public class EntityCard : VisualElement
 
     protected virtual void HandleEntityIcon()
     {
-        EntityIcon = new(Entity, true);
+        EntityIcon = new(Entity);
         _leftContainer.Add(EntityIcon);
     }
 

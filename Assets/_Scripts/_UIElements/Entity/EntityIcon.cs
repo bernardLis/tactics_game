@@ -14,14 +14,15 @@ public class EntityIcon : ElementWithTooltip
     GameManager _gameManager;
 
     Entity _entity;
-    bool _blockTooltip;
 
     VisualElement _iconContainer;
     public VisualElement Frame;
 
+    bool _blockClick;
+
     AnimationElement _animationElement;
     bool _isAnimationBlocked;
-    public EntityIcon(Entity entity, bool blockTooltip = false, bool blockClick = false)
+    public EntityIcon(Entity entity, bool blockClick = false)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
@@ -29,7 +30,6 @@ public class EntityIcon : ElementWithTooltip
             styleSheets.Add(ss);
 
         _entity = entity;
-        _blockTooltip = blockTooltip;
 
         AddToClassList(_ussMain);
 
@@ -47,58 +47,27 @@ public class EntityIcon : ElementWithTooltip
 
         RegisterCallback<MouseEnterEvent>(OnMouseEnter);
         RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
-        if (!blockClick) RegisterCallback<ClickEvent>(OnClick, TrickleDown.NoTrickleDown);
+
+        _blockClick = blockClick;
+        if (!blockClick)
+        {
+            MoveIcon();
+            RegisterCallback<ClickEvent>(OnClick, TrickleDown.NoTrickleDown);
+        }
     }
 
-    public void SmallIcon()
+    void MoveIcon()
     {
-        style.width = 50;
-        style.height = 50;
+        DOTween.To(x => transform.scale = x * Vector3.one, 1f, 1.1f, 1.5f)
+                                .SetLoops(-1, LoopType.Yoyo)
+                                .SetEase(Ease.InOutSine)
+                                .SetTarget(transform);
 
-        Frame.style.width = 50;
-        Frame.style.height = 50;
-
-        _iconContainer.style.width = 40;
-        _iconContainer.style.height = 40;
+        DOTween.To(x => style.rotate = new Rotate(x), -5f, 5f, 1.5f)
+                                .SetLoops(-1, LoopType.Yoyo)
+                                .SetEase(Ease.InOutSine)
+                                .SetTarget(transform);
     }
-
-    public void LargeIcon()
-    {
-        style.width = 200;
-        style.height = 200;
-
-        Frame.style.width = 200;
-        Frame.style.height = 200;
-
-        _iconContainer.style.width = 180;
-        _iconContainer.style.height = 180;
-    }
-
-    public void SetEntity(Entity entity)
-    {
-        _entity = entity;
-        _animationElement.SwapAnimationSprites(entity.IconAnimation);
-    }
-
-    public void SwapCreature(Entity newEntity)
-    {
-        _entity = newEntity;
-
-        DOTween.Shake(() => transform.position, x => transform.position = x,
-                2f, 10f);
-
-        Color _initialColor = Frame.style.backgroundColor.value;
-        Color _targetColor = Color.white;
-        DOTween.To(() => Frame.style.backgroundColor.value,
-                x => Frame.style.backgroundColor = x, _targetColor, 1f)
-            .OnComplete(() => _animationElement.SwapAnimationSprites(newEntity.IconAnimation));
-
-        DOTween.To(() => Frame.style.backgroundColor.value,
-                x => Frame.style.backgroundColor = x, _initialColor, 2f)
-            .SetDelay(1f);
-    }
-
-    public void BlockAnimation() { _isAnimationBlocked = true; }
 
     public void PlayAnimationAlways()
     {
@@ -111,12 +80,18 @@ public class EntityIcon : ElementWithTooltip
     {
         if (_isAnimationBlocked) return;
         _animationElement.PlayAnimation();
+
+        if (!_blockClick)
+            DOTween.Kill(transform);
     }
 
     void OnMouseLeave(MouseLeaveEvent evt)
     {
         if (_isAnimationBlocked) return;
         _animationElement.PauseAnimation();
+
+        if (!_blockClick)
+            MoveIcon();
     }
 
     void OnClick(ClickEvent evt)
@@ -132,20 +107,5 @@ public class EntityIcon : ElementWithTooltip
             card = new EntityMovementCardFull(minion);
 
         card?.Initialize();
-    }
-
-    protected override void DisplayTooltip()
-    {
-        if (_blockTooltip) return;
-
-        VisualElement tooltip = new();
-
-        if (_entity is Creature creature)
-            tooltip = new CreatureCard(creature);
-        if (_entity is Minion minion)
-            tooltip = new EntityCard(minion);
-
-        _tooltip = new(this, tooltip);
-        base.DisplayTooltip();
     }
 }
