@@ -62,9 +62,7 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void StartFriendlyWolfSpawnCoroutine()
     {
-        Debug.Log($"StartFriendlyWolfSpawnCoroutine {_friendlyWolfSpawnCoroutine}");
         if (_friendlyWolfSpawnCoroutine != null) return;
-        Debug.Log($"StartFriendlyWolfSpawnCoroutine after if");
 
         _friendlyWolfSpawnCoroutine = SpawnFriendlyWolves();
         StartCoroutine(_friendlyWolfSpawnCoroutine);
@@ -95,7 +93,6 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             // if it dies, and coroutine is inactive - restart coroutine
             bc.OnDeath += (_, __) =>
             {
-                Debug.Log($"on death");
                 _friendlyWolves.Remove(bc);
                 StartFriendlyWolfSpawnCoroutine();
             };
@@ -121,6 +118,5 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
-        Debug.Log($"woof lair click");
     }
 }

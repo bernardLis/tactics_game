@@ -40,7 +40,7 @@ public class BattleInfoManager : MonoBehaviour
         AddGoldElement();
 
         AddTroopsLimitElement();
-        // UpdateTroopsLimitElement();
+        UpdateTroopsLimitElement();
 
         // HERE: spice
         // AddSpiceElement();
@@ -60,18 +60,15 @@ public class BattleInfoManager : MonoBehaviour
         _troopsLimitElement = new("");
         _infoPanel.Add(_troopsLimitElement);
 
-        // HERE: troops limit
-        // _gameManager.PlayerHero.OnCreatureAdded += (c) => UpdateTroopsLimitElement();
-        // _gameManager.PlayerHero.OnCreatureRemoved += (c) => UpdateTroopsLimitElement();
+        _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsLimitElement();
+        _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsLimitElement();
 
-        // StoreyTroops.MaxTroopsTree.CurrentValue.OnValueChanged += (v) => UpdateTroopsLimitElement();
     }
 
-    // void UpdateTroopsLimitElement()
-    // {
-    // HERE: troops limit
-    //     _troopsLimitElement.UpdateCountContainer($"{_gameManager.PlayerHero.CreatureArmy.Count} / {_spire.StoreyTroops.MaxTroopsTree.CurrentValue.Value}", Color.white);
-    // }
+    void UpdateTroopsLimitElement()
+    {
+        _troopsLimitElement.UpdateCountContainer($"{_battleManager.PlayerCreatures.Count - 1}", Color.white);
+    }
 
 
     void AddSpiceElement()
