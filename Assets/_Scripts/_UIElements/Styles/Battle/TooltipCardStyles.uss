@@ -23,3 +23,7 @@
 .tooltip-card__top-middle-container {
     width: 150px;
 }
+
+.tooltip-card__name {
+    font-size: 24px;
+}

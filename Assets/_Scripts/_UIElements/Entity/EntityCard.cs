@@ -8,7 +8,6 @@ public class EntityCard : TooltipCard
 
     const string _ussClassName = "entity-card__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussName = _ussClassName + "name";
     const string _ussElement = _ussClassName + "element";
 
     public EntityIcon EntityIcon;
@@ -66,7 +65,6 @@ public class EntityCard : TooltipCard
         _levelLabel.text = $"Level {Entity.Level.Value}";
         _topRightContainer.Add(_levelLabel);
 
-        // HERE: something weeird with level
         Entity.Level.OnValueChanged += (i) =>
         {
             _levelLabel.text = $"Level {i}";

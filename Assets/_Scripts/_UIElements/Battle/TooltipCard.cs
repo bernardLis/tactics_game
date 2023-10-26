@@ -13,6 +13,7 @@ public class TooltipCard : VisualElement
     const string _ussTopLeftContainer = _ussClassName + "top-left-container";
     const string _ussTopMiddleContainer = _ussClassName + "top-middle-container";
 
+    protected const string _ussName = _ussClassName + "name";
 
     protected VisualElement _topLeftContainer;
     protected VisualElement _topRightContainer;

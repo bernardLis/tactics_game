@@ -2,12 +2,6 @@
 }
 
 
-
-
-.entity-card__name {
-    font-size: 24px;
-}
-
 .entity-card__element {
     position: absolute;
     top: -20px;
