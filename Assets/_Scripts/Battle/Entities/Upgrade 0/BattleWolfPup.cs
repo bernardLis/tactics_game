@@ -22,10 +22,8 @@ public class BattleWolfPup : BattleCreatureMelee
             _currentPickup = _battleManager.Pickups[Random.Range(0, _battleManager.Pickups.Count)];
             // goes there,
             Vector3 pickupPos = _currentPickup.transform.position;
-            yield return PathToPosition(pickupPos);
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
-                yield return new WaitForSeconds(0.1f);
-            Animator.SetBool("Move", false);
+
+            yield return PathToPositionAndStop(pickupPos);
 
             // check if it is still there
             if (_currentPickup == null) continue;
@@ -39,13 +37,8 @@ public class BattleWolfPup : BattleCreatureMelee
 
             // and brings it to hero
             BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
-            yield return PathToPosition(battleHero.transform.position);
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance + 2f)
-            {
-                yield return PathToPosition(battleHero.transform.position);
-                yield return new WaitForSeconds(0.1f);
-            }
-            Animator.SetBool("Move", false);
+            _agent.stoppingDistance = 4f;
+            yield return PathToTarget(battleHero.transform);
 
             yield return new WaitForSeconds(Random.Range(3f, 6f));
         }

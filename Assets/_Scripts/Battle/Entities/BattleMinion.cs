@@ -33,19 +33,9 @@ public class BattleMinion : BattleEntity
 
     IEnumerator PathToHero()
     {
-        yield return PathToPosition(_targetHero.transform.position);
-
         _agent.stoppingDistance = 2f;
-        while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
-        {
-            _agent.SetDestination(_targetHero.transform.position);
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        // reached destination
-        _agent.avoidancePriority = 0;
-        Animator.SetBool("Move", false);
-        _agent.enabled = false;
+        yield return PathToTarget(_targetHero.transform);
+        
         ReachedHero();
     }
 

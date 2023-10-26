@@ -89,18 +89,16 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator HangOut()
     {
+        if (Team == 1) yield break; // TODO: not implemented for enemies
         while (true)
         {
-            // need to make sure that position is reachable
-            // what if it is opp and hero is dead?
+            // TODO: need to make sure that position is reachable
             BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
-            yield return PathToPosition(battleHero.transform.position
+
+            yield return PathToPositionAndStop(battleHero.transform.position
                                         + Vector3.right * Random.Range(-10f, 10f)
                                         + Vector3.forward * Random.Range(-10f, 10f));
-
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
-                yield return new WaitForSeconds(0.1f);
-            Animator.SetBool("Move", false);
+            
             yield return new WaitForSeconds(Random.Range(3f, 6f));
         }
     }
@@ -147,19 +145,8 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator PathToOpponent()
     {
-        yield return PathToPosition(Opponent.transform.position);
-
         _agent.stoppingDistance = Creature.AttackRange.GetValue();
-        while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
-        {
-            _agent.SetDestination(Opponent.transform.position);
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        // reached destination
-        _agent.avoidancePriority = 0;
-        Animator.SetBool("Move", false);
-        _agent.enabled = false;
+        yield return PathToTarget(Opponent.transform);
     }
 
     public override void Engage(BattleEntity engager)

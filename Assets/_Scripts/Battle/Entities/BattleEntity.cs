@@ -165,7 +165,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         yield return null;
     }
 
-
     protected virtual IEnumerator PathToPosition(Vector3 position)
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
@@ -178,6 +177,38 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         while (_agent.pathPending) yield return null;
 
         Animator.SetBool("Move", true);
+    }
+
+    protected virtual IEnumerator PathToPositionAndStop(Vector3 position)
+    {
+        yield return PathToPosition(position);
+        while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+            yield return new WaitForSeconds(0.1f);
+
+        // reached destination
+        StopWalking();
+    }
+
+    protected virtual IEnumerator PathToTarget(Transform transform)
+    {
+        EntityLog.Add($"{_battleManager.GetTime()}: Path to target is called {transform}");
+
+        yield return PathToPosition(transform.position);
+        while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+        {
+            _agent.SetDestination(transform.position);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // reached destination
+        StopWalking();
+    }
+
+    void StopWalking()
+    {
+        _agent.avoidancePriority = 0;
+        Animator.SetBool("Move", false);
+        _agent.enabled = false;
     }
 
     public virtual void Engage(BattleEntity engager)
