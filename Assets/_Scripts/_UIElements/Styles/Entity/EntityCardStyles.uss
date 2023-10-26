@@ -1,17 +1,7 @@
 .entity-card__main {
 }
 
-.entity-card__left-container {
-    margin-right: 20px;
-}
 
-.entity-card__middle-container {
-    width: 150px;
-}
-
-.entity-card__right-container {
-    margin-left: 10px;
-}
 
 
 .entity-card__name {
@@ -22,9 +12,4 @@
     position: absolute;
     top: -20px;
     right: -20px;
-}
-
-.battle-creature__exp-container {
-    align-content: center;
-    width: 100%;
 }

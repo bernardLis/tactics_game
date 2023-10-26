@@ -131,5 +131,6 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left) return;
+        _tooltipManager.ShowTooltip(new BuildingCard(_wolfLair), gameObject);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -17,7 +18,9 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!CanDisplayTooltip()) return;
-        _tooltipManager.ShowTooltip(_battleEntity);
+        VisualElement el = new BattleEntityCard(_battleEntity);
+
+        _tooltipManager.ShowTooltip(el, gameObject);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

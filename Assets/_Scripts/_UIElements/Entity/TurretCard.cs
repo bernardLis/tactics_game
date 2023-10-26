@@ -20,9 +20,9 @@ public class TurretCard : EntityCard
 
     void PopulateRightPanel()
     {
-        _rightContainer.Add(new Label("<b>Upgrade</b>"));
+        _topRightContainer.Add(new Label("<b>Upgrade</b>"));
         _upgradeButton = new(Turret.UpgradeCost, isInfinite: true, callback: Upgrade);
-        _rightContainer.Add(_upgradeButton);
+        _topRightContainer.Add(_upgradeButton);
     }
 
     void Upgrade()

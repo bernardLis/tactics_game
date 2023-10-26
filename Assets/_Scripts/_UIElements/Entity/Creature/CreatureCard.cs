@@ -16,6 +16,6 @@ public class CreatureCard : EntityCard
         PopulateCard();
 
         if (_creature.CreatureAbility != null)
-            _rightContainer.Add(new CreatureAbilityElement(_creature.CreatureAbility));
+            _topRightContainer.Add(new CreatureAbilityElement(_creature.CreatureAbility));
     }
 }

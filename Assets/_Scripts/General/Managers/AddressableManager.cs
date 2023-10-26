@@ -61,7 +61,7 @@ public enum StyleSheetType
     BattleStatsStyles, BattleInfoStyles,
     TextPrintingStyles,
     HeroBattleStyles,
-    TooltipCardStyles,
+    TooltipCardStyles, BuildingCardStyles,
 
 
 }

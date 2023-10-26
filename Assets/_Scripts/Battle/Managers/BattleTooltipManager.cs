@@ -128,12 +128,6 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     }
 
     /*TOOLTIP CARD*/
-    public void ShowTooltip(BattleEntity entity)
-    {
-        VisualElement el = new BattleEntityCard(entity);
-        ShowTooltip(el, entity.gameObject);
-    }
-
     public void ShowTooltip(VisualElement el, GameObject go)
     {
         bool tooltipAnimation = _currentTooltip == null;
