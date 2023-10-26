@@ -9,9 +9,15 @@ public class BuildingCard : TooltipCard
     const string _ussMain = _ussClassName + "main";
     const string _ussIcon = _ussClassName + "icon";
 
+
     protected ElementalElement _elementalElement;
     protected Label _nameLabel;
     protected Label _levelLabel;
+
+    VisualElement _infoContainer;
+    PurchaseButton _upgradeButton;
+
+    LockOverlayElement _lockElement;
 
     Building _building;
 
@@ -32,14 +38,14 @@ public class BuildingCard : TooltipCard
         HandleIcon();
         HandleNameLabel();
         HandleLevelLabel();
+        HandleBuildingInfoContainer();
+        HandleBuildingSecured();
     }
 
     protected virtual void HandleIcon()
     {
-        VisualElement icon = new();
-        icon.AddToClassList(_ussIcon);
-        icon.style.backgroundImage = new StyleBackground(_building.Icon);
-        _topLeftContainer.Add(icon);
+        EntityIcon entityIcon = new(_building.GetCurrentUpgrade().ProducedCreature);
+        _topLeftContainer.Add(entityIcon);
     }
 
     protected virtual void HandleNameLabel()
@@ -58,6 +64,56 @@ public class BuildingCard : TooltipCard
         _building.CurrentLevel.OnValueChanged += (i) =>
         {
             _levelLabel.text = $"Level {i}";
+        };
+    }
+
+    void HandleBuildingInfoContainer()
+    {
+        _infoContainer = new();
+        _middleContainer.Add(_infoContainer);
+
+        Label wolfCountLabel = new($"Max: {_building.GetCurrentUpgrade().ProductionLimit}");
+        _infoContainer.Add(wolfCountLabel);
+        _building.OnUpgradePurchased += () =>
+        {
+            wolfCountLabel.text = $"Max: {_building.GetCurrentUpgrade().ProductionLimit}";
+        };
+
+        Label delay = new($"Respawn: {_building.GetCurrentUpgrade().ProductionDelay}s");
+        _infoContainer.Add(delay);
+        _building.OnUpgradePurchased += () =>
+        {
+            delay.text = $"Respawn: {_building.GetCurrentUpgrade().ProductionDelay}s";
+        };
+
+        HandleUpgradeButton();
+
+    }
+
+    void HandleUpgradeButton()
+    {
+        if (_upgradeButton != null) _infoContainer.Remove(_upgradeButton);
+        if (_building.GetNextUpgrade() == null) return;
+        int cost = _building.GetNextUpgrade().Cost;
+        _upgradeButton = new(cost, buttonText: "Upgrade", callback: UpgradeBuilding);
+        _infoContainer.Add(_upgradeButton);
+    }
+
+    void UpgradeBuilding()
+    {
+        _building.Upgrade();
+        HandleUpgradeButton();
+    }
+
+    void HandleBuildingSecured()
+    {
+        if (_building.IsSecured) return;
+        Label txt = new("Secure tile to unlock.");
+        _lockElement = new(txt);
+        _middleContainer.Add(_lockElement);
+        _building.OnSecured += () =>
+        {
+            _lockElement.Unlock();
         };
     }
 }

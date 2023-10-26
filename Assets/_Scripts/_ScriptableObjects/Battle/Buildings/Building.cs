@@ -6,18 +6,25 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building")]
 public class Building : BaseScriptableObject
 {
-    public string Description;
-    public Sprite Icon;
-
     public IntVariable CurrentLevel;
 
     public BuildingUpgrade[] BuildingUpgrades;
 
+    public bool IsSecured;
+
     public event Action OnUpgradePurchased;
+    public event Action OnSecured;
+
     public void Initialize()
     {
         CurrentLevel = CreateInstance<IntVariable>();
         CurrentLevel.SetValue(1);
+    }
+
+    public void Secure()
+    {
+        IsSecured = true;
+        OnSecured?.Invoke();
     }
 
     public BuildingUpgrade GetCurrentUpgrade()

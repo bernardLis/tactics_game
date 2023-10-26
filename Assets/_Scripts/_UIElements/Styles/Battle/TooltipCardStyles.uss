@@ -1,5 +1,4 @@
 .tooltip-card__main {
-    flex-direction: row;
     padding-top: 10px;
     padding-bottom: 30px;
     padding-left: 10px;
@@ -14,6 +13,22 @@
     width: 100%;
     height: 100%;
     opacity: 0.6;
+}
+
+.tooltip-card__top-container {
+    flex-direction: row;
+}
+
+.tooltip-card__middle-container {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.tooltip-card__bottom-container {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
 .tooltip-card__top-left-container {

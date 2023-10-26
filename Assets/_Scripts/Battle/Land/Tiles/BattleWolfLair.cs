@@ -19,8 +19,6 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     float _currentProductionDelaySecond;
     public List<BattleCreature> _friendlyWolves = new();
 
-
-
     public void Initialize()
     {
         _gameManager = GameManager.Instance;
@@ -59,11 +57,13 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void Secured()
     {
+        _wolfLair.Secure();
         StartFriendlyWolfSpawnCoroutine();
     }
 
     void StartFriendlyWolfSpawnCoroutine()
     {
+        if (!_wolfLair.IsSecured) return;
         if (_friendlyWolfSpawnCoroutine != null) return;
 
         _friendlyWolfSpawnCoroutine = SpawnFriendlyWolves();
