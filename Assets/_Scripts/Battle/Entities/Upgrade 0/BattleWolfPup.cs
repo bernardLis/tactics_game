@@ -19,22 +19,22 @@ public class BattleWolfPup : BattleCreatureMelee
         while (_battleManager.Pickups.Count > 0)
         {
             // woof checks the list picks a random pickup
-            BattlePickUp battlePickUp = _battleManager.Pickups[Random.Range(0, _battleManager.Pickups.Count)];
+            _currentPickup = _battleManager.Pickups[Random.Range(0, _battleManager.Pickups.Count)];
             // goes there,
-            Vector3 pickupPos = battlePickUp.transform.position;
+            Vector3 pickupPos = _currentPickup.transform.position;
             yield return PathToPosition(pickupPos);
             while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
                 yield return new WaitForSeconds(0.1f);
             Animator.SetBool("Move", false);
 
             // check if it is still there
-            if (battlePickUp == null) continue;
-            if (pickupPos != battlePickUp.transform.position) continue;
+            if (_currentPickup == null) continue;
+            if (pickupPos != _currentPickup.transform.position) continue;
 
             // takes it
             Animator.SetTrigger("Attack");
-            battlePickUp.transform.parent = _pickupPosition;
-            battlePickUp.transform.localPosition = new Vector3(-0.3f, -0.2f, 0);
+            _currentPickup.transform.parent = _pickupPosition;
+            _currentPickup.transform.localPosition = new Vector3(-0.3f, -0.2f, 0);
             yield return new WaitForSeconds(0.4f);
 
             // and brings it to hero
@@ -56,7 +56,7 @@ public class BattleWolfPup : BattleCreatureMelee
     void DropPickup()
     {
         _currentPickup.transform.parent = _battleManager.EntityHolder;
-        _currentPickup.transform.localPosition = new Vector3(0f, 0.5f, 0);
+        _currentPickup.transform.position = transform.position;
     }
 
     //TODO: I'd prefer if it used its ability whenever it is off cooldown, it is not shielded and ability is available
@@ -68,8 +68,7 @@ public class BattleWolfPup : BattleCreatureMelee
 
     protected override IEnumerator PathToOpponent()
     {
-        if (_currentPickup != null)
-            DropPickup();
+        if (_currentPickup != null) DropPickup();
 
         yield return ManageCreatureAbility();
         yield return base.PathToOpponent();
