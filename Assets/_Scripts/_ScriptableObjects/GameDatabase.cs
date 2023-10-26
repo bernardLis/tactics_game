@@ -12,6 +12,9 @@ public class GameDatabase : BaseScriptableObject
     public List<BattleModifier> GetAllBattleModifiers() { return new(BattleModifiers); }
     public BattleModifier GetRandomBattleModifier() { return BattleModifiers[Random.Range(0, BattleModifiers.Length)]; }
 
+    [Header("Buildings")]
+    [SerializeField] Building[] Buildings;
+    public Building GetBuildingByName(string name) { return Buildings.FirstOrDefault(b => b.name == name); }
 
     [Header("Shaders")]
     public Shader LitShader;

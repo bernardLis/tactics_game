@@ -6,28 +6,28 @@ using DG.Tweening;
 
 public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    GameManager _gameManager;
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
 
-    [SerializeField] Creature _wolf;
-    [SerializeField] int _wolfCount;
+    Building _wolfLair;
+
     [SerializeField] BattleEntitySpawner _spawnerPrefab;
     [SerializeField] Transform _spawnPoint;
-
-    [Header("Friendly Wolf Lair")]
-    [SerializeField] float _delayBetweenWolfSpawns;
-    [SerializeField] int _maxFriendlyWolves;
-
 
     IEnumerator _friendlyWolfSpawnCoroutine;
 
     public List<BattleCreature> _friendlyWolves = new();
 
-
     public void Initialize()
     {
+        _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
+
+        _wolfLair = Instantiate(_gameManager.GameDatabase.GetBuildingByName("Wolf Lair"));
+        _wolfLair.Initialize();
+        _wolfLair.OnUpgradePurchased += () => StartFriendlyWolfSpawnCoroutine();
 
         transform.localScale = Vector3.zero;
         transform.DOScale(Vector3.one, 1f)
@@ -39,10 +39,12 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void SpawnWave(int difficulty)
     {
+        BuildingUpgrade bu = _wolfLair.GetCurrentUpgrade();
+
         // TODO: difficulty
         List<Entity> entitiesToSpawn = new();
-        for (int i = 0; i < _wolfCount; i++)
-            entitiesToSpawn.Add(Instantiate(_wolf));
+        for (int i = 0; i < difficulty * 3; i++)
+            entitiesToSpawn.Add(Instantiate(bu.ProducedCreature));
 
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab, _spawnPoint.position, transform.rotation);
         spawner.SpawnEntities(entitiesToSpawn);
@@ -55,9 +57,7 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void Secured()
     {
-
         StartFriendlyWolfSpawnCoroutine();
-
     }
 
     void StartFriendlyWolfSpawnCoroutine()
@@ -70,10 +70,10 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     IEnumerator SpawnFriendlyWolves()
     {
-        while (_friendlyWolves.Count < _maxFriendlyWolves)
+        while (_friendlyWolves.Count < _wolfLair.GetCurrentUpgrade().ProductionLimit)
         {
             SpawnFriendlyWolf();
-            yield return new WaitForSeconds(_delayBetweenWolfSpawns);
+            yield return new WaitForSeconds(_wolfLair.GetCurrentUpgrade().ProductionDelay);
         }
         _friendlyWolfSpawnCoroutine = null;
     }
@@ -83,7 +83,7 @@ public class BattleWolfLair : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
                                 _spawnPoint.position, transform.rotation);
 
-        Creature wolf = Instantiate(_wolf);
+        Creature wolf = Instantiate(_wolfLair.GetCurrentUpgrade().ProducedCreature);
         spawner.SpawnEntities(new List<Entity>() { wolf });
         spawner.OnSpawnComplete += (l) =>
         {

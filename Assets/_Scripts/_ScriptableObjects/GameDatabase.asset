@@ -24,6 +24,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f729a9c9d523647b5b68ef9b321939, type: 2}
   - {fileID: 11400000, guid: 7cd448c6dce89a94c8fbe97e92a7ff44, type: 2}
   - {fileID: 11400000, guid: 1333b309038e6b44bb05312d358b9985, type: 2}
+  Buildings:
+  - {fileID: 11400000, guid: 72186956f81250a4e94865e577a8c087, type: 2}
   LitShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4, type: 3}
   GrayScaleShader: {fileID: 4800000, guid: 4303e1617f4f86b42898e34475ec45ed, type: 3}

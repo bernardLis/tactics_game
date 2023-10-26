@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32352f465f1b99842b04c7ae49b22913, type: 3}
+  m_Name: Wolf Lair
+  m_EditorClassIdentifier: 
+  Id: ba2fc175-2a44-4e42-963b-9c57ad410630
+  Description: Woof!
+  Icon: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
+  CurrentLevel: {fileID: 0}
+  BuildingUpgrades:
+  - {fileID: 11400000, guid: 1f6510059a21bae4492a7608e0c959c1, type: 2}
+  - {fileID: 11400000, guid: cb1b7779cb3084d4ea6dbf2ef4fe7e1c, type: 2}
+  - {fileID: 11400000, guid: dccb54ee7235fcc45b7182478cbaf7a5, type: 2}
