@@ -8,6 +8,7 @@ using UnityEngine.AI;
 
 public class BattleTile : MonoBehaviour
 {
+    protected GameManager _gameManager;
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
     protected BattleFightManager _battleFightManager;
@@ -27,6 +28,8 @@ public class BattleTile : MonoBehaviour
 
     public float Scale { get; private set; }
 
+    protected BattleBuilding _battleBuilding;
+
     MinionSpawningPattern _minionSpawningPattern;
     bool _minionPositionExecuteOnce;
     List<Vector3> _minionPositions = new();
@@ -43,9 +46,12 @@ public class BattleTile : MonoBehaviour
 
     public virtual void EnableTile()
     {
+        _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
+
+        _battleBuilding = GetComponentInChildren<BattleBuilding>();
 
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
@@ -81,7 +87,6 @@ public class BattleTile : MonoBehaviour
     public virtual void Secured()
     {
         _battleFightManager.OnFightEnded -= Secured;
-
         SpawnReward();
         ShowSigns();
     }

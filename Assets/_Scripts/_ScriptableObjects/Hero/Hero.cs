@@ -69,7 +69,8 @@ public class Hero : EntityMovement
         CreateBaseStats();
 
         Abilities = new();
-        AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
+        // HERE: testing
+      //  AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
     }
 
     void CreateBaseStats()
