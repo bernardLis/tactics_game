@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using Cinemachine;
+using UnityEngine.AI;
 
 public class BattleHeroManager : MonoBehaviour
 {
@@ -30,14 +31,29 @@ public class BattleHeroManager : MonoBehaviour
         hero.InitializeBattle(0);
         hero.OnLevelUp += OnHeroLevelUp;
 
-        BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position,
+        BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position + Vector3.up * 10f,
                                 Quaternion.identity).GetComponent<BattleHero>();
+
         _placeholderAudioListener.enabled = false;
+        StartCoroutine(MakeHeroFall(hero));
+
+    }
+
+    IEnumerator MakeHeroFall(Hero hero)
+    {
+        Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
+        heroAnimator.SetBool("FreeFall", true);
+        BattleHero.transform.DOMoveY(0f, 3f);
+        yield return new WaitForSeconds(2.5f);
+        heroAnimator.SetBool("FreeFall", false);
+        heroAnimator.SetBool("Grounded", true);
+
         BattleHero.InitializeEntity(hero, 0);
         _battleManager.AddPlayerArmyEntity(BattleHero);
-
         _heroBattleElement = new(hero);
         _bottomPanel.Add(_heroBattleElement);
+        BattleHero.GetComponent<NavMeshAgent>().enabled = true;
+
     }
 
     void OnHeroLevelUp()

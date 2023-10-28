@@ -75,7 +75,7 @@ public class BattleHeroController : MonoBehaviour
     int _animIDFreeFall;
     int _animIDMotionSpeed;
 
-    private bool _hasAnimator;
+    bool _hasAnimator;
 
     void Start()
     {
@@ -86,7 +86,8 @@ public class BattleHeroController : MonoBehaviour
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
 
-        _hasAnimator = TryGetComponent(out _animator);
+        _hasAnimator = true;
+        _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();
 
         _cinemachineTargetPitch = _defaultCameraRotation.x;
@@ -284,19 +285,6 @@ public class BattleHeroController : MonoBehaviour
 
         _cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch,
                                                      _cinemachineTargetYaw, 0);
-    }
-
-
-    void OnFootstep(AnimationEvent animationEvent)
-    {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
-            if (_footstepSound != null)
-                _audioManager.PlaySFX(_footstepSound, transform.TransformPoint(_controller.center));
-    }
-
-    // not used coz no jumps
-    void OnLand(AnimationEvent animationEvent)
-    {
     }
 
     float ClampAngle(float lfAngle, float lfMin, float lfMax)
