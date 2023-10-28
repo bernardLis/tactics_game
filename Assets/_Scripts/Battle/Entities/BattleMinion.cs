@@ -10,15 +10,15 @@ public class BattleMinion : BattleEntity
 
     BattleHero _targetHero;
 
-    public override void InitializeEntity(Entity entity)
+    public override void InitializeEntity(Entity entity, int team)
     {
-        base.InitializeEntity(entity);
+        base.InitializeEntity(entity, team);
         Minion = (Minion)entity;
     }
 
-    public override void InitializeBattle(int team, ref List<BattleEntity> opponents)
+    public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
-        base.InitializeBattle(team, ref opponents);
+        base.InitializeBattle(ref opponents);
 
         _targetHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
         StartRunEntityCoroutine();
@@ -35,7 +35,7 @@ public class BattleMinion : BattleEntity
     {
         _agent.stoppingDistance = 2f;
         yield return PathToTarget(_targetHero.transform);
-        
+
         ReachedHero();
     }
 

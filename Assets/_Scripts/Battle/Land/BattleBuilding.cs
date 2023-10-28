@@ -57,7 +57,7 @@ public class BattleBuilding : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             entitiesToSpawn.Add(Instantiate(bu.ProducedCreature));
 
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab, _spawnPoint.position, transform.rotation);
-        spawner.SpawnEntities(entitiesToSpawn);
+        spawner.SpawnEntities(entitiesToSpawn, team: 1);
         spawner.OnSpawnComplete += (l) =>
         {
             _battleManager.AddOpponentArmyEntities(l);

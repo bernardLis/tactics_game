@@ -174,7 +174,7 @@ public class BattleManager : Singleton<BattleManager>
     {
         b.transform.parent = EntityHolder;
 
-        b.InitializeBattle(0, ref OpponentEntities);
+        b.InitializeBattle(ref OpponentEntities);
         if (b is BattleHero hero) b.gameObject.layer = 8;
         else b.gameObject.layer = 10;
         PlayerCreatures.Add(b);
@@ -193,7 +193,7 @@ public class BattleManager : Singleton<BattleManager>
     {
         b.transform.parent = EntityHolder;
 
-        b.InitializeBattle(1, ref PlayerCreatures);
+        b.InitializeBattle(ref PlayerCreatures);
         b.gameObject.layer = 11;
         OpponentEntities.Add(b);
         b.OnDeath += OnOpponentDeath;

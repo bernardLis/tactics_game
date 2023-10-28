@@ -15,13 +15,12 @@ public class BattleHero : BattleEntity
 
     Dictionary<Ability, GameObject> _battleAbilities = new();
 
-    public override void InitializeEntity(Entity entity)
+    public override void InitializeEntity(Entity entity, int team)
     {
-        base.InitializeEntity(entity);
+        base.InitializeEntity(entity, 0);
         _agent.enabled = true;
 
         Hero = (Hero)entity;
-        Team = 0;
 
         _thirdPersonController = GetComponent<BattleHeroController>();
         _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());

@@ -65,13 +65,15 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _audioManager = AudioManager.Instance;
     }
 
-    public virtual void InitializeEntity(Entity entity)
+    public virtual void InitializeEntity(Entity entity, int team)
     {
-        EntityLog.Add($"{Time.time}: (GAME TIME) Entity is spawned");
+        EntityLog.Add($"{Time.time}: (GAME TIME) Entity is spawned, team {team}");
 
         Entity = entity;
+        Team = team;
 
         _battleEntityShaders = GetComponent<ObjectShaders>();
+
         Collider = GetComponent<Collider>();
         Animator = GetComponentInChildren<Animator>();
         _GFX = Animator.gameObject;
@@ -95,7 +97,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         }
     }
 
-    public virtual void InitializeBattle(int team, ref List<BattleEntity> opponents)
+    public virtual void InitializeBattle(ref List<BattleEntity> opponents)
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
@@ -104,11 +106,10 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _rigidbody = GetComponent<Rigidbody>();
         if (_rigidbody != null) _rigidbody.isKinematic = true;
 
-        Team = team;
         if (_battleEntityHighlight != null) _battleEntityHighlight.Initialize(this);
         SetBattleId();
 
-        EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized, team: {team}");
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized");
     }
 
     protected void SetBattleId()

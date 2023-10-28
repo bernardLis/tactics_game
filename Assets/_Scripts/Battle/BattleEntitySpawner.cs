@@ -50,39 +50,38 @@ public class BattleEntitySpawner : MonoBehaviour
     }
 
     public void SpawnEntities(List<Entity> entities, Element portalElement = null,
-            float duration = 2f, bool staysOpen = false)
+            float duration = 2f, int team = 0)
     {
         _entities = new(entities);
         _portalElement = portalElement;
         _delay = duration / _entities.Count;
 
-        StartCoroutine(SpawnShow(staysOpen));
+        StartCoroutine(SpawnShow(team));
     }
 
-    IEnumerator SpawnShow(bool staysOpen)
+    IEnumerator SpawnShow(int team)
     {
         ShowPortal(_portalElement);
 
         for (int i = 0; i < _entities.Count; i++)
         {
-            SpawnEntity(_entities[i]);
+            SpawnEntity(_entities[i], team);
             yield return new WaitForSeconds(_delay);
         }
 
         OnSpawnComplete?.Invoke(SpawnedEntities);
-        if (!staysOpen)
-            Invoke(nameof(DestroySelf), 1f);
+        Invoke(nameof(DestroySelf), 1f);
     }
 
-    void SpawnEntity(Entity entity)
+    void SpawnEntity(Entity entity, int team)
     {
         _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
 
-        entity.InitializeBattle(0);
+        entity.InitializeBattle(team);
 
         GameObject instance = Instantiate(entity.Prefab, transform.position, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(entity);
+        be.InitializeEntity(entity, team);
         SpawnedEntities.Add(be);
 
         Vector3 jumpPos = transform.position + transform.forward * Random.Range(2, 5);

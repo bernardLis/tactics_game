@@ -33,7 +33,7 @@ public class BattleHeroManager : MonoBehaviour
         BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position,
                                 Quaternion.identity).GetComponent<BattleHero>();
         _placeholderAudioListener.enabled = false;
-        BattleHero.InitializeEntity(hero);
+        BattleHero.InitializeEntity(hero, 0);
         _battleManager.AddPlayerArmyEntity(BattleHero);
 
         _heroBattleElement = new(hero);

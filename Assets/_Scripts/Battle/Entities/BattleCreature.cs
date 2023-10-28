@@ -31,9 +31,12 @@ public class BattleCreature : BattleEntity
             CurrentAbilityCooldown -= Time.deltaTime;
     }
 
-    public override void InitializeEntity(Entity entity)
+    public override void InitializeEntity(Entity entity, int team)
     {
-        base.InitializeEntity(entity);
+        base.InitializeEntity(entity, team);
+
+        if (team == 0) _battleEntityShaders.LitShader();
+
         Creature = (Creature)entity;
         Creature.OnLevelUp += OnLevelUp;
 
@@ -45,11 +48,9 @@ public class BattleCreature : BattleEntity
         _avoidancePriorityRange = new Vector2Int(0, 20);
     }
 
-    public override void InitializeBattle(int team, ref List<BattleEntity> opponents)
+    public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
-        base.InitializeBattle(team, ref opponents);
-
-        if (Team == 0) _battleEntityShaders.LitShader();
+        base.InitializeBattle(ref opponents);
 
         _opponentList = opponents;
 

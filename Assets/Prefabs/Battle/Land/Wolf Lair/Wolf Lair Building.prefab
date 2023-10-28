@@ -258,6 +258,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wolf Lair Building
       objectReference: {fileID: 0}
+    - target: {fileID: 2540495419375067314, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5238507947106917012, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

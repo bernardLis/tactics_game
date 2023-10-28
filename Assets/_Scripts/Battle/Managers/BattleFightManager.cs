@@ -112,7 +112,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
     {
         GameObject instance = Instantiate(entity.Prefab, spawnPos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(entity);
+        be.InitializeEntity(entity, 1);
         return be;
     }
 }

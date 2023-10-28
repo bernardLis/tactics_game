@@ -175,7 +175,7 @@ public class CommandLineManager : MonoBehaviour
     void AddCreature(Creature c, int team)
     {
         c.InitializeBattle(team);
-        BattleEntity be = SpawnEntity(c, Vector3.zero);
+        BattleEntity be = SpawnEntity(c, team, Vector3.zero);
         if (team == 0)
             BattleManager.Instance.AddPlayerArmyEntity(be);
         if (team == 1)
@@ -186,7 +186,7 @@ public class CommandLineManager : MonoBehaviour
     {
         Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
         c.InitializeBattle(team);
-        BattleEntity be = SpawnEntity(c, Vector3.zero);
+        BattleEntity be = SpawnEntity(c, team, Vector3.zero);
         if (team == 0)
             BattleManager.Instance.AddPlayerArmyEntity(be);
         if (team == 1)
@@ -217,7 +217,7 @@ public class CommandLineManager : MonoBehaviour
                 Minion m = Instantiate(_gameManager.EntityDatabase.GetRandomMinion());
 
                 m.InitializeBattle(1);
-                BattleEntity be = SpawnEntity(m, Vector3.zero);
+                BattleEntity be = SpawnEntity(m, 1, Vector3.zero);
                 battleManager.AddOpponentArmyEntity(be);
             }
         };
@@ -227,12 +227,12 @@ public class CommandLineManager : MonoBehaviour
     }
 
 
-    BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
+    BattleEntity SpawnEntity(Entity entity, int team, Vector3 spawnPos)
     {
         Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
         GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(entity);
+        be.InitializeEntity(entity, team);
         return be;
     }
 
