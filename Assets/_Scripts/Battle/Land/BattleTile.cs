@@ -91,12 +91,17 @@ public class BattleTile : MonoBehaviour
 
         _battleFightManager.InitializeFight(this);
         _battleFightManager.OnFightEnded += Secured;
+        _battleFightManager.OnFightEnded += OnFightEnded;
     }
 
     public virtual void Secured()
     {
         _battleFightManager.OnFightEnded -= Secured;
         SpawnReward();
+    }
+
+    public void OnFightEnded()
+    {
         ShowSigns();
     }
 
@@ -138,6 +143,7 @@ public class BattleTile : MonoBehaviour
             sign.DestroySelf();
             sign.OnPurchased -= OnTilePurchased;
         }
+        _signs.Clear();
     }
 
     /* BORDERS */
