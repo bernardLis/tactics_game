@@ -96,7 +96,7 @@ public class BattleProjectile : MonoBehaviour
     bool IsTargetValid(BattleEntity battleEntity)
     {
         if (battleEntity.IsDead) return false;
-        if (battleEntity is BattleHero) return false; // HERE: projectile for now...
+        // if (battleEntity is BattleHero) return false; // HERE: projectile for now...
         if (_team == battleEntity.Team) return false;
 
         return true;

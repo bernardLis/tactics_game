@@ -18,6 +18,7 @@ public class GameDatabase : BaseScriptableObject
 
     [Header("Shaders")]
     public Shader LitShader;
+    public Shader ParticlesUnlitShader;
     public Shader DissolveShader;
     public Shader GrayScaleShader;
     public Shader SepiaToneShader;
