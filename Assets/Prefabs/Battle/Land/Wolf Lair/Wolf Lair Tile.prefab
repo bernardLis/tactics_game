@@ -48,10 +48,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4971097030303383906, guid: 9735516b2d591024b95ea26827551f54, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5010698181637615451, guid: 9735516b2d591024b95ea26827551f54, type: 3}
       propertyPath: m_Name
       value: Wolf Lair Building

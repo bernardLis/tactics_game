@@ -23,6 +23,11 @@ public class BattleTileBorder : MonoBehaviour
             fightColor = Color.magenta;
         }
 
+        float y = transform.localScale.y;
+        transform.localScale = new Vector3(transform.localScale.x, 0, transform.localScale.z);
+        transform.DOScaleY(y, 0.5f)
+            .SetEase(Ease.InOutSine);
+
         _battleFightManager = BattleFightManager.Instance;
         _battleFightManager.OnFightStarted += OnFightStarted;
         _battleFightManager.OnFightEnded += OnFightEnded;

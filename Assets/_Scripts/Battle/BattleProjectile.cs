@@ -64,6 +64,7 @@ public class BattleProjectile : MonoBehaviour
 
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
+        GetComponent<SphereCollider>().enabled = false;
         if (_shooter != null) StartCoroutine(target.GetHit(_shooter));
 
         yield return DestroySelf(transform.position);
