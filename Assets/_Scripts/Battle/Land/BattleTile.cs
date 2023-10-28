@@ -16,6 +16,8 @@ public class BattleTile : MonoBehaviour
     [Header("Tile")]
     ObjectShaders _objectShaders;
 
+    [SerializeField] Building _buildingOriginal;
+
     [SerializeField] Material[] _materials;
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
@@ -52,6 +54,13 @@ public class BattleTile : MonoBehaviour
         _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
 
         _battleBuilding = GetComponentInChildren<BattleBuilding>();
+
+        if (_buildingOriginal != null)
+        {
+            Building b = Instantiate(_buildingOriginal);
+            b.Initialize();
+            _battleBuilding.Initialize(b);
+        }
 
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());

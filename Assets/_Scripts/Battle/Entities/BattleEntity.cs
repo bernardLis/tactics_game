@@ -108,9 +108,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (_battleEntityHighlight != null) _battleEntityHighlight.Initialize(this);
         SetBattleId();
 
-        if (Team == 1)
-            _battleEntityShaders.GrayScale();
-
         EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized, team: {team}");
     }
 

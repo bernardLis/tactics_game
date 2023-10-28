@@ -36,7 +36,6 @@ public class ObjectShaders : MonoBehaviour
             mat.shader = _litShader;
             mat.SetTexture("_Base_Texture", tex);
         }
-
     }
 
     public void GrayScale()
@@ -69,11 +68,14 @@ public class ObjectShaders : MonoBehaviour
 
             Vector2 texScale = mat.mainTextureScale; // tiling
             Texture2D tex = mat.mainTexture as Texture2D;
-            Texture2D metallicMap = mat.GetTexture("_MetallicGlossMap") as Texture2D;
+            Texture2D metallicMap = null;
+            if (mat.HasProperty("_MetallicGlossMap"))
+                metallicMap = mat.GetTexture("_MetallicGlossMap") as Texture2D;
 
             mat.shader = _dissolveShader;
             mat.SetTexture("_Base_Texture", tex);
-            mat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
+            if (metallicMap != null)
+                mat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
             mat.SetVector("_Tiling", texScale);
 
             float startValue = isReverse ? 1f : 0f;

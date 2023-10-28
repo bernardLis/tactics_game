@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32352f465f1b99842b04c7ae49b22913, type: 3}
+  m_Name: Sun Blossom Lair
+  m_EditorClassIdentifier: 
+  Id: ba2fc175-2a44-4e42-963b-9c57ad410630
+  CurrentLevel: {fileID: 0}
+  BuildingUpgrades:
+  - {fileID: 11400000, guid: 315da04080d381543b9ee382a16cf8c6, type: 2}
+  - {fileID: 11400000, guid: f93831355ee79744d96b4d3d8e4a995e, type: 2}
+  - {fileID: 11400000, guid: 00017f0ee9a27a048bf23fa038cdd540, type: 2}
+  IsSecured: 0

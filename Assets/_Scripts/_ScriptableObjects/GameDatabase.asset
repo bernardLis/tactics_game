@@ -26,6 +26,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1333b309038e6b44bb05312d358b9985, type: 2}
   Buildings:
   - {fileID: 11400000, guid: 72186956f81250a4e94865e577a8c087, type: 2}
+  - {fileID: 11400000, guid: 3be0f690158b8fa47aaf3e12523280f2, type: 2}
+  - {fileID: 11400000, guid: c67070e7bd7d87144bf7c12a3b18f928, type: 2}
+  - {fileID: 11400000, guid: 03bf3577c72574c4aaa8d29d34f83b1d, type: 2}
+  - {fileID: 11400000, guid: 287f21e936213c8469dbf9c19edd2da5, type: 2}
+  - {fileID: 11400000, guid: 578966bbe20e38f4fb09ae1fb83a4e1d, type: 2}
+  - {fileID: 11400000, guid: 1dcda9e6754528d4e8c9f5ecbc3169e7, type: 2}
+  - {fileID: 11400000, guid: 3a21aa73e5faf3c4f91e81f7988b67fd, type: 2}
+  - {fileID: 11400000, guid: c80c3a42ad75d2c4eb9d736f3f1b0e59, type: 2}
   LitShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4, type: 3}
   GrayScaleShader: {fileID: 4800000, guid: 4303e1617f4f86b42898e34475ec45ed, type: 3}

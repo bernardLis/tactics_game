@@ -48,6 +48,9 @@ public class BattleCreature : BattleEntity
     public override void InitializeBattle(int team, ref List<BattleEntity> opponents)
     {
         base.InitializeBattle(team, ref opponents);
+
+        if (Team == 0) _battleEntityShaders.LitShader();
+
         _opponentList = opponents;
 
         _currentAttackCooldown = 0;
@@ -98,7 +101,7 @@ public class BattleCreature : BattleEntity
             yield return PathToPositionAndStop(battleHero.transform.position
                                         + Vector3.right * Random.Range(-10f, 10f)
                                         + Vector3.forward * Random.Range(-10f, 10f));
-            
+
             yield return new WaitForSeconds(Random.Range(3f, 6f));
         }
     }
