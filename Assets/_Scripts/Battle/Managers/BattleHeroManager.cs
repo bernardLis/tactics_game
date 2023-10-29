@@ -36,7 +36,6 @@ public class BattleHeroManager : MonoBehaviour
 
         _placeholderAudioListener.enabled = false;
         StartCoroutine(MakeHeroFall(hero));
-
     }
 
     IEnumerator MakeHeroFall(Hero hero)

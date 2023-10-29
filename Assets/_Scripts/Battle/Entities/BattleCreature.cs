@@ -21,7 +21,6 @@ public class BattleCreature : BattleEntity
 
     public int DamageDealt { get; private set; }
 
-    public event Action OnEnemyKilled;
     public event Action<int> OnDamageDealt;
     protected virtual void Update()
     {
@@ -40,7 +39,6 @@ public class BattleCreature : BattleEntity
         Creature = (Creature)entity;
         Creature.OnLevelUp += OnLevelUp;
 
-        OnEnemyKilled += Creature.AddKill;
         OnDamageDealt += Creature.AddDmgDealt;
         OnDamageTaken += Creature.AddDmgTaken;
 
@@ -295,11 +293,6 @@ public class BattleCreature : BattleEntity
     {
         DamageDealt += dmg;
         OnDamageDealt?.Invoke(dmg);
-    }
-
-    public void IncreaseKillCount()
-    {
-        OnEnemyKilled?.Invoke();
     }
 
     public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true, bool hasGrave = true)

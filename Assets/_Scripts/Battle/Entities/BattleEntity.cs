@@ -273,7 +273,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         BaseGetHit(damage, attacker.Element.Color.Color, attacker);
 
         if (Entity.CurrentHealth.Value <= 0)
-            attacker.AddKill();
+            attacker.AddKill(Entity);
     }
 
     protected void BaseGetHit(int dmg, Color color, EntityFight attacker = null)

@@ -117,6 +117,9 @@ public class EntityCardFull : FullScreenElement
 
     protected virtual void AddOtherBasicInfo()
     {
+        Label exp = new($"Exp: {Entity.Experience.Value}/{Entity.ExpForNextLevel.Value}");
+        _otherContainer.Add(exp);
+
         Label price = new($"Price: {Entity.Price}");
         _otherContainer.Add(price);
     }

@@ -22,7 +22,11 @@ public class EntityFight : EntityMovement
         OldDamageDealt = TotalDamageDealt;
     }
 
-    public void AddKill() { TotalKillCount++; }
+    public void AddKill(Entity entity)
+    {
+        AddExp(entity.Price);
+        TotalKillCount++;
+    }
     public void AddDmgDealt(int dmg) { TotalDamageDealt += dmg; }
 
     protected override void CreateStats()
