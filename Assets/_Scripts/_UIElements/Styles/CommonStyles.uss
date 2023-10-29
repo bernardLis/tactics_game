@@ -127,7 +127,6 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-
 .vfx {
     background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
     position: absolute;
@@ -220,6 +219,7 @@
     top: 25%;
     left: 25%;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/38_lock.png?fileID=2800000&guid=09a2538c67ad7e845a379265f3957fe1&type=3#38_lock');
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .common__lock-overlay-icon-unlocked {

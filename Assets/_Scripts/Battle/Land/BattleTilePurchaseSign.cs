@@ -35,11 +35,14 @@ public class BattleTilePurchaseSign : MonoBehaviour, IPointerEnterHandler, IPoin
     {
         _tileIndicator = Instantiate(_tileToPurchase.TileIndicationPrefab, transform);
         _tileIndicator.transform.localPosition = new Vector3(0f, 3f, 0f);
+        Vector3 scale = _tileIndicator.transform.localScale;
+        _tileIndicator.transform.localScale = Vector3.zero;
+        _tileIndicator.transform.DOScale(scale, 0.5f).SetEase(Ease.OutBack);
 
         if (_tileIndicator.TryGetComponent(out ObjectShaders objectShaders))
             objectShaders.GrayScale();
 
-        _tileIndicator.transform.DOLocalMoveY(4f, 2f)
+        _tileIndicator.transform.DOLocalMoveY(3.5f, 2f)
                     .SetLoops(-1, LoopType.Yoyo)
                     .SetEase(Ease.InOutSine);
 
@@ -79,12 +82,12 @@ public class BattleTilePurchaseSign : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void DestroySelf()
     {
+        _interactionBlocked = true;
         StartCoroutine(DestroySelfCoroutine());
     }
 
     IEnumerator DestroySelfCoroutine()
     {
-        _interactionBlocked = true;
         _tileIndicator.transform.DOKill();
         yield return _tileIndicator.transform.DOScale(0, 0.5f).WaitForCompletion();
 

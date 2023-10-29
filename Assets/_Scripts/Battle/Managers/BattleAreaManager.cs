@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
-
+using Random = UnityEngine.Random;
 public class BattleAreaManager : MonoBehaviour
 {
     [SerializeField] Transform _floorHolder;
@@ -16,6 +17,8 @@ public class BattleAreaManager : MonoBehaviour
 
     [HideInInspector] public BattleTile HomeTile;
     List<BattleTile> _tiles = new();
+
+    public event Action OnTilePurchased;
 
     public void Initialize()
     {
@@ -57,6 +60,11 @@ public class BattleAreaManager : MonoBehaviour
         }
         HomeTile.EnableTile();
         HomeTile.HandleBorders(new Color(1f, 0.22f, 0f, 0.2f)); // magic color
+    }
+
+    public void TilePurchased()
+    {
+        OnTilePurchased?.Invoke();
     }
 
     // TODO: there must be a smarter way to get adjacent tiles
