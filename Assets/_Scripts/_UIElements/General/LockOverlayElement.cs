@@ -17,7 +17,6 @@ public class LockOverlayElement : ElementWithTooltip
     VisualElement _localTooltip;
     Label _lockIcon;
 
-    bool _isUnlocked;
     public LockOverlayElement(VisualElement tooltip)
     {
         _gameManager = GameManager.Instance;
@@ -62,11 +61,9 @@ public class LockOverlayElement : ElementWithTooltip
                 });
     }
 
-
     protected override void DisplayTooltip()
     {
         _tooltip = new(this, _localTooltip);
         base.DisplayTooltip();
     }
-
 }

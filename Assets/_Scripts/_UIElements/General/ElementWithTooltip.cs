@@ -58,7 +58,7 @@ public abstract class ElementWithTooltip : VisualElement
     void ShowTooltip()
     {
         if (!CanDisplayTooltip()) return;
-        
+
         _isTooltipDisplayed = true;
         var root = panel.visualTree;
 
