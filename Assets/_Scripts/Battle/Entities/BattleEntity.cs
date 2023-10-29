@@ -75,6 +75,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _battleEntityShaders = GetComponent<ObjectShaders>();
 
         Collider = GetComponent<Collider>();
+        if (team == 0) Collider.excludeLayers = LayerMask.GetMask("Player");
+
         Animator = GetComponentInChildren<Animator>();
         _GFX = Animator.gameObject;
         _battleEntityHighlight = GetComponent<BattleEntityHighlight>();

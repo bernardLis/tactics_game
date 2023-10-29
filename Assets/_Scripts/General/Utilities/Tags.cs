@@ -5,7 +5,14 @@ public static class Tags
         get { return "Player"; }
         private set { }
     }
-    
+
+    public static int PlayerLayer
+    {
+        get { return 8; }
+        private set { }
+    }
+
+
     public static int BattleFloorLayer
     {
         get { return 6; }

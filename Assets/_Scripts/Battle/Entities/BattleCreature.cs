@@ -91,12 +91,13 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator HangOut()
     {
+        Debug.Log($"hang out");
         if (Team == 1) yield break; // TODO: not implemented for enemies
         while (true)
         {
             // TODO: need to make sure that position is reachable
             BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
-
+            _agent.stoppingDistance = 0;
             yield return PathToPositionAndStop(battleHero.transform.position
                                         + Vector3.right * Random.Range(-10f, 10f)
                                         + Vector3.forward * Random.Range(-10f, 10f));

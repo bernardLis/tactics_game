@@ -67,7 +67,8 @@ public class BattleInfoManager : MonoBehaviour
 
     void UpdateTroopsLimitElement()
     {
-        _troopsLimitElement.UpdateCountContainer($"{_battleManager.PlayerCreatures.Count - 1}", Color.white);
+        int count = Mathf.Clamp(_battleManager.PlayerCreatures.Count - 1, 0, 9999);
+        _troopsLimitElement.UpdateCountContainer($"{count}", Color.white);
     }
 
 
