@@ -91,7 +91,6 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator HangOut()
     {
-        Debug.Log($"hang out");
         if (Team == 1) yield break; // TODO: not implemented for enemies
         while (true)
         {

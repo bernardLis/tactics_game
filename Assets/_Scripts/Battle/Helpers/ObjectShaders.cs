@@ -16,8 +16,6 @@ public class ObjectShaders : MonoBehaviour
     Shader _grayScaleShader;
     Shader _sepiaToneShader;
 
-    List<Shader> _originalShaders = new();
-
 
     void Start()
     {
@@ -67,12 +65,12 @@ public class ObjectShaders : MonoBehaviour
         if (_dissolveShader == null)
             _dissolveShader = GameManager.Instance.GameDatabase.DissolveShader;
 
+        // btw. if you think about resetting shaders, it looks awful. 
+        // Maybe if you came up with a way to transition from shader to shader it would make sense  
         List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
-        _originalShaders = new();
         foreach (Renderer r in renderers)
         {
             Material mat = r.material;
-            _originalShaders.Add(mat.shader);
 
             Vector2 texScale = mat.mainTextureScale; // tiling
             Texture2D tex = mat.mainTexture as Texture2D;

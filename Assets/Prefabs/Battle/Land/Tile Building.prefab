@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2354548429298429225}
   - component: {fileID: 2855605826431539207}
   - component: {fileID: 2355028125079546113}
-  - component: {fileID: 7223594472923115115}
   - component: {fileID: 6833003054883027653}
   m_Layer: 0
   m_Name: Tile Building
@@ -126,18 +125,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &7223594472923115115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2464830209876332171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 086cfca3730834b49aca4438ba33dcd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6833003054883027653
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -99,8 +99,8 @@ public class BattleBuilding : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
                                 _spawnPoint.position, transform.rotation);
 
-        Creature wolf = Instantiate(_building.GetCurrentUpgrade().ProducedCreature);
-        spawner.SpawnEntities(new List<Entity>() { wolf });
+        Creature creature = Instantiate(_building.GetCurrentUpgrade().ProducedCreature);
+        spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: creature.Element);
         spawner.OnSpawnComplete += (l) =>
         {
             // now I need to track the spawned wolf
