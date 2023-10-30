@@ -186,6 +186,9 @@ public class BattleHeroController : MonoBehaviour
 
     void Move()
     {
+        // only move if grounded
+        if (transform.position.y > 0.1f) return;
+
         // set target speed based on move speed, sprint speed and if sprint is pressed
         float targetSpeed = MoveSpeed;
 
