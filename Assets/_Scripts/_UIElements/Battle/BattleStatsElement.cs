@@ -152,14 +152,30 @@ public class BattleStatsElement : VisualElement
         iconContainer.style.flexDirection = FlexDirection.Row;
         container.Add(iconContainer);
 
+        Dictionary<Sprite, int> creatureKillCount = new();
+
         foreach (BattleEntity be in _battleManager.KilledOpponentEntities)
         {
             if (be is not BattleCreature) continue;
+            if (creatureKillCount.ContainsKey(be.Entity.Icon))
+                creatureKillCount[be.Entity.Icon]++;
+            else
+                creatureKillCount.Add(be.Entity.Icon, 1);
+        }
+        
+        foreach (KeyValuePair<Sprite, int> entry in creatureKillCount)
+        {
+            VisualElement c = new();
+            c.style.flexDirection = FlexDirection.Row;
+            iconContainer.Add(c);
+
+            Label txt = new($"{entry.Value} x ");
+            c.Add(txt);
 
             VisualElement icon = new();
             icon.AddToClassList(_ussCreatureIcon);
-            icon.style.backgroundImage = new StyleBackground(be.Entity.Icon);
-            iconContainer.Add(icon);
+            icon.style.backgroundImage = new StyleBackground(entry.Key);
+            c.Add(icon);
         }
     }
 }
