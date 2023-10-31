@@ -74,8 +74,14 @@ public class BattleHeroController : MonoBehaviour
     int _animIDJump;
     int _animIDFreeFall;
     int _animIDMotionSpeed;
+    int _animVelocityX;
+    int _animVelocityZ;
+
 
     bool _hasAnimator;
+
+    // HERE: testing
+    bool _isSprinting;
 
     void Start()
     {
@@ -103,6 +109,9 @@ public class BattleHeroController : MonoBehaviour
         _animIDJump = Animator.StringToHash("Jump");
         _animIDFreeFall = Animator.StringToHash("FreeFall");
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        _animVelocityX = Animator.StringToHash("VelocityX");
+        _animVelocityZ = Animator.StringToHash("VelocityZ");
+
     }
 
     IEnumerator DelayedStart()
@@ -155,6 +164,15 @@ public class BattleHeroController : MonoBehaviour
         _playerInput.actions["PlayerMovement"].performed += GetMovementVector;
         _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
 
+        _playerInput.actions["StrafeLeft"].performed += StrafeLeft;
+        _playerInput.actions["StrafeLeft"].canceled += ResetStrafe;
+
+        _playerInput.actions["StrafeRight"].performed += StrafeRight;
+        _playerInput.actions["StrafeRight"].canceled += ResetStrafe;
+
+        _playerInput.actions["Shift"].performed += SetSprinting;
+        _playerInput.actions["Shift"].canceled += ResetSprinting;
+
         _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
     }
 
@@ -163,8 +181,45 @@ public class BattleHeroController : MonoBehaviour
         _playerInput.actions["PlayerMovement"].performed -= GetMovementVector;
         _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
 
+        _playerInput.actions["StrafeLeft"].performed -= StrafeLeft;
+        _playerInput.actions["StrafeLeft"].canceled -= ResetStrafe;
+
+        _playerInput.actions["StrafeRight"].performed -= StrafeRight;
+        _playerInput.actions["StrafeRight"].canceled -= ResetStrafe;
+
+        _playerInput.actions["Shift"].performed -= SetSprinting;
+        _playerInput.actions["Shift"].canceled -= ResetSprinting;
+
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
     }
+
+    void StrafeLeft(InputAction.CallbackContext ctx)
+    {
+        _movementDirection = new Vector3(-1, 0, 0);
+    }
+
+    void StrafeRight(InputAction.CallbackContext ctx)
+    {
+        _movementDirection = new Vector3(1, 0, 0);
+
+    }
+
+    void ResetStrafe(InputAction.CallbackContext ctx)
+    {
+        _animator.SetFloat(_animVelocityX, 0);
+
+    }
+
+    void SetSprinting(InputAction.CallbackContext ctx)
+    {
+        _isSprinting = true;
+    }
+
+    void ResetSprinting(InputAction.CallbackContext ctx)
+    {
+        _isSprinting = false;
+    }
+
 
     void GetMovementVector(InputAction.CallbackContext context)
     {
@@ -177,6 +232,7 @@ public class BattleHeroController : MonoBehaviour
     void ResetMovementVector(InputAction.CallbackContext context)
     {
         _movementDirection = Vector3.zero;
+
     }
 
     public void SetMoveSpeed(int speed)
@@ -187,52 +243,49 @@ public class BattleHeroController : MonoBehaviour
     void Move()
     {
         // only move if grounded
-        if (transform.position.y > 0.1f) return;
+        if (!IsGrounded()) return;
 
-        // set target speed based on move speed, sprint speed and if sprint is pressed
         float targetSpeed = MoveSpeed;
-
-        // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-        // if there is no input, set the target speed to 0
+        if (_isSprinting) targetSpeed *= 2f;
         if (_movementDirection.z == 0) targetSpeed = 0.0f;
 
-        // a reference to the players current horizontal velocity
+        // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f,
                                             _controller.velocity.z).magnitude;
-
         float speedOffset = 0.1f;
-        float inputMagnitude = _movementDirection.magnitude;//_input.analogMovement ? _input.move.magnitude : 1f;
-
-        // accelerate or decelerate to target speed
+        float inputMagnitude = _movementDirection.magnitude;
         _speed = targetSpeed;
         if (currentHorizontalSpeed < targetSpeed - speedOffset ||
             currentHorizontalSpeed > targetSpeed + speedOffset)
         {
-            // creates curved result rather than a linear one giving a more organic speed change
-            // note T in Lerp is clamped, so we don't need to clamp our speed
             _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
                                 Time.deltaTime * SpeedChangeRate);
             _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
         }
 
         Vector3 inputDirection = _movementDirection.normalized;
-        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f)
-                               * Vector3.forward
-                               * inputDirection.z;
+        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) 
+                                * Vector3.forward
+                                * inputDirection.z;
         targetDirection.y = -0.01f;
         // update animator if using character
         _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-        float motionSpeed = inputDirection.z == 0 ? 0 : 1;
+        if (_speed == 0) return;
         if (_hasAnimator)
         {
-            _animator.SetFloat(_animIDSpeed, _animationBlend);
-            _animator.SetFloat(_animIDMotionSpeed, motionSpeed);
+            _animator.SetFloat(_animVelocityZ, inputDirection.z * _animationBlend);
+            if (inputDirection.z > 0)// blending walking back looks bad
+                _animator.SetFloat(_animVelocityX, inputDirection.x * _animationBlend);
         }
 
-        if (_speed == 0) return;
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
+    }
+
+    bool IsGrounded()
+    {
+        return transform.position.y < 0.1f;
     }
 
     void RotatePlayer()

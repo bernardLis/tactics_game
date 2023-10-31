@@ -188,6 +188,33 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shift"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd30d0d9-d7f3-41e6-b3d8-950b540eb6b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Strafe Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0a585e0-20a8-4286-b25c-b7d9c440c171"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Strafe Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""def3e43a-25a1-4f81-8053-790f762933d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -487,6 +514,39 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""484185e2-1cbc-4e7a-9c43-511d656da14b"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cef462bb-4f9e-40b8-ac83-2981b13f10e6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Strafe Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e82f8b34-8df6-4e83-a4a6-4d07b7bfc4fb"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Strafe Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -530,6 +590,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
         m_Battle_Rotate = m_Battle.FindAction("Rotate", throwIfNotFound: true);
         m_Battle_ToggleMenu = m_Battle.FindAction("ToggleMenu", throwIfNotFound: true);
+        m_Battle_Shift = m_Battle.FindAction("Shift", throwIfNotFound: true);
+        m_Battle_StrafeLeft = m_Battle.FindAction("Strafe Left", throwIfNotFound: true);
+        m_Battle_StrafeRight = m_Battle.FindAction("Strafe Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -609,6 +672,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_EnableGrabbing;
     private readonly InputAction m_Battle_Rotate;
     private readonly InputAction m_Battle_ToggleMenu;
+    private readonly InputAction m_Battle_Shift;
+    private readonly InputAction m_Battle_StrafeLeft;
+    private readonly InputAction m_Battle_StrafeRight;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -631,6 +697,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
         public InputAction @Rotate => m_Wrapper.m_Battle_Rotate;
         public InputAction @ToggleMenu => m_Wrapper.m_Battle_ToggleMenu;
+        public InputAction @Shift => m_Wrapper.m_Battle_Shift;
+        public InputAction @StrafeLeft => m_Wrapper.m_Battle_StrafeLeft;
+        public InputAction @StrafeRight => m_Wrapper.m_Battle_StrafeRight;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -694,6 +763,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @ToggleMenu.started += instance.OnToggleMenu;
             @ToggleMenu.performed += instance.OnToggleMenu;
             @ToggleMenu.canceled += instance.OnToggleMenu;
+            @Shift.started += instance.OnShift;
+            @Shift.performed += instance.OnShift;
+            @Shift.canceled += instance.OnShift;
+            @StrafeLeft.started += instance.OnStrafeLeft;
+            @StrafeLeft.performed += instance.OnStrafeLeft;
+            @StrafeLeft.canceled += instance.OnStrafeLeft;
+            @StrafeRight.started += instance.OnStrafeRight;
+            @StrafeRight.performed += instance.OnStrafeRight;
+            @StrafeRight.canceled += instance.OnStrafeRight;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -752,6 +830,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @ToggleMenu.started -= instance.OnToggleMenu;
             @ToggleMenu.performed -= instance.OnToggleMenu;
             @ToggleMenu.canceled -= instance.OnToggleMenu;
+            @Shift.started -= instance.OnShift;
+            @Shift.performed -= instance.OnShift;
+            @Shift.canceled -= instance.OnShift;
+            @StrafeLeft.started -= instance.OnStrafeLeft;
+            @StrafeLeft.performed -= instance.OnStrafeLeft;
+            @StrafeLeft.canceled -= instance.OnStrafeLeft;
+            @StrafeRight.started -= instance.OnStrafeRight;
+            @StrafeRight.performed -= instance.OnStrafeRight;
+            @StrafeRight.canceled -= instance.OnStrafeRight;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -798,5 +885,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnEnableGrabbing(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnToggleMenu(InputAction.CallbackContext context);
+        void OnShift(InputAction.CallbackContext context);
+        void OnStrafeLeft(InputAction.CallbackContext context);
+        void OnStrafeRight(InputAction.CallbackContext context);
     }
 }

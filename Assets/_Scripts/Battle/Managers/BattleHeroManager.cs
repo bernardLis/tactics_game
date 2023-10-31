@@ -42,8 +42,8 @@ public class BattleHeroManager : MonoBehaviour
     {
         Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
         heroAnimator.SetBool("FreeFall", true);
-        BattleHero.transform.DOMoveY(0f, 3f);
-        yield return new WaitForSeconds(2.5f);
+        BattleHero.transform.DOMoveY(0f, 0.5f);
+        yield return new WaitForSeconds(0.2f);
         heroAnimator.SetBool("FreeFall", false);
         heroAnimator.SetBool("Grounded", true);
 

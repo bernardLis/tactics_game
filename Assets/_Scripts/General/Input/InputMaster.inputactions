@@ -166,6 +166,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shift",
+                    "type": "Button",
+                    "id": "cd30d0d9-d7f3-41e6-b3d8-950b540eb6b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StrafeLeft",
+                    "type": "Button",
+                    "id": "e0a585e0-20a8-4286-b25c-b7d9c440c171",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StrafeRight",
+                    "type": "Button",
+                    "id": "def3e43a-25a1-4f81-8053-790f762933d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -463,6 +490,39 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "ToggleMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "484185e2-1cbc-4e7a-9c43-511d656da14b",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Shift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cef462bb-4f9e-40b8-ac83-2981b13f10e6",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "StrafeLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e82f8b34-8df6-4e83-a4a6-4d07b7bfc4fb",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "StrafeRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
