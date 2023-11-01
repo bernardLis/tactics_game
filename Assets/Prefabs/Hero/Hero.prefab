@@ -879,7 +879,7 @@ Transform:
   m_GameObject: {fileID: 3153255284692606514}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00077854533, y: 1.353258, z: 5.5866685}
+  m_LocalPosition: {x: -0.0007785623, y: 1.353258, z: 5.5866685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1963,7 +1963,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.5
-  m_BaseOffset: -0.04
+  m_BaseOffset: -0.02
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!143 &8726178864225808001
@@ -2228,9 +2228,6 @@ MonoBehaviour:
   MoveSpeed: 7
   RotationSmoothTime: 0.3
   SpeedChangeRate: 10
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.28
   GroundLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -2239,7 +2236,6 @@ MonoBehaviour:
   _minZoom: 5
   _maxZoom: 25
   _cinemachineCameraTarget: {fileID: 296476706855487059}
-  _footstepSound: {fileID: 11400000, guid: b9cad646c645e4942b28ee4f5bd4fd39, type: 2}
 --- !u!114 &5024510876388207595
 MonoBehaviour:
   m_ObjectHideFlags: 0

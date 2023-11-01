@@ -42,8 +42,8 @@ public class BattleHeroManager : MonoBehaviour
     {
         Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
         heroAnimator.SetBool("FreeFall", true);
-        BattleHero.transform.DOMoveY(0f, 0.5f);
-        yield return new WaitForSeconds(0.2f);
+        BattleHero.transform.DOMoveY(0f, 1f);
+        yield return new WaitForSeconds(0.5f);
         heroAnimator.SetBool("FreeFall", false);
         heroAnimator.SetBool("Grounded", true);
 
@@ -52,7 +52,6 @@ public class BattleHeroManager : MonoBehaviour
         _heroBattleElement = new(hero);
         _bottomPanel.Add(_heroBattleElement);
         BattleHero.GetComponent<NavMeshAgent>().enabled = true;
-
     }
 
     void OnHeroLevelUp()

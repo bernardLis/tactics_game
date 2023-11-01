@@ -20,17 +20,6 @@ public class BattleHeroController : MonoBehaviour
     [Tooltip("Acceleration and deceleration")]
     public float SpeedChangeRate = 10.0f;
 
-
-    [Header("Player Grounded")]
-    [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
-    public bool Grounded = true;
-
-    [Tooltip("Useful for rough ground")]
-    public float GroundedOffset = -0.14f;
-
-    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
-    public float GroundedRadius = 0.28f;
-
     [Tooltip("What layers the character uses as ground")]
     public LayerMask GroundLayers;
 
@@ -48,11 +37,7 @@ public class BattleHeroController : MonoBehaviour
     float _cinemachineTargetYaw;
     float _cinemachineTargetPitch;
 
-    [Header("Audio")]
-    [SerializeField] Sound _footstepSound;
-
     GameManager _gameManager;
-    AudioManager _audioManager;
     BattleManager _battleManager;
     PlayerInput _playerInput;
 
@@ -69,30 +54,25 @@ public class BattleHeroController : MonoBehaviour
     float _rotationVelocity;
 
     // animation IDs
-    int _animIDSpeed;
-    int _animIDGrounded;
-    int _animIDJump;
-    int _animIDFreeFall;
-    int _animIDMotionSpeed;
     int _animVelocityX;
     int _animVelocityZ;
-
-
-    bool _hasAnimator;
 
     // HERE: testing
     bool _isSprinting;
 
+    // strafe
+    int _strafeInput;
+    float _strafeAnimationBlend;
+    float _strafeSpeed;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _audioManager = AudioManager.Instance;
 
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
 
-        _hasAnimator = true;
         _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();
 
@@ -100,18 +80,6 @@ public class BattleHeroController : MonoBehaviour
         _cinemachineTargetYaw = _defaultCameraRotation.y;
 
         AssignAnimationIDs();
-    }
-
-    void AssignAnimationIDs()
-    {
-        _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDGrounded = Animator.StringToHash("Grounded");
-        _animIDJump = Animator.StringToHash("Jump");
-        _animIDFreeFall = Animator.StringToHash("FreeFall");
-        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        _animVelocityX = Animator.StringToHash("VelocityX");
-        _animVelocityZ = Animator.StringToHash("VelocityZ");
-
     }
 
     IEnumerator DelayedStart()
@@ -125,12 +93,19 @@ public class BattleHeroController : MonoBehaviour
         if (_disableUpdate) return;
         Move();
         RotatePlayer();
+        Strafe();
     }
 
     void LateUpdate()
     {
         if (_disableUpdate) return;
         RotateCamera();
+    }
+
+    void AssignAnimationIDs()
+    {
+        _animVelocityX = Animator.StringToHash("VelocityX");
+        _animVelocityZ = Animator.StringToHash("VelocityZ");
     }
 
     /* INPUT */
@@ -161,9 +136,6 @@ public class BattleHeroController : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        _playerInput.actions["PlayerMovement"].performed += GetMovementVector;
-        _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
-
         _playerInput.actions["StrafeLeft"].performed += StrafeLeft;
         _playerInput.actions["StrafeLeft"].canceled += ResetStrafe;
 
@@ -173,14 +145,14 @@ public class BattleHeroController : MonoBehaviour
         _playerInput.actions["Shift"].performed += SetSprinting;
         _playerInput.actions["Shift"].canceled += ResetSprinting;
 
+        _playerInput.actions["PlayerMovement"].performed += GetMovementVector;
+        _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
+
         _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
     }
 
     void UnsubscribeInputActions()
     {
-        _playerInput.actions["PlayerMovement"].performed -= GetMovementVector;
-        _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
-
         _playerInput.actions["StrafeLeft"].performed -= StrafeLeft;
         _playerInput.actions["StrafeLeft"].canceled -= ResetStrafe;
 
@@ -190,24 +162,51 @@ public class BattleHeroController : MonoBehaviour
         _playerInput.actions["Shift"].performed -= SetSprinting;
         _playerInput.actions["Shift"].canceled -= ResetSprinting;
 
+        _playerInput.actions["PlayerMovement"].performed -= GetMovementVector;
+        _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
+
         _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
+    }
+
+    /* STRAFE */
+
+    void Strafe()
+    {
+        if (_speed != 0) return;
+        if (_strafeInput == 0) return;
+
+        _strafeSpeed = MoveSpeed * 0.5f;
+
+        // animation
+        _strafeAnimationBlend = Mathf.Lerp(_strafeAnimationBlend, _strafeSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_strafeAnimationBlend < 0.01f) _strafeAnimationBlend = 0f;
+        _animator.SetFloat(_animVelocityX, _strafeInput * _strafeAnimationBlend);
+
+        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f)
+                                * Vector3.right
+                                * _strafeInput;
+        targetDirection.y = -0.01f;
+        _controller.Move(targetDirection.normalized * (_strafeSpeed * Time.deltaTime));
     }
 
     void StrafeLeft(InputAction.CallbackContext ctx)
     {
-        _movementDirection = new Vector3(-1, 0, 0);
+        if (this == null) return;
+        _strafeInput = -1;
     }
 
     void StrafeRight(InputAction.CallbackContext ctx)
     {
-        _movementDirection = new Vector3(1, 0, 0);
-
+        if (this == null) return;
+        _strafeInput = 1;
     }
 
     void ResetStrafe(InputAction.CallbackContext ctx)
     {
+        if (this == null) return;
+        _strafeInput = 0;
+        _strafeSpeed = 0;
         _animator.SetFloat(_animVelocityX, 0);
-
     }
 
     void SetSprinting(InputAction.CallbackContext ctx)
@@ -220,7 +219,7 @@ public class BattleHeroController : MonoBehaviour
         _isSprinting = false;
     }
 
-
+    /* MOVE */
     void GetMovementVector(InputAction.CallbackContext context)
     {
         Vector3 inputValue = context.ReadValue<Vector2>();
@@ -232,7 +231,9 @@ public class BattleHeroController : MonoBehaviour
     void ResetMovementVector(InputAction.CallbackContext context)
     {
         _movementDirection = Vector3.zero;
-
+        // recenter transform, idk if it is a good idea but it helps. xD
+        _animator.transform.DOKill();
+        _animator.transform.DOLocalMove(Vector3.zero, 1f);
     }
 
     public void SetMoveSpeed(int speed)
@@ -242,11 +243,12 @@ public class BattleHeroController : MonoBehaviour
 
     void Move()
     {
-        // only move if grounded
         if (!IsGrounded()) return;
+        if (_strafeSpeed != 0) return;
 
         float targetSpeed = MoveSpeed;
         if (_isSprinting) targetSpeed *= 2f;
+        if (_movementDirection.z < 0) targetSpeed *= 0.5f;
         if (_movementDirection.z == 0) targetSpeed = 0.0f;
 
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
@@ -263,23 +265,21 @@ public class BattleHeroController : MonoBehaviour
             _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
         }
 
+        // animation
         Vector3 inputDirection = _movementDirection.normalized;
-        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) 
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_animationBlend < 0.01f) _animationBlend = 0f;
+        if (_speed == 0) return;
+
+        _animator.SetFloat(_animVelocityZ, inputDirection.z * _animationBlend);
+        _animator.SetFloat(_animVelocityX, inputDirection.x * _animationBlend);
+        if (inputDirection.z <= 0) _animator.SetFloat(_animVelocityX, 0); // walking backwards looks bad when blended
+
+        // move
+        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f)
                                 * Vector3.forward
                                 * inputDirection.z;
         targetDirection.y = -0.01f;
-        // update animator if using character
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-        if (_speed == 0) return;
-        if (_hasAnimator)
-        {
-            _animator.SetFloat(_animVelocityZ, inputDirection.z * _animationBlend);
-            if (inputDirection.z > 0)// blending walking back looks bad
-                _animator.SetFloat(_animVelocityX, inputDirection.x * _animationBlend);
-        }
-
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
     }
 
@@ -288,6 +288,7 @@ public class BattleHeroController : MonoBehaviour
         return transform.position.y < 0.1f;
     }
 
+    /* ROTATE */
     void RotatePlayer()
     {
         if (_movementDirection == Vector3.zero) return;
@@ -302,6 +303,7 @@ public class BattleHeroController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
     }
 
+    /* CAMERA */
     void ZoomCamera(InputAction.CallbackContext context)
     {
         if (this == null) return;
@@ -316,6 +318,7 @@ public class BattleHeroController : MonoBehaviour
 
     void RotateCamera()
     {
+        //TODO: camera rotation is shit
         if (this == null) return;
         if (!Mouse.current.middleButton.isPressed) return;
         _cinemachineCameraTarget.transform.DOKill();
