@@ -232,6 +232,7 @@ public class BattleHeroController : MonoBehaviour
     {
         _movementDirection = Vector3.zero;
         // recenter transform, idk if it is a good idea but it helps. xD
+        if (_animator == null) return;
         _animator.transform.DOKill();
         _animator.transform.DOLocalMove(Vector3.zero, 1f);
     }

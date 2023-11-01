@@ -879,7 +879,7 @@ Transform:
   m_GameObject: {fileID: 3153255284692606514}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0007785623, y: 1.353258, z: 5.5866685}
+  m_LocalPosition: {x: -0.0007785635, y: 1.353258, z: 5.5866685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5430,6 +5430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _footstepSound: {fileID: 11400000, guid: b9cad646c645e4942b28ee4f5bd4fd39, type: 2}
+  _landSound: {fileID: 11400000, guid: 5d3c914ee0d8a1a46aa9da39d1f08dcb, type: 2}
 --- !u!4 &6778828063992208859 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 802bb8b3fd143104b93ccd5b19ad22c2, type: 3}

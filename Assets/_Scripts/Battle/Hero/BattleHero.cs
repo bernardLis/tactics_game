@@ -86,31 +86,34 @@ public class BattleHero : BattleEntity
 
     public void GetHit(BattleEntity entity)
     {
-        Hero.CurrentHealth.ApplyChange(-5);
-        DisplayFloatingText($"{-5}", _gameManager.GameDatabase.GetColorByName("Health").Color);
-
-        if (Hero.CurrentHealth.Value <= 0)
-        {
-            Die();
-            return;
-        }
+        BaseGetHit();
     }
 
     public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
+    {
+        BaseGetHit();
+        yield return null;
+    }
+
+    void BaseGetHit()
     {
         Hero.CurrentHealth.ApplyChange(-5);
         DisplayFloatingText($"{-5}", _gameManager.GameDatabase.GetColorByName("Health").Color);
 
         if (Hero.CurrentHealth.Value <= 0)
-        {
             Die();
-            yield break;
-        }
-        yield return null;
     }
 
     void Die()
     {
         Debug.Log($"Hero dies...");
     }
+
+
+    [ContextMenu("Get Hit")]
+    public void GetHitContextMenu()
+    {
+        GetHit(null);
+    }
+
 }
