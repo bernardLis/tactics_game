@@ -9,6 +9,9 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
 {
     BattleTooltipManager _tooltipManager;
 
+    [SerializeField] BattleFireFXController _fire;
+    ObjectShaders _objectShaders;
+
     public BattleTile _tileToPurchase;
 
     GameObject _tileIndicator;
@@ -18,6 +21,7 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
     public void Initialize(BattleTile tile)
     {
         _tooltipManager = BattleTooltipManager.Instance;
+        _objectShaders = GetComponent<ObjectShaders>();
 
         _tileToPurchase = tile;
 
@@ -26,8 +30,9 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
 
     IEnumerator InitializationCoroutine()
     {
-        GetComponent<ObjectShaders>().Dissolve(3f, true);
+        _objectShaders.Dissolve(3f, true);
         yield return new WaitForSeconds(1.5f);
+        _fire.Activate();
         HandleTileIndicator();
     }
 
@@ -89,10 +94,12 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
 
     IEnumerator DestroySelfCoroutine()
     {
+        _fire.Deactivate();
         _tileIndicator.transform.DOKill();
+        GetComponent<BoxCollider>().enabled = false;
         yield return _tileIndicator.transform.DOScale(0, 0.5f).WaitForCompletion();
 
-        GetComponent<ObjectShaders>().Dissolve(5f, false);
+        _objectShaders.Dissolve(5f, false);
         Destroy(gameObject, 6f);
 
     }

@@ -42,7 +42,6 @@ public class BattleInteractor : MonoBehaviour
         {
             if (_currentInteractable == null) return;
 
-            Debug.Log($"hiding tooltip after check");
             _currentInteractable.HideTooltip();
             _currentInteractable = null;
             return;
@@ -52,7 +51,6 @@ public class BattleInteractor : MonoBehaviour
         {
             if (_currentInteractable == interactable) return;
             if (_currentInteractable != null) _currentInteractable.HideTooltip();
-            Debug.Log($"setting current interactable");
             _currentInteractable = interactable;
             interactable.DisplayTooltip();
         }
@@ -60,7 +58,6 @@ public class BattleInteractor : MonoBehaviour
 
     void Interact(InputAction.CallbackContext context)
     {
-        Debug.Log($"trying to interact");
         if (_currentInteractable == null) return;
         _currentInteractable.Interact(this);
     }

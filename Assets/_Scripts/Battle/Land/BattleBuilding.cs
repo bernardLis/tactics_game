@@ -43,6 +43,9 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         transform.DOScale(scale, 1f)
                 .SetEase(Ease.OutBack)
                 .SetDelay(2.5f);
+        transform.DOLocalMoveY(scale.x * 0.5f, 1f)
+            .SetEase(Ease.OutBack)
+            .SetDelay(2.5f);
 
         transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
     }
@@ -85,6 +88,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
         Vector3 scale = transform.localScale + Vector3.one;
         transform.DOScale(scale, 1f)
+            .SetEase(Ease.OutBack);
+        transform.DOLocalMoveY(scale.x * 0.5f, 1f)
             .SetEase(Ease.OutBack);
     }
 

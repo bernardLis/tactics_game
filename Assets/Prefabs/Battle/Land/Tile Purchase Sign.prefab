@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1196251211516177945}
   - component: {fileID: 1320918925026838497}
   - component: {fileID: 1320540028989255529}
+  - component: {fileID: 6966416302393075629}
   m_Layer: 0
   m_Name: Fire_FX
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.294, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2884388801255358222}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -870,7 +871,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4858,6 +4859,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6966416302393075629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194128453023202947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afec2a1ed7e8aac40b8fc1666ee99915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1987641730174864998
 GameObject:
   m_ObjectHideFlags: 0
@@ -5097,4 +5110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b5a793125f8d7438b5bf70fe2e70cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fire: {fileID: 6966416302393075629}
   _tileToPurchase: {fileID: 0}

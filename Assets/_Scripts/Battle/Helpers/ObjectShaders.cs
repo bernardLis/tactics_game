@@ -11,11 +11,9 @@ public class ObjectShaders : MonoBehaviour
     Shader _litShader;
     Shader _particlesUnlitShader;
 
-
     Shader _dissolveShader;
     Shader _grayScaleShader;
     Shader _sepiaToneShader;
-
 
     void Start()
     {
@@ -52,6 +50,9 @@ public class ObjectShaders : MonoBehaviour
         List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
         foreach (Renderer r in renderers)
         {
+            if (r is SpriteRenderer) continue;
+            if (r is ParticleSystemRenderer) continue;
+
             Material mat = r.material;
 
             Texture2D tex = mat.mainTexture as Texture2D;
@@ -70,6 +71,9 @@ public class ObjectShaders : MonoBehaviour
         List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
         foreach (Renderer r in renderers)
         {
+            if (r is SpriteRenderer) continue;
+            if (r is ParticleSystemRenderer) continue;
+
             Material mat = r.material;
 
             Vector2 texScale = mat.mainTextureScale; // tiling

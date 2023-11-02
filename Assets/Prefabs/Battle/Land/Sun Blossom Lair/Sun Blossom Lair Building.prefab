@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5e88a93148f69984e968ecc92408960f, type: 2}
     - target: {fileID: 2464830209876332171, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_Name
-      value: Snakelet Lair Building
+      value: Sun Blossom Lair Building
       objectReference: {fileID: 0}
     - target: {fileID: 5238507947106917012, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5238507947106917012, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5238507947106917012, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_LocalPosition.z

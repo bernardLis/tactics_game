@@ -196,6 +196,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         yield return PathToPosition(transform.position);
         while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
         {
+            if (transform == null) yield break;
             _agent.SetDestination(transform.position);
             yield return new WaitForSeconds(0.1f);
         }
