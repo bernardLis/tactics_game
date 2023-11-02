@@ -14,7 +14,6 @@ public class BuildingCard : TooltipCard
     protected Label _levelLabel;
 
     VisualElement _infoContainer;
-    PurchaseButton _upgradeButton;
 
     LockOverlayElement _lockElement;
 
@@ -84,25 +83,7 @@ public class BuildingCard : TooltipCard
         {
             delay.text = $"Respawn: {_building.GetCurrentUpgrade().ProductionDelay}s";
         };
-
-        // HandleUpgradeButton();
-
     }
-
-    // void HandleUpgradeButton()
-    // {
-    //     if (_upgradeButton != null) _infoContainer.Remove(_upgradeButton);
-    //     if (_building.GetNextUpgrade() == null) return;
-    //     int cost = _building.GetNextUpgrade().Cost;
-    //     _upgradeButton = new(cost, buttonText: "Upgrade", callback: UpgradeBuilding);
-    //     _infoContainer.Add(_upgradeButton);
-    // }
-
-    // void UpgradeBuilding()
-    // {
-    //     _building.Upgrade();
-    //     // HandleUpgradeButton();
-    // }
 
     void HandleBuildingSecured()
     {

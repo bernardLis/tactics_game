@@ -15,6 +15,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     [SerializeField] protected BattleEntitySpawner _spawnerPrefab;
     [SerializeField] protected Transform _spawnPoint;
 
+    [SerializeField] SpriteRenderer[] _starRenderers;
+    [SerializeField] Sprite _star;
 
     protected Building _building;
 
@@ -34,16 +36,15 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _battleFightManager.OnFightEnded += Secured;
 
         _building = building;
-        _building.OnUpgradePurchased += () => StartProductionCoroutine();
+        _building.OnUpgradePurchased += OnUpgradePurchased;
 
         Vector3 scale = transform.localScale;
         transform.localScale = Vector3.zero;
         transform.DOScale(scale, 1f)
-                            .SetEase(Ease.OutBack)
-                            .SetDelay(2.5f);
+                .SetEase(Ease.OutBack)
+                .SetDelay(2.5f);
 
         transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
-
     }
 
     public virtual void SpawnWave()
@@ -69,10 +70,22 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     public void Secured()
     {
         _battleFightManager.OnWaveSpawned -= SpawnWave;
+        _starRenderers[0].sprite = _star;
 
         _banner.SetActive(true);
         _building.Secure();
         StartProductionCoroutine();
+    }
+
+    void OnUpgradePurchased()
+    {
+        StartProductionCoroutine();
+
+        _starRenderers[_building.CurrentLevel.Value - 1].sprite = _star;
+
+        Vector3 scale = transform.localScale + Vector3.one;
+        transform.DOScale(scale, 1f)
+            .SetEase(Ease.OutBack);
     }
 
     protected void StartProductionCoroutine()
