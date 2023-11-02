@@ -31,8 +31,8 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
     IEnumerator InitializationCoroutine()
     {
         _objectShaders.Dissolve(3f, true);
-        yield return new WaitForSeconds(1.5f);
         _fire.Activate();
+        yield return new WaitForSeconds(1.5f);
         HandleTileIndicator();
     }
 
@@ -68,6 +68,13 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
     {
         if (_tooltipManager == null) return;
         _tooltipManager.HideHoverInfo();
+    }
+
+    public bool CanInteract(BattleInteractor interactor)
+    {
+        if (_interactionBlocked) return false;
+
+        return true;
     }
 
     public bool Interact(BattleInteractor interactor)

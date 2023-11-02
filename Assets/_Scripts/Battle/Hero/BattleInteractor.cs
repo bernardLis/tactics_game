@@ -59,6 +59,7 @@ public class BattleInteractor : MonoBehaviour
     void Interact(InputAction.CallbackContext context)
     {
         if (_currentInteractable == null) return;
+        if (!_currentInteractable.CanInteract(this)) return;
         _currentInteractable.Interact(this);
     }
 

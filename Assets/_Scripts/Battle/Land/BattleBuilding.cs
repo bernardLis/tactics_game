@@ -149,13 +149,22 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     /* INTERACTION */
 
+    public bool CanInteract(BattleInteractor interactor)
+    {
+        return _building.IsSecured;
+    }
+
     public void DisplayTooltip()
     {
         if (_tooltipManager == null) return;
 
+        _tooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
+
+        if (_building.CurrentLevel.Value >= _building.BuildingUpgrades.Length) return;
+        if (!CanInteract(default)) return;
+
         _tooltipManager.ShowHoverInfo(
             new BattleInfoElement($"<b>Upgrade {Helpers.ParseScriptableObjectName(_building.name)}</b>"));
-        _tooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
     }
 
     public void HideTooltip()
@@ -168,6 +177,10 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     public bool Interact(BattleInteractor interactor)
     {
         _building.Upgrade();
+
+        if (_building.CurrentLevel.Value == _building.BuildingUpgrades.Length)
+            _tooltipManager.HideHoverInfo();
+
         return true;
     }
 

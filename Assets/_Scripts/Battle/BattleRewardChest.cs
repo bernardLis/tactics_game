@@ -46,6 +46,11 @@ public class BattleRewardChest : MonoBehaviour, IInteractable
         _tooltipManager.HideHoverInfo();
     }
 
+    public bool CanInteract(BattleInteractor battleInteractor)
+    {
+        return !_isOpened;
+    }
+
     public bool Interact(BattleInteractor battleInteractor)
     {
         if (_isOpened) return false;
