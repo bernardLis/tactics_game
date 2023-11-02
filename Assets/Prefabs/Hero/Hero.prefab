@@ -386,6 +386,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1135965546066996674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1294087005770673567}
+  m_Layer: 0
+  m_Name: Interaction Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1294087005770673567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135965546066996674}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.4}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8272579967263195434}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1524868963747184262
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,7 +910,7 @@ Transform:
   m_GameObject: {fileID: 3153255284692606514}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0007785635, y: 1.353258, z: 5.5866685}
+  m_LocalPosition: {x: -0.0007785705, y: 1.353258, z: 5.5866685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1886,6 +1917,7 @@ GameObject:
   - component: {fileID: 6853659913400333514}
   - component: {fileID: 3515150904775730401}
   - component: {fileID: 5024510876388207595}
+  - component: {fileID: 8424884377293031947}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Player
@@ -1908,6 +1940,7 @@ Transform:
   m_Children:
   - {fileID: 2513116533001293160}
   - {fileID: 1075923179271201982}
+  - {fileID: 1294087005770673567}
   - {fileID: 5814736237092932516}
   - {fileID: 5862361341728661589}
   - {fileID: 3021074962064536808}
@@ -2253,6 +2286,23 @@ MonoBehaviour:
   _deathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   _getHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   IsShielded: 0
+--- !u!114 &8424884377293031947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632361364057405493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6767faedb22d11440b2fd4a6baa72d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 1294087005770673567}
+  _interactionRadius: 1
+  _interactionLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &5670492309254171287
 GameObject:
   m_ObjectHideFlags: 0

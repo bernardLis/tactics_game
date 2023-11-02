@@ -199,7 +199,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Strafe Left"",
+                    ""name"": ""StrafeLeft"",
                     ""type"": ""Button"",
                     ""id"": ""e0a585e0-20a8-4286-b25c-b7d9c440c171"",
                     ""expectedControlType"": ""Button"",
@@ -208,9 +208,18 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Strafe Right"",
+                    ""name"": ""StrafeRight"",
                     ""type"": ""Button"",
                     ""id"": ""def3e43a-25a1-4f81-8053-790f762933d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ebe2236-c7f9-41e5-9143-195604586563"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -533,7 +542,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Strafe Left"",
+                    ""action"": ""StrafeLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -544,7 +553,18 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Strafe Right"",
+                    ""action"": ""StrafeRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9df3ee30-15d4-444b-88be-7fff8c6b4a62"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -591,8 +611,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_Rotate = m_Battle.FindAction("Rotate", throwIfNotFound: true);
         m_Battle_ToggleMenu = m_Battle.FindAction("ToggleMenu", throwIfNotFound: true);
         m_Battle_Shift = m_Battle.FindAction("Shift", throwIfNotFound: true);
-        m_Battle_StrafeLeft = m_Battle.FindAction("Strafe Left", throwIfNotFound: true);
-        m_Battle_StrafeRight = m_Battle.FindAction("Strafe Right", throwIfNotFound: true);
+        m_Battle_StrafeLeft = m_Battle.FindAction("StrafeLeft", throwIfNotFound: true);
+        m_Battle_StrafeRight = m_Battle.FindAction("StrafeRight", throwIfNotFound: true);
+        m_Battle_Interact = m_Battle.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -675,6 +696,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_Shift;
     private readonly InputAction m_Battle_StrafeLeft;
     private readonly InputAction m_Battle_StrafeRight;
+    private readonly InputAction m_Battle_Interact;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -700,6 +722,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Shift => m_Wrapper.m_Battle_Shift;
         public InputAction @StrafeLeft => m_Wrapper.m_Battle_StrafeLeft;
         public InputAction @StrafeRight => m_Wrapper.m_Battle_StrafeRight;
+        public InputAction @Interact => m_Wrapper.m_Battle_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -772,6 +795,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @StrafeRight.started += instance.OnStrafeRight;
             @StrafeRight.performed += instance.OnStrafeRight;
             @StrafeRight.canceled += instance.OnStrafeRight;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -839,6 +865,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @StrafeRight.started -= instance.OnStrafeRight;
             @StrafeRight.performed -= instance.OnStrafeRight;
             @StrafeRight.canceled -= instance.OnStrafeRight;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -888,5 +917,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnShift(InputAction.CallbackContext context);
         void OnStrafeLeft(InputAction.CallbackContext context);
         void OnStrafeRight(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

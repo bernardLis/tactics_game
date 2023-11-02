@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UI VFX Camera
   - Enemy
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Floor
   - UI VFX
   - Player
-  - 
+  - Interactable
   - Team 0
   - Team 1
   - 

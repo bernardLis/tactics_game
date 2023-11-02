@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class BattleBuilding : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class BattleBuilding : MonoBehaviour, IInteractable
 {
     protected GameManager _gameManager;
     protected BattleManager _battleManager;
@@ -129,24 +129,28 @@ public class BattleBuilding : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    /* Mouse */
-    public void OnPointerEnter(PointerEventData eventData)
+    /* INTERACTION */
+
+    public void DisplayTooltip()
     {
         if (_tooltipManager == null) return;
+
         _tooltipManager.ShowHoverInfo(
-                    new BattleInfoElement($"<b>{Helpers.ParseScriptableObjectName(_building.name)}</b>"));
+            new BattleInfoElement($"<b>Upgrade {Helpers.ParseScriptableObjectName(_building.name)}</b>"));
+        _tooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void HideTooltip()
     {
         if (_tooltipManager == null) return;
         _tooltipManager.HideHoverInfo();
+        _tooltipManager.HideTooltip();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public bool Interact(BattleInteractor interactor)
     {
-        if (eventData.button != PointerEventData.InputButton.Left) return;
-        _tooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
+        _building.Upgrade();
+        return true;
     }
 
 }

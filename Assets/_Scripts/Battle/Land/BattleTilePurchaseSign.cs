@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class BattleTilePurchaseSign : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
 {
     BattleTooltipManager _tooltipManager;
 
@@ -51,25 +51,26 @@ public class BattleTilePurchaseSign : MonoBehaviour, IPointerEnterHandler, IPoin
                     .SetEase(Ease.Linear);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void DisplayTooltip()
     {
         if (_tooltipManager == null) return;
         if (_interactionBlocked) return;
 
-        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Enable Tile"));
-        transform.DOShakePosition(0.5f, 0.1f);
+        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Enable New Tile"));
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void HideTooltip()
     {
         if (_tooltipManager == null) return;
         _tooltipManager.HideHoverInfo();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public bool Interact(BattleInteractor interactor)
     {
-        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (_interactionBlocked) return false;
+
         PurchaseTile();
+        return true;
     }
 
     void PurchaseTile()

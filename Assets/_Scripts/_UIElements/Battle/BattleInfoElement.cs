@@ -9,7 +9,7 @@ public class BattleInfoElement : VisualElement
 
     const string _ussClassName = "battle-info__";
     const string _ussMain = _ussClassName + "main";
-    const string _ussLeftMouseIcon = _ussClassName + "left-mouse-icon";
+    const string _ussInteraction = _ussClassName + "interaction";
     const string _ussRIcon = _ussClassName + "r-icon";
 
     GameManager _gameManager;
@@ -32,7 +32,7 @@ public class BattleInfoElement : VisualElement
         if (isObstacleRotation)
             icon.AddToClassList(_ussRIcon);
         else
-            icon.AddToClassList(_ussLeftMouseIcon);
+            icon.AddToClassList(_ussInteraction);
         Add(icon);
 
         Label txt = new(text);

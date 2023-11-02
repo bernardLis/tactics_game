@@ -9,7 +9,6 @@ public class BuildingCard : TooltipCard
     const string _ussMain = _ussClassName + "main";
     const string _ussIcon = _ussClassName + "icon";
 
-
     protected ElementalElement _elementalElement;
     protected Label _nameLabel;
     protected Label _levelLabel;
@@ -86,24 +85,24 @@ public class BuildingCard : TooltipCard
             delay.text = $"Respawn: {_building.GetCurrentUpgrade().ProductionDelay}s";
         };
 
-        HandleUpgradeButton();
+        // HandleUpgradeButton();
 
     }
 
-    void HandleUpgradeButton()
-    {
-        if (_upgradeButton != null) _infoContainer.Remove(_upgradeButton);
-        if (_building.GetNextUpgrade() == null) return;
-        int cost = _building.GetNextUpgrade().Cost;
-        _upgradeButton = new(cost, buttonText: "Upgrade", callback: UpgradeBuilding);
-        _infoContainer.Add(_upgradeButton);
-    }
+    // void HandleUpgradeButton()
+    // {
+    //     if (_upgradeButton != null) _infoContainer.Remove(_upgradeButton);
+    //     if (_building.GetNextUpgrade() == null) return;
+    //     int cost = _building.GetNextUpgrade().Cost;
+    //     _upgradeButton = new(cost, buttonText: "Upgrade", callback: UpgradeBuilding);
+    //     _infoContainer.Add(_upgradeButton);
+    // }
 
-    void UpgradeBuilding()
-    {
-        _building.Upgrade();
-        HandleUpgradeButton();
-    }
+    // void UpgradeBuilding()
+    // {
+    //     _building.Upgrade();
+    //     // HandleUpgradeButton();
+    // }
 
     void HandleBuildingSecured()
     {

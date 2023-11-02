@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 using MoreMountains.Feedbacks;
 
-public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class BattleRewardChest : MonoBehaviour, IInteractable
 {
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -30,6 +30,28 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
         _feelPlayer = GetComponent<MMF_Player>();
 
         _audioManager.PlaySFX(_spawnSound, transform.position);
+    }
+
+    public void DisplayTooltip()
+    {
+        if (_tooltipManager == null) return;
+        if (_isOpened) return;
+
+        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Open Chest"));
+    }
+
+    public void HideTooltip()
+    {
+        if (_tooltipManager == null) return;
+        _tooltipManager.HideHoverInfo();
+    }
+
+    public bool Interact(BattleInteractor battleInteractor)
+    {
+        if (_isOpened) return false;
+
+        StartCoroutine(Open());
+        return true;
     }
 
     IEnumerator Open()
@@ -64,29 +86,6 @@ public class BattleRewardChest : MonoBehaviour, IPointerEnterHandler, IPointerEx
         yield return new WaitForSeconds(0.5f);
 
         transform.DOScale(0, 1f).OnComplete(() => Destroy(gameObject));
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (_tooltipManager == null) return;
-        if (_isOpened) return;
-
-        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Open"));
-        transform.DOShakePosition(0.5f, 0.1f);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (_tooltipManager == null) return;
-        _tooltipManager.HideHoverInfo();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (eventData.button != PointerEventData.InputButton.Left) return;
-        if (_isOpened) return;
-
-        StartCoroutine(Open());
     }
 
     void DisplayText(string text, Color color)

@@ -5047,7 +5047,7 @@ GameObject:
   - component: {fileID: 8814747850124250967}
   - component: {fileID: 1820990276771402770}
   - component: {fileID: 1528692405591818622}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reward Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
