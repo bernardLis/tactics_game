@@ -63,6 +63,4 @@ public class BattleMinion : BattleEntity
                 StartCoroutine(Die());
             });
     }
-
-
 }

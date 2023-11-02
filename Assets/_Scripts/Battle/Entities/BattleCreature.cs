@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Linq;
 using DG.Tweening;
-
+using UnityEngine.AI;
 public class BattleCreature : BattleEntity
 {
     [SerializeField] protected Sound _attackSound;
@@ -95,14 +95,22 @@ public class BattleCreature : BattleEntity
         while (true)
         {
             // TODO: need to make sure that position is reachable
-            BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
             _agent.stoppingDistance = 0;
-            yield return PathToPositionAndStop(battleHero.transform.position
-                                        + Vector3.right * Random.Range(-10f, 10f)
-                                        + Vector3.forward * Random.Range(-10f, 10f));
+            yield return PathToPositionAndStop(GetPositionCloseToHero());
 
             yield return new WaitForSeconds(Random.Range(3f, 6f));
         }
+    }
+
+    protected Vector3 GetPositionCloseToHero()
+    {
+        BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
+        Vector3 pos = battleHero.transform.position
+                    + Vector3.right * Random.Range(-10f, 10f)
+                    + Vector3.forward * Random.Range(-10f, 10f);
+        if (!NavMesh.SamplePosition(pos, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+            return GetPositionCloseToHero();
+        return pos;
     }
 
     protected virtual IEnumerator ManageCreatureAbility()
