@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Home Crystal
   m_EditorClassIdentifier: 
   Id: 2e6afe86-16da-4175-b76e-1ab4ddd58602
-  IsSecured: 0
+  Icon: {fileID: 0}
+  IsSecured: 1

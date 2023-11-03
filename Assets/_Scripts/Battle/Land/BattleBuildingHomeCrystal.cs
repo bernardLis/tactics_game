@@ -5,15 +5,47 @@ using DG.Tweening;
 
 public class BattleBuildingHomeCrystal : BattleBuilding
 {
+    [SerializeField] Transform _GFX;
+
+    [SerializeField] GameObject _landingEffect;
 
     protected override void ShowBuilding()
     {
-        transform.DOMoveY(3, 2f)
-                .SetDelay(7f)
-                .OnComplete(() =>
-                    transform.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
-                            .SetLoops(-1, LoopType.Restart)
-                    );
+
+    }
+
+    void Start()
+    {
+        StartCoroutine(LandingCoroutine());
+    }
+
+    IEnumerator LandingCoroutine()
+    {
+        yield return transform.DOMoveY(0f, 5f)
+                .SetDelay(4f)
+                .SetEase(Ease.OutQuad).WaitForCompletion();
+
+        yield return new WaitForSeconds(1f);
+
+        yield return transform.DOPunchScale(Vector3.one * 0.5f, 1f, 10, 1f)
+                 .SetLoops(3, LoopType.Yoyo).WaitForCompletion();
+
+        yield return new WaitForSeconds(1.5f);
+
+        Destroy(Instantiate(_landingEffect, transform.position + Vector3.up * 3f, Quaternion.identity), 2f);
+
+        Vector3 scale = transform.localScale;
+        transform.DOScale(scale * 0.5f, 1f).SetEase(Ease.OutBounce);
+
+        Debug.Log($"asd");
+        List<BattleEntity> enemies = new(_battleManager.GetOpponents(0));
+        foreach (BattleEntity be in enemies)
+            be.BaseGetHit(100, Color.red);
+
+        yield return new WaitForSeconds(4f);
+
+        _GFX.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
+                .SetLoops(-1, LoopType.Restart);
     }
 
 }

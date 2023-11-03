@@ -31,6 +31,7 @@ public class BattleManager : Singleton<BattleManager>
     public bool IsTimerOn { get; private set; }
 
     public Hero PlayerHero { get; private set; }
+    public BattleHero BattleHero => _battleHeroManager.BattleHero;
 
     public List<BattleEntity> PlayerCreatures = new();
     public List<BattleEntity> OpponentEntities = new();

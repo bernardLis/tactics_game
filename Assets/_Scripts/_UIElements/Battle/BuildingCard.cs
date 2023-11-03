@@ -41,6 +41,19 @@ public class BuildingCard : TooltipCard
 
     protected virtual void HandleIcon()
     {
+        VisualElement icon = new();
+        icon.AddToClassList(_ussIcon);
+        if (_building.Icon != null)
+            icon.style.backgroundImage = _building.Icon.texture;
+
+        if (Helpers.ParseScriptableObjectName(_building.name) == "Home Crystal")
+        {
+            AnimationElement anim = new(_gameManager.GameDatabase.GetSpiceSprites(1000), 50, true);
+            anim.PlayAnimation();
+            icon.Add(anim);
+        }
+
+        _topLeftContainer.Add(icon);
     }
 
     protected virtual void HandleNameLabel()

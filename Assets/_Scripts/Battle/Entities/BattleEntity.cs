@@ -279,7 +279,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
             attacker.AddKill(Entity);
     }
 
-    protected void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
+    public void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
     {
         EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
         StopRunEntityCoroutine();
