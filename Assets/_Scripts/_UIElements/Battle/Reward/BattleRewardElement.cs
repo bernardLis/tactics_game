@@ -162,8 +162,6 @@ public class BattleRewardElement : FullScreenElement
         _allRewardCards.Add(CreateRewardCardHeroStat());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
-        _allRewardCards.Add(CreateRewardCardObstacle());
-        _allRewardCards.Add(CreateRewardCardTurret());
     }
 
     void ChooseRewardCards()
@@ -202,23 +200,6 @@ public class BattleRewardElement : FullScreenElement
         reward.OnRewardSelected += RewardSelected;
         RewardCardGold card = new(reward);
         return card;
-    }
-
-
-    RewardCard CreateRewardCardObstacle()
-    {
-        RewardObstacle reward = ScriptableObject.CreateInstance<RewardObstacle>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardObstacle(reward);
-    }
-
-    RewardCard CreateRewardCardTurret()
-    {
-        RewardTurret reward = ScriptableObject.CreateInstance<RewardTurret>();
-        reward.CreateRandom(_gameManager.PlayerHero);
-        reward.OnRewardSelected += RewardSelected;
-        return new RewardCardTurret(reward);
     }
 
     void RewardSelected(Reward reward)

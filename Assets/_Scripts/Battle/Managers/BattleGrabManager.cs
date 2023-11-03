@@ -16,7 +16,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     AudioManager _audioManager;
     CursorManager _cursorManager;
     PlayerInput _playerInput;
-    BattleDeploymentManager _playerArmyDeployer;
     BattleTooltipManager _tooltipManager;
 
     VisualElement _root;
@@ -34,15 +33,12 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     void Start()
     {
-        _playerArmyDeployer = GetComponent<BattleDeploymentManager>();
-        _playerArmyDeployer.OnPlayerArmyDeployed += Initialize;
     }
 
     public void Initialize()
     {
         if (_wasInitialized) return;
         _wasInitialized = true;
-        _playerArmyDeployer.OnPlayerArmyDeployed -= Initialize;
 
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;

@@ -10,7 +10,6 @@ public class BattleInitializer : MonoBehaviour
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
     BattleInputManager _battleInputManager;
-    BattleDeploymentManager _battleDeploymentManager;
 
     Hero _playerHero;
 
