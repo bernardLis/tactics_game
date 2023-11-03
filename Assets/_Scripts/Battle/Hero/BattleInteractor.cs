@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class BattleInteractor : MonoBehaviour
     [SerializeField] Collider[] _interactables = new Collider[3];
     [SerializeField] IInteractable _currentInteractable;
 
+    public event Action OnInteract;
     void Start()
     {
         _interactionLayerMask = LayerMask.GetMask("Interactable");
@@ -61,6 +63,7 @@ public class BattleInteractor : MonoBehaviour
         if (_currentInteractable == null) return;
         if (!_currentInteractable.CanInteract(this)) return;
         _currentInteractable.Interact(this);
+        OnInteract?.Invoke();
     }
 
     /* INPUT */

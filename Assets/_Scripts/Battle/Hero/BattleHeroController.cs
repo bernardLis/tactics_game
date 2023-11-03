@@ -38,8 +38,10 @@ public class BattleHeroController : MonoBehaviour
     float _cinemachineTargetPitch;
 
     GameManager _gameManager;
-    BattleManager _battleManager;
     PlayerInput _playerInput;
+    BattleManager _battleManager;
+    BattleFightManager _battleFightManager;
+    BattleInteractor _battleInteractor;
 
     Animator _animator;
     CharacterController _controller;
@@ -71,7 +73,7 @@ public class BattleHeroController : MonoBehaviour
 
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
-        _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart());
+        _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
 
         _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();
@@ -82,9 +84,11 @@ public class BattleHeroController : MonoBehaviour
         AssignAnimationIDs();
     }
 
-    IEnumerator DelayedStart()
+    IEnumerator DelayedStart(float delay)
     {
-        yield return new WaitForSeconds(0.1f);
+        Debug.Log($"DelayedStart");
+
+        yield return new WaitForSeconds(delay);
         _disableUpdate = false;
     }
 
@@ -169,7 +173,6 @@ public class BattleHeroController : MonoBehaviour
     }
 
     /* STRAFE */
-
     void Strafe()
     {
         if (_speed != 0) return;
@@ -231,7 +234,8 @@ public class BattleHeroController : MonoBehaviour
     void ResetMovementVector(InputAction.CallbackContext context)
     {
         _movementDirection = Vector3.zero;
-        // recenter transform, idk if it is a good idea but it helps. xD
+
+        // recenter transform, idk if it is a good idea but it's here just in case... xD
         if (_animator == null) return;
         _animator.transform.DOKill();
         _animator.transform.DOLocalMove(Vector3.zero, 1f);
@@ -255,6 +259,7 @@ public class BattleHeroController : MonoBehaviour
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
         float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f,
                                             _controller.velocity.z).magnitude;
+
         float speedOffset = 0.1f;
         float inputMagnitude = _movementDirection.magnitude;
         _speed = targetSpeed;
@@ -266,15 +271,7 @@ public class BattleHeroController : MonoBehaviour
             _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
         }
 
-        // animation
         Vector3 inputDirection = _movementDirection.normalized;
-        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
-        if (_speed == 0) return;
-
-        _animator.SetFloat(_animVelocityZ, inputDirection.z * _animationBlend);
-        _animator.SetFloat(_animVelocityX, inputDirection.x * _animationBlend);
-        if (inputDirection.z <= 0) _animator.SetFloat(_animVelocityX, 0); // walking backwards looks bad when blended
 
         // move
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f)
@@ -282,6 +279,14 @@ public class BattleHeroController : MonoBehaviour
                                 * inputDirection.z;
         targetDirection.y = -0.01f;
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
+
+        // animation
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+        if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+        _animator.SetFloat(_animVelocityZ, inputDirection.z * _animationBlend);
+        _animator.SetFloat(_animVelocityX, inputDirection.x * _animationBlend);
+        if (inputDirection.z <= 0) _animator.SetFloat(_animVelocityX, 0); // walking backwards looks bad when blended
     }
 
     bool IsGrounded()

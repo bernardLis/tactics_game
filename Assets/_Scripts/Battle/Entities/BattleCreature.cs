@@ -171,10 +171,11 @@ public class BattleCreature : BattleEntity
 
     protected virtual IEnumerator Attack()
     {
-        EntityLog.Add($"{_battleManager.GetTime()}: Entity attacked {Opponent.name}");
-
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) yield break;
+        
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity attacked {Opponent.name}");
+
         _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
         if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
