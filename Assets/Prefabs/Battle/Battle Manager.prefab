@@ -210,9 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floorHolder: {fileID: 0}
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
-  _homeTilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+  _homeTilePrefab: {fileID: 3154870470239179833, guid: 8d83c8b028327e94da193f351a093c4b, type: 3}
   _tilePrefabs:
-  - {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   - {fileID: 4120558081771881749, guid: 6c37494cb4a81d04bbe0de0d78ddd625, type: 3}
   - {fileID: 5027473078342057440, guid: 30cfb321c6ce9234cb3e4b6889f32f47, type: 3}
   - {fileID: 5027473078342057440, guid: 606e991a9948107488710e6650885bc3, type: 3}

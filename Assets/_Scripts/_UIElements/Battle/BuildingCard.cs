@@ -13,11 +13,11 @@ public class BuildingCard : TooltipCard
     protected Label _nameLabel;
     protected Label _levelLabel;
 
-    VisualElement _infoContainer;
+    protected VisualElement _infoContainer;
 
-    LockOverlayElement _lockElement;
+    protected LockOverlayElement _lockElement;
 
-    Building _building;
+    protected Building _building;
 
     public BuildingCard(Building building)
     {
@@ -35,15 +35,12 @@ public class BuildingCard : TooltipCard
     {
         HandleIcon();
         HandleNameLabel();
-        HandleLevelLabel();
         HandleBuildingInfoContainer();
         HandleBuildingSecured();
     }
 
     protected virtual void HandleIcon()
     {
-        EntityIcon entityIcon = new(_building.GetCurrentUpgrade().ProducedCreature);
-        _topLeftContainer.Add(entityIcon);
     }
 
     protected virtual void HandleNameLabel()
@@ -53,36 +50,8 @@ public class BuildingCard : TooltipCard
         _topRightContainer.Add(_nameLabel);
     }
 
-    protected virtual void HandleLevelLabel()
+    protected virtual void HandleBuildingInfoContainer()
     {
-        _levelLabel = new();
-        _levelLabel.text = $"Level {_building.CurrentLevel.Value}";
-        _topRightContainer.Add(_levelLabel);
-
-        _building.CurrentLevel.OnValueChanged += (i) =>
-        {
-            _levelLabel.text = $"Level {i}";
-        };
-    }
-
-    void HandleBuildingInfoContainer()
-    {
-        _infoContainer = new();
-        _middleContainer.Add(_infoContainer);
-
-        Label wolfCountLabel = new($"Max: {_building.GetCurrentUpgrade().ProductionLimit}");
-        _infoContainer.Add(wolfCountLabel);
-        _building.OnUpgradePurchased += () =>
-        {
-            wolfCountLabel.text = $"Max: {_building.GetCurrentUpgrade().ProductionLimit}";
-        };
-
-        Label delay = new($"Respawn: {_building.GetCurrentUpgrade().ProductionDelay}s");
-        _infoContainer.Add(delay);
-        _building.OnUpgradePurchased += () =>
-        {
-            delay.text = $"Respawn: {_building.GetCurrentUpgrade().ProductionDelay}s";
-        };
     }
 
     void HandleBuildingSecured()
