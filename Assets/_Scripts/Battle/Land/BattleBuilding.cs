@@ -163,14 +163,14 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         if (_building.CurrentLevel.Value >= _building.BuildingUpgrades.Length) return;
         if (!CanInteract(default)) return;
 
-        _tooltipManager.ShowHoverInfo(
+        _tooltipManager.ShowKeyTooltipInfo(
             new BattleInfoElement($"<b>Upgrade {Helpers.ParseScriptableObjectName(_building.name)}</b>"));
     }
 
     public void HideTooltip()
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.HideHoverInfo();
+        _tooltipManager.HideKeyTooltipInfo();
         _tooltipManager.HideTooltip();
     }
 
@@ -179,7 +179,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _building.Upgrade();
 
         if (_building.CurrentLevel.Value == _building.BuildingUpgrades.Length)
-            _tooltipManager.HideHoverInfo();
+            _tooltipManager.HideKeyTooltipInfo();
 
         return true;
     }

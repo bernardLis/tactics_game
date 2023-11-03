@@ -58,7 +58,7 @@ public enum StyleSheetType
     GlobalUpgradeTreeStyles,
 
     TurretIconStyles,
-    BattleStatsStyles, BattleInfoStyles,
+    BattleStatsStyles, BattleKeyTooltipStyles,
     TextPrintingStyles,
     HeroBattleStyles,
     TooltipCardStyles, BuildingCardStyles,

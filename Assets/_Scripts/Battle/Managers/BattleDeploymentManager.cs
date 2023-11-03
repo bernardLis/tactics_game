@@ -127,7 +127,7 @@ public class BattleDeploymentManager : MonoBehaviour
 
     void ShowTooltip(string text)
     {
-        _tooltipManager.ShowHoverInfo(new BattleInfoElement(text));
+        _tooltipManager.ShowKeyTooltipInfo(new BattleInfoElement(text));
     }
 
     IEnumerator UpdateObjectPosition()

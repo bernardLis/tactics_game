@@ -74,7 +74,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         if (_runTurretCoroutine == null) return;
 
         _rangeIndicator.SetActive(true);
-        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Turret Upgrades"));
+        _tooltipManager.ShowKeyTooltipInfo(new BattleInfoElement("Turret Upgrades"));
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -84,7 +84,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         if (!_isTooltipActive)
             _rangeIndicator.SetActive(false);
 
-        _tooltipManager.HideHoverInfo();
+        _tooltipManager.HideKeyTooltipInfo();
     }
 
     public void StartTurretCoroutine()

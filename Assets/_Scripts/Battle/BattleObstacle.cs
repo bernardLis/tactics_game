@@ -73,7 +73,7 @@ public class BattleObstacle : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     public void Grabbed()
     {
-        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Rotate", true));
+        _tooltipManager.ShowKeyTooltipInfo(new BattleInfoElement("Rotate", true));
 
         if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
         StartCoroutine(GrabBreaker());

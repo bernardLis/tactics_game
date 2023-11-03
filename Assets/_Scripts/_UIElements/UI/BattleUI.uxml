@@ -17,18 +17,17 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleLostStyles.uss?fileID=7433441132597879392&amp;guid=7b533c43a2f43134aa562b1314c74e86&amp;type=3#BattleLostStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleWonStyles.uss?fileID=7433441132597879392&amp;guid=0bfa3127b4e60d746b46b36a26eb57ab&amp;type=3#BattleWonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss?fileID=7433441132597879392&amp;guid=7e08b85dd0f53b34f80b86917c0bf5f9&amp;type=3#BattleStatsStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleInfoStyles.uss?fileID=7433441132597879392&amp;guid=394833a8037c9a44cb3f403d5ebe50c2&amp;type=3#BattleInfoStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleKeyTooltipStyles.uss?fileID=7433441132597879392&amp;guid=394833a8037c9a44cb3f403d5ebe50c2&amp;type=3#BattleKeyTooltipStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/TooltipCardStyles.uss?fileID=7433441132597879392&amp;guid=7b6b9302b282d604bb6b1bc7d2284bb8&amp;type=3#TooltipCardStyles" />
     <ui:VisualElement name="infoPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; right: 0; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag_vert_2.png?fileID=2800000&amp;guid=9662f21ea2a1ff14fbcab7768ec0c94d&amp;type=3#Flag_vert_2&apos;); padding-bottom: 14px; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 5px; display: none; width: auto; flex-direction: column; flex-shrink: 0;">
         <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="timer" class="common__text-primary" style="display: none; width: 50px; -unity-text-align: upper-center;" />
         <ui:Label tabindex="-1" text="Enemies left: 15" display-tooltip-when-elided="true" name="livesCount" class="common__text-primary" style="display: none; width: 70px; -unity-text-align: upper-center;" />
     </ui:VisualElement>
-    <ui:VisualElement name="topPanel" class="common__text-primary" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-items: center; justify-content: center; align-self: center; top: 20px; width: auto;">
-        <ui:VisualElement name="textInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
-        <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
-    </ui:VisualElement>
-    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;" />
+    <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-self: center; top: 5%;" />
+    <ui:VisualElement name="keyTooltipContainer" style="flex-grow: 1; position: absolute; align-self: center; top: 40%; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&apos;);" />
+    <ui:VisualElement name="gameInfoContainer" class="common__text-primary" style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; align-self: center; top: 15%; font-size: 48px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; display: none; -unity-font-style: bold; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&apos;);" />
     <ui:VisualElement name="entityTooltipContainer" style="flex-grow: 1; position: absolute; right: auto; bottom: 50%; visibility: hidden;" />
+    <ui:VisualElement name="bottomPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column; bottom: 0; position: absolute; align-items: flex-end; align-self: center; justify-content: flex-start; width: 100%;" />
     <ui:VisualElement name="tooltipContainer" style="position: absolute; bottom: auto;" />
     <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px; display: none;" />
     <ui:VisualElement name="controlGuideContainer" style="flex-grow: 1; position: absolute; left: auto; right: 20px; bottom: 50%; width: 150px; opacity: 0;">

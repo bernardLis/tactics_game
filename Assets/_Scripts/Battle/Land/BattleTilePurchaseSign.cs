@@ -61,13 +61,13 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
         if (_tooltipManager == null) return;
         if (_interactionBlocked) return;
 
-        _tooltipManager.ShowHoverInfo(new BattleInfoElement("Enable New Tile"));
+        _tooltipManager.ShowKeyTooltipInfo(new BattleInfoElement("Enable New Tile"));
     }
 
     public void HideTooltip()
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.HideHoverInfo();
+        _tooltipManager.HideKeyTooltipInfo();
     }
 
     public bool CanInteract(BattleInteractor interactor)

@@ -16,7 +16,10 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     VisualElement _entityTooltipContainer;
 
     VisualElement _gameInfoContainer;
-    VisualElement _hoverInfoContainer; // shows mouse hover info 
+    VisualElement _entityInfoContainer; // shows mouse hover info 
+    VisualElement _keyTooltipContainer;
+
+    string _gameInfoTweenID = "_gameInfoContainer";
 
     VisualElement _currentTooltip;
     public GameObject CurrentTooltipDisplayer { get; private set; }
@@ -29,8 +32,9 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
         _root = GetComponent<UIDocument>().rootVisualElement;
         _entityTooltipContainer = _root.Q<VisualElement>("entityTooltipContainer");
-        _gameInfoContainer = _root.Q<VisualElement>("textInfoContainer");
-        _hoverInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
+        _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
+        _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
+        _keyTooltipContainer = _root.Q<VisualElement>("keyTooltipContainer");
     }
 
     /* INPUT */
@@ -77,32 +81,48 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     void OnBattleFinalized()
     {
-        HideHoverInfo();
+        HideEntityInfo();
+        HideKeyTooltipInfo();
         HideTooltip();
     }
 
-    public void ShowHoverInfo(VisualElement el)
+    public void ShowKeyTooltipInfo(VisualElement el)
     {
-        _hoverInfoContainer.Clear();
-        _hoverInfoContainer.style.display = DisplayStyle.Flex;
+        _keyTooltipContainer.Clear();
+        _keyTooltipContainer.Add(el);
+        _keyTooltipContainer.style.display = DisplayStyle.Flex;
 
-        _hoverInfoContainer.Add(el);
+        DOTween.To(x => _keyTooltipContainer.style.opacity = x, 0, 1, 0.5f)
+            .SetEase(Ease.InOutSine);
+
+    }
+
+    public void HideKeyTooltipInfo()
+    {
+        DOTween.To(x => _keyTooltipContainer.style.opacity = x, 1, 0, 0.5f)
+            .SetEase(Ease.InOutSine)
+            .OnComplete(() =>
+            {
+                _keyTooltipContainer.style.display = DisplayStyle.None;
+                _keyTooltipContainer.Clear();
+            });
     }
 
     public void ShowEntityInfo(BattleEntity entity)
     {
         if (entity.IsDead) return;
+        _entityInfoContainer.Clear();
 
         BattleEntityInfoElement info = new(entity);
-        ShowHoverInfo(info);
+        _entityInfoContainer.Add(info);
+        _entityInfoContainer.style.display = DisplayStyle.Flex;
     }
 
-    public void HideHoverInfo()
+    public void HideEntityInfo()
     {
-        _hoverInfoContainer.style.display = DisplayStyle.None;
-        _hoverInfoContainer.Clear();
+        _entityInfoContainer.style.display = DisplayStyle.None;
+        _entityInfoContainer.Clear();
     }
-
 
     public void ShowGameInfo(string text, float duration)
     {
@@ -113,21 +133,30 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     public void ShowGameInfo(string text)
     {
         _gameInfoContainer.Clear();
-        _gameInfoContainer.style.display = DisplayStyle.Flex;
         Label txt = new(text);
-        txt.style.backgroundColor = new(new Color(0f, 0f, 0f, 0.4f));
-        txt.style.fontSize = 32;
-
         _gameInfoContainer.Add(txt);
+
+        _gameInfoContainer.style.display = DisplayStyle.Flex;
+        _gameInfoContainer.style.opacity = 0;
+        DOTween.Kill(_gameInfoTweenID);
+        DOTween.To(x => _gameInfoContainer.style.opacity = x, 0, 1, 0.5f)
+                .SetEase(Ease.InOutSine);
     }
 
     public void HideGameInfo()
     {
-        _gameInfoContainer.style.display = DisplayStyle.None;
-        _gameInfoContainer.Clear();
+        DOTween.To(x => _gameInfoContainer.style.opacity = x, 1, 0, 0.5f)
+            .SetEase(Ease.InOutSine)
+            .SetId(_gameInfoTweenID)
+            .OnComplete(() =>
+            {
+                _gameInfoContainer.style.display = DisplayStyle.None;
+                _gameInfoContainer.Clear();
+            });
+
     }
 
-    /*TOOLTIP CARD*/
+    /* TOOLTIP CARD */
     public void ShowTooltip(VisualElement el, GameObject go)
     {
         bool tooltipAnimation = _currentTooltip == null;

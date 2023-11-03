@@ -7,7 +7,7 @@ public class BattleInfoElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "battle-info__";
+    const string _ussClassName = "battle-key-tooltip__";
     const string _ussMain = _ussClassName + "main";
     const string _ussInteraction = _ussClassName + "interaction";
     const string _ussRIcon = _ussClassName + "r-icon";
@@ -20,7 +20,7 @@ public class BattleInfoElement : VisualElement
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleInfoStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleKeyTooltipStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
