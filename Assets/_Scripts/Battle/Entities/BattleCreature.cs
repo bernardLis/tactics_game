@@ -320,7 +320,7 @@ public class BattleCreature : BattleEntity
     }
 
 
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
     [ContextMenu("Level up")]
     public void LevelUp()
     {
@@ -340,6 +340,6 @@ public class BattleCreature : BattleEntity
         TriggerDieCoroutine(hasGrave: true);
     }
 
-#endif
+// #endif
 
 }

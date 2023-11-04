@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6225228571010242931, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.61
+      value: 1.282
       objectReference: {fileID: 0}
     - target: {fileID: 6764082598295937273, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_IsActive
@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _banner: {fileID: 7678173367491178507}
+  _GFX: {fileID: 0}
   _landingEffect: {fileID: 889726265816205275, guid: 19617e6cf57f04147814655100e7eda0, type: 3}
 --- !u!1 &7678173367491178507 stripped
 GameObject:

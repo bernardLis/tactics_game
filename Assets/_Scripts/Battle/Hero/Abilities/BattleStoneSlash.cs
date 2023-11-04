@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Codice.CM.Client.Differences.Graphic;
 public class BattleStoneSlash : MonoBehaviour
 {
     [SerializeField] GameObject col;

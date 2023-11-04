@@ -26,18 +26,18 @@ public class BattleBuildingHomeCrystal : BattleBuilding
                 .SetEase(Ease.OutQuad).WaitForCompletion();
 
         yield return new WaitForSeconds(1f);
-
         yield return transform.DOPunchScale(Vector3.one * 0.5f, 1f, 10, 1f)
-                 .SetLoops(3, LoopType.Yoyo).WaitForCompletion();
+                            .SetLoops(3, LoopType.Restart);
+        yield return transform.DOPunchPosition(Vector3.one * 0.5f, 1f, 10, 1f)
+                            .SetLoops(3, LoopType.Restart)
+                            .WaitForCompletion();
 
         yield return new WaitForSeconds(1.5f);
-
-        Destroy(Instantiate(_landingEffect, transform.position + Vector3.up * 3f, Quaternion.identity), 2f);
-
         Vector3 scale = transform.localScale;
+        yield return transform.DOScale(scale * 2f, 0.2f).SetEase(Ease.OutCubic).WaitForCompletion();
+        Destroy(Instantiate(_landingEffect, transform.position + Vector3.up * 3f, Quaternion.identity), 2f);
         transform.DOScale(scale * 0.5f, 1f).SetEase(Ease.OutBounce);
 
-        Debug.Log($"asd");
         List<BattleEntity> enemies = new(_battleManager.GetOpponents(0));
         foreach (BattleEntity be in enemies)
             be.BaseGetHit(100, Color.red);
