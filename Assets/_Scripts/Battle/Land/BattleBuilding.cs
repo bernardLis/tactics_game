@@ -11,7 +11,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     protected BattleTooltipManager _tooltipManager;
     protected BattleFightManager _battleFightManager;
 
-    [SerializeField] GameObject _banner;
+    [SerializeField] Transform _bannerSpawnPoint;
+    GameObject _banner;
 
     protected Building _building;
 
@@ -44,7 +45,9 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     protected virtual void Secured()
     {
-        _banner.SetActive(true);
+        _banner = Instantiate(_gameManager.BannerPrefab, transform);
+        _banner.transform.localPosition = _bannerSpawnPoint.localPosition;
+
         _building.Secure();
     }
 

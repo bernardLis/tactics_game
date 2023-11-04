@@ -6,13 +6,14 @@ using System;
 
 public class MyButton : Button
 {
+    const string _ussCommonButtonBasic = "common__button-basic";
+
     protected GameManager _gameManager;
     AudioManager _audioManager;
     CursorManager _cursorManager;
 
     protected Label _text;
 
-    const string _ussCommonButtonBasic = "common__button-basic";
 
     Action _currentCallback;
     public MyButton(string buttonText = null, string className = null, Action callback = null)

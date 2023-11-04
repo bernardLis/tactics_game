@@ -4,6 +4,8 @@ using System.Linq;
 
 public class MainMenu : Singleton<MainMenu>
 {
+    const string _ussCommonMenuButton = "common__menu-button";
+
     [SerializeField] Sound _mainMenuTheme;
     [SerializeField] GameObject _gameManagerPrefab;
 
@@ -18,13 +20,12 @@ public class MainMenu : Singleton<MainMenu>
     VisualElement _menuContainer;
     VisualElement _settingsContainer;
 
-    const string _ussCommonMenuButton = "common__menu-button";
 
 
     protected override void Awake()
     {
         base.Awake();
-        
+
         Root = GetComponent<UIDocument>().rootVisualElement;
         // TODO: is this a good idea? When game manager was in the scene there was a bug when you were coming back to main menu.
         _gameManager = GameManager.Instance;

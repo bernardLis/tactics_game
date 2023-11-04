@@ -254,6 +254,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2425980352982080583, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.219
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425980352982080583, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.701
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425980352982080583, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.117
+      objectReference: {fileID: 0}
     - target: {fileID: 2464830209876332171, guid: 5c635795dc7f92642a12a315749931b4, type: 3}
       propertyPath: m_Name
       value: Wolf Lair Building

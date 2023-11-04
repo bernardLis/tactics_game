@@ -7,13 +7,16 @@
 .common__text-primary-black {
     color: rgb(0, 0, 0);
     font-size: 16px;
-    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
 }
 
 .common__text-secondary {
     color: rgb(255, 255, 255);
     font-size: 12px;
-    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+}
+
+.common__text-header {
+    color: rgb(255, 255, 255);
+    font-size: 32px;
 }
 
 .common__transition-basic {
@@ -42,6 +45,15 @@
 .common__button-basic:disabled {
     opacity: 0.5;
     scale: 0.8 0.8;
+}
+
+.common__button-arrow {
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+    justify-content: center;
+    -unity-font-style: bold;
+    font-size: 32px;
 }
 
 .common__ui-container {

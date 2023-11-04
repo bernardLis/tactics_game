@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MainMenuStyles.uss?fileID=7433441132597879392&amp;guid=b0e97e6777d53f14e9667ef0e584cead&amp;type=3#MainMenuStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="menuContainer" style="justify-content: flex-end; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; background-color: rgba(141, 243, 120, 0.18); min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
-        <ui:VisualElement name="bannerContainer" class="common__text-primary" style="flex-grow: 1; background-color: rgba(255, 102, 102, 0.21); min-width: 100px; min-height: 100px; flex-shrink: 0; align-items: center; justify-content: flex-start;" />
+        <ui:VisualElement name="menuContainer" style="justify-content: flex-end; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
+        <ui:VisualElement name="bannerContainer" class="common__text-primary" style="flex-grow: 1; min-width: 100px; min-height: 100px; flex-shrink: 0; align-items: center; justify-content: flex-start; padding-top: 5%;" />
     </ui:VisualElement>
 </ui:UXML>

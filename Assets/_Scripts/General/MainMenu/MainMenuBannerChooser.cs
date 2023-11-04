@@ -5,6 +5,14 @@ using UnityEngine.UIElements;
 
 public class MainMenuBannerChooser : MonoBehaviour
 {
+    const string _ussCommonButtonArrow = "common__button-arrow";
+    const string _ussCommonTextHeader = "common__text-header";
+
+    const string _ussClassName = "main-menu__";
+    const string _ussBannerChoiceContainer = _ussClassName + "banner-choice-container";
+
+    GameManager _gameManager;
+
     [SerializeField] List<GameObject> _poles;
     [SerializeField] List<GameObject> _flags;
     [SerializeField] List<Material> _colors;
@@ -24,6 +32,8 @@ public class MainMenuBannerChooser : MonoBehaviour
 
     void Start()
     {
+        _gameManager = GameManager.Instance;
+
         _root = MainMenu.Instance.Root;
         _bannerContainer = _root.Q<VisualElement>("bannerContainer");
 
@@ -32,7 +42,8 @@ public class MainMenuBannerChooser : MonoBehaviour
 
     void SetupBannerButtons()
     {
-        Label label = new Label("Your Banner: ");
+        Label label = new($"<b>Your Banner: </b>");
+        label.AddToClassList(_ussCommonTextHeader);
         _bannerContainer.Add(label);
 
         SetupPoleButtons();
@@ -43,11 +54,14 @@ public class MainMenuBannerChooser : MonoBehaviour
     void SetupPoleButtons()
     {
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+        container.AddToClassList(_ussBannerChoiceContainer);
 
-        MyButton leftButton = new("<", callback: PreviousPole);
+        MyButton leftButton = new("<", _ussCommonButtonArrow, callback: PreviousPole);
+
         _poleName = new(_poles[_poleIndex].gameObject.name);
-        MyButton rightButton = new(">", callback: NextPole);
+        _poleName.AddToClassList(_ussCommonTextHeader);
+
+        MyButton rightButton = new(">", _ussCommonButtonArrow, callback: NextPole);
 
         container.Add(leftButton);
         container.Add(_poleName);
@@ -64,6 +78,7 @@ public class MainMenuBannerChooser : MonoBehaviour
             _poleIndex = _poles.Count - 1;
         _poles[_poleIndex].SetActive(true);
         _poleName.text = _poles[_poleIndex].gameObject.name;
+        UpdateBannerPrefab();
     }
 
     void NextPole()
@@ -74,16 +89,20 @@ public class MainMenuBannerChooser : MonoBehaviour
             _poleIndex = 0;
         _poles[_poleIndex].SetActive(true);
         _poleName.text = _poles[_poleIndex].gameObject.name;
+        UpdateBannerPrefab();
     }
 
     void SetupFlagButtons()
     {
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+        container.AddToClassList(_ussBannerChoiceContainer);
 
-        MyButton leftButton = new("<", callback: PreviousFlag);
+        MyButton leftButton = new("<", _ussCommonButtonArrow, callback: PreviousFlag);
+
         _flagName = new(_flags[_flagIndex].gameObject.name);
-        MyButton rightButton = new(">", callback: NextFlag);
+        _flagName.AddToClassList(_ussCommonTextHeader);
+
+        MyButton rightButton = new(">", _ussCommonButtonArrow, callback: NextFlag);
 
         container.Add(leftButton);
         container.Add(_flagName);
@@ -102,6 +121,7 @@ public class MainMenuBannerChooser : MonoBehaviour
         _flags[_flagIndex].SetActive(true);
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
         _flagName.text = _flags[_flagIndex].name;
+        UpdateBannerPrefab();
     }
 
     void NextFlag()
@@ -114,16 +134,19 @@ public class MainMenuBannerChooser : MonoBehaviour
         _flags[_flagIndex].SetActive(true);
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
         _flagName.text = _flags[_flagIndex].name;
+        UpdateBannerPrefab();
     }
 
     void SetupColorButtons()
     {
         VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+        container.AddToClassList(_ussBannerChoiceContainer);
 
-        MyButton leftButton = new("<", callback: PreviousColor);
+        MyButton leftButton = new("<", _ussCommonButtonArrow, callback: PreviousColor);
         _colorName = new(_colors[_colorIndex].name);
-        MyButton rightButton = new(">", callback: NextColor);
+        _colorName.AddToClassList(_ussCommonTextHeader);
+
+        MyButton rightButton = new(">", _ussCommonButtonArrow, callback: NextColor);
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
 
         container.Add(leftButton);
@@ -141,6 +164,7 @@ public class MainMenuBannerChooser : MonoBehaviour
 
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
         _colorName.text = _colors[_colorIndex].name;
+        UpdateBannerPrefab();
     }
 
     void NextColor()
@@ -151,6 +175,13 @@ public class MainMenuBannerChooser : MonoBehaviour
 
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
         _colorName.text = _colors[_colorIndex].name;
+        UpdateBannerPrefab();
     }
+
+    void UpdateBannerPrefab()
+    {
+        _gameManager.BannerPrefab.GetComponent<BannerSetter>().SetBanner(_poleIndex, _flagIndex, _colorIndex);
+    }
+
 }
 

@@ -1,0 +1,6 @@
+.main-menu__banner-choice-container {
+    width: 450px;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-top: 20px;
+}

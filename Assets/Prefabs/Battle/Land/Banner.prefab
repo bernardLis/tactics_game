@@ -52,7 +52,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 51931757c17f7c240a9ad3240b009869, type: 2}
+  - {fileID: 2100000, guid: 067aba24957fc444ba378e645e65af1e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,6 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6595125717005167536}
   - component: {fileID: 6017489339899741290}
+  - component: {fileID: 7337337209746904292}
   m_Layer: 0
   m_Name: Banner
   m_TagString: Untagged
@@ -150,6 +151,40 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7337337209746904292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2178910863558769144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63be4542395f77646b2a5616c0e72184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poles:
+  - {fileID: 7725328651621246855}
+  - {fileID: 2988792527799346688}
+  - {fileID: 2758701982274000959}
+  _flags:
+  - {fileID: 7997875437444453640}
+  - {fileID: 5670707207991787457}
+  - {fileID: 2204361307455662083}
+  - {fileID: 690936291242880355}
+  _colors:
+  - {fileID: 2100000, guid: 51931757c17f7c240a9ad3240b009869, type: 2}
+  - {fileID: 2100000, guid: f806521b69283c046a40f43fa2679d40, type: 2}
+  - {fileID: 2100000, guid: e8077999935278e4caabc0d0be1484c5, type: 2}
+  - {fileID: 2100000, guid: 5615b41f1d37f3545b466eaf2cea0ee2, type: 2}
+  - {fileID: 2100000, guid: e953939025dacd249a5c42297263c47c, type: 2}
+  - {fileID: 2100000, guid: 4eb6e46a6afc1c04fadba143c8e47591, type: 2}
+  - {fileID: 2100000, guid: 916f77efb964ce541b5645a874950137, type: 2}
+  - {fileID: 2100000, guid: 067aba24957fc444ba378e645e65af1e, type: 2}
+  - {fileID: 2100000, guid: 2ebd809f85e812145a04495b21bbca36, type: 2}
+  - {fileID: 2100000, guid: 5b3184522dc5e5041810df0af22f4b47, type: 2}
+  - {fileID: 2100000, guid: d8f2803cee1a9c4478c93d1858cc5037, type: 2}
+  - {fileID: 2100000, guid: 26b609e8e2a36204c8b979aa0a1d6832, type: 2}
 --- !u!1 &2204361307455662083
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4417306872589477136
 Transform:
   m_ObjectHideFlags: 0
@@ -341,7 +376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7868440800878192432
 Transform:
   m_ObjectHideFlags: 0

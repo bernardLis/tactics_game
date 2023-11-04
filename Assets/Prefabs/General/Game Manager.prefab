@@ -139,6 +139,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ca7abc80-980a-4853-9771-b52a4f1792f4
     m_ActionName: Battle/ToggleMenu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cd30d0d9-d7f3-41e6-b3d8-950b540eb6b9
+    m_ActionName: Battle/Shift[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0a585e0-20a8-4286-b25c-b7d9c440c171
+    m_ActionName: Battle/StrafeLeft[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: def3e43a-25a1-4f81-8053-790f762933d6
+    m_ActionName: Battle/StrafeRight[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ebe2236-c7f9-41e5-9143-195604586563
+    m_ActionName: Battle/Interact[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Battle
@@ -433,6 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   EntityDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
+  BannerPrefab: {fileID: 2178910863558769144, guid: f385f82cd42b57b4a874b18073f57254, type: 3}
   WasIntroCutscenePlayed: 0
   BattleNumber: 0
   GoldAdvantage: 0

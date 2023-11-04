@@ -18,6 +18,13 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public GameDatabase GameDatabase;
     public EntityDatabase EntityDatabase;
 
+    // [SerializeField] GameObject BannerOriginal;
+    // int _poleIndex = 0;
+    // int _flagIndex = 0;
+    // int _colorIndex = 0;
+    public GameObject BannerPrefab;
+
+
     SaveData _originalSaveData;
 
     // settings
@@ -79,6 +86,11 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         //     LoadFromSaveFile();
     }
 
+    // public void UpdateBannerIndexes(int poleIndex, int flagIndex, int colorIndex)
+    // {
+
+    // }
+
     async void Services()
     {
         await UnityServices.InitializeAsync();
@@ -109,6 +121,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void StartGame()
     {
+        // BannerPrefab = Instantiate(BannerOriginal);
+        // BannerPrefab.GetComponent<BannerSetter>().SetBanner(_poleIndex, _flagIndex, _colorIndex);
+        // BannerPrefab.SetActive(false);
+
         LoadScene(Scenes.Battle);
     }
 
