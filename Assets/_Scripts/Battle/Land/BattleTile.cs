@@ -62,7 +62,6 @@ public class BattleTile : MonoBehaviour
             _battleBuilding.Initialize(b);
         }
 
-
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
         _battleAreaManager.OnTilePurchased += OnTilePurchased;
@@ -94,7 +93,6 @@ public class BattleTile : MonoBehaviour
         _battleFightManager.InitializeFight(this);
         _battleFightManager.OnFightEnded += Secured;
         _battleFightManager.OnFightEnded += OnFightEnded;
-        // _battleFightManager.OnFightStarted += OnFightStarted;
     }
 
     public virtual void Secured()
@@ -142,9 +140,7 @@ public class BattleTile : MonoBehaviour
     void OnTilePurchased()
     {
         foreach (BattleTilePurchaseSign sign in _signs)
-        {
             sign.DestroySelf();
-        }
         _signs.Clear();
     }
 

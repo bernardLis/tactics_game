@@ -8,22 +8,25 @@ public class BattleInfoManager : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
+    BattleAreaManager _battleAreaManager;
 
     VisualElement _root;
     VisualElement _infoPanel;
     TroopsLimitElement _troopsLimitElement;
-    Label _livesCountLabel;
+
     GoldElement _goldElement;
     SpiceElement _spiceElement;
+    Label _tilesUntilBossLabel;
 
     void Start()
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
+        _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         _root = _battleManager.Root;
         _infoPanel = _root.Q<VisualElement>("infoPanel");
-        _livesCountLabel = _root.Q<Label>("livesCount");
+        _tilesUntilBossLabel = _root.Q<Label>("tilesUntilBoss");
 
         if (BattleIntroManager.Instance != null)
             BattleIntroManager.Instance.OnIntroFinished += ResolveInfoPanel;
@@ -42,6 +45,7 @@ public class BattleInfoManager : MonoBehaviour
         AddTroopsLimitElement();
         UpdateTroopsLimitElement();
 
+        HandleTilesUntilBoss();
         // HERE: spice
         // AddSpiceElement();
 
@@ -62,7 +66,6 @@ public class BattleInfoManager : MonoBehaviour
 
         _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsLimitElement();
         _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsLimitElement();
-
     }
 
     void UpdateTroopsLimitElement()
@@ -71,6 +74,16 @@ public class BattleInfoManager : MonoBehaviour
         _troopsLimitElement.UpdateCountContainer($"{count}", Color.white);
     }
 
+    void HandleTilesUntilBoss()
+    {
+        _battleAreaManager.OnTilePurchased += UpdateTilesUntilBossLabel;
+        UpdateTilesUntilBossLabel();
+    }
+
+    void UpdateTilesUntilBossLabel()
+    {
+        _tilesUntilBossLabel.text = $"{_battleAreaManager.PurchasedTiles.Count} / {_gameManager.TilesUntilBoss}";
+    }
 
     void AddSpiceElement()
     {

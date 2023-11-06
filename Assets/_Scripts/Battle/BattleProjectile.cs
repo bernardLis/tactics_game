@@ -36,7 +36,11 @@ public class BattleProjectile : MonoBehaviour
 
     IEnumerator ShootCoroutine(float range, BattleEntity target, float power)
     {
-        if (target == null) DestroySelf(transform.position);
+        if (target == null)
+        {
+            DestroySelf(transform.position);
+            yield break;
+        }
 
         float targetScale = transform.localScale.x;
         transform.localScale = transform.localScale * 0.5f;

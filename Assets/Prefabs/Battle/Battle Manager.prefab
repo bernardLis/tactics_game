@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 4810545558572652240}
   - component: {fileID: 1226316387709054792}
   - component: {fileID: 1803897707696964957}
+  - component: {fileID: 892723308641058941}
   - component: {fileID: 1813988017654575525}
   m_Layer: 0
   m_Name: Battle Manager
@@ -207,6 +208,20 @@ MonoBehaviour:
   - {fileID: 5027473078342057440, guid: c89a704ddf5d8664c8f4afa2835cb444, type: 3}
   - {fileID: 5027473078342057440, guid: d0e1b6dc76049c74995059127c809c02, type: 3}
   HomeTile: {fileID: 0}
+  PurchasedTiles: []
+--- !u!114 &892723308641058941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d653eda90c7e0cc4c854ee094722280d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossTile: {fileID: 4709331676814237497, guid: 756aa1ad60764a34eb065fbeb2fc6f8f, type: 3}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class BattleAreaManager : MonoBehaviour
 
     [HideInInspector] public BattleTile HomeTile;
     List<BattleTile> _tiles = new();
+    public List<BattleTile> PurchasedTiles = new();
 
     public event Action OnTilePurchased;
 
@@ -58,12 +59,14 @@ public class BattleAreaManager : MonoBehaviour
                     HomeTile = bt;
             }
         }
+        PurchasedTiles.Add(HomeTile);
         HomeTile.EnableTile();
         HomeTile.HandleBorders(new Color(1f, 0.22f, 0f, 0.2f)); // magic color
     }
 
-    public void TilePurchased()
+    public void TilePurchased(BattleTile tile)
     {
+        PurchasedTiles.Add(tile);
         OnTilePurchased?.Invoke();
     }
 
@@ -94,5 +97,19 @@ public class BattleAreaManager : MonoBehaviour
             }
         }
         return adjacentTiles;
+    }
+
+    public void ReplaceTile(BattleTile tile, GameObject newTile)
+    {
+        Debug.Log($"replacing tile {tile} with {newTile}");
+
+        GameObject newTileObject = Instantiate(newTile, _floorHolder);
+        newTileObject.transform.position = tile.transform.position;
+        BattleTile newBattleTile = newTileObject.GetComponent<BattleTile>();
+        newBattleTile.Initialize(HomeTile.Scale);
+        _tiles.Insert(_tiles.IndexOf(tile), newBattleTile);
+        _tiles.Remove(tile);
+        newTileObject.SetActive(false);
+        Destroy(tile.gameObject);
     }
 }

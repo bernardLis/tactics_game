@@ -17,7 +17,7 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
     GameObject _tileIndicator;
 
     bool _interactionBlocked;
-    public event Action OnPurchased;
+    public event Action<BattleTile> OnPurchased;
     public void Initialize(BattleTile tile)
     {
         _tooltipManager = BattleTooltipManager.Instance;
@@ -90,7 +90,7 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
         if (_interactionBlocked) return;
 
         _tileToPurchase.EnableTile();
-        OnPurchased?.Invoke();
+        OnPurchased?.Invoke(_tileToPurchase);
     }
 
     public void DestroySelf()
