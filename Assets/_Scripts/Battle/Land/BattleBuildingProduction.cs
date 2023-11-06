@@ -81,10 +81,12 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
 
     IEnumerator ProductionCoroutine()
     {
+        yield return new WaitForSeconds(2f);
+
         while (_producedCreatures.Count < _buildingProduction.GetCurrentUpgrade().ProductionLimit)
         {
-            yield return ProductionDelay();
             SpawnFriendlyCreature();
+            yield return ProductionDelay();
         }
         _productionCoroutine = null;
     }
