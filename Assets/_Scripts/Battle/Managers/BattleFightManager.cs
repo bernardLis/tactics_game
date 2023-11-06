@@ -21,6 +21,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
     public event Action OnFightStarted;
     public event Action OnFightEnded;
     public event Action OnWaveSpawned;
+    public event Action OnBossFightStarted;
     void Start()
     {
         _battleManager = BattleManager.Instance;
@@ -33,7 +34,20 @@ public class BattleFightManager : Singleton<BattleFightManager>
     public void InitializeFight(BattleTile tile)
     {
         _currentTile = tile;
+        if (_battleManager.IsBossFight())
+        {
+            StartCoroutine(BossFightCoroutine());
+            return;
+        }
         StartCoroutine(TileFightCoroutine());
+    }
+
+    IEnumerator BossFightCoroutine()
+    {
+        _battleTooltipManager.ShowGameInfo($"Boss fight!", 1.5f);
+        yield return Countdown(3);
+        IsFightActive = true;
+        OnBossFightStarted?.Invoke();
     }
 
     IEnumerator TileFightCoroutine()
@@ -62,15 +76,16 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     IEnumerator StartFight()
     {
+        _battleTooltipManager.ShowGameInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
+        yield return new WaitForSeconds(1.5f);
+
         IsFightActive = true;
         OnFightStarted?.Invoke();
 
         yield return Countdown(1); // HERE: testing 3
 
-
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {
-            _battleTooltipManager.ShowGameInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
             StartCoroutine(SpawnOpponentGroup(wave));
             OnWaveSpawned?.Invoke();
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);

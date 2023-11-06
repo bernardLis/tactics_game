@@ -82,7 +82,7 @@ public class BattleInfoManager : MonoBehaviour
 
     void UpdateTilesUntilBossLabel()
     {
-        _tilesUntilBossLabel.text = $"{_battleAreaManager.PurchasedTiles.Count} / {_gameManager.TilesUntilBoss}";
+        _tilesUntilBossLabel.text = $"{_battleAreaManager.PurchasedTiles.Count} / {_battleManager.CurrentBattle.TilesUntilBoss}";
     }
 
     void AddSpiceElement()

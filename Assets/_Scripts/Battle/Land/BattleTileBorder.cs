@@ -31,6 +31,7 @@ public class BattleTileBorder : MonoBehaviour
         _battleFightManager = BattleFightManager.Instance;
         _battleFightManager.OnFightStarted += OnFightStarted;
         _battleFightManager.OnFightEnded += OnFightEnded;
+        _battleFightManager.OnBossFightStarted += OnBossFightStarted;
 
         _borderColorChanger = GetComponentInChildren<BattleTileBorderColorChanger>();
 
@@ -51,6 +52,16 @@ public class BattleTileBorder : MonoBehaviour
             _borderColorChanger.ChangeColor(defaultColor);
     }
 
+    void OnBossFightStarted()
+    {
+        float y = transform.localScale.y * 1.5f;
+        transform.DOScaleY(y, 0.5f)
+            .SetEase(Ease.InOutSine);
+
+        if (_borderColorChanger != null)
+            _borderColorChanger.ChangeColor(Color.green);
+    }
+
     void OnDestroy()
     {
         Unsubscribe();
@@ -67,6 +78,7 @@ public class BattleTileBorder : MonoBehaviour
         {
             _battleFightManager.OnFightStarted -= OnFightStarted;
             _battleFightManager.OnFightEnded -= OnFightEnded;
+            _battleFightManager.OnBossFightStarted -= OnBossFightStarted;
         }
     }
 

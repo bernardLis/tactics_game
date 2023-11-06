@@ -101,8 +101,6 @@ public class BattleAreaManager : MonoBehaviour
 
     public void ReplaceTile(BattleTile tile, GameObject newTile)
     {
-        Debug.Log($"replacing tile {tile} with {newTile}");
-
         GameObject newTileObject = Instantiate(newTile, _floorHolder);
         newTileObject.transform.position = tile.transform.position;
         BattleTile newBattleTile = newTileObject.GetComponent<BattleTile>();

@@ -86,8 +86,6 @@ public class BattleHeroController : MonoBehaviour
 
     IEnumerator DelayedStart(float delay)
     {
-        Debug.Log($"DelayedStart");
-
         yield return new WaitForSeconds(delay);
         _disableUpdate = false;
     }

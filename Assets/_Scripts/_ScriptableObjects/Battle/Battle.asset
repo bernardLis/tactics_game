@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60bc889b7c519dc459a5fae488099d8f, type: 3}
+  m_Name: Battle
+  m_EditorClassIdentifier: 
+  Id: 9ba5a3d0-1bd9-47e4-be85-a50e55caa87e
+  Duration: 900
+  TilesUntilBoss: 2
+  CreatureSpeedMultiplier: 1
+  ElementalDamageMultiplier: 1
+  CreatureAbilityCooldown: 1
+  AbilityDamage: 1
+  AbilityScale: 1
+  AbilityCooldown: 1
+  BattleModifiers: []
+  Won: 0

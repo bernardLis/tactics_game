@@ -16,10 +16,11 @@ public class BattleManager : Singleton<BattleManager>
 
     BattleHeroManager _battleHeroManager;
     BattleIntroManager _battleIntroManager;
+    BattleAreaManager _battleAreaManager;
 
     [SerializeField] Sound _battleMusic;
 
-    public Battle LoadedBattle { get; private set; }
+    public Battle CurrentBattle { get; private set; }
 
     public VisualElement Root { get; private set; }
 
@@ -77,7 +78,10 @@ public class BattleManager : Singleton<BattleManager>
 
         _gameManager = GameManager.Instance;
         _gameManager.SaveJsonData();
-        LoadedBattle = _gameManager.CurrentBattle;
+        CurrentBattle = _gameManager.CurrentBattle;
+
+        _battleAreaManager = GetComponent<BattleAreaManager>();
+
         Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
         _timerLabel.style.display = DisplayStyle.Flex;
@@ -227,6 +231,11 @@ public class BattleManager : Singleton<BattleManager>
         if (team == 0) return OpponentEntities;
         //if (battleEntity.Team == 1) 
         return PlayerCreatures;
+    }
+
+    public bool IsBossFight()
+    {
+        return CurrentBattle.TilesUntilBoss == _battleAreaManager.PurchasedTiles.Count - 1;
     }
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }
