@@ -994,6 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eeaf1a1c34cf104f91be72e9b0b87d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bannerSetter: {fileID: 0}
   _poles:
   - {fileID: 610202263184405492}
   - {fileID: 610202263184405494}

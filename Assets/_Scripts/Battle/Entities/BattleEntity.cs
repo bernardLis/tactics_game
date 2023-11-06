@@ -456,9 +456,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public Color GetHighlightColor()
     {
         if (Team == 0)
-            return GameManager.PlayerTeamColor;
+            return Color.blue;
         if (Team == 1)
-            return GameManager.OpponentTeamColor;
+            return Color.red;
         return Color.yellow;
     }
 }

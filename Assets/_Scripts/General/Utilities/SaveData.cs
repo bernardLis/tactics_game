@@ -7,7 +7,6 @@ using UnityEngine;
 public class SaveData
 {
     // global data
-    public bool WasIntroCutscenePlayed;
     public int Seed;
 
     public int BattleNumber;

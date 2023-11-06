@@ -64,7 +64,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         _rangeDisc = _rangeIndicator.GetComponent<Disc>();
         _rangeDisc.Radius = Turret.AttackRange.GetValue();
 
-        Color c = GameManager.PlayerTeamColor;
+        Color c = Color.blue;
         c.a = 0.3f;
         _rangeDisc.Color = c;
     }

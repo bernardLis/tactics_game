@@ -51,7 +51,6 @@ public class BattleLostScreen : BattleFinishedScreen
 
     void AdvantageButton()
     {
-        _gameManager.GoldAdvantage++;
         QuitButton();
     }
 

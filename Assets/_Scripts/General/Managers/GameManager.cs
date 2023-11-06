@@ -1,11 +1,7 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 using UnityEngine.UIElements;
-using System.Collections;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 
@@ -21,23 +17,14 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     SaveData _originalSaveData;
 
-    // settings
-    public bool HideMenuEffects { get; private set; }
-    public void SetHideMenuEffects(bool hide) { HideMenuEffects = hide; }
-
     // global data
-    public bool WasIntroCutscenePlayed;
     public int Seed { get; private set; }
 
     public int BattleNumber;
-    public int GoldAdvantage;
 
     public int TotalGoldCollected { get; private set; }
     public int Gold { get; private set; }
     public int Spice { get; private set; }
-
-    public static Color PlayerTeamColor = Color.blue;
-    public static Color OpponentTeamColor = Color.red;
 
     public Hero PlayerHero;
 
@@ -113,23 +100,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         LoadScene(Scenes.Battle);
     }
 
-    public void ChangePlayerTeamColor(Color col)
-    {
-        PlayerTeamColor = col;
-    }
-
-    public void ChangeOpponentTeamColor(Color col)
-    {
-        OpponentTeamColor = col;
-    }
-
-
     /* RESOURCES */
     public void ChangeGoldValue(int o)
     {
-        if (o == 0)
-            return;
-
+        if (o == 0) return;
         if (o > 0) TotalGoldCollected += o;
 
         Gold += o;
@@ -138,8 +112,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void ChangeSpiceValue(int o)
     {
-        if (o == 0)
-            return;
+        if (o == 0) return;
 
         Spice += o;
         OnSpiceChanged?.Invoke(Spice);
@@ -162,10 +135,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     void CreateNewSaveFile()
     {
         Debug.Log($"Creating new save file...");
-        Seed = System.Environment.TickCount;
+        Seed = Environment.TickCount;
 
         BattleNumber = 0;
-        Gold = 10000 + GoldAdvantage * 1000;
+        Gold = 10000;
         Spice = 500;
 
         PlayerHero = null;
@@ -192,11 +165,9 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         //    Debug.Log("Save successful");
     }
 
-    // TODO: prime suspect for a rewrite
     public void PopulateSaveData(SaveData saveData)
     {
         // global data
-        saveData.WasIntroCutscenePlayed = WasIntroCutscenePlayed;
         saveData.Seed = Seed;
         saveData.BattleNumber = BattleNumber;
 
@@ -224,11 +195,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Debug.Log($"Loading from save data");
         _originalSaveData = saveData; // stored for later
 
-        // player prefs
-        SetHideMenuEffects(PlayerPrefs.GetInt("HideMenuEffects") != 0);
-
         // global data
-        WasIntroCutscenePlayed = saveData.WasIntroCutscenePlayed;
         Seed = saveData.Seed;
         BattleNumber = saveData.BattleNumber;
 
@@ -241,14 +208,10 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public void ClearSaveData()
     {
-        //PlayerPrefs.DeleteAll();
-
-        WasIntroCutscenePlayed = false;
-
-        Seed = System.Environment.TickCount;
+        Seed = Environment.TickCount;
         BattleNumber = 0;
 
-        Gold = GoldAdvantage * 1000;
+        Gold = 1000;
         Spice = 500;
 
         PlayerHero = null;

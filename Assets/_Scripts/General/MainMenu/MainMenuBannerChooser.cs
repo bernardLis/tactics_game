@@ -12,6 +12,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     const string _ussBannerChoiceContainer = _ussClassName + "banner-choice-container";
 
     GameManager _gameManager;
+    BannerSetter _bannerPrefabSetter;
 
     [SerializeField] List<GameObject> _poles;
     [SerializeField] List<GameObject> _flags;
@@ -32,8 +33,8 @@ public class MainMenuBannerChooser : MonoBehaviour
 
     void Start()
     {
-        // HERE: refactor banner code
         _gameManager = GameManager.Instance;
+        _bannerPrefabSetter = _gameManager.BannerPrefab.GetComponent<BannerSetter>();
 
         _root = MainMenu.Instance.Root;
         _bannerContainer = _root.Q<VisualElement>("bannerContainer");
@@ -75,8 +76,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     {
         _poles[_poleIndex].SetActive(false);
         _poleIndex--;
-        if (_poleIndex < 0)
-            _poleIndex = _poles.Count - 1;
+        if (_poleIndex < 0) _poleIndex = _poles.Count - 1;
         _poles[_poleIndex].SetActive(true);
         _poleName.text = _poles[_poleIndex].gameObject.name;
         UpdateBannerPrefab();
@@ -86,8 +86,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     {
         _poles[_poleIndex].SetActive(false);
         _poleIndex++;
-        if (_poleIndex >= _poles.Count)
-            _poleIndex = 0;
+        if (_poleIndex >= _poles.Count) _poleIndex = 0;
         _poles[_poleIndex].SetActive(true);
         _poleName.text = _poles[_poleIndex].gameObject.name;
         UpdateBannerPrefab();
@@ -116,8 +115,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     {
         _flags[_flagIndex].SetActive(false);
         _flagIndex--;
-        if (_flagIndex < 0)
-            _flagIndex = _flags.Count - 1;
+        if (_flagIndex < 0) _flagIndex = _flags.Count - 1;
 
         _flags[_flagIndex].SetActive(true);
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
@@ -129,8 +127,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     {
         _flags[_flagIndex].SetActive(false);
         _flagIndex++;
-        if (_flagIndex >= _flags.Count)
-            _flagIndex = 0;
+        if (_flagIndex >= _flags.Count) _flagIndex = 0;
 
         _flags[_flagIndex].SetActive(true);
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
@@ -160,8 +157,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     void PreviousColor()
     {
         _colorIndex--;
-        if (_colorIndex < 0)
-            _colorIndex = _colors.Count - 1;
+        if (_colorIndex < 0) _colorIndex = _colors.Count - 1;
 
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
         _colorName.text = _colors[_colorIndex].name;
@@ -171,8 +167,7 @@ public class MainMenuBannerChooser : MonoBehaviour
     void NextColor()
     {
         _colorIndex++;
-        if (_colorIndex >= _colors.Count)
-            _colorIndex = 0;
+        if (_colorIndex >= _colors.Count) _colorIndex = 0;
 
         _flags[_flagIndex].GetComponent<Renderer>().material = _colors[_colorIndex];
         _colorName.text = _colors[_colorIndex].name;
@@ -181,7 +176,7 @@ public class MainMenuBannerChooser : MonoBehaviour
 
     void UpdateBannerPrefab()
     {
-        _gameManager.BannerPrefab.GetComponent<BannerSetter>().SetBanner(_poleIndex, _flagIndex, _colorIndex);
+        _bannerPrefabSetter.SetBanner(_poleIndex, _flagIndex, _colorIndex);
     }
 }
 
