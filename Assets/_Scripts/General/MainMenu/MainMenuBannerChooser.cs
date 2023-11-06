@@ -32,6 +32,7 @@ public class MainMenuBannerChooser : MonoBehaviour
 
     void Start()
     {
+        // HERE: refactor banner code
         _gameManager = GameManager.Instance;
 
         _root = MainMenu.Instance.Root;
@@ -182,6 +183,5 @@ public class MainMenuBannerChooser : MonoBehaviour
     {
         _gameManager.BannerPrefab.GetComponent<BannerSetter>().SetBanner(_poleIndex, _flagIndex, _colorIndex);
     }
-
 }
 

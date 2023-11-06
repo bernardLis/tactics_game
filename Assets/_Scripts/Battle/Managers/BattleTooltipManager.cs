@@ -24,6 +24,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     VisualElement _currentTooltip;
     public GameObject CurrentTooltipDisplayer { get; private set; }
 
+    public BattleEntity CurrentEntityInfo { get; private set; }
+
     public event Action OnTooltipHidden;
     void Start()
     {
@@ -113,6 +115,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         if (entity.IsDead) return;
         _entityInfoContainer.Clear();
 
+        CurrentEntityInfo = entity;
         BattleEntityInfoElement info = new(entity);
         _entityInfoContainer.Add(info);
         _entityInfoContainer.style.display = DisplayStyle.Flex;

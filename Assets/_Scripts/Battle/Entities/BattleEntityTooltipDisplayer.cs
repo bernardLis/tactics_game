@@ -13,6 +13,7 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     {
         _battleEntity = GetComponent<BattleEntity>();
         _tooltipManager = BattleTooltipManager.Instance;
+        _battleEntity.OnDeath += OnDeath;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -33,6 +34,14 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     {
         if (!CanDisplayTooltip()) return;
         _tooltipManager.HideEntityInfo();
+    }
+
+    void OnDeath(BattleEntity a, EntityFight b)
+    {
+        if (_tooltipManager.CurrentEntityInfo == _battleEntity)
+            _tooltipManager.HideEntityInfo();
+
+        _battleEntity.OnDeath -= OnDeath;
     }
 
     bool CanDisplayTooltip()
