@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 2355028125079546113}
   - component: {fileID: -8569916266931860460}
   m_Layer: 9
-  m_Name: Tile Building Production
+  m_Name: Building Production
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

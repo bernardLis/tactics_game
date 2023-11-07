@@ -9,7 +9,6 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/ResourceBarStyles.uss?fileID=7433441132597879392&amp;guid=fd3c461a5e9409b40a91dec9c08cf28a&amp;type=3#ResourceBarStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#EntityIconStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss?fileID=7433441132597879392&amp;guid=1b4751c5a5ad48049928f5760ebc628b&amp;type=3#Battle" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/BattleModifierStyles.uss?fileID=7433441132597879392&amp;guid=c56f9f9d036fcad44b2603ccb497d2ec&amp;type=3#BattleModifierStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityCardStyles.uss?fileID=7433441132597879392&amp;guid=2c5d53665b9fb84498cbab8dbbbe1aa7&amp;type=3#EntityCardStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Entity/EntityCardFullStyles.uss?fileID=7433441132597879392&amp;guid=cea2238035ac76f46842572405990147&amp;type=3#EntityCardFullStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MenuStyles.uss?fileID=7433441132597879392&amp;guid=5e55454fed2ddfb4f90604f7fee33a32&amp;type=3#MenuStyles" />

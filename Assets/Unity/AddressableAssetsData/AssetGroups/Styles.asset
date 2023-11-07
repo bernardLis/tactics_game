@@ -117,11 +117,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c56f9f9d036fcad44b2603ccb497d2ec
-    m_Address: BattleModifierStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bc0f58d0e54039498a8e2f58e009d0e
     m_Address: StoreyUpgradeStyles
     m_ReadOnly: 0

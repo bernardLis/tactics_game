@@ -8,7 +8,6 @@ public class EnemyWave : BaseScriptableObject
     public Element Element;
 
     public List<Minion> Minions = new();
-    public List<Creature> Creatures = new();
 
     public void CreateWave(int minions, Vector2Int minionLevelRange)
     {

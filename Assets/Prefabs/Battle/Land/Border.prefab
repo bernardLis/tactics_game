@@ -9811,7 +9811,7 @@ GameObject:
   - component: {fileID: -4196962443657936273}
   - component: {fileID: 5580845708895852937}
   m_Layer: 6
-  m_Name: Tile Border
+  m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

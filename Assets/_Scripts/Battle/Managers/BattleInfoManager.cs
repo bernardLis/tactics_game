@@ -48,8 +48,6 @@ public class BattleInfoManager : MonoBehaviour
         HandleTilesUntilBoss();
         // HERE: spice
         // AddSpiceElement();
-
-        ResolveBattleModifiers();
     }
 
     void AddGoldElement()
@@ -104,13 +102,5 @@ public class BattleInfoManager : MonoBehaviour
         int change = newValue - _spiceElement.Amount;
         Helpers.DisplayTextOnElement(_root, _spiceElement, "" + change, Color.red);
         _spiceElement.ChangeAmount(newValue);
-    }
-
-    void ResolveBattleModifiers()
-    {
-        if (_gameManager.CurrentBattle.BattleModifiers == null) return;
-
-        foreach (BattleModifier b in _gameManager.CurrentBattle.BattleModifiers)
-            _infoPanel.Add(new BattleModifierElement(b, true));
     }
 }

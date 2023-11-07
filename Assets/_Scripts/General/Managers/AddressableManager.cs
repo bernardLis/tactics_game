@@ -48,7 +48,7 @@ public enum StyleSheetType
 
     BattleEntityInfoStyles,
     BattleRewardStyles,
-    RewardCardStyles, BattleModifierStyles,
+    RewardCardStyles,
 
     EntityIconStyles, EntityCardStyles, EntityCardFullStyles,
 

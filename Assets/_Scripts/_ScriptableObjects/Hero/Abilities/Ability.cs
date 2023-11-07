@@ -19,11 +19,6 @@ public class Ability : BaseScriptableObject
 
     public List<AbilityLevel> Levels;
 
-    // battle modifiers
-    float _battleDamageMultiplier = 1f;
-    float _battleCooldownMultiplier = 1f;
-    float _battleScaleMultiplier = 1f;
-
     public Element Element;
     [HideInInspector] public int KillCount;
 
@@ -35,10 +30,6 @@ public class Ability : BaseScriptableObject
     public void InitializeBattle()
     {
         Battle b = GameManager.Instance.CurrentBattle;
-
-        _battleDamageMultiplier = b.AbilityDamage;
-        _battleCooldownMultiplier = b.AbilityCooldown;
-        _battleScaleMultiplier = b.AbilityScale;
     }
 
     public void StartCooldown()
@@ -48,17 +39,17 @@ public class Ability : BaseScriptableObject
 
     public int GetPower()
     {
-        return Mathf.FloorToInt(Levels[Level].Power * _battleDamageMultiplier);
+        return Mathf.FloorToInt(Levels[Level].Power);
     }
 
     public int GetCooldown()
     {
-        return Mathf.FloorToInt(Levels[Level].Cooldown * _battleCooldownMultiplier);
+        return Mathf.FloorToInt(Levels[Level].Cooldown);
     }
 
     public float GetScale()
     {
-        return Levels[Level].Scale * _battleScaleMultiplier;
+        return Levels[Level].Scale;
     }
 
     public bool HasMoreUpgrades()

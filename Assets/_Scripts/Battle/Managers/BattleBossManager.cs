@@ -22,12 +22,9 @@ public class BattleBossManager : MonoBehaviour
     void HandleTilePurchased()
     {
         // next one is boss
-        Debug.Log($"tiles until boss {_battleManager.CurrentBattle.TilesUntilBoss}");
-        Debug.Log($"purchased count {_battleAreaManager.PurchasedTiles.Count}");
         if (_battleManager.CurrentBattle.TilesUntilBoss > _battleAreaManager.PurchasedTiles.Count) return;
         _battleAreaManager.OnTilePurchased -= HandleTilePurchased;
 
-        Debug.Log($" boss battle preparation");
         ReplaceTiles();
     }
 

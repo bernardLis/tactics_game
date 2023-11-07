@@ -7,11 +7,6 @@ using Random = UnityEngine.Random;
 
 public class GameDatabase : BaseScriptableObject
 {
-    [Header("Battle")]
-    [SerializeField] BattleModifier[] BattleModifiers;
-    public List<BattleModifier> GetAllBattleModifiers() { return new(BattleModifiers); }
-    public BattleModifier GetRandomBattleModifier() { return BattleModifiers[Random.Range(0, BattleModifiers.Length)]; }
-
     [Header("Buildings")]
     [SerializeField] BuildingProduction[] Buildings;
     public BuildingProduction GetBuildingByName(string name) { return Buildings.FirstOrDefault(b => b.name == name); }

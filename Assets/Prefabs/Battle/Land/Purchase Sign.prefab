@@ -4992,7 +4992,7 @@ GameObject:
   - component: {fileID: 147549143869815893}
   - component: {fileID: 3394570734201534556}
   m_Layer: 9
-  m_Name: Tile Purchase Sign
+  m_Name: Purchase Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
