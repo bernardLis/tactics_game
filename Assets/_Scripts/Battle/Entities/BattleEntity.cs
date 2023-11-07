@@ -19,7 +19,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected BattleGrabManager _grabManager;
 
     protected ObjectShaders _battleEntityShaders;
-    protected BattleEntityHighlight _battleEntityHighlight;
 
     public List<string> EntityLog = new();
 
@@ -79,7 +78,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         Animator = GetComponentInChildren<Animator>();
         _GFX = Animator.gameObject;
-        _battleEntityHighlight = GetComponent<BattleEntityHighlight>();
         _feelPlayer = GetComponent<MMF_Player>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.enabled = false;
@@ -108,7 +106,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _rigidbody = GetComponent<Rigidbody>();
         if (_rigidbody != null) _rigidbody.isKinematic = true;
 
-        if (_battleEntityHighlight != null) _battleEntityHighlight.Initialize(this);
         SetBattleId();
 
         EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized");
@@ -248,7 +245,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         Entity.CurrentHealth.ApplyChange(v);
 
         DisplayFloatingText("+" + v, Color.green);
-        _battleEntityHighlight.HealEffect();
     }
 
     public virtual IEnumerator GetHit(Ability ability)
@@ -436,29 +432,5 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         floatingText.ForceColor = true;
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
         _feelPlayer.PlayFeedbacks(transform.position);
-    }
-
-    public void TurnHighlightOn(Color c = default)
-    {
-        if (IsDead) return;
-        if (_battleEntityHighlight == null) return;
-        if (c == default) c = GetHighlightColor();
-
-        _battleEntityHighlight.Highlight(c);
-    }
-
-    public void TurnHighlightOff()
-    {
-        if (_battleEntityHighlight == null) return;
-        _battleEntityHighlight.ClearHighlight();
-    }
-
-    public Color GetHighlightColor()
-    {
-        if (Team == 0)
-            return Color.blue;
-        if (Team == 1)
-            return Color.red;
-        return Color.yellow;
     }
 }

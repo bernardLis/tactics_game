@@ -28,10 +28,7 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel = _root.Q<VisualElement>("infoPanel");
         _tilesUntilBossLabel = _root.Q<Label>("tilesUntilBoss");
 
-        if (BattleIntroManager.Instance != null)
-            BattleIntroManager.Instance.OnIntroFinished += ResolveInfoPanel;
-        else
-            _battleManager.OnBattleInitialized += ResolveInfoPanel;
+        _battleManager.OnBattleInitialized += ResolveInfoPanel;
     }
 
     void ResolveInfoPanel()

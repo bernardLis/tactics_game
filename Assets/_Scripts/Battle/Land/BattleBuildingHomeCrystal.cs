@@ -34,9 +34,13 @@ public class BattleBuildingHomeCrystal : BattleBuilding
 
         yield return new WaitForSeconds(1.5f);
         Vector3 scale = transform.localScale;
-        yield return transform.DOScale(scale * 2f, 0.2f).SetEase(Ease.OutCubic).WaitForCompletion();
+        yield return transform.DOScale(scale * 2f, 0.2f)
+                              .SetEase(Ease.OutCubic)
+                              .WaitForCompletion();
+        
         Destroy(Instantiate(_landingEffect, transform.position + Vector3.up * 3f, Quaternion.identity), 2f);
-        transform.DOScale(scale * 0.5f, 1f).SetEase(Ease.OutBounce);
+        transform.DOScale(scale * 0.5f, 1f)
+                 .SetEase(Ease.OutBounce);
 
         List<BattleEntity> enemies = new(_battleManager.GetOpponents(0));
         foreach (BattleEntity be in enemies)

@@ -15,7 +15,6 @@ public class BattleManager : Singleton<BattleManager>
     GameManager _gameManager;
 
     BattleHeroManager _battleHeroManager;
-    BattleIntroManager _battleIntroManager;
     BattleAreaManager _battleAreaManager;
 
     [SerializeField] Sound _battleMusic;
@@ -42,7 +41,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<BattleTurret> PlayerTurrets = new();
 
-    public List<BattlePickUp> Pickups = new();
+    public List<BattlePickup> Pickups = new();
 
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
@@ -107,10 +106,6 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         ResumeTimer();
-
-        _battleIntroManager = BattleIntroManager.Instance;
-        if (_battleIntroManager != null)
-            _battleIntroManager.OnIntroFinished += () => AudioManager.Instance.PlayMusic(_battleMusic);
 
         OnBattleInitialized?.Invoke();
     }
@@ -247,7 +242,7 @@ public class BattleManager : Singleton<BattleManager>
         OnPlayerTurretAdded?.Invoke(turret);
     }
 
-    public void AddPickup(BattlePickUp pickup)
+    public void AddPickup(BattlePickup pickup)
     {
         Pickups.Add(pickup);
         pickup.OnPickedUp += () => Pickups.Remove(pickup);

@@ -5,7 +5,7 @@ using DG.Tweening;
 using Shapes;
 using MoreMountains.Feedbacks;
 
-public class BattleExperienceOrb : BattlePickUp
+public class BattleExperienceOrb : BattlePickup
 {
 
 
@@ -13,7 +13,7 @@ public class BattleExperienceOrb : BattlePickUp
 
     ExperienceOrb _expOrb;
 
-    public override void Initialize(PickUp pickUp)
+    public override void Initialize(Pickup pickUp)
     {
         base.Initialize(pickUp);
 

@@ -7,7 +7,7 @@ public class BattleWolfPup : BattleCreatureMelee
 {
     [Header("Wolf Pup")]
     [SerializeField] Transform _pickupPosition;
-    BattlePickUp _currentPickup;
+    BattlePickup _currentPickup;
 
     [SerializeField] GameObject _effect;
     GameObject _effectInstance;
