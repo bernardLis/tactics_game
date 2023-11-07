@@ -194,6 +194,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
                         .SetEase(Ease.InOutSine)
                         .OnComplete(() =>
                         {
+                            if (_currentTooltip == null) return;
                             _currentTooltip.RemoveFromHierarchy();
                             _currentTooltip = null;
 

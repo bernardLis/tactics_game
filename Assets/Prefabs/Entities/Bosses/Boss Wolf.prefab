@@ -1367,6 +1367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Wolf
       objectReference: {fileID: 0}
+    - target: {fileID: 2098491213415467078, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_Mass
+      value: 999999
+      objectReference: {fileID: 0}
     - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 1.5
@@ -1374,6 +1378,10 @@ PrefabInstance:
     - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_BaseOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: avoidancePriority
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4748893319486061140, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_LocalPosition.z

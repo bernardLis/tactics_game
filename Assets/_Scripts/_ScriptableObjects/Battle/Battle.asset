@@ -14,12 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 9ba5a3d0-1bd9-47e4-be85-a50e55caa87e
   Duration: 900
-  TilesUntilBoss: 2
-  CreatureSpeedMultiplier: 1
-  ElementalDamageMultiplier: 1
-  CreatureAbilityCooldown: 1
-  AbilityDamage: 1
-  AbilityScale: 1
-  AbilityCooldown: 1
-  BattleModifiers: []
+  TilesUntilBoss: 9
   Won: 0

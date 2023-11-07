@@ -5,38 +5,33 @@ using UnityEngine.AI;
 
 public class BattleBoss : BattleEntity
 {
-
+    BattleAreaManager _battleAreaManager;
+    List<BattleTile> _pathToHomeTile = new();
     // on start get path to home tile
     // move from tile to tile on the path until home tile reached
-    NavMeshPath _path;
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
         base.InitializeBattle(ref opponents);
 
         Debug.Log($" initialize battle");
+        _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         // get path to home tile
-        StartCoroutine(GetPathToHomeTile());
+        _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
+                                 _battleAreaManager.GetTileFromPosition(transform.position),
+                                 _battleAreaManager.HomeTile);
 
-    }
 
-    IEnumerator GetPathToHomeTile()
-    {
-
-        _path = new();
-        _agent.enabled = true;
-        _agent.CalculatePath(new Vector3(7, 0, 11), _path);
-
-        while (_agent.pathPending) yield return null;
-
-        Debug.Log($"path calculated");
-        foreach (Vector3 corner in _path.corners)
+        for (int i = 0; i < _pathToHomeTile.Count; i++)
         {
-            Debug.Log($"corner: {corner}");
-            GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            g.transform.position = corner;
-        }
+            Debug.Log($"path to home tile {i}: {_pathToHomeTile[i].transform.position}");
+            Debug.DrawLine(_pathToHomeTile[i].transform.position, _pathToHomeTile[i].transform.position + Vector3.up * 10f, Color.red, 100f);
 
+            GameObject newGo = new GameObject();
+            newGo.transform.position = _pathToHomeTile[i].transform.position;
+            newGo.name = $"{i}";
+        }
     }
+
 
     public override void StopRunEntityCoroutine()
     {
@@ -44,12 +39,40 @@ public class BattleBoss : BattleEntity
 
     protected override IEnumerator RunEntity()
     {
-
-        yield return new WaitForSeconds(100f);
-
+        Debug.Log($"run entity");
+        _avoidancePriorityRange = new Vector2Int(0, 1);
+        // move from tile to tile on the path until home tile reached
+        for (int i = 0; i < _pathToHomeTile.Count; i++)
+        {
+            Debug.Log($"move to tile {i}");
+            yield return PathToPositionAndStop(_pathToHomeTile[i].transform.position);
+            yield return new WaitForSeconds(10f);
+        }
+        Debug.Log($"boss: end of path ");
     }
 
     public override void GetEngaged(BattleEntity engager)
     {
     }
+
+    public override void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
+    {
+        EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
+
+        if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
+        else _audioManager.PlaySFX("Hit", transform.position);
+
+        DisplayFloatingText(dmg.ToString(), color);
+
+        // OnDamageTaken?.Invoke(dmg);
+
+        int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
+        Entity.CurrentHealth.ApplyChange(-d);
+        if (Entity.CurrentHealth.Value <= 0)
+        {
+            TriggerDieCoroutine(attacker, true);
+            return;
+        }
+    }
+
 }

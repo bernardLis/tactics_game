@@ -101,10 +101,14 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
 
     IEnumerator DestroySelfCoroutine()
     {
-        _fire.Deactivate();
-        _tileIndicator.transform.DOKill();
         GetComponent<BoxCollider>().enabled = false;
-        yield return _tileIndicator.transform.DOScale(0, 0.5f).WaitForCompletion();
+
+        if (_fire != null) _fire.Deactivate();
+        if (_tileIndicator != null)
+        {
+            _tileIndicator.transform.DOKill();
+            yield return _tileIndicator.transform.DOScale(0, 0.5f).WaitForCompletion();
+        }
 
         _objectShaders.Dissolve(5f, false);
         Destroy(gameObject, 6f);

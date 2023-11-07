@@ -110,4 +110,47 @@ public class BattleAreaManager : MonoBehaviour
         newTileObject.SetActive(false);
         Destroy(tile.gameObject);
     }
+
+    public BattleTile GetTileFromPosition(Vector3 pos)
+    {
+        foreach (BattleTile tile in _tiles)
+        {
+            // tile pos is a middle of tile
+            // so we need to check if pos is inside tile
+            if (pos.x > tile.transform.position.x - tile.Scale * 0.5f &&
+                pos.x < tile.transform.position.x + tile.Scale * 0.5f &&
+                pos.z > tile.transform.position.z - tile.Scale * 0.5f &&
+                pos.z < tile.transform.position.z + tile.Scale * 0.5f)
+            {
+                return tile;
+            }
+        }
+        return null;
+    }
+
+    public List<BattleTile> GetTilePathFromTo(BattleTile fromTile, BattleTile toTile)
+    {
+        List<BattleTile> path = new();
+        path.Add(fromTile);
+        BattleTile currentTile = fromTile;
+        while (currentTile != toTile)
+        {
+            List<BattleTile> adjacentTiles = GetAdjacentTiles(currentTile);
+            foreach (BattleTile tile in adjacentTiles)
+            {
+                if (!tile.gameObject.activeSelf) continue;
+                if (path.Contains(tile)) continue;
+
+                if (tile == toTile)
+                {
+                    path.Add(tile);
+                    return path;
+                }
+
+                path.Add(tile);
+                currentTile = tile;
+            }
+        }
+        return new();
+    }
 }
