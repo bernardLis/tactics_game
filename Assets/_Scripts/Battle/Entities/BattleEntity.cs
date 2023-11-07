@@ -209,7 +209,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _agent.enabled = false;
     }
 
-    public virtual void Engage(BattleEntity engager)
+    public virtual void GetEngaged(BattleEntity engager)
     {
         if (_isEngaged) return;
         _isEngaged = true;

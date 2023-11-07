@@ -159,7 +159,7 @@ public class BattleCreature : BattleEntity
         yield return PathToTarget(Opponent.transform);
     }
 
-    public override void Engage(BattleEntity engager)
+    public override void GetEngaged(BattleEntity engager)
     {
         if (_isEngaged) return;
         _isEngaged = true;

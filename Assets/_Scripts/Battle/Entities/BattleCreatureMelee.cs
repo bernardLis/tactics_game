@@ -9,7 +9,7 @@ public class BattleCreatureMelee : BattleCreature
     protected override IEnumerator PathToOpponent()
     {
         yield return base.PathToOpponent();
-        Opponent.Engage(this); // otherwise, creature can't catch up
+        Opponent.GetEngaged(this); // otherwise, creature can't catch up
     }
 
     protected override IEnumerator Attack()

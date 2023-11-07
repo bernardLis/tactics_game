@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bannerSpawnPoint: {fileID: 2150098666346165610}
   _bossSpawnPoint: {fileID: 7181207626517645498}
-  _bossOriginal: {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
+  _bossOriginal: {fileID: 11400000, guid: 1a26836a33edbc04e85a1b1fcb6528ce, type: 2}
   _battleEntitySpawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
 --- !u!1001 &8166121333181314891
 PrefabInstance:

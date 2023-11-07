@@ -30,7 +30,7 @@ public class BattleMetalon : BattleCreatureMelee
                 if (entity.IsDead) continue;
 
                 entity.DisplayFloatingText("Taunted", Color.red);
-                entity.Engage(this);
+                entity.GetEngaged(this);
             }
         }
     }

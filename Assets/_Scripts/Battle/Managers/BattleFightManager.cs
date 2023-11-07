@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class BattleFightManager : Singleton<BattleFightManager>
 {
+    [SerializeField] bool _noFights; // HERE: testing
+
     BattleManager _battleManager;
     BattleTooltipManager _battleTooltipManager;
 
@@ -45,13 +47,23 @@ public class BattleFightManager : Singleton<BattleFightManager>
     IEnumerator BossFightCoroutine()
     {
         _battleTooltipManager.ShowGameInfo($"Boss fight!", 1.5f);
-        yield return Countdown(3);
+        yield return new WaitForSeconds(1.5f);
+
         IsFightActive = true;
         OnBossFightStarted?.Invoke();
     }
 
     IEnumerator TileFightCoroutine()
     {
+        // HERE: testing
+        if (_noFights)
+        {
+            yield return new WaitForSeconds(1f);
+            OnFightEnded?.Invoke();
+            yield break;
+        }
+
+
         CreateFight();
         yield return StartFight();
         CurrentDifficulty++;
@@ -81,8 +93,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         IsFightActive = true;
         OnFightStarted?.Invoke();
-
-        yield return Countdown(1); // HERE: testing 3
 
         foreach (EnemyWave wave in _currentFight.EnemyWaves)
         {

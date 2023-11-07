@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc83541a3da00154cb0714f819380f71, type: 3}
+  m_Name: Big Bad Wolf
+  m_EditorClassIdentifier: 
+  Id: c42058d2-2ddc-4d8d-93cc-65acf7cc191f
+  EntityName: Boss Wolf
+  Icon: {fileID: 0}
+  IconAnimation: []
+  Price: 0
+  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  Prefab: {fileID: 5828399577187593241, guid: 18e65eb625ce8f648ac60398b056e9c7, type: 3}
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Team: 0
+  MaxHealth: {fileID: 11400000, guid: 31e0be916f3c44f409915cac4a02946d, type: 2}
+  CurrentHealth: {fileID: 0}
+  Armor: {fileID: 11400000, guid: 3e6fc92176971cb4181541543c52ce0e, type: 2}
+  Level: {fileID: 11400000, guid: 0e962bfed5762b64e89e0ae1644c86a4, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  ExpOrbs: []
+  Speed: {fileID: 11400000, guid: 62b1b9dbd3a71b2459debf42d53569d8, type: 2}

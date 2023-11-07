@@ -82,7 +82,7 @@ public class BattleHero : BattleEntity
         _battleAbilities.Remove(ability);
     }
 
-    public override void Engage(BattleEntity engager) { }
+    public override void GetEngaged(BattleEntity engager) { }
 
     public void GetHit(BattleEntity entity)
     {

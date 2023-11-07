@@ -6,10 +6,10 @@ using DG.Tweening;
 public class BattleBuildingBoss : BattleBuilding
 {
     [SerializeField] Transform _bossSpawnPoint;
-    [SerializeField] Creature _bossOriginal;
+    [SerializeField] Boss _bossOriginal;
     [SerializeField] BattleEntitySpawner _battleEntitySpawnerPrefab;
 
-    BattleCreature _boss;
+    BattleBoss _boss;
 
     public override void Initialize(Building building)
     {
@@ -17,17 +17,21 @@ public class BattleBuildingBoss : BattleBuilding
         _battleFightManager.OnBossFightStarted += OnBossFightStarted;
     }
 
+    protected override void ShowBuilding()
+    {
+        // TODO: could pillars falling one by one
+    }
+
     void OnBossFightStarted()
     {
         BattleEntitySpawner spawner = Instantiate(_battleEntitySpawnerPrefab,
                                                     _bossSpawnPoint.position,
                                                     Quaternion.identity);
-        Creature boss = Instantiate(_bossOriginal);
+        Boss boss = Instantiate(_bossOriginal);
         spawner.SpawnEntities(new List<Entity> { boss }, team: 1);
         spawner.OnSpawnComplete += list =>
         {
-            _boss = list[0] as BattleCreature;
-            _boss.transform.DOScale(3, 1f).SetEase(Ease.OutBack);
+            _boss = list[0] as BattleBoss;
             _battleManager.AddOpponentArmyEntity(_boss);
         };
     }
