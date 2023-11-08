@@ -46,6 +46,13 @@ public class BattleBoss : BattleEntity
         // move from tile to tile on the path until home tile reached
         for (int i = 0; i < _pathToHomeTile.Count; i++)
         {
+            // first tile is where boss is spawned
+            if (i == 0)
+            {
+                yield return new WaitForSeconds(2f);
+                continue;
+            }
+
             Debug.Log($"move to tile {i}");
             yield return PathToPositionAndStop(_pathToHomeTile[i].transform.position);
             yield return new WaitForSeconds(10f);

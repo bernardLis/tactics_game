@@ -75,13 +75,40 @@ public class BattleHeroController : MonoBehaviour
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
 
+        _battleFightManager = BattleFightManager.Instance;
+
         _animator = GetComponentInChildren<Animator>();
+
+
         _controller = GetComponent<CharacterController>();
 
         _cinemachineTargetPitch = _defaultCameraRotation.x;
         _cinemachineTargetYaw = _defaultCameraRotation.y;
 
+        _battleFightManager.OnFightEnded += TileSecuredAnimation;
+        GetComponent<BattleInteractor>().OnInteract += InteractionAnimation;
+
         AssignAnimationIDs();
+    }
+
+    // TODO: this is wrong. It should somehow work without this code, but I don't know which button to click in Unity. 
+    void InteractionAnimation()
+    {
+        _animator.SetLayerWeight(1, 1);
+        _animator.SetTrigger("Interaction");
+        Invoke(nameof(ResetArmsLayerWeight), 2f);
+    }
+
+    void TileSecuredAnimation()
+    {
+        _animator.SetLayerWeight(1, 1);
+        _animator.SetTrigger("TileSecured");
+        Invoke(nameof(ResetArmsLayerWeight), 4.5f);
+    }
+
+    void ResetArmsLayerWeight()
+    {
+        _animator.SetLayerWeight(1, 0);
     }
 
     IEnumerator DelayedStart(float delay)
