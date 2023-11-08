@@ -128,29 +128,108 @@ public class BattleAreaManager : MonoBehaviour
         return null;
     }
 
-    public List<BattleTile> GetTilePathFromTo(BattleTile fromTile, BattleTile toTile)
+    /* ASTAR */
+    struct AStarTile
     {
-        List<BattleTile> path = new();
-        path.Add(fromTile);
-        BattleTile currentTile = fromTile;
-        while (currentTile != toTile)
+        public AStarTile(BattleTile tile, float g, float h,
+                         BattleTile parent = null, List<BattleTile> children = null)
         {
-            List<BattleTile> adjacentTiles = GetAdjacentTiles(currentTile);
+            Tile = tile;
+
+            G = g;
+            H = h;
+            F = G + H;
+
+            Children = children;
+            Parent = parent;
+        }
+
+        public BattleTile Tile;
+
+        public float F; //F = G + H
+        public float G; // G is the distance between the current node and the start node.
+        public float H; //H is the heuristic — estimated distance from the current node to the end node.
+
+        public BattleTile Parent;
+        public List<BattleTile> Children;
+    }
+
+    //https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
+    public List<BattleTile> GetTilePathFromTo(BattleTile startTile, BattleTile endTile)
+    {
+        // simplistic A* implementation
+        List<AStarTile> openList = new();
+        List<AStarTile> closedList = new();
+        // float startH = Vector3.Distance(fromTile.transform.position, toTile.transform.position);
+        openList.Add(new AStarTile(startTile, 0, 0));
+
+        while (openList.Count > 0)
+        {
+            // let the currentNode equal the node with the least f value
+            AStarTile currentAStarTile = openList[0];
+            foreach (AStarTile tile in openList)
+            {
+                if (tile.F < currentAStarTile.F)
+                    currentAStarTile = tile;
+            }
+            // remove the currentNode from the openList
+            // add the currentNode to the closedList
+            openList.Remove(currentAStarTile);
+            closedList.Add(currentAStarTile);
+
+            // if currentNode is the goal
+            if (currentAStarTile.Tile == endTile)
+            {
+                // Congratz! You've found the end! Backtrack to get path
+                List<BattleTile> path = new();
+                path.Add(currentAStarTile.Tile);
+                while (currentAStarTile.Tile != startTile)
+                {
+                    foreach (AStarTile tile in closedList)
+                    {
+                        if (tile.Tile == currentAStarTile.Parent)
+                        {
+                            path.Add(tile.Tile);
+                            currentAStarTile = tile;
+                            break;
+                        }
+                    }
+                }
+                path.Reverse();
+                return path;
+            }
+
+            // Generate children let the children of the currentNode equal the adjacent nodes
+            List<BattleTile> adjacentTiles = GetAdjacentTiles(currentAStarTile.Tile);
+
             foreach (BattleTile tile in adjacentTiles)
             {
+                // if child is in the closedList continue
                 if (!tile.gameObject.activeSelf) continue;
-                if (path.Contains(tile)) continue;
+                if (closedList.Exists(t => t.Tile == tile)) continue;
 
-                if (tile == toTile)
+                // Create the f, g, and h values
+                float g = currentAStarTile.G + 1;
+                float h = Vector3.Distance(tile.transform.position, endTile.transform.position);
+
+                AStarTile child = new(tile, g, h, currentAStarTile.Tile);
+
+                // Child is already in openList
+                if (openList.Exists(t => t.Tile == tile))
                 {
-                    path.Add(tile);
-                    return path;
-                }
+                    // if child.position is in the openList's nodes positions
+                    AStarTile openTile = openList.Find(t => t.Tile == tile);
+                    // if the child.g is higher than the openList node's g
+                    // continue to beginning of for loop
 
-                path.Add(tile);
-                currentTile = tile;
+                    if (g > openTile.G) continue;
+                }
+                // Add the child to the openList
+                // add the child to the openList
+                openList.Add(child);
             }
         }
+        Debug.LogError($"Did not find the path from {startTile} to {endTile}");
         return new();
     }
 }
