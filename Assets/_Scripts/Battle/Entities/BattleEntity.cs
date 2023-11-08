@@ -80,7 +80,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _GFX = Animator.gameObject;
         _feelPlayer = GetComponent<MMF_Player>();
         _agent = GetComponent<NavMeshAgent>();
-        _agent.enabled = false;
+        // _agent.enabled = false; // HERE: testing
 
         if (_audioManager == null) _audioManager = AudioManager.Instance;
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);

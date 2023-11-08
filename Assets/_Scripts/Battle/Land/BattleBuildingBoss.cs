@@ -24,9 +24,18 @@ public class BattleBuildingBoss : BattleBuilding
 
     void OnBossFightStarted()
     {
+        StartCoroutine(SpawnBossCoroutine());
+    }
+
+    IEnumerator SpawnBossCoroutine()
+    {
         BattleEntitySpawner spawner = Instantiate(_battleEntitySpawnerPrefab,
                                                     _bossSpawnPoint.position,
                                                     Quaternion.identity);
+        spawner.transform.LookAt(_battleManager.BattleHero.transform.position);
+        spawner.ShowPortal(null, Vector3.one * 5f);
+        yield return new WaitForSeconds(1.5f);    
+
         Boss boss = Instantiate(_bossOriginal);
         spawner.SpawnEntities(new List<Entity> { boss }, team: 1);
         spawner.OnSpawnComplete += list =>

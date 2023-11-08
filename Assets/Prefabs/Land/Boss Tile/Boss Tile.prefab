@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7181207626517645498, guid: eaec73f4c1dd2c04e8e30600297a21b7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8003487195852117377, guid: eaec73f4c1dd2c04e8e30600297a21b7, type: 3}
       propertyPath: m_Name
       value: Tile Building Boss

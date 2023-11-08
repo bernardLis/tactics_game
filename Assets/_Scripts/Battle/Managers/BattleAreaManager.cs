@@ -157,30 +157,24 @@ public class BattleAreaManager : MonoBehaviour
     //https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
     public List<BattleTile> GetTilePathFromTo(BattleTile startTile, BattleTile endTile)
     {
-        // simplistic A* implementation
         List<AStarTile> openList = new();
         List<AStarTile> closedList = new();
-        // float startH = Vector3.Distance(fromTile.transform.position, toTile.transform.position);
         openList.Add(new AStarTile(startTile, 0, 0));
 
         while (openList.Count > 0)
         {
-            // let the currentNode equal the node with the least f value
             AStarTile currentAStarTile = openList[0];
             foreach (AStarTile tile in openList)
             {
                 if (tile.F < currentAStarTile.F)
                     currentAStarTile = tile;
             }
-            // remove the currentNode from the openList
-            // add the currentNode to the closedList
+
             openList.Remove(currentAStarTile);
             closedList.Add(currentAStarTile);
 
-            // if currentNode is the goal
             if (currentAStarTile.Tile == endTile)
             {
-                // Congratz! You've found the end! Backtrack to get path
                 List<BattleTile> path = new();
                 path.Add(currentAStarTile.Tile);
                 while (currentAStarTile.Tile != startTile)
@@ -199,33 +193,22 @@ public class BattleAreaManager : MonoBehaviour
                 return path;
             }
 
-            // Generate children let the children of the currentNode equal the adjacent nodes
             List<BattleTile> adjacentTiles = GetAdjacentTiles(currentAStarTile.Tile);
-
             foreach (BattleTile tile in adjacentTiles)
             {
-                // if child is in the closedList continue
                 if (!tile.gameObject.activeSelf) continue;
                 if (closedList.Exists(t => t.Tile == tile)) continue;
 
-                // Create the f, g, and h values
                 float g = currentAStarTile.G + 1;
                 float h = Vector3.Distance(tile.transform.position, endTile.transform.position);
 
                 AStarTile child = new(tile, g, h, currentAStarTile.Tile);
 
-                // Child is already in openList
                 if (openList.Exists(t => t.Tile == tile))
                 {
-                    // if child.position is in the openList's nodes positions
                     AStarTile openTile = openList.Find(t => t.Tile == tile);
-                    // if the child.g is higher than the openList node's g
-                    // continue to beginning of for loop
-
                     if (g > openTile.G) continue;
                 }
-                // Add the child to the openList
-                // add the child to the openList
                 openList.Add(child);
             }
         }

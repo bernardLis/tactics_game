@@ -13,7 +13,6 @@ public class BattleBoss : BattleEntity
     {
         base.InitializeBattle(ref opponents);
 
-        Debug.Log($" initialize battle");
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         // get path to home tile
         _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
@@ -30,12 +29,15 @@ public class BattleBoss : BattleEntity
             newGo.transform.position = _pathToHomeTile[i].transform.position;
             newGo.name = $"{i}";
         }
+
+        StartRunEntityCoroutine();
     }
 
 
-    public override void StopRunEntityCoroutine()
-    {
-    }
+    // public override void StopRunEntityCoroutine()
+    // {
+    //     // override to do nothing
+    // }
 
     protected override IEnumerator RunEntity()
     {
@@ -53,6 +55,7 @@ public class BattleBoss : BattleEntity
 
     public override void GetEngaged(BattleEntity engager)
     {
+        // boss is never engaged
     }
 
     public override void BaseGetHit(int dmg, Color color, EntityFight attacker = null)

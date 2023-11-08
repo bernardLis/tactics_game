@@ -19,6 +19,8 @@ public class BattleEntitySpawner : MonoBehaviour
     [SerializeField] List<PortalElement> _portalElements = new();
     [SerializeField] GameObject _blackPortal;
 
+    GameObject _portal;
+
     float _delay;
     bool _portalShown;
     AudioSource _portalHumSource;
@@ -38,15 +40,15 @@ public class BattleEntitySpawner : MonoBehaviour
 
         _audioManager.PlaySFX(_portalOpenSound, transform.position);
         _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
-        GameObject portal = _blackPortal;
+        _portal = _blackPortal;
         if (element != null)
-            portal = _portalElements.Find(x => x.ElementName == element.ElementName).Portal;
+            _portal = _portalElements.Find(x => x.ElementName == element.ElementName).Portal;
 
         if (scale == default) scale = Vector3.one * 3f;
 
-        portal.transform.localScale = Vector3.zero;
-        portal.SetActive(true);
-        portal.transform.DOScale(scale, 0.5f).SetEase(Ease.OutBack);
+        _portal.transform.localScale = Vector3.zero;
+        _portal.SetActive(true);
+        _portal.transform.DOScale(scale, 0.5f).SetEase(Ease.OutBack);
     }
 
     public void SpawnEntities(List<Entity> entities, Element portalElement = null,
@@ -84,10 +86,10 @@ public class BattleEntitySpawner : MonoBehaviour
         be.InitializeEntity(entity, team);
         SpawnedEntities.Add(be);
 
-        Vector3 jumpPos = transform.position + transform.forward * Random.Range(2, 5);
+        Vector3 jumpPos = transform.position + transform.forward * Random.Range(2, 5) * instance.transform.localScale.z;
         if (_entities.Count > 1)
             jumpPos += Vector3.left * Random.Range(-2, 2);
-        jumpPos.y = 1;
+        jumpPos.y = instance.transform.localScale.y;
 
         instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
     }
