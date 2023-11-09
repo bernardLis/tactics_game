@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2135406b30010c24e99edc455e0691cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
   _bannerSpawnPoint: {fileID: 6411826075950147447}
   _GFX: {fileID: 4343331021284166100}
   _landingEffect: {fileID: 889726265816205275, guid: 19617e6cf57f04147814655100e7eda0, type: 3}

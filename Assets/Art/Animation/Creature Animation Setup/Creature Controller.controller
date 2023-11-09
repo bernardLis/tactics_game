@@ -187,7 +187,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: My Locomotion Controller
+  m_Name: Creature Controller
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Move
@@ -299,7 +299,7 @@ AnimatorStateMachine:
     m_Position: {x: 120, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2245724846601286195}
-    m_Position: {x: 400, y: 390, z: 0}
+    m_Position: {x: 410, y: 450, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -6562031829806552613}

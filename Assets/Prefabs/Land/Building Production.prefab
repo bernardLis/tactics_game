@@ -340,6 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7700866b4da9fd418c503b1baf54aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
   _bannerSpawnPoint: {fileID: 2425980352982080583}
   _spawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
   _spawnPoint: {fileID: 2540495419375067314}

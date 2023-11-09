@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 
 public class BattleBoss : BattleEntity
@@ -9,9 +10,6 @@ public class BattleBoss : BattleEntity
     BattleAreaManager _battleAreaManager;
 
     [Header("Boss")]
-    [SerializeField] GameObject _buildingCorruptionEffectPrefab;
-    GameObject _buildingCorruptionEffect;
-
     [SerializeField] GameObject _corruptionBreakNodePrefab;
 
     List<BattleTile> _pathToHomeTile = new();
@@ -19,12 +17,14 @@ public class BattleBoss : BattleEntity
     BattleTile _currentTile;
     BattleBuilding _currentBuilding;
 
-    IEnumerator _corruptionCoroutine;
     bool _isCorrupting;
+    bool _isStunned;
     int _totalDamageToBreakCorruption = 1000;
     int _currentDamageToBreakCorruption;
+
     List<BattleCorruptionBreakNode> _corruptionBreakNodes = new();
 
+    public event Action OnCorruptionBroken;
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
@@ -39,12 +39,6 @@ public class BattleBoss : BattleEntity
         StartRunEntityCoroutine();
     }
 
-
-    // public override void StopRunEntityCoroutine()
-    // {
-    //     // override to do nothing
-    // }
-
     protected override IEnumerator RunEntity()
     {
         Debug.Log($"run entity");
@@ -52,7 +46,7 @@ public class BattleBoss : BattleEntity
 
         for (int i = _nextTileIndex; i < _pathToHomeTile.Count; i++)
         {
-            // first tile is where boss is spawned
+            // first tile is where the boss is spawned
             if (i == 0)
             {
                 yield return new WaitForSeconds(2f);
@@ -64,35 +58,30 @@ public class BattleBoss : BattleEntity
 
             yield return PathToPositionAndStop(_currentBuilding.transform.position);
 
-            _corruptionCoroutine = BuildingCorruptionCoroutine();
-            yield return _corruptionCoroutine;
-
-            yield return new WaitForSeconds(5f);
+            StartBuildingCorruption();
+            yield return new WaitForSeconds(1f);
         }
-        Debug.Log($"boss: end of path ");
     }
 
-    IEnumerator BuildingCorruptionCoroutine()
+    /* CORRUPTION */
+
+    void StartBuildingCorruption()
     {
+        Animator.SetTrigger("Creature Ability");
+
+        StopRunEntityCoroutine();
         _isCorrupting = true;
         _currentDamageToBreakCorruption = _totalDamageToBreakCorruption;
 
-        yield return DisplayCorruptionEffect();
+        _currentBuilding.GetCorrupted(this);
+        _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
         CreateCorruptionBreakNodes();
+    }
 
-        for (int i = 0; i < 10; i++)
-        {
-            // HERE: display corruption progress bar
-
-            Debug.Log($"building corrupted in {10 - i} seconds");
-            yield return new WaitForSeconds(1);
-        }
-
-        yield return HideCorruptionEffect();
-        DestroyAllCorruptionBreakNodes();
-
-        _currentBuilding.Corrupted();
-        _isCorrupting = false;
+    void OnBuildingCorrupted()
+    {
+        CorruptionCleanup();
+        StartRunEntityCoroutine();
     }
 
     void CreateCorruptionBreakNodes()
@@ -100,8 +89,9 @@ public class BattleBoss : BattleEntity
         _corruptionBreakNodes = new();
         for (int i = 0; i < 3; i++)
         {
-            // place nodes randomly on the tile
-            BattleCorruptionBreakNode node = Instantiate(_corruptionBreakNodePrefab, transform.position, Quaternion.identity).GetComponent<BattleCorruptionBreakNode>();
+            BattleCorruptionBreakNode node = Instantiate(_corruptionBreakNodePrefab,
+                                            transform.position, Quaternion.identity)
+                                            .GetComponent<BattleCorruptionBreakNode>();
             node.Initialize(this, _currentTile.GetPositionRandom(0, 0));
             node.OnNodeBroken += OnCorruptionNodeBroken;
             _corruptionBreakNodes.Add(node);
@@ -123,36 +113,39 @@ public class BattleBoss : BattleEntity
             node.DestroySelf();
         }
         _corruptionBreakNodes = new();
-
     }
 
-    IEnumerator DisplayCorruptionEffect()
+    void HandleCorruptionBreak(int damage)
     {
-        Vector3 pos = _currentBuilding.transform.position;
-        pos.y = 0.02f;
-        _buildingCorruptionEffect = Instantiate(_buildingCorruptionEffectPrefab, pos, Quaternion.identity);
-        _buildingCorruptionEffect.transform.localScale = Vector3.zero;
-        float scale = _currentBuilding.transform.localScale.x;
-        yield return _buildingCorruptionEffect.transform.DOScale(scale, 0.5f)
-                                              .SetEase(Ease.OutBack)
-                                              .WaitForCompletion();
+        _currentDamageToBreakCorruption -= damage;
+        // HERE: show stun progress bar
 
-        _buildingCorruptionEffect.transform.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
-                                           .SetRelative(true)
-                                           .SetLoops(-1, LoopType.Incremental)
-                                           .SetEase(Ease.InOutSine);
+        if (_currentDamageToBreakCorruption > 0) return;
+
+        CorruptionCleanup();
+        OnCorruptionBroken?.Invoke();
+        StartCoroutine(StunCoroutine());
     }
 
-    IEnumerator HideCorruptionEffect()
+    void CorruptionCleanup()
     {
-        _buildingCorruptionEffect.transform.DOKill();
-        yield return _buildingCorruptionEffect.transform.DOScale(0, 1f)
-                                            .SetEase(Ease.InBack)
-                                            .OnComplete(() => Destroy(_buildingCorruptionEffect))
-                                            .WaitForCompletion();
+        _isCorrupting = false;
+        _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
+        DestroyAllCorruptionBreakNodes();
     }
 
+    IEnumerator StunCoroutine()
+    {
+        DisplayFloatingText("Stunned", Color.yellow);
+        // HERE: use stun progress bar to display stun duration
+        _isStunned = true;
+        StopRunEntityCoroutine();
+        yield return new WaitForSeconds(10f);
+        StartRunEntityCoroutine();
+        _isStunned = false;
+    }
 
+    /* GET HIT */
     public override void GetEngaged(BattleEntity engager)
     {
         // boss is never engaged
@@ -160,6 +153,8 @@ public class BattleBoss : BattleEntity
 
     public override void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
     {
+        if (_isStunned) dmg *= 2;
+
         EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
 
         if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
@@ -167,8 +162,6 @@ public class BattleBoss : BattleEntity
 
         if (_isCorrupting) color = Color.yellow; // signifying stun
         DisplayFloatingText(dmg.ToString(), color);
-
-        // OnDamageTaken?.Invoke(dmg);
 
         int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
         Entity.CurrentHealth.ApplyChange(-d);
@@ -180,50 +173,5 @@ public class BattleBoss : BattleEntity
 
         if (_isCorrupting) HandleCorruptionBreak(d);
     }
-
-    void HandleCorruptionBreak(int damage)
-    {
-        _currentDamageToBreakCorruption -= damage;
-        Debug.Log($"_dmgToBreakCorruption {_currentDamageToBreakCorruption}");
-        // HERE: show stun progress bar
-
-        if (_currentDamageToBreakCorruption > 0) return;
-
-        DestroyAllCorruptionBreakNodes();
-        BreakCorruptionCoroutine();
-        StartCoroutine(StunCoroutine());
-    }
-
-    void BreakCorruptionCoroutine()
-    {
-        if (_corruptionCoroutine == null) return;
-
-        Debug.Log($"breaking corruiption coroutine");
-        StopCoroutine(_corruptionCoroutine);
-        _corruptionCoroutine = null;
-
-        _buildingCorruptionEffect.transform.DOKill();
-        _buildingCorruptionEffect.transform.DOScale(0, 0.5f)
-                                           .SetEase(Ease.OutBack)
-                                           .OnComplete(() => Destroy(_buildingCorruptionEffect));
-
-        _isCorrupting = false;
-    }
-
-
-    IEnumerator StunCoroutine()
-    {
-        DisplayFloatingText("Stunned", Color.yellow);
-        // HERE: use stun progress bar to display stun duration
-
-        Debug.Log($"start of stun");
-        StopRunEntityCoroutine();
-        yield return new WaitForSeconds(10f);
-        StartRunEntityCoroutine();
-        Debug.Log($"end of stun");
-
-    }
-
-
 
 }

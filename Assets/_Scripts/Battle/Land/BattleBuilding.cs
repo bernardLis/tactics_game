@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
+using System;
 
 public class BattleBuilding : MonoBehaviour, IInteractable
 {
@@ -11,11 +12,17 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     protected BattleTooltipManager _tooltipManager;
     protected BattleFightManager _battleFightManager;
 
+    [SerializeField] GameObject _corruptionEffectPrefab;
+    GameObject _buildingCorruptionEffect;
+
     [SerializeField] Transform _bannerSpawnPoint;
     GameObject _banner;
 
     protected Building _building;
 
+    IEnumerator _corruptionCoroutine;
+
+    public event Action OnBuildingCorrupted;
     public virtual void Initialize(Building building)
     {
         _gameManager = GameManager.Instance;
@@ -55,13 +62,67 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     {
     }
 
+    public void GetCorrupted(BattleBoss boss)
+    {
+        boss.OnCorruptionBroken += BreakCorruption;
+        _corruptionCoroutine = CorruptionCoroutine();
+        StartCoroutine(_corruptionCoroutine);
+
+    }
+
+    IEnumerator CorruptionCoroutine()
+    {
+        yield return DisplayCorruptionEffect();
+        for (int i = 0; i < 10; i++)
+        {
+            // HERE: display corruption progress bar
+            Debug.Log($"building corrupted in {10 - i} seconds");
+            yield return new WaitForSeconds(1);
+        }
+        yield return HideCorruptionEffect();
+        Corrupted();
+    }
+
+    protected virtual void BreakCorruption()
+    {
+        StartCoroutine(HideCorruptionEffect());
+    }
+
+    IEnumerator DisplayCorruptionEffect()
+    {
+        Vector3 pos = transform.position;
+        pos.y = 0.02f;
+        _buildingCorruptionEffect = Instantiate(_corruptionEffectPrefab, pos, Quaternion.identity);
+        _buildingCorruptionEffect.transform.localScale = Vector3.zero;
+        float scale = transform.localScale.x;
+        yield return _buildingCorruptionEffect.transform.DOScale(scale, 0.5f)
+                                              .SetEase(Ease.OutBack)
+                                              .WaitForCompletion();
+
+        _buildingCorruptionEffect.transform.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
+                                           .SetRelative(true)
+                                           .SetLoops(-1, LoopType.Incremental)
+                                           .SetEase(Ease.InOutSine);
+    }
+
+    IEnumerator HideCorruptionEffect()
+    {
+        if (_buildingCorruptionEffect == null) yield break;
+        _buildingCorruptionEffect.transform.DOKill();
+        yield return _buildingCorruptionEffect.transform.DOScale(0, 1f)
+                                            .SetEase(Ease.InBack)
+                                            .OnComplete(() => Destroy(_buildingCorruptionEffect))
+                                            .WaitForCompletion();
+    }
+
+
     public virtual void Corrupted()
     {
         _banner.transform.DOScale(0, 1.5f)
                  .SetEase(Ease.InBack)
                  .OnComplete(() => Destroy(_banner));
         _building.Corrupted();
-
+        OnBuildingCorrupted?.Invoke();
     }
 
     /* INTERACTION */

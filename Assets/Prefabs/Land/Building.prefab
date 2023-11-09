@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488d743d18f6da341a31c6a568bb256b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
   _bannerSpawnPoint: {fileID: 5512881027028205132}
 --- !u!1 &5707718105145834320
 GameObject:
