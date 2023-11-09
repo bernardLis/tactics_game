@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Big Bad Wolf
   m_EditorClassIdentifier: 
   Id: c42058d2-2ddc-4d8d-93cc-65acf7cc191f
-  EntityName: Boss Wolf
+  EntityName: Big Bad Wolf
   Icon: {fileID: 0}
   IconAnimation: []
   Price: 0

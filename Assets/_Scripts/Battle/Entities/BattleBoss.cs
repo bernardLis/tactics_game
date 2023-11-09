@@ -1,28 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using DG.Tweening;
+
 
 public class BattleBoss : BattleEntity
 {
     BattleAreaManager _battleAreaManager;
+
+    [Header("Boss")]
+    [SerializeField] GameObject _buildingCorruptionEffectPrefab;
+    GameObject _buildingCorruptionEffect;
+
     List<BattleTile> _pathToHomeTile = new();
-    // on start get path to home tile
-    // move from tile to tile on the path until home tile reached
+    BattleTile _currentTile;
+    BattleBuilding _currentBuilding;
+
+    IEnumerator _corruptionCoroutine;
+
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
         base.InitializeBattle(ref opponents);
 
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-        // get path to home tile
         _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
                                  _battleAreaManager.GetTileFromPosition(transform.position),
                                  _battleAreaManager.HomeTile);
 
 
+        // HERE: testing - boss
         for (int i = 0; i < _pathToHomeTile.Count; i++)
         {
-            Debug.Log($"path to home tile {i}: {_pathToHomeTile[i].transform.position}");
             Debug.DrawLine(_pathToHomeTile[i].transform.position, _pathToHomeTile[i].transform.position + Vector3.up * 10f, Color.red, 100f);
 
             GameObject newGo = new GameObject();
@@ -43,7 +51,7 @@ public class BattleBoss : BattleEntity
     {
         Debug.Log($"run entity");
         _avoidancePriorityRange = new Vector2Int(0, 1);
-        // move from tile to tile on the path until home tile reached
+
         for (int i = 0; i < _pathToHomeTile.Count; i++)
         {
             // first tile is where boss is spawned
@@ -52,12 +60,46 @@ public class BattleBoss : BattleEntity
                 yield return new WaitForSeconds(2f);
                 continue;
             }
+            _currentTile = _pathToHomeTile[i];
+            _currentBuilding = _currentTile.BattleBuilding;
 
-            Debug.Log($"move to tile {i}");
-            yield return PathToPositionAndStop(_pathToHomeTile[i].transform.position);
-            yield return new WaitForSeconds(10f);
+            yield return PathToPositionAndStop(_currentBuilding.transform.position);
+
+            _corruptionCoroutine = BuildingCorruptionCoroutine();
+            yield return _corruptionCoroutine;
+
+            yield return new WaitForSeconds(5f);
         }
         Debug.Log($"boss: end of path ");
+    }
+
+    IEnumerator BuildingCorruptionCoroutine()
+    {
+        Vector3 pos = _currentBuilding.transform.position;
+        pos.y = 0.02f;
+        _buildingCorruptionEffect = Instantiate(_buildingCorruptionEffectPrefab, pos, Quaternion.identity);
+        _buildingCorruptionEffect.transform.localScale = Vector3.zero;
+        float scale = _currentBuilding.transform.localScale.x;
+        yield return _buildingCorruptionEffect.transform.DOScale(scale, 0.5f)
+                                              .SetEase(Ease.OutBack);
+
+        _buildingCorruptionEffect.transform.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
+                                           .SetRelative(true)
+                                           .SetLoops(-1, LoopType.Incremental)
+                                           .SetEase(Ease.InOutSine);
+
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.Log($"building corrupted in {10 - i} seconds");
+            yield return new WaitForSeconds(1);
+        }
+
+        _buildingCorruptionEffect.transform.DOKill();
+        _buildingCorruptionEffect.transform.DOScale(0, 1f)
+                                           .SetEase(Ease.InBack)
+                                           .OnComplete(() => Destroy(_buildingCorruptionEffect));
+
+        _currentBuilding.Corrupted();
     }
 
     public override void GetEngaged(BattleEntity engager)

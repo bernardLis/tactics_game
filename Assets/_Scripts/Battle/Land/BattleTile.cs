@@ -30,7 +30,7 @@ public class BattleTile : MonoBehaviour
 
     public float Scale { get; private set; }
 
-    protected BattleBuilding _battleBuilding;
+    public BattleBuilding BattleBuilding { get; private set; }
 
     MinionSpawningPattern _minionSpawningPattern;
     bool _minionPositionExecuteOnce;
@@ -53,13 +53,13 @@ public class BattleTile : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
 
-        _battleBuilding = GetComponentInChildren<BattleBuilding>();
+        BattleBuilding = GetComponentInChildren<BattleBuilding>();
 
         if (_buildingOriginal != null)
         {
             Building b = Instantiate(_buildingOriginal);
             b.Initialize();
-            _battleBuilding.Initialize(b);
+            BattleBuilding.Initialize(b);
         }
 
         gameObject.SetActive(true);

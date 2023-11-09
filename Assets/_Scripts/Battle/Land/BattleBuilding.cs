@@ -55,6 +55,15 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     {
     }
 
+    public virtual void Corrupted()
+    {
+        _banner.transform.DOScale(0, 1.5f)
+                 .SetEase(Ease.InBack)
+                 .OnComplete(() => Destroy(_banner));
+        _building.Corrupted();
+
+    }
+
     /* INTERACTION */
     public bool CanInteract(BattleInteractor interactor)
     {
@@ -78,7 +87,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     public virtual bool Interact(BattleInteractor interactor)
     {
-
         return true;
     }
 

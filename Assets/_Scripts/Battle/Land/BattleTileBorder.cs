@@ -8,8 +8,9 @@ public class BattleTileBorder : MonoBehaviour
     BattleFightManager _battleFightManager;
 
     BattleTileBorderColorChanger _borderColorChanger;
-    Color defaultColor = new(0.4f, 1f, 0.6f, 0.2f);
-    Color fightColor = new(1f, 0.22f, 0f, 0.2f);
+    Color _defaultColor = new(0.4f, 1f, 0.6f, 0.2f);
+    Color _fightColor = new(1f, 0.22f, 0f, 0.2f);
+    Color _bossColor = new(0.54f, 0, 0.54f, 0.2f);
 
     bool _isGameBorder;
 
@@ -19,8 +20,8 @@ public class BattleTileBorder : MonoBehaviour
         if (_isGameBorder)
         {
             color = Color.magenta;
-            defaultColor = Color.magenta;
-            fightColor = Color.magenta;
+            _defaultColor = Color.magenta;
+            _fightColor = Color.magenta;
         }
 
         float y = transform.localScale.y;
@@ -36,20 +37,20 @@ public class BattleTileBorder : MonoBehaviour
         _borderColorChanger = GetComponentInChildren<BattleTileBorderColorChanger>();
 
         gameObject.SetActive(true);
-        if (color == default) color = defaultColor;
+        if (color == default) color = _defaultColor;
         _borderColorChanger.ChangeColor(color);
     }
 
     void OnFightStarted()
     {
         if (_borderColorChanger != null)
-            _borderColorChanger.ChangeColor(fightColor); // magic color
+            _borderColorChanger.ChangeColor(_fightColor); // magic color
     }
 
     void OnFightEnded()
     {
         if (_borderColorChanger != null)
-            _borderColorChanger.ChangeColor(defaultColor);
+            _borderColorChanger.ChangeColor(_defaultColor);
     }
 
     void OnBossFightStarted()
@@ -59,7 +60,7 @@ public class BattleTileBorder : MonoBehaviour
             .SetEase(Ease.InOutSine);
 
         if (_borderColorChanger != null)
-            _borderColorChanger.ChangeColor(Color.green);
+            _borderColorChanger.ChangeColor(_bossColor);
     }
 
     void OnDestroy()

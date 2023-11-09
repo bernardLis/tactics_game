@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.EventSystems;
 
 public class BattleBuildingProduction : BattleBuilding, IInteractable
 {
@@ -18,6 +17,8 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     BuildingProduction _buildingProduction;
 
     protected List<BattleCreature> _producedCreatures = new();
+
+    IEnumerator _corruptedProductionCoroutine;
 
     public override void Initialize(Building building)
     {
@@ -125,6 +126,47 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
             yield return new WaitForSeconds(1f);
         }
     }
+
+    /* CORRUPTION */
+    public override void Corrupted()
+    {
+        base.Corrupted();
+
+        if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
+
+        _corruptedProductionCoroutine = CorruptedProductionCoroutine();
+        StartCoroutine(_corruptedProductionCoroutine);
+    }
+
+    IEnumerator CorruptedProductionCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+
+        while (!_building.IsSecured)
+        {
+            SpawnHostileCreature();
+            yield return ProductionDelay();
+            yield return ProductionDelay(); // double delay
+        }
+    }
+
+    void SpawnHostileCreature()
+    {
+        BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
+                                _spawnPoint.position, transform.rotation);
+
+        Creature creature = Instantiate(_buildingProduction.GetCurrentUpgrade().ProducedCreature);
+        spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
+        spawner.OnSpawnComplete += (l) =>
+        {
+            // now I need to track the spawned wolf
+            BattleCreature bc = l[0] as BattleCreature;
+
+            _battleManager.AddOpponentArmyEntity(bc);
+            spawner.DestroySelf();
+        };
+    }
+
 
     /* INTERACTION */
     public override void DisplayTooltip()

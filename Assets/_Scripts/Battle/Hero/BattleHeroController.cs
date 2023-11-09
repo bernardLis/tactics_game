@@ -74,12 +74,9 @@ public class BattleHeroController : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
-
         _battleFightManager = BattleFightManager.Instance;
 
         _animator = GetComponentInChildren<Animator>();
-
-
         _controller = GetComponent<CharacterController>();
 
         _cinemachineTargetPitch = _defaultCameraRotation.x;
