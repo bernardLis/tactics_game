@@ -11,6 +11,7 @@ public class BattleBoss : BattleEntity
 
     [Header("Boss")]
     [SerializeField] GameObject _corruptionBreakNodePrefab;
+    [SerializeField] ProgressBarHandler _stunProgressBar;
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -72,6 +73,7 @@ public class BattleBoss : BattleEntity
 
         StopRunEntityCoroutine();
         _isCorrupting = true;
+        _stunProgressBar.ShowProgressBar();
         _currentDamageToBreakCorruption = _totalDamageToBreakCorruption;
 
         _currentBuilding.GetCorrupted(this);
@@ -121,6 +123,7 @@ public class BattleBoss : BattleEntity
     void HandleCorruptionBreak(int damage)
     {
         _currentDamageToBreakCorruption -= damage;
+        _stunProgressBar.SetProgress(1f - (float)_currentDamageToBreakCorruption / _totalDamageToBreakCorruption);
         // HERE: show stun progress bar
 
         if (_currentDamageToBreakCorruption > 0) return;
@@ -132,6 +135,7 @@ public class BattleBoss : BattleEntity
 
     void CorruptionCleanup()
     {
+        if (!_isStunned) _stunProgressBar.HideProgressBar();
         _isCorrupting = false;
         _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
         DestroyAllCorruptionBreakNodes();
@@ -141,9 +145,15 @@ public class BattleBoss : BattleEntity
     {
         DisplayFloatingText("Stunned", Color.yellow);
         // HERE: use stun progress bar to display stun duration
+
         _isStunned = true;
         StopRunEntityCoroutine();
-        yield return new WaitForSeconds(10f);
+        for (int i = 0; i < 10; i++)
+        {
+            _stunProgressBar.SetProgress((10 - i) * 0.1f);
+            yield return new WaitForSeconds(1f);
+        }
+        _stunProgressBar.HideProgressBar();
         StartRunEntityCoroutine();
         _isStunned = false;
     }

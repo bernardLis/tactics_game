@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanvasBillboard : MonoBehaviour
+public class Billboard : MonoBehaviour
 {
     Camera _cam;
     // Start is called before the first frame update
