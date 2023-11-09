@@ -7,8 +7,6 @@ using MoreMountains.Feedbacks;
 
 public class BattleExperienceOrb : BattlePickup
 {
-
-
     MMF_Player _feelPlayer;
 
     ExperienceOrb _expOrb;

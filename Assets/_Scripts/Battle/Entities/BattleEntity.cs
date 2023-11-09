@@ -431,6 +431,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         floatingText.Value = text;
         floatingText.ForceColor = true;
         floatingText.AnimateColorGradient = Helpers.GetGradient(color);
-        _feelPlayer.PlayFeedbacks(transform.position);
+        _feelPlayer.PlayFeedbacks(transform.position + transform.localScale.y * Vector3.up);
     }
 }

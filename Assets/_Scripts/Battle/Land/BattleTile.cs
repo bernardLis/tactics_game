@@ -294,7 +294,7 @@ public class BattleTile : MonoBehaviour
                 + Vector3.right * columnOffset * (currentIndex % minionsPerGroup);
     }
 
-    Vector3 GetPositionRandom(int currentIndex, int totalCount)
+    public Vector3 GetPositionRandom(int currentIndex, int totalCount)
     {
         float halfScale = Scale * 0.5f - 2;
 
