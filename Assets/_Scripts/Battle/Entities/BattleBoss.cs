@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
-
+using Random = UnityEngine.Random;
 
 public class BattleBoss : BattleEntity
 {
@@ -36,6 +36,7 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
 
         _nextTileIndex = 0;
+        _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
         StartRunEntityCoroutine();
     }
 
@@ -75,7 +76,7 @@ public class BattleBoss : BattleEntity
 
         _currentBuilding.GetCorrupted(this);
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
-        CreateCorruptionBreakNodes();
+        StartCoroutine(CreateCorruptionBreakNodes());
     }
 
     void OnBuildingCorrupted()
@@ -84,17 +85,19 @@ public class BattleBoss : BattleEntity
         StartRunEntityCoroutine();
     }
 
-    void CreateCorruptionBreakNodes()
+    IEnumerator CreateCorruptionBreakNodes()
     {
         _corruptionBreakNodes = new();
         for (int i = 0; i < 3; i++)
         {
+            if (!_isCorrupting) yield break;
             BattleCorruptionBreakNode node = Instantiate(_corruptionBreakNodePrefab,
                                             transform.position, Quaternion.identity)
                                             .GetComponent<BattleCorruptionBreakNode>();
             node.Initialize(this, _currentTile.GetPositionRandom(0, 0));
             node.OnNodeBroken += OnCorruptionNodeBroken;
             _corruptionBreakNodes.Add(node);
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
 

@@ -63,7 +63,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
             yield break;
         }
 
-
         CreateFight();
         yield return StartFight();
         CurrentDifficulty++;

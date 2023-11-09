@@ -26,6 +26,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public BattleEntity CurrentEntityInfo { get; private set; }
 
+    bool _isBossHealthBarShown;
+
     public event Action OnTooltipHidden;
     void Start()
     {
@@ -101,6 +103,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void HideKeyTooltipInfo()
     {
+
         DOTween.To(x => _keyTooltipContainer.style.opacity = x, 1, 0, 0.5f)
             .SetEase(Ease.InOutSine)
             .OnComplete(() =>
@@ -113,6 +116,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     public void ShowEntityInfo(BattleEntity entity)
     {
         if (entity.IsDead) return;
+        if (_isBossHealthBarShown) return;
+
         _entityInfoContainer.Clear();
 
         CurrentEntityInfo = entity;
@@ -123,8 +128,17 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void HideEntityInfo()
     {
+        if (_isBossHealthBarShown) return;
+
         _entityInfoContainer.style.display = DisplayStyle.None;
         _entityInfoContainer.Clear();
+    }
+
+    public void ShowBossHealthBar(BattleBoss boss)
+    {
+        HideEntityInfo();
+        ShowEntityInfo(boss);
+        _isBossHealthBarShown = true;
     }
 
     public void ShowGameInfo(string text, float duration)
