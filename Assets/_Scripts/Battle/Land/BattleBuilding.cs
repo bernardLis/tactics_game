@@ -20,6 +20,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     protected Building _building;
 
+    protected ProgressBarHandler _progressBarHandler;
+
     IEnumerator _corruptionCoroutine;
 
     public event Action OnBuildingCorrupted;
@@ -36,6 +38,10 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         ShowBuilding();
 
         transform.localPosition = pos;
+
+        _progressBarHandler = GetComponentInChildren<ProgressBarHandler>();
+        _progressBarHandler.Initialize();
+        _progressBarHandler.HideProgressBar();
     }
 
     protected virtual void ShowBuilding()
@@ -64,29 +70,34 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     {
     }
 
-    public void GetCorrupted(BattleBoss boss)
+    public virtual void GetCorrupted(BattleBoss boss)
     {
         boss.OnCorruptionBroken += BreakCorruption;
         _corruptionCoroutine = CorruptionCoroutine();
         StartCoroutine(_corruptionCoroutine);
-
     }
 
     IEnumerator CorruptionCoroutine()
     {
         yield return DisplayCorruptionEffect();
+        Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
+        _progressBarHandler.SetFillColor(c);
+        _progressBarHandler.SetProgress(0);
+        _progressBarHandler.ShowProgressBar();
+
         for (int i = 0; i < 10; i++)
         {
-            // HERE: display corruption progress bar
-            Debug.Log($"building corrupted in {10 - i} seconds");
+            _progressBarHandler.SetProgress((float)i / 10);
             yield return new WaitForSeconds(1);
         }
+
         yield return HideCorruptionEffect();
         Corrupted();
     }
 
     protected virtual void BreakCorruption()
     {
+        _progressBarHandler.HideProgressBar();
         StartCoroutine(HideCorruptionEffect());
     }
 

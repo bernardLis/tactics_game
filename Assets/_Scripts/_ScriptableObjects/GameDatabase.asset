@@ -13,17 +13,6 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  BattleModifiers:
-  - {fileID: 11400000, guid: 30c28449c30b7294fb559fbd59502a14, type: 2}
-  - {fileID: 11400000, guid: 26c8fb50d5b388c47a045ab7b9ebf324, type: 2}
-  - {fileID: 11400000, guid: 6f1eeb494920d484d8036e6ba5abacd4, type: 2}
-  - {fileID: 11400000, guid: dde8f0e30b2b25f4ab7eb71783749778, type: 2}
-  - {fileID: 11400000, guid: 292c1a174e0fddd4a9f43f64cc5ba621, type: 2}
-  - {fileID: 11400000, guid: b6b14f7e7f3c6964c819db1d1bb0c00e, type: 2}
-  - {fileID: 11400000, guid: 3e03f3fc898a81e43ba173446667b441, type: 2}
-  - {fileID: 11400000, guid: 21f729a9c9d523647b5b68ef9b321939, type: 2}
-  - {fileID: 11400000, guid: 7cd448c6dce89a94c8fbe97e92a7ff44, type: 2}
-  - {fileID: 11400000, guid: 1333b309038e6b44bb05312d358b9985, type: 2}
   Buildings:
   - {fileID: 11400000, guid: 72186956f81250a4e94865e577a8c087, type: 2}
   - {fileID: 11400000, guid: 3be0f690158b8fa47aaf3e12523280f2, type: 2}
@@ -39,6 +28,8 @@ MonoBehaviour:
   DissolveShader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4, type: 3}
   GrayScaleShader: {fileID: 4800000, guid: 4303e1617f4f86b42898e34475ec45ed, type: 3}
   SepiaToneShader: {fileID: 4800000, guid: b11af97c1da75e749879fd6f40c33449, type: 3}
+  KeepShadersMaterials:
+  - {fileID: -6465566751694194690, guid: 35a5889f855b33440b52b2a9b0e8b8ad, type: 3}
   RewardIcons:
   - Text: You are the bomb!
     Sprite: {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
@@ -70,6 +61,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48f19b64fecbd5246ae2877b798ae156, type: 2}
   - {fileID: 11400000, guid: 597281f48fbf00b409fa205b661c141e, type: 2}
   - {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
+  - {fileID: 11400000, guid: edac0f08ee9df8f44a0be73bea4c9721, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

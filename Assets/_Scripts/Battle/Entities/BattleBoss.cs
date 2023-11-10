@@ -11,7 +11,7 @@ public class BattleBoss : BattleEntity
 
     [Header("Boss")]
     [SerializeField] GameObject _corruptionBreakNodePrefab;
-    [SerializeField] ProgressBarHandler _stunProgressBar;
+    ProgressBarHandler _stunProgressBar;
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -30,6 +30,9 @@ public class BattleBoss : BattleEntity
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
         base.InitializeBattle(ref opponents);
+
+        _stunProgressBar = GetComponentInChildren<ProgressBarHandler>();
+        _stunProgressBar.Initialize();
 
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(

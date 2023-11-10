@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class BattleBuildingProduction : BattleBuilding, IInteractable
 {
@@ -11,6 +12,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     [SerializeField] protected SpriteRenderer[] _starRenderers;
     [SerializeField] protected Sprite _star;
 
+
     protected IEnumerator _productionCoroutine;
     float _currentProductionDelaySecond;
 
@@ -19,7 +21,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     protected List<BattleCreature> _producedCreatures = new();
 
     IEnumerator _corruptedProductionCoroutine;
-
     public override void Initialize(Vector3 pos, Building building)
     {
         base.Initialize(pos, building);
@@ -83,12 +84,18 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     IEnumerator ProductionCoroutine()
     {
         yield return new WaitForSeconds(2f);
+        Color c = _buildingProduction.GetCurrentUpgrade().ProducedCreature.Element.Color.Color;
+        _progressBarHandler.SetColors(c, c);
+        _progressBarHandler.SetProgress(0);
+        _progressBarHandler.ShowProgressBar();
 
         while (_producedCreatures.Count < _buildingProduction.GetCurrentUpgrade().ProductionLimit)
         {
             SpawnFriendlyCreature();
             yield return ProductionDelay();
         }
+
+        _progressBarHandler.HideProgressBar();
         _productionCoroutine = null;
     }
 
@@ -122,17 +129,24 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         _currentProductionDelaySecond = 0f;
         while (_currentProductionDelaySecond < totalDelay)
         {
-            _currentProductionDelaySecond += 1;
-            yield return new WaitForSeconds(1f);
+
+            _currentProductionDelaySecond += 0.5f;
+            _progressBarHandler.SetProgress(_currentProductionDelaySecond / totalDelay);
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
     /* CORRUPTION */
+    public override void GetCorrupted(BattleBoss boss)
+    {
+        base.GetCorrupted(boss);
+        if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
+    }
+
     public override void Corrupted()
     {
         base.Corrupted();
-
-        if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
 
         _corruptedProductionCoroutine = CorruptedProductionCoroutine();
         StartCoroutine(_corruptedProductionCoroutine);
@@ -142,12 +156,20 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         yield return new WaitForSeconds(2f);
 
+        Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
+        _progressBarHandler.SetColors(c, c);
+        _progressBarHandler.SetFillColor(Color.black);
+        _progressBarHandler.SetProgress(0);
+        _progressBarHandler.ShowProgressBar();
+
         while (!_building.IsSecured)
         {
             SpawnHostileCreature();
             yield return ProductionDelay();
             yield return ProductionDelay(); // double delay
         }
+
+        _progressBarHandler.HideProgressBar();
     }
 
     void SpawnHostileCreature()

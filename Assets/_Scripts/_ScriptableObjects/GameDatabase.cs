@@ -18,6 +18,8 @@ public class GameDatabase : BaseScriptableObject
     public Shader GrayScaleShader;
     public Shader SepiaToneShader;
 
+    public List<Shader> KeepShadersMaterials = new();
+
 
     [Header("General")]
     public RewardIcon[] RewardIcons;

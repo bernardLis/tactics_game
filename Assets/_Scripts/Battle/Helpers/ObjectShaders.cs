@@ -15,6 +15,7 @@ public class ObjectShaders : MonoBehaviour
     Shader _grayScaleShader;
     Shader _sepiaToneShader;
 
+
     void Start()
     {
         _gameManager = GameManager.Instance;
@@ -31,6 +32,9 @@ public class ObjectShaders : MonoBehaviour
         foreach (Renderer r in renderers)
         {
             Material mat = r.material;
+            
+            if (_gameManager == null) _gameManager = GameManager.Instance;
+            if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
 
             Texture2D tex = mat.mainTexture as Texture2D;
             mat.shader = _litShader;
@@ -55,6 +59,9 @@ public class ObjectShaders : MonoBehaviour
 
             Material mat = r.material;
 
+            if (_gameManager == null) _gameManager = GameManager.Instance;
+            if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
+
             Texture2D tex = mat.mainTexture as Texture2D;
             mat.shader = _grayScaleShader;
             mat.SetTexture("_Base_Texture", tex);
@@ -75,6 +82,9 @@ public class ObjectShaders : MonoBehaviour
             if (r is ParticleSystemRenderer) continue;
 
             Material mat = r.material;
+
+            if (_gameManager == null) _gameManager = GameManager.Instance;
+            if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
 
             Vector2 texScale = mat.mainTextureScale; // tiling
             Texture2D tex = mat.mainTexture as Texture2D;
