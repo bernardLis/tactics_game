@@ -8,7 +8,7 @@ public class BattleBossManager : MonoBehaviour
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
 
-    [SerializeField] GameObject bossTile;
+    [SerializeField] Building bossBuilding;
 
     void Start()
     {
@@ -40,7 +40,7 @@ public class BattleBossManager : MonoBehaviour
             {
                 if (adjacentTile.gameObject.activeSelf) continue;
 
-                _battleAreaManager.ReplaceTile(adjacentTile, bossTile);
+                _battleAreaManager.ReplaceTile(adjacentTile, bossBuilding);
             }
         }
     }

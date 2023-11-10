@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _noFights: 1
   Fights: []
 --- !u!114 &4810545558572652240
 MonoBehaviour:
@@ -183,17 +184,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floorHolder: {fileID: 0}
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
-  _homeTilePrefab: {fileID: 3154870470239179833, guid: 8d83c8b028327e94da193f351a093c4b, type: 3}
-  _tilePrefabs:
-  - {fileID: 4120558081771881749, guid: 6c37494cb4a81d04bbe0de0d78ddd625, type: 3}
-  - {fileID: 5027473078342057440, guid: 30cfb321c6ce9234cb3e4b6889f32f47, type: 3}
-  - {fileID: 5027473078342057440, guid: 606e991a9948107488710e6650885bc3, type: 3}
-  - {fileID: 5027473078342057440, guid: 9e1894f2bbaf5aa4c8c6a0f5190beb67, type: 3}
-  - {fileID: 5027473078342057440, guid: 3f543ab2c29e8054eae4c2fa1c9fd743, type: 3}
-  - {fileID: 5027473078342057440, guid: 41f808da3c5e5304a938c37675494038, type: 3}
-  - {fileID: 5027473078342057440, guid: d2187569fc44e0c46a35050ac9a95320, type: 3}
-  - {fileID: 5027473078342057440, guid: c89a704ddf5d8664c8f4afa2835cb444, type: 3}
-  - {fileID: 5027473078342057440, guid: d0e1b6dc76049c74995059127c809c02, type: 3}
+  _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
+  _homeBuilding: {fileID: 11400000, guid: 5fca7a2d027d73e4e930ea647df74142, type: 2}
+  _buildings:
+  - {fileID: 11400000, guid: 72186956f81250a4e94865e577a8c087, type: 2}
+  - {fileID: 11400000, guid: c80c3a42ad75d2c4eb9d736f3f1b0e59, type: 2}
+  - {fileID: 11400000, guid: 3a21aa73e5faf3c4f91e81f7988b67fd, type: 2}
+  - {fileID: 11400000, guid: 1dcda9e6754528d4e8c9f5ecbc3169e7, type: 2}
+  - {fileID: 11400000, guid: 578966bbe20e38f4fb09ae1fb83a4e1d, type: 2}
+  - {fileID: 11400000, guid: 287f21e936213c8469dbf9c19edd2da5, type: 2}
+  - {fileID: 11400000, guid: 03bf3577c72574c4aaa8d29d34f83b1d, type: 2}
+  - {fileID: 11400000, guid: c67070e7bd7d87144bf7c12a3b18f928, type: 2}
+  - {fileID: 11400000, guid: 3be0f690158b8fa47aaf3e12523280f2, type: 2}
   HomeTile: {fileID: 0}
   PurchasedTiles: []
 --- !u!114 &892723308641058941
@@ -208,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d653eda90c7e0cc4c854ee094722280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossTile: {fileID: 4709331676814237497, guid: 756aa1ad60764a34eb065fbeb2fc6f8f, type: 3}
+  bossBuilding: {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

@@ -21,7 +21,9 @@ public class BattleBuildingHomeCrystal : BattleBuilding
 
     IEnumerator LandingCoroutine()
     {
-        yield return transform.DOMoveY(0f, 5f)
+        transform.position += Vector3.up * 10f;
+
+        yield return transform.DOMoveY(2f, 5f)
                 .SetDelay(4f)
                 .SetEase(Ease.OutQuad).WaitForCompletion();
 
@@ -37,7 +39,7 @@ public class BattleBuildingHomeCrystal : BattleBuilding
         yield return transform.DOScale(scale * 2f, 0.2f)
                               .SetEase(Ease.OutCubic)
                               .WaitForCompletion();
-        
+
         Destroy(Instantiate(_landingEffect, transform.position + Vector3.up * 3f, Quaternion.identity), 2f);
         transform.DOScale(scale * 0.5f, 1f)
                  .SetEase(Ease.OutBounce);

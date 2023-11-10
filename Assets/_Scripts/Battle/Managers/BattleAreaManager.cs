@@ -10,8 +10,10 @@ public class BattleAreaManager : MonoBehaviour
 {
     [SerializeField] Transform _floorHolder;
     [SerializeField] GameObject _floorPrefab;
-    [SerializeField] GameObject _homeTilePrefab;
-    [SerializeField] List<GameObject> _tilePrefabs;
+
+    [SerializeField] GameObject _tilePrefab;
+    [SerializeField] Building _homeBuilding;
+    [SerializeField] List<Building> _buildings;
 
     GameObject _floor;
 
@@ -37,23 +39,19 @@ public class BattleAreaManager : MonoBehaviour
         // TODO: create area magic numbers
         // current set-up only works when
         // I get 100 tiles with surface scaled to floor scale
-
         float tileScale = _floorPrefab.transform.localScale.x;
         for (int x = -5; x < 5; x++)
         {
             for (int z = -5; z < 5; z++)
             {
                 Vector3 pos = new(x * tileScale, 0, z * tileScale);
-                GameObject prefab = _tilePrefabs[Random.Range(0, _tilePrefabs.Count)];
-                if (pos == Vector3.zero)
-                    prefab = _homeTilePrefab;
 
-                GameObject tile = Instantiate(prefab, _floorHolder); ;
-                tile.transform.position = pos;
-                BattleTile bt = tile.GetComponent<BattleTile>();
-                bt.Initialize(tileScale);
+                Building building = _buildings[Random.Range(0, _buildings.Count)];
+                if (pos == Vector3.zero)
+                    building = _homeBuilding;
+
+                BattleTile bt = InstantiateTile(pos, building);
                 _tiles.Add(bt);
-                tile.SetActive(false);
 
                 if (pos == Vector3.zero)
                     HomeTile = bt;
@@ -99,16 +97,26 @@ public class BattleAreaManager : MonoBehaviour
         return adjacentTiles;
     }
 
-    public void ReplaceTile(BattleTile tile, GameObject newTile)
+    public void ReplaceTile(BattleTile tile, Building newBuilding)
     {
-        GameObject newTileObject = Instantiate(newTile, _floorHolder);
-        newTileObject.transform.position = tile.transform.position;
-        BattleTile newBattleTile = newTileObject.GetComponent<BattleTile>();
-        newBattleTile.Initialize(HomeTile.Scale);
+        BattleTile newBattleTile = InstantiateTile(tile.transform.position, newBuilding);
+
         _tiles.Insert(_tiles.IndexOf(tile), newBattleTile);
         _tiles.Remove(tile);
-        newTileObject.SetActive(false);
         Destroy(tile.gameObject);
+    }
+
+    BattleTile InstantiateTile(Vector3 pos, Building b)
+    {
+        GameObject tile = Instantiate(_tilePrefab, _floorHolder);
+        tile.transform.position = pos;
+        tile.SetActive(false);
+
+        Building buildingInstance = Instantiate(b);
+        BattleTile bt = tile.GetComponent<BattleTile>();
+        bt.Initialize(buildingInstance);
+
+        return bt;
     }
 
     public BattleTile GetTileFromPosition(Vector3 pos)

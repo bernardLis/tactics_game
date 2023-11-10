@@ -38,7 +38,7 @@ public class BattleTilePurchaseSign : MonoBehaviour, IInteractable
 
     void HandleTileIndicator()
     {
-        _tileIndicator = Instantiate(_tileToPurchase.TileIndicationPrefab, transform);
+        _tileIndicator = Instantiate(_tileToPurchase.Building.TileIndicatorPrefab, transform);
         _tileIndicator.transform.localPosition = new Vector3(0f, 3f, 0f);
         Vector3 scale = _tileIndicator.transform.localScale;
         _tileIndicator.transform.localScale = Vector3.zero;

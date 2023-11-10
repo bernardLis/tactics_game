@@ -16,20 +16,18 @@ public class BattleTile : MonoBehaviour
     [Header("Tile")]
     ObjectShaders _objectShaders;
 
-    [SerializeField] Building _buildingOriginal;
-
     [SerializeField] Material[] _materials;
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
     [SerializeField] GameObject _landPurchaseSignPrefab;
     [SerializeField] GameObject _rewardChestPrefab;
-    public GameObject TileIndicationPrefab;
 
     public List<BattleTilePurchaseSign> _signs = new();
     public List<BattleTileBorder> _borders = new();
 
     public float Scale { get; private set; }
 
+    public Building Building { get; private set; }
     public BattleBuilding BattleBuilding { get; private set; }
 
     MinionSpawningPattern _minionSpawningPattern;
@@ -37,12 +35,14 @@ public class BattleTile : MonoBehaviour
     List<Vector3> _minionPositions = new();
 
     public event Action<BattleTile> OnEnabled;
-    public void Initialize(float scale)
+    public void Initialize(Building building)
     {
+        Building = building;
+
+        Scale = _surface.transform.localScale.x;
+
         _objectShaders = GetComponent<ObjectShaders>();
-        Scale = scale;
         MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
-        _surface.transform.localScale = new Vector3(scale, 0.1f, scale);
         mr.material = _materials[Random.Range(0, _materials.Length)];
     }
 
@@ -55,11 +55,11 @@ public class BattleTile : MonoBehaviour
 
         BattleBuilding = GetComponentInChildren<BattleBuilding>();
 
-        if (_buildingOriginal != null)
+        if (Building != null)
         {
-            Building b = Instantiate(_buildingOriginal);
-            b.Initialize();
-            BattleBuilding.Initialize(b);
+            Building.Initialize();
+            BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
+            BattleBuilding.Initialize(Building);
         }
 
         gameObject.SetActive(true);

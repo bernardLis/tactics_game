@@ -8,9 +8,13 @@ public class Building : BaseScriptableObject
 {
     public Sprite Icon;
     public bool IsSecured;
-    
+
     public event Action OnSecured;
     public event Action OnCorrupted;
+
+    public GameObject BuildingPrefab;
+    public GameObject TileIndicatorPrefab;
+
 
     public virtual void Initialize()
     { }
