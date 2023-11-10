@@ -20,9 +20,9 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
 
     IEnumerator _corruptedProductionCoroutine;
 
-    public override void Initialize(Building building)
+    public override void Initialize(Vector3 pos, Building building)
     {
-        base.Initialize(building);
+        base.Initialize(pos, building);
         _buildingProduction = building as BuildingProduction;
 
         _buildingProduction.OnUpgradePurchased += OnUpgradePurchased;

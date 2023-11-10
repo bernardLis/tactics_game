@@ -23,7 +23,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     IEnumerator _corruptionCoroutine;
 
     public event Action OnBuildingCorrupted;
-    public virtual void Initialize(Building building)
+    public virtual void Initialize(Vector3 pos, Building building)
     {
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
@@ -34,6 +34,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _building = building;
 
         ShowBuilding();
+
+        transform.localPosition = pos;
     }
 
     protected virtual void ShowBuilding()
@@ -43,7 +45,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         transform.DOScale(scale, 1f)
                 .SetEase(Ease.OutBack)
                 .SetDelay(2.5f);
-        transform.DOLocalMoveY(scale.x * 0.5f, 1f)
+        transform.DOLocalMoveY(transform.localPosition.y + scale.x * 0.5f, 1f)
             .SetEase(Ease.OutBack)
             .SetDelay(2.5f);
 

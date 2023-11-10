@@ -172,6 +172,5 @@ MonoBehaviour:
   _borderPrefab: {fileID: 516943767338688193, guid: 77ec57d2b3dd1fc44bf4a7ecb1b06a3e, type: 3}
   _landPurchaseSignPrefab: {fileID: 5078287019892464739, guid: 1f76cd1e504e67341813f3c147cf62b4, type: 3}
   _rewardChestPrefab: {fileID: 7174296884494392200, guid: 69a6f89f1b0b9a24081b529d9090a706, type: 3}
-  TileIndicationPrefab: {fileID: 1698834163741228, guid: eba12193aa2e30d4fa0e476b28f8e198, type: 3}
   _signs: []
   _borders: []

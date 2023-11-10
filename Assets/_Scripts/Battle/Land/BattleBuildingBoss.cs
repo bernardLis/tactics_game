@@ -11,9 +11,10 @@ public class BattleBuildingBoss : BattleBuilding
 
     BattleBoss _boss;
 
-    public override void Initialize(Building building)
+    public override void Initialize(Vector3 pos, Building building)
     {
-        base.Initialize(building);
+        pos = Vector3.zero;
+        base.Initialize(pos, building);
         _battleFightManager.OnBossFightStarted += OnBossFightStarted;
     }
 
@@ -34,7 +35,7 @@ public class BattleBuildingBoss : BattleBuilding
                                                     Quaternion.identity);
         spawner.transform.LookAt(_battleManager.BattleHero.transform.position);
         spawner.ShowPortal(null, Vector3.one * 5f);
-        yield return new WaitForSeconds(1.5f);    
+        yield return new WaitForSeconds(1.5f);
 
         Boss boss = Instantiate(_bossOriginal);
         spawner.SpawnEntities(new List<Entity> { boss }, team: 1);

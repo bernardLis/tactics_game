@@ -59,7 +59,8 @@ public class BattleTile : MonoBehaviour
         {
             Building.Initialize();
             BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
-            BattleBuilding.Initialize(Building);
+            Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            BattleBuilding.Initialize(pos, Building);
         }
 
         gameObject.SetActive(true);

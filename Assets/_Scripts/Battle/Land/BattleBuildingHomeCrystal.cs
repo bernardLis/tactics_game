@@ -14,6 +14,11 @@ public class BattleBuildingHomeCrystal : BattleBuilding
 
     }
 
+    void Awake()
+    {
+        transform.position += Vector3.up * 15f;
+    }
+
     void Start()
     {
         StartCoroutine(LandingCoroutine());
@@ -21,8 +26,6 @@ public class BattleBuildingHomeCrystal : BattleBuilding
 
     IEnumerator LandingCoroutine()
     {
-        transform.position += Vector3.up * 10f;
-
         yield return transform.DOMoveY(2f, 5f)
                 .SetDelay(4f)
                 .SetEase(Ease.OutQuad).WaitForCompletion();
