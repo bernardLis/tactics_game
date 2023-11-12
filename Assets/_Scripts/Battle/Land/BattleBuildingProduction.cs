@@ -85,7 +85,8 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         yield return new WaitForSeconds(2f);
         Color c = _buildingProduction.GetCurrentUpgrade().ProducedCreature.Element.Color.Color;
-        _progressBarHandler.SetColors(c, c);
+        _progressBarHandler.SetBorderColor(c);
+        _progressBarHandler.SetFillColor(Color.white);
         _progressBarHandler.SetProgress(0);
         _progressBarHandler.ShowProgressBar();
 
@@ -129,7 +130,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         _currentProductionDelaySecond = 0f;
         while (_currentProductionDelaySecond < totalDelay)
         {
-
             _currentProductionDelaySecond += 0.5f;
             _progressBarHandler.SetProgress(_currentProductionDelaySecond / totalDelay);
 
@@ -157,7 +157,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         yield return new WaitForSeconds(2f);
 
         Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
-        _progressBarHandler.SetColors(c, c);
+        _progressBarHandler.SetBorderColor(c);
         _progressBarHandler.SetFillColor(Color.black);
         _progressBarHandler.SetProgress(0);
         _progressBarHandler.ShowProgressBar();

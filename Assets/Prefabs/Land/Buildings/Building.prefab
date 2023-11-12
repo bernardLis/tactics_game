@@ -214,7 +214,6 @@ GameObject:
   - component: {fileID: 9125191556732420462}
   - component: {fileID: 4218093102017946376}
   - component: {fileID: 612734155864394616}
-  - component: {fileID: 1233706882625386135}
   - component: {fileID: 119963849196730682}
   m_Layer: 0
   m_Name: Progress Bar
@@ -231,13 +230,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8003626680490834535}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.617, z: 0.36}
-  m_LocalScale: {x: 1, y: 0.15, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0.7071068, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.53, z: 0.48}
+  m_LocalScale: {x: 0.05, y: 1, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6819077687855662144}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 270}
 --- !u!33 &9125191556732420462
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -266,7 +265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0945970fe279b424987f3e73f40f595a, type: 2}
+  - {fileID: 2100000, guid: ebc2c41560bdd8a4b9010d6b1785cc00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,18 +309,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1233706882625386135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8003626680490834535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2062f1d59c4dbd45b2b0ef0ab79c54a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &119963849196730682
 MonoBehaviour:
   m_ObjectHideFlags: 0

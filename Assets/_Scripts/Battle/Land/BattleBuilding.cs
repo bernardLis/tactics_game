@@ -85,7 +85,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _progressBarHandler.SetProgress(0);
         _progressBarHandler.ShowProgressBar();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i <= 10; i++)
         {
             _progressBarHandler.SetProgress((float)i / 10);
             yield return new WaitForSeconds(1);
