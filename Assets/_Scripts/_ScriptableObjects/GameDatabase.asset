@@ -63,6 +63,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 597281f48fbf00b409fa205b661c141e, type: 2}
   - {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
   - {fileID: 11400000, guid: edac0f08ee9df8f44a0be73bea4c9721, type: 2}
+  - {fileID: 11400000, guid: b2954c32997816242aaff6f3471fdec1, type: 2}
   CoinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

@@ -138,9 +138,9 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     }
 
     /* CORRUPTION */
-    public override void GetCorrupted(BattleBoss boss)
+    public override void StartCorruption(BattleBoss boss)
     {
-        base.GetCorrupted(boss);
+        base.StartCorruption(boss);
         if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
     }
 

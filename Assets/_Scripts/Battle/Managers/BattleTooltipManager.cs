@@ -137,7 +137,14 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     public void ShowBossHealthBar(BattleBoss boss)
     {
         HideEntityInfo();
-        ShowEntityInfo(boss);
+
+        _entityInfoContainer.Clear();
+
+        CurrentEntityInfo = boss;
+        BattleBossInfoElement info = new(boss);
+        _entityInfoContainer.Add(info);
+        _entityInfoContainer.style.display = DisplayStyle.Flex;
+
         _isBossHealthBarShown = true;
     }
 

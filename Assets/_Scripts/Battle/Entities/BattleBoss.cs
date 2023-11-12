@@ -11,7 +11,6 @@ public class BattleBoss : BattleEntity
 
     [Header("Boss")]
     [SerializeField] GameObject _corruptionBreakNodePrefab;
-    ProgressBarHandler _stunProgressBar;
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -20,19 +19,19 @@ public class BattleBoss : BattleEntity
 
     bool _isCorrupting;
     bool _isStunned;
-    int _totalDamageToBreakCorruption = 1000;
-    int _currentDamageToBreakCorruption;
+    public IntVariable TotalDamageToBreakCorruption;
+    public IntVariable CurrentDamageToBreakCorruption;
+    public IntVariable TotalStunDuration;
+    public IntVariable CurrentStunDuration;
 
     List<BattleCorruptionBreakNode> _corruptionBreakNodes = new();
 
+    public event Action OnCorruptionStarted;
     public event Action OnCorruptionBroken;
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
         base.InitializeBattle(ref opponents);
-
-        _stunProgressBar = GetComponentInChildren<ProgressBarHandler>();
-        _stunProgressBar.Initialize();
 
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
@@ -40,8 +39,18 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
 
         _nextTileIndex = 0;
-        _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
         StartRunEntityCoroutine();
+
+        TotalDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
+        TotalDamageToBreakCorruption.SetValue(1000);
+        CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentDamageToBreakCorruption.SetValue(0);
+        TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
+        TotalStunDuration.SetValue(10);
+        CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentStunDuration.SetValue(0);
+
+        _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
     }
 
     protected override IEnumerator RunEntity()
@@ -73,19 +82,19 @@ public class BattleBoss : BattleEntity
     void StartBuildingCorruption()
     {
         Animator.SetTrigger("Creature Ability");
-
         StopRunEntityCoroutine();
         _isCorrupting = true;
-        _stunProgressBar.ShowProgressBar();
-        _currentDamageToBreakCorruption = _totalDamageToBreakCorruption;
+        CurrentDamageToBreakCorruption.SetValue(0);
 
-        _currentBuilding.GetCorrupted(this);
+        _currentBuilding.StartCorruption(this);
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
         StartCoroutine(CreateCorruptionBreakNodes());
+        OnCorruptionStarted?.Invoke();
     }
 
     void OnBuildingCorrupted()
     {
+        if(_isStunned) return;
         CorruptionCleanup();
         StartRunEntityCoroutine();
     }
@@ -109,7 +118,7 @@ public class BattleBoss : BattleEntity
     void OnCorruptionNodeBroken(BattleCorruptionBreakNode node)
     {
         _corruptionBreakNodes.Remove(node);
-        BaseGetHit(Mathf.RoundToInt(_totalDamageToBreakCorruption * 0.3f), Color.yellow);
+        BaseGetHit(Mathf.RoundToInt(TotalDamageToBreakCorruption.Value * 0.3f), Color.yellow);
     }
 
     void DestroyAllCorruptionBreakNodes()
@@ -125,11 +134,9 @@ public class BattleBoss : BattleEntity
 
     void HandleCorruptionBreak(int damage)
     {
-        _currentDamageToBreakCorruption -= damage;
-        _stunProgressBar.SetProgress(1f - (float)_currentDamageToBreakCorruption / _totalDamageToBreakCorruption);
-        // HERE: show stun progress bar
+        CurrentDamageToBreakCorruption.ApplyChange(damage);
 
-        if (_currentDamageToBreakCorruption > 0) return;
+        if (CurrentDamageToBreakCorruption.Value < TotalDamageToBreakCorruption.Value) return;
 
         CorruptionCleanup();
         OnCorruptionBroken?.Invoke();
@@ -138,7 +145,6 @@ public class BattleBoss : BattleEntity
 
     void CorruptionCleanup()
     {
-        if (!_isStunned) _stunProgressBar.HideProgressBar();
         _isCorrupting = false;
         _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
         DestroyAllCorruptionBreakNodes();
@@ -147,16 +153,15 @@ public class BattleBoss : BattleEntity
     IEnumerator StunCoroutine()
     {
         DisplayFloatingText("Stunned", Color.yellow);
-        // HERE: use stun progress bar to display stun duration
+        CurrentStunDuration.SetValue(TotalStunDuration.Value);
 
         _isStunned = true;
         StopRunEntityCoroutine();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < TotalStunDuration.Value; i++)
         {
-            _stunProgressBar.SetProgress((10 - i) * 0.1f);
             yield return new WaitForSeconds(1f);
+            CurrentStunDuration.ApplyChange(-1);
         }
-        _stunProgressBar.HideProgressBar();
         StartRunEntityCoroutine();
         _isStunned = false;
     }
@@ -165,6 +170,7 @@ public class BattleBoss : BattleEntity
     public override void GetEngaged(BattleEntity engager)
     {
         // boss is never engaged
+        // all the single bosses, all the single bosses... 
     }
 
     public override void BaseGetHit(int dmg, Color color, EntityFight attacker = null)

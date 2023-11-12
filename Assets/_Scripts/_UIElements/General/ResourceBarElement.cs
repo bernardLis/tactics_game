@@ -73,7 +73,6 @@ public class ResourceBarElement : ElementWithTooltip
         if (_currentInt != null) _currentInt.OnValueChanged -= OnValueChanged;
         if (_totalInt != null) _totalInt.OnValueChanged -= OnTotalChanged;
         if (_totalStat != null) _totalStat.OnValueChanged -= _totalInt.SetValue;
-
     }
 
     void UpdateStyles(string container, string main, string missing, string text)

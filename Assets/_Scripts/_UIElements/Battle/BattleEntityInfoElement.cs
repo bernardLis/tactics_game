@@ -10,7 +10,7 @@ public class BattleEntityInfoElement : VisualElement
     const string _ussClassName = "battle-entity-info__";
     const string _ussMain = _ussClassName + "main";
 
-    GameManager _gameManager;
+    protected GameManager _gameManager;
 
     public BattleEntityInfoElement(BattleEntity be)
     {
@@ -30,7 +30,7 @@ public class BattleEntityInfoElement : VisualElement
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        ResourceBarElement bar = new(c, "health", be.Entity.CurrentHealth,
+        ResourceBarElement bar = new(c, "Health", be.Entity.CurrentHealth,
                 totalStat: be.Entity.MaxHealth);
 
         name.style.position = Position.Absolute;

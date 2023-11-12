@@ -8,6 +8,7 @@ public class Building : BaseScriptableObject
 {
     public Sprite Icon;
     public bool IsSecured;
+    public int SecondsToCorrupt;
 
     public event Action OnSecured;
     public event Action OnCorrupted;

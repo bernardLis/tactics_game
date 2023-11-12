@@ -7,6 +7,8 @@ using System;
 
 public class BattleCorruptionBreakNode : MonoBehaviour
 {
+    GameManager _gameManager;
+
     [SerializeField] GameObject _corruptionNodeExplosionPrefab;
 
     BoxCollider _collider;
@@ -18,6 +20,8 @@ public class BattleCorruptionBreakNode : MonoBehaviour
 
     public void Initialize(BattleBoss boss, Vector3 pos)
     {
+        _gameManager = GameManager.Instance;
+
         _boss = boss;
 
         _collider = GetComponent<BoxCollider>();
@@ -25,6 +29,9 @@ public class BattleCorruptionBreakNode : MonoBehaviour
         _lightningScript = GetComponent<LightningBoltPrefabScript>();
         _lightningScript.Source = gameObject;
         _lightningScript.Destination = boss.gameObject;
+        _lightningScript.GlowTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
+        _lightningScript.LightningTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
+        _lightningScript.MainTrunkTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
 
         // fake arc movement
         transform.DOMoveX(pos.x, 1f).SetEase(Ease.OutQuad);

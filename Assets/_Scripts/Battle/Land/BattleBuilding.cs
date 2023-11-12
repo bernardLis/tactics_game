@@ -70,7 +70,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     {
     }
 
-    public virtual void GetCorrupted(BattleBoss boss)
+    public virtual void StartCorruption(BattleBoss boss)
     {
         boss.OnCorruptionBroken += BreakCorruption;
         _corruptionCoroutine = CorruptionCoroutine();
@@ -82,13 +82,14 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         yield return DisplayCorruptionEffect();
         Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
         _progressBarHandler.SetFillColor(c);
+        _progressBarHandler.SetBorderColor(Color.black);
         _progressBarHandler.SetProgress(0);
         _progressBarHandler.ShowProgressBar();
 
-        for (int i = 0; i <= 10; i++)
+        for (int i = 0; i <= _building.SecondsToCorrupt; i++)
         {
-            _progressBarHandler.SetProgress((float)i / 10);
             yield return new WaitForSeconds(1);
+            _progressBarHandler.SetProgress((float)i / _building.SecondsToCorrupt);
         }
 
         yield return HideCorruptionEffect();
@@ -97,6 +98,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     protected virtual void BreakCorruption()
     {
+        StopCoroutine(_corruptionCoroutine);
+        _corruptionCoroutine = null;
         _progressBarHandler.HideProgressBar();
         StartCoroutine(HideCorruptionEffect());
     }
@@ -141,6 +144,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     /* INTERACTION */
     public bool CanInteract(BattleInteractor interactor)
     {
+        if (_corruptionCoroutine != null) return false;
         return _building.IsSecured;
     }
 

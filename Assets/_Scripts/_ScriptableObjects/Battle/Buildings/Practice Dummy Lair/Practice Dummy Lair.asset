@@ -15,6 +15,7 @@ MonoBehaviour:
   Id: ba2fc175-2a44-4e42-963b-9c57ad410630
   Icon: {fileID: 0}
   IsSecured: 0
+  SecondsToCorrupt: 30
   BuildingPrefab: {fileID: 5052791305492807775, guid: 9003df99106dd9e44b134325e471b5c0, type: 3}
   TileIndicatorPrefab: {fileID: 1303864092376426955, guid: 558b981cff7264c4c9540feca42728e6, type: 3}
   CurrentLevel: {fileID: 0}
