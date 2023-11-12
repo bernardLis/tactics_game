@@ -98,7 +98,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     protected virtual void BreakCorruption()
     {
-        StopCoroutine(_corruptionCoroutine);
+        if (_corruptionCoroutine != null)
+            StopCoroutine(_corruptionCoroutine);
         _corruptionCoroutine = null;
         _progressBarHandler.HideProgressBar();
         StartCoroutine(HideCorruptionEffect());

@@ -11,6 +11,7 @@ public class BattleBoss : BattleEntity
 
     [Header("Boss")]
     [SerializeField] GameObject _corruptionBreakNodePrefab;
+    [SerializeField] GameObject _stunEffect;
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -55,7 +56,6 @@ public class BattleBoss : BattleEntity
 
     protected override IEnumerator RunEntity()
     {
-        Debug.Log($"run entity");
         _avoidancePriorityRange = new Vector2Int(0, 1);
 
         for (int i = _nextTileIndex; i < _pathToHomeTile.Count; i++)
@@ -94,7 +94,7 @@ public class BattleBoss : BattleEntity
 
     void OnBuildingCorrupted()
     {
-        if(_isStunned) return;
+        if (_isStunned) return;
         CorruptionCleanup();
         StartRunEntityCoroutine();
     }
@@ -155,13 +155,17 @@ public class BattleBoss : BattleEntity
         DisplayFloatingText("Stunned", Color.yellow);
         CurrentStunDuration.SetValue(TotalStunDuration.Value);
 
+        _stunEffect.SetActive(true);
         _isStunned = true;
+        Animator.enabled = false;
         StopRunEntityCoroutine();
         for (int i = 0; i < TotalStunDuration.Value; i++)
         {
             yield return new WaitForSeconds(1f);
             CurrentStunDuration.ApplyChange(-1);
         }
+        _stunEffect.SetActive(false);
+        Animator.enabled = true;
         StartRunEntityCoroutine();
         _isStunned = false;
     }

@@ -33,10 +33,12 @@ public class BattleCorruptionBreakNode : MonoBehaviour
         _lightningScript.LightningTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
         _lightningScript.MainTrunkTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
 
+        transform.position = new(transform.position.x, 5f, transform.position.z);
         // fake arc movement
         transform.DOMoveX(pos.x, 1f).SetEase(Ease.OutQuad);
         transform.DOMoveZ(pos.z, 1f).SetEase(Ease.OutQuad);
-        transform.DOMoveY(0.5f, 1f).SetEase(Ease.InQuad);
+        transform.DOMoveY(0.5f, 1f).SetEase(Ease.InQuad)
+                 .OnComplete(() => _collider.enabled = true);
     }
 
     void OnTriggerEnter(Collider collider)
