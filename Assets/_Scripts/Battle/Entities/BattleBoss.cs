@@ -108,7 +108,14 @@ public class BattleBoss : BattleEntity
             BattleCorruptionBreakNode node = Instantiate(_corruptionBreakNodePrefab,
                                             transform.position, Quaternion.identity)
                                             .GetComponent<BattleCorruptionBreakNode>();
-            node.Initialize(this, _currentTile.GetPositionRandom(0, 0));
+            Vector3 pos = Vector3.zero;
+            while (pos == Vector3.zero)
+            {
+                pos = _currentTile.GetPositionRandom(0, 0);
+                if (Vector3.Distance(pos, transform.position) < 2f) pos = Vector3.zero;
+            }
+
+            node.Initialize(this, pos);
             node.OnNodeBroken += OnCorruptionNodeBroken;
             _corruptionBreakNodes.Add(node);
             yield return new WaitForSeconds(Random.Range(1f, 3f));
