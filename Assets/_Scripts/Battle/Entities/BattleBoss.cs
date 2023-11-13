@@ -104,6 +104,8 @@ public class BattleBoss : BattleEntity
         _corruptionBreakNodes = new();
         for (int i = 0; i < 3; i++)
         {
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
+
             if (!_isCorrupting) yield break;
             BattleCorruptionBreakNode node = Instantiate(_corruptionBreakNodePrefab,
                                             transform.position, Quaternion.identity)
@@ -118,6 +120,7 @@ public class BattleBoss : BattleEntity
             node.Initialize(this, pos);
             node.OnNodeBroken += OnCorruptionNodeBroken;
             _corruptionBreakNodes.Add(node);
+            
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
