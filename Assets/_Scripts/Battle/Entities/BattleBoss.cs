@@ -13,6 +13,11 @@ public class BattleBoss : BattleEntity
     [SerializeField] GameObject _corruptionBreakNodePrefab;
     [SerializeField] GameObject _stunEffect;
 
+    [Header("Shooting")]
+    [SerializeField] GameObject _projectilePrefab;
+    IEnumerator _shootingCoroutine;
+    int _currentShottingPatternIndex;
+
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
     BattleTile _currentTile;
@@ -20,10 +25,10 @@ public class BattleBoss : BattleEntity
 
     bool _isCorrupting;
     bool _isStunned;
-    public IntVariable TotalDamageToBreakCorruption;
-    public IntVariable CurrentDamageToBreakCorruption;
-    public IntVariable TotalStunDuration;
-    public IntVariable CurrentStunDuration;
+    [HideInInspector] public IntVariable TotalDamageToBreakCorruption;
+    [HideInInspector] public IntVariable CurrentDamageToBreakCorruption;
+    [HideInInspector] public IntVariable TotalStunDuration;
+    [HideInInspector] public IntVariable CurrentStunDuration;
 
     List<BattleCorruptionBreakNode> _corruptionBreakNodes = new();
 
@@ -41,6 +46,7 @@ public class BattleBoss : BattleEntity
 
         _nextTileIndex = 0;
         StartRunEntityCoroutine();
+        StartShootingCoroutine();
 
         TotalDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
         TotalDamageToBreakCorruption.SetValue(1000);
@@ -66,6 +72,7 @@ public class BattleBoss : BattleEntity
                 yield return new WaitForSeconds(2f);
                 continue;
             }
+
             _nextTileIndex = i + 1;
             _currentTile = _pathToHomeTile[i];
             _currentBuilding = _pathToHomeTile[i].BattleBuilding;
@@ -75,6 +82,127 @@ public class BattleBoss : BattleEntity
             StartBuildingCorruption();
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    void StartShootingCoroutine()
+    {
+        _shootingCoroutine = ShootingCoroutine();
+        StartCoroutine(_shootingCoroutine);
+    }
+
+    IEnumerator ShootingCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(7f);
+            if (_isStunned) continue;
+            Shoot();
+        }
+    }
+
+    void Shoot()
+    {
+
+        int totalCount = Random.Range(15, 25);
+        if (_currentShottingPatternIndex == 0)
+            ShootInCircle(totalCount);
+        if (_currentShottingPatternIndex == 1)
+            StartCoroutine(ShootInCircleWithDelay(totalCount));
+        if (_currentShottingPatternIndex == 2)
+            StartCoroutine(RandomShots(totalCount));
+        if (_currentShottingPatternIndex == 3)
+            StartCoroutine(RhombusShots(totalCount));
+
+        _currentShottingPatternIndex++;
+        if (_currentShottingPatternIndex >= 4) _currentShottingPatternIndex = 0;
+    }
+
+    void ShootInCircle(int total)
+    {
+        for (int i = 0; i < total; i++)
+        {
+            Vector3 spawnPos = transform.position;
+            spawnPos.y = 1f;
+            BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
+                                        .GetComponent<BattleProjectileBoss>();
+
+            Vector3 pos = GetPositionOnCircle(i, total);
+            pos.y = 1f;
+            Vector3 dir = (pos - spawnPos).normalized;
+            p.Initialize(1);
+            p.Shoot(this, dir, 10f, 5);
+        }
+    }
+
+    IEnumerator ShootInCircleWithDelay(int total)
+    {
+        float waitTime = 3f / total;
+        for (int i = 0; i < total; i++)
+        {
+            Vector3 spawnPos = transform.position;
+            spawnPos.y = 1f;
+            BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
+                                        .GetComponent<BattleProjectileBoss>();
+
+            Vector3 pos = GetPositionOnCircle(i, total);
+            pos.y = 1f;
+            Vector3 dir = (pos - spawnPos).normalized;
+            p.Initialize(1);
+            p.Shoot(this, dir, 10f, 5);
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
+
+    IEnumerator RandomShots(int total)
+    {
+        float waitTime = 3f / total;
+        for (int i = 0; i < total; i++)
+        {
+            Vector3 spawnPos = transform.position;
+            spawnPos.y = 1f;
+            BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
+                                        .GetComponent<BattleProjectileBoss>();
+
+            Vector3 dir = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward;
+            p.Initialize(1);
+            p.Shoot(this, dir, 10f, 5);
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
+
+    IEnumerator RhombusShots(int total)
+    {
+        int numberOfGroups = total / 4;
+        float waitTime = 3f / numberOfGroups;
+        for (int i = 0; i < numberOfGroups; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                Vector3 spawnPos = transform.position;
+                spawnPos.y = 1f;
+                BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
+                                            .GetComponent<BattleProjectileBoss>();
+
+                Vector3 dir = Quaternion.Euler(0, i * 15 + j * 90, 0) * Vector3.forward;
+                p.Initialize(1);
+                p.Shoot(this, dir, 10f, 5);
+            }
+            yield return new WaitForSeconds(waitTime);
+
+        }
+    }
+
+    Vector3 GetPositionOnCircle(int currentIndex, int totalCount)
+    {
+        float theta = currentIndex * 2 * Mathf.PI / totalCount;
+        float radius = 5;
+        Vector3 center = transform.position;
+        float x = Mathf.Cos(theta) * radius + center.x;
+        float y = 1f;
+        float z = Mathf.Sin(theta) * radius + center.z;
+
+        return new(x, y, z);
+
     }
 
     /* CORRUPTION */
@@ -120,7 +248,7 @@ public class BattleBoss : BattleEntity
             node.Initialize(this, pos);
             node.OnNodeBroken += OnCorruptionNodeBroken;
             _corruptionBreakNodes.Add(node);
-            
+
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }

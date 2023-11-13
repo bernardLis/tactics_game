@@ -86,16 +86,16 @@ public class BattleHero : BattleEntity
 
     public void GetHit(BattleEntity entity)
     {
-        BaseGetHit();
+        BaseGetHit(default, default);
     }
 
     public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
     {
-        BaseGetHit();
+        BaseGetHit(default, default);
         yield return null;
     }
 
-    void BaseGetHit()
+    public override void BaseGetHit(int damage, Color color, EntityFight attacker = null)
     {
         Hero.CurrentHealth.ApplyChange(-5);
         DisplayFloatingText($"{-5}", _gameManager.GameDatabase.GetColorByName("Health").Color);

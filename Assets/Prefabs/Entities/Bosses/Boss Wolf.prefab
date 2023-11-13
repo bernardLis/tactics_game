@@ -1537,6 +1537,7 @@ MonoBehaviour:
   IsShielded: 0
   _corruptionBreakNodePrefab: {fileID: 353195011699167727, guid: 50d80a0a58b95c04a81c976501e40651, type: 3}
   _stunEffect: {fileID: 9044758019991601169}
+  _projectilePrefab: {fileID: 7041283781085426902, guid: d5667f8737202a8429d8d6757954077f, type: 3}
   TotalDamageToBreakCorruption: {fileID: 0}
   CurrentDamageToBreakCorruption: {fileID: 0}
   TotalStunDuration: {fileID: 0}

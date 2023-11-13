@@ -49,6 +49,10 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator _timerCoroutine;
     int _battleTime;
 
+    // HERE: testing - boss
+    [SerializeField] BattleEntitySpawner _spawner;
+    [SerializeField] Entity _boss;
+
     public event Action OnBattleInitialized;
     public event Action<BattleCreature> OnPlayerCreatureAdded;
     public event Action<BattleEntity> OnPlayerEntityDeath;
@@ -107,8 +111,32 @@ public class BattleManager : Singleton<BattleManager>
 
         ResumeTimer();
 
+        // HERE: testing - boss 
+        StartCoroutine(SpawnBossCoroutine());
+
         OnBattleInitialized?.Invoke();
     }
+
+    // HERE: testing - boss
+    IEnumerator SpawnBossCoroutine()
+    {
+        BattleEntitySpawner spawner = Instantiate(_spawner,
+                                                    Vector3.zero,
+                                                    Quaternion.identity);
+        spawner.transform.LookAt(BattleHero.transform.position);
+        spawner.ShowPortal(null, Vector3.one * 5f);
+        yield return new WaitForSeconds(1.5f);
+
+        Boss boss = Instantiate(_boss as Boss);
+        spawner.SpawnEntities(new List<Entity> { boss }, team: 1);
+        spawner.OnSpawnComplete += list =>
+        {
+            BattleBoss bossEntity = list[0] as BattleBoss;
+            AddOpponentArmyEntity(bossEntity);
+        };
+
+    }
+
 
     public void PauseGame()
     {
