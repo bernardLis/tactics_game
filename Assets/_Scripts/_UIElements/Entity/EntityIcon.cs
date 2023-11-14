@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System;
 
 public class EntityIcon : ElementWithTooltip
 {
@@ -105,6 +106,8 @@ public class EntityIcon : ElementWithTooltip
             card = new EntityFightCardFull(turret);
         if (_entity is Minion minion)
             card = new EntityMovementCardFull(minion);
+        if (_entity is Boss boss)
+            card = new EntityMovementCardFull(boss);
 
         card?.Initialize();
     }
