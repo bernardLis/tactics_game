@@ -181,7 +181,6 @@ public class BattleBoss : BattleEntity
                 SpawnProjectile(dir, 10f, 5);
             }
             yield return new WaitForSeconds(waitTime);
-
         }
     }
 

@@ -21,6 +21,9 @@ public class Creature : EntityFight
         base.InitializeBattle(team);
 
         if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
+
+        if (Team == 0) return;
+        Projectile = GameManager.Instance.EntityDatabase.OpponentProjectilePrefab;
     }
 
     public bool IsAbilityUnlocked() { return Level.Value >= CreatureAbility.UnlockLevel; }

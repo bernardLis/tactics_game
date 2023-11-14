@@ -26,7 +26,6 @@ public class BattleAbility : MonoBehaviour
         StopCoroutine(_runAbilityCoroutine);
     }
 
-
     IEnumerator RunAbilityCoroutine()
     {
         yield return new WaitForSeconds(0.1f); // time to initialize button
@@ -38,7 +37,6 @@ public class BattleAbility : MonoBehaviour
             _ability.StartCooldown();
             yield return new WaitForSeconds(_ability.GetCooldown());
         }
-
     }
 
     protected virtual IEnumerator FireAbilityCoroutine()

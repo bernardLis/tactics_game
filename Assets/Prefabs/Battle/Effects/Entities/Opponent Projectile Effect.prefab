@@ -9828,7 +9828,7 @@ GameObject:
   - component: {fileID: 3153377939578899804}
   - component: {fileID: 515240589190433734}
   m_Layer: 0
-  m_Name: Boss Projectile Effect
+  m_Name: Opponent Projectile Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

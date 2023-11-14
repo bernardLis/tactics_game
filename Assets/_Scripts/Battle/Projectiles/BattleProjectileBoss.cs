@@ -14,8 +14,6 @@ public class BattleProjectileBoss : BattleProjectile
         base.Initialize(Team);
 
         ResetProjectile();
-
-
     }
 
     void ResetProjectile()
