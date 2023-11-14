@@ -17,6 +17,7 @@ public class BattleBoss : BattleEntity
     [SerializeField] GameObject _projectilePrefab;
     IEnumerator _shootingCoroutine;
     int _currentShottingPatternIndex;
+    public List<BattleProjectileBoss> _projectilePool = new();
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -58,6 +59,19 @@ public class BattleBoss : BattleEntity
         CurrentStunDuration.SetValue(0);
 
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
+
+        _projectilePool = new();
+        CreateProjectilePool();
+    }
+
+    void CreateProjectilePool()
+    {
+        for (int i = 0; i < 200; i++)
+        {
+            BattleProjectileBoss p = Instantiate(_projectilePrefab, transform).GetComponent<BattleProjectileBoss>();
+            p.gameObject.SetActive(false);
+            _projectilePool.Add(p);
+        }
     }
 
     protected override IEnumerator RunEntity()
@@ -102,8 +116,7 @@ public class BattleBoss : BattleEntity
 
     void Shoot()
     {
-
-        int totalCount = Random.Range(15, 25);
+        int totalCount = Random.Range(20, 50);
         if (_currentShottingPatternIndex == 0)
             ShootInCircle(totalCount);
         if (_currentShottingPatternIndex == 1)
@@ -123,14 +136,10 @@ public class BattleBoss : BattleEntity
         {
             Vector3 spawnPos = transform.position;
             spawnPos.y = 1f;
-            BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
-                                        .GetComponent<BattleProjectileBoss>();
-
             Vector3 pos = GetPositionOnCircle(i, total);
             pos.y = 1f;
             Vector3 dir = (pos - spawnPos).normalized;
-            p.Initialize(1);
-            p.Shoot(this, dir, 10f, 5);
+            SpawnProjectile(dir, 10f, 5);
         }
     }
 
@@ -141,14 +150,10 @@ public class BattleBoss : BattleEntity
         {
             Vector3 spawnPos = transform.position;
             spawnPos.y = 1f;
-            BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
-                                        .GetComponent<BattleProjectileBoss>();
-
             Vector3 pos = GetPositionOnCircle(i, total);
             pos.y = 1f;
             Vector3 dir = (pos - spawnPos).normalized;
-            p.Initialize(1);
-            p.Shoot(this, dir, 10f, 5);
+            SpawnProjectile(dir, 10f, 5);
             yield return new WaitForSeconds(waitTime);
         }
     }
@@ -158,14 +163,8 @@ public class BattleBoss : BattleEntity
         float waitTime = 3f / total;
         for (int i = 0; i < total; i++)
         {
-            Vector3 spawnPos = transform.position;
-            spawnPos.y = 1f;
-            BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
-                                        .GetComponent<BattleProjectileBoss>();
-
             Vector3 dir = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward;
-            p.Initialize(1);
-            p.Shoot(this, dir, 10f, 5);
+            SpawnProjectile(dir, 10f, 5);
             yield return new WaitForSeconds(waitTime);
         }
     }
@@ -178,18 +177,23 @@ public class BattleBoss : BattleEntity
         {
             for (int j = 0; j < 4; j++)
             {
-                Vector3 spawnPos = transform.position;
-                spawnPos.y = 1f;
-                BattleProjectileBoss p = Instantiate(_projectilePrefab, spawnPos, Quaternion.identity)
-                                            .GetComponent<BattleProjectileBoss>();
-
                 Vector3 dir = Quaternion.Euler(0, i * 15 + j * 90, 0) * Vector3.forward;
-                p.Initialize(1);
-                p.Shoot(this, dir, 10f, 5);
+                SpawnProjectile(dir, 10f, 5);
             }
             yield return new WaitForSeconds(waitTime);
 
         }
+    }
+
+    void SpawnProjectile(Vector3 dir, float time, int power)
+    {
+        Vector3 spawnPos = transform.position;
+        spawnPos.y = 1f;
+        BattleProjectileBoss p = _projectilePool.Find(x => !x.gameObject.activeSelf);
+        p.transform.position = spawnPos;
+        p.Initialize(1);
+        // BattleProjectileBoss p = Instantiate(_projectilePrefab, transform).GetComponent<BattleProjectileBoss>();
+        p.Shoot(this, dir, time, power);
     }
 
     Vector3 GetPositionOnCircle(int currentIndex, int totalCount)

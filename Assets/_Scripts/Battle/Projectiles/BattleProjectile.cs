@@ -5,26 +5,28 @@ using DG.Tweening;
 
 public class BattleProjectile : MonoBehaviour
 {
-    AudioManager _audioManager;
+    protected AudioManager _audioManager;
 
-    [SerializeField] Sound _explosionSound;
+    [SerializeField] protected Sound _explosionSound;
     [SerializeField] Sound _shootSound;
 
-    [SerializeField] GameObject _gfx;
-    [SerializeField] GameObject _explosion;
+    [SerializeField] protected GameObject _gfx;
+    [SerializeField] protected GameObject _explosion;
 
     [SerializeField] protected int _speed;
+    protected SphereCollider _collider;
 
     protected int _team;
     protected EntityFight _shooter;
     protected BattleEntity _target;
 
-    bool _hitConnected;
+    protected bool _hitConnected;
     public virtual void Initialize(int Team)
     {
         _team = Team;
         _audioManager = AudioManager.Instance;
         _audioManager.PlaySFX(_shootSound, transform.position);
+        _collider = GetComponent<SphereCollider>();
     }
 
     public void Shoot(EntityFight shooter, BattleEntity target, float power)
@@ -68,7 +70,7 @@ public class BattleProjectile : MonoBehaviour
 
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
-        GetComponent<SphereCollider>().enabled = false;
+        _collider.enabled = false;
         if (_shooter != null) StartCoroutine(target.GetHit(_shooter));
 
         yield return DestroySelf(transform.position);
@@ -107,7 +109,7 @@ public class BattleProjectile : MonoBehaviour
         return true;
     }
 
-    public IEnumerator DestroySelf(Vector3 position)
+    public virtual IEnumerator DestroySelf(Vector3 position)
     {
         _gfx.SetActive(false);
         _audioManager.PlaySFX(_explosionSound, position);
