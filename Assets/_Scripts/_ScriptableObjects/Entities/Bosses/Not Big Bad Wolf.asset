@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc83541a3da00154cb0714f819380f71, type: 3}
-  m_Name: Big Bad Wolf
+  m_Name: Not Big Bad Wolf
   m_EditorClassIdentifier: 
   Id: c42058d2-2ddc-4d8d-93cc-65acf7cc191f
   EntityName: Big Bad Wolf
   Icon: {fileID: 0}
   IconAnimation:
-  - {fileID: 21300000, guid: 95afe0794e59c7a448f17fb5b24e431e, type: 3}
+  - {fileID: 21300000, guid: 5e6a9e4bd3cca8a4abcf70a8f0fa21d9, type: 3}
   Price: 0
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 5828399577187593241, guid: 18e65eb625ce8f648ac60398b056e9c7, type: 3}

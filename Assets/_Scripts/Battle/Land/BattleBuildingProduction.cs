@@ -142,6 +142,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         base.StartCorruption(boss);
         if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
+        boss.OnCorruptionBroken += StartProductionCoroutine;
     }
 
     public override void Corrupted()

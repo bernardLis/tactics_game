@@ -35,6 +35,7 @@ public class BattleBoss : BattleEntity
 
     public event Action OnCorruptionStarted;
     public event Action OnCorruptionBroken;
+    public event Action OnStunFinished;
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
@@ -86,6 +87,9 @@ public class BattleBoss : BattleEntity
                 yield return new WaitForSeconds(2f);
                 continue;
             }
+
+            // if already at the last tile, do nothing
+            // if (i == _pathToHomeTile.Count - 1) break;
 
             _nextTileIndex = i + 1;
             _currentTile = _pathToHomeTile[i];
@@ -279,9 +283,12 @@ public class BattleBoss : BattleEntity
 
         if (CurrentDamageToBreakCorruption.Value < TotalDamageToBreakCorruption.Value) return;
 
-        CorruptionCleanup();
         OnCorruptionBroken?.Invoke();
         StartCoroutine(StunCoroutine());
+
+        // can't break corruption on the last building
+        if (_nextTileIndex < _pathToHomeTile.Count)
+            CorruptionCleanup();
     }
 
     void CorruptionCleanup()
@@ -293,22 +300,29 @@ public class BattleBoss : BattleEntity
 
     IEnumerator StunCoroutine()
     {
+        Debug.Log($"boss Stunned");
         DisplayFloatingText("Stunned", Color.yellow);
+        CurrentDamageToBreakCorruption.SetValue(0);
         CurrentStunDuration.SetValue(TotalStunDuration.Value);
 
         _stunEffect.SetActive(true);
         _isStunned = true;
         Animator.enabled = false;
         StopRunEntityCoroutine();
+
         for (int i = 0; i < TotalStunDuration.Value; i++)
         {
             yield return new WaitForSeconds(1f);
             CurrentStunDuration.ApplyChange(-1);
         }
+
         _stunEffect.SetActive(false);
         Animator.enabled = true;
         StartRunEntityCoroutine();
         _isStunned = false;
+        OnStunFinished?.Invoke();
+        Debug.Log($"boss Stunned finished");
+
     }
 
     /* GET HIT */

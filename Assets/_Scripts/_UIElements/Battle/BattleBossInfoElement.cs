@@ -16,6 +16,7 @@ public class BattleBossInfoElement : BattleEntityInfoElement
         style.minWidth = 600;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Stun").Color;
+
         _stunBar = new(c, "Stun", bs.CurrentDamageToBreakCorruption,
                                 bs.TotalDamageToBreakCorruption);
 
@@ -37,6 +38,7 @@ public class BattleBossInfoElement : BattleEntityInfoElement
 
         bs.OnCorruptionStarted += OnCorruptionStarted;
         bs.OnCorruptionBroken += OnCorruptionBroken;
+        bs.OnStunFinished += OnStunFinished;
     }
 
     void OnCorruptionBroken()
@@ -46,6 +48,12 @@ public class BattleBossInfoElement : BattleEntityInfoElement
     }
 
     void OnCorruptionStarted()
+    {
+        _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToBreakCorruption,
+                                        _battleBoss.TotalDamageToBreakCorruption);
+    }
+
+    void OnStunFinished()
     {
         _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToBreakCorruption,
                                         _battleBoss.TotalDamageToBreakCorruption);

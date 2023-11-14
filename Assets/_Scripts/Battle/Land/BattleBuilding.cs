@@ -22,7 +22,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     protected ProgressBarHandler _progressBarHandler;
 
-    IEnumerator _corruptionCoroutine;
+    protected IEnumerator _corruptionCoroutine;
+    protected bool _corruptionPaused;
 
     public event Action OnBuildingCorrupted;
     public virtual void Initialize(Vector3 pos, Building building)
@@ -77,7 +78,22 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         StartCoroutine(_corruptionCoroutine);
     }
 
-    IEnumerator CorruptionCoroutine()
+    protected void PauseCorruption()
+    {
+        _corruptionPaused = true;
+        int p = DOTween.Pause("CorruptionEffectRotation");
+        Debug.Log($"pasue corruption {p}");
+    }
+
+    protected void ResumeCorruption()
+    {
+        _corruptionPaused = false;
+        int p = DOTween.Play("CorruptionEffectRotation");
+        Debug.Log($"resume corruption {p}");
+
+    }
+
+    protected IEnumerator CorruptionCoroutine()
     {
         yield return DisplayCorruptionEffect();
         Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
@@ -88,6 +104,10 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
         for (int i = 0; i <= _building.SecondsToCorrupt; i++)
         {
+            if (_corruptionPaused) yield return new WaitUntil(() => !_corruptionPaused);
+
+            Debug.Log($"corruption {i}");
+
             yield return new WaitForSeconds(1);
             _progressBarHandler.SetProgress((float)i / _building.SecondsToCorrupt);
         }
@@ -119,7 +139,8 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _buildingCorruptionEffect.transform.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
                                            .SetRelative(true)
                                            .SetLoops(-1, LoopType.Incremental)
-                                           .SetEase(Ease.InOutSine);
+                                           .SetEase(Ease.InOutSine)
+                                           .SetId("CorruptionEffectRotation");
     }
 
     IEnumerator HideCorruptionEffect()

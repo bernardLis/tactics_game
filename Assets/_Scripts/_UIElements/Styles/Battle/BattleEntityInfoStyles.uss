@@ -1,5 +1,5 @@
 .battle-entity-info__main {
-    min-width: 300px;    
+    min-width: 300px;
 }
 
 .battle-entity-info__top-container {
@@ -7,4 +7,3 @@
     justify-content: center;
     align-items: center;
 }
-

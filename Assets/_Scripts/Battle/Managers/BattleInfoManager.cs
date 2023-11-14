@@ -12,7 +12,7 @@ public class BattleInfoManager : MonoBehaviour
 
     VisualElement _root;
     VisualElement _infoPanel;
-    TroopsLimitElement _troopsLimitElement;
+    TroopsLimitElement _troopsCounter;
 
     GoldElement _goldElement;
     SpiceElement _spiceElement;
@@ -56,8 +56,8 @@ public class BattleInfoManager : MonoBehaviour
 
     void AddTroopsLimitElement()
     {
-        _troopsLimitElement = new("");
-        _infoPanel.Add(_troopsLimitElement);
+        _troopsCounter = new("");
+        _infoPanel.Add(_troopsCounter);
 
         _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsLimitElement();
         _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsLimitElement();
@@ -66,7 +66,7 @@ public class BattleInfoManager : MonoBehaviour
     void UpdateTroopsLimitElement()
     {
         int count = Mathf.Clamp(_battleManager.PlayerCreatures.Count - 1, 0, 9999);
-        _troopsLimitElement.UpdateCountContainer($"{count}", Color.white);
+        _troopsCounter.UpdateCountContainer($"{count}", Color.white);
     }
 
     void HandleTilesUntilBoss()

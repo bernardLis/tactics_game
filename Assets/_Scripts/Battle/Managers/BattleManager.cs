@@ -112,7 +112,7 @@ public class BattleManager : Singleton<BattleManager>
         ResumeTimer();
 
         // HERE: testing - boss 
-        StartCoroutine(SpawnBossCoroutine());
+        // StartCoroutine(SpawnBossCoroutine());
 
         OnBattleInitialized?.Invoke();
     }

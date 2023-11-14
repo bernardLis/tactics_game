@@ -57,4 +57,14 @@ public class BattleBuildingHomeCrystal : BattleBuilding
                 .SetLoops(-1, LoopType.Restart);
     }
 
+    public override void StartCorruption(BattleBoss boss)
+    {
+        boss.OnCorruptionBroken += PauseCorruption;
+        boss.OnStunFinished += ResumeCorruption;
+
+        _corruptionCoroutine = CorruptionCoroutine();
+        StartCoroutine(_corruptionCoroutine);
+    }
+
+
 }
