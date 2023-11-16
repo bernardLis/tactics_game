@@ -81,7 +81,8 @@ public class BattleProjectile : MonoBehaviour
         if (_hitConnected) return;
 
         if (collision.gameObject.layer == Tags.BattleObstacleLayer ||
-            collision.gameObject.layer == Tags.BattleFloorLayer)
+            collision.gameObject.layer == Tags.BattleFloorLayer ||
+            collision.gameObject.layer == Tags.BattleInteractableLayer)
         {
             _hitConnected = true;
             StopAllCoroutines();

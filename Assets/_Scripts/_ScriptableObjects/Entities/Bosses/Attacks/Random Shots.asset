@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7847d728d6fbd4a826594522575879, type: 3}
+  m_Name: Random Shots
+  m_EditorClassIdentifier: 
+  Id: d1944d44-56b9-4db5-acdd-86662cef515f
+  Icon: {fileID: 21300000, guid: 8af32d95923649d4598e478c2a681eda, type: 3}
+  Description: Pew pew Pew pew Pew pew
+  CooldownSeconds: 6
+  BossAttackManagerPrefab: {fileID: 1847090147080639464, guid: 6bc4d60d45a4f0b4cb8e6ec526255fc2, type: 3}
+  BattleBossAttack: {fileID: 0}

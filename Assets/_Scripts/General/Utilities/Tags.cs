@@ -25,6 +25,13 @@ public static class Tags
         private set { }
     }
 
+    public static int BattleInteractableLayer
+    {
+        get { return 9; }
+        private set { }
+    }
+
+
     public static int UIVFXLayer
     {
         get { return 7; }

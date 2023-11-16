@@ -13,10 +13,10 @@ public class BattleBoss : BattleEntity
     [SerializeField] GameObject _corruptionBreakNodePrefab;
     [SerializeField] GameObject _stunEffect;
 
-    [Header("Shooting")]
-    IEnumerator _shootingCoroutine;
-    int _currentShottingPatternIndex;
-    List<BattleProjectileBoss> _projectilePool;
+    [Header("Attacks")]
+    List<BossAttack> _attacks = new();
+
+    IEnumerator _attackCoroutine;
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -46,10 +46,11 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
 
         _nextTileIndex = 0;
-        _projectilePool = _battleManager.GetComponent<BattleBossManager>().Projectiles;
+
+        InitializeAttacks();
 
         StartRunEntityCoroutine();
-        StartShootingCoroutine();
+        StartAttackCoroutine();
 
         TotalDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
         TotalDamageToBreakCorruption.SetValue(1000);
@@ -62,9 +63,18 @@ public class BattleBoss : BattleEntity
 
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
 
-
     }
 
+    void InitializeAttacks()
+    {
+        Boss boss = (Boss)Entity;
+        foreach (BossAttack original in boss.BossAttacks)
+        {
+            BossAttack attack = Instantiate(original);
+            attack.Initialize(this);
+            _attacks.Add(attack);
+        }
+    }
 
     protected override IEnumerator RunEntity()
     {
@@ -93,114 +103,32 @@ public class BattleBoss : BattleEntity
         }
     }
 
-    void StartShootingCoroutine()
+    void StartAttackCoroutine()
     {
-        _shootingCoroutine = ShootingCoroutine();
-        StartCoroutine(_shootingCoroutine);
+        _attackCoroutine = AttackCoroutine();
+        StartCoroutine(_attackCoroutine);
     }
 
-    IEnumerator ShootingCoroutine()
+    IEnumerator AttackCoroutine()
     {
-        while (true)
+        for (int i = 0; i < _attacks.Count; i++)
         {
-            yield return new WaitForSeconds(7f);
-            if (_isStunned) continue;
-            Shoot();
+            yield return AttackCooldownCoroutine(_attacks[i]);
+            int difficulty = 1; // TODO: difficulty
+            yield return _attacks[i].BattleBossAttack.Attack(difficulty);
+
+            // reset loop if at the end
+            if (i == _attacks.Count - 1) i = 0;
         }
     }
 
-    void Shoot()
+    IEnumerator AttackCooldownCoroutine(BossAttack bossAttack)
     {
-        int totalCount = Random.Range(20, 50);
-        if (_currentShottingPatternIndex == 0)
-            ShootInCircle(totalCount);
-        if (_currentShottingPatternIndex == 1)
-            StartCoroutine(ShootInCircleWithDelay(totalCount));
-        if (_currentShottingPatternIndex == 2)
-            StartCoroutine(RandomShots(totalCount));
-        if (_currentShottingPatternIndex == 3)
-            StartCoroutine(RhombusShots(totalCount));
-
-        _currentShottingPatternIndex++;
-        if (_currentShottingPatternIndex >= 4) _currentShottingPatternIndex = 0;
-    }
-
-    void ShootInCircle(int total)
-    {
-        for (int i = 0; i < total; i++)
+        for (int i = 0; i < bossAttack.CooldownSeconds; i++)
         {
-            Vector3 spawnPos = transform.position;
-            spawnPos.y = 1f;
-            Vector3 pos = GetPositionOnCircle(i, total);
-            pos.y = 1f;
-            Vector3 dir = (pos - spawnPos).normalized;
-            SpawnProjectile(dir, 10f, 5);
+            while (_isStunned) yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1f);
         }
-    }
-
-    IEnumerator ShootInCircleWithDelay(int total)
-    {
-        float waitTime = 3f / total;
-        for (int i = 0; i < total; i++)
-        {
-            Vector3 spawnPos = transform.position;
-            spawnPos.y = 1f;
-            Vector3 pos = GetPositionOnCircle(i, total);
-            pos.y = 1f;
-            Vector3 dir = (pos - spawnPos).normalized;
-            SpawnProjectile(dir, 10f, 5);
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-
-    IEnumerator RandomShots(int total)
-    {
-        float waitTime = 3f / total;
-        for (int i = 0; i < total; i++)
-        {
-            Vector3 dir = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward;
-            SpawnProjectile(dir, 10f, 5);
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-
-    IEnumerator RhombusShots(int total)
-    {
-        int numberOfGroups = total / 4;
-        float waitTime = 3f / numberOfGroups;
-        for (int i = 0; i < numberOfGroups; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                Vector3 dir = Quaternion.Euler(0, i * 15 + j * 90, 0) * Vector3.forward;
-                SpawnProjectile(dir, 10f, 5);
-            }
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-
-    void SpawnProjectile(Vector3 dir, float time, int power)
-    {
-        Vector3 spawnPos = transform.position;
-        spawnPos.y = 1f;
-        BattleProjectileBoss p = _projectilePool.Find(x => !x.gameObject.activeSelf);
-        p.transform.position = spawnPos;
-        p.Initialize(1);
-        // BattleProjectileBoss p = Instantiate(_projectilePrefab, transform).GetComponent<BattleProjectileBoss>();
-        p.Shoot(this, dir, time, power);
-    }
-
-    Vector3 GetPositionOnCircle(int currentIndex, int totalCount)
-    {
-        float theta = currentIndex * 2 * Mathf.PI / totalCount;
-        float radius = 5;
-        Vector3 center = transform.position;
-        float x = Mathf.Cos(theta) * radius + center.x;
-        float y = 1f;
-        float z = Mathf.Sin(theta) * radius + center.z;
-
-        return new(x, y, z);
-
     }
 
     /* CORRUPTION */
@@ -291,7 +219,6 @@ public class BattleBoss : BattleEntity
 
     IEnumerator StunCoroutine()
     {
-        Debug.Log($"boss Stunned");
         DisplayFloatingText("Stunned", Color.yellow);
         CurrentDamageToBreakCorruption.SetValue(0);
         CurrentStunDuration.SetValue(TotalStunDuration.Value);
@@ -312,8 +239,6 @@ public class BattleBoss : BattleEntity
         StartRunEntityCoroutine();
         _isStunned = false;
         OnStunFinished?.Invoke();
-        Debug.Log($"boss Stunned finished");
-
     }
 
     /* GET HIT */
