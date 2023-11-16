@@ -81,16 +81,13 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     protected void PauseCorruption()
     {
         _corruptionPaused = true;
-        int p = DOTween.Pause("CorruptionEffectRotation");
-        Debug.Log($"pasue corruption {p}");
+        DOTween.Pause("CorruptionEffectRotation");
     }
 
     protected void ResumeCorruption()
     {
         _corruptionPaused = false;
-        int p = DOTween.Play("CorruptionEffectRotation");
-        Debug.Log($"resume corruption {p}");
-
+        DOTween.Play("CorruptionEffectRotation");
     }
 
     protected IEnumerator CorruptionCoroutine()
@@ -105,9 +102,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         for (int i = 0; i <= _building.SecondsToCorrupt; i++)
         {
             if (_corruptionPaused) yield return new WaitUntil(() => !_corruptionPaused);
-
-            Debug.Log($"corruption {i}");
-
             yield return new WaitForSeconds(1);
             _progressBarHandler.SetProgress((float)i / _building.SecondsToCorrupt);
         }
@@ -121,7 +115,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         if (_corruptionCoroutine != null)
             StopCoroutine(_corruptionCoroutine);
         _corruptionCoroutine = null;
-        
+
         _progressBarHandler.HideProgressBar();
         StartCoroutine(HideCorruptionEffect());
     }

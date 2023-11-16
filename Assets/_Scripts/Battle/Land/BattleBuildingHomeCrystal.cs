@@ -66,5 +66,9 @@ public class BattleBuildingHomeCrystal : BattleBuilding
         StartCoroutine(_corruptionCoroutine);
     }
 
-
+    public override void Corrupted()
+    {
+        base.Corrupted();
+        _battleManager.LoseBattle();
+    }
 }
