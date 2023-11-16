@@ -14,10 +14,9 @@ public class BattleBoss : BattleEntity
     [SerializeField] GameObject _stunEffect;
 
     [Header("Shooting")]
-    [SerializeField] GameObject _projectilePrefab;
     IEnumerator _shootingCoroutine;
     int _currentShottingPatternIndex;
-    public List<BattleProjectileBoss> _projectilePool = new();
+    List<BattleProjectileBoss> _projectilePool;
 
     List<BattleTile> _pathToHomeTile = new();
     int _nextTileIndex;
@@ -47,6 +46,8 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
 
         _nextTileIndex = 0;
+        _projectilePool = _battleManager.GetComponent<BattleBossManager>().Projectiles;
+
         StartRunEntityCoroutine();
         StartShootingCoroutine();
 
@@ -61,19 +62,9 @@ public class BattleBoss : BattleEntity
 
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
 
-        _projectilePool = new();
-        CreateProjectilePool();
+
     }
 
-    void CreateProjectilePool()
-    {
-        for (int i = 0; i < 200; i++)
-        {
-            BattleProjectileBoss p = Instantiate(_projectilePrefab, transform).GetComponent<BattleProjectileBoss>();
-            p.gameObject.SetActive(false);
-            _projectilePool.Add(p);
-        }
-    }
 
     protected override IEnumerator RunEntity()
     {
