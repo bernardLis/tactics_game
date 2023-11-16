@@ -87,7 +87,6 @@ public class CreatureAbilityElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-
         CreatureAbilityTooltipElement tooltip = new(_ability);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();

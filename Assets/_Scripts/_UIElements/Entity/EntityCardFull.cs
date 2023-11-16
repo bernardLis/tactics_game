@@ -18,7 +18,6 @@ public class EntityCardFull : FullScreenElement
     protected ScrollView _mainCardContainer;
 
     protected VisualElement _nameContainer;
-    protected VisualElement _mainContainer;
 
     protected VisualElement _basicInfoContainer;
     protected VisualElement _statsContainer;

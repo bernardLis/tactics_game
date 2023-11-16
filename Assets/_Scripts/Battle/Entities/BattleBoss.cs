@@ -68,7 +68,7 @@ public class BattleBoss : BattleEntity
     void InitializeAttacks()
     {
         Boss boss = (Boss)Entity;
-        foreach (BossAttack original in boss.BossAttacks)
+        foreach (BossAttack original in boss.Attacks)
         {
             BossAttack attack = Instantiate(original);
             attack.Initialize(this);

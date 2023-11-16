@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Boss")]
 public class Boss : EntityMovement
 {
-    [Header("Boss Attacks")]
-    public List<BossAttack> BossAttacks = new List<BossAttack>();
+    [Header("Attacks")]
+    public List<BossAttack> Attacks = new List<BossAttack>();
 
 }

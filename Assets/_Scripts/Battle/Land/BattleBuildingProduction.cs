@@ -73,8 +73,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
 
     void StartProductionCoroutine()
     {
-        Debug.Log($"start production _productionCoroutine {_productionCoroutine}");
-        Debug.Log($"_building.IsSecured {_building.IsSecured}");
         if (!_building.IsSecured) return;
         if (_productionCoroutine != null) return;
 

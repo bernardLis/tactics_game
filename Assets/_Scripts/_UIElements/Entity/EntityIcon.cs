@@ -107,7 +107,7 @@ public class EntityIcon : ElementWithTooltip
         if (_entity is Minion minion)
             card = new EntityMovementCardFull(minion);
         if (_entity is Boss boss)
-            card = new EntityMovementCardFull(boss);
+            card = new BossCardFull(boss);
 
         card?.Initialize();
     }
