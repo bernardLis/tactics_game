@@ -121,6 +121,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         if (_corruptionCoroutine != null)
             StopCoroutine(_corruptionCoroutine);
         _corruptionCoroutine = null;
+        
         _progressBarHandler.HideProgressBar();
         StartCoroutine(HideCorruptionEffect());
     }

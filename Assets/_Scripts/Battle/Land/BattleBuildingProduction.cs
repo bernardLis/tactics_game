@@ -20,7 +20,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
 
     protected List<BattleCreature> _producedCreatures = new();
 
-    IEnumerator _corruptedProductionCoroutine;
     public override void Initialize(Vector3 pos, Building building)
     {
         base.Initialize(pos, building);
@@ -74,11 +73,19 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
 
     void StartProductionCoroutine()
     {
+        Debug.Log($"start production _productionCoroutine {_productionCoroutine}");
+        Debug.Log($"_building.IsSecured {_building.IsSecured}");
         if (!_building.IsSecured) return;
         if (_productionCoroutine != null) return;
 
         _productionCoroutine = ProductionCoroutine();
         StartCoroutine(_productionCoroutine);
+    }
+
+    void StopProductionCoroutine()
+    {
+        if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
+        _productionCoroutine = null;
     }
 
     IEnumerator ProductionCoroutine()
@@ -127,6 +134,8 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     IEnumerator ProductionDelay()
     {
         float totalDelay = _buildingProduction.GetCurrentUpgrade().ProductionDelay;
+        if (!_buildingProduction.IsSecured) totalDelay *= 2; // double delay for corrupted production
+
         _currentProductionDelaySecond = 0f;
         while (_currentProductionDelaySecond < totalDelay)
         {
@@ -141,7 +150,8 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     public override void StartCorruption(BattleBoss boss)
     {
         base.StartCorruption(boss);
-        if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
+        StopProductionCoroutine();
+
         boss.OnCorruptionBroken += StartProductionCoroutine;
     }
 
@@ -149,8 +159,8 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         base.Corrupted();
 
-        _corruptedProductionCoroutine = CorruptedProductionCoroutine();
-        StartCoroutine(_corruptedProductionCoroutine);
+        _productionCoroutine = CorruptedProductionCoroutine();
+        StartCoroutine(_productionCoroutine);
     }
 
     IEnumerator CorruptedProductionCoroutine()
@@ -167,7 +177,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         {
             SpawnHostileCreature();
             yield return ProductionDelay();
-            yield return ProductionDelay(); // double delay
         }
 
         _progressBarHandler.HideProgressBar();
@@ -189,7 +198,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
             spawner.DestroySelf();
         };
     }
-
 
     /* INTERACTION */
     public override void DisplayTooltip()
