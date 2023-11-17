@@ -112,7 +112,7 @@ public class BattleManager : Singleton<BattleManager>
         ResumeTimer();
 
         // HERE: testing - boss 
-        // StartCoroutine(SpawnBossCoroutine());
+        StartCoroutine(SpawnBossCoroutine());
 
         OnBattleInitialized?.Invoke();
     }
@@ -121,9 +121,8 @@ public class BattleManager : Singleton<BattleManager>
     IEnumerator SpawnBossCoroutine()
     {
         BattleEntitySpawner spawner = Instantiate(_spawner,
-                                                    Vector3.zero,
+                                                    Vector3.right * 5f,
                                                     Quaternion.identity);
-        spawner.transform.LookAt(BattleHero.transform.position);
         spawner.ShowPortal(null, Vector3.one * 5f);
         yield return new WaitForSeconds(1.5f);
 

@@ -103,14 +103,22 @@ public class BattleBoss : BattleEntity
 
     IEnumerator AttackCoroutine()
     {
-        for (int i = 0; i < _attacks.Count; i++)
+        while (true)
         {
-            yield return AttackCooldownCoroutine(_attacks[i]);
-            int difficulty = 1; // TODO: difficulty
-            yield return _attacks[i].BattleBossAttack.Attack(difficulty);
+            for (int i = 0; i < _attacks.Count; i++)
+            {
+                Debug.Log($"i {i}");
+                yield return AttackCooldownCoroutine(_attacks[i]);
+                int difficulty = 1; // TODO: difficulty
+                yield return _attacks[i].BattleBossAttack.Attack(difficulty);
 
-            // reset loop if at the end
-            if (i == _attacks.Count - 1) i = 0;
+                // // reset loop if at the end
+                // if (i >= _attacks.Count - 1)
+                // {
+                //     Debug.Log($"resetting {_attacks.Count}");
+                //     i = 0;
+                // };
+            }
         }
     }
 
