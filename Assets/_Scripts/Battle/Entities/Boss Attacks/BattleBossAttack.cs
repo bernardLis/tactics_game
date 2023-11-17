@@ -7,7 +7,7 @@ public class BattleBossAttack : MonoBehaviour
     protected BattleManager _battleManager;
     protected BattleBossManager _battleBossManager;
 
-    List<BattleProjectileBoss> _projectilePool = new();
+    List<BattleProjectileOpponent> _projectilePool = new();
 
     BattleBoss _battleBoss;
     public virtual void Initialize(BattleBoss battleBoss)
@@ -30,7 +30,7 @@ public class BattleBossAttack : MonoBehaviour
     {
         Vector3 spawnPos = transform.position;
         spawnPos.y = 1f;
-        BattleProjectileBoss p = _projectilePool.Find(x => !x.gameObject.activeSelf);
+        BattleProjectileOpponent p = _projectilePool.Find(x => !x.gameObject.activeSelf);
         p.transform.position = spawnPos;
         p.Initialize(1);
         p.Shoot(_battleBoss, dir, time, power);

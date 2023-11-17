@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BattleProjectileBoss : BattleProjectile
+public class BattleProjectileOpponent : BattleProjectile
 {
     BattleBoss _boss;
     float _time;

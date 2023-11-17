@@ -90,9 +90,10 @@ public static class Helpers
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 
-    public static Vector3 GetPositionOnCircle(Vector3 center, float radius, int currentIndex, int totalCount)
+    public static Vector3 GetPositionOnCircle(Vector3 center, float radius,
+                                             int currentIndex, int totalCount, float startAngle = 0)
     {
-        float theta = currentIndex * 2 * Mathf.PI / totalCount;
+        float theta = startAngle + currentIndex * 2 * Mathf.PI / totalCount;
         float x = Mathf.Cos(theta) * radius + center.x;
         float y = 1f;
         float z = Mathf.Sin(theta) * radius + center.z;

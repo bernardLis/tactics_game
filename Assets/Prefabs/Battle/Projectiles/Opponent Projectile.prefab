@@ -258,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 8588406263794962203}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _speed
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _explosion
@@ -280,7 +280,8 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4865320723727955223, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
@@ -289,10 +290,35 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4865320723727955223, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3808879947614923252}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7985646470356588355}
   m_SourcePrefab: {fileID: 100100000, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
 --- !u!4 &2541368232010311857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4865320723727955223, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
   m_PrefabInstance: {fileID: 6972090756857683366}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3598480509978026446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+  m_PrefabInstance: {fileID: 6972090756857683366}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7985646470356588355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598480509978026446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c39a99a7abbcf4f98274ce995749f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _shootSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _gfx: {fileID: 8588406263794962203}
+  _explosion: {fileID: 5161361840484211975}
+  _speed: 5

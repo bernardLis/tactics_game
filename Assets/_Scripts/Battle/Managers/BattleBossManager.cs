@@ -10,7 +10,7 @@ public class BattleBossManager : MonoBehaviour
 
     [SerializeField] GameObject _projectilePrefab;
     [SerializeField] Transform _bossProjectilePoolHolder;
-    public List<BattleProjectileBoss> Projectiles = new();
+    public List<BattleProjectileOpponent> Projectiles = new();
 
     [SerializeField] Building[] _bossBuildings;
 
@@ -34,7 +34,7 @@ public class BattleBossManager : MonoBehaviour
     {
         for (int i = 0; i < 200; i++)
         {
-            BattleProjectileBoss p = Instantiate(_projectilePrefab, _bossProjectilePoolHolder).GetComponent<BattleProjectileBoss>();
+            BattleProjectileOpponent p = Instantiate(_projectilePrefab, _bossProjectilePoolHolder).GetComponent<BattleProjectileOpponent>();
             p.gameObject.SetActive(false);
             Projectiles.Add(p);
         }
