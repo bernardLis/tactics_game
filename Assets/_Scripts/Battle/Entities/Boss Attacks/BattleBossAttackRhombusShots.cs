@@ -8,7 +8,8 @@ public class BattleBossAttackRhombusShots : BattleBossAttack
     public override IEnumerator Attack(int difficulty)
     {
         int total = Random.Range(20, 50); // TODO: difficulty
-        int numberOfGroups = total / 4;
+        int shotsPerGroup = 4;
+        int numberOfGroups = total / shotsPerGroup;
         float waitTime = 3f / numberOfGroups;
         for (int i = 0; i < numberOfGroups; i++)
         {

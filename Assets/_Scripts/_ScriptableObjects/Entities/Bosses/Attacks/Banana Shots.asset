@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7847d728d6fbd4a826594522575879, type: 3}
+  m_Name: Banana Shots
+  m_EditorClassIdentifier: 
+  Id: b96e6fab-0861-46f8-9db9-d2c78d6ecc3f
+  Icon: {fileID: 21300000, guid: 3fa819404438e0d40a00e65a433ffbcc, type: 3}
+  Description: Pew pew Pew pew Pew pew Pew pew
+  CooldownSeconds: 4
+  BossAttackManagerPrefab: {fileID: 5959107765688727771, guid: 0c93ac90929c36948a1de885ea5fe29d, type: 3}
+  BattleBossAttack: {fileID: 0}
