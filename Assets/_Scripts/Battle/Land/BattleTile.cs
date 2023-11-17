@@ -310,14 +310,11 @@ public class BattleTile : MonoBehaviour
 
     Vector3 GetPositionAroundMiddle(int currentIndex, int totalCount)
     {
-        float theta = currentIndex * 2 * Mathf.PI / totalCount;
         float radius = Scale * 0.5f - 1;
-        Vector3 center = transform.position;
-        float x = Mathf.Cos(theta) * radius + center.x;
-        float y = 1f;
-        float z = Mathf.Sin(theta) * radius + center.z;
+        Vector3 pos = Helpers.GetPositionOnCircle(transform.position, radius, currentIndex, totalCount);
+        pos.y = 1f;
 
-        return new(x, y, z);
+        return pos;
     }
 
     bool IsPositionOnNavMesh(Vector3 point, out Vector3 result)

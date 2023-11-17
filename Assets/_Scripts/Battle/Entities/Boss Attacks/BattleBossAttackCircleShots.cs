@@ -12,7 +12,7 @@ public class BattleBossAttackCircleShots : BattleBossAttack
         {
             Vector3 spawnPos = transform.position;
             spawnPos.y = 1f;
-            Vector3 pos = Helpers.GetPositionOnCircle(transform.position, i, total);
+            Vector3 pos = Helpers.GetPositionOnCircle(transform.position, 5, i, total);
             pos.y = 1f;
             Vector3 dir = (pos - spawnPos).normalized;
             SpawnProjectile(dir, 10f, 5);

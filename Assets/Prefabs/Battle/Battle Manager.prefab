@@ -92,8 +92,8 @@ MonoBehaviour:
   PlayerTurrets: []
   Pickups: []
   BlockBattleEnd: 0
-  _spawner: {fileID: 0}
-  _boss: {fileID: 0}
+  _spawner: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+  _boss: {fileID: 11400000, guid: 1a26836a33edbc04e85a1b1fcb6528ce, type: 2}
 --- !u!114 &5119385659013104314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +215,10 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 7041283781085426902, guid: d5667f8737202a8429d8d6757954077f, type: 3}
   _bossProjectilePoolHolder: {fileID: 0}
   Projectiles: []
-  bossBuilding: {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
+  _bossBuildings:
+  - {fileID: 11400000, guid: ce32f1c73c0ac2749831866fe047d628, type: 2}
+  - {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
+  - {fileID: 11400000, guid: a79818e297226f7408f6866a3059e745, type: 2}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

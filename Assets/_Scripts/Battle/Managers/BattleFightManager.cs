@@ -12,6 +12,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     BattleManager _battleManager;
     BattleTooltipManager _battleTooltipManager;
+    BattleAreaManager _battleAreaManager;
 
     public int CurrentDifficulty { get; private set; }
     public bool IsFightActive { get; private set; }
@@ -29,6 +30,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
         _battleManager = BattleManager.Instance;
         _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
         _battleTooltipManager = BattleTooltipManager.Instance;
+        _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         CurrentDifficulty = 1;
     }
@@ -51,6 +53,27 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         IsFightActive = true;
         OnBossFightStarted?.Invoke();
+
+        StartCoroutine(SpawnMinionsOnBossTile());
+    }
+
+    IEnumerator SpawnMinionsOnBossTile()
+    {
+        // last purchased tile
+        BattleTile tile = _battleAreaManager.PurchasedTiles[_battleAreaManager.PurchasedTiles.Count - 1];
+        while (IsFightActive)
+        {
+            // HERE: boss testing
+            int numberOfMinions = 25;//2 + Mathf.FloorToInt(difficulty * i * 1.1f);
+            numberOfMinions = Mathf.Clamp(numberOfMinions, 2, 50);
+            Vector2Int minionLevelRange = new Vector2Int(1, 1);
+
+            EnemyWave wave = ScriptableObject.CreateInstance<EnemyWave>();
+            wave.CreateWave(numberOfMinions, minionLevelRange);
+
+            yield return SpawnMinions(wave, tile);
+            yield return new WaitForSeconds(Random.Range(20, 40));
+        }
     }
 
     IEnumerator TileFightCoroutine()
@@ -113,18 +136,18 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
     IEnumerator SpawnOpponentGroup(EnemyWave group)
     {
-        yield return SpawnMinions(group);
+        yield return SpawnMinions(group, _currentTile);
         _currentFight.SpawningGroupFinished();
     }
 
-    IEnumerator SpawnMinions(EnemyWave group)
+    public IEnumerator SpawnMinions(EnemyWave group, BattleTile tile)
     {
         for (int i = 0; i < group.Minions.Count; i++)
         {
             Minion m = group.Minions[i];
             m.InitializeBattle(1);
 
-            Vector3 pos = _currentTile.GetMinionPosition(i, group.Minions.Count);
+            Vector3 pos = tile.GetMinionPosition(i, group.Minions.Count);
 
             BattleEntity be = SpawnEntity(m, pos);
             _battleManager.AddOpponentArmyEntity(be);

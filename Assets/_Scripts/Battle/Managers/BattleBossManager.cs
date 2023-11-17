@@ -12,7 +12,9 @@ public class BattleBossManager : MonoBehaviour
     [SerializeField] Transform _bossProjectilePoolHolder;
     public List<BattleProjectileBoss> Projectiles = new();
 
-    [SerializeField] Building bossBuilding;
+    [SerializeField] Building[] _bossBuildings;
+
+    Building _chosenBossBuilding;
 
     void Start()
     {
@@ -21,6 +23,8 @@ public class BattleBossManager : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         _battleAreaManager.OnTilePurchased += HandleTilePurchased;
+
+        _chosenBossBuilding = _bossBuildings[Random.Range(0, _bossBuildings.Length)];
 
         Projectiles = new();
         CreateProjectilePool();
@@ -58,7 +62,7 @@ public class BattleBossManager : MonoBehaviour
             {
                 if (adjacentTile.gameObject.activeSelf) continue;
 
-                _battleAreaManager.ReplaceTile(adjacentTile, bossBuilding);
+                _battleAreaManager.ReplaceTile(adjacentTile, _chosenBossBuilding);
             }
         }
     }

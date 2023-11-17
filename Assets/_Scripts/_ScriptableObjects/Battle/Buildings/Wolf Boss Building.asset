@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5410e72f2d6aed849bfbb696c35cc1ef, type: 3}
-  m_Name: Boss Building
+  m_Name: Wolf Boss Building
   m_EditorClassIdentifier: 
   Id: 2e6afe86-16da-4175-b76e-1ab4ddd58602
   Icon: {fileID: 0}

@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class BattleBoss : BattleEntity
 {
     BattleAreaManager _battleAreaManager;
+    BattleFightManager _battleFightManager;
 
     [Header("Boss")]
     [SerializeField] GameObject _corruptionBreakNodePrefab;
@@ -15,7 +16,6 @@ public class BattleBoss : BattleEntity
 
     [Header("Attacks")]
     List<BossAttack> _attacks = new();
-
     IEnumerator _attackCoroutine;
 
     List<BattleTile> _pathToHomeTile = new();
@@ -44,36 +44,16 @@ public class BattleBoss : BattleEntity
         _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
                                  _battleAreaManager.GetTileFromPosition(transform.position),
                                  _battleAreaManager.HomeTile);
-
         _nextTileIndex = 0;
 
-        InitializeAttacks();
+        _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
 
+        InitializeAttacks();
         StartRunEntityCoroutine();
         StartAttackCoroutine();
 
-        TotalDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
-        TotalDamageToBreakCorruption.SetValue(1000);
-        CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
-        CurrentDamageToBreakCorruption.SetValue(0);
-        TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-        TotalStunDuration.SetValue(10);
-        CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-        CurrentStunDuration.SetValue(0);
-
+        SetUpVariables();
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
-
-    }
-
-    void InitializeAttacks()
-    {
-        Boss boss = (Boss)Entity;
-        foreach (BossAttack original in boss.Attacks)
-        {
-            BossAttack attack = Instantiate(original);
-            attack.Initialize(this);
-            _attacks.Add(attack);
-        }
     }
 
     protected override IEnumerator RunEntity()
@@ -100,6 +80,18 @@ public class BattleBoss : BattleEntity
 
             StartBuildingCorruption();
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+    /* ATTACKS */
+    void InitializeAttacks()
+    {
+        Boss boss = (Boss)Entity;
+        foreach (BossAttack original in boss.Attacks)
+        {
+            BossAttack attack = Instantiate(original);
+            attack.Initialize(this);
+            _attacks.Add(attack);
         }
     }
 
@@ -132,7 +124,6 @@ public class BattleBoss : BattleEntity
     }
 
     /* CORRUPTION */
-
     void StartBuildingCorruption()
     {
         Animator.SetTrigger("Creature Ability");
@@ -212,6 +203,7 @@ public class BattleBoss : BattleEntity
 
     void CorruptionCleanup()
     {
+        CurrentDamageToBreakCorruption.SetValue(0);
         _isCorrupting = false;
         _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
         DestroyAllCorruptionBreakNodes();
@@ -269,6 +261,19 @@ public class BattleBoss : BattleEntity
         }
 
         if (_isCorrupting) HandleCorruptionBreak(d);
+    }
+
+    /* HELPERS */
+    void SetUpVariables()
+    {
+        TotalDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
+        TotalDamageToBreakCorruption.SetValue(1000);
+        CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentDamageToBreakCorruption.SetValue(0);
+        TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
+        TotalStunDuration.SetValue(10);
+        CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
+        CurrentStunDuration.SetValue(0);
     }
 
 }

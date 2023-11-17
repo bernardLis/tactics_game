@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc83541a3da00154cb0714f819380f71, type: 3}
-  m_Name: Not Big Bad Wolf
+  m_Name: Ssssssnake
   m_EditorClassIdentifier: 
   Id: c42058d2-2ddc-4d8d-93cc-65acf7cc191f
-  EntityName: Big Bad Wolf
+  EntityName: Ssssssnake
   Icon: {fileID: 0}
   IconAnimation:
   - {fileID: 21300000, guid: 5e6a9e4bd3cca8a4abcf70a8f0fa21d9, type: 3}
   Price: 0
-  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Prefab: {fileID: 5828399577187593241, guid: 18e65eb625ce8f648ac60398b056e9c7, type: 3}
+  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Prefab: {fileID: 5828399577187593241, guid: b764f19dd6cef334097c6ef9647a2c50, type: 3}
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Team: 0
@@ -32,3 +32,4 @@ MonoBehaviour:
   LeftoverExp: 0
   ExpOrbs: []
   Speed: {fileID: 11400000, guid: 62b1b9dbd3a71b2459debf42d53569d8, type: 2}
+  Attacks: []
