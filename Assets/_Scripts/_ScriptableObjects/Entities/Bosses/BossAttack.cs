@@ -13,9 +13,11 @@ public class BossAttack : BaseScriptableObject
     public GameObject BossAttackManagerPrefab;
     [HideInInspector] public BattleBossAttack BattleBossAttack;
 
+    public GameObject SpecialProjectilePrefab;
+
     public void Initialize(BattleBoss bb)
     {
         BattleBossAttack = Instantiate(BossAttackManagerPrefab, bb.transform).GetComponent<BattleBossAttack>();
-        BattleBossAttack.Initialize(bb);
+        BattleBossAttack.Initialize(this, bb);
     }
 }

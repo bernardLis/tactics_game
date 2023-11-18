@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class BattleProjectileOpponent : BattleProjectile
 {
@@ -9,6 +10,9 @@ public class BattleProjectileOpponent : BattleProjectile
     float _time;
     int _power;
 
+    protected Vector3 _direction;
+
+    public event Action OnDestroy;
     public override void Initialize(int Team)
     {
         base.Initialize(Team);
@@ -25,22 +29,23 @@ public class BattleProjectileOpponent : BattleProjectile
 
     }
 
-    public void Shoot(BattleBoss boss, Vector3 dir, float time, int power)
+    public virtual void Shoot(BattleBoss boss, Vector3 dir, float time, int power)
     {
         _boss = boss;
         _time = time;
         _power = power;
+        _direction = dir;
 
         gameObject.SetActive(true);
-        StartCoroutine(ShootCoroutine(dir));
+        StartCoroutine(ShootCoroutine());
     }
 
-    IEnumerator ShootCoroutine(Vector3 dir)
+    IEnumerator ShootCoroutine()
     {
         float t = 0;
         while (t <= _time)
         {
-            transform.position += dir * _speed * Time.fixedDeltaTime;
+            transform.position += _direction * _speed * Time.fixedDeltaTime;
             t += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -64,6 +69,7 @@ public class BattleProjectileOpponent : BattleProjectile
 
         yield return new WaitForSeconds(0.5f);
 
+        OnDestroy?.Invoke();
         transform.DOKill(transform);
         gameObject.SetActive(false);
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class BattleProjectile : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class BattleProjectile : MonoBehaviour
     protected BattleEntity _target;
 
     protected bool _hitConnected;
+
     public virtual void Initialize(int Team)
     {
         _team = Team;
@@ -76,7 +78,7 @@ public class BattleProjectile : MonoBehaviour
         yield return DestroySelf(transform.position);
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (_hitConnected) return;
 
@@ -101,7 +103,7 @@ public class BattleProjectile : MonoBehaviour
         }
     }
 
-    bool IsTargetValid(BattleEntity battleEntity)
+    protected bool IsTargetValid(BattleEntity battleEntity)
     {
         if (battleEntity.IsDead) return false;
         // if (battleEntity is BattleHero) return false; // HERE: projectile for now...

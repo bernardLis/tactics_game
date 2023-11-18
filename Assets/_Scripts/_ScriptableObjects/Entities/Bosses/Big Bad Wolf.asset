@@ -33,4 +33,4 @@ MonoBehaviour:
   ExpOrbs: []
   Speed: {fileID: 11400000, guid: 62b1b9dbd3a71b2459debf42d53569d8, type: 2}
   Attacks:
-  - {fileID: 11400000, guid: 07115a744e5aab243bc8443c1cbfc3a7, type: 2}
+  - {fileID: 11400000, guid: 284caa57e561dc64a817642b740afe56, type: 2}
