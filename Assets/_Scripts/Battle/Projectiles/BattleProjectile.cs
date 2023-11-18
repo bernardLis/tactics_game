@@ -14,7 +14,7 @@ public class BattleProjectile : MonoBehaviour
     [SerializeField] protected GameObject _gfx;
     [SerializeField] protected GameObject _explosion;
 
-    [SerializeField] protected int _speed;
+    [SerializeField] protected float _speed;
     protected SphereCollider _collider;
 
     protected int _team;

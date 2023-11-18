@@ -7,7 +7,7 @@ using System;
 public class BattleProjectileOpponent : BattleProjectile
 {
     BattleBoss _boss;
-    float _time;
+    protected float _time;
     int _power;
 
     protected Vector3 _direction;
