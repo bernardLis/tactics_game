@@ -48,21 +48,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3340881537272449837, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3340881537272449837, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3340881537272449837, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: m_Name
-      value: Opponent Projectile Wall Bounce
+      value: Opponent Projectile Bigger With Time
       objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 0.2784314
       objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.24991822
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.39607844
       objectReference: {fileID: 0}
     - target: {fileID: 5171322742888279648, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -70,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5171322742888279648, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.31600553
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5171322742888279648, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.3961337
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7985646470356588355, guid: f191a133bb2ba6840839372daa331f90, type: 3}
@@ -83,14 +95,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8685765680851253704}
+      addedObject: {fileID: -1803700434837120340}
   m_SourcePrefab: {fileID: 100100000, guid: f191a133bb2ba6840839372daa331f90, type: 3}
 --- !u!1 &602424468116040452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
   m_PrefabInstance: {fileID: 4155805588102007498}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8685765680851253704
+--- !u!114 &-1803700434837120340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,7 +111,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 602424468116040452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1af08142ea77bf41bda436eb2b7fa13, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ef105d0b120ca84cbacbbb8e70c75d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _explosionSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
