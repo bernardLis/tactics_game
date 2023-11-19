@@ -18,6 +18,7 @@ public class BuildingCard : TooltipCard
     protected LockOverlayElement _lockElement;
 
     protected Building _building;
+    
 
     public BuildingCard(Building building)
     {

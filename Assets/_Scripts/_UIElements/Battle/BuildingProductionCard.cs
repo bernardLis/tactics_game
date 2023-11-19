@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 public class BuildingProductionCard : BuildingCard
 {
     BuildingProduction _buildingProduction;
+    GoldElement _upgradeCostElement;
+
     public BuildingProductionCard(Building building) : base(building)
     {
     }
@@ -53,6 +55,25 @@ public class BuildingProductionCard : BuildingCard
         _buildingProduction.OnUpgradePurchased += () =>
         {
             delayLabel.text = $"Respawn: {_buildingProduction.GetCurrentUpgrade().ProductionDelay}s";
+        };
+
+        HandleUpgradeCost();
+    }
+
+    void HandleUpgradeCost()
+    {
+        if (_buildingProduction.GetNextUpgrade() == null) return;
+
+        _upgradeCostElement = new GoldElement(_buildingProduction.GetNextUpgrade().Cost);
+        _infoContainer.Add(_upgradeCostElement);
+        _buildingProduction.OnUpgradePurchased += () =>
+        {
+            if (_buildingProduction.GetNextUpgrade() == null)
+            {
+                _infoContainer.Remove(_upgradeCostElement);
+                return;
+            }
+            _upgradeCostElement.ChangeAmount(_buildingProduction.GetNextUpgrade().Cost);
         };
     }
 
