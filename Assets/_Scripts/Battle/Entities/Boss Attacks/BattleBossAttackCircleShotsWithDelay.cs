@@ -7,9 +7,9 @@ public class BattleBossAttackCircleShotsWithDelay : BattleBossAttack
 
     public override IEnumerator Attack(int difficulty)
     {
-        int total = Random.Range(20, 50); // TODO: difficulty
-
-        float waitTime = 3f / total;
+        int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
+        float waitTime = _attack.TotalAttackDuration / total;
+        
         for (int i = 0; i < total; i++)
         {
             Vector3 spawnPos = transform.position;
@@ -17,7 +17,7 @@ public class BattleBossAttackCircleShotsWithDelay : BattleBossAttack
             Vector3 pos = Helpers.GetPositionOnCircle(transform.position, 5, i, total);
             pos.y = 1f;
             Vector3 dir = (pos - spawnPos).normalized;
-            SpawnProjectile(dir, 10f, 5);
+            SpawnProjectile(dir);
             yield return new WaitForSeconds(waitTime);
         }
     }

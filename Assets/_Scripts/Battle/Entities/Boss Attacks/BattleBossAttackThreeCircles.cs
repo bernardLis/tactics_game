@@ -22,7 +22,7 @@ public class BattleBossAttackThreeCircles : BattleBossAttack
                 Vector3 pos = Helpers.GetPositionOnCircle(transform.position, 5, j, shotsPerGroup, startAngle);
                 pos.y = 1f;
                 Vector3 dir = (pos - spawnPos).normalized;
-                SpawnProjectile(dir, 10f, 5);
+                SpawnProjectile(dir);
             }
             yield return new WaitForSeconds(0.3f);
         }

@@ -9,11 +9,11 @@ public class BattleBossAttack : MonoBehaviour
 
     List<BattleProjectileOpponent> _projectilePool = new();
 
-    BossAttack _bossAttack;
+    protected BossAttack _attack;
     BattleBoss _battleBoss;
     public virtual void Initialize(BossAttack bossAttack, BattleBoss battleBoss)
     {
-        _bossAttack = bossAttack;
+        _attack = bossAttack;
         _battleBoss = battleBoss;
 
         _battleManager = BattleManager.Instance;
@@ -28,11 +28,11 @@ public class BattleBossAttack : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
 
-    protected void SpawnProjectile(Vector3 dir, float time, int power)
+    protected void SpawnProjectile(Vector3 dir)
     {
-        if (_bossAttack.SpecialProjectilePrefab != null)
+        if (_attack.SpecialProjectilePrefab != null)
         {
-            SpawnSpecialProjectile(dir, time, power);
+            SpawnSpecialProjectile(dir, _attack.ProjectileDuration, _attack.ProjectilePower);
             return;
         }
         Vector3 spawnPos = transform.position;
@@ -40,7 +40,7 @@ public class BattleBossAttack : MonoBehaviour
         BattleProjectileOpponent p = _projectilePool.Find(x => !x.gameObject.activeSelf);
         p.transform.position = spawnPos;
         p.Initialize(1);
-        p.Shoot(_battleBoss, dir, time, power);
+        p.Shoot(_battleBoss, dir, _attack.ProjectileDuration, _attack.ProjectilePower);
     }
 
     void SpawnSpecialProjectile(Vector3 dir, float time, int power)
@@ -48,7 +48,7 @@ public class BattleBossAttack : MonoBehaviour
         Vector3 spawnPos = transform.position;
         spawnPos.y = 1f;
 
-        GameObject go = Instantiate(_bossAttack.SpecialProjectilePrefab, spawnPos, Quaternion.identity);
+        GameObject go = Instantiate(_attack.SpecialProjectilePrefab, spawnPos, Quaternion.identity);
         BattleProjectileOpponent p = go.GetComponent<BattleProjectileOpponent>();
         p.Initialize(1);
         p.Shoot(_battleBoss, dir, time, power);

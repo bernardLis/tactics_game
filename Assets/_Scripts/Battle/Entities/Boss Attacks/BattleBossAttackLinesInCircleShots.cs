@@ -7,10 +7,10 @@ public class BattleBossAttackLinesInCircleShots : BattleBossAttack
 
     public override IEnumerator Attack(int difficulty)
     {
-        int total = Random.Range(20, 50); // TODO: difficulty
-        int shotsPerGroup = total / 3;
+        int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
+        int shotsPerGroup = total / _attack.GroupCount;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < _attack.GroupCount; i++)
         {
             for (int j = 0; j < shotsPerGroup; j++)
             {
@@ -19,7 +19,7 @@ public class BattleBossAttackLinesInCircleShots : BattleBossAttack
                 Vector3 pos = Helpers.GetPositionOnCircle(transform.position, 5 - i, j, shotsPerGroup);
                 pos.y = 1f;
                 Vector3 dir = (pos - spawnPos).normalized;
-                SpawnProjectile(dir, 10f, 5);
+                SpawnProjectile(dir);
             }
             yield return new WaitForSeconds(0.3f);
         }

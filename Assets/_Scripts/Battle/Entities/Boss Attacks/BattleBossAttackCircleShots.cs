@@ -7,7 +7,7 @@ public class BattleBossAttackCircleShots : BattleBossAttack
 
     public override IEnumerator Attack(int difficulty)
     {
-        int total = Random.Range(20, 50); // TODO: difficulty
+        int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
         for (int i = 0; i < total; i++)
         {
             Vector3 spawnPos = transform.position;
@@ -15,7 +15,7 @@ public class BattleBossAttackCircleShots : BattleBossAttack
             Vector3 pos = Helpers.GetPositionOnCircle(transform.position, 5, i, total);
             pos.y = 1f;
             Vector3 dir = (pos - spawnPos).normalized;
-            SpawnProjectile(dir, 10f, 5);
+            SpawnProjectile(dir);
         }
         yield return null;
     }

@@ -7,10 +7,11 @@ public class BattleBossAttackLineShots : BattleBossAttack
 
     public override IEnumerator Attack(int difficulty)
     {
-        int total = Random.Range(20, 50); // TODO: difficulty
-        int shotsPerGroup = total / 5;
+        int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
+        int shotsPerGroup = total / _attack.GroupCount;
+        float waitTime = _attack.TotalAttackDuration / _attack.GroupCount;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < _attack.GroupCount; i++)
         {
             Vector3 spawnPos = transform.position;
             spawnPos.y = 1f;
@@ -19,10 +20,10 @@ public class BattleBossAttackLineShots : BattleBossAttack
             Vector3 dir = (pos - spawnPos).normalized;
             for (int j = 0; j < shotsPerGroup; j++)
             {
-                SpawnProjectile(dir, 10f, 5);
+                SpawnProjectile(dir);
                 yield return new WaitForSeconds(0.2f);
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(waitTime);
         }
         yield return null;
     }

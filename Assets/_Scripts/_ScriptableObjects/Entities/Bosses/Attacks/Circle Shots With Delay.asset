@@ -16,5 +16,13 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9115f364e3af4394a81c2ce016560c4a, type: 3}
   Description: Pew pew
   CooldownSeconds: 5
+  TotalShotCount: {x: 20, y: 50}
+  GroupCount: 5
+  TotalAttackDuration: 5
+  Spread: 15
+  ProjectileDuration: 10
+  ProjectileSpeed: 5
+  ProjectilePower: 5
   BossAttackManagerPrefab: {fileID: 5959107765688727771, guid: 6a8922e78ff9e7842bfc0afb4d31bb4e, type: 3}
   BattleBossAttack: {fileID: 0}
+  SpecialProjectilePrefab: {fileID: 0}

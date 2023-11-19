@@ -32,4 +32,16 @@ MonoBehaviour:
   LeftoverExp: 0
   ExpOrbs: []
   Speed: {fileID: 11400000, guid: 62b1b9dbd3a71b2459debf42d53569d8, type: 2}
-  Attacks: []
+  Attacks:
+  - {fileID: 11400000, guid: 4b4e764c044d37649b04ff46fa98f085, type: 2}
+  - {fileID: 11400000, guid: 68ab24127e0d1604bb95133d79bc2127, type: 2}
+  - {fileID: 11400000, guid: eb5fb18b9647f0748b2b1a0a8e330f20, type: 2}
+  - {fileID: 11400000, guid: fccf8ce5204f6e641b25ce1156f5a38b, type: 2}
+  - {fileID: 11400000, guid: 07e812016ad858b4dab5dea0666ea568, type: 2}
+  - {fileID: 11400000, guid: df8a4ca677970274ba0b55a89cbe73ce, type: 2}
+  - {fileID: 11400000, guid: ec774424a60f04c41a8588f41eb76405, type: 2}
+  - {fileID: 11400000, guid: dfaf3d01a39c659459762915b918b8d3, type: 2}
+  - {fileID: 11400000, guid: 07115a744e5aab243bc8443c1cbfc3a7, type: 2}
+  - {fileID: 11400000, guid: 907fce4bffee9cf45a87697217fddb71, type: 2}
+  - {fileID: 11400000, guid: f85209fc74aee8f49b5c2862ce4d6fcf, type: 2}
+  - {fileID: 11400000, guid: 284caa57e561dc64a817642b740afe56, type: 2}
