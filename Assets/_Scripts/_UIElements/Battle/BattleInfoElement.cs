@@ -7,14 +7,16 @@ public class BattleInfoElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "battle-key-tooltip__";
+    const string _ussClassName = "battle-info__";
     const string _ussMain = _ussClassName + "main";
     const string _ussInteraction = _ussClassName + "interaction";
     const string _ussRIcon = _ussClassName + "r-icon";
 
     GameManager _gameManager;
 
-    public BattleInfoElement(string text, bool isObstacleRotation = false)
+    GoldElement _purchasePrice;
+
+    public BattleInfoElement(string text, bool isObstacleRotation = false, int purchasePrice = 0)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -37,5 +39,23 @@ public class BattleInfoElement : VisualElement
 
         Label txt = new(text);
         Add(txt);
+
+        if (purchasePrice > 0)
+        {
+            _purchasePrice = new(purchasePrice);
+            Add(_purchasePrice);
+        }
+    }
+
+    public void UpdatePurchasePrice(int price)
+    {
+        if (_purchasePrice != null)
+        {
+            _purchasePrice.ChangeAmount(price);
+            return;
+        }
+
+        _purchasePrice = new(price);
+        Add(_purchasePrice);
     }
 }

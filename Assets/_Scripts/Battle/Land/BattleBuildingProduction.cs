@@ -17,6 +17,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     float _currentProductionDelaySecond;
 
     BuildingProduction _buildingProduction;
+    BattleInfoElement _upgradeInfo;
 
     protected List<BattleCreature> _producedCreatures = new();
 
@@ -207,16 +208,32 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         if (_buildingProduction.CurrentLevel.Value >= _buildingProduction.BuildingUpgrades.Length) return;
         if (!CanInteract(default)) return;
 
-        _tooltipManager.ShowKeyTooltipInfo(
-            new BattleInfoElement($"<b>Upgrade {Helpers.ParseScriptableObjectName(_building.name)}</b>"));
+        _upgradeInfo = new BattleInfoElement(
+                        $"<b>Upgrade {Helpers.ParseScriptableObjectName(_building.name)}</b>",
+                        purchasePrice: _buildingProduction.GetNextUpgrade().Cost);
+        _tooltipManager.ShowKeyTooltipInfo(_upgradeInfo);
     }
+
+    public override bool CanInteract(BattleInteractor interactor)
+    {
+        if (_buildingProduction.CurrentLevel.Value >= _buildingProduction.BuildingUpgrades.Length) return false;
+        if (_gameManager.Gold < _buildingProduction.GetNextUpgrade().Cost) return false;
+
+        return base.CanInteract(interactor);
+    }
+
 
     public override bool Interact(BattleInteractor interactor)
     {
+        if (!CanInteract(interactor)) return false;
+
+        _gameManager.ChangeGoldValue(-_buildingProduction.GetNextUpgrade().Cost);
         _buildingProduction.Upgrade();
 
         if (_buildingProduction.CurrentLevel.Value == _buildingProduction.BuildingUpgrades.Length)
             _tooltipManager.HideKeyTooltipInfo();
+        else
+            _upgradeInfo.UpdatePurchasePrice(_buildingProduction.GetNextUpgrade().Cost);
 
         return true;
     }

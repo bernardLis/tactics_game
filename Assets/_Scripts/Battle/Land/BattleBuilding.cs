@@ -159,7 +159,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     }
 
     /* INTERACTION */
-    public bool CanInteract(BattleInteractor interactor)
+    public virtual bool CanInteract(BattleInteractor interactor)
     {
         if (_corruptionCoroutine != null) return false;
         return _building.IsSecured;

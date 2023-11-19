@@ -103,7 +103,6 @@ public class BattleBoss : BattleEntity
 
     IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(10f);
         while (true)
         {
             for (int i = 0; i < _attacks.Count; i++)

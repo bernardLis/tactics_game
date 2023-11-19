@@ -1,5 +1,5 @@
-.battle-key-tooltip__main {
-    min-width: 300px;
+.battle-info__main {
+    min-width: 200px;
     flex-direction: row;
     font-size: 32px;
     justify-content: center;
@@ -8,13 +8,13 @@
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Blackout.png?fileID=2800000&guid=d34831ab8fe8a184b87dd574af34e460&type=3#Blackout');
 }
 
-.battle-key-tooltip__interaction {
+.battle-info__interaction {
     width: 50px;
     height: 50px;
     background-image: url('project://database/Assets/Art/Sprites/Key%20Guide/Keyboard%20and%20Mouse/F_Key_Light.png?fileID=2800000&guid=b5104534557b52649b65a9679389e330&type=3#F_Key_Light');
 }
 
-.battle-key-tooltip__r-icon {
+.battle-info__r-icon {
     width: 50px;
     height: 50px;
     background-image: url('project://database/Assets/Art/Sprites/Key%20Guide/Keyboard%20and%20Mouse/R_Key_Light.png?fileID=2800000&guid=5c796492aa78d024d8aeddc7cc6c6d16&type=3#R_Key_Light');
