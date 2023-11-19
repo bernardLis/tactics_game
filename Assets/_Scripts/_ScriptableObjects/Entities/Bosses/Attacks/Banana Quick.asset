@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7847d728d6fbd4a826594522575879, type: 3}
-  m_Name: Circle Shots With Delay
+  m_Name: Banana Quick
   m_EditorClassIdentifier: 
-  Id: c8c8c897-e716-4389-aafa-bd5dea9515ca
-  Icon: {fileID: 21300000, guid: 9115f364e3af4394a81c2ce016560c4a, type: 3}
-  Description: Pew pew
+  Id: b96e6fab-0861-46f8-9db9-d2c78d6ecc3f
+  Icon: {fileID: 21300000, guid: 3fa819404438e0d40a00e65a433ffbcc, type: 3}
+  Description: Pew pew Pew pew Pew pew Pew pew
   CooldownSeconds: 5
   TotalShotCount: {x: 20, y: 50}
   GroupCount: 5
@@ -23,6 +23,6 @@ MonoBehaviour:
   ProjectileDuration: 10
   ProjectileSpeed: 5
   ProjectilePower: 5
-  BossAttackManagerPrefab: {fileID: 5959107765688727771, guid: 6a8922e78ff9e7842bfc0afb4d31bb4e, type: 3}
+  BossAttackManagerPrefab: {fileID: 5959107765688727771, guid: 0c93ac90929c36948a1de885ea5fe29d, type: 3}
   BattleBossAttack: {fileID: 0}
-  SpecialProjectilePrefab: {fileID: 0}
+  SpecialProjectilePrefab: {fileID: 602424468116040452, guid: 65299529ede89e94c889edeeffc8e113, type: 3}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleBossAttackHeroShotsWithSpread : BattleBossAttack
+public class BattleBossAttackSprayHero : BattleBossAttack
 {
 
     public override IEnumerator Attack(int difficulty)

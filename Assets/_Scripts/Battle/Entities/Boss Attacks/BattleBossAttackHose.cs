@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleBossAttackCircleShotsWithDelay : BattleBossAttack
+public class BattleBossAttackHose : BattleBossAttack
 {
 
     public override IEnumerator Attack(int difficulty)

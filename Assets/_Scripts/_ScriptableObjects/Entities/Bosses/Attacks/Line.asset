@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7847d728d6fbd4a826594522575879, type: 3}
-  m_Name: Random Shots
+  m_Name: Line
   m_EditorClassIdentifier: 
-  Id: d1944d44-56b9-4db5-acdd-86662cef515f
-  Icon: {fileID: 21300000, guid: 8af32d95923649d4598e478c2a681eda, type: 3}
-  Description: Pew pew Pew pew Pew pew
+  Id: b96e6fab-0861-46f8-9db9-d2c78d6ecc3f
+  Icon: {fileID: 21300000, guid: 52a13c57b2a30e94080d26c72a39b1ee, type: 3}
+  Description: Pew pew Pew pew Pew pew Pew pew
   CooldownSeconds: 5
   TotalShotCount: {x: 20, y: 50}
   GroupCount: 5
@@ -23,6 +23,6 @@ MonoBehaviour:
   ProjectileDuration: 10
   ProjectileSpeed: 5
   ProjectilePower: 5
-  BossAttackManagerPrefab: {fileID: 1847090147080639464, guid: 6bc4d60d45a4f0b4cb8e6ec526255fc2, type: 3}
+  BossAttackManagerPrefab: {fileID: 8493571355977996051, guid: c5ab3d4fb314c77439bb987e07ff6403, type: 3}
   BattleBossAttack: {fileID: 0}
   SpecialProjectilePrefab: {fileID: 0}
