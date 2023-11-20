@@ -91,6 +91,8 @@ public class Entity : BaseScriptableObject
         ExpForNextLevel.SetValue(GetExpForNextLevel());
         OnLevelUp?.Invoke();
 
+        CurrentHealth.SetValue(MaxHealth.GetValue());
+
         // HERE: entity rework - probably need to scale stats with level - change base values
         // but that would be different for creature and for hero
     }

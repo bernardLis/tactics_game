@@ -98,7 +98,11 @@ public class ResourceBarElement : ElementWithTooltip
             _totalStat = totalStat;
             _totalInt = ScriptableObject.CreateInstance<IntVariable>();
             _totalInt.SetValue(totalStat.GetValue());
-            _totalStat.OnValueChanged += _totalInt.SetValue;
+            _totalStat.OnValueChanged += (s) =>
+            {
+                OnTotalChanged(s);
+                _totalInt.SetValue(s);
+            };
         }
 
         _totalInt.OnValueChanged += OnTotalChanged;
@@ -137,11 +141,8 @@ public class ResourceBarElement : ElementWithTooltip
     void OnValueChanged(int newValue)
     {
         int change = Mathf.Abs(newValue - _currentInt.PreviousValue);
-        if (change == 0)
-            return;
 
-        if (this != null)
-            Helpers.DisplayTextOnElement(null, this, $"{change}", _color);
+        if (change == 0) return;
 
         if (_animation != null)
         {

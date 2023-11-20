@@ -32,8 +32,7 @@ public class Stat : BaseScriptableObject
     {
         int growth = Random.Range(GrowthPerLevelRange.x, GrowthPerLevelRange.y + 1);
 
-        if (IsDecreasingPerLevel)
-            growth *= -1;
+        if (IsDecreasingPerLevel) growth *= -1;
 
         BaseValue += growth;
         BaseValue = Mathf.Clamp(BaseValue, MaxMinValue.x, MaxMinValue.y);

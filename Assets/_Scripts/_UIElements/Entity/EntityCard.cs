@@ -74,6 +74,7 @@ public class EntityCard : TooltipCard
     protected virtual void HandleHealthBar()
     {
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
+
         _healthBar = new(c, "health", currentIntVar: Entity.CurrentHealth, totalStat: Entity.MaxHealth);
         _topRightContainer.Add(_healthBar);
     }
