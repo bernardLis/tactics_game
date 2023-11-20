@@ -21,6 +21,15 @@ public class BattleFightManager : Singleton<BattleFightManager>
     public List<Fight> Fights = new();
     Fight _currentFight;
 
+    /* POOLS */
+    [SerializeField] GameObject _projectilePrefab;
+    [SerializeField] Transform _enemyProjectilePoolHolder;
+    public List<BattleProjectileOpponent> Projectiles = new();
+
+    [SerializeField] GameObject _minionPrefab;
+    [SerializeField] Transform _minionPoolHolder;
+    public List<BattleEntity> Minions = new();
+
     public event Action OnFightStarted;
     public event Action OnFightEnded;
     public event Action OnWaveSpawned;
@@ -33,7 +42,33 @@ public class BattleFightManager : Singleton<BattleFightManager>
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         CurrentDifficulty = 1;
+
+        CreateProjectilePool();
+        CreateMinionPool();
     }
+
+    void CreateProjectilePool()
+    {
+        Projectiles = new();
+        for (int i = 0; i < 200; i++)
+        {
+            BattleProjectileOpponent p = Instantiate(_projectilePrefab, _enemyProjectilePoolHolder).GetComponent<BattleProjectileOpponent>();
+            p.gameObject.SetActive(false);
+            Projectiles.Add(p);
+        }
+    }
+
+    void CreateMinionPool()
+    {
+        Minions = new();
+        for (int i = 0; i < 200; i++)
+        {
+            BattleEntity be = Instantiate(_minionPrefab, _minionPoolHolder).GetComponent<BattleEntity>();
+            be.gameObject.SetActive(false);
+            Minions.Add(be);
+        }
+    }
+
 
     public void InitializeFight(BattleTile tile)
     {
@@ -149,7 +184,11 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
             Vector3 pos = tile.GetMinionPosition(i, group.Minions.Count);
 
-            BattleEntity be = SpawnEntity(m, pos);
+            // BattleEntity be = SpawnEntity(m, pos);
+            BattleEntity be = Minions.Find(x => !x.gameObject.activeSelf);
+            be.InitializeEntity(m, 1);
+            be.transform.position = pos;
+            be.gameObject.SetActive(true);
             _battleManager.AddOpponentArmyEntity(be);
             yield return new WaitForSeconds(0.05f);
         }
@@ -159,7 +198,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
     {
         GameObject instance = Instantiate(entity.Prefab, spawnPos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
-        be.InitializeEntity(entity, 1);
         return be;
     }
 }

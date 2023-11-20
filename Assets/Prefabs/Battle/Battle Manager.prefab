@@ -159,6 +159,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _noFights: 0
   Fights: []
+  _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+  _enemyProjectilePoolHolder: {fileID: 0}
+  Projectiles: []
+  _minionPrefab: {fileID: 6266213777921296780, guid: 2e606e0d198ae774b81a2ea0d596fb1c, type: 3}
+  _minionPoolHolder: {fileID: 0}
+  Minions: []
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,9 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d653eda90c7e0cc4c854ee094722280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
-  _bossProjectilePoolHolder: {fileID: 0}
-  Projectiles: []
   _bossBuildings:
   - {fileID: 11400000, guid: ce32f1c73c0ac2749831866fe047d628, type: 2}
   - {fileID: 11400000, guid: a79818e297226f7408f6866a3059e745, type: 2}

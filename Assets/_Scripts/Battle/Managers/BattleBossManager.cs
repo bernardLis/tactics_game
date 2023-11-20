@@ -8,10 +8,6 @@ public class BattleBossManager : MonoBehaviour
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
 
-    [SerializeField] GameObject _projectilePrefab;
-    [SerializeField] Transform _bossProjectilePoolHolder;
-    public List<BattleProjectileOpponent> Projectiles = new();
-
     [SerializeField] Building[] _bossBuildings;
 
     Building _chosenBossBuilding;
@@ -25,19 +21,6 @@ public class BattleBossManager : MonoBehaviour
         _battleAreaManager.OnTilePurchased += HandleTilePurchased;
 
         _chosenBossBuilding = _bossBuildings[Random.Range(0, _bossBuildings.Length)];
-
-        Projectiles = new();
-        CreateProjectilePool();
-    }
-
-    void CreateProjectilePool()
-    {
-        for (int i = 0; i < 200; i++)
-        {
-            BattleProjectileOpponent p = Instantiate(_projectilePrefab, _bossProjectilePoolHolder).GetComponent<BattleProjectileOpponent>();
-            p.gameObject.SetActive(false);
-            Projectiles.Add(p);
-        }
     }
 
 

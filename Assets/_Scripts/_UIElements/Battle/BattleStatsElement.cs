@@ -128,8 +128,8 @@ public class BattleStatsElement : VisualElement
         container.Add(text);
 
         int minionKillCount = 0;
-        foreach (BattleEntity be in _battleManager.KilledOpponentEntities)
-            if (be is BattleMinion)
+        foreach (Entity e in _battleManager.KilledOpponentEntities)
+            if (e is Minion)
                 minionKillCount++;
 
         ChangingValueElement minionCount = new();
@@ -154,15 +154,15 @@ public class BattleStatsElement : VisualElement
 
         Dictionary<Sprite, int> creatureKillCount = new();
 
-        foreach (BattleEntity be in _battleManager.KilledOpponentEntities)
+        foreach (Entity e in _battleManager.KilledOpponentEntities)
         {
-            if (be is not BattleCreature) continue;
-            if (creatureKillCount.ContainsKey(be.Entity.Icon))
-                creatureKillCount[be.Entity.Icon]++;
+            if (e is not Creature) continue;
+            if (creatureKillCount.ContainsKey(e.Icon))
+                creatureKillCount[e.Icon]++;
             else
-                creatureKillCount.Add(be.Entity.Icon, 1);
+                creatureKillCount.Add(e.Icon, 1);
         }
-        
+
         foreach (KeyValuePair<Sprite, int> entry in creatureKillCount)
         {
             VisualElement c = new();

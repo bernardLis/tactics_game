@@ -45,8 +45,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected bool _isEngaged;
     bool _isPoisoned;
     bool _isGrabbed;
-    public bool IsDead { get; private set; }
-    bool _isDeathCoroutineStarted;
+    public bool IsDead { get; protected set; }
+    protected bool _isDeathCoroutineStarted;
 
     protected bool _blockRunEntity;
 
@@ -329,10 +329,15 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
                 .OnComplete(() =>
                 {
                     transform.DOKill();
-                    Destroy(gameObject);
+                    DestroySelf();
                 });
 
         //StopAllCoroutines(); <- this breaks bomb exploding
+    }
+
+    protected virtual void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 
     void ResolveLoot()

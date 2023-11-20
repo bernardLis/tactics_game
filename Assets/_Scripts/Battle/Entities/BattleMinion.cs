@@ -13,6 +13,11 @@ public class BattleMinion : BattleEntity
     {
         base.InitializeEntity(entity, team);
         Minion = (Minion)entity;
+
+        // minion pool
+        IsDead = false;
+        _isDeathCoroutineStarted = false;
+        Collider.enabled = true;
     }
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)
@@ -61,5 +66,10 @@ public class BattleMinion : BattleEntity
                 _GFX.SetActive(false);
                 StartCoroutine(Die());
             });
+    }
+
+    protected override void DestroySelf()
+    {
+        gameObject.SetActive(false); // there is a pool of minions
     }
 }

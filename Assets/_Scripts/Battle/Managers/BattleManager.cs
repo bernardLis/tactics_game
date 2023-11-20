@@ -37,7 +37,7 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleEntity> OpponentEntities = new();
 
     public List<BattleEntity> KilledPlayerEntities = new();
-    public List<BattleEntity> KilledOpponentEntities = new();
+    public List<Entity> KilledOpponentEntities = new();
 
     public List<BattleTurret> PlayerTurrets = new();
 
@@ -218,7 +218,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void AddOpponentArmyEntity(BattleEntity b)
     {
-        b.transform.parent = EntityHolder;
+        if (b is not BattleMinion) b.transform.parent = EntityHolder;
 
         b.InitializeBattle(ref PlayerCreatures);
         b.gameObject.layer = 11;
@@ -236,7 +236,7 @@ public class BattleManager : Singleton<BattleManager>
 
     void OnOpponentDeath(BattleEntity be, EntityFight killer)
     {
-        KilledOpponentEntities.Add(be);
+        KilledOpponentEntities.Add(be.Entity);
         OpponentEntities.Remove(be);
         OnOpponentEntityDeath?.Invoke(be);
     }
