@@ -8,6 +8,8 @@ using DG.Tweening;
 using UnityEngine.AI;
 public class BattleCreature : BattleEntity
 {
+    protected BattleFightManager _battleFightManager;
+
     [SerializeField] protected Sound _attackSound;
 
     public Creature Creature { get; private set; }
@@ -47,9 +49,10 @@ public class BattleCreature : BattleEntity
         _avoidancePriorityRange = new Vector2Int(0, 20);
     }
 
-    protected void InitializeOpponentEntity()
+    protected virtual void InitializeOpponentEntity()
     {
         transform.localScale = Vector3.one * 0.8f;
+        _battleFightManager = BattleFightManager.Instance;
     }
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)

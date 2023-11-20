@@ -162,11 +162,12 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
 
     public void OnPointerUp(InputAction.CallbackContext context)
     {
+        if (!_wasInitialized) return;
+        if (this == null) return;
+
         _pointerDown = false;
         _cursorManager.ClearCursor();
 
-        if (!_wasInitialized) return;
-        if (this == null) return;
         if (_grabbedObject == null) return;
 
         _audioManager.PlaySFX("Grab", _grabbedObject.transform.position);

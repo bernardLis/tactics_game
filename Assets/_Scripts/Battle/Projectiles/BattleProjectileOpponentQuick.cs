@@ -5,9 +5,9 @@ using DG.Tweening;
 
 public class BattleProjectileOpponentQuick : BattleProjectileOpponent
 {
-    public override void Shoot(BattleBoss boss, Vector3 dir, float time, int power)
+    public override void Shoot(BattleEntity entity, Vector3 dir, float time, int power)
     {
-        base.Shoot(boss, dir, time, power);
+        base.Shoot(entity, dir, time, power);
         StartCoroutine(SpeedChange());
     }
 

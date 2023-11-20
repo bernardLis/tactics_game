@@ -7,6 +7,14 @@ public class BattleCreatureRanged : BattleCreature
 {
     [SerializeField] protected GameObject _projectileSpawnPoint;
 
+    List<BattleProjectileOpponent> _projectilePool = new();
+
+    protected override void InitializeOpponentEntity()
+    {
+        base.InitializeOpponentEntity();
+        _projectilePool = _battleFightManager.Projectiles;
+    }
+
     protected override IEnumerator PathToOpponent()
     {
         // no obstacle blocking line of sight
@@ -88,11 +96,27 @@ public class BattleCreatureRanged : BattleCreature
     protected override IEnumerator Attack()
     {
         yield return base.Attack();
+        if (Team == 1)
+        {
+            OpponentAttack();
+            yield break;
+        }
 
         GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
         projectileInstance.transform.parent = _GFX.transform;
         BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
         p.Initialize(Team);
         p.Shoot(Creature, Opponent, Creature.Power.GetValue());
+    }
+
+    void OpponentAttack()
+    {
+        BattleProjectileOpponent p = _projectilePool.Find(x => !x.gameObject.activeSelf);
+        p.transform.position = transform.position;
+        p.Initialize(1);
+
+        Vector3 dir = (Opponent.transform.position - transform.position).normalized;
+        dir.y = 0;
+        p.Shoot(this, dir, 20, 5);
     }
 }

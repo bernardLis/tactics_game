@@ -6,7 +6,7 @@ using System;
 
 public class BattleProjectileOpponent : BattleProjectile
 {
-    BattleBoss _boss;
+    BattleEntity _battleEntity;
     protected float _time;
     int _power;
 
@@ -29,9 +29,9 @@ public class BattleProjectileOpponent : BattleProjectile
 
     }
 
-    public virtual void Shoot(BattleBoss boss, Vector3 dir, float time, int power)
+    public virtual void Shoot(BattleEntity shooter, Vector3 dir, float time, int power)
     {
-        _boss = boss;
+        _battleEntity = shooter;
         _time = time;
         _power = power;
         _direction = dir;

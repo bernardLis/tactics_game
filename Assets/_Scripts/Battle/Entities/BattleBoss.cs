@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class BattleBoss : BattleEntity
 {
     BattleAreaManager _battleAreaManager;
-    BattleFightManager _battleFightManager;
 
     [Header("Boss")]
     [SerializeField] GameObject _corruptionBreakNodePrefab;
@@ -45,8 +44,6 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.GetTileFromPosition(transform.position),
                                  _battleAreaManager.HomeTile);
         _nextTileIndex = 0;
-
-        _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
 
         InitializeAttacks();
         StartRunEntityCoroutine();
