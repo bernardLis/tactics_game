@@ -402,7 +402,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _grabManager.TryGrabbing(gameObject);
     }
 
-    public bool CanBeGrabbed()
+    public virtual bool CanBeGrabbed()
     {
         if (IsDead) return false;
         if (_grabManager == null) return false;

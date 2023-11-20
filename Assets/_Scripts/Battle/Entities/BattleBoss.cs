@@ -275,5 +275,10 @@ public class BattleBoss : BattleEntity
         CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
         CurrentStunDuration.SetValue(0);
     }
+    
+    public override bool CanBeGrabbed()
+    {
+        return false;
+    }
 
 }
