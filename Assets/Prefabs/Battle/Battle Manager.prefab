@@ -93,7 +93,7 @@ MonoBehaviour:
   Pickups: []
   BlockBattleEnd: 0
   _spawner: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
-  _boss: {fileID: 11400000, guid: 1a26836a33edbc04e85a1b1fcb6528ce, type: 2}
+  _boss: {fileID: 11400000, guid: 4b2fef36baad30340bffb05419a1c6d9, type: 2}
 --- !u!114 &5119385659013104314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796afca0ad479f34f8de55fede3b83d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grabAbility: {fileID: 11400000, guid: 9d0d3e78910ddd24a8b6c35929fcdf4b, type: 2}
 --- !u!114 &4066842339892764640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _noFights: 1
+  _noFights: 0
   Fights: []
 --- !u!114 &4810545558572652240
 MonoBehaviour:
@@ -212,13 +211,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d653eda90c7e0cc4c854ee094722280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 7041283781085426902, guid: d5667f8737202a8429d8d6757954077f, type: 3}
+  _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
   _bossProjectilePoolHolder: {fileID: 0}
   Projectiles: []
   _bossBuildings:
   - {fileID: 11400000, guid: ce32f1c73c0ac2749831866fe047d628, type: 2}
-  - {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
   - {fileID: 11400000, guid: a79818e297226f7408f6866a3059e745, type: 2}
+  - {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

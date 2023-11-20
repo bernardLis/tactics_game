@@ -12,7 +12,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     [SerializeField] protected SpriteRenderer[] _starRenderers;
     [SerializeField] protected Sprite _star;
 
-
     protected IEnumerator _productionCoroutine;
     float _currentProductionDelaySecond;
 
@@ -37,8 +36,8 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
 
         // TODO: difficulty
         List<Entity> entitiesToSpawn = new();
-        for (int i = 0; i < difficulty * 3; i++)
-            entitiesToSpawn.Add(Instantiate(bu.ProducedCreature));
+        // for (int i = 0; i < difficulty; i++)
+        entitiesToSpawn.Add(Instantiate(bu.ProducedCreature));
 
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab, _spawnPoint.position, transform.rotation);
         spawner.SpawnEntities(entitiesToSpawn, team: 1);

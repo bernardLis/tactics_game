@@ -35,6 +35,7 @@ public class BattleCreature : BattleEntity
         base.InitializeEntity(entity, team);
 
         if (team == 0) _battleEntityShaders.LitShader();
+        if (team == 1) InitializeOpponentEntity();
 
         Creature = (Creature)entity;
         Creature.OnLevelUp += OnLevelUp;
@@ -44,6 +45,11 @@ public class BattleCreature : BattleEntity
 
         _agent.stoppingDistance = Creature.AttackRange.GetValue();
         _avoidancePriorityRange = new Vector2Int(0, 20);
+    }
+
+    protected void InitializeOpponentEntity()
+    {
+        transform.localScale = Vector3.one * 0.8f;
     }
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)
@@ -173,7 +179,7 @@ public class BattleCreature : BattleEntity
     {
         while (!CanAttack()) yield return null;
         if (!IsOpponentInRange()) yield break;
-        
+
         EntityLog.Add($"{_battleManager.GetTime()}: Entity attacked {Opponent.name}");
 
         _currentAttackCooldown = Creature.AttackCooldown.GetValue();
@@ -320,7 +326,7 @@ public class BattleCreature : BattleEntity
     }
 
 
-// #if UNITY_EDITOR
+    // #if UNITY_EDITOR
     [ContextMenu("Level up")]
     public void LevelUp()
     {
@@ -340,6 +346,6 @@ public class BattleCreature : BattleEntity
         TriggerDieCoroutine(hasGrave: true);
     }
 
-// #endif
+    // #endif
 
 }

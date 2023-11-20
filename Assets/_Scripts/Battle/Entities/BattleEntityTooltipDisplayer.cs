@@ -41,6 +41,10 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
         if (_tooltipManager.CurrentEntityInfo == _battleEntity)
             _tooltipManager.HideEntityInfo();
 
+        if (_tooltipManager.CurrentTooltipDisplayer == _battleEntity.gameObject)
+            _tooltipManager.HideTooltip();
+
+
         _battleEntity.OnDeath -= OnDeath;
     }
 

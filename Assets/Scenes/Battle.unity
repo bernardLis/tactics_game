@@ -884,25 +884,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 892723308641058941, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _projectilePrefab
-      value: 
-      objectReference: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
-    - target: {fileID: 892723308641058941, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _bossBuildings.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 892723308641058941, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _bossProjectilePoolHolder
       value: 
       objectReference: {fileID: 1633669039}
-    - target: {fileID: 892723308641058941, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _bossBuildings.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: a79818e297226f7408f6866a3059e745, type: 2}
-    - target: {fileID: 892723308641058941, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _bossBuildings.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
     - target: {fileID: 1803897707696964957, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _floorHolder
       value: 
@@ -947,10 +931,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _boss
-      value: 
-      objectReference: {fileID: 11400000, guid: 4b2fef36baad30340bffb05419a1c6d9, type: 2}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: EntityHolder
       value: 
