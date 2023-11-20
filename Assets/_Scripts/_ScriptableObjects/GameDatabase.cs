@@ -32,7 +32,6 @@ public class GameDatabase : BaseScriptableObject
     public Sprite[] TroopsElementAnimationSprites;
     [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
     [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
-    public Sprite ObstacleIcon;
     [SerializeField] OpponentGroupIcon[] OpponentGroupIcons;
     public Sprite GetOpponentGroupIcon(Element element, bool hasCreatures)
     {

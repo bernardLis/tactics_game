@@ -150,15 +150,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Rotate",
-                    "type": "Button",
-                    "id": "50c37d5b-4a5f-430b-aab9-a8321a7bd8f8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ToggleMenu",
                     "type": "Button",
                     "id": "ca7abc80-980a-4853-9771-b52a4f1792f4",
@@ -477,17 +468,6 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "RotateCameraLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c74473a1-ab03-48f5-9772-5ed9512e041d",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

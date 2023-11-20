@@ -172,15 +172,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Rotate"",
-                    ""type"": ""Button"",
-                    ""id"": ""50c37d5b-4a5f-430b-aab9-a8321a7bd8f8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""ToggleMenu"",
                     ""type"": ""Button"",
                     ""id"": ""ca7abc80-980a-4853-9771-b52a4f1792f4"",
@@ -504,17 +495,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c74473a1-ab03-48f5-9772-5ed9512e041d"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c9b8dc67-1e67-4c34-84ff-9d98f04ebb0d"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -608,7 +588,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_Continue = m_Battle.FindAction("Continue", throwIfNotFound: true);
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
-        m_Battle_Rotate = m_Battle.FindAction("Rotate", throwIfNotFound: true);
         m_Battle_ToggleMenu = m_Battle.FindAction("ToggleMenu", throwIfNotFound: true);
         m_Battle_Shift = m_Battle.FindAction("Shift", throwIfNotFound: true);
         m_Battle_StrafeLeft = m_Battle.FindAction("StrafeLeft", throwIfNotFound: true);
@@ -691,7 +670,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_Continue;
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_EnableGrabbing;
-    private readonly InputAction m_Battle_Rotate;
     private readonly InputAction m_Battle_ToggleMenu;
     private readonly InputAction m_Battle_Shift;
     private readonly InputAction m_Battle_StrafeLeft;
@@ -717,7 +695,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Continue => m_Wrapper.m_Battle_Continue;
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
-        public InputAction @Rotate => m_Wrapper.m_Battle_Rotate;
         public InputAction @ToggleMenu => m_Wrapper.m_Battle_ToggleMenu;
         public InputAction @Shift => m_Wrapper.m_Battle_Shift;
         public InputAction @StrafeLeft => m_Wrapper.m_Battle_StrafeLeft;
@@ -780,9 +757,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @EnableGrabbing.started += instance.OnEnableGrabbing;
             @EnableGrabbing.performed += instance.OnEnableGrabbing;
             @EnableGrabbing.canceled += instance.OnEnableGrabbing;
-            @Rotate.started += instance.OnRotate;
-            @Rotate.performed += instance.OnRotate;
-            @Rotate.canceled += instance.OnRotate;
             @ToggleMenu.started += instance.OnToggleMenu;
             @ToggleMenu.performed += instance.OnToggleMenu;
             @ToggleMenu.canceled += instance.OnToggleMenu;
@@ -850,9 +824,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @EnableGrabbing.started -= instance.OnEnableGrabbing;
             @EnableGrabbing.performed -= instance.OnEnableGrabbing;
             @EnableGrabbing.canceled -= instance.OnEnableGrabbing;
-            @Rotate.started -= instance.OnRotate;
-            @Rotate.performed -= instance.OnRotate;
-            @Rotate.canceled -= instance.OnRotate;
             @ToggleMenu.started -= instance.OnToggleMenu;
             @ToggleMenu.performed -= instance.OnToggleMenu;
             @ToggleMenu.canceled -= instance.OnToggleMenu;
@@ -912,7 +883,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnContinue(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnEnableGrabbing(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
         void OnToggleMenu(InputAction.CallbackContext context);
         void OnShift(InputAction.CallbackContext context);
         void OnStrafeLeft(InputAction.CallbackContext context);

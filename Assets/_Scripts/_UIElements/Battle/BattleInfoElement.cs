@@ -16,7 +16,7 @@ public class BattleInfoElement : VisualElement
 
     GoldElement _purchasePrice;
 
-    public BattleInfoElement(string text, bool isObstacleRotation = false, int purchasePrice = 0)
+    public BattleInfoElement(string text, int purchasePrice = 0)
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -31,10 +31,7 @@ public class BattleInfoElement : VisualElement
 
         // for now just this...
         VisualElement icon = new();
-        if (isObstacleRotation)
-            icon.AddToClassList(_ussRIcon);
-        else
-            icon.AddToClassList(_ussInteraction);
+        icon.AddToClassList(_ussInteraction);
         Add(icon);
 
         Label txt = new(text);
