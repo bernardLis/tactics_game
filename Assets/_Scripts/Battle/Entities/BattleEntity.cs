@@ -255,12 +255,13 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Color);
 
         if (Entity.CurrentHealth.Value <= 0)
-            ability.IncreaseKillCount();
+            ability.AddKill();
     }
 
     public virtual IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
     {
         if (IsDead) yield break;
+        if (_battleManager == null) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {attacker.name}");
 
         int damage = Entity.CalculateDamage(attacker);

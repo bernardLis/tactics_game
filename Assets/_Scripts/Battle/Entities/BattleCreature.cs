@@ -318,8 +318,6 @@ public class BattleCreature : BattleEntity
         yield return base.Die(attacker, hasLoot);
 
         _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
-
-        if (Team != 0) yield break;
     }
 
     void OnLevelUp()

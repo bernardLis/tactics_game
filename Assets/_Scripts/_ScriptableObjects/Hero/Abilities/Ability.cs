@@ -59,7 +59,7 @@ public class Ability : BaseScriptableObject
         return Level < Levels.Count - 1;
     }
 
-    public void IncreaseKillCount() { KillCount++; }
+    public void AddKill() { KillCount++; }
 
     public void LevelUp()
     {

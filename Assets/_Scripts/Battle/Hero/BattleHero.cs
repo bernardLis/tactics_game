@@ -82,17 +82,10 @@ public class BattleHero : BattleEntity
         _battleAbilities.Remove(ability);
     }
 
-
-
     public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
     {
         BaseGetHit(5, default);
         yield return null;
-    }
-
-    void Die()
-    {
-        Debug.Log($"Hero dies...");
     }
 
     /* OVERRIDES */
