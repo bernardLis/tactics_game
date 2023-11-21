@@ -80,7 +80,6 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _GFX = Animator.gameObject;
         _feelPlayer = GetComponent<MMF_Player>();
         _agent = GetComponent<NavMeshAgent>();
-        // _agent.enabled = false; // HERE: testing
 
         if (_audioManager == null) _audioManager = AudioManager.Instance;
         if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
@@ -118,7 +117,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         name = BattleId;
     }
 
-    public void StartRunEntityCoroutine()
+    public virtual void StartRunEntityCoroutine()
     {
         if (IsDead) return;
 
@@ -292,20 +291,20 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         Entity.CurrentHealth.ApplyChange(-d);
         if (Entity.CurrentHealth.Value <= 0)
         {
-            TriggerDieCoroutine(attacker, true);
+            TriggerDieCoroutine(attacker);
             return;
         }
 
         StartRunEntityCoroutine();
     }
 
-    public void TriggerDieCoroutine(EntityFight attacker = null, bool hasGrave = false)
+    public void TriggerDieCoroutine(EntityFight attacker = null)
     {
         IsDead = true;
-        StartCoroutine(Die(attacker: attacker, hasGrave: hasGrave));
+        StartCoroutine(Die(attacker: attacker));
     }
 
-    public virtual IEnumerator Die(EntityFight attacker = null, bool givesExp = true, bool hasGrave = true)
+    public virtual IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
     {
         if (_isDeathCoroutineStarted) yield break;
         _isDeathCoroutineStarted = true;
@@ -319,7 +318,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
         DOTween.Kill(transform);
-        if (givesExp) ResolveLoot();
+        if (hasLoot) ResolveLoot();
 
         EntityLog.Add($"{_battleManager.GetTime()}: Entity dies.");
         OnDeath?.Invoke(this, attacker);

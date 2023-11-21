@@ -313,7 +313,7 @@ public class BattleCreature : BattleEntity
         OnDamageDealt?.Invoke(dmg);
     }
 
-    public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true, bool hasGrave = true)
+    public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
     {
         yield return base.Die(attacker, hasLoot);
 
@@ -346,7 +346,7 @@ public class BattleCreature : BattleEntity
     [ContextMenu("Trigger Death")]
     public void TriggerDeath()
     {
-        TriggerDieCoroutine(hasGrave: true);
+        TriggerDieCoroutine();
     }
 
     // #endif

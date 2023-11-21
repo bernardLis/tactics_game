@@ -11,6 +11,8 @@ public class BattleMinion : BattleEntity
 
     public override void InitializeEntity(Entity entity, int team)
     {
+        if (_GFX != null) _GFX.SetActive(true);
+
         base.InitializeEntity(entity, team);
         Minion = (Minion)entity;
 
@@ -61,10 +63,10 @@ public class BattleMinion : BattleEntity
                 GameObject explosion = Instantiate(Minion.ExplosionPrefab, transform.position, Quaternion.identity);
                 explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
 
-                _targetHero.GetHit(this);
+                _targetHero.BaseGetHit(5, default);
 
                 _GFX.SetActive(false);
-                StartCoroutine(Die());
+                StartCoroutine(Die(hasLoot: false));
             });
     }
 

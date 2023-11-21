@@ -22,6 +22,7 @@ public class BattleBoss : BattleEntity
     BattleTile _currentTile;
     BattleBuilding _currentBuilding;
 
+    bool _runEntityStarted;
     bool _isCorrupting;
     bool _isStunned;
     [HideInInspector] public IntVariable TotalDamageToBreakCorruption;
@@ -52,6 +53,8 @@ public class BattleBoss : BattleEntity
         SetUpVariables();
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
     }
+
+
 
     protected override IEnumerator RunEntity()
     {
@@ -231,33 +234,28 @@ public class BattleBoss : BattleEntity
     }
 
     /* GET HIT */
-    public override void GetEngaged(BattleEntity engager)
-    {
-        // boss is never engaged
-        // all the single bosses, all the single bosses... 
-    }
-
     public override void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
     {
         if (_isStunned) dmg *= 2;
+        base.BaseGetHit(dmg, color, attacker);
+        if (_isCorrupting) HandleCorruptionBreak(dmg);
 
-        EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
+        // EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
 
-        if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
-        else _audioManager.PlaySFX("Hit", transform.position);
+        // if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
+        // else _audioManager.PlaySFX("Hit", transform.position);
 
-        if (_isCorrupting) color = Color.yellow; // signifying stun
-        DisplayFloatingText(dmg.ToString(), color);
+        // if (_isCorrupting) color = Color.yellow; // signifying stun
+        // DisplayFloatingText(dmg.ToString(), color);
 
-        int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
-        Entity.CurrentHealth.ApplyChange(-d);
-        if (Entity.CurrentHealth.Value <= 0)
-        {
-            TriggerDieCoroutine(attacker, true);
-            return;
-        }
+        // int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
+        // Entity.CurrentHealth.ApplyChange(-d);
+        // if (Entity.CurrentHealth.Value <= 0)
+        // {
+        //     TriggerDieCoroutine(attacker);
+        //     return;
+        // }
 
-        if (_isCorrupting) HandleCorruptionBreak(d);
     }
 
     /* HELPERS */
@@ -272,10 +270,23 @@ public class BattleBoss : BattleEntity
         CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
         CurrentStunDuration.SetValue(0);
     }
-    
-    public override bool CanBeGrabbed()
+
+    /* EMPTY OVERRIDES */
+    public override void StartRunEntityCoroutine()
     {
-        return false;
+        if (_runEntityStarted) return;
+        _runEntityStarted = true;
+        base.StartRunEntityCoroutine();
     }
+    
+    public override void StopRunEntityCoroutine() { }
+
+    public override void GetEngaged(BattleEntity engager)
+    {
+        // boss is never engaged
+        // all the single bosses, all the single bosses... 
+    }
+
+    public override bool CanBeGrabbed() { return false; }
 
 }

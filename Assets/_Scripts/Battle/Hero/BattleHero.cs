@@ -82,26 +82,12 @@ public class BattleHero : BattleEntity
         _battleAbilities.Remove(ability);
     }
 
-    public override void GetEngaged(BattleEntity engager) { }
 
-    public void GetHit(BattleEntity entity)
-    {
-        BaseGetHit(default, default);
-    }
 
     public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
     {
-        BaseGetHit(default, default);
+        BaseGetHit(5, default);
         yield return null;
-    }
-
-    public override void BaseGetHit(int damage, Color color, EntityFight attacker = null)
-    {
-        Hero.CurrentHealth.ApplyChange(-5);
-        DisplayFloatingText($"{-5}", _gameManager.GameDatabase.GetColorByName("Health").Color);
-
-        if (Hero.CurrentHealth.Value <= 0)
-            Die();
     }
 
     void Die()
@@ -109,11 +95,16 @@ public class BattleHero : BattleEntity
         Debug.Log($"Hero dies...");
     }
 
+    /* OVERRIDES */
+    public override void StartRunEntityCoroutine() { }
+    public override void StopRunEntityCoroutine() { }
+    public override void GetEngaged(BattleEntity engager) { }
+
 
     [ContextMenu("Get Hit")]
     public void GetHitContextMenu()
     {
-        GetHit(null);
+        BaseGetHit(5, default);
     }
 
 }
