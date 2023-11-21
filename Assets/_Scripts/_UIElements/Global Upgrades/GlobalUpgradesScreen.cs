@@ -5,18 +5,19 @@ using UnityEngine.UIElements;
 
 public class GlobalUpgradesScreen : FullScreenElement
 {
-
     GlobalUpgradeBoard _globalUpgradeBoard;
+
+    VisualElement _upgradeContainer;
+
     public GlobalUpgradesScreen(GlobalUpgradeBoard globalUpgradeBoard)
     {
         _globalUpgradeBoard = globalUpgradeBoard;
 
-        Label title = new("Purchase Global Upgrades");
-        _content.Add(title);
+        AddHeader();
 
-        GoldElement goldElement = new(_gameManager.Gold);
-        _content.Add(goldElement);
-        _gameManager.OnGoldChanged += goldElement.ChangeAmount;
+        _upgradeContainer = new();
+        _upgradeContainer.style.flexDirection = FlexDirection.Row;
+        _content.Add(_upgradeContainer);
 
         CreateHeroUpgrades();
         CreateBuildingUpgrades();
@@ -24,30 +25,31 @@ public class GlobalUpgradesScreen : FullScreenElement
         CreateBossUpgrades();
         CreateOtherUpgrades();
 
-        MyButton backButton = new("Back", "common__menu-button", Hide);
-        Add(backButton);
-
-        MyButton playButton = new("Play", "common__menu-button", Play);
-        Add(playButton);
+        AddNavigationButtons();
     }
 
-    void Play() { _gameManager.Play(); }
+    void AddHeader()
+    {
+        VisualElement container = new();
+        container.style.justifyContent = Justify.Center;
+        _content.Add(container);
+
+        GoldElement goldElement = new(_gameManager.Gold);
+        goldElement.style.alignSelf = Align.Center;
+        container.Add(goldElement);
+        _gameManager.OnGoldChanged += goldElement.ChangeAmount;
+
+        Label title = new("Click & hold to purchase Global Upgrades");
+        title.style.fontSize = 24;
+        container.Add(title);
+    }
 
     void CreateHeroUpgrades()
     {
-        VisualElement parentContainer = new();
-        _content.Add(parentContainer);
-        Label title = new("Hero Upgrades");
-        parentContainer.Add(title);
-
-        VisualElement container = new();
-        parentContainer.Add(container);
-        container.style.flexDirection = FlexDirection.Row;
-
-        container.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroSpeed));
-        container.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroArmor));
-        container.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroHealth));
-        container.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroPower));
+        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroSpeed));
+        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroArmor));
+        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroHealth));
+        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroPower));
     }
 
     void CreateBuildingUpgrades()
@@ -71,5 +73,21 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
 
     }
+
+    void AddNavigationButtons()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.justifyContent = Justify.SpaceAround;
+        Add(container);
+
+        MyButton backButton = new("Back", "common__menu-button", Hide);
+        container.Add(backButton);
+
+        MyButton playButton = new("Play", "common__menu-button", Play);
+        container.Add(playButton);
+    }
+
+    void Play() { _gameManager.Play(); }
 
 }
