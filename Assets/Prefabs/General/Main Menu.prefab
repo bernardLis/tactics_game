@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3799089354964362120}
   - component: {fileID: 3799089354964362121}
   - component: {fileID: 3799089354964362122}
+  - component: {fileID: 4607431334784036316}
   m_Layer: 0
   m_Name: Main Menu
   m_TagString: Untagged
@@ -63,3 +64,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuTheme: {fileID: 11400000, guid: 49faba998a98440478414b155befacd4, type: 2}
   _gameManagerPrefab: {fileID: 2154333484900981485, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
+--- !u!114 &4607431334784036316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3799089354964362125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb0d25d087b05a4481d52625991766c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _globalUpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}

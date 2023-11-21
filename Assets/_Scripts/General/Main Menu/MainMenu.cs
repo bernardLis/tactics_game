@@ -10,10 +10,10 @@ public class MainMenu : Singleton<MainMenu>
     [SerializeField] GameObject _gameManagerPrefab;
 
     GameManager _gameManager;
+    GlobalUpgradeManager _globalUpgradeManager;
 
     public VisualElement Root;
-    MyButton _continueButton;
-    MyButton _startNewGameButton;
+    MyButton _playButton;
     MyButton _settingsButton;
     MyButton _quitButton;
 
@@ -21,27 +21,27 @@ public class MainMenu : Singleton<MainMenu>
     VisualElement _settingsContainer;
 
 
-
     protected override void Awake()
     {
         base.Awake();
-
-        Root = GetComponent<UIDocument>().rootVisualElement;
         // TODO: is this a good idea? When game manager was in the scene there was a bug when you were coming back to main menu.
         _gameManager = GameManager.Instance;
         if (_gameManager == null)
             _gameManager = Instantiate(_gameManagerPrefab).GetComponent<GameManager>();
+
+        _globalUpgradeManager = GetComponent<GlobalUpgradeManager>();
+
+        Root = GetComponent<UIDocument>().rootVisualElement;
     }
 
     void Start()
     {
-        _continueButton = new MyButton("Play", _ussCommonMenuButton, Continue);
+        _playButton = new MyButton("Play", _ussCommonMenuButton, ShowGlobalUpgradesMenu);
         _settingsButton = new MyButton("Settings", _ussCommonMenuButton, Settings);
         _quitButton = new MyButton("Quit", _ussCommonMenuButton, ConfirmQuit);
 
         _menuContainer = Root.Q<VisualElement>("menuContainer");
-        _menuContainer.Add(_continueButton);
-        _menuContainer.Add(_startNewGameButton);
+        _menuContainer.Add(_playButton);
         _menuContainer.Add(_settingsButton);
         _menuContainer.Add(_quitButton);
 
@@ -50,9 +50,10 @@ public class MainMenu : Singleton<MainMenu>
         AudioManager.Instance.PlayMusic(_mainMenuTheme);
     }
 
-    void Continue()
+    void ShowGlobalUpgradesMenu()
     {
-        _gameManager.Play();
+        _globalUpgradeManager.ShowGlobalUpgradesMenu();
+        // _gameManager.Play();
     }
 
     void Settings() { new SettingsScreen(); }

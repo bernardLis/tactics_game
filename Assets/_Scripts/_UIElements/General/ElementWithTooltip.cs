@@ -63,8 +63,8 @@ public abstract class ElementWithTooltip : VisualElement
         var root = panel.visualTree;
 
         _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
-        if (_tooltipContainer == null)
-            return;
+        if (_tooltipContainer == null) return;
+
         _tooltipContainer.style.display = DisplayStyle.Flex;
         _tooltipContainer.Clear();
         _tooltipContainer.Add(_tooltip);
@@ -99,9 +99,10 @@ public abstract class ElementWithTooltip : VisualElement
 
     protected void HideTooltip()
     {
+        if (_tooltipContainer == null) return;
         DOTween.Kill(tooltipTweenId);
-        if (_tooltip == null)
-            return;
+        if (_tooltip == null) return;
+
 
         DOTween.To(x => _tooltip.style.opacity = x, 1, 0, 0.3f)
                 .SetUpdate(true)

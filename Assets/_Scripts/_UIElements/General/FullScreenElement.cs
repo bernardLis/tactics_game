@@ -112,7 +112,7 @@ public class FullScreenElement : VisualElement
 
                 _gameManager.OpenFullScreens.Remove(this);
                 if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
-                else _battleManager.ResumeGame();
+                else if (_battleManager != null) _battleManager.ResumeGame();
 
                 SetEnabled(false);
                 RemoveFromHierarchy();

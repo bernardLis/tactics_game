@@ -14,12 +14,11 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     GameManager _gameManager;
 
-    public GlobalUpgradeLevel GlobalUpgrade;
+    public GlobalUpgrade GlobalUpgrade;
 
     Label _title;
 
-    public event Action<GlobalUpgradeLevel> OnPurchased;
-    public GlobalUpgradeElement(GlobalUpgradeLevel globalUpgrade)
+    public GlobalUpgradeElement(GlobalUpgrade globalUpgrade)
     {
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeStyles);
@@ -39,8 +38,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
         icon.style.backgroundImage = new StyleBackground(globalUpgrade.Icon);
         Add(icon);
 
-        PurchaseButton purchaseButton = new(globalUpgrade.Cost, callback: Purchase,
-                isInfinite: globalUpgrade.IsInfinite, isPurchased: globalUpgrade.IsPurchased);
+        PurchaseButton purchaseButton = new(globalUpgrade.GetNextLevel().Cost, callback: Purchase);
         Add(purchaseButton);
     }
 
@@ -51,11 +49,8 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     void Purchase()
     {
-        OnPurchased?.Invoke(GlobalUpgrade);
+        GlobalUpgrade.Purchased();
 
-        if (GlobalUpgrade.IsInfinite) return;
-        GlobalUpgrade.IsPurchased = true;
-        SetEnabled(false);
     }
 
     protected override void DisplayTooltip()

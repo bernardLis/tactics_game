@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859e154bc91828847bee8f28600929bd, type: 3}
+  m_Name: Global Upgrade Board
+  m_EditorClassIdentifier: 
+  Id: b5bcd18b-32c7-45e7-9a6a-317af337ad84
+  HeroSpeed: {fileID: 11400000, guid: 999d04af62cc4aa44b8fa5d9ca3a2f3d, type: 2}
+  HeroArmor: {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
+  HeroHealth: {fileID: 11400000, guid: f04c07d2d12dba2409832085cdec5bf6, type: 2}
+  HeroPower: {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
+  HomeCrystal: {fileID: 0}
+  WolfLair: {fileID: 0}
+  BombLair: {fileID: 0}
+  BudLair: {fileID: 0}
+  DragonSparkLair: {fileID: 0}
+  MetalonLair: {fileID: 0}
+  PracticeDummyLair: {fileID: 0}
+  ShellLair: {fileID: 0}
+  SnakeletLair: {fileID: 0}
+  SunBlossomLair: {fileID: 0}
+  CreatureStartingLevel: {fileID: 0}
+  CreatureSpeed: {fileID: 0}
+  CreatureArmor: {fileID: 0}
+  CreatureHealth: {fileID: 0}
+  CreaturePower: {fileID: 0}
+  BossCorruptionBreakNodes: {fileID: 0}
+  BossStunDuration: {fileID: 0}
+  BossCorruptionDuration: {fileID: 0}
+  BossSpeed: {fileID: 0}
+  TileIndicator: {fileID: 0}
+  RewardNumber: {fileID: 0}
+  RewardReroll: {fileID: 0}

@@ -12,4 +12,5 @@
         <ui:ScrollView name="logContainer" mode="VerticalAndHorizontal" style="background-color: rgb(255, 255, 255);" />
     </ui:VisualElement>
     <ui:VisualElement name="commandButtonsContainer" style="flex-grow: 1; position: absolute; left: auto; right: 10px; top: 20%; width: 300px; background-color: rgba(178, 178, 178, 0.53); display: none;" />
+    <ui:VisualElement name="tooltipContainer" style="flex-grow: 1; position: absolute;" />
 </ui:UXML>
