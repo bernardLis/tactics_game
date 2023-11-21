@@ -148,8 +148,6 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // if (_grabManager.TryGrabbing(gameObject)) return;
-
         if (_runTurretCoroutine == null) return;
         _isTooltipActive = true;
 

@@ -168,9 +168,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     public virtual void DisplayTooltip()
     {
         if (_tooltipManager == null) return;
-
         _tooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
-
     }
 
     public void HideTooltip()

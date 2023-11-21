@@ -183,22 +183,22 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     /* TOOLTIP CARD */
     public void ShowTooltip(VisualElement el, GameObject go)
     {
-        bool tooltipAnimation = _currentTooltip == null;
+        if (CurrentTooltipDisplayer == go) return;
+        if (_currentTooltip != null) _entityTooltipContainer.Remove(_currentTooltip);
 
-        _currentTooltip = el;
-        _entityTooltipContainer.Add(_currentTooltip);
+        bool tooltipAnimation = _currentTooltip == null;
         CurrentTooltipDisplayer = go;
+        _currentTooltip = el;
 
         StartCoroutine(ShowTooltipCoroutine(tooltipAnimation));
     }
 
     IEnumerator ShowTooltipCoroutine(bool isAnimated)
     {
-        _entityTooltipContainer.Clear();
+        yield return new WaitForSeconds(0.1f);
         _entityTooltipContainer.Add(_currentTooltip);
 
         if (!isAnimated) yield break;
-        yield return new WaitForSeconds(0.1f);
 
         _entityTooltipContainer.style.left = -_currentTooltip.resolvedStyle.width;
         _entityTooltipContainer.style.visibility = Visibility.Visible;

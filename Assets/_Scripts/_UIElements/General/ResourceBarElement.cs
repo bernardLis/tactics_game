@@ -70,6 +70,7 @@ public class ResourceBarElement : ElementWithTooltip
 
     void UnsubscribeFromValueChanges(DetachFromPanelEvent evt)
     {
+        Debug.Log($"unsubscribe");
         if (_currentInt != null) _currentInt.OnValueChanged -= OnValueChanged;
         if (_totalInt != null) _totalInt.OnValueChanged -= OnTotalChanged;
         if (_totalStat != null) _totalStat.OnValueChanged -= _totalInt.SetValue;
@@ -98,11 +99,7 @@ public class ResourceBarElement : ElementWithTooltip
             _totalStat = totalStat;
             _totalInt = ScriptableObject.CreateInstance<IntVariable>();
             _totalInt.SetValue(totalStat.GetValue());
-            _totalStat.OnValueChanged += (s) =>
-            {
-                OnTotalChanged(s);
-                _totalInt.SetValue(s);
-            };
+            _totalStat.OnValueChanged += _totalInt.SetValue;
         }
 
         _totalInt.OnValueChanged += OnTotalChanged;
@@ -117,6 +114,7 @@ public class ResourceBarElement : ElementWithTooltip
 
     public void DisplayMissingAmount()
     {
+        Debug.Log($"display missing amount {_displayedAmount} / {_totalInt.Value}");
         MissingBar.style.display = DisplayStyle.Flex;
 
         float missingPercent = (float)_displayedAmount / (float)_totalInt.Value;
