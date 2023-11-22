@@ -14,6 +14,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
     const string _ussIcon = _ussClassName + "icon";
     const string _ussStar = _ussClassName + "star";
     const string _ussStarPurchased = _ussClassName + "star-purchased";
+    const string _ussFill = _ussClassName + "fill";
 
     GameManager _gameManager;
 
@@ -51,6 +52,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
     void OnPointerDown(PointerDownEvent evt)
     {
         if (GlobalUpgrade.IsMaxLevel()) return;
+        if (_gameManager.Gold < GlobalUpgrade.GetNextLevel().Cost) return;
 
         // play sound
 
@@ -58,23 +60,21 @@ public class GlobalUpgradeElement : ElementWithTooltip
         // start filling in the element with color
         // if the player releases the button, cancel the purchase
 
-        _purchaseScheduler = schedule.Execute(Purchase).StartingIn(2000);
+        _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1500);
         DOTween.Kill("fill");
-        DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 84, 2f)
+        DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 82, 1.5f)
                 .SetEase(Ease.InOutSine)
                 .SetId("fill");
     }
 
     void OnPointerUp(PointerUpEvent evt)
     {
-        _purchaseScheduler.Pause();
+        if (_purchaseScheduler != null) _purchaseScheduler.Pause();
         DOTween.Kill("fill");
         DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 0, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .OnComplete(() => _fill.style.height = Length.Percent(0))
                 .SetId("fill");
-
-        // if (_fill != null) _fill.style.height = Length.Percent(0);
     }
 
     void AddStars()
@@ -97,7 +97,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
     void UpdateStars()
     {
         for (int i = 0; i < _stars.Count; i++)
-            if (i < GlobalUpgrade.CurrentLevel)
+            if (i <= GlobalUpgrade.CurrentLevel)
                 _stars[i].AddToClassList(_ussStarPurchased);
     }
 
@@ -126,29 +126,41 @@ public class GlobalUpgradeElement : ElementWithTooltip
     void AddFill()
     {
         _fill = new();
-        // HERE: styles
-        _fill.style.position = Position.Absolute;
-        _fill.style.width = Length.Percent(82);
-        _fill.style.height = Length.Percent(0);
-        _fill.style.backgroundColor = new StyleColor(Color.yellow);
-        _fill.style.opacity = 0.5f;
-        _fill.style.bottom = Length.Percent(10);
+        _fill.AddToClassList(_ussFill);
         Add(_fill);
     }
 
     void Purchase()
     {
-        _gameManager.ChangeGoldValue(GlobalUpgrade.GetNextLevel().Cost);
+        if (GlobalUpgrade.IsMaxLevel()) return;
+        _gameManager.ChangeGoldValue(-GlobalUpgrade.GetNextLevel().Cost);
         GlobalUpgrade.Purchased();
 
-        _price.ChangeAmount(GlobalUpgrade.GetNextLevel().Cost);
+        if (GlobalUpgrade.GetNextLevel() != null)
+            _price.ChangeAmount(GlobalUpgrade.GetNextLevel().Cost);
+        else
+            Remove(_price);
+
         UpdateStars();
         DisplayTooltip();
+
+        DOTween.To(x => _fill.style.opacity = x, _fill.style.opacity.value, 1, 0.1f)
+                .SetLoops(2, LoopType.Yoyo)
+                .OnComplete(() =>
+                {
+                    _fill.style.opacity = 0.5f;
+                    _fill.style.height = Length.Percent(0);
+                });
     }
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, new Label(GlobalUpgrade.GetNextLevel().Description));
+        VisualElement tt = new();
+        if (GlobalUpgrade.GetNextLevel() != null)
+            tt = new Label(GlobalUpgrade.GetNextLevel().Description);
+        else
+            tt = new Label("Max level reached");
+        _tooltip = new(this, tt);
         base.DisplayTooltip();
     }
 }
