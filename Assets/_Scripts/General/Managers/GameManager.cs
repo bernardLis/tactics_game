@@ -63,6 +63,8 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Helpers.SetUpHelpers(Root);
         CreateNewSaveFile();
 
+        GlobalUpgradeBoard.Initialize();
+
         //  }
         //   else
         //     LoadFromSaveFile();

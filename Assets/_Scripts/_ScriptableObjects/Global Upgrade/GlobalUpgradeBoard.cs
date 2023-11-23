@@ -43,6 +43,30 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     public GlobalUpgrade RewardNumber;
     public GlobalUpgrade RewardReroll;
 
+    public List<GlobalUpgrade> BuildingUpgrades = new();
+
+    public void Initialize()
+    {
+        BuildingUpgrades.Add(HomeCrystal);
+        BuildingUpgrades.Add(WolfLair);
+        BuildingUpgrades.Add(BombLair);
+        BuildingUpgrades.Add(BudLair);
+        BuildingUpgrades.Add(DragonSparkLair);
+        BuildingUpgrades.Add(MetalonLair);
+        BuildingUpgrades.Add(PracticeDummyLair);
+        BuildingUpgrades.Add(ShellLair);
+        BuildingUpgrades.Add(SnakeletLair);
+        BuildingUpgrades.Add(SunBlossomLair);
+    }
+
+    public GlobalUpgrade GetBuildingUpgradeByName(string name)
+    {
+        foreach (GlobalUpgrade upgrade in BuildingUpgrades)
+            if (upgrade.name == name)
+                return upgrade;
+        return null;
+    }
+
     public event Action OnRefundAll;
     public void RefundAll()
     {

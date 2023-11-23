@@ -78,6 +78,15 @@ public class GameDatabase : BaseScriptableObject
     }
 }
 
+
+public enum BuildingType
+{
+    None,
+    HomeCrystal,
+    WolfLair, BombLair, BudLair, DragonSparkLair, MetalonLair, PracticeDummyLair, ShellLair, SnakeletLair, SunBlossomLair
+}
+
+
 public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Armor, Speed, AttackRange, AttackCooldown, Pull }
 

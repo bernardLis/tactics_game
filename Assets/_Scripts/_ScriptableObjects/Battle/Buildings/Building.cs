@@ -8,6 +8,9 @@ public class Building : BaseScriptableObject
 {
     public Sprite Icon;
     public bool IsSecured;
+    public BuildingType BuildingType;
+    public GlobalUpgrade BuildingUpgrade;
+
     public int SecondsToCorrupt;
 
     public event Action OnSecured;
@@ -18,7 +21,10 @@ public class Building : BaseScriptableObject
 
 
     public virtual void Initialize()
-    { }
+    {
+        BuildingUpgrade = GameManager.Instance.GlobalUpgradeBoard
+                        .GetBuildingUpgradeByName(BuildingType.ToString());
+    }
 
     public void Secure()
     {
