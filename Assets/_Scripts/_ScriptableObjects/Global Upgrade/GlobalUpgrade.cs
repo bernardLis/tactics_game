@@ -43,6 +43,15 @@ public class GlobalUpgrade : BaseScriptableObject
         return CurrentLevel == Levels.Count - 1;
     }
 
+    public int GetValue()
+    {
+        int val = 0;
+        for (int i = 0; i < Levels.Count; i++)
+            if (i <= CurrentLevel)
+                val += Levels[i].Value;
+        return val;
+    }
+
     public void Refund()
     {
         int val = 0;

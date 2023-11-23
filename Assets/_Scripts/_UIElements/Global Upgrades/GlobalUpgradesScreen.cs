@@ -107,6 +107,12 @@ public class GlobalUpgradesScreen : FullScreenElement
         _globalUpgradeBoard.RefundAll();
     }
 
-    void Play() { _gameManager.Play(); }
+    void Play()
+    {
+        Hide();
+        OnHide += () => _gameManager.StartGame();
+        // schedule.Execute(() => _gameManager.Play()).StartingIn(1000);
+
+    }
 
 }

@@ -12,7 +12,6 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     public GlobalUpgrade HeroHealth;
     public GlobalUpgrade HeroPower;
 
-
     [Header("Buildings")]
     public GlobalUpgrade HomeCrystal;
     public GlobalUpgrade WolfLair;

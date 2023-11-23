@@ -56,7 +56,7 @@ public class Hero : EntityMovement
         OnAbilityRemoved?.Invoke(ability);
     }
 
-    public void CreateRandomHero(string heroName, Element element)
+    public void CreateHero(string heroName, Element element)
     {
         _gameManager = GameManager.Instance;
 
@@ -70,7 +70,7 @@ public class Hero : EntityMovement
 
         Abilities = new();
         // HERE: testing
-      //  AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
+        //  AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
     }
 
     void CreateBaseStats()
@@ -93,9 +93,16 @@ public class Hero : EntityMovement
         Pull.Initialize();
 
         Level.SetValue(1);
-        MaxHealth.SetBaseValue(100);
-        Armor.SetBaseValue(0);
-        Speed.SetBaseValue(7);
+
+        int maxHealth = 100 + _gameManager.GlobalUpgradeBoard.HeroHealth.GetValue();
+        MaxHealth.SetBaseValue(maxHealth);
+
+        int armor = 0 + _gameManager.GlobalUpgradeBoard.HeroArmor.GetValue();
+        Armor.SetBaseValue(armor);
+
+        int speed = 7 + _gameManager.GlobalUpgradeBoard.HeroSpeed.GetValue();
+        Speed.SetBaseValue(speed);
+
         Pull.SetBaseValue(7);
     }
 

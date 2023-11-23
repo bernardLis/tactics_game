@@ -103,19 +103,21 @@ public class FullScreenElement : VisualElement
         VisualElement tt = _root.Q<VisualElement>("tooltipContainer");
         if (tt != null) tt.style.display = DisplayStyle.None;
 
-        DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f).SetUpdate(true);
+        DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f)
+               .SetUpdate(true);
         DOTween.To(x => _content.style.opacity = x, 1, 0, 0.5f)
-            .SetUpdate(true)
-            .OnComplete(() =>
-            {
-                OnHide?.Invoke();
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    OnHide?.Invoke();
 
-                _gameManager.OpenFullScreens.Remove(this);
-                if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
-                else if (_battleManager != null) _battleManager.ResumeGame();
+                    _gameManager.OpenFullScreens.Remove(this);
+                    if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
+                    else if (_battleManager != null) _battleManager.ResumeGame();
 
-                SetEnabled(false);
-                RemoveFromHierarchy();
-            });
+                    SetEnabled(false);
+                    RemoveFromHierarchy();
+                });
     }
+
 }

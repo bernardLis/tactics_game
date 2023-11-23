@@ -18,7 +18,7 @@ public class BattleInitializer : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateRandomHero("HERO", _gameManager.EntityDatabase.GetRandomElement());
+        newChar.CreateHero("HERO", _gameManager.EntityDatabase.GetRandomElement());
         _gameManager.PlayerHero = newChar;
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();
