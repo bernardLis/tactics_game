@@ -12,13 +12,18 @@ public class GlobalUpgrade : BaseScriptableObject
     public List<GlobalUpgradeLevel> Levels;
     public int CurrentLevel = 0;
 
-    public virtual void Initialize()
+    GlobalUpgradeBoard _board;
+    public event Action OnLevelChanged;
+    public virtual void Initialize(GlobalUpgradeBoard board)
     {
+        _board = board;
+        _board.OnRefundAll += Refund;
     }
 
     public virtual void Purchased()
     {
         CurrentLevel++;
+        OnLevelChanged?.Invoke();
     }
 
     public GlobalUpgradeLevel GetCurrentLevel()
@@ -36,6 +41,17 @@ public class GlobalUpgrade : BaseScriptableObject
     public bool IsMaxLevel()
     {
         return CurrentLevel == Levels.Count - 1;
+    }
+
+    public void Refund()
+    {
+        int val = 0;
+        for (int i = 0; i < Levels.Count; i++)
+            if (i <= CurrentLevel)
+                val += Levels[i].Cost;
+        GameManager.Instance.ChangeGoldValue(val);
+        CurrentLevel = -1;
+        OnLevelChanged?.Invoke();
     }
 
 

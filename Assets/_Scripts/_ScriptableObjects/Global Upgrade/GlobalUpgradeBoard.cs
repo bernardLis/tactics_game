@@ -44,7 +44,39 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     public GlobalUpgrade RewardNumber;
     public GlobalUpgrade RewardReroll;
 
+    public event Action OnRefundAll;
+    public void RefundAll()
+    {
+        OnRefundAll?.Invoke();
 
+        // // oh kill me...
+        // if (HeroSpeed != null) HeroSpeed.Refund();
+        // if (HeroArmor != null) HeroArmor.Refund();
+        // if (HeroHealth != null) HeroHealth.Refund();
+        // if (HeroPower != null) HeroPower.Refund();
+        // if (HomeCrystal != null) HomeCrystal.Refund();
+        // if (WolfLair != null) WolfLair.Refund();
+        // if (BombLair != null) BombLair.Refund();
+        // if (BudLair != null) BudLair.Refund();
+        // if (DragonSparkLair != null) DragonSparkLair.Refund();
+        // if (MetalonLair != null) MetalonLair.Refund();
+        // if (PracticeDummyLair != null) PracticeDummyLair.Refund();
+        // if (ShellLair != null) ShellLair.Refund();
+        // if (SnakeletLair != null) SnakeletLair.Refund();
+        // if (SunBlossomLair != null) SunBlossomLair.Refund();
+        // if (CreatureStartingLevel != null) CreatureStartingLevel.Refund();
+        // if (CreatureSpeed != null) CreatureSpeed.Refund();
+        // if (CreatureArmor != null) CreatureArmor.Refund();
+        // if (CreatureHealth != null) CreatureHealth.Refund();
+        // if (CreaturePower != null) CreaturePower.Refund();
+        // if (BossCorruptionBreakNodes != null) BossCorruptionBreakNodes.Refund();
+        // if (BossStunDuration != null) BossStunDuration.Refund();
+        // if (BossCorruptionDuration != null) BossCorruptionDuration.Refund();
+        // if (BossSpeed != null) BossSpeed.Refund();
+        // if (TileIndicator != null) TileIndicator.Refund();
+        // if (RewardNumber != null) RewardNumber.Refund();
+        // if (RewardReroll != null) RewardReroll.Refund();
+    }
     // save
     // load
     // serialize

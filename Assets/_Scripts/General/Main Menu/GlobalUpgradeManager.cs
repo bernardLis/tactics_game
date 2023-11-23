@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GlobalUpgradeManager : MonoBehaviour
 {
-    [SerializeField] GlobalUpgradeBoard _globalUpgradeBoard;
 
     public void ShowGlobalUpgradesMenu()
     {
-        new GlobalUpgradesScreen(_globalUpgradeBoard);
+        new GlobalUpgradesScreen(GameManager.Instance.GlobalUpgradeBoard);
     }
 }

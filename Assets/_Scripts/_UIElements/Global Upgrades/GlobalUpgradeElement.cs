@@ -26,6 +26,8 @@ public class GlobalUpgradeElement : ElementWithTooltip
     GoldElement _price;
     VisualElement _fill;
 
+    string tweenId = "fill";
+
     IVisualElementScheduledItem _purchaseScheduler;
 
     public GlobalUpgradeElement(GlobalUpgrade globalUpgrade)
@@ -36,8 +38,11 @@ public class GlobalUpgradeElement : ElementWithTooltip
             styleSheets.Add(ss);
 
         GlobalUpgrade = globalUpgrade;
+        globalUpgrade.OnLevelChanged += OnUpgradeLevelChanged;
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonButtonBasic);
+
+        tweenId = "fill" + GlobalUpgrade.name;
 
         AddStars();
         AddIcon();
@@ -47,6 +52,13 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
         RegisterCallback<PointerDownEvent>(OnPointerDown);
         RegisterCallback<PointerUpEvent>(OnPointerUp);
+    }
+
+    void OnUpgradeLevelChanged()
+    {
+        UpdateStars();
+        UpdateTitle();
+        UpdatePrice();
     }
 
     void OnPointerDown(PointerDownEvent evt)
@@ -61,20 +73,20 @@ public class GlobalUpgradeElement : ElementWithTooltip
         // if the player releases the button, cancel the purchase
 
         _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1500);
-        DOTween.Kill("fill");
+        DOTween.Kill(tweenId);
         DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 82, 1.5f)
                 .SetEase(Ease.InOutSine)
-                .SetId("fill");
+                .SetId(tweenId);
     }
 
     void OnPointerUp(PointerUpEvent evt)
     {
         if (_purchaseScheduler != null) _purchaseScheduler.Pause();
-        DOTween.Kill("fill");
+        DOTween.Kill(tweenId);
         DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 0, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .OnComplete(() => _fill.style.height = Length.Percent(0))
-                .SetId("fill");
+                .SetId(tweenId);
     }
 
     void AddStars()
@@ -97,8 +109,11 @@ public class GlobalUpgradeElement : ElementWithTooltip
     void UpdateStars()
     {
         for (int i = 0; i < _stars.Count; i++)
+        {
+            _stars[i].RemoveFromClassList(_ussStarPurchased);
             if (i <= GlobalUpgrade.CurrentLevel)
                 _stars[i].AddToClassList(_ussStarPurchased);
+        }
     }
 
     void AddIcon()
@@ -114,6 +129,18 @@ public class GlobalUpgradeElement : ElementWithTooltip
         _title = new(Helpers.ParseScriptableObjectName(GlobalUpgrade.name));
         _title.AddToClassList(_ussTitle);
         Add(_title);
+
+        UpdateTitle();
+    }
+
+    void UpdateTitle()
+    {
+        int val = 0;
+        for (int i = 0; i < GlobalUpgrade.Levels.Count; i++)
+            if (i <= GlobalUpgrade.CurrentLevel)
+                val += GlobalUpgrade.Levels[i].Value;
+
+        _title.text = Helpers.ParseScriptableObjectName(GlobalUpgrade.name) + " +" + val;
     }
 
     void AddPrice()
@@ -121,6 +148,24 @@ public class GlobalUpgradeElement : ElementWithTooltip
         if (GlobalUpgrade.IsMaxLevel()) return;
         _price = new(GlobalUpgrade.GetNextLevel().Cost);
         Add(_price);
+    }
+
+    void UpdatePrice()
+    {
+        if (GlobalUpgrade.GetNextLevel() != null)
+        {
+            if (_price == null)
+            {
+                AddPrice();
+                return;
+            }
+            _price.ChangeAmount(GlobalUpgrade.GetNextLevel().Cost);
+            return;
+        }
+
+        if (_price == null) return;
+        _price.RemoveFromHierarchy();
+        _price = null;
     }
 
     void AddFill()
@@ -136,12 +181,6 @@ public class GlobalUpgradeElement : ElementWithTooltip
         _gameManager.ChangeGoldValue(-GlobalUpgrade.GetNextLevel().Cost);
         GlobalUpgrade.Purchased();
 
-        if (GlobalUpgrade.GetNextLevel() != null)
-            _price.ChangeAmount(GlobalUpgrade.GetNextLevel().Cost);
-        else
-            Remove(_price);
-
-        UpdateStars();
         DisplayTooltip();
 
         DOTween.To(x => _fill.style.opacity = x, _fill.style.opacity.value, 1, 0.1f)

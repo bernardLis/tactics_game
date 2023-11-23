@@ -46,10 +46,21 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateHeroUpgrades()
     {
-        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroSpeed));
-        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroArmor));
-        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroHealth));
-        _upgradeContainer.Add(new GlobalUpgradeElement(_globalUpgradeBoard.HeroPower));
+        _globalUpgradeBoard.HeroSpeed.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement hs = new(_globalUpgradeBoard.HeroSpeed);
+        _upgradeContainer.Add(hs);
+
+        _globalUpgradeBoard.HeroArmor.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement ha = new(_globalUpgradeBoard.HeroArmor);
+        _upgradeContainer.Add(ha);
+
+        _globalUpgradeBoard.HeroHealth.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement hh = new(_globalUpgradeBoard.HeroHealth);
+        _upgradeContainer.Add(hh);
+
+        _globalUpgradeBoard.HeroPower.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement hp = new(_globalUpgradeBoard.HeroPower);
+        _upgradeContainer.Add(hp);
     }
 
     void CreateBuildingUpgrades()
@@ -81,11 +92,19 @@ public class GlobalUpgradesScreen : FullScreenElement
         container.style.justifyContent = Justify.SpaceAround;
         Add(container);
 
+        MyButton refundAllButton = new("Refund All", "common__menu-button", RefundAll);
+        container.Add(refundAllButton);
+
         MyButton backButton = new("Back", "common__menu-button", Hide);
         container.Add(backButton);
 
         MyButton playButton = new("Play", "common__menu-button", Play);
         container.Add(playButton);
+    }
+
+    void RefundAll()
+    {
+        _globalUpgradeBoard.RefundAll();
     }
 
     void Play() { _gameManager.Play(); }

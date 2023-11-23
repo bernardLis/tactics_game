@@ -133,10 +133,6 @@ MonoBehaviour:
     m_ActionName: Battle/RotateCameraRight[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 50c37d5b-4a5f-430b-aab9-a8321a7bd8f8
-    m_ActionName: Battle/Rotate[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: ca7abc80-980a-4853-9771-b52a4f1792f4
     m_ActionName: Battle/ToggleMenu[/Keyboard/escape]
   - m_PersistentCalls:
@@ -445,6 +441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   EntityDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
+  GlobalUpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}
   BannerPrefab: {fileID: 2178910863558769144, guid: f385f82cd42b57b4a874b18073f57254, type: 3}
   BattleNumber: 0
   PlayerHero: {fileID: 0}
