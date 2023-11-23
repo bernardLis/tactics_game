@@ -16,17 +16,9 @@ MonoBehaviour:
   HeroSpeed: {fileID: 11400000, guid: 999d04af62cc4aa44b8fa5d9ca3a2f3d, type: 2}
   HeroArmor: {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
   HeroHealth: {fileID: 11400000, guid: f04c07d2d12dba2409832085cdec5bf6, type: 2}
+  HeroPull: {fileID: 11400000, guid: 50dd99ac47e5d6144908dbf7e50c5ef7, type: 2}
   HeroPower: {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
-  HomeCrystal: {fileID: 0}
-  WolfLair: {fileID: 0}
-  BombLair: {fileID: 0}
-  BudLair: {fileID: 0}
-  DragonSparkLair: {fileID: 0}
-  MetalonLair: {fileID: 0}
-  PracticeDummyLair: {fileID: 0}
-  ShellLair: {fileID: 0}
-  SnakeletLair: {fileID: 0}
-  SunBlossomLair: {fileID: 0}
+  BuildingUpgrades: []
   CreatureStartingLevel: {fileID: 0}
   CreatureSpeed: {fileID: 0}
   CreatureArmor: {fileID: 0}

@@ -9,6 +9,7 @@ public class Hero : EntityMovement
 {
     GameManager _gameManager;
 
+    public Stat Power;
     public Stat Pull;
 
     public override void InitializeBattle(int team)
@@ -19,6 +20,7 @@ public class Hero : EntityMovement
     protected override void CreateStats()
     {
         base.CreateStats();
+        Power = Instantiate(Power);
         Pull = Instantiate(Pull);
     }
 
@@ -92,18 +94,28 @@ public class Hero : EntityMovement
         Pull.StatType = StatType.Pull;
         Pull.Initialize();
 
+        Power = CreateInstance<Stat>();
+        Power.StatType = StatType.Power;
+        Power.Initialize();
+
         Level.SetValue(1);
 
-        int maxHealth = 100 + _gameManager.GlobalUpgradeBoard.HeroHealth.GetValue();
+        GlobalUpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
+
+        int maxHealth = 100 + globalUpgradeBoard.HeroHealth.GetValue();
         MaxHealth.SetBaseValue(maxHealth);
 
-        int armor = 0 + _gameManager.GlobalUpgradeBoard.HeroArmor.GetValue();
+        int armor = 0 + globalUpgradeBoard.HeroArmor.GetValue();
         Armor.SetBaseValue(armor);
 
-        int speed = 7 + _gameManager.GlobalUpgradeBoard.HeroSpeed.GetValue();
+        int speed = 7 + globalUpgradeBoard.HeroSpeed.GetValue();
         Speed.SetBaseValue(speed);
 
-        Pull.SetBaseValue(7);
+        int pull = 7 + globalUpgradeBoard.HeroPull.GetValue();
+        Pull.SetBaseValue(pull);
+
+        int power = 0 + globalUpgradeBoard.HeroPower.GetValue();
+        Power.SetBaseValue(power);
     }
 
     /* SERIALIZATION */

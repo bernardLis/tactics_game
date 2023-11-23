@@ -27,9 +27,11 @@ public class Ability : BaseScriptableObject
 
     public event Action OnCooldownStarted;
 
+    BattleManager _battleManager;
     public void InitializeBattle()
     {
         Battle b = GameManager.Instance.CurrentBattle;
+        _battleManager = BattleManager.Instance;
     }
 
     public void StartCooldown()
@@ -39,7 +41,8 @@ public class Ability : BaseScriptableObject
 
     public int GetPower()
     {
-        return Mathf.FloorToInt(Levels[Level].Power);
+        return Mathf.FloorToInt(Levels[Level].Power *
+                                (1 + _battleManager.BattleHero.Hero.Power.GetValue() * 0.1f));
     }
 
     public int GetCooldown()
