@@ -15,7 +15,6 @@ public class BattleInfoManager : MonoBehaviour
     TroopsLimitElement _troopsCounter;
 
     GoldElement _goldElement;
-    SpiceElement _spiceElement;
     Label _tilesUntilBossLabel;
 
     void Start()
@@ -43,8 +42,6 @@ public class BattleInfoManager : MonoBehaviour
         UpdateTroopsLimitElement();
 
         HandleTilesUntilBoss();
-        // HERE: spice
-        // AddSpiceElement();
     }
 
     void AddGoldElement()
@@ -80,24 +77,10 @@ public class BattleInfoManager : MonoBehaviour
         _tilesUntilBossLabel.text = $"{_battleAreaManager.PurchasedTiles.Count - 1} / {_battleManager.CurrentBattle.TilesUntilBoss}";
     }
 
-    void AddSpiceElement()
-    {
-        _spiceElement = new(_gameManager.Spice);
-        _gameManager.OnSpiceChanged += OnSpiceChanged;
-        _infoPanel.Add(_spiceElement);
-    }
-
     void OnGoldChanged(int newValue)
     {
         int change = newValue - _goldElement.Amount;
         Helpers.DisplayTextOnElement(_root, _goldElement, "" + change, Color.yellow);
         _goldElement.ChangeAmount(newValue);
-    }
-
-    void OnSpiceChanged(int newValue)
-    {
-        int change = newValue - _spiceElement.Amount;
-        Helpers.DisplayTextOnElement(_root, _spiceElement, "" + change, Color.red);
-        _spiceElement.ChangeAmount(newValue);
     }
 }

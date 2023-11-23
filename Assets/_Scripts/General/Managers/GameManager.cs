@@ -25,7 +25,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public int TotalGoldCollected { get; private set; }
     public int Gold { get; private set; }
-    public int Spice { get; private set; }
 
     public Hero PlayerHero;
 
@@ -35,7 +34,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public List<FullScreenElement> OpenFullScreens = new();
 
     public event Action<int> OnGoldChanged;
-    public event Action<int> OnSpiceChanged;
 
     public event Action<string> OnLevelLoaded;
     public event Action OnNewSaveFileCreation;
@@ -113,15 +111,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         OnGoldChanged?.Invoke(Gold);
     }
 
-    public void ChangeSpiceValue(int o)
-    {
-        if (o == 0) return;
-
-        Spice += o;
-        OnSpiceChanged?.Invoke(Spice);
-    }
-
-
     /* LEVELS */
     public void LoadScene(string level)
     {
@@ -142,7 +131,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         BattleNumber = 0;
         Gold = 10000;
-        Spice = 500;
 
         PlayerHero = null;
 
@@ -175,7 +163,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.BattleNumber = BattleNumber;
 
         saveData.Gold = Gold;
-        saveData.Spice = Spice;
 
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
@@ -203,7 +190,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         BattleNumber = saveData.BattleNumber;
 
         Gold = saveData.Gold;
-        Spice = saveData.Spice;
 
         PlayerHero = ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
@@ -215,7 +201,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         BattleNumber = 0;
 
         Gold = 1000;
-        Spice = 500;
 
         PlayerHero = null;
 

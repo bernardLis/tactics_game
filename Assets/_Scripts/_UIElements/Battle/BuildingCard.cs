@@ -47,13 +47,6 @@ public class BuildingCard : TooltipCard
         if (_building.Icon != null)
             icon.style.backgroundImage = _building.Icon.texture;
 
-        if (Helpers.ParseScriptableObjectName(_building.name) == "Home Crystal")
-        {
-            AnimationElement anim = new(_gameManager.GameDatabase.GetSpiceSprites(1000), 50, true);
-            anim.PlayAnimation();
-            icon.Add(anim);
-        }
-
         _topLeftContainer.Add(icon);
     }
 

@@ -61,6 +61,10 @@ public class GlobalUpgradesScreen : FullScreenElement
         _globalUpgradeBoard.HeroPower.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hp = new(_globalUpgradeBoard.HeroPower);
         _upgradeContainer.Add(hp);
+
+        _globalUpgradeBoard.HeroPull.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement hpu = new(_globalUpgradeBoard.HeroPull);
+        _upgradeContainer.Add(hpu);
     }
 
     void CreateBuildingUpgrades()

@@ -30,14 +30,6 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] Sprite[] CoinSprites;
     public Sprite[] LevelUpAnimationSprites;
     public Sprite[] TroopsElementAnimationSprites;
-    [SerializeField] SpiceAnimations[] SpiceAnimationSprites;
-    [Serializable] public class SpiceAnimations { public Sprite[] sprites; }
-    [SerializeField] OpponentGroupIcon[] OpponentGroupIcons;
-    public Sprite GetOpponentGroupIcon(Element element, bool hasCreatures)
-    {
-        OpponentGroupIcon icon = OpponentGroupIcons.FirstOrDefault(i => i.Element == element);
-        return hasCreatures ? icon.SpriteCreature : icon.SpriteMinion;
-    }
 
     public Sprite GetCoinSprite(int amount)
     {
@@ -55,26 +47,6 @@ public class GameDatabase : BaseScriptableObject
             index = 4;
 
         return CoinSprites[index];
-    }
-
-    public Sprite[] GetSpiceSprites(int amount)
-    {
-        int index = 0;
-        // TODO: something smarter
-        if (amount >= 0 && amount <= 20)
-            index = 0;
-        if (amount >= 21 && amount <= 50)
-            index = 1;
-        if (amount >= 51 && amount <= 100)
-            index = 2;
-        if (amount >= 101 && amount <= 200)
-            index = 3;
-        if (amount >= 201 && amount <= 300)
-            index = 4;
-        if (amount >= 301)
-            index = 5;
-
-        return SpiceAnimationSprites[index].sprites;
     }
 }
 

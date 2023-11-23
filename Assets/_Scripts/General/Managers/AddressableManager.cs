@@ -42,7 +42,7 @@ public enum StyleSheetType
     BattleFinishedStyles, BattleWonStyles, BattleLostStyles,
     TimerElementStyles,
     StarRankElementStyles,
-    GoldElementStyles, SpiceElementStyles,
+    GoldElementStyles,
     ResourceBarStyles, StatElementStyles, ElementalElementStyles,
     AbilityButtonStyles, AbilityIconStyles, AbilityTooltipElementStyles,
 

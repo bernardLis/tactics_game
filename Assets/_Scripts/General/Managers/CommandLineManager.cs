@@ -359,10 +359,6 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeGoldValue(10000);
         if (_commandTextField.text.ToLower() == "takegold")
             _gameManager.ChangeGoldValue(-5000);
-        if (_commandTextField.text.ToLower() == "diuna")
-            _gameManager.ChangeSpiceValue(1000);
-        if (_commandTextField.text.ToLower() == "takespice")
-            _gameManager.ChangeSpiceValue(-500);
         if (_commandTextField.text.ToLower() == "levelup")
             _gameManager.PlayerHero.LevelUp();
         if (_commandTextField.text.ToLower() == "killbill")

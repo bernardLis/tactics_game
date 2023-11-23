@@ -12,7 +12,6 @@ public class SaveData
     public int BattleNumber;
 
     public int Gold;
-    public int Spice;
 
     public HeroData PlayerHero = new();
 
