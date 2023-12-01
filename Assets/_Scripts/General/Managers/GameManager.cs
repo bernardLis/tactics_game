@@ -62,7 +62,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         CreateNewSaveFile();
 
         GlobalUpgradeBoard.Initialize();
-
+        GameDatabase.InitializeBuildings();
         //  }
         //   else
         //     LoadFromSaveFile();

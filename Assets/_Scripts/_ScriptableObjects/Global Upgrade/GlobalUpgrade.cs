@@ -10,7 +10,8 @@ public class GlobalUpgrade : BaseScriptableObject
     public string Description;
 
     public List<GlobalUpgradeLevel> Levels;
-    public int CurrentLevel = 0;
+    public int CurrentLevel = -1;
+    public bool PermanentlyUnlocked;
 
     GlobalUpgradeBoard _board;
     public event Action OnLevelChanged;
@@ -18,6 +19,10 @@ public class GlobalUpgrade : BaseScriptableObject
     {
         _board = board;
         _board.OnRefundAll += Refund;
+
+        // perma unlocked
+        if (CurrentLevel > 0) return;
+        if (PermanentlyUnlocked) CurrentLevel = 0;
     }
 
     public virtual void Purchased()
@@ -60,6 +65,7 @@ public class GlobalUpgrade : BaseScriptableObject
                 val += Levels[i].Cost;
         GameManager.Instance.ChangeGoldValue(val);
         CurrentLevel = -1;
+        if (PermanentlyUnlocked) CurrentLevel = 0;
         OnLevelChanged?.Invoke();
     }
 

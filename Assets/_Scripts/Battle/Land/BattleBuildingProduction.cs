@@ -16,7 +16,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     float _currentProductionDelaySecond;
 
     BuildingProduction _buildingProduction;
-    BattleInfoElement _upgradeInfo;
 
     protected List<BattleCreature> _producedCreatures = new();
 
@@ -25,19 +24,17 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         base.Initialize(pos, building);
         _buildingProduction = building as BuildingProduction;
 
-        _buildingProduction.OnUpgradePurchased += OnUpgradePurchased;
         _battleFightManager.OnWaveSpawned += SpawnWave;
     }
 
     protected virtual void SpawnWave()
     {
         int difficulty = _battleFightManager.CurrentDifficulty;
-        BuildingUpgrade bu = _buildingProduction.GetCurrentUpgrade();
 
         // TODO: difficulty
         List<Entity> entitiesToSpawn = new();
         // for (int i = 0; i < difficulty; i++)
-        entitiesToSpawn.Add(Instantiate(bu.ProducedCreature));
+        entitiesToSpawn.Add(Instantiate(_buildingProduction.ProducedCreature));
 
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab, _spawnPoint.position, transform.rotation);
         spawner.SpawnEntities(entitiesToSpawn, team: 1);
@@ -52,22 +49,10 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         base.Secured();
 
-        _starRenderers[0].sprite = _star;
+        for (int i = 0; i < _buildingProduction.BuildingUpgrade.CurrentLevel + 1; i++)
+            _starRenderers[i].sprite = _star;
 
         _battleFightManager.OnWaveSpawned -= SpawnWave;
-        StartProductionCoroutine();
-    }
-
-    protected override void OnUpgradePurchased()
-    {
-        _starRenderers[_buildingProduction.CurrentLevel.Value - 1].sprite = _star;
-
-        Vector3 scale = transform.localScale + Vector3.one;
-        transform.DOScale(scale, 1f)
-            .SetEase(Ease.OutBack);
-        transform.DOLocalMoveY(scale.x * 0.5f, 1f)
-            .SetEase(Ease.OutBack);
-
         StartProductionCoroutine();
     }
 
@@ -89,7 +74,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     IEnumerator ProductionCoroutine()
     {
         yield return new WaitForSeconds(2f);
-        Color c = _buildingProduction.GetCurrentUpgrade().ProducedCreature.Element.Color.Color;
+        Color c = _buildingProduction.ProducedCreature.Element.Color.Color;
         _progressBarHandler.SetBorderColor(c);
         _progressBarHandler.SetFillColor(Color.white);
         _progressBarHandler.SetProgress(0);
@@ -110,7 +95,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
                                 _spawnPoint.position, transform.rotation);
 
-        Creature creature = Instantiate(_buildingProduction.GetCurrentUpgrade().ProducedCreature);
+        Creature creature = Instantiate(_buildingProduction.ProducedCreature);
         spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: creature.Element);
         spawner.OnSpawnComplete += (l) =>
         {
@@ -185,7 +170,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
                                 _spawnPoint.position, transform.rotation);
 
-        Creature creature = Instantiate(_buildingProduction.GetCurrentUpgrade().ProducedCreature);
+        Creature creature = Instantiate(_buildingProduction.ProducedCreature);
         spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
         spawner.OnSpawnComplete += (l) =>
         {
@@ -203,38 +188,6 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         if (_tooltipManager == null) return;
 
         _tooltipManager.ShowTooltip(new BuildingProductionCard(_buildingProduction), gameObject);
-
-        if (_buildingProduction.CurrentLevel.Value >= _buildingProduction.BuildingUpgrades.Length) return;
-        if (!CanInteract(default)) return;
-
-        _upgradeInfo = new BattleInfoElement(
-                        $"<b>Upgrade {Helpers.ParseScriptableObjectName(_building.name)}</b>",
-                        purchasePrice: _buildingProduction.GetNextUpgrade().Cost);
-        _tooltipManager.ShowKeyTooltipInfo(_upgradeInfo);
-    }
-
-    public override bool CanInteract(BattleInteractor interactor)
-    {
-        if (_buildingProduction.CurrentLevel.Value >= _buildingProduction.BuildingUpgrades.Length) return false;
-        if (_gameManager.Gold < _buildingProduction.GetNextUpgrade().Cost) return false;
-
-        return base.CanInteract(interactor);
-    }
-
-
-    public override bool Interact(BattleInteractor interactor)
-    {
-        if (!CanInteract(interactor)) return false;
-
-        _gameManager.ChangeGoldValue(-_buildingProduction.GetNextUpgrade().Cost);
-        _buildingProduction.Upgrade();
-
-        if (_buildingProduction.CurrentLevel.Value == _buildingProduction.BuildingUpgrades.Length)
-            _tooltipManager.HideKeyTooltipInfo();
-        else
-            _upgradeInfo.UpdatePurchasePrice(_buildingProduction.GetNextUpgrade().Cost);
-
-        return true;
     }
 
 }

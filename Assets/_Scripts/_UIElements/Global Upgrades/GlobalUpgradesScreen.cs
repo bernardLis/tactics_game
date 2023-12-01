@@ -17,6 +17,7 @@ public class GlobalUpgradesScreen : FullScreenElement
 
         _upgradeContainer = new();
         _upgradeContainer.style.flexDirection = FlexDirection.Row;
+        _upgradeContainer.style.flexWrap = Wrap.Wrap;
         _content.Add(_upgradeContainer);
 
         CreateHeroUpgrades();
@@ -69,7 +70,12 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateBuildingUpgrades()
     {
-
+        _globalUpgradeBoard.BuildingUpgrades.ForEach(upgrade =>
+        {
+            upgrade.Initialize(_globalUpgradeBoard);
+            GlobalUpgradeElement element = new(upgrade);
+            _upgradeContainer.Add(element);
+        });
     }
 
 

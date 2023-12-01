@@ -18,7 +18,16 @@ MonoBehaviour:
   HeroHealth: {fileID: 11400000, guid: f04c07d2d12dba2409832085cdec5bf6, type: 2}
   HeroPull: {fileID: 11400000, guid: 50dd99ac47e5d6144908dbf7e50c5ef7, type: 2}
   HeroPower: {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
-  BuildingUpgrades: []
+  BuildingUpgrades:
+  - {fileID: 11400000, guid: 8e683bf6536f0d34ab90c4c901a54695, type: 2}
+  - {fileID: 11400000, guid: 13f22ed631a34b1448146f5068d348a8, type: 2}
+  - {fileID: 11400000, guid: a10913c32bb017649948d20e0baaf95c, type: 2}
+  - {fileID: 11400000, guid: db055d81f7e9a5c44800b6f0ff69d5c6, type: 2}
+  - {fileID: 11400000, guid: 3fae23ee86cef4941b5a1d6a024fd361, type: 2}
+  - {fileID: 11400000, guid: a80b6a8df980bef46a2c9174b1b93113, type: 2}
+  - {fileID: 11400000, guid: 73c714e1c346a304fabc23bd59b8204d, type: 2}
+  - {fileID: 11400000, guid: e27aab3a3fec49a41933504166fb5c7f, type: 2}
+  - {fileID: 11400000, guid: ce6e77f15c6fa774da99bd136d233443, type: 2}
   CreatureStartingLevel: {fileID: 0}
   CreatureSpeed: {fileID: 0}
   CreatureArmor: {fileID: 0}

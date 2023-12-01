@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
+  m_Name: Shell Lair
+  m_EditorClassIdentifier: 
+  Id: fd9dd6ef-3858-47f5-8cd2-e76cbe47408e
+  Icon: {fileID: 21300000, guid: 973bc37610f9b934fa01495b27f5fb7a, type: 3}
+  Description: 
+  Levels:
+  - {fileID: 11400000, guid: df70754d33d9f264bb85b730e74723f2, type: 2}
+  - {fileID: 11400000, guid: 1a0a1419732096a4b9962e7e53558dae, type: 2}
+  - {fileID: 11400000, guid: eb09b6f600cbebf4ab2858b7e51f8183, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0

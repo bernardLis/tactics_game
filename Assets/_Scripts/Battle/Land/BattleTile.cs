@@ -27,7 +27,7 @@ public class BattleTile : MonoBehaviour
 
     public float Scale { get; private set; }
 
-    public Building Building { get; private set; }
+    public Building Building; //{ get; private set; }
     public BattleBuilding BattleBuilding { get; private set; }
 
     MinionSpawningPattern _minionSpawningPattern;
@@ -57,7 +57,6 @@ public class BattleTile : MonoBehaviour
 
         if (Building != null)
         {
-            Building.Initialize();
             BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
             Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
             BattleBuilding.Initialize(pos, Building);

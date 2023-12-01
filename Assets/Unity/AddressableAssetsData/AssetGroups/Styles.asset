@@ -62,11 +62,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 63f1a6af3aabe544aa3592a0a0d767a6
-    m_Address: SpiceElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
     m_Address: SettingsMenuStyles
     m_ReadOnly: 0

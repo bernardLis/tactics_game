@@ -914,10 +914,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 892723308641058941, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _bossProjectilePoolHolder
-      value: 
-      objectReference: {fileID: 1633669039}
     - target: {fileID: 1803897707696964957, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _floorHolder
       value: 
@@ -970,18 +966,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _noFights
+    - target: {fileID: 5119385659013104319, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _minionPoolHolder
       value: 
       objectReference: {fileID: 1152500920}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _oppProjectilePoolHolder
-      value: 
-      objectReference: {fileID: 1633669039}
     - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _enemyProjectilePoolHolder
       value: 

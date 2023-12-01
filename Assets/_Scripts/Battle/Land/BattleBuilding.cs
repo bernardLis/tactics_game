@@ -67,10 +67,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _building.Secure();
     }
 
-    protected virtual void OnUpgradePurchased()
-    {
-    }
-
     public virtual void StartCorruption(BattleBoss boss)
     {
         boss.OnCorruptionBroken += BreakCorruption;

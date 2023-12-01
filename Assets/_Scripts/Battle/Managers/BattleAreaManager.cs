@@ -13,7 +13,7 @@ public class BattleAreaManager : MonoBehaviour
 
     [SerializeField] GameObject _tilePrefab;
     [SerializeField] Building _homeBuilding;
-    [SerializeField] List<Building> _buildings;
+    List<Building> _unlockedBuildings = new();
 
     GameObject _floor;
 
@@ -31,6 +31,8 @@ public class BattleAreaManager : MonoBehaviour
                 Quaternion.identity);
         _floor.transform.SetParent(_floorHolder);
 
+        _unlockedBuildings = GameManager.Instance.GameDatabase.GetUnlockedBuildings();
+
         CreateArea();
     }
 
@@ -46,7 +48,7 @@ public class BattleAreaManager : MonoBehaviour
             {
                 Vector3 pos = new(x * tileScale, 0, z * tileScale);
 
-                Building building = _buildings[Random.Range(0, _buildings.Count)];
+                Building building = _unlockedBuildings[Random.Range(0, _unlockedBuildings.Count)];
                 if (pos == Vector3.zero)
                     building = _homeBuilding;
 

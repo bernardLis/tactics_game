@@ -42,11 +42,13 @@ public class GlobalUpgradeBoard : BaseScriptableObject
 
     public GlobalUpgrade GetBuildingUpgradeByName(string name)
     {
+        // TODO: this is a bad idea
         foreach (GlobalUpgrade upgrade in BuildingUpgrades)
             if (upgrade.name == name)
                 return upgrade;
         return null;
     }
+
 
     public void RefundAll() { OnRefundAll?.Invoke(); }
     // save

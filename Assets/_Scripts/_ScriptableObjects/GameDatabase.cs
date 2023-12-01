@@ -10,6 +10,21 @@ public class GameDatabase : BaseScriptableObject
     [Header("Buildings")]
     [SerializeField] BuildingProduction[] Buildings;
     public BuildingProduction GetBuildingByName(string name) { return Buildings.FirstOrDefault(b => b.name == name); }
+    public void InitializeBuildings()
+    {
+        foreach (BuildingProduction b in Buildings)
+            b.Initialize();
+    }
+
+    public List<Building> GetUnlockedBuildings()
+    {
+        List<Building> unlockedBuildings = new();
+        foreach (BuildingProduction b in Buildings)
+            if (b.IsUnlocked())
+                unlockedBuildings.Add(b);
+        return unlockedBuildings;
+    }
+
 
     [Header("Shaders")]
     public Shader LitShader;
@@ -48,14 +63,6 @@ public class GameDatabase : BaseScriptableObject
 
         return CoinSprites[index];
     }
-}
-
-
-public enum BuildingType
-{
-    None,
-    HomeCrystal,
-    WolfLair, BombLair, BudLair, DragonSparkLair, MetalonLair, PracticeDummyLair, ShellLair, SnakeletLair, SunBlossomLair
 }
 
 
