@@ -7,11 +7,12 @@ public class GlobalUpgradesScreen : FullScreenElement
 {
     GlobalUpgradeBoard _globalUpgradeBoard;
 
-    VisualElement _upgradeContainer;
+    ScrollView _upgradeContainer;
 
     public GlobalUpgradesScreen(GlobalUpgradeBoard globalUpgradeBoard)
     {
         _globalUpgradeBoard = globalUpgradeBoard;
+        style.backgroundColor = new Color(0, 0, 0, 1f);
 
         AddHeader();
 
@@ -47,34 +48,44 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateHeroUpgrades()
     {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+        _upgradeContainer.Add(container);
+
         _globalUpgradeBoard.HeroSpeed.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hs = new(_globalUpgradeBoard.HeroSpeed);
-        _upgradeContainer.Add(hs);
+        container.Add(hs);
 
         _globalUpgradeBoard.HeroArmor.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement ha = new(_globalUpgradeBoard.HeroArmor);
-        _upgradeContainer.Add(ha);
+        container.Add(ha);
 
         _globalUpgradeBoard.HeroHealth.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hh = new(_globalUpgradeBoard.HeroHealth);
-        _upgradeContainer.Add(hh);
+        container.Add(hh);
 
         _globalUpgradeBoard.HeroPower.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hp = new(_globalUpgradeBoard.HeroPower);
-        _upgradeContainer.Add(hp);
+        container.Add(hp);
 
         _globalUpgradeBoard.HeroPull.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hpu = new(_globalUpgradeBoard.HeroPull);
-        _upgradeContainer.Add(hpu);
+        container.Add(hpu);
     }
 
     void CreateBuildingUpgrades()
     {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+        _upgradeContainer.Add(container);
+
         _globalUpgradeBoard.BuildingUpgrades.ForEach(upgrade =>
         {
             upgrade.Initialize(_globalUpgradeBoard);
             GlobalUpgradeElement element = new(upgrade);
-            _upgradeContainer.Add(element);
+            container.Add(element);
         });
     }
 
@@ -92,7 +103,18 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateOtherUpgrades()
     {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+        _upgradeContainer.Add(container);
 
+        _globalUpgradeBoard.RewardNumber.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement rn = new(_globalUpgradeBoard.RewardNumber);
+        container.Add(rn);
+
+        _globalUpgradeBoard.RewardReroll.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement rr = new(_globalUpgradeBoard.RewardReroll);
+        container.Add(rr);
     }
 
     void AddNavigationButtons()

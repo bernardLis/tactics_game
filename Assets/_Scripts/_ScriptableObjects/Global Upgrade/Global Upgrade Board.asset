@@ -38,5 +38,5 @@ MonoBehaviour:
   BossCorruptionDuration: {fileID: 0}
   BossSpeed: {fileID: 0}
   TileIndicator: {fileID: 0}
-  RewardNumber: {fileID: 0}
-  RewardReroll: {fileID: 0}
+  RewardNumber: {fileID: 11400000, guid: dfc467aa1ff24034fb9075817522bda3, type: 2}
+  RewardReroll: {fileID: 11400000, guid: e89216b90af79b3479bd20730c7510a1, type: 2}

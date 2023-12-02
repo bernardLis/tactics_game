@@ -13,6 +13,7 @@ public class BattleRewardElement : FullScreenElement
     const string _ussLevelUpLabel = _ussClassName + "level-up-label";
 
     AudioManager _audioManager;
+    BattleHeroManager _battleHeroManager;
 
     VisualElement _rewardContainer;
     Label _title;
@@ -21,21 +22,29 @@ public class BattleRewardElement : FullScreenElement
     List<RewardCard> _allRewardCards = new();
     List<RewardCard> _selectedRewardCards = new();
 
+    VisualElement _rerollContainer;
+    Label _rerollsLeft;
     RerollButton _rerollButton;
 
-    int _numberOfRewards = 3;
+    int _numberOfRewards = 2;
 
     public event Action OnRewardSelected;
     public BattleRewardElement()
     {
+        _numberOfRewards = _gameManager.GlobalUpgradeBoard.RewardNumber.GetCurrentLevel().Value;
+
         _audioManager = _gameManager.GetComponent<AudioManager>();
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleRewardStyles);
         if (ss != null) styleSheets.Add(ss);
+
+        _battleHeroManager = BattleManager.Instance.GetComponent<BattleHeroManager>();
 
         _content.AddToClassList(_ussMain);
 
         PlayLevelUpAnimation();
         AddElements();
+
+        Debug.Log($"_numberOfRewards {_numberOfRewards}");
     }
 
     void PlayLevelUpAnimation()
@@ -78,6 +87,7 @@ public class BattleRewardElement : FullScreenElement
         _content.Add(spacer);
 
         AddRewardContainer();
+        AddRerollButton();
 
         DisableNavigation();
     }
@@ -96,11 +106,20 @@ public class BattleRewardElement : FullScreenElement
             card.style.visibility = Visibility.Hidden;
             _rewardContainer.Add(card);
         }
+    }
+
+    void AddRerollButton()
+    {
+        if (_battleHeroManager.RewardRerollsAvailable <= 0) return;
+        _rerollContainer = new();
+        _rerollContainer.style.opacity = 0;
+        _content.Add(_rerollContainer);
+
+        _rerollsLeft = new($"Rerolls left: {_battleHeroManager.RewardRerollsAvailable}");
+        _rerollContainer.Add(_rerollsLeft);
 
         _rerollButton = new(callback: RerollReward);
-        _rerollButton.style.opacity = 0;
-        _rerollButton.style.visibility = Visibility.Hidden;
-        _content.Add(_rerollButton);
+        _rerollContainer.Add(_rerollButton);
     }
 
     void RunCardShow()
@@ -125,27 +144,39 @@ public class BattleRewardElement : FullScreenElement
                         .SetEase(Ease.InFlash)
                         .SetDelay(i * 0.2f).SetUpdate(true);
             }
-        }).StartingIn(10);
+        }).StartingIn(100);
 
-        _rerollButton.style.visibility = Visibility.Visible;
-        DOTween.To(x => _rerollButton.style.opacity = x, 0, 1, 0.5f)
+        if (_rerollContainer == null) return;
+        DOTween.To(x => _rerollContainer.style.opacity = x, 0, 1, 0.5f)
             .SetDelay(0.5f)
             .SetUpdate(true);
     }
 
     void RerollReward()
     {
-        // TODO: something smarter about the cost...
-        if (_gameManager.Gold < 200)
+        if (_battleHeroManager.RewardRerollsAvailable <= 0)
         {
             Helpers.DisplayTextOnElement(BattleManager.Instance.GetComponent<UIDocument>().rootVisualElement,
-                _rerollButton, "Not enough gold!", Color.red);
+                _rerollButton, "Not More Rerolls!", Color.red);
             return;
         }
+
+        _battleHeroManager.RewardRerollsAvailable--;
+        _rerollsLeft.text = $"Rerolls left: {_battleHeroManager.RewardRerollsAvailable}";
         _audioManager.PlayUI("Dice Roll");
 
-        _gameManager.ChangeGoldValue(-200);
         PopulateRewards();
+        UpdateRerollButton();
+    }
+
+    void UpdateRerollButton()
+    {
+        if (_battleHeroManager.RewardRerollsAvailable <= 0)
+        {
+            _rerollButton.SetEnabled(false);
+            return;
+        }
+        _rerollButton.SetEnabled(true);
     }
 
     void PopulateRewards()
@@ -160,6 +191,8 @@ public class BattleRewardElement : FullScreenElement
     {
         _allRewardCards.Clear();
         _allRewardCards.Add(CreateRewardCardHeroStat());
+        _allRewardCards.Add(CreateRewardCardHeroStat());
+        _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardAbility());
         _allRewardCards.Add(CreateRewardCardGold());
     }

@@ -30,7 +30,6 @@ public class Ability : BaseScriptableObject
     BattleManager _battleManager;
     public void InitializeBattle()
     {
-        Battle b = GameManager.Instance.CurrentBattle;
         _battleManager = BattleManager.Instance;
     }
 

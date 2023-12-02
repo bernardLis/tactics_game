@@ -8,6 +8,7 @@ using UnityEngine.AI;
 
 public class BattleHeroManager : MonoBehaviour
 {
+    GameManager _gameManager;
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
 
@@ -20,8 +21,11 @@ public class BattleHeroManager : MonoBehaviour
     [SerializeField] GameObject _heroPrefab;
     [HideInInspector] public BattleHero BattleHero;
     public Hero Hero { get; private set; }
+
+    public int RewardRerollsAvailable = 0;
     public void Initialize(Hero hero)
     {
+        _gameManager = GameManager.Instance;
         _battleManager = GetComponent<BattleManager>();
         _battleAreaManager = GetComponent<BattleAreaManager>();
         _root = GetComponent<UIDocument>().rootVisualElement;
@@ -36,6 +40,8 @@ public class BattleHeroManager : MonoBehaviour
 
         _placeholderAudioListener.enabled = false;
         StartCoroutine(MakeHeroFall(hero));
+
+        RewardRerollsAvailable = _gameManager.GlobalUpgradeBoard.RewardReroll.GetCurrentLevel().Value;
     }
 
     IEnumerator MakeHeroFall(Hero hero)

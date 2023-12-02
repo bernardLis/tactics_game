@@ -34,7 +34,6 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     public GlobalUpgrade RewardNumber;
     public GlobalUpgrade RewardReroll;
 
-
     public event Action OnRefundAll;
     public void Initialize()
     {
