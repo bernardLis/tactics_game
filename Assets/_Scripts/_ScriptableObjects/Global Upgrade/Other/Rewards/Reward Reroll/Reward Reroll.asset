@@ -16,8 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a080dd8faab77c641afa819eb830fcff, type: 3}
   Description: Reward Reroll
   Levels:
-  - {fileID: 11400000, guid: 8e2ea8fb55db0c54295738f2bbbed89e, type: 2}
-  - {fileID: 11400000, guid: 420fa257f9d8ee94bab535cbcb7cea30, type: 2}
-  - {fileID: 11400000, guid: cd690e007c6bca846b4c9465d8e65469, type: 2}
+  - {fileID: 11400000, guid: be8803dab61b02d4799d5f5a412ef36b, type: 2}
+  - {fileID: 11400000, guid: 36246959757e65848a790aab1356bbc5, type: 2}
+  - {fileID: 11400000, guid: bea17db0edf9bdb46b5eb1861be9ae08, type: 2}
   CurrentLevel: 0
   PermanentlyUnlocked: 1

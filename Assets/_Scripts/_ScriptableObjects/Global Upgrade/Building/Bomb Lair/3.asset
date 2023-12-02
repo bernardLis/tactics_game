@@ -17,6 +17,6 @@ MonoBehaviour:
   Cost: 300
   Value: 1
   IsPurchased: 0
-  Description: 
+  Description: Bomb Lair +2
   ProductionDelay: 10
   ProductionLimit: 3

@@ -30,6 +30,8 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     IVisualElementScheduledItem _purchaseScheduler;
 
+    protected VisualElement _tooltipElement;
+
     public GlobalUpgradeElement(GlobalUpgrade globalUpgrade)
     {
         _gameManager = GameManager.Instance;
@@ -57,7 +59,6 @@ public class GlobalUpgradeElement : ElementWithTooltip
     void OnUpgradeLevelChanged()
     {
         UpdateStars();
-        UpdateTitle();
         UpdatePrice();
     }
 
@@ -129,18 +130,6 @@ public class GlobalUpgradeElement : ElementWithTooltip
         _title = new(Helpers.ParseScriptableObjectName(GlobalUpgrade.name));
         _title.AddToClassList(_ussTitle);
         Add(_title);
-
-        UpdateTitle();
-    }
-
-    void UpdateTitle()
-    {
-        int val = 0;
-        for (int i = 0; i < GlobalUpgrade.Levels.Count; i++)
-            if (i <= GlobalUpgrade.CurrentLevel)
-                val += GlobalUpgrade.Levels[i].Value;
-
-        _title.text = Helpers.ParseScriptableObjectName(GlobalUpgrade.name) + " +" + val;
     }
 
     void AddPrice()
@@ -194,12 +183,18 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        VisualElement tt = new();
-        if (GlobalUpgrade.GetNextLevel() != null)
-            tt = new Label(GlobalUpgrade.GetNextLevel().Description);
-        else
-            tt = new Label("Max level reached");
-        _tooltip = new(this, tt);
+        if (_tooltipElement == null)
+        {
+            if (GlobalUpgrade.CurrentLevel == -1) _tooltipElement = new Label($"Unlock {GlobalUpgrade.name}");
+            else _tooltipElement = new Label(GlobalUpgrade.GetCurrentLevel().Description);
+        }
+        _tooltip = new(this, _tooltipElement);
         base.DisplayTooltip();
+    }
+
+    protected override void HideTooltip()
+    {
+        base.HideTooltip();
+        _tooltipElement = null;
     }
 }

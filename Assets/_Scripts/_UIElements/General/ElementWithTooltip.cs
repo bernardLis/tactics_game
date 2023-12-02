@@ -97,7 +97,7 @@ public abstract class ElementWithTooltip : VisualElement
         _isPointerDown = false; // reset otherwise you need to click on it to display tooltip again.
     }
 
-    protected void HideTooltip()
+    protected virtual void HideTooltip()
     {
         if (_tooltipContainer == null) return;
         DOTween.Kill(tooltipTweenId);

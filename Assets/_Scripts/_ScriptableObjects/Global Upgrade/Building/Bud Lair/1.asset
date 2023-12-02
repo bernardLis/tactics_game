@@ -17,6 +17,6 @@ MonoBehaviour:
   Cost: 0
   Value: 1
   IsPurchased: 0
-  Description: 
+  Description: Unlock
   ProductionDelay: 20
   ProductionLimit: 1
