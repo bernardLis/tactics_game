@@ -7,6 +7,7 @@ public class EntityDatabase : ScriptableObject
 
     [Header("Creatures")]
     public GameObject OpponentProjectilePrefab;
+    public Sprite[] CreatureIcons;
 
     public List<Creature> AllCreatures = new();
     public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }

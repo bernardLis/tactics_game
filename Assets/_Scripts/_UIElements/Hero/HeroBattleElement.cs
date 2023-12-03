@@ -94,15 +94,11 @@ public class HeroBattleElement : VisualElement
         statContainer.AddToClassList(_ussStatContainer);
         _heroInfoContainer.Add(statContainer);
 
-        StatElement maxHealth = new(_hero.MaxHealth);
-        StatElement armor = new(_hero.Armor);
-        StatElement speed = new(_hero.Speed);
-        StatElement pull = new(_hero.Pull);
-
-        statContainer.Add(maxHealth);
-        statContainer.Add(armor);
-        statContainer.Add(speed);
-        statContainer.Add(pull);
+        foreach (Stat s in _hero.GetAllStats())
+        {
+            StatElement statElement = new(s);
+            statContainer.Add(statElement);
+        }
     }
 
 }

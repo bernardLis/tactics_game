@@ -13,6 +13,24 @@ MonoBehaviour:
   m_Name: EntityDatabse
   m_EditorClassIdentifier: 
   OpponentProjectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+  CreatureIcons:
+  - {fileID: 21300000, guid: f8897e4662a47cd468c4c7d4a3ccd308, type: 3}
+  - {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
+  - {fileID: 21300000, guid: fc97335eae445cd4d86554b9ecc4a09c, type: 3}
+  - {fileID: 21300000, guid: b947ce4643bcca64295e35f22408ba4d, type: 3}
+  - {fileID: 21300000, guid: 4aebd342907acac4d9b8d26046a04a32, type: 3}
+  - {fileID: 21300000, guid: 06a042d8d1cba28468cb45ec7894c63b, type: 3}
+  - {fileID: 21300000, guid: 4af239bb9dbc4ee44be0b0e3a05eb55f, type: 3}
+  - {fileID: 21300000, guid: 973bc37610f9b934fa01495b27f5fb7a, type: 3}
+  - {fileID: 21300000, guid: 369847203aee31c4ab727ecf6dc6b5ee, type: 3}
+  - {fileID: 21300000, guid: c93d86b2a774cb1488cfa16d14846cfc, type: 3}
+  - {fileID: 21300000, guid: 7a5bd47e08161764bb079b7041bef8b5, type: 3}
+  - {fileID: 21300000, guid: ba5fba8cb0a2eb046ab1858853e7e9d8, type: 3}
+  - {fileID: 21300000, guid: 88bfc829c2c9b6e47bb74802d2e51819, type: 3}
+  - {fileID: 21300000, guid: 83ae451b96aacd448bc030625b5cb94d, type: 3}
+  - {fileID: 21300000, guid: fe2c4725d4bb1df429b38c0891490618, type: 3}
+  - {fileID: 21300000, guid: 1f8c5bd40d28bfd48a6accad9e36ce3c, type: 3}
+  - {fileID: 21300000, guid: b3109ada750c962469e3e3a68d1de521, type: 3}
   AllCreatures:
   - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
   - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}

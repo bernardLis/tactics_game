@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using System.Linq;
 
 public class BattleRewardElement : FullScreenElement
 {
     const string _ussClassName = "battle-reward__";
     const string _ussMain = _ussClassName + "main";
     const string _ussLevelUpLabel = _ussClassName + "level-up-label";
+    const string _ussFallingElement = _ussClassName + "falling-element";
 
     AudioManager _audioManager;
     BattleHeroManager _battleHeroManager;
@@ -30,6 +32,26 @@ public class BattleRewardElement : FullScreenElement
     public event Action OnRewardSelected;
     public BattleRewardElement()
     {
+        // HERE: testing falling ui objects
+        _gameManager = GameManager.Instance;
+        List<Sprite> sprites = _gameManager.EntityDatabase.CreatureIcons.ToList();
+        for (int i = 0; i < 100; i++)
+        {
+            VisualElement el = new();
+            el.style.left = Random.Range(0, Screen.width);
+            el.style.backgroundImage = new StyleBackground(sprites[Random.Range(0, sprites.Count)]);
+            el.AddToClassList(_ussFallingElement);
+            Add(el);
+            float time = Random.Range(1f, 4f);
+            DOTween.To(x => el.style.top = x, 0, Screen.height, time)
+                    .SetEase(Ease.InOutSine)
+                    .SetUpdate(true);
+            DOTween.To(x => el.style.opacity = x, 1, 0, time)
+                    .SetEase(Ease.InOutSine)
+                    .SetUpdate(true)
+                    .OnComplete(() => Remove(el));
+        }
+
         _numberOfRewards = _gameManager.GlobalUpgradeBoard.RewardNumber.GetCurrentLevel().Value;
 
         _audioManager = _gameManager.GetComponent<AudioManager>();
@@ -42,8 +64,6 @@ public class BattleRewardElement : FullScreenElement
 
         PlayLevelUpAnimation();
         AddElements();
-
-        Debug.Log($"_numberOfRewards {_numberOfRewards}");
     }
 
     void PlayLevelUpAnimation()
