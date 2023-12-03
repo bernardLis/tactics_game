@@ -69,10 +69,10 @@ public class BattleInfoManager : MonoBehaviour
     void HandleTilesUntilBoss()
     {
         _battleAreaManager.OnTilePurchased += UpdateTilesUntilBossLabel;
-        UpdateTilesUntilBossLabel();
+        UpdateTilesUntilBossLabel(default);
     }
 
-    void UpdateTilesUntilBossLabel()
+    void UpdateTilesUntilBossLabel(BattleTile tile)
     {
         _tilesUntilBossLabel.text = $"{_battleAreaManager.PurchasedTiles.Count - 1} / {_battleManager.CurrentBattle.TilesUntilBoss}";
     }

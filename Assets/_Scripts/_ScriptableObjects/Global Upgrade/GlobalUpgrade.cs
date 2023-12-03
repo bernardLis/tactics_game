@@ -24,17 +24,7 @@ public class GlobalUpgrade : BaseScriptableObject
         if (CurrentLevel > 0) return;
         if (PermanentlyUnlocked) CurrentLevel = 0;
     }
-
-    public void OnDisable()
-    {
-        _board.OnRefundAll -= Refund;
-    }
-
-    public void OnDestroy()
-    {
-        _board.OnRefundAll -= Refund;
-    }
-
+    
     public virtual void Purchased()
     {
         CurrentLevel++;

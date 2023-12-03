@@ -9,13 +9,7 @@ public class ExperienceOrb : Pickup
     public ColorVariable Color;
     public int OrbChance;
 
-    public GameObject Prefab;
-    public GameObject CollectEffect;
-
-    public Sound DropSound;
-    public Sound CollectSound;
-
-    public void Collected(Hero hero)
+    public override void Collected(Hero hero)
     {
         hero.AddExp(Amount);
     }

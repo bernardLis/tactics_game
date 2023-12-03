@@ -24,7 +24,7 @@ public class BattleBossManager : MonoBehaviour
     }
 
 
-    void HandleTilePurchased()
+    void HandleTilePurchased(BattleTile tile)
     {
         // next one is boss
         if (_battleManager.CurrentBattle.TilesUntilBoss > _battleAreaManager.PurchasedTiles.Count) return;

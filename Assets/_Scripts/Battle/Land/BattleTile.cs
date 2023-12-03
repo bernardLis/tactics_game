@@ -137,7 +137,7 @@ public class BattleTile : MonoBehaviour
         }
     }
 
-    void OnTilePurchased()
+    void OnTilePurchased(BattleTile tile)
     {
         foreach (BattleTilePurchaseSign sign in _signs)
             sign.DestroySelf();

@@ -21,7 +21,7 @@ public class BattleAreaManager : MonoBehaviour
     List<BattleTile> _tiles = new();
     public List<BattleTile> PurchasedTiles = new();
 
-    public event Action OnTilePurchased;
+    public event Action<BattleTile> OnTilePurchased;
 
     public void Initialize()
     {
@@ -67,7 +67,7 @@ public class BattleAreaManager : MonoBehaviour
     public void TilePurchased(BattleTile tile)
     {
         PurchasedTiles.Add(tile);
-        OnTilePurchased?.Invoke();
+        OnTilePurchased?.Invoke(tile);
     }
 
     // TODO: there must be a smarter way to get adjacent tiles
