@@ -26,7 +26,6 @@ public class BattleCoin : BattlePickup
 
     protected override void PickUp(BattleHero hero)
     {
-        Debug.Log($"pickup");
         base.PickUp(hero);
         DisplayText($"+{_coin.Amount}", Color.yellow);
         GetComponentInChildren<Light>().enabled = false;
