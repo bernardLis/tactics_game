@@ -16,7 +16,7 @@ public class Stat : BaseScriptableObject
     [HideInInspector] public int BonusValue;
     public bool IsDecreasingPerLevel;
     public Vector2Int GrowthPerLevelRange;
-    public Vector2Int MaxMinValue = new Vector2Int(0, 999);
+    public Vector2Int MinMaxValue = new Vector2Int(0, 999);
 
     public event Action<int> OnValueChanged;
 
@@ -35,7 +35,7 @@ public class Stat : BaseScriptableObject
         if (IsDecreasingPerLevel) growth *= -1;
 
         BaseValue += growth;
-        BaseValue = Mathf.Clamp(BaseValue, MaxMinValue.x, MaxMinValue.y);
+        BaseValue = Mathf.Clamp(BaseValue, MinMaxValue.x, MinMaxValue.y);
 
         OnValueChanged?.Invoke(GetValue());
     }
@@ -43,7 +43,7 @@ public class Stat : BaseScriptableObject
     public int GetValue()
     {
         int totalValue = BaseValue + BonusValue;
-        return Mathf.Clamp(totalValue, MaxMinValue.x, MaxMinValue.y);
+        return Mathf.Clamp(totalValue, MinMaxValue.x, MinMaxValue.y);
     }
 
     public void SetBaseValue(int value)

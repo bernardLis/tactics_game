@@ -9,38 +9,43 @@ public class RewardHeroStat : Reward
     public StatType StatType;
     public int Amount;
 
-    public override void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
+    public override bool CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
         base.CreateRandom(hero, otherRewardCards);
-        List<StatType> statTypes = new List<StatType>
+
+        List<Stat> heroStats = hero.GetAllStats();
+        List<Stat> availableStatTypes = new();
+        foreach (Stat stat in heroStats)
+            if (stat.BaseValue < stat.MinMaxValue.y)
+                availableStatTypes.Add(stat);
+
+        foreach (RewardCard rc in otherRewardCards)
         {
-            StatType.Health,
-            StatType.Armor,
-            StatType.Speed,
-            StatType.Pull,
-            StatType.Power
-        };
+            if (rc is not RewardCardHeroStat) continue;
+            RewardHeroStat rhs = (RewardHeroStat)rc.Reward;
+            availableStatTypes.RemoveAll(x => x.StatType == rhs.StatType);
+        }
 
-        // hero max speed 20
-        if (_gameManager.PlayerHero.Speed.BaseValue == 20)
-            statTypes.Remove(StatType.Speed);
+        if (availableStatTypes.Count == 0)
+        {
+            Debug.LogError("Reward - no stats to upgrade");
+            return false;
+        }
+        Stat selected = availableStatTypes[Random.Range(0, availableStatTypes.Count)];
+        StatType = selected.StatType;
+        Amount = Random.Range(selected.GrowthPerLevelRange.x, selected.GrowthPerLevelRange.y);
 
-        StatType = statTypes[Random.Range(0, statTypes.Count)];
-        if (StatType == StatType.Health)
-            Amount = 10;
-        if (StatType == StatType.Speed)
-            Amount = 1;
+        return true;
     }
+
 
     public override void GetReward()
     {
         base.GetReward();
-        if (StatType == StatType.Health)
-        {
-            _gameManager.PlayerHero.MaxHealth.ApplyBaseValueChange(Amount);
-            _gameManager.PlayerHero.CurrentHealth.ApplyChange(Amount);
-        }
-        if (StatType == StatType.Speed)
-            _gameManager.PlayerHero.Speed.ApplyBaseValueChange(Amount);
+
+        List<Stat> stats = _hero.GetAllStats();
+        foreach (Stat s in stats)
+            if (s.StatType == StatType)
+                s.ApplyBaseValueChange(Amount);
     }
 }

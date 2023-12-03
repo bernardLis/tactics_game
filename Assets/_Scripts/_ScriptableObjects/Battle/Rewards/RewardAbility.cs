@@ -10,7 +10,7 @@ public class RewardAbility : Reward
 
     public Ability Ability { get; private set; }
 
-    public override void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
+    public override bool CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
         base.CreateRandom(hero, otherRewardCards);
 
@@ -23,11 +23,15 @@ public class RewardAbility : Reward
         }
 
         Ability = GetValidAbility(abilitiesAlreadyInRewardPool);
+        if (Ability == null) return false;
+        
         Ability.InitializeBattle();
 
         foreach (Ability heroAbility in _hero.Abilities)
             if (heroAbility.Id == Ability.Id)
                 IsUpgrade = true;
+
+        return true;
     }
 
     public Ability GetValidAbility(List<Ability> forbiddenAbilities)

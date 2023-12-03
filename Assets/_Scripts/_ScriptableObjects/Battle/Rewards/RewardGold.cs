@@ -8,10 +8,11 @@ public class RewardGold : Reward
 {
     public int Gold { get; private set; }
 
-    public override void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
+    public override bool CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
         base.CreateRandom(hero, otherRewardCards);
         Gold = Random.Range(100, 200);
+        return true;
     }
 
     public override void GetReward()

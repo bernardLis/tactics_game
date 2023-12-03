@@ -218,7 +218,8 @@ public class BattleRewardElement : FullScreenElement
     RewardCard CreateRewardCardHeroStat()
     {
         RewardHeroStat reward = ScriptableObject.CreateInstance<RewardHeroStat>();
-        reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards);
+        if (!reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards)) return null;
+
         reward.OnRewardSelected += RewardSelected;
         RewardCardHeroStat card = new(reward);
         return card;
@@ -227,7 +228,7 @@ public class BattleRewardElement : FullScreenElement
     RewardCard CreateRewardCardAbility()
     {
         RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-        reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards);
+        if (!reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards)) return null;
         reward.OnRewardSelected += RewardSelected;
         RewardCardAbility card = new(reward);
         return card;

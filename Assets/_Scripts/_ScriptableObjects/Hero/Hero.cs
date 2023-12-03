@@ -19,9 +19,6 @@ public class Hero : EntityMovement
 
     protected override void CreateStats()
     {
-        base.CreateStats();
-        Power = Instantiate(Power);
-        Pull = Instantiate(Pull);
     }
 
     /* LEVELING */
@@ -103,6 +100,19 @@ public class Hero : EntityMovement
         Speed.ApplyBaseValueChange(globalUpgradeBoard.HeroSpeed.GetValue());
         Pull.ApplyBaseValueChange(globalUpgradeBoard.HeroPull.GetValue());
         Power.ApplyBaseValueChange(globalUpgradeBoard.HeroPower.GetValue());
+    }
+
+    public List<Stat> GetAllStats()
+    {
+        List<Stat> stats = new()
+        {
+            MaxHealth,
+            Armor,
+            Speed,
+            Pull,
+            Power
+        };
+        return stats;
     }
 
     /* SERIALIZATION */
