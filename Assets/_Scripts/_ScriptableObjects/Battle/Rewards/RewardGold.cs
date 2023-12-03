@@ -6,14 +6,12 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "ScriptableObject/Battle/Reward Gold")]
 public class RewardGold : Reward
 {
-    float _goldPerLevelMultiplier = 1.1f;
-
     public int Gold { get; private set; }
 
-    public override void CreateRandom(Hero hero)
+    public override void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
-        base.CreateRandom(hero);
-        Gold = (int)(Random.Range(100, 200) * _goldPerLevelMultiplier * _hero.Level.Value);
+        base.CreateRandom(hero, otherRewardCards);
+        Gold = Random.Range(100, 200);
     }
 
     public override void GetReward()

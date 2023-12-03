@@ -9,13 +9,16 @@ public class RewardHeroStat : Reward
     public StatType StatType;
     public int Amount;
 
-    public override void CreateRandom(Hero hero)
+    public override void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
-        base.CreateRandom(hero);
+        base.CreateRandom(hero, otherRewardCards);
         List<StatType> statTypes = new List<StatType>
         {
             StatType.Health,
-            StatType.Speed
+            StatType.Armor,
+            StatType.Speed,
+            StatType.Pull,
+            StatType.Power
         };
 
         // hero max speed 20

@@ -11,7 +11,7 @@ public class Reward : BaseScriptableObject
     protected Hero _hero;
 
     public event Action<Reward> OnRewardSelected;
-    public virtual void CreateRandom(Hero hero)
+    public virtual void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
         _gameManager = GameManager.Instance;
         _hero = hero;

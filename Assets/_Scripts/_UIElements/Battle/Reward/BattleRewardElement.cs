@@ -20,7 +20,6 @@ public class BattleRewardElement : FullScreenElement
     List<RewardCard> _hiddenCards = new();
 
     List<RewardCard> _allRewardCards = new();
-    List<RewardCard> _selectedRewardCards = new();
 
     VisualElement _rerollContainer;
     Label _rerollsLeft;
@@ -129,9 +128,7 @@ public class BattleRewardElement : FullScreenElement
             CreateRewardCards();
             for (int i = 0; i < _numberOfRewards; i++)
             {
-                RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
-                _allRewardCards.Remove(card);
-                _selectedRewardCards.Add(card);
+                RewardCard card = _allRewardCards[i];
                 _rewardContainer.Add(card);
 
                 card.style.position = Position.Absolute;
@@ -190,11 +187,22 @@ public class BattleRewardElement : FullScreenElement
     void CreateRewardCards()
     {
         _allRewardCards.Clear();
-        _allRewardCards.Add(CreateRewardCardHeroStat());
-        _allRewardCards.Add(CreateRewardCardHeroStat());
-        _allRewardCards.Add(CreateRewardCardAbility());
-        _allRewardCards.Add(CreateRewardCardAbility());
-        _allRewardCards.Add(CreateRewardCardGold());
+        for (int i = 0; i < _numberOfRewards; i++)
+        {
+            // try giving player ability or stat
+            RewardCard card;
+            float v = Random.value;
+            if (v > 0.5f) card = CreateRewardCardAbility();
+            else card = CreateRewardCardHeroStat();
+
+            if (card == null && v > 0.5f) card = CreateRewardCardHeroStat();
+            if (card == null && v <= 0.5f) card = CreateRewardCardAbility();
+
+            // if it is not possible give them gold
+            if (card == null) card = CreateRewardCardGold();
+
+            _allRewardCards.Add(card);
+        }
     }
 
     void ChooseRewardCards()
@@ -203,7 +211,6 @@ public class BattleRewardElement : FullScreenElement
         {
             RewardCard card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
             _allRewardCards.Remove(card);
-            _selectedRewardCards.Add(card);
             _rewardContainer.Add(card);
         }
     }
@@ -211,7 +218,7 @@ public class BattleRewardElement : FullScreenElement
     RewardCard CreateRewardCardHeroStat()
     {
         RewardHeroStat reward = ScriptableObject.CreateInstance<RewardHeroStat>();
-        reward.CreateRandom(_gameManager.PlayerHero);
+        reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards);
         reward.OnRewardSelected += RewardSelected;
         RewardCardHeroStat card = new(reward);
         return card;
@@ -220,7 +227,7 @@ public class BattleRewardElement : FullScreenElement
     RewardCard CreateRewardCardAbility()
     {
         RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-        reward.CreateRandom(_gameManager.PlayerHero);
+        reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards);
         reward.OnRewardSelected += RewardSelected;
         RewardCardAbility card = new(reward);
         return card;
@@ -229,7 +236,7 @@ public class BattleRewardElement : FullScreenElement
     RewardCard CreateRewardCardGold()
     {
         RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-        reward.CreateRandom(_gameManager.PlayerHero);
+        reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards);
         reward.OnRewardSelected += RewardSelected;
         RewardCardGold card = new(reward);
         return card;
@@ -242,7 +249,7 @@ public class BattleRewardElement : FullScreenElement
         _rerollButton.SetEnabled(false);
         DOTween.To(x => _rerollButton.style.opacity = x, 1, 0, 0.5f).SetUpdate(true);
 
-        foreach (RewardCard card in _selectedRewardCards)
+        foreach (RewardCard card in _allRewardCards)
         {
             if (card.Reward != reward) card.DisableCard();
 

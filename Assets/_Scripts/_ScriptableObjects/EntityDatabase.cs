@@ -7,7 +7,7 @@ public class EntityDatabase : ScriptableObject
 
     [Header("Creatures")]
     public GameObject OpponentProjectilePrefab;
-    
+
     public List<Creature> AllCreatures = new();
     public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }
     public Creature GetCreatureById(string id) { return AllCreatures.FirstOrDefault(x => x.Id == id); }
@@ -92,6 +92,11 @@ public class EntityDatabase : ScriptableObject
     [SerializeField] StatBasics[] StatBasics;
     public Sprite GetStatIconByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Sprite; }
     public string GetStatDescriptionByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Description; }
+
+    [SerializeField] Stat[] HeroStats;
+    public Stat GetHeroStatByType(StatType type) { return HeroStats.FirstOrDefault(x => x.StatType == type); }
+
+
 
     [Header("Elements")]
     [SerializeField] Element[] Elements;

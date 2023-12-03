@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: 002d4f29-decd-4492-9139-4c069a61391e
   Icon: {fileID: 0}
   Cost: 0
-  Value: 1
+  Value: 1000
   IsPurchased: 1
   Description: 'Number of reward rerolls per battle: 1'

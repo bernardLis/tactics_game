@@ -10,11 +10,19 @@ public class RewardAbility : Reward
 
     public Ability Ability { get; private set; }
 
-    public override void CreateRandom(Hero hero)
+    public override void CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
     {
-        base.CreateRandom(hero);
+        base.CreateRandom(hero, otherRewardCards);
 
-        Ability = GetValidAbility();
+        List<Ability> abilitiesAlreadyInRewardPool = new();
+        foreach (RewardCard rc in otherRewardCards)
+        {
+            if (rc is not RewardCardAbility) continue;
+            RewardAbility ra = (RewardAbility)rc.Reward;
+            abilitiesAlreadyInRewardPool.Add(ra.Ability);
+        }
+
+        Ability = GetValidAbility(abilitiesAlreadyInRewardPool);
         Ability.InitializeBattle();
 
         foreach (Ability heroAbility in _hero.Abilities)
@@ -22,11 +30,13 @@ public class RewardAbility : Reward
                 IsUpgrade = true;
     }
 
-    public Ability GetValidAbility()
+    public Ability GetValidAbility(List<Ability> forbiddenAbilities)
     {
         List<Ability> abilities = new(_gameManager.EntityDatabase.GetAllAbilities());
         if (_hero.Abilities.Count == 4) // only 4 ability buttons // HERE: ability limit
             abilities = new(_hero.Abilities);
+
+        abilities.RemoveAll(x => forbiddenAbilities.Contains(x));
 
         for (int i = abilities.Count - 1; i >= 0; i--)
             if (!abilities[i].HasMoreUpgrades())

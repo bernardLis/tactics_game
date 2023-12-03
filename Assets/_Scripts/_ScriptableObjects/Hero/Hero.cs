@@ -78,44 +78,31 @@ public class Hero : EntityMovement
     void CreateBaseStats()
     {
         Level = CreateInstance<IntVariable>();
-        MaxHealth = CreateInstance<Stat>();
-        MaxHealth.StatType = StatType.Health;
-        MaxHealth.Initialize();
-
-        Armor = CreateInstance<Stat>();
-        Armor.StatType = StatType.Armor;
-        Armor.Initialize();
-
-        Speed = CreateInstance<Stat>();
-        Speed.StatType = StatType.Speed;
-        Speed.Initialize();
-
-        Pull = CreateInstance<Stat>();
-        Pull.StatType = StatType.Pull;
-        Pull.Initialize();
-
-        Power = CreateInstance<Stat>();
-        Power.StatType = StatType.Power;
-        Power.Initialize();
-
         Level.SetValue(1);
 
+        EntityDatabase entityDatabase = _gameManager.EntityDatabase;
+
+        MaxHealth = Instantiate(entityDatabase.GetHeroStatByType(StatType.Health));
+        MaxHealth.Initialize();
+
+        Armor = Instantiate(entityDatabase.GetHeroStatByType(StatType.Armor));
+        Armor.Initialize();
+
+        Speed = Instantiate(entityDatabase.GetHeroStatByType(StatType.Speed));
+        Speed.Initialize();
+
+        Pull = Instantiate(entityDatabase.GetHeroStatByType(StatType.Pull));
+        Pull.Initialize();
+
+        Power = Instantiate(entityDatabase.GetHeroStatByType(StatType.Power));
+        Power.Initialize();
+
         GlobalUpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
-
-        int maxHealth = 100 + globalUpgradeBoard.HeroHealth.GetValue();
-        MaxHealth.SetBaseValue(maxHealth);
-
-        int armor = 0 + globalUpgradeBoard.HeroArmor.GetValue();
-        Armor.SetBaseValue(armor);
-
-        int speed = 7 + globalUpgradeBoard.HeroSpeed.GetValue();
-        Speed.SetBaseValue(speed);
-
-        int pull = 7 + globalUpgradeBoard.HeroPull.GetValue();
-        Pull.SetBaseValue(pull);
-
-        int power = 0 + globalUpgradeBoard.HeroPower.GetValue();
-        Power.SetBaseValue(power);
+        MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.HeroHealth.GetValue());
+        Armor.ApplyBaseValueChange(globalUpgradeBoard.HeroArmor.GetValue());
+        Speed.ApplyBaseValueChange(globalUpgradeBoard.HeroSpeed.GetValue());
+        Pull.ApplyBaseValueChange(globalUpgradeBoard.HeroPull.GetValue());
+        Power.ApplyBaseValueChange(globalUpgradeBoard.HeroPower.GetValue());
     }
 
     /* SERIALIZATION */
