@@ -45,6 +45,10 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
         _nextTileIndex = 0;
 
+        float newSpeed = _agent.speed - _gameManager.GlobalUpgradeBoard.BossSlowdown.GetValue();
+        if (newSpeed <= 0) newSpeed = 1f;
+        _agent.speed = newSpeed;
+
         InitializeAttacks();
         StartRunEntityCoroutine();
         StartAttackCoroutine();
@@ -170,7 +174,10 @@ public class BattleBoss : BattleEntity
     void OnCorruptionNodeBroken(BattleCorruptionBreakNode node)
     {
         _corruptionBreakNodes.Remove(node);
-        BaseGetHit(Mathf.RoundToInt(TotalDamageToBreakCorruption.Value * 0.3f), Color.yellow);
+        float multiplier = (float)0.3f +
+                        _gameManager.GlobalUpgradeBoard.BossCorruptionBreakNodes.GetValue() / 100f;
+        int damage = Mathf.RoundToInt(TotalDamageToBreakCorruption.Value * multiplier);
+        BaseGetHit(damage, Color.yellow);
     }
 
     void DestroyAllCorruptionBreakNodes()
@@ -262,7 +269,7 @@ public class BattleBoss : BattleEntity
         CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
         CurrentDamageToBreakCorruption.SetValue(0);
         TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-        TotalStunDuration.SetValue(10);
+        TotalStunDuration.SetValue(10 + _gameManager.GlobalUpgradeBoard.BossStunDuration.GetValue());
         CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
         CurrentStunDuration.SetValue(0);
     }

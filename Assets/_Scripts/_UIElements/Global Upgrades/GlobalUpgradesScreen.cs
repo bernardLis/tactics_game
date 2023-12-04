@@ -120,7 +120,26 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateBossUpgrades()
     {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+        _upgradeContainer.Add(container);
+     
+        _globalUpgradeBoard.BossCorruptionBreakNodes.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement bcbn = new(_globalUpgradeBoard.BossCorruptionBreakNodes);
+        container.Add(bcbn);
 
+        _globalUpgradeBoard.BossCorruptionDuration.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement bcd = new(_globalUpgradeBoard.BossCorruptionDuration);
+        container.Add(bcd);
+
+        _globalUpgradeBoard.BossSlowdown.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement bs = new(_globalUpgradeBoard.BossSlowdown);
+        container.Add(bs);
+
+        _globalUpgradeBoard.BossStunDuration.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement bsd = new(_globalUpgradeBoard.BossStunDuration);
+        container.Add(bsd);
     }
 
 

@@ -95,11 +95,14 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _progressBarHandler.SetProgress(0);
         _progressBarHandler.ShowProgressBar();
 
-        for (int i = 0; i <= _building.SecondsToCorrupt; i++)
+        int totalSecondsToCorrupt = _building.SecondsToCorrupt +
+                    _gameManager.GlobalUpgradeBoard.BossCorruptionDuration.GetValue();
+
+        for (int i = 0; i <= totalSecondsToCorrupt; i++)
         {
             if (_corruptionPaused) yield return new WaitUntil(() => !_corruptionPaused);
             yield return new WaitForSeconds(1);
-            _progressBarHandler.SetProgress((float)i / _building.SecondsToCorrupt);
+            _progressBarHandler.SetProgress((float)i / totalSecondsToCorrupt);
         }
 
         yield return HideCorruptionEffect();

@@ -27,7 +27,7 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     public GlobalUpgrade BossCorruptionBreakNodes;
     public GlobalUpgrade BossStunDuration;
     public GlobalUpgrade BossCorruptionDuration;
-    public GlobalUpgrade BossSpeed;
+    public GlobalUpgrade BossSlowdown;
 
     [Header("Other")]
     public GlobalUpgrade TileIndicator;
