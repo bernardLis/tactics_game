@@ -10,8 +10,6 @@ public class RerollButton : MyButton
     const string _ussCommonRerollIcon = "common__reroll-icon";
     const string _ussCommonRerollIconHover = "common__reroll-icon-hover";
 
-    GoldElement _rerollCost;
-
     public RerollButton(string buttonText = null, string className = _ussCommonRerollButton, Action callback = null)
             : base(buttonText, className, callback)
     {
@@ -21,9 +19,5 @@ public class RerollButton : MyButton
 
         RegisterCallback<PointerEnterEvent>(evt => rerollIcon.AddToClassList(_ussCommonRerollIconHover));
         RegisterCallback<PointerLeaveEvent>(evt => rerollIcon.RemoveFromClassList(_ussCommonRerollIconHover));
-
-        // TODO: Get reroll cost 
-        _rerollCost = new(200);
-        Add(_rerollCost);
     }
 }

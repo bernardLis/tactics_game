@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class RewardAbility : Reward
 {
     public bool IsUpgrade { get; private set; }
+    public int Level { get; private set; }
 
     public Ability Ability { get; private set; }
 
@@ -24,12 +25,15 @@ public class RewardAbility : Reward
 
         Ability = GetValidAbility(abilitiesAlreadyInRewardPool);
         if (Ability == null) return false;
-        
+
         Ability.InitializeBattle();
 
         foreach (Ability heroAbility in _hero.Abilities)
             if (heroAbility.Id == Ability.Id)
+            {
                 IsUpgrade = true;
+                Level = heroAbility.Level + 2;
+            }
 
         return true;
     }

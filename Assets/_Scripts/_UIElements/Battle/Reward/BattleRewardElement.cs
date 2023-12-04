@@ -107,6 +107,7 @@ public class BattleRewardElement : FullScreenElement
 
         AddRewardContainer();
         AddRerollButton();
+        AddHeroElement();
 
         DisableNavigation();
     }
@@ -115,6 +116,7 @@ public class BattleRewardElement : FullScreenElement
     {
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
+        _rewardContainer.style.flexGrow = 1;
         _content.Add(_rewardContainer);
 
         _hiddenCards = new();
@@ -134,11 +136,16 @@ public class BattleRewardElement : FullScreenElement
         _rerollContainer.style.opacity = 0;
         _content.Add(_rerollContainer);
 
-        _rerollsLeft = new($"Rerolls left: {_battleHeroManager.RewardRerollsAvailable}");
-        _rerollContainer.Add(_rerollsLeft);
-
         _rerollButton = new(callback: RerollReward);
         _rerollContainer.Add(_rerollButton);
+
+        _rerollsLeft = new($"Rerolls left: {_battleHeroManager.RewardRerollsAvailable}");
+        _rerollContainer.Add(_rerollsLeft);
+    }
+
+    void AddHeroElement()
+    {
+        _content.Add(new HeroBattleElement(_gameManager.PlayerHero));
     }
 
     void RunCardShow()

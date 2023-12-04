@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: 002d4f29-decd-4492-9139-4c069a61391e
   Icon: {fileID: 0}
   Cost: 1000
-  Value: 4
+  Value: 5
   IsPurchased: 0
   Description: 'Total number of rewards: 4'

@@ -40,6 +40,9 @@ public class Ability : BaseScriptableObject
 
     public int GetPower()
     {
+        Debug.Log($"Levels[Level].Power {Levels[Level].Power}");
+        Debug.Log($"_battleManager.BattleHero.Hero.Power.GetValue() {_battleManager.BattleHero.Hero.Power.GetValue()}");
+
         return Mathf.FloorToInt(Levels[Level].Power *
                                 (1 + _battleManager.BattleHero.Hero.Power.GetValue() * 0.1f));
     }

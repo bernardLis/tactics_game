@@ -45,6 +45,7 @@ public class Hero : EntityMovement
     public void AddAbility(Ability ability)
     {
         Ability instance = Instantiate(ability);
+        instance.InitializeBattle();
         Abilities.Add(instance);
         OnAbilityAdded?.Invoke(instance);
     }

@@ -8,10 +8,15 @@ public class RewardCardAbility : RewardCard
     public RewardCardAbility(Reward reward) : base(reward)
     {
         RewardAbility rewardAbility = reward as RewardAbility;
-        if (rewardAbility.IsUpgrade)
-            Add(new Label("Upgrade"));
-        else
-            Add(new Label("New Ability"));
+        Label txt = new Label("");
+        txt.text = $"Level {rewardAbility.Level}";
+        Add(txt);
+        if (!rewardAbility.IsUpgrade)
+        {
+            txt.text = "New!";
+            txt.style.color = Color.yellow;
+        }
+
         Add(new AbilityButton(rewardAbility.Ability));
 
         // TODO: handle upgrade and new ability differently.
