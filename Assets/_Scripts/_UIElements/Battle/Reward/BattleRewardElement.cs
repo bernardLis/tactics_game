@@ -275,7 +275,7 @@ public class BattleRewardElement : FullScreenElement
         _audioManager.PlayUI("Reward Chosen");
 
         _rerollButton.SetEnabled(false);
-        DOTween.To(x => _rerollButton.style.opacity = x, 1, 0, 0.5f).SetUpdate(true);
+        DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f).SetUpdate(true);
 
         foreach (RewardCard card in _allRewardCards)
         {

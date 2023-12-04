@@ -9,12 +9,15 @@ public class RewardCardHeroStat : RewardCard
     {
         RewardHeroStat rewardStat = reward as RewardHeroStat;
 
-        Stat stat = ScriptableObject.CreateInstance<Stat>();
-        stat.StatType = rewardStat.StatType;
-        stat.BaseValue = rewardStat.Amount;
-        stat.Initialize();
+        VisualElement icon = new();
+        icon.style.width = 100;
+        icon.style.height = 100;
+        icon.style.backgroundImage = GameManager.Instance.EntityDatabase.GetStatIconByType(rewardStat.StatType).texture;
+        Add(icon);
 
-        StatElement statElement = new(stat);
-        Add(statElement);
+        Label txt = new(rewardStat.StatType.ToString());
+        txt.text += $" +{rewardStat.Amount}";
+        txt.style.unityFontStyleAndWeight = FontStyle.Bold;
+        Add(txt);
     }
 }

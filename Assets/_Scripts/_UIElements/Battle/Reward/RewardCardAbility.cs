@@ -18,6 +18,13 @@ public class RewardCardAbility : RewardCard
         }
 
         Add(new AbilityButton(rewardAbility.Ability));
+        
+        Label name = new Label(rewardAbility.Ability.name);
+        name.style.whiteSpace = WhiteSpace.Normal;
+        name.style.unityFontStyleAndWeight = FontStyle.Bold;
+        Add(name);
+
+        Add(new Label(rewardAbility.Ability.Description));
 
         // TODO: handle upgrade and new ability differently.
 
