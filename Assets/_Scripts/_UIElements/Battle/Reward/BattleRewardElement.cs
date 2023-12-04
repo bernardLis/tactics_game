@@ -32,8 +32,25 @@ public class BattleRewardElement : FullScreenElement
     public event Action OnRewardSelected;
     public BattleRewardElement()
     {
-        // HERE: testing falling ui objects
         _gameManager = GameManager.Instance;
+
+        _numberOfRewards = _gameManager.GlobalUpgradeBoard.RewardNumber.GetCurrentLevel().Value;
+
+        _audioManager = _gameManager.GetComponent<AudioManager>();
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleRewardStyles);
+        if (ss != null) styleSheets.Add(ss);
+
+        _battleHeroManager = BattleManager.Instance.GetComponent<BattleHeroManager>();
+
+        _content.AddToClassList(_ussMain);
+
+        MakeItRain();
+        PlayLevelUpAnimation();
+        AddElements();
+    }
+
+    void MakeItRain()
+    {
         List<Sprite> sprites = _gameManager.EntityDatabase.CreatureIcons.ToList();
         for (int i = 0; i < 100; i++)
         {
@@ -51,19 +68,6 @@ public class BattleRewardElement : FullScreenElement
                     .SetUpdate(true)
                     .OnComplete(() => Remove(el));
         }
-
-        _numberOfRewards = _gameManager.GlobalUpgradeBoard.RewardNumber.GetCurrentLevel().Value;
-
-        _audioManager = _gameManager.GetComponent<AudioManager>();
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleRewardStyles);
-        if (ss != null) styleSheets.Add(ss);
-
-        _battleHeroManager = BattleManager.Instance.GetComponent<BattleHeroManager>();
-
-        _content.AddToClassList(_ussMain);
-
-        PlayLevelUpAnimation();
-        AddElements();
     }
 
     void PlayLevelUpAnimation()
