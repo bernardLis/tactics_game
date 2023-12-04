@@ -69,13 +69,13 @@ public class HeroBattleElement : VisualElement
 
         foreach (Ability a in _hero.Abilities)
         {
-            AbilityButton abilityIcon = new(a);
+            AbilityButton abilityIcon = new(a, true);
             container.Add(abilityIcon);
         }
 
         _hero.OnAbilityAdded += (Ability a) =>
         {
-            AbilityButton abilityIcon = new(a);
+            AbilityButton abilityIcon = new(a, true);
             _abilityButtons.Add(abilityIcon);
             container.Add(abilityIcon);
         };

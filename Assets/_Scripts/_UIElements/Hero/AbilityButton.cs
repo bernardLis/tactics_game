@@ -1,5 +1,6 @@
 using UnityEngine.UIElements;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AbilityButton : ElementWithSound
 {
@@ -13,12 +14,14 @@ public class AbilityButton : ElementWithSound
     const string _ussClassName = "ability-button__";
     const string _ussMain = _ussClassName + "main";
     const string _ussHighlight = _ussClassName + "highlight";
+    const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
+    const string _ussLevelDotFull = _ussClassName + "level-dot-full";
 
     OverlayTimerElement _cooldownTimer;
 
     public bool IsOnCooldown { get; private set; }
 
-    public AbilityButton(Ability ability) : base()
+    public AbilityButton(Ability ability, bool showLevel = false) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
@@ -36,7 +39,36 @@ public class AbilityButton : ElementWithSound
 
         _icon = new AbilityIcon(ability);
         Add(_icon);
+
+        if (showLevel) AddLevelUpDots();
     }
+
+    void AddLevelUpDots()
+    {
+        VisualElement dotContainer = new();
+        dotContainer.style.flexDirection = FlexDirection.Row;
+        dotContainer.style.position = Position.Absolute;
+        dotContainer.style.top = Length.Percent(15);
+        Add(dotContainer);
+        List<VisualElement> dots = new();
+        for (int i = 0; i < Ability.Levels.Count; i++)
+        {
+            VisualElement dot = new();
+            dot.AddToClassList(_ussLevelDotEmpty);
+            dots.Add(dot);
+            dotContainer.Add(dot);
+        }
+
+        for (int i = 0; i < Ability.Level + 1; i++)
+            dots[i].AddToClassList(_ussLevelDotFull);
+
+        Ability.OnLevelUp += () =>
+        {
+            for (int i = 0; i < Ability.Level + 1; i++)
+                dots[i].AddToClassList(_ussLevelDotFull);
+        };
+    }
+
 
     void StartCooldown()
     {

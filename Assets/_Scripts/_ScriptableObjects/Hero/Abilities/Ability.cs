@@ -26,6 +26,7 @@ public class Ability : BaseScriptableObject
     public GameObject AbilityManagerPrefab;
 
     public event Action OnCooldownStarted;
+    public event Action OnLevelUp;
 
     BattleManager _battleManager;
     public void InitializeBattle()
@@ -40,9 +41,6 @@ public class Ability : BaseScriptableObject
 
     public int GetPower()
     {
-        Debug.Log($"Levels[Level].Power {Levels[Level].Power}");
-        Debug.Log($"_battleManager.BattleHero.Hero.Power.GetValue() {_battleManager.BattleHero.Hero.Power.GetValue()}");
-
         return Mathf.FloorToInt(Levels[Level].Power *
                                 (1 + _battleManager.BattleHero.Hero.Power.GetValue() * 0.1f));
     }
@@ -70,6 +68,8 @@ public class Ability : BaseScriptableObject
     {
         if (Level < Levels.Count - 1)
             Level++;
+
+        OnLevelUp?.Invoke();
     }
 
     public void LevelDown()
