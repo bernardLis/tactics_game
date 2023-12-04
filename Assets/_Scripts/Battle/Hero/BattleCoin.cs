@@ -27,7 +27,7 @@ public class BattleCoin : BattlePickup
     protected override void PickUp(BattleHero hero)
     {
         base.PickUp(hero);
-        DisplayText($"+{_coin.Amount}", Color.yellow);
+        DisplayText($"+{_coin.Amount} gold", Color.yellow);
         GetComponentInChildren<Light>().enabled = false;
     }
 }

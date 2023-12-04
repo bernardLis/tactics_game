@@ -108,7 +108,8 @@ public class BattleTile : MonoBehaviour
 
     void SpawnReward()
     {
-        Vector3 chestPosition = GetPositionOne(0, 0) + Vector3.up * 3.5f;
+        Vector3 chestPosition = GetPositionOne(0, 0);
+        chestPosition.y = 0f;
         GameObject chest = Instantiate(_rewardChestPrefab, chestPosition, Quaternion.identity);
         chest.transform.localScale = Vector3.zero;
         chest.transform.DOScale(2f, 1f);

@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.EventSystems;
 using MoreMountains.Feedbacks;
 
-public class BattleRewardChest : MonoBehaviour, IInteractable
+public class BattleRewardChest : MonoBehaviour
 {
     GameManager _gameManager;
     AudioManager _audioManager;
@@ -46,17 +46,13 @@ public class BattleRewardChest : MonoBehaviour, IInteractable
         _tooltipManager.HideKeyTooltipInfo();
     }
 
-    public bool CanInteract(BattleInteractor battleInteractor)
-    {
-        return !_isOpened;
-    }
 
-    public bool Interact(BattleInteractor battleInteractor)
+    void OnTriggerEnter(Collider collider)
     {
-        if (_isOpened) return false;
+        if (!collider.TryGetComponent(out BattleHero hero)) return;
+        if (_isOpened) return;
 
         StartCoroutine(Open());
-        return true;
     }
 
     IEnumerator Open()
