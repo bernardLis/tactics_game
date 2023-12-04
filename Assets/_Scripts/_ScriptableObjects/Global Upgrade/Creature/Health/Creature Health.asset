@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
+  m_Name: Creature Health
+  m_EditorClassIdentifier: 
+  Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
+  Icon: {fileID: 21300000, guid: 8af32d95923649d4598e478c2a681eda, type: 3}
+  Description: Creature Health
+  Levels:
+  - {fileID: 11400000, guid: ae8e93eb3e25adf40a9104bb3b2c0221, type: 2}
+  - {fileID: 11400000, guid: 4b531bd780d8a2546b590fceefaa90a1, type: 2}
+  - {fileID: 11400000, guid: f8addf9575f494f4f858dc5ef1fd4d6a, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0

@@ -92,7 +92,30 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateCreatureUpgrades()
     {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        container.style.flexWrap = Wrap.Wrap;
+        _upgradeContainer.Add(container);
 
+        _globalUpgradeBoard.CreatureArmor.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement ca = new(_globalUpgradeBoard.CreatureArmor);
+        container.Add(ca);
+
+        _globalUpgradeBoard.CreatureHealth.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement ch = new(_globalUpgradeBoard.CreatureHealth);
+        container.Add(ch);
+
+        _globalUpgradeBoard.CreaturePower.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement cp = new(_globalUpgradeBoard.CreaturePower);
+        container.Add(cp);
+
+        _globalUpgradeBoard.CreatureSpeed.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement cs = new(_globalUpgradeBoard.CreatureSpeed);
+        container.Add(cs);
+
+        _globalUpgradeBoard.CreatureStartingLevel.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement csl = new(_globalUpgradeBoard.CreatureStartingLevel);
+        container.Add(csl);
     }
 
     void CreateBossUpgrades()

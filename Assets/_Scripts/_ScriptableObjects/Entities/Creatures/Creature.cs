@@ -20,6 +20,16 @@ public class Creature : EntityFight
     {
         base.InitializeBattle(team);
 
+        GlobalUpgradeBoard globalUpgradeBoard = GameManager.Instance.GlobalUpgradeBoard;
+        MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.CreatureHealth.GetValue());
+        CurrentHealth.SetValue(MaxHealth.GetValue());
+        Armor.ApplyBaseValueChange(globalUpgradeBoard.CreatureArmor.GetValue());
+        Speed.ApplyBaseValueChange(globalUpgradeBoard.CreatureSpeed.GetValue());
+        Power.ApplyBaseValueChange(globalUpgradeBoard.CreaturePower.GetValue());
+
+        for (int i = 0; i < globalUpgradeBoard.CreatureStartingLevel.GetValue(); i++)
+            LevelUp();
+
         if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
 
         if (Team == 0) return;

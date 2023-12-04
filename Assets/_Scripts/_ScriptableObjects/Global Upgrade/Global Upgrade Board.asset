@@ -28,11 +28,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 73c714e1c346a304fabc23bd59b8204d, type: 2}
   - {fileID: 11400000, guid: e27aab3a3fec49a41933504166fb5c7f, type: 2}
   - {fileID: 11400000, guid: ce6e77f15c6fa774da99bd136d233443, type: 2}
-  CreatureStartingLevel: {fileID: 0}
-  CreatureSpeed: {fileID: 0}
-  CreatureArmor: {fileID: 0}
-  CreatureHealth: {fileID: 0}
-  CreaturePower: {fileID: 0}
+  CreatureStartingLevel: {fileID: 11400000, guid: e1f42e9475b62dc4da791758027b842b, type: 2}
+  CreatureSpeed: {fileID: 11400000, guid: 07e96b32ffda8874cb19100cde9dbc5a, type: 2}
+  CreatureArmor: {fileID: 11400000, guid: bba642471055d704694994fb08710075, type: 2}
+  CreatureHealth: {fileID: 11400000, guid: ad14f6795fecadf428f0e8d32e23dc96, type: 2}
+  CreaturePower: {fileID: 11400000, guid: 05da828d8b3d40549b8fc67b1cf7905c, type: 2}
   BossCorruptionBreakNodes: {fileID: 0}
   BossStunDuration: {fileID: 0}
   BossCorruptionDuration: {fileID: 0}
