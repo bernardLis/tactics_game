@@ -95,7 +95,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
     IEnumerator SpawnMinionsOnBossTile()
     {
         // last purchased tile
-        BattleTile tile = _battleAreaManager.PurchasedTiles[_battleAreaManager.PurchasedTiles.Count - 1];
+        BattleTile tile = _battleAreaManager.UnlockedTiles[_battleAreaManager.UnlockedTiles.Count - 1];
         while (IsFightActive)
         {
             // HERE: boss testing

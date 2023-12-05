@@ -12,6 +12,7 @@ public class BattleTile : MonoBehaviour
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
     protected BattleFightManager _battleFightManager;
+    BattleTooltipManager _tooltipManager;
 
     [Header("Tile")]
     ObjectShaders _objectShaders;
@@ -34,9 +35,22 @@ public class BattleTile : MonoBehaviour
     bool _minionPositionExecuteOnce;
     List<Vector3> _minionPositions = new();
 
+    bool _isSecured;
+    IEnumerator _securingCoroutine;
+    IntVariable _currentSecuringTimeVariable;
+    IntVariable _totalSecuringTimeVariable;
+
+
     public event Action<BattleTile> OnEnabled;
     public void Initialize(Building building)
     {
+        _tooltipManager = BattleTooltipManager.Instance;
+
+        _currentSecuringTimeVariable = ScriptableObject.CreateInstance<IntVariable>();
+        _currentSecuringTimeVariable.SetValue(0);
+        _totalSecuringTimeVariable = ScriptableObject.CreateInstance<IntVariable>();
+        _totalSecuringTimeVariable.SetValue(10);
+
         Building = building;
 
         Scale = _surface.transform.localScale.x;
@@ -64,7 +78,7 @@ public class BattleTile : MonoBehaviour
 
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
-        _battleAreaManager.OnTilePurchased += OnTilePurchased;
+        // _battleAreaManager.OnTilePurchased += OnTilePurchased;
     }
 
     IEnumerator EnableTileCoroutine()
@@ -76,34 +90,80 @@ public class BattleTile : MonoBehaviour
         HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
 
         yield return new WaitForSeconds(1.5f);
-        StartTileFight();
+        // StartTileFight();
         OnEnabled?.Invoke(this);
     }
 
-    public virtual void StartTileFight()
+    void OnTriggerEnter(Collider collider)
     {
-        _minionPositionExecuteOnce = false;
-        _minionPositions = new();
+        if (!collider.TryGetComponent(out BattleHero hero)) return;
+        if (_isSecured) return;
 
-        _minionSpawningPattern = (MinionSpawningPattern)Random.Range(0,
-                        Enum.GetNames(typeof(MinionSpawningPattern)).Length);
-        if (_battleFightManager.CurrentDifficulty == 1)
-            _minionSpawningPattern = MinionSpawningPattern.SurroundMiddle;
-
-        _battleFightManager.InitializeFight(this);
-        _battleFightManager.OnFightEnded += Secured;
-        _battleFightManager.OnFightEnded += OnFightEnded;
+        StartSecuring();
     }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (!collider.TryGetComponent(out BattleHero hero)) return;
+        if (_isSecured) return;
+
+        StopSecuring();
+    }
+
+
+    void StartSecuring()
+    {
+        _securingCoroutine = SecuringCoroutine();
+        StartCoroutine(_securingCoroutine);
+
+        _tooltipManager.ShowTileSecureBar(_currentSecuringTimeVariable, _totalSecuringTimeVariable);
+    }
+
+    IEnumerator SecuringCoroutine()
+    {
+        while (_currentSecuringTimeVariable.Value < _totalSecuringTimeVariable.Value)
+        {
+            _currentSecuringTimeVariable.ApplyChange(1);
+            yield return new WaitForSeconds(1f);
+        }
+
+        Secured();
+    }
+
+    void StopSecuring()
+    {
+        if (_securingCoroutine != null) StopCoroutine(_securingCoroutine);
+        _securingCoroutine = null;
+    }
+
+    // public virtual void StartTileFight()
+    // {
+    //     _minionPositionExecuteOnce = false;
+    //     _minionPositions = new();
+
+    //     _minionSpawningPattern = (MinionSpawningPattern)Random.Range(0,
+    //                     Enum.GetNames(typeof(MinionSpawningPattern)).Length);
+    //     if (_battleFightManager.CurrentDifficulty == 1)
+    //         _minionSpawningPattern = MinionSpawningPattern.SurroundMiddle;
+
+    //     _battleFightManager.InitializeFight(this);
+    //     _battleFightManager.OnFightEnded += Secured;
+    //     _battleFightManager.OnFightEnded += OnFightEnded;
+    // }
 
     public virtual void Secured()
     {
-        _battleFightManager.OnFightEnded -= Secured;
+        if (BattleBuilding != null) BattleBuilding.Secured();
+        _isSecured = true;
+        Debug.Log($"secured ");
+
+        // _battleFightManager.OnFightEnded -= Secured;
         SpawnReward();
     }
 
     public void OnFightEnded()
     {
-        ShowSigns();
+        // ShowSigns();
     }
 
     void SpawnReward()
@@ -138,12 +198,12 @@ public class BattleTile : MonoBehaviour
         }
     }
 
-    void OnTilePurchased(BattleTile tile)
-    {
-        foreach (BattleTilePurchaseSign sign in _signs)
-            sign.DestroySelf();
-        _signs.Clear();
-    }
+    // void OnTilePurchased(BattleTile tile)
+    // {
+    //     foreach (BattleTilePurchaseSign sign in _signs)
+    //         sign.DestroySelf();
+    //     _signs.Clear();
+    // }
 
     /* BORDERS */
     public void HandleBorders(Color color)

@@ -19,7 +19,7 @@ public class BattleAreaManager : MonoBehaviour
 
     [HideInInspector] public BattleTile HomeTile;
     List<BattleTile> _tiles = new();
-    public List<BattleTile> PurchasedTiles = new();
+    public List<BattleTile> UnlockedTiles = new();
 
     public event Action<BattleTile> OnTilePurchased;
 
@@ -34,6 +34,7 @@ public class BattleAreaManager : MonoBehaviour
         _unlockedBuildings = GameManager.Instance.GameDatabase.GetUnlockedBuildings();
 
         CreateArea();
+        StartCoroutine(UnlockTiles());
     }
 
     void CreateArea()
@@ -59,14 +60,37 @@ public class BattleAreaManager : MonoBehaviour
                     HomeTile = bt;
             }
         }
-        PurchasedTiles.Add(HomeTile);
+        UnlockedTiles.Add(HomeTile);
         HomeTile.EnableTile();
+        HomeTile.Secured();
         HomeTile.HandleBorders(new Color(1f, 0.22f, 0f, 0.2f)); // magic color
+    }
+
+    IEnumerator UnlockTiles()
+    {
+        yield return new WaitForSeconds(10f);
+        while (true)
+        {
+            List<BattleTile> allPossibleTiles = new();
+            foreach (BattleTile tile in UnlockedTiles)
+            {
+                foreach (BattleTile t in GetAdjacentTiles(tile))
+                {
+                    if (allPossibleTiles.Contains(t)) continue;
+                    if (UnlockedTiles.Contains(t)) continue;
+                    allPossibleTiles.Add(t);
+                }
+            }
+            BattleTile selectedTile = allPossibleTiles[Random.Range(0, allPossibleTiles.Count)];
+            selectedTile.EnableTile();
+            UnlockedTiles.Add(selectedTile);
+            yield return new WaitForSeconds(10f);
+        }
     }
 
     public void TilePurchased(BattleTile tile)
     {
-        PurchasedTiles.Add(tile);
+        UnlockedTiles.Add(tile);
         OnTilePurchased?.Invoke(tile);
     }
 

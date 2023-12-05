@@ -9,7 +9,7 @@ public class Battle : BaseScriptableObject
 {
     GameManager _gameManager;
 
-    public int Duration = 900; // seconds
+    public int Duration = 1200; // seconds
     public int TilesUntilBoss = 3;
 
     public bool Won;

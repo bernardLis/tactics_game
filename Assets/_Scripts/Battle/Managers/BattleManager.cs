@@ -181,8 +181,9 @@ public class BattleManager : Singleton<BattleManager>
         while (true)
         {
             _battleTime++;
-            int minutes = Mathf.FloorToInt(_battleTime / 60f);
-            int seconds = Mathf.FloorToInt(_battleTime - minutes * 60);
+            float timeLeft = CurrentBattle.Duration - _battleTime;
+            int minutes = Mathf.FloorToInt(timeLeft / 60f);
+            int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
 
             _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
             yield return new WaitForSeconds(1f);
@@ -257,7 +258,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsBossFight()
     {
-        return CurrentBattle.TilesUntilBoss == _battleAreaManager.PurchasedTiles.Count - 1;
+        return CurrentBattle.TilesUntilBoss == _battleAreaManager.UnlockedTiles.Count - 1;
     }
 
     public void LoseBattle() { StartCoroutine(BattleLost()); }

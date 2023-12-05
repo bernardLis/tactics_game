@@ -30,15 +30,15 @@ public class BattleTileBorder : MonoBehaviour
             .SetEase(Ease.InOutSine);
 
         _battleFightManager = BattleFightManager.Instance;
-        _battleFightManager.OnFightStarted += OnFightStarted;
-        _battleFightManager.OnFightEnded += OnFightEnded;
-        _battleFightManager.OnBossFightStarted += OnBossFightStarted;
+        // _battleFightManager.OnFightStarted += OnFightStarted;
+        // _battleFightManager.OnFightEnded += OnFightEnded;
+        // _battleFightManager.OnBossFightStarted += OnBossFightStarted;
 
-        _borderColorChanger = GetComponentInChildren<BattleTileBorderColorChanger>();
+        // _borderColorChanger = GetComponentInChildren<BattleTileBorderColorChanger>();
 
-        gameObject.SetActive(true);
-        if (color == default) color = _defaultColor;
-        _borderColorChanger.ChangeColor(color);
+        // gameObject.SetActive(true);
+        // if (color == default) color = _defaultColor;
+        // _borderColorChanger.ChangeColor(color);
     }
 
     void OnFightStarted()

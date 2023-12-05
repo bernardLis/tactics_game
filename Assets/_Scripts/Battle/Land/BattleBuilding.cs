@@ -32,11 +32,9 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _battleManager = BattleManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
         _battleFightManager = BattleFightManager.Instance;
-        _battleFightManager.OnFightEnded += Secured;
+        // _battleFightManager.OnFightEnded += Secured;
 
         _building = building;
-
-        ShowBuilding();
 
         transform.localPosition = pos;
 
@@ -59,8 +57,10 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
     }
 
-    protected virtual void Secured()
+    public virtual void Secured()
     {
+        ShowBuilding();
+
         _banner = Instantiate(_gameManager.BannerPrefab, transform);
         _banner.transform.localPosition = _bannerSpawnPoint.localPosition;
 
@@ -146,7 +146,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
                                             .OnComplete(() => Destroy(_buildingCorruptionEffect))
                                             .WaitForCompletion();
     }
-
 
     public virtual void Corrupted()
     {

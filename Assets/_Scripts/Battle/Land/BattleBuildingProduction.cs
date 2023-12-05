@@ -45,7 +45,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
         };
     }
 
-    protected override void Secured()
+    public override void Secured()
     {
         base.Secured();
 

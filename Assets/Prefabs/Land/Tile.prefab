@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 5103032281565103522}
   - component: {fileID: 4567954077695690055}
   - component: {fileID: 6651828067793884842}
+  - component: {fileID: 2872963564344711461}
   m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
@@ -176,6 +177,28 @@ MonoBehaviour:
   _rewardChestPrefab: {fileID: 7174296884494392200, guid: 69a6f89f1b0b9a24081b529d9090a706, type: 3}
   _signs: []
   _borders: []
+  Building: {fileID: 0}
+--- !u!65 &2872963564344711461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525327832846669260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 47, y: 1, z: 47}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6700821354001622975
 GameObject:
   m_ObjectHideFlags: 0

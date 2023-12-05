@@ -11,17 +11,14 @@ public class BattleBossInfoElement : BattleEntityInfoElement
     public BattleBossInfoElement(BattleBoss bs) : base(bs)
     {
         _battleBoss = bs;
-        // add stun bar progress
-
+        
         style.minWidth = 600;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Stun").Color;
-
         _stunBar = new(c, "Stun", bs.CurrentDamageToBreakCorruption,
                                 bs.TotalDamageToBreakCorruption);
 
         _stunBar.HideText();
-
         _stunBar.style.backgroundImage = null;
         _stunBar.style.minWidth = 300;
         _stunBar.style.height = 20;

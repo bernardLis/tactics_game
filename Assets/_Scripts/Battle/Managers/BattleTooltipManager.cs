@@ -15,6 +15,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     VisualElement _root;
     VisualElement _entityTooltipContainer;
 
+    VisualElement _tileSecureBarContainer;
     VisualElement _gameInfoContainer;
     VisualElement _entityInfoContainer; // shows mouse hover info 
     VisualElement _keyTooltipContainer;
@@ -25,6 +26,8 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     public GameObject CurrentTooltipDisplayer { get; private set; }
 
     public BattleEntity CurrentEntityInfo { get; private set; }
+
+    ResourceBarElement _tileSecureBar;
 
     bool _isBossHealthBarShown;
 
@@ -39,6 +42,9 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
         _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
         _keyTooltipContainer = _root.Q<VisualElement>("keyTooltipContainer");
+        _tileSecureBarContainer = _root.Q<VisualElement>("tileSecureBarContainer");
+
+        SetUpTileSecureBar();
     }
 
     /* INPUT */
@@ -88,6 +94,30 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         HideEntityInfo();
         HideKeyTooltipInfo();
         HideTooltip();
+    }
+
+    void SetUpTileSecureBar()
+    {
+
+        IntVariable current = ScriptableObject.CreateInstance<IntVariable>();
+        current.SetValue(0);
+        IntVariable total = ScriptableObject.CreateInstance<IntVariable>();
+        total.SetValue(0);
+
+        _tileSecureBar = new ResourceBarElement(Color.white, "Securing Tile", current, total);
+        _tileSecureBarContainer.Add(_tileSecureBar);
+        _tileSecureBarContainer.style.display = DisplayStyle.None;
+    }
+
+    public void ShowTileSecureBar(IntVariable current, IntVariable total)
+    {
+        _tileSecureBar.UpdateTrackedVariables(current, total);
+        _tileSecureBarContainer.style.display = DisplayStyle.Flex;
+    }
+
+    public void HideTileSecureBar()
+    {
+        _tileSecureBarContainer.style.display = DisplayStyle.None;
     }
 
     public void ShowKeyTooltipInfo(VisualElement el)

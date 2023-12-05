@@ -74,7 +74,7 @@ public class BattleInfoManager : MonoBehaviour
 
     void UpdateTilesUntilBossLabel(BattleTile tile)
     {
-        _tilesUntilBossLabel.text = $"{_battleAreaManager.PurchasedTiles.Count - 1} / {_battleManager.CurrentBattle.TilesUntilBoss}";
+        _tilesUntilBossLabel.text = $"{_battleAreaManager.UnlockedTiles.Count - 1} / {_battleManager.CurrentBattle.TilesUntilBoss}";
     }
 
     void OnGoldChanged(int newValue)
