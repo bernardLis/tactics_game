@@ -81,7 +81,7 @@ public class BattleTile : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
+        HandleBorders();  // magic color
 
         yield return new WaitForSeconds(1.5f);
 
@@ -224,19 +224,19 @@ public class BattleTile : MonoBehaviour
     // }
 
     /* BORDERS */
-    public void HandleBorders(Color color)
+    public void HandleBorders()
     {
         List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
         foreach (BattleTile tile in adjacentTiles)
         {
             if (!tile.gameObject.activeSelf) continue;
-            tile.UpdateTileBorders(color);
+            tile.UpdateTileBorders();
         }
 
-        UpdateTileBorders(color);
+        UpdateTileBorders();
     }
 
-    public void UpdateTileBorders(Color color)
+    public void UpdateTileBorders()
     {
         List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
         foreach (BattleTile tile in adjacentTiles)
@@ -252,7 +252,7 @@ public class BattleTile : MonoBehaviour
             }
 
             if (!tile.gameObject.activeSelf && battleTileBorder == null)
-                InstantiateBorder(borderPosition, color);
+                InstantiateBorder(borderPosition);
         }
 
         if (adjacentTiles.Count < 4)
@@ -280,11 +280,11 @@ public class BattleTile : MonoBehaviour
         foreach (Vector3 dir in directions)
         {
             Vector3 borderPosition = Scale * 0.5f * dir;
-            InstantiateBorder(borderPosition, Color.magenta, true);
+            InstantiateBorder(borderPosition);
         }
     }
 
-    void InstantiateBorder(Vector3 borderPosition, Color color, bool isGameBorder = false)
+    void InstantiateBorder(Vector3 borderPosition)
     {
         // for the effect to stack nicely
         Vector3 borderRotation = Vector3.zero;
@@ -299,7 +299,7 @@ public class BattleTile : MonoBehaviour
         border.transform.localScale = borderScale;
 
         BattleTileBorder b = border.GetComponent<BattleTileBorder>();
-        b.EnableBorder(color, isGameBorder);
+        b.EnableBorder();
         _borders.Add(b);
     }
 
