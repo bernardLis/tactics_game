@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BattleBreakableVase : MonoBehaviour
 {
-
     bool _isBroken;
     [SerializeField] GameObject _breakParticles;
     [SerializeField] Transform _originalVase;
@@ -21,6 +20,7 @@ public class BattleBreakableVase : MonoBehaviour
 
     void OnMouseDown()
     {
+        Debug.Log($"click");
         TriggerBreak();
     }
 

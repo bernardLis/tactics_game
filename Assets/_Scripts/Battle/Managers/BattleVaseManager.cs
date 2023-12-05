@@ -10,32 +10,31 @@ public class BattleVaseManager : MonoBehaviour
     BattleAreaManager _battleAreaManager;
     [SerializeField] BattleBreakableVase _vasePrefab;
 
-    int _vasesPerTile = 10;
+    int _vasesPerSpawn = 5;
 
     void Start()
     {
         _battleManager = BattleManager.Instance;
         _battleAreaManager = GetComponent<BattleAreaManager>();
-        _battleAreaManager.OnTilePurchased += HandleTilePurchased;
+        StartCoroutine(SpawnVasesCoroutine());
     }
 
-    void HandleTilePurchased(BattleTile tile)
+
+    IEnumerator SpawnVasesCoroutine()
     {
-        if (tile == null) return;
 
-        StartCoroutine(SpawnVasesCoroutine(tile));
-
-    }
-
-    IEnumerator SpawnVasesCoroutine(BattleTile tile)
-    {
-        yield return new WaitForSeconds(2.5f);
-
-        for (int i = 0; i < _vasesPerTile; i++)
+        while (true)
         {
-            Vector3 pos = tile.GetPositionRandom(default, default);
-            SpawnVase(pos);
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(Random.Range(5f, 10f));
+
+            for (int i = 0; i < _vasesPerSpawn; i++)
+            {
+                BattleTile tile = _battleAreaManager.GetRandomUnlockedTile();
+
+                Vector3 pos = tile.GetPositionRandom(default, default);
+                SpawnVase(pos);
+                yield return new WaitForSeconds(0.15f);
+            }
         }
 
     }

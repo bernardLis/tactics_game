@@ -94,6 +94,11 @@ public class BattleAreaManager : MonoBehaviour
         OnTilePurchased?.Invoke(tile);
     }
 
+    public BattleTile GetRandomUnlockedTile()
+    {
+        return UnlockedTiles[Random.Range(0, UnlockedTiles.Count)];
+    }
+
     // TODO: there must be a smarter way to get adjacent tiles
     public List<BattleTile> GetAdjacentTiles(BattleTile tile)
     {

@@ -137,7 +137,6 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
         DOTween.To(x => _keyTooltipContainer.style.opacity = x, 0, 1, 0.5f)
             .SetEase(Ease.InOutSine);
-
     }
 
     public void HideKeyTooltipInfo()
