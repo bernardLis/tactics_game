@@ -63,7 +63,7 @@ public class BattleAreaManager : MonoBehaviour
         UnlockedTiles.Add(HomeTile);
         HomeTile.EnableTile();
         HomeTile.Secured();
-        HomeTile.HandleBorders(new Color(1f, 0.22f, 0f, 0.2f)); // magic color
+        HomeTile.HandleBorders(); // magic color
     }
 
     IEnumerator UnlockTiles()

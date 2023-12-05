@@ -20,10 +20,8 @@ public class BattleTile : MonoBehaviour
     [SerializeField] Material[] _materials;
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
-    [SerializeField] GameObject _landPurchaseSignPrefab;
     [SerializeField] GameObject _rewardChestPrefab;
 
-    public List<BattleTilePurchaseSign> _signs = new();
     public List<BattleTileBorder> _borders = new();
 
     public float Scale { get; private set; }
@@ -41,7 +39,6 @@ public class BattleTile : MonoBehaviour
     IEnumerator _securingCoroutine;
     IntVariable _currentSecuringTimeVariable;
     IntVariable _totalSecuringTimeVariable;
-
 
     public event Action<BattleTile> OnEnabled;
     public void Initialize(Building building)
@@ -71,8 +68,6 @@ public class BattleTile : MonoBehaviour
 
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
-
-        // _battleAreaManager.OnTilePurchased += OnTilePurchased;
     }
 
     IEnumerator EnableTileCoroutine()
@@ -81,13 +76,9 @@ public class BattleTile : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        HandleBorders();  // magic color
-
+        HandleBorders();
         yield return new WaitForSeconds(1.5f);
-
         ShowTileIndicator();
-
-        // StartTileFight();
         OnEnabled?.Invoke(this);
     }
 
@@ -117,7 +108,6 @@ public class BattleTile : MonoBehaviour
         StopSecuring();
     }
 
-
     void StartSecuring()
     {
         _securingCoroutine = SecuringCoroutine();
@@ -144,21 +134,6 @@ public class BattleTile : MonoBehaviour
         _tooltipManager.HideTileSecureBar();
     }
 
-    // public virtual void StartTileFight()
-    // {
-    //     _minionPositionExecuteOnce = false;
-    //     _minionPositions = new();
-
-    //     _minionSpawningPattern = (MinionSpawningPattern)Random.Range(0,
-    //                     Enum.GetNames(typeof(MinionSpawningPattern)).Length);
-    //     if (_battleFightManager.CurrentDifficulty == 1)
-    //         _minionSpawningPattern = MinionSpawningPattern.SurroundMiddle;
-
-    //     _battleFightManager.InitializeFight(this);
-    //     _battleFightManager.OnFightEnded += Secured;
-    //     _battleFightManager.OnFightEnded += OnFightEnded;
-    // }
-
     public virtual void Secured()
     {
         _isSecured = true;
@@ -167,22 +142,16 @@ public class BattleTile : MonoBehaviour
         if (Building != null)
         {
             BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
-            Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            Vector3 pos = new(Random.Range(-10, 10), 0, Random.Range(-10, 10));
             BattleBuilding.Initialize(pos, Building);
         }
 
         _tooltipManager.HideTileSecureBar();
         if (_tileIndicator != null) Destroy(_tileIndicator);
 
-        // _battleFightManager.OnFightEnded -= Secured;
         SpawnReward();
-
     }
 
-    public void OnFightEnded()
-    {
-        // ShowSigns();
-    }
 
     void SpawnReward()
     {
@@ -193,35 +162,6 @@ public class BattleTile : MonoBehaviour
         chest.transform.DOScale(2f, 1f);
         chest.transform.SetParent(transform);
     }
-
-    public void ShowSigns()
-    {
-        List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
-        foreach (BattleTile tile in adjacentTiles)
-        {
-            if (tile.gameObject.activeSelf) continue;
-
-            Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
-            Vector3 signPosition = transform.position
-                                + directionToTile
-                                * Scale * 0.4f;
-
-            BattleTilePurchaseSign sign = Instantiate(_landPurchaseSignPrefab,
-                    signPosition, Quaternion.identity).GetComponent<BattleTilePurchaseSign>();
-            sign.transform.SetParent(transform);
-            sign.Initialize(tile);
-
-            _signs.Add(sign);
-            sign.OnPurchased += _battleAreaManager.TilePurchased;
-        }
-    }
-
-    // void OnTilePurchased(BattleTile tile)
-    // {
-    //     foreach (BattleTilePurchaseSign sign in _signs)
-    //         sign.DestroySelf();
-    //     _signs.Clear();
-    // }
 
     /* BORDERS */
     public void HandleBorders()
