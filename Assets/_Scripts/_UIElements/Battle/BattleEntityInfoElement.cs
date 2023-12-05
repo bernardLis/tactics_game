@@ -28,12 +28,12 @@ public class BattleEntityInfoElement : VisualElement
         Label name = new(be.Entity.EntityName);
         name.style.fontSize = 32;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
+        name.style.position = Position.Absolute;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
         ResourceBarElement bar = new(c, "Health", be.Entity.CurrentHealth,
                 totalStat: be.Entity.MaxHealth);
 
-        name.style.position = Position.Absolute;
 
         bar.Add(name);
         bar.HideText();

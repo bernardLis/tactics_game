@@ -41,30 +41,33 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _progressBarHandler = GetComponentInChildren<ProgressBarHandler>();
         _progressBarHandler.Initialize();
         _progressBarHandler.HideProgressBar();
+
+        StartCoroutine(SecuredCoroutine());
     }
 
-    protected virtual void ShowBuilding()
-    {
-        Vector3 scale = transform.localScale;
-        transform.localScale = Vector3.zero;
-        transform.DOScale(scale, 1f)
-                .SetEase(Ease.OutBack)
-                .SetDelay(2.5f);
-        transform.DOLocalMoveY(transform.localPosition.y + scale.x * 0.5f, 1f)
-            .SetEase(Ease.OutBack)
-            .SetDelay(2.5f);
 
-        transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
-    }
-
-    public virtual void Secured()
+    public virtual IEnumerator SecuredCoroutine()
     {
-        ShowBuilding();
+        yield return ShowBuilding();
 
         _banner = Instantiate(_gameManager.BannerPrefab, transform);
         _banner.transform.localPosition = _bannerSpawnPoint.localPosition;
 
         _building.Secure();
+    }
+
+    protected virtual IEnumerator ShowBuilding()
+    {
+        Vector3 scale = transform.localScale;
+        transform.localScale = Vector3.zero;
+        transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
+
+        transform.DOScale(scale, 1f)
+                .SetEase(Ease.OutBack);
+        yield return transform.DOLocalMoveY(transform.localPosition.y + scale.x * 0.5f, 1f)
+                .SetEase(Ease.OutBack)
+                .WaitForCompletion();
+
     }
 
     public virtual void StartCorruption(BattleBoss boss)

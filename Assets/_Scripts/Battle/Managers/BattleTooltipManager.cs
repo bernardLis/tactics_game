@@ -105,6 +105,15 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         total.SetValue(0);
 
         _tileSecureBar = new ResourceBarElement(Color.white, "Securing Tile", current, total);
+        _tileSecureBar.HideText();
+        Label name = new("Securing Tile");
+        name.style.fontSize = 24;
+        name.style.color = Color.magenta;
+        name.style.unityFontStyleAndWeight = FontStyle.Bold;
+        name.style.position = Position.Absolute;
+        _tileSecureBar.Add(name);
+
+        _tileSecureBar.style.minWidth = 500;
         _tileSecureBarContainer.Add(_tileSecureBar);
         _tileSecureBarContainer.style.display = DisplayStyle.None;
     }

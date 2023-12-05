@@ -8,19 +8,27 @@
 }
 
 .resource-bar__main {
-    width: 92%;
+    width: 100%;
     background-color: rgb(132, 58, 58);
     align-items: center;
-    height: 15px;
+    height: 100%;
+    /*
     margin-left: 4%;
     margin-right: 4%;
     margin-top: 0;
     margin-bottom: 0;
+
+    _stunBar.ResourceBar.style.height=Length.Percent(100);
+    _stunBar.ResourceBar.style.width=Length.Percent(100);
+    _stunBar.ResourceBar.style.marginLeft=Length.Percent(0);
+    _stunBar.ResourceBar.style.marginRight=Length.Percent(0);
+
+*/
 }
 
 .resource-bar__missing {
     width: 0;
-    height: 15px;
+    height: 100%;
     background-color: rgb(26, 26, 26);
     justify-content: center;
     overflow: visible;

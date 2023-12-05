@@ -35,15 +35,13 @@ public class ResourceBarElement : ElementWithTooltip
     public ResourceBarElement(Color color, string tooltipText,
             IntVariable currentIntVar,
             IntVariable totalIntVar = null, Stat totalStat = null,
-            int valueChangeDelayMs = 1000) : base()
+            int valueChangeDelayMs = 200) : base()
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
+        if (commonStyles != null) styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        if (ss != null) styleSheets.Add(ss);
 
         _color = color;
         _valueChangeDelay = valueChangeDelayMs;

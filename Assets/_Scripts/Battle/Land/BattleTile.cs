@@ -35,6 +35,8 @@ public class BattleTile : MonoBehaviour
     bool _minionPositionExecuteOnce;
     List<Vector3> _minionPositions = new();
 
+    GameObject _tileIndicator;
+
     bool _isSecured;
     IEnumerator _securingCoroutine;
     IntVariable _currentSecuringTimeVariable;
@@ -67,17 +69,9 @@ public class BattleTile : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
 
-        BattleBuilding = GetComponentInChildren<BattleBuilding>();
-
-        if (Building != null)
-        {
-            BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
-            Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-            BattleBuilding.Initialize(pos, Building);
-        }
-
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
+
         // _battleAreaManager.OnTilePurchased += OnTilePurchased;
     }
 
@@ -90,8 +84,21 @@ public class BattleTile : MonoBehaviour
         HandleBorders(new Color(1f, 0.22f, 0f, 0.2f));  // magic color
 
         yield return new WaitForSeconds(1.5f);
+
+        ShowTileIndicator();
+
         // StartTileFight();
         OnEnabled?.Invoke(this);
+    }
+
+    void ShowTileIndicator()
+    {
+        if (Building == null) return;
+        if (Building.TileIndicatorPrefab == null) return;
+
+        _tileIndicator = Instantiate(Building.TileIndicatorPrefab, transform);
+        _tileIndicator.transform.localPosition = Vector3.up * 6f;
+        _tileIndicator.transform.localScale = Vector3.one * 2f;
     }
 
     void OnTriggerEnter(Collider collider)
@@ -134,6 +141,7 @@ public class BattleTile : MonoBehaviour
     {
         if (_securingCoroutine != null) StopCoroutine(_securingCoroutine);
         _securingCoroutine = null;
+        _tooltipManager.HideTileSecureBar();
     }
 
     // public virtual void StartTileFight()
@@ -153,12 +161,22 @@ public class BattleTile : MonoBehaviour
 
     public virtual void Secured()
     {
-        if (BattleBuilding != null) BattleBuilding.Secured();
         _isSecured = true;
-        Debug.Log($"secured ");
+
+        BattleBuilding = GetComponentInChildren<BattleBuilding>();
+        if (Building != null)
+        {
+            BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
+            Vector3 pos = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            BattleBuilding.Initialize(pos, Building);
+        }
+
+        _tooltipManager.HideTileSecureBar();
+        if (_tileIndicator != null) Destroy(_tileIndicator);
 
         // _battleFightManager.OnFightEnded -= Secured;
         SpawnReward();
+
     }
 
     public void OnFightEnded()

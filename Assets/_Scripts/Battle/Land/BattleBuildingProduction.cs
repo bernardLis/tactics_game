@@ -23,36 +23,15 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         base.Initialize(pos, building);
         _buildingProduction = building as BuildingProduction;
-
-        _battleFightManager.OnWaveSpawned += SpawnWave;
     }
 
-    protected virtual void SpawnWave()
+    public override IEnumerator SecuredCoroutine()
     {
-        int difficulty = _battleFightManager.CurrentDifficulty;
-
-        // TODO: difficulty
-        List<Entity> entitiesToSpawn = new();
-        // for (int i = 0; i < difficulty; i++)
-        entitiesToSpawn.Add(Instantiate(_buildingProduction.ProducedCreature));
-
-        BattleEntitySpawner spawner = Instantiate(_spawnerPrefab, _spawnPoint.position, transform.rotation);
-        spawner.SpawnEntities(entitiesToSpawn, team: 1);
-        spawner.OnSpawnComplete += (l) =>
-        {
-            _battleManager.AddOpponentArmyEntities(l);
-            spawner.DestroySelf();
-        };
-    }
-
-    public override void Secured()
-    {
-        base.Secured();
+        yield return base.SecuredCoroutine();
 
         for (int i = 0; i < _buildingProduction.BuildingUpgrade.CurrentLevel + 1; i++)
             _starRenderers[i].sprite = _star;
 
-        _battleFightManager.OnWaveSpawned -= SpawnWave;
         StartProductionCoroutine();
     }
 

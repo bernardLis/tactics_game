@@ -9,18 +9,19 @@ public class BattleBuildingHomeCrystal : BattleBuilding
 
     [SerializeField] GameObject _landingEffect;
 
-    protected override void ShowBuilding()
+    protected override IEnumerator ShowBuilding()
     {
-
+        yield return null;
     }
 
     void Awake()
     {
-        transform.position += Vector3.up * 15f;
     }
 
     void Start()
     {
+        transform.position += Vector3.up * 15f;
+
         StartCoroutine(LandingCoroutine());
     }
 

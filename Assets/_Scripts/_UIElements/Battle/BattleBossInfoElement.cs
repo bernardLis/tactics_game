@@ -11,7 +11,7 @@ public class BattleBossInfoElement : BattleEntityInfoElement
     public BattleBossInfoElement(BattleBoss bs) : base(bs)
     {
         _battleBoss = bs;
-        
+
         style.minWidth = 600;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Stun").Color;
@@ -24,12 +24,12 @@ public class BattleBossInfoElement : BattleEntityInfoElement
         _stunBar.style.height = 20;
         _stunBar.style.opacity = 0.8f;
 
-        _stunBar.ResourceBar.style.height = Length.Percent(100);
-        _stunBar.ResourceBar.style.width = Length.Percent(100);
-        _stunBar.ResourceBar.style.marginLeft = Length.Percent(0);
-        _stunBar.ResourceBar.style.marginRight = Length.Percent(0);
+        // _stunBar.ResourceBar.style.height = Length.Percent(100);
+        // _stunBar.ResourceBar.style.width = Length.Percent(100);
+        // _stunBar.ResourceBar.style.marginLeft = Length.Percent(0);
+        // _stunBar.ResourceBar.style.marginRight = Length.Percent(0);
 
-        _stunBar.MissingBar.style.height = Length.Percent(100);
+        // _stunBar.MissingBar.style.height = Length.Percent(100);
 
         Add(_stunBar);
 

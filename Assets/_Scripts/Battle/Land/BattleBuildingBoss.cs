@@ -18,9 +18,10 @@ public class BattleBuildingBoss : BattleBuilding
         _battleFightManager.OnBossFightStarted += OnBossFightStarted;
     }
 
-    protected override void ShowBuilding()
+    protected override IEnumerator ShowBuilding()
     {
         // TODO: could pillars falling one by one
+        yield return null;
     }
 
     void OnBossFightStarted()
