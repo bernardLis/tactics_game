@@ -23,7 +23,7 @@ public class BattleBreakableVase : MonoBehaviour
         TriggerBreak();
     }
 
-    void TriggerBreak()
+    public void TriggerBreak()
     {
         StartCoroutine(BreakObject());
     }

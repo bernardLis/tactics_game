@@ -29,6 +29,9 @@ public class BattleTornado : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            bbv.TriggerBreak();
+
         if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
         {
             if (battleEntity.Team == 0) return; // TODO: hardcoded team number

@@ -44,6 +44,11 @@ public class BattleAbilityMeteors : BattleAbility
                                                         _ability.GetScale() * 0.5f);
         foreach (Collider hit in hitColliders)
         {
+            if (hit.TryGetComponent(out BattleBreakableVase bbv))
+            {
+                bbv.TriggerBreak();
+                continue;
+            }
             if (hit.TryGetComponent(out BattleEntity be))
             {
                 if (be.Team == 0) continue; // TODO: hardcoded team number
