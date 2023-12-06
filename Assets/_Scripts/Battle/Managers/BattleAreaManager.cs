@@ -15,10 +15,12 @@ public class BattleAreaManager : MonoBehaviour
     [SerializeField] Building _homeBuilding;
     List<Building> _unlockedBuildings = new();
 
+    [SerializeField] List<GameObject> _cornerTileIndicators = new();
+
     GameObject _floor;
 
     [HideInInspector] public BattleTile HomeTile;
-    [HideInInspector] public List<BattleTile> CornerTiles = new();
+    [HideInInspector] public List<BattleTile> _cornerTiles = new();
     List<BattleTile> _tiles = new();
     public List<BattleTile> UnlockedTiles = new();
 
@@ -67,7 +69,7 @@ public class BattleAreaManager : MonoBehaviour
                     pos.x == 4 * tileScale && pos.z == -5 * tileScale ||
                     pos.x == 4 * tileScale && pos.z == 4 * tileScale)
                 {
-                    CornerTiles.Add(bt);
+                    _cornerTiles.Add(bt);
                 }
             }
         }
@@ -75,6 +77,16 @@ public class BattleAreaManager : MonoBehaviour
         HomeTile.EnableTile();
         HomeTile.Secured();
         HomeTile.HandleBorders(); // magic color
+
+        SetCornerTileIndicators();
+    }
+
+    void SetCornerTileIndicators()
+    {
+        for (int i = 0; i < 4; i++)
+            Instantiate(_cornerTileIndicators[i], _cornerTiles[i].transform.position, Quaternion.Euler(270f, 0, 0));
+
+
     }
 
     IEnumerator UnlockTiles()
