@@ -112,7 +112,7 @@ public class BattleAreaManager : MonoBehaviour
             BattleTile selectedTile = ChooseTileClosestToHero(allPossibleTiles);
 
             // boss tile
-            if (UnlockedTiles.Count > 3)
+            if (UnlockedTiles.Count > 300)
             {
                 OnBossTileUnlocked?.Invoke(selectedTile);
                 break;
@@ -295,7 +295,7 @@ public class BattleAreaManager : MonoBehaviour
             List<BattleTile> adjacentTiles = GetAdjacentTiles(currentAStarTile.Tile);
             foreach (BattleTile tile in adjacentTiles)
             {
-                //                if (!tile.gameObject.activeSelf) continue;
+                if (!tile.gameObject.activeSelf) continue;
                 if (closedList.Exists(t => t.Tile == tile)) continue;
 
                 float g = currentAStarTile.G + 1;
