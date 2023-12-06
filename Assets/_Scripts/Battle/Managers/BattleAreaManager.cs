@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 public class BattleAreaManager : MonoBehaviour
 {
+    BattleManager _battleManager;
+
     [SerializeField] Transform _floorHolder;
     [SerializeField] GameObject _floorPrefab;
 
@@ -29,6 +31,8 @@ public class BattleAreaManager : MonoBehaviour
 
     public void Initialize()
     {
+        _battleManager = BattleManager.Instance;
+
         float tileScale = _floorPrefab.transform.localScale.x;
         _floor = Instantiate(_floorPrefab,
                 new Vector3(-tileScale * 0.5f, 0, -tileScale * 0.5f), // floor offset to make tiles centered
@@ -104,7 +108,8 @@ public class BattleAreaManager : MonoBehaviour
                     allPossibleTiles.Add(t);
                 }
             }
-            BattleTile selectedTile = allPossibleTiles[Random.Range(0, allPossibleTiles.Count)];
+
+            BattleTile selectedTile = ChooseTileClosestToHero(allPossibleTiles);
 
             // boss tile
             if (UnlockedTiles.Count > 3)
@@ -116,6 +121,22 @@ public class BattleAreaManager : MonoBehaviour
             UnlockTile(selectedTile);
             yield return new WaitForSeconds(10f);
         }
+    }
+
+    BattleTile ChooseTileClosestToHero(List<BattleTile> tiles)
+    {
+        float minDistance = float.MaxValue;
+        BattleTile closestTile = null;
+        foreach (BattleTile tile in tiles)
+        {
+            float distance = Vector3.Distance(tile.transform.position, _battleManager.BattleHero.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestTile = tile;
+            }
+        }
+        return closestTile;
     }
 
     public void UnlockTile(BattleTile tile)
