@@ -104,9 +104,9 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         IntVariable total = ScriptableObject.CreateInstance<IntVariable>();
         total.SetValue(0);
 
-        _tileSecureBar = new ResourceBarElement(Color.white, "Securing Tile", current, total);
+        _tileSecureBar = new ResourceBarElement(Color.white, "Securing", current, total);
         _tileSecureBar.HideText();
-        Label name = new("Securing Tile");
+        Label name = new("Securing");
         name.style.fontSize = 24;
         name.style.color = Color.magenta;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;

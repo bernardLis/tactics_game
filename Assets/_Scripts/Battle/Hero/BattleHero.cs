@@ -8,8 +8,6 @@ public class BattleHero : BattleEntity
 {
     public Hero Hero { get; private set; }
 
-    BattleFightManager _battleFightManager;
-
     BattleHeroController _thirdPersonController;
     BattleHeroHealthBar _battleHeroHealthBar;
 
@@ -39,10 +37,6 @@ public class BattleHero : BattleEntity
         Hero.OnAbilityAdded += AddAbility;
         Hero.OnAbilityRemoved += RemoveAbility;
 
-        _battleFightManager = BattleFightManager.Instance;
-        _battleFightManager.OnFightStarted += OnFightStarted;
-        _battleFightManager.OnFightEnded += OnFightEnded;
-
         foreach (Ability a in Hero.Abilities)
             AddAbility(a);
 
@@ -70,8 +64,7 @@ public class BattleHero : BattleEntity
     {
         GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab);
         abilityPrefab.transform.SetParent(transform);
-        abilityPrefab.GetComponent<BattleAbility>().Initialize(ability,
-                                                        _battleFightManager.IsFightActive);
+        abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
         _battleAbilities.Add(ability, abilityPrefab);
     }
 

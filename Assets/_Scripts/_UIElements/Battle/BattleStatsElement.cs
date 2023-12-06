@@ -111,7 +111,7 @@ public class BattleStatsElement : VisualElement
         Label text = new($"Waves survived: ");
         container.Add(text);
 
-        int fightIndex = _battleManager.GetComponent<BattleFightManager>().CurrentDifficulty - 1;
+        int fightIndex = _battleManager.GetComponent<BattleMinionManager>().CurrentDifficulty - 1;
         ChangingValueElement waveCount = new();
         waveCount.Initialize(fightIndex, 18);
         container.Add(waveCount);

@@ -89,8 +89,6 @@ public class BattleAreaManager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
             Instantiate(_cornerTileIndicators[i], _cornerTiles[i].transform.position, Quaternion.Euler(270f, 0, 0));
-
-
     }
 
     IEnumerator UnlockTiles()
@@ -137,6 +135,19 @@ public class BattleAreaManager : MonoBehaviour
             }
         }
         return closestTile;
+    }
+
+    public List<BattleTile> GetTilesAroundPlayer()
+    {
+
+        BattleTile currentTile = GetTileFromPosition(_battleManager.BattleHero.transform.position);
+        List<BattleTile> tilesCloseToHero = GetAdjacentTiles(currentTile);
+        tilesCloseToHero.Add(currentTile);
+        List<BattleTile> activeTiles = new();
+        foreach (BattleTile t in tilesCloseToHero)
+            if (t.gameObject.activeSelf) activeTiles.Add(t);
+
+        return activeTiles;
     }
 
     public void UnlockTile(BattleTile tile)

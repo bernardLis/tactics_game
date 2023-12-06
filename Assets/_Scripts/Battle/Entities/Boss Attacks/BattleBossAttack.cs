@@ -5,7 +5,7 @@ using UnityEngine;
 public class BattleBossAttack : MonoBehaviour
 {
     protected BattleManager _battleManager;
-    BattleFightManager _battleFightManager;
+    BattleMinionManager _battleMinionManager;
 
     List<BattleProjectileOpponent> _projectilePool = new();
 
@@ -17,8 +17,8 @@ public class BattleBossAttack : MonoBehaviour
         _battleBoss = battleBoss;
 
         _battleManager = BattleManager.Instance;
-        _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
-        _projectilePool = _battleFightManager.Projectiles;
+        _battleMinionManager = _battleManager.GetComponent<BattleMinionManager>();
+        _projectilePool = _battleMinionManager.Projectiles;
     }
 
     public virtual IEnumerator Attack(int difficulty)

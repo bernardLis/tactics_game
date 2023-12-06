@@ -11,7 +11,7 @@ public class BattleTile : MonoBehaviour
     protected GameManager _gameManager;
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
-    protected BattleFightManager _battleFightManager;
+    protected BattleMinionManager _battleMinionManager;
     BattleTooltipManager _tooltipManager;
 
     [Header("Tile")]
@@ -66,7 +66,7 @@ public class BattleTile : MonoBehaviour
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-        _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
+        _battleMinionManager = _battleManager.GetComponent<BattleMinionManager>();
 
         _battleAreaManager.OnBossTileUnlocked += (a) => _blockSecuring = true;
 

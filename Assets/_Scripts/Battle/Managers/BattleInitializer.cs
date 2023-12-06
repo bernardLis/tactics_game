@@ -10,6 +10,7 @@ public class BattleInitializer : MonoBehaviour
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
     BattleInputManager _battleInputManager;
+    BattleMinionManager _battleMinionManager;
     BattleBossManager _battleBossManager;
 
     void Start()
@@ -17,6 +18,7 @@ public class BattleInitializer : MonoBehaviour
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
+        _battleMinionManager = _battleManager.GetComponent<BattleMinionManager>();
         _battleBossManager = _battleManager.GetComponent<BattleBossManager>();
 
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
@@ -39,7 +41,8 @@ public class BattleInitializer : MonoBehaviour
 
         _battleManager.Initialize(h);
         _battleManager.GetComponent<BattleGrabManager>().Initialize();
-
+        
+        _battleMinionManager.Initialize();
         _battleBossManager.Initialize();
     }
 }

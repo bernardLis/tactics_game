@@ -6,7 +6,7 @@ using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
 
-public class BattleFightManager : Singleton<BattleFightManager>
+public class BattleMinionManager : Singleton<BattleMinionManager>
 {
     [SerializeField] bool _noFights; // HERE: testing
 
@@ -15,10 +15,7 @@ public class BattleFightManager : Singleton<BattleFightManager>
     BattleAreaManager _battleAreaManager;
 
     public int CurrentDifficulty { get; private set; }
-    public bool IsFightActive { get; private set; }
-    BattleTile _currentTile;
 
-    public List<Fight> Fights = new();
     Fight _currentFight;
 
     /* POOLS */
@@ -30,10 +27,6 @@ public class BattleFightManager : Singleton<BattleFightManager>
     [SerializeField] Transform _minionPoolHolder;
     public List<BattleEntity> Minions = new();
 
-    public event Action OnFightStarted;
-    public event Action OnFightEnded;
-    public event Action OnWaveSpawned;
-    public event Action OnBossFightStarted;
     void Start()
     {
         _battleManager = BattleManager.Instance;
@@ -45,6 +38,13 @@ public class BattleFightManager : Singleton<BattleFightManager>
 
         CreateProjectilePool();
         CreateMinionPool();
+
+    }
+
+    public void Initialize()
+    {
+        CreateFight();
+        StartCoroutine(StartFight());
     }
 
     void CreateProjectilePool()
@@ -69,92 +69,27 @@ public class BattleFightManager : Singleton<BattleFightManager>
         }
     }
 
-
-    public void InitializeFight(BattleTile tile)
-    {
-        _currentTile = tile;
-        if (_battleManager.IsBossFight())
-        {
-            StartCoroutine(BossFightCoroutine());
-            return;
-        }
-        StartCoroutine(TileFightCoroutine());
-    }
-
-    IEnumerator BossFightCoroutine()
-    {
-        _battleTooltipManager.ShowGameInfo($"Boss fight!", 1.5f);
-        yield return new WaitForSeconds(1.5f);
-
-        IsFightActive = true;
-        OnBossFightStarted?.Invoke();
-
-        StartCoroutine(SpawnMinionsOnBossTile());
-    }
-
-    IEnumerator SpawnMinionsOnBossTile()
-    {
-        // last purchased tile
-        BattleTile tile = _battleAreaManager.UnlockedTiles[_battleAreaManager.UnlockedTiles.Count - 1];
-        while (IsFightActive)
-        {
-            // HERE: boss testing
-            int numberOfMinions = 25;//2 + Mathf.FloorToInt(difficulty * i * 1.1f);
-            numberOfMinions = Mathf.Clamp(numberOfMinions, 2, 50);
-            Vector2Int minionLevelRange = new Vector2Int(1, 1);
-
-            EnemyWave wave = ScriptableObject.CreateInstance<EnemyWave>();
-            wave.CreateWave(numberOfMinions, minionLevelRange);
-
-            yield return SpawnMinions(wave, tile);
-            yield return new WaitForSeconds(Random.Range(20, 40));
-        }
-    }
-
-    IEnumerator TileFightCoroutine()
-    {
-        // HERE: testing
-        if (_noFights)
-        {
-            yield return new WaitForSeconds(1f);
-            OnFightEnded?.Invoke();
-            yield break;
-        }
-
-        CreateFight();
-        yield return StartFight();
-        CurrentDifficulty++;
-    }
-
     void CreateFight()
     {
         Fight fight = ScriptableObject.CreateInstance<Fight>();
         fight.CreateFight(CurrentDifficulty);
         _currentFight = fight;
-        Fights.Add(fight);
-    }
-
-    IEnumerator Countdown(int seconds)
-    {
-        for (int i = seconds; i > 0; i--)
-        {
-            _battleTooltipManager.ShowGameInfo(i.ToString(), 0.8f);
-            yield return new WaitForSeconds(1);
-        }
     }
 
     IEnumerator StartFight()
     {
-        _battleTooltipManager.ShowGameInfo($"Wave {_currentFight.CurrentWaveIndex + 1}/{_currentFight.EnemyWaves.Count}", 1.5f);
-        yield return new WaitForSeconds(1.5f);
-
-        IsFightActive = true;
-        OnFightStarted?.Invoke();
-
-        foreach (EnemyWave wave in _currentFight.EnemyWaves)
+        // HERE: testing
+        if (_noFights)
         {
-            StartCoroutine(SpawnOpponentGroup(wave));
-            OnWaveSpawned?.Invoke();
+            yield break;
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        while (true)
+        {
+            EnemyWave wave = _currentFight.EnemyWaves[_currentFight.CurrentWaveIndex];
+            StartCoroutine(SpawnWave(wave));
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
         }
     }
@@ -163,20 +98,19 @@ public class BattleFightManager : Singleton<BattleFightManager>
     {
         if (_battleManager.OpponentEntities.Count != 0) return;
         if (!_currentFight.IsFinished()) return;
-
-        IsFightActive = false;
-        _battleTooltipManager.ShowGameInfo("Tile secured!", 1.5f);
-        OnFightEnded?.Invoke();
     }
 
-    IEnumerator SpawnOpponentGroup(EnemyWave group)
+    IEnumerator SpawnWave(EnemyWave group)
     {
-        yield return SpawnMinions(group, _currentTile);
-        _currentFight.SpawningGroupFinished();
+        // spawn minions on tiles next to the player or on the same tile
+        List<BattleTile> tiles = _battleAreaManager.GetTilesAroundPlayer();
+        yield return SpawnMinions(group, tiles);
+        _currentFight.SpawningWaveFinished();
     }
 
-    public IEnumerator SpawnMinions(EnemyWave group, BattleTile tile)
+    public IEnumerator SpawnMinions(EnemyWave group, List<BattleTile> tiles)
     {
+        BattleTile tile = tiles[Random.Range(0, tiles.Count)];
         for (int i = 0; i < group.Minions.Count; i++)
         {
             Minion m = group.Minions[i];

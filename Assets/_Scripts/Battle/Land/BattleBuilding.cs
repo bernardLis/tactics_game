@@ -10,7 +10,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     protected GameManager _gameManager;
     protected BattleManager _battleManager;
     protected BattleTooltipManager _tooltipManager;
-    protected BattleFightManager _battleFightManager;
+    protected BattleMinionManager _battleMinionManager;
 
     [SerializeField] GameObject _corruptionEffectPrefab;
     GameObject _buildingCorruptionEffect;
@@ -31,7 +31,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _gameManager = GameManager.Instance;
         _battleManager = BattleManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
-        _battleFightManager = BattleFightManager.Instance;
+        _battleMinionManager = BattleMinionManager.Instance;
 
         _building = building;
 

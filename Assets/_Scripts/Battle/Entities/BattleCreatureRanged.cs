@@ -12,7 +12,7 @@ public class BattleCreatureRanged : BattleCreature
     protected override void InitializeOpponentEntity()
     {
         base.InitializeOpponentEntity();
-        _projectilePool = _battleFightManager.Projectiles;
+        _projectilePool = _battleMinionManager.Projectiles;
     }
 
     protected override IEnumerator PathToOpponent()
