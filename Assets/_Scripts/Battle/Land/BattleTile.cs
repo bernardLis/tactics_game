@@ -35,10 +35,12 @@ public class BattleTile : MonoBehaviour
 
     GameObject _tileIndicator;
 
+    bool _blockSecuring;
     bool _isSecured;
     IEnumerator _securingCoroutine;
     IntVariable _currentSecuringTimeVariable;
     IntVariable _totalSecuringTimeVariable;
+
 
     public event Action<BattleTile> OnEnabled;
     public void Initialize(Building building)
@@ -65,6 +67,8 @@ public class BattleTile : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
         _battleFightManager = _battleManager.GetComponent<BattleFightManager>();
+
+        _battleAreaManager.OnBossTileUnlocked += (a) => _blockSecuring = true;
 
         gameObject.SetActive(true);
         StartCoroutine(EnableTileCoroutine());
@@ -110,6 +114,7 @@ public class BattleTile : MonoBehaviour
 
     void StartSecuring()
     {
+        if (_blockSecuring) return;
         _securingCoroutine = SecuringCoroutine();
         StartCoroutine(_securingCoroutine);
 

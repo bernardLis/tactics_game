@@ -15,19 +15,9 @@ public class BattleBuildingBoss : BattleBuilding
     {
         pos = Vector3.zero;
         base.Initialize(pos, building);
-        _battleFightManager.OnBossFightStarted += OnBossFightStarted;
-    }
-
-    protected override IEnumerator ShowBuilding()
-    {
-        // TODO: could pillars falling one by one
-        yield return null;
-    }
-
-    void OnBossFightStarted()
-    {
         StartCoroutine(SpawnBossCoroutine());
     }
+
 
     IEnumerator SpawnBossCoroutine()
     {

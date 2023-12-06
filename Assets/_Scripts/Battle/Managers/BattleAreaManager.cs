@@ -18,10 +18,12 @@ public class BattleAreaManager : MonoBehaviour
     GameObject _floor;
 
     [HideInInspector] public BattleTile HomeTile;
+    [HideInInspector] public List<BattleTile> CornerTiles = new();
     List<BattleTile> _tiles = new();
     public List<BattleTile> UnlockedTiles = new();
 
     public event Action<BattleTile> OnTilePurchased;
+    public event Action<BattleTile> OnBossTileUnlocked;
 
     public void Initialize()
     {
@@ -58,6 +60,15 @@ public class BattleAreaManager : MonoBehaviour
 
                 if (pos == Vector3.zero)
                     HomeTile = bt;
+
+                // put corner tiles into the list
+                if (pos.x == -5 * tileScale && pos.z == -5 * tileScale ||
+                    pos.x == -5 * tileScale && pos.z == 4 * tileScale ||
+                    pos.x == 4 * tileScale && pos.z == -5 * tileScale ||
+                    pos.x == 4 * tileScale && pos.z == 4 * tileScale)
+                {
+                    CornerTiles.Add(bt);
+                }
             }
         }
         UnlockedTiles.Add(HomeTile);
@@ -82,10 +93,24 @@ public class BattleAreaManager : MonoBehaviour
                 }
             }
             BattleTile selectedTile = allPossibleTiles[Random.Range(0, allPossibleTiles.Count)];
-            selectedTile.EnableTile();
-            UnlockedTiles.Add(selectedTile);
+
+            // boss tile
+            if (UnlockedTiles.Count > 3)
+            {
+                OnBossTileUnlocked?.Invoke(selectedTile);
+                break;
+            }
+
+            UnlockTile(selectedTile);
             yield return new WaitForSeconds(10f);
         }
+    }
+
+    public void UnlockTile(BattleTile tile)
+    {
+        if (UnlockedTiles.Contains(tile)) return;
+        tile.EnableTile();
+        UnlockedTiles.Add(tile);
     }
 
     public void TilePurchased(BattleTile tile)
@@ -128,13 +153,15 @@ public class BattleAreaManager : MonoBehaviour
         return adjacentTiles;
     }
 
-    public void ReplaceTile(BattleTile tile, Building newBuilding)
+    public BattleTile ReplaceTile(BattleTile tile, Building newBuilding)
     {
         BattleTile newBattleTile = InstantiateTile(tile.transform.position, newBuilding);
 
         _tiles.Insert(_tiles.IndexOf(tile), newBattleTile);
         _tiles.Remove(tile);
         Destroy(tile.gameObject);
+
+        return newBattleTile;
     }
 
     BattleTile InstantiateTile(Vector3 pos, Building b)
@@ -235,7 +262,7 @@ public class BattleAreaManager : MonoBehaviour
             List<BattleTile> adjacentTiles = GetAdjacentTiles(currentAStarTile.Tile);
             foreach (BattleTile tile in adjacentTiles)
             {
-                if (!tile.gameObject.activeSelf) continue;
+                //                if (!tile.gameObject.activeSelf) continue;
                 if (closedList.Exists(t => t.Tile == tile)) continue;
 
                 float g = currentAStarTile.G + 1;

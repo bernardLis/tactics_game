@@ -20,7 +20,6 @@ public class BattleBreakableVase : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log($"click");
         TriggerBreak();
     }
 

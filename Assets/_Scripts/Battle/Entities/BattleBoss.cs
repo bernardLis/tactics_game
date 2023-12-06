@@ -76,10 +76,13 @@ public class BattleBoss : BattleEntity
             _nextTileIndex = i + 1;
             _currentTile = _pathToHomeTile[i];
             _currentBuilding = _pathToHomeTile[i].BattleBuilding;
+            
+            Vector3 pos = _currentTile.transform.position;
+            if (_currentBuilding != null) pos = _currentBuilding.transform.position;
+            yield return PathToPositionAndStop(pos);
 
-            yield return PathToPositionAndStop(_currentBuilding.transform.position);
-
-            StartBuildingCorruption();
+            if (_currentBuilding != null) StartBuildingCorruption();
+            else yield return new WaitForSeconds(10f);
             yield return new WaitForSeconds(1f);
         }
     }

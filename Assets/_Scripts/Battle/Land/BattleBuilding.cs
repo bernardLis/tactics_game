@@ -32,7 +32,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _battleManager = BattleManager.Instance;
         _tooltipManager = BattleTooltipManager.Instance;
         _battleFightManager = BattleFightManager.Instance;
-        // _battleFightManager.OnFightEnded += Secured;
 
         _building = building;
 

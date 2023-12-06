@@ -196,7 +196,8 @@ MonoBehaviour:
   _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   _homeBuilding: {fileID: 11400000, guid: 5fca7a2d027d73e4e930ea647df74142, type: 2}
   HomeTile: {fileID: 0}
-  PurchasedTiles: []
+  CornerTiles: []
+  UnlockedTiles: []
 --- !u!114 &892723308641058941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +214,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ce32f1c73c0ac2749831866fe047d628, type: 2}
   - {fileID: 11400000, guid: a79818e297226f7408f6866a3059e745, type: 2}
   - {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
+  _bossTileIndicatorPrefab: {fileID: 2173691618410174413, guid: 98f56d078cc11cc4d901b51810fa87b9, type: 3}
 --- !u!114 &8560908320832600270
 MonoBehaviour:
   m_ObjectHideFlags: 0
