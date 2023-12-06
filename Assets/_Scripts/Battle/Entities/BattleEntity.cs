@@ -44,7 +44,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     [HideInInspector] public bool IsShielded;
     protected bool _isEngaged;
     bool _isPoisoned;
-    bool _isGrabbed;
+    protected bool _isGrabbed;
     public bool IsDead { get; protected set; }
     protected bool _isDeathCoroutineStarted;
 
@@ -323,6 +323,13 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         EntityLog.Add($"{_battleManager.GetTime()}: Entity dies.");
         OnDeath?.Invoke(this, attacker);
+
+        if (this is BattleMinion)
+        {
+            DestroySelf();
+            yield break;
+        }
+
         Animator.SetTrigger("Die");
         transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
@@ -340,7 +347,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         Destroy(gameObject);
     }
 
-    void ResolveLoot()
+    protected void ResolveLoot()
     {
         if (Team == 0) return;
 

@@ -7,7 +7,10 @@ public class BattleMinion : BattleEntity
 {
     public Minion Minion { get; private set; }
 
+    [SerializeField] GameObject _deathEffect;
+
     BattleHero _targetHero;
+    bool _reachedHero;
 
     public override void InitializeEntity(Entity entity, int team)
     {
@@ -42,11 +45,19 @@ public class BattleMinion : BattleEntity
         _agent.stoppingDistance = 2f;
         yield return PathToTarget(_targetHero.transform);
 
+        // something is blocking path, so just die...
+        if (Vector3.Distance(transform.position, _targetHero.transform.position) > 2.5f)
+        {
+            DestroySelf();
+            yield break;
+        }
+
         ReachedHero();
     }
 
     void ReachedHero()
     {
+        _reachedHero = true;
         Collider.enabled = false;
         SetDead();
         StopAllCoroutines();
@@ -72,6 +83,11 @@ public class BattleMinion : BattleEntity
 
     protected override void DestroySelf()
     {
+        if (!_reachedHero)
+            Destroy(Instantiate(_deathEffect, transform.position, Quaternion.identity), 1f);
+
+        DOTween.Kill(transform);
+        StopAllCoroutines();
         gameObject.SetActive(false); // there is a pool of minions
     }
 }

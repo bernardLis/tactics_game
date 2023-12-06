@@ -252,43 +252,18 @@ public class BattleCreature : BattleEntity
             return;
         }
 
-        // choose a random opponent with a bias towards closer opponents
         Dictionary<BattleEntity, float> distances = new();
         foreach (BattleEntity be in _opponentList)
         {
             if (be.IsDead) continue;
+            if (distances.ContainsKey(be)) continue;
             float distance = Vector3.Distance(transform.position, be.transform.position);
             distances.Add(be, distance);
         }
 
-        var closest = distances.OrderByDescending(pair => pair.Value).Reverse().Take(10);
-        float v = Random.value;
-
-        Dictionary<BattleEntity, float> closestBiased = new();
-
-        float sum = 0;
-        foreach (KeyValuePair<BattleEntity, float> entry in closest)
-        {
-            // this number decides bias towards closer opponents
-            float value = 1 / entry.Value; // 2 / entry.value or 0.1 / entry.value to changed bias
-            closestBiased.Add(entry.Key, value);
-            sum += value;
-        }
-
-        Dictionary<BattleEntity, float> closestNormalized = new();
-        foreach (KeyValuePair<BattleEntity, float> entry in closestBiased)
-            closestNormalized.Add(entry.Key, entry.Value / sum);
-
-        foreach (KeyValuePair<BattleEntity, float> entry in closestNormalized)
-        {
-            if (v < entry.Value)
-            {
-                EntityLog.Add($"{_battleManager.GetTime()}: Choosing {entry.Key.name} as new target, #{closestNormalized.Values.ToList().IndexOf(entry.Value)} closest.");
-                SetOpponent(entry.Key);
-                return;
-            }
-            v -= entry.Value;
-        }
+        BattleEntity closest = distances.OrderBy(pair => pair.Value).First().Key;
+        EntityLog.Add($"{_battleManager.GetTime()}: Choosing {closest.name} as new target");
+        SetOpponent(closest);
     }
 
     public void SetOpponent(BattleEntity opponent)

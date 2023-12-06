@@ -152,6 +152,7 @@ MonoBehaviour:
   _deathSound: {fileID: 11400000, guid: 9d94c1ad15f84bf49a705eed1c845854, type: 2}
   _getHitSound: {fileID: 11400000, guid: d580ca4677ea82b4d81cfa640abf5945, type: 2}
   IsShielded: 0
+  _deathEffect: {fileID: 8115328119009709232, guid: bca8d7af6e3825549a4647ab829dbba6, type: 3}
 --- !u!1001 &8317612537956788126
 PrefabInstance:
   m_ObjectHideFlags: 0
