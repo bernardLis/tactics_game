@@ -76,7 +76,7 @@ public class BattleBoss : BattleEntity
             _nextTileIndex = i + 1;
             _currentTile = _pathToHomeTile[i];
             _currentBuilding = _pathToHomeTile[i].BattleBuilding;
-            
+
             Vector3 pos = _currentTile.transform.position;
             if (_currentBuilding != null) pos = _currentBuilding.transform.position;
             yield return PathToPositionAndStop(pos);
@@ -137,8 +137,10 @@ public class BattleBoss : BattleEntity
 
         _currentBuilding.StartCorruption(this);
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
-        StartCoroutine(CreateCorruptionBreakNodes());
         OnCorruptionStarted?.Invoke();
+
+        if (_gameManager.GlobalUpgradeBoard.BossCorruptionBreakNodes.CurrentLevel >= 0)
+            StartCoroutine(CreateCorruptionBreakNodes());
     }
 
     void OnBuildingCorrupted()
@@ -196,6 +198,10 @@ public class BattleBoss : BattleEntity
 
     void HandleCorruptionBreak(int damage)
     {
+        if (_gameManager.GlobalUpgradeBoard.BossStunDuration.CurrentLevel == -1) return;
+        
+        StartCoroutine(CreateCorruptionBreakNodes());
+
         CurrentDamageToBreakCorruption.ApplyChange(damage);
 
         if (CurrentDamageToBreakCorruption.Value < TotalDamageToBreakCorruption.Value) return;

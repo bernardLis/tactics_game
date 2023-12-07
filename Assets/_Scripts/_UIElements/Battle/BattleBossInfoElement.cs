@@ -14,8 +14,13 @@ public class BattleBossInfoElement : BattleEntityInfoElement
 
         style.minWidth = 600;
 
+        string text = "Stun";
+        if (_gameManager.GlobalUpgradeBoard.BossStunDuration.CurrentLevel == -1)
+            text = "Buy Upgrade To Stun Boss";
+
+
         Color c = _gameManager.GameDatabase.GetColorByName("Stun").Color;
-        _stunBar = new(c, "Stun", bs.CurrentDamageToBreakCorruption,
+        _stunBar = new(c, text, bs.CurrentDamageToBreakCorruption,
                                 bs.TotalDamageToBreakCorruption);
 
         _stunBar.HideText();
