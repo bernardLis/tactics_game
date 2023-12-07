@@ -64,6 +64,8 @@ public class BattleManager : Singleton<BattleManager>
     public event Action OnGamePaused;
     public event Action OnGameResumed;
 
+    public event Action OnHorseshoeCollected;
+
     protected override void Awake()
     {
         base.Awake();
@@ -275,6 +277,12 @@ public class BattleManager : Singleton<BattleManager>
         Pickups.Add(pickup);
         pickup.OnPickedUp += () => Pickups.Remove(pickup);
     }
+
+    public void HorseshoeCollected()
+    {
+        OnHorseshoeCollected?.Invoke();
+    }
+
 
     IEnumerator BattleLost()
     {
