@@ -12,6 +12,9 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     public GlobalUpgrade HeroHealth;
     public GlobalUpgrade HeroPull;
     public GlobalUpgrade HeroPower;
+    public GlobalUpgrade HeroSprint;
+    public GlobalUpgrade HeroGrab;
+
 
     [Header("Buildings")]
     public List<GlobalUpgrade> BuildingUpgrades = new();

@@ -62,7 +62,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     {
         if (BattleManager.BlockBattleInput) return;
         if (this == null) return;
-
+        if (_gameManager.GlobalUpgradeBoard.HeroGrab.CurrentLevel == -1) return;
+        
         IsGrabbingEnabled = true;
     }
 

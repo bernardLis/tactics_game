@@ -18,6 +18,8 @@ MonoBehaviour:
   HeroHealth: {fileID: 11400000, guid: f04c07d2d12dba2409832085cdec5bf6, type: 2}
   HeroPull: {fileID: 11400000, guid: 50dd99ac47e5d6144908dbf7e50c5ef7, type: 2}
   HeroPower: {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
+  HeroSprint: {fileID: 11400000, guid: 9bd2ead4f3c542d46a1600a4958f710c, type: 2}
+  HeroGrab: {fileID: 11400000, guid: b5711643ee02ade489de9570861addb7, type: 2}
   BuildingUpgrades:
   - {fileID: 11400000, guid: 8e683bf6536f0d34ab90c4c901a54695, type: 2}
   - {fileID: 11400000, guid: 13f22ed631a34b1448146f5068d348a8, type: 2}

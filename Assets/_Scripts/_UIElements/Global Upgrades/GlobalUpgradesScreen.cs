@@ -72,6 +72,14 @@ public class GlobalUpgradesScreen : FullScreenElement
         _globalUpgradeBoard.HeroPull.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hpu = new(_globalUpgradeBoard.HeroPull);
         container.Add(hpu);
+
+        _globalUpgradeBoard.HeroSprint.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement sprint = new(_globalUpgradeBoard.HeroSprint);
+        container.Add(sprint);
+
+        _globalUpgradeBoard.HeroGrab.Initialize(_globalUpgradeBoard);
+        GlobalUpgradeElement grab = new(_globalUpgradeBoard.HeroGrab);
+        container.Add(grab);
     }
 
     void CreateBuildingUpgrades()
@@ -124,7 +132,7 @@ public class GlobalUpgradesScreen : FullScreenElement
         container.style.flexDirection = FlexDirection.Row;
         container.style.flexWrap = Wrap.Wrap;
         _upgradeContainer.Add(container);
-     
+
         _globalUpgradeBoard.BossCorruptionBreakNodes.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement bcbn = new(_globalUpgradeBoard.BossCorruptionBreakNodes);
         container.Add(bcbn);
