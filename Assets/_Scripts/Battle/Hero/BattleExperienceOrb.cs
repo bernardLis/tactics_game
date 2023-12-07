@@ -21,12 +21,12 @@ public class BattleExperienceOrb : BattlePickup
             transform.position.z
         );
 
-        _battleManager.OnHorseshoeCollected += OnMagnetCollected;
+        _battleManager.OnHorseshoeCollected += OnHorseshoeCollected;
 
         // GetComponentInChildren<Light>().color = _expOrb.Color.Color;
     }
 
-    void OnMagnetCollected()
+    void OnHorseshoeCollected()
     {
         transform.DOMove(_battleManager.BattleHero.transform.position, Random.Range(0.5f, 2f)).OnComplete(
             () => { PickUp(_battleManager.BattleHero); });
@@ -36,7 +36,7 @@ public class BattleExperienceOrb : BattlePickup
     protected override void PickUp(BattleHero hero)
     {
         base.PickUp(hero);
-        _battleManager.OnHorseshoeCollected -= OnMagnetCollected;
+        _battleManager.OnHorseshoeCollected -= OnHorseshoeCollected;
 
         DisplayText($"+{_expOrb.Amount} EXP", _expOrb.Color.Color);
     }

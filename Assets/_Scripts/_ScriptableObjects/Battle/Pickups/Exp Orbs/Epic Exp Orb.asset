@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Epic Exp Orb
   m_EditorClassIdentifier: 
   Id: 815ef72f-0dae-466f-a040-1cbf6a7accf8
-  Amount: 50
-  Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
-  OrbChance: 1
-  Prefab: {fileID: 2002269581931545974, guid: 2612bb3f64ddb6d4ca043ee778196e93, type: 3}
+  Prefab: {fileID: 4278751125239309529, guid: ec5247b2f73ecf541bceb02c14e056b8, type: 3}
   CollectEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   CollectSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  Amount: 50
+  Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
+  OrbChance: 1

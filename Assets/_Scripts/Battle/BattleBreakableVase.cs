@@ -56,19 +56,16 @@ public class BattleBreakableVase : MonoBehaviour
     void SpawnPickup()
     {
         // TODO: lower chance of spawning hammer and horseshoe
-        int rand = Random.Range(0, 3);
-        switch (rand)
-        {
-            case 0:
-                SpawnCoin();
-                break;
-            case 1:
-                SpawnHammer();
-                break;
-            case 2:
-                SpawnHorseshoe();
-                break;
-        }
+        // 1% chance of spawning hammer
+        // 1% chance of spawning horseshoe
+        // 98% chance of spawning coin
+        int random = Random.Range(0, 100);
+        if (random == 0)
+            SpawnHammer();
+        else if (random == 1)
+            SpawnHorseshoe();
+        else
+            SpawnCoin();
     }
 
     void SpawnCoin()

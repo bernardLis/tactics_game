@@ -15,13 +15,6 @@ public class BattleCoin : BattlePickup
         base.Initialize(pickUp);
         _coin = pickUp as Coin;
 
-        transform.DOLocalMoveY(1f, 0.5f).SetEase(Ease.OutBack);
-
-        transform.localScale = Vector3.zero;
-        transform.DOScale(1, 1f).SetEase(Ease.OutBack);
-
-        transform.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
-                 .SetLoops(-1).SetEase(Ease.InOutSine);
     }
 
     protected override void PickUp(BattleHero hero)

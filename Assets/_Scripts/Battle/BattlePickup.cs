@@ -38,6 +38,14 @@ public class BattlePickup : MonoBehaviour
         transform.parent = _battleManager.EntityHolder;
 
         _audioManager.PlaySFX(pickUp.DropSound, transform.position);
+
+        transform.DOLocalMoveY(1f, 0.5f).SetEase(Ease.OutBack);
+
+        transform.localScale = Vector3.zero;
+        transform.DOScale(1, 1f).SetEase(Ease.OutBack);
+
+        transform.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
+                 .SetLoops(-1).SetEase(Ease.InOutSine);
     }
 
     void OnTriggerEnter(Collider collider)
