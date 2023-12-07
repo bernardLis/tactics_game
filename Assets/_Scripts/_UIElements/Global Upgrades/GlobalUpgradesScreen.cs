@@ -5,12 +5,23 @@ using UnityEngine.UIElements;
 
 public class GlobalUpgradesScreen : FullScreenElement
 {
+    const string _ussClassName = "global-upgrade-screen__";
+    const string _ussMain = _ussClassName + "main";
+    const string _ussHeaderContainer = _ussClassName + "header-container";
+    const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
+
+    bool _isGray;
+
     GlobalUpgradeBoard _globalUpgradeBoard;
 
     ScrollView _upgradeContainer;
 
     public GlobalUpgradesScreen(GlobalUpgradeBoard globalUpgradeBoard)
     {
+        _gameManager = GameManager.Instance;
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeScreenStyles);
+        if (ss != null) styleSheets.Add(ss);
+
         _globalUpgradeBoard = globalUpgradeBoard;
         style.backgroundColor = new Color(0, 0, 0, 1f);
 
@@ -33,25 +44,24 @@ public class GlobalUpgradesScreen : FullScreenElement
     void AddHeader()
     {
         VisualElement container = new();
-        container.style.justifyContent = Justify.Center;
+        container.AddToClassList(_ussHeaderContainer);
         _content.Add(container);
-
-        GoldElement goldElement = new(_gameManager.Gold);
-        goldElement.style.alignSelf = Align.Center;
-        container.Add(goldElement);
-        _gameManager.OnGoldChanged += goldElement.ChangeAmount;
 
         Label title = new("Click & hold to purchase Global Upgrades");
         title.style.fontSize = 24;
         container.Add(title);
+
+        GoldElement goldElement = new(_gameManager.Gold);
+        goldElement.MakeItBig();
+        goldElement.style.alignSelf = Align.Center;
+        container.Add(goldElement);
+        _gameManager.OnGoldChanged += goldElement.ChangeAmount;
+
     }
 
     void CreateHeroUpgrades()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-        _upgradeContainer.Add(container);
+        VisualElement container = CreateUpgradeContainer("Hero Upgrades");
 
         _globalUpgradeBoard.HeroSpeed.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement hs = new(_globalUpgradeBoard.HeroSpeed);
@@ -84,10 +94,7 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateBuildingUpgrades()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-        _upgradeContainer.Add(container);
+        VisualElement container = CreateUpgradeContainer("Building Upgrades");
 
         _globalUpgradeBoard.BuildingUpgrades.ForEach(upgrade =>
         {
@@ -100,10 +107,7 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateCreatureUpgrades()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-        _upgradeContainer.Add(container);
+        VisualElement container = CreateUpgradeContainer("Creature Upgrades");
 
         _globalUpgradeBoard.CreatureArmor.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement ca = new(_globalUpgradeBoard.CreatureArmor);
@@ -128,10 +132,7 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateBossUpgrades()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-        _upgradeContainer.Add(container);
+        VisualElement container = CreateUpgradeContainer("Boss Upgrades");
 
         _globalUpgradeBoard.BossCorruptionBreakNodes.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement bcbn = new(_globalUpgradeBoard.BossCorruptionBreakNodes);
@@ -153,10 +154,7 @@ public class GlobalUpgradesScreen : FullScreenElement
 
     void CreateOtherUpgrades()
     {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexWrap = Wrap.Wrap;
-        _upgradeContainer.Add(container);
+        VisualElement container = CreateUpgradeContainer("Other Upgrades");
 
         _globalUpgradeBoard.RewardNumber.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement rn = new(_globalUpgradeBoard.RewardNumber);
@@ -165,6 +163,36 @@ public class GlobalUpgradesScreen : FullScreenElement
         _globalUpgradeBoard.RewardReroll.Initialize(_globalUpgradeBoard);
         GlobalUpgradeElement rr = new(_globalUpgradeBoard.RewardReroll);
         container.Add(rr);
+    }
+
+
+    VisualElement CreateUpgradeContainer(string txt)
+    {
+        VisualElement container = new();
+        container.AddToClassList(_ussUpgradeContainer);
+        _upgradeContainer.Add(container);
+        // Color randomColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        Color c = new Color(0.3f, 0.3f, 0.3f);
+        if (_isGray) c = new Color(0.6f, 0.6f, 0.6f);
+        container.style.backgroundColor = c;
+        // container.style.borderBottomColor = randomColor;
+        // container.style.borderTopColor = randomColor;
+
+        _isGray = !_isGray;
+
+        Label title = new(txt);
+        title.style.width = 300;
+        title.style.fontSize = 24;
+        title.style.whiteSpace = WhiteSpace.Normal;
+        container.Add(title);
+
+        VisualElement upgradeContainer = new();
+        upgradeContainer.style.flexDirection = FlexDirection.Row;
+        upgradeContainer.style.flexWrap = Wrap.Wrap;
+        container.Add(upgradeContainer);
+
+        return upgradeContainer;
+
     }
 
     void AddNavigationButtons()

@@ -1,0 +1,20 @@
+.global-upgrade-screen__main {
+}
+
+.global-upgrade-screen__header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.global-upgrade-screen__upgrade-container {
+    flex-direction: row;
+    border-top-width: 20px;
+    border-bottom-width: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}

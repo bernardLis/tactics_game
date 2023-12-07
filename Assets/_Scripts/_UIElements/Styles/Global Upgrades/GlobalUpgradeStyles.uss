@@ -1,12 +1,16 @@
 .global-upgrade__main {
     justify-content: center;
     align-items: center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Metal_frame_options_little.png?fileID=2800000&guid=8f95acb20c4b1af46b5c67199f50665b&type=3#Metal_frame_options_little');
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     width: 200px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_bag_lg.png?fileID=2800000&guid=c32f70d51fe1a0f418065541974869d0&type=3#icon_frame_bag_lg');
+}
+
+.global-upgrade__fully-unlocked {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Metal_frame_options_little.png?fileID=2800000&guid=8f95acb20c4b1af46b5c67199f50665b&type=3#Metal_frame_options_little');
 }
 
 .global-upgrade__title {
@@ -34,9 +38,9 @@
 
 .global-upgrade__fill {
     position: absolute;
-    width: 82%;
+    width: 84%;
     height: 0;
     background-color: rgb(243, 209, 56);
     opacity: 0.5;
-    bottom: 10%;
+    bottom: 5%;
 }

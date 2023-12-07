@@ -54,14 +54,14 @@ public enum StyleSheetType
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
-    GlobalUpgradeStyles, GlobalUpgradeTroopsStyles,
-    GlobalUpgradeTreeStyles,
+    GlobalUpgradeStyles, GlobalUpgradeScreenStyles,
 
     TurretIconStyles,
     BattleStatsStyles, BattleKeyTooltipStyles,
     TextPrintingStyles,
     HeroBattleStyles,
     TooltipCardStyles, BuildingCardStyles,
+    
 
 
 }

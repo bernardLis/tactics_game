@@ -10,6 +10,8 @@ public class GlobalUpgradeElement : ElementWithTooltip
     const string _ussCommonButtonBasic = "common__button-basic";
     const string _ussClassName = "global-upgrade__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussFullyUnlocked = _ussClassName + "fully-unlocked";
+
     const string _ussTitle = _ussClassName + "title";
     const string _ussIcon = _ussClassName + "icon";
     const string _ussStar = _ussClassName + "star";
@@ -52,6 +54,8 @@ public class GlobalUpgradeElement : ElementWithTooltip
         AddPrice();
         AddFill();
 
+        if (GlobalUpgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
+
         RegisterCallback<PointerDownEvent>(OnPointerDown);
         RegisterCallback<PointerUpEvent>(OnPointerUp);
     }
@@ -75,7 +79,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
         _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1500);
         DOTween.Kill(tweenId);
-        DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 82, 1.5f)
+        DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 90, 1.5f)
                 .SetEase(Ease.InOutSine)
                 .SetId(tweenId);
     }
@@ -167,8 +171,10 @@ public class GlobalUpgradeElement : ElementWithTooltip
     void Purchase()
     {
         if (GlobalUpgrade.IsMaxLevel()) return;
+
         _gameManager.ChangeGoldValue(-GlobalUpgrade.GetNextLevel().Cost);
         GlobalUpgrade.Purchased();
+        if (GlobalUpgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
 
         DisplayTooltip();
 

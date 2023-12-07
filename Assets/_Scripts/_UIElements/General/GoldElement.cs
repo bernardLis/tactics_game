@@ -48,6 +48,13 @@ public class GoldElement : ChangingValueElement
         ChangeAmount(amount);
     }
 
+    public void MakeItBig()
+    {
+        _icon.style.width = 50;
+        _icon.style.height = 50;
+        _text.style.fontSize = 32;
+    }
+
     public override void ChangeAmount(int newValue)
     {
         base.ChangeAmount(newValue);
