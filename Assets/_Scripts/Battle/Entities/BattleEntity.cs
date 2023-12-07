@@ -302,7 +302,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     public void TriggerDieCoroutine(EntityFight attacker = null)
     {
         IsDead = true;
-        StartCoroutine(Die(attacker: attacker));
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(Die(attacker: attacker));
     }
 
     public virtual IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)

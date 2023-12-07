@@ -15,9 +15,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     [SerializeField] GameObject _corruptionEffectPrefab;
     GameObject _buildingCorruptionEffect;
 
-    [SerializeField] Transform _bannerSpawnPoint;
-    GameObject _banner;
-
     protected Building _building;
 
     protected ProgressBarHandler _progressBarHandler;
@@ -48,9 +45,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     public virtual IEnumerator SecuredCoroutine()
     {
         yield return ShowBuilding();
-
-        _banner = Instantiate(_gameManager.BannerPrefab, transform);
-        _banner.transform.localPosition = _bannerSpawnPoint.localPosition;
 
         _building.Secure();
     }
@@ -151,9 +145,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
 
     public virtual void Corrupted()
     {
-        _banner.transform.DOScale(0, 1.5f)
-                 .SetEase(Ease.InBack)
-                 .OnComplete(() => Destroy(_banner));
         _building.Corrupted();
         OnBuildingCorrupted?.Invoke();
     }
