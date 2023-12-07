@@ -93,7 +93,7 @@ public class BattleAreaManager : MonoBehaviour
 
     IEnumerator UnlockTiles()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(30f);
         while (true)
         {
             List<BattleTile> allPossibleTiles = new();
@@ -117,7 +117,7 @@ public class BattleAreaManager : MonoBehaviour
             }
 
             UnlockTile(selectedTile);
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(60f);
         }
     }
 

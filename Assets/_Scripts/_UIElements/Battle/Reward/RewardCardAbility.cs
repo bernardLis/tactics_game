@@ -18,8 +18,8 @@ public class RewardCardAbility : RewardCard
         }
 
         Add(new AbilityButton(rewardAbility.Ability));
-        
-        Label name = new Label(rewardAbility.Ability.name);
+
+        Label name = new Label(Helpers.ParseScriptableObjectName(rewardAbility.Ability.name));
         name.style.whiteSpace = WhiteSpace.Normal;
         name.style.unityFontStyleAndWeight = FontStyle.Bold;
         Add(name);

@@ -22,10 +22,9 @@ public class BattleVaseManager : MonoBehaviour
 
     IEnumerator SpawnVasesCoroutine()
     {
-
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(5f, 10f));
+            yield return new WaitForSeconds(Random.Range(10f, 20f));
 
             for (int i = 0; i < _vasesPerSpawn; i++)
             {
@@ -36,7 +35,6 @@ public class BattleVaseManager : MonoBehaviour
                 yield return new WaitForSeconds(0.15f);
             }
         }
-
     }
 
     void SpawnVase(Vector3 position)
