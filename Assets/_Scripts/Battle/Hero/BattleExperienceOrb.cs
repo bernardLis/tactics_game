@@ -22,7 +22,7 @@ public class BattleExperienceOrb : BattlePickup
             transform.position.z
         );
 
-        GetComponentInChildren<Light>().color = _expOrb.Color.Color;
+        // GetComponentInChildren<Light>().color = _expOrb.Color.Color;
     }
 
     protected override void PickUp(BattleHero hero)

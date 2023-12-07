@@ -42,6 +42,8 @@ public class BattleMinion : BattleEntity
 
     IEnumerator PathToHero()
     {
+        _GFX.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
+
         _agent.stoppingDistance = 2f;
         yield return PathToTarget(_targetHero.transform);
 

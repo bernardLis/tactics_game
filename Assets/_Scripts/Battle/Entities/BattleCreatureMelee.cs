@@ -18,8 +18,8 @@ public class BattleCreatureMelee : BattleCreature
 
         Quaternion q = Quaternion.Euler(0, -90, 0);
         _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
-        _hitInstance.transform.parent = Opponent.transform;
-
+        _hitInstance.transform.SetParent(_battleManager.EntityHolder);
+        
         yield return Opponent.GetHit(Creature);
         Invoke(nameof(DestroyHitInstance), 2f);
     }
