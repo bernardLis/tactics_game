@@ -33,7 +33,7 @@
 }
 
 .timer-element__line-main {
-    height: 50px;
+    height: 25px;
     width: 100%;
     min-width: 200px;
     flex-direction: row-reverse;

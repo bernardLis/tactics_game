@@ -99,4 +99,4 @@ public struct GlobalUpgradeData
     public int Level;
 }
 
-public enum GlobalUpgradeType { Other, Hero, Building, Creature, Boss }
+public enum GlobalUpgradeType { Other, Hero, Building, Creature, Boss, Ability }

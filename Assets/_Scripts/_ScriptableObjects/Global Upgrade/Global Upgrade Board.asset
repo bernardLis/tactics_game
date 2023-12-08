@@ -46,7 +46,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d650f2d4bf34b03488fa13b5edcc5b3d, type: 2}
   - {fileID: 11400000, guid: 3ad540e03b159714595d8386bc0de149, type: 2}
   - {fileID: 11400000, guid: 10a0250efcc221c418a1505e87664685, type: 2}
+  - {fileID: 11400000, guid: d1c909a16b2cff74593ee7a55bacd2f1, type: 2}
+  - {fileID: 11400000, guid: 1ad078814eaa06542b1d020357069b0b, type: 2}
   GlobalUpgrades:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

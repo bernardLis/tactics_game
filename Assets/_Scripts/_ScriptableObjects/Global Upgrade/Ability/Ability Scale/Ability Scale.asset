@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
+  m_Name: Ability Scale
+  m_EditorClassIdentifier: 
+  Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
+  Icon: {fileID: 21300000, guid: d8764c4092f6d934e82bc8308c1d5363, type: 3}
+  Description: Hero Ability Scale Increase
+  Type: 5
+  Levels:
+  - {fileID: 11400000, guid: c0d1a6b5ce5558e4b97b03c3efb0b921, type: 2}
+  - {fileID: 11400000, guid: 86a4568347e877a4f8cea1186dea85a2, type: 2}
+  - {fileID: 11400000, guid: 07106aaa2f59cee49bbfe367c3ecf78e, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0

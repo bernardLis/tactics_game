@@ -26,7 +26,7 @@ public class BattleAreaManager : MonoBehaviour
     List<BattleTile> _tiles = new();
     public List<BattleTile> UnlockedTiles = new();
 
-    public event Action<BattleTile> OnTilePurchased;
+    public event Action<BattleTile> OnTileUnlocked;
     public event Action<BattleTile> OnBossTileUnlocked;
 
     public void Initialize()
@@ -93,9 +93,10 @@ public class BattleAreaManager : MonoBehaviour
 
     IEnumerator UnlockTiles()
     {
-        yield return new WaitForSeconds(30f);
         while (true)
         {
+            yield return new WaitForSeconds(60f);
+
             List<BattleTile> allPossibleTiles = new();
             foreach (BattleTile tile in UnlockedTiles)
             {
@@ -109,7 +110,7 @@ public class BattleAreaManager : MonoBehaviour
 
             BattleTile selectedTile = ChooseTileClosestToHero(allPossibleTiles);
 
-            // boss tile
+            // TODO: balance when boss spawns
             if (UnlockedTiles.Count > 300)
             {
                 OnBossTileUnlocked?.Invoke(selectedTile);
@@ -117,7 +118,6 @@ public class BattleAreaManager : MonoBehaviour
             }
 
             UnlockTile(selectedTile);
-            yield return new WaitForSeconds(60f);
         }
     }
 
@@ -155,13 +155,9 @@ public class BattleAreaManager : MonoBehaviour
         if (UnlockedTiles.Contains(tile)) return;
         tile.EnableTile();
         UnlockedTiles.Add(tile);
+        OnTileUnlocked?.Invoke(tile);
     }
 
-    public void TilePurchased(BattleTile tile)
-    {
-        UnlockedTiles.Add(tile);
-        OnTilePurchased?.Invoke(tile);
-    }
 
     public BattleTile GetRandomUnlockedTile()
     {

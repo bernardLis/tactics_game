@@ -15,7 +15,8 @@ public class BattleInfoManager : MonoBehaviour
     TroopsLimitElement _troopsCounter;
 
     GoldElement _goldElement;
-    Label _tilesUntilBossLabel;
+
+    LineTimerElement _nextTileTimer;
 
     void Start()
     {
@@ -25,7 +26,6 @@ public class BattleInfoManager : MonoBehaviour
 
         _root = _battleManager.Root;
         _infoPanel = _root.Q<VisualElement>("infoPanel");
-        _tilesUntilBossLabel = _root.Q<Label>("tilesUntilBoss");
 
         _battleManager.OnBattleInitialized += ResolveInfoPanel;
     }
@@ -36,12 +36,13 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
-        AddGoldElement();
-
-        AddTroopsLimitElement();
-        UpdateTroopsLimitElement();
-
-        HandleTilesUntilBoss();
+        GlobalUpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
+        if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
+            AddTroopsCountElement();
+        if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)
+            AddGoldElement();
+        if (globalUpgradeBoard.GetUpgradeByName("Next Tile Timer").CurrentLevel != -1)
+            AddNextTileTimer();
     }
 
     void AddGoldElement()
@@ -51,30 +52,21 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel.Add(_goldElement);
     }
 
-    void AddTroopsLimitElement()
+    void AddTroopsCountElement()
     {
         _troopsCounter = new("");
         _infoPanel.Add(_troopsCounter);
 
-        _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsLimitElement();
-        _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsLimitElement();
+        _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsCountElement();
+        _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsCountElement();
+
+        UpdateTroopsCountElement();
     }
 
-    void UpdateTroopsLimitElement()
+    void UpdateTroopsCountElement()
     {
         int count = Mathf.Clamp(_battleManager.PlayerCreatures.Count - 1, 0, 9999);
         _troopsCounter.UpdateCountContainer($"{count}", Color.white);
-    }
-
-    void HandleTilesUntilBoss()
-    {
-        _battleAreaManager.OnTilePurchased += UpdateTilesUntilBossLabel;
-        UpdateTilesUntilBossLabel(default);
-    }
-
-    void UpdateTilesUntilBossLabel(BattleTile tile)
-    {
-        _tilesUntilBossLabel.text = $"{_battleAreaManager.UnlockedTiles.Count - 1} / {_battleManager.CurrentBattle.TilesUntilBoss}";
     }
 
     void OnGoldChanged(int newValue)
@@ -82,5 +74,12 @@ public class BattleInfoManager : MonoBehaviour
         int change = newValue - _goldElement.Amount;
         Helpers.DisplayTextOnElement(_root, _goldElement, "" + change, Color.yellow);
         _goldElement.ChangeAmount(newValue);
+    }
+
+    void AddNextTileTimer()
+    {
+        _nextTileTimer = new(55, 60, true, "Next Tile Unlocked In");
+        _nextTileTimer.HideLabel();
+        _infoPanel.Add(_nextTileTimer);
     }
 }
