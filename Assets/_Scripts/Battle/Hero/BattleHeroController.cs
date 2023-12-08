@@ -50,6 +50,7 @@ public class BattleHeroController : MonoBehaviour
     bool _disableUpdate;
 
     // player
+    bool _isSprintUnlocked;
     float _speed;
     float _animationBlend;
     float _targetRotation = 0.0f;
@@ -85,6 +86,8 @@ public class BattleHeroController : MonoBehaviour
         GetComponent<BattleInteractor>().OnInteract += InteractionAnimation;
 
         AssignAnimationIDs();
+
+        _isSprintUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
     }
 
     // TODO: this is wrong. It should somehow work without this code, but I don't know which button to click in Unity. 
@@ -237,8 +240,8 @@ public class BattleHeroController : MonoBehaviour
 
     void SetSprinting(InputAction.CallbackContext ctx)
     {
-        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel == -1) return;
-        
+        if (!_isSprintUnlocked) return;
+
         _isSprinting = true;
     }
 

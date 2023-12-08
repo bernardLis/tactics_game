@@ -16,10 +16,8 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     AudioManager _audioManager;
     CursorManager _cursorManager;
     PlayerInput _playerInput;
-    BattleTooltipManager _tooltipManager;
 
-    VisualElement _root;
-
+    bool _isGrabbingUnlocked;
     public bool IsGrabbingEnabled { get; private set; }
 
     bool _pointerDown;
@@ -42,36 +40,21 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _gameManager = GameManager.Instance;
         _audioManager = AudioManager.Instance;
         _cursorManager = CursorManager.Instance;
-        _tooltipManager = BattleTooltipManager.Instance;
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _floorLayerMask = LayerMask.GetMask("Floor");
+
+        _isGrabbingUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
+
         EnableGrabbing();
-    }
-
-    public void ToggleGrabbing()
-    {
-        if (_grabbedObject != null) return;
-
-        if (IsGrabbingEnabled)
-            DisableGrabbing();
-        else
-            EnableGrabbing();
     }
 
     public void EnableGrabbing()
     {
         if (BattleManager.BlockBattleInput) return;
         if (this == null) return;
-        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel == -1) return;
-        
+        if (!_isGrabbingUnlocked) return;
+
         IsGrabbingEnabled = true;
-    }
-
-    void DisableGrabbing()
-    {
-        if (this == null) return;
-
-        IsGrabbingEnabled = false;
     }
 
     /* INPUT */
