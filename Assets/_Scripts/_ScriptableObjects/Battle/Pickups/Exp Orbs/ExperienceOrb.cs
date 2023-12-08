@@ -9,6 +9,14 @@ public class ExperienceOrb : Pickup
     public ColorVariable Color;
     public int OrbChance;
 
+    public override void Initialize()
+    {
+        base.Initialize();
+        Amount += Mathf.RoundToInt(Amount
+                    * GameManager.Instance.GlobalUpgradeBoard.GetUpgradeByName("Hero Exp Bonus").GetValue()
+                    * 0.01f);
+    }
+
     public override void Collected(Hero hero)
     {
         hero.AddExp(Amount);

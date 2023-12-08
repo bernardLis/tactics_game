@@ -12,6 +12,9 @@ public class Coin : Pickup
     public override void Initialize()
     {
         Amount = Random.Range(AmountRange.x, AmountRange.y);
+        Amount += Mathf.RoundToInt(Amount
+                * GameManager.Instance.GlobalUpgradeBoard.GetUpgradeByName("Gold Bonus").GetValue()
+                * 0.01f);
     }
 
     public override void Collected(Hero hero)

@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3d76b8063c97e4c94a908f2c9adc97, type: 3}
-  m_Name: Pull
+  m_Script: {fileID: 11500000, guid: af9a0b79e0769884caa57a8097cbbf6d, type: 3}
+  m_Name: 1
   m_EditorClassIdentifier: 
-  Id: 77f206b4-b55e-465e-bada-74af051c2372
-  StatType: 6
+  Id: 002d4f29-decd-4492-9139-4c069a61391e
   Icon: {fileID: 0}
-  Description: 
-  BaseValue: 3
-  BonusValue: 0
-  IsDecreasingPerLevel: 0
-  GrowthPerLevelRange: {x: 1, y: 2}
-  MinMaxValue: {x: 0, y: 999}
+  Cost: 2000
+  Value: 1
+  IsPurchased: 0
+  Description: Display gold count in battle

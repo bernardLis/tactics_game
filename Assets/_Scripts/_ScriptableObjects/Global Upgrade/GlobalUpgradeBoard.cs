@@ -9,17 +9,23 @@ public class GlobalUpgradeBoard : BaseScriptableObject
     [SerializeField] List<GlobalUpgrade> _globalUpgradeOriginals = new();
     public List<GlobalUpgrade> GlobalUpgrades = new();
 
+    Dictionary<string, GlobalUpgrade> _globalUpgradeDictionary = new();
+
     public event Action OnRefundAll;
     public void Initialize()
     {
+        _globalUpgradeDictionary = new();
+        foreach (GlobalUpgrade upgrade in GlobalUpgrades)
+            _globalUpgradeDictionary.Add(upgrade.name, upgrade);
     }
 
     public GlobalUpgrade GetUpgradeByName(string name)
     {
-        // TODO: this is a bad idea
-        foreach (GlobalUpgrade upgrade in GlobalUpgrades)
-            if (upgrade.name == name)
-                return upgrade;
+        if (_globalUpgradeDictionary.Count == 0) Initialize();
+
+        if (_globalUpgradeDictionary.ContainsKey(name))
+            return _globalUpgradeDictionary[name];
+
         return null;
     }
 

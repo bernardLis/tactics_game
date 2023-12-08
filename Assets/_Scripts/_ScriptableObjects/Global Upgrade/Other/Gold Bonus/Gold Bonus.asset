@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
+  m_Name: Gold Bonus
+  m_EditorClassIdentifier: 
+  Id: 8e7ee1a6-a64c-441d-b5c3-092a6d51a879
+  Icon: {fileID: 21300000, guid: 6953607a5f7880b49a498defff611280, type: 3}
+  Description: Get More Gold
+  Type: 0
+  Levels:
+  - {fileID: 11400000, guid: 8d20c80f7f109ac4e82d2bfc24225e29, type: 2}
+  - {fileID: 11400000, guid: ccb9df550009ddb4f9ba274e6d3e2023, type: 2}
+  - {fileID: 11400000, guid: a70740ca617ec1043a7920020614c10a, type: 2}
+  - {fileID: 11400000, guid: aae2d819848fa24468a1d867c96f88e6, type: 2}
+  - {fileID: 11400000, guid: 672cccab6c168c1419a3fa2ca3499edd, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0

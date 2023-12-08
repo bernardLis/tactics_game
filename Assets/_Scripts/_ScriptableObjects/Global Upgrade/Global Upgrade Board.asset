@@ -41,32 +41,38 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
   - {fileID: 11400000, guid: dfc467aa1ff24034fb9075817522bda3, type: 2}
   - {fileID: 11400000, guid: e89216b90af79b3479bd20730c7510a1, type: 2}
-  HeroSpeed: {fileID: 11400000, guid: 999d04af62cc4aa44b8fa5d9ca3a2f3d, type: 2}
-  HeroArmor: {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
-  HeroHealth: {fileID: 11400000, guid: f04c07d2d12dba2409832085cdec5bf6, type: 2}
-  HeroPull: {fileID: 11400000, guid: 50dd99ac47e5d6144908dbf7e50c5ef7, type: 2}
-  HeroPower: {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
-  HeroSprint: {fileID: 11400000, guid: 9bd2ead4f3c542d46a1600a4958f710c, type: 2}
-  HeroGrab: {fileID: 11400000, guid: b5711643ee02ade489de9570861addb7, type: 2}
-  BuildingUpgrades:
-  - {fileID: 11400000, guid: 8e683bf6536f0d34ab90c4c901a54695, type: 2}
-  - {fileID: 11400000, guid: 13f22ed631a34b1448146f5068d348a8, type: 2}
-  - {fileID: 11400000, guid: a10913c32bb017649948d20e0baaf95c, type: 2}
-  - {fileID: 11400000, guid: db055d81f7e9a5c44800b6f0ff69d5c6, type: 2}
-  - {fileID: 11400000, guid: 3fae23ee86cef4941b5a1d6a024fd361, type: 2}
-  - {fileID: 11400000, guid: a80b6a8df980bef46a2c9174b1b93113, type: 2}
-  - {fileID: 11400000, guid: 73c714e1c346a304fabc23bd59b8204d, type: 2}
-  - {fileID: 11400000, guid: e27aab3a3fec49a41933504166fb5c7f, type: 2}
-  - {fileID: 11400000, guid: ce6e77f15c6fa774da99bd136d233443, type: 2}
-  CreatureStartingLevel: {fileID: 11400000, guid: e1f42e9475b62dc4da791758027b842b, type: 2}
-  CreatureSpeed: {fileID: 11400000, guid: 07e96b32ffda8874cb19100cde9dbc5a, type: 2}
-  CreatureArmor: {fileID: 11400000, guid: bba642471055d704694994fb08710075, type: 2}
-  CreatureHealth: {fileID: 11400000, guid: ad14f6795fecadf428f0e8d32e23dc96, type: 2}
-  CreaturePower: {fileID: 11400000, guid: 05da828d8b3d40549b8fc67b1cf7905c, type: 2}
-  BossCorruptionBreakNodes: {fileID: 11400000, guid: 5dbd980f19f07e04ea9a9e63fa7dad4c, type: 2}
-  BossStunDuration: {fileID: 11400000, guid: d53b9d37900eb4b41869cc7d8fdeb945, type: 2}
-  BossCorruptionDuration: {fileID: 11400000, guid: bd9e32a2aac3f3a4eb3ec37e6bb094d4, type: 2}
-  BossSlowdown: {fileID: 11400000, guid: ae595615982452440a3a076ae32ab476, type: 2}
-  TileIndicator: {fileID: 0}
-  RewardNumber: {fileID: 11400000, guid: dfc467aa1ff24034fb9075817522bda3, type: 2}
-  RewardReroll: {fileID: 11400000, guid: e89216b90af79b3479bd20730c7510a1, type: 2}
+  - {fileID: 11400000, guid: ac4ee666fe3dc004aad79363799239cc, type: 2}
+  - {fileID: 11400000, guid: f47bc738e58227e45976d613f6a18206, type: 2}
+  - {fileID: 11400000, guid: d650f2d4bf34b03488fa13b5edcc5b3d, type: 2}
+  - {fileID: 11400000, guid: 3ad540e03b159714595d8386bc0de149, type: 2}
+  - {fileID: 11400000, guid: 10a0250efcc221c418a1505e87664685, type: 2}
+  GlobalUpgrades:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
