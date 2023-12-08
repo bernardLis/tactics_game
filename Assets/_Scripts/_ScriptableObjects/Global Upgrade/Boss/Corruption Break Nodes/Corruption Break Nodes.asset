@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: 55e7067d05f090a44be2d1f287872694, type: 3}
-  Description: Corruption Break Nodes
+  Description: Deal mega damage when boss is corrupting a building
   Type: 4
   Levels:
   - {fileID: 11400000, guid: 7b8d7616de389294f8cf39112687a73a, type: 2}

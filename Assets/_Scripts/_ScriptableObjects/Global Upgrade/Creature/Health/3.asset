@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 1000
   Value: 50
   IsPurchased: 0
-  Description: Creature Health Bonus
+  Description: Health +90

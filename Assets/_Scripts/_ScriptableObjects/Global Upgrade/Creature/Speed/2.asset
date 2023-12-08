@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 500
   Value: 1
   IsPurchased: 0
-  Description: Creature Speed Bonus
+  Description: Speed +2

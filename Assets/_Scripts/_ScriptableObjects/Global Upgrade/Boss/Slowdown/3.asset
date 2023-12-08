@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 1000
   Value: 1
   IsPurchased: 0
-  Description: Boss Is Slower
+  Description: 'Speed -3 '

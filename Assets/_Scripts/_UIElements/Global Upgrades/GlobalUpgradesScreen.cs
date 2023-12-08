@@ -94,7 +94,7 @@ public class GlobalUpgradesScreen : FullScreenElement
         foreach (GlobalUpgrade upgrade in upgrades)
         {
             upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeBuildingElement element = new(upgrade);
+            GlobalUpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }

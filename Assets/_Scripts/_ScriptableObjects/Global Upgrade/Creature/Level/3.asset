@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 1000
   Value: 2
   IsPurchased: 0
-  Description: Starting Level Bonus
+  Description: 'Staring Level: 6'

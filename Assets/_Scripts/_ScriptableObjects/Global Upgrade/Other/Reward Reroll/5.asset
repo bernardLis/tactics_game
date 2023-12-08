@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af9a0b79e0769884caa57a8097cbbf6d, type: 3}
-  m_Name: 3
+  m_Name: 5
   m_EditorClassIdentifier: 
   Id: 002d4f29-decd-4492-9139-4c069a61391e
   Icon: {fileID: 0}
-  Cost: 1000
-  Value: 1
+  Cost: 66666
+  Value: 666
   IsPurchased: 0
-  Description: Armor +3
+  Description: 666

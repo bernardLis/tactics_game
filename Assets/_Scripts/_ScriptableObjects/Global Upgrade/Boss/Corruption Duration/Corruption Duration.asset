@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: 9f421f418dabc6541b10dfee651fcb32, type: 3}
-  Description: Corruption Duration
+  Description: Increase the time it takes for boss to corrupt a building
   Type: 4
   Levels:
   - {fileID: 11400000, guid: 674816c325f986a4a8c18141c92d7846, type: 2}

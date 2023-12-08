@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: 002d4f29-decd-4492-9139-4c069a61391e
   Icon: {fileID: 0}
   Cost: 500
-  Value: 1
+  Value: 10
   IsPurchased: 0
-  Description: Starting Hero Power +10
+  Description: Hero Power +20

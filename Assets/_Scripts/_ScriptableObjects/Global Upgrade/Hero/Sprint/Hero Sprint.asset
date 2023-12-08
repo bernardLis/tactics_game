@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 8e7ee1a6-a64c-441d-b5c3-092a6d51a879
   Icon: {fileID: 21300000, guid: f6a96eca8b47ec04594b42f23f117936, type: 3}
-  Description: Sprint by holding shift
+  Description: Unlock Hero Sprint
   Type: 1
   Levels:
   - {fileID: 11400000, guid: efe0414e5971bc64688625c8e707b8a9, type: 2}

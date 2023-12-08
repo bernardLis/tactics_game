@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: 9cff88ef95f95be47af437526c628fd5, type: 3}
-  Description: Display gold count in battle
+  Description: Display gold count in the battle
   Type: 0
   Levels:
   - {fileID: 11400000, guid: 020b6ef88c9571d4db32bd86b1ef5b99, type: 2}

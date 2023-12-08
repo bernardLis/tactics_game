@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: a080dd8faab77c641afa819eb830fcff, type: 3}
-  Description: Reward Reroll
+  Description: Number of reward rerolls per battle
+  Type: 0
   Levels:
   - {fileID: 11400000, guid: be8803dab61b02d4799d5f5a412ef36b, type: 2}
   - {fileID: 11400000, guid: 36246959757e65848a790aab1356bbc5, type: 2}
   - {fileID: 11400000, guid: bea17db0edf9bdb46b5eb1861be9ae08, type: 2}
+  - {fileID: 11400000, guid: 3cdb932f844f95f468a8f925c6525da2, type: 2}
+  - {fileID: 11400000, guid: 195ca13ec901afc4b8743ed6b7aa036a, type: 2}
   CurrentLevel: 0
   PermanentlyUnlocked: 1

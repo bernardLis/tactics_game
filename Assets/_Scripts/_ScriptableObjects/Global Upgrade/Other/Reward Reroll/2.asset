@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 500
   Value: 3
   IsPurchased: 0
-  Description: 'Number of reward rerolls per battle: 3'
+  Description: 3

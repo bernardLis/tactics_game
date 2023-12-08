@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 500
   Value: 5
   IsPurchased: 0
-  Description: Ability Cooldown Reduction %
+  Description: 10%

@@ -189,12 +189,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        if (_tooltipElement == null)
-        {
-            if (GlobalUpgrade.CurrentLevel == -1) _tooltipElement = new Label($"Unlock {Helpers.ParseScriptableObjectName(GlobalUpgrade.name)}");
-            else _tooltipElement = new Label(GlobalUpgrade.GetCurrentLevel().Description);
-        }
-        _tooltip = new(this, _tooltipElement);
+        _tooltip = new(this, new GlobalUpgradeElementTooltip(GlobalUpgrade));
         base.DisplayTooltip();
     }
 

@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 500
   Value: 5
   IsPurchased: 0
-  Description: Bonus Damage On Breaking Nodes
+  Description: 10% bonus damage

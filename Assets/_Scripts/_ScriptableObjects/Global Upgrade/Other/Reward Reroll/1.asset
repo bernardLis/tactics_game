@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 0
   Value: 666
   IsPurchased: 1
-  Description: 'Number of reward rerolls per battle: 1'
+  Description: 666

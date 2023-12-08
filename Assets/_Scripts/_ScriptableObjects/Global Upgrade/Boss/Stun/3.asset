@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 1000
   Value: 5
   IsPurchased: 0
-  Description: Longer Boss Stun Duration
+  Description: +15 seconds stun duration
