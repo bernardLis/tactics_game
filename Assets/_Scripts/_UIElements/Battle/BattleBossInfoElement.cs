@@ -15,7 +15,7 @@ public class BattleBossInfoElement : BattleEntityInfoElement
         style.minWidth = 600;
 
         string text = "Stun";
-        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").CurrentLevel == -1)
+        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel == -1)
             text = "Buy Upgrade To Stun Boss";
 
 

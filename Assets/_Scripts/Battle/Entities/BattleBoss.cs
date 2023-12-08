@@ -23,12 +23,15 @@ public class BattleBoss : BattleEntity
     BattleBuilding _currentBuilding;
 
     bool _isCorrupting;
+    bool _isStunUnlocked;
     bool _isStunned;
     [HideInInspector] public IntVariable TotalDamageToBreakCorruption;
     [HideInInspector] public IntVariable CurrentDamageToBreakCorruption;
     [HideInInspector] public IntVariable TotalStunDuration;
     [HideInInspector] public IntVariable CurrentStunDuration;
 
+    bool _areCorruptionBreakNodesUnlocked;
+    float _corruptionBreakNodeDmgBonus = 0;
     List<BattleCorruptionBreakNode> _corruptionBreakNodes = new();
 
     public event Action OnCorruptionStarted;
@@ -45,7 +48,7 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
         _nextTileIndex = 0;
 
-        float newSpeed = _agent.speed - _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Slowdown").GetValue();
+        float newSpeed = _agent.speed - _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
         if (newSpeed <= 0) newSpeed = 1f;
         _agent.speed = newSpeed;
 
@@ -55,6 +58,13 @@ public class BattleBoss : BattleEntity
 
         SetUpVariables();
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
+
+        _isStunUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").CurrentLevel >= 0;
+
+        GlobalUpgrade corruptionBreakNodesUpgrade = _gameManager.GlobalUpgradeBoard
+                            .GetUpgradeByName("Corruption Break Nodes");
+        _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
+        _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;
     }
 
     protected override IEnumerator RunEntity()
@@ -139,7 +149,7 @@ public class BattleBoss : BattleEntity
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
         OnCorruptionStarted?.Invoke();
 
-        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Corruption Break Nodes").CurrentLevel >= 0)
+        if (_areCorruptionBreakNodesUnlocked)
             StartCoroutine(CreateCorruptionBreakNodes());
     }
 
@@ -179,8 +189,7 @@ public class BattleBoss : BattleEntity
     void OnCorruptionNodeBroken(BattleCorruptionBreakNode node)
     {
         _corruptionBreakNodes.Remove(node);
-        float multiplier = (float)0.3f +
-                        _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Corruption Break Nodes").GetValue() / 100f;
+        float multiplier = (float)0.3f + _corruptionBreakNodeDmgBonus;
         int damage = Mathf.RoundToInt(TotalDamageToBreakCorruption.Value * multiplier);
         BaseGetHit(damage, Color.yellow);
     }
@@ -198,8 +207,8 @@ public class BattleBoss : BattleEntity
 
     void HandleCorruptionBreak(int damage)
     {
-        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").CurrentLevel == -1) return;
-        
+        if (!_isStunUnlocked) return;
+
         StartCoroutine(CreateCorruptionBreakNodes());
 
         CurrentDamageToBreakCorruption.ApplyChange(damage);
