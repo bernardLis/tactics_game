@@ -237,7 +237,7 @@ public class BattleHeroController : MonoBehaviour
 
     void SetSprinting(InputAction.CallbackContext ctx)
     {
-        if (_gameManager.GlobalUpgradeBoard.HeroSprint.CurrentLevel == -1) return;
+        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel == -1) return;
         
         _isSprinting = true;
     }

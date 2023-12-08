@@ -15,6 +15,8 @@ public class SaveData
 
     public HeroData PlayerHero = new();
 
+    public GlobalUpgradeBoardData GlobalUpgradeBoard = new();
+
     public string ToJson() { return JsonUtility.ToJson(this); }
 
     public void LoadFromJson(string jsonString) { JsonUtility.FromJsonOverwrite(jsonString, this); }

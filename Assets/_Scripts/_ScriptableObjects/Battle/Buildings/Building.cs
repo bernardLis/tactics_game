@@ -22,7 +22,7 @@ public class Building : BaseScriptableObject
     public virtual void Initialize()
     {
         BuildingUpgrade = GameManager.Instance.GlobalUpgradeBoard
-                        .GetBuildingUpgradeByName(name);
+                        .GetUpgradeByName(name);
     }
 
     public bool IsUnlocked()

@@ -15,8 +15,10 @@ MonoBehaviour:
   Id: 2b4daef3-d301-477a-85c2-148de1dab030
   Icon: {fileID: 21300000, guid: f078755c0c502b446b37e12ccc0ec89e, type: 3}
   Description: Hero Health
+  Type: 1
   Levels:
   - {fileID: 11400000, guid: daa17274fbe3d59428bd6c55195315d7, type: 2}
   - {fileID: 11400000, guid: e00ebe7f1fe34dd41971881af531e43a, type: 2}
   - {fileID: 11400000, guid: 43e756069d6c0a34f96393b502d5eb30, type: 2}
   CurrentLevel: -1
+  PermanentlyUnlocked: 0

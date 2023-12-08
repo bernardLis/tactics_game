@@ -41,7 +41,7 @@ public class BattleHeroManager : MonoBehaviour
         _placeholderAudioListener.enabled = false;
         StartCoroutine(MakeHeroFall(hero));
 
-        RewardRerollsAvailable = _gameManager.GlobalUpgradeBoard.RewardReroll.GetCurrentLevel().Value;
+        RewardRerollsAvailable = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
     }
 
     IEnumerator MakeHeroFall(Hero hero)

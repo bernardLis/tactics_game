@@ -15,6 +15,7 @@ MonoBehaviour:
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: 52a13c57b2a30e94080d26c72a39b1ee, type: 3}
   Description: Creature Speed
+  Type: 3
   Levels:
   - {fileID: 11400000, guid: 780c4ca218edd8848ba17f5164543aaa, type: 2}
   - {fileID: 11400000, guid: c871e541930de2e498fa131d752fa23f, type: 2}

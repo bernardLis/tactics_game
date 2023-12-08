@@ -15,6 +15,7 @@ MonoBehaviour:
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: fa4b12122a0d33e438f5bccb3e3dc02f, type: 3}
   Description: Creature Power
+  Type: 3
   Levels:
   - {fileID: 11400000, guid: 47e47ff1fd8a1f442b2963c3830358a0, type: 2}
   - {fileID: 11400000, guid: 033b7866f2aa78f449b007c6d23f52a2, type: 2}

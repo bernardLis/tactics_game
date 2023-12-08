@@ -15,6 +15,7 @@ MonoBehaviour:
   Id: fd9dd6ef-3858-47f5-8cd2-e76cbe47408e
   Icon: {fileID: 21300000, guid: c93d86b2a774cb1488cfa16d14846cfc, type: 3}
   Description: 
+  Type: 2
   Levels:
   - {fileID: 11400000, guid: e77339a127679294d9d51fb7f3a0915e, type: 2}
   - {fileID: 11400000, guid: 80deb3c30ac842543b2910ca9e0bf6ba, type: 2}

@@ -191,7 +191,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
     {
         if (_tooltipElement == null)
         {
-            if (GlobalUpgrade.CurrentLevel == -1) _tooltipElement = new Label($"Unlock {GlobalUpgrade.name}");
+            if (GlobalUpgrade.CurrentLevel == -1) _tooltipElement = new Label($"Unlock {Helpers.ParseScriptableObjectName(GlobalUpgrade.name)}");
             else _tooltipElement = new Label(GlobalUpgrade.GetCurrentLevel().Description);
         }
         _tooltip = new(this, _tooltipElement);

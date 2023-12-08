@@ -45,7 +45,7 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
         _nextTileIndex = 0;
 
-        float newSpeed = _agent.speed - _gameManager.GlobalUpgradeBoard.BossSlowdown.GetValue();
+        float newSpeed = _agent.speed - _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Slowdown").GetValue();
         if (newSpeed <= 0) newSpeed = 1f;
         _agent.speed = newSpeed;
 
@@ -139,7 +139,7 @@ public class BattleBoss : BattleEntity
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
         OnCorruptionStarted?.Invoke();
 
-        if (_gameManager.GlobalUpgradeBoard.BossCorruptionBreakNodes.CurrentLevel >= 0)
+        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Corruption Break Nodes").CurrentLevel >= 0)
             StartCoroutine(CreateCorruptionBreakNodes());
     }
 
@@ -180,7 +180,7 @@ public class BattleBoss : BattleEntity
     {
         _corruptionBreakNodes.Remove(node);
         float multiplier = (float)0.3f +
-                        _gameManager.GlobalUpgradeBoard.BossCorruptionBreakNodes.GetValue() / 100f;
+                        _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Corruption Break Nodes").GetValue() / 100f;
         int damage = Mathf.RoundToInt(TotalDamageToBreakCorruption.Value * multiplier);
         BaseGetHit(damage, Color.yellow);
     }
@@ -198,7 +198,7 @@ public class BattleBoss : BattleEntity
 
     void HandleCorruptionBreak(int damage)
     {
-        if (_gameManager.GlobalUpgradeBoard.BossStunDuration.CurrentLevel == -1) return;
+        if (_gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").CurrentLevel == -1) return;
         
         StartCoroutine(CreateCorruptionBreakNodes());
 
@@ -278,7 +278,7 @@ public class BattleBoss : BattleEntity
         CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
         CurrentDamageToBreakCorruption.SetValue(0);
         TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-        TotalStunDuration.SetValue(10 + _gameManager.GlobalUpgradeBoard.BossStunDuration.GetValue());
+        TotalStunDuration.SetValue(10 + _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").GetValue());
         CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
         CurrentStunDuration.SetValue(0);
     }

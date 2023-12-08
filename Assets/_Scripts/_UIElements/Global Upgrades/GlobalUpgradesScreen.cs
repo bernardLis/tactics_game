@@ -47,7 +47,7 @@ public class GlobalUpgradesScreen : FullScreenElement
         container.AddToClassList(_ussHeaderContainer);
         _content.Add(container);
 
-        Label title = new("Click & hold to purchase Global Upgrades");
+        Label title = new("Click & hold to purchase");
         title.style.fontSize = 24;
         container.Add(title);
 
@@ -63,45 +63,65 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Hero Upgrades");
 
-        _globalUpgradeBoard.HeroSpeed.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement hs = new(_globalUpgradeBoard.HeroSpeed);
-        container.Add(hs);
+        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Hero);
+        foreach (GlobalUpgrade upgrade in upgrades)
+        {
+            upgrade.Initialize(_globalUpgradeBoard);
+            GlobalUpgradeElement element = new(upgrade);
+            container.Add(element);
+        }
 
-        _globalUpgradeBoard.HeroArmor.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement ha = new(_globalUpgradeBoard.HeroArmor);
-        container.Add(ha);
+        /*
+                _globalUpgradeBoard.HeroSpeed.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement hs = new(_globalUpgradeBoard.HeroSpeed);
+                container.Add(hs);
 
-        _globalUpgradeBoard.HeroHealth.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement hh = new(_globalUpgradeBoard.HeroHealth);
-        container.Add(hh);
+                _globalUpgradeBoard.HeroArmor.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement ha = new(_globalUpgradeBoard.HeroArmor);
+                container.Add(ha);
 
-        _globalUpgradeBoard.HeroPower.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement hp = new(_globalUpgradeBoard.HeroPower);
-        container.Add(hp);
+                _globalUpgradeBoard.HeroHealth.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement hh = new(_globalUpgradeBoard.HeroHealth);
+                container.Add(hh);
 
-        _globalUpgradeBoard.HeroPull.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement hpu = new(_globalUpgradeBoard.HeroPull);
-        container.Add(hpu);
+                _globalUpgradeBoard.HeroPower.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement hp = new(_globalUpgradeBoard.HeroPower);
+                container.Add(hp);
 
-        _globalUpgradeBoard.HeroSprint.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement sprint = new(_globalUpgradeBoard.HeroSprint);
-        container.Add(sprint);
+                _globalUpgradeBoard.HeroPull.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement hpu = new(_globalUpgradeBoard.HeroPull);
+                container.Add(hpu);
 
-        _globalUpgradeBoard.HeroGrab.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement grab = new(_globalUpgradeBoard.HeroGrab);
-        container.Add(grab);
+                _globalUpgradeBoard.HeroSprint.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement sprint = new(_globalUpgradeBoard.HeroSprint);
+                container.Add(sprint);
+
+                _globalUpgradeBoard.HeroGrab.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement grab = new(_globalUpgradeBoard.HeroGrab);
+                container.Add(grab);
+                */
     }
 
     void CreateBuildingUpgrades()
     {
         VisualElement container = CreateUpgradeContainer("Building Upgrades");
 
-        _globalUpgradeBoard.BuildingUpgrades.ForEach(upgrade =>
+        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Building);
+        foreach (GlobalUpgrade upgrade in upgrades)
         {
             upgrade.Initialize(_globalUpgradeBoard);
             GlobalUpgradeBuildingElement element = new(upgrade);
             container.Add(element);
-        });
+        }
+
+        /*
+                _globalUpgradeBoard.BuildingUpgrades.ForEach(upgrade =>
+                {
+                    upgrade.Initialize(_globalUpgradeBoard);
+                    GlobalUpgradeBuildingElement element = new(upgrade);
+                    container.Add(element);
+                });
+                */
     }
 
 
@@ -109,46 +129,65 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Creature Upgrades");
 
-        _globalUpgradeBoard.CreatureArmor.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement ca = new(_globalUpgradeBoard.CreatureArmor);
-        container.Add(ca);
+        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Creature);
+        foreach (GlobalUpgrade upgrade in upgrades)
+        {
+            upgrade.Initialize(_globalUpgradeBoard);
+            GlobalUpgradeElement element = new(upgrade);
+            container.Add(element);
+        }
 
-        _globalUpgradeBoard.CreatureHealth.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement ch = new(_globalUpgradeBoard.CreatureHealth);
-        container.Add(ch);
+        /*
+                _globalUpgradeBoard.CreatureArmor.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement ca = new(_globalUpgradeBoard.CreatureArmor);
+                container.Add(ca);
 
-        _globalUpgradeBoard.CreaturePower.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement cp = new(_globalUpgradeBoard.CreaturePower);
-        container.Add(cp);
+                _globalUpgradeBoard.CreatureHealth.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement ch = new(_globalUpgradeBoard.CreatureHealth);
+                container.Add(ch);
 
-        _globalUpgradeBoard.CreatureSpeed.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement cs = new(_globalUpgradeBoard.CreatureSpeed);
-        container.Add(cs);
+                _globalUpgradeBoard.CreaturePower.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement cp = new(_globalUpgradeBoard.CreaturePower);
+                container.Add(cp);
 
-        _globalUpgradeBoard.CreatureStartingLevel.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement csl = new(_globalUpgradeBoard.CreatureStartingLevel);
-        container.Add(csl);
+                _globalUpgradeBoard.CreatureSpeed.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement cs = new(_globalUpgradeBoard.CreatureSpeed);
+                container.Add(cs);
+
+                _globalUpgradeBoard.CreatureStartingLevel.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement csl = new(_globalUpgradeBoard.CreatureStartingLevel);
+                container.Add(csl);
+                */
     }
 
     void CreateBossUpgrades()
     {
         VisualElement container = CreateUpgradeContainer("Boss Upgrades");
+        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Boss);
+        foreach (GlobalUpgrade upgrade in upgrades)
+        {
+            upgrade.Initialize(_globalUpgradeBoard);
+            GlobalUpgradeElement element = new(upgrade);
+            container.Add(element);
+        }
 
-        _globalUpgradeBoard.BossCorruptionBreakNodes.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement bcbn = new(_globalUpgradeBoard.BossCorruptionBreakNodes);
-        container.Add(bcbn);
+        /*
+                _globalUpgradeBoard.BossCorruptionBreakNodes.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement bcbn = new(_globalUpgradeBoard.BossCorruptionBreakNodes);
+                container.Add(bcbn);
 
-        _globalUpgradeBoard.BossCorruptionDuration.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement bcd = new(_globalUpgradeBoard.BossCorruptionDuration);
-        container.Add(bcd);
+                _globalUpgradeBoard.BossCorruptionDuration.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement bcd = new(_globalUpgradeBoard.BossCorruptionDuration);
+                container.Add(bcd);
 
-        _globalUpgradeBoard.BossSlowdown.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement bs = new(_globalUpgradeBoard.BossSlowdown);
-        container.Add(bs);
+                _globalUpgradeBoard.BossSlowdown.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement bs = new(_globalUpgradeBoard.BossSlowdown);
+                container.Add(bs);
 
-        _globalUpgradeBoard.BossStunDuration.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement bsd = new(_globalUpgradeBoard.BossStunDuration);
-        container.Add(bsd);
+                _globalUpgradeBoard.BossStunDuration.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement bsd = new(_globalUpgradeBoard.BossStunDuration);
+                container.Add(bsd);
+                */
     }
 
 
@@ -156,13 +195,23 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Other Upgrades");
 
-        _globalUpgradeBoard.RewardNumber.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement rn = new(_globalUpgradeBoard.RewardNumber);
-        container.Add(rn);
+        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Other);
+        foreach (GlobalUpgrade upgrade in upgrades)
+        {
+            upgrade.Initialize(_globalUpgradeBoard);
+            GlobalUpgradeElement element = new(upgrade);
+            container.Add(element);
+        }
 
-        _globalUpgradeBoard.RewardReroll.Initialize(_globalUpgradeBoard);
-        GlobalUpgradeElement rr = new(_globalUpgradeBoard.RewardReroll);
-        container.Add(rr);
+        /*
+                _globalUpgradeBoard.RewardNumber.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement rn = new(_globalUpgradeBoard.RewardNumber);
+                container.Add(rn);
+
+                _globalUpgradeBoard.RewardReroll.Initialize(_globalUpgradeBoard);
+                GlobalUpgradeElement rr = new(_globalUpgradeBoard.RewardReroll);
+                container.Add(rr);
+                */
     }
 
 

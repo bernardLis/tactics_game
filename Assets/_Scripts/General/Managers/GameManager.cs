@@ -133,6 +133,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
 
         PlayerHero = null;
+        GlobalUpgradeBoard.Reset();
 
         // new save
         string guid = Guid.NewGuid().ToString();
@@ -163,6 +164,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.BattleNumber = BattleNumber;
 
         saveData.Gold = Gold;
+        saveData.GlobalUpgradeBoard = GlobalUpgradeBoard.SerializeSelf();
 
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
@@ -190,6 +192,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         BattleNumber = saveData.BattleNumber;
 
         Gold = saveData.Gold;
+        GlobalUpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
 
         PlayerHero = ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
@@ -203,6 +206,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 1000;
 
         PlayerHero = null;
+        GlobalUpgradeBoard.Reset();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

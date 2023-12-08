@@ -15,8 +15,10 @@ MonoBehaviour:
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
   Icon: {fileID: 21300000, guid: 3f3b634968ef2dd45bf1755d63af692d, type: 3}
   Description: Hero Pull
+  Type: 1
   Levels:
   - {fileID: 11400000, guid: 8e2ea8fb55db0c54295738f2bbbed89e, type: 2}
   - {fileID: 11400000, guid: 420fa257f9d8ee94bab535cbcb7cea30, type: 2}
   - {fileID: 11400000, guid: cd690e007c6bca846b4c9465d8e65469, type: 2}
   CurrentLevel: -1
+  PermanentlyUnlocked: 0

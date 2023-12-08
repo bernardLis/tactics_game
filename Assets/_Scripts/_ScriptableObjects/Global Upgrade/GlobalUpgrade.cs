@@ -6,8 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Global Upgrades/Global Upgrade")]
 public class GlobalUpgrade : BaseScriptableObject
 {
+    GameManager _gameManager;
+
     public Sprite Icon;
     public string Description;
+    public GlobalUpgradeType Type;
 
     public List<GlobalUpgradeLevel> Levels;
     public int CurrentLevel = -1;
@@ -17,6 +20,7 @@ public class GlobalUpgrade : BaseScriptableObject
     public event Action OnLevelChanged;
     public virtual void Initialize(GlobalUpgradeBoard board)
     {
+        _gameManager = GameManager.Instance;
         _board = board;
         _board.OnRefundAll += Refund;
 
@@ -24,11 +28,12 @@ public class GlobalUpgrade : BaseScriptableObject
         if (CurrentLevel > 0) return;
         if (PermanentlyUnlocked) CurrentLevel = 0;
     }
-    
+
     public virtual void Purchased()
     {
         CurrentLevel++;
         OnLevelChanged?.Invoke();
+        _gameManager.SaveJsonData();
     }
 
     public GlobalUpgradeLevel GetCurrentLevel()
@@ -70,6 +75,28 @@ public class GlobalUpgrade : BaseScriptableObject
     }
 
 
+    public GlobalUpgradeData SerializeSelf()
+    {
+        GlobalUpgradeData data = new()
+        {
+            Name = name,
+            Level = CurrentLevel
+        };
+
+        return data;
+
+    }
+    public void LoadFromData(GlobalUpgradeData data)
+    {
+        CurrentLevel = data.Level;
+    }
 }
 
+[Serializable]
+public struct GlobalUpgradeData
+{
+    public string Name;
+    public int Level;
+}
 
+public enum GlobalUpgradeType { Other, Hero, Building, Creature, Boss }
