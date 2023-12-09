@@ -8,18 +8,18 @@ using Random = UnityEngine.Random;
 public class GameDatabase : BaseScriptableObject
 {
     [Header("Buildings")]
-    [SerializeField] BuildingProduction[] Buildings;
-    public BuildingProduction GetBuildingByName(string name) { return Buildings.FirstOrDefault(b => b.name == name); }
+    [SerializeField] Building[] Buildings;
+    public Building GetBuildingByName(string name) { return Buildings.FirstOrDefault(b => b.name == name); }
     public void InitializeBuildings()
     {
-        foreach (BuildingProduction b in Buildings)
+        foreach (Building b in Buildings)
             b.Initialize();
     }
 
     public List<Building> GetUnlockedBuildings()
     {
         List<Building> unlockedBuildings = new();
-        foreach (BuildingProduction b in Buildings)
+        foreach (Building b in Buildings)
             if (b.IsUnlocked())
                 unlockedBuildings.Add(b);
         return unlockedBuildings;

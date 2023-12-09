@@ -41,6 +41,4 @@ public class Building : BaseScriptableObject
         IsSecured = false;
         OnCorrupted?.Invoke();
     }
-
-
 }

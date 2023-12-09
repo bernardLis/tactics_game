@@ -325,7 +325,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         EntityLog.Add($"{_battleManager.GetTime()}: Entity dies.");
         OnDeath?.Invoke(this, attacker);
 
-        if (this is BattleMinion)
+        if (Team == 1)
         {
             DestroySelf();
             yield break;
@@ -345,6 +345,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
     protected virtual void DestroySelf()
     {
+        StopAllCoroutines();
+        transform.DOKill();
         Destroy(gameObject);
     }
 
@@ -375,6 +377,8 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         while (totalDamage > 0)
         {
+            if (IsDead) break;
+
             // poison can't kill
             if (Entity.CurrentHealth.Value > damageTick)
             {
