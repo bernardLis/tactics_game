@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemyWave : BaseScriptableObject
 {
+    GameManager _gameManager;
+
     public Sprite Icon;
     public Element Element;
 
     public List<Minion> Minions = new();
+    public List<Creature> Creatures = new();
 
     public void CreateWave(int minions, Vector2Int minionLevelRange)
     {
-        GameManager _gameManager = GameManager.Instance;
+        _gameManager = GameManager.Instance;
 
         List<Minion> minionList = new(_gameManager.EntityDatabase.GetAllMinions());
 
@@ -22,5 +25,14 @@ public class EnemyWave : BaseScriptableObject
             minion.InitializeBattle(1);
             Minions.Add(minion);
         }
+
+        AddRangedOpponent();
+    }
+
+    void AddRangedOpponent()
+    {
+        Creature rangedOpponent = Instantiate(_gameManager.EntityDatabase.RangedOpponent);
+        rangedOpponent.InitializeBattle(1);
+        Creatures.Add(rangedOpponent);
     }
 }

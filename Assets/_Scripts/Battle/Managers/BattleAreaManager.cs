@@ -80,7 +80,7 @@ public class BattleAreaManager : MonoBehaviour
         UnlockedTiles.Add(HomeTile);
         HomeTile.EnableTile();
         HomeTile.Secured();
-        HomeTile.HandleBorders(); // magic color
+        HomeTile.HandleBorders();
 
         SetCornerTileIndicators();
     }

@@ -159,14 +159,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _noFights: 1
-  Fights: []
+  _noFights: 0
   _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
   _enemyProjectilePoolHolder: {fileID: 0}
   Projectiles: []
   _minionPrefab: {fileID: 6266213777921296780, guid: 2e606e0d198ae774b81a2ea0d596fb1c, type: 3}
   _minionPoolHolder: {fileID: 0}
   Minions: []
+  _rangedOpponent: {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +195,13 @@ MonoBehaviour:
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
   _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   _homeBuilding: {fileID: 11400000, guid: 5fca7a2d027d73e4e930ea647df74142, type: 2}
+  _cornerTileIndicators:
+  - {fileID: 6133714866849544691, guid: 9e6274f398e5b6541b5e2d090a57c869, type: 3}
+  - {fileID: 42295472435206129, guid: c30cf1d7456268449a9bea042f704c10, type: 3}
+  - {fileID: 4038709634893199650, guid: 38241b96abbc16642bd099b7acc523d4, type: 3}
+  - {fileID: 4595489097737614975, guid: 7e700b4280431f54880c689fae4c9736, type: 3}
   HomeTile: {fileID: 0}
-  CornerTiles: []
+  _cornerTiles: []
   UnlockedTiles: []
 --- !u!114 &892723308641058941
 MonoBehaviour:
@@ -214,7 +219,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ce32f1c73c0ac2749831866fe047d628, type: 2}
   - {fileID: 11400000, guid: a79818e297226f7408f6866a3059e745, type: 2}
   - {fileID: 11400000, guid: 346160d9ae8c40c42add1319d16ad989, type: 2}
-  _bossTileIndicatorPrefab: {fileID: 2173691618410174413, guid: 98f56d078cc11cc4d901b51810fa87b9, type: 3}
 --- !u!114 &8560908320832600270
 MonoBehaviour:
   m_ObjectHideFlags: 0

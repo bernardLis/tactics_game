@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f43883b5f433a62468b253079e196bfd, type: 2}
   - {fileID: 11400000, guid: 239b1bc30f110984c9464c1a4845972c, type: 2}
   - {fileID: 11400000, guid: 9dc3678d6ef83974f9709e8c998220a4, type: 2}
+  RangedOpponent: {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
   StartingArmies:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
     Creatures:

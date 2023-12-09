@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc3d76b8063c97e4c94a908f2c9adc97, type: 3}
-  m_Name: Attack Cooldown
+  m_Name: Power
   m_EditorClassIdentifier: 
-  Id: 0156f547-c316-4fda-bc17-0b6941e832f5
+  Id: 82bcc16b-f248-4856-befc-2df55dad2303
   StatType: 0
   Icon: {fileID: 0}
   Description: 
-  BaseValue: 3
+  BaseValue: 69
   BonusValue: 0
-  IsDecreasingPerLevel: 1
-  GrowthPerLevelRange: {x: 0, y: 1}
-  MinMaxValue: {x: 0, y: 999}
+  IsDecreasingPerLevel: 0
+  GrowthPerLevelRange: {x: 0, y: 2}
+  MaxMinValue: {x: 0, y: 50}

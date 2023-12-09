@@ -44,8 +44,9 @@ public class EntityDatabase : ScriptableObject
         return creatures;
     }
 
-
+    [Header("Minions")]
     [SerializeField] Minion[] Minions;
+    public Creature RangedOpponent;
 
     public List<Minion> GetAllMinions() { return Minions.ToList(); }
     public List<Minion> GetAllMinionsByElement(Element element)

@@ -27,6 +27,7 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
     [SerializeField] Transform _minionPoolHolder;
     public List<BattleEntity> Minions = new();
 
+
     void Start()
     {
         _battleManager = BattleManager.Instance;
@@ -100,27 +101,42 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
         if (!_currentFight.IsFinished()) return;
     }
 
-    IEnumerator SpawnWave(EnemyWave group)
+    IEnumerator SpawnWave(EnemyWave wave)
     {
         // spawn minions on tiles next to the player or on the same tile
         List<BattleTile> tiles = _battleAreaManager.GetTilesAroundPlayer();
-        yield return SpawnMinions(group, tiles);
+        yield return SpawnMinions(wave, tiles);
         _currentFight.SpawningWaveFinished();
     }
 
-    public IEnumerator SpawnMinions(EnemyWave group, List<BattleTile> tiles)
+    public IEnumerator SpawnMinions(EnemyWave wave, List<BattleTile> tiles)
     {
         BattleTile tile = tiles[Random.Range(0, tiles.Count)];
-        for (int i = 0; i < group.Minions.Count; i++)
+        for (int i = 0; i < wave.Minions.Count; i++)
         {
-            Minion m = group.Minions[i];
+            Minion m = wave.Minions[i];
             m.InitializeBattle(1);
 
-            Vector3 pos = tile.GetMinionPosition(i, group.Minions.Count);
+            Vector3 pos = tile.GetMinionPosition(i, wave.Minions.Count);
 
             // BattleEntity be = SpawnEntity(m, pos);
             BattleEntity be = Minions.Find(x => !x.gameObject.activeSelf);
             be.InitializeEntity(m, 1);
+            be.transform.position = pos;
+            be.gameObject.SetActive(true);
+            _battleManager.AddOpponentArmyEntity(be);
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        for (int i = 0; i < wave.Creatures.Count; i++)
+        {
+            Creature c = wave.Creatures[i];
+            c.InitializeBattle(1);
+
+            Vector3 pos = tile.GetPositionRandom(i, wave.Creatures.Count);
+
+            BattleEntity be = SpawnEntity(c, pos);
+            be.InitializeEntity(c, 1);
             be.transform.position = pos;
             be.gameObject.SetActive(true);
             _battleManager.AddOpponentArmyEntity(be);
