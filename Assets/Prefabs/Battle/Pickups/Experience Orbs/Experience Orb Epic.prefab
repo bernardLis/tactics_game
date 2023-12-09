@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Experience Orb Epic
       objectReference: {fileID: 0}
+    - target: {fileID: 8376105503879943705, guid: 9b4d87e8171c732498866dd50e00b392, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
