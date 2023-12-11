@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6306c4bb621acbc479937cf243966228, type: 3}
+  m_Name: Skull
+  m_EditorClassIdentifier: 
+  Id: f5f80c04-e23d-4a46-a8ac-bf2e036f9224
+  Prefab: {fileID: 3288315891967619346, guid: 86f682579a59344448f004e3329b698c, type: 3}
+  CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
+  DropSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  CollectSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}

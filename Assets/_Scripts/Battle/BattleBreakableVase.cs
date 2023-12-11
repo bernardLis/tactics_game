@@ -13,6 +13,8 @@ public class BattleBreakableVase : MonoBehaviour
     [SerializeField] Hammer _hammer;
     [SerializeField] Horseshoe _horseshoe;
     [SerializeField] Bag _bag;
+    [SerializeField] Skull _skull;
+
 
     Collider _collider;
     Rigidbody _rigidbody;
@@ -59,20 +61,17 @@ public class BattleBreakableVase : MonoBehaviour
         // 1% chance of spawning horseshoe
         // 98% chance of spawning coin
         int random = Random.Range(0, 100);
-        if (random < 50)
-            SpawnCoin();
-        else
-            SpawnBag();
-        /*
+
         if (random == 0)
             SpawnHammer();
         else if (random == 1)
             SpawnHorseshoe();
         else if (random == 2)
             SpawnBag();
+        else if (random == 3)
+            SpawnSkull();
         else
             SpawnCoin();
-            */
     }
 
     void SpawnCoin()
@@ -115,6 +114,17 @@ public class BattleBreakableVase : MonoBehaviour
         BattlePickup bag = Instantiate(_bag.Prefab, transform.position, Quaternion.identity)
                             .GetComponent<BattlePickup>();
         bag.Initialize(instance);
+
+        Destroy(gameObject, 7f);
+    }
+
+    void SpawnSkull()
+    {
+        if (_skull == null) return;
+        Skull instance = Instantiate(_skull);
+        BattlePickup skull = Instantiate(_skull.Prefab, transform.position, Quaternion.identity)
+                            .GetComponent<BattlePickup>();
+        skull.Initialize(instance);
 
         Destroy(gameObject, 7f);
     }

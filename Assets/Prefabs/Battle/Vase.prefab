@@ -137,6 +137,7 @@ MonoBehaviour:
   _hammer: {fileID: 11400000, guid: 73d49afde470c06499a6d8fb027d7551, type: 2}
   _horseshoe: {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
   _bag: {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
+  _skull: {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
 --- !u!54 &4416292015547065557
 Rigidbody:
   m_ObjectHideFlags: 0

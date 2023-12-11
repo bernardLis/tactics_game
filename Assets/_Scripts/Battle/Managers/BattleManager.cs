@@ -289,6 +289,14 @@ public class BattleManager : Singleton<BattleManager>
         OnBagCollected?.Invoke();
     }
 
+    public void SkullCollected()
+    {
+        if (this == null) return;
+        List<BattleEntity> copy = new(OpponentEntities);
+        foreach (BattleEntity be in copy)
+            if (be is BattleMinion)
+                StartCoroutine(be.Die());
+    }
 
     IEnumerator BattleLost()
     {
