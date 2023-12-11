@@ -30,7 +30,6 @@ public class BattleExperienceOrb : BattlePickup
     {
         transform.DOMove(_battleManager.BattleHero.transform.position, Random.Range(0.5f, 2f)).OnComplete(
             () => { PickUp(_battleManager.BattleHero); });
-
     }
 
     protected override void PickUp(BattleHero hero)

@@ -12,6 +12,7 @@ public class BattleBreakableVase : MonoBehaviour
     [SerializeField] Coin _coin;
     [SerializeField] Hammer _hammer;
     [SerializeField] Horseshoe _horseshoe;
+    [SerializeField] Bag _bag;
 
     Collider _collider;
     Rigidbody _rigidbody;
@@ -43,7 +44,6 @@ public class BattleBreakableVase : MonoBehaviour
         _collider.enabled = false;
         _rigidbody.isKinematic = true;
 
-
         if (_breakParticles != null)
             _breakParticles.SetActive(true);
 
@@ -55,17 +55,24 @@ public class BattleBreakableVase : MonoBehaviour
 
     void SpawnPickup()
     {
-        // TODO: lower chance of spawning hammer and horseshoe
         // 1% chance of spawning hammer
         // 1% chance of spawning horseshoe
         // 98% chance of spawning coin
         int random = Random.Range(0, 100);
+        if (random < 50)
+            SpawnCoin();
+        else
+            SpawnBag();
+        /*
         if (random == 0)
             SpawnHammer();
         else if (random == 1)
             SpawnHorseshoe();
+        else if (random == 2)
+            SpawnBag();
         else
             SpawnCoin();
+            */
     }
 
     void SpawnCoin()
@@ -97,6 +104,17 @@ public class BattleBreakableVase : MonoBehaviour
         BattlePickup horseshoe = Instantiate(_horseshoe.Prefab, transform.position, Quaternion.identity)
                             .GetComponent<BattlePickup>();
         horseshoe.Initialize(instance);
+
+        Destroy(gameObject, 7f);
+    }
+
+    void SpawnBag()
+    {
+        if (_bag == null) return;
+        Bag instance = Instantiate(_bag);
+        BattlePickup bag = Instantiate(_bag.Prefab, transform.position, Quaternion.identity)
+                            .GetComponent<BattlePickup>();
+        bag.Initialize(instance);
 
         Destroy(gameObject, 7f);
     }

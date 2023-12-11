@@ -15,11 +15,24 @@ public class BattleCoin : BattlePickup
         base.Initialize(pickUp);
         _coin = pickUp as Coin;
 
+        _battleManager.OnBagCollected += OnBagCollected;
     }
+
+    void OnBagCollected()
+    {
+        transform.DOMove(_battleManager.BattleHero.transform.position + Vector3.up, Random.Range(0.5f, 2f))
+            .OnComplete(() =>
+            {
+                PickUp(_battleManager.BattleHero);
+            });
+    }
+
 
     protected override void PickUp(BattleHero hero)
     {
         base.PickUp(hero);
+        _battleManager.OnBagCollected -= OnBagCollected;
+
         DisplayText($"+{_coin.Amount} gold", Color.yellow);
         GetComponentInChildren<Light>().enabled = false;
     }

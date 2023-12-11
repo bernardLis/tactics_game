@@ -65,6 +65,7 @@ public class BattleManager : Singleton<BattleManager>
     public event Action OnGameResumed;
 
     public event Action OnHorseshoeCollected;
+    public event Action OnBagCollected;
 
     protected override void Awake()
     {
@@ -281,6 +282,11 @@ public class BattleManager : Singleton<BattleManager>
     public void HorseshoeCollected()
     {
         OnHorseshoeCollected?.Invoke();
+    }
+
+    public void BagCollected()
+    {
+        OnBagCollected?.Invoke();
     }
 
 
