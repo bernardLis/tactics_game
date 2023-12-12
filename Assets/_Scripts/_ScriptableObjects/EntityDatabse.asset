@@ -117,12 +117,16 @@ MonoBehaviour:
   - StatType: 6
     Sprite: {fileID: 21300000, guid: 91eba2b2388797a4692740407715ba06, type: 3}
     Description: Radius of pickup collection.
+  - StatType: 8
+    Sprite: {fileID: 21300000, guid: cef658720d4996b41a2ca08c93524c85, type: 3}
+    Description: Bonus Exp
   HeroStats:
   - {fileID: 11400000, guid: cc4ee840fad7da74aa0785407ed1b430, type: 2}
   - {fileID: 11400000, guid: 82661cd5bddc3f44d94feab9eaf761bd, type: 2}
   - {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
   - {fileID: 11400000, guid: 0f6eb857cfbce764a9cac1e2d7964a6e, type: 2}
   - {fileID: 11400000, guid: e7ffcc7d601424748b15d27dff66e269, type: 2}
+  - {fileID: 11400000, guid: ae82378499959984b96144dbfbc3143c, type: 2}
   Elements:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}

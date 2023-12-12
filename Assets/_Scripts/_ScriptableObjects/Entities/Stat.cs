@@ -15,6 +15,7 @@ public class Stat : BaseScriptableObject
     public int BaseValue;
     [HideInInspector] public int BonusValue;
     public bool IsDecreasingPerLevel;
+    [Tooltip("Min: inclusive, Max: inclusive")]
     public Vector2Int GrowthPerLevelRange;
     public Vector2Int MinMaxValue = new Vector2Int(0, 999);
 

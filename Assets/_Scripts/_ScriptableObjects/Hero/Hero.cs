@@ -9,19 +9,29 @@ public class Hero : EntityMovement
 {
     GameManager _gameManager;
 
+    [Header("Stats")]
     public Stat Power;
     public Stat Pull;
+    public Stat BonusExp;
 
     public override void InitializeBattle(int team)
     {
         base.InitializeBattle(team);
+
     }
 
     protected override void CreateStats()
     {
+        // Hero handles it through CreateBaseStats() instead 
     }
 
     /* LEVELING */
+    public override void AddExp(int gain)
+    {
+        int totalExp = Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
+        base.AddExp(totalExp);
+    }
+
     public override int GetExpForNextLevel()
     {
         // TODO: math
@@ -35,6 +45,9 @@ public class Hero : EntityMovement
 
         return expRequired;
     }
+
+    [Header("Tablets")]
+    public List<Tablet> Tablets = new();
 
 
     [Header("Abilities")]
@@ -68,9 +81,11 @@ public class Hero : EntityMovement
 
         CreateBaseStats();
 
+        foreach (Tablet t in Tablets)
+            t.Initialize(this);
+
         Abilities = new();
-        // HERE: testing
-        //  AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
+        AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
     }
 
     void CreateBaseStats()
@@ -95,12 +110,16 @@ public class Hero : EntityMovement
         Power = Instantiate(entityDatabase.GetHeroStatByType(StatType.Power));
         Power.Initialize();
 
+        BonusExp = Instantiate(entityDatabase.GetHeroStatByType(StatType.ExpBonus));
+        BonusExp.Initialize();
+
         UpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
         MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Health").GetValue());
         Armor.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Armor").GetValue());
         Speed.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Speed").GetValue());
         Pull.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Pull").GetValue());
         Power.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Power").GetValue());
+        BonusExp.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Exp Bonus").GetValue());
     }
 
     public List<Stat> GetAllStats()
@@ -111,9 +130,31 @@ public class Hero : EntityMovement
             Armor,
             Speed,
             Pull,
-            Power
+            Power,
+            BonusExp
         };
         return stats;
+    }
+
+    public Stat GetStatByType(StatType type)
+    {
+        switch (type)
+        {
+            case StatType.Health:
+                return MaxHealth;
+            case StatType.Armor:
+                return Armor;
+            case StatType.Speed:
+                return Speed;
+            case StatType.Pull:
+                return Pull;
+            case StatType.Power:
+                return Power;
+            case StatType.ExpBonus:
+                return BonusExp;
+            default:
+                return null;
+        }
     }
 
     /* SERIALIZATION */
