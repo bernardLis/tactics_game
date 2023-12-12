@@ -48,7 +48,15 @@ public class Hero : EntityMovement
 
     [Header("Tablets")]
     public List<Tablet> Tablets = new();
-
+    public void CreateTablets()
+    {
+        foreach (Tablet original in _gameManager.EntityDatabase.HeroTablets)
+        {
+            Tablet instance = Instantiate(original);
+            Tablets.Add(instance);
+            instance.Initialize(this);
+        }
+    }
 
     [Header("Abilities")]
     public List<Ability> Abilities = new();
@@ -80,7 +88,7 @@ public class Hero : EntityMovement
         Element = element;
 
         CreateBaseStats();
-
+        CreateTablets();
         foreach (Tablet t in Tablets)
             t.Initialize(this);
 

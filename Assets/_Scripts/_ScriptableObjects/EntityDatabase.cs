@@ -97,7 +97,7 @@ public class EntityDatabase : ScriptableObject
 
     [SerializeField] Stat[] HeroStats;
     public Stat GetHeroStatByType(StatType type) { return HeroStats.FirstOrDefault(x => x.StatType == type); }
-
+    public Tablet[] HeroTablets;
 
 
     [Header("Elements")]

@@ -19,4 +19,4 @@ MonoBehaviour:
   Level: {fileID: 0}
   MaxLevel: 7
   PrimaryStat: 2
-  SecondaryStat: 6
+  SecondaryStat: 0
