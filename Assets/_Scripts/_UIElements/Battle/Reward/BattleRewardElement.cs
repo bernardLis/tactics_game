@@ -224,9 +224,9 @@ public class BattleRewardElement : FullScreenElement
             RewardCard card;
             float v = Random.value;
             if (v > 0.5f) card = CreateRewardCardAbility();
-            else card = CreateRewardCardHeroStat();
+            else card = CreateRewardTablet();
 
-            if (card == null && v > 0.5f) card = CreateRewardCardHeroStat();
+            if (card == null && v > 0.5f) card = CreateRewardTablet();
             if (card == null && v <= 0.5f) card = CreateRewardCardAbility();
 
             // if it is not possible give them gold
@@ -246,13 +246,13 @@ public class BattleRewardElement : FullScreenElement
         }
     }
 
-    RewardCard CreateRewardCardHeroStat()
+    RewardCard CreateRewardTablet()
     {
-        RewardHeroStat reward = ScriptableObject.CreateInstance<RewardHeroStat>();
+        RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
         if (!reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards)) return null;
 
         reward.OnRewardSelected += RewardSelected;
-        RewardCardHeroStat card = new(reward);
+        RewardCardTablet card = new(reward);
         return card;
     }
 

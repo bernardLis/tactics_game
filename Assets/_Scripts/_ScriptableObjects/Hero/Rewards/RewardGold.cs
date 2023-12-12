@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Reward Gold")]
 public class RewardGold : Reward
 {
     public int Gold { get; private set; }

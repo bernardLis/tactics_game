@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1f94e9d931b464388e91c4437f2e4d, type: 3}
   m_Name: Water Tablet
   m_EditorClassIdentifier: 
-  Id: ea5f513b-6d41-45ad-afd1-92f6e63b8e32
+  Id: 7cc71daa-16ab-4d42-bece-ff036d841173
   Icon: {fileID: 21300000, guid: 72ee75772d5164a48ac72dfdb220dcb6, type: 3}
   Description: 
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Level: {fileID: 0}
   MaxLevel: 7
   PrimaryStat: 1
-  SecondaryStat: 0
+  SecondaryStat: 8

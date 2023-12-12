@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1f94e9d931b464388e91c4437f2e4d, type: 3}
   m_Name: Fire Tablet
   m_EditorClassIdentifier: 
-  Id: ea5f513b-6d41-45ad-afd1-92f6e63b8e32
+  Id: 78e13e00-69cd-4e7e-8f0e-36084185ae3b
   Icon: {fileID: 21300000, guid: 598411dc21e62bc4f9a234543531f384, type: 3}
   Description: 
   Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Level: {fileID: 0}
   MaxLevel: 7
   PrimaryStat: 0
-  SecondaryStat: 0
+  SecondaryStat: 7

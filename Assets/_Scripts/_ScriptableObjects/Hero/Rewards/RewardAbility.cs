@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Reward Ability")]
 public class RewardAbility : Reward
 {
     public bool IsUpgrade { get; private set; }

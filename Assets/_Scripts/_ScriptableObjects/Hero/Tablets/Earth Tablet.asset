@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1f94e9d931b464388e91c4437f2e4d, type: 3}
   m_Name: Earth Tablet
   m_EditorClassIdentifier: 
-  Id: ea5f513b-6d41-45ad-afd1-92f6e63b8e32
+  Id: e1c61258-3d2f-44c4-80d2-92f97b48bd71
   Icon: {fileID: 21300000, guid: 131ee377f10f0844194ab7ab0907746b, type: 3}
   Description: 
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Level: {fileID: 0}
   MaxLevel: 7
   PrimaryStat: 2
-  SecondaryStat: 0
+  SecondaryStat: 6

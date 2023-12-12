@@ -27,6 +27,7 @@ public class Tablet : BaseScriptableObject
 
     public virtual void LevelUp()
     {
+        Debug.Log($"tablet {name} level up to {Level.Value + 1}");
         Level.ApplyChange(1);
         _hero.GetStatByType(PrimaryStat).LevelUp();
         if (SecondaryStat != StatType.None)
