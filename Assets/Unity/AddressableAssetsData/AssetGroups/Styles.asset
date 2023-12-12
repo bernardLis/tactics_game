@@ -117,16 +117,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 92868221e7deb1347b9463dde7387f87
-    m_Address: StoreyTroopsStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 002a1c8d950a0ce49a3483c0d4212f1d
-    m_Address: StoreyUpgradeTreeStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2c5d53665b9fb84498cbab8dbbbe1aa7
     m_Address: EntityCardStyles
     m_ReadOnly: 0

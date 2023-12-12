@@ -12,7 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public GameDatabase GameDatabase;
     public EntityDatabase EntityDatabase;
-    public GlobalUpgradeBoard GlobalUpgradeBoard;
+    public UpgradeBoard GlobalUpgradeBoard;
 
     public GameObject BannerPrefab;
 

@@ -8,7 +8,7 @@ public class Building : BaseScriptableObject
 {
     public Sprite Icon;
     public bool IsSecured;
-    public GlobalUpgrade BuildingUpgrade;
+    public Upgrade BuildingUpgrade;
 
     public int SecondsToCorrupt;
 

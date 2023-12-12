@@ -5,17 +5,17 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class GlobalUpgradeElementTooltip : VisualElement
+public class UpgradeElementTooltip : VisualElement
 {
     const string _ussCommonSpacer = "common__horizontal-spacer";
 
-    GlobalUpgrade _globalUpgrade;
+    Upgrade _upgrade;
 
 
-    public GlobalUpgradeElementTooltip(GlobalUpgrade globalUpgrade)
+    public UpgradeElementTooltip(Upgrade upgrade)
     {
-        _globalUpgrade = globalUpgrade;
-        _globalUpgrade.OnLevelChanged += HandleTooltip;
+        _upgrade = upgrade;
+        _upgrade.OnLevelChanged += HandleTooltip;
 
         HandleTooltip();
     }
@@ -23,7 +23,7 @@ public class GlobalUpgradeElementTooltip : VisualElement
     void HandleTooltip()
     {
         Clear();
-        if (_globalUpgrade.Type == GlobalUpgradeType.Building)
+        if (_upgrade.Type == UpgradeType.Building)
         {
             CreateBuildingTooltip();
             return;
@@ -34,42 +34,42 @@ public class GlobalUpgradeElementTooltip : VisualElement
 
     void CreateTooltip()
     {
-        Add(new Label(_globalUpgrade.Description));
+        Add(new Label(_upgrade.Description));
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonSpacer);
         Add(spacer);
 
         Add(new Label("Current:"));
-        if (_globalUpgrade.CurrentLevel == -1)
+        if (_upgrade.CurrentLevel == -1)
             Add(new Label("Not unlocked"));
         else
-            Add(new Label(_globalUpgrade.GetCurrentLevel().Description));
+            Add(new Label(_upgrade.GetCurrentLevel().Description));
 
         VisualElement spacer1 = new();
         spacer1.AddToClassList(_ussCommonSpacer);
         Add(spacer1);
 
         Add(new Label("Next:"));
-        if (_globalUpgrade.IsMaxLevel())
+        if (_upgrade.IsMaxLevel())
             Add(new Label("Max level reached"));
         else
-            Add(new Label(_globalUpgrade.GetNextLevel().Description));
+            Add(new Label(_upgrade.GetNextLevel().Description));
 
     }
 
     void CreateBuildingTooltip()
     {
-        Add(new Label(_globalUpgrade.name));
+        Add(new Label(_upgrade.name));
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonSpacer);
         Add(spacer);
 
         Add(new Label("Current:"));
-        if (_globalUpgrade.CurrentLevel == -1)
+        if (_upgrade.CurrentLevel == -1)
             Add(new Label("Not unlocked"));
         else
         {
-            GlobalUpgradeLevelBuilding level = (GlobalUpgradeLevelBuilding)_globalUpgrade.GetCurrentLevel();
+            UpgradeLevelBuilding level = (UpgradeLevelBuilding)_upgrade.GetCurrentLevel();
             Add(new Label($"Max creatures: {level.ProductionLimit}"));
             Add(new Label($"Production delay: {level.ProductionDelay}"));
         }
@@ -79,14 +79,13 @@ public class GlobalUpgradeElementTooltip : VisualElement
         Add(spacer1);
 
         Add(new Label("Next:"));
-        if (_globalUpgrade.IsMaxLevel())
+        if (_upgrade.IsMaxLevel())
             Add(new Label("Max level reached"));
         else
         {
-            GlobalUpgradeLevelBuilding level = (GlobalUpgradeLevelBuilding)_globalUpgrade.GetNextLevel();
+            UpgradeLevelBuilding level = (UpgradeLevelBuilding)_upgrade.GetNextLevel();
             Add(new Label($"Max creatures: {level.ProductionLimit}"));
             Add(new Label($"Production delay: {level.ProductionDelay}"));
-
         }
     }
 }

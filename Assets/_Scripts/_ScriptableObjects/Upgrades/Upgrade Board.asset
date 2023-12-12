@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 859e154bc91828847bee8f28600929bd, type: 3}
-  m_Name: Global Upgrade Board
+  m_Name: Upgrade Board
   m_EditorClassIdentifier: 
   Id: b5bcd18b-32c7-45e7-9a6a-317af337ad84
-  _globalUpgradeOriginals:
-  - {fileID: 11400000, guid: 5dbd980f19f07e04ea9a9e63fa7dad4c, type: 2}
-  - {fileID: 11400000, guid: bd9e32a2aac3f3a4eb3ec37e6bb094d4, type: 2}
-  - {fileID: 11400000, guid: ae595615982452440a3a076ae32ab476, type: 2}
+  _upgradeOriginals:
+  - {fileID: 11400000, guid: d1c909a16b2cff74593ee7a55bacd2f1, type: 2}
+  - {fileID: 11400000, guid: 1ad078814eaa06542b1d020357069b0b, type: 2}
   - {fileID: 11400000, guid: d53b9d37900eb4b41869cc7d8fdeb945, type: 2}
+  - {fileID: 11400000, guid: ae595615982452440a3a076ae32ab476, type: 2}
+  - {fileID: 11400000, guid: bd9e32a2aac3f3a4eb3ec37e6bb094d4, type: 2}
+  - {fileID: 11400000, guid: 5dbd980f19f07e04ea9a9e63fa7dad4c, type: 2}
   - {fileID: 11400000, guid: ce6e77f15c6fa774da99bd136d233443, type: 2}
   - {fileID: 11400000, guid: e27aab3a3fec49a41933504166fb5c7f, type: 2}
   - {fileID: 11400000, guid: 73c714e1c346a304fabc23bd59b8204d, type: 2}
@@ -32,52 +34,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1f42e9475b62dc4da791758027b842b, type: 2}
   - {fileID: 11400000, guid: ad14f6795fecadf428f0e8d32e23dc96, type: 2}
   - {fileID: 11400000, guid: bba642471055d704694994fb08710075, type: 2}
-  - {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
-  - {fileID: 11400000, guid: 50dd99ac47e5d6144908dbf7e50c5ef7, type: 2}
-  - {fileID: 11400000, guid: 999d04af62cc4aa44b8fa5d9ca3a2f3d, type: 2}
   - {fileID: 11400000, guid: 9bd2ead4f3c542d46a1600a4958f710c, type: 2}
+  - {fileID: 11400000, guid: 999d04af62cc4aa44b8fa5d9ca3a2f3d, type: 2}
+  - {fileID: 11400000, guid: 50dd99ac47e5d6144908dbf7e50c5ef7, type: 2}
+  - {fileID: 11400000, guid: 3578782611f1b934c99753c2d8aaeba9, type: 2}
   - {fileID: 11400000, guid: f04c07d2d12dba2409832085cdec5bf6, type: 2}
   - {fileID: 11400000, guid: b5711643ee02ade489de9570861addb7, type: 2}
-  - {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
-  - {fileID: 11400000, guid: dfc467aa1ff24034fb9075817522bda3, type: 2}
-  - {fileID: 11400000, guid: e89216b90af79b3479bd20730c7510a1, type: 2}
-  - {fileID: 11400000, guid: ac4ee666fe3dc004aad79363799239cc, type: 2}
   - {fileID: 11400000, guid: f47bc738e58227e45976d613f6a18206, type: 2}
+  - {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
   - {fileID: 11400000, guid: d650f2d4bf34b03488fa13b5edcc5b3d, type: 2}
+  - {fileID: 11400000, guid: e89216b90af79b3479bd20730c7510a1, type: 2}
+  - {fileID: 11400000, guid: dfc467aa1ff24034fb9075817522bda3, type: 2}
   - {fileID: 11400000, guid: 3ad540e03b159714595d8386bc0de149, type: 2}
   - {fileID: 11400000, guid: 10a0250efcc221c418a1505e87664685, type: 2}
-  - {fileID: 11400000, guid: d1c909a16b2cff74593ee7a55bacd2f1, type: 2}
-  - {fileID: 11400000, guid: 1ad078814eaa06542b1d020357069b0b, type: 2}
-  GlobalUpgrades:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ac4ee666fe3dc004aad79363799239cc, type: 2}
+  Upgrades: []

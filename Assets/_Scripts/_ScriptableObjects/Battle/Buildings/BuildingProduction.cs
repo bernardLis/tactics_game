@@ -8,8 +8,8 @@ public class BuildingProduction : Building
 {
     public Creature ProducedCreature;
 
-    public GlobalUpgradeLevelBuilding GetCurrentUpgrade()
+    public UpgradeLevelBuilding GetCurrentUpgrade()
     {
-        return BuildingUpgrade.GetCurrentLevel() as GlobalUpgradeLevelBuilding;
+        return BuildingUpgrade.GetCurrentLevel() as UpgradeLevelBuilding;
     }
 }

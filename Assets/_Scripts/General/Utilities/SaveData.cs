@@ -15,7 +15,7 @@ public class SaveData
 
     public HeroData PlayerHero = new();
 
-    public GlobalUpgradeBoardData GlobalUpgradeBoard = new();
+    public UpgradeBoardData GlobalUpgradeBoard = new();
 
     public string ToJson() { return JsonUtility.ToJson(this); }
 

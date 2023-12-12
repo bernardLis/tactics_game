@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GlobalUpgradesScreen : FullScreenElement
+public class UpgradeScreen : FullScreenElement
 {
-    const string _ussClassName = "global-upgrade-screen__";
+    const string _ussClassName = "upgrade-screen__";
     const string _ussMain = _ussClassName + "main";
     const string _ussHeaderContainer = _ussClassName + "header-container";
     const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
 
     bool _isGray;
 
-    GlobalUpgradeBoard _globalUpgradeBoard;
+    UpgradeBoard _upgradeBoard;
 
     ScrollView _upgradeContainer;
 
-    public GlobalUpgradesScreen(GlobalUpgradeBoard globalUpgradeBoard)
+    public UpgradeScreen(UpgradeBoard upgradeBoard)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeScreenStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.UpgradeScreenStyles);
         if (ss != null) styleSheets.Add(ss);
 
-        _globalUpgradeBoard = globalUpgradeBoard;
+        _upgradeBoard = upgradeBoard;
         style.backgroundColor = new Color(0, 0, 0, 1f);
 
         AddHeader();
@@ -57,18 +57,17 @@ public class GlobalUpgradesScreen : FullScreenElement
         goldElement.style.alignSelf = Align.Center;
         container.Add(goldElement);
         _gameManager.OnGoldChanged += goldElement.ChangeAmount;
-
     }
 
     void CreateHeroUpgrades()
     {
         VisualElement container = CreateUpgradeContainer("Hero Upgrades");
 
-        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Hero);
-        foreach (GlobalUpgrade upgrade in upgrades)
+        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Hero);
+        foreach (Upgrade upgrade in upgrades)
         {
-            upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeElement element = new(upgrade);
+            upgrade.Initialize(_upgradeBoard);
+            UpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }
@@ -77,11 +76,11 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Ability Upgrades");
 
-        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Ability);
-        foreach (GlobalUpgrade upgrade in upgrades)
+        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Ability);
+        foreach (Upgrade upgrade in upgrades)
         {
-            upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeElement element = new(upgrade);
+            upgrade.Initialize(_upgradeBoard);
+            UpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }
@@ -90,11 +89,11 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Building Upgrades");
 
-        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Building);
-        foreach (GlobalUpgrade upgrade in upgrades)
+        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Building);
+        foreach (Upgrade upgrade in upgrades)
         {
-            upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeElement element = new(upgrade);
+            upgrade.Initialize(_upgradeBoard);
+            UpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }
@@ -104,11 +103,11 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Creature Upgrades");
 
-        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Creature);
-        foreach (GlobalUpgrade upgrade in upgrades)
+        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Creature);
+        foreach (Upgrade upgrade in upgrades)
         {
-            upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeElement element = new(upgrade);
+            upgrade.Initialize(_upgradeBoard);
+            UpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }
@@ -116,11 +115,11 @@ public class GlobalUpgradesScreen : FullScreenElement
     void CreateBossUpgrades()
     {
         VisualElement container = CreateUpgradeContainer("Boss Upgrades");
-        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Boss);
-        foreach (GlobalUpgrade upgrade in upgrades)
+        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Boss);
+        foreach (Upgrade upgrade in upgrades)
         {
-            upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeElement element = new(upgrade);
+            upgrade.Initialize(_upgradeBoard);
+            UpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }
@@ -130,15 +129,14 @@ public class GlobalUpgradesScreen : FullScreenElement
     {
         VisualElement container = CreateUpgradeContainer("Other Upgrades");
 
-        List<GlobalUpgrade> upgrades = _globalUpgradeBoard.GetGlobalUpgradesByType(GlobalUpgradeType.Other);
-        foreach (GlobalUpgrade upgrade in upgrades)
+        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Other);
+        foreach (Upgrade upgrade in upgrades)
         {
-            upgrade.Initialize(_globalUpgradeBoard);
-            GlobalUpgradeElement element = new(upgrade);
+            upgrade.Initialize(_upgradeBoard);
+            UpgradeElement element = new(upgrade);
             container.Add(element);
         }
     }
-
 
     VisualElement CreateUpgradeContainer(string txt)
     {
@@ -163,7 +161,6 @@ public class GlobalUpgradesScreen : FullScreenElement
         container.Add(upgradeContainer);
 
         return upgradeContainer;
-
     }
 
     void AddNavigationButtons()
@@ -183,17 +180,11 @@ public class GlobalUpgradesScreen : FullScreenElement
         container.Add(playButton);
     }
 
-    void RefundAll()
-    {
-        _globalUpgradeBoard.RefundAll();
-    }
+    void RefundAll() { _upgradeBoard.RefundAll(); }
 
     void Play()
     {
         Hide();
         OnHide += () => _gameManager.StartGame();
-        // schedule.Execute(() => _gameManager.Play()).StartingIn(1000);
-
     }
-
 }

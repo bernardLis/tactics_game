@@ -36,7 +36,7 @@ public class BattleInfoManager : MonoBehaviour
         _infoPanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
-        GlobalUpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
+        UpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
         if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
             AddTroopsCountElement();
         if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)

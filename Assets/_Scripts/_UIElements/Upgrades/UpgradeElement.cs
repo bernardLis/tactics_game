@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class GlobalUpgradeElement : ElementWithTooltip
+public class UpgradeElement : ElementWithTooltip
 {
     const string _ussCommonButtonBasic = "common__button-basic";
-    const string _ussClassName = "global-upgrade__";
+    const string _ussClassName = "upgrade__";
     const string _ussMain = _ussClassName + "main";
     const string _ussFullyUnlocked = _ussClassName + "fully-unlocked";
 
@@ -20,7 +20,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     GameManager _gameManager;
 
-    public GlobalUpgrade GlobalUpgrade;
+    public Upgrade Upgrade;
 
     List<VisualElement> _stars = new();
 
@@ -34,19 +34,19 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     protected VisualElement _tooltipElement;
 
-    public GlobalUpgradeElement(GlobalUpgrade globalUpgrade)
+    public UpgradeElement(Upgrade upgrade)
     {
         _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GlobalUpgradeStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.UpgradeStyles);
         if (ss != null)
             styleSheets.Add(ss);
 
-        GlobalUpgrade = globalUpgrade;
-        globalUpgrade.OnLevelChanged += OnUpgradeLevelChanged;
+        Upgrade = upgrade;
+        upgrade.OnLevelChanged += OnUpgradeLevelChanged;
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonButtonBasic);
 
-        tweenId = "fill" + GlobalUpgrade.name;
+        tweenId = "fill" + Upgrade.name;
 
         AddStars();
         AddIcon();
@@ -54,7 +54,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
         AddPrice();
         AddFill();
 
-        if (GlobalUpgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
+        if (Upgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
 
         RegisterCallback<PointerDownEvent>(OnPointerDown);
         RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -68,14 +68,10 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     void OnPointerDown(PointerDownEvent evt)
     {
-        if (GlobalUpgrade.IsMaxLevel()) return;
-        if (_gameManager.Gold < GlobalUpgrade.GetNextLevel().Cost) return;
+        if (Upgrade.IsMaxLevel()) return;
+        if (_gameManager.Gold < Upgrade.GetNextLevel().Cost) return;
 
-        // play sound
-
-        // if the player holds the button for a certain amount of time, purchase the upgrade
-        // start filling in the element with color
-        // if the player releases the button, cancel the purchase
+        // TODO: play sound
 
         _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1500);
         DOTween.Kill(tweenId);
@@ -100,7 +96,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
         starsContainer.style.flexDirection = FlexDirection.Row;
         Add(starsContainer);
 
-        for (int i = 0; i < GlobalUpgrade.Levels.Count; i++)
+        for (int i = 0; i < Upgrade.Levels.Count; i++)
         {
             VisualElement star = new();
             star.AddToClassList(_ussStar);
@@ -116,7 +112,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
         for (int i = 0; i < _stars.Count; i++)
         {
             _stars[i].RemoveFromClassList(_ussStarPurchased);
-            if (i <= GlobalUpgrade.CurrentLevel)
+            if (i <= Upgrade.CurrentLevel)
                 _stars[i].AddToClassList(_ussStarPurchased);
         }
     }
@@ -125,34 +121,34 @@ public class GlobalUpgradeElement : ElementWithTooltip
     {
         Label icon = new();
         icon.AddToClassList(_ussIcon);
-        icon.style.backgroundImage = new StyleBackground(GlobalUpgrade.Icon);
+        icon.style.backgroundImage = new StyleBackground(Upgrade.Icon);
         Add(icon);
     }
 
     void AddTitle()
     {
-        _title = new(Helpers.ParseScriptableObjectName(GlobalUpgrade.name));
+        _title = new(Helpers.ParseScriptableObjectName(Upgrade.name));
         _title.AddToClassList(_ussTitle);
         Add(_title);
     }
 
     void AddPrice()
     {
-        if (GlobalUpgrade.IsMaxLevel()) return;
-        _price = new(GlobalUpgrade.GetNextLevel().Cost);
+        if (Upgrade.IsMaxLevel()) return;
+        _price = new(Upgrade.GetNextLevel().Cost);
         Add(_price);
     }
 
     void UpdatePrice()
     {
-        if (GlobalUpgrade.GetNextLevel() != null)
+        if (Upgrade.GetNextLevel() != null)
         {
             if (_price == null)
             {
                 AddPrice();
                 return;
             }
-            _price.ChangeAmount(GlobalUpgrade.GetNextLevel().Cost);
+            _price.ChangeAmount(Upgrade.GetNextLevel().Cost);
             return;
         }
 
@@ -170,11 +166,11 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     void Purchase()
     {
-        if (GlobalUpgrade.IsMaxLevel()) return;
+        if (Upgrade.IsMaxLevel()) return;
 
-        _gameManager.ChangeGoldValue(-GlobalUpgrade.GetNextLevel().Cost);
-        GlobalUpgrade.Purchased();
-        if (GlobalUpgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
+        _gameManager.ChangeGoldValue(-Upgrade.GetNextLevel().Cost);
+        Upgrade.Purchased();
+        if (Upgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
 
         DisplayTooltip();
 
@@ -189,7 +185,7 @@ public class GlobalUpgradeElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        _tooltip = new(this, new GlobalUpgradeElementTooltip(GlobalUpgrade));
+        _tooltip = new(this, new UpgradeElementTooltip(Upgrade));
         base.DisplayTooltip();
     }
 

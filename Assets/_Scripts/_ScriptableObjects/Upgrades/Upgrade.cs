@@ -3,22 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Global Upgrades/Global Upgrade")]
-public class GlobalUpgrade : BaseScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObject/Upgrades/Upgrade")]
+public class Upgrade : BaseScriptableObject
 {
     GameManager _gameManager;
 
     public Sprite Icon;
     public string Description;
-    public GlobalUpgradeType Type;
+    public UpgradeType Type;
 
-    public List<GlobalUpgradeLevel> Levels;
+    public List<UpgradeLevel> Levels;
     public int CurrentLevel = -1;
     public bool PermanentlyUnlocked;
 
-    GlobalUpgradeBoard _board;
+    UpgradeBoard _board;
     public event Action OnLevelChanged;
-    public virtual void Initialize(GlobalUpgradeBoard board)
+    public virtual void Initialize(UpgradeBoard board)
     {
         _gameManager = GameManager.Instance;
         _board = board;
@@ -36,12 +36,12 @@ public class GlobalUpgrade : BaseScriptableObject
         _gameManager.SaveJsonData();
     }
 
-    public GlobalUpgradeLevel GetCurrentLevel()
+    public UpgradeLevel GetCurrentLevel()
     {
         return Levels[CurrentLevel];
     }
 
-    public GlobalUpgradeLevel GetNextLevel()
+    public UpgradeLevel GetNextLevel()
     {
         if (IsMaxLevel()) return null;
 
@@ -75,9 +75,9 @@ public class GlobalUpgrade : BaseScriptableObject
     }
 
 
-    public GlobalUpgradeData SerializeSelf()
+    public UpgradeData SerializeSelf()
     {
-        GlobalUpgradeData data = new()
+        UpgradeData data = new()
         {
             Name = name,
             Level = CurrentLevel
@@ -86,17 +86,17 @@ public class GlobalUpgrade : BaseScriptableObject
         return data;
 
     }
-    public void LoadFromData(GlobalUpgradeData data)
+    public void LoadFromData(UpgradeData data)
     {
         CurrentLevel = data.Level;
     }
 }
 
 [Serializable]
-public struct GlobalUpgradeData
+public struct UpgradeData
 {
     public string Name;
     public int Level;
 }
 
-public enum GlobalUpgradeType { Other, Hero, Building, Creature, Boss, Ability }
+public enum UpgradeType { Other, Hero, Building, Creature, Boss, Ability }

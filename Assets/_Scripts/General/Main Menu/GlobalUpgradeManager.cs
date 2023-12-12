@@ -7,6 +7,6 @@ public class GlobalUpgradeManager : MonoBehaviour
 
     public void ShowGlobalUpgradesMenu()
     {
-        new GlobalUpgradesScreen(GameManager.Instance.GlobalUpgradeBoard);
+        new UpgradeScreen(GameManager.Instance.GlobalUpgradeBoard);
     }
 }

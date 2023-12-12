@@ -22,6 +22,12 @@ public class AddressableManager : MonoBehaviour
     {
         foreach (AssetReference reference in StyleSheetReferences)
         {
+            if (reference == null)
+            {
+                Debug.LogWarning($"Missing addressable reference.");
+                continue;
+            }
+            
             reference.LoadAssetAsync<StyleSheet>().Completed += (sheet) =>
             {
                 _styleSheets.Add((StyleSheet)sheet.Result);
@@ -54,14 +60,14 @@ public enum StyleSheetType
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
-    GlobalUpgradeStyles, GlobalUpgradeScreenStyles,
+    UpgradeStyles, UpgradeScreenStyles,
 
     TurretIconStyles,
     BattleStatsStyles, BattleKeyTooltipStyles,
     TextPrintingStyles,
     HeroBattleStyles,
     TooltipCardStyles, BuildingCardStyles,
-    
+
 
 
 }

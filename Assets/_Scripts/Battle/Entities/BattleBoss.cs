@@ -61,7 +61,7 @@ public class BattleBoss : BattleEntity
 
         _isStunUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").CurrentLevel >= 0;
 
-        GlobalUpgrade corruptionBreakNodesUpgrade = _gameManager.GlobalUpgradeBoard
+        Upgrade corruptionBreakNodesUpgrade = _gameManager.GlobalUpgradeBoard
                             .GetUpgradeByName("Corruption Break Nodes");
         _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
         _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;

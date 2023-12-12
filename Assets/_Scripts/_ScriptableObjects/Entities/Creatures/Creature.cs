@@ -20,7 +20,7 @@ public class Creature : EntityFight
     {
         base.InitializeBattle(team);
 
-        GlobalUpgradeBoard globalUpgradeBoard = GameManager.Instance.GlobalUpgradeBoard;
+        UpgradeBoard globalUpgradeBoard = GameManager.Instance.GlobalUpgradeBoard;
         MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Health").GetValue());
         CurrentHealth.SetValue(MaxHealth.GetValue());
         Armor.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Armor").GetValue());

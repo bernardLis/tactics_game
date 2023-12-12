@@ -36,7 +36,7 @@ public class Ability : BaseScriptableObject
     {
         _battleManager = BattleManager.Instance;
 
-        GlobalUpgradeBoard globalUpgradeBoard = GameManager.Instance.GlobalUpgradeBoard;
+        UpgradeBoard globalUpgradeBoard = GameManager.Instance.GlobalUpgradeBoard;
         float cooldownUpgrade = globalUpgradeBoard.GetUpgradeByName("Ability Cooldown").GetValue();
         float scaleUpgrade = globalUpgradeBoard.GetUpgradeByName("Ability Scale").GetValue();
 

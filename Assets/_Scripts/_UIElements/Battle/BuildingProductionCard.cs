@@ -38,7 +38,7 @@ public class BuildingProductionCard : BuildingCard
         _infoContainer = new();
         _middleContainer.Add(_infoContainer);
 
-        GlobalUpgradeLevelBuilding currentUpgrade = _buildingProduction.GetCurrentUpgrade();
+        UpgradeLevelBuilding currentUpgrade = _buildingProduction.GetCurrentUpgrade();
 
         Label limitLabel = new($"Max: {currentUpgrade.ProductionLimit}");
         _infoContainer.Add(limitLabel);
