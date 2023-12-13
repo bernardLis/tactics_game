@@ -120,7 +120,6 @@ public class LevelUpScreen : FullScreenElement
     {
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
-        _rewardContainer.style.flexGrow = 1;
         _content.Add(_rewardContainer);
 
         _hiddenCards = new();
@@ -135,10 +134,12 @@ public class LevelUpScreen : FullScreenElement
 
     void AddRerollButton()
     {
-        if (_battleHeroManager.RewardRerollsAvailable <= 0) return;
         _rerollContainer = new();
         _rerollContainer.style.opacity = 0;
+        _rerollContainer.style.flexGrow = 1;
         _content.Add(_rerollContainer);
+
+        if (_battleHeroManager.RewardRerollsAvailable <= 0) return;
 
         _rerollButton = new(callback: RerollReward);
         _rerollContainer.Add(_rerollButton);
@@ -149,7 +150,7 @@ public class LevelUpScreen : FullScreenElement
 
     void AddHeroElement()
     {
-        _content.Add(new HeroElement(_gameManager.PlayerHero));
+        _content.Add(new HeroElement(_gameManager.PlayerHero, true));
     }
 
     void RunCardShow()

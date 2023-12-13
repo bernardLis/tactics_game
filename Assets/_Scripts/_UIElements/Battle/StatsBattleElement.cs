@@ -60,13 +60,12 @@ public class StatsBattleElement : VisualElement
 
     void PopulateLeftPanel()
     {
+        AddTotalGold();
+        AddTimeSurvived();
     }
 
     void PopulateMiddlePanel()
     {
-        AddTotalGold();
-        AddTimeSurvived();
-        AddWavesSurvived();
     }
 
     void PopulateRightPanel()
@@ -80,18 +79,18 @@ public class StatsBattleElement : VisualElement
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
 
-        Label text = new("Total gold collected: ");
+        Label text = new("Gold collected: ");
         container.Add(text);
 
-        GoldElement el = new(_gameManager.TotalGoldCollected);
+        GoldElement el = new(_battleManager.GoldCollected);
         container.Add(el);
-        _middlePanel.Add(container);
+        _leftPanel.Add(container);
     }
 
     void AddTimeSurvived()
     {
         VisualElement container = new();
-        _middlePanel.Add(container);
+        _leftPanel.Add(container);
 
         int minutes = Mathf.FloorToInt(_battleManager.GetTime() / 60f);
         int seconds = Mathf.FloorToInt(_battleManager.GetTime() - minutes * 60);
@@ -100,21 +99,6 @@ public class StatsBattleElement : VisualElement
 
         Label text = new($"Time survived: {timerText}");
         container.Add(text);
-    }
-
-    void AddWavesSurvived()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        _middlePanel.Add(container);
-
-        Label text = new($"Waves survived: ");
-        container.Add(text);
-
-        int fightIndex = _battleManager.GetComponent<BattleMinionManager>().CurrentDifficulty - 1;
-        ChangingValueElement waveCount = new();
-        waveCount.Initialize(fightIndex, 18);
-        container.Add(waveCount);
     }
 
     void AddMinionsKilled()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HeroTabletElement : ElementWithTooltip
+public class TabletElement : ElementWithTooltip
 {
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonButtonBasic = "common__button-basic";
@@ -18,7 +18,7 @@ public class HeroTabletElement : ElementWithTooltip
 
     public Tablet Tablet;
 
-    public HeroTabletElement(Tablet tablet, bool showLevel = false) : base()
+    public TabletElement(Tablet tablet, bool showLevel = false) : base()
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TabletElementStyles);
         if (ss != null) styleSheets.Add(ss);
@@ -53,12 +53,12 @@ public class HeroTabletElement : ElementWithTooltip
             dotContainer.Add(dot);
         }
 
-        for (int i = 0; i < Tablet.Level.Value + 1; i++)
+        for (int i = 0; i < Tablet.Level.Value; i++)
             dots[i].AddToClassList(_ussLevelDotFull);
 
         Tablet.OnLevelUp += () =>
         {
-            for (int i = 0; i < Tablet.Level.Value + 1; i++)
+            for (int i = 0; i < Tablet.Level.Value; i++)
                 dots[i].AddToClassList(_ussLevelDotFull);
         };
     }

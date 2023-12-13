@@ -11,5 +11,5 @@
 .hero-element__stat-container {
     flex-direction: row;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
 }

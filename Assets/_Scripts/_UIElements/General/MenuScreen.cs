@@ -32,7 +32,10 @@ public class MenuScreen : FullScreenElement
         AddMenuButtons();
         AddContinueButton();
 
-        _container.Add(new HeroElement(_gameManager.PlayerHero));
+        BattleManager battleManager = BattleManager.Instance;
+        if (battleManager == null) return;
+        if (battleManager.BattleHero == null) return;
+        _container.Add(new HeroElement(battleManager.BattleHero.Hero, true));
     }
 
     void AddMenuButtons()

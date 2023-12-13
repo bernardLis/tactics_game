@@ -42,6 +42,7 @@ public class BattleManager : Singleton<BattleManager>
     public List<BattleTurret> PlayerTurrets = new();
 
     public List<BattlePickup> Pickups = new();
+    public int GoldCollected { get; private set; }
 
     public bool BlockBattleEnd;
     public bool BattleFinalized { get; private set; }
@@ -85,6 +86,8 @@ public class BattleManager : Singleton<BattleManager>
         _gameManager = GameManager.Instance;
         _gameManager.SaveJsonData();
         CurrentBattle = _gameManager.CurrentBattle;
+        _gameManager.OnGoldChanged += (g) => GoldCollected += g;
+
 
         _battleAreaManager = GetComponent<BattleAreaManager>();
 

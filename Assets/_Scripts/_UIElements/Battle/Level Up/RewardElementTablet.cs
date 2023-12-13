@@ -8,11 +8,16 @@ public class RewardElementTablet : RewardElement
     public RewardElementTablet(Reward reward) : base(reward)
     {
         RewardTablet rewardTablet = reward as RewardTablet;
+        Tablet tablet = rewardTablet.Tablet;
+        Label txt = new Label("");
+        txt.text = $"Level {tablet.Level.Value + 1}";
+        Add(txt);
 
-        VisualElement icon = new();
-        icon.style.width = 100;
-        icon.style.height = 100;
-        icon.style.backgroundImage = rewardTablet.Tablet.Icon.texture;
-        Add(icon);
+        Add(new TabletElement(tablet, false));
+
+        Label name = new Label(Helpers.ParseScriptableObjectName(tablet.name));
+        name.style.whiteSpace = WhiteSpace.Normal;
+        name.style.unityFontStyleAndWeight = FontStyle.Bold;
+        Add(name);
     }
 }

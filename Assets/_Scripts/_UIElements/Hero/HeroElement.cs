@@ -20,7 +20,9 @@ public class HeroElement : VisualElement
     Label _levelLabel;
     List<AbilityElement> _abilityButtons = new();
 
-    public HeroElement(Hero hero)
+    VisualElement _advancedViewContainer;
+
+    public HeroElement(Hero hero, bool isAdvanced = false)
     {
         _gameManager = GameManager.Instance;
         var common = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -36,9 +38,11 @@ public class HeroElement : VisualElement
         _heroInfoContainer.AddToClassList(_ussInfoContainer);
         Add(_heroInfoContainer);
 
+        HandleAbilities();
         HandleExpBar();
-        HandleAbilityIcons();
-        HandleHeroStatIcons();
+
+        if (!isAdvanced) return;
+        HandleAdvancedView();
     }
 
     void OnHeroLevelUp()
@@ -59,10 +63,11 @@ public class HeroElement : VisualElement
         Add(_expBar);
     }
 
-    void HandleAbilityIcons()
+    void HandleAbilities()
     {
         VisualElement container = new();
         container.style.flexDirection = FlexDirection.Row;
+        container.style.alignItems = Align.Center;
         _heroInfoContainer.Add(container);
 
         foreach (Ability a in _hero.Abilities)
@@ -86,11 +91,33 @@ public class HeroElement : VisualElement
         };
     }
 
-    void HandleHeroStatIcons()
+    void HandleAdvancedView()
+    {
+        _advancedViewContainer = new();
+        _heroInfoContainer.Add(_advancedViewContainer);
+
+        HandleTablets();
+        HandleStats();
+    }
+
+    void HandleTablets()
+    {
+        VisualElement container = new();
+        container.style.flexDirection = FlexDirection.Row;
+        _advancedViewContainer.Add(container);
+
+        foreach (Tablet t in _hero.Tablets)
+        {
+            TabletElement tabletElement = new(t, true);
+            container.Add(tabletElement);
+        }
+    }
+
+    void HandleStats()
     {
         VisualElement statContainer = new();
         statContainer.AddToClassList(_ussStatContainer);
-        _heroInfoContainer.Add(statContainer);
+        _advancedViewContainer.Add(statContainer);
 
         foreach (Stat s in _hero.GetAllStats())
         {
