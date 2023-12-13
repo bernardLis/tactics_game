@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
-public class BattleInfoManager : MonoBehaviour
+public class BattleResourceDisplayer : MonoBehaviour
 {
     GameManager _gameManager;
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
 
     VisualElement _root;
-    VisualElement _infoPanel;
+    VisualElement _resourcePanel;
     TroopsCountElement _troopsCounter;
 
     GoldElement _goldElement;
@@ -25,16 +25,16 @@ public class BattleInfoManager : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         _root = _battleManager.Root;
-        _infoPanel = _root.Q<VisualElement>("infoPanel");
+        _resourcePanel = _root.Q<VisualElement>("resourcePanel");
 
-        _battleManager.OnBattleInitialized += ResolveInfoPanel;
+        _battleManager.OnBattleInitialized += ResolveResourcePanel;
     }
 
-    void ResolveInfoPanel()
+    void ResolveResourcePanel()
     {
-        _infoPanel.style.opacity = 0f;
-        _infoPanel.style.display = DisplayStyle.Flex;
-        DOTween.To(x => _infoPanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
+        _resourcePanel.style.opacity = 0f;
+        _resourcePanel.style.display = DisplayStyle.Flex;
+        DOTween.To(x => _resourcePanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
         UpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
         if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
@@ -49,13 +49,13 @@ public class BattleInfoManager : MonoBehaviour
     {
         _goldElement = new(_gameManager.Gold);
         _gameManager.OnGoldChanged += OnGoldChanged;
-        _infoPanel.Add(_goldElement);
+        _resourcePanel.Add(_goldElement);
     }
 
     void AddTroopsCountElement()
     {
         _troopsCounter = new("");
-        _infoPanel.Add(_troopsCounter);
+        _resourcePanel.Add(_troopsCounter);
 
         _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsCountElement();
         _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsCountElement();
@@ -80,6 +80,6 @@ public class BattleInfoManager : MonoBehaviour
     {
         _nextTileTimer = new(55, 60, true, "Next Tile Unlocked In");
         _nextTileTimer.HideLabel();
-        _infoPanel.Add(_nextTileTimer);
+        _resourcePanel.Add(_nextTileTimer);
     }
 }

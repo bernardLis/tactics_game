@@ -28,7 +28,7 @@ public class FinishedBattleScreen : FullScreenElement
 
         AddTitle();
 
-        _mainContainer.Add(new BattleStatsElement());
+        _mainContainer.Add(new StatsBattleElement());
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonSpacer);
         _mainContainer.Add(spacer);

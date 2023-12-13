@@ -9,9 +9,6 @@ using DG.Tweening;
 
 public class BattleGrabManager : Singleton<BattleGrabManager>
 {
-    const string _ussClassName = "battle__";
-    const string _ussAbilityContainer = _ussClassName + "ability-container";
-
     GameManager _gameManager;
     AudioManager _audioManager;
     CursorManager _cursorManager;

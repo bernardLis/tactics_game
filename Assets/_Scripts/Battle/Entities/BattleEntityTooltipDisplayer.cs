@@ -19,7 +19,7 @@ public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!CanDisplayTooltip()) return;
-        VisualElement el = new BattleEntityCard(_battleEntity);
+        VisualElement el = new EntityCard(_battleEntity.Entity);
 
         _tooltipManager.ShowTooltip(el, gameObject);
     }

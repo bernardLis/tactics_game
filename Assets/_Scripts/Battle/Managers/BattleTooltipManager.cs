@@ -13,12 +13,11 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     BattleManager _battleManager;
 
     VisualElement _root;
-    VisualElement _entityTooltipContainer;
+    VisualElement _tooltipCardContainer;
 
     VisualElement _tileSecureBarContainer;
     VisualElement _gameInfoContainer;
     VisualElement _entityInfoContainer; // shows mouse hover info 
-    VisualElement _keyTooltipContainer;
 
     string _gameInfoTweenID = "_gameInfoContainer";
 
@@ -38,10 +37,9 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _battleManager.OnBattleFinalized += OnBattleFinalized;
 
         _root = GetComponent<UIDocument>().rootVisualElement;
-        _entityTooltipContainer = _root.Q<VisualElement>("entityTooltipContainer");
+        _tooltipCardContainer = _root.Q<VisualElement>("tooltipCardContainer");
         _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
         _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
-        _keyTooltipContainer = _root.Q<VisualElement>("keyTooltipContainer");
         _tileSecureBarContainer = _root.Q<VisualElement>("tileSecureBarContainer");
 
         SetUpTileSecureBar();
@@ -92,7 +90,6 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     void OnBattleFinalized()
     {
         HideEntityInfo();
-        HideKeyTooltipInfo();
         HideTooltip();
     }
 
@@ -129,27 +126,6 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _tileSecureBarContainer.style.display = DisplayStyle.None;
     }
 
-    public void ShowKeyTooltipInfo(VisualElement el)
-    {
-        _keyTooltipContainer.Clear();
-        _keyTooltipContainer.Add(el);
-        _keyTooltipContainer.style.display = DisplayStyle.Flex;
-
-        DOTween.To(x => _keyTooltipContainer.style.opacity = x, 0, 1, 0.5f)
-            .SetEase(Ease.InOutSine);
-    }
-
-    public void HideKeyTooltipInfo()
-    {
-
-        DOTween.To(x => _keyTooltipContainer.style.opacity = x, 1, 0, 0.5f)
-            .SetEase(Ease.InOutSine)
-            .OnComplete(() =>
-            {
-                _keyTooltipContainer.style.display = DisplayStyle.None;
-                _keyTooltipContainer.Clear();
-            });
-    }
 
     public void ShowEntityInfo(BattleEntity entity)
     {
@@ -222,7 +198,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     public void ShowTooltip(VisualElement el, GameObject go)
     {
         if (CurrentTooltipDisplayer == go) return;
-        if (_currentTooltip != null) _entityTooltipContainer.Remove(_currentTooltip);
+        if (_currentTooltip != null) _tooltipCardContainer.Remove(_currentTooltip);
 
         bool tooltipAnimation = _currentTooltip == null;
         CurrentTooltipDisplayer = go;
@@ -234,13 +210,13 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     IEnumerator ShowTooltipCoroutine(bool isAnimated)
     {
         yield return new WaitForSeconds(0.1f);
-        _entityTooltipContainer.Add(_currentTooltip);
+        _tooltipCardContainer.Add(_currentTooltip);
 
         if (!isAnimated) yield break;
 
-        _entityTooltipContainer.style.left = -_currentTooltip.resolvedStyle.width;
-        _entityTooltipContainer.style.visibility = Visibility.Visible;
-        DOTween.To(x => _entityTooltipContainer.style.left = x, -_currentTooltip.resolvedStyle.width, 0, 0.5f)
+        _tooltipCardContainer.style.left = -_currentTooltip.resolvedStyle.width;
+        _tooltipCardContainer.style.visibility = Visibility.Visible;
+        DOTween.To(x => _tooltipCardContainer.style.left = x, -_currentTooltip.resolvedStyle.width, 0, 0.5f)
                 .SetEase(Ease.InOutSine);
     }
 
@@ -249,7 +225,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         if (_currentTooltip == null) return;
         CurrentTooltipDisplayer = null;
 
-        DOTween.To(x => _entityTooltipContainer.style.left = x, 0, -_currentTooltip.worldBound.width, 0.5f)
+        DOTween.To(x => _tooltipCardContainer.style.left = x, 0, -_currentTooltip.worldBound.width, 0.5f)
                         .SetEase(Ease.InOutSine)
                         .OnComplete(() =>
                         {

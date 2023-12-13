@@ -1,8 +1,8 @@
-.entity-info__main {
+.entity-info-element__main {
     min-width: 300px;
 }
 
-.entity-info__top-container {
+.entity-info-element__top-container {
     flex-direction: row;
     justify-content: center;
     align-items: center;

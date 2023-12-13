@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BattleStatsElement : VisualElement
+public class StatsBattleElement : VisualElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
 
-    const string _ussClassName = "battle-stats__";
+    const string _ussClassName = "stats-battle-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussPanel = _ussClassName + "panel";
 
@@ -23,13 +23,13 @@ public class BattleStatsElement : VisualElement
     VisualElement _middlePanel;
     VisualElement _rightPanel;
 
-    public BattleStatsElement()
+    public StatsBattleElement()
     {
         _gameManager = GameManager.Instance;
         var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BattleStatsStyles);
+        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StatsBattleElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

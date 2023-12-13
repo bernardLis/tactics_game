@@ -137,11 +137,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1b4751c5a5ad48049928f5760ebc628b
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/Battle.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e08b85dd0f53b34f80b86917c0bf5f9
     m_Address: Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss
     m_ReadOnly: 0

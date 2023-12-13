@@ -52,7 +52,7 @@ public enum StyleSheetType
     ResourceBarStyles, StatElementStyles, ElementalElementStyles,
     HeroAbilityElementStyles, HeroAbilityIconStyles, HeroAbilityTooltipElementStyles,
 
-    EntityInfoStyles,
+    EntityInfoElementStyles,
     LevelUpScreenStyles,
     RewardElementStyles,
 
@@ -63,7 +63,7 @@ public enum StyleSheetType
     UpgradeStyles, UpgradeScreenStyles,
 
     TurretIconStyles,
-    BattleStatsStyles,
+    StatsBattleElementStyles,
     TextPrintingStyles,
     HeroElementStyles,
     TooltipCardStyles, BuildingCardStyles,

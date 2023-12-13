@@ -24,7 +24,7 @@ public class MenuScreen : FullScreenElement
         _container.AddToClassList(_ussContainer);
         _content.Add(_container);
 
-        _container.Add(new BattleStatsElement());
+        _container.Add(new StatsBattleElement());
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonSpacer);
         _container.Add(spacer);

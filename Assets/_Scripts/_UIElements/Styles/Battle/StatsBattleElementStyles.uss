@@ -1,4 +1,4 @@
-.battle-stats__main {
+.stats-battle-element__main {
     width: 100%;
     justify-content: space-around;
     align-items: center;
@@ -6,21 +6,21 @@
     background-image: none;
 }
 
-.battle-stats__panel {
+.stats-battle-element__panel {
     height: 100%;
     align-items: flex-start;
 }
 
-.battle-stats__creature-container {
+.stats-battle-element__creature-container {
     max-width: 300px;
     align-items: flex-start;
 }
 
-.battle-stats__creature-label {
+.stats-battle-element__creature-label {
     -unity-text-align: middle-left;
 }
 
-.battle-stats__creature-icon {
+.stats-battle-element__creature-icon {
     flex-grow: 1;
     width: 25px;
     height: 25px;

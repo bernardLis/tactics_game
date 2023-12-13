@@ -165,7 +165,6 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     public void HideTooltip()
     {
         if (_tooltipManager == null) return;
-        _tooltipManager.HideKeyTooltipInfo();
         _tooltipManager.HideTooltip();
     }
 
