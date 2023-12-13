@@ -17,7 +17,7 @@ public class RewardElementAbility : RewardElement
             txt.style.color = Color.yellow;
         }
 
-        Add(new HeroAbilityElement(rewardAbility.Ability));
+        Add(new AbilityElement(rewardAbility.Ability));
 
         Label name = new Label(Helpers.ParseScriptableObjectName(rewardAbility.Ability.name));
         name.style.whiteSpace = WhiteSpace.Normal;

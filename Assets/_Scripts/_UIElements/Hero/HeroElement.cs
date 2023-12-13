@@ -18,7 +18,7 @@ public class HeroElement : VisualElement
     VisualElement _heroInfoContainer;
     ResourceBarElement _expBar;
     Label _levelLabel;
-    List<HeroAbilityElement> _abilityButtons = new();
+    List<AbilityElement> _abilityButtons = new();
 
     public HeroElement(Hero hero)
     {
@@ -67,20 +67,20 @@ public class HeroElement : VisualElement
 
         foreach (Ability a in _hero.Abilities)
         {
-            HeroAbilityElement abilityIcon = new(a, true);
+            AbilityElement abilityIcon = new(a, true);
             container.Add(abilityIcon);
         }
 
         _hero.OnAbilityAdded += (Ability a) =>
         {
-            HeroAbilityElement abilityIcon = new(a, true);
+            AbilityElement abilityIcon = new(a, true);
             _abilityButtons.Add(abilityIcon);
             container.Add(abilityIcon);
         };
 
         _hero.OnAbilityRemoved += (Ability removedAbility) =>
         {
-            foreach (HeroAbilityElement button in _abilityButtons)
+            foreach (AbilityElement button in _abilityButtons)
                 if (button.Ability == removedAbility)
                     container.Remove(button);
         };

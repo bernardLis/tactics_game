@@ -1,20 +1,20 @@
 using UnityEngine.UIElements;
-public class HeroAbilityTooltipElement : VisualElement
+public class AbilityTooltipElement : VisualElement
 {
     Ability _ability;
 
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonTextSecondary = "common__text-secondary";
 
-    const string _ussClassName = "hero-ability-tooltip-element__";
+    const string _ussClassName = "ability-tooltip-element__";
     const string _ussMain = _ussClassName + "main";
 
-    public HeroAbilityTooltipElement(Ability ability)
+    public AbilityTooltipElement(Ability ability)
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null)
             styleSheets.Add(commonStyles);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroAbilityTooltipElementStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
         if (ss != null)
             styleSheets.Add(ss);
 

@@ -50,7 +50,7 @@ public enum StyleSheetType
     StarRankElementStyles,
     GoldElementStyles,
     ResourceBarStyles, StatElementStyles, ElementalElementStyles,
-    HeroAbilityElementStyles, HeroAbilityIconStyles, HeroAbilityTooltipElementStyles,
+    AbilityElementStyles, AbilityIconStyles, AbilityTooltipElementStyles,
 
     EntityInfoElementStyles,
     LevelUpScreenStyles,

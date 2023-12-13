@@ -37,11 +37,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 73a23192c66321b49874edb0a26a5d1b
-    m_Address: AbilityIconStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6210ce5dd6c012b4da866162ac0c703d
     m_Address: GoldElementStyles
     m_ReadOnly: 0

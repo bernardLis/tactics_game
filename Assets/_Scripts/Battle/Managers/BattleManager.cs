@@ -23,7 +23,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public VisualElement Root { get; private set; }
 
-    VisualElement _infoPanel;
+    VisualElement _resourcePanel;
     Label _timerLabel;
 
     public Transform EntityHolder;
@@ -73,8 +73,8 @@ public class BattleManager : Singleton<BattleManager>
 
         Root = GetComponent<UIDocument>().rootVisualElement;
 
-        _infoPanel = Root.Q<VisualElement>("infoPanel");
-        _timerLabel = _infoPanel.Q<Label>("timer");
+        _resourcePanel = Root.Q<VisualElement>("resourcePanel");
+        _timerLabel = _resourcePanel.Q<Label>("timer");
     }
 
     void Start()

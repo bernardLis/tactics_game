@@ -2,31 +2,36 @@ using UnityEngine.UIElements;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class HeroAbilityElement : ElementWithSound
+public class AbilityElement : ElementWithTooltip
 {
-    HeroAbilityIcon _icon;
-
-    public Ability Ability;
-
     const string _ussCommonTextPrimary = "common__text-primary";
     const string _ussCommonButtonBasic = "common__button-basic";
 
-    const string _ussClassName = "hero-ability-element__";
+    const string _ussClassName = "ability-element__";
     const string _ussMain = _ussClassName + "main";
+    const string _ussIcon = _ussClassName + "icon";
     const string _ussHighlight = _ussClassName + "highlight";
     const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
     const string _ussLevelDotFull = _ussClassName + "level-dot-full";
+
+    AudioManager _audioManager;
+
+    VisualElement _icon;
+
+    public Ability Ability;
 
     OverlayTimerElement _cooldownTimer;
 
     public bool IsOnCooldown { get; private set; }
 
-    public HeroAbilityElement(Ability ability, bool showLevel = false) : base()
+    public AbilityElement(Ability ability, bool showLevel = false) : base()
     {
         var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
         if (commonStyles != null) styleSheets.Add(commonStyles);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.HeroAbilityElementStyles);
+        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
         if (ss != null) styleSheets.Add(ss);
+
+        _audioManager = AudioManager.Instance;
 
         Ability = ability;
         Ability.OnCooldownStarted += StartCooldown;
@@ -35,7 +40,9 @@ public class HeroAbilityElement : ElementWithSound
         AddToClassList(_ussCommonTextPrimary);
         AddToClassList(_ussCommonButtonBasic);
 
-        _icon = new HeroAbilityIcon(ability);
+        _icon = new();
+        _icon.AddToClassList(_ussIcon);
+        _icon.style.backgroundImage = ability.Icon.texture;
         Add(_icon);
 
         if (showLevel) AddLevelUpDots();
@@ -106,7 +113,10 @@ public class HeroAbilityElement : ElementWithSound
         }
     }
 
-    public void Highlight() { AddToClassList(_ussHighlight); }
-
-    public void ClearHighlight() { RemoveFromClassList(_ussHighlight); }
+    protected override void DisplayTooltip()
+    {
+        AbilityTooltipElement tooltip = new(Ability);
+        _tooltip = new(this, tooltip);
+        base.DisplayTooltip();
+    }
 }

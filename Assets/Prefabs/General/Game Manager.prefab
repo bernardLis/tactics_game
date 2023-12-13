@@ -246,10 +246,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 73a23192c66321b49874edb0a26a5d1b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 6210ce5dd6c012b4da866162ac0c703d
     m_SubObjectName: 
     m_SubObjectType: 
@@ -422,7 +418,6 @@ MonoBehaviour:
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   EntityDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   GlobalUpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}
-  BannerPrefab: {fileID: 2178910863558769144, guid: f385f82cd42b57b4a874b18073f57254, type: 3}
   BattleNumber: 0
   PlayerHero: {fileID: 0}
   CurrentBattle: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}

@@ -1,4 +1,4 @@
-.hero-ability-tooltip-element__main {
+.ability-tooltip-element__main {
     align-self: stretch;
     align-items: center;
 }
