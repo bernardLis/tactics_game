@@ -159,7 +159,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _entityInfoContainer.Clear();
 
         CurrentEntityInfo = entity;
-        BattleEntityInfoElement info = new(entity);
+        EntityInfoElement info = new(entity);
         _entityInfoContainer.Add(info);
         _entityInfoContainer.style.display = DisplayStyle.Flex;
     }
@@ -179,7 +179,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _entityInfoContainer.Clear();
 
         CurrentEntityInfo = boss;
-        BattleBossInfoElement info = new(boss);
+        BossInfoElement info = new(boss);
         _entityInfoContainer.Add(info);
         _entityInfoContainer.style.display = DisplayStyle.Flex;
 

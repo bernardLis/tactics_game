@@ -300,13 +300,13 @@ public class BattleManager : Singleton<BattleManager>
 
     IEnumerator BattleLost()
     {
-        BattleLostScreen lostScreen = new();
+        LostBattleScreen lostScreen = new();
         yield return FinalizeBattle();
     }
 
     IEnumerator BattleWon()
     {
-        BattleWonScreen wonScreen = new();
+        WonBattleScreen wonScreen = new();
         wonScreen.OnFinishedPlaying += () => StartCoroutine(FinalizeBattle());
         yield return null;
     }

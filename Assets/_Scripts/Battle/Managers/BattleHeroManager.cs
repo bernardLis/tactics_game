@@ -14,7 +14,7 @@ public class BattleHeroManager : MonoBehaviour
 
     VisualElement _root;
     VisualElement _bottomPanel;
-    HeroBattleElement _heroBattleElement;
+    HeroElement _heroBattleElement;
 
     [SerializeField] AudioListener _placeholderAudioListener;
 
@@ -62,7 +62,7 @@ public class BattleHeroManager : MonoBehaviour
 
     void OnHeroLevelUp()
     {
-        BattleRewardElement rewardElement = new();
+        LevelUpScreen rewardElement = new();
 
         rewardElement.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
     }

@@ -1,0 +1,15 @@
+.hero-element__main {
+    width: 100%;
+}
+
+.hero-element__info-container {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hero-element__stat-container {
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}

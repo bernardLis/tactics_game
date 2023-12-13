@@ -12,7 +12,7 @@ public class BattleInfoManager : MonoBehaviour
 
     VisualElement _root;
     VisualElement _infoPanel;
-    TroopsLimitElement _troopsCounter;
+    TroopsCountElement _troopsCounter;
 
     GoldElement _goldElement;
 

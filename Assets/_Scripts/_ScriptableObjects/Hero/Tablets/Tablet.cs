@@ -18,7 +18,6 @@ public class Tablet : BaseScriptableObject
     protected Hero _hero;
     public void Initialize(Hero hero)
     {
-        Debug.Log($"asd");
         Level = CreateInstance<IntVariable>();
         Level.SetValue(0);
 

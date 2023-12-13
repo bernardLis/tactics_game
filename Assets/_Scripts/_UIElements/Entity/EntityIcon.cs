@@ -99,15 +99,15 @@ public class EntityIcon : ElementWithTooltip
     {
         evt.StopImmediatePropagation();
 
-        EntityCardFull card = null;
+        EntityScreen card = null;
         if (_entity is Creature creature)
-            card = new CreatureCardFull(creature);
+            card = new CreatureScreen(creature);
         if (_entity is Turret turret)
-            card = new EntityFightCardFull(turret);
+            card = new EntityFightScreen(turret);
         if (_entity is Minion minion)
-            card = new EntityMovementCardFull(minion);
+            card = new EntityMovementScreen(minion);
         if (_entity is Boss boss)
-            card = new BossCardFull(boss);
+            card = new BossScreen(boss);
 
         card?.Initialize();
     }

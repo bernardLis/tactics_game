@@ -1,4 +1,0 @@
-.ability-tooltip-element__main {
-    align-self: stretch;
-    align-items: center;
-}

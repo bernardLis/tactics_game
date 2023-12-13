@@ -32,20 +32,6 @@ public class BattleRewardChest : MonoBehaviour
         _audioManager.PlaySFX(_spawnSound, transform.position);
     }
 
-    public void DisplayTooltip()
-    {
-        if (_tooltipManager == null) return;
-        if (_isOpened) return;
-
-        _tooltipManager.ShowKeyTooltipInfo(new BattleInfoElement("Open Chest"));
-    }
-
-    public void HideTooltip()
-    {
-        if (_tooltipManager == null) return;
-        _tooltipManager.HideKeyTooltipInfo();
-    }
-
 
     void OnTriggerEnter(Collider collider)
     {

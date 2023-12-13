@@ -1,0 +1,67 @@
+.entity-screen__content {
+    width: 100%;
+    height: 100%;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    -unity-slice-left: 240;
+    -unity-slice-top: 240;
+    -unity-slice-right: 240;
+    -unity-slice-bottom: 240;
+}
+
+.entity-screen__info-container {
+    align-items: center;
+}
+
+.entity-screen__stats-container {
+    align-items: center;
+    align-self: center;
+    flex-direction: row;
+}
+
+.entity-screen__other-container {
+    align-items: center;
+    align-self: center;
+}
+
+.entity-screen__title {
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: white;
+    margin-bottom: 10px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/horizontal_flag.png?fileID=2800000&guid=e1029e79601130c4db212dfd3acea03b&type=3#horizontal_flag');
+    -unity-background-scale-mode: stretch-to-fill;
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-bottom: 25px;
+    padding-left: 30px;
+}
+
+.entity-screen__title Label {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.entity-screen__name-field {
+    font-size: 24px;
+    min-width: 300px;
+    color: black;
+}
+
+.entity-screen__unlock-ability-button {
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/Buttons_W/Button_middle_red.png?fileID=2800000&guid=fa3695cc709cf15428d83e5447237e45&type=3#Button_middle_red');
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    min-width: 250px;
+    min-height: auto;
+    -unity-font-style: bold;
+    font-size: 22px;
+    margin-top: 20px;
+}

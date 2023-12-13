@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class EntityCard : TooltipCard
 {
-
     const string _ussClassName = "entity-card__";
     const string _ussMain = _ussClassName + "main";
     const string _ussElement = _ussClassName + "element";

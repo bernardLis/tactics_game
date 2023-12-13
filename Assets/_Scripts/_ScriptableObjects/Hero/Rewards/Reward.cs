@@ -10,7 +10,7 @@ public class Reward : BaseScriptableObject
     protected Hero _hero;
 
     public event Action<Reward> OnRewardSelected;
-    public virtual bool CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
+    public virtual bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
     {
         _gameManager = GameManager.Instance;
         _hero = hero;

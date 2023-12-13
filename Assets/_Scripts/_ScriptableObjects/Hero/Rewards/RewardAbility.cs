@@ -10,14 +10,14 @@ public class RewardAbility : Reward
 
     public Ability Ability { get; private set; }
 
-    public override bool CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
+    public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
     {
         base.CreateRandom(hero, otherRewardCards);
 
         List<Ability> abilitiesAlreadyInRewardPool = new();
-        foreach (RewardCard rc in otherRewardCards)
+        foreach (RewardElement rc in otherRewardCards)
         {
-            if (rc is not RewardCardAbility) continue;
+            if (rc is not RewardElementAbility) continue;
             RewardAbility ra = (RewardAbility)rc.Reward;
             abilitiesAlreadyInRewardPool.Add(ra.Ability);
         }

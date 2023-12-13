@@ -7,7 +7,7 @@ public class RewardTablet : Reward
 {
     public Tablet Tablet;
 
-    public override bool CreateRandom(Hero hero, List<RewardCard> otherRewardCards)
+    public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
     {
         base.CreateRandom(hero, otherRewardCards);
 
@@ -17,9 +17,9 @@ public class RewardTablet : Reward
             if (!tablet.IsMaxLevel())
                 availableTablets.Add(tablet);
 
-        foreach (RewardCard rc in otherRewardCards)
+        foreach (RewardElement rc in otherRewardCards)
         {
-            if (rc is not RewardCardTablet) continue;
+            if (rc is not RewardElementTablet) continue;
             RewardTablet r = (RewardTablet)rc.Reward;
             availableTablets.Remove(r.Tablet);
         }

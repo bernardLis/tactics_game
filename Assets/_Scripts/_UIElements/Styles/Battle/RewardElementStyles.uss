@@ -1,0 +1,31 @@
+.reward-element__main {
+    width: 200px;
+    height: 300px;
+    opacity: 0.9;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Main_bar_hori.png?fileID=2800000&guid=455b4694deb662245b4cbfaee5e6c318&type=3#Main_bar_hori');
+    -unity-slice-left: 5;
+    -unity-slice-top: 5;
+    -unity-slice-right: 5;
+    -unity-slice-bottom: 5;
+    padding-right: 10px;
+    padding-left: 10px;
+    flex-wrap: wrap;
+}
+
+.reward-element__main:hover:enabled {
+    scale: 1.1;
+    opacity: 1;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.reward-element__disabled {
+    scale: 0.8;
+    opacity: 0.6;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}

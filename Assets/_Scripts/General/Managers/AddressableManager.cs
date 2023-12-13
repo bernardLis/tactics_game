@@ -45,27 +45,27 @@ public enum StyleSheetType
 {
     CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
     MenuStyles, SettingsMenuStyles,
-    BattleFinishedStyles, BattleWonStyles, BattleLostStyles,
+    FinishedBattleScreenStyles,
     TimerElementStyles,
     StarRankElementStyles,
     GoldElementStyles,
     ResourceBarStyles, StatElementStyles, ElementalElementStyles,
-    AbilityButtonStyles, AbilityIconStyles, AbilityTooltipElementStyles,
+    HeroAbilityElementStyles, HeroAbilityIconStyles, HeroAbilityTooltipElementStyles,
 
-    BattleEntityInfoStyles,
-    BattleRewardStyles,
-    RewardCardStyles,
+    EntityInfoStyles,
+    LevelUpScreenStyles,
+    RewardElementStyles,
 
-    EntityIconStyles, EntityCardStyles, EntityCardFullStyles,
+    EntityIconStyles, EntityCardStyles, EntityScreenStyles,
 
     CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 
     UpgradeStyles, UpgradeScreenStyles,
 
     TurretIconStyles,
-    BattleStatsStyles, BattleKeyTooltipStyles,
+    BattleStatsStyles,
     TextPrintingStyles,
-    HeroBattleStyles,
+    HeroElementStyles,
     TooltipCardStyles, BuildingCardStyles,
 
 

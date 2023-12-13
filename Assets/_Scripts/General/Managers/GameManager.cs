@@ -14,8 +14,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public EntityDatabase EntityDatabase;
     public UpgradeBoard GlobalUpgradeBoard;
 
-    public GameObject BannerPrefab;
-
     SaveData _originalSaveData;
 
     // global data
@@ -42,15 +40,12 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         base.Awake();
         Debug.Log($"Game manager Awake");
-
         // Services();
     }
 
     void Start()
     {
-
         Debug.Log($"Game manager Start");
-
         _levelLoader = GetComponent<LevelLoader>();
         Root = GetComponent<UIDocument>().rootVisualElement;
 

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using Shapes;
 using DG.Tweening;
 
-public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class BattleTurret : MonoBehaviour, IGrabbable, IPointerDownHandler
 {
     BattleManager _battleManager;
     BattleTooltipManager _tooltipManager;
@@ -23,8 +23,6 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
     BattleEntity _target;
 
     IEnumerator _runTurretCoroutine;
-
-    bool _isTooltipActive;
 
     void Start()
     {
@@ -69,23 +67,6 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
         _rangeDisc.Color = c;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (_runTurretCoroutine == null) return;
-
-        _rangeIndicator.SetActive(true);
-        _tooltipManager.ShowKeyTooltipInfo(new BattleInfoElement("Turret Upgrades"));
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (_runTurretCoroutine == null) return;
-
-        if (!_isTooltipActive)
-            _rangeIndicator.SetActive(false);
-
-        _tooltipManager.HideKeyTooltipInfo();
-    }
 
     public void StartTurretCoroutine()
     {
@@ -149,7 +130,6 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_runTurretCoroutine == null) return;
-        _isTooltipActive = true;
 
         if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return;
         TurretCard c = new(Turret);
@@ -162,7 +142,6 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerEnterHandler, IPo
 
     void OnTooltipHidden()
     {
-        _isTooltipActive = false;
         _rangeIndicator.SetActive(false);
         _tooltipManager.OnTooltipHidden -= OnTooltipHidden;
     }
