@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class Tablet : BaseScriptableObject
     public StatType SecondaryStat;
 
     protected Hero _hero;
+
+    public event Action OnLevelUp;
     public void Initialize(Hero hero)
     {
         Level = CreateInstance<IntVariable>();
@@ -31,6 +34,8 @@ public class Tablet : BaseScriptableObject
         _hero.GetStatByType(PrimaryStat).LevelUp();
         if (SecondaryStat != StatType.None)
             _hero.GetStatByType(SecondaryStat).LevelUp();
+
+        OnLevelUp?.Invoke();
     }
 
     public bool IsMaxLevel()

@@ -15,10 +15,6 @@
     width: 70px;
 }
 
-.ability-element__highlight {
-    opacity: 1;
-    scale: 1.05 1.05;
-}
 
 .ability-element__overlay {
     position: absolute;

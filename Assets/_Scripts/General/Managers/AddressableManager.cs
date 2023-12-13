@@ -27,7 +27,7 @@ public class AddressableManager : MonoBehaviour
                 Debug.LogWarning($"Missing addressable reference.");
                 continue;
             }
-            
+
             reference.LoadAssetAsync<StyleSheet>().Completed += (sheet) =>
             {
                 _styleSheets.Add((StyleSheet)sheet.Result);
@@ -67,6 +67,7 @@ public enum StyleSheetType
     TextPrintingStyles,
     HeroElementStyles,
     TooltipCardStyles, BuildingCardStyles,
+    TabletElementStyles,
 
 
 

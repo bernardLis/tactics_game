@@ -10,7 +10,6 @@ public class AbilityElement : ElementWithTooltip
     const string _ussClassName = "ability-element__";
     const string _ussMain = _ussClassName + "main";
     const string _ussIcon = _ussClassName + "icon";
-    const string _ussHighlight = _ussClassName + "highlight";
     const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
     const string _ussLevelDotFull = _ussClassName + "level-dot-full";
 
@@ -26,8 +25,6 @@ public class AbilityElement : ElementWithTooltip
 
     public AbilityElement(Ability ability, bool showLevel = false) : base()
     {
-        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null) styleSheets.Add(commonStyles);
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
         if (ss != null) styleSheets.Add(ss);
 
