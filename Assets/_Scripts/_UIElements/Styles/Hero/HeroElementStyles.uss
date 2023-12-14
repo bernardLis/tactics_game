@@ -13,3 +13,56 @@
     align-items: center;
     justify-content: center;
 }
+
+.hero-element__ability-slot {
+    width: 85px;
+    height: 85px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: gray;
+    border-right-color: gray;
+    border-top-color: gray;
+    border-bottom-color: gray;
+}
+
+.hero-element__ability-slot-premium {
+    width: 85px;
+    height: 85px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: yellow;
+    border-right-color: yellow;
+    border-top-color: yellow;
+    border-bottom-color: yellow;
+
+}
+
+.hero-element__tablet-slot {
+    width: 85px;
+    height: 85px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: gainsboro;
+    border-right-color: gainsboro;
+    border-top-color: gainsboro;
+    border-bottom-color: gainsboro;
+}
+
+.hero-element__tablet-slot-premium {
+    width: 85px;
+    height: 85px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: orchid;
+    border-right-color: orchid;
+    border-top-color: orchid;
+    border-bottom-color: orchid;
+}

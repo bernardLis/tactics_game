@@ -77,7 +77,7 @@ public class AbilityElement : ElementWithTooltip
         IsOnCooldown = true;
 
         _icon.style.opacity = 0.5f;
-        transform.scale = Vector3.one * 0.8f;
+        transform.scale = Vector3.one * 0.9f;
 
         if (_cooldownTimer != null) RemoveCooldownTimer();
 

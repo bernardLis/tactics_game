@@ -75,21 +75,13 @@ public class Hero : EntityMovement
     [Header("Abilities")]
     public List<Ability> Abilities = new();
     public event Action<Ability> OnAbilityAdded;
-    public event Action<Ability> OnAbilityRemoved;
 
     public void AddAbility(Ability ability)
     {
-        Debug.Log($"adding ability {ability.name}");
         Ability instance = Instantiate(ability);
         instance.InitializeBattle(this);
         Abilities.Add(instance);
         OnAbilityAdded?.Invoke(instance);
-    }
-
-    public void RemoveAbility(Ability ability)
-    {
-        Abilities.Remove(ability);
-        OnAbilityRemoved?.Invoke(ability);
     }
 
     public void CreateHero(string heroName, Element element)

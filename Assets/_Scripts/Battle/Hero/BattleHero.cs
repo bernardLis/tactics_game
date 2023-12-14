@@ -35,7 +35,6 @@ public class BattleHero : BattleEntity
     void HandleAbilities()
     {
         Hero.OnAbilityAdded += AddAbility;
-        Hero.OnAbilityRemoved += RemoveAbility;
 
         foreach (Ability a in Hero.Abilities)
             AddAbility(a);
@@ -57,7 +56,6 @@ public class BattleHero : BattleEntity
     void OnDestroy()
     {
         Hero.OnAbilityAdded -= AddAbility;
-        Hero.OnAbilityRemoved -= RemoveAbility;
     }
 
     void AddAbility(Ability ability)
