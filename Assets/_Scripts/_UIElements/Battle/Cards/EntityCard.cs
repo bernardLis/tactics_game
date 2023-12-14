@@ -22,10 +22,13 @@ public class EntityCard : TooltipCard
 
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardStyles);
         if (ss != null) styleSheets.Add(ss);
+        Debug.Log($"ss {ss}");
 
         Entity = entity;
 
         AddToClassList(_ussMain);
+        PopulateCard();
+
     }
 
     protected virtual void PopulateCard()

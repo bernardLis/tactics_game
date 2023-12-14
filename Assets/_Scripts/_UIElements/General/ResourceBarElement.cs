@@ -40,7 +40,6 @@ public class ResourceBarElement : ElementWithTooltip
         _gameManager = GameManager.Instance;
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
         if (ss != null) styleSheets.Add(ss);
-        Debug.Log($"ss {ss}");
 
         _color = color;
         _valueChangeDelay = valueChangeDelayMs;
