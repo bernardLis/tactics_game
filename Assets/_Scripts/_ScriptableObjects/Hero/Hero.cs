@@ -26,10 +26,14 @@ public class Hero : EntityMovement
     }
 
     /* LEVELING */
+    public int GetExpValue(int gain)
+    {
+        return Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
+    }
+    
     public override void AddExp(int gain)
     {
-        int totalExp = Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
-        base.AddExp(totalExp);
+        base.AddExp(GetExpValue(gain));
     }
 
     public override int GetExpForNextLevel()

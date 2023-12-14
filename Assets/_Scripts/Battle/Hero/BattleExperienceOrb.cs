@@ -37,7 +37,7 @@ public class BattleExperienceOrb : BattlePickup
         base.PickUp(hero);
         _battleManager.OnHorseshoeCollected -= OnHorseshoeCollected;
 
-        DisplayText($"+{_expOrb.Amount} EXP", _expOrb.Color.Color);
+        DisplayText($"+{hero.Hero.GetExpValue(_expOrb.Amount)} EXP", _expOrb.Color.Color);
     }
 }
 
