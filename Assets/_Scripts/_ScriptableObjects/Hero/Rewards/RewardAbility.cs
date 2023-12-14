@@ -25,7 +25,7 @@ public class RewardAbility : Reward
         Ability = GetValidAbility(abilitiesAlreadyInRewardPool);
         if (Ability == null) return false;
 
-        Ability.InitializeBattle();
+        Ability.InitializeBattle(hero);
 
         foreach (Ability heroAbility in _hero.Abilities)
             if (heroAbility.Id == Ability.Id)

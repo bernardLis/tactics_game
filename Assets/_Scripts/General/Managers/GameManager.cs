@@ -24,8 +24,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public int TotalGoldCollected { get; private set; }
     public int Gold { get; private set; }
 
-    public Hero PlayerHero;
-
     public Battle CurrentBattle; // HERE: battle testing { get; private set; }
 
     public VisualElement Root { get; private set; }
@@ -127,7 +125,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         BattleNumber = 0;
         Gold = 10000;
 
-        PlayerHero = null;
         UpgradeBoard.Reset();
 
         // new save
@@ -160,9 +157,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         saveData.Gold = Gold;
         saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
-
-        if (PlayerHero != null)
-            saveData.PlayerHero = PlayerHero.SerializeSelf();
     }
 
     void LoadJsonData(string fileName)
@@ -188,9 +182,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
         Gold = saveData.Gold;
         UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
-
-        PlayerHero = ScriptableObject.CreateInstance<Hero>();
-        PlayerHero.LoadFromData(saveData.PlayerHero);
     }
 
     public void ClearSaveData()
@@ -199,8 +190,6 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         BattleNumber = 0;
 
         Gold = 1000;
-
-        PlayerHero = null;
         UpgradeBoard.Reset();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))

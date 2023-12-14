@@ -30,7 +30,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public bool IsTimerOn { get; private set; }
 
-    public Hero PlayerHero { get; private set; }
+    public Hero Hero { get; private set; }
     public BattleHero BattleHero => _battleHeroManager.BattleHero;
 
     public List<BattleEntity> PlayerCreatures = new();
@@ -102,17 +102,17 @@ public class BattleManager : Singleton<BattleManager>
 #endif
     }
 
-    public void Initialize(Hero playerHero)
+    public void Initialize(Hero hero)
     {
         BattleFinalized = false;
         _battleTime = 0;
 
-        if (playerHero != null)
+        if (hero != null)
         {
-            PlayerHero = playerHero;
+            Hero = hero;
             _battleHeroManager = GetComponent<BattleHeroManager>();
             _battleHeroManager.enabled = true;
-            _battleHeroManager.Initialize(playerHero);
+            _battleHeroManager.Initialize(hero);
         }
 
         ResumeTimer();
@@ -366,7 +366,7 @@ public class BattleManager : Singleton<BattleManager>
     [ContextMenu("Level up hero")]
     public void LevelUpHero()
     {
-        _gameManager.PlayerHero.AddExp(_gameManager.PlayerHero.ExpForNextLevel.Value);
+        Hero.AddExp(Hero.ExpForNextLevel.Value);
     }
 
 #endif

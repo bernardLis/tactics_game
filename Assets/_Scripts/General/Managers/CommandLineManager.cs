@@ -296,7 +296,10 @@ public class CommandLineManager : MonoBehaviour
         };
         _buttonContainer.Add(heroFoldout);
 
-        Hero hero = _gameManager.PlayerHero;
+        BattleManager battleManager = BattleManager.Instance;
+        if(battleManager == null) return;
+
+        Hero hero = battleManager.Hero;
 
         Button levelUpButton = new() { text = "Level up" };
         levelUpButton.clickable.clicked += () =>
@@ -359,8 +362,6 @@ public class CommandLineManager : MonoBehaviour
             _gameManager.ChangeGoldValue(10000);
         if (_commandTextField.text.ToLower() == "takegold")
             _gameManager.ChangeGoldValue(-5000);
-        if (_commandTextField.text.ToLower() == "levelup")
-            _gameManager.PlayerHero.LevelUp();
         if (_commandTextField.text.ToLower() == "killbill")
             KillAllPlayerCreatures();
         if (_commandTextField.text.ToLower() == "tween")

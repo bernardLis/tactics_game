@@ -23,7 +23,6 @@ public class BattleInitializer : MonoBehaviour
 
         Hero newChar = ScriptableObject.CreateInstance<Hero>();
         newChar.CreateHero("HERO", _gameManager.EntityDatabase.GetRandomElement());
-        _gameManager.PlayerHero = newChar;
 
         Battle battle = ScriptableObject.CreateInstance<Battle>();
         battle.CreateRandom(1);

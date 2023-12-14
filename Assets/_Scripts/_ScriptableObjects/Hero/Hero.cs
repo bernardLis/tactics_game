@@ -30,7 +30,7 @@ public class Hero : EntityMovement
     {
         return Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
     }
-    
+
     public override void AddExp(int gain)
     {
         base.AddExp(GetExpValue(gain));
@@ -52,6 +52,7 @@ public class Hero : EntityMovement
 
     [Header("Tablets")]
     public List<Tablet> Tablets = new();
+    public Dictionary<Element, Tablet> TabletsByElement = new();
     public void CreateTablets()
     {
         foreach (Tablet original in _gameManager.EntityDatabase.HeroTablets)
@@ -62,6 +63,15 @@ public class Hero : EntityMovement
         }
     }
 
+    public Tablet GetTabletByElement(Element element)
+    {
+        if (TabletsByElement.Count == 0)
+            foreach (Tablet t in Tablets)
+                TabletsByElement.Add(t.Element, t);
+
+        return TabletsByElement[element];
+    }
+
     [Header("Abilities")]
     public List<Ability> Abilities = new();
     public event Action<Ability> OnAbilityAdded;
@@ -69,8 +79,9 @@ public class Hero : EntityMovement
 
     public void AddAbility(Ability ability)
     {
+        Debug.Log($"adding ability {ability.name}");
         Ability instance = Instantiate(ability);
-        instance.InitializeBattle();
+        instance.InitializeBattle(this);
         Abilities.Add(instance);
         OnAbilityAdded?.Invoke(instance);
     }
@@ -97,7 +108,6 @@ public class Hero : EntityMovement
             t.Initialize(this);
 
         Abilities = new();
-        AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
     }
 
     void CreateBaseStats()

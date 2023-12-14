@@ -31,10 +31,10 @@ public class Ability : BaseScriptableObject
     float _cooldownMultiplier = 1f;
     float _scaleMultiplier = 1f;
 
-    BattleManager _battleManager;
-    public void InitializeBattle()
+    Hero _hero;
+    public void InitializeBattle(Hero hero)
     {
-        _battleManager = BattleManager.Instance;
+        _hero = hero;
 
         UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
         float cooldownUpgrade = globalUpgradeBoard.GetUpgradeByName("Ability Cooldown").GetValue();
@@ -51,8 +51,11 @@ public class Ability : BaseScriptableObject
 
     public int GetPower()
     {
-        return Mathf.FloorToInt(Levels[Level].Power *
-                                (1 + _battleManager.BattleHero.Hero.Power.GetValue() * 0.1f));
+        float pow = Levels[Level].Power;
+        pow += _hero.Power.GetValue(); // hero power
+        pow += pow * _hero.GetTabletByElement(Element).Level.Value * 0.1f; // elemental bonus - tablet level * 10%
+
+        return Mathf.FloorToInt(pow);
     }
 
     public float GetCooldown()

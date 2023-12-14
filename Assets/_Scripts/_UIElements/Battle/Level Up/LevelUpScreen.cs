@@ -33,12 +33,11 @@ public class LevelUpScreen : FullScreenElement
     public LevelUpScreen()
     {
         _gameManager = GameManager.Instance;
-
-        _numberOfRewards = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
-
         _audioManager = _gameManager.GetComponent<AudioManager>();
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
         if (ss != null) styleSheets.Add(ss);
+
+        _numberOfRewards = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
 
         _battleHeroManager = BattleManager.Instance.GetComponent<BattleHeroManager>();
 
@@ -150,7 +149,7 @@ public class LevelUpScreen : FullScreenElement
 
     void AddHeroElement()
     {
-        _content.Add(new HeroElement(_gameManager.PlayerHero, true));
+        _content.Add(new HeroElement(_battleHeroManager.Hero, true));
     }
 
     void RunCardShow()
@@ -250,7 +249,7 @@ public class LevelUpScreen : FullScreenElement
     RewardElement CreateRewardTablet()
     {
         RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
-        if (!reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards)) return null;
+        if (!reward.CreateRandom(_battleHeroManager.Hero, _allRewardCards)) return null;
 
         reward.OnRewardSelected += RewardSelected;
         RewardElementTablet card = new(reward);
@@ -260,7 +259,7 @@ public class LevelUpScreen : FullScreenElement
     RewardElement CreateRewardCardAbility()
     {
         RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-        if (!reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards)) return null;
+        if (!reward.CreateRandom(_battleHeroManager.Hero, _allRewardCards)) return null;
         reward.OnRewardSelected += RewardSelected;
         RewardElementAbility card = new(reward);
         return card;
@@ -269,7 +268,7 @@ public class LevelUpScreen : FullScreenElement
     RewardElement CreateRewardCardGold()
     {
         RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-        reward.CreateRandom(_gameManager.PlayerHero, _allRewardCards);
+        reward.CreateRandom(_battleHeroManager.Hero, _allRewardCards);
         reward.OnRewardSelected += RewardSelected;
         RewardElementGold card = new(reward);
         return card;

@@ -42,6 +42,8 @@ public class BattleHeroManager : MonoBehaviour
         StartCoroutine(MakeHeroFall(hero));
 
         RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
+
+        Hero.AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
     }
 
     IEnumerator MakeHeroFall(Hero hero)
