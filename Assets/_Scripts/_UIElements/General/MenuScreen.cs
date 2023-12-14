@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class MenuScreen : FullScreenElement
 {
     const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonSpacer = "common__horizontal-spacer";
 
     const string _ussClassName = "menu__";
     const string _ussContainer = _ussClassName + "container";
@@ -25,9 +24,7 @@ public class MenuScreen : FullScreenElement
         _content.Add(_container);
 
         _container.Add(new StatsBattleElement());
-        VisualElement spacer = new();
-        spacer.AddToClassList(_ussCommonSpacer);
-        _container.Add(spacer);
+        _container.Add(new HorizontalSpacerElement());
 
         AddMenuButtons();
         AddContinueButton();

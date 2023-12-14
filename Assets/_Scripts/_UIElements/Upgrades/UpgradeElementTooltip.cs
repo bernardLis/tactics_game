@@ -7,8 +7,6 @@ using DG.Tweening;
 
 public class UpgradeElementTooltip : VisualElement
 {
-    const string _ussCommonSpacer = "common__horizontal-spacer";
-
     Upgrade _upgrade;
 
 
@@ -35,9 +33,7 @@ public class UpgradeElementTooltip : VisualElement
     void CreateTooltip()
     {
         Add(new Label(_upgrade.Description));
-        VisualElement spacer = new();
-        spacer.AddToClassList(_ussCommonSpacer);
-        Add(spacer);
+        Add(new HorizontalSpacerElement());
 
         Add(new Label("Current:"));
         if (_upgrade.CurrentLevel == -1)
@@ -45,9 +41,7 @@ public class UpgradeElementTooltip : VisualElement
         else
             Add(new Label(_upgrade.GetCurrentLevel().Description));
 
-        VisualElement spacer1 = new();
-        spacer1.AddToClassList(_ussCommonSpacer);
-        Add(spacer1);
+        Add(new HorizontalSpacerElement());
 
         Add(new Label("Next:"));
         if (_upgrade.IsMaxLevel())
@@ -60,9 +54,7 @@ public class UpgradeElementTooltip : VisualElement
     void CreateBuildingTooltip()
     {
         Add(new Label(_upgrade.name));
-        VisualElement spacer = new();
-        spacer.AddToClassList(_ussCommonSpacer);
-        Add(spacer);
+        Add(new HorizontalSpacerElement());
 
         Add(new Label("Current:"));
         if (_upgrade.CurrentLevel == -1)
@@ -74,9 +66,7 @@ public class UpgradeElementTooltip : VisualElement
             Add(new Label($"Production delay: {level.ProductionDelay}"));
         }
 
-        VisualElement spacer1 = new();
-        spacer1.AddToClassList(_ussCommonSpacer);
-        Add(spacer1);
+        Add(new HorizontalSpacerElement());
 
         Add(new Label("Next:"));
         if (_upgrade.IsMaxLevel())

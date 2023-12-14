@@ -6,8 +6,6 @@ using DG.Tweening;
 
 public class FinishedBattleScreen : FullScreenElement
 {
-    const string _ussCommonSpacer = "common__horizontal-spacer";
-
     const string _ussClassName = "finished-battle-screen__";
     const string _ussMain = _ussClassName + "main";
 
@@ -29,9 +27,7 @@ public class FinishedBattleScreen : FullScreenElement
         AddTitle();
 
         _mainContainer.Add(new StatsBattleElement());
-        VisualElement spacer = new();
-        spacer.AddToClassList(_ussCommonSpacer);
-        _mainContainer.Add(spacer);
+        _mainContainer.Add(new HorizontalSpacerElement());
 
         DisableNavigation();
     }
