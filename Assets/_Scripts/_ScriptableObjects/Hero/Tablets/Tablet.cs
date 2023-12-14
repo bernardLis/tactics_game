@@ -13,8 +13,8 @@ public class Tablet : BaseScriptableObject
     [HideInInspector] public IntVariable Level;
     public int MaxLevel = 7;
 
-    public StatType PrimaryStat;
-    public StatType SecondaryStat;
+    public StatLevelUpValue PrimaryStat;
+    public StatLevelUpValue SecondaryStat;
 
     protected Hero _hero;
 
@@ -31,9 +31,10 @@ public class Tablet : BaseScriptableObject
     {
         Debug.Log($"tablet {name} level up to {Level.Value + 1}");
         Level.ApplyChange(1);
-        _hero.GetStatByType(PrimaryStat).LevelUp();
-        if (SecondaryStat != StatType.None)
-            _hero.GetStatByType(SecondaryStat).LevelUp();
+
+        _hero.GetStatByType(PrimaryStat.StatType).ApplyBaseValueChange(PrimaryStat.Value);
+        if (SecondaryStat.StatType != StatType.None)
+            _hero.GetStatByType(SecondaryStat.StatType).ApplyBaseValueChange(SecondaryStat.Value);
 
         OnLevelUp?.Invoke();
     }
@@ -43,3 +44,11 @@ public class Tablet : BaseScriptableObject
         return Level.Value >= MaxLevel;
     }
 }
+
+[Serializable]
+public struct StatLevelUpValue
+{
+    public StatType StatType;
+    public int Value;
+}
+

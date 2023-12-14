@@ -21,7 +21,7 @@ public class Building : BaseScriptableObject
 
     public virtual void Initialize()
     {
-        BuildingUpgrade = GameManager.Instance.GlobalUpgradeBoard
+        BuildingUpgrade = GameManager.Instance.UpgradeBoard
                         .GetUpgradeByName(name);
     }
 

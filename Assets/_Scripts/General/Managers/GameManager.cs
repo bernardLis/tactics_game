@@ -12,7 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
 
     public GameDatabase GameDatabase;
     public EntityDatabase EntityDatabase;
-    public UpgradeBoard GlobalUpgradeBoard;
+    public UpgradeBoard UpgradeBoard;
 
     SaveData _originalSaveData;
 
@@ -56,7 +56,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Helpers.SetUpHelpers(Root);
         CreateNewSaveFile();
 
-        GlobalUpgradeBoard.Initialize();
+        UpgradeBoard.Initialize();
         GameDatabase.InitializeBuildings();
         //  }
         //   else
@@ -128,7 +128,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 10000;
 
         PlayerHero = null;
-        GlobalUpgradeBoard.Reset();
+        UpgradeBoard.Reset();
 
         // new save
         string guid = Guid.NewGuid().ToString();
@@ -159,7 +159,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         saveData.BattleNumber = BattleNumber;
 
         saveData.Gold = Gold;
-        saveData.GlobalUpgradeBoard = GlobalUpgradeBoard.SerializeSelf();
+        saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
 
         if (PlayerHero != null)
             saveData.PlayerHero = PlayerHero.SerializeSelf();
@@ -187,7 +187,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         BattleNumber = saveData.BattleNumber;
 
         Gold = saveData.Gold;
-        GlobalUpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
+        UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
 
         PlayerHero = ScriptableObject.CreateInstance<Hero>();
         PlayerHero.LoadFromData(saveData.PlayerHero);
@@ -201,7 +201,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
         Gold = 1000;
 
         PlayerHero = null;
-        GlobalUpgradeBoard.Reset();
+        UpgradeBoard.Reset();
 
         if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
             Debug.Log("Cleared active save");

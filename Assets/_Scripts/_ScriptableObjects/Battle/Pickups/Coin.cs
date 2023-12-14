@@ -13,7 +13,7 @@ public class Coin : Pickup
     {
         Amount = Random.Range(AmountRange.x, AmountRange.y);
         Amount += Mathf.RoundToInt(Amount
-                * GameManager.Instance.GlobalUpgradeBoard.GetUpgradeByName("Gold Bonus").GetValue()
+                * GameManager.Instance.UpgradeBoard.GetUpgradeByName("Gold Bonus").GetValue()
                 * 0.01f);
     }
 

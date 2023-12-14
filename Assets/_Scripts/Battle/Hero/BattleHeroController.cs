@@ -87,7 +87,7 @@ public class BattleHeroController : MonoBehaviour
 
         AssignAnimationIDs();
 
-        _isSprintUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
+        _isSprintUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
     }
 
     // TODO: this is wrong. It should somehow work without this code, but I don't know which button to click in Unity. 

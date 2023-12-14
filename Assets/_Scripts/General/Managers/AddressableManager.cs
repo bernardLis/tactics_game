@@ -67,7 +67,7 @@ public enum StyleSheetType
     TextPrintingStyles,
     HeroElementStyles,
     TooltipCardStyles, BuildingCardStyles,
-    TabletElementStyles,
+    TabletElementStyles, TabletTooltipElementStyles,
 
 
 

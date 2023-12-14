@@ -92,7 +92,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
         _progressBarHandler.ShowProgressBar();
 
         int totalSecondsToCorrupt = _building.SecondsToCorrupt +
-                    _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Corruption Duration").GetValue();
+                    _gameManager.UpgradeBoard.GetUpgradeByName("Corruption Duration").GetValue();
 
         for (int i = 0; i <= totalSecondsToCorrupt; i++)
         {

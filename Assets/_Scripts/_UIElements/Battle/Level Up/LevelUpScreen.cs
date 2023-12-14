@@ -34,7 +34,7 @@ public class LevelUpScreen : FullScreenElement
     {
         _gameManager = GameManager.Instance;
 
-        _numberOfRewards = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
+        _numberOfRewards = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
 
         _audioManager = _gameManager.GetComponent<AudioManager>();
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);

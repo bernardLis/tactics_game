@@ -36,7 +36,7 @@ public class BattleResourceDisplayer : MonoBehaviour
         _resourcePanel.style.display = DisplayStyle.Flex;
         DOTween.To(x => _resourcePanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
-        UpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
+        UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
         if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
             AddTroopsCountElement();
         if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)

@@ -18,5 +18,9 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Level: {fileID: 0}
   MaxLevel: 7
-  PrimaryStat: 3
-  SecondaryStat: 7
+  PrimaryStat:
+    StatType: 3
+    Value: 1
+  SecondaryStat:
+    StatType: 7
+    Value: 0

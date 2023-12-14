@@ -40,7 +40,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _playerInput = _gameManager.GetComponent<PlayerInput>();
         _floorLayerMask = LayerMask.GetMask("Floor");
 
-        _isGrabbingUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
+        _isGrabbingUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
 
         EnableGrabbing();
     }

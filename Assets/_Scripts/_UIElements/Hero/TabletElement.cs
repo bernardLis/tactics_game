@@ -65,8 +65,7 @@ public class TabletElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        VisualElement tooltip = new();
-        // HERE: tooltip
+        TabletTooltipElement tooltip = new(Tablet);
         _tooltip = new(this, tooltip);
         base.DisplayTooltip();
     }

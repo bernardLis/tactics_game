@@ -10,7 +10,7 @@ public class MainMenu : Singleton<MainMenu>
     [SerializeField] GameObject _gameManagerPrefab;
 
     GameManager _gameManager;
-    GlobalUpgradeManager _globalUpgradeManager;
+    UpgradeManager _globalUpgradeManager;
 
     public VisualElement Root;
     MyButton _playButton;
@@ -29,7 +29,7 @@ public class MainMenu : Singleton<MainMenu>
         if (_gameManager == null)
             _gameManager = Instantiate(_gameManagerPrefab).GetComponent<GameManager>();
 
-        _globalUpgradeManager = GetComponent<GlobalUpgradeManager>();
+        _globalUpgradeManager = GetComponent<UpgradeManager>();
 
         Root = GetComponent<UIDocument>().rootVisualElement;
     }
@@ -52,7 +52,7 @@ public class MainMenu : Singleton<MainMenu>
 
     void ShowGlobalUpgradesMenu()
     {
-        _globalUpgradeManager.ShowGlobalUpgradesMenu();
+        _globalUpgradeManager.ShowUpgradeMenu();
         // _gameManager.Play();
     }
 

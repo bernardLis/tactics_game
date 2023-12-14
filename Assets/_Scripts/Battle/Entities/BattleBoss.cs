@@ -48,7 +48,7 @@ public class BattleBoss : BattleEntity
                                  _battleAreaManager.HomeTile);
         _nextTileIndex = 0;
 
-        float newSpeed = _agent.speed - _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
+        float newSpeed = _agent.speed - _gameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
         if (newSpeed <= 0) newSpeed = 1f;
         _agent.speed = newSpeed;
 
@@ -59,9 +59,9 @@ public class BattleBoss : BattleEntity
         SetUpVariables();
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
 
-        _isStunUnlocked = _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").CurrentLevel >= 0;
+        _isStunUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Stun").CurrentLevel >= 0;
 
-        Upgrade corruptionBreakNodesUpgrade = _gameManager.GlobalUpgradeBoard
+        Upgrade corruptionBreakNodesUpgrade = _gameManager.UpgradeBoard
                             .GetUpgradeByName("Corruption Break Nodes");
         _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
         _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;
@@ -287,7 +287,7 @@ public class BattleBoss : BattleEntity
         CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
         CurrentDamageToBreakCorruption.SetValue(0);
         TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-        TotalStunDuration.SetValue(10 + _gameManager.GlobalUpgradeBoard.GetUpgradeByName("Stun").GetValue());
+        TotalStunDuration.SetValue(10 + _gameManager.UpgradeBoard.GetUpgradeByName("Stun").GetValue());
         CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
         CurrentStunDuration.SetValue(0);
     }

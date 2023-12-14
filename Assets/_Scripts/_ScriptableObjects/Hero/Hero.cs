@@ -121,7 +121,7 @@ public class Hero : EntityMovement
         BonusExp = Instantiate(entityDatabase.GetHeroStatByType(StatType.ExpBonus));
         BonusExp.Initialize();
 
-        UpgradeBoard globalUpgradeBoard = _gameManager.GlobalUpgradeBoard;
+        UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
         MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Health").GetValue());
         Armor.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Armor").GetValue());
         Speed.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Speed").GetValue());
