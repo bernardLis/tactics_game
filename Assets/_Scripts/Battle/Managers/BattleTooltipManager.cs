@@ -18,6 +18,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
     VisualElement _tileSecureBarContainer;
     VisualElement _gameInfoContainer;
     VisualElement _entityInfoContainer; // shows mouse hover info 
+    EntityInfoElement _entityInfoElement;
 
     string _gameInfoTweenID = "_gameInfoContainer";
 
@@ -26,12 +27,13 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public BattleEntity CurrentEntityInfo { get; private set; }
 
+
     ResourceBarElement _tileSecureBar;
 
     bool _isBossHealthBarShown;
 
     public event Action OnTooltipHidden;
-    void Start()
+    public void Initialize()
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += OnBattleFinalized;
@@ -42,6 +44,7 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
         _tileSecureBarContainer = _root.Q<VisualElement>("tileSecureBarContainer");
 
+        SetUpEntityInfo();
         SetUpTileSecureBar();
     }
 
@@ -93,9 +96,15 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
         HideTooltip();
     }
 
+    void SetUpEntityInfo()
+    {
+        _entityInfoElement = new EntityInfoElement(_battleManager.BattleHero); // placeholder entity
+        _entityInfoElement.style.display = DisplayStyle.None;
+        _entityInfoContainer.Add(_entityInfoElement);
+    }
+
     void SetUpTileSecureBar()
     {
-
         IntVariable current = ScriptableObject.CreateInstance<IntVariable>();
         current.SetValue(0);
         IntVariable total = ScriptableObject.CreateInstance<IntVariable>();
@@ -123,36 +132,30 @@ public class BattleTooltipManager : Singleton<BattleTooltipManager>
 
     public void HideTileSecureBar()
     {
+        if (_tileSecureBarContainer == null) return;
         _tileSecureBarContainer.style.display = DisplayStyle.None;
     }
-
 
     public void ShowEntityInfo(BattleEntity entity)
     {
         if (entity.IsDead) return;
         if (_isBossHealthBarShown) return;
 
-        _entityInfoContainer.Clear();
-
         CurrentEntityInfo = entity;
-        EntityInfoElement info = new(entity);
-        _entityInfoContainer.Add(info);
-        _entityInfoContainer.style.display = DisplayStyle.Flex;
+        _entityInfoElement.UpdateEntityInfo(entity);
+        _entityInfoElement.style.display = DisplayStyle.Flex;
     }
 
     public void HideEntityInfo()
     {
         if (_isBossHealthBarShown) return;
 
-        _entityInfoContainer.style.display = DisplayStyle.None;
-        _entityInfoContainer.Clear();
+        _entityInfoElement.style.display = DisplayStyle.None;
     }
 
     public void ShowBossHealthBar(BattleBoss boss)
     {
         HideEntityInfo();
-
-        _entityInfoContainer.Clear();
 
         CurrentEntityInfo = boss;
         BossInfoElement info = new(boss);

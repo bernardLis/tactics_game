@@ -38,10 +38,9 @@ public class ResourceBarElement : ElementWithTooltip
             int valueChangeDelayMs = 200) : base()
     {
         _gameManager = GameManager.Instance;
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null) styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
         if (ss != null) styleSheets.Add(ss);
+        Debug.Log($"ss {ss}");
 
         _color = color;
         _valueChangeDelay = valueChangeDelayMs;
@@ -98,9 +97,9 @@ public class ResourceBarElement : ElementWithTooltip
             _totalInt.SetValue(totalStat.GetValue());
             _totalStat.OnValueChanged += _totalInt.SetValue;
         }
+        if (_totalInt == null) return;
 
         _totalInt.OnValueChanged += OnTotalChanged;
-
         DisplayMissingAmount();
     }
 
@@ -111,6 +110,8 @@ public class ResourceBarElement : ElementWithTooltip
 
     public void DisplayMissingAmount()
     {
+        if (_totalInt == null) return;
+
         MissingBar.style.display = DisplayStyle.Flex;
 
         float missingPercent = (float)_displayedAmount / (float)_totalInt.Value;

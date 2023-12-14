@@ -56,7 +56,6 @@ public class BattleAreaManager : MonoBehaviour
             for (int z = -5; z < 5; z++)
             {
                 Vector3 pos = new(x * tileScale, 0, z * tileScale);
-
                 Building building = _unlockedBuildings[Random.Range(0, _unlockedBuildings.Count)];
                 if (pos == Vector3.zero)
                     building = _homeBuilding;

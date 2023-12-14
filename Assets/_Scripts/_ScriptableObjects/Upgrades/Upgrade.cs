@@ -17,9 +17,12 @@ public class Upgrade : BaseScriptableObject
     public bool PermanentlyUnlocked;
 
     UpgradeBoard _board;
+    bool _isInitialized;
+
     public event Action OnLevelChanged;
     public virtual void Initialize(UpgradeBoard board)
     {
+        _isInitialized = true;
         _gameManager = GameManager.Instance;
         _board = board;
         _board.OnRefundAll += Refund;
@@ -28,6 +31,19 @@ public class Upgrade : BaseScriptableObject
         if (CurrentLevel > 0) return;
         if (PermanentlyUnlocked) CurrentLevel = 0;
     }
+
+    // HERE: testing
+    public void DebugInitialize()
+    {
+        if (_isInitialized) return;
+        _isInitialized = true;
+
+        // perma unlocked
+        if (CurrentLevel > 0) return;
+        if (PermanentlyUnlocked) CurrentLevel = 0;
+    }
+
+
 
     public virtual void Purchased()
     {

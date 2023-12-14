@@ -23,6 +23,7 @@ public class Building : BaseScriptableObject
     {
         BuildingUpgrade = GameManager.Instance.UpgradeBoard
                         .GetUpgradeByName(name);
+        BuildingUpgrade.DebugInitialize();
     }
 
     public bool IsUnlocked()

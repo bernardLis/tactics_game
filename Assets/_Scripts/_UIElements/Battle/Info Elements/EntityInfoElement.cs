@@ -12,42 +12,47 @@ public class EntityInfoElement : VisualElement
 
     protected GameManager _gameManager;
 
+    Label _name;
+    ResourceBarElement _bar;
+
     public EntityInfoElement(BattleEntity be)
     {
         _gameManager = GameManager.Instance;
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null) styleSheets.Add(commonStyles);
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityInfoElementStyles);
         if (ss != null) styleSheets.Add(ss);
 
         AddToClassList(_ussMain);
         AddToClassList(_ussCommonTextPrimary);
 
-        Label name = new(be.Entity.EntityName);
-        name.style.fontSize = 32;
-        name.style.unityFontStyleAndWeight = FontStyle.Bold;
-        name.style.position = Position.Absolute;
+        _name = new();
+        _name.style.fontSize = 32;
+        _name.style.unityFontStyleAndWeight = FontStyle.Bold;
+        _name.style.position = Position.Absolute;
 
         Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
-        ResourceBarElement bar = new(c, "Health", be.Entity.CurrentHealth,
-                totalStat: be.Entity.MaxHealth);
+        _bar = new(c, "Health", ScriptableObject.CreateInstance<IntVariable>());
 
+        _bar.Add(_name);
+        _bar.HideText();
 
-        bar.Add(name);
-        bar.HideText();
+        _bar.style.backgroundImage = null;
+        _bar.style.minWidth = 300;
+        _bar.style.height = 50;
+        _bar.style.opacity = 0.8f;
 
-        bar.style.backgroundImage = null;
-        bar.style.minWidth = 300;
-        bar.style.height = 50;
-        bar.style.opacity = 0.8f;
+        _bar.ResourceBar.style.height = Length.Percent(100);
+        _bar.ResourceBar.style.width = Length.Percent(100);
+        _bar.ResourceBar.style.marginLeft = Length.Percent(0);
+        _bar.ResourceBar.style.marginRight = Length.Percent(0);
 
-        bar.ResourceBar.style.height = Length.Percent(100);
-        bar.ResourceBar.style.width = Length.Percent(100);
-        bar.ResourceBar.style.marginLeft = Length.Percent(0);
-        bar.ResourceBar.style.marginRight = Length.Percent(0);
+        _bar.MissingBar.style.height = Length.Percent(100);
 
-        bar.MissingBar.style.height = Length.Percent(100);
+        Add(_bar);
+    }
 
-        Add(bar);
+    public void UpdateEntityInfo(BattleEntity be)
+    {
+        _name.text = be.Entity.EntityName;
+        _bar.UpdateTrackedVariables(be.Entity.CurrentHealth, totalStat: be.Entity.MaxHealth);
     }
 }
