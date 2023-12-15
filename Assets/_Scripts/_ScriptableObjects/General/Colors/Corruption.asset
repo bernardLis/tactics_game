@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d6ff559d461db47910e1833af2cef9, type: 3}
   m_Name: Corruption
   m_EditorClassIdentifier: 
-  Color: {r: 0.417005, g: 0, b: 0.6792453, a: 1}
+  Id: 721f4368-70e0-4083-808f-b3ed502313ae
+  Primary: {r: 0.65882355, g: 0.5176471, b: 0.9529412, a: 1}
+  Secondary: {r: 0.91764706, g: 0.6784314, b: 0.92941177, a: 1}

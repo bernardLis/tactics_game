@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class ColorVariable : ScriptableObject
+public class ColorVariable : BaseScriptableObject
 {
-    public Color Color;
+    public Color Primary;
+    public Color Secondary;
 }

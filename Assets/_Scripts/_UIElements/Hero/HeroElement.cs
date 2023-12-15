@@ -58,7 +58,7 @@ public class HeroElement : VisualElement
 
     void HandleExpBar()
     {
-        Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Color;
+        Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Primary;
         _expBar = new(c, "Experience", _hero.Experience, _hero.ExpForNextLevel);
 
         _levelLabel = new Label($"Level {_hero.Level.Value}");

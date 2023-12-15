@@ -29,7 +29,7 @@ public class EntityInfoElement : VisualElement
         _name.style.unityFontStyleAndWeight = FontStyle.Bold;
         _name.style.position = Position.Absolute;
 
-        Color c = _gameManager.GameDatabase.GetColorByName("Health").Color;
+        Color c = _gameManager.GameDatabase.GetColorByName("Health").Primary;
         _bar = new(c, "Health", ScriptableObject.CreateInstance<IntVariable>());
 
         _bar.Add(_name);

@@ -19,7 +19,7 @@ public class BossInfoElement : EntityInfoElement
             text = "Buy Upgrade To Stun Boss";
 
 
-        Color c = _gameManager.GameDatabase.GetColorByName("Stun").Color;
+        Color c = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
         _stunBar = new(c, text, bs.CurrentDamageToBreakCorruption,
                                 bs.TotalDamageToBreakCorruption);
 

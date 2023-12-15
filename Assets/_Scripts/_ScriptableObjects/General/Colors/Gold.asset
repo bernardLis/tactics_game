@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d6ff559d461db47910e1833af2cef9, type: 3}
   m_Name: Gold
   m_EditorClassIdentifier: 
-  Color: {r: 1, g: 0.83173496, b: 0.27735847, a: 1}
+  Id: 992c91b3-eb59-43fa-ad1b-fb550eb77f8a
+  Primary: {r: 0.9764706, g: 0.7607843, b: 0.16862746, a: 1}
+  Secondary: {r: 0, g: 0, b: 0, a: 0}

@@ -58,7 +58,7 @@ public class BattleRewardChest : MonoBehaviour
 
         _beamEffect.SetActive(true);
         int gold = Random.Range(500, 1000);
-        DisplayText($"+{gold} Gold", _gameManager.GameDatabase.GetColorByName("Gold").Color);
+        DisplayText($"+{gold} Gold", _gameManager.GameDatabase.GetColorByName("Gold").Primary);
         _audioManager.PlaySFX("Collect Gold", transform.position);
 
         yield return new WaitForSeconds(2f);

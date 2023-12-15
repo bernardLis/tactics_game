@@ -85,7 +85,7 @@ public class BattleBuilding : MonoBehaviour, IInteractable
     protected IEnumerator CorruptionCoroutine()
     {
         yield return DisplayCorruptionEffect();
-        Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
+        Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Primary;
         _progressBarHandler.SetFillColor(c);
         _progressBarHandler.SetBorderColor(Color.black);
         _progressBarHandler.SetProgress(0);

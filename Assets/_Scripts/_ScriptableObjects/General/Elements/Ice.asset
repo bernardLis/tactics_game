@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 303cc20ba1ecef34aba314b3fc919c7f, type: 3}
+  m_Name: Ice
+  m_EditorClassIdentifier: 
+  Id: b8c1eb11-3aba-4fe3-bdf4-6fbac1b5c8a2
+  ElementName: 7
+  Icon: {fileID: 21300000, guid: 5109b5a025a11b646aff3dcd17d15a4e, type: 3}
+  Color: {fileID: 11400000, guid: 6d98edb46be457e4c917385b99b9317a, type: 2}
+  Description: Wind + Water
+  StrongAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  WeakAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  VFXEffect: {fileID: 11400000, guid: 858a11eea3168d24ebe83bdff6b9cf3a, type: 2}

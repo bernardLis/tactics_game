@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d6ff559d461db47910e1833af2cef9, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
-  Color: {r: 0.6226415, g: 0, b: 0, a: 1}
+  Id: 81d09e51-6c3f-4bee-8c9b-23de73801226
+  Primary: {r: 0.9647059, g: 0.5058824, b: 0.5058824, a: 1}
+  Secondary: {r: 0, g: 0, b: 0, a: 0}

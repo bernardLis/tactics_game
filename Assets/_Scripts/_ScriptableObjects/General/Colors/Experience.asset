@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d6ff559d461db47910e1833af2cef9, type: 3}
   m_Name: Experience
   m_EditorClassIdentifier: 
-  Color: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+  Id: 1f558fae-9fc5-4394-b5d6-c13936d02fa6
+  Primary: {r: 0.60784316, g: 0.67058825, b: 0.69803923, a: 1}
+  Secondary: {r: 0, g: 0, b: 0, a: 0}

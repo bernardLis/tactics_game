@@ -27,8 +27,8 @@ public class AbilityTooltipElement : VisualElement
         Label name = new(Helpers.ParseScriptableObjectName(ability.name));
         name.AddToClassList(_ussCommonTextPrimary);
         name.style.alignSelf = Align.Center;
-        container.Add(new ElementalElement(ability.Element));
         container.Add(name);
+        container.Add(new ElementalElement(ability.Element));
 
         Label description = new(ability.Description);
         description.AddToClassList(_ussCommonTextSecondary);

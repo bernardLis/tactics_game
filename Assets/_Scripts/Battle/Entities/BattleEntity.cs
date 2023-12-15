@@ -252,7 +252,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (_battleManager == null) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {ability.name}");
 
-        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Color);
+        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Primary);
 
         if (Entity.CurrentHealth.Value <= 0)
             ability.AddKill();
@@ -269,7 +269,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         attacker.AddDmgDealt(damage);
 
-        BaseGetHit(damage, attacker.Element.Color.Color, attacker);
+        BaseGetHit(damage, attacker.Element.Color.Primary, attacker);
 
         if (Entity.CurrentHealth.Value <= 0)
             attacker.AddKill(Entity);

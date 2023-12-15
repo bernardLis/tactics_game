@@ -69,7 +69,7 @@ public class GameDatabase : BaseScriptableObject
 public enum ItemRarity { Common, Uncommon, Rare, Epic }
 public enum StatType { Power, Health, Armor, Speed, AttackRange, AttackCooldown, Pull, None, ExpBonus }
 
-public enum ElementName { Fire, Water, Wind, Earth }
+public enum ElementName { Fire, Water, Wind, Earth, Lightning, Metal, Wood, Ice, None }
 
 public enum MinionSpawningPattern { SurroundMiddle, Random, FewGroups, OneGroup, Grid }
 

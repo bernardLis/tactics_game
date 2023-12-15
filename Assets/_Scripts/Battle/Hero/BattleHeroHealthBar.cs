@@ -13,7 +13,7 @@ public class BattleHeroHealthBar : MonoBehaviour
     public void Initialize(Hero hero)
     {
         _healthBarSlider = GetComponent<Slider>();
-        _fill.color = GameManager.Instance.GameDatabase.GetColorByName("Health").Color;
+        _fill.color = GameManager.Instance.GameDatabase.GetColorByName("Health").Primary;
 
         _hero = hero;
         _hero.MaxHealth.OnValueChanged += UpdateHealthBar;

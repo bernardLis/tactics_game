@@ -53,7 +53,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     IEnumerator ProductionCoroutine()
     {
         yield return new WaitForSeconds(2f);
-        Color c = _buildingProduction.ProducedCreature.Element.Color.Color;
+        Color c = _buildingProduction.ProducedCreature.Element.Color.Primary;
         _progressBarHandler.SetBorderColor(c);
         _progressBarHandler.SetFillColor(Color.white);
         _progressBarHandler.SetProgress(0);
@@ -129,7 +129,7 @@ public class BattleBuildingProduction : BattleBuilding, IInteractable
     {
         yield return new WaitForSeconds(2f);
 
-        Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Color;
+        Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Primary;
         _progressBarHandler.SetBorderColor(c);
         _progressBarHandler.SetFillColor(Color.black);
         _progressBarHandler.SetProgress(0);

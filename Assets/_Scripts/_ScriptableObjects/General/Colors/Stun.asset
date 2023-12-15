@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d6ff559d461db47910e1833af2cef9, type: 3}
   m_Name: Stun
   m_EditorClassIdentifier: 
-  Color: {r: 1, g: 0.7009338, b: 0.12941176, a: 1}
+  Id: ec443fa2-fc41-4ad1-9d0b-e5b97450cba7
+  Primary: {r: 0.9764706, g: 0.7607843, b: 0.16862746, a: 1}
+  Secondary: {r: 0.96862745, g: 0.5882353, b: 0.09019608, a: 1}

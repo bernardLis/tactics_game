@@ -29,9 +29,9 @@ public class BattleCorruptionBreakNode : MonoBehaviour
         _lightningScript = GetComponent<LightningBoltPrefabScript>();
         _lightningScript.Source = gameObject;
         _lightningScript.Destination = boss.gameObject;
-        _lightningScript.GlowTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
-        _lightningScript.LightningTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
-        _lightningScript.MainTrunkTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Color;
+        _lightningScript.GlowTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+        _lightningScript.LightningTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+        _lightningScript.MainTrunkTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
 
         transform.position = new(transform.position.x, 5f, transform.position.z);
         // fake arc movement
