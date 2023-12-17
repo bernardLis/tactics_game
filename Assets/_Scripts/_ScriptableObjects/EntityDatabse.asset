@@ -132,6 +132,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 439b0732f6f097d4981c349e17e6fb52, type: 2}
   - {fileID: 11400000, guid: c63e8b7fb72dbb6449700d758f76d1b6, type: 2}
   - {fileID: 11400000, guid: 886c87f591d1ed54594b19bdfe8a85a3, type: 2}
+  HeroTabletsAdvanced:
+  - {fileID: 11400000, guid: c75c971e27e100e40a3e98f3c4612f89, type: 2}
+  - {fileID: 11400000, guid: 51d449ec56cd39441bc83d68df80e76a, type: 2}
+  - {fileID: 11400000, guid: 8fe53c0b8106ccf4d945c217454f8e51, type: 2}
+  - {fileID: 11400000, guid: 82581fd11790a5e4780ddec88389f1c1, type: 2}
   Elements:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}

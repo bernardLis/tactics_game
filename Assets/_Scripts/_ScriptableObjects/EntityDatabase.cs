@@ -86,7 +86,7 @@ public class EntityDatabase : ScriptableObject
 
     [Header("Abilities")]
     [SerializeField] Ability[] Abilities;
-    public List<Ability> GetAllAbilities() { return Abilities.ToList(); }
+    public List<Ability> GetAllBasicAbilities() { return Abilities.ToList(); }
     public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
     public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
 
@@ -98,6 +98,14 @@ public class EntityDatabase : ScriptableObject
     [SerializeField] Stat[] HeroStats;
     public Stat GetHeroStatByType(StatType type) { return HeroStats.FirstOrDefault(x => x.StatType == type); }
     public Tablet[] HeroTablets;
+    [SerializeField] TabletAdvanced[] HeroTabletsAdvanced;
+    public TabletAdvanced GetAdvancedTabletByElementNames(ElementName first, ElementName second)
+    {
+        foreach (TabletAdvanced t in HeroTabletsAdvanced)
+            if (t.IsMadeOfElements(GetElementByName(first), GetElementByName(second)))
+                return t;
+        return null;
+    }
 
 
     [Header("Elements")]

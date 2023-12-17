@@ -22,6 +22,8 @@ public class BattleHeroManager : MonoBehaviour
     [HideInInspector] public BattleHero BattleHero;
     public Hero Hero { get; private set; }
 
+    LevelUpScreen _levelUpScreen;
+
     public int RewardRerollsAvailable = 0;
     public void Initialize(Hero hero)
     {
@@ -44,6 +46,8 @@ public class BattleHeroManager : MonoBehaviour
         RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
 
         Hero.AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
+
+        Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
     }
 
     IEnumerator MakeHeroFall(Hero hero)
@@ -64,9 +68,15 @@ public class BattleHeroManager : MonoBehaviour
 
     void OnHeroLevelUp()
     {
-        LevelUpScreen rewardElement = new();
+        _levelUpScreen = new();
 
-        rewardElement.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
+        _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
+    }
+
+    void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
+    {
+        _levelUpScreen.Hide();
+        TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
     }
 
 }

@@ -68,11 +68,9 @@ public class Ability : BaseScriptableObject
         return Levels[Level].Scale * _scaleMultiplier;
     }
 
-    public bool HasMoreUpgrades()
+    public bool IsMaxLevel()
     {
-        if (Level == 0) return true;
-
-        return Level < Levels.Count - 1;
+        return Level >= Levels.Count - 1;
     }
 
     public void AddKill() { KillCount++; }

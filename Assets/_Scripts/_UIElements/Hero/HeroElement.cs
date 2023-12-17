@@ -27,7 +27,6 @@ public class HeroElement : VisualElement
     bool _isAdvancedView;
     VisualElement _advancedViewContainer;
 
-
     public HeroElement(Hero hero, bool isAdvanced = false)
     {
         _gameManager = GameManager.Instance;
@@ -144,7 +143,7 @@ public class HeroElement : VisualElement
         _advancedViewContainer.Add(container);
 
         _tabletSlots = new();
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 5; i++)
         {
             VisualElement slot = new();
             if (i > 3) slot.AddToClassList(_ussTabletSlotPremium);// 2 last ones are premium
@@ -182,5 +181,4 @@ public class HeroElement : VisualElement
             statContainer.Add(statElement);
         }
     }
-
 }

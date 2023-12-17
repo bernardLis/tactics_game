@@ -17,10 +17,10 @@ MonoBehaviour:
   Description: 
   Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Level: {fileID: 0}
-  MaxLevel: 7
+  MaxLevel: 2
   PrimaryStat:
-    StatType: 1
+    StatType: 0
     Value: 10
   SecondaryStat:
-    StatType: 8
+    StatType: 0
     Value: 10

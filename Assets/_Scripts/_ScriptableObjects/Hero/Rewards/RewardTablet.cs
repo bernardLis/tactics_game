@@ -24,6 +24,9 @@ public class RewardTablet : Reward
             availableTablets.Remove(r.Tablet);
         }
 
+        if(_hero.AdvancedTablet != null && !_hero.AdvancedTablet.IsMaxLevel())
+            availableTablets.Add(_hero.AdvancedTablet);
+
         if (availableTablets.Count == 0)
         {
             Debug.LogError("Reward - no tablet to upgrade");

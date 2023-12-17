@@ -52,6 +52,8 @@ public class Hero : EntityMovement
 
     [Header("Tablets")]
     public List<Tablet> Tablets = new();
+    public TabletAdvanced AdvancedTablet;
+    public event Action<TabletAdvanced> OnTabletAdvancedAdded;
     public Dictionary<Element, Tablet> TabletsByElement = new();
     public void CreateTablets()
     {
@@ -60,6 +62,7 @@ public class Hero : EntityMovement
             Tablet instance = Instantiate(original);
             Tablets.Add(instance);
             instance.Initialize(this);
+            instance.OnLevelUp += CheckAdvancedTablets;
         }
     }
 
@@ -72,8 +75,50 @@ public class Hero : EntityMovement
         return TabletsByElement[element];
     }
 
+    void CheckAdvancedTablets()
+    {
+        Debug.Log($"CheckAdvancedTablets");
+        if (AdvancedTablet != null) return; // only one advanced tablet
+
+        ElementName firstElement = ElementName.None;
+        ElementName secondElement = ElementName.None;
+
+        foreach (Tablet t in Tablets)
+        {
+            if (!t.IsMaxLevel()) continue;
+            if (firstElement == ElementName.None)
+            {
+                Debug.Log($"firstElement  {firstElement}");
+
+                firstElement = t.Element.ElementName;
+                continue;
+            }
+            if (secondElement == ElementName.None)
+            {
+                Debug.Log($"secondElement  {secondElement}");
+
+                secondElement = t.Element.ElementName;
+                AddAdvancedTablet(firstElement, secondElement);
+                break;
+            }
+        }
+    }
+
+    void AddAdvancedTablet(ElementName firstElement, ElementName secondElement)
+    {
+        Debug.Log($"AddAdvancedTablet {firstElement} {secondElement}");
+
+        TabletAdvanced original = _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstElement, secondElement);
+        if (original == null) return;
+        Debug.Log($"adding advanced tablet {original.name}");
+        AdvancedTablet = Instantiate(original);
+        AdvancedTablet.Initialize(this);
+        OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
+    }
+
     [Header("Abilities")]
     public List<Ability> Abilities = new();
+    public Ability AbilityAdvanced;
     public event Action<Ability> OnAbilityAdded;
 
     public void AddAbility(Ability ability)
