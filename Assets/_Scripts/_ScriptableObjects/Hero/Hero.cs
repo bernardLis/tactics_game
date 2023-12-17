@@ -68,7 +68,7 @@ public class Hero : EntityMovement
 
     public Tablet GetTabletByElement(Element element)
     {
-        if (TabletsByElement.Count == 0)
+        if (TabletsByElement.Count < Tablets.Count)
             foreach (Tablet t in Tablets)
                 TabletsByElement.Add(t.Element, t);
 
@@ -113,6 +113,9 @@ public class Hero : EntityMovement
         Debug.Log($"adding advanced tablet {original.name}");
         AdvancedTablet = Instantiate(original);
         AdvancedTablet.Initialize(this);
+
+        TabletsByElement.Add(AdvancedTablet.Element, AdvancedTablet);
+
         OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
     }
 

@@ -167,6 +167,12 @@ public class HeroElement : VisualElement
             TabletElement tabletElement = new(_hero.Tablets[i], true);
             _tabletSlots[i].Add(tabletElement);
         }
+
+        if (_hero.AdvancedTablet != null)
+        {
+            TabletElement tabletElement = new(_hero.AdvancedTablet, true);
+            _tabletSlots[_tabletSlots.Count - 1].Add(tabletElement);
+        }
     }
 
     void HandleStats()

@@ -23,7 +23,7 @@ public class AbilityElement : ElementWithTooltip
 
     public bool IsOnCooldown { get; private set; }
 
-    public AbilityElement(Ability ability, bool showLevel = false) : base()
+    public AbilityElement(Ability ability, bool showLevel = false, int size = 100) : base()
     {
         var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
         if (ss != null) styleSheets.Add(ss);
@@ -41,6 +41,9 @@ public class AbilityElement : ElementWithTooltip
         _icon.AddToClassList(_ussIcon);
         _icon.style.backgroundImage = ability.Icon.texture;
         Add(_icon);
+
+        style.width = size;
+        style.height = size;
 
         if (showLevel) AddLevelUpDots();
     }

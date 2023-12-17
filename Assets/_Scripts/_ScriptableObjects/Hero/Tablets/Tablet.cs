@@ -19,7 +19,7 @@ public class Tablet : BaseScriptableObject
     protected Hero _hero;
 
     public event Action OnLevelUp;
-    public void Initialize(Hero hero)
+    public virtual void Initialize(Hero hero)
     {
         Level = CreateInstance<IntVariable>();
         Level.SetValue(0);

@@ -68,6 +68,7 @@ public enum StyleSheetType
     HeroElementStyles,
     TooltipCardStyles, BuildingCardStyles,
     TabletElementStyles, TabletTooltipElementStyles,
+    TabletAdvancedScreenStyles,
 
 
 

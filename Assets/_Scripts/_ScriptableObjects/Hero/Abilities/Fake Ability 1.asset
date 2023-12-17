@@ -17,7 +17,13 @@ MonoBehaviour:
   Description: THIS IS A PLACEHOLDER
   Icon: {fileID: 21300000, guid: f814176a732d8a44ea9b9ee5d765c102, type: 3}
   Level: 0
-  Levels: []
-  Element: {fileID: 0}
+  Levels:
+  - {fileID: 11400000, guid: eb3163578e6482d4785dc647cc16e4b7, type: 2}
+  - {fileID: 11400000, guid: feb7d8475396d694d83938079cc20d2b, type: 2}
+  - {fileID: 11400000, guid: 37db93098a5d8474dabba8ebb24dcebf, type: 2}
+  - {fileID: 11400000, guid: a1cb2ac5c7bb5024fabb5e0048ab350d, type: 2}
+  - {fileID: 11400000, guid: 0efade4cd54b60b4ea248922822fcee6, type: 2}
+  - {fileID: 11400000, guid: d47de0b2ef91b56438b712a6f8e4ae2f, type: 2}
+  Element: {fileID: 11400000, guid: 6638e0f821e37d9458e6085e43d3e47f, type: 2}
   KillCount: 0
-  AbilityManagerPrefab: {fileID: 0}
+  AbilityManagerPrefab: {fileID: 5429259200537196069, guid: 6044b0b563cdb83468432fa02919c2f3, type: 3}

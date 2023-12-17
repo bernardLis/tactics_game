@@ -12,6 +12,18 @@ public class TabletAdvanced : Tablet
     public Ability FirstAbility;
     public Ability SecondAbility;
 
+    public override void Initialize(Hero hero)
+    {
+        base.Initialize(hero);
+
+        // HERE: fixed by adding normal abilities
+        FirstAbility.Element = Element;
+        SecondAbility.Element = Element;
+
+        FirstAbility.InitializeBattle(hero);
+        SecondAbility.InitializeBattle(hero);
+    }
+
     public override void LevelUp()
     {
         base.LevelUp();
