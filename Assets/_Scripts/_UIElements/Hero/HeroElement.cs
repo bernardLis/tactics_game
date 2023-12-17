@@ -123,15 +123,31 @@ public class HeroElement : VisualElement
         for (int i = 0; i < _hero.Abilities.Count; i++)
         {
             AbilityElement abilityIcon = new(_hero.Abilities[i], true);
-            abilitySlots[i].Add(abilityIcon);
             _abilityElements.Add(abilityIcon);
+
+            if (_hero.Abilities[i].Element.IsAdvanced)
+                if (abilitySlots[4].childCount == 0) abilitySlots[4].Add(abilityIcon);
+                else abilitySlots[5].Add(abilityIcon);
+            else
+                abilitySlots[i].Add(abilityIcon);
         }
 
         _hero.OnAbilityAdded += (Ability a) =>
         {
             AbilityElement abilityIcon = new(a, true);
             _abilityElements.Add(abilityIcon);
-            abilitySlots[_abilityElements.Count - 1].Add(abilityIcon);
+            if (a.Element.IsAdvanced)
+                if (abilitySlots[4].childCount == 0) abilitySlots[4].Add(abilityIcon);
+                else abilitySlots[5].Add(abilityIcon);
+            else
+            {
+                foreach (VisualElement slot in abilitySlots)
+                {
+                    if (slot.childCount > 0) continue;
+                    slot.Add(abilityIcon);
+                    break;
+                }
+            }
         };
     }
 

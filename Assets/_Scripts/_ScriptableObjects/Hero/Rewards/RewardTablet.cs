@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using JetBrains.Annotations;
 
 public class RewardTablet : Reward
 {
@@ -24,7 +25,7 @@ public class RewardTablet : Reward
             availableTablets.Remove(r.Tablet);
         }
 
-        if(_hero.AdvancedTablet != null && !_hero.AdvancedTablet.IsMaxLevel())
+        if (CanUpgradeAdvancedTablet() && !availableTablets.Contains(_hero.AdvancedTablet))
             availableTablets.Add(_hero.AdvancedTablet);
 
         if (availableTablets.Count == 0)
@@ -37,10 +38,24 @@ public class RewardTablet : Reward
         return true;
     }
 
+    bool CanUpgradeAdvancedTablet()
+    {
+        if (_hero.AdvancedTablet == null) return false;
+        if (_hero.AdvancedTablet.IsMaxLevel()) return false;
+        return true;
+    }
+
 
     public override void GetReward()
     {
         base.GetReward();
+
+        if (Tablet is TabletAdvanced)
+        {
+            _hero.AdvancedTablet.LevelUp();
+            return;
+        }
+
         foreach (Tablet t in _hero.Tablets)
         {
             if (t.Id != Tablet.Id) continue;

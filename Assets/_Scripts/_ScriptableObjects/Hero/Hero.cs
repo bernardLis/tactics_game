@@ -121,7 +121,7 @@ public class Hero : EntityMovement
 
     [Header("Abilities")]
     public List<Ability> Abilities = new();
-    public Ability AbilityAdvanced;
+    public List<Ability> AdvancedAbilities = new();
     public event Action<Ability> OnAbilityAdded;
 
     public void AddAbility(Ability ability)

@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: So meetal!
   Element: {fileID: 11400000, guid: 0af18cfc89b2850438fb7d153a140d80, type: 2}
   Level: {fileID: 0}
-  MaxLevel: 5
+  MaxLevel: 2
   PrimaryStat:
     StatType: 7
     Value: 0

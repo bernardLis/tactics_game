@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Wooden boy!
   Element: {fileID: 11400000, guid: 6bf002ea5d510d44a8152bf9f655250b, type: 2}
   Level: {fileID: 0}
-  MaxLevel: 5
+  MaxLevel: 2
   PrimaryStat:
     StatType: 7
     Value: 0

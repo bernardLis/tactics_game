@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Lightning!
   Element: {fileID: 11400000, guid: 7242fc082e4174940905433ec1f098e6, type: 2}
   Level: {fileID: 0}
-  MaxLevel: 5
+  MaxLevel: 2
   PrimaryStat:
     StatType: 7
     Value: 0

@@ -12,5 +12,7 @@ public class Element : BaseScriptableObject
     public Element StrongAgainst;
     public Element WeakAgainst;
 
+    public bool IsAdvanced;
+
     public EffectHolder VFXEffect;
 }

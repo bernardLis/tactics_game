@@ -32,7 +32,8 @@ public class Tablet : BaseScriptableObject
         Debug.Log($"tablet {name} level up to {Level.Value + 1}");
         Level.ApplyChange(1);
 
-        _hero.GetStatByType(PrimaryStat.StatType).ApplyBaseValueChange(PrimaryStat.Value);
+        if (PrimaryStat.StatType != StatType.None)
+            _hero.GetStatByType(PrimaryStat.StatType).ApplyBaseValueChange(PrimaryStat.Value);
         if (SecondaryStat.StatType != StatType.None)
             _hero.GetStatByType(SecondaryStat.StatType).ApplyBaseValueChange(SecondaryStat.Value);
 

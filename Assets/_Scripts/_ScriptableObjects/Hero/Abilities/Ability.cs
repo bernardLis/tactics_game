@@ -22,6 +22,8 @@ public class Ability : BaseScriptableObject
     public Element Element;
     [HideInInspector] public int KillCount;
 
+    public bool IsAdvanced;
+
     [Header("Battle GameObjects")]
     public GameObject AbilityManagerPrefab;
 
