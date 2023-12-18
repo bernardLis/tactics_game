@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa726f08dbb65ad4abdb58e5ac083066, type: 3}
   m_Name: Lightning Tablet
   m_EditorClassIdentifier: 
-  Id: abfc9aa1-ddf5-4029-aa76-11327e52b597
+  Id: e0350a43-0b58-43e6-ae0a-94e08ae1e6cb
   Icon: {fileID: 21300000, guid: 7f93f89af18918d4fac8bd6c618591c4, type: 3}
   Description: Lightning!
   Element: {fileID: 11400000, guid: 7242fc082e4174940905433ec1f098e6, type: 2}

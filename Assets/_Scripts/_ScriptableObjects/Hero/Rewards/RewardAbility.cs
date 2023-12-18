@@ -45,7 +45,6 @@ public class RewardAbility : Reward
             abilities = new(_hero.Abilities);
 
         abilities.AddRange(_hero.AdvancedAbilities);
-
         abilities.RemoveAll(x => forbiddenAbilities.Contains(x));
 
         for (int i = abilities.Count - 1; i >= 0; i--)

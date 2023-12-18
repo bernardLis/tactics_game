@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class RewardElementTablet : RewardElement
 {
     public RewardElementTablet(Reward reward) : base(reward)
-    {
+    {        
         RewardTablet rewardTablet = reward as RewardTablet;
         Tablet tablet = rewardTablet.Tablet;
         Label txt = new Label("");

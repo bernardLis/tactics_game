@@ -20,6 +20,7 @@ public class Reward : BaseScriptableObject
 
     public virtual void GetReward()
     {
+        Debug.Log($"base get reward");
         OnRewardSelected?.Invoke(this);
     }
 }

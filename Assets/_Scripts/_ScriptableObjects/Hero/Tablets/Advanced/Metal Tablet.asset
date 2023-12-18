@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa726f08dbb65ad4abdb58e5ac083066, type: 3}
   m_Name: Metal Tablet
   m_EditorClassIdentifier: 
-  Id: abfc9aa1-ddf5-4029-aa76-11327e52b597
+  Id: 88264ce3-fbbb-43a8-9bdd-435ff874cf19
   Icon: {fileID: 21300000, guid: 686385ee67d17d548bce2c539f567d20, type: 3}
   Description: So meetal!
   Element: {fileID: 11400000, guid: 0af18cfc89b2850438fb7d153a140d80, type: 2}

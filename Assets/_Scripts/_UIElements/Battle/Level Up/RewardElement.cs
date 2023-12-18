@@ -22,7 +22,6 @@ public class RewardElement : ElementWithSound
             styleSheets.Add(ss);
 
         Reward = reward;
-
         AddToClassList(_ussMain);
 
         RegisterCallback<ClickEvent>(OnClick);
@@ -42,6 +41,9 @@ public class RewardElement : ElementWithSound
         AddToClassList(_ussDisabled);
     }
 
-    public void DisableClicks() { UnregisterCallback<ClickEvent>(OnClick); }
+    public void DisableClicks()
+    {
+        UnregisterCallback<ClickEvent>(OnClick);
+    }
 
 }

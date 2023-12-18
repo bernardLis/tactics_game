@@ -19,9 +19,9 @@ public class LevelUpScreen : FullScreenElement
 
     VisualElement _rewardContainer;
     Label _title;
-    List<RewardElement> _hiddenCards = new();
+    List<float> _leftPositions = new();
 
-    List<RewardElement> _allRewardCards = new();
+    List<RewardElement> _allRewardElements = new();
 
     VisualElement _rerollContainer;
     Label _rerollsLeft;
@@ -46,6 +46,7 @@ public class LevelUpScreen : FullScreenElement
         MakeItRain();
         PlayLevelUpAnimation();
         AddElements();
+        DisableNavigation();
     }
 
     void MakeItRain()
@@ -101,9 +102,7 @@ public class LevelUpScreen : FullScreenElement
         _title.style.opacity = 0;
         _content.Add(_title);
         DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f)
-            .SetUpdate(true)
-            .OnComplete(() => RunCardShow());
-
+            .SetUpdate(true);
         VisualElement spacer = new();
         spacer.AddToClassList(_ussCommonHorizontalSpacer);
         _content.Add(spacer);
@@ -111,31 +110,41 @@ public class LevelUpScreen : FullScreenElement
         AddRewardContainer();
         AddRerollButton();
         AddHeroElement();
-
-        DisableNavigation();
+        schedule.Execute(() => PopulateRewards()).StartingIn(600);
     }
 
     void AddRewardContainer()
     {
         _rewardContainer = new();
         _rewardContainer.style.flexDirection = FlexDirection.Row;
+        _rewardContainer.style.flexGrow = 1;
+        _rewardContainer.style.justifyContent = Justify.Center;
+        _rewardContainer.style.width = Length.Percent(100);
         _content.Add(_rewardContainer);
 
-        _hiddenCards = new();
+        List<RewardElement> hiddenCards = new();
         for (int i = 0; i < _numberOfRewards; i++)
         {
             RewardElement card = CreateRewardCardGold();
-            _hiddenCards.Add(card);
+            hiddenCards.Add(card);
             card.style.visibility = Visibility.Hidden;
             _rewardContainer.Add(card);
         }
+
+        // styles need a frame to resolve...
+        schedule.Execute(() =>
+        {
+            foreach (var el in hiddenCards)
+                _leftPositions.Add(el.layout.x);
+        }).StartingIn(100);
+
     }
 
     void AddRerollButton()
     {
         _rerollContainer = new();
         _rerollContainer.style.opacity = 0;
-        _rerollContainer.style.flexGrow = 1;
+        // _rerollContainer.style.flexGrow = 1;
         _content.Add(_rerollContainer);
 
         if (_battleHeroManager.RewardRerollsAvailable <= 0) return;
@@ -145,6 +154,10 @@ public class LevelUpScreen : FullScreenElement
 
         _rerollsLeft = new($"Rerolls left: {_battleHeroManager.RewardRerollsAvailable}");
         _rerollContainer.Add(_rerollsLeft);
+
+        DOTween.To(x => _rerollContainer.style.opacity = x, 0, 1, 0.5f)
+            .SetDelay(1f)
+            .SetUpdate(true);
     }
 
     void AddHeroElement()
@@ -154,30 +167,21 @@ public class LevelUpScreen : FullScreenElement
 
     void RunCardShow()
     {
-        schedule.Execute(() =>
+        for (int i = 0; i < _numberOfRewards; i++)
         {
-            CreateRewardCards();
-            for (int i = 0; i < _numberOfRewards; i++)
-            {
-                RewardElement card = _allRewardCards[i];
-                _rewardContainer.Add(card);
+            RewardElement card = _allRewardElements[i];
+            _rewardContainer.Add(card);
 
-                card.style.position = Position.Absolute;
-                card.style.left = Screen.width;
+            card.style.position = Position.Absolute;
+            card.style.left = Screen.width;
 
-                _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
-                float endLeft = i * (_hiddenCards[i].resolvedStyle.width
-                    + _hiddenCards[i].resolvedStyle.marginLeft + _hiddenCards[i].resolvedStyle.right);
-                DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
-                        .SetEase(Ease.InFlash)
-                        .SetDelay(i * 0.2f).SetUpdate(true);
-            }
-        }).StartingIn(100);
-
-        if (_rerollContainer == null) return;
-        DOTween.To(x => _rerollContainer.style.opacity = x, 0, 1, 0.5f)
-            .SetDelay(0.5f)
-            .SetUpdate(true);
+            _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
+            float endLeft = _leftPositions[i] - 20; // -20 magic margin
+            DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
+                    .SetEase(Ease.InFlash)
+                    .SetDelay(i * 0.2f)
+                    .SetUpdate(true);
+        }
     }
 
     void RerollReward()
@@ -194,30 +198,22 @@ public class LevelUpScreen : FullScreenElement
         _audioManager.PlayUI("Dice Roll");
 
         PopulateRewards();
-        UpdateRerollButton();
-    }
 
-    void UpdateRerollButton()
-    {
         if (_battleHeroManager.RewardRerollsAvailable <= 0)
-        {
             _rerollButton.SetEnabled(false);
-            return;
-        }
-        _rerollButton.SetEnabled(true);
     }
 
     void PopulateRewards()
     {
         _rewardContainer.Clear();
-        _allRewardCards.Clear();
         CreateRewardCards();
-        ChooseRewardCards();
+        RunCardShow();
+        // ShowRewardCards();
     }
 
     void CreateRewardCards()
     {
-        _allRewardCards.Clear();
+        _allRewardElements.Clear();
         for (int i = 0; i < _numberOfRewards; i++)
         {
             // try giving player ability or stat
@@ -232,16 +228,15 @@ public class LevelUpScreen : FullScreenElement
             // if it is not possible give them gold
             if (card == null) card = CreateRewardCardGold();
 
-            _allRewardCards.Add(card);
+            _allRewardElements.Add(card);
         }
     }
 
-    void ChooseRewardCards()
+    void ShowRewardCards()
     {
         for (int i = 0; i < _numberOfRewards; i++)
         {
-            RewardElement card = _allRewardCards[Random.Range(0, _allRewardCards.Count)];
-            _allRewardCards.Remove(card);
+            RewardElement card = _allRewardElements[i];
             _rewardContainer.Add(card);
         }
     }
@@ -249,29 +244,28 @@ public class LevelUpScreen : FullScreenElement
     RewardElement CreateRewardTablet()
     {
         RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
-        if (!reward.CreateRandom(_battleHeroManager.Hero, _allRewardCards)) return null;
-
+        if (!reward.CreateRandom(_battleHeroManager.Hero, _allRewardElements)) return null;
         reward.OnRewardSelected += RewardSelected;
-        RewardElementTablet card = new(reward);
-        return card;
+        RewardElementTablet element = new(reward);
+        return element;
     }
 
     RewardElement CreateRewardCardAbility()
     {
         RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-        if (!reward.CreateRandom(_battleHeroManager.Hero, _allRewardCards)) return null;
+        if (!reward.CreateRandom(_battleHeroManager.Hero, _allRewardElements)) return null;
         reward.OnRewardSelected += RewardSelected;
-        RewardElementAbility card = new(reward);
-        return card;
+        RewardElementAbility element = new(reward);
+        return element;
     }
 
     RewardElement CreateRewardCardGold()
     {
         RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-        reward.CreateRandom(_battleHeroManager.Hero, _allRewardCards);
+        reward.CreateRandom(_battleHeroManager.Hero, _allRewardElements);
         reward.OnRewardSelected += RewardSelected;
-        RewardElementGold card = new(reward);
-        return card;
+        RewardElementGold element = new(reward);
+        return element;
     }
 
     void RewardSelected(Reward reward)
@@ -281,11 +275,11 @@ public class LevelUpScreen : FullScreenElement
         _rerollButton.SetEnabled(false);
         DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f).SetUpdate(true);
 
-        foreach (RewardElement card in _allRewardCards)
+        foreach (RewardElement element in _allRewardElements)
         {
-            if (card.Reward != reward) card.DisableCard();
+            if (element.Reward != reward) element.DisableCard();
 
-            card.DisableClicks();
+            element.DisableClicks();
         }
 
         OnRewardSelected?.Invoke();

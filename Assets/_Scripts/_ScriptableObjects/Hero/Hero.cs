@@ -88,15 +88,11 @@ public class Hero : EntityMovement
             if (!t.IsMaxLevel()) continue;
             if (firstElement == ElementName.None)
             {
-                Debug.Log($"firstElement  {firstElement}");
-
                 firstElement = t.Element.ElementName;
                 continue;
             }
             if (secondElement == ElementName.None)
             {
-                Debug.Log($"secondElement  {secondElement}");
-
                 secondElement = t.Element.ElementName;
                 AddAdvancedTablet(firstElement, secondElement);
                 break;
@@ -106,8 +102,6 @@ public class Hero : EntityMovement
 
     void AddAdvancedTablet(ElementName firstElement, ElementName secondElement)
     {
-        Debug.Log($"AddAdvancedTablet {firstElement} {secondElement}");
-
         TabletAdvanced original = _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstElement, secondElement);
         if (original == null) return;
         Debug.Log($"adding advanced tablet {original.name}");
