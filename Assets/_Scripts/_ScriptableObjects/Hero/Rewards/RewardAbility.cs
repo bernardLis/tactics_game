@@ -40,15 +40,13 @@ public class RewardAbility : Reward
     public Ability GetValidAbility(List<Ability> forbiddenAbilities)
     {
         List<Ability> abilities = new(_gameManager.EntityDatabase.GetAllBasicAbilities());
-        abilities.AddRange(_hero.Abilities); // increase chance of getting abilities already owned
         if (_hero.Abilities.Count == 4) // only 4 ability buttons // HERE: ability limit
             abilities = new(_hero.Abilities);
 
         abilities.AddRange(_hero.AdvancedAbilities);
-        abilities.RemoveAll(x => forbiddenAbilities.Contains(x));
 
         for (int i = abilities.Count - 1; i >= 0; i--)
-            if (abilities[i].IsMaxLevel())
+            if (!IsAbilityValid(abilities[i], forbiddenAbilities))
                 abilities.Remove(abilities[i]);
 
         // TODO: possibly error if no abilities to choose from
@@ -59,6 +57,17 @@ public class RewardAbility : Reward
         }
 
         return abilities[Random.Range(0, abilities.Count)];
+    }
+
+    bool IsAbilityValid(Ability ability, List<Ability> forbiddenAbilities)
+    {
+        if (forbiddenAbilities.Contains(ability)) return false;
+
+        Ability heroAb = _hero.GetAbilityById(ability.Id);
+        if (heroAb == null) return true;
+        if (heroAb.IsMaxLevel()) return false;
+
+        return true;
     }
 
     public override void GetReward()

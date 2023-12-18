@@ -125,6 +125,14 @@ public class Hero : EntityMovement
         OnAbilityAdded?.Invoke(instance);
     }
 
+    public Ability GetAbilityById(string id)
+    {
+        foreach (Ability a in Abilities)
+            if (a.Id == id) return a;
+        return null;
+    }
+
+
     public void CreateHero(string heroName, Element element)
     {
         _gameManager = GameManager.Instance;

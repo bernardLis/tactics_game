@@ -72,6 +72,8 @@ public class Ability : BaseScriptableObject
 
     public bool IsMaxLevel()
     {
+        Debug.Log($"{name} {Level} {Levels.Count - 1}");
+        Debug.Log($"is max level: {Level >= Levels.Count - 1}");
         return Level >= Levels.Count - 1;
     }
 
