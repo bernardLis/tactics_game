@@ -30,16 +30,14 @@ public class LevelUpScreen : FullScreenElement
     int _numberOfRewards = 2;
 
     public event Action OnRewardSelected;
-    public LevelUpScreen()
+    public LevelUpScreen() : base()
     {
-        _gameManager = GameManager.Instance;
         _audioManager = _gameManager.GetComponent<AudioManager>();
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
         if (ss != null) styleSheets.Add(ss);
 
         _numberOfRewards = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
-
-        _battleHeroManager = BattleManager.Instance.GetComponent<BattleHeroManager>();
+        _battleHeroManager = _battleManager.GetComponent<BattleHeroManager>();
 
         _content.AddToClassList(_ussMain);
 
@@ -167,6 +165,8 @@ public class LevelUpScreen : FullScreenElement
 
     void RunCardShow()
     {
+        _rerollButton.SetEnabled(false);
+        schedule.Execute(() => _rerollButton.SetEnabled(true)).StartingIn(_numberOfRewards * 200);
         for (int i = 0; i < _numberOfRewards; i++)
         {
             RewardElement card = _allRewardElements[i];

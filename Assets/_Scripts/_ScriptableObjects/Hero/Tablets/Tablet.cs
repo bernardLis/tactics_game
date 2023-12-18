@@ -29,6 +29,8 @@ public class Tablet : BaseScriptableObject
 
     public virtual void LevelUp()
     {
+        if (IsMaxLevel()) return;
+        
         Level.ApplyChange(1);
 
         if (PrimaryStat.StatType != StatType.None)

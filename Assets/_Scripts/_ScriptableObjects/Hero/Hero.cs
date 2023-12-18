@@ -77,7 +77,6 @@ public class Hero : EntityMovement
 
     void CheckAdvancedTablets()
     {
-        Debug.Log($"CheckAdvancedTablets");
         if (AdvancedTablet != null) return; // only one advanced tablet
 
         ElementName firstElement = ElementName.None;

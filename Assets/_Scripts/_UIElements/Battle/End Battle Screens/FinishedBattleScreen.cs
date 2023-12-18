@@ -9,16 +9,14 @@ public class FinishedBattleScreen : FullScreenElement
     const string _ussClassName = "finished-battle-screen__";
     const string _ussMain = _ussClassName + "main";
 
-    BattleManager _battleManager;
 
     protected VisualElement _mainContainer;
 
-    public FinishedBattleScreen()
+    public FinishedBattleScreen() : base()
     {
         var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
         if (ss != null) styleSheets.Add(ss);
 
-        _battleManager = BattleManager.Instance;
 
         _mainContainer = new();
         _mainContainer.AddToClassList(_ussMain);

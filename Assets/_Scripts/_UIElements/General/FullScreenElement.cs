@@ -13,7 +13,7 @@ public class FullScreenElement : VisualElement
 
 
     protected GameManager _gameManager;
-    BattleManager _battleManager;
+    protected BattleManager _battleManager;
 
     public event Action OnHide;
 
