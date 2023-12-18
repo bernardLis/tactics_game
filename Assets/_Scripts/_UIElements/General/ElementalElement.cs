@@ -32,7 +32,6 @@ public class ElementalElement : ElementWithTooltip
             _icon.style.width = size;
             _icon.style.height = size;
         }
-
         Add(_icon);
     }
 
@@ -54,8 +53,13 @@ public class ElementalElement : ElementWithTooltip
 
     protected override void DisplayTooltip()
     {
-        Label tooltip = new(_element.Description);
-        _tooltip = new(this, tooltip);
+        VisualElement container = new();
+        container.Add(new Label(_element.ElementName.ToString()));
+        container.Add(new Label(_element.Description));
+        container.Add(new Label("Strong against: " + _element.StrongAgainst.ElementName.ToString()));
+        container.Add(new Label("Weak against: " + _element.WeakAgainst.ElementName.ToString()));
+
+        _tooltip = new(this, container);
         base.DisplayTooltip();
     }
 }

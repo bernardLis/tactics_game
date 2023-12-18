@@ -121,6 +121,11 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
 
             // BattleEntity be = SpawnEntity(m, pos);
             BattleEntity be = Minions.Find(x => !x.gameObject.activeSelf);
+            if (be == null)
+            {
+                Debug.LogError("No more minions in pool");
+                yield break;
+            }
             be.InitializeEntity(m, 1);
             be.transform.position = pos;
             be.gameObject.SetActive(true);

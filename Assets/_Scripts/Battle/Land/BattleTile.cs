@@ -21,6 +21,7 @@ public class BattleTile : MonoBehaviour
     [SerializeField] GameObject _surface;
     [SerializeField] GameObject _borderPrefab;
     [SerializeField] GameObject _rewardChestPrefab;
+    [SerializeField] GameObject _securedEffect;
 
     public List<BattleTileBorder> _borders = new();
 
@@ -142,6 +143,8 @@ public class BattleTile : MonoBehaviour
     public virtual void Secured()
     {
         _isSecured = true;
+
+        Destroy(Instantiate(_securedEffect, transform.position, Quaternion.Euler(-90f, 0f, 0f)), 5f);
 
         BattleBuilding = GetComponentInChildren<BattleBuilding>();
         if (Building != null)

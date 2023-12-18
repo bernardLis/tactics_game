@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Metal
   m_EditorClassIdentifier: 
   Id: 3a9ac611-23db-4df3-b665-8709476b289f
-  ElementName: 0
+  ElementName: 5
   Icon: {fileID: 21300000, guid: d6692d2211a5e52458d1551d9526bc8c, type: 3}
   Color: {fileID: 11400000, guid: 1321707bde01303439ad2ff9fbd9c3b6, type: 2}
   Description: Fire + Earth
   StrongAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   WeakAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   IsAdvanced: 1
-  VFXEffect: {fileID: 11400000, guid: 858a11eea3168d24ebe83bdff6b9cf3a, type: 2}
+  VFXEffect: {fileID: 0}
