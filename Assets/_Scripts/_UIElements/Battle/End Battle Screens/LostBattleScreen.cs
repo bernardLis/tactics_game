@@ -8,13 +8,9 @@ public class LostBattleScreen : FinishedBattleScreen
     const string _ussClassName = "finished-battle-screen__";
     const string _ussMain = _ussClassName + "lost-main";
 
-    public LostBattleScreen()
+    public LostBattleScreen() : base()
     {
-        _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
-        if (ss != null) styleSheets.Add(ss);
-
-        AddToClassList(_ussMain);
+        _mainContainer.AddToClassList(_ussMain);
         AddButtons();
 
         AudioManager audioManager = AudioManager.Instance;
@@ -23,7 +19,6 @@ public class LostBattleScreen : FinishedBattleScreen
 
     protected override void AddTitle()
     {
-        // meant to be overwritten
         Label text = new("Battle lost!");
         text.style.fontSize = 34;
 
@@ -36,28 +31,12 @@ public class LostBattleScreen : FinishedBattleScreen
         container.style.alignItems = Align.Center;
         _mainContainer.Add(container);
 
-        Label text = new("Hey, you lost but you did very well! If you want to give it another go I will give you a bonus 1 000 gold. (it stacks)");
-        text.style.fontSize = 24;
-        text.style.whiteSpace = WhiteSpace.Normal;
-        container.Add(text);
-
-        MyButton takeAdvantage = new("Easy money!", _ussCommonMenuButton, AdvantageButton);
-        container.Add(takeAdvantage);
-
-        MyButton noAdvantage = new("I don't need your charity!", _ussCommonMenuButton, QuitButton);
+        MyButton noAdvantage = new("Back To Main Menu", _ussCommonMenuButton, BackToMainMenu);
         container.Add(noAdvantage);
     }
 
-    void AdvantageButton()
+    void BackToMainMenu()
     {
-        QuitButton();
-    }
-
-    void QuitButton()
-    {
-        _gameManager.ClearSaveData();
         _gameManager.LoadScene(Scenes.MainMenu);
     }
-
-
 }

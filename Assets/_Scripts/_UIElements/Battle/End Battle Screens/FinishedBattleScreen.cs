@@ -9,7 +9,6 @@ public class FinishedBattleScreen : FullScreenElement
     const string _ussClassName = "finished-battle-screen__";
     const string _ussMain = _ussClassName + "main";
 
-
     protected VisualElement _mainContainer;
 
     public FinishedBattleScreen() : base()

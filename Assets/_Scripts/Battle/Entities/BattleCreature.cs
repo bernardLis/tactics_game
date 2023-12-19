@@ -260,7 +260,12 @@ public class BattleCreature : BattleEntity
             float distance = Vector3.Distance(transform.position, be.transform.position);
             distances.Add(be, distance);
         }
-
+        if (distances.Count == 0)
+        {
+            Opponent = null;
+            return;
+        }
+        
         BattleEntity closest = distances.OrderBy(pair => pair.Value).First().Key;
         EntityLog.Add($"{_battleManager.GetTime()}: Choosing {closest.name} as new target");
         SetOpponent(closest);

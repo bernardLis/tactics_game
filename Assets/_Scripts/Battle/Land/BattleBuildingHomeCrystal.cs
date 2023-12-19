@@ -20,9 +20,10 @@ public class BattleBuildingHomeCrystal : BattleBuilding
 
     void Start()
     {
-        transform.position += Vector3.up * 15f;
+        // transform.localScale = Vector3.zero;
+        // transform.position += Vector3.up * 15f;
 
-        StartCoroutine(LandingCoroutine());
+        // StartCoroutine(LandingCoroutine());
     }
 
     IEnumerator LandingCoroutine()

@@ -41,7 +41,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
         _floorLayerMask = LayerMask.GetMask("Floor");
 
         _isGrabbingUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
-
         EnableGrabbing();
     }
 
@@ -93,6 +92,7 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     public void TryGrabbing(GameObject obj, float yPosition = 0f)
     {
         if (!IsGrabbingAllowed()) return;
+        Debug.Log($"try grabbing {obj.name}");
 
         _pointerDown = true;
         _cursorManager.SetCursorByName("Grab");
