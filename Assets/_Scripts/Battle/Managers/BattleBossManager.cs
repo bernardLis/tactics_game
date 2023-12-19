@@ -23,18 +23,17 @@ public class BattleBossManager : MonoBehaviour
         _chosenBossBuilding = _bossBuildings[Random.Range(0, _bossBuildings.Length)];
     }
 
-    void SpawnBoss(BattleTile tile)
+    public void SpawnBoss(BattleTile tile)
     {
         StartCoroutine(SpawnBossCoroutine(tile));
     }
-
 
     IEnumerator SpawnBossCoroutine(BattleTile tile)
     {
         _bossTile = _battleAreaManager.ReplaceTile(tile, _chosenBossBuilding);
 
         yield return new WaitForSeconds(1f);
-        _battleAreaManager.UnlockTile(_bossTile);
+        _battleAreaManager.UnlockNextTile(_bossTile);
         yield return new WaitForSeconds(1f);
         _bossTile.Secured();
     }

@@ -41,17 +41,6 @@ public class BattleHero : BattleEntity
 
     }
 
-    void OnFightStarted()
-    {
-        foreach (GameObject g in _battleAbilities.Values)
-            g.GetComponent<BattleAbility>().StartAbility();
-    }
-
-    void OnFightEnded()
-    {
-        foreach (GameObject g in _battleAbilities.Values)
-            g.GetComponent<BattleAbility>().StopAbility();
-    }
 
     void OnDestroy()
     {
@@ -66,16 +55,17 @@ public class BattleHero : BattleEntity
         _battleAbilities.Add(ability, abilityPrefab);
     }
 
-    void RemoveAbility(Ability ability)
-    {
-        // TODO: idk if it works...
-        Destroy(_battleAbilities[ability]);
-        _battleAbilities.Remove(ability);
-    }
-
     public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
     {
         BaseGetHit(5, default);
+        yield return null;
+    }
+
+    public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+    {
+        _thirdPersonController.enabled = false;
+        _battleManager.LoseBattle();
+
         yield return null;
     }
 
@@ -84,11 +74,9 @@ public class BattleHero : BattleEntity
     public override void StopRunEntityCoroutine() { }
     public override void GetEngaged(BattleEntity engager) { }
 
-
     [ContextMenu("Get Hit")]
     public void GetHitContextMenu()
     {
         BaseGetHit(5, default);
     }
-
 }

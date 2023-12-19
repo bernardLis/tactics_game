@@ -8,8 +8,6 @@ using Random = UnityEngine.Random;
 
 public class BattleMinionManager : Singleton<BattleMinionManager>
 {
-    [SerializeField] bool _noFights; // HERE: testing
-
     BattleManager _battleManager;
     BattleTooltipManager _battleTooltipManager;
     BattleAreaManager _battleAreaManager;
@@ -79,18 +77,17 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
 
     IEnumerator StartFight()
     {
-        // HERE: testing
-        if (_noFights)
-        {
-            yield break;
-        }
-
         yield return new WaitForSeconds(2f);
 
         while (true)
         {
-            EnemyWave wave = _currentFight.EnemyWaves[_currentFight.CurrentWaveIndex];
-            StartCoroutine(SpawnWave(wave));
+            // HERE: testing
+            if (_battleManager.IsGameLoopBlocked)
+            {
+                yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
+                continue;
+            }
+            SpawnWave();
             yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
         }
     }
@@ -101,7 +98,13 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
         if (!_currentFight.IsFinished()) return;
     }
 
-    IEnumerator SpawnWave(EnemyWave wave)
+    public void SpawnWave()
+    {
+        EnemyWave wave = _currentFight.EnemyWaves[_currentFight.CurrentWaveIndex];
+        StartCoroutine(SpawnWaveCoroutine(wave));
+    }
+
+    IEnumerator SpawnWaveCoroutine(EnemyWave wave)
     {
         // spawn minions on tiles next to the player or on the same tile
         List<BattleTile> tiles = _battleAreaManager.GetTilesAroundPlayer();

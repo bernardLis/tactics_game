@@ -40,6 +40,8 @@ public class BattleHeroManager : MonoBehaviour
         BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position + Vector3.up * 10f,
                                 Quaternion.identity).GetComponent<BattleHero>();
 
+        BattleHero.OnDeath += (a, b) => _battleManager.LoseBattle();
+
         _placeholderAudioListener.enabled = false;
         StartCoroutine(MakeHeroFall(hero));
 

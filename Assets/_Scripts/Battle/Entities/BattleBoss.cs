@@ -287,7 +287,7 @@ public class BattleBoss : BattleEntity
         CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
         CurrentDamageToBreakCorruption.SetValue(0);
         TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-        TotalStunDuration.SetValue(10 + _gameManager.UpgradeBoard.GetUpgradeByName("Stun").GetValue());
+        TotalStunDuration.SetValue(10 + _gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").GetValue());
         CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
         CurrentStunDuration.SetValue(0);
     }

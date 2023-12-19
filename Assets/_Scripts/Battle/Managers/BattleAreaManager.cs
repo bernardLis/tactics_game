@@ -42,7 +42,7 @@ public class BattleAreaManager : MonoBehaviour
         _unlockedBuildings = GameManager.Instance.GameDatabase.GetUnlockedBuildings();
 
         CreateArea();
-        StartCoroutine(UnlockTiles());
+        StartCoroutine(UnlockTilesPeriodicallyCoroutine());
     }
 
     void CreateArea()
@@ -90,34 +90,57 @@ public class BattleAreaManager : MonoBehaviour
             Instantiate(_cornerTileIndicators[i], _cornerTiles[i].transform.position, Quaternion.Euler(270f, 0, 0));
     }
 
-    IEnumerator UnlockTiles()
+    IEnumerator UnlockTilesPeriodicallyCoroutine()
     {
         while (true)
         {
             yield return new WaitForSeconds(60f);
-
-            List<BattleTile> allPossibleTiles = new();
-            foreach (BattleTile tile in UnlockedTiles)
-            {
-                foreach (BattleTile t in GetAdjacentTiles(tile))
-                {
-                    if (allPossibleTiles.Contains(t)) continue;
-                    if (UnlockedTiles.Contains(t)) continue;
-                    allPossibleTiles.Add(t);
-                }
-            }
-
-            BattleTile selectedTile = ChooseTileClosestToHero(allPossibleTiles);
-
-            // TODO: balance when boss spawns
-            if (UnlockedTiles.Count > 300)
-            {
-                OnBossTileUnlocked?.Invoke(selectedTile);
-                break;
-            }
-
-            UnlockTile(selectedTile);
+            if (_battleManager.IsGameLoopBlocked) continue;
+            UnlockNextTile();
         }
+    }
+
+    public void DebugSpawnBossTile()
+    {
+        BattleTile selectedTile = SelectTile();
+        OnBossTileUnlocked?.Invoke(selectedTile);
+    }
+
+    public void UnlockNextTile(BattleTile givenTile = null)
+    {
+        BattleTile selectedTile = givenTile ?? SelectTile();
+
+        // TODO: balance when boss spawns
+        if (UnlockedTiles.Count > 300)
+        {
+            OnBossTileUnlocked?.Invoke(selectedTile);
+            return;
+        }
+
+        if (UnlockedTiles.Contains(selectedTile))
+        {
+            Debug.LogError($"Trying to unlock tile that is already unlocked");
+            return;
+        }
+        selectedTile.EnableTile();
+        UnlockedTiles.Add(selectedTile);
+        OnTileUnlocked?.Invoke(selectedTile);
+    }
+
+    BattleTile SelectTile()
+    {
+        List<BattleTile> allPossibleTiles = new();
+        foreach (BattleTile tile in UnlockedTiles)
+        {
+            foreach (BattleTile t in GetAdjacentTiles(tile))
+            {
+                if (allPossibleTiles.Contains(t)) continue;
+                if (UnlockedTiles.Contains(t)) continue;
+                allPossibleTiles.Add(t);
+            }
+        }
+
+        return ChooseTileClosestToHero(allPossibleTiles);
     }
 
     BattleTile ChooseTileClosestToHero(List<BattleTile> tiles)
@@ -148,15 +171,6 @@ public class BattleAreaManager : MonoBehaviour
 
         return activeTiles;
     }
-
-    public void UnlockTile(BattleTile tile)
-    {
-        if (UnlockedTiles.Contains(tile)) return;
-        tile.EnableTile();
-        UnlockedTiles.Add(tile);
-        OnTileUnlocked?.Invoke(tile);
-    }
-
 
     public BattleTile GetRandomUnlockedTile()
     {

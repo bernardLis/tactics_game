@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 
-
 public class GameManager : PersistentSingleton<GameManager>, ISavable
 {
     LevelLoader _levelLoader;

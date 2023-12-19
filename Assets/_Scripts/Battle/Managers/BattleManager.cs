@@ -19,6 +19,8 @@ public class BattleManager : Singleton<BattleManager>
 
     [SerializeField] Sound _battleMusic;
 
+    public bool IsGameLoopBlocked;
+
     public Battle CurrentBattle { get; private set; }
 
     public VisualElement Root { get; private set; }
@@ -117,32 +119,8 @@ public class BattleManager : Singleton<BattleManager>
 
         ResumeTimer();
 
-        // HERE: testing - boss 
-        // StartCoroutine(SpawnBossCoroutine());
-
         OnBattleInitialized?.Invoke();
     }
-
-    // HERE: testing - boss
-    IEnumerator SpawnBossCoroutine()
-    {
-        BattleEntitySpawner spawner = Instantiate(_spawner,
-                                                    Vector3.right * 5f,
-                                                    Quaternion.identity);
-        spawner.ShowPortal(null, Vector3.one * 5f);
-        yield return new WaitForSeconds(1.5f);
-
-        Boss boss = Instantiate(_boss as Boss);
-        spawner.SpawnEntities(new List<Entity> { boss }, team: 1);
-        spawner.OnSpawnComplete += list =>
-        {
-            BattleBoss bossEntity = list[0] as BattleBoss;
-            AddOpponentArmyEntity(bossEntity);
-        };
-
-    }
-
-
     public void PauseGame()
     {
         Debug.Log($"Pausing the game...");
