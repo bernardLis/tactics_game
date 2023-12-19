@@ -217,15 +217,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DebugKillHero"",
-                    ""type"": ""Button"",
-                    ""id"": ""77c90cfd-3296-4dd9-b49b-7b450be68c53"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""DebugSpawnMinionWave"",
                     ""type"": ""Button"",
                     ""id"": ""b9700237-27eb-4342-a7fb-c61afa329c42"",
@@ -247,6 +238,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""name"": ""DebugSpawnBossTile"",
                     ""type"": ""Button"",
                     ""id"": ""94f07135-4971-4f83-a3f6-199b6108e92a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugKillHero"",
+                    ""type"": ""Button"",
+                    ""id"": ""77c90cfd-3296-4dd9-b49b-7b450be68c53"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -586,17 +586,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0da91ea9-5dfe-4086-81bb-8cc412863e0c"",
-                    ""path"": ""<Keyboard>/u"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DebugKillHero"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""acf0e8aa-0cd6-4035-bd7d-505abcb542cf"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
@@ -625,6 +614,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""DebugSpawnBossTile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da91ea9-5dfe-4086-81bb-8cc412863e0c"",
+                    ""path"": ""<Keyboard>/leftBracket"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""DebugKillHero"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -673,10 +673,10 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_StrafeLeft = m_Battle.FindAction("StrafeLeft", throwIfNotFound: true);
         m_Battle_StrafeRight = m_Battle.FindAction("StrafeRight", throwIfNotFound: true);
         m_Battle_Interact = m_Battle.FindAction("Interact", throwIfNotFound: true);
-        m_Battle_DebugKillHero = m_Battle.FindAction("DebugKillHero", throwIfNotFound: true);
         m_Battle_DebugSpawnMinionWave = m_Battle.FindAction("DebugSpawnMinionWave", throwIfNotFound: true);
         m_Battle_DebugSpawnTile = m_Battle.FindAction("DebugSpawnTile", throwIfNotFound: true);
         m_Battle_DebugSpawnBossTile = m_Battle.FindAction("DebugSpawnBossTile", throwIfNotFound: true);
+        m_Battle_DebugKillHero = m_Battle.FindAction("DebugKillHero", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -759,10 +759,10 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_StrafeLeft;
     private readonly InputAction m_Battle_StrafeRight;
     private readonly InputAction m_Battle_Interact;
-    private readonly InputAction m_Battle_DebugKillHero;
     private readonly InputAction m_Battle_DebugSpawnMinionWave;
     private readonly InputAction m_Battle_DebugSpawnTile;
     private readonly InputAction m_Battle_DebugSpawnBossTile;
+    private readonly InputAction m_Battle_DebugKillHero;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
@@ -788,10 +788,10 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @StrafeLeft => m_Wrapper.m_Battle_StrafeLeft;
         public InputAction @StrafeRight => m_Wrapper.m_Battle_StrafeRight;
         public InputAction @Interact => m_Wrapper.m_Battle_Interact;
-        public InputAction @DebugKillHero => m_Wrapper.m_Battle_DebugKillHero;
         public InputAction @DebugSpawnMinionWave => m_Wrapper.m_Battle_DebugSpawnMinionWave;
         public InputAction @DebugSpawnTile => m_Wrapper.m_Battle_DebugSpawnTile;
         public InputAction @DebugSpawnBossTile => m_Wrapper.m_Battle_DebugSpawnBossTile;
+        public InputAction @DebugKillHero => m_Wrapper.m_Battle_DebugKillHero;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -864,9 +864,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @DebugKillHero.started += instance.OnDebugKillHero;
-            @DebugKillHero.performed += instance.OnDebugKillHero;
-            @DebugKillHero.canceled += instance.OnDebugKillHero;
             @DebugSpawnMinionWave.started += instance.OnDebugSpawnMinionWave;
             @DebugSpawnMinionWave.performed += instance.OnDebugSpawnMinionWave;
             @DebugSpawnMinionWave.canceled += instance.OnDebugSpawnMinionWave;
@@ -876,6 +873,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @DebugSpawnBossTile.started += instance.OnDebugSpawnBossTile;
             @DebugSpawnBossTile.performed += instance.OnDebugSpawnBossTile;
             @DebugSpawnBossTile.canceled += instance.OnDebugSpawnBossTile;
+            @DebugKillHero.started += instance.OnDebugKillHero;
+            @DebugKillHero.performed += instance.OnDebugKillHero;
+            @DebugKillHero.canceled += instance.OnDebugKillHero;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -943,9 +943,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @DebugKillHero.started -= instance.OnDebugKillHero;
-            @DebugKillHero.performed -= instance.OnDebugKillHero;
-            @DebugKillHero.canceled -= instance.OnDebugKillHero;
             @DebugSpawnMinionWave.started -= instance.OnDebugSpawnMinionWave;
             @DebugSpawnMinionWave.performed -= instance.OnDebugSpawnMinionWave;
             @DebugSpawnMinionWave.canceled -= instance.OnDebugSpawnMinionWave;
@@ -955,6 +952,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @DebugSpawnBossTile.started -= instance.OnDebugSpawnBossTile;
             @DebugSpawnBossTile.performed -= instance.OnDebugSpawnBossTile;
             @DebugSpawnBossTile.canceled -= instance.OnDebugSpawnBossTile;
+            @DebugKillHero.started -= instance.OnDebugKillHero;
+            @DebugKillHero.performed -= instance.OnDebugKillHero;
+            @DebugKillHero.canceled -= instance.OnDebugKillHero;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -1004,9 +1004,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnStrafeLeft(InputAction.CallbackContext context);
         void OnStrafeRight(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnDebugKillHero(InputAction.CallbackContext context);
         void OnDebugSpawnMinionWave(InputAction.CallbackContext context);
         void OnDebugSpawnTile(InputAction.CallbackContext context);
         void OnDebugSpawnBossTile(InputAction.CallbackContext context);
+        void OnDebugKillHero(InputAction.CallbackContext context);
     }
 }

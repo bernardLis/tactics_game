@@ -59,7 +59,7 @@ public class BattleBoss : BattleEntity
         SetUpVariables();
         _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
 
-        _isStunUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Stun").CurrentLevel >= 0;
+        _isStunUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
 
         Upgrade corruptionBreakNodesUpgrade = _gameManager.UpgradeBoard
                             .GetUpgradeByName("Corruption Break Nodes");
@@ -149,8 +149,9 @@ public class BattleBoss : BattleEntity
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
         OnCorruptionStarted?.Invoke();
 
-        if (_areCorruptionBreakNodesUnlocked)
-            StartCoroutine(CreateCorruptionBreakNodes());
+        // HERE: does not work correctly...
+        // if (_areCorruptionBreakNodesUnlocked)
+        //     StartCoroutine(CreateCorruptionBreakNodes());
     }
 
     void OnBuildingCorrupted()
@@ -208,8 +209,8 @@ public class BattleBoss : BattleEntity
     void HandleCorruptionBreak(int damage)
     {
         if (!_isStunUnlocked) return;
-
-        StartCoroutine(CreateCorruptionBreakNodes());
+        // HERE: does not work correctly... 
+        // StartCoroutine(CreateCorruptionBreakNodes());
 
         CurrentDamageToBreakCorruption.ApplyChange(damage);
 

@@ -41,6 +41,8 @@ public class BossInfoElement : EntityInfoElement
         bs.OnCorruptionStarted += OnCorruptionStarted;
         bs.OnCorruptionBroken += OnCorruptionBroken;
         bs.OnStunFinished += OnStunFinished;
+
+        UpdateEntityInfo(bs);
     }
 
     void OnCorruptionBroken()

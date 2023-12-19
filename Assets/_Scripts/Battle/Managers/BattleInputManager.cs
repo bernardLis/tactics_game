@@ -51,10 +51,10 @@ public class BattleInputManager : MonoBehaviour
         _playerInput.actions["Enter"].performed += evt => OnEnterClicked?.Invoke();
         _playerInput.actions["ToggleMenu"].performed += OpenMenu;
 
-        _playerInput.actions["DebugKillHero"].performed += DebugKillHero;
         _playerInput.actions["DebugSpawnMinionWave"].performed += DebugSpawnMinionWave;
         _playerInput.actions["DebugSpawnTile"].performed += DebugSpawnTile;
         _playerInput.actions["DebugSpawnBossTile"].performed += DebugSpawnBossTile;
+        _playerInput.actions["DebugKillHero"].performed += DebugKillHero;
     }
 
     void UnsubscribeInputActions()
@@ -63,15 +63,10 @@ public class BattleInputManager : MonoBehaviour
         _playerInput.actions["Enter"].performed -= evt => OnEnterClicked?.Invoke();
         _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
 
-        _playerInput.actions["DebugKillHero"].performed -= DebugKillHero;
         _playerInput.actions["DebugSpawnMinionWave"].performed -= DebugSpawnMinionWave;
         _playerInput.actions["DebugSpawnTile"].performed -= DebugSpawnTile;
         _playerInput.actions["DebugSpawnBossTile"].performed -= DebugSpawnBossTile;
-    }
-
-    void DebugKillHero(InputAction.CallbackContext ctx)
-    {
-        BattleManager.Instance.BattleHero.BaseGetHit(1000, default);
+        _playerInput.actions["DebugKillHero"].performed -= DebugKillHero;
     }
 
     void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
@@ -87,6 +82,11 @@ public class BattleInputManager : MonoBehaviour
     void DebugSpawnBossTile(InputAction.CallbackContext ctx)
     {
         BattleManager.Instance.GetComponent<BattleAreaManager>().DebugSpawnBossTile();
+    }
+
+    void DebugKillHero(InputAction.CallbackContext ctx)
+    {
+        BattleManager.Instance.BattleHero.BaseGetHit(1000, default);
     }
 
     public void OpenMenu(InputAction.CallbackContext ctx)

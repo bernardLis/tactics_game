@@ -195,15 +195,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DebugKillHero",
-                    "type": "Button",
-                    "id": "77c90cfd-3296-4dd9-b49b-7b450be68c53",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "DebugSpawnMinionWave",
                     "type": "Button",
                     "id": "b9700237-27eb-4342-a7fb-c61afa329c42",
@@ -225,6 +216,15 @@
                     "name": "DebugSpawnBossTile",
                     "type": "Button",
                     "id": "94f07135-4971-4f83-a3f6-199b6108e92a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugKillHero",
+                    "type": "Button",
+                    "id": "77c90cfd-3296-4dd9-b49b-7b450be68c53",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -564,17 +564,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0da91ea9-5dfe-4086-81bb-8cc412863e0c",
-                    "path": "<Keyboard>/u",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "DebugKillHero",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "acf0e8aa-0cd6-4035-bd7d-505abcb542cf",
                     "path": "<Keyboard>/i",
                     "interactions": "",
@@ -603,6 +592,17 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "DebugSpawnBossTile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0da91ea9-5dfe-4086-81bb-8cc412863e0c",
+                    "path": "<Keyboard>/leftBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DebugKillHero",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

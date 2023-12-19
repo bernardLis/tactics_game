@@ -20,4 +20,4 @@ MonoBehaviour:
   BonusValue: 0
   IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 0, y: 10}
-  MaxMinValue: {x: 100, y: 99999999}
+  MinMaxValue: {x: 0, y: 999999}
