@@ -341,6 +341,7 @@ public class BattleHeroController : MonoBehaviour
     void ZoomCamera(InputAction.CallbackContext context)
     {
         if (this == null) return;
+        if (BattleManager.BlockBattleInput) return;
 
         float value = -context.ReadValue<Vector2>().y / 100f;
         if (Mathf.Abs(value) < 0.01f) return;
@@ -354,6 +355,7 @@ public class BattleHeroController : MonoBehaviour
     {
         //TODO: camera rotation is shit
         if (this == null) return;
+        if (BattleManager.BlockBattleInput) return;
         if (!Mouse.current.middleButton.isPressed) return;
         _cinemachineCameraTarget.transform.DOKill();
         _cinemachineCameraTarget.transform.DOLocalRotate(_defaultCameraRotation, 1f)
