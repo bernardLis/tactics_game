@@ -97,8 +97,11 @@ public class HeroElement : VisualElement
         _advancedViewContainer = new();
         _heroInfoContainer.Add(_advancedViewContainer);
 
-        HandleAdvancedAbilities();
+        style.backgroundColor = Color.black;
+        style.bottom = 0;
+
         HandleTablets();
+        HandleAdvancedAbilities();
         HandleStats();
     }
 

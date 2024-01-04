@@ -1,11 +1,9 @@
 .level-up-screen__main {
     align-items: center;
+    align-self: center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag2_bar2.png?fileID=2800000&guid=fb276f3f6f3cfe94fbf7dbc103e074ae&type=3#Flag2_bar2');
     width: 80%;
     height: 90%;
-    position: absolute;
-    left: 10%;
-    top: 5%;
     padding-top: 2%;
     justify-content: flex-start;
     padding-right: 2%;
@@ -30,5 +28,4 @@
     height: 50px;
 }
 
-.level-up-screen__header {
-}
+.level-up-screen__header {}

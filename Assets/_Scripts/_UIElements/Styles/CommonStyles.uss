@@ -185,10 +185,13 @@
 .common__continue-button {
     font-size: 36px;
     justify-content: center;
-    position: absolute;
     width: 300px;
     height: 100px;
-    bottom: 20px;
+    /*
+    position: absolute;
+
+    bottom: 30%;
+  */
     align-self: center;
     color: aliceblue;
     opacity: 0.8;

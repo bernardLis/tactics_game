@@ -160,7 +160,7 @@ public class LevelUpScreen : FullScreenElement
 
     void AddHeroElement()
     {
-        _content.Add(new HeroElement(_battleHeroManager.Hero, true));
+        Add(new HeroElement(_battleHeroManager.Hero, true));
     }
 
     void RunCardShow()

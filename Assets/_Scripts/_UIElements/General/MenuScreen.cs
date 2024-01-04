@@ -27,12 +27,11 @@ public class MenuScreen : FullScreenElement
         _container.Add(new HorizontalSpacerElement());
 
         AddMenuButtons();
-        AddContinueButton();
 
         BattleManager battleManager = BattleManager.Instance;
         if (battleManager == null) return;
         if (battleManager.BattleHero == null) return;
-        _container.Add(new HeroElement(battleManager.BattleHero.Hero, true));
+        Add(new HeroElement(battleManager.BattleHero.Hero, true));
     }
 
     void AddMenuButtons()
@@ -41,10 +40,12 @@ public class MenuScreen : FullScreenElement
         buttonContainer.AddToClassList(_ussButtonContainer);
         _container.Add(buttonContainer);
 
+        AddContinueButton();
         MyButton settingsButton = new("Settings", _ussCommonMenuButton, ShowSettingsScreen);
         MyButton mainMenuButton = new("Main Menu", _ussCommonMenuButton, GoToMainMenu);
         MyButton quitButton = new("Quit", _ussCommonMenuButton, ConfirmQuit);
 
+        buttonContainer.Add(_continueButton);
         buttonContainer.Add(settingsButton);
         buttonContainer.Add(mainMenuButton);
         buttonContainer.Add(quitButton);

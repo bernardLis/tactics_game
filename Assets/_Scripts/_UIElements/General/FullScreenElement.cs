@@ -95,7 +95,7 @@ public class FullScreenElement : VisualElement
     public void AddContinueButton()
     {
         _continueButton = new("Continue", callback: Hide);
-        Add(_continueButton);
+        _content.Add(_continueButton);
     }
 
     public virtual void Hide()

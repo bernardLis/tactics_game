@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
-using DG.Tweening;
 
 public class BattleGrabManager : Singleton<BattleGrabManager>
 {
@@ -24,10 +21,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     int _floorLayerMask;
 
     bool _wasInitialized;
-
-    void Start()
-    {
-    }
 
     public void Initialize()
     {
@@ -92,7 +85,6 @@ public class BattleGrabManager : Singleton<BattleGrabManager>
     public void TryGrabbing(GameObject obj, float yPosition = 0f)
     {
         if (!IsGrabbingAllowed()) return;
-        Debug.Log($"try grabbing {obj.name}");
 
         _pointerDown = true;
         _cursorManager.SetCursorByName("Grab");
