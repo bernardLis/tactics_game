@@ -9,22 +9,22 @@ public class BattleExperienceOrb : BattlePickup
 {
     ExperienceOrb _expOrb;
 
-    public override void Initialize(Pickup pickUp)
-    {
-        base.Initialize(pickUp);
+    // public override void Initialize(Pickup pickUp)
+    // {
+    //     base.Initialize(pickUp);
 
-        _expOrb = pickUp as ExperienceOrb;
+    //     _expOrb = pickUp as ExperienceOrb;
 
-        transform.position = new Vector3(
-            transform.position.x,
-            0.5f,
-            transform.position.z
-        );
+    //     transform.position = new Vector3(
+    //         transform.position.x,
+    //         0.5f,
+    //         transform.position.z
+    //     );
 
-        _battleManager.OnHorseshoeCollected += OnHorseshoeCollected;
+    //     _battleManager.OnHorseshoeCollected += OnHorseshoeCollected;
 
-        // GetComponentInChildren<Light>().color = _expOrb.Color.Color;
-    }
+    //     // GetComponentInChildren<Light>().color = _expOrb.Color.Color;
+    // }
 
     void OnHorseshoeCollected()
     {

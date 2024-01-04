@@ -16,32 +16,32 @@ public class BattleWolfPup : BattleCreatureMelee
     {
         yield return new WaitForSeconds(Random.Range(2f, 4f));
 
-        while (_battleManager.Pickups.Count > 0)
-        {
-            // woof checks the list picks a random pickup
-            _currentPickup = _battleManager.Pickups[Random.Range(0, _battleManager.Pickups.Count)];
-            // goes there,
-            Vector3 pickupPos = _currentPickup.transform.position;
+        // while (_battleManager.Pickups.Count > 0)
+        // {
+        //     // woof checks the list picks a random pickup
+        //     _currentPickup = _battleManager.Pickups[Random.Range(0, _battleManager.Pickups.Count)];
+        //     // goes there,
+        //     Vector3 pickupPos = _currentPickup.transform.position;
 
-            yield return PathToPositionAndStop(pickupPos);
+        //     yield return PathToPositionAndStop(pickupPos);
 
-            // check if it is still there
-            if (_currentPickup == null) continue;
-            if (pickupPos != _currentPickup.transform.position) continue;
+        //     // check if it is still there
+        //     if (_currentPickup == null) continue;
+        //     if (pickupPos != _currentPickup.transform.position) continue;
 
-            // takes it
-            Animator.SetTrigger("Attack");
-            _currentPickup.transform.parent = _pickupPosition;
-            _currentPickup.transform.localPosition = new Vector3(-0.3f, -0.2f, 0);
-            yield return new WaitForSeconds(0.4f);
+        //     // takes it
+        //     Animator.SetTrigger("Attack");
+        //     _currentPickup.transform.parent = _pickupPosition;
+        //     _currentPickup.transform.localPosition = new Vector3(-0.3f, -0.2f, 0);
+        //     yield return new WaitForSeconds(0.4f);
 
-            // and brings it to hero
-            BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
-            _agent.stoppingDistance = 4f;
-            yield return PathToTarget(battleHero.transform);
+        //     // and brings it to hero
+        //     BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
+        //     _agent.stoppingDistance = 4f;
+        //     yield return PathToTarget(battleHero.transform);
 
-            yield return new WaitForSeconds(Random.Range(3f, 6f));
-        }
+        //     yield return new WaitForSeconds(Random.Range(3f, 6f));
+        // }
 
         yield return base.HangOut();
     }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
+using Random = UnityEngine.Random;
 
 public class BattlePickup : MonoBehaviour
 {
@@ -11,33 +12,36 @@ public class BattlePickup : MonoBehaviour
     protected BattleManager _battleManager;
     MMF_Player _feelPlayer;
 
+    [SerializeField] Transform _gfx;
 
     SphereCollider _sphereCollider;
     Hero _hero;
 
-    Pickup _pickUp;
+    public Pickup Pickup;
 
     public event Action OnPickedUp;
-    public virtual void Initialize(Pickup pickUp)
+
+    public void Awake()
     {
         _audioManager = AudioManager.Instance;
         _battleManager = BattleManager.Instance;
 
         _feelPlayer = GetComponent<MMF_Player>();
 
-        _pickUp = pickUp;
-        _pickUp.Initialize();
-
         _hero = _battleManager.GetComponent<BattleHeroManager>().BattleHero.Hero;
         _sphereCollider = GetComponent<SphereCollider>();
 
-        SetPickUpRadius(_hero.Pull.GetValue());
         _hero.Pull.OnValueChanged += SetPickUpRadius;
+    }
 
-        _battleManager.AddPickup(this);
-        transform.parent = _battleManager.EntityHolder;
+    public void Initialize(Pickup pickup, Vector3 position)
+    {
+        if (_gfx.childCount > 0)
+            Destroy(_gfx.GetChild(0).gameObject);
+        Instantiate(pickup.GFX, _gfx);
 
-        _audioManager.PlaySFX(pickUp.DropSound, transform.position);
+        transform.position = position;
+        gameObject.SetActive(true);
 
         transform.DOLocalMoveY(1f, 0.5f).SetEase(Ease.OutBack);
 
@@ -46,6 +50,13 @@ public class BattlePickup : MonoBehaviour
 
         transform.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
                  .SetLoops(-1).SetEase(Ease.InOutSine);
+
+        Pickup = pickup;
+        Pickup.Initialize();
+        _audioManager.PlaySFX(pickup.DropSound, transform.position);
+
+        SetPickUpRadius(_hero.Pull.GetValue());
+        GetComponent<SphereCollider>().enabled = true;
     }
 
     void OnTriggerEnter(Collider collider)
@@ -59,9 +70,10 @@ public class BattlePickup : MonoBehaviour
     {
         GetComponent<SphereCollider>().enabled = false;
         transform.DOKill();
+        DisplayText(Pickup.GetCollectedText(), Pickup.Color.Primary);
 
-        _audioManager.PlaySFX(_pickUp.CollectSound, transform.position);
-        Destroy(Instantiate(_pickUp.CollectEffect, transform.position, Quaternion.identity), 1f);
+        _audioManager.PlaySFX(Pickup.CollectSound, transform.position);
+        Destroy(Instantiate(Pickup.CollectEffect, transform.position, Quaternion.identity), 1f);
 
         float punchDuration = 0.5f;
         transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1, 1f);
@@ -80,8 +92,8 @@ public class BattlePickup : MonoBehaviour
                 .SetDelay(punchDuration)
                 .OnComplete(() =>
                 {
-                    _pickUp.Collected(hero.Hero);
-                    Destroy(gameObject, 1f);
+                    Pickup.Collected(hero.Hero);
+                    gameObject.SetActive(false);
                 });
 
         OnPickedUp?.Invoke();
@@ -95,6 +107,17 @@ public class BattlePickup : MonoBehaviour
     void SetPickUpRadius(int i)
     {
         _sphereCollider.radius = i;
+    }
+
+    public void GetToHero()
+    {
+        if (!gameObject.activeSelf) return;
+
+        transform.DOMove(_battleManager.BattleHero.transform.position + Vector3.up, Random.Range(0.5f, 2f))
+            .OnComplete(() =>
+            {
+                PickUp(_battleManager.BattleHero);
+            });
     }
 
     protected void DisplayText(string text, Color color)

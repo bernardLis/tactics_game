@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Coin
   m_EditorClassIdentifier: 
   Id: e87513eb-ca2a-4de6-afc9-a0b7796b5a83
+  GFX: {fileID: 2361473545527228330, guid: 451d92d30cef2a540b526a992088a711, type: 3}
   Prefab: {fileID: 7009191508296684762, guid: 4cd5551e9ad3fe44c8209d961e5c9dd1, type: 3}
+  Color: {fileID: 11400000, guid: 73b4a5531ad7427409439da604d41d3a, type: 2}
+  CollectText: gold
   CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   CollectSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}

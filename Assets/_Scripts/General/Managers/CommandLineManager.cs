@@ -282,7 +282,8 @@ public class CommandLineManager : MonoBehaviour
             ExperienceOrb expOrb = Instantiate(_expOrbs[Random.Range(0, _expOrbs.Length)]);
             BattleExperienceOrb instance = Instantiate(expOrb.Prefab, Vector3.zero,
                                     Quaternion.identity).GetComponent<BattleExperienceOrb>();
-            instance.Initialize(expOrb);
+            // instance.Initialize(expOrb);
+            // HERE: exp orb broken
         };
         _otherFoldout.Add(spawnExpOrbButton);
     }
@@ -297,7 +298,7 @@ public class CommandLineManager : MonoBehaviour
         _buttonContainer.Add(heroFoldout);
 
         BattleManager battleManager = BattleManager.Instance;
-        if(battleManager == null) return;
+        if (battleManager == null) return;
 
         Hero hero = battleManager.Hero;
 

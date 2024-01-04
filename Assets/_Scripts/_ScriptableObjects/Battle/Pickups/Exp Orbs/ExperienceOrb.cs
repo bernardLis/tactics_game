@@ -6,7 +6,7 @@ using UnityEngine;
 public class ExperienceOrb : Pickup
 {
     public int Amount;
-    public ColorVariable Color;
+    // public ColorVariable Color;
     public int OrbChance;
 
     public override void Initialize()

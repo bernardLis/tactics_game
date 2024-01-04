@@ -43,7 +43,6 @@ public class BattleManager : Singleton<BattleManager>
 
     public List<BattleTurret> PlayerTurrets = new();
 
-    public List<BattlePickup> Pickups = new();
     public int GoldCollected { get; private set; }
 
     public bool BlockBattleEnd;
@@ -68,8 +67,6 @@ public class BattleManager : Singleton<BattleManager>
     public event Action OnGameResumed;
 
     public event Action OnHorseshoeCollected;
-    public event Action OnBagCollected;
-
     protected override void Awake()
     {
         base.Awake();
@@ -254,20 +251,9 @@ public class BattleManager : Singleton<BattleManager>
         OnPlayerTurretAdded?.Invoke(turret);
     }
 
-    public void AddPickup(BattlePickup pickup)
-    {
-        Pickups.Add(pickup);
-        pickup.OnPickedUp += () => Pickups.Remove(pickup);
-    }
-
     public void HorseshoeCollected()
     {
         OnHorseshoeCollected?.Invoke();
-    }
-
-    public void BagCollected()
-    {
-        OnBagCollected?.Invoke();
     }
 
     public void SkullCollected()

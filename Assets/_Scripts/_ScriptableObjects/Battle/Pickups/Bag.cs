@@ -7,6 +7,6 @@ public class Bag : Pickup
 {
     public override void Collected(Hero hero)
     {
-        BattleManager.Instance.BagCollected();
+        BattleManager.Instance.GetComponent<BattlePickupManager>().BagCollected();
     }
 }

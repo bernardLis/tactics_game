@@ -7,9 +7,12 @@ using DG.Tweening;
 
 public class BattleBreakableVase : MonoBehaviour
 {
+    BattlePickupManager _battlePickupManager;
+
     bool _isBroken;
     [SerializeField] GameObject _breakParticles;
     [SerializeField] Transform _originalVase;
+
     [SerializeField] Coin _coin;
     [SerializeField] Hammer _hammer;
     [SerializeField] Horseshoe _horseshoe;
@@ -25,6 +28,8 @@ public class BattleBreakableVase : MonoBehaviour
     {
         _collider = GetComponent<Collider>();
         _rigidbody = GetComponent<Rigidbody>();
+
+        _battlePickupManager = BattleManager.Instance.GetComponent<BattlePickupManager>();
     }
 
     public void Initialize(Vector3 position)
@@ -82,28 +87,30 @@ public class BattleBreakableVase : MonoBehaviour
         // 1% chance of spawning horseshoe
         // 98% chance of spawning coin
         int random = Random.Range(0, 100);
+        Pickup p = Instantiate(_coin);
 
         if (random == 0)
-            SpawnHammer();
+            p = Instantiate(_hammer);
         else if (random == 1)
-            SpawnHorseshoe();
+            p = Instantiate(_horseshoe);
         else if (random == 2)
-            SpawnBag();
+            p = Instantiate(_bag);
         else if (random == 3)
-            SpawnSkull();
-        else
-            SpawnCoin();
-    }
+            p = Instantiate(_skull);
 
-    void SpawnCoin()
-    {
-        if (_coin == null) return;
-        Coin instance = Instantiate(_coin);
-        BattlePickup coin = Instantiate(_coin.Prefab, transform.position, Quaternion.identity)
-                            .GetComponent<BattlePickup>();
-        coin.Initialize(instance);
-
-        // Destroy(gameObject, 7f);
+        /*
+                if (random == 0)
+                    SpawnHammer();
+                else if (random == 1)
+                    SpawnHorseshoe();
+                else if (random == 2)
+                    SpawnBag();
+                else if (random == 3)
+                    SpawnSkull();
+                else
+                    SpawnCoin();
+        */
+        _battlePickupManager.SpawnPickup(p, transform.position);
     }
 
     void SpawnHammer()
@@ -112,7 +119,7 @@ public class BattleBreakableVase : MonoBehaviour
         Hammer instance = Instantiate(_hammer);
         BattlePickup hammer = Instantiate(_hammer.Prefab, transform.position, Quaternion.identity)
                             .GetComponent<BattlePickup>();
-        hammer.Initialize(instance);
+        // hammer.Initialize(instance);
 
         // Destroy(gameObject, 7f);
     }
@@ -123,7 +130,7 @@ public class BattleBreakableVase : MonoBehaviour
         Horseshoe instance = Instantiate(_horseshoe);
         BattlePickup horseshoe = Instantiate(_horseshoe.Prefab, transform.position, Quaternion.identity)
                             .GetComponent<BattlePickup>();
-        horseshoe.Initialize(instance);
+        // horseshoe.Initialize(instance);
 
         // Destroy(gameObject, 7f);
     }
@@ -134,7 +141,7 @@ public class BattleBreakableVase : MonoBehaviour
         Bag instance = Instantiate(_bag);
         BattlePickup bag = Instantiate(_bag.Prefab, transform.position, Quaternion.identity)
                             .GetComponent<BattlePickup>();
-        bag.Initialize(instance);
+        // bag.Initialize(instance);
 
         // Destroy(gameObject, 7f);
     }
@@ -145,7 +152,7 @@ public class BattleBreakableVase : MonoBehaviour
         Skull instance = Instantiate(_skull);
         BattlePickup skull = Instantiate(_skull.Prefab, transform.position, Quaternion.identity)
                             .GetComponent<BattlePickup>();
-        skull.Initialize(instance);
+        // skull.Initialize(instance);
 
         // Destroy(gameObject, 7f);
     }

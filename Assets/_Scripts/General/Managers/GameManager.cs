@@ -12,6 +12,7 @@ public class GameManager : PersistentSingleton<GameManager>, ISavable
     public GameDatabase GameDatabase;
     public EntityDatabase EntityDatabase;
     public UpgradeBoard UpgradeBoard;
+    public GameObject PoolManagerPrefab;
 
     SaveData _originalSaveData;
 

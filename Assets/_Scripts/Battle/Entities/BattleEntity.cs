@@ -359,7 +359,9 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
 
         BattleExperienceOrb bl = Instantiate(expOrb.Prefab, transform.position, Quaternion.identity)
                                 .GetComponent<BattleExperienceOrb>();
-        bl.Initialize(expOrb);
+
+        // HERE: exp orb broken
+        // bl.Initialize(expOrb);
     }
 
     public IEnumerator GetPoisoned(BattleCreature attacker)

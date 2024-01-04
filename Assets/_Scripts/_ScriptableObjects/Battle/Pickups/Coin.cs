@@ -22,4 +22,8 @@ public class Coin : Pickup
         GameManager.Instance.ChangeGoldValue(Amount);
     }
 
+    public override string GetCollectedText()
+    {
+        return $"+{Amount} gold";
+    }
 }

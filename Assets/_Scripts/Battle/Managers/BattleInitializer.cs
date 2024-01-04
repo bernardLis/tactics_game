@@ -41,8 +41,13 @@ public class BattleInitializer : MonoBehaviour
         _battleManager.Initialize(h);
         _battleManager.GetComponent<BattleGrabManager>().Initialize();
 
+        yield return new WaitForSeconds(1f);
+
         _battleMinionManager.Initialize();
         _battleBossManager.Initialize();
         BattleTooltipManager.Instance.Initialize();
+
+        GetComponent<BattleVaseManager>().Initialize();
+        GetComponent<BattlePickupManager>().Initialize();
     }
 }
