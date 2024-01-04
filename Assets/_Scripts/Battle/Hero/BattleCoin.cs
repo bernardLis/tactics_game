@@ -7,7 +7,6 @@ using MoreMountains.Feedbacks;
 
 public class BattleCoin : BattlePickup
 {
-
     Coin _coin;
 
     public override void Initialize(Pickup pickUp)
@@ -34,7 +33,6 @@ public class BattleCoin : BattlePickup
         _battleManager.OnBagCollected -= OnBagCollected;
 
         DisplayText($"+{_coin.Amount} gold", Color.yellow);
-        GetComponentInChildren<Light>().enabled = false;
     }
 }
 

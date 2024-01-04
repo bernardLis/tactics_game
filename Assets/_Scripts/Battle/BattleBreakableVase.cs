@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class BattleBreakableVase : MonoBehaviour
 {
@@ -20,10 +21,27 @@ public class BattleBreakableVase : MonoBehaviour
     Rigidbody _rigidbody;
 
     public event Action OnBroken;
-    void Start()
+    void Awake()
     {
         _collider = GetComponent<Collider>();
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public void Initialize(Vector3 position)
+    {
+        if (_breakParticles != null)
+            _breakParticles.SetActive(false);
+
+        transform.position = position;
+        transform.localScale = Vector3.zero;
+        _isBroken = false;
+        _collider.enabled = true;
+        _rigidbody.isKinematic = false;
+
+        gameObject.SetActive(true);
+        _originalVase.gameObject.SetActive(true);
+
+        transform.DOScale(2, 0.5f).SetEase(Ease.OutBack);
     }
 
     void OnMouseDown()
@@ -53,6 +71,9 @@ public class BattleBreakableVase : MonoBehaviour
         SpawnPickup();
 
         OnBroken?.Invoke();
+
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(false);
     }
 
     void SpawnPickup()
@@ -82,7 +103,7 @@ public class BattleBreakableVase : MonoBehaviour
                             .GetComponent<BattlePickup>();
         coin.Initialize(instance);
 
-        Destroy(gameObject, 7f);
+        // Destroy(gameObject, 7f);
     }
 
     void SpawnHammer()
@@ -93,7 +114,7 @@ public class BattleBreakableVase : MonoBehaviour
                             .GetComponent<BattlePickup>();
         hammer.Initialize(instance);
 
-        Destroy(gameObject, 7f);
+        // Destroy(gameObject, 7f);
     }
 
     void SpawnHorseshoe()
@@ -104,7 +125,7 @@ public class BattleBreakableVase : MonoBehaviour
                             .GetComponent<BattlePickup>();
         horseshoe.Initialize(instance);
 
-        Destroy(gameObject, 7f);
+        // Destroy(gameObject, 7f);
     }
 
     void SpawnBag()
@@ -115,7 +136,7 @@ public class BattleBreakableVase : MonoBehaviour
                             .GetComponent<BattlePickup>();
         bag.Initialize(instance);
 
-        Destroy(gameObject, 7f);
+        // Destroy(gameObject, 7f);
     }
 
     void SpawnSkull()
@@ -126,6 +147,6 @@ public class BattleBreakableVase : MonoBehaviour
                             .GetComponent<BattlePickup>();
         skull.Initialize(instance);
 
-        Destroy(gameObject, 7f);
+        // Destroy(gameObject, 7f);
     }
 }

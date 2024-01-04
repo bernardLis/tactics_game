@@ -6,11 +6,13 @@ using DG.Tweening;
 
 public class BattleVaseManager : MonoBehaviour
 {
+
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
+
     [SerializeField] BattleBreakableVase _vasePrefab;
 
-    List<BattleBreakableVase> _vases = new();
+    List<BattleBreakableVase> Vases = new();
 
     int _vasesPerSpawn = 5;
 
@@ -18,9 +20,22 @@ public class BattleVaseManager : MonoBehaviour
     {
         _battleManager = BattleManager.Instance;
         _battleAreaManager = GetComponent<BattleAreaManager>();
+        CreateVasePool();
         StartCoroutine(SpawnVasesCoroutine());
     }
 
+    void CreateVasePool()
+    {
+        GameObject vaseHolder = new("Vase Holder");
+        Vases = new();
+
+        for (int i = 0; i < 200; i++)
+        {
+            BattleBreakableVase v = Instantiate(_vasePrefab, vaseHolder.transform);
+            v.gameObject.SetActive(false);
+            Vases.Add(v);
+        }
+    }
 
     IEnumerator SpawnVasesCoroutine()
     {
@@ -41,18 +56,24 @@ public class BattleVaseManager : MonoBehaviour
 
     void SpawnVase(Vector3 position)
     {
-        BattleBreakableVase vase = Instantiate(_vasePrefab, position, Quaternion.identity);
-        _vases.Add(vase);
-        vase.OnBroken += () => _vases.Remove(vase);
-        vase.transform.localScale = Vector3.zero;
-        vase.transform.DOScale(2, 0.5f).SetEase(Ease.OutBack);
-        vase.transform.parent = _battleManager.EntityHolder;
+        BattleBreakableVase vase = Vases.Find(v => !v.gameObject.activeSelf);
+        vase.Initialize(position);
+
+        // BattleBreakableVase vase = Instantiate(_vasePrefab, position, Quaternion.identity);
+        // Vases.Add(vase);
+        // vase.OnBroken += () => Vases.Remove(vase);
+        // vase.transform.position = position;
+        // vase.transform.localScale = Vector3.zero;
+        // vase.transform.DOScale(2, 0.5f).SetEase(Ease.OutBack);
     }
 
     public void BreakAllVases()
     {
-        for (int i = _vases.Count - 1; i >= 0; i--)
-            _vases[i].TriggerBreak();
+        foreach (BattleBreakableVase vase in Vases)
+            if (vase.gameObject.activeSelf)
+                vase.TriggerBreak();
+        // for (int i = Vases.Count - 1; i >= 0; i--)
+        //     Vases[i].TriggerBreak();
     }
 
 }
