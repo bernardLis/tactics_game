@@ -42,7 +42,6 @@ public class BattleTile : MonoBehaviour
     IntVariable _currentSecuringTimeVariable;
     IntVariable _totalSecuringTimeVariable;
 
-
     public event Action<BattleTile> OnEnabled;
     public void Initialize(Building building)
     {
@@ -130,6 +129,7 @@ public class BattleTile : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        Destroy(Instantiate(_securedEffect, transform.position, Quaternion.Euler(-90f, 0f, 0f)), 5f);
         Secured();
     }
 
@@ -143,8 +143,6 @@ public class BattleTile : MonoBehaviour
     public virtual void Secured()
     {
         _isSecured = true;
-
-        Destroy(Instantiate(_securedEffect, transform.position, Quaternion.Euler(-90f, 0f, 0f)), 5f);
 
         BattleBuilding = GetComponentInChildren<BattleBuilding>();
         if (Building != null)
