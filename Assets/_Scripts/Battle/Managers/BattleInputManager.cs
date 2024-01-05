@@ -71,7 +71,7 @@ public class BattleInputManager : MonoBehaviour
 
     void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
     {
-        BattleMinionManager.Instance.SpawnWave();
+        BattleManager.Instance.GetComponent<BattleMinionManager>().SpawnWave();
     }
 
     void DebugSpawnTile(InputAction.CallbackContext ctx)

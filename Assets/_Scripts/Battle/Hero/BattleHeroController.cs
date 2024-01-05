@@ -40,8 +40,6 @@ public class BattleHeroController : MonoBehaviour
     GameManager _gameManager;
     PlayerInput _playerInput;
     BattleManager _battleManager;
-    BattleMinionManager _battleMinionManager;
-    BattleInteractor _battleInteractor;
 
     Animator _animator;
     CharacterController _controller;
@@ -75,7 +73,6 @@ public class BattleHeroController : MonoBehaviour
         _battleManager = BattleManager.Instance;
         _battleManager.OnGamePaused += () => _disableUpdate = true;
         _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
-        _battleMinionManager = BattleMinionManager.Instance;
 
         _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<CharacterController>();

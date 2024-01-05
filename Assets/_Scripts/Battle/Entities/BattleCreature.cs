@@ -37,7 +37,6 @@ public class BattleCreature : BattleEntity
         base.InitializeEntity(entity, team);
 
         if (team == 0) _battleEntityShaders.LitShader();
-        if (team == 1) InitializeOpponentEntity();
 
         Creature = (Creature)entity;
         Creature.OnLevelUp += OnLevelUp;
@@ -49,15 +48,11 @@ public class BattleCreature : BattleEntity
         _avoidancePriorityRange = new Vector2Int(0, 20);
     }
 
-    protected virtual void InitializeOpponentEntity()
-    {
-        transform.localScale = Vector3.one * 0.8f;
-        _battleMinionManager = BattleMinionManager.Instance;
-    }
 
     public override void InitializeBattle(ref List<BattleEntity> opponents)
     {
         base.InitializeBattle(ref opponents);
+        if (Team == 1) InitializeOpponentEntity();
 
         _opponentList = opponents;
 
@@ -65,6 +60,12 @@ public class BattleCreature : BattleEntity
         CurrentAbilityCooldown = 0;
 
         StartRunEntityCoroutine();
+    }
+    
+    protected virtual void InitializeOpponentEntity()
+    {
+        transform.localScale = Vector3.one * 0.8f;
+        _battleMinionManager = _battleManager.GetComponent<BattleMinionManager>();
     }
 
     protected override IEnumerator RunEntity()
@@ -265,7 +266,7 @@ public class BattleCreature : BattleEntity
             Opponent = null;
             return;
         }
-        
+
         BattleEntity closest = distances.OrderBy(pair => pair.Value).First().Key;
         EntityLog.Add($"{_battleManager.GetTime()}: Choosing {closest.name} as new target");
         SetOpponent(closest);

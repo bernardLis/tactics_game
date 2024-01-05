@@ -6,10 +6,9 @@ using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
 
-public class BattleMinionManager : Singleton<BattleMinionManager>
+public class BattleMinionManager : PoolManager<BattleEntity>
 {
     BattleManager _battleManager;
-    BattleTooltipManager _battleTooltipManager;
     BattleAreaManager _battleAreaManager;
 
     public int CurrentDifficulty { get; private set; }
@@ -22,22 +21,21 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
     public List<BattleProjectileOpponent> Projectiles = new();
 
     [SerializeField] GameObject _minionPrefab;
-    [SerializeField] Transform _minionPoolHolder;
-    public List<BattleEntity> Minions = new();
+    // [SerializeField] Transform _minionPoolHolder;
+    // public List<BattleEntity> Minions = new();
 
 
     void Start()
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
-        _battleTooltipManager = BattleTooltipManager.Instance;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         CurrentDifficulty = 1;
 
         CreateProjectilePool();
-        CreateMinionPool();
 
+        CreatePool(_minionPrefab);
     }
 
     public void Initialize()
@@ -54,17 +52,6 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
             BattleProjectileOpponent p = Instantiate(_projectilePrefab, _enemyProjectilePoolHolder).GetComponent<BattleProjectileOpponent>();
             p.gameObject.SetActive(false);
             Projectiles.Add(p);
-        }
-    }
-
-    void CreateMinionPool()
-    {
-        Minions = new();
-        for (int i = 0; i < 200; i++)
-        {
-            BattleEntity be = Instantiate(_minionPrefab, _minionPoolHolder).GetComponent<BattleEntity>();
-            be.gameObject.SetActive(false);
-            Minions.Add(be);
         }
     }
 
@@ -123,7 +110,7 @@ public class BattleMinionManager : Singleton<BattleMinionManager>
             Vector3 pos = tile.GetMinionPosition(i, wave.Minions.Count);
 
             // BattleEntity be = SpawnEntity(m, pos);
-            BattleEntity be = Minions.Find(x => !x.gameObject.activeSelf);
+            BattleEntity be = GetObjectFromPool();
             if (be == null)
             {
                 Debug.LogError("No more minions in pool");

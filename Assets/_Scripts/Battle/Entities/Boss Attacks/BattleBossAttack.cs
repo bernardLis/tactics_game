@@ -17,6 +17,8 @@ public class BattleBossAttack : MonoBehaviour
         _battleBoss = battleBoss;
 
         _battleManager = BattleManager.Instance;
+        
+        // HERE: enemy projectile pool
         _battleMinionManager = _battleManager.GetComponent<BattleMinionManager>();
         _projectilePool = _battleMinionManager.Projectiles;
     }
