@@ -12,6 +12,7 @@ public class UpgradeBoard : BaseScriptableObject
     Dictionary<string, Upgrade> _upgradeDictionary = new();
 
     public event Action OnRefundAll;
+    public event Action OnUnlockAll;
     public void Initialize()
     {
         _upgradeDictionary = new();
@@ -39,6 +40,7 @@ public class UpgradeBoard : BaseScriptableObject
     }
 
     public void RefundAll() { OnRefundAll?.Invoke(); }
+    public void UnlockAll() { OnUnlockAll?.Invoke(); }
 
     public void Reset()
     {

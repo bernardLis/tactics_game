@@ -26,6 +26,7 @@ public class Upgrade : BaseScriptableObject
         _gameManager = GameManager.Instance;
         _board = board;
         _board.OnRefundAll += Refund;
+        _board.OnUnlockAll += PurchaseAll;
 
         // perma unlocked
         if (CurrentLevel > 0) return;
@@ -43,7 +44,11 @@ public class Upgrade : BaseScriptableObject
         if (PermanentlyUnlocked) CurrentLevel = 0;
     }
 
-
+    void PurchaseAll()
+    {
+        while (!IsMaxLevel())
+            Purchased();
+    }
 
     public virtual void Purchased()
     {

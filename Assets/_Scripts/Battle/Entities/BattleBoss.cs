@@ -149,9 +149,8 @@ public class BattleBoss : BattleEntity
         _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
         OnCorruptionStarted?.Invoke();
 
-        // HERE: does not work correctly...
-        // if (_areCorruptionBreakNodesUnlocked)
-        //     StartCoroutine(CreateCorruptionBreakNodes());
+        if (_areCorruptionBreakNodesUnlocked)
+            StartCoroutine(CreateCorruptionBreakNodes());
     }
 
     void OnBuildingCorrupted()
@@ -209,8 +208,6 @@ public class BattleBoss : BattleEntity
     void HandleCorruptionBreak(int damage)
     {
         if (!_isStunUnlocked) return;
-        // HERE: does not work correctly... 
-        // StartCoroutine(CreateCorruptionBreakNodes());
 
         CurrentDamageToBreakCorruption.ApplyChange(damage);
 

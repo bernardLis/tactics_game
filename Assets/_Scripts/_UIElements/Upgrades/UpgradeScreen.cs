@@ -170,6 +170,9 @@ public class UpgradeScreen : FullScreenElement
         container.style.justifyContent = Justify.SpaceAround;
         Add(container);
 
+        MyButton unlockAllButton = new("Unlock All", "common__menu-button", _upgradeBoard.UnlockAll);
+        container.Add(unlockAllButton);
+
         MyButton refundAllButton = new("Refund All", "common__menu-button", RefundAll);
         container.Add(refundAllButton);
 
@@ -178,6 +181,7 @@ public class UpgradeScreen : FullScreenElement
 
         MyButton playButton = new("Play", "common__menu-button", Play);
         container.Add(playButton);
+
     }
 
     void RefundAll() { _upgradeBoard.RefundAll(); }
