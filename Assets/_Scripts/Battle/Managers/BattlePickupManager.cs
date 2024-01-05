@@ -20,9 +20,10 @@ public class BattlePickupManager : PoolManager<BattlePickup>
 
     public void SpawnPickup(Vector3 position)
     {
-        // 1% chance of spawning hammer
-        // 1% chance of spawning horseshoe
-        // 98% chance of spawning coin
+        // 2% chance of spawning hammer
+        // 2% chance of spawning horseshoe
+        // ...
+        // rest% chance of spawning coin
         int random = Random.Range(0, 100);
         Pickup p = Instantiate(_coin);
 
