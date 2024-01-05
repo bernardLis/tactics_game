@@ -8,7 +8,6 @@ using DG.Tweening;
 using UnityEngine.AI;
 public class BattleCreature : BattleEntity
 {
-    protected BattleMinionManager _battleMinionManager;
 
     [SerializeField] protected Sound _attackSound;
 
@@ -61,11 +60,10 @@ public class BattleCreature : BattleEntity
 
         StartRunEntityCoroutine();
     }
-    
+
     protected virtual void InitializeOpponentEntity()
     {
         transform.localScale = Vector3.one * 0.8f;
-        _battleMinionManager = _battleManager.GetComponent<BattleMinionManager>();
     }
 
     protected override IEnumerator RunEntity()

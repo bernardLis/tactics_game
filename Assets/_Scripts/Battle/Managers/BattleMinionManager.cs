@@ -15,17 +15,11 @@ public class BattleMinionManager : PoolManager<BattleEntity>
 
     Fight _currentFight;
 
-    /* POOLS */
-    [SerializeField] GameObject _projectilePrefab;
-    [SerializeField] Transform _enemyProjectilePoolHolder;
-    public List<BattleProjectileOpponent> Projectiles = new();
 
     [SerializeField] GameObject _minionPrefab;
-    // [SerializeField] Transform _minionPoolHolder;
-    // public List<BattleEntity> Minions = new();
 
 
-    void Start()
+    public void Initialize()
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
@@ -33,26 +27,10 @@ public class BattleMinionManager : PoolManager<BattleEntity>
 
         CurrentDifficulty = 1;
 
-        CreateProjectilePool();
-
         CreatePool(_minionPrefab);
-    }
 
-    public void Initialize()
-    {
         CreateFight();
         StartCoroutine(StartFight());
-    }
-
-    void CreateProjectilePool()
-    {
-        Projectiles = new();
-        for (int i = 0; i < 200; i++)
-        {
-            BattleProjectileOpponent p = Instantiate(_projectilePrefab, _enemyProjectilePoolHolder).GetComponent<BattleProjectileOpponent>();
-            p.gameObject.SetActive(false);
-            Projectiles.Add(p);
-        }
     }
 
     void CreateFight()

@@ -22,7 +22,7 @@ public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    protected T GetObjectFromPool()
+    public T GetObjectFromPool()
     {
         T obj = _pool.Find(o => !o.gameObject.activeSelf);
         if (obj == null)

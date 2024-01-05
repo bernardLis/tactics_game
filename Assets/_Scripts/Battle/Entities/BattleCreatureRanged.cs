@@ -7,13 +7,13 @@ public class BattleCreatureRanged : BattleCreature
 {
     [SerializeField] protected GameObject _projectileSpawnPoint;
 
-    List<BattleProjectileOpponent> _projectilePool = new();
+    BattleProjectileManager _battleProjectileManager;
 
     protected override void InitializeOpponentEntity()
     {
         base.InitializeOpponentEntity();
-        // HERE: enemy projectile pool
-        // _projectilePool = _battleMinionManager.Projectiles;
+
+        _battleProjectileManager = _battleManager.GetComponent<BattleProjectileManager>();
     }
 
     protected override IEnumerator PathToOpponent()
@@ -112,7 +112,7 @@ public class BattleCreatureRanged : BattleCreature
 
     void OpponentAttack()
     {
-        BattleProjectileOpponent p = _projectilePool.Find(x => !x.gameObject.activeSelf);
+        BattleProjectileOpponent p = _battleProjectileManager.GetObjectFromPool();
         p.transform.position = transform.position;
         p.Initialize(1);
 

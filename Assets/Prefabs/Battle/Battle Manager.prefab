@@ -161,9 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
-  _enemyProjectilePoolHolder: {fileID: 0}
-  Projectiles: []
   _minionPrefab: {fileID: 6266213777921296780, guid: 2e606e0d198ae774b81a2ea0d596fb1c, type: 3}
 --- !u!114 &4810545558572652240
 MonoBehaviour:
@@ -265,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af1b033ea87672449e6c8b17ac4d9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0
