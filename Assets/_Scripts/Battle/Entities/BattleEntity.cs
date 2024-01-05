@@ -17,6 +17,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected AudioManager _audioManager;
     protected BattleManager _battleManager;
     protected BattleGrabManager _grabManager;
+    protected BattlePickupManager _pickupManager;
 
     protected ObjectShaders _battleEntityShaders;
 
@@ -101,6 +102,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         _battleManager = BattleManager.Instance;
         _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         _grabManager = BattleGrabManager.Instance;
+        _pickupManager = _battleManager.GetComponent<BattlePickupManager>();
 
         _rigidbody = GetComponent<Rigidbody>();
         if (_rigidbody != null) _rigidbody.isKinematic = true;
@@ -353,15 +355,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     protected void ResolveLoot()
     {
         if (Team == 0) return;
-
-        ExperienceOrb expOrb = Entity.GetExpOrb();
-        if (expOrb == null) return;
-
-        BattleExperienceOrb bl = Instantiate(expOrb.Prefab, transform.position, Quaternion.identity)
-                                .GetComponent<BattleExperienceOrb>();
-
-        // HERE: exp orb broken
-        // bl.Initialize(expOrb);
+        _pickupManager.SpawnExpOrb(transform.position);
     }
 
     public IEnumerator GetPoisoned(BattleCreature attacker)

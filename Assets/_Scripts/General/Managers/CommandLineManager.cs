@@ -279,11 +279,7 @@ public class CommandLineManager : MonoBehaviour
         Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
         spawnExpOrbButton.clickable.clicked += () =>
         {
-            ExperienceOrb expOrb = Instantiate(_expOrbs[Random.Range(0, _expOrbs.Length)]);
-            BattleExperienceOrb instance = Instantiate(expOrb.Prefab, Vector3.zero,
-                                    Quaternion.identity).GetComponent<BattleExperienceOrb>();
-            // instance.Initialize(expOrb);
-            // HERE: exp orb broken
+            BattleManager.Instance.GetComponent<BattlePickupManager>().SpawnExpOrb(Vector3.zero);
         };
         _otherFoldout.Add(spawnExpOrbButton);
     }

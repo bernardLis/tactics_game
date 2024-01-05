@@ -6,7 +6,6 @@ using UnityEngine;
 public class ExperienceOrb : Pickup
 {
     public int Amount;
-    // public ColorVariable Color;
     public int OrbChance;
 
     public override void Initialize()
@@ -18,4 +17,10 @@ public class ExperienceOrb : Pickup
     {
         hero.AddExp(Amount);
     }
+
+    public override string GetCollectedText()
+    {
+        return $"+{Amount} EXP";
+    }
+
 }

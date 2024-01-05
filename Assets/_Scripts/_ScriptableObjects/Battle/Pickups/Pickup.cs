@@ -6,7 +6,6 @@ using UnityEngine;
 public class Pickup : BaseScriptableObject
 {
     public GameObject GFX;
-    public GameObject Prefab;
 
     public ColorVariable Color;
     public string CollectedText;

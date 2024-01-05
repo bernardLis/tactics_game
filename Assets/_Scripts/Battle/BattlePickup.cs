@@ -56,7 +56,7 @@ public class BattlePickup : MonoBehaviour
         _audioManager.PlaySFX(pickup.DropSound, transform.position);
 
         SetPickUpRadius(_hero.Pull.GetValue());
-        GetComponent<SphereCollider>().enabled = true;
+        _sphereCollider.enabled = true;
     }
 
     void OnTriggerEnter(Collider collider)
@@ -68,8 +68,11 @@ public class BattlePickup : MonoBehaviour
 
     protected virtual void PickUp(BattleHero hero)
     {
-        GetComponent<SphereCollider>().enabled = false;
+        if (Pickup == null) return;
+        
+        _sphereCollider.enabled = false;
         transform.DOKill();
+        Debug.Log($"Pickup {Pickup}");
         DisplayText(Pickup.GetCollectedText(), Pickup.Color.Primary);
 
         _audioManager.PlaySFX(Pickup.CollectSound, transform.position);

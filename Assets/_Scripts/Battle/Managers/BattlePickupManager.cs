@@ -12,10 +12,41 @@ public class BattlePickupManager : PoolManager<BattlePickup>
     [SerializeField] Bag _bag;
     [SerializeField] Skull _skull;
 
+    [SerializeField] List<ExperienceOrb> ExpOrbs = new();
 
     public void Initialize()
     {
         CreatePool(_pickupPrefab.gameObject);
+    }
+
+    public void SpawnExpOrb(Vector3 position)
+    {
+        ExperienceOrb orb = ChooseExpOrb();
+        if (orb == null) return;
+        BattlePickup battlePickup = GetObjectFromPool();
+        battlePickup.Initialize(orb, position);
+    }
+
+    ExperienceOrb ChooseExpOrb()
+    {
+        int v = Random.Range(0, 101);
+        List<ExperienceOrb> possibleOrbs = new();
+        foreach (ExperienceOrb orb in ExpOrbs)
+            if (v <= orb.OrbChance)
+                possibleOrbs.Add(orb);
+
+        // return the exp orb with the lowest chance
+        if (possibleOrbs.Count > 0)
+        {
+            ExperienceOrb lowestChanceOrb = possibleOrbs[0];
+            foreach (ExperienceOrb l in possibleOrbs)
+                if (l.OrbChance < lowestChanceOrb.OrbChance)
+                    lowestChanceOrb = l;
+
+            ExperienceOrb instance = Instantiate(lowestChanceOrb);
+            return instance;
+        }
+        return null;
     }
 
     public void SpawnPickup(Vector3 position)
@@ -44,6 +75,13 @@ public class BattlePickupManager : PoolManager<BattlePickup>
     {
         foreach (BattlePickup p in GetActiveObjects())
             if (p.Pickup is Coin)
+                p.GetToHero();
+    }
+
+    public void HorseshoeCollected()
+    {
+        foreach (BattlePickup p in GetActiveObjects())
+            if (p.Pickup is ExperienceOrb)
                 p.GetToHero();
     }
 }

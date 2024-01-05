@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Common Exp Orb
   m_EditorClassIdentifier: 
   Id: 0a140311-dbc9-4726-a41d-1b870841d2e6
-  Prefab: {fileID: 3973520864210858599, guid: 63edea12d1a32d64f84e033491a2425b, type: 3}
+  GFX: {fileID: 5721408993724041914, guid: c6141c51839a101409e8abf728a8d5cc, type: 3}
+  Color: {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
+  CollectedText: asd
   CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   CollectSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   Amount: 4
-  Color: {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
   OrbChance: 40

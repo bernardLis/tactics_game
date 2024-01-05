@@ -133,35 +133,6 @@ public class Entity : BaseScriptableObject
         return elementalDamageBonus;
     }
 
-    /* LOOT */
-    [Header("Exp Orbs")]
-    [SerializeField] List<ExperienceOrb> ExpOrbs = new();
-    public ExperienceOrb GetExpOrb()
-    {
-        int v = Random.Range(0, 101);
-        List<ExperienceOrb> possibleOrbs = new();
-        foreach (ExperienceOrb orb in ExpOrbs)
-        {
-            if (v <= orb.OrbChance)
-                possibleOrbs.Add(orb);
-        }
-
-        // return the exp orb with the lowest chance
-        if (possibleOrbs.Count > 0)
-        {
-            ExperienceOrb lowestChanceOrb = possibleOrbs[0];
-            foreach (ExperienceOrb l in possibleOrbs)
-            {
-                if (l.OrbChance < lowestChanceOrb.OrbChance)
-                    lowestChanceOrb = l;
-            }
-
-            ExperienceOrb instance = Instantiate(lowestChanceOrb);
-            return instance;
-        }
-        return null;
-    }
-
     /* SERIALIZATION */
     public EntityData SerializeSelf()
     {

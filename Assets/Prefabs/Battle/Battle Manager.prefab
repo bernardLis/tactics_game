@@ -249,6 +249,11 @@ MonoBehaviour:
   _horseshoe: {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
   _bag: {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
   _skull: {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
+  ExpOrbs:
+  - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
+  - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
+  - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
+  - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

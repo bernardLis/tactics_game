@@ -7,6 +7,6 @@ public class Horseshoe : Pickup
 {
     public override void Collected(Hero hero)
     {
-        BattleManager.Instance.HorseshoeCollected();
+        BattleManager.Instance.GetComponent<BattlePickupManager>().HorseshoeCollected();
     }
 }
