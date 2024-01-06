@@ -1,14 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleAbility : MonoBehaviour
 {
-
     protected Ability _ability; // HERE: for now
     protected IEnumerator _runAbilityCoroutine;
     protected IEnumerator _fireAbilityCoroutine;
 
+    public event Action<Vector3, Vector3> OnAbilityFire;
     public virtual void Initialize(Ability ability, bool startAbility = true)
     {
         _ability = ability;
@@ -41,6 +42,7 @@ public class BattleAbility : MonoBehaviour
 
     protected virtual IEnumerator FireAbilityCoroutine()
     {
+        OnAbilityFire?.Invoke(transform.position, transform.rotation.eulerAngles);
         // override this method in child classes
         yield return null;
     }

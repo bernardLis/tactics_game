@@ -72,7 +72,6 @@ public class BattlePickup : MonoBehaviour
         
         _sphereCollider.enabled = false;
         transform.DOKill();
-        Debug.Log($"Pickup {Pickup}");
         DisplayText(Pickup.GetCollectedText(), Pickup.Color.Primary);
 
         _audioManager.PlaySFX(Pickup.CollectSound, transform.position);

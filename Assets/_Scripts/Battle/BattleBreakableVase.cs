@@ -39,7 +39,7 @@ public class BattleBreakableVase : MonoBehaviour
         gameObject.SetActive(true);
         _originalVase.gameObject.SetActive(true);
 
-        transform.DOScale(2, 0.5f).SetEase(Ease.OutBack);
+        transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
     }
 
     void OnMouseDown()

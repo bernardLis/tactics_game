@@ -70,6 +70,11 @@ public class Ability : BaseScriptableObject
         return Levels[Level].Scale * _scaleMultiplier;
     }
 
+    public int GetAmount()
+    {
+        return Levels[Level].Amount;
+    }
+
     public bool IsMaxLevel()
     {
         return Level >= Levels.Count - 1;

@@ -19,6 +19,7 @@ public class BattleHeroManager : MonoBehaviour
     [SerializeField] AudioListener _placeholderAudioListener;
 
     [SerializeField] GameObject _heroPrefab;
+    [SerializeField] Ability _abilityToGive;
     [HideInInspector] public BattleHero BattleHero;
     public Hero Hero { get; private set; }
 
@@ -47,7 +48,8 @@ public class BattleHeroManager : MonoBehaviour
 
         RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
 
-        Hero.AddAbility(_gameManager.EntityDatabase.GetRandomAbility());
+        if (_abilityToGive != null)
+            Hero.AddAbility(_abilityToGive);
 
         Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
     }

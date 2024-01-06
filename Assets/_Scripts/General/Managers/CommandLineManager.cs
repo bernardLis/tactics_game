@@ -295,7 +295,6 @@ public class CommandLineManager : MonoBehaviour
 
         BattleManager battleManager = BattleManager.Instance;
         if (battleManager == null) return;
-
         Hero hero = battleManager.Hero;
 
         Button levelUpButton = new() { text = "Level up" };
@@ -338,7 +337,10 @@ public class CommandLineManager : MonoBehaviour
         Button abilityLevelUp = new() { text = "Level up abilities" };
         abilityLevelUp.clickable.clicked += () =>
         {
-            foreach (Ability a in hero.Abilities)
+            Debug.Log($"hero {hero}");
+            Debug.Log($"hero.ab.count {hero.Abilities.Count}");
+
+            foreach (Ability a in BattleManager.Instance.Hero.Abilities)
             {
                 a.LevelUp();
             }

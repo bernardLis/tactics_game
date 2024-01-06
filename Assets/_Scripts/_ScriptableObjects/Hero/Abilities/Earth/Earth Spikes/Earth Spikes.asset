@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
+  m_Name: Earth Spikes
+  m_EditorClassIdentifier: 
+  Id: f6da12f3-714f-46a5-8722-cd35a2fdf6ba
+  DeveloperComment: 
+  Description: Spike Spike!
+  Icon: {fileID: 21300000, guid: a643baba0305747478cb47282834cf7b, type: 3}
+  Level: 0
+  Levels:
+  - {fileID: 11400000, guid: b47aa1ff3949deb4e99b0c622d28fa39, type: 2}
+  - {fileID: 11400000, guid: dd50411aa4fe890428d4a2dd7cd832fd, type: 2}
+  - {fileID: 11400000, guid: 8f225980526d69c4b8378674cdf116f1, type: 2}
+  - {fileID: 11400000, guid: 3dd0a46c9e936984284d594ee0a85f6e, type: 2}
+  - {fileID: 11400000, guid: 56a1f225aa4865149a043c0d78273612, type: 2}
+  - {fileID: 11400000, guid: 396fad568cb6713479d0e7505e1340e2, type: 2}
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  KillCount: 0
+  IsAdvanced: 0
+  AbilityManagerPrefab: {fileID: 5437731499957775799, guid: df93a021cbf9cca4cb02c887bf8d8294, type: 3}

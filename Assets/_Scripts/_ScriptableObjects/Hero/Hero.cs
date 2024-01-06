@@ -132,7 +132,6 @@ public class Hero : EntityMovement
         return null;
     }
 
-
     public void CreateHero(string heroName, Element element)
     {
         _gameManager = GameManager.Instance;
