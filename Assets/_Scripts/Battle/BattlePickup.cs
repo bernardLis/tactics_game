@@ -43,7 +43,7 @@ public class BattlePickup : MonoBehaviour
         transform.position = position;
         gameObject.SetActive(true);
 
-        transform.DOLocalMoveY(1f, 0.5f).SetEase(Ease.OutBack);
+        transform.DOLocalMoveY(0.5f, 0.5f).SetEase(Ease.OutBack);
 
         transform.localScale = Vector3.zero;
         transform.DOScale(1, 1f).SetEase(Ease.OutBack);

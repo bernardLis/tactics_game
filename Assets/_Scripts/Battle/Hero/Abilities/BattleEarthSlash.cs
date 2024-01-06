@@ -7,21 +7,17 @@ public class BattleEarthSlash : MonoBehaviour
     [SerializeField] GameObject _effect;
     [SerializeField] GameObject _col;
     Ability _ability;
-    BattleAbility _battleAbility;
 
     public void Initialize(Ability ability, BattleAbility battleAbility)
     {
         _ability = ability;
         _ability.OnLevelUp += OnAbilityLevelUp;
-        battleAbility.OnAbilityFire += Fire;
 
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
-    void Fire(Vector3 pos, Vector3 rot)
+    public void Fire()
     {
-        // transform.position = pos;
-        // transform.rotation = Quaternion.Euler(rot);
         StartCoroutine(FireCoroutine());
     }
 

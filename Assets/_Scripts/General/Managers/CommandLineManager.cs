@@ -300,6 +300,7 @@ public class CommandLineManager : MonoBehaviour
         Button levelUpButton = new() { text = "Level up" };
         levelUpButton.clickable.clicked += () =>
         {
+            hero = BattleManager.Instance.Hero;
             hero.AddExp(hero.GetExpForNextLevel() - hero.Experience.Value);
         };
         heroFoldout.Add(levelUpButton);
@@ -307,6 +308,7 @@ public class CommandLineManager : MonoBehaviour
         Button increaseGatherStrength = new() { text = "Increase Pull" };
         increaseGatherStrength.clickable.clicked += () =>
         {
+            hero = BattleManager.Instance.Hero;
             hero.Pull.SetBaseValue(hero.Pull.GetValue() + 1);
         };
         heroFoldout.Add(increaseGatherStrength);
@@ -314,6 +316,7 @@ public class CommandLineManager : MonoBehaviour
         Button decreaseGatherStrength = new() { text = "Decrease Pull" };
         decreaseGatherStrength.clickable.clicked += () =>
         {
+            hero = BattleManager.Instance.Hero;
             hero.Pull.SetBaseValue(hero.Pull.GetValue() - 1);
         };
         heroFoldout.Add(decreaseGatherStrength);
@@ -327,7 +330,7 @@ public class CommandLineManager : MonoBehaviour
             Ability a = _gameManager.EntityDatabase.GetAllBasicAbilities().Find(x => x.name == abilityDropdown.value);
             if (a != null)
             {
-                hero.AddAbility(a);
+                BattleManager.Instance.Hero.AddAbility(a);
             }
         };
 
@@ -337,9 +340,6 @@ public class CommandLineManager : MonoBehaviour
         Button abilityLevelUp = new() { text = "Level up abilities" };
         abilityLevelUp.clickable.clicked += () =>
         {
-            Debug.Log($"hero {hero}");
-            Debug.Log($"hero.ab.count {hero.Abilities.Count}");
-
             foreach (Ability a in BattleManager.Instance.Hero.Abilities)
             {
                 a.LevelUp();

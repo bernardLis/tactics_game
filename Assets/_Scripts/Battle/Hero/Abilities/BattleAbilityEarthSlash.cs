@@ -62,6 +62,7 @@ public class BattleAbilityEarthSlash : BattleAbility
     protected override IEnumerator FireAbilityCoroutine()
     {
         yield return base.FireAbilityCoroutine();
-
+        foreach (BattleEarthSlash slash in _slashes)
+            slash.Fire();
     }
 }
