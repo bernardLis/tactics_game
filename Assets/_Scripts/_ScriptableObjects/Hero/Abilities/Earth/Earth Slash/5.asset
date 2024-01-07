@@ -18,3 +18,4 @@ MonoBehaviour:
   Cooldown: 2
   Scale: 3
   Amount: 2
+  Duration: 0.5

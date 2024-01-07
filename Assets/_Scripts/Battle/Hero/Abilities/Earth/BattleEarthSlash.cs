@@ -27,7 +27,7 @@ public class BattleEarthSlash : MonoBehaviour
         _col.SetActive(true);
 
         Vector3 colliderRotation = new(90f, 0f, -45f);
-        _col.transform.DOLocalRotate(colliderRotation, 0.3f)
+        _col.transform.DOLocalRotate(colliderRotation, _ability.GetDuration())
                     .OnComplete(() =>
                     {
                         _col.SetActive(false);

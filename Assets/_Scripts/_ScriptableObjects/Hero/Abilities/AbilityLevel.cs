@@ -12,6 +12,7 @@ public class AbilityLevel : BaseScriptableObject
     public float Cooldown;
     public float Scale;
     public int Amount;
+    public float Duration;
 
 
 }

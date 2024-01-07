@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
-  m_Name: Earth Spikes
+  m_Name: Earth Spike
   m_EditorClassIdentifier: 
   Id: f6da12f3-714f-46a5-8722-cd35a2fdf6ba
   DeveloperComment: 
@@ -27,4 +27,4 @@ MonoBehaviour:
   Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   KillCount: 0
   IsAdvanced: 0
-  AbilityManagerPrefab: {fileID: 5437731499957775799, guid: df93a021cbf9cca4cb02c887bf8d8294, type: 3}
+  AbilityManagerPrefab: {fileID: 166164717595658745, guid: 412d5e2d4cd0a1a428c9c653f1bbedcc, type: 3}

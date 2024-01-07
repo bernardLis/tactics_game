@@ -95,6 +95,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
   - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
   - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
+  - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
   StatBasics:
   - StatType: 1
     Sprite: {fileID: 21300000, guid: 6cd7b56c2c64e11488db124808380608, type: 3}

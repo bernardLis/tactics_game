@@ -75,6 +75,11 @@ public class Ability : BaseScriptableObject
         return Levels[Level].Amount;
     }
 
+    public float GetDuration()
+    {
+        return Levels[Level].Duration;
+    }
+
     public bool IsMaxLevel()
     {
         return Level >= Levels.Count - 1;

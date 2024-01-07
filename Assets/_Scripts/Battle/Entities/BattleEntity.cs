@@ -254,7 +254,7 @@ public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
         if (_battleManager == null) yield break;
         EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {ability.name}");
 
-        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Primary);
+        BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Secondary);
 
         if (Entity.CurrentHealth.Value <= 0)
             ability.AddKill();
