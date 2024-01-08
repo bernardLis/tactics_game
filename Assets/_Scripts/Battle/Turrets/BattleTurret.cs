@@ -110,7 +110,7 @@ public class BattleTurret : MonoBehaviour, IGrabbable, IPointerDownHandler
         BattleProjectile projectileInstance = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         projectileInstance.transform.parent = transform;
         projectileInstance.Initialize(Team);
-        projectileInstance.Shoot(Turret, _target, Turret.Power.GetValue());
+        projectileInstance.ShootAt(Turret, _target, Turret.Power.GetValue());
     }
 
     public bool CanBeGrabbed() { return true; }

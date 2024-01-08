@@ -49,7 +49,7 @@ public class BattleProjectileOpponent : BattleProjectile
             t += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        yield return DestroySelf(transform.position);
+        yield return Explode(transform.position);
     }
 
     protected override IEnumerator HitTarget(BattleEntity target)
@@ -57,11 +57,11 @@ public class BattleProjectileOpponent : BattleProjectile
         _collider.enabled = false;
         target.BaseGetHit(_power, Color.black);
 
-        yield return DestroySelf(transform.position);
+        yield return Explode(transform.position);
     }
 
 
-    public override IEnumerator DestroySelf(Vector3 position)
+    public override IEnumerator Explode(Vector3 position)
     {
         _gfx.SetActive(false);
         _audioManager.PlaySFX(_explosionSound, position);

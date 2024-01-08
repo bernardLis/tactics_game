@@ -18,7 +18,7 @@ public class BattleProjectileSplash : BattleProjectile
                 StartCoroutine(entity.GetHit(_shooter));
             }
         }
-        yield return DestroySelf(transform.position);
+        yield return Explode(transform.position);
     }
 
 }

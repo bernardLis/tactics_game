@@ -247,6 +247,37 @@ public class BattleAreaManager : MonoBehaviour
         return null;
     }
 
+    public Vector3 GetRandomPositionWithinRangeOnActiveTile(Vector3 point, float range)
+    {
+        int tries = 0;
+        while (tries < 100)
+        {
+            tries++;
+            Vector3 randomPoint = Random.insideUnitSphere * range;
+            randomPoint.y = 0;
+            if (IsPositionOnActiveTile(randomPoint))
+                return randomPoint;
+        }
+        Debug.LogError($"Could not find random position within range {range} of {point} on active tile");
+        return Vector3.zero;
+    }
+
+    bool IsPositionOnActiveTile(Vector3 pos)
+    {
+        foreach (BattleTile tile in _tiles)
+        {
+            if (!tile.gameObject.activeSelf) continue;
+            if (pos.x > tile.transform.position.x - tile.Scale * 0.5f &&
+                pos.x < tile.transform.position.x + tile.Scale * 0.5f &&
+                pos.z > tile.transform.position.z - tile.Scale * 0.5f &&
+                pos.z < tile.transform.position.z + tile.Scale * 0.5f)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /* ASTAR */
     struct AStarTile
     {

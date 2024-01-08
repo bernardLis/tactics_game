@@ -19,6 +19,8 @@ public class BattleProjectile : MonoBehaviour
 
     protected int _team;
     protected EntityFight _shooter;
+    protected Ability _ability;
+
     protected BattleEntity _target;
 
     protected bool _hitConnected;
@@ -27,22 +29,58 @@ public class BattleProjectile : MonoBehaviour
     {
         _team = Team;
         _audioManager = AudioManager.Instance;
-        _audioManager.PlaySFX(_shootSound, transform.position);
         _collider = GetComponent<SphereCollider>();
     }
 
-    public void Shoot(EntityFight shooter, BattleEntity target, float power)
+    void EnableProjectile()
     {
-        _shooter = shooter;
-        _target = target;
-        StartCoroutine(ShootCoroutine(shooter.AttackRange.GetValue(), target, power));
+        gameObject.SetActive(true);
+        _hitConnected = false;
+        _gfx.SetActive(true);
+        _explosion.SetActive(false);
+        _audioManager.PlaySFX(_shootSound, transform.position);
     }
 
-    IEnumerator ShootCoroutine(float range, BattleEntity target, float power)
+    public void ShootInDirection(Ability ability, Vector3 dir)
+    {
+        EnableProjectile();
+
+        _ability = ability;
+        StartCoroutine(ShootInDirectionCoroutine(dir, _ability.GetDuration()));
+    }
+
+    IEnumerator ShootInDirectionCoroutine(Vector3 dir, float time)
+    {
+        Debug.Log($"dir {dir}");
+        float targetScale = transform.localScale.x;
+        transform.localScale = transform.localScale * 0.5f;
+        transform.DOScale(targetScale, 1f);
+        transform.LookAt(transform.position + dir);
+
+        dir.Normalize();
+        float t = 0;
+        while (t <= time)
+        {
+            transform.position += dir * 0.1f * _speed * Time.fixedDeltaTime;
+            t += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        yield return Explode(transform.position);
+    }
+
+    public void ShootAt(EntityFight shooter, BattleEntity target, float power)
+    {
+        EnableProjectile();
+        _shooter = shooter;
+        _target = target;
+        StartCoroutine(ShootAtCoroutine(shooter.AttackRange.GetValue(), target, power));
+    }
+
+    IEnumerator ShootAtCoroutine(float range, BattleEntity target, float power)
     {
         if (target == null)
         {
-            DestroySelf(transform.position);
+            Explode(transform.position);
             yield break;
         }
 
@@ -67,15 +105,16 @@ public class BattleProjectile : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        yield return DestroySelf(transform.position);
+        yield return Explode(transform.position);
     }
 
     protected virtual IEnumerator HitTarget(BattleEntity target)
     {
         _collider.enabled = false;
         if (_shooter != null) StartCoroutine(target.GetHit(_shooter));
+        if (_ability != null) StartCoroutine(target.GetHit(_ability));
 
-        yield return DestroySelf(transform.position);
+        yield return Explode(transform.position);
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -88,7 +127,7 @@ public class BattleProjectile : MonoBehaviour
         {
             _hitConnected = true;
             StopAllCoroutines();
-            StartCoroutine(DestroySelf(transform.position));
+            StartCoroutine(Explode(transform.position));
             return;
         }
 
@@ -99,6 +138,14 @@ public class BattleProjectile : MonoBehaviour
             _hitConnected = true;
             StopAllCoroutines();
             StartCoroutine(HitTarget(battleEntity));
+            return;
+        }
+
+        if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+        {
+            _hitConnected = true;
+            StopAllCoroutines();
+            bbv.TriggerBreak();
             return;
         }
     }
@@ -112,8 +159,10 @@ public class BattleProjectile : MonoBehaviour
         return true;
     }
 
-    public virtual IEnumerator DestroySelf(Vector3 position)
+    public virtual IEnumerator Explode(Vector3 position)
     {
+        StopAllCoroutines();
+
         _gfx.SetActive(false);
         _audioManager.PlaySFX(_explosionSound, position);
         _explosion.SetActive(true);
@@ -121,6 +170,6 @@ public class BattleProjectile : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         transform.DOKill(transform);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

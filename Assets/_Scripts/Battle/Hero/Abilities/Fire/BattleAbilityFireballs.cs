@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using DG.Tweening;
+public class BattleAbilityFireballs : BattleAbility
+{
+
+    [SerializeField] GameObject _fireballPrefab;
+    List<BattleProjectile> _fireballPool = new();
+
+    public override void Initialize(Ability ability, bool startAbility)
+    {
+        base.Initialize(ability, startAbility);
+        transform.localPosition = new Vector3(0f, 0f, 0f);
+    }
+
+    BattleProjectile InitializeFireball()
+    {
+        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        instance.SetActive(true);
+
+        BattleProjectile projectile = instance.GetComponent<BattleProjectile>();
+        projectile.Initialize(0);
+        _fireballPool.Add(projectile);
+        return projectile;
+    }
+
+    protected override IEnumerator FireAbilityCoroutine()
+    {
+        yield return base.FireAbilityCoroutine();
+        Vector3 dir = Random.insideUnitCircle.normalized;
+        dir.y = 0;
+        for (int i = 0; i < _ability.GetAmount(); i++)
+        {
+            // random position within circle radius
+            BattleProjectile projectile = GetInactiveFireball();
+            projectile.transform.position = transform.position;
+            projectile.ShootInDirection(_ability, dir + new Vector3(0, 0, Random.Range(-0.15f, 0.15f)));
+        }
+    }
+
+    BattleProjectile GetInactiveFireball()
+    {
+        foreach (BattleProjectile ball in _fireballPool)
+            if (!ball.gameObject.activeSelf)
+                return ball;
+        return InitializeFireball();
+    }
+}

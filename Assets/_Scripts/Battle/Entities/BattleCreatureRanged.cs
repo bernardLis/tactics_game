@@ -107,7 +107,7 @@ public class BattleCreatureRanged : BattleCreature
         projectileInstance.transform.parent = _battleManager.EntityHolder;
         BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
         p.Initialize(Team);
-        p.Shoot(Creature, Opponent, Creature.Power.GetValue());
+        p.ShootAt(Creature, Opponent, Creature.Power.GetValue());
     }
 
     void OpponentAttack()

@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62df120f5241fe447afccb5c311b8b22, type: 3}
-  m_Name: 0
+  m_Name: 5
   m_EditorClassIdentifier: 
-  Id: db07487d-0159-4264-9d59-809e24f28dec
-  Level: 1
-  Power: 10
-  Cooldown: 15
-  Scale: 9
+  Id: 7e9f9ae9-7ed8-4868-bf8f-3d00e4ec7491
+  Level: 6
+  Power: 30
+  Cooldown: 13
+  Scale: 7
+  Amount: 4
+  Duration: 3

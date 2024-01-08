@@ -20,7 +20,7 @@ public class BattleAbilityEarthSpike : BattleAbility
 
     BattleEarthSpike InitializeSpike()
     {
-        GameObject instance = Instantiate(_spikePrefab, Vector3.zero, Quaternion.identity);
+        GameObject instance = Instantiate(_spikePrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
         instance.SetActive(true);
 
         BattleEarthSpike battleEarthSpike = instance.GetComponent<BattleEarthSpike>();
@@ -31,15 +31,11 @@ public class BattleAbilityEarthSpike : BattleAbility
 
     protected override IEnumerator FireAbilityCoroutine()
     {
-        Debug.Log($"fire ability coroutine {_spikes.Count}");
         yield return base.FireAbilityCoroutine();
         foreach (BattleEarthSpike spike in _spikes)
         {
-            Debug.Log($"{spike.name} isActive: {spike.IsActive}");
             if (!spike.IsActive)
             {
-
-                Debug.Log($"found inactive");
                 spike.Fire(transform.position, transform.rotation.eulerAngles);
                 yield break;
             }

@@ -11,8 +11,6 @@ public class BattleProjectileHoming : BattleProjectile
     [SerializeField] int _homingDurationSeconds = 5;
     [SerializeField] float _rotateSpeed = 0.03f;
 
-    Ability _ability;
-
     IEnumerator _homingCoroutine;
 
     // TBH, it does not have that much in common with projectile, 
@@ -82,7 +80,7 @@ public class BattleProjectileHoming : BattleProjectile
     {
         if (_ability != null) StartCoroutine(target.GetHit(_ability));
 
-        yield return DestroySelf(transform.position);
+        yield return Explode(transform.position);
     }
 
 
@@ -107,6 +105,6 @@ public class BattleProjectileHoming : BattleProjectile
     void StopHoming()
     {
         StopCoroutine(_homingCoroutine);
-        StartCoroutine(DestroySelf(transform.position));
+        StartCoroutine(Explode(transform.position));
     }
 }
