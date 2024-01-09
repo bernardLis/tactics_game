@@ -5,7 +5,7 @@ using UnityEngine;
 public class BattleProjectileSplash : BattleProjectile
 {
     [SerializeField] float _splashRadius = 3f;
-    protected override IEnumerator HitTarget(BattleEntity target)
+    protected override void HitTarget(BattleEntity target)
     {
         Collider[] colliders = Physics.OverlapSphere(target.Collider.bounds.center, _splashRadius);
         foreach (Collider collider in colliders)
@@ -18,7 +18,7 @@ public class BattleProjectileSplash : BattleProjectile
                 StartCoroutine(entity.GetHit(_shooter));
             }
         }
-        yield return Explode(transform.position);
+        StartCoroutine(Explode(transform.position));
     }
 
 }

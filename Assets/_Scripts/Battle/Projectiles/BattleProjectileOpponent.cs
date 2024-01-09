@@ -11,22 +11,6 @@ public class BattleProjectileOpponent : BattleProjectile
 
     protected Vector3 _direction;
 
-    public override void Initialize(int Team)
-    {
-        base.Initialize(Team);
-
-        ResetProjectile();
-    }
-
-    void ResetProjectile()
-    {
-        _gfx.SetActive(true);
-        _explosion.SetActive(false);
-        _hitConnected = false;
-        _collider.enabled = true;
-
-    }
-
     public virtual void Shoot(BattleEntity shooter, Vector3 dir, float time, int power)
     {
         _battleEntity = shooter;
@@ -34,28 +18,14 @@ public class BattleProjectileOpponent : BattleProjectile
         _power = power;
         _direction = dir;
 
-        gameObject.SetActive(true);
-        StartCoroutine(ShootCoroutine());
+        EnableProjectile();
+        StartCoroutine(ShootInDirectionCoroutine(_direction));
     }
 
-    IEnumerator ShootCoroutine()
+    protected override void HitTarget(BattleEntity target)
     {
-        float t = 0;
-        while (t <= _time)
-        {
-            transform.position += _direction * _speed * Time.fixedDeltaTime;
-            t += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        }
-        yield return Explode(transform.position);
-    }
-
-    protected override IEnumerator HitTarget(BattleEntity target)
-    {
-        _collider.enabled = false;
         target.BaseGetHit(_power, Color.black);
-
-        yield return Explode(transform.position);
+        HitConnected();
     }
 
 }

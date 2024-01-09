@@ -44,27 +44,27 @@ public class BattleProjectileHoming : BattleProjectile
             yield break;
         }
         // get closest enemy
-        _target = GetClosestEntity(battleEntities);
+        // _target = GetClosestEntity(battleEntities);
 
-        yield return GoForward(0.5f);
+        // yield return GoForward(0.5f);
 
-        // then start homing 
-        while (_target != null)
-        {
-            if (_target.IsDead) break;
+        // // then start homing 
+        // while (_target != null)
+        // {
+        //     if (_target.IsDead) break;
 
-            Vector3 direction = _target.transform.position - transform.position;
-            direction.Normalize();
+        //     Vector3 direction = _target.transform.position - transform.position;
+        //     direction.Normalize();
 
-            Vector3 amountToRotate = Vector3.Cross(direction, transform.forward)
-                                    * Vector3.Angle(transform.forward, direction);
+        //     Vector3 amountToRotate = Vector3.Cross(direction, transform.forward)
+        //                             * Vector3.Angle(transform.forward, direction);
 
-            _rb.angularVelocity = -amountToRotate * _rotateSpeed;
+        //     _rb.angularVelocity = -amountToRotate * _rotateSpeed;
 
-            _rb.velocity = transform.forward * _speed;
+        //     _rb.velocity = transform.forward * _speed;
 
-            yield return new WaitForFixedUpdate();
-        }
+        //     yield return new WaitForFixedUpdate();
+        // }
 
         // if the target dies or disappears
         yield return HomingCoroutine();
@@ -76,12 +76,12 @@ public class BattleProjectileHoming : BattleProjectile
         yield return new WaitForSeconds(timeInSeconds);
     }
 
-    protected override IEnumerator HitTarget(BattleEntity target)
-    {
-        if (_ability != null) StartCoroutine(target.GetHit(_ability));
+    // protected override IEnumerator HitTarget(BattleEntity target)
+    // {
+    //     if (_ability != null) StartCoroutine(target.GetHit(_ability));
 
-        yield return Explode(transform.position);
-    }
+    //     yield return Explode(transform.position);
+    // }
 
 
 

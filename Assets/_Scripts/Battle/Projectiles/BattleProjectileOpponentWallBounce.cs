@@ -26,14 +26,13 @@ public class BattleProjectileOpponentWallBounce : BattleProjectileOpponent
 
             _hitConnected = true;
             StopAllCoroutines();
-            StartCoroutine(HitTarget(battleEntity));
+            HitTarget(battleEntity);
             return;
         }
     }
 
     void Bounce(Vector3 normal)
     {
-        Debug.Log($"bounce");
         _direction = Vector3.Reflect(_direction, normal);
         _direction.y = 0;
         _direction.Normalize();

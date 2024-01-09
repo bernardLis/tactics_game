@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 public class BattleAbilityFireballs : BattleAbility
 {
-
     [SerializeField] GameObject _fireballPrefab;
     List<BattleProjectile> _fireballPool = new();
 
@@ -34,10 +33,9 @@ public class BattleAbilityFireballs : BattleAbility
         Vector3 projectileVariance = new Vector3(0, 0, Random.Range(-0.15f, 0.15f));
         for (int i = 0; i < _ability.GetAmount(); i++)
         {
-            // random position within circle radius
             BattleProjectile projectile = GetInactiveFireball();
             projectile.transform.position = transform.position;
-            projectile.ShootInDirection(_ability, dir + projectileVariance * i);
+            projectile.Shoot(_ability, dir + projectileVariance * i);
         }
     }
 
