@@ -8,14 +8,12 @@ public class BattleProjectileHoming : BattleProjectile
 
     Rigidbody _rb;
 
-    [SerializeField] int _homingDurationSeconds = 5;
-    [SerializeField] float _rotateSpeed = 0.03f;
+    [SerializeField] float _rotateSpeed = 0.5f;
+
+    BattleEntity _target;
 
     IEnumerator _homingCoroutine;
 
-    // TBH, it does not have that much in common with projectile, 
-    // and this set-up makes it unusable by creatures
-    // it is a first try tho. I can make it better later xD
     public override void Initialize(int team)
     {
         base.Initialize(team);
@@ -26,48 +24,45 @@ public class BattleProjectileHoming : BattleProjectile
 
     public void StartHoming(Ability ability)
     {
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
         _ability = ability;
+        EnableProjectile();
 
         _homingCoroutine = HomingCoroutine();
         StartCoroutine(_homingCoroutine);
-
-        Invoke("StopHoming", _homingDurationSeconds);
     }
 
     IEnumerator HomingCoroutine()
     {
-        List<BattleEntity> battleEntities = _battleManager.GetOpponents(_team);
-        if (battleEntities.Count == 0)
-        {
+        StartCoroutine(BreakHomingCoroutine());
+        yield return GoForward(0.5f);
+
+        while (_battleManager.GetOpponents(_team).Count == 0)
             yield return GoForward(0.5f);
-            yield return HomingCoroutine();
-            yield break;
+
+        _target = GetClosestEntity(_battleManager.GetOpponents(_team));
+        while (_target != null)
+        {
+            if (_target.IsDead) break;
+            _rb.velocity = transform.forward * _speed;
+            Vector3 direction = _target.transform.position - transform.position;
+            direction.Normalize();
+
+            Vector3 amountToRotate = Vector3.Cross(direction, transform.forward)
+                                    * Vector3.Angle(transform.forward, direction);
+            _rb.angularVelocity = -amountToRotate * _rotateSpeed;
+            yield return new WaitForFixedUpdate();
         }
-        // get closest enemy
-        // _target = GetClosestEntity(battleEntities);
-
-        // yield return GoForward(0.5f);
-
-        // // then start homing 
-        // while (_target != null)
-        // {
-        //     if (_target.IsDead) break;
-
-        //     Vector3 direction = _target.transform.position - transform.position;
-        //     direction.Normalize();
-
-        //     Vector3 amountToRotate = Vector3.Cross(direction, transform.forward)
-        //                             * Vector3.Angle(transform.forward, direction);
-
-        //     _rb.angularVelocity = -amountToRotate * _rotateSpeed;
-
-        //     _rb.velocity = transform.forward * _speed;
-
-        //     yield return new WaitForFixedUpdate();
-        // }
 
         // if the target dies or disappears
         yield return HomingCoroutine();
+    }
+
+    IEnumerator BreakHomingCoroutine()
+    {
+        yield return new WaitForSeconds(_ability.GetDuration());
+        if (_homingCoroutine != null) HitConnected();
     }
 
     IEnumerator GoForward(float timeInSeconds)
@@ -75,15 +70,6 @@ public class BattleProjectileHoming : BattleProjectile
         _rb.velocity = transform.forward * _speed;
         yield return new WaitForSeconds(timeInSeconds);
     }
-
-    // protected override IEnumerator HitTarget(BattleEntity target)
-    // {
-    //     if (_ability != null) StartCoroutine(target.GetHit(_ability));
-
-    //     yield return Explode(transform.position);
-    // }
-
-
 
     BattleEntity GetClosestEntity(List<BattleEntity> battleEntities)
     {
@@ -99,12 +85,5 @@ public class BattleProjectileHoming : BattleProjectile
             }
         }
         return closestEntity;
-    }
-
-
-    void StopHoming()
-    {
-        StopCoroutine(_homingCoroutine);
-        StartCoroutine(Explode(transform.position));
     }
 }

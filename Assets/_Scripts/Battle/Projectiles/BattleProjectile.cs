@@ -91,6 +91,7 @@ public class BattleProjectile : MonoBehaviour
     protected virtual void OnCollisionEnter(Collision collision)
     {
         if (_hitConnected) return;
+        Debug.Log($"object {gameObject.name} collision with {collision.gameObject.name}");
 
         if (collision.gameObject.layer == Tags.BattleObstacleLayer ||
             collision.gameObject.layer == Tags.BattleInteractableLayer)
@@ -125,6 +126,8 @@ public class BattleProjectile : MonoBehaviour
 
     protected void HitConnected()
     {
+        if (!gameObject.activeSelf) return;
+        Debug.Log($"hit connected");
         _collider.enabled = false;
         _hitConnected = true;
         StopAllCoroutines();
