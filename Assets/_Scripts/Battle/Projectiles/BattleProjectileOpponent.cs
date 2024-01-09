@@ -7,12 +7,10 @@ using System;
 public class BattleProjectileOpponent : BattleProjectile
 {
     BattleEntity _battleEntity;
-    protected float _time;
     int _power;
 
     protected Vector3 _direction;
 
-    public event Action OnDestroy;
     public override void Initialize(int Team)
     {
         base.Initialize(Team);
@@ -59,20 +57,5 @@ public class BattleProjectileOpponent : BattleProjectile
 
         yield return Explode(transform.position);
     }
-
-
-    public override IEnumerator Explode(Vector3 position)
-    {
-        _gfx.SetActive(false);
-        _audioManager.PlaySFX(_explosionSound, position);
-        _explosion.SetActive(true);
-
-        yield return new WaitForSeconds(0.5f);
-
-        OnDestroy?.Invoke();
-        transform.DOKill(transform);
-        gameObject.SetActive(false);
-    }
-
 
 }

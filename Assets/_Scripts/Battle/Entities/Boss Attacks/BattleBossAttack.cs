@@ -50,7 +50,7 @@ public class BattleBossAttack : MonoBehaviour
         BattleProjectileOpponent p = go.GetComponent<BattleProjectileOpponent>();
         p.Initialize(1);
         p.Shoot(_battleBoss, dir, time, power);
-        p.OnDestroy += () => Destroy(go);
+        p.OnExplode += () => Destroy(go);
 
     }
 

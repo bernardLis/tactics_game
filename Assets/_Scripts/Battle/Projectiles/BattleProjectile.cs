@@ -21,10 +21,12 @@ public class BattleProjectile : MonoBehaviour
     protected EntityFight _shooter;
     protected Ability _ability;
 
+    protected float _time;
     protected BattleEntity _target;
 
     protected bool _hitConnected;
 
+    public event Action OnExplode;
     public virtual void Initialize(int Team)
     {
         _team = Team;
@@ -46,12 +48,13 @@ public class BattleProjectile : MonoBehaviour
         EnableProjectile();
 
         _ability = ability;
-        StartCoroutine(ShootInDirectionCoroutine(dir, _ability.GetDuration()));
+        StartCoroutine(ShootInDirectionCoroutine(dir));
+        _time = _ability.GetDuration();
     }
 
-    IEnumerator ShootInDirectionCoroutine(Vector3 dir, float time)
+    IEnumerator ShootInDirectionCoroutine(Vector3 dir)
     {
-        Debug.Log($"dir {dir}");
+        Debug.Log($"dir {dir} & speed: {_speed}");
         float targetScale = transform.localScale.x;
         transform.localScale = transform.localScale * 0.5f;
         transform.DOScale(targetScale, 1f);
@@ -59,9 +62,9 @@ public class BattleProjectile : MonoBehaviour
 
         dir.Normalize();
         float t = 0;
-        while (t <= time)
+        while (t <= _time)
         {
-            transform.position += dir * 0.1f * _speed * Time.fixedDeltaTime;
+            transform.position += dir * _speed * Time.fixedDeltaTime;
             t += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -121,8 +124,10 @@ public class BattleProjectile : MonoBehaviour
     {
         if (_hitConnected) return;
 
+        Debug.Log($"Projectile {gameObject.name} collided with {collision.gameObject.name}");
+        Debug.Log($"layer {collision.gameObject.layer}");
+
         if (collision.gameObject.layer == Tags.BattleObstacleLayer ||
-            collision.gameObject.layer == Tags.BattleFloorLayer ||
             collision.gameObject.layer == Tags.BattleInteractableLayer)
         {
             _hitConnected = true;
@@ -146,6 +151,7 @@ public class BattleProjectile : MonoBehaviour
             _hitConnected = true;
             StopAllCoroutines();
             bbv.TriggerBreak();
+            StartCoroutine(Explode(transform.position));
             return;
         }
     }
@@ -155,14 +161,12 @@ public class BattleProjectile : MonoBehaviour
         if (battleEntity.IsDead) return false;
         // if (battleEntity is BattleHero) return false; // HERE: projectile for now...
         if (_team == battleEntity.Team) return false;
-
+        Debug.Log($"valid target");
         return true;
     }
 
     public virtual IEnumerator Explode(Vector3 position)
     {
-        StopAllCoroutines();
-
         _gfx.SetActive(false);
         _audioManager.PlaySFX(_explosionSound, position);
         _explosion.SetActive(true);
@@ -171,5 +175,6 @@ public class BattleProjectile : MonoBehaviour
 
         transform.DOKill(transform);
         gameObject.SetActive(false);
+        OnExplode?.Invoke();
     }
 }

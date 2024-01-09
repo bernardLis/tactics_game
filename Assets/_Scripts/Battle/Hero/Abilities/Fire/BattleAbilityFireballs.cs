@@ -12,7 +12,7 @@ public class BattleAbilityFireballs : BattleAbility
     public override void Initialize(Ability ability, bool startAbility)
     {
         base.Initialize(ability, startAbility);
-        transform.localPosition = new Vector3(0f, 0f, 0f);
+        transform.localPosition = new Vector3(0f, 0.5f, 0f);
     }
 
     BattleProjectile InitializeFireball()
@@ -31,12 +31,13 @@ public class BattleAbilityFireballs : BattleAbility
         yield return base.FireAbilityCoroutine();
         Vector3 dir = Random.insideUnitCircle.normalized;
         dir.y = 0;
+        Vector3 projectileVariance = new Vector3(0, 0, Random.Range(-0.15f, 0.15f));
         for (int i = 0; i < _ability.GetAmount(); i++)
         {
             // random position within circle radius
             BattleProjectile projectile = GetInactiveFireball();
             projectile.transform.position = transform.position;
-            projectile.ShootInDirection(_ability, dir + new Vector3(0, 0, Random.Range(-0.15f, 0.15f)));
+            projectile.ShootInDirection(_ability, dir + projectileVariance * i);
         }
     }
 
