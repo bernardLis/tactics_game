@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class BattleAbilityWaterTornado : BattleAbility
+public class BattleAbilityWindTornado : BattleAbility
 {
     [SerializeField] GameObject _tornadoPrefab;
-    List<BattleWaterTornado> _tornadoPool = new();
+    List<BattleWindTornado> _tornadoPool = new();
 
     public override void Initialize(Ability ability, bool startAbility = true)
     {
         base.Initialize(ability, startAbility);
-        transform.localPosition = new Vector3(0.5f, 1f, 0f);
+        transform.localPosition = new Vector3(0.5f, 1f, 0.5f);
     }
 
     protected override IEnumerator FireAbilityCoroutine()
@@ -19,32 +20,29 @@ public class BattleAbilityWaterTornado : BattleAbility
 
         for (int i = 0; i < _ability.GetAmount(); i++)
         {
-            Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
-                            Random.Range(7, 14));
-            BattleWaterTornado tornado = GetInactiveTornado();
-            tornado.Fire(pos);
-            yield return new WaitForSeconds(0.1f);
+            Vector3 pos = new(transform.position.x, 0, transform.position.z);
+            Quaternion q = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+
+            BattleWindTornado tornado = GetInactiveTornado();
+            tornado.Fire(pos, q);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
-    BattleWaterTornado InitializeTornado()
+    BattleWindTornado InitializeTornado()
     {
         GameObject instance = Instantiate(_tornadoPrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
-        instance.SetActive(true);
-
-        BattleWaterTornado tornado = instance.GetComponent<BattleWaterTornado>();
+        BattleWindTornado tornado = instance.GetComponent<BattleWindTornado>();
         tornado.Initialize(_ability);
         _tornadoPool.Add(tornado);
         return tornado;
     }
 
-    BattleWaterTornado GetInactiveTornado()
+    BattleWindTornado GetInactiveTornado()
     {
-        foreach (BattleWaterTornado p in _tornadoPool)
+        foreach (BattleWindTornado p in _tornadoPool)
             if (!p.gameObject.activeSelf)
                 return p;
         return InitializeTornado();
     }
-
-
 }

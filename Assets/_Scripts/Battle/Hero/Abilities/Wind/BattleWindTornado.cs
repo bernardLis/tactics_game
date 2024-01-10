@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class BattleTornado : MonoBehaviour
+public class BattleWindTornado : MonoBehaviour
 {
 
     [SerializeField] float _speed = 5f;
@@ -11,20 +12,29 @@ public class BattleTornado : MonoBehaviour
     public void Initialize(Ability ability)
     {
         _ability = ability;
+    }
+    
+    public void Fire(Vector3 pos, Quaternion q)
+    {
+        pos.y = 0;
+        transform.SetPositionAndRotation(pos, q);
+        gameObject.SetActive(true);
 
-        StartCoroutine(GoForward(3f)); // TODO: hardcoded duration
-        Invoke(nameof(DestroySelf), 3.2f);
+        StartCoroutine(FireCoroutine());
     }
 
-    IEnumerator GoForward(float duration)
+    IEnumerator FireCoroutine()
     {
+        transform.localScale = Vector3.one * _ability.GetScale();
+
         float elapsedTime = 0;
-        while (elapsedTime < duration)
+        while (elapsedTime < _ability.GetDuration())
         {
-            transform.position += transform.forward * Time.deltaTime * _speed;
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            transform.position += _speed * Time.fixedDeltaTime * transform.forward;
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         }
+        transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
     }
 
     void OnCollisionEnter(Collision collision)
@@ -39,10 +49,4 @@ public class BattleTornado : MonoBehaviour
             StartCoroutine(battleEntity.GetHit(_ability));
         }
     }
-
-    void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
-
 }

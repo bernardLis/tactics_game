@@ -45,7 +45,6 @@ public class BattleWaterTornado : MonoBehaviour
         }
 
         transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
-
     }
 
     IEnumerator DamageCoroutine()
