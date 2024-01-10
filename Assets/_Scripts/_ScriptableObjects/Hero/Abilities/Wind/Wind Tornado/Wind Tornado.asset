@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wind Tornado
   m_EditorClassIdentifier: 
   Id: 966c0ca5-6153-42fe-bc6b-d117f29964f3
-  DeveloperComment: Scale = number of tornados
+  DeveloperComment: 
   Description: New Description
   Icon: {fileID: 21300000, guid: 38093eefa189a104b9157acbc6a1b805, type: 3}
   Level: 0
