@@ -12,7 +12,7 @@ public class BattleMeteors : MonoBehaviour
 
     public bool IsActive;
 
-    public void Initialize(Ability ability, BattleAbility battleAbility)
+    public void Initialize(Ability ability)
     {
         _ability = ability;
     }

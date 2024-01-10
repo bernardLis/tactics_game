@@ -253,7 +253,7 @@ public class BattleAreaManager : MonoBehaviour
         while (tries < 100)
         {
             tries++;
-            Vector3 randomPoint = Random.insideUnitSphere * range;
+            Vector3 randomPoint = point + Random.insideUnitSphere * range;
             randomPoint.y = 0;
             if (IsPositionOnActiveTile(randomPoint))
                 return randomPoint;

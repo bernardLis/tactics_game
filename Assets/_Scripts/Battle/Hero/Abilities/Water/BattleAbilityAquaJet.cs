@@ -17,8 +17,7 @@ public class BattleAbilityAquaJet : BattleAbility
     {
         yield return base.FireAbilityCoroutine();
 
-        // fire projectile at enemy team fire them imperfectly - so they are not underneath each other
-        int projectileCount = Mathf.RoundToInt(_ability.GetAmount());
+        int projectileCount = _ability.GetAmount();
         for (int i = 0; i < projectileCount; i++)
         {
 

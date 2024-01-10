@@ -21,7 +21,7 @@ public class BattleAbilityMeteors : BattleAbility
         instance.SetActive(true);
 
         BattleMeteors meteors = instance.GetComponent<BattleMeteors>();
-        meteors.Initialize(_ability, this);
+        meteors.Initialize(_ability);
         _meteors.Add(meteors);
         return meteors;
     }
