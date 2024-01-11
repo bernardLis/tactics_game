@@ -11,7 +11,10 @@ public class BattleInputManager : MonoBehaviour
 
     MenuScreen _menuScreen;
 
-    public event Action OnContinueClicked;
+    public event Action OnLeftMouseClick;
+    public event Action OnRightMouseClick;
+
+    public event Action OnSpaceClicked;
     public event Action OnEnterClicked;
     void Start()
     {
@@ -47,10 +50,14 @@ public class BattleInputManager : MonoBehaviour
 
     void SubscribeInputActions()
     {
-        _playerInput.actions["Continue"].performed += evt => OnContinueClicked?.Invoke();
-        _playerInput.actions["Enter"].performed += evt => OnEnterClicked?.Invoke();
         _playerInput.actions["ToggleMenu"].performed += OpenMenu;
 
+        _playerInput.actions["LeftMouseClick"].performed += LeftMouseClicked;
+        _playerInput.actions["RightMouseClick"].performed += RightMouseClicked;
+
+        _playerInput.actions["Space"].performed += SpaceClicked;
+        _playerInput.actions["Enter"].performed += EnterClicked;
+        
         _playerInput.actions["DebugSpawnMinionWave"].performed += DebugSpawnMinionWave;
         _playerInput.actions["DebugSpawnTile"].performed += DebugSpawnTile;
         _playerInput.actions["DebugSpawnBossTile"].performed += DebugSpawnBossTile;
@@ -59,15 +66,25 @@ public class BattleInputManager : MonoBehaviour
 
     void UnsubscribeInputActions()
     {
-        _playerInput.actions["Continue"].performed -= evt => OnContinueClicked?.Invoke();
-        _playerInput.actions["Enter"].performed -= evt => OnEnterClicked?.Invoke();
         _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
+
+        _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClicked;
+        _playerInput.actions["RightMouseClick"].performed -= RightMouseClicked;
+
+        _playerInput.actions["Space"].performed -= SpaceClicked;
+        _playerInput.actions["Enter"].performed -= EnterClicked;
 
         _playerInput.actions["DebugSpawnMinionWave"].performed -= DebugSpawnMinionWave;
         _playerInput.actions["DebugSpawnTile"].performed -= DebugSpawnTile;
         _playerInput.actions["DebugSpawnBossTile"].performed -= DebugSpawnBossTile;
         _playerInput.actions["DebugKillHero"].performed -= DebugKillHero;
     }
+
+    /* DEBUG inputs */
+    void LeftMouseClicked(InputAction.CallbackContext ctx) => OnLeftMouseClick?.Invoke();
+    void RightMouseClicked(InputAction.CallbackContext ctx) => OnRightMouseClick?.Invoke();
+    void SpaceClicked(InputAction.CallbackContext ctx) => OnSpaceClicked?.Invoke();
+    void EnterClicked(InputAction.CallbackContext ctx) => OnEnterClicked?.Invoke();
 
     void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
     {

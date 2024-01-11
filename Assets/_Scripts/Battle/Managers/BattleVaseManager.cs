@@ -6,15 +6,23 @@ using DG.Tweening;
 
 public class BattleVaseManager : PoolManager<BattleBreakableVase>
 {
+    BattleInputManager _battleInputManager;
     BattleAreaManager _battleAreaManager;
 
     [SerializeField] BattleBreakableVase _vasePrefab;
 
     int _vasesPerSpawn = 5;
 
+    [SerializeField] bool _debugSpawnVase;
+
     public void Initialize()
     {
         _battleAreaManager = GetComponent<BattleAreaManager>();
+        _battleInputManager = GetComponent<BattleInputManager>();
+
+#if UNITY_EDITOR
+        _battleInputManager.OnLeftMouseClick += DebugSpawnVase;
+#endif
         CreatePool(_vasePrefab.gameObject);
         StartCoroutine(SpawnVasesCoroutine());
     }
@@ -49,4 +57,15 @@ public class BattleVaseManager : PoolManager<BattleBreakableVase>
                 vase.TriggerBreak();
     }
 
+    void DebugSpawnVase()
+    {
+        if (!_debugSpawnVase) return;
+
+        Mouse mouse = Mouse.current;
+        Vector3 mousePosition = mouse.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        int layerMask = Tags.BattleFloorLayer;
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
+            SpawnVase(hit.point);
+    }
 }

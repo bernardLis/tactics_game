@@ -5,25 +5,32 @@ using UnityEngine.UIElements;
 using DG.Tweening;
 using System;
 using Random = UnityEngine.Random;
+using UnityEngine.InputSystem;
 
 public class BattleMinionManager : PoolManager<BattleEntity>
 {
     BattleManager _battleManager;
     BattleAreaManager _battleAreaManager;
+    BattleInputManager _battleInputManager;
 
     public int CurrentDifficulty { get; private set; }
 
     Fight _currentFight;
 
-
     [SerializeField] GameObject _minionPrefab;
 
+    [SerializeField] bool _debugSpawnMinion;
 
     public void Initialize()
     {
         _battleManager = BattleManager.Instance;
         _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
+        _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
+
+#if UNITY_EDITOR
+        _battleInputManager.OnRightMouseClick += DebugSpawnMinion;
+#endif
 
         CurrentDifficulty = 1;
 
@@ -83,21 +90,8 @@ public class BattleMinionManager : PoolManager<BattleEntity>
         for (int i = 0; i < wave.Minions.Count; i++)
         {
             Minion m = wave.Minions[i];
-            m.InitializeBattle(1);
-
             Vector3 pos = tile.GetMinionPosition(i, wave.Minions.Count);
-
-            // BattleEntity be = SpawnEntity(m, pos);
-            BattleEntity be = GetObjectFromPool();
-            if (be == null)
-            {
-                Debug.LogError("No more minions in pool");
-                yield break;
-            }
-            be.InitializeEntity(m, 1);
-            be.transform.position = pos;
-            be.gameObject.SetActive(true);
-            _battleManager.AddOpponentArmyEntity(be);
+            SpawnMinion(m, pos);
             yield return new WaitForSeconds(0.05f);
         }
 
@@ -117,10 +111,42 @@ public class BattleMinionManager : PoolManager<BattleEntity>
         }
     }
 
+    void SpawnMinion(Minion m, Vector3 pos)
+    {
+        m.InitializeBattle(1);
+        BattleEntity be = GetObjectFromPool();
+        if (be == null)
+        {
+            Debug.LogError("No more minions in pool");
+            return;
+        }
+        be.InitializeEntity(m, 1);
+        be.transform.position = pos;
+        be.gameObject.SetActive(true);
+        _battleManager.AddOpponentArmyEntity(be);
+
+    }
+
     BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
     {
         GameObject instance = Instantiate(entity.Prefab, spawnPos, transform.localRotation);
         BattleEntity be = instance.GetComponent<BattleEntity>();
         return be;
     }
+
+    void DebugSpawnMinion()
+    {
+        if (!_debugSpawnMinion) return;
+
+        Mouse mouse = Mouse.current;
+        Vector3 mousePosition = mouse.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        int layerMask = Tags.BattleFloorLayer;
+        Minion m = _currentFight.EnemyWaves[0].Minions[0];
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
+            SpawnMinion(m, hit.point);
+
+    }
+
+
 }

@@ -72,7 +72,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1850249123602268144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2028621544867627777, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -116,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6633979565690029122, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6819077687855662144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       propertyPath: m_LocalScale.x

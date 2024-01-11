@@ -66,7 +66,8 @@ public class BattleBreakableVase : MonoBehaviour
             _breakParticles.SetActive(true);
 
         _originalVase.gameObject.SetActive(false);
-        _battlePickupManager.SpawnPickup(transform.position);
+        // HERE: no pickups
+        // _battlePickupManager.SpawnPickup(transform.position);
 
         OnBroken?.Invoke();
 

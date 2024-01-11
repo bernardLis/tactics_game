@@ -553,9 +553,9 @@ MonoBehaviour:
   SpawnOffsetMin: {x: 0, y: 0, z: 0}
   SpawnOffsetMax: {x: 0, y: 0, z: 0}
   AnimateMovement: 1
-  AnimateX: 0
+  AnimateX: 1
   RemapXZero: {x: 0, y: 0}
-  RemapXOne: {x: 1, y: 1}
+  RemapXOne: {x: -2, y: 2}
   AnimateXCurve:
     serializedVersion: 2
     m_Curve:
@@ -582,7 +582,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   AnimateY: 1
   RemapYZero: {x: 0, y: 0}
-  RemapYOne: {x: 5, y: 5}
+  RemapYOne: {x: 2, y: 5}
   AnimateYCurve:
     serializedVersion: 2
     m_Curve:
@@ -607,9 +607,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  AnimateZ: 0
+  AnimateZ: 1
   RemapZZero: {x: 0, y: 0}
-  RemapZOne: {x: 1, y: 1}
+  RemapZOne: {x: -2, y: 2}
   AnimateZCurve:
     serializedVersion: 2
     m_Curve:
@@ -641,7 +641,7 @@ MonoBehaviour:
   TargetCamera: {fileID: 0}
   AnimateScale: 1
   RemapScaleZero: {x: 0, y: 0}
-  RemapScaleOne: {x: 1, y: 1}
+  RemapScaleOne: {x: 0.5, y: 0.5}
   AnimateScaleCurve:
     serializedVersion: 2
     m_Curve:

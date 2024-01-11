@@ -51,24 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftMouseClick",
-                    "type": "Button",
-                    "id": "1a7ea72d-fc37-4603-bb31-fa5597b5bd78",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightMouseClick",
-                    "type": "Button",
-                    "id": "a9379f80-4b7f-4c44-9980-5a16e80afa14",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "PlayerMovement",
                     "type": "Value",
                     "id": "0ee4eba9-19cd-4e20-83fc-65833f2af581",
@@ -123,24 +105,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Continue",
-                    "type": "Button",
-                    "id": "48c57600-1474-40eb-ae2a-7e1dc5b04924",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Enter",
-                    "type": "Button",
-                    "id": "7c4b637b-d155-46c8-8f7d-3159f2b1f1cd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "EnableGrabbing",
                     "type": "Button",
                     "id": "afc68981-4f9d-4d4b-81a5-69c2811730ae",
@@ -189,6 +153,42 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "0ebe2236-c7f9-41e5-9143-195604586563",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LeftMouseClick",
+                    "type": "Button",
+                    "id": "1a7ea72d-fc37-4603-bb31-fa5597b5bd78",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightMouseClick",
+                    "type": "Button",
+                    "id": "a9379f80-4b7f-4c44-9980-5a16e80afa14",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Space",
+                    "type": "Button",
+                    "id": "48c57600-1474-40eb-ae2a-7e1dc5b04924",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "7c4b637b-d155-46c8-8f7d-3159f2b1f1cd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -273,28 +273,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "769fd4b8-c18a-45a7-8365-f4bb2fb1dea7",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftMouseClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7891c333-9207-4927-971d-1c5bfc27854a",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -443,28 +421,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5c866da6-cc23-4720-8728-97a4e3590d69",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Continue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "16325e6b-391d-4203-b81f-c6390e663714",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Enter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "215f93c1-5c23-430f-8dac-32e22923ab48",
                     "path": "<Keyboard>/backquote",
                     "interactions": "",
@@ -603,6 +559,50 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "DebugKillHero",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c866da6-cc23-4720-8728-97a4e3590d69",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16325e6b-391d-4203-b81f-c6390e663714",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "769fd4b8-c18a-45a7-8365-f4bb2fb1dea7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7891c333-9207-4927-971d-1c5bfc27854a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightMouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

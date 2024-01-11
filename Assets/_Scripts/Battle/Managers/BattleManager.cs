@@ -95,7 +95,7 @@ public class BattleManager : Singleton<BattleManager>
 
 #if UNITY_EDITOR
         GetComponent<BattleInputManager>().OnEnterClicked += LevelUpHero;
-        GetComponent<BattleInputManager>().OnContinueClicked += KillAllOpponents;
+        GetComponent<BattleInputManager>().OnSpaceClicked += KillAllOpponents;
 
 #endif
     }

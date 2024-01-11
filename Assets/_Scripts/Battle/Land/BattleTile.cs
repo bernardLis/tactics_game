@@ -153,7 +153,7 @@ public class BattleTile : MonoBehaviour
         _tooltipManager.HideTileSecureBar();
         if (_tileIndicator != null) Destroy(_tileIndicator);
 
-        SpawnReward();
+        // SpawnReward();
     }
 
 

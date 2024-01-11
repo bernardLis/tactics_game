@@ -39,12 +39,12 @@ public class BattleAbilityBreeze : BattleAbility
 
         _col.gameObject.SetActive(true);
         _col.transform.localScale = Vector3.zero;
-        _col.transform.DOScale(Vector3.one * 2f, _ability.GetDuration());
+        _col.transform.DOScale(Vector3.one * 2f, _ability.GetDuration() - 0.2f)
+                      .OnComplete(() => _col.gameObject.SetActive(false));
 
         yield return new WaitForSeconds(_ability.GetDuration());
 
         _gfx.SetActive(false);
-        _col.gameObject.SetActive(false);
     }
 
     IEnumerator DealDamage()
