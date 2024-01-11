@@ -126,7 +126,6 @@ public class BattleProjectile : MonoBehaviour
     protected void HitConnected()
     {
         if (!gameObject.activeSelf) return;
-        Debug.Log($"hit connected");
         _collider.enabled = false;
         _hitConnected = true;
         StopAllCoroutines();

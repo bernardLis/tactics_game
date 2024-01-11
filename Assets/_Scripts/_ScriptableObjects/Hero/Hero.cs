@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Random = UnityEngine.Random;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Hero/Player")]
 public class Hero : EntityMovement
@@ -71,7 +72,8 @@ public class Hero : EntityMovement
         if (TabletsByElement.Count < Tablets.Count)
             foreach (Tablet t in Tablets)
                 TabletsByElement.Add(t.Element, t);
-
+    
+        if (!TabletsByElement.ContainsKey(element)) return null;
         return TabletsByElement[element];
     }
 

@@ -66,6 +66,12 @@ public class BattleVaseManager : PoolManager<BattleBreakableVase>
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         int layerMask = Tags.BattleFloorLayer;
         if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
-            SpawnVase(hit.point);
+        {
+            Vector3 pos = hit.point;
+            pos.y = 0.5f;
+            Debug.Log($"hit.point {hit.point}");
+            SpawnVase(pos);
+
+        }
     }
 }

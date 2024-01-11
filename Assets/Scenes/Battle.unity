@@ -930,7 +930,7 @@ PrefabInstance:
     - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _abilityToGive
       value: 
-      objectReference: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
+      objectReference: {fileID: 11400000, guid: 0e9852db2b4163c49b0f2b361030bd18, type: 2}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: EntityHolder
       value: 

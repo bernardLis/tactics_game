@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 public class BattleEarthSpike : MonoBehaviour
 {
-    [SerializeField] GameObject _effect;
+    [SerializeField] GameObject _GFX;
     [SerializeField] GameObject _col;
     Ability _ability;
 
@@ -32,7 +32,7 @@ public class BattleEarthSpike : MonoBehaviour
 
     IEnumerator FireCoroutine()
     {
-        _effect.SetActive(true);
+        _GFX.SetActive(true);
         _endTime = Time.time + _ability.GetDuration();
 
         while (Time.time < _endTime)
@@ -43,7 +43,7 @@ public class BattleEarthSpike : MonoBehaviour
         }
 
         _col.SetActive(false);
-        _effect.SetActive(false);
+        _GFX.SetActive(false);
         IsActive = false;
     }
 

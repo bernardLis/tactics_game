@@ -58,7 +58,9 @@ public class Ability : BaseScriptableObject
     {
         float pow = Levels[Level].Power;
         pow += _hero.Power.GetValue(); // hero power
-        pow += pow * _hero.GetTabletByElement(Element).Level.Value * 0.1f; // elemental bonus - tablet level * 10%
+        Tablet t = _hero.GetTabletByElement(Element);
+        if (t != null) pow += pow * t.Level.Value * 0.1f; // elemental bonus - tablet level * 10%
+
 
         return Mathf.FloorToInt(pow);
     }

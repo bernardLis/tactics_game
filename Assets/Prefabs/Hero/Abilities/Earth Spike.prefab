@@ -64343,8 +64343,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2907842167986564666}
-  - component: {fileID: 6199992736353572259}
   - component: {fileID: 4782445767186857323}
+  - component: {fileID: 6199992736353572259}
   m_Layer: 0
   m_Name: Earth Spike
   m_TagString: Untagged
@@ -64369,21 +64369,6 @@ Transform:
   - {fileID: 9171873485919206155}
   m_Father: {fileID: 4839833161196475112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6199992736353572259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7625813577985927177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e801e35e1faf76d4a8ef43fb4334babe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _effect: {fileID: 694744840861682096}
-  _col: {fileID: 2956777514317715042}
-  IsActive: 0
 --- !u!54 &4782445767186857323
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64411,6 +64396,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6199992736353572259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625813577985927177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e801e35e1faf76d4a8ef43fb4334babe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effect: {fileID: 694744840861682096}
+  _col: {fileID: 2956777514317715042}
+  IsActive: 0
 --- !u!1 &8292966334869014932
 GameObject:
   m_ObjectHideFlags: 0
