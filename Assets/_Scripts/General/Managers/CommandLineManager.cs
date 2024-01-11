@@ -346,6 +346,28 @@ public class CommandLineManager : MonoBehaviour
             }
         };
         heroFoldout.Add(abilityLevelUp);
+
+        // start abilities
+        Button startAbilities = new() { text = "Start abilities" };
+        startAbilities.clickable.clicked += () =>
+        {
+            foreach (Ability a in BattleManager.Instance.Hero.Abilities)
+            {
+                a.StartAbility();
+            }
+        };
+        heroFoldout.Add(startAbilities);
+
+        // stop abilities
+        Button stopAbilities = new() { text = "Stop abilities" };
+        stopAbilities.clickable.clicked += () =>
+        {
+            foreach (Ability a in BattleManager.Instance.Hero.Abilities)
+            {
+                a.StopAbility();
+            }
+        };
+        heroFoldout.Add(stopAbilities);
     }
 
 

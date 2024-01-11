@@ -71,7 +71,6 @@ public class BattleAbilityBreeze : BattleAbility
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"collision enter {collision.gameObject.name}");
         if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
             bbv.TriggerBreak();
 

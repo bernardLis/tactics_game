@@ -30,6 +30,9 @@ public class Ability : BaseScriptableObject
     public event Action OnCooldownStarted;
     public event Action OnLevelUp;
 
+    public event Action OnStart;
+    public event Action OnStop;
+
     float _cooldownMultiplier = 1f;
     float _scaleMultiplier = 1f;
 
@@ -100,6 +103,9 @@ public class Ability : BaseScriptableObject
         if (Level > 0)
             Level--;
     }
+
+    public void StartAbility() { OnStart?.Invoke(); }
+    public void StopAbility() { OnStop?.Invoke(); }
 
     public void LoadFromData(AbilityData data)
     {

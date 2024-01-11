@@ -19,8 +19,13 @@ public class BattleAbility : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         _ability = ability;
+        
+        _ability.OnStart += StartAbility;
+        _ability.OnStop += StopAbility;
+
         if (startAbility) StartAbility();
     }
+
 
     public void StartAbility()
     {
