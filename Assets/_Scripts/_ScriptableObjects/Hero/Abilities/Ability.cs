@@ -94,9 +94,9 @@ public class Ability : BaseScriptableObject
 
     public void LevelUp()
     {
-        if (Level < Levels.Count - 1)
-            Level++;
+        if (Level >= Levels.Count - 1) return;
 
+        Level++;
         OnLevelUp?.Invoke();
     }
 

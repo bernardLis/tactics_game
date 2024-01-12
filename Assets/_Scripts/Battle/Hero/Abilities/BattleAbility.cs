@@ -19,7 +19,7 @@ public class BattleAbility : MonoBehaviour
         _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
         _ability = ability;
-        
+
         _ability.OnStart += StartAbility;
         _ability.OnStop += StopAbility;
 
@@ -46,6 +46,7 @@ public class BattleAbility : MonoBehaviour
             _fireAbilityCoroutine = FireAbilityCoroutine();
             StartCoroutine(_fireAbilityCoroutine);
 
+            if (_ability.GetCooldown() == 0) yield break; // for continuous abilities
             _ability.StartCooldown();
             yield return new WaitForSeconds(_ability.GetCooldown());
         }
