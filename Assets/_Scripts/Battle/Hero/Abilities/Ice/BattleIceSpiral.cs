@@ -8,6 +8,7 @@ public class BattleIceSpiral : MonoBehaviour
     [SerializeField] Collider _col;
 
     [SerializeField] ParticleSystem _iceSpikes;
+    [SerializeField] ParticleSystem _snow; 
     [SerializeField] ParticleSystem[] _delayedEffects; // -1f of duration
     [SerializeField] ParticleSystem _iceExplosion; // -0.2f of duration
 
@@ -47,6 +48,9 @@ public class BattleIceSpiral : MonoBehaviour
     {
         var iceSpikesMain = _iceSpikes.main;
         iceSpikesMain.startLifetime = _ability.GetDuration();
+
+        var snowMain = _snow.main;
+        snowMain.startLifetime = _ability.GetDuration();
 
         foreach (ParticleSystem ps in _delayedEffects)
         {
