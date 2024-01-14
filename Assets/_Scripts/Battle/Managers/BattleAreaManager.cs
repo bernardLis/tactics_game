@@ -247,18 +247,18 @@ public class BattleAreaManager : MonoBehaviour
         return null;
     }
 
-    public Vector3 GetRandomPositionWithinRangeOnActiveTile(Vector3 point, float range)
+    public Vector3 GetRandomPositionWithinRangeOnActiveTile(Vector3 center, float range)
     {
         int tries = 0;
         while (tries < 100)
         {
             tries++;
-            Vector3 randomPoint = point + Random.insideUnitSphere * range;
+            Vector3 randomPoint = center + Random.insideUnitSphere * range;
             randomPoint.y = 0;
             if (IsPositionOnActiveTile(randomPoint))
                 return randomPoint;
         }
-        Debug.LogError($"Could not find random position within range {range} of {point} on active tile");
+        Debug.LogError($"Could not find random position within range {range} of {center} on active tile");
         return Vector3.zero;
     }
 

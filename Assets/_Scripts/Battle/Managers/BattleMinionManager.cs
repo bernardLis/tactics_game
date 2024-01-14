@@ -95,20 +95,21 @@ public class BattleMinionManager : PoolManager<BattleEntity>
             yield return new WaitForSeconds(0.05f);
         }
 
-        for (int i = 0; i < wave.Creatures.Count; i++)
-        {
-            Creature c = wave.Creatures[i];
-            c.InitializeBattle(1);
+        // HERE: ranged enemies are commented out for now
+        // for (int i = 0; i < wave.Creatures.Count; i++)
+        // {
+        //     Creature c = wave.Creatures[i];
+        //     c.InitializeBattle(1);
 
-            Vector3 pos = tile.GetPositionRandom(i, wave.Creatures.Count);
+        //     Vector3 pos = tile.GetPositionRandom(i, wave.Creatures.Count);
 
-            BattleEntity be = SpawnEntity(c, pos);
-            be.InitializeEntity(c, 1);
-            be.transform.position = pos;
-            be.gameObject.SetActive(true);
-            _battleManager.AddOpponentArmyEntity(be);
-            yield return new WaitForSeconds(0.05f);
-        }
+        //     BattleEntity be = SpawnEntity(c, pos);
+        //     be.InitializeEntity(c, 1);
+        //     be.transform.position = pos;
+        //     be.gameObject.SetActive(true);
+        //     _battleManager.AddOpponentArmyEntity(be);
+        //     yield return new WaitForSeconds(0.05f);
+        // }
     }
 
     void SpawnMinion(Minion m, Vector3 pos)

@@ -12,8 +12,8 @@ public class BattleAbilityMegaSword : BattleAbility
     float _circleRadius = 3;
     float _elevationOffset = 0.5f;
 
-    Vector3 positionOffset;
-    float angle;
+    Vector3 _positionOffset;
+    float _angle;
 
     BattleHero _hero;
 
@@ -44,17 +44,24 @@ public class BattleAbilityMegaSword : BattleAbility
 
         while (_isActive)
         {
-            positionOffset.Set(
-                            Mathf.Cos(angle) * _circleRadius,
+            _positionOffset.Set(
+                            Mathf.Cos(_angle) * _circleRadius,
                             _elevationOffset,
-                            Mathf.Sin(angle) * _circleRadius
+                            Mathf.Sin(_angle) * _circleRadius
                         );
-            transform.position = _hero.transform.position + positionOffset;
+            transform.position = _hero.transform.position + _positionOffset;
             // rotate to face forward
 
-            transform.rotation = Quaternion.LookRotation(positionOffset);
+            // Vector3 rotation = positionOffset;
+            // rotation.x = 0;
 
-            angle += Time.fixedDeltaTime * _rotationSpeed;
+            Vector3 lookRotation = Quaternion.LookRotation(_positionOffset).eulerAngles;
+            lookRotation.x = 0;
+
+
+            transform.rotation = Quaternion.Euler(lookRotation);
+
+            _angle += Time.fixedDeltaTime * _rotationSpeed;
             yield return new WaitForFixedUpdate();
         }
     }
