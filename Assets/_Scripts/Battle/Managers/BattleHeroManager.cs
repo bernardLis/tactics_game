@@ -19,7 +19,6 @@ public class BattleHeroManager : MonoBehaviour
     [SerializeField] AudioListener _placeholderAudioListener;
 
     [SerializeField] GameObject _heroPrefab;
-    [SerializeField] Ability _abilityToGive;
     [HideInInspector] public BattleHero BattleHero;
     public Hero Hero { get; private set; }
 
@@ -48,10 +47,16 @@ public class BattleHeroManager : MonoBehaviour
 
         RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
 
-        if (_abilityToGive != null)
-            Hero.AddAbility(_abilityToGive);
 
         Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
+
+#if UNITY_EDITOR
+        if (_abilityToGive != null)
+        {
+            Hero.AddAbility(_abilityToGive);
+            _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
+        }
+#endif
     }
 
     IEnumerator MakeHeroFall(Hero hero)
@@ -84,13 +89,14 @@ public class BattleHeroManager : MonoBehaviour
     }
 
 #if UNITY_EDITOR
+    [SerializeField] Ability _abilityToGive;
     [SerializeField] List<Ability> _allAbilities = new();
     int _currentIndex;
     [ContextMenu("Next Ability")]
     void NextAbility()
     {
         Hero.StopAllAbilities();
-        
+
         _abilityToGive = _allAbilities[_currentIndex];
         _currentIndex++;
         if (_currentIndex >= _allAbilities.Count)

@@ -8,14 +8,18 @@ public class BattleWaterTornado : MonoBehaviour
     // collision *0.5 scale
     Ability _ability;
 
-    [SerializeField] float _angularSpeed = 1f;
-    [SerializeField] float _circleRad = 20f;
+    [SerializeField] ParticleSystem[] _psDurationChange;
+
+    float _angularSpeed = 1f;
+    float _circleRad = 3f;
     float _currentAngle;
 
+    BattleHero _hero;
 
     public void Initialize(Ability ability)
     {
         _ability = ability;
+        _hero = BattleManager.Instance.BattleHero;
     }
 
     public void Fire(Vector3 pos)
@@ -23,6 +27,14 @@ public class BattleWaterTornado : MonoBehaviour
         pos.y = 0;
         transform.position = pos;
         gameObject.SetActive(true);
+        _angularSpeed = Random.Range(0.1f, 0.4f);
+        _circleRad = Vector3.Distance(pos, _hero.transform.position);
+
+        foreach (ParticleSystem ps in _psDurationChange)
+        {
+            var main = ps.main;
+            main.startLifetime = _ability.GetDuration();
+        }
 
         StartCoroutine(FireCoroutine());
     }
@@ -33,7 +45,7 @@ public class BattleWaterTornado : MonoBehaviour
         StartCoroutine(DamageCoroutine());
 
         // I would like tornado to follow a circular path
-        Vector3 fixedPos = transform.position;
+        Vector3 fixedPos = _hero.transform.position + new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
         float endTime = Time.time + _ability.GetDuration();
         while (Time.time < endTime)
         {
@@ -59,7 +71,7 @@ public class BattleWaterTornado : MonoBehaviour
 
     void Damage()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
         foreach (Collider hit in hitColliders)
         {
             if (hit.TryGetComponent(out BattleBreakableVase bbv))
