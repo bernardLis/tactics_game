@@ -30,8 +30,6 @@ public class BattleAbilityWaterTornado : BattleAbility
     BattleWaterTornado InitializeTornado()
     {
         GameObject instance = Instantiate(_tornadoPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
-        instance.SetActive(true);
-
         BattleWaterTornado tornado = instance.GetComponent<BattleWaterTornado>();
         tornado.Initialize(_ability);
         _tornadoPool.Add(tornado);
@@ -45,6 +43,4 @@ public class BattleAbilityWaterTornado : BattleAbility
                 return p;
         return InitializeTornado();
     }
-
-
 }

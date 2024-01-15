@@ -83,4 +83,25 @@ public class BattleHeroManager : MonoBehaviour
         TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
     }
 
+#if UNITY_EDITOR
+    [SerializeField] List<Ability> _allAbilities = new();
+    int _currentIndex;
+    [ContextMenu("Next Ability")]
+    void NextAbility()
+    {
+        Hero.StopAllAbilities();
+        
+        _abilityToGive = _allAbilities[_currentIndex];
+        _currentIndex++;
+        if (_currentIndex >= _allAbilities.Count)
+            _currentIndex = 0;
+        if (Hero.Abilities.Contains(_abilityToGive))
+        {
+            _abilityToGive.StartAbility();
+            return;
+        }
+        Hero.AddAbility(_abilityToGive);
+    }
+#endif
+
 }

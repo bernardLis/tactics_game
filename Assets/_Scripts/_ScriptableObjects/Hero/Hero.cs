@@ -72,7 +72,7 @@ public class Hero : EntityMovement
         if (TabletsByElement.Count < Tablets.Count)
             foreach (Tablet t in Tablets)
                 TabletsByElement.Add(t.Element, t);
-    
+
         if (!TabletsByElement.ContainsKey(element)) return null;
         return TabletsByElement[element];
     }
@@ -125,6 +125,12 @@ public class Hero : EntityMovement
         instance.InitializeBattle(this);
         Abilities.Add(instance);
         OnAbilityAdded?.Invoke(instance);
+    }
+
+    public void StopAllAbilities()
+    {
+        foreach (Ability a in Abilities)
+            a.StopAbility();
     }
 
     public Ability GetAbilityById(string id)

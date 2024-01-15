@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: dc7ecfc6-1d82-4c75-8b20-7d04276d4d75
   Level: 5
   Power: 30
-  Cooldown: 2
+  Cooldown: 5
   Scale: 1.5
   Amount: 1
   Duration: 6
