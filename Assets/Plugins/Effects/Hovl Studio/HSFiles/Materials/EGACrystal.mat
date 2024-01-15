@@ -142,7 +142,7 @@ Material:
     - _Usedepth: 0
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.62352943}
     - _Emission: {r: 0.17065683, g: 0.34816337, b: 0.6132076, a: 1}
     - _EmissionColor: {r: 0.12613158, g: 0.36488065, b: 1.1486983, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}

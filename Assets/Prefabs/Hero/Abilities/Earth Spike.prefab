@@ -64351,7 +64351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2907842167986564666
 Transform:
   m_ObjectHideFlags: 0
@@ -64408,7 +64408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e801e35e1faf76d4a8ef43fb4334babe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _effect: {fileID: 694744840861682096}
+  _GFX: {fileID: 694744840861682096}
   _col: {fileID: 2956777514317715042}
   IsActive: 0
 --- !u!1 &8292966334869014932
@@ -69849,7 +69849,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.29803923, g: 0.23529412, b: 0.14117648, a: 1}
+      maxColor: {r: 0.29803923, g: 0.23529412, b: 0.14117648, a: 0.59607846}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

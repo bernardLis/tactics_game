@@ -16,7 +16,8 @@ public class BattleAbilityFireballs : BattleAbility
 
     BattleProjectile InitializeFireball()
     {
-        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
+        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity,
+                                _battleManager.AbilityHolder);
         instance.SetActive(true);
 
         BattleProjectile projectile = instance.GetComponent<BattleProjectile>();
@@ -28,10 +29,8 @@ public class BattleAbilityFireballs : BattleAbility
     protected override IEnumerator FireAbilityCoroutine()
     {
         yield return base.FireAbilityCoroutine();
-
-        Vector3 dir = transform.position + Random.insideUnitSphere;
-        dir.y = 0;
-        // Vector3 r = new(0, Random.Range(0f, 360f), 0);
+        Vector3 rand = Random.insideUnitCircle;
+        Vector3 dir = new Vector3(rand.x, 0, rand.y);
         Vector3 projectileVariance = new Vector3(0, 0, 0.07f);
         for (int i = 0; i < _ability.GetAmount(); i++)
         {
