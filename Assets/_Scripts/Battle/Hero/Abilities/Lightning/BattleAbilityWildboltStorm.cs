@@ -26,7 +26,7 @@ public class BattleAbilityWildboltStorm : BattleAbility
         pos.y = 0.1f;
         _effect.transform.position = pos;
         yield return new WaitForSeconds(0.6f);
-        _effect.transform.parent = _battleManager.EntityHolder;
+        _effect.transform.parent = _battleManager.AbilityHolder;
 
         int projectileCount = _ability.GetAmount();
         for (int i = 0; i < projectileCount; i++)
@@ -44,7 +44,7 @@ public class BattleAbilityWildboltStorm : BattleAbility
 
     BattleWildbolt InitializeProjectile()
     {
-        GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
         instance.SetActive(true);
 
         BattleWildbolt projectile = instance.GetComponent<BattleWildbolt>();

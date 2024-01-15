@@ -16,7 +16,7 @@ public class BattleAbilityFireballs : BattleAbility
 
     BattleProjectile InitializeFireball()
     {
-        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
         instance.SetActive(true);
 
         BattleProjectile projectile = instance.GetComponent<BattleProjectile>();

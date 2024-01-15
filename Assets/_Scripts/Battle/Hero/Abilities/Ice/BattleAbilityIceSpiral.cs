@@ -33,7 +33,7 @@ public class BattleAbilityIceSpiral : BattleAbility
 
     BattleIceSpiral InitializeSpiral()
     {
-        GameObject instance = Instantiate(_spiralPrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        GameObject instance = Instantiate(_spiralPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
 
         BattleIceSpiral spiral = instance.GetComponent<BattleIceSpiral>();
         spiral.Initialize(_ability);

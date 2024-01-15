@@ -51,7 +51,7 @@ public class BattleAbilityForest : BattleAbility
     BattleForestTree InitializeTree()
     {
         GameObject instance = Instantiate(_treePrefab, Vector3.zero,
-                                Quaternion.identity, _battleManager.EntityHolder);
+                                Quaternion.identity, _battleManager.AbilityHolder);
         BattleForestTree tree = instance.GetComponent<BattleForestTree>();
         tree.Initialize(_ability);
         _treePool.Add(tree);

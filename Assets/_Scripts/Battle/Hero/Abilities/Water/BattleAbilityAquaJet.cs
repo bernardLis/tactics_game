@@ -36,7 +36,7 @@ public class BattleAbilityAquaJet : BattleAbility
 
     BattleProjectileHoming InitializeProjectile()
     {
-        GameObject instance = Instantiate(_projectilePrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        GameObject instance = Instantiate(_projectilePrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
         instance.SetActive(true);
 
         BattleProjectileHoming projectile = instance.GetComponent<BattleProjectileHoming>();

@@ -31,7 +31,7 @@ public class BattleAbilityWindTornado : BattleAbility
 
     BattleWindTornado InitializeTornado()
     {
-        GameObject instance = Instantiate(_tornadoPrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        GameObject instance = Instantiate(_tornadoPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
         BattleWindTornado tornado = instance.GetComponent<BattleWindTornado>();
         tornado.Initialize(_ability);
         _tornadoPool.Add(tornado);

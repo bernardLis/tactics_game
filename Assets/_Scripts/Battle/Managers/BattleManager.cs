@@ -29,6 +29,7 @@ public class BattleManager : Singleton<BattleManager>
     Label _timerLabel;
 
     public Transform EntityHolder;
+    public Transform AbilityHolder;
 
     public bool IsTimerOn { get; private set; }
 

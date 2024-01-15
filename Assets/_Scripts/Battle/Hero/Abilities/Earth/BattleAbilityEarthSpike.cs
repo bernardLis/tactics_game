@@ -20,7 +20,7 @@ public class BattleAbilityEarthSpike : BattleAbility
 
     BattleEarthSpike InitializeSpike()
     {
-        GameObject instance = Instantiate(_spikePrefab, Vector3.zero, Quaternion.identity, BattleManager.Instance.EntityHolder);
+        GameObject instance = Instantiate(_spikePrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
         instance.SetActive(true);
 
         BattleEarthSpike battleEarthSpike = instance.GetComponent<BattleEarthSpike>();
