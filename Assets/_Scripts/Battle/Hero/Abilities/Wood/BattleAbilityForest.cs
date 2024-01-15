@@ -12,14 +12,13 @@ public class BattleAbilityForest : BattleAbility
     List<BattleForestTree> _treePool = new();
 
     float _radius = 12f;
-    int _treeCount = 10;
 
     public override void Initialize(Ability ability, bool startAbility = true)
     {
         base.Initialize(ability, startAbility);
         transform.localPosition = new Vector3(0, 0f, 0f);
 
-        for (int i = 0; i < _treeCount; i++)
+        for (int i = 0; i < _ability.GetAmount(); i++)
             InitializeTree();
     }
 
@@ -29,16 +28,25 @@ public class BattleAbilityForest : BattleAbility
         _effect.SetActive(true);
         yield return new WaitForSeconds(1.5f);
 
-        for (int i = 0; i < _treeCount; i++)
+        for (int i = 0; i < _ability.GetAmount(); i++)
         {
             Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
-                                                                                             _radius);
-            BattleForestTree tree = _treePool[i];
+                                            _radius * _ability.GetScale());
+            BattleForestTree tree = GetInactiveTree();
             tree.Fire(pos);
         }
         yield return new WaitForSeconds(3f);
         _effect.SetActive(false);
     }
+
+    BattleForestTree GetInactiveTree()
+    {
+        foreach (BattleForestTree p in _treePool)
+            if (!p.gameObject.activeSelf)
+                return p;
+        return InitializeTree();
+    }
+
 
     BattleForestTree InitializeTree()
     {
@@ -49,6 +57,8 @@ public class BattleAbilityForest : BattleAbility
         _treePool.Add(tree);
         return tree;
     }
+
+
 
 
 #if UNITY_EDITOR
