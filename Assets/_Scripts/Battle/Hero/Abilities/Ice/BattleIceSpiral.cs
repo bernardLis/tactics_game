@@ -8,7 +8,7 @@ public class BattleIceSpiral : MonoBehaviour
     [SerializeField] Collider _col;
 
     [SerializeField] ParticleSystem _iceSpikes;
-    [SerializeField] ParticleSystem _snow; 
+    [SerializeField] ParticleSystem _snow;
     [SerializeField] ParticleSystem[] _delayedEffects; // -1f of duration
     [SerializeField] ParticleSystem _iceExplosion; // -0.2f of duration
 
@@ -38,8 +38,9 @@ public class BattleIceSpiral : MonoBehaviour
         StartCoroutine(DealDamage());
 
         yield return new WaitForSeconds(_ability.GetDuration() + 0.5f);
-
         _col.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(3f); // for ice to disappear
         _gfx.SetActive(false);
         gameObject.SetActive(false);
     }
@@ -59,7 +60,7 @@ public class BattleIceSpiral : MonoBehaviour
         }
 
         var iceExplosionMain = _iceExplosion.main;
-        iceExplosionMain.startDelay = _ability.GetDuration() - 0.2f;
+        iceExplosionMain.startDelay = _ability.GetDuration() - 0.1f;
     }
 
     IEnumerator DealDamage()

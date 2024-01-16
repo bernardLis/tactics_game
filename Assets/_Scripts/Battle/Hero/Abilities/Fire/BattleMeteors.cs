@@ -9,8 +9,7 @@ public class BattleMeteors : MonoBehaviour
     [SerializeField] GameObject _meteor;
 
     Ability _ability;
-
-    public bool IsActive;
+    List<BattleEntity> _entitiesInCollider = new();
 
     public void Initialize(Ability ability)
     {
@@ -20,7 +19,6 @@ public class BattleMeteors : MonoBehaviour
 
     public void Fire(Vector3 pos)
     {
-        IsActive = true;
         pos.y = 0;
         transform.position = pos;
 
@@ -37,15 +35,10 @@ public class BattleMeteors : MonoBehaviour
         ManageCircles();
         yield return new WaitForSeconds(2f);
         ManageMeteors();
-        float endTime = Time.time + _ability.GetDuration() - 0.5f;
-        while (Time.time < endTime)
-        {
-            ExplosionDamage();
-            yield return new WaitForSeconds(0.5f);
-        }
-
+        StartCoroutine(DealDamage());
+        yield return new WaitForSeconds(_ability.GetDuration());
         yield return _circle.transform.DOScale(0, 1f).WaitForCompletion();
-        _meteor.transform.DOScale(0, 0.5f).OnComplete(Deactivate);
+        _meteor.transform.DOScale(0, 0.5f);
     }
 
     void ManageCircles()
@@ -77,29 +70,39 @@ public class BattleMeteors : MonoBehaviour
         _meteor.SetActive(true);
 
         ps.Play();
-
     }
 
-    void ExplosionDamage()
+    IEnumerator DealDamage()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(_meteor.transform.position, _ability.GetScale());
-        foreach (Collider hit in hitColliders)
+        float endTime = Time.time + _ability.GetDuration();
+        while (Time.time < endTime)
         {
-            if (hit.TryGetComponent(out BattleBreakableVase bbv))
-            {
-                bbv.TriggerBreak();
-                continue;
-            }
-            if (hit.TryGetComponent(out BattleEntity be))
-            {
-                if (be.Team == 0) continue; // TODO: hardcoded team number
-                StartCoroutine(be.GetHit(_ability));
-            }
+            List<BattleEntity> currentEntities = new(_entitiesInCollider);
+            foreach (BattleEntity entity in currentEntities)
+                StartCoroutine(entity.GetHit(_ability));
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
-    void Deactivate()
+    void OnCollisionEnter(Collision collision)
     {
-        IsActive = false;
+        if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            bbv.TriggerBreak();
+
+        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+        {
+            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+            _entitiesInCollider.Add(battleEntity);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+        {
+            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+            if (_entitiesInCollider.Contains(battleEntity))
+                _entitiesInCollider.Remove(battleEntity);
+        }
     }
 }

@@ -961,7 +961,7 @@ PrefabInstance:
     - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _abilityToGive
       value: 
-      objectReference: {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
+      objectReference: {fileID: 11400000, guid: 0e9852db2b4163c49b0f2b361030bd18, type: 2}
     - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _allAbilities.Array.size
       value: 12
