@@ -34417,7 +34417,7 @@ GameObject:
   - component: {fileID: 7159958470443856206}
   - component: {fileID: 9200724473938717601}
   - component: {fileID: 2427975719200401416}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Meteor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34574,7 +34574,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1280
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

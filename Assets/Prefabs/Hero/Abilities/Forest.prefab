@@ -25274,7 +25274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &680488729215202196
 Transform:
   m_ObjectHideFlags: 0
@@ -55098,7 +55098,7 @@ GameObject:
   - component: {fileID: 5887443036774343721}
   - component: {fileID: 7576489876729191073}
   - component: {fileID: 3382363512451714550}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}

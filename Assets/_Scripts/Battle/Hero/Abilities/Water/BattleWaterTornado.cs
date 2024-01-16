@@ -16,6 +16,10 @@ public class BattleWaterTornado : MonoBehaviour
 
     BattleHero _hero;
 
+
+    List<BattleEntity> _entitiesInCollider = new();
+
+
     public void Initialize(Ability ability)
     {
         _ability = ability;
@@ -42,7 +46,7 @@ public class BattleWaterTornado : MonoBehaviour
     IEnumerator FireCoroutine()
     {
         transform.localScale = Vector3.one * _ability.GetScale();
-        StartCoroutine(DamageCoroutine());
+        StartCoroutine(DealDamage());
 
         // I would like tornado to follow a circular path
         Vector3 fixedPos = _hero.transform.position + new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
@@ -59,31 +63,37 @@ public class BattleWaterTornado : MonoBehaviour
         transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
     }
 
-    IEnumerator DamageCoroutine()
+    IEnumerator DealDamage()
     {
         float endTime = Time.time + _ability.GetDuration();
         while (Time.time < endTime)
         {
-            Damage();
+            List<BattleEntity> currentEntities = new(_entitiesInCollider);
+            foreach (BattleEntity entity in currentEntities)
+                StartCoroutine(entity.GetHit(_ability));
             yield return new WaitForSeconds(0.5f);
         }
     }
 
-    void Damage()
+    void OnCollisionEnter(Collision collision)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
-        foreach (Collider hit in hitColliders)
+        if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            bbv.TriggerBreak();
+
+        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
         {
-            if (hit.TryGetComponent(out BattleBreakableVase bbv))
-            {
-                bbv.TriggerBreak();
-                continue;
-            }
-            if (hit.TryGetComponent(out BattleEntity be))
-            {
-                if (be.Team == 0) continue; // TODO: hardcoded team number
-                StartCoroutine(be.GetHit(_ability));
-            }
+            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+            _entitiesInCollider.Add(battleEntity);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+        {
+            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+            if (_entitiesInCollider.Contains(battleEntity))
+                _entitiesInCollider.Remove(battleEntity);
         }
     }
 }
