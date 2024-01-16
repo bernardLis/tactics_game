@@ -25172,8 +25172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef93a533645fbd41ad585846303727c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _abilityObjectPrefab: {fileID: 8870155032035073153}
   _effect: {fileID: 4983267790191929577}
-  _treePrefab: {fileID: 8870155032035073153}
 --- !u!1 &4857363305816674946
 GameObject:
   m_ObjectHideFlags: 0
@@ -55104,7 +55104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1232158628380961610
 Transform:
   m_ObjectHideFlags: 0

@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class BattleAbilityObjectDmgOverTime : BattleAbilityObject
 {
-    List<BattleEntity> _entitiesInCollider = new();
+    protected List<BattleEntity> _entitiesInCollider = new();
 
-    protected IEnumerator DamageCoroutine(float endTime, float interval = 0.5f)
+    public override void Execute(Vector3 pos, Quaternion q)
+    {
+        _entitiesInCollider.Clear();
+        base.Execute(pos, q);
+    }
+
+    protected virtual IEnumerator DamageCoroutine(float endTime, float interval = 0.5f)
     {
         while (Time.time < endTime)
         {

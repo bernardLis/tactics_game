@@ -3,31 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BattleForestTree : MonoBehaviour
+public class BattleForestTree : BattleAbilityObjectDmgOverTime
 {
-    Ability _ability;
-    List<BattleEntity> _entitiesInCollider = new();
-
     [SerializeField] GameObject[] _treeGFX;
     [SerializeField] GameObject _effect;
 
-    public void Initialize(Ability ability)
+    public override void Initialize(Ability ability)
     {
-        _ability = ability;
+        base.Initialize(ability);
+        Disable();
+        transform.localScale = Vector3.zero;
     }
 
-    public void Fire(Vector3 pos)
+    public override void Execute(Vector3 pos, Quaternion rot)
     {
         pos.y = 0;
-        transform.position = pos;
-        transform.rotation = Quaternion.identity;
         _treeGFX[Random.Range(0, _treeGFX.Length)].SetActive(true);
-        gameObject.SetActive(true);
-        DamageOnInception();
+
         _effect.SetActive(true);
         transform.DOScale(1, 0.5f)
-                 .SetDelay(0.2f)
-                 .OnComplete(() => StartCoroutine(FireCoroutine()));
+                 .SetDelay(0.2f);
+        base.Execute(pos, rot);
+        DamageOnInception();
     }
 
     void DamageOnInception()
@@ -48,11 +45,15 @@ public class BattleForestTree : MonoBehaviour
         }
     }
 
-    IEnumerator FireCoroutine()
+    protected override IEnumerator ExecuteCoroutine()
     {
-        _entitiesInCollider.Clear();
+        yield return DamageCoroutine(Time.time + _ability.GetDuration());
+        transform.DOScale(0, 0.5f)
+                 .OnComplete(Disable);
+    }
 
-        float endTime = Time.time + _ability.GetDuration();
+    protected override IEnumerator DamageCoroutine(float endTime, float interval = 0.5F)
+    {
         while (Time.time < endTime)
         {
             if (_entitiesInCollider.Count > 0)
@@ -71,9 +72,6 @@ public class BattleForestTree : MonoBehaviour
             }
             yield return new WaitForSeconds(0.7f);
         }
-        transform.DOScale(0, 0.5f)
-                 .OnComplete(Disable);
-
     }
 
     void Disable()
@@ -82,30 +80,5 @@ public class BattleForestTree : MonoBehaviour
             g.SetActive(false);
         _effect.SetActive(false);
         gameObject.SetActive(false);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-        {
-            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-            battleEntity.OnDeath += RemoveEntityFromList;
-            _entitiesInCollider.Add(battleEntity);
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-        {
-            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-            RemoveEntityFromList(battleEntity, null);
-        }
-    }
-
-    void RemoveEntityFromList(BattleEntity entity, EntityFight ignored)
-    {
-        if (_entitiesInCollider.Contains(entity))
-            _entitiesInCollider.Remove(entity);
     }
 }
