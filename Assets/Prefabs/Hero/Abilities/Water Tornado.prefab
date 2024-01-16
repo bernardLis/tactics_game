@@ -34466,13 +34466,13 @@ GameObject:
   - component: {fileID: 2466060869647339991}
   - component: {fileID: 9168350869393208385}
   - component: {fileID: 7737765505346566019}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Water tornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5157498709732472028
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class BattleEarthSlash : MonoBehaviour
     [SerializeField] GameObject _col;
     Ability _ability;
 
-    public void Initialize(Ability ability, BattleAbility battleAbility)
+    public void Initialize(Ability ability)
     {
         _ability = ability;
         _ability.OnLevelUp += OnAbilityLevelUp;
@@ -16,8 +16,16 @@ public class BattleEarthSlash : MonoBehaviour
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
-    public void Fire()
+    void OnAbilityLevelUp()
     {
+        transform.localScale = Vector3.one * _ability.GetScale();
+    }
+
+    public void Fire(Vector3 pos, Quaternion rot)
+    {
+        transform.position = pos;
+        transform.rotation = rot;
+        gameObject.SetActive(true);
         StartCoroutine(FireCoroutine());
     }
 
@@ -35,11 +43,6 @@ public class BattleEarthSlash : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         _effect.SetActive(false);
-    }
-
-    void OnAbilityLevelUp()
-    {
-        transform.localScale = Vector3.one * _ability.GetScale();
     }
 
     void OnCollisionEnter(Collision collision)

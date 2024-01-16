@@ -41,7 +41,7 @@ public class BattleAbilityMeteors : BattleAbility
     BattleMeteors GetInactiveMeteor()
     {
         foreach (BattleMeteors meteors in _meteors)
-            if (!meteors.IsActive)
+            if (!meteors.gameObject.activeSelf)
                 return meteors;
         return InitializeMeteor();
     }
