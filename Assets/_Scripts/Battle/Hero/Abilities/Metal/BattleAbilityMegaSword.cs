@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class BattleAbilityMegaSword : BattleAbility
 {
-
     bool _isActive;
 
     float _rotationSpeed = 2;
@@ -17,7 +16,6 @@ public class BattleAbilityMegaSword : BattleAbility
 
     BattleHero _hero;
 
-
     public override void Initialize(Ability ability, bool startAbility = true)
     {
         base.Initialize(ability, startAbility);
@@ -26,8 +24,6 @@ public class BattleAbilityMegaSword : BattleAbility
         _ability.OnLevelUp += ScaleAbility;
         _hero = BattleManager.Instance.BattleHero;
         ScaleAbility();
-
-        // with scale should the radius be larger?
     }
 
     void ScaleAbility()
@@ -50,22 +46,15 @@ public class BattleAbilityMegaSword : BattleAbility
                             Mathf.Sin(_angle) * _circleRadius
                         );
             transform.position = _hero.transform.position + _positionOffset;
-            // rotate to face forward
-
-            // Vector3 rotation = positionOffset;
-            // rotation.x = 0;
 
             Vector3 lookRotation = Quaternion.LookRotation(_positionOffset).eulerAngles;
             lookRotation.x = 0;
-
-
             transform.rotation = Quaternion.Euler(lookRotation);
 
             _angle += Time.fixedDeltaTime * _rotationSpeed;
             yield return new WaitForFixedUpdate();
         }
     }
-
 
     void OnCollisionEnter(Collision collision)
     {
@@ -78,5 +67,4 @@ public class BattleAbilityMegaSword : BattleAbility
             StartCoroutine(battleEntity.GetHit(_ability));
         }
     }
-
 }

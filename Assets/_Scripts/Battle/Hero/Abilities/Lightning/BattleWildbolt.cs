@@ -5,15 +5,6 @@ using UnityEngine;
 
 public class BattleWildbolt : BattleProjectile
 {
-    Rigidbody _rb;
-
-
-    public override void Initialize(int team)
-    {
-        base.Initialize(team);
-        _rb = GetComponent<Rigidbody>();
-    }
-
     public void Fire(Ability ability)
     {
         _ability = ability;

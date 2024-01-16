@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleIceSpiral : MonoBehaviour
+public class BattleIceSpiral : BattleAbilityObjectDmgOverTime
 {
     [SerializeField] GameObject _gfx;
     [SerializeField] Collider _col;
@@ -12,30 +12,19 @@ public class BattleIceSpiral : MonoBehaviour
     [SerializeField] ParticleSystem[] _delayedEffects; // -1f of duration
     [SerializeField] ParticleSystem _iceExplosion; // -0.2f of duration
 
-    Ability _ability;
-    List<BattleEntity> _entitiesInCollider = new();
-
-
-    public void Initialize(Ability ability)
-    {
-        _ability = ability;
-    }
-
-    public void Fire(Vector3 pos)
+    public override void Execute(Vector3 pos, Quaternion rot)
     {
         pos.y = 0;
-        transform.position = pos;
-
-        StartCoroutine(FireCoroutine());
+        base.Execute(pos, rot);
     }
 
-    IEnumerator FireCoroutine()
+    protected override IEnumerator ExecuteCoroutine()
     {
         _gfx.SetActive(true);
         _col.gameObject.SetActive(true);
 
         SetDurations();
-        StartCoroutine(DealDamage());
+        StartCoroutine(DamageCoroutine(_ability.GetDuration()));
 
         yield return new WaitForSeconds(_ability.GetDuration() + 0.5f);
         _col.gameObject.SetActive(false);
@@ -63,37 +52,4 @@ public class BattleIceSpiral : MonoBehaviour
         iceExplosionMain.startDelay = _ability.GetDuration() - 0.1f;
     }
 
-    IEnumerator DealDamage()
-    {
-        float endTime = Time.time + _ability.GetDuration();
-        while (Time.time < endTime)
-        {
-            List<BattleEntity> currentEntities = new(_entitiesInCollider);
-            foreach (BattleEntity entity in currentEntities)
-                StartCoroutine(entity.GetHit(_ability));
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
-            bbv.TriggerBreak();
-
-        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-        {
-            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-            _entitiesInCollider.Add(battleEntity);
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-        {
-            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-            if (_entitiesInCollider.Contains(battleEntity))
-                _entitiesInCollider.Remove(battleEntity);
-        }
-    }
 }

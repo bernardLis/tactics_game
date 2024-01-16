@@ -29473,7 +29473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca578fd656f11da4f8d73a534d931727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spiralPrefab: {fileID: 4707954409715825231}
+  _abilityObjectPrefab: {fileID: 4707954409715825231}
 --- !u!1 &6278249253603483601
 GameObject:
   m_ObjectHideFlags: 0

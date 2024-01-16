@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1356729713075176178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0716786, y: 3.2069912, z: 6.3303275}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7445546946c9145b5536cb8c58d54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tornadoPrefab: {fileID: 6143114611498272089}
+  _abilityObjectPrefab: {fileID: 6143114611498272089}
 --- !u!1 &1966743466714590426
 GameObject:
   m_ObjectHideFlags: 0
