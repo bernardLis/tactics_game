@@ -10,7 +10,7 @@ public class BattleEarthSpike : BattleAbilityObjectDmgOverTime
 
     public override void Initialize(Ability ability)
     {
-        base.Initialize(ability);   
+        base.Initialize(ability);
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
@@ -19,12 +19,14 @@ public class BattleEarthSpike : BattleAbilityObjectDmgOverTime
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
+    public override void Execute(Vector3 pos, Quaternion rot)
+    {
+        pos.y = 0;
+        base.Execute(pos, Quaternion.identity);
+    }
+
     protected override IEnumerator ExecuteCoroutine()
     {
-        Vector3 pos = transform.position;
-        pos.y = 0f;
-        transform.position = pos;
-        
         _GFX.SetActive(true);
         _col.SetActive(true);
 

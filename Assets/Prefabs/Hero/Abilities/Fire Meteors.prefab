@@ -34423,7 +34423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9065689073089695662
 Transform:
   m_ObjectHideFlags: 0
@@ -34560,7 +34560,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _circle: {fileID: 6395654108498635306}
   _meteor: {fileID: 8601622109875353528}
-  IsActive: 0
 --- !u!135 &2427975719200401416
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -34630,7 +34629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd11401aebef2f4089771b0c0659634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meteorPrefab: {fileID: 5236134394542020774}
+  _abilityObjectPrefab: {fileID: 5236134394542020774}
 --- !u!114 &2247544951142713625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39647,7 +39646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2825327597689021258
 Transform:
   m_ObjectHideFlags: 0
@@ -43486,7 +43485,7 @@ ParticleSystem:
     radiusScale: 0.0001
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 8187
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5

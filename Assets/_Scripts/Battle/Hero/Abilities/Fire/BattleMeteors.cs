@@ -3,29 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BattleMeteors : MonoBehaviour
+public class BattleMeteors : BattleAbilityObjectDmgOverTime
 {
     [SerializeField] GameObject _circle;    // start lifetime determines how long the circle will be growing (4 seconds now)
     [SerializeField] GameObject _meteor;
 
-    Ability _ability;
-    List<BattleEntity> _entitiesInCollider = new();
-
-    public void Initialize(Ability ability)
-    {
-        _ability = ability;
-    }
-
-
-    public void Fire(Vector3 pos)
+    public override void Execute(Vector3 pos, Quaternion rot)
     {
         pos.y = 0;
-        transform.position = pos;
-
-        StartCoroutine(FireCoroutine());
+        base.Execute(pos, Quaternion.identity);
     }
 
-    IEnumerator FireCoroutine()
+    protected override IEnumerator ExecuteCoroutine()
     {
         transform.localScale = Vector3.one * _ability.GetScale();
 
@@ -35,10 +24,15 @@ public class BattleMeteors : MonoBehaviour
         ManageCircles();
         yield return new WaitForSeconds(2f);
         ManageMeteors();
-        StartCoroutine(DealDamage());
+        StartCoroutine(DamageCoroutine(Time.time + _ability.GetDuration()));
         yield return new WaitForSeconds(_ability.GetDuration());
         yield return _circle.transform.DOScale(0, 1f).WaitForCompletion();
-        _meteor.transform.DOScale(0, 0.5f);
+        _meteor.transform.DOScale(0, 0.5f).OnComplete(
+            () =>
+            {
+                _meteor.SetActive(false);
+                gameObject.SetActive(false);
+            });
     }
 
     void ManageCircles()
@@ -70,39 +64,5 @@ public class BattleMeteors : MonoBehaviour
         _meteor.SetActive(true);
 
         ps.Play();
-    }
-
-    IEnumerator DealDamage()
-    {
-        float endTime = Time.time + _ability.GetDuration();
-        while (Time.time < endTime)
-        {
-            List<BattleEntity> currentEntities = new(_entitiesInCollider);
-            foreach (BattleEntity entity in currentEntities)
-                StartCoroutine(entity.GetHit(_ability));
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
-            bbv.TriggerBreak();
-
-        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-        {
-            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-            _entitiesInCollider.Add(battleEntity);
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-        {
-            if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-            if (_entitiesInCollider.Contains(battleEntity))
-                _entitiesInCollider.Remove(battleEntity);
-        }
     }
 }

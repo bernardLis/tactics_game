@@ -14,18 +14,6 @@ public class BattleAbilityFireballs : BattleAbility
         transform.localPosition = new Vector3(0f, 0.5f, 0f);
     }
 
-    BattleProjectile InitializeFireball()
-    {
-        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity,
-                                _battleManager.AbilityHolder);
-        instance.SetActive(true);
-
-        BattleProjectile projectile = instance.GetComponent<BattleProjectile>();
-        projectile.Initialize(0);
-        _fireballPool.Add(projectile);
-        return projectile;
-    }
-
     protected override IEnumerator ExecuteAbilityCoroutine()
     {
         yield return base.ExecuteAbilityCoroutine();
@@ -48,4 +36,17 @@ public class BattleAbilityFireballs : BattleAbility
                 return ball;
         return InitializeFireball();
     }
+
+    BattleProjectile InitializeFireball()
+    {
+        GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity,
+                                _battleManager.AbilityHolder);
+        instance.SetActive(true);
+
+        BattleProjectile projectile = instance.GetComponent<BattleProjectile>();
+        projectile.Initialize(0);
+        _fireballPool.Add(projectile);
+        return projectile;
+    }
+
 }
