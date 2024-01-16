@@ -14,9 +14,9 @@ public class BattleAbilityIceSpiral : BattleAbility
         transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
 
         BattleIceSpiral spiral = GetInactiveSpiral();
         spiral.gameObject.SetActive(true);

@@ -36,7 +36,7 @@ public class BattleAbilityMegaSword : BattleAbility
         _circleRadius = 3 + _ability.GetScale();
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
         // this ability is continuous, fire it only once.
         if (_isActive) yield break;

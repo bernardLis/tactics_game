@@ -14,9 +14,9 @@ public class BattleAbilityWindTornado : BattleAbility
         transform.localPosition = new Vector3(0.5f, 1f, 0.5f);
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
 
         for (int i = 0; i < _ability.GetAmount(); i++)
         {

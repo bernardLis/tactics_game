@@ -26,9 +26,9 @@ public class BattleAbilityMeteors : BattleAbility
         return meteors;
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
         for (int i = 0; i < _ability.GetAmount(); i++)
         {
             // random position within circle radius

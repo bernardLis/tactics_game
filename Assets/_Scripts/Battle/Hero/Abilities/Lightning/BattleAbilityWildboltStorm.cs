@@ -16,9 +16,9 @@ public class BattleAbilityWildboltStorm : BattleAbility
     }
 
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
 
         _effect.SetActive(true);
         _effect.transform.parent = transform;

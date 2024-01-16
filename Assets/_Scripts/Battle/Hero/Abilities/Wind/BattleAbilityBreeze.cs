@@ -23,9 +23,9 @@ public class BattleAbilityBreeze : BattleAbility
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
         _entitiesInCollider = new();
 
         ParticleSystem ps = _gfx.GetComponent<ParticleSystem>();

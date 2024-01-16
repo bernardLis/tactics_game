@@ -8,13 +8,13 @@ public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour
     List<T> _pool = new();
     Transform _poolHolder;
 
-    protected void CreatePool(GameObject prefab)
+    protected void CreatePool(GameObject prefab, int count = 200)
     {
         _prefab = prefab;
         _poolHolder = new GameObject(prefab.name + " Pool").transform;
 
         _pool = new();
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < count; i++)
         {
             T p = Instantiate(prefab, _poolHolder).GetComponent<T>();
             p.gameObject.SetActive(false);

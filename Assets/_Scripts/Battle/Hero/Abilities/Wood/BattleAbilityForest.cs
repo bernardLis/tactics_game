@@ -22,9 +22,9 @@ public class BattleAbilityForest : BattleAbility
             InitializeTree();
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
         _effect.SetActive(true);
         yield return new WaitForSeconds(1.5f);
 

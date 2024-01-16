@@ -2,34 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class BattleEarthSlash : MonoBehaviour
+public class BattleEarthSlash : BattleAbilityObject
 {
     [SerializeField] GameObject _effect;
     [SerializeField] GameObject _col;
-    Ability _ability;
 
-    public void Initialize(Ability ability)
+    public override void Initialize(Ability ability)
     {
-        _ability = ability;
-        _ability.OnLevelUp += OnAbilityLevelUp;
-
+        base.Initialize(ability);
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
-    void OnAbilityLevelUp()
+    protected override void OnAbilityLevelUp()
     {
         transform.localScale = Vector3.one * _ability.GetScale();
     }
 
-    public void Fire(Vector3 pos, Quaternion rot)
+    public override void Execute(Vector3 pos, Quaternion rot)
     {
-        transform.position = pos;
-        transform.rotation = rot;
-        gameObject.SetActive(true);
-        StartCoroutine(FireCoroutine());
+        base.Execute(pos, rot);
+        
     }
 
-    IEnumerator FireCoroutine()
+    protected override IEnumerator ExecuteCoroutine()
     {
         _effect.SetActive(true);
         _col.SetActive(true);
@@ -43,6 +38,7 @@ public class BattleEarthSlash : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         _effect.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     void OnCollisionEnter(Collision collision)

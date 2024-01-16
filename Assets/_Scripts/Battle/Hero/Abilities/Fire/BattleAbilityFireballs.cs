@@ -26,9 +26,9 @@ public class BattleAbilityFireballs : BattleAbility
         return projectile;
     }
 
-    protected override IEnumerator FireAbilityCoroutine()
+    protected override IEnumerator ExecuteAbilityCoroutine()
     {
-        yield return base.FireAbilityCoroutine();
+        yield return base.ExecuteAbilityCoroutine();
         Vector3 rand = Random.insideUnitCircle;
         Vector3 dir = new Vector3(rand.x, 0, rand.y);
         Vector3 projectileVariance = new Vector3(0, 0, 0.07f);
