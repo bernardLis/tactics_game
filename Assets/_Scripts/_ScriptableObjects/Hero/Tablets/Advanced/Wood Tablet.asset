@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wood Tablet
   m_EditorClassIdentifier: 
   Id: 890fcee3-ee02-4f09-8077-768fd5b57ebb
-  Icon: {fileID: 21300000, guid: 19c5bd1248b3d2549988cb99fbc50b8e, type: 3}
+  Icon: {fileID: 21300000, guid: 1aa7572c1f6faa2489b886aa72575b9e, type: 3}
   Description: Wooden boy!
   Element: {fileID: 11400000, guid: 6bf002ea5d510d44a8152bf9f655250b, type: 2}
   Level: {fileID: 0}
@@ -26,5 +26,4 @@ MonoBehaviour:
     Value: 0
   FirstElement: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   SecondElement: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  FirstAbility: {fileID: 11400000, guid: eb69c7be1877eb649b41674eaa951167, type: 2}
-  SecondAbility: {fileID: 11400000, guid: 2b791e1cff3b19145a1f216180eeadf4, type: 2}
+  Ability: {fileID: 11400000, guid: d2728347576e3614fbc1fd7de6607e43, type: 2}

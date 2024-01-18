@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleTileBorder : MonoBehaviour
+namespace Lis
 {
-
-    public void EnableBorder()
+    public class BattleTileBorder : MonoBehaviour
     {
-        float y = transform.localScale.y;
-        transform.localScale = new Vector3(transform.localScale.x, 0, transform.localScale.z);
-        transform.DOScaleY(y, 0.5f)
-            .SetEase(Ease.InOutSine);
-    }
 
-    public void DestroySelf()
-    {
-        if (this == null) return;
+        public void EnableBorder()
+        {
+            float y = transform.localScale.y;
+            transform.localScale = new Vector3(transform.localScale.x, 0, transform.localScale.z);
+            transform.DOScaleY(y, 0.5f)
+                .SetEase(Ease.InOutSine);
+        }
 
-        transform.DOScaleY(0, 0.5f)
+        public void DestroySelf()
+        {
+            if (this == null) return;
+
+            transform.DOScaleY(0, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .OnComplete(() => Destroy(gameObject));
-    }
+        }
 
+    }
 }

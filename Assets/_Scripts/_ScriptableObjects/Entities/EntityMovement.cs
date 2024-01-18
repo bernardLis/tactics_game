@@ -1,47 +1,48 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityMovement : Entity
+namespace Lis
 {
-    [Header("Movement")]
-    public Stat Speed;
-
-    protected override void CreateStats()
+    public class EntityMovement : Entity
     {
-        base.CreateStats();
+        [Header("Movement")]
+        public Stat Speed;
 
-        Speed = Instantiate(Speed);
-        Speed.Initialize();
-        OnLevelUp += Speed.LevelUp;
-    }
-
-    /* SERIALIZATION */
-    new public EntityMovementData SerializeSelf()
-    {
-        // TODO: to be implemented
-        EntityMovementData data = new()
+        protected override void CreateStats()
         {
-            EntityBaseData = base.SerializeSelf(),
+            base.CreateStats();
 
-            Speed = Speed.BaseValue,
-        };
+            Speed = Instantiate(Speed);
+            Speed.Initialize();
+            OnLevelUp += Speed.LevelUp;
+        }
 
-        return data;
+        /* SERIALIZATION */
+        new public EntityMovementData SerializeSelf()
+        {
+            // TODO: to be implemented
+            EntityMovementData data = new()
+            {
+                EntityBaseData = base.SerializeSelf(),
+
+                Speed = Speed.BaseValue,
+            };
+
+            return data;
+        }
+
+        public void LoadFromData(EntityMovementData data)
+        {
+            // TODO: to be implemented
+
+        }
     }
 
-    public void LoadFromData(EntityMovementData data)
+    [Serializable]
+    public struct EntityMovementData
     {
-        // TODO: to be implemented
+        public EntityData EntityBaseData;
 
+        public int Speed;
     }
-}
-
-[Serializable]
-public struct EntityMovementData
-{
-    public EntityData EntityBaseData;
-
-    public int Speed;
 }

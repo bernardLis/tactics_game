@@ -1,31 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleDragonSpark : BattleCreatureRanged
+namespace Lis
 {
-    [SerializeField] GameObject _abilityProjectile;
-
-    protected override IEnumerator Attack()
+    public class BattleDragonSpark : BattleCreatureRanged
     {
-        yield return ManageCreatureAbility();
-        yield return base.Attack();
-    }
+        [SerializeField] GameObject _abilityProjectile;
 
-    protected override IEnumerator CreatureAbility()
-    {
-        if (!IsOpponentInRange()) yield break;
+        protected override IEnumerator Attack()
+        {
+            yield return ManageCreatureAbility();
+            yield return base.Attack();
+        }
 
-        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
-        yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
+        protected override IEnumerator CreatureAbility()
+        {
+            if (!IsOpponentInRange()) yield break;
 
-        GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-        projectileInstance.transform.parent = _GFX.transform;
-        BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
-        p.Initialize(Team);
-        Vector3 dir = (Opponent.transform.position - transform.position).normalized;
-        p.Shoot(Creature, dir);
+            yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
+            yield return base.CreatureAbility();
+            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
+
+            GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+            projectileInstance.transform.parent = _GFX.transform;
+            BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
+            p.Initialize(Team);
+            Vector3 dir = (Opponent.transform.position - transform.position).normalized;
+            p.Shoot(Creature, dir);
+        }
     }
 }

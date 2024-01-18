@@ -1,21 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
-using DG.Tweening;
 
-public class CreatureCard : EntityCard
+
+
+namespace Lis
 {
-    protected Creature _creature;
-
-    public CreatureCard(Creature creature) : base(creature)
+    public class CreatureCard : EntityCard
     {
-        _creature = creature;
+        protected Creature _creature;
 
-        PopulateCard();
+        public CreatureCard(Creature creature) : base(creature)
+        {
+            _creature = creature;
 
-        if (_creature.CreatureAbility != null)
-            _topRightContainer.Add(new CreatureAbilityElement(_creature.CreatureAbility));
+            PopulateCard();
+
+            if (_creature.CreatureAbility != null)
+                _topRightContainer.Add(new CreatureAbilityElement(_creature.CreatureAbility));
+        }
     }
 }

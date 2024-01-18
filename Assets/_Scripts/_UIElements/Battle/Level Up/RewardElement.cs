@@ -1,49 +1,50 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
+
 using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
 
-public class RewardElement : ElementWithSound
+namespace Lis
 {
-    GameManager _gameManager;
-    const string _ussClassName = "reward-element__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussDisabled = _ussClassName + "disabled";
-
-    public Reward Reward;
-
-    public RewardElement(Reward reward)
+    public class RewardElement : ElementWithSound
     {
-        _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardElementStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        GameManager _gameManager;
+        const string _ussClassName = "reward-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussDisabled = _ussClassName + "disabled";
 
-        Reward = reward;
-        AddToClassList(_ussMain);
+        public Reward Reward;
 
-        RegisterCallback<ClickEvent>(OnClick);
+        public RewardElement(Reward reward)
+        {
+            _gameManager = GameManager.Instance;
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardElementStyles);
+            if (ss != null)
+                styleSheets.Add(ss);
+
+            Reward = reward;
+            AddToClassList(_ussMain);
+
+            RegisterCallback<ClickEvent>(OnClick);
+        }
+
+        void OnClick(ClickEvent evt)
+        {
+            if (evt.button != 0) return;
+
+            _gameManager.GetComponent<AudioManager>().PlayUI("Bang");
+            Reward.GetReward();
+        }
+
+        public void DisableCard()
+        {
+            SetEnabled(false);
+            AddToClassList(_ussDisabled);
+        }
+
+        public void DisableClicks()
+        {
+            UnregisterCallback<ClickEvent>(OnClick);
+        }
+
     }
-
-    void OnClick(ClickEvent evt)
-    {
-        if (evt.button != 0) return;
-
-        _gameManager.GetComponent<AudioManager>().PlayUI("Bang");
-        Reward.GetReward();
-    }
-
-    public void DisableCard()
-    {
-        SetEnabled(false);
-        AddToClassList(_ussDisabled);
-    }
-
-    public void DisableClicks()
-    {
-        UnregisterCallback<ClickEvent>(OnClick);
-    }
-
 }

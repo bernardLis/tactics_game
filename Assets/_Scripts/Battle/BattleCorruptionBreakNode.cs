@@ -1,70 +1,75 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
+
 using DG.Tweening;
 using DigitalRuby.ThunderAndLightning;
-using System;
+using UnityEngine;
 
-public class BattleCorruptionBreakNode : MonoBehaviour
+namespace Lis
 {
-    GameManager _gameManager;
-
-    [SerializeField] GameObject _corruptionNodeExplosionPrefab;
-
-    BoxCollider _collider;
-    LightningBoltPrefabScript _lightningScript;
-
-    BattleBoss _boss;
-
-    public event Action<BattleCorruptionBreakNode> OnNodeBroken;
-
-    public void Initialize(BattleBoss boss, Vector3 pos)
+    public class BattleCorruptionBreakNode : MonoBehaviour
     {
-        _gameManager = GameManager.Instance;
+        GameManager _gameManager;
 
-        _boss = boss;
+        [SerializeField] GameObject _corruptionNodeExplosionPrefab;
 
-        _collider = GetComponent<BoxCollider>();
+        BoxCollider _collider;
+        LightningBoltPrefabScript _lightningScript;
 
-        _lightningScript = GetComponent<LightningBoltPrefabScript>();
-        _lightningScript.Source = gameObject;
-        _lightningScript.Destination = boss.gameObject;
-        _lightningScript.GlowTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
-        _lightningScript.LightningTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
-        _lightningScript.MainTrunkTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+        BattleBoss _boss;
 
-        transform.position = new(transform.position.x, 5f, transform.position.z);
-        // fake arc movement
-        transform.DOMoveX(pos.x, 1f).SetEase(Ease.OutQuad);
-        transform.DOMoveZ(pos.z, 1f).SetEase(Ease.OutQuad);
-        transform.DOMoveY(0.5f, 1f).SetEase(Ease.InQuad)
-                 .OnComplete(() => _collider.enabled = true);
-    }
+        public event Action<BattleCorruptionBreakNode> OnNodeBroken;
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (!collider.TryGetComponent(out BattleHero hero)) return;
+        public void Initialize(BattleBoss boss, Vector3 pos)
+        {
+            _gameManager = GameManager.Instance;
 
-        StartCoroutine(NodeBrokenCoroutine());
-    }
+            _boss = boss;
 
-    IEnumerator NodeBrokenCoroutine()
-    {
-        yield return transform.DOMove(_boss.transform.position, 0.4f)
-                              .SetEase(Ease.Flash)
-                              .WaitForCompletion();
-        Destroy(Instantiate(_corruptionNodeExplosionPrefab, transform.position, Quaternion.identity), 2f);
-        yield return new WaitForSeconds(0.5f);
-        OnNodeBroken?.Invoke(this);
-        DestroySelf();
-    }
+            _collider = GetComponent<BoxCollider>();
 
-    public void DestroySelf()
-    {
-        _collider.enabled = false;
-        _lightningScript.enabled = false;
-        transform.DOScale(0f, 1f)
-            .SetEase(Ease.InBack)
-            .OnComplete(() => Destroy(gameObject));
+            _lightningScript = GetComponent<LightningBoltPrefabScript>();
+            _lightningScript.Source = gameObject;
+            _lightningScript.Destination = boss.gameObject;
+            _lightningScript.GlowTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+            _lightningScript.LightningTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+            _lightningScript.MainTrunkTintColor = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+
+            transform.position = new(transform.position.x, 5f, transform.position.z);
+            // fake arc movement
+            transform.DOMoveX(pos.x, 1f).SetEase(Ease.OutQuad);
+            transform.DOMoveZ(pos.z, 1f).SetEase(Ease.OutQuad);
+            transform.DOMoveY(0.5f, 1f).SetEase(Ease.InQuad)
+                .OnComplete(() => _collider.enabled = true);
+        }
+
+        void OnTriggerEnter(Collider collider)
+        {
+            if (!collider.TryGetComponent(out BattleHero hero)) return;
+
+            StartCoroutine(NodeBrokenCoroutine());
+        }
+
+        IEnumerator NodeBrokenCoroutine()
+        {
+            yield return transform.DOMove(_boss.transform.position, 0.4f)
+                .SetEase(Ease.Flash)
+                .WaitForCompletion();
+            Destroy(Instantiate(_corruptionNodeExplosionPrefab, transform.position, Quaternion.identity), 2f);
+            yield return new WaitForSeconds(0.5f);
+            OnNodeBroken?.Invoke(this);
+            DestroySelf();
+        }
+
+        public void DestroySelf()
+        {
+            _collider.enabled = false;
+            _lightningScript.enabled = false;
+            transform.DOScale(0f, 1f)
+                .SetEase(Ease.InBack)
+                .OnComplete(() => Destroy(gameObject));
+        }
     }
 }

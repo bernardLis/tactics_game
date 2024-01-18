@@ -1,61 +1,65 @@
-using System.Collections;
-using System.Collections.Generic;
+
+
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+namespace Lis
 {
-    BattleEntity _battleEntity;
-    BattleTooltipManager _tooltipManager;
-
-    void Start()
+    public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        _battleEntity = GetComponent<BattleEntity>();
-        _tooltipManager = BattleTooltipManager.Instance;
-        _battleEntity.OnDeath += OnDeath;
-    }
+        BattleEntity _battleEntity;
+        BattleTooltipManager _tooltipManager;
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (!CanDisplayTooltip()) return;
-        VisualElement el = new EntityCard(_battleEntity.Entity);
+        void Start()
+        {
+            _battleEntity = GetComponent<BattleEntity>();
+            _tooltipManager = BattleTooltipManager.Instance;
+            _battleEntity.OnDeath += OnDeath;
+        }
 
-        _tooltipManager.ShowTooltip(el, gameObject);
-    }
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (!CanDisplayTooltip()) return;
+            VisualElement el = new EntityCard(_battleEntity.Entity);
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (!CanDisplayTooltip()) return;
-        _tooltipManager.ShowEntityInfo(_battleEntity);
-    }
+            _tooltipManager.ShowTooltip(el, gameObject);
+        }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (!CanDisplayTooltip()) return;
-        _tooltipManager.HideEntityInfo();
-    }
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!CanDisplayTooltip()) return;
+            _tooltipManager.ShowEntityInfo(_battleEntity);
+        }
 
-    void OnDeath(BattleEntity a, EntityFight b)
-    {
-        if (_tooltipManager.CurrentEntityInfo == _battleEntity)
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (!CanDisplayTooltip()) return;
             _tooltipManager.HideEntityInfo();
+        }
 
-        if (_tooltipManager.CurrentTooltipDisplayer == _battleEntity.gameObject)
-            _tooltipManager.HideTooltip();
+        void OnDeath(BattleEntity a, EntityFight b)
+        {
+            if (_tooltipManager.CurrentEntityInfo == _battleEntity)
+                _tooltipManager.HideEntityInfo();
 
-        _battleEntity.OnDeath -= OnDeath;
+            if (_tooltipManager.CurrentTooltipDisplayer == _battleEntity.gameObject)
+                _tooltipManager.HideTooltip();
+
+            _battleEntity.OnDeath -= OnDeath;
+        }
+
+        bool CanDisplayTooltip()
+        {
+
+            if (_tooltipManager == null) return false;
+            if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;
+            if (_battleEntity.IsDead) return false;
+
+            return true;
+        }
+
     }
-
-    bool CanDisplayTooltip()
-    {
-
-        if (_tooltipManager == null) return false;
-        if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;
-        if (_battleEntity.IsDead) return false;
-
-        return true;
-    }
-
 }
 

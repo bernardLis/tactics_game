@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lightning Tablet
   m_EditorClassIdentifier: 
   Id: e0350a43-0b58-43e6-ae0a-94e08ae1e6cb
-  Icon: {fileID: 21300000, guid: 7f93f89af18918d4fac8bd6c618591c4, type: 3}
+  Icon: {fileID: 21300000, guid: 02f214f43f0b46943b69366997fb1932, type: 3}
   Description: Lightning!
   Element: {fileID: 11400000, guid: 7242fc082e4174940905433ec1f098e6, type: 2}
   Level: {fileID: 0}
@@ -26,5 +26,4 @@ MonoBehaviour:
     Value: 0
   FirstElement: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   SecondElement: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  FirstAbility: {fileID: 11400000, guid: eb69c7be1877eb649b41674eaa951167, type: 2}
-  SecondAbility: {fileID: 11400000, guid: 2b791e1cff3b19145a1f216180eeadf4, type: 2}
+  Ability: {fileID: 11400000, guid: 8fb0356b40790974691df8c838dd2698, type: 2}

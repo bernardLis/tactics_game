@@ -1,194 +1,199 @@
-using System.Collections;
 using System.Collections.Generic;
+
+
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UpgradeScreen : FullScreenElement
+namespace Lis
 {
-    const string _ussClassName = "upgrade-screen__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussHeaderContainer = _ussClassName + "header-container";
-    const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
-
-    bool _isGray;
-
-    UpgradeBoard _upgradeBoard;
-
-    ScrollView _upgradeContainer;
-
-    public UpgradeScreen(UpgradeBoard upgradeBoard)
+    public class UpgradeScreen : FullScreenElement
     {
-        _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.UpgradeScreenStyles);
-        if (ss != null) styleSheets.Add(ss);
+        const string _ussClassName = "upgrade-screen__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussHeaderContainer = _ussClassName + "header-container";
+        const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
 
-        _upgradeBoard = upgradeBoard;
-        style.backgroundColor = new Color(0, 0, 0, 1f);
+        bool _isGray;
 
-        AddHeader();
+        UpgradeBoard _upgradeBoard;
 
-        _upgradeContainer = new();
-        _upgradeContainer.style.flexDirection = FlexDirection.Row;
-        _upgradeContainer.style.flexWrap = Wrap.Wrap;
-        _content.Add(_upgradeContainer);
+        ScrollView _upgradeContainer;
 
-        CreateHeroUpgrades();
-        CreateAbilityUpgrades();
-        CreateBuildingUpgrades();
-        CreateCreatureUpgrades();
-        CreateBossUpgrades();
-        CreateOtherUpgrades();
-
-        AddNavigationButtons();
-    }
-
-    void AddHeader()
-    {
-        VisualElement container = new();
-        container.AddToClassList(_ussHeaderContainer);
-        _content.Add(container);
-
-        Label title = new("Click & hold to purchase");
-        title.style.fontSize = 24;
-        container.Add(title);
-
-        GoldElement goldElement = new(_gameManager.Gold);
-        goldElement.MakeItBig();
-        goldElement.style.alignSelf = Align.Center;
-        container.Add(goldElement);
-        _gameManager.OnGoldChanged += goldElement.ChangeAmount;
-    }
-
-    void CreateHeroUpgrades()
-    {
-        VisualElement container = CreateUpgradeContainer("Hero Upgrades");
-
-        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Hero);
-        foreach (Upgrade upgrade in upgrades)
+        public UpgradeScreen(UpgradeBoard upgradeBoard)
         {
-            upgrade.Initialize(_upgradeBoard);
-            UpgradeElement element = new(upgrade);
-            container.Add(element);
+            _gameManager = GameManager.Instance;
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.UpgradeScreenStyles);
+            if (ss != null) styleSheets.Add(ss);
+
+            _upgradeBoard = upgradeBoard;
+            style.backgroundColor = new Color(0, 0, 0, 1f);
+
+            AddHeader();
+
+            _upgradeContainer = new();
+            _upgradeContainer.style.flexDirection = FlexDirection.Row;
+            _upgradeContainer.style.flexWrap = Wrap.Wrap;
+            _content.Add(_upgradeContainer);
+
+            CreateHeroUpgrades();
+            CreateAbilityUpgrades();
+            CreateBuildingUpgrades();
+            CreateCreatureUpgrades();
+            CreateBossUpgrades();
+            CreateOtherUpgrades();
+
+            AddNavigationButtons();
         }
-    }
 
-    void CreateAbilityUpgrades()
-    {
-        VisualElement container = CreateUpgradeContainer("Ability Upgrades");
-
-        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Ability);
-        foreach (Upgrade upgrade in upgrades)
+        void AddHeader()
         {
-            upgrade.Initialize(_upgradeBoard);
-            UpgradeElement element = new(upgrade);
-            container.Add(element);
+            VisualElement container = new();
+            container.AddToClassList(_ussHeaderContainer);
+            _content.Add(container);
+
+            Label title = new("Click & hold to purchase");
+            title.style.fontSize = 24;
+            container.Add(title);
+
+            GoldElement goldElement = new(_gameManager.Gold);
+            goldElement.MakeItBig();
+            goldElement.style.alignSelf = Align.Center;
+            container.Add(goldElement);
+            _gameManager.OnGoldChanged += goldElement.ChangeAmount;
         }
-    }
 
-    void CreateBuildingUpgrades()
-    {
-        VisualElement container = CreateUpgradeContainer("Building Upgrades");
-
-        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Building);
-        foreach (Upgrade upgrade in upgrades)
+        void CreateHeroUpgrades()
         {
-            upgrade.Initialize(_upgradeBoard);
-            UpgradeElement element = new(upgrade);
-            container.Add(element);
+            VisualElement container = CreateUpgradeContainer("Hero Upgrades");
+
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Hero);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                container.Add(element);
+            }
         }
-    }
 
-
-    void CreateCreatureUpgrades()
-    {
-        VisualElement container = CreateUpgradeContainer("Creature Upgrades");
-
-        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Creature);
-        foreach (Upgrade upgrade in upgrades)
+        void CreateAbilityUpgrades()
         {
-            upgrade.Initialize(_upgradeBoard);
-            UpgradeElement element = new(upgrade);
-            container.Add(element);
-        }
-    }
+            VisualElement container = CreateUpgradeContainer("Ability Upgrades");
 
-    void CreateBossUpgrades()
-    {
-        VisualElement container = CreateUpgradeContainer("Boss Upgrades");
-        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Boss);
-        foreach (Upgrade upgrade in upgrades)
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Ability);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                container.Add(element);
+            }
+        }
+
+        void CreateBuildingUpgrades()
         {
-            upgrade.Initialize(_upgradeBoard);
-            UpgradeElement element = new(upgrade);
-            container.Add(element);
+            VisualElement container = CreateUpgradeContainer("Building Upgrades");
+
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Building);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                container.Add(element);
+            }
         }
-    }
 
 
-    void CreateOtherUpgrades()
-    {
-        VisualElement container = CreateUpgradeContainer("Other Upgrades");
-
-        List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Other);
-        foreach (Upgrade upgrade in upgrades)
+        void CreateCreatureUpgrades()
         {
-            upgrade.Initialize(_upgradeBoard);
-            UpgradeElement element = new(upgrade);
-            container.Add(element);
+            VisualElement container = CreateUpgradeContainer("Creature Upgrades");
+
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Creature);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                container.Add(element);
+            }
         }
-    }
 
-    VisualElement CreateUpgradeContainer(string txt)
-    {
-        VisualElement container = new();
-        container.AddToClassList(_ussUpgradeContainer);
-        _upgradeContainer.Add(container);
-        Color c = new Color(0.3f, 0.3f, 0.3f);
-        if (_isGray) c = new Color(0.6f, 0.6f, 0.6f);
-        container.style.backgroundColor = c;
+        void CreateBossUpgrades()
+        {
+            VisualElement container = CreateUpgradeContainer("Boss Upgrades");
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Boss);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                container.Add(element);
+            }
+        }
 
-        _isGray = !_isGray;
 
-        Label title = new(txt);
-        title.style.width = 300;
-        title.style.fontSize = 24;
-        title.style.whiteSpace = WhiteSpace.Normal;
-        container.Add(title);
+        void CreateOtherUpgrades()
+        {
+            VisualElement container = CreateUpgradeContainer("Other Upgrades");
 
-        VisualElement upgradeContainer = new();
-        upgradeContainer.style.flexDirection = FlexDirection.Row;
-        upgradeContainer.style.flexWrap = Wrap.Wrap;
-        container.Add(upgradeContainer);
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Other);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                container.Add(element);
+            }
+        }
 
-        return upgradeContainer;
-    }
+        VisualElement CreateUpgradeContainer(string txt)
+        {
+            VisualElement container = new();
+            container.AddToClassList(_ussUpgradeContainer);
+            _upgradeContainer.Add(container);
+            Color c = new Color(0.3f, 0.3f, 0.3f);
+            if (_isGray) c = new Color(0.6f, 0.6f, 0.6f);
+            container.style.backgroundColor = c;
 
-    void AddNavigationButtons()
-    {
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.justifyContent = Justify.SpaceAround;
-        Add(container);
+            _isGray = !_isGray;
 
-        MyButton unlockAllButton = new("Unlock All", "common__menu-button", _upgradeBoard.UnlockAll);
-        container.Add(unlockAllButton);
+            Label title = new(txt);
+            title.style.width = 300;
+            title.style.fontSize = 24;
+            title.style.whiteSpace = WhiteSpace.Normal;
+            container.Add(title);
 
-        MyButton refundAllButton = new("Refund All", "common__menu-button", RefundAll);
-        container.Add(refundAllButton);
+            VisualElement upgradeContainer = new();
+            upgradeContainer.style.flexDirection = FlexDirection.Row;
+            upgradeContainer.style.flexWrap = Wrap.Wrap;
+            container.Add(upgradeContainer);
 
-        MyButton backButton = new("Back", "common__menu-button", Hide);
-        container.Add(backButton);
+            return upgradeContainer;
+        }
 
-        MyButton playButton = new("Play", "common__menu-button", Play);
-        container.Add(playButton);
+        void AddNavigationButtons()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            container.style.justifyContent = Justify.SpaceAround;
+            Add(container);
 
-    }
+            MyButton unlockAllButton = new("Unlock All", "common__menu-button", _upgradeBoard.UnlockAll);
+            container.Add(unlockAllButton);
 
-    void RefundAll() { _upgradeBoard.RefundAll(); }
+            MyButton refundAllButton = new("Refund All", "common__menu-button", RefundAll);
+            container.Add(refundAllButton);
 
-    void Play()
-    {
-        Hide();
-        OnHide += () => _gameManager.StartGame();
+            MyButton backButton = new("Back", "common__menu-button", Hide);
+            container.Add(backButton);
+
+            MyButton playButton = new("Play", "common__menu-button", Play);
+            container.Add(playButton);
+
+        }
+
+        void RefundAll() { _upgradeBoard.RefundAll(); }
+
+        void Play()
+        {
+            Hide();
+            OnHide += () => _gameManager.StartGame();
+        }
     }
 }

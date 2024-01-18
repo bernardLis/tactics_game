@@ -1,42 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
+
 using UnityEngine.UIElements;
 
-public class LostBattleScreen : FinishedBattleScreen
+namespace Lis
 {
-    const string _ussClassName = "finished-battle-screen__";
-    const string _ussMain = _ussClassName + "lost-main";
-
-    public LostBattleScreen() : base()
+    public class LostBattleScreen : FinishedBattleScreen
     {
-        _mainContainer.AddToClassList(_ussMain);
-        AddButtons();
+        const string _ussClassName = "finished-battle-screen__";
+        const string _ussMain = _ussClassName + "lost-main";
 
-        AudioManager audioManager = AudioManager.Instance;
-        audioManager.PlayDialogue(audioManager.GetSound("You Lost"));
-    }
+        public LostBattleScreen() : base()
+        {
+            _mainContainer.AddToClassList(_ussMain);
+            AddButtons();
 
-    protected override void AddTitle()
-    {
-        Label text = new("Battle lost!");
-        text.style.fontSize = 34;
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlayDialogue(audioManager.GetSound("You Lost"));
+        }
 
-        _mainContainer.Add(text);
-    }
+        protected override void AddTitle()
+        {
+            Label text = new("Battle lost!");
+            text.style.fontSize = 34;
 
-    void AddButtons()
-    {
-        VisualElement container = new();
-        container.style.alignItems = Align.Center;
-        _mainContainer.Add(container);
+            _mainContainer.Add(text);
+        }
 
-        MyButton noAdvantage = new("Back To Main Menu", _ussCommonMenuButton, BackToMainMenu);
-        container.Add(noAdvantage);
-    }
+        void AddButtons()
+        {
+            VisualElement container = new();
+            container.style.alignItems = Align.Center;
+            _mainContainer.Add(container);
 
-    void BackToMainMenu()
-    {
-        _gameManager.LoadScene(Scenes.MainMenu);
+            MyButton noAdvantage = new("Back To Main Menu", _ussCommonMenuButton, BackToMainMenu);
+            container.Add(noAdvantage);
+        }
+
+        void BackToMainMenu()
+        {
+            _gameManager.LoadScene(Scenes.MainMenu);
+        }
     }
 }

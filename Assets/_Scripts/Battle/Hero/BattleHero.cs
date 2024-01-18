@@ -1,82 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MoreMountains.Feedbacks;
-using Cinemachine;
 
-public class BattleHero : BattleEntity
+namespace Lis
 {
-    public Hero Hero { get; private set; }
-
-    BattleHeroController _thirdPersonController;
-    BattleHeroHealthBar _battleHeroHealthBar;
-
-    Dictionary<Ability, GameObject> _battleAbilities = new();
-
-    public override void InitializeEntity(Entity entity, int team)
+    public class BattleHero : BattleEntity
     {
-        base.InitializeEntity(entity, 0);
-        _agent.enabled = true;
+        public Hero Hero { get; private set; }
 
-        Hero = (Hero)entity;
+        BattleHeroController _thirdPersonController;
+        BattleHeroHealthBar _battleHeroHealthBar;
 
-        _thirdPersonController = GetComponent<BattleHeroController>();
-        _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
-        Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
+        Dictionary<Ability, GameObject> _battleAbilities = new();
 
-        _battleHeroHealthBar = GetComponentInChildren<BattleHeroHealthBar>();
-        _battleHeroHealthBar.Initialize(Hero);
+        public override void InitializeEntity(Entity entity, int team)
+        {
+            base.InitializeEntity(entity, 0);
+            _agent.enabled = true;
 
-        Animator.enabled = true;
+            Hero = (Hero)entity;
 
-        HandleAbilities();
-    }
+            _thirdPersonController = GetComponent<BattleHeroController>();
+            _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
+            Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
 
-    void HandleAbilities()
-    {
-        Hero.OnAbilityAdded += AddAbility;
+            _battleHeroHealthBar = GetComponentInChildren<BattleHeroHealthBar>();
+            _battleHeroHealthBar.Initialize(Hero);
 
-        foreach (Ability a in Hero.Abilities)
-            AddAbility(a);
+            Animator.enabled = true;
 
-    }
+            HandleAbilities();
+        }
+
+        void HandleAbilities()
+        {
+            Hero.OnAbilityAdded += AddAbility;
+
+            foreach (Ability a in Hero.Abilities)
+                AddAbility(a);
+        }
 
 
-    void OnDestroy()
-    {
-        Hero.OnAbilityAdded -= AddAbility;
-    }
+        void OnDestroy()
+        {
+            Hero.OnAbilityAdded -= AddAbility;
+        }
 
-    void AddAbility(Ability ability)
-    {
-        GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab);
-        abilityPrefab.transform.SetParent(transform);
-        abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
-        _battleAbilities.Add(ability, abilityPrefab);
-    }
+        void AddAbility(Ability ability)
+        {
+            GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab);
+            abilityPrefab.transform.SetParent(transform);
+            abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
+            _battleAbilities.Add(ability, abilityPrefab);
+        }
 
-    public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
-    {
-        BaseGetHit(5, default);
-        yield return null;
-    }
+        public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
+        {
+            BaseGetHit(5, default);
+            yield return null;
+        }
 
-    public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
-    {
-        _thirdPersonController.enabled = false;
-        _battleManager.LoseBattle();
+        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        {
+            _thirdPersonController.enabled = false;
+            _battleManager.LoseBattle();
 
-        yield return null;
-    }
+            yield return null;
+        }
 
-    /* OVERRIDES */
-    public override void StartRunEntityCoroutine() { }
-    public override void StopRunEntityCoroutine() { }
-    public override void GetEngaged(BattleEntity engager) { }
+        /* OVERRIDES */
+        public override void StartRunEntityCoroutine()
+        {
+        }
 
-    [ContextMenu("Get Hit")]
-    public void GetHitContextMenu()
-    {
-        BaseGetHit(5, default);
+        public override void StopRunEntityCoroutine()
+        {
+        }
+
+        public override void GetEngaged(BattleEntity engager)
+        {
+        }
+
+        [ContextMenu("Get Hit")]
+        public void GetHitContextMenu()
+        {
+            BaseGetHit(5, default);
+        }
     }
 }

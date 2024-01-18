@@ -1,36 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
 using UnityEngine.UIElements;
-using DG.Tweening;
 
-public class FinishedBattleScreen : FullScreenElement
+namespace Lis
 {
-    const string _ussClassName = "finished-battle-screen__";
-    const string _ussMain = _ussClassName + "main";
-
-    protected VisualElement _mainContainer;
-
-    public FinishedBattleScreen() : base()
+    public class FinishedBattleScreen : FullScreenElement
     {
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
-        if (ss != null) styleSheets.Add(ss);
+        const string _ussClassName = "finished-battle-screen__";
+        const string _ussMain = _ussClassName + "main";
+
+        protected VisualElement _mainContainer;
+
+        public FinishedBattleScreen() : base()
+        {
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
+            if (ss != null) styleSheets.Add(ss);
 
 
-        _mainContainer = new();
-        _mainContainer.AddToClassList(_ussMain);
-        _content.Add(_mainContainer);
+            _mainContainer = new();
+            _mainContainer.AddToClassList(_ussMain);
+            _content.Add(_mainContainer);
 
-        AddTitle();
+            AddTitle();
 
-        _mainContainer.Add(new StatsBattleElement());
-        _mainContainer.Add(new HorizontalSpacerElement());
+            _mainContainer.Add(new StatsBattleElement());
+            _mainContainer.Add(new HorizontalSpacerElement());
 
-        DisableNavigation();
-    }
+            DisableNavigation();
+        }
 
-    protected virtual void AddTitle()
-    {
-        // meant to be overwritten
+        protected virtual void AddTitle()
+        {
+            // meant to be overwritten
+        }
     }
 }

@@ -1,53 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-public class OverlayTimerElement : TimerElement
+namespace Lis
 {
-    const string _ussOverlayMain = _ussClassName + "overlay-main";
-    const string _ussOverlayMask = _ussClassName + "overlay-mask";
-
-    VisualElement _overlayMask;
-
-    public OverlayTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
-        : base(timeLeft, totalTime, isLooping, text)
+    public class OverlayTimerElement : TimerElement
     {
-        AddToClassList(_ussOverlayMain);
+        const string _ussOverlayMain = _ussClassName + "overlay-main";
+        const string _ussOverlayMask = _ussClassName + "overlay-mask";
 
-        _overlayMask = new();
-        _overlayMask.AddToClassList(_ussOverlayMask);
+        VisualElement _overlayMask;
 
-        Insert(0, _overlayMask);
-    }
-
-    public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)
-    {
-        if (mainStyle != null && mainStyle != string.Empty)
+        public OverlayTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
+            : base(timeLeft, totalTime, isLooping, text)
         {
-            ClearClassList();
-            AddToClassList(mainStyle);
-        }
-        if (overlayMaskStyle != null && overlayMaskStyle != string.Empty)
-        {
-            _overlayMask.ClearClassList();
-            _overlayMask.AddToClassList(overlayMaskStyle);
+            AddToClassList(_ussOverlayMain);
+
+            _overlayMask = new();
+            _overlayMask.AddToClassList(_ussOverlayMask);
+
+            Insert(0, _overlayMask);
         }
 
-        if (labelWrapperStyles != null || labelWrapperStyles != string.Empty)
+        public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)
         {
-            _labelWrapper.ClearClassList();
-            _labelWrapper.AddToClassList(labelWrapperStyles);
+            if (mainStyle != null && mainStyle != string.Empty)
+            {
+                ClearClassList();
+                AddToClassList(mainStyle);
+            }
+            if (overlayMaskStyle != null && overlayMaskStyle != string.Empty)
+            {
+                _overlayMask.ClearClassList();
+                _overlayMask.AddToClassList(overlayMaskStyle);
+            }
+
+            if (labelWrapperStyles != null || labelWrapperStyles != string.Empty)
+            {
+                _labelWrapper.ClearClassList();
+                _labelWrapper.AddToClassList(labelWrapperStyles);
+            }
         }
+
+        protected override void UpdateTimer()
+        {
+            base.UpdateTimer();
+
+            float h = (float)_ticksLeft / (float)_totalTicks * 100;
+            _overlayMask.style.height = Length.Percent(h);
+        }
+
     }
-
-    protected override void UpdateTimer()
-    {
-        base.UpdateTimer();
-
-        float h = (float)_ticksLeft / (float)_totalTicks * 100;
-        _overlayMask.style.height = Length.Percent(h);
-    }
-
 }
 

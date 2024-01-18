@@ -1,31 +1,33 @@
 using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 
-public class BattleCreatureMelee : BattleCreature
+namespace Lis
 {
-    GameObject _hitInstance;
-
-    protected override IEnumerator PathToOpponent()
+    public class BattleCreatureMelee : BattleCreature
     {
-        yield return base.PathToOpponent();
-        Opponent.GetEngaged(this); // otherwise, creature can't catch up
-    }
+        GameObject _hitInstance;
 
-    protected override IEnumerator Attack()
-    {
-        yield return base.Attack();
+        protected override IEnumerator PathToOpponent()
+        {
+            yield return base.PathToOpponent();
+            Opponent.GetEngaged(this); // otherwise, creature can't catch up
+        }
 
-        Quaternion q = Quaternion.Euler(0, -90, 0);
-        _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
-        _hitInstance.transform.SetParent(_battleManager.EntityHolder);
+        protected override IEnumerator Attack()
+        {
+            yield return base.Attack();
+
+            Quaternion q = Quaternion.Euler(0, -90, 0);
+            _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
+            _hitInstance.transform.SetParent(_battleManager.EntityHolder);
         
-        yield return Opponent.GetHit(Creature);
-        Invoke(nameof(DestroyHitInstance), 2f);
-    }
+            yield return Opponent.GetHit(Creature);
+            Invoke(nameof(DestroyHitInstance), 2f);
+        }
 
-    void DestroyHitInstance()
-    {
-        Destroy(_hitInstance);
+        void DestroyHitInstance()
+        {
+            Destroy(_hitInstance);
+        }
     }
 }

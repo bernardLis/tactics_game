@@ -1,21 +1,24 @@
-using UnityEngine.UIElements;
 using System;
+using UnityEngine.UIElements;
 
-public class ButtonWithTooltip : ElementWithTooltip
+namespace Lis
 {
-    string _tooltipText;
-
-    public ButtonWithTooltip(string className, string tooltipText, Action callback) : base()
+    public class ButtonWithTooltip : ElementWithTooltip
     {
-        _tooltipText = tooltipText;
-        MyButton button = new MyButton(null, className, callback);
-        Add(button);
-    }
+        string _tooltipText;
 
-    protected override void DisplayTooltip()
-    {
-        _tooltip = new(this, new Label(_tooltipText));
-        base.DisplayTooltip();
-    }
+        public ButtonWithTooltip(string className, string tooltipText, Action callback) : base()
+        {
+            _tooltipText = tooltipText;
+            MyButton button = new MyButton(null, className, callback);
+            Add(button);
+        }
 
+        protected override void DisplayTooltip()
+        {
+            _tooltip = new(this, new Label(_tooltipText));
+            base.DisplayTooltip();
+        }
+
+    }
 }

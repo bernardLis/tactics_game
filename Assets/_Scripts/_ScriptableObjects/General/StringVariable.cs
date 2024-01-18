@@ -1,15 +1,18 @@
 ﻿
 using UnityEngine;
 
-[CreateAssetMenu]
-public class StringVariable : ScriptableObject
+namespace Lis
 {
-    [SerializeField]
-    private string value = "";
-
-    public string Value
+    [CreateAssetMenu]
+    public class StringVariable : ScriptableObject
     {
-        get { return value; }
-        set { this.value = value; }
+        [SerializeField]
+        private string value = "";
+
+        public string Value
+        {
+            get { return value; }
+            set { this.value = value; }
+        }
     }
 }

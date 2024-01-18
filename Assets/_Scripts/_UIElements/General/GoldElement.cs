@@ -1,72 +1,72 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+
 using DG.Tweening;
+using UnityEngine.UIElements;
 
-public class GoldElement : ChangingValueElement
+namespace Lis
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-
-    const string _ussClassName = "gold-element__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussIcon = _ussClassName + "icon";
-    const string _ussValue = _ussClassName + "value";
-
-    GameManager _gameManager;
-    VisualElement _icon;
-
-    Tween _shakeTween;
-
-    public GoldElement(int amount)
+    public class GoldElement : ChangingValueElement
     {
-        _gameManager = GameManager.Instance;
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GoldElementStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        const string _ussClassName = "gold-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussValue = _ussClassName + "value";
 
-        Amount = 0;
+        GameManager _gameManager;
+        VisualElement _icon;
 
-        AddToClassList(_ussMain);
+        Tween _shakeTween;
 
-        _icon = new();
-        _icon.AddToClassList(_ussIcon);
-        _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(amount));
-        Add(_icon);
+        public GoldElement(int amount)
+        {
+            _gameManager = GameManager.Instance;
 
-        _text = new();
-        _text.AddToClassList(_ussCommonTextPrimary);
-        _text.AddToClassList(_ussValue);
-        _text.text = Amount.ToString();
-        Add(_text);
+            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            if (commonStyles != null)
+                styleSheets.Add(commonStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GoldElementStyles);
+            if (ss != null)
+                styleSheets.Add(ss);
 
-        ChangeAmount(amount);
-    }
+            Amount = 0;
 
-    public void MakeItBig()
-    {
-        _icon.style.width = 50;
-        _icon.style.height = 50;
-        _text.style.fontSize = 32;
-    }
+            AddToClassList(_ussMain);
 
-    public override void ChangeAmount(int newValue)
-    {
-        base.ChangeAmount(newValue);
-        if (_shakeTween.IsActive()) return;
+            _icon = new();
+            _icon.AddToClassList(_ussIcon);
+            _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(amount));
+            Add(_icon);
 
-        _shakeTween = DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x, 0.5f, 5f)
-                  .SetUpdate(true);
-    }
+            _text = new();
+            _text.AddToClassList(_ussCommonTextPrimary);
+            _text.AddToClassList(_ussValue);
+            _text.text = Amount.ToString();
+            Add(_text);
 
-    protected override void NumberAnimation()
-    {
-        base.NumberAnimation();
-        _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(_currentlyDisplayedAmount));
+            ChangeAmount(amount);
+        }
+
+        public void MakeItBig()
+        {
+            _icon.style.width = 50;
+            _icon.style.height = 50;
+            _text.style.fontSize = 32;
+        }
+
+        public override void ChangeAmount(int newValue)
+        {
+            base.ChangeAmount(newValue);
+            if (_shakeTween.IsActive()) return;
+
+            _shakeTween = DOTween.Shake(() => _icon.transform.position, x => _icon.transform.position = x, 0.5f, 5f)
+                .SetUpdate(true);
+        }
+
+        protected override void NumberAnimation()
+        {
+            base.NumberAnimation();
+            _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(_currentlyDisplayedAmount));
+        }
     }
 }

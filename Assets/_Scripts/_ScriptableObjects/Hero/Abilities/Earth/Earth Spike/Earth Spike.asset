@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f6da12f3-714f-46a5-8722-cd35a2fdf6ba
   DeveloperComment: 
-  Description: Spike Spike!
-  Icon: {fileID: 21300000, guid: a643baba0305747478cb47282834cf7b, type: 3}
+  Description: Danger ground carpet
+  Icon: {fileID: 21300000, guid: 0d8af203443f02245ac99462d94d843b, type: 3}
   Level: 0
   Levels:
   - {fileID: 11400000, guid: b47aa1ff3949deb4e99b0c622d28fa39, type: 2}

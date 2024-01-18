@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
-public class UpgradeManager : MonoBehaviour
+namespace Lis
 {
-
-    public void ShowUpgradeMenu()
+    public class UpgradeManager : MonoBehaviour
     {
-        new UpgradeScreen(GameManager.Instance.UpgradeBoard);
+
+        public void ShowUpgradeMenu()
+        {
+            new UpgradeScreen(GameManager.Instance.UpgradeBoard);
+        }
     }
 }

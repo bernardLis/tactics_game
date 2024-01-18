@@ -1,20 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleBossAttackRandom : BattleBossAttack
+namespace Lis
 {
-
-    public override IEnumerator Attack(int difficulty)
+    public class BattleBossAttackRandom : BattleBossAttack
     {
-        int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
 
-        float waitTime = _attack.TotalAttackDuration / total;
-        for (int i = 0; i < total; i++)
+        public override IEnumerator Attack(int difficulty)
         {
-            Vector3 dir = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward;
-            SpawnProjectile(dir);
-            yield return new WaitForSeconds(waitTime);
+            int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
+
+            float waitTime = _attack.TotalAttackDuration / total;
+            for (int i = 0; i < total; i++)
+            {
+                Vector3 dir = Quaternion.Euler(0, Random.Range(0, 360), 0) * Vector3.forward;
+                SpawnProjectile(dir);
+                yield return new WaitForSeconds(waitTime);
+            }
         }
     }
 }

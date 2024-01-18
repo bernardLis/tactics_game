@@ -1,15 +1,18 @@
-public static class Scenes
+namespace Lis
 {
-    public static string MainMenu
+    public static class Scenes
     {
-        get { return "Main Menu"; }
-        private set { }
-    }
+        public static string MainMenu
+        {
+            get { return "Main Menu"; }
+            private set { }
+        }
 
-    public static string Battle
-    {
-        get { return "Battle"; }
-        private set { }
-    }
+        public static string Battle
+        {
+            get { return "Battle"; }
+            private set { }
+        }
 
+    }
 }

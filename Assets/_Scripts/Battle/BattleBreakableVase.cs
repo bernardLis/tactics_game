@@ -1,77 +1,79 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleBreakableVase : MonoBehaviour
+namespace Lis
 {
-    BattlePickupManager _battlePickupManager;
-
-    bool _isBroken;
-    [SerializeField] GameObject _breakParticles;
-    [SerializeField] Transform _originalVase;
-
-    Collider _collider;
-    Rigidbody _rigidbody;
-
-    public event Action OnBroken;
-    void Awake()
+    public class BattleBreakableVase : MonoBehaviour
     {
-        _collider = GetComponent<Collider>();
-        _rigidbody = GetComponent<Rigidbody>();
+        BattlePickupManager _battlePickupManager;
 
-        _battlePickupManager = BattleManager.Instance.GetComponent<BattlePickupManager>();
-    }
+        bool _isBroken;
+        [SerializeField] GameObject _breakParticles;
+        [SerializeField] Transform _originalVase;
 
-    public void Initialize(Vector3 position)
-    {
-        if (_breakParticles != null)
-            _breakParticles.SetActive(false);
+        Collider _collider;
+        Rigidbody _rigidbody;
 
-        transform.position = position;
-        transform.localScale = Vector3.zero;
-        _isBroken = false;
-        _collider.enabled = true;
-        _rigidbody.isKinematic = false;
+        public event Action OnBroken;
+        void Awake()
+        {
+            _collider = GetComponent<Collider>();
+            _rigidbody = GetComponent<Rigidbody>();
 
-        gameObject.SetActive(true);
-        _originalVase.gameObject.SetActive(true);
+            _battlePickupManager = BattleManager.Instance.GetComponent<BattlePickupManager>();
+        }
 
-        transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
-    }
+        public void Initialize(Vector3 position)
+        {
+            if (_breakParticles != null)
+                _breakParticles.SetActive(false);
 
-    void OnMouseDown()
-    {
-        TriggerBreak();
-    }
+            transform.position = position;
+            transform.localScale = Vector3.zero;
+            _isBroken = false;
+            _collider.enabled = true;
+            _rigidbody.isKinematic = false;
 
-    public void TriggerBreak()
-    {
-        StartCoroutine(BreakObject());
-    }
+            gameObject.SetActive(true);
+            _originalVase.gameObject.SetActive(true);
 
-    IEnumerator BreakObject()
-    {
-        // TODO: play audio
+            transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+        }
 
-        if (_isBroken) yield break;
-        _isBroken = true;
+        void OnMouseDown()
+        {
+            TriggerBreak();
+        }
 
-        _collider.enabled = false;
-        _rigidbody.isKinematic = true;
+        public void TriggerBreak()
+        {
+            StartCoroutine(BreakObject());
+        }
 
-        if (_breakParticles != null)
-            _breakParticles.SetActive(true);
+        IEnumerator BreakObject()
+        {
+            // TODO: play audio
 
-        _originalVase.gameObject.SetActive(false);
-        // HERE: no pickups
-        // _battlePickupManager.SpawnPickup(transform.position);
+            if (_isBroken) yield break;
+            _isBroken = true;
 
-        OnBroken?.Invoke();
+            _collider.enabled = false;
+            _rigidbody.isKinematic = true;
 
-        yield return new WaitForSeconds(5f);
-        gameObject.SetActive(false);
+            if (_breakParticles != null)
+                _breakParticles.SetActive(true);
+
+            _originalVase.gameObject.SetActive(false);
+            // HERE: no pickups
+            // _battlePickupManager.SpawnPickup(transform.position);
+
+            OnBroken?.Invoke();
+
+            yield return new WaitForSeconds(5f);
+            gameObject.SetActive(false);
+        }
     }
 }

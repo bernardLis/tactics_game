@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleCloudRotation : MonoBehaviour
+namespace Lis
 {
-    void Start()
+    public class BattleCloudRotation : MonoBehaviour
     {
-        transform.DORotate(new Vector3(0, 360, 0), 240f, RotateMode.FastBeyond360)
-                 .SetLoops(-1);
-    }
+        void Start()
+        {
+            transform.DORotate(new Vector3(0, 360, 0), 240f, RotateMode.FastBeyond360)
+                .SetLoops(-1);
+        }
 
+    }
 }

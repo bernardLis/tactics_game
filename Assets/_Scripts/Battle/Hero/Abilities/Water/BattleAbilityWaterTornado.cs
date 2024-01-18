@@ -1,27 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class BattleAbilityWaterTornado : BattleAbility
+namespace Lis
 {
-
-    public override void Initialize(Ability ability, bool startAbility = true)
+    public class BattleAbilityWaterTornado : BattleAbility
     {
-        base.Initialize(ability, startAbility);
-        transform.localPosition = new Vector3(0.5f, 1f, 0f);
-    }
 
-    protected override IEnumerator ExecuteAbilityCoroutine()
-    {
-        yield return base.ExecuteAbilityCoroutine();
-
-        for (int i = 0; i < _ability.GetAmount(); i++)
+        public override void Initialize(Ability ability, bool startAbility = true)
         {
-            Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
-                            Random.Range(7, 14));
-            BattleWaterTornado tornado = GetInactiveAbilityObject() as BattleWaterTornado;
-            tornado.Execute(pos, Quaternion.identity);
-            yield return new WaitForSeconds(0.1f);
+            base.Initialize(ability, startAbility);
+            transform.localPosition = new Vector3(0.5f, 1f, 0f);
+        }
+
+        protected override IEnumerator ExecuteAbilityCoroutine()
+        {
+            yield return base.ExecuteAbilityCoroutine();
+
+            for (int i = 0; i < _ability.GetAmount(); i++)
+            {
+                Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
+                    Random.Range(7, 14));
+                BattleWaterTornado tornado = GetInactiveAbilityObject() as BattleWaterTornado;
+                tornado.Execute(pos, Quaternion.identity);
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 }

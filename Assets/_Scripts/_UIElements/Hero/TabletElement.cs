@@ -1,72 +1,74 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
+
+
 using UnityEngine.UIElements;
 
-public class TabletElement : ElementWithTooltip
+namespace Lis
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonButtonBasic = "common__button-basic";
-
-    const string _ussClassName = "tablet-element__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussIcon = _ussClassName + "icon";
-    const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
-    const string _ussLevelDotFull = _ussClassName + "level-dot-full";
-
-    VisualElement _icon;
-
-    public Tablet Tablet;
-
-    public TabletElement(Tablet tablet, bool showLevel = false) : base()
+    public class TabletElement : ElementWithTooltip
     {
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TabletElementStyles);
-        if (ss != null) styleSheets.Add(ss);
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonButtonBasic = "common__button-basic";
 
-        Tablet = tablet;
+        const string _ussClassName = "tablet-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussDotContainer = _ussClassName + "dot-container";
+        const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
+        const string _ussLevelDotFull = _ussClassName + "level-dot-full";
+    
+        public Tablet Tablet;
 
-        AddToClassList(_ussMain);
-        AddToClassList(_ussCommonTextPrimary);
-        AddToClassList(_ussCommonButtonBasic);
-
-        _icon = new();
-        _icon.AddToClassList(_ussIcon);
-        _icon.style.backgroundImage = tablet.Icon.texture;
-        Add(_icon);
-
-        if (showLevel) AddLevelUpDots();
-    }
-
-    void AddLevelUpDots()
-    {
-        VisualElement dotContainer = new();
-        dotContainer.style.flexDirection = FlexDirection.Row;
-        dotContainer.style.position = Position.Absolute;
-        dotContainer.style.top = Length.Percent(15);
-        Add(dotContainer);
-        List<VisualElement> dots = new();
-        for (int i = 0; i < Tablet.MaxLevel; i++)
+        public TabletElement(Tablet tablet, bool showLevel = false) : base()
         {
-            VisualElement dot = new();
-            dot.AddToClassList(_ussLevelDotEmpty);
-            dots.Add(dot);
-            dotContainer.Add(dot);
+            var ss = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.TabletElementStyles);
+            if (ss != null) styleSheets.Add(ss);
+
+            Tablet = tablet;
+
+            AddToClassList(_ussMain);
+            AddToClassList(_ussCommonTextPrimary);
+            AddToClassList(_ussCommonButtonBasic);
+
+            VisualElement icon = new();
+            icon.AddToClassList(_ussIcon);
+            icon.style.backgroundImage = tablet.Icon.texture;
+            Add(icon);
+
+            if (showLevel) AddLevelUpDots();
         }
 
-        for (int i = 0; i < Tablet.Level.Value; i++)
-            dots[i].AddToClassList(_ussLevelDotFull);
-
-        Tablet.OnLevelUp += () =>
+        void AddLevelUpDots()
         {
+            VisualElement dotContainer = new();
+            dotContainer.AddToClassList(_ussDotContainer);
+            Add(dotContainer);
+            List<VisualElement> dots = new();
+            for (int i = 0; i < Tablet.MaxLevel; i++)
+            {
+                VisualElement dot = new();
+                dot.AddToClassList(_ussLevelDotEmpty);
+                dots.Add(dot);
+                dotContainer.Add(dot);
+            }
+
             for (int i = 0; i < Tablet.Level.Value; i++)
                 dots[i].AddToClassList(_ussLevelDotFull);
-        };
-    }
 
-    protected override void DisplayTooltip()
-    {
-        TabletTooltipElement tooltip = new(Tablet);
-        _tooltip = new(this, tooltip);
-        base.DisplayTooltip();
+            Tablet.OnLevelUp += () =>
+            {
+                for (int i = 0; i < Tablet.Level.Value; i++)
+                    dots[i].AddToClassList(_ussLevelDotFull);
+            };
+        }
+
+        protected override void DisplayTooltip()
+        {
+            TabletTooltipElement tt = new(Tablet);
+            _tooltip = new(this, tt);
+            base.DisplayTooltip();
+        }
     }
 }

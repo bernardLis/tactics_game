@@ -1,24 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class BattleProjectileSplash : BattleProjectile
+namespace Lis
 {
-    [SerializeField] float _splashRadius = 3f;
-    protected override void HitTarget(BattleEntity target)
+    public class BattleProjectileSplash : BattleProjectile
     {
-        Collider[] colliders = Physics.OverlapSphere(target.Collider.bounds.center, _splashRadius);
-        foreach (Collider collider in colliders)
+        [SerializeField] float _splashRadius = 3f;
+        protected override void HitTarget(BattleEntity target)
         {
-            if (collider.TryGetComponent(out BattleEntity entity))
+            Collider[] colliders = Physics.OverlapSphere(target.Collider.bounds.center, _splashRadius);
+            foreach (Collider collider in colliders)
             {
-                if (entity.Team == _shooter.Team) continue; // splash damage is player friendly
-                if (entity.IsDead) continue;
+                if (collider.TryGetComponent(out BattleEntity entity))
+                {
+                    if (entity.Team == _shooter.Team) continue; // splash damage is player friendly
+                    if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(_shooter));
+                    StartCoroutine(entity.GetHit(_shooter));
+                }
             }
+            StartCoroutine(Explode(transform.position));
         }
-        StartCoroutine(Explode(transform.position));
-    }
 
+    }
 }

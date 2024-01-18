@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(menuName = "ScriptableObject/Hero/Ability Level")]
-public class AbilityLevel : BaseScriptableObject
+namespace Lis
 {
-    public int Level;
+    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Ability Level")]
+    public class AbilityLevel : BaseScriptableObject
+    {
+        public int Level;
 
-    public float Power;
-    public float Cooldown;
-    public float Scale;
-    public int Amount;
-    public float Duration;
+        public float Power;
+        public float Cooldown;
+        public float Scale;
+        public int Amount;
+        public float Duration;
 
 
+    }
 }

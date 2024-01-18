@@ -1,77 +1,78 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using UnityEngine.UIElements;
 
-public class ConfirmPopUp : VisualElement
+namespace Lis
 {
-
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonMenuButton = "common__menu-button";
-
-    const string _ussClassName = "confirm-popup__";
-    const string _ussMain = _ussClassName + "main";
-    const string _ussText = _ussClassName + "text";
-    const string _ussButtonContainer = _ussClassName + "button-container";
-
-    GameManager _gameManager;
-    VisualElement _root;
-
-    MyButton _confirmButton;
-    MyButton _cancelButton;
-
-    public void Initialize(VisualElement root, Action callback, string displayText = null)
+    public class ConfirmPopUp : VisualElement
     {
-        _gameManager = GameManager.Instance;
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ConfirmPopupStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
 
-        _root = root;
-        root.Add(this);
-        AddToClassList(_ussMain);
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonMenuButton = "common__menu-button";
 
-        if (displayText == null)
-            displayText = "Are you sure?";
+        const string _ussClassName = "confirm-popup__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussText = _ussClassName + "text";
+        const string _ussButtonContainer = _ussClassName + "button-container";
 
-        Label confirm = new Label(displayText);
-        confirm.AddToClassList(_ussText);
-        confirm.AddToClassList(_ussCommonTextPrimary);
-        Add(confirm);
-        AddButtons(callback);
-    }
+        GameManager _gameManager;
+        VisualElement _root;
 
-    void AddButtons(Action callback)
-    {
-        VisualElement container = new VisualElement();
-        container.AddToClassList(_ussButtonContainer);
-        Add(container);
+        MyButton _confirmButton;
+        MyButton _cancelButton;
 
-        _confirmButton = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
-        container.Add(_confirmButton);
-        _confirmButton.clickable.clicked += Hide;
+        public void Initialize(VisualElement root, Action callback, string displayText = null)
+        {
+            _gameManager = GameManager.Instance;
+            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            if (commonStyles != null)
+                styleSheets.Add(commonStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ConfirmPopupStyles);
+            if (ss != null)
+                styleSheets.Add(ss);
 
-        VisualElement spacer = new VisualElement();
-        spacer.style.width = 50;
-        container.Add(spacer);
+            _root = root;
+            root.Add(this);
+            AddToClassList(_ussMain);
 
-        _cancelButton = new MyButton("Cancel!@!", _ussCommonMenuButton, Hide);
-        container.Add(_cancelButton);
-    }
+            if (displayText == null)
+                displayText = "Are you sure?";
 
-    public void HideCancelButton()
-    {
-        _cancelButton.style.display = DisplayStyle.None;
-    }
+            Label confirm = new Label(displayText);
+            confirm.AddToClassList(_ussText);
+            confirm.AddToClassList(_ussCommonTextPrimary);
+            Add(confirm);
+            AddButtons(callback);
+        }
 
-    void Hide()
-    {
-        this.SetEnabled(false);
-        _root.Remove(this);
+        void AddButtons(Action callback)
+        {
+            VisualElement container = new VisualElement();
+            container.AddToClassList(_ussButtonContainer);
+            Add(container);
+
+            _confirmButton = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
+            container.Add(_confirmButton);
+            _confirmButton.clickable.clicked += Hide;
+
+            VisualElement spacer = new VisualElement();
+            spacer.style.width = 50;
+            container.Add(spacer);
+
+            _cancelButton = new MyButton("Cancel!@!", _ussCommonMenuButton, Hide);
+            container.Add(_cancelButton);
+        }
+
+        public void HideCancelButton()
+        {
+            _cancelButton.style.display = DisplayStyle.None;
+        }
+
+        void Hide()
+        {
+            this.SetEnabled(false);
+            _root.Remove(this);
+        }
     }
 }
 

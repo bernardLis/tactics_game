@@ -1,44 +1,44 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using UnityEngine.UIElements;
 
-public class BattleInitializer : MonoBehaviour
+namespace Lis
 {
-    GameManager _gameManager;
-
-    void Start()
+    public class BattleInitializer : MonoBehaviour
     {
-        _gameManager = GameManager.Instance;
+        GameManager _gameManager;
 
-        Hero newChar = ScriptableObject.CreateInstance<Hero>();
-        newChar.CreateHero("HERO", _gameManager.EntityDatabase.GetRandomElement());
+        void Start()
+        {
+            _gameManager = GameManager.Instance;
 
-        Battle battle = ScriptableObject.CreateInstance<Battle>();
-        battle.CreateRandom(1);
-        _gameManager.CurrentBattle = battle;
+            Hero newChar = ScriptableObject.CreateInstance<Hero>();
+            newChar.CreateHero("HERO", _gameManager.EntityDatabase.GetRandomElement());
 
-        StartCoroutine(DelayedStart(newChar));
-    }
+            Battle battle = ScriptableObject.CreateInstance<Battle>();
+            battle.CreateRandom(1);
+            _gameManager.CurrentBattle = battle;
 
-    IEnumerator DelayedStart(Hero h)
-    {
-        yield return new WaitForSeconds(0.5f);
-        GetComponent<BattleAreaManager>().Initialize();
+            StartCoroutine(DelayedStart(newChar));
+        }
 
-        yield return new WaitForSeconds(2.5f);
+        IEnumerator DelayedStart(Hero h)
+        {
+            yield return new WaitForSeconds(0.5f);
+            GetComponent<BattleAreaManager>().Initialize();
 
-        GetComponent<BattleManager>().Initialize(h);
-        GetComponent<BattleGrabManager>().Initialize();
+            yield return new WaitForSeconds(2.5f);
 
-        yield return new WaitForSeconds(1f);
+            GetComponent<BattleManager>().Initialize(h);
+            GetComponent<BattleGrabManager>().Initialize();
 
-        GetComponent<BattleTooltipManager>().Initialize();
-        GetComponent<BattleMinionManager>().Initialize();
-        GetComponent<BattleVaseManager>().Initialize();
-        GetComponent<BattlePickupManager>().Initialize();
-        GetComponent<BattleProjectileManager>().Initialize();
-        GetComponent<BattleBossManager>().Initialize();
+            yield return new WaitForSeconds(1f);
+
+            GetComponent<BattleTooltipManager>().Initialize();
+            GetComponent<BattleMinionManager>().Initialize();
+            GetComponent<BattleVaseManager>().Initialize();
+            GetComponent<BattlePickupManager>().Initialize();
+            GetComponent<BattleProjectileManager>().Initialize();
+            GetComponent<BattleBossManager>().Initialize();
+        }
     }
 }

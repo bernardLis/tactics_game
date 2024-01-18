@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: c9f540d2-7cb4-4e93-abb0-ab07243f9d12
   DeveloperComment: cooldown can't be lower than duration
-  Description: brezzy
-  Icon: {fileID: 21300000, guid: 38093eefa189a104b9157acbc6a1b805, type: 3}
+  Description: Deals damage in expanding area
+  Icon: {fileID: 21300000, guid: 4b9c0bf94258dd348961ba49e3f6abeb, type: 3}
   Level: 0
   Levels:
   - {fileID: 11400000, guid: fbd193ffbaf59f648949cfdf62970785, type: 2}

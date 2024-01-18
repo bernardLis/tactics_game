@@ -1,38 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
-public class Snakelet : BattleCreatureMelee
+namespace Lis
 {
-
-    [SerializeField] GameObject _abilityHit;
-    GameObject _abilityHitInstance;
-
-    protected override IEnumerator Attack()
+    public class Snakelet : BattleCreatureMelee
     {
-        yield return ManageCreatureAbility();
-        yield return base.Attack();
-    }
 
-    protected override IEnumerator CreatureAbility()
-    {
-        if (!IsOpponentInRange()) yield break;
+        [SerializeField] GameObject _abilityHit;
+        GameObject _abilityHitInstance;
 
-        yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
-        yield return base.CreatureAbility();
-        _currentAttackCooldown = Creature.AttackCooldown.GetValue();
+        protected override IEnumerator Attack()
+        {
+            yield return ManageCreatureAbility();
+            yield return base.Attack();
+        }
 
-        _abilityHitInstance = Instantiate(_abilityHit, Opponent.transform.position, Quaternion.identity);
-        _abilityHitInstance.transform.parent = Opponent.transform;
-        StartCoroutine(Opponent.GetPoisoned(this));
+        protected override IEnumerator CreatureAbility()
+        {
+            if (!IsOpponentInRange()) yield break;
 
-        Invoke(nameof(CleanUp), 2f);
-    }
+            yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
+            yield return base.CreatureAbility();
+            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-    void CleanUp()
-    {
-        if (_abilityHitInstance != null)
-            Destroy(_abilityHitInstance);
+            _abilityHitInstance = Instantiate(_abilityHit, Opponent.transform.position, Quaternion.identity);
+            _abilityHitInstance.transform.parent = Opponent.transform;
+            StartCoroutine(Opponent.GetPoisoned(this));
+
+            Invoke(nameof(CleanUp), 2f);
+        }
+
+        void CleanUp()
+        {
+            if (_abilityHitInstance != null)
+                Destroy(_abilityHitInstance);
+        }
     }
 }

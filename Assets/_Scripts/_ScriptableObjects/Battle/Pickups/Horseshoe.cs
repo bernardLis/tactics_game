@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Hero/Horseshoe")]
-public class Horseshoe : Pickup
+namespace Lis
 {
-    public override void Collected(Hero hero)
+    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Horseshoe")]
+    public class Horseshoe : Pickup
     {
-        BattleManager.Instance.GetComponent<BattlePickupManager>().HorseshoeCollected();
+        public override void Collected(Hero hero)
+        {
+            BattleManager.Instance.GetComponent<BattlePickupManager>().HorseshoeCollected();
+        }
     }
 }

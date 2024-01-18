@@ -1,108 +1,110 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 using DG.Tweening;
+using UnityEngine;
 
-public class ObjectShaders : MonoBehaviour
+namespace Lis
 {
-    GameManager _gameManager;
-
-    Shader _litShader;
-    Shader _particlesUnlitShader;
-
-    Shader _dissolveShader;
-    Shader _grayScaleShader;
-    Shader _sepiaToneShader;
-
-
-    void Start()
+    public class ObjectShaders : MonoBehaviour
     {
-        _gameManager = GameManager.Instance;
-    }
+        GameManager _gameManager;
 
-    public void LitShader()
-    {
-        if (_litShader == null)
-            _litShader = GameManager.Instance.GameDatabase.LitShader;
-        if (_particlesUnlitShader == null)
-            _particlesUnlitShader = GameManager.Instance.GameDatabase.ParticlesUnlitShader;
+        Shader _litShader;
+        Shader _particlesUnlitShader;
 
-        List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
-        foreach (Renderer r in renderers)
+        Shader _dissolveShader;
+        Shader _grayScaleShader;
+        Shader _sepiaToneShader;
+
+
+        void Start()
         {
-            Material mat = r.material;
+            _gameManager = GameManager.Instance;
+        }
+
+        public void LitShader()
+        {
+            if (_litShader == null)
+                _litShader = GameManager.Instance.GameDatabase.LitShader;
+            if (_particlesUnlitShader == null)
+                _particlesUnlitShader = GameManager.Instance.GameDatabase.ParticlesUnlitShader;
+
+            List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+            foreach (Renderer r in renderers)
+            {
+                Material mat = r.material;
             
-            if (_gameManager == null) _gameManager = GameManager.Instance;
-            if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
+                if (_gameManager == null) _gameManager = GameManager.Instance;
+                if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
 
-            Texture2D tex = mat.mainTexture as Texture2D;
-            mat.shader = _litShader;
-            mat.SetTexture("_Base_Texture", tex);
+                Texture2D tex = mat.mainTexture as Texture2D;
+                mat.shader = _litShader;
+                mat.SetTexture("_Base_Texture", tex);
 
-            if (r.GetComponent<ParticleSystem>() != null)
-                mat.shader = _particlesUnlitShader;
+                if (r.GetComponent<ParticleSystem>() != null)
+                    mat.shader = _particlesUnlitShader;
 
+            }
         }
-    }
 
-    public void GrayScale()
-    {
-        if (_grayScaleShader == null)
-            _grayScaleShader = GameManager.Instance.GameDatabase.GrayScaleShader;
-
-        List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
-        foreach (Renderer r in renderers)
+        public void GrayScale()
         {
-            if (r is SpriteRenderer) continue;
-            if (r is ParticleSystemRenderer) continue;
+            if (_grayScaleShader == null)
+                _grayScaleShader = GameManager.Instance.GameDatabase.GrayScaleShader;
 
-            Material mat = r.material;
+            List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+            foreach (Renderer r in renderers)
+            {
+                if (r is SpriteRenderer) continue;
+                if (r is ParticleSystemRenderer) continue;
 
-            if (_gameManager == null) _gameManager = GameManager.Instance;
-            if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
+                Material mat = r.material;
 
-            Texture2D tex = mat.mainTexture as Texture2D;
-            mat.shader = _grayScaleShader;
-            mat.SetTexture("_Base_Texture", tex);
+                if (_gameManager == null) _gameManager = GameManager.Instance;
+                if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
+
+                Texture2D tex = mat.mainTexture as Texture2D;
+                mat.shader = _grayScaleShader;
+                mat.SetTexture("_Base_Texture", tex);
+            }
         }
-    }
 
-    public void Dissolve(float time, bool isReverse)
-    {
-        if (_dissolveShader == null)
-            _dissolveShader = GameManager.Instance.GameDatabase.DissolveShader;
-
-        // btw. if you think about resetting shaders, it looks awful. 
-        // Maybe if you came up with a way to transition from shader to shader it would make sense  
-        List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
-        foreach (Renderer r in renderers)
+        public void Dissolve(float time, bool isReverse)
         {
-            if (r is SpriteRenderer) continue;
-            if (r is ParticleSystemRenderer) continue;
+            if (_dissolveShader == null)
+                _dissolveShader = GameManager.Instance.GameDatabase.DissolveShader;
 
-            Material mat = r.material;
+            // btw. if you think about resetting shaders, it looks awful. 
+            // Maybe if you came up with a way to transition from shader to shader it would make sense  
+            List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
+            foreach (Renderer r in renderers)
+            {
+                if (r is SpriteRenderer) continue;
+                if (r is ParticleSystemRenderer) continue;
 
-            if (_gameManager == null) _gameManager = GameManager.Instance;
-            if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
+                Material mat = r.material;
 
-            Vector2 texScale = mat.mainTextureScale; // tiling
-            Texture2D tex = mat.mainTexture as Texture2D;
-            Texture2D metallicMap = null;
-            if (mat.HasProperty("_MetallicGlossMap"))
-                metallicMap = mat.GetTexture("_MetallicGlossMap") as Texture2D;
+                if (_gameManager == null) _gameManager = GameManager.Instance;
+                if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
 
-            mat.shader = _dissolveShader;
-            mat.SetTexture("_Base_Texture", tex);
-            if (metallicMap != null)
-                mat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
-            mat.SetVector("_Tiling", texScale);
+                Vector2 texScale = mat.mainTextureScale; // tiling
+                Texture2D tex = mat.mainTexture as Texture2D;
+                Texture2D metallicMap = null;
+                if (mat.HasProperty("_MetallicGlossMap"))
+                    metallicMap = mat.GetTexture("_MetallicGlossMap") as Texture2D;
 
-            float startValue = isReverse ? 1f : 0f;
-            float endValue = isReverse ? 0f : 1f;
+                mat.shader = _dissolveShader;
+                mat.SetTexture("_Base_Texture", tex);
+                if (metallicMap != null)
+                    mat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
+                mat.SetVector("_Tiling", texScale);
 
-            mat.SetFloat("_Dissolve", startValue);
-            DOTween.To(x => mat.SetFloat("_Dissolve", x), startValue, endValue, time);
+                float startValue = isReverse ? 1f : 0f;
+                float endValue = isReverse ? 0f : 1f;
+
+                mat.SetFloat("_Dissolve", startValue);
+                DOTween.To(x => mat.SetFloat("_Dissolve", x), startValue, endValue, time);
+            }
         }
     }
 }

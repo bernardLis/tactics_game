@@ -1,53 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+
 using DG.Tweening;
+using UnityEngine.UIElements;
 
-public class LockOverlayElement : ElementWithTooltip
+namespace Lis
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussMain = "common__lock-overlay-main";
-    const string _ussLockIcon = "common__lock-overlay-icon";
-    const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
-
-    GameManager _gameManager;
-    AudioManager _audioManager;
-
-    VisualElement _localTooltip;
-    Label _lockIcon;
-
-    public LockOverlayElement(VisualElement tooltip)
+    public class LockOverlayElement : ElementWithTooltip
     {
-        _gameManager = GameManager.Instance;
-        _audioManager = AudioManager.Instance;
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null) styleSheets.Add(commonStyles);
-        AddToClassList(_ussCommonTextPrimary);
-        AddToClassList(_ussMain);
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussMain = "common__lock-overlay-main";
+        const string _ussLockIcon = "common__lock-overlay-icon";
+        const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
 
-        _localTooltip = tooltip;
+        GameManager _gameManager;
+        AudioManager _audioManager;
 
-        _lockIcon = new();
-        _lockIcon.AddToClassList(_ussLockIcon);
-        Add(_lockIcon);
+        VisualElement _localTooltip;
+        Label _lockIcon;
 
-        RegisterCallback<PointerEnterEvent>(ShakeIcon);
-    }
+        public LockOverlayElement(VisualElement tooltip)
+        {
+            _gameManager = GameManager.Instance;
+            _audioManager = AudioManager.Instance;
+            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            if (commonStyles != null) styleSheets.Add(commonStyles);
+            AddToClassList(_ussCommonTextPrimary);
+            AddToClassList(_ussMain);
 
-    void ShakeIcon(PointerEnterEvent evt)
-    {
-        _audioManager.PlayUI("Lock OnHover");
-        DOTween.Shake(() => _lockIcon.transform.position, x => _lockIcon.transform.position = x,
-             0.5f, 10f).SetUpdate(true);
-    }
+            _localTooltip = tooltip;
 
-    public void Unlock()
-    {
-        _audioManager.PlayUI("Lock Unlock");
+            _lockIcon = new();
+            _lockIcon.AddToClassList(_ussLockIcon);
+            Add(_lockIcon);
 
-        DOTween.Shake(
-            () => _lockIcon.transform.position, x => _lockIcon.transform.position = x, 1f, 10f)
+            RegisterCallback<PointerEnterEvent>(ShakeIcon);
+        }
+
+        void ShakeIcon(PointerEnterEvent evt)
+        {
+            _audioManager.PlayUI("Lock OnHover");
+            DOTween.Shake(() => _lockIcon.transform.position, x => _lockIcon.transform.position = x,
+                0.5f, 10f).SetUpdate(true);
+        }
+
+        public void Unlock()
+        {
+            _audioManager.PlayUI("Lock Unlock");
+
+            DOTween.Shake(
+                    () => _lockIcon.transform.position, x => _lockIcon.transform.position = x, 1f, 10f)
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
@@ -55,15 +55,16 @@ public class LockOverlayElement : ElementWithTooltip
                     _lockIcon.AddToClassList(_ussLockIconUnlocked);
 
                     DOTween.To(x => style.opacity = x, 0, 1, 0.5f)
-                            .SetDelay(0.5f)
-                            .SetUpdate(true)
-                            .OnComplete(() => RemoveFromHierarchy());
+                        .SetDelay(0.5f)
+                        .SetUpdate(true)
+                        .OnComplete(() => RemoveFromHierarchy());
                 });
-    }
+        }
 
-    protected override void DisplayTooltip()
-    {
-        _tooltip = new(this, _localTooltip);
-        base.DisplayTooltip();
+        protected override void DisplayTooltip()
+        {
+            _tooltip = new(this, _localTooltip);
+            base.DisplayTooltip();
+        }
     }
 }

@@ -1,113 +1,121 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+
+
+
+
+
+
 using DG.Tweening;
-using Cinemachine;
+using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
-public class BattleHeroManager : MonoBehaviour
+namespace Lis
 {
-    GameManager _gameManager;
-    BattleManager _battleManager;
-    BattleAreaManager _battleAreaManager;
-
-    VisualElement _root;
-    VisualElement _bottomPanel;
-    HeroElement _heroBattleElement;
-
-    [SerializeField] AudioListener _placeholderAudioListener;
-
-    [SerializeField] GameObject _heroPrefab;
-    [HideInInspector] public BattleHero BattleHero;
-    public Hero Hero { get; private set; }
-
-    LevelUpScreen _levelUpScreen;
-
-    public int RewardRerollsAvailable = 0;
-    public void Initialize(Hero hero)
+    public class BattleHeroManager : MonoBehaviour
     {
-        _gameManager = GameManager.Instance;
-        _battleManager = GetComponent<BattleManager>();
-        _battleAreaManager = GetComponent<BattleAreaManager>();
-        _root = GetComponent<UIDocument>().rootVisualElement;
-        _bottomPanel = _root.Q<VisualElement>("bottomPanel");
+        GameManager _gameManager;
+        BattleManager _battleManager;
+        BattleAreaManager _battleAreaManager;
 
-        Hero = hero;
-        hero.InitializeBattle(0);
-        hero.OnLevelUp += OnHeroLevelUp;
+        VisualElement _root;
+        VisualElement _bottomPanel;
+        HeroElement _heroBattleElement;
 
-        BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position + Vector3.up * 10f,
-                                Quaternion.identity).GetComponent<BattleHero>();
+        [SerializeField] AudioListener _placeholderAudioListener;
 
-        BattleHero.OnDeath += (a, b) => _battleManager.LoseBattle();
+        [SerializeField] GameObject _heroPrefab;
+        [HideInInspector] public BattleHero BattleHero;
+        public Hero Hero { get; private set; }
 
-        _placeholderAudioListener.enabled = false;
-        StartCoroutine(MakeHeroFall(hero));
+        LevelUpScreen _levelUpScreen;
 
-        RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
+        public int RewardRerollsAvailable = 0;
+        public void Initialize(Hero hero)
+        {
+            _gameManager = GameManager.Instance;
+            _battleManager = GetComponent<BattleManager>();
+            _battleAreaManager = GetComponent<BattleAreaManager>();
+            _root = GetComponent<UIDocument>().rootVisualElement;
+            _bottomPanel = _root.Q<VisualElement>("bottomPanel");
+
+            Hero = hero;
+            hero.InitializeBattle(0);
+            hero.OnLevelUp += OnHeroLevelUp;
+
+            BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position + Vector3.up * 10f,
+                Quaternion.identity).GetComponent<BattleHero>();
+
+            BattleHero.OnDeath += (a, b) => _battleManager.LoseBattle();
+
+            _placeholderAudioListener.enabled = false;
+            StartCoroutine(MakeHeroFall(hero));
+
+            RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
 
 
-        Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
+            Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
 
 #if UNITY_EDITOR
-        if (_abilityToGive != null)
+            if (_abilityToGive != null)
+            {
+                Hero.AddAbility(_abilityToGive);
+                _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
+            }
+#endif
+        }
+
+        IEnumerator MakeHeroFall(Hero hero)
         {
+            Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
+            heroAnimator.SetBool("FreeFall", true);
+            BattleHero.transform.DOMoveY(0f, 1f);
+            yield return new WaitForSeconds(0.5f);
+            heroAnimator.SetBool("FreeFall", false);
+            heroAnimator.SetBool("Grounded", true);
+
+            BattleHero.InitializeEntity(hero, 0);
+            _battleManager.AddPlayerArmyEntity(BattleHero);
+            _heroBattleElement = new(hero);
+            _bottomPanel.Add(_heroBattleElement);
+            BattleHero.GetComponent<NavMeshAgent>().enabled = true;
+        }
+
+        void OnHeroLevelUp()
+        {
+            _levelUpScreen = new();
+
+            _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
+        }
+
+        void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
+        {
+            _levelUpScreen.Hide();
+            TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
+        }
+
+#if UNITY_EDITOR
+        [SerializeField] Ability _abilityToGive;
+        [SerializeField] List<Ability> _allAbilities = new();
+        int _currentIndex;
+        [ContextMenu("Next Ability")]
+        void NextAbility()
+        {
+            Hero.StopAllAbilities();
+
+            _abilityToGive = _allAbilities[_currentIndex];
+            _currentIndex++;
+            if (_currentIndex >= _allAbilities.Count)
+                _currentIndex = 0;
+            if (Hero.Abilities.Contains(_abilityToGive))
+            {
+                _abilityToGive.StartAbility();
+                return;
+            }
             Hero.AddAbility(_abilityToGive);
-            _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
         }
 #endif
+
     }
-
-    IEnumerator MakeHeroFall(Hero hero)
-    {
-        Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
-        heroAnimator.SetBool("FreeFall", true);
-        BattleHero.transform.DOMoveY(0f, 1f);
-        yield return new WaitForSeconds(0.5f);
-        heroAnimator.SetBool("FreeFall", false);
-        heroAnimator.SetBool("Grounded", true);
-
-        BattleHero.InitializeEntity(hero, 0);
-        _battleManager.AddPlayerArmyEntity(BattleHero);
-        _heroBattleElement = new(hero);
-        _bottomPanel.Add(_heroBattleElement);
-        BattleHero.GetComponent<NavMeshAgent>().enabled = true;
-    }
-
-    void OnHeroLevelUp()
-    {
-        _levelUpScreen = new();
-
-        _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
-    }
-
-    void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
-    {
-        _levelUpScreen.Hide();
-        TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
-    }
-
-#if UNITY_EDITOR
-    [SerializeField] Ability _abilityToGive;
-    [SerializeField] List<Ability> _allAbilities = new();
-    int _currentIndex;
-    [ContextMenu("Next Ability")]
-    void NextAbility()
-    {
-        Hero.StopAllAbilities();
-
-        _abilityToGive = _allAbilities[_currentIndex];
-        _currentIndex++;
-        if (_currentIndex >= _allAbilities.Count)
-            _currentIndex = 0;
-        if (Hero.Abilities.Contains(_abilityToGive))
-        {
-            _abilityToGive.StartAbility();
-            return;
-        }
-        Hero.AddAbility(_abilityToGive);
-    }
-#endif
-
 }

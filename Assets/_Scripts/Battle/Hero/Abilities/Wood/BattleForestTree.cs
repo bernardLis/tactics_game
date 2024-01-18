@@ -1,84 +1,88 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleForestTree : BattleAbilityObjectDmgOverTime
+namespace Lis
 {
-    [SerializeField] GameObject[] _treeGFX;
-    [SerializeField] GameObject _effect;
-
-    public override void Initialize(Ability ability)
+    public class BattleForestTree : BattleAbilityObjectDmgOverTime
     {
-        base.Initialize(ability);
-        Disable();
-        transform.localScale = Vector3.zero;
-    }
+        [SerializeField] GameObject[] _treeGFX;
+        [SerializeField] GameObject _effect;
 
-    public override void Execute(Vector3 pos, Quaternion rot)
-    {
-        pos.y = 0;
-        _treeGFX[Random.Range(0, _treeGFX.Length)].SetActive(true);
-
-        _effect.SetActive(true);
-        transform.DOScale(1, 0.5f)
-                 .SetDelay(0.2f);
-        base.Execute(pos, rot);
-        DamageOnInception();
-    }
-
-    void DamageOnInception()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
-        foreach (Collider c in colliders)
+        public override void Initialize(Ability ability)
         {
-            if (c.TryGetComponent(out BattleBreakableVase bbv))
+            base.Initialize(ability);
+            Disable();
+            transform.localScale = Vector3.zero;
+        }
+
+        public override void Execute(Vector3 pos, Quaternion rot)
+        {
+            pos.y = 0;
+            _treeGFX[Random.Range(0, _treeGFX.Length)].SetActive(true);
+
+            _effect.SetActive(true);
+            transform.DOScale(1, 0.5f)
+                .SetDelay(0.2f);
+            base.Execute(pos, rot);
+            DamageOnInception();
+        }
+
+        void DamageOnInception()
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
+            foreach (Collider c in colliders)
             {
-                bbv.TriggerBreak();
-                continue;
-            }
-            if (c.TryGetComponent(out BattleEntity entity))
-            {
-                if (entity.Team == 0) continue; // TODO: hardcoded team number
-                StartCoroutine(entity.GetHit(_ability));
+                if (c.TryGetComponent(out BattleBreakableVase bbv))
+                {
+                    bbv.TriggerBreak();
+                    continue;
+                }
+                if (c.TryGetComponent(out BattleEntity entity))
+                {
+                    if (entity.Team == 0) continue; // TODO: hardcoded team number
+                    StartCoroutine(entity.GetHit(_ability));
+                }
             }
         }
-    }
 
-    protected override IEnumerator ExecuteCoroutine()
-    {
-        yield return DamageCoroutine(Time.time + _ability.GetDuration());
-        transform.DOScale(0, 0.5f)
-                 .OnComplete(Disable);
-    }
-
-    protected override IEnumerator DamageCoroutine(float endTime, float interval = 0.5F)
-    {
-        while (Time.time < endTime)
+        protected override IEnumerator ExecuteCoroutine()
         {
-            if (_entitiesInCollider.Count > 0)
-            {
-                BattleEntity entity = _entitiesInCollider[Random.Range(0, _entitiesInCollider.Count)];
-                // rotate to face entity
-                transform.DOLookAt(entity.transform.position, 0.2f);
-                yield return new WaitForSeconds(0.2f);
-                // punch rotation to 90 degrees forward
-                Vector3 originalRot = transform.eulerAngles;
-                Vector3 rot = transform.eulerAngles;
-                rot.z = 75;
-                transform.DORotate(rot, 0.1f)
-                         .OnComplete(() => transform.DORotate(originalRot, 0.1f));
-                StartCoroutine(entity.GetHit(_ability));
-            }
-            yield return new WaitForSeconds(0.7f);
+            yield return DamageCoroutine(Time.time + _ability.GetDuration());
+            transform.DOScale(0, 0.5f)
+                .OnComplete(Disable);
         }
-    }
 
-    void Disable()
-    {
-        foreach (GameObject g in _treeGFX)
-            g.SetActive(false);
-        _effect.SetActive(false);
-        gameObject.SetActive(false);
+        protected override IEnumerator DamageCoroutine(float endTime, float interval = 0.5F)
+        {
+            while (Time.time < endTime)
+            {
+                if (_entitiesInCollider.Count > 0)
+                {
+                    BattleEntity entity = _entitiesInCollider[Random.Range(0, _entitiesInCollider.Count)];
+                    // rotate to face entity
+                    transform.DOLookAt(entity.transform.position, 0.2f);
+                    yield return new WaitForSeconds(0.2f);
+                    // punch rotation to 90 degrees forward
+                    Vector3 originalRot = transform.eulerAngles;
+                    Vector3 rot = transform.eulerAngles;
+                    rot.z = 75;
+                    transform.DORotate(rot, 0.1f)
+                        .OnComplete(() => transform.DORotate(originalRot, 0.1f));
+                    StartCoroutine(entity.GetHit(_ability));
+                }
+                yield return new WaitForSeconds(0.7f);
+            }
+        }
+
+        void Disable()
+        {
+            foreach (GameObject g in _treeGFX)
+                g.SetActive(false);
+            _effect.SetActive(false);
+            gameObject.SetActive(false);
+        }
     }
 }

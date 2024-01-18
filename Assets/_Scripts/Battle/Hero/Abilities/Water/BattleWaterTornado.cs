@@ -1,58 +1,62 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleWaterTornado : BattleAbilityObjectDmgOverTime
+namespace Lis
 {
-    [SerializeField] ParticleSystem[] _psDurationChange;
-
-    float _angularSpeed = 1f;
-    float _circleRad = 3f;
-    float _currentAngle;
-
-    BattleHero _hero;
-
-    public override void Initialize(Ability ability)
+    public class BattleWaterTornado : BattleAbilityObjectDmgOverTime
     {
-        base.Initialize(ability);
-        _hero = BattleManager.Instance.BattleHero;
-    }
+        [SerializeField] ParticleSystem[] _psDurationChange;
 
-    public override void Execute(Vector3 pos, Quaternion rot)
-    {
-        pos.y = 0;
+        float _angularSpeed = 1f;
+        float _circleRad = 3f;
+        float _currentAngle;
 
-        _angularSpeed = Random.Range(0.1f, 0.4f);
-        _circleRad = Vector3.Distance(pos, _hero.transform.position);
-        transform.localScale = Vector3.one * _ability.GetScale();
+        BattleHero _hero;
 
-        foreach (ParticleSystem ps in _psDurationChange)
+        public override void Initialize(Ability ability)
         {
-            var main = ps.main;
-            main.startLifetime = _ability.GetDuration();
+            base.Initialize(ability);
+            _hero = BattleManager.Instance.BattleHero;
         }
 
-        base.Execute(pos, rot);
-    }
-
-    protected override IEnumerator ExecuteCoroutine()
-    {
-        StartCoroutine(DamageCoroutine(Time.time + _ability.GetDuration()));
-
-        // I would like tornado to follow a circular path
-        Vector3 fixedPos = _hero.transform.position +
-                            new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
-        float endTime = Time.time + _ability.GetDuration();
-        while (Time.time < endTime)
+        public override void Execute(Vector3 pos, Quaternion rot)
         {
-            _currentAngle += _angularSpeed * Time.deltaTime;
-            Vector3 offset = new Vector3(Mathf.Sin(_currentAngle), 0, Mathf.Cos(_currentAngle)) * _circleRad;
-            transform.position = fixedPos + offset;
+            pos.y = 0;
 
-            yield return new WaitForFixedUpdate();
+            _angularSpeed = Random.Range(0.1f, 0.4f);
+            _circleRad = Vector3.Distance(pos, _hero.transform.position);
+            transform.localScale = Vector3.one * _ability.GetScale();
+
+            foreach (ParticleSystem ps in _psDurationChange)
+            {
+                var main = ps.main;
+                main.startLifetime = _ability.GetDuration();
+            }
+
+            base.Execute(pos, rot);
         }
 
-        transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
+        protected override IEnumerator ExecuteCoroutine()
+        {
+            StartCoroutine(DamageCoroutine(Time.time + _ability.GetDuration()));
+
+            // I would like tornado to follow a circular path
+            Vector3 fixedPos = _hero.transform.position +
+                               new Vector3(Random.Range(-2f, 2f), 0f, Random.Range(-2f, 2f));
+            float endTime = Time.time + _ability.GetDuration();
+            while (Time.time < endTime)
+            {
+                _currentAngle += _angularSpeed * Time.deltaTime;
+                Vector3 offset = new Vector3(Mathf.Sin(_currentAngle), 0, Mathf.Cos(_currentAngle)) * _circleRad;
+                transform.position = fixedPos + offset;
+
+                yield return new WaitForFixedUpdate();
+            }
+
+            transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
+        }
     }
 }

@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleProjectileOpponentBiggerWithTime : BattleProjectileOpponent
+namespace Lis
 {
-    public override void Shoot(BattleEntity entity, Vector3 dir, float time, int power)
+    public class BattleProjectileOpponentBiggerWithTime : BattleProjectileOpponent
     {
-        base.Shoot(entity, dir, time, power);
+        public override void Shoot(BattleEntity entity, Vector3 dir, float time, int power)
+        {
+            base.Shoot(entity, dir, time, power);
 
-        float scale = transform.localScale.x;
-        float scaleMultiplier = 3;
-        transform.DOScale(scale * 3, time).SetEase(Ease.InOutSine);
-        float currentY = transform.position.y;
-        transform.DOMoveY(currentY + scaleMultiplier * 0.25f, time).SetEase(Ease.InOutSine);
+            float scale = transform.localScale.x;
+            float scaleMultiplier = 3;
+            transform.DOScale(scale * 3, time).SetEase(Ease.InOutSine);
+            float currentY = transform.position.y;
+            transform.DOMoveY(currentY + scaleMultiplier * 0.25f, time).SetEase(Ease.InOutSine);
+        }
     }
 }

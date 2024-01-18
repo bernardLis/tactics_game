@@ -1,38 +1,37 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Turret")]
-public class Turret : EntityFight
+namespace Lis
 {
-
-    [Header("Turret")]
-    public int UpgradeCost;
-
-    public override void InitializeBattle(int team)
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Turret")]
+    public class Turret : EntityFight
     {
-        base.InitializeBattle(team);
 
-        UpgradeCost = 200 * Level.Value;
-    }
+        [Header("Turret")]
+        public int UpgradeCost;
 
-    public void PurchaseUpgrade()
-    {
-        LevelUp();
-    }
+        public override void InitializeBattle(int team)
+        {
+            base.InitializeBattle(team);
 
-    public override void LevelUp()
-    {
-        base.LevelUp();
+            UpgradeCost = 200 * Level.Value;
+        }
 
-        UpgradeCost = 200 * Level.Value;
-    }
+        public void PurchaseUpgrade()
+        {
+            LevelUp();
+        }
 
-    public void PurchaseSpecialUpgrade()
-    {
-        //HERE: turret special upgrade
+        public override void LevelUp()
+        {
+            base.LevelUp();
+
+            UpgradeCost = 200 * Level.Value;
+        }
+
+        public void PurchaseSpecialUpgrade()
+        {
+            //HERE: turret special upgrade
+        }
     }
 }
 

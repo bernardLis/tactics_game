@@ -1,22 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleProjectileOpponentQuick : BattleProjectileOpponent
+namespace Lis
 {
-    public override void Shoot(BattleEntity entity, Vector3 dir, float time, int power)
+    public class BattleProjectileOpponentQuick : BattleProjectileOpponent
     {
-        base.Shoot(entity, dir, time, power);
-        StartCoroutine(SpeedChange());
-    }
+        public override void Shoot(BattleEntity entity, Vector3 dir, float time, int power)
+        {
+            base.Shoot(entity, dir, time, power);
+            StartCoroutine(SpeedChange());
+        }
 
-    IEnumerator SpeedChange()
-    {
-        _speed = 4;
-        yield return DOTween.To(x => _speed = x, _speed, 0, 2f).SetEase(Ease.Linear).WaitForCompletion();
-        yield return new WaitForSeconds(1f);
-        _speed = 15;
-    }
+        IEnumerator SpeedChange()
+        {
+            _speed = 4;
+            yield return DOTween.To(x => _speed = x, _speed, 0, 2f).SetEase(Ease.Linear).WaitForCompletion();
+            yield return new WaitForSeconds(1f);
+            _speed = 15;
+        }
 
+    }
 }

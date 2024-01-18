@@ -1,75 +1,76 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using System.Linq;
+using UnityEngine.UIElements;
 
-public class AddressableManager : MonoBehaviour
+namespace Lis
 {
-    [SerializeField] List<AssetReference> StyleSheetReferences = new();
-    List<StyleSheet> _styleSheets = new();
-
-    void Start()
+    public class AddressableManager : MonoBehaviour
     {
-        // https://www.youtube.com/watch?v=0USXRC9f4Iw
-        Addressables.InitializeAsync().Completed += AddressableManager_Completed;
-    }
+        [SerializeField] List<AssetReference> StyleSheetReferences = new();
+        List<StyleSheet> _styleSheets = new();
 
-    void AddressableManager_Completed(AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
-    {
-        foreach (AssetReference reference in StyleSheetReferences)
+        void Start()
         {
-            if (reference == null)
-            {
-                Debug.LogWarning($"Missing addressable reference.");
-                continue;
-            }
+            // https://www.youtube.com/watch?v=0USXRC9f4Iw
+            Addressables.InitializeAsync().Completed += AddressableManager_Completed;
+        }
 
-            reference.LoadAssetAsync<StyleSheet>().Completed += (sheet) =>
+        void AddressableManager_Completed(AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
+        {
+            foreach (AssetReference reference in StyleSheetReferences)
             {
-                _styleSheets.Add((StyleSheet)sheet.Result);
-            };
+                if (reference == null)
+                {
+                    Debug.LogWarning($"Missing addressable reference.");
+                    continue;
+                }
+
+                reference.LoadAssetAsync<StyleSheet>().Completed += (sheet) =>
+                {
+                    _styleSheets.Add((StyleSheet)sheet.Result);
+                };
+            }
+        }
+
+        public StyleSheet GetStyleSheetByName(StyleSheetType name)
+        {
+            return _styleSheets.FirstOrDefault(x => x.name == name.ToString());
         }
     }
 
-    public StyleSheet GetStyleSheetByName(StyleSheetType name)
+    public enum StyleSheetType
     {
-        return _styleSheets.FirstOrDefault(x => x.name == name.ToString());
+        CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
+        MenuStyles, SettingsMenuStyles,
+        FinishedBattleScreenStyles,
+        TimerElementStyles,
+        StarRankElementStyles,
+        GoldElementStyles,
+        ResourceBarStyles, StatElementStyles, ElementalElementStyles,
+        AbilityElementStyles, AbilityIconStyles, AbilityTooltipElementStyles,
+
+        EntityInfoElementStyles,
+        LevelUpScreenStyles,
+        RewardElementStyles,
+
+        EntityIconStyles, EntityCardStyles, EntityScreenStyles,
+
+        CreatureAbilityStyles, CreatureAbilityTooltipStyles,
+
+        UpgradeStyles, UpgradeScreenStyles,
+
+        TurretIconStyles,
+        StatsBattleElementStyles,
+        TextPrintingStyles,
+        HeroElementStyles,
+        TooltipCardStyles, BuildingCardStyles,
+        TabletElementStyles, TabletTooltipElementStyles,
+        TabletAdvancedScreenStyles,
+
+
+
     }
-}
-
-public enum StyleSheetType
-{
-    CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
-    MenuStyles, SettingsMenuStyles,
-    FinishedBattleScreenStyles,
-    TimerElementStyles,
-    StarRankElementStyles,
-    GoldElementStyles,
-    ResourceBarStyles, StatElementStyles, ElementalElementStyles,
-    AbilityElementStyles, AbilityIconStyles, AbilityTooltipElementStyles,
-
-    EntityInfoElementStyles,
-    LevelUpScreenStyles,
-    RewardElementStyles,
-
-    EntityIconStyles, EntityCardStyles, EntityScreenStyles,
-
-    CreatureAbilityStyles, CreatureAbilityTooltipStyles,
-
-    UpgradeStyles, UpgradeScreenStyles,
-
-    TurretIconStyles,
-    StatsBattleElementStyles,
-    TextPrintingStyles,
-    HeroElementStyles,
-    TooltipCardStyles, BuildingCardStyles,
-    TabletElementStyles, TabletTooltipElementStyles,
-    TabletAdvancedScreenStyles,
-
-
-
 }

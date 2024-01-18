@@ -1,76 +1,78 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
+
 using UnityEngine.UIElements;
-using DG.Tweening;
 
-public class WonBattleScreen : FinishedBattleScreen
+namespace Lis
 {
-    const string _ussClassName = "finished-battle-screen__";
-    const string _ussMain = _ussClassName + "won-main";
-
-    public event Action OnContinuePlaying;
-    public event Action OnFinishedPlaying;
-    public WonBattleScreen()
+    public class WonBattleScreen : FinishedBattleScreen
     {
-        _gameManager = GameManager.Instance;
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
-        if (ss != null) styleSheets.Add(ss);
+        const string _ussClassName = "finished-battle-screen__";
+        const string _ussMain = _ussClassName + "won-main";
 
-        AddToClassList(_ussMain);
-        AddButtons();
+        public event Action OnContinuePlaying;
+        public event Action OnFinishedPlaying;
+        public WonBattleScreen()
+        {
+            _gameManager = GameManager.Instance;
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
+            if (ss != null) styleSheets.Add(ss);
 
-        AudioManager audioManager = AudioManager.Instance;
-        audioManager.PlayDialogue(audioManager.GetSound("You Won"));
-    }
+            AddToClassList(_ussMain);
+            AddButtons();
 
-    protected override void AddTitle()
-    {
-        // meant to be overwritten
-        Label text = new("Battle Won!");
-        text.style.fontSize = 34;
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlayDialogue(audioManager.GetSound("You Won"));
+        }
 
-        _mainContainer.Add(text);
-    }
+        protected override void AddTitle()
+        {
+            // meant to be overwritten
+            Label text = new("Battle Won!");
+            text.style.fontSize = 34;
 
-    void AddButtons()
-    {
-        VisualElement container = new();
-        container.style.alignItems = Align.Center;
-        _mainContainer.Add(container);
+            _mainContainer.Add(text);
+        }
 
-        Label text = new("You won, congratz! Here, I am giving you a virtual handshake <handshake>… If you want you can continue playing, the game can go on forever, but I have not balanced it. Let me know what you think about this experience. Cheers!");
-        text.style.whiteSpace = WhiteSpace.Normal;
-        text.style.fontSize = 24;
-        container.Add(text);
+        void AddButtons()
+        {
+            VisualElement container = new();
+            container.style.alignItems = Align.Center;
+            _mainContainer.Add(container);
 
-        MyButton continuePlaying = new("Continue playing", _ussCommonMenuButton,
-                 callback: ContinuePlaying);
-        container.Add(continuePlaying);
+            Label text = new("You won, congratz! Here, I am giving you a virtual handshake <handshake>… If you want you can continue playing, the game can go on forever, but I have not balanced it. Let me know what you think about this experience. Cheers!");
+            text.style.whiteSpace = WhiteSpace.Normal;
+            text.style.fontSize = 24;
+            container.Add(text);
 
-        MyButton advantage = new("Quit (+1k gold next time)",
+            MyButton continuePlaying = new("Continue playing", _ussCommonMenuButton,
+                callback: ContinuePlaying);
+            container.Add(continuePlaying);
+
+            MyButton advantage = new("Quit (+1k gold next time)",
                 _ussCommonMenuButton, callback: AdvantageButton);
-        container.Add(advantage);
+            container.Add(advantage);
 
-        MyButton noAdvantage = new("Quit", _ussCommonMenuButton, callback: QuitButton);
-        container.Add(noAdvantage);
-    }
+            MyButton noAdvantage = new("Quit", _ussCommonMenuButton, callback: QuitButton);
+            container.Add(noAdvantage);
+        }
 
-    void ContinuePlaying()
-    {
-        OnContinuePlaying?.Invoke();
-        Hide();
-    }
+        void ContinuePlaying()
+        {
+            OnContinuePlaying?.Invoke();
+            Hide();
+        }
 
-    void AdvantageButton()
-    {
-        QuitButton();
-    }
+        void AdvantageButton()
+        {
+            QuitButton();
+        }
 
-    void QuitButton()
-    {
-        OnFinishedPlaying?.Invoke();
-        _gameManager.LoadScene(Scenes.MainMenu);
+        void QuitButton()
+        {
+            OnFinishedPlaying?.Invoke();
+            _gameManager.LoadScene(Scenes.MainMenu);
+        }
     }
 }

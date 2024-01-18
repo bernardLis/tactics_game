@@ -1,23 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using DG.Tweening;
 
-public class BattleAbilityEarthSpike : BattleAbility
+namespace Lis
 {
-
-    public override void Initialize(Ability ability, bool startAbility = true)
+    public class BattleAbilityEarthSpike : BattleAbility
     {
-        base.Initialize(ability, startAbility);
-        transform.localPosition = new Vector3(0f, 0f, 4f); // it is where the effect spawns...
-        transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-    }
 
-    protected override IEnumerator ExecuteAbilityCoroutine()
-    {
-        yield return base.ExecuteAbilityCoroutine();
-        BattleEarthSpike spike = GetInactiveAbilityObject() as BattleEarthSpike;
-        spike.Execute(transform.position, transform.rotation);
-    }
+        public override void Initialize(Ability ability, bool startAbility = true)
+        {
+            base.Initialize(ability, startAbility);
+            transform.localPosition = new Vector3(0f, 0f, 4f); // it is where the effect spawns...
+            transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        }
 
+        protected override IEnumerator ExecuteAbilityCoroutine()
+        {
+            yield return base.ExecuteAbilityCoroutine();
+            BattleEarthSpike spike = GetInactiveAbilityObject() as BattleEarthSpike;
+            spike.Execute(transform.position, transform.rotation);
+        }
+
+    }
 }

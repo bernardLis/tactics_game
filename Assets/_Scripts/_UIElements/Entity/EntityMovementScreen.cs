@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class EntityMovementScreen : EntityScreen
+
+namespace Lis
 {
-
-    EntityMovement _entityMovement;
-    public EntityMovementScreen(EntityMovement entity) : base(entity)
+    public class EntityMovementScreen : EntityScreen
     {
-        _entityMovement = entity;
-    }
 
-    protected override void AddStats()
-    {
-        base.AddStats();
+        EntityMovement _entityMovement;
+        public EntityMovementScreen(EntityMovement entity) : base(entity)
+        {
+            _entityMovement = entity;
+        }
+
+        protected override void AddStats()
+        {
+            base.AddStats();
         
-        StatElement speed = new(_entityMovement.Speed);
-        _statsContainer.Add(speed);
+            StatElement speed = new(_entityMovement.Speed);
+            _statsContainer.Add(speed);
+        }
     }
 }

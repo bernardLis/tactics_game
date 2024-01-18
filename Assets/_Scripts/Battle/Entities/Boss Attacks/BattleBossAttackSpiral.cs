@@ -1,23 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleBossAttackSpiral : BattleBossAttack
+namespace Lis
 {
-
-    public override IEnumerator Attack(int difficulty)
+    public class BattleBossAttackSpiral : BattleBossAttack
     {
-        int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
-        int shotsPerGroup = total / _attack.GroupCount;
-        float waitTime = 3f / _attack.GroupCount;
-        for (int i = 0; i < _attack.GroupCount; i++)
+
+        public override IEnumerator Attack(int difficulty)
         {
-            for (int j = 0; j < shotsPerGroup; j++)
+            int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
+            int shotsPerGroup = total / _attack.GroupCount;
+            float waitTime = 3f / _attack.GroupCount;
+            for (int i = 0; i < _attack.GroupCount; i++)
             {
-                Vector3 dir = Quaternion.Euler(0, i * _attack.Spread + j * 90, 0) * Vector3.forward;
-                SpawnProjectile(dir);
+                for (int j = 0; j < shotsPerGroup; j++)
+                {
+                    Vector3 dir = Quaternion.Euler(0, i * _attack.Spread + j * 90, 0) * Vector3.forward;
+                    SpawnProjectile(dir);
+                }
+                yield return new WaitForSeconds(waitTime);
             }
-            yield return new WaitForSeconds(waitTime);
         }
     }
 }

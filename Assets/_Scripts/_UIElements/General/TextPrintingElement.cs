@@ -1,95 +1,97 @@
-using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.UIElements;
-using UnityEngine.InputSystem;
-using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-public class TextPrintingElement : VisualElement
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace Lis
 {
-    const string _ussCommonTextPrimary = "common__text-primary";
-
-    const string _ussClassName = "text-printing__";
-    const string _ussMain = _ussClassName + "main";
-
-    GameManager _gameManager;
-
-    Label _textLabel;
-
-    string _textToPrint;
-    float _durationMs;
-
-    int _currentLetterIndex = 0;
-
-    List<string> _sentencesToPrint = new();
-    int _currentSentenceIndex = 0;
-
-    IVisualElementScheduledItem _textPrintingScheduler;
-
-    public event Action OnFinishedPrinting;
-    public TextPrintingElement(string text, float durationSeconds)
+    public class TextPrintingElement : VisualElement
     {
-        _gameManager = GameManager.Instance;
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TextPrintingStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        const string _ussClassName = "text-printing__";
+        const string _ussMain = _ussClassName + "main";
 
-        AddToClassList(_ussCommonTextPrimary);
-        AddToClassList(_ussMain);
+        GameManager _gameManager;
 
-        _textLabel = new();
-        _textLabel.style.whiteSpace = WhiteSpace.Normal;
-        Add(_textLabel);
+        Label _textLabel;
 
-        _durationMs = durationSeconds * 1000;
-        _textToPrint = text;
-    }
+        string _textToPrint;
+        float _durationMs;
 
-    public void PrintSentences()
-    {
-        _sentencesToPrint = new();
-        string[] parts = Regex.Split(_textToPrint, @"(?<=[.!?])");
-        _sentencesToPrint.AddRange(parts);
+        int _currentLetterIndex = 0;
 
-        int sentenceDelay = Mathf.RoundToInt(_durationMs / _sentencesToPrint.Count);
-        _textPrintingScheduler = schedule.Execute(AddSentence).Every(sentenceDelay);
-    }
+        List<string> _sentencesToPrint = new();
+        int _currentSentenceIndex = 0;
 
-    void AddSentence()
-    {
-        _textLabel.text = _sentencesToPrint[_currentSentenceIndex];
-        _currentSentenceIndex++;
+        IVisualElementScheduledItem _textPrintingScheduler;
 
-        if (_currentSentenceIndex >= _sentencesToPrint.Count)
+        public event Action OnFinishedPrinting;
+        public TextPrintingElement(string text, float durationSeconds)
         {
-            _textPrintingScheduler.Pause();
-            OnFinishedPrinting?.Invoke();
-            return;
-        }
-    }
+            _gameManager = GameManager.Instance;
 
-    public void PrintLetters()
-    {
-        int letterDelay = Mathf.RoundToInt(_durationMs / _textToPrint.Length);
-        _textPrintingScheduler = schedule.Execute(AddLetter).Every(letterDelay);
-    }
+            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            if (commonStyles != null)
+                styleSheets.Add(commonStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TextPrintingStyles);
+            if (ss != null)
+                styleSheets.Add(ss);
 
-    void AddLetter()
-    {
-        if (_currentLetterIndex >= _textToPrint.Length)
-        {
-            _textPrintingScheduler.Pause();
-            OnFinishedPrinting?.Invoke();
-            return;
+            AddToClassList(_ussCommonTextPrimary);
+            AddToClassList(_ussMain);
+
+            _textLabel = new();
+            _textLabel.style.whiteSpace = WhiteSpace.Normal;
+            Add(_textLabel);
+
+            _durationMs = durationSeconds * 1000;
+            _textToPrint = text;
         }
 
-        _textLabel.text += _textToPrint[_currentLetterIndex];
-        _currentLetterIndex++;
-    }
+        public void PrintSentences()
+        {
+            _sentencesToPrint = new();
+            string[] parts = Regex.Split(_textToPrint, @"(?<=[.!?])");
+            _sentencesToPrint.AddRange(parts);
 
+            int sentenceDelay = Mathf.RoundToInt(_durationMs / _sentencesToPrint.Count);
+            _textPrintingScheduler = schedule.Execute(AddSentence).Every(sentenceDelay);
+        }
+
+        void AddSentence()
+        {
+            _textLabel.text = _sentencesToPrint[_currentSentenceIndex];
+            _currentSentenceIndex++;
+
+            if (_currentSentenceIndex >= _sentencesToPrint.Count)
+            {
+                _textPrintingScheduler.Pause();
+                OnFinishedPrinting?.Invoke();
+                return;
+            }
+        }
+
+        public void PrintLetters()
+        {
+            int letterDelay = Mathf.RoundToInt(_durationMs / _textToPrint.Length);
+            _textPrintingScheduler = schedule.Execute(AddLetter).Every(letterDelay);
+        }
+
+        void AddLetter()
+        {
+            if (_currentLetterIndex >= _textToPrint.Length)
+            {
+                _textPrintingScheduler.Pause();
+                OnFinishedPrinting?.Invoke();
+                return;
+            }
+
+            _textLabel.text += _textToPrint[_currentLetterIndex];
+            _currentLetterIndex++;
+        }
+
+    }
 }

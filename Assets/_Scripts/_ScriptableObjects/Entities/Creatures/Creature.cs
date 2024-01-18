@@ -1,88 +1,92 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
+
+
+
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
-public class Creature : EntityFight
+namespace Lis
 {
-    [Header("Creature")]
-    public int UpgradeTier;
-
-    public CreatureAbility CreatureAbility;
-
-    public GameObject Projectile;
-    public GameObject HitPrefab;
-
-
-    public override void InitializeBattle(int team)
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
+    public class Creature : EntityFight
     {
-        base.InitializeBattle(team);
+        [Header("Creature")]
+        public int UpgradeTier;
 
-        UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
-        MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Health").GetValue());
-        CurrentHealth.SetValue(MaxHealth.GetValue());
-        Armor.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Armor").GetValue());
-        Speed.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Speed").GetValue());
-        Power.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Power").GetValue());
+        public CreatureAbility CreatureAbility;
 
-        for (int i = 0; i < globalUpgradeBoard.GetUpgradeByName("Creature Level").GetValue(); i++)
-            LevelUp();
+        public GameObject Projectile;
+        public GameObject HitPrefab;
 
-        if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
 
-        if (Team == 0) return;
-        Projectile = GameManager.Instance.EntityDatabase.OpponentProjectilePrefab;
-    }
-
-    public bool IsAbilityUnlocked() { return Level.Value >= CreatureAbility.UnlockLevel; }
-
-    public bool CanUseAbility()
-    {
-        if (CreatureAbility == null) return false;
-        return IsAbilityUnlocked();
-    }
-
-    new public CreatureData SerializeSelf()
-    {
-        // TODO: needs to be implemented
-        CreatureData data = new()
+        public override void InitializeBattle(int team)
         {
-            CreatureId = Id,
+            base.InitializeBattle(team);
 
-            Name = EntityName,
-            Level = Level.Value,
+            UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
+            MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Health").GetValue());
+            CurrentHealth.SetValue(MaxHealth.GetValue());
+            Armor.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Armor").GetValue());
+            Speed.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Speed").GetValue());
+            Power.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Power").GetValue());
 
-            KillCount = TotalKillCount,
-            DamageDealt = TotalDamageDealt,
-            DamageTaken = TotalDamageTaken
-        };
+            for (int i = 0; i < globalUpgradeBoard.GetUpgradeByName("Creature Level").GetValue(); i++)
+                LevelUp();
 
-        return data;
+            if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
+
+            if (Team == 0) return;
+            Projectile = GameManager.Instance.EntityDatabase.OpponentProjectilePrefab;
+        }
+
+        public bool IsAbilityUnlocked() { return Level.Value >= CreatureAbility.UnlockLevel; }
+
+        public bool CanUseAbility()
+        {
+            if (CreatureAbility == null) return false;
+            return IsAbilityUnlocked();
+        }
+
+        new public CreatureData SerializeSelf()
+        {
+            // TODO: needs to be implemented
+            CreatureData data = new()
+            {
+                CreatureId = Id,
+
+                Name = EntityName,
+                Level = Level.Value,
+
+                KillCount = TotalKillCount,
+                DamageDealt = TotalDamageDealt,
+                DamageTaken = TotalDamageTaken
+            };
+
+            return data;
+        }
+
+        public void LoadFromData(CreatureData data)
+        {
+            EntityName = data.Name;
+
+            Level = CreateInstance<IntVariable>();
+            Level.SetValue(data.Level);
+
+            TotalKillCount = data.KillCount;
+            TotalDamageDealt = data.DamageDealt;
+            TotalDamageTaken = data.DamageTaken;
+        }
     }
 
-    public void LoadFromData(CreatureData data)
+    [Serializable]
+    public struct CreatureData
     {
-        EntityName = data.Name;
+        public string Name;
+        public int Level;
+        public string CreatureId;
 
-        Level = CreateInstance<IntVariable>();
-        Level.SetValue(data.Level);
-
-        TotalKillCount = data.KillCount;
-        TotalDamageDealt = data.DamageDealt;
-        TotalDamageTaken = data.DamageTaken;
+        public int KillCount;
+        public int DamageDealt;
+        public int DamageTaken;
     }
-}
-
-[Serializable]
-public struct CreatureData
-{
-    public string Name;
-    public int Level;
-    public string CreatureId;
-
-    public int KillCount;
-    public int DamageDealt;
-    public int DamageTaken;
 }

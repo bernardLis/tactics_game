@@ -1,25 +1,28 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 
-public class Reward : BaseScriptableObject
+
+
+namespace Lis
 {
-    protected GameManager _gameManager;
-
-    protected Hero _hero;
-
-    public event Action<Reward> OnRewardSelected;
-    public virtual bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
+    public class Reward : BaseScriptableObject
     {
-        _gameManager = GameManager.Instance;
-        _hero = hero;
+        protected GameManager _gameManager;
 
-        return true;
-    }
+        protected Hero _hero;
 
-    public virtual void GetReward()
-    {
-        OnRewardSelected?.Invoke(this);
+        public event Action<Reward> OnRewardSelected;
+        public virtual bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
+        {
+            _gameManager = GameManager.Instance;
+            _hero = hero;
+
+            return true;
+        }
+
+        public virtual void GetReward()
+        {
+            OnRewardSelected?.Invoke(this);
+        }
     }
 }

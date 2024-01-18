@@ -1,29 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using DG.Tweening;
 
-public class BattleAbilityWindTornado : BattleAbility
+namespace Lis
 {
-
-    public override void Initialize(Ability ability, bool startAbility = true)
+    public class BattleAbilityWindTornado : BattleAbility
     {
-        base.Initialize(ability, startAbility);
-        transform.localPosition = new Vector3(0.5f, 1f, 0.5f);
-    }
 
-    protected override IEnumerator ExecuteAbilityCoroutine()
-    {
-        yield return base.ExecuteAbilityCoroutine();
-
-        for (int i = 0; i < _ability.GetAmount(); i++)
+        public override void Initialize(Ability ability, bool startAbility = true)
         {
-            Vector3 pos = new(transform.position.x, 0, transform.position.z);
-            Quaternion q = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+            base.Initialize(ability, startAbility);
+            transform.localPosition = new Vector3(0.5f, 1f, 0.5f);
+        }
 
-            BattleWindTornado tornado = GetInactiveAbilityObject() as BattleWindTornado;
-            tornado.Execute(pos, q);
-            yield return new WaitForSeconds(0.2f);
+        protected override IEnumerator ExecuteAbilityCoroutine()
+        {
+            yield return base.ExecuteAbilityCoroutine();
+
+            for (int i = 0; i < _ability.GetAmount(); i++)
+            {
+                Vector3 pos = new(transform.position.x, 0, transform.position.z);
+                Quaternion q = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+
+                BattleWindTornado tornado = GetInactiveAbilityObject() as BattleWindTornado;
+                tornado.Execute(pos, q);
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
 }

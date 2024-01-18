@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
-public class BattleProjectileManager : PoolManager<BattleProjectileOpponent>
+namespace Lis
 {
-    [SerializeField] GameObject _projectilePrefab;
-
-    public void Initialize()
+    public class BattleProjectileManager : PoolManager<BattleProjectileOpponent>
     {
-        CreatePool(_projectilePrefab);
-    }
+        [SerializeField] GameObject _projectilePrefab;
 
+        public void Initialize()
+        {
+            CreatePool(_projectilePrefab);
+        }
+
+    }
 }

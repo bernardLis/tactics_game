@@ -1,49 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
+
 using UnityEngine.UIElements;
 
-public class BuildingProductionCard : BuildingCard
+namespace Lis
 {
-    BuildingProduction _buildingProduction;
-
-    public BuildingProductionCard(Building building) : base(building)
+    public class BuildingProductionCard : BuildingCard
     {
-    }
+        BuildingProduction _buildingProduction;
 
-    protected override void PopulateCard()
-    {
-        _buildingProduction = _building as BuildingProduction;
+        public BuildingProductionCard(Building building) : base(building)
+        {
+        }
 
-        base.PopulateCard();
-        HandleLevelLabel();
-    }
+        protected override void PopulateCard()
+        {
+            _buildingProduction = _building as BuildingProduction;
 
-    protected override void HandleIcon()
-    {
-        EntityIcon entityIcon = new(_buildingProduction.ProducedCreature);
-        _topLeftContainer.Add(entityIcon);
-    }
+            base.PopulateCard();
+            HandleLevelLabel();
+        }
 
-    void HandleLevelLabel()
-    {
-        _levelLabel = new();
-        _levelLabel.text = $"Level {_buildingProduction.BuildingUpgrade.CurrentLevel + 1}";
-        _topRightContainer.Add(_levelLabel);
+        protected override void HandleIcon()
+        {
+            EntityIcon entityIcon = new(_buildingProduction.ProducedCreature);
+            _topLeftContainer.Add(entityIcon);
+        }
 
-    }
+        void HandleLevelLabel()
+        {
+            _levelLabel = new();
+            _levelLabel.text = $"Level {_buildingProduction.BuildingUpgrade.CurrentLevel + 1}";
+            _topRightContainer.Add(_levelLabel);
 
-    protected override void HandleBuildingInfoContainer()
-    {
-        _infoContainer = new();
-        _middleContainer.Add(_infoContainer);
+        }
 
-        UpgradeLevelBuilding currentUpgrade = _buildingProduction.GetCurrentUpgrade();
+        protected override void HandleBuildingInfoContainer()
+        {
+            _infoContainer = new();
+            _middleContainer.Add(_infoContainer);
 
-        Label limitLabel = new($"Max: {currentUpgrade.ProductionLimit}");
-        _infoContainer.Add(limitLabel);
+            UpgradeLevelBuilding currentUpgrade = _buildingProduction.GetCurrentUpgrade();
 
-        Label delayLabel = new($"Respawn: {currentUpgrade.ProductionDelay}s");
-        _infoContainer.Add(delayLabel);
+            Label limitLabel = new($"Max: {currentUpgrade.ProductionLimit}");
+            _infoContainer.Add(limitLabel);
+
+            Label delayLabel = new($"Respawn: {currentUpgrade.ProductionDelay}s");
+            _infoContainer.Add(delayLabel);
+        }
     }
 }

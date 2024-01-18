@@ -1,70 +1,74 @@
-using UnityEngine;
-using System;
 using System.Collections.Generic;
+
+
+
+using UnityEngine;
 using Random = UnityEngine.Random;
-using JetBrains.Annotations;
 
-public class RewardTablet : Reward
+namespace Lis
 {
-    public Tablet Tablet;
-
-    public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardElements)
+    public class RewardTablet : Reward
     {
-        base.CreateRandom(hero, otherRewardElements);
+        public Tablet Tablet;
 
-        List<Tablet> heroTablets = new(hero.Tablets);
-        List<Tablet> availableTablets = new();
-        foreach (Tablet tablet in heroTablets)
-            if (!tablet.IsMaxLevel())
-                availableTablets.Add(tablet);
-
-        foreach (RewardElement rc in otherRewardElements)
+        public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardElements)
         {
-            if (rc is not RewardElementTablet) continue;
-            RewardTablet r = (RewardTablet)rc.Reward;
-            availableTablets.Remove(r.Tablet);
+            base.CreateRandom(hero, otherRewardElements);
+
+            List<Tablet> heroTablets = new(hero.Tablets);
+            List<Tablet> availableTablets = new();
+            foreach (Tablet tablet in heroTablets)
+                if (!tablet.IsMaxLevel())
+                    availableTablets.Add(tablet);
+
+            foreach (RewardElement rc in otherRewardElements)
+            {
+                if (rc is not RewardElementTablet) continue;
+                RewardTablet r = (RewardTablet)rc.Reward;
+                availableTablets.Remove(r.Tablet);
+            }
+
+            if (CanUpgradeAdvancedTablet(otherRewardElements))
+                availableTablets.Add(_hero.AdvancedTablet);
+
+            if (availableTablets.Count == 0)
+            {
+                Debug.LogError("Reward - no tablet to upgrade");
+                return false;
+            }
+
+            Tablet = availableTablets[Random.Range(0, availableTablets.Count)];
+            return true;
         }
 
-        if (CanUpgradeAdvancedTablet(otherRewardElements))
-            availableTablets.Add(_hero.AdvancedTablet);
-
-        if (availableTablets.Count == 0)
+        bool CanUpgradeAdvancedTablet(List<RewardElement> otherRewardElements)
         {
-            Debug.LogError("Reward - no tablet to upgrade");
-            return false;
+            if (_hero.AdvancedTablet == null) return false;
+            if (_hero.AdvancedTablet.IsMaxLevel()) return false;
+            foreach (RewardElement el in otherRewardElements)
+                if (el.Reward is RewardTablet rt)
+                    if (rt.Tablet.Id == _hero.AdvancedTablet.Id)
+                        return false;
+
+            return true;
         }
 
-        Tablet = availableTablets[Random.Range(0, availableTablets.Count)];
-        return true;
-    }
-
-    bool CanUpgradeAdvancedTablet(List<RewardElement> otherRewardElements)
-    {
-        if (_hero.AdvancedTablet == null) return false;
-        if (_hero.AdvancedTablet.IsMaxLevel()) return false;
-        foreach (RewardElement el in otherRewardElements)
-            if (el.Reward is RewardTablet rt)
-                if (rt.Tablet.Id == _hero.AdvancedTablet.Id)
-                    return false;
-
-        return true;
-    }
-
-    public override void GetReward()
-    {
-        base.GetReward();
-
-        if (Tablet is TabletAdvanced)
+        public override void GetReward()
         {
-            _hero.AdvancedTablet.LevelUp();
-            return;
-        }
+            base.GetReward();
 
-        foreach (Tablet t in _hero.Tablets)
-        {
-            if (t.Id != Tablet.Id) continue;
-            t.LevelUp();
-            break;
+            if (Tablet is TabletAdvanced)
+            {
+                _hero.AdvancedTablet.LevelUp();
+                return;
+            }
+
+            foreach (Tablet t in _hero.Tablets)
+            {
+                if (t.Id != Tablet.Id) continue;
+                t.LevelUp();
+                break;
+            }
         }
     }
 }

@@ -1,25 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
 using UnityEngine.UIElements;
 
-public class BossAttackElement : ElementWithTooltip
+namespace Lis
 {
-    BossAttack _bossAttack;
-    public BossAttackElement(BossAttack bossAttack)
+    public class BossAttackElement : ElementWithTooltip
     {
-        _bossAttack = bossAttack;
+        BossAttack _bossAttack;
+        public BossAttackElement(BossAttack bossAttack)
+        {
+            _bossAttack = bossAttack;
 
-        style.width = 50;
-        style.height = 50;
-        style.backgroundImage = _bossAttack.Icon.texture;
+            style.width = 50;
+            style.height = 50;
+            style.backgroundImage = _bossAttack.Icon.texture;
+        }
+
+        protected override void DisplayTooltip()
+        {
+            var tooltip = new Label(_bossAttack.name);
+            _tooltip = new(this, tooltip);
+            base.DisplayTooltip();
+        }
+
     }
-
-    protected override void DisplayTooltip()
-    {
-        var tooltip = new Label(_bossAttack.name);
-        _tooltip = new(this, tooltip);
-        base.DisplayTooltip();
-    }
-
 }

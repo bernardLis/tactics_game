@@ -1,56 +1,58 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Hero/Tablet")]
-public class Tablet : BaseScriptableObject
+namespace Lis
 {
-    public Sprite Icon;
-    public string Description;
-    public Element Element;
-
-    [HideInInspector] public IntVariable Level;
-    public int MaxLevel = 7;
-
-    public StatLevelUpValue PrimaryStat;
-    public StatLevelUpValue SecondaryStat;
-
-    protected Hero _hero;
-
-    public event Action OnLevelUp;
-    public virtual void Initialize(Hero hero)
+    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Tablet")]
+    public class Tablet : BaseScriptableObject
     {
-        Level = CreateInstance<IntVariable>();
-        Level.SetValue(0);
+        public Sprite Icon;
+        public string Description;
+        public Element Element;
 
-        _hero = hero;
-    }
+        [HideInInspector] public IntVariable Level;
+        public int MaxLevel = 7;
 
-    public virtual void LevelUp()
-    {
-        if (IsMaxLevel()) return;
+        public StatLevelUpValue PrimaryStat;
+        public StatLevelUpValue SecondaryStat;
+
+        protected Hero _hero;
+
+        public event Action OnLevelUp;
+        public virtual void Initialize(Hero hero)
+        {
+            Level = CreateInstance<IntVariable>();
+            Level.SetValue(0);
+
+            _hero = hero;
+        }
+
+        public virtual void LevelUp()
+        {
+            if (IsMaxLevel()) return;
         
-        Level.ApplyChange(1);
+            Level.ApplyChange(1);
 
-        if (PrimaryStat.StatType != StatType.None)
-            _hero.GetStatByType(PrimaryStat.StatType).ApplyBaseValueChange(PrimaryStat.Value);
-        if (SecondaryStat.StatType != StatType.None)
-            _hero.GetStatByType(SecondaryStat.StatType).ApplyBaseValueChange(SecondaryStat.Value);
+            if (PrimaryStat.StatType != StatType.None)
+                _hero.GetStatByType(PrimaryStat.StatType).ApplyBaseValueChange(PrimaryStat.Value);
+            if (SecondaryStat.StatType != StatType.None)
+                _hero.GetStatByType(SecondaryStat.StatType).ApplyBaseValueChange(SecondaryStat.Value);
 
-        OnLevelUp?.Invoke();
+            OnLevelUp?.Invoke();
+        }
+
+        public bool IsMaxLevel()
+        {
+            return Level.Value >= MaxLevel;
+        }
     }
 
-    public bool IsMaxLevel()
+    [Serializable]
+    public struct StatLevelUpValue
     {
-        return Level.Value >= MaxLevel;
+        public StatType StatType;
+        public int Value;
     }
 }
-
-[Serializable]
-public struct StatLevelUpValue
-{
-    public StatType StatType;
-    public int Value;
-}
-

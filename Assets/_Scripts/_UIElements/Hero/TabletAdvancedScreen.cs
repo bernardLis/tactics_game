@@ -1,101 +1,96 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+
+
+
 using UnityEngine.UIElements;
 
-public class TabletAdvancedScreen : FullScreenElement
+namespace Lis
 {
-    const string _ussClassName = "tablet-advanced-screen__";
-    const string _ussMain = _ussClassName + "main";
-
-    TabletAdvanced _tabletAdvanced;
-    AbilityElement _abilityElementFirst;
-    AbilityElement _abilityElementSecond;
-
-    public TabletAdvancedScreen(TabletAdvanced tabletAdvanced) : base()
+    public class TabletAdvancedScreen : FullScreenElement
     {
-        var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TabletAdvancedScreenStyles);
-        if (ss != null) styleSheets.Add(ss);
+        const string _ussClassName = "tablet-advanced-screen__";
+        const string _ussMain = _ussClassName + "main";
 
-        _tabletAdvanced = tabletAdvanced;
-        _content.AddToClassList(_ussMain);
+        TabletAdvanced _tabletAdvanced;
+        AbilityElement _abilityElementFirst;
+        AbilityElement _abilityElementSecond;
 
-        AddElements();
-        _content.Add(new HorizontalSpacerElement());
-        AddAbilities();
+        public TabletAdvancedScreen(TabletAdvanced tabletAdvanced) : base()
+        {
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TabletAdvancedScreenStyles);
+            if (ss != null) styleSheets.Add(ss);
 
-        _content.Add(new HeroElement(BattleManager.Instance.BattleHero.Hero, true));
+            _tabletAdvanced = tabletAdvanced;
+            _content.AddToClassList(_ussMain);
 
-        DisableNavigation();
-    }
+            AddElements();
+            _content.Add(new HorizontalSpacerElement());
+            AddAbilities();
 
-    void AddElements()
-    {
-        Label title = new("Element Combo Unlocked!");
-        title.style.fontSize = 34;
-        _content.Add(title);
+            _content.Add(new HeroElement(BattleManager.Instance.BattleHero.Hero, true));
 
-        VisualElement container = new VisualElement();
-        container.style.flexDirection = FlexDirection.Row;
-        _content.Add(container);
+            DisableNavigation();
+        }
 
-        VisualElement elementContainer1 = new();
-        elementContainer1.Add(new ElementalElement(_tabletAdvanced.FirstElement, 100));
-        elementContainer1.Add(new Label($"{_tabletAdvanced.FirstElement.ElementName}"));
-        container.Add(elementContainer1);
+        void AddElements()
+        {
+            Label title = new("Element Combo Unlocked!");
+            title.style.fontSize = 34;
+            _content.Add(title);
 
-        container.Add(new Label("+"));
+            VisualElement container = new VisualElement();
+            container.style.flexDirection = FlexDirection.Row;
+            _content.Add(container);
 
-        VisualElement elementContainer2 = new();
-        elementContainer2.Add(new ElementalElement(_tabletAdvanced.SecondElement, 100));
-        elementContainer2.Add(new Label($"{_tabletAdvanced.SecondElement.ElementName}"));
-        container.Add(elementContainer2);
+            VisualElement elementContainer1 = new();
+            elementContainer1.Add(new ElementalElement(_tabletAdvanced.FirstElement, 100));
+            elementContainer1.Add(new Label($"{_tabletAdvanced.FirstElement.ElementName}"));
+            container.Add(elementContainer1);
 
-        container.Add(new Label("="));
+            container.Add(new Label("+"));
 
-        VisualElement elementContainer3 = new();
-        elementContainer3.Add(new ElementalElement(_tabletAdvanced.Element, 100));
-        elementContainer3.Add(new Label($"{_tabletAdvanced.Element.ElementName}"));
-        container.Add(elementContainer3);
-    }
+            VisualElement elementContainer2 = new();
+            elementContainer2.Add(new ElementalElement(_tabletAdvanced.SecondElement, 100));
+            elementContainer2.Add(new Label($"{_tabletAdvanced.SecondElement.ElementName}"));
+            container.Add(elementContainer2);
 
-    void AddAbilities()
-    {
-        Label title = new("Choose one ability:");
-        title.style.fontSize = 34;
-        _content.Add(title);
+            container.Add(new Label("="));
 
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.flexGrow = 1;
-        _content.Add(container);
+            VisualElement elementContainer3 = new();
+            elementContainer3.Add(new ElementalElement(_tabletAdvanced.Element, 100));
+            elementContainer3.Add(new Label($"{_tabletAdvanced.Element.ElementName}"));
+            container.Add(elementContainer3);
+        }
 
-        _abilityElementFirst = new AbilityElement(_tabletAdvanced.FirstAbility, false, 200);
-        _abilityElementFirst.RegisterCallback<PointerUpEvent>(OnAbilityElementFirstClick);
+        void AddAbilities()
+        {
+            Label title = new("Choose one ability:");
+            title.style.fontSize = 34;
+            _content.Add(title);
 
-        _abilityElementSecond = new AbilityElement(_tabletAdvanced.SecondAbility, false, 200);
-        _abilityElementSecond.RegisterCallback<PointerUpEvent>(OnAbilityElementSecondClick);
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            container.style.flexGrow = 1;
+            _content.Add(container);
 
-        container.Add(_abilityElementFirst);
-        container.Add(_abilityElementSecond);
-    }
+            _abilityElementFirst = new AbilityElement(_tabletAdvanced.Ability, false, 200);
+            _abilityElementFirst.RegisterCallback<PointerUpEvent>(OnAbilityElementFirstClick);
 
-    void OnAbilityElementFirstClick(PointerUpEvent evt)
-    {
-        BaseAbilityClicked();
-        BattleManager.Instance.Hero.AddAbility(_tabletAdvanced.FirstAbility);
-    }
+            container.Add(_abilityElementFirst);
+            container.Add(_abilityElementSecond);
+        }
 
-    void OnAbilityElementSecondClick(PointerUpEvent evt)
-    {
-        BaseAbilityClicked();
-        BattleManager.Instance.Hero.AddAbility(_tabletAdvanced.SecondAbility);
-    }
+        void OnAbilityElementFirstClick(PointerUpEvent evt)
+        {
+            BaseAbilityClicked();
+            BattleManager.Instance.Hero.AddAbility(_tabletAdvanced.Ability);
+        }
 
-    void BaseAbilityClicked()
-    {
-        _abilityElementFirst.SetEnabled(false);
-        _abilityElementSecond.SetEnabled(false);
-        AddContinueButton();
+        void BaseAbilityClicked()
+        {
+            _abilityElementFirst.SetEnabled(false);
+            _abilityElementSecond.SetEnabled(false);
+            AddContinueButton();
+        }
     }
 }

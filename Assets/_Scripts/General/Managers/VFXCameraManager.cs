@@ -1,19 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class VFXCameraManager : Singleton<VFXCameraManager>
+namespace Lis
 {
-    protected override void Awake()
+    public class VFXCameraManager : Singleton<VFXCameraManager>
     {
-        base.Awake();
+        protected override void Awake()
+        {
+            base.Awake();
         
-        Camera cam = GetComponent<Camera>();
-        RenderTexture texture = cam.targetTexture;
-        texture.Release();
-        texture.width = Screen.width;
-        texture.height = Screen.height;
+            Camera cam = GetComponent<Camera>();
+            RenderTexture texture = cam.targetTexture;
+            texture.Release();
+            texture.width = Screen.width;
+            texture.height = Screen.height;
 
-        cam.targetTexture = texture;
+            cam.targetTexture = texture;
+        }
     }
 }

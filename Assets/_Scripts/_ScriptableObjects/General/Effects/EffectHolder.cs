@@ -1,43 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
+
+
 using DG.Tweening;
-[CreateAssetMenu(menuName = "ScriptableObject/UI Effect Holder")]
-public class EffectHolder : BaseScriptableObject
+using UnityEngine;
+
+namespace Lis
 {
-
-    [Header("VFX")]
-    public GameObject VisualEffectPrefab;
-
-    [Tooltip("-1 to play forever")]
-    public float DurationSeconds;
-
-    [Header("Sound")]
-    public Sound Sound;
-
-    [HideInInspector] public AudioSource SFXAudioSource;
-
-    GameObject _effect;
-
-    public void PlayEffect(Vector3 position, Vector3 scale)
+    [CreateAssetMenu(menuName = "ScriptableObject/UI Effect Holder")]
+    public class EffectHolder : BaseScriptableObject
     {
-        EffectManager em = GameManager.Instance.GetComponent<EffectManager>();
-        if (em == null)
+
+        [Header("VFX")]
+        public GameObject VisualEffectPrefab;
+
+        [Tooltip("-1 to play forever")]
+        public float DurationSeconds;
+
+        [Header("Sound")]
+        public Sound Sound;
+
+        [HideInInspector] public AudioSource SFXAudioSource;
+
+        GameObject _effect;
+
+        public void PlayEffect(Vector3 position, Vector3 scale)
         {
-            Debug.LogWarning($"No effect manager, can't play effect {name}.");
-            return;
+            EffectManager em = GameManager.Instance.GetComponent<EffectManager>();
+            if (em == null)
+            {
+                Debug.LogWarning($"No effect manager, can't play effect {name}.");
+                return;
+            }
+
+            if (Sound != null)
+                SFXAudioSource = AudioManager.Instance.PlaySFX(Sound, position);
+            _effect = em.PlayEffect(VisualEffectPrefab, position, scale, DurationSeconds);
         }
 
-        if (Sound != null)
-            SFXAudioSource = AudioManager.Instance.PlaySFX(Sound, position);
-        _effect = em.PlayEffect(VisualEffectPrefab, position, scale, DurationSeconds);
-    }
-
-    public void DestroyEffect()
-    {
-        if (!_effect)
-            return;
-        _effect.transform.DOScale(0, 0.3f).OnComplete(() => GameObject.Destroy(_effect));
+        public void DestroyEffect()
+        {
+            if (!_effect)
+                return;
+            _effect.transform.DOScale(0, 0.3f).OnComplete(() => GameObject.Destroy(_effect));
+        }
     }
 }

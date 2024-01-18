@@ -13,7 +13,6 @@
     width: 70px;
 }
 
-
 .ability-element__overlay {
     position: absolute;
     width: 90%;

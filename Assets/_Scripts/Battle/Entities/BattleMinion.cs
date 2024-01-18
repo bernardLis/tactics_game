@@ -1,95 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
+
+
+
 using DG.Tweening;
+using UnityEngine;
 
-public class BattleMinion : BattleEntity
+namespace Lis
 {
-    public Minion Minion { get; private set; }
-
-    [SerializeField] GameObject _deathEffect;
-
-    BattleHero _targetHero;
-    bool _reachedHero;
-
-    public override void InitializeEntity(Entity entity, int team)
+    public class BattleMinion : BattleEntity
     {
-        if (_GFX != null) _GFX.SetActive(true);
+        public Minion Minion { get; private set; }
 
-        base.InitializeEntity(entity, team);
-        Minion = (Minion)entity;
+        [SerializeField] GameObject _deathEffect;
 
-        // minion pool
-        IsDead = false;
-        _isDeathCoroutineStarted = false;
-        Collider.enabled = true;
-    }
+        BattleHero _targetHero;
+        bool _reachedHero;
 
-    public override void InitializeBattle(ref List<BattleEntity> opponents)
-    {
-        base.InitializeBattle(ref opponents);
-
-        _targetHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
-        StartRunEntityCoroutine();
-    }
-
-    protected override IEnumerator RunEntity()
-    {
-        if (IsDead) yield break;
-
-        yield return PathToHero();
-    }
-
-    IEnumerator PathToHero()
-    {
-        _GFX.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
-
-        _agent.stoppingDistance = 2f;
-        yield return PathToTarget(_targetHero.transform);
-
-        // something is blocking path, so just die...
-        if (Vector3.Distance(transform.position, _targetHero.transform.position) > 2.5f)
+        public override void InitializeEntity(Entity entity, int team)
         {
-            DestroySelf();
-            yield break;
+            if (_GFX != null) _GFX.SetActive(true);
+
+            base.InitializeEntity(entity, team);
+            Minion = (Minion)entity;
+
+            // minion pool
+            IsDead = false;
+            _isDeathCoroutineStarted = false;
+            Collider.enabled = true;
         }
 
-        ReachedHero();
-    }
+        public override void InitializeBattle(ref List<BattleEntity> opponents)
+        {
+            base.InitializeBattle(ref opponents);
 
-    void ReachedHero()
-    {
-        _reachedHero = true;
-        Collider.enabled = false;
-        SetDead();
-        StopAllCoroutines();
+            _targetHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
+            StartRunEntityCoroutine();
+        }
 
-        _audioManager.PlaySFX(Minion.ExplosionSound, transform.position);
+        protected override IEnumerator RunEntity()
+        {
+            if (IsDead) yield break;
 
-        Animator.SetTrigger("Attack");
+            yield return PathToHero();
+        }
 
-        transform.DOMove(_targetHero.transform.position + Vector3.up * 2, 0.3f);
-        transform.DOPunchScale(transform.localScale * 1.2f, 0.2f, 10, 1)
-            .SetDelay(0.2f)
-            .OnComplete(() =>
+        IEnumerator PathToHero()
+        {
+            _GFX.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
+
+            _agent.stoppingDistance = 2f;
+            yield return PathToTarget(_targetHero.transform);
+
+            // something is blocking path, so just die...
+            if (Vector3.Distance(transform.position, _targetHero.transform.position) > 2.5f)
             {
-                GameObject explosion = Instantiate(Minion.ExplosionPrefab, transform.position, Quaternion.identity);
-                explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
+                DestroySelf();
+                yield break;
+            }
 
-                _targetHero.BaseGetHit(5, default);
+            ReachedHero();
+        }
 
-                _GFX.SetActive(false);
-                StartCoroutine(Die(hasLoot: false));
-            });
-    }
+        void ReachedHero()
+        {
+            _reachedHero = true;
+            Collider.enabled = false;
+            SetDead();
+            StopAllCoroutines();
 
-    protected override void DestroySelf()
-    {
-        if (!_reachedHero)
-            Destroy(Instantiate(_deathEffect, transform.position, Quaternion.identity), 1f);
+            _audioManager.PlaySFX(Minion.ExplosionSound, transform.position);
 
-        DOTween.Kill(transform);
-        StopAllCoroutines();
-        gameObject.SetActive(false); // there is a pool of minions
+            Animator.SetTrigger("Attack");
+
+            transform.DOMove(_targetHero.transform.position + Vector3.up * 2, 0.3f);
+            transform.DOPunchScale(transform.localScale * 1.2f, 0.2f, 10, 1)
+                .SetDelay(0.2f)
+                .OnComplete(() =>
+                {
+                    GameObject explosion = Instantiate(Minion.ExplosionPrefab, transform.position, Quaternion.identity);
+                    explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
+
+                    _targetHero.BaseGetHit(5, default);
+
+                    _GFX.SetActive(false);
+                    StartCoroutine(Die(hasLoot: false));
+                });
+        }
+
+        protected override void DestroySelf()
+        {
+            if (!_reachedHero)
+                Destroy(Instantiate(_deathEffect, transform.position, Quaternion.identity), 1f);
+
+            DOTween.Kill(transform);
+            StopAllCoroutines();
+            gameObject.SetActive(false); // there is a pool of minions
+        }
     }
 }

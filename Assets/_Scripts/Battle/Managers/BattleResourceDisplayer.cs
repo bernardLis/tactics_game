@@ -1,85 +1,89 @@
-using System.Collections;
-using System.Collections.Generic;
+
+
+
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
-using DG.Tweening;
 
-public class BattleResourceDisplayer : MonoBehaviour
+namespace Lis
 {
-    GameManager _gameManager;
-    BattleManager _battleManager;
-    BattleAreaManager _battleAreaManager;
-
-    VisualElement _root;
-    VisualElement _resourcePanel;
-    TroopsCountElement _troopsCounter;
-
-    GoldElement _goldElement;
-
-    LineTimerElement _nextTileTimer;
-
-    void Start()
+    public class BattleResourceDisplayer : MonoBehaviour
     {
-        _gameManager = GameManager.Instance;
-        _battleManager = BattleManager.Instance;
-        _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
+        GameManager _gameManager;
+        BattleManager _battleManager;
+        BattleAreaManager _battleAreaManager;
 
-        _root = _battleManager.Root;
-        _resourcePanel = _root.Q<VisualElement>("resourcePanel");
+        VisualElement _root;
+        VisualElement _resourcePanel;
+        TroopsCountElement _troopsCounter;
 
-        _battleManager.OnBattleInitialized += ResolveResourcePanel;
-    }
+        GoldElement _goldElement;
 
-    void ResolveResourcePanel()
-    {
-        _resourcePanel.style.opacity = 0f;
-        _resourcePanel.style.display = DisplayStyle.Flex;
-        DOTween.To(x => _resourcePanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
+        LineTimerElement _nextTileTimer;
 
-        UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
-        if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
-            AddTroopsCountElement();
-        if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)
-            AddGoldElement();
-        if (globalUpgradeBoard.GetUpgradeByName("Next Tile Timer").CurrentLevel != -1)
-            AddNextTileTimer();
-    }
+        void Start()
+        {
+            _gameManager = GameManager.Instance;
+            _battleManager = BattleManager.Instance;
+            _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
-    void AddGoldElement()
-    {
-        _goldElement = new(_gameManager.Gold);
-        _gameManager.OnGoldChanged += OnGoldChanged;
-        _resourcePanel.Add(_goldElement);
-    }
+            _root = _battleManager.Root;
+            _resourcePanel = _root.Q<VisualElement>("resourcePanel");
 
-    void AddTroopsCountElement()
-    {
-        _troopsCounter = new("");
-        _resourcePanel.Add(_troopsCounter);
+            _battleManager.OnBattleInitialized += ResolveResourcePanel;
+        }
 
-        _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsCountElement();
-        _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsCountElement();
+        void ResolveResourcePanel()
+        {
+            _resourcePanel.style.opacity = 0f;
+            _resourcePanel.style.display = DisplayStyle.Flex;
+            DOTween.To(x => _resourcePanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
-        UpdateTroopsCountElement();
-    }
+            UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
+            if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
+                AddTroopsCountElement();
+            if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)
+                AddGoldElement();
+            if (globalUpgradeBoard.GetUpgradeByName("Next Tile Timer").CurrentLevel != -1)
+                AddNextTileTimer();
+        }
 
-    void UpdateTroopsCountElement()
-    {
-        int count = Mathf.Clamp(_battleManager.PlayerCreatures.Count - 1, 0, 9999);
-        _troopsCounter.UpdateCountContainer($"{count}", Color.white);
-    }
+        void AddGoldElement()
+        {
+            _goldElement = new(_gameManager.Gold);
+            _gameManager.OnGoldChanged += OnGoldChanged;
+            _resourcePanel.Add(_goldElement);
+        }
 
-    void OnGoldChanged(int newValue)
-    {
-        int change = newValue - _goldElement.Amount;
-        Helpers.DisplayTextOnElement(_root, _goldElement, "" + change, Color.yellow);
-        _goldElement.ChangeAmount(newValue);
-    }
+        void AddTroopsCountElement()
+        {
+            _troopsCounter = new("");
+            _resourcePanel.Add(_troopsCounter);
 
-    void AddNextTileTimer()
-    {
-        _nextTileTimer = new(55, 60, true, "Next Tile Unlocked In");
-        _nextTileTimer.HideLabel();
-        _resourcePanel.Add(_nextTileTimer);
+            _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsCountElement();
+            _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsCountElement();
+
+            UpdateTroopsCountElement();
+        }
+
+        void UpdateTroopsCountElement()
+        {
+            int count = Mathf.Clamp(_battleManager.PlayerCreatures.Count - 1, 0, 9999);
+            _troopsCounter.UpdateCountContainer($"{count}", Color.white);
+        }
+
+        void OnGoldChanged(int newValue)
+        {
+            int change = newValue - _goldElement.Amount;
+            Helpers.DisplayTextOnElement(_root, _goldElement, "" + change, Color.yellow);
+            _goldElement.ChangeAmount(newValue);
+        }
+
+        void AddNextTileTimer()
+        {
+            _nextTileTimer = new(55, 60, true, "Next Tile Unlocked In");
+            _nextTileTimer.HideLabel();
+            _resourcePanel.Add(_nextTileTimer);
+        }
     }
 }

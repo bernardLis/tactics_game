@@ -1,56 +1,64 @@
+
+
+
+
 using UnityEngine.UIElements;
-public class AbilityTooltipElement : VisualElement
+
+namespace Lis
 {
-    Ability _ability;
-
-    const string _ussCommonTextPrimary = "common__text-primary";
-    const string _ussCommonTextSecondary = "common__text-secondary";
-
-    const string _ussClassName = "ability-tooltip-element__";
-    const string _ussMain = _ussClassName + "main";
-
-    public AbilityTooltipElement(Ability ability)
+    public class AbilityTooltipElement : VisualElement
     {
-        var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-        if (commonStyles != null)
-            styleSheets.Add(commonStyles);
-        var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
-        if (ss != null)
-            styleSheets.Add(ss);
+        Ability _ability;
 
-        _ability = ability;
-        AddToClassList(_ussMain);
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextSecondary = "common__text-secondary";
 
-        VisualElement container = new();
-        container.style.flexDirection = FlexDirection.Row;
+        const string _ussClassName = "ability-tooltip-element__";
+        const string _ussMain = _ussClassName + "main";
 
-        Label name = new(Helpers.ParseScriptableObjectName(ability.name));
-        name.AddToClassList(_ussCommonTextPrimary);
-        name.style.alignSelf = Align.Center;
-        container.Add(name);
-        container.Add(new ElementalElement(ability.Element));
+        public AbilityTooltipElement(Ability ability)
+        {
+            var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            if (commonStyles != null)
+                styleSheets.Add(commonStyles);
+            var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
+            if (ss != null)
+                styleSheets.Add(ss);
 
-        Label description = new(ability.Description);
-        description.AddToClassList(_ussCommonTextSecondary);
-        description.style.whiteSpace = WhiteSpace.Normal;
+            _ability = ability;
+            AddToClassList(_ussMain);
 
-        Label level = new($"Level: {ability.Level + 1}");
-        level.AddToClassList(_ussCommonTextSecondary);
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
 
-        Label power = new("Power: " + ability.GetPower());
-        power.AddToClassList(_ussCommonTextSecondary);
+            Label name = new(Helpers.ParseScriptableObjectName(ability.name));
+            name.AddToClassList(_ussCommonTextPrimary);
+            name.style.alignSelf = Align.Center;
+            container.Add(name);
+            container.Add(new ElementalElement(ability.Element));
 
-        Label cooldown = new("Cooldown: " + ability.GetCooldown());
-        cooldown.AddToClassList(_ussCommonTextSecondary);
+            Label description = new(ability.Description);
+            description.AddToClassList(_ussCommonTextSecondary);
+            description.style.whiteSpace = WhiteSpace.Normal;
 
-        Label scale = new("Scale: " + ability.GetScale());
-        scale.AddToClassList(_ussCommonTextSecondary);
+            Label level = new($"Level: {ability.Level + 1}");
+            level.AddToClassList(_ussCommonTextSecondary);
 
-        Add(container);
-        Add(description);
-        Add(level);
-        Add(power);
-        Add(cooldown);
-        Add(scale);
+            Label power = new("Power: " + ability.GetPower());
+            power.AddToClassList(_ussCommonTextSecondary);
+
+            Label cooldown = new("Cooldown: " + ability.GetCooldown());
+            cooldown.AddToClassList(_ussCommonTextSecondary);
+
+            Label scale = new("Scale: " + ability.GetScale());
+            scale.AddToClassList(_ussCommonTextSecondary);
+
+            Add(container);
+            Add(description);
+            Add(level);
+            Add(power);
+            Add(cooldown);
+            Add(scale);
+        }
     }
 }

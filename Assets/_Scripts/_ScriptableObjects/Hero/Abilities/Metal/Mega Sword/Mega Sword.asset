@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: e4eb4bb6-433f-41d7-8262-cb8b22efebff
   DeveloperComment: 
-  Description: Sword!
-  Icon: {fileID: 21300000, guid: dd08a48242c9b7a49bd56e3e1d1da693, type: 3}
+  Description: It is a sword, it circles around you
+  Icon: {fileID: 21300000, guid: 06ff32c30db1c3948a4bb57a86dfdefe, type: 3}
   Level: 0
   Levels:
   - {fileID: 11400000, guid: b3c1e49a5b0eb5b49b17bed909c4e841, type: 2}

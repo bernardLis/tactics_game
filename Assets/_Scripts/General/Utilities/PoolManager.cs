@@ -1,44 +1,46 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour
+namespace Lis
 {
-    GameObject _prefab;
-    List<T> _pool = new();
-    Transform _poolHolder;
-
-    protected void CreatePool(GameObject prefab, int count = 200)
+    public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour
     {
-        _prefab = prefab;
-        _poolHolder = new GameObject(prefab.name + " Pool").transform;
+        GameObject _prefab;
+        List<T> _pool = new();
+        Transform _poolHolder;
 
-        _pool = new();
-        for (int i = 0; i < count; i++)
+        protected void CreatePool(GameObject prefab, int count = 200)
         {
-            T p = Instantiate(prefab, _poolHolder).GetComponent<T>();
-            p.gameObject.SetActive(false);
-            _pool.Add(p);
-        }
-    }
+            _prefab = prefab;
+            _poolHolder = new GameObject(prefab.name + " Pool").transform;
 
-    public T GetObjectFromPool()
-    {
-        T obj = _pool.Find(o => !o.gameObject.activeSelf);
-        if (obj == null)
-        {
-            T p = Instantiate(_prefab, _poolHolder).GetComponent<T>();
-            p.gameObject.SetActive(false);
-            _pool.Add(p);
-            return p;
+            _pool = new();
+            for (int i = 0; i < count; i++)
+            {
+                T p = Instantiate(prefab, _poolHolder).GetComponent<T>();
+                p.gameObject.SetActive(false);
+                _pool.Add(p);
+            }
         }
 
-        return obj;
-    }
+        public T GetObjectFromPool()
+        {
+            T obj = _pool.Find(o => !o.gameObject.activeSelf);
+            if (obj == null)
+            {
+                T p = Instantiate(_prefab, _poolHolder).GetComponent<T>();
+                p.gameObject.SetActive(false);
+                _pool.Add(p);
+                return p;
+            }
 
-    protected List<T> GetActiveObjects()
-    {
-        return _pool.FindAll(o => o.gameObject.activeSelf);
-    }
+            return obj;
+        }
 
+        protected List<T> GetActiveObjects()
+        {
+            return _pool.FindAll(o => o.gameObject.activeSelf);
+        }
+
+    }
 }

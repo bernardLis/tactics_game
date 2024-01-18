@@ -1,29 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Minion")]
-public class Minion : EntityMovement
+namespace Lis
 {
-    [Header("Minion")]
-    public GameObject ExplosionPrefab;
-    public Sound ExplosionSound;
-
-    public override void InitializeBattle(int team)
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Minion")]
+    public class Minion : EntityMovement
     {
-        base.InitializeBattle(team);
-        if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
+        [Header("Minion")]
+        public GameObject ExplosionPrefab;
+        public Sound ExplosionSound;
 
-        if (Level.Value <= 1) return;
-
-        for (int i = 1; i < Level.Value; i++)
+        public override void InitializeBattle(int team)
         {
-            MaxHealth.LevelUp();
-            Armor.LevelUp();
-            Speed.LevelUp();
-        }
+            base.InitializeBattle(team);
+            if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
 
-        CurrentHealth.SetValue(MaxHealth.GetValue());
+            if (Level.Value <= 1) return;
+
+            for (int i = 1; i < Level.Value; i++)
+            {
+                MaxHealth.LevelUp();
+                Armor.LevelUp();
+                Speed.LevelUp();
+            }
+
+            CurrentHealth.SetValue(MaxHealth.GetValue());
+        }
     }
 }
 

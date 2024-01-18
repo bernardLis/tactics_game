@@ -1,15 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
+
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Battle/Building Production")]
-public class BuildingProduction : Building
+namespace Lis
 {
-    public Creature ProducedCreature;
-
-    public UpgradeLevelBuilding GetCurrentUpgrade()
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building Production")]
+    public class BuildingProduction : Building
     {
-        return BuildingUpgrade.GetCurrentLevel() as UpgradeLevelBuilding;
+        public Creature ProducedCreature;
+
+        public UpgradeLevelBuilding GetCurrentUpgrade()
+        {
+            return BuildingUpgrade.GetCurrentLevel() as UpgradeLevelBuilding;
+        }
     }
 }
