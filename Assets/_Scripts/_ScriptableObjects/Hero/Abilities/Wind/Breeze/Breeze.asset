@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Breeze
   m_EditorClassIdentifier: 
-  Id: c9f540d2-7cb4-4e93-abb0-ab07243f9d12
+  Id: 4ecfc9b0-9e14-4361-92cc-ec20ebd84c5f
   DeveloperComment: cooldown can't be lower than duration
   Description: Deals damage in expanding area
   Icon: {fileID: 21300000, guid: 4b9c0bf94258dd348961ba49e3f6abeb, type: 3}

@@ -16,7 +16,8 @@ MonoBehaviour:
   ElementName: 2
   Icon: {fileID: 21300000, guid: d80314ca59e5e5743a32c893e3ad2c6a, type: 3}
   Color: {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
-  Description: Wind - strong against water weak against earth.
+  Description: 
   StrongAgainst: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   WeakAgainst: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  IsAdvanced: 0
   VFXEffect: {fileID: 11400000, guid: 4ee72b03a4dbde54cbc14c993daeb244, type: 2}

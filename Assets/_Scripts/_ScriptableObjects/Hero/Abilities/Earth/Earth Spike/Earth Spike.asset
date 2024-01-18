@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Earth Spike
   m_EditorClassIdentifier: 
-  Id: f6da12f3-714f-46a5-8722-cd35a2fdf6ba
+  Id: 8a9357e8-634e-4ff3-b452-ccdc32c04c43
   DeveloperComment: 
   Description: Danger ground carpet
   Icon: {fileID: 21300000, guid: 0d8af203443f02245ac99462d94d843b, type: 3}

@@ -22,5 +22,5 @@ MonoBehaviour:
     StatType: 0
     Value: 10
   SecondaryStat:
-    StatType: 0
+    StatType: 7
     Value: 0

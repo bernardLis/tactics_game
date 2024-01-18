@@ -16,7 +16,8 @@ MonoBehaviour:
   ElementName: 3
   Icon: {fileID: 21300000, guid: e4b7d7295abb3e14f93b34ece3636abc, type: 3}
   Color: {fileID: 11400000, guid: 56988719a9e791d43b0d64e35a56f0f0, type: 2}
-  Description: Weak against fire, strong against wind.
+  Description: 
   StrongAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   WeakAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  IsAdvanced: 0
   VFXEffect: {fileID: 11400000, guid: 858a11eea3168d24ebe83bdff6b9cf3a, type: 2}

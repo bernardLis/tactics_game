@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Meteors
   m_EditorClassIdentifier: 
-  Id: 9de362f2-7128-4475-a990-e3171b6b34e9
+  Id: 7a17f096-c228-499c-89d1-f1df16dad2fd
   DeveloperComment: "Cooldown needs to take \ninto consideration how long \nit takes
     to run this ability = long."
   Description: I wouldn't want to get hit by that

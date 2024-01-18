@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Wind Tornado
   m_EditorClassIdentifier: 
-  Id: 966c0ca5-6153-42fe-bc6b-d117f29964f3
+  Id: f4424859-58fd-4496-b750-bc7e2ef74496
   DeveloperComment: 
   Description: Quick and deadly. I like it!
   Icon: {fileID: 21300000, guid: 84382ba6a31570644bb34c3c928ee643, type: 3}

@@ -1,6 +1,3 @@
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,27 +8,27 @@ namespace Lis
         public RewardElementAbility(Reward reward) : base(reward)
         {
             RewardAbility rewardAbility = reward as RewardAbility;
-            Label txt = new Label("");
-            txt.text = $"Level {rewardAbility.Level}";
+            if (rewardAbility == null) return;
+
+            Label txt = new($"$Level {rewardAbility.Level}");
             Add(txt);
+
             if (!rewardAbility.IsUpgrade)
             {
                 txt.text = "New!";
-                txt.style.color = Color.yellow;
+                txt.style.color = rewardAbility.Ability.Element.Color.Primary;
             }
 
-            Add(new AbilityElement(rewardAbility.Ability));
+            Add(new AbilityElement(rewardAbility.Ability, size: 200));
 
-            Label name = new Label(Helpers.ParseScriptableObjectName(rewardAbility.Ability.name));
-            name.style.whiteSpace = WhiteSpace.Normal;
-            name.style.unityFontStyleAndWeight = FontStyle.Bold;
-            Add(name);
+            Label nameLabel = new(Helpers.ParseScriptableObjectName(rewardAbility.Ability.name));
+            nameLabel.style.whiteSpace = WhiteSpace.Normal;
+            nameLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+            Add(nameLabel);
 
-            Add(new Label(rewardAbility.Ability.Description));
-
-            // TODO: handle upgrade and new ability differently.
-
-
+            Label descLabel = new(rewardAbility.Ability.Description);
+            descLabel.style.whiteSpace = WhiteSpace.Normal;
+            Add(descLabel);
         }
     }
 }

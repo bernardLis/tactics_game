@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,11 +12,13 @@ namespace Lis
         const string _ussClassName = "ability-element__";
         const string _ussMain = _ussClassName + "main";
         const string _ussIcon = _ussClassName + "icon";
+        const string _ussBorder = _ussClassName + "border";
         const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
         const string _ussLevelDotFull = _ussClassName + "level-dot-full";
 
         readonly AudioManager _audioManager;
 
+        readonly VisualElement _border;
         readonly VisualElement _icon;
 
         public Ability Ability;
@@ -30,7 +29,8 @@ namespace Lis
 
         public AbilityElement(Ability ability, bool showLevel = false, int size = 100) : base()
         {
-            var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
+            var ss = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _audioManager = AudioManager.Instance;
@@ -41,14 +41,18 @@ namespace Lis
             AddToClassList(_ussMain);
             AddToClassList(_ussCommonTextPrimary);
             AddToClassList(_ussCommonButtonBasic);
+            style.width = size;
+            style.height = size;
 
             _icon = new();
             _icon.AddToClassList(_ussIcon);
             _icon.style.backgroundImage = ability.Icon.texture;
             Add(_icon);
 
-            style.width = size;
-            style.height = size;
+            _border = new();
+            _border.AddToClassList(_ussBorder);
+            Add(_border);
+
 
             if (showLevel) AddLevelUpDots();
         }

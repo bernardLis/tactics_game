@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Earth Slash
   m_EditorClassIdentifier: 
-  Id: cee7129c-162c-4965-998a-cecea1c13378
+  Id: 04d183f7-fe3e-43fc-8b50-fe890392ea39
   DeveloperComment: 
   Description: Slashes enemies into pieces
   Icon: {fileID: 21300000, guid: f074469233116a54caab1ef0fac73109, type: 3}

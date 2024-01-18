@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Fire Balls
   m_EditorClassIdentifier: 
-  Id: 9de362f2-7128-4475-a990-e3171b6b34e9
+  Id: 60c1bf80-812f-46ce-8d6a-648b45b59a2a
   DeveloperComment: 
   Description: Classic fireballs, what do you expect?
   Icon: {fileID: 21300000, guid: 2e33bbdaf1ebeaa43892531f5c212f16, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Ice Spiral
   m_EditorClassIdentifier: 
-  Id: c396d122-cd6c-4896-82f5-86bc2535353d
+  Id: 1ff58428-67e7-40bf-8f00-bcd474b5ca2b
   DeveloperComment: 
   Description: It's cold and it hurts your enemies
   Icon: {fileID: 21300000, guid: 1a8e408b851935942834592af8878d78, type: 3}

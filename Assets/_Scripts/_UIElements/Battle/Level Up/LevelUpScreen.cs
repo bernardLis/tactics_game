@@ -263,7 +263,7 @@ namespace Lis
         {
             _audioManager.PlayUI("Reward Chosen");
 
-            _rerollButton.SetEnabled(false);
+            _rerollContainer.style.display = DisplayStyle.None;
             DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f)
                 .SetUpdate(true);
 

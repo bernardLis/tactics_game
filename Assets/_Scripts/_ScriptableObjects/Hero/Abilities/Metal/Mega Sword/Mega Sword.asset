@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Mega Sword
   m_EditorClassIdentifier: 
-  Id: e4eb4bb6-433f-41d7-8262-cb8b22efebff
+  Id: 462d3143-112e-4845-a8b5-624ae1dc182d
   DeveloperComment: 
   Description: It is a sword, it circles around you
   Icon: {fileID: 21300000, guid: 06ff32c30db1c3948a4bb57a86dfdefe, type: 3}

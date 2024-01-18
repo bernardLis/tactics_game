@@ -21,6 +21,7 @@ namespace Lis
 
             Label txt = new($"{Helpers.ToRoman(tablet.Level.Value + 1)}");
             txt.style.fontSize = 36;
+            txt.style.color = Color.white;
             txt.style.unityFontStyleAndWeight = FontStyle.Bold;
             container.Add(txt);
 

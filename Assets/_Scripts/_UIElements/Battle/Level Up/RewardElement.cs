@@ -5,6 +5,7 @@ namespace Lis
     public class RewardElement : ElementWithSound
     {
         readonly GameManager _gameManager;
+        const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
         const string _ussClassName = "reward-element__";
         const string _ussMain = _ussClassName + "main";
         const string _ussDisabled = _ussClassName + "disabled";
@@ -21,6 +22,7 @@ namespace Lis
 
             Reward = reward;
             AddToClassList(_ussMain);
+            AddToClassList(_ussCommonTextPrimaryBlack);
 
             RegisterCallback<ClickEvent>(OnClick);
             RegisterCallback<MouseOverEvent>(OnMouseOver);

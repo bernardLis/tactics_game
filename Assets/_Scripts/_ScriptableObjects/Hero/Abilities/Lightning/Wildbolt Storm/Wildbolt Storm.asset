@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3841bdf36fb84d647944703094a78421, type: 3}
   m_Name: Wildbolt Storm
   m_EditorClassIdentifier: 
-  Id: e4eb4bb6-433f-41d7-8262-cb8b22efebff
+  Id: f383b95b-d5fa-4c84-828a-7ff972a7f474
   DeveloperComment: 
   Description: Have you had a swarm of bees under your command?
   Icon: {fileID: 21300000, guid: 8a245adb6e455364b9d95208817a8006, type: 3}
