@@ -35,8 +35,9 @@ namespace Lis
         [Header("Camera Rotation")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         [SerializeField] GameObject _cinemachineCameraTarget;
-        Vector3 _defaultCameraRotation = new Vector3(50f, 0f, 0f);
-        float _threshold = 0.01f;
+
+        readonly Vector3 _defaultCameraRotation = new Vector3(50f, 0f, 0f);
+        readonly float _threshold = 0.01f;
         float _cinemachineTargetYaw;
         float _cinemachineTargetPitch;
 

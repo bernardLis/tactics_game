@@ -21,17 +21,17 @@ namespace Lis
         const string _ussStarPurchased = _ussClassName + "star-purchased";
         const string _ussFill = _ussClassName + "fill";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
         public Upgrade Upgrade;
 
-        List<VisualElement> _stars = new();
+        readonly List<VisualElement> _stars = new();
 
         Label _title;
         GoldElement _price;
         VisualElement _fill;
 
-        string tweenId = "fill";
+        readonly string tweenId = "fill";
 
         IVisualElementScheduledItem _purchaseScheduler;
 

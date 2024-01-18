@@ -29,7 +29,7 @@ namespace DigitalRuby.ThunderAndLightning
 
         private readonly List<Vector3> prevSourcePoints = new List<Vector3>(new Vector3[] { Vector3.zero });
         private readonly List<Vector3> sourcePoints = new List<Vector3>();
-        private List<Vector3> savedSplinePoints = new List<Vector3>();
+        private readonly List<Vector3> savedSplinePoints = new List<Vector3>();
 
         private int previousGenerations = -1;
         private float previousDistancePerSegment = -1.0f;

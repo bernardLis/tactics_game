@@ -14,7 +14,7 @@ namespace Lis
 
         protected Transform _abilityObjectParent;
         [SerializeField] protected GameObject _abilityObjectPrefab;
-        List<BattleAbilityObject> _abilityObjectPool = new();
+        readonly List<BattleAbilityObject> _abilityObjectPool = new();
 
         protected Ability _ability;
         protected IEnumerator _runAbilityCoroutine;

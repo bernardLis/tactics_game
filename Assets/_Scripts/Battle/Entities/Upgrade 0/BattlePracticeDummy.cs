@@ -12,7 +12,7 @@ namespace Lis
 
         GameObject _abilityEffectInstance;
 
-        List<GameObject> _hitInstances = new();
+        readonly List<GameObject> _hitInstances = new();
 
         protected override IEnumerator Attack()
         {

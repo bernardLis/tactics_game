@@ -6,9 +6,9 @@ namespace Lis
 {
     public class BossInfoElement : EntityInfoElement
     {
-        BattleBoss _battleBoss;
+        readonly BattleBoss _battleBoss;
 
-        ResourceBarElement _stunBar;
+        readonly ResourceBarElement _stunBar;
         public BossInfoElement(BattleBoss bs) : base(bs)
         {
             _battleBoss = bs;

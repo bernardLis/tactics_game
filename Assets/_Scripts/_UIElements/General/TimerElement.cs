@@ -16,19 +16,19 @@ namespace Lis
         const string _ussLabel = _ussClassName + "label";
         const string _ussSecondsLeftLabel = _ussClassName + "seconds-left-label";
 
-        GameManager _gameManager;
-        BattleManager _battleManager;
+        readonly GameManager _gameManager;
+        readonly BattleManager _battleManager;
 
         protected VisualElement _labelWrapper;
         Label _label;
         Label _secondsLeftLabel;
-        string _text;
+        readonly string _text;
 
         protected int _totalTicks;
         protected int _ticksLeft;
         protected bool _isLooping;
 
-        IVisualElementScheduledItem _timer;
+        readonly IVisualElementScheduledItem _timer;
 
         public event Action OnLoopFinished;
         public event Action OnTimerFinished;

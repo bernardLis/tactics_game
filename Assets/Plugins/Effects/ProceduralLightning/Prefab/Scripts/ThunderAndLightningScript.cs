@@ -19,7 +19,7 @@ namespace DigitalRuby.ThunderAndLightning
         {
             public float VolumeMultiplier { get; set; }
 
-            private ThunderAndLightningScript script;
+            private readonly ThunderAndLightningScript script;
             private readonly System.Random random = new System.Random();
 
             public LightningBoltHandler(ThunderAndLightningScript script)

@@ -25,7 +25,7 @@ namespace Lis
 
         [HideInInspector] public BattleTile HomeTile;
         [HideInInspector] public List<BattleTile> _cornerTiles = new();
-        List<BattleTile> _tiles = new();
+        readonly List<BattleTile> _tiles = new();
         public List<BattleTile> UnlockedTiles = new();
 
         public event Action<BattleTile> OnTileUnlocked;
@@ -296,13 +296,13 @@ namespace Lis
                 Parent = parent;
             }
 
-            public BattleTile Tile;
+            public readonly BattleTile Tile;
 
-            public float F; //F = G + H
-            public float G; // G is the distance between the current node and the start node.
-            public float H; //H is the heuristic — estimated distance from the current node to the end node.
+            public readonly float F; //F = G + H
+            public readonly float G; // G is the distance between the current node and the start node.
+            public readonly float H; //H is the heuristic — estimated distance from the current node to the end node.
 
-            public BattleTile Parent;
+            public readonly BattleTile Parent;
             public List<BattleTile> Children;
         }
 

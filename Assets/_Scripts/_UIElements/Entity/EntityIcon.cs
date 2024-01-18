@@ -17,16 +17,16 @@ namespace Lis
         const string _ussIconContainer = _ussClassName + "icon-container";
         const string _ussFrame = _ussClassName + "frame";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        Entity _entity;
+        readonly Entity _entity;
 
-        VisualElement _iconContainer;
+        readonly VisualElement _iconContainer;
         public VisualElement Frame;
 
-        bool _blockClick;
+        readonly bool _blockClick;
 
-        AnimationElement _animationElement;
+        readonly AnimationElement _animationElement;
         bool _isAnimationBlocked;
         public EntityIcon(Entity entity, bool blockClick = false)
         {

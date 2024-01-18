@@ -16,9 +16,9 @@ namespace Lis
 
         bool _isGray;
 
-        UpgradeBoard _upgradeBoard;
+        readonly UpgradeBoard _upgradeBoard;
 
-        ScrollView _upgradeContainer;
+        readonly ScrollView _upgradeContainer;
 
         public UpgradeScreen(UpgradeBoard upgradeBoard)
         {

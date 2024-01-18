@@ -10,7 +10,7 @@ namespace Lis
         [SerializeField] float _explosionRadius = 5f;
         [SerializeField] GameObject _explosionEffect;
 
-        List<GameObject> _hitInstances = new();
+        readonly List<GameObject> _hitInstances = new();
         GameObject _explosionEffectInstance;
 
         public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)

@@ -17,11 +17,11 @@ namespace Lis
         const string _ussMissing = _ussClassName + "__missing";
         const string _ussBarText = _ussClassName + "__bar-text";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
         public VisualElement ResourceBar;
         public VisualElement MissingBar;
-        Label _text;
+        readonly Label _text;
 
         int _displayedAmount;
         IntVariable _currentInt;
@@ -30,10 +30,10 @@ namespace Lis
 
         IVisualElementScheduledItem _animation;
 
-        string _tooltipText;
+        readonly string _tooltipText;
 
         Color _color;
-        int _valueChangeDelay;
+        readonly int _valueChangeDelay;
 
         public event Action OnAnimationFinished;
 

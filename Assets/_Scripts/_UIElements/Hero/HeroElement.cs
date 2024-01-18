@@ -23,16 +23,16 @@ namespace Lis
         const string _ussTabletSlot = _ussClassName + "tablet-slot";
         const string _ussTabletSlotPremium = _ussTabletSlot + "-premium";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        Hero _hero;
+        readonly Hero _hero;
 
-        VisualElement _heroInfoContainer;
+        readonly VisualElement _heroInfoContainer;
         ResourceBarElement _expBar;
         Label _levelLabel;
-        List<AbilityElement> _abilityElements = new();
+        readonly List<AbilityElement> _abilityElements = new();
 
-        bool _isAdvancedView;
+        readonly bool _isAdvancedView;
         VisualElement _advancedViewContainer;
 
         public HeroElement(Hero hero, bool isAdvanced = false)

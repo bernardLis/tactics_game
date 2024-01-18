@@ -11,11 +11,11 @@ namespace Lis
         const string _ussClassName = "tooltip-element";
         const string _ussMain = _ussClassName + "__main";
 
-        int offsetX = 20;
-        int offsetY = 30;
+        readonly int offsetX = 20;
+        readonly int offsetY = 30;
 
-        VisualElement _parentElement;
-        VisualElement _tooltipElement;
+        readonly VisualElement _parentElement;
+        readonly VisualElement _tooltipElement;
 
         public TooltipElement(VisualElement parent, VisualElement tooltipElement, bool disableTooltipStyle = false)
         {

@@ -47,13 +47,13 @@ namespace DigitalRuby.ThunderAndLightning
         private string fpsText;
 
         private enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
-        private RotationAxes axes = RotationAxes.MouseXAndY;
-        private float sensitivityX = 15F;
-        private float sensitivityY = 15F;
-        private float minimumX = -360F;
-        private float maximumX = 360F;
-        private float minimumY = -60F;
-        private float maximumY = 60F;
+        private readonly RotationAxes axes = RotationAxes.MouseXAndY;
+        private readonly float sensitivityX = 15F;
+        private readonly float sensitivityY = 15F;
+        private readonly float minimumX = -360F;
+        private readonly float maximumX = 360F;
+        private readonly float minimumY = -60F;
+        private readonly float maximumY = 60F;
         private float rotationX = 0F;
         private float rotationY = 0F;
         private Quaternion originalRotation;

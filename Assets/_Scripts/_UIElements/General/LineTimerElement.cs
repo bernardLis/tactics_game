@@ -9,9 +9,9 @@ namespace Lis
         const string _ussLineWrapper = _ussClassName + "line-wrapper";
         const string _ussLine = _ussClassName + "line";
 
-        VisualElement _wrapper;
+        readonly VisualElement _wrapper;
 
-        VisualElement _line;
+        readonly VisualElement _line;
 
         public LineTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
             : base(timeLeft, totalTime, isLooping, text)

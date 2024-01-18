@@ -9,10 +9,10 @@ namespace Lis
         const string _ussClassName = "turret-icon__";
         const string _ussMain = _ussClassName + "main";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        Turret _turret;
-        bool _blockTooltip;
+        readonly Turret _turret;
+        readonly bool _blockTooltip;
         public TurretIcon(Turret turret, bool blockTooltip = false)
         {
             _gameManager = GameManager.Instance;

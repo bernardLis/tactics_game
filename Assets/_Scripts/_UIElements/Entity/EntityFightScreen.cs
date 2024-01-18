@@ -5,7 +5,7 @@ namespace Lis
 {
     public class EntityFightScreen : EntityMovementScreen
     {
-        EntityFight _entityFight;
+        readonly EntityFight _entityFight;
         public EntityFightScreen(EntityFight entity) : base(entity)
         {
             _entityFight = entity;

@@ -10,7 +10,7 @@ namespace Lis
         [SerializeField] GameObject _effect;
 
         [SerializeField] GameObject _wildboltPrefab;
-        List<BattleWildbolt> _wildboltPool = new();
+        readonly List<BattleWildbolt> _wildboltPool = new();
 
         public override void Initialize(Ability ability, bool startAbility = true)
         {

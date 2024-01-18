@@ -10,7 +10,7 @@ namespace Lis
         const string _ussCommonPurchaseButton = "common__purchase-button";
         const string _ussCommonPurchased = "common__purchased";
 
-        GoldElement _costGoldElement;
+        readonly GoldElement _costGoldElement;
 
         int _cost;
         bool _isInfinite;

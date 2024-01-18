@@ -11,7 +11,7 @@ namespace Lis
         BattleHeroController _thirdPersonController;
         BattleHeroHealthBar _battleHeroHealthBar;
 
-        Dictionary<Ability, GameObject> _battleAbilities = new();
+        readonly Dictionary<Ability, GameObject> _battleAbilities = new();
 
         public override void InitializeEntity(Entity entity, int team)
         {

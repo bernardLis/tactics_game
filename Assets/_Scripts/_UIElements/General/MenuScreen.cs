@@ -16,7 +16,7 @@ namespace Lis
         const string _ussContainer = _ussClassName + "container";
         const string _ussButtonContainer = _ussClassName + "button-container";
 
-        VisualElement _container;
+        readonly VisualElement _container;
         public MenuScreen() : base()
         {
             var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.MenuStyles);

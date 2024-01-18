@@ -8,7 +8,7 @@ namespace Lis
     {
         Sprite[] _animationSprites;
         bool _isLoop;
-        int _delay;
+        readonly int _delay;
         int _animationSpriteIndex = 0;
 
         IVisualElementScheduledItem _animationScheduler;

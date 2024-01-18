@@ -7,7 +7,7 @@ namespace Lis
 {
     public class RewardElement : ElementWithSound
     {
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
         const string _ussClassName = "reward-element__";
         const string _ussMain = _ussClassName + "main";
         const string _ussDisabled = _ussClassName + "disabled";

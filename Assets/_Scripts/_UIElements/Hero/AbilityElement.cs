@@ -18,9 +18,9 @@ namespace Lis
         const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
         const string _ussLevelDotFull = _ussClassName + "level-dot-full";
 
-        AudioManager _audioManager;
+        readonly AudioManager _audioManager;
 
-        VisualElement _icon;
+        readonly VisualElement _icon;
 
         public Ability Ability;
 

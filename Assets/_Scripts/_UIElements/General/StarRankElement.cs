@@ -7,10 +7,10 @@ namespace Lis
 {
     public class StarRankElement : ElementWithTooltip
     {
-        List<VisualElement> _stars = new();
-        int _maxRank;
+        readonly List<VisualElement> _stars = new();
+        readonly int _maxRank;
         public int Rank;
-        VisualElement _tooltipElement;
+        readonly VisualElement _tooltipElement;
 
         const string _ussClassName = "star-rank-element__";
         const string _ussStar = _ussClassName + "star";

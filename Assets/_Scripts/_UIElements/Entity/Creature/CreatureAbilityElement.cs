@@ -13,11 +13,11 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussTimerLabelWrapper = _ussClassName + "timer-label-wrapper";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        CreatureAbility _ability;
+        readonly CreatureAbility _ability;
 
-        bool _isLocked;
+        readonly bool _isLocked;
 
         LockOverlayElement _lockOverlay;
         OverlayTimerElement _timer;

@@ -16,9 +16,9 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussVolumeSlider = _ussClassName + "volume-slider";
 
-        AudioManager _audioManger;
+        readonly AudioManager _audioManger;
 
-        VisualElement _container;
+        readonly VisualElement _container;
 
         Toggle _fullScreenToggle;
 

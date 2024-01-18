@@ -20,8 +20,7 @@ namespace Lis
         [SerializeField] GameObject _corruptionBreakNodePrefab;
         [SerializeField] GameObject _stunEffect;
 
-        [Header("Attacks")]
-        List<BossAttack> _attacks = new();
+        [Header("Attacks")] readonly List<BossAttack> _attacks = new();
         IEnumerator _attackCoroutine;
 
         List<BattleTile> _pathToHomeTile = new();

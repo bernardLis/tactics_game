@@ -14,7 +14,7 @@ namespace Lis
         const string _ussClassName = "tablet-tooltip-element__";
         const string _ussMain = _ussClassName + "main";
 
-        Tablet _tablet;
+        readonly Tablet _tablet;
 
         public TabletTooltipElement(Tablet tablet)
         {

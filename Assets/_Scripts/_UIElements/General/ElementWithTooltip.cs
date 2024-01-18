@@ -14,7 +14,7 @@ namespace Lis
         bool _isPointerDown;
         bool _isTooltipDisplayed;
 
-        string tooltipTweenId = "tooltipTweenId";
+        readonly string tooltipTweenId = "tooltipTweenId";
 
         IVisualElementScheduledItem _tooltipDisplayScheduler;
 

@@ -4,8 +4,7 @@ namespace Lis
 {
     public class EntityMovementScreen : EntityScreen
     {
-
-        EntityMovement _entityMovement;
+        readonly EntityMovement _entityMovement;
         public EntityMovementScreen(EntityMovement entity) : base(entity)
         {
             _entityMovement = entity;

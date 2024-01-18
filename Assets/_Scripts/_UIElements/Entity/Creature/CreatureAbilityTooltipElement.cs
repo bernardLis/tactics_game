@@ -10,9 +10,9 @@ namespace Lis
         const string _ussClassName = "creature-ability-tooltip-element__";
         const string _ussMain = _ussClassName + "main";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        CreatureAbility _ability;
+        readonly CreatureAbility _ability;
 
         public CreatureAbilityTooltipElement(CreatureAbility ability)
         {

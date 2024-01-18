@@ -2378,7 +2378,7 @@ namespace DigitalRuby.ThunderAndLightning
         /// <summary>
         /// Lightning thread
         /// </summary>
-        private Thread lightningThread;
+        private readonly Thread lightningThread;
 
 #endif
 

@@ -16,10 +16,10 @@ namespace DigitalRuby.ThunderAndLightning
     /// </summary>
     public class MeshHelper
     {
-        private Mesh mesh;
-        private int[] triangles;
-        private Vector3[] vertices;
-        private Vector3[] normals;
+        private readonly Mesh mesh;
+        private readonly int[] triangles;
+        private readonly Vector3[] vertices;
+        private readonly Vector3[] normals;
         private float[] normalizedAreaWeights;
 
         /// <summary>

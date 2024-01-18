@@ -13,8 +13,8 @@ namespace Lis
         const string _ussIcon = _ussClassName + "icon";
         const string _ussValue = _ussClassName + "value";
 
-        GameManager _gameManager;
-        VisualElement _icon;
+        readonly GameManager _gameManager;
+        readonly VisualElement _icon;
 
         Tween _shakeTween;
 

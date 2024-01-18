@@ -13,7 +13,7 @@ namespace Lis
 
         [SerializeField] BattleBreakableVase _vasePrefab;
 
-        int _vasesPerSpawn = 5;
+        readonly int _vasesPerSpawn = 5;
 
         [SerializeField] bool _debugSpawnVase;
 

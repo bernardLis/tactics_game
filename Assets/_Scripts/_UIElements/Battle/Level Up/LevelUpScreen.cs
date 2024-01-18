@@ -1,12 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,26 +15,28 @@ namespace Lis
         const string _ussLevelUpLabel = _ussClassName + "level-up-label";
         const string _ussFallingElement = _ussClassName + "falling-element";
 
-        AudioManager _audioManager;
-        BattleHeroManager _battleHeroManager;
+        readonly AudioManager _audioManager;
+        readonly BattleHeroManager _battleHeroManager;
 
         VisualElement _rewardContainer;
         Label _title;
-        List<float> _leftPositions = new();
+        readonly List<float> _leftPositions = new();
 
-        List<RewardElement> _allRewardElements = new();
+        readonly List<RewardElement> _allRewardElements = new();
 
         VisualElement _rerollContainer;
         Label _rerollsLeft;
         RerollButton _rerollButton;
 
-        int _numberOfRewards = 2;
+        readonly int _numberOfRewards = 2;
 
         public event Action OnRewardSelected;
+
         public LevelUpScreen() : base()
         {
             _audioManager = _gameManager.GetComponent<AudioManager>();
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _numberOfRewards = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
@@ -142,7 +138,6 @@ namespace Lis
                 foreach (var el in hiddenCards)
                     _leftPositions.Add(el.layout.x);
             }).StartingIn(100);
-
         }
 
         void AddRerollButton()

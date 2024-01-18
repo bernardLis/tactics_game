@@ -14,12 +14,12 @@ namespace Lis
         const string _ussIcon = _ussClassName + "icon";
         const string _ussValue = _ussClassName + "value";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
         public Label Icon;
         public Label Value;
 
-        Stat _stat;
+        readonly Stat _stat;
 
         string _tooltipText;
 

@@ -11,11 +11,11 @@ namespace Lis
         const string _ussLockIcon = "common__lock-overlay-icon";
         const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
 
-        GameManager _gameManager;
-        AudioManager _audioManager;
+        readonly GameManager _gameManager;
+        readonly AudioManager _audioManager;
 
-        VisualElement _localTooltip;
-        Label _lockIcon;
+        readonly VisualElement _localTooltip;
+        readonly Label _lockIcon;
 
         public LockOverlayElement(VisualElement tooltip)
         {

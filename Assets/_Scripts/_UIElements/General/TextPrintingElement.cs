@@ -14,12 +14,12 @@ namespace Lis
         const string _ussClassName = "text-printing__";
         const string _ussMain = _ussClassName + "main";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        Label _textLabel;
+        readonly Label _textLabel;
 
-        string _textToPrint;
-        float _durationMs;
+        readonly string _textToPrint;
+        readonly float _durationMs;
 
         int _currentLetterIndex = 0;
 

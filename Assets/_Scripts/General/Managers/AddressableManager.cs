@@ -10,7 +10,7 @@ namespace Lis
     public class AddressableManager : MonoBehaviour
     {
         [SerializeField] List<AssetReference> StyleSheetReferences = new();
-        List<StyleSheet> _styleSheets = new();
+        readonly List<StyleSheet> _styleSheets = new();
 
         void Start()
         {

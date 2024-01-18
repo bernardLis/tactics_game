@@ -27,7 +27,7 @@ namespace Lis
         VisualElement _entityInfoContainer; // shows mouse hover info 
         EntityInfoElement _entityInfoElement;
 
-        string _gameInfoTweenID = "_gameInfoContainer";
+        readonly string _gameInfoTweenID = "_gameInfoContainer";
 
         VisualElement _currentTooltip;
         public GameObject CurrentTooltipDisplayer { get; private set; }

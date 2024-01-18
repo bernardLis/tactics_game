@@ -6,12 +6,12 @@ namespace Lis
 {
     public class TroopsCountElement : ElementWithTooltip
     {
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        VisualElement _animationContainer;
-        VisualElement _countContainer;
+        readonly VisualElement _animationContainer;
+        readonly VisualElement _countContainer;
 
-        int _fontSize;
+        readonly int _fontSize;
 
         const string _ussCommonTextPrimary = "common__text-primary";
 

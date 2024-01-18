@@ -5,8 +5,7 @@ namespace Lis
 {
     public class BossScreen : EntityMovementScreen
     {
-
-        Boss _boss;
+        readonly Boss _boss;
         public BossScreen(Boss boss) : base(boss)
         {
             _boss = boss;

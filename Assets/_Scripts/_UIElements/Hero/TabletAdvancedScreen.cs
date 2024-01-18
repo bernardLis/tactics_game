@@ -11,7 +11,7 @@ namespace Lis
         const string _ussClassName = "tablet-advanced-screen__";
         const string _ussMain = _ussClassName + "main";
 
-        TabletAdvanced _tabletAdvanced;
+        readonly TabletAdvanced _tabletAdvanced;
         AbilityElement _abilityElementFirst;
         AbilityElement _abilityElementSecond;
 

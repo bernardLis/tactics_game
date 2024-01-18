@@ -5,9 +5,8 @@ namespace Lis
 {
     public class TextWithTooltip : ElementWithTooltip
     {
-
-        string _tooltipText;
-        Label _text;
+        readonly string _tooltipText;
+        readonly Label _text;
 
         public TextWithTooltip(string text, string tooltipText) : base()
         {

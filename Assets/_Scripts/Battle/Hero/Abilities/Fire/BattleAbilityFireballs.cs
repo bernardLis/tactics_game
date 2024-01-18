@@ -9,7 +9,7 @@ namespace Lis
     public class BattleAbilityFireballs : BattleAbility
     {
         [SerializeField] GameObject _fireballPrefab;
-        List<BattleProjectile> _fireballPool = new();
+        readonly List<BattleProjectile> _fireballPool = new();
 
         public override void Initialize(Ability ability, bool startAbility)
         {

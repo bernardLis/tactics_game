@@ -16,8 +16,8 @@ namespace Lis
 
         protected GameManager _gameManager;
 
-        Label _name;
-        ResourceBarElement _bar;
+        readonly Label _name;
+        readonly ResourceBarElement _bar;
 
         public EntityInfoElement(BattleEntity be)
         {

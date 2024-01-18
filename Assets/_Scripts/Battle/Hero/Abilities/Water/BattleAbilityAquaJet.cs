@@ -9,7 +9,7 @@ namespace Lis
     public class BattleAbilityAquaJet : BattleAbility
     {
         [SerializeField] GameObject _projectilePrefab;
-        List<BattleProjectileHoming> _projectilePool = new();
+        readonly List<BattleProjectileHoming> _projectilePool = new();
 
         public override void Initialize(Ability ability, bool startAbility = true)
         {

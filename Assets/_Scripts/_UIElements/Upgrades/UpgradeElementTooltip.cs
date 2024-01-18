@@ -6,7 +6,7 @@ namespace Lis
 {
     public class UpgradeElementTooltip : VisualElement
     {
-        Upgrade _upgrade;
+        readonly Upgrade _upgrade;
 
 
         public UpgradeElementTooltip(Upgrade upgrade)

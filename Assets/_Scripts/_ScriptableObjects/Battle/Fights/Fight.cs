@@ -9,7 +9,6 @@ namespace Lis
     public class Fight : BaseScriptableObject
     {
         public int Difficulty;
-        public float LastWaveSpawnTime;
 
         public List<EnemyWave> EnemyWaves = new();
         public int CurrentWaveIndex;
@@ -57,7 +56,6 @@ namespace Lis
         public void SpawningWaveFinished()
         {
             CurrentWaveIndex++;
-            LastWaveSpawnTime = BattleManager.Instance.GetTime();
             if (CurrentWaveIndex < EnemyWaves.Count)
                 CreateWaves();
             OnWaveSpawned?.Invoke();

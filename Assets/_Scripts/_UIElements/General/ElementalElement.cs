@@ -11,9 +11,9 @@ namespace Lis
         const string _ussClassName = "elemental-element__";
         const string _ussIcon = _ussClassName + "icon";
 
-        Element _element;
+        readonly Element _element;
 
-        Label _icon;
+        readonly Label _icon;
 
         bool _isEffectDisabled;
 

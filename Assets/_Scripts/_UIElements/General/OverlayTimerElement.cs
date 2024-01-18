@@ -7,7 +7,7 @@ namespace Lis
         const string _ussOverlayMain = _ussClassName + "overlay-main";
         const string _ussOverlayMask = _ussClassName + "overlay-mask";
 
-        VisualElement _overlayMask;
+        readonly VisualElement _overlayMask;
 
         public OverlayTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
             : base(timeLeft, totalTime, isLooping, text)

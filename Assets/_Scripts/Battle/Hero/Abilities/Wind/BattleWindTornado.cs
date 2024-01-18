@@ -7,7 +7,7 @@ namespace Lis
 {
     public class BattleWindTornado : BattleAbilityObject
     {
-        float _speed = 5f;
+        readonly float _speed = 5f;
 
         public override void Execute(Vector3 pos, Quaternion q)
         {

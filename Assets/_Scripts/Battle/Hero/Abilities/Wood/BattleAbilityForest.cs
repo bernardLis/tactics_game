@@ -9,7 +9,7 @@ namespace Lis
     {
         [SerializeField] GameObject _effect;
 
-        float _radius = 12f;
+        readonly float _radius = 12f;
 
         public override void Initialize(Ability ability, bool startAbility = true)
         {

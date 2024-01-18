@@ -63,7 +63,7 @@ namespace DigitalRuby.ThunderAndLightning
         [Tooltip("The culling mask for particle lights")]
         public LayerMask ParticleLightCullingMask = -1;
 
-        private ParticleSystem.Particle[] particles = new ParticleSystem.Particle[512];
+        private readonly ParticleSystem.Particle[] particles = new ParticleSystem.Particle[512];
         private readonly List<GameObject> particleLights = new List<GameObject>();
 
         private void PopulateParticleLight(Light src)

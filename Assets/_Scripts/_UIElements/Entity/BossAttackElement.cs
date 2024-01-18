@@ -6,7 +6,7 @@ namespace Lis
 {
     public class BossAttackElement : ElementWithTooltip
     {
-        BossAttack _bossAttack;
+        readonly BossAttack _bossAttack;
         public BossAttackElement(BossAttack bossAttack)
         {
             _bossAttack = bossAttack;

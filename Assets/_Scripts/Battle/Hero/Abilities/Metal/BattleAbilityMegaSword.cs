@@ -11,9 +11,9 @@ namespace Lis
     {
         bool _isActive;
 
-        float _rotationSpeed = 2;
+        readonly float _rotationSpeed = 2;
         float _circleRadius = 3;
-        float _elevationOffset = 0.5f;
+        readonly float _elevationOffset = 0.5f;
 
         Vector3 _positionOffset;
         float _angle;

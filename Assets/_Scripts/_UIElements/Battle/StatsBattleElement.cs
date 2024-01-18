@@ -22,12 +22,12 @@ namespace Lis
         const string _ussCreatureLabel = _ussClassName + "creature-label";
         const string _ussCreatureIcon = _ussClassName + "creature-icon";
 
-        GameManager _gameManager;
-        BattleManager _battleManager;
+        readonly GameManager _gameManager;
+        readonly BattleManager _battleManager;
 
-        VisualElement _leftPanel;
-        VisualElement _middlePanel;
-        VisualElement _rightPanel;
+        readonly VisualElement _leftPanel;
+        readonly VisualElement _middlePanel;
+        readonly VisualElement _rightPanel;
 
         public StatsBattleElement()
         {
