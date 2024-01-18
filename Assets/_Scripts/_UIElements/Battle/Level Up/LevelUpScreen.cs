@@ -14,6 +14,7 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussLevelUpLabel = _ussClassName + "level-up-label";
         const string _ussFallingElement = _ussClassName + "falling-element";
+        const string _ussRewardContainer = _ussClassName + "reward-container";
 
         readonly AudioManager _audioManager;
         readonly BattleHeroManager _battleHeroManager;
@@ -28,14 +29,14 @@ namespace Lis
         Label _rerollsLeft;
         RerollButton _rerollButton;
 
-        readonly int _numberOfRewards = 2;
+        readonly int _numberOfRewards;
 
         public event Action OnRewardSelected;
 
-        public LevelUpScreen() : base()
+        public LevelUpScreen()
         {
             _audioManager = _gameManager.GetComponent<AudioManager>();
-            var ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -75,7 +76,7 @@ namespace Lis
         {
             VisualElement container = new();
             container.style.position = Position.Absolute;
-            container.style.width = Length.Percent(100);
+            container.style.width = Length.Percent(80);
             container.style.height = Length.Percent(100);
 
             Label label = new("Level Up!");
@@ -83,7 +84,8 @@ namespace Lis
             container.Add(label);
             DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
 
-            AnimationElement anim = new(_gameManager.GameDatabase.LevelUpAnimationSprites, 50, false);
+            AnimationElement anim = new(_gameManager.GameDatabase.LevelUpAnimationSprites,
+                50, false);
             container.Add(anim);
             anim.PlayAnimation();
 
@@ -111,22 +113,20 @@ namespace Lis
             AddRewardContainer();
             AddRerollButton();
             AddHeroElement();
-            schedule.Execute(() => PopulateRewards()).StartingIn(600);
+            schedule.Execute(PopulateRewards).StartingIn(600);
         }
 
         void AddRewardContainer()
         {
             _rewardContainer = new();
-            _rewardContainer.style.flexDirection = FlexDirection.Row;
-            _rewardContainer.style.flexGrow = 1;
-            _rewardContainer.style.justifyContent = Justify.Center;
-            _rewardContainer.style.width = Length.Percent(100);
+            _rewardContainer.AddToClassList(_ussRewardContainer);
             _content.Add(_rewardContainer);
 
             List<RewardElement> hiddenCards = new();
             for (int i = 0; i < _numberOfRewards; i++)
             {
                 RewardElement card = CreateRewardCardGold();
+                card.style.width = Length.Percent(100 / _numberOfRewards);
                 hiddenCards.Add(card);
                 card.style.visibility = Visibility.Hidden;
                 _rewardContainer.Add(card);
@@ -135,7 +135,7 @@ namespace Lis
             // styles need a frame to resolve...
             schedule.Execute(() =>
             {
-                foreach (var el in hiddenCards)
+                foreach (RewardElement el in hiddenCards)
                     _leftPositions.Add(el.layout.x);
             }).StartingIn(100);
         }
@@ -144,7 +144,6 @@ namespace Lis
         {
             _rerollContainer = new();
             _rerollContainer.style.opacity = 0;
-            // _rerollContainer.style.flexGrow = 1;
             _content.Add(_rerollContainer);
 
             if (_battleHeroManager.RewardRerollsAvailable <= 0) return;
@@ -176,9 +175,11 @@ namespace Lis
 
                 card.style.position = Position.Absolute;
                 card.style.left = Screen.width;
+                card.style.width = Length.Percent(100 / _numberOfRewards);
+                card.style.height = Length.Percent(100);
 
                 _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
-                float endLeft = _leftPositions[i] - 20; // -20 magic margin
+                float endLeft = _leftPositions[i];
                 DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
                     .SetEase(Ease.InFlash)
                     .SetDelay(i * 0.2f)
@@ -210,7 +211,6 @@ namespace Lis
             _rewardContainer.Clear();
             CreateRewardCards();
             RunCardShow();
-            // ShowRewardCards();
         }
 
         void CreateRewardCards()
@@ -219,27 +219,16 @@ namespace Lis
             for (int i = 0; i < _numberOfRewards; i++)
             {
                 // try giving player ability or stat
-                RewardElement card;
                 float v = Random.value;
-                if (v > 0.5f) card = CreateRewardCardAbility();
-                else card = CreateRewardTablet();
+                RewardElement card = v > 0.5f ? CreateRewardCardAbility() : CreateRewardTablet();
 
                 if (card == null && v > 0.5f) card = CreateRewardTablet();
                 if (card == null && v <= 0.5f) card = CreateRewardCardAbility();
 
                 // if it is not possible give them gold
-                if (card == null) card = CreateRewardCardGold();
+                card ??= CreateRewardCardGold();
 
                 _allRewardElements.Add(card);
-            }
-        }
-
-        void ShowRewardCards()
-        {
-            for (int i = 0; i < _numberOfRewards; i++)
-            {
-                RewardElement card = _allRewardElements[i];
-                _rewardContainer.Add(card);
             }
         }
 
@@ -275,7 +264,8 @@ namespace Lis
             _audioManager.PlayUI("Reward Chosen");
 
             _rerollButton.SetEnabled(false);
-            DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f).SetUpdate(true);
+            DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f)
+                .SetUpdate(true);
 
             foreach (RewardElement element in _allRewardElements)
             {
@@ -287,11 +277,6 @@ namespace Lis
             OnRewardSelected?.Invoke();
 
             AddContinueButton();
-        }
-
-        public override void Hide()
-        {
-            base.Hide();
         }
     }
 }

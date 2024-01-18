@@ -1,16 +1,12 @@
 .tablet-element__main {
-    height: 200px;
     justify-content: center;
     align-items: center;
     margin-top: 0;
     margin-bottom: 0;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_bg_lg.png?fileID=2800000&guid=d6554613c7df320498738cc435f5cecf&type=3#icon_frame_bg_lg');
+    min-height: 100px;
+    min-width: 100px;
 }
 
-.tablet-element__icon {
-    height: 100px;
-    width: 100px;
-}
 
 .tablet-element__overlay {
     position: absolute;

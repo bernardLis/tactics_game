@@ -1,7 +1,3 @@
-
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,19 +6,33 @@ namespace Lis
     public class RewardElementTablet : RewardElement
     {
         public RewardElementTablet(Reward reward) : base(reward)
-        {        
+        {
             RewardTablet rewardTablet = reward as RewardTablet;
+            if (rewardTablet == null) return;
             Tablet tablet = rewardTablet.Tablet;
-            Label txt = new Label("");
-            txt.text = $"Level {tablet.Level.Value + 1}";
-            Add(txt);
 
-            Add(new TabletElement(tablet, false));
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            container.style.alignItems = Align.Center;
+            Add(container);
 
-            Label name = new Label(Helpers.ParseScriptableObjectName(tablet.name));
-            name.style.whiteSpace = WhiteSpace.Normal;
-            name.style.unityFontStyleAndWeight = FontStyle.Bold;
-            Add(name);
+            ElementalElement element = new(tablet.Element);
+            container.Add(element);
+
+            Label txt = new($"{Helpers.ToRoman(tablet.Level.Value + 1)}");
+            txt.style.fontSize = 36;
+            txt.style.unityFontStyleAndWeight = FontStyle.Bold;
+            container.Add(txt);
+
+            TabletElement tabletElement = new(tablet);
+            Add(tabletElement);
+            tabletElement.style.width = Length.Percent(50);
+            tabletElement.style.height = Length.Percent(50);
+
+            Label label = new(Helpers.ParseScriptableObjectName(tablet.name));
+            label.style.whiteSpace = WhiteSpace.Normal;
+            label.style.unityFontStyleAndWeight = FontStyle.Bold;
+            Add(label);
         }
     }
 }

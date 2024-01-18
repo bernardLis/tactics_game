@@ -1,6 +1,3 @@
-
-
-
 using UnityEngine.UIElements;
 
 namespace Lis
@@ -12,12 +9,13 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussDisabled = _ussClassName + "disabled";
 
-        public Reward Reward;
+        public readonly Reward Reward;
 
-        public RewardElement(Reward reward)
+        protected RewardElement(Reward reward)
         {
             _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.RewardElementStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.RewardElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -25,6 +23,7 @@ namespace Lis
             AddToClassList(_ussMain);
 
             RegisterCallback<ClickEvent>(OnClick);
+            RegisterCallback<MouseOverEvent>(OnMouseOver);
         }
 
         void OnClick(ClickEvent evt)
@@ -33,6 +32,11 @@ namespace Lis
 
             _gameManager.GetComponent<AudioManager>().PlayUI("Bang");
             Reward.GetReward();
+        }
+
+        void OnMouseOver(MouseOverEvent evt)
+        {
+            BringToFront();
         }
 
         public void DisableCard()
@@ -45,6 +49,5 @@ namespace Lis
         {
             UnregisterCallback<ClickEvent>(OnClick);
         }
-
     }
 }

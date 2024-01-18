@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -55,6 +54,25 @@ namespace Lis
             return Random.Range(min, max);
         }
 
+        public static string ToRoman(int number)
+        {
+            if (number < 1) return string.Empty;
+            if (number >= 1000) return "M" + ToRoman(number - 1000);
+            if (number >= 900) return "CM" + ToRoman(number - 900);
+            if (number >= 500) return "D" + ToRoman(number - 500);
+            if (number >= 400) return "CD" + ToRoman(number - 400);
+            if (number >= 100) return "C" + ToRoman(number - 100);
+            if (number >= 90) return "XC" + ToRoman(number - 90);
+            if (number >= 50) return "L" + ToRoman(number - 50);
+            if (number >= 40) return "XL" + ToRoman(number - 40);
+            if (number >= 10) return "X" + ToRoman(number - 10);
+            if (number >= 9) return "IX" + ToRoman(number - 9);
+            if (number >= 5) return "V" + ToRoman(number - 5);
+            if (number >= 4) return "IV" + ToRoman(number - 4);
+            if (number >= 1) return "I" + ToRoman(number - 1);
+            return "Error";
+        }
+
         public static float Remap(this float value, float from1, float to1, float from2, float to2)
         {
             return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
@@ -79,10 +97,9 @@ namespace Lis
             for (int i = 0; i < list.Count - 1; i++)
             {
                 int randomIndex = prng.Next(i, list.Count);
-                T tempItem = list[randomIndex];
-                list[randomIndex] = list[i];
-                list[i] = tempItem;
+                (list[randomIndex], list[i]) = (list[i], list[randomIndex]);
             }
+
             return list;
         }
 
@@ -119,7 +136,7 @@ namespace Lis
 
         public static void DisplayTextOnElement(VisualElement root, VisualElement element, string text, Color color)
         {
-            Label l = new Label(text);
+            Label l = new(text);
             l.style.color = color;
 
             Vector3 start = new Vector3(element.worldBound.xMin, element.worldBound.yMin, 0);
@@ -127,6 +144,7 @@ namespace Lis
                 element.worldBound.yMin - 100, 0);
 
             ArcMovementElement arcMovementElement = _arcMovementElements.FirstOrDefault(x => !x.IsMoving);
+            if (arcMovementElement == null) return;
             arcMovementElement.InitializeMovement(l, start, end);
             arcMovementElement.OnArcMovementFinished += ()
                 => DOTween.To(x => arcMovementElement.style.opacity = x, 1, 0, 1).SetUpdate(true);

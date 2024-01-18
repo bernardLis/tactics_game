@@ -3,13 +3,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace Lis
 {
     public class AddressableManager : MonoBehaviour
     {
-        [SerializeField] List<AssetReference> StyleSheetReferences = new();
+        [FormerlySerializedAs("StyleSheetReferences")] [SerializeField] List<AssetReference> _styleSheetReferences = new();
         readonly List<StyleSheet> _styleSheets = new();
 
         void Start()
@@ -20,7 +21,7 @@ namespace Lis
 
         void AddressableManager_Completed(AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
         {
-            foreach (AssetReference reference in StyleSheetReferences)
+            foreach (AssetReference reference in _styleSheetReferences)
             {
                 if (reference == null)
                 {
