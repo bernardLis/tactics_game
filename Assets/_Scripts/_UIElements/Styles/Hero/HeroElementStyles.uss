@@ -15,54 +15,70 @@
 }
 
 .hero-element__ability-slot {
-    width: 85px;
-    height: 85px;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: gray;
-    border-right-color: gray;
-    border-top-color: gray;
-    border-bottom-color: gray;
+    width: 10px;
+    height: 10px;
+
+    margin-right: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    background-color: rgb(255, 255, 255);
 }
 
 .hero-element__ability-slot-premium {
-    width: 85px;
-    height: 85px;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: yellow;
-    border-right-color: yellow;
-    border-top-color: yellow;
-    border-bottom-color: yellow;
+    width: 10px;
+    height: 10px;
+
+    margin-right: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    background-color: chocolate;
 
 }
 
 .hero-element__tablet-slot {
-    width: 85px;
-    height: 85px;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: gainsboro;
-    border-right-color: gainsboro;
-    border-top-color: gainsboro;
-    border-bottom-color: gainsboro;
+    width: 10px;
+    height: 10px;
+
+    margin-right: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    background-color: rgb(255, 255, 255);
 }
 
 .hero-element__tablet-slot-premium {
-    width: 85px;
-    height: 85px;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: orchid;
-    border-right-color: orchid;
-    border-top-color: orchid;
-    border-bottom-color: orchid;
+    width: 10px;
+    height: 10px;
+
+    margin-right: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+
+    background-color: orchid;
 }

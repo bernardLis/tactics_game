@@ -10,7 +10,7 @@ namespace Lis
             RewardAbility rewardAbility = reward as RewardAbility;
             if (rewardAbility == null) return;
 
-            Label txt = new($"$Level {rewardAbility.Level}");
+            Label txt = new($"Level {rewardAbility.Level}");
             Add(txt);
 
             if (!rewardAbility.IsUpgrade)

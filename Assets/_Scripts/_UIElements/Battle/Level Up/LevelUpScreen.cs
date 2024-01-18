@@ -22,6 +22,9 @@ namespace Lis
         VisualElement _rewardContainer;
         Label _title;
         readonly List<float> _leftPositions = new();
+        int _rewardElementWidth;
+        int _rewardElementHeight;
+
 
         readonly List<RewardElement> _allRewardElements = new();
 
@@ -127,6 +130,7 @@ namespace Lis
             {
                 RewardElement card = CreateRewardCardGold();
                 card.style.width = Length.Percent(100 / _numberOfRewards);
+                card.style.height = Length.Percent(100);
                 hiddenCards.Add(card);
                 card.style.visibility = Visibility.Hidden;
                 _rewardContainer.Add(card);
@@ -135,6 +139,9 @@ namespace Lis
             // styles need a frame to resolve...
             schedule.Execute(() =>
             {
+                _rewardElementWidth = Mathf.RoundToInt(hiddenCards[0].layout.width);
+                _rewardElementHeight = Mathf.RoundToInt(hiddenCards[0].layout.height);
+
                 foreach (RewardElement el in hiddenCards)
                     _leftPositions.Add(el.layout.x);
             }).StartingIn(100);
@@ -175,8 +182,8 @@ namespace Lis
 
                 card.style.position = Position.Absolute;
                 card.style.left = Screen.width;
-                card.style.width = Length.Percent(100 / _numberOfRewards);
-                card.style.height = Length.Percent(100);
+                card.style.width = _rewardElementWidth;
+                card.style.height = _rewardElementHeight;
 
                 _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
                 float endLeft = _leftPositions[i];
