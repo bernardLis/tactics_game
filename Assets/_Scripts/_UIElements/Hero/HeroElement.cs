@@ -12,10 +12,8 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussInfoContainer = _ussClassName + "info-container";
         const string _ussStatContainer = _ussClassName + "stat-container";
-        const string _ussAbilitySlot = _ussClassName + "ability-slot";
-        const string _ussAbilitySlotPremium = _ussAbilitySlot + "-premium";
-        const string _ussTabletSlot = _ussClassName + "tablet-slot";
-        const string _ussTabletSlotPremium = _ussTabletSlot + "-premium";
+        const string _ussTabletContainer = _ussClassName + "tablet-container";
+        const string _ussSlot = _ussClassName + "slot";
 
         readonly Hero _hero;
 
@@ -83,7 +81,7 @@ namespace Lis
                 container.Add(abilityIcon);
             }
 
-            _hero.OnAbilityAdded += (Ability a) =>
+            _hero.OnAbilityAdded += (a) =>
             {
                 AbilityElement abilityIcon = new(a, true);
                 container.Add(abilityIcon);
@@ -117,12 +115,12 @@ namespace Lis
             for (int i = 0; i < 5 - _hero.Abilities.Count; i++)
             {
                 VisualElement slot = new();
-                slot.AddToClassList(_ussAbilitySlot);
+                slot.AddToClassList(_ussSlot);
                 container.Add(slot);
                 slots.Add(slot);
             }
 
-            _hero.OnAbilityAdded += (Ability a) =>
+            _hero.OnAbilityAdded += (a) =>
             {
                 if (slots.Count > 0)
                 {
@@ -135,12 +133,10 @@ namespace Lis
             };
         }
 
-        // List<VisualElement> _tabletSlots = new();
         void HandleTablets()
         {
             VisualElement container = new();
-            container.style.flexDirection = FlexDirection.Row;
-            // _advancedViewContainer.Add(container);
+            container.AddToClassList(_ussTabletContainer);
             _heroInfoContainer.Add(container);
 
             foreach (Tablet t in _hero.Tablets)
@@ -149,42 +145,25 @@ namespace Lis
                 container.Add(tabletElement);
             }
 
-            // VisualElement container = new();
-            // container.style.flexDirection = FlexDirection.Row;
-            // _advancedViewContainer.Add(container);
-            //
-            // _tabletSlots = new();
-            // for (int i = 0; i < 5; i++)
-            // {
-            //     VisualElement slot = new();
-            //     if (i > 3) slot.AddToClassList(_ussTabletSlotPremium);// 2 last ones are premium
-            //     else slot.AddToClassList(_ussTabletSlot);
-            //     _tabletSlots.Add(slot);
-            //     container.Add(slot);
-            // }
-            // ShowTablets();
-            // foreach (Tablet t in _hero.Tablets)
-            //     if (t.Level.Value == 0)
-            //         t.OnLevelUp += ShowTablets;
-        }
+            if (_hero.AdvancedTablet != null)
+            {
+                container.Add(new TabletElement(_hero.AdvancedTablet, true));
+                return;
+            }
 
-        // void ShowTablets()
-        // {
-        //     for (int i = 0; i < _hero.Tablets.Count; i++)
-        //     {
-        //         // if (_hero.Tablets[i].Level.Value == 0) continue;
-        //         if (_tabletSlots[i].childCount > 0) continue;
-        //
-        //         TabletElement tabletElement = new(_hero.Tablets[i], true);
-        //         _tabletSlots[i].Add(tabletElement);
-        //     }
-        //
-        //     if (_hero.AdvancedTablet != null)
-        //     {
-        //         TabletElement tabletElement = new(_hero.AdvancedTablet, true);
-        //         _tabletSlots[^1].Add(tabletElement);
-        //     }
-        // }
+            VisualElement slot = new();
+            slot.AddToClassList(_ussSlot);
+            container.Add(slot);
+            _hero.OnTabletAdvancedAdded += AdvancedTabletAdded;
+            return;
+
+            void AdvancedTabletAdded(TabletAdvanced tabletAdvanced)
+            {
+                container.Remove(slot);
+                container.Add(new TabletElement(tabletAdvanced, true));
+                _hero.OnTabletAdvancedAdded -= AdvancedTabletAdded;
+            }
+        }
 
         void HandleStats()
         {

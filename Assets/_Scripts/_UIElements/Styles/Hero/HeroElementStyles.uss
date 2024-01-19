@@ -14,7 +14,14 @@
     justify-content: center;
 }
 
-.hero-element__ability-slot {
+.hero-element__tablet-container {
+    flex-direction: row;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+}
+
+.hero-element__slot {
     width: 10px;
     height: 10px;
 
@@ -31,54 +38,3 @@
     background-color: rgb(255, 255, 255);
 }
 
-.hero-element__ability-slot-premium {
-    width: 10px;
-    height: 10px;
-
-    margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: 50px;
-
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-
-    background-color: chocolate;
-
-}
-
-.hero-element__tablet-slot {
-    width: 10px;
-    height: 10px;
-
-    margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: 50px;
-
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-
-    background-color: rgb(255, 255, 255);
-}
-
-.hero-element__tablet-slot-premium {
-    width: 10px;
-    height: 10px;
-
-    margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: 50px;
-
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-
-    background-color: orchid;
-}
