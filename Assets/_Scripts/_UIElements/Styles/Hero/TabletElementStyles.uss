@@ -5,8 +5,8 @@
     margin-bottom: 0;
     min-height: 100px;
     min-width: 100px;
+    -unity-background-scale-mode: scale-to-fit;
 }
-
 
 .tablet-element__overlay {
     position: absolute;
@@ -22,7 +22,6 @@
     flex-direction: row;
     position: absolute;
     top: 15%;
-
 }
 
 .tablet-element__level-dot-full {

@@ -118,6 +118,10 @@ namespace Lis
                 slot.AddToClassList(_ussSlot);
                 container.Add(slot);
                 slots.Add(slot);
+
+                // last one should have a different color
+                if (i == 4 - _hero.Abilities.Count)
+                    slot.style.backgroundColor = Color.yellow;
             }
 
             _hero.OnAbilityAdded += (a) =>
@@ -137,6 +141,7 @@ namespace Lis
         {
             VisualElement container = new();
             container.AddToClassList(_ussTabletContainer);
+            container.pickingMode = PickingMode.Ignore;
             _heroInfoContainer.Add(container);
 
             foreach (Tablet t in _hero.Tablets)
@@ -153,6 +158,7 @@ namespace Lis
 
             VisualElement slot = new();
             slot.AddToClassList(_ussSlot);
+            slot.style.backgroundColor = Color.yellow;
             container.Add(slot);
             _hero.OnTabletAdvancedAdded += AdvancedTabletAdded;
             return;
