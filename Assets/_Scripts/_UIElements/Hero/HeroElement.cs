@@ -118,11 +118,10 @@ namespace Lis
                 slot.AddToClassList(_ussSlot);
                 container.Add(slot);
                 slots.Add(slot);
-
-                // last one should have a different color
-                if (i == 4 - _hero.Abilities.Count)
-                    slot.style.backgroundColor = Color.yellow;
             }
+
+            if (_hero.AdvancedTablet == null)
+                slots[^1].style.backgroundColor = Color.yellow;
 
             _hero.OnAbilityAdded += (a) =>
             {
@@ -134,6 +133,9 @@ namespace Lis
 
                 AbilityElement abilityIcon = new(a, true);
                 container.Insert(_hero.Abilities.Count - 1, abilityIcon);
+
+                if (a.Element.IsAdvanced && slots.Count > 0)
+                    slots[^1].style.backgroundColor = Color.white;
             };
         }
 

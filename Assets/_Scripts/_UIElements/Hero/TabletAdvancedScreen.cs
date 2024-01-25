@@ -1,8 +1,5 @@
-
-
-
-
 using UnityEngine.UIElements;
+using UnityEngine;
 
 namespace Lis
 {
@@ -12,12 +9,12 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
 
         readonly TabletAdvanced _tabletAdvanced;
-        AbilityElement _abilityElementFirst;
-        AbilityElement _abilityElementSecond;
+        AbilityElement _abilityElement;
 
-        public TabletAdvancedScreen(TabletAdvanced tabletAdvanced) : base()
+        public TabletAdvancedScreen(TabletAdvanced tabletAdvanced)
         {
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TabletAdvancedScreenStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.TabletAdvancedScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _tabletAdvanced = tabletAdvanced;
@@ -25,9 +22,8 @@ namespace Lis
 
             AddElements();
             _content.Add(new HorizontalSpacerElement());
-            AddAbilities();
-
-            _content.Add(new HeroElement(BattleManager.Instance.BattleHero.Hero, true));
+            AddAbility();
+            Add(new HeroElement(_battleManager.Hero, true));
 
             DisableNavigation();
         }
@@ -38,7 +34,7 @@ namespace Lis
             title.style.fontSize = 34;
             _content.Add(title);
 
-            VisualElement container = new VisualElement();
+            VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             _content.Add(container);
 
@@ -62,9 +58,9 @@ namespace Lis
             container.Add(elementContainer3);
         }
 
-        void AddAbilities()
+        void AddAbility()
         {
-            Label title = new("Choose one ability:");
+            Label title = new("You Gain A New Ability:");
             title.style.fontSize = 34;
             _content.Add(title);
 
@@ -73,23 +69,14 @@ namespace Lis
             container.style.flexGrow = 1;
             _content.Add(container);
 
-            _abilityElementFirst = new AbilityElement(_tabletAdvanced.Ability, false, 200);
-            _abilityElementFirst.RegisterCallback<PointerUpEvent>(OnAbilityElementFirstClick);
+            Ability a = ScriptableObject.Instantiate(_tabletAdvanced.Ability);
+            a.InitializeBattle(_battleManager.Hero);
+            _battleManager.Hero.AddAbility(a);
 
-            container.Add(_abilityElementFirst);
-            container.Add(_abilityElementSecond);
-        }
+            _abilityElement = new(a, false, 200);
 
-        void OnAbilityElementFirstClick(PointerUpEvent evt)
-        {
-            BaseAbilityClicked();
-            BattleManager.Instance.Hero.AddAbility(_tabletAdvanced.Ability);
-        }
+            container.Add(_abilityElement);
 
-        void BaseAbilityClicked()
-        {
-            _abilityElementFirst.SetEnabled(false);
-            _abilityElementSecond.SetEnabled(false);
             AddContinueButton();
         }
     }

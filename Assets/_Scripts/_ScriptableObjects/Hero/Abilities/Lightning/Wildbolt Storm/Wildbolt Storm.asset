@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f383b95b-d5fa-4c84-828a-7ff972a7f474
   DeveloperComment: 
-  Description: Have you had a swarm of bees under your command?
+  Description: Have ever you had a swarm of bees under your command?
   Icon: {fileID: 21300000, guid: 8a245adb6e455364b9d95208817a8006, type: 3}
   Level: 0
   Levels:

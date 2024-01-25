@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1f94e9d931b464388e91c4437f2e4d, type: 3}
   m_Name: Wind Tablet
   m_EditorClassIdentifier: 
-  Id: 7cc71daa-16ab-4d42-bece-ff036d841173
+  Id: 5289cbf9-cb94-474d-8461-5408c67962ad
   Icon: {fileID: 21300000, guid: 88412bd523e03d3499dfaffa79398e1e, type: 3}
   Description: 
   Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
