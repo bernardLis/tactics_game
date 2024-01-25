@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
+
 namespace Lis
 {
     public class BattleAreaManager : MonoBehaviour
@@ -24,7 +23,10 @@ namespace Lis
         GameObject _floor;
 
         [HideInInspector] public BattleTile HomeTile;
-        [HideInInspector] public List<BattleTile> _cornerTiles = new();
+
+        [FormerlySerializedAs("_cornerTiles")] [HideInInspector]
+        public List<BattleTile> CornerTiles = new();
+
         readonly List<BattleTile> _tiles = new();
         public List<BattleTile> UnlockedTiles = new();
 
@@ -74,10 +76,11 @@ namespace Lis
                         pos.x == 4 * tileScale && pos.z == -5 * tileScale ||
                         pos.x == 4 * tileScale && pos.z == 4 * tileScale)
                     {
-                        _cornerTiles.Add(bt);
+                        CornerTiles.Add(bt);
                     }
                 }
             }
+
             UnlockedTiles.Add(HomeTile);
             HomeTile.EnableTile();
             HomeTile.Secured();
@@ -89,7 +92,8 @@ namespace Lis
         void SetCornerTileIndicators()
         {
             for (int i = 0; i < 4; i++)
-                Instantiate(_cornerTileIndicators[i], _cornerTiles[i].transform.position, Quaternion.Euler(270f, 0, 0));
+                Instantiate(_cornerTileIndicators[i], CornerTiles[i].transform.position,
+                    Quaternion.Euler(270f, 0, 0));
         }
 
         IEnumerator UnlockTilesPeriodicallyCoroutine()
@@ -98,6 +102,7 @@ namespace Lis
             {
                 yield return new WaitForSeconds(60f);
                 if (_battleManager.IsGameLoopBlocked) continue;
+                if (UnlockedTiles.Count >= _tiles.Count) yield break;
                 UnlockNextTile();
             }
         }
@@ -110,7 +115,7 @@ namespace Lis
 
         public void UnlockNextTile(BattleTile givenTile = null)
         {
-            BattleTile selectedTile = givenTile ?? SelectTile();
+            BattleTile selectedTile = givenTile ? givenTile : SelectTile();
 
             // TODO: balance when boss spawns
             if (UnlockedTiles.Count > 300)
@@ -124,6 +129,7 @@ namespace Lis
                 Debug.LogError($"Trying to unlock tile that is already unlocked");
                 return;
             }
+
             selectedTile.EnableTile();
             UnlockedTiles.Add(selectedTile);
             OnTileUnlocked?.Invoke(selectedTile);
@@ -151,25 +157,25 @@ namespace Lis
             BattleTile closestTile = null;
             foreach (BattleTile tile in tiles)
             {
-                float distance = Vector3.Distance(tile.transform.position, _battleManager.BattleHero.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    closestTile = tile;
-                }
+                Vector3 delta = tile.transform.position - _battleManager.BattleHero.transform.position;
+                float distance = delta.sqrMagnitude;
+                if (!(distance < minDistance)) continue;
+                minDistance = distance;
+                closestTile = tile;
             }
+
             return closestTile;
         }
 
         public List<BattleTile> GetTilesAroundPlayer()
         {
-
             BattleTile currentTile = GetTileFromPosition(_battleManager.BattleHero.transform.position);
             List<BattleTile> tilesCloseToHero = GetAdjacentTiles(currentTile);
             tilesCloseToHero.Add(currentTile);
             List<BattleTile> activeTiles = new();
             foreach (BattleTile t in tilesCloseToHero)
-                if (t.gameObject.activeSelf) activeTiles.Add(t);
+                if (t.gameObject.activeSelf)
+                    activeTiles.Add(t);
 
             return activeTiles;
         }
@@ -205,6 +211,7 @@ namespace Lis
                     }
                 }
             }
+
             return adjacentTiles;
         }
 
@@ -246,6 +253,7 @@ namespace Lis
                     return tile;
                 }
             }
+
             return null;
         }
 
@@ -260,6 +268,7 @@ namespace Lis
                 if (IsPositionOnActiveTile(randomPoint))
                     return randomPoint;
             }
+
             Debug.LogError($"Could not find random position within range {range} of {center} on active tile");
             return Vector3.zero;
         }
@@ -277,6 +286,7 @@ namespace Lis
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -284,7 +294,7 @@ namespace Lis
         struct AStarTile
         {
             public AStarTile(BattleTile tile, float g, float h,
-                BattleTile parent = null, List<BattleTile> children = null)
+                BattleTile parent = null)
             {
                 Tile = tile;
 
@@ -292,7 +302,6 @@ namespace Lis
                 H = h;
                 F = G + H;
 
-                Children = children;
                 Parent = parent;
             }
 
@@ -303,7 +312,6 @@ namespace Lis
             public readonly float H; //H is the heuristic — estimated distance from the current node to the end node.
 
             public readonly BattleTile Parent;
-            public List<BattleTile> Children;
         }
 
         //https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
@@ -341,6 +349,7 @@ namespace Lis
                             }
                         }
                     }
+
                     path.Reverse();
                     return path;
                 }
@@ -361,9 +370,11 @@ namespace Lis
                         AStarTile openTile = openList.Find(t => t.Tile == tile);
                         if (g > openTile.G) continue;
                     }
+
                     openList.Add(child);
                 }
             }
+
             Debug.LogError($"Did not find the path from {startTile} to {endTile}");
             return new();
         }

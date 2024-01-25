@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
 using UnityEngine;
 
 namespace Lis
@@ -19,6 +16,8 @@ namespace Lis
 
         IEnumerator _homingCoroutine;
 
+        float _endTime;
+
         public override void Initialize(int team)
         {
             base.Initialize(team);
@@ -34,12 +33,16 @@ namespace Lis
             _ability = ability;
             EnableProjectile();
 
+            _endTime = Time.time + _ability.GetDuration();
+
             _homingCoroutine = HomingCoroutine();
             StartCoroutine(_homingCoroutine);
         }
 
         IEnumerator HomingCoroutine()
         {
+            if (_endTime > Time.time) yield break;
+
             StartCoroutine(BreakHomingCoroutine());
             yield return GoForward(0.5f);
 
@@ -50,12 +53,14 @@ namespace Lis
             while (_target != null)
             {
                 if (_target.IsDead) break;
-                _rb.velocity = transform.forward * _speed;
-                Vector3 direction = _target.transform.position - transform.position;
+                Transform t = transform;
+                Vector3 forward = t.forward;
+                _rb.velocity = forward * _speed;
+                Vector3 direction = _target.transform.position - t.position;
                 direction.Normalize();
 
-                Vector3 amountToRotate = Vector3.Cross(direction, transform.forward)
-                                         * Vector3.Angle(transform.forward, direction);
+                Vector3 amountToRotate = Vector3.Cross(direction, forward)
+                                         * Vector3.Angle(forward, direction);
                 _rb.angularVelocity = -amountToRotate * _rotateSpeed;
                 yield return new WaitForFixedUpdate();
             }
@@ -82,13 +87,15 @@ namespace Lis
             BattleEntity closestEntity = null;
             foreach (BattleEntity entity in battleEntities)
             {
-                float distance = Vector3.Distance(transform.position, entity.transform.position);
-                if (distance < minDistance)
+                Vector3 delta = entity.transform.position - transform.position;
+                float sqrDistance = delta.sqrMagnitude;
+                if (sqrDistance < minDistance)
                 {
-                    minDistance = distance;
+                    minDistance = sqrDistance;
                     closestEntity = entity;
                 }
             }
+
             return closestEntity;
         }
     }

@@ -2,11 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,7 +11,6 @@ namespace Lis
 {
     public class BattleCreature : BattleEntity
     {
-
         [SerializeField] protected Sound _attackSound;
 
         public Creature Creature { get; private set; }
@@ -31,6 +25,7 @@ namespace Lis
         public int DamageDealt { get; private set; }
 
         public event Action<int> OnDamageDealt;
+
         protected virtual void Update()
         {
             if (_currentAttackCooldown >= 0)
@@ -248,7 +243,9 @@ namespace Lis
             if (Opponent.IsDead) return false;
 
             // +0.5 wiggle room
-            return Vector3.Distance(transform.position, Opponent.transform.position) < Creature.AttackRange.GetValue() + 0.5f;
+            Vector3 delta = Opponent.transform.position - transform.position;
+            return delta.sqrMagnitude <
+                   Creature.AttackRange.GetValue() * Creature.AttackRange.GetValue() + 0.5f;
         }
 
         protected void ChooseNewTarget()
@@ -259,26 +256,28 @@ namespace Lis
                 return;
             }
 
-            Dictionary<BattleEntity, float> distances = new();
+            Dictionary<BattleEntity, float> sqrtDistances = new();
             foreach (BattleEntity be in _opponentList)
             {
                 if (be.IsDead) continue;
-                if (distances.ContainsKey(be)) continue;
-                float distance = Vector3.Distance(transform.position, be.transform.position);
-                distances.Add(be, distance);
+                if (sqrtDistances.ContainsKey(be)) continue;
+                Vector3 delta = be.transform.position - transform.position;
+                float distance = delta.sqrMagnitude;
+                sqrtDistances.Add(be, distance);
             }
-            if (distances.Count == 0)
+
+            if (sqrtDistances.Count == 0)
             {
                 Opponent = null;
                 return;
             }
 
-            BattleEntity closest = distances.OrderBy(pair => pair.Value).First().Key;
+            BattleEntity closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
             EntityLog.Add($"{_battleManager.GetTime()}: Choosing {closest.name} as new target");
             SetOpponent(closest);
         }
 
-        public void SetOpponent(BattleEntity opponent)
+        void SetOpponent(BattleEntity opponent)
         {
             Opponent = opponent;
             Opponent.OnDeath += (_, _) =>
@@ -335,6 +334,5 @@ namespace Lis
         }
 
         // #endif
-
     }
 }
