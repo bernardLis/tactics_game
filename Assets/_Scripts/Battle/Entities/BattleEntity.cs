@@ -136,7 +136,7 @@ namespace Lis
             CurrentMainCoroutine = RunEntity();
             StartCoroutine(CurrentMainCoroutine);
         }
-        
+
         protected virtual void StopRunEntityCoroutine()
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Stop run entity coroutine is called");
@@ -326,11 +326,7 @@ namespace Lis
             EntityLog.Add($"{BattleManager.GetTime()}: Entity dies.");
             OnDeath?.Invoke(this, attacker);
 
-            if (Team == 1)
-            {
-                DestroySelf();
-                yield break;
-            }
+            if (Team == 1) yield break;
 
             Animator.SetTrigger(AnimDie);
             transform.DOMoveY(-1, 10f)

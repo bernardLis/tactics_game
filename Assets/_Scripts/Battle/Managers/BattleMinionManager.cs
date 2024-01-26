@@ -1,11 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -24,7 +18,7 @@ namespace Lis
 
         [SerializeField] GameObject _minionPrefab;
 
-        [SerializeField] bool _debugSpawnMinion;
+        bool _debugSpawnMinion = true;
 
         public void Initialize()
         {
@@ -64,6 +58,7 @@ namespace Lis
                     yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
                     continue;
                 }
+
                 SpawnWave();
                 yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
             }
@@ -126,11 +121,11 @@ namespace Lis
                 Debug.LogError("No more minions in pool");
                 return;
             }
+
             be.InitializeEntity(m, 1);
             be.transform.position = pos;
             be.gameObject.SetActive(true);
             _battleManager.AddOpponentArmyEntity(be);
-
         }
 
         BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
@@ -140,8 +135,9 @@ namespace Lis
             return be;
         }
 
-        void DebugSpawnMinion()
+        public void DebugSpawnMinion()
         {
+            Debug.Log("DebugSpawnMinion");
             if (!_debugSpawnMinion) return;
 
             Mouse mouse = Mouse.current;
@@ -151,9 +147,6 @@ namespace Lis
             Minion m = _currentFight.EnemyWaves[0].Minions[0];
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
                 SpawnMinion(m, hit.point);
-
         }
-
-
     }
 }

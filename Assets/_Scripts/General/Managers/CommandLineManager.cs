@@ -1,13 +1,4 @@
 using System.Collections.Generic;
-
-
-
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -161,6 +152,7 @@ namespace Lis
                     Creature instance = Instantiate(cLeft);
                     AddCreature(instance, 0);
                 }
+
                 Creature cRight = _allCreatures.Find(x => x.name == dropDownRight.value);
                 if (cRight != null)
                 {
@@ -223,13 +215,7 @@ namespace Lis
                 if (!int.TryParse(input.value, out int count)) return;
 
                 for (int i = 0; i < count; i++)
-                {
-                    Minion m = Instantiate(_gameManager.EntityDatabase.GetRandomMinion());
-
-                    m.InitializeBattle(1);
-                    BattleEntity be = SpawnEntity(m, 1, Vector3.zero);
-                    battleManager.AddOpponentArmyEntity(be);
-                }
+                    BattleManager.Instance.GetComponent<BattleMinionManager>().DebugSpawnMinion();
             };
             container.Add(input);
             container.Add(bMinions);
@@ -337,7 +323,8 @@ namespace Lis
             Button b = new() { text = "Add Ability" };
             b.clickable.clicked += () =>
             {
-                Ability a = _gameManager.EntityDatabase.GetAllBasicAbilities().Find(x => x.name == abilityDropdown.value);
+                Ability a = _gameManager.EntityDatabase.GetAllBasicAbilities()
+                    .Find(x => x.name == abilityDropdown.value);
                 if (a != null)
                 {
                     BattleManager.Instance.Hero.AddAbility(a);
@@ -397,7 +384,6 @@ namespace Lis
                 KillAllPlayerCreatures();
             if (_commandTextField.text.ToLower() == "tween")
                 DoTweenSeeAllTweens();
-
         }
 
         void KillAllPlayerCreatures()
@@ -428,6 +414,5 @@ namespace Lis
 
             FileManager.WriteToFile("log", myLog);
         }
-
     }
 }

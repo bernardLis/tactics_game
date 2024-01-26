@@ -12,7 +12,6 @@ namespace Lis
         [SerializeField] GameObject _deathEffect;
 
         BattleHero _targetHero;
-        bool _reachedHero;
 
         static readonly int Attack = Animator.StringToHash("Attack");
 
@@ -46,15 +45,16 @@ namespace Lis
 
         IEnumerator PathToHero()
         {
+            yield return new WaitForSeconds(0.5f);
             Gfx.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
 
-            Agent.stoppingDistance = 2f;
+            Agent.stoppingDistance = 0.7f;
             yield return PathToTarget(_targetHero.transform);
 
             // something is blocking path, so just die...
             if (Vector3.Distance(transform.position, _targetHero.transform.position) > 2.5f)
             {
-                DestroySelf();
+                StartCoroutine(Die(hasLoot: false));
                 yield break;
             }
 
@@ -63,38 +63,18 @@ namespace Lis
 
         void ReachedHero()
         {
-            _reachedHero = true;
-            Collider.enabled = false;
-            SetDead();
-            StopAllCoroutines();
-
-            AudioManager.PlaySFX(Minion.ExplosionSound, transform.position);
-
-            Animator.SetTrigger(Attack);
-
-            transform.DOMove(_targetHero.transform.position + Vector3.up * 2, 0.3f);
-            transform.DOPunchScale(transform.localScale * 1.2f, 0.2f)
-                .SetDelay(0.2f)
-                .OnComplete(() =>
-                {
-                    GameObject explosion = Instantiate(Minion.ExplosionPrefab, transform.position, Quaternion.identity);
-                    explosion.transform.DOMoveY(4, 1f).OnComplete(() => Destroy(explosion, 2f));
-
-                    _targetHero.BaseGetHit(5, default);
-
-                    Gfx.SetActive(false);
-                    StartCoroutine(Die(hasLoot: false));
-                });
+            _targetHero.BaseGetHit(5, GameManager.GameDatabase.GetColorByName("Health").Primary);
+            StartCoroutine(PathToHero());
         }
 
-        protected override void DestroySelf()
+        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
         {
-            if (!_reachedHero)
-                _deathEffect.SetActive(true);
-
-            DOTween.Kill(transform);
-            StopAllCoroutines();
+            yield return base.Die(attacker, hasLoot);
+            _deathEffect.SetActive(true);
             Gfx.SetActive(false);
+            StopAllCoroutines();
+            yield return new WaitForSeconds(1f);
+            gameObject.SetActive(false);
         }
     }
 }
