@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
+  m_Name: Minion Water
+  m_EditorClassIdentifier: 
+  Id: 5143ed1b-e748-4311-bc54-e7e0ba06d431
+  EntityName: 
+  Icon: {fileID: 0}
+  IconAnimation:
+  - {fileID: 21300000, guid: 1f254419908660c48aaf441d2df58b09, type: 3}
+  Price: 20
+  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Team: 0
+  MaxHealth: {fileID: 11400000, guid: c8ba901baa9d13a4aa6f033ce6ab102e, type: 2}
+  CurrentHealth: {fileID: 0}
+  Armor: {fileID: 11400000, guid: 56df2ac61848b6a47b96e4d0bf196a32, type: 2}
+  Level: {fileID: 11400000, guid: 0b0da3a316b689741b92578fd62d398b, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  Speed: {fileID: 11400000, guid: 053f7f9c45aa38440ac61acacf8fa219, type: 2}
+  Power: {fileID: 11400000, guid: 6e5fce7999783e646bb2f0d2a103a593, type: 2}

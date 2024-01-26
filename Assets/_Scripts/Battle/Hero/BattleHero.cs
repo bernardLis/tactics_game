@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lis
@@ -11,7 +10,7 @@ namespace Lis
         BattleHeroController _thirdPersonController;
         BattleHeroHealthBar _battleHeroHealthBar;
 
-        readonly Dictionary<Ability, GameObject> _battleAbilities = new();
+        Color _healthColor;
 
         public override void InitializeEntity(Entity entity, int team)
         {
@@ -30,6 +29,8 @@ namespace Lis
             Animator.enabled = true;
 
             HandleAbilities();
+
+            _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
         }
 
         void HandleAbilities()
@@ -48,15 +49,19 @@ namespace Lis
 
         void AddAbility(Ability ability)
         {
-            GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab);
-            abilityPrefab.transform.SetParent(transform);
+            GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab, transform);
             abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
-            _battleAbilities.Add(ability, abilityPrefab);
         }
 
         public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
         {
             BaseGetHit(5, default);
+            yield return null;
+        }
+
+        public IEnumerator GetHit(Minion minion)
+        {
+            BaseGetHit(Hero.CalculateDamage(minion), _healthColor);
             yield return null;
         }
 

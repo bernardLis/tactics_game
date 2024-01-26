@@ -17,16 +17,16 @@ namespace Lis
         {
             _gameManager = GameManager.Instance;
 
-            List<Minion> minionList = new(_gameManager.EntityDatabase.GetAllMinions());
-
-            for (int i = 0; i < minions; i++)
-            {
-                Minion minion = Instantiate(minionList[Random.Range(0, minionList.Count)]);
-                minion.Level.SetValue(Random.Range(minionLevelRange.x, minionLevelRange.y));
-                minion.InitializeBattle(1);
-                Minions.Add(minion);
-            }
-
+            // List<Minion> minionList = new(_gameManager.EntityDatabase.GetAllMinions());
+            //
+            // for (int i = 0; i < minions; i++)
+            // {
+            //     Minion minion = Instantiate(minionList[Random.Range(0, minionList.Count)]);
+            //     minion.Level.SetValue(Random.Range(minionLevelRange.x, minionLevelRange.y));
+            //     minion.InitializeBattle(1);
+            //     Minions.Add(minion);
+            // }
+            //
             AddRangedOpponent();
         }
 

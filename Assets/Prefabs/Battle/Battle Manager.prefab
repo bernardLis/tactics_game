@@ -87,8 +87,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
-  IsGameLoopBlocked: 0
+  IsGameLoopBlocked: 1
   EntityHolder: {fileID: 0}
+  AbilityHolder: {fileID: 0}
   PlayerCreatures: []
   OpponentEntities: []
   KilledPlayerEntities: []
@@ -113,6 +114,20 @@ MonoBehaviour:
   _heroPrefab: {fileID: 5632361364057405493, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
   BattleHero: {fileID: 0}
   RewardRerollsAvailable: 0
+  _abilityToGive: {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
+  _allAbilities:
+  - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
+  - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
+  - {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
+  - {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
+  - {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
+  - {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
+  - {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
+  - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
+  - {fileID: 11400000, guid: 0e9852db2b4163c49b0f2b361030bd18, type: 2}
+  - {fileID: 11400000, guid: 8fb0356b40790974691df8c838dd2698, type: 2}
+  - {fileID: 11400000, guid: d2478e2c8ef751f45a2838f8ba4b6ebc, type: 2}
+  - {fileID: 11400000, guid: d2728347576e3614fbc1fd7de6607e43, type: 2}
 --- !u!114 &1771743886305221010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minionPrefab: {fileID: 6266213777921296780, guid: 2e606e0d198ae774b81a2ea0d596fb1c, type: 3}
+  _minionPrefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
+  _earthMinion: {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
+  _fireMinion: {fileID: 11400000, guid: 7c6442770ed6a144aadb84a303d9b079, type: 2}
+  _waterMinion: {fileID: 11400000, guid: d27f5850471b8804885a52e28628ef0a, type: 2}
+  _windMinion: {fileID: 11400000, guid: 5d7bb2c9695389e45b4d2bc09bad050c, type: 2}
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +215,7 @@ MonoBehaviour:
   - {fileID: 4038709634893199650, guid: 38241b96abbc16642bd099b7acc523d4, type: 3}
   - {fileID: 4595489097737614975, guid: 7e700b4280431f54880c689fae4c9736, type: 3}
   HomeTile: {fileID: 0}
-  _cornerTiles: []
+  CornerTiles: []
   UnlockedTiles: []
 --- !u!114 &892723308641058941
 MonoBehaviour:
@@ -227,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vasePrefab: {fileID: 1242215030221417828, guid: 144ec78837b5eeb4ebf0bd1b7b7ddbe6, type: 3}
+  _debugSpawnVase: 0
 --- !u!114 &3416259486287488999
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,20 +7,28 @@ namespace Lis
 {
     public class BattleMinion : BattleEntity
     {
-        public Minion Minion { get; private set; }
+        Minion _minion;
+
+        [SerializeField] GameObject _earthGfx;
+        [SerializeField] GameObject _fireGfx;
+        [SerializeField] GameObject _waterGfx;
+        [SerializeField] GameObject _windGfx;
 
         [SerializeField] GameObject _deathEffect;
 
         BattleHero _targetHero;
 
-        static readonly int Attack = Animator.StringToHash("Attack");
 
         public override void InitializeEntity(Entity entity, int team)
         {
             if (Gfx != null) Gfx.SetActive(true);
+            if (entity.Element.ElementName == ElementName.Earth) _earthGfx.SetActive(true);
+            if (entity.Element.ElementName == ElementName.Fire) _fireGfx.SetActive(true);
+            if (entity.Element.ElementName == ElementName.Water) _waterGfx.SetActive(true);
+            if (entity.Element.ElementName == ElementName.Wind) _windGfx.SetActive(true);
 
             base.InitializeEntity(entity, team);
-            Minion = (Minion)entity;
+            _minion = (Minion)entity;
 
             // minion pool
             IsDead = false;
@@ -40,14 +48,14 @@ namespace Lis
         {
             if (IsDead) yield break;
 
+            Gfx.transform.localScale = Vector3.one;
+            Gfx.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
+
             yield return PathToHero();
         }
 
         IEnumerator PathToHero()
         {
-            yield return new WaitForSeconds(0.5f);
-            Gfx.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
-
             Agent.stoppingDistance = 0.7f;
             yield return PathToTarget(_targetHero.transform);
 
@@ -63,8 +71,15 @@ namespace Lis
 
         void ReachedHero()
         {
-            _targetHero.BaseGetHit(5, GameManager.GameDatabase.GetColorByName("Health").Primary);
-            StartCoroutine(PathToHero());
+            StartCoroutine(Attack());
+        }
+
+        IEnumerator Attack()
+        {
+            Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
+            StartCoroutine(_targetHero.GetHit(_minion));
+            yield return new WaitForSeconds(0.5f);
+            StartRunEntityCoroutine();
         }
 
         public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
@@ -74,6 +89,12 @@ namespace Lis
             Gfx.SetActive(false);
             StopAllCoroutines();
             yield return new WaitForSeconds(1f);
+
+            _earthGfx.SetActive(false);
+            _fireGfx.SetActive(false);
+            _waterGfx.SetActive(false);
+            _windGfx.SetActive(false);
+
             gameObject.SetActive(false);
         }
     }

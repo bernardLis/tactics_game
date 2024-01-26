@@ -215,7 +215,7 @@ namespace Lis
                 if (!int.TryParse(input.value, out int count)) return;
 
                 for (int i = 0; i < count; i++)
-                    BattleManager.Instance.GetComponent<BattleMinionManager>().DebugSpawnMinion();
+                    BattleManager.Instance.GetComponent<BattleFightManager>().DebugSpawnMinion();
             };
             container.Add(input);
             container.Add(bMinions);

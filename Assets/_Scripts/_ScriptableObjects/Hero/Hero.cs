@@ -1,13 +1,5 @@
 using System;
 using System.Collections.Generic;
-
-
-
-
-
-
-
-
 using UnityEngine;
 
 namespace Lis
@@ -17,21 +9,26 @@ namespace Lis
     {
         GameManager _gameManager;
 
-        [Header("Stats")]
-        public Stat Power;
+        [Header("Stats")] public Stat Power;
         public Stat Pull;
         public Stat BonusExp;
-
-        public override void InitializeBattle(int team)
-        {
-            base.InitializeBattle(team);
-
-        }
 
         protected override void CreateStats()
         {
             // Hero handles it through CreateBaseStats() instead 
         }
+
+        public int CalculateDamage(Minion minion)
+        {
+            float damage = minion.GetPower();
+
+            damage -= Armor.GetValue();
+            if (damage < 0) damage = 0;
+
+            // abilities ignore armor
+            return Mathf.RoundToInt(damage);
+        }
+
 
         /* LEVELING */
         public int GetExpValue(int gain)
@@ -58,11 +55,11 @@ namespace Lis
             return expRequired;
         }
 
-        [Header("Tablets")]
-        public List<Tablet> Tablets = new();
+        [Header("Tablets")] public List<Tablet> Tablets = new();
         public TabletAdvanced AdvancedTablet;
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
         public Dictionary<Element, Tablet> TabletsByElement = new();
+
         public void CreateTablets()
         {
             foreach (Tablet original in _gameManager.EntityDatabase.HeroTablets)
@@ -89,8 +86,6 @@ namespace Lis
             if (AdvancedTablet != null) return; // only one advanced tablet
 
             ElementName firstElement = ElementName.None;
-            ElementName secondElement = ElementName.None;
-
             foreach (Tablet t in Tablets)
             {
                 if (!t.IsMaxLevel()) continue;
@@ -99,20 +94,18 @@ namespace Lis
                     firstElement = t.Element.ElementName;
                     continue;
                 }
-                if (secondElement == ElementName.None)
-                {
-                    secondElement = t.Element.ElementName;
-                    AddAdvancedTablet(firstElement, secondElement);
-                    break;
-                }
+
+                ElementName secondElement = t.Element.ElementName;
+                AddAdvancedTablet(firstElement, secondElement);
+                break;
             }
         }
 
         void AddAdvancedTablet(ElementName firstElement, ElementName secondElement)
         {
-            TabletAdvanced original = _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstElement, secondElement);
+            TabletAdvanced original =
+                _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstElement, secondElement);
             if (original == null) return;
-            Debug.Log($"adding advanced tablet {original.name}");
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 
@@ -121,8 +114,7 @@ namespace Lis
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }
 
-        [Header("Abilities")]
-        public List<Ability> Abilities = new();
+        [Header("Abilities")] public List<Ability> Abilities = new();
         public List<Ability> AdvancedAbilities = new();
         public event Action<Ability> OnAbilityAdded;
 
@@ -143,7 +135,8 @@ namespace Lis
         public Ability GetAbilityById(string id)
         {
             foreach (Ability a in Abilities)
-                if (a.Id == id) return a;
+                if (a.Id == id)
+                    return a;
             return null;
         }
 
@@ -235,7 +228,7 @@ namespace Lis
         }
 
         /* SERIALIZATION */
-        new public HeroData SerializeSelf()
+        public new HeroData SerializeSelf()
         {
             HeroData data = new()
             {

@@ -34,7 +34,7 @@ namespace Lis
             yield return new WaitForSeconds(1f);
 
             GetComponent<BattleTooltipManager>().Initialize();
-            GetComponent<BattleMinionManager>().Initialize();
+            GetComponent<BattleFightManager>().Initialize();
             GetComponent<BattleVaseManager>().Initialize();
             GetComponent<BattlePickupManager>().Initialize();
             GetComponent<BattleProjectileManager>().Initialize();

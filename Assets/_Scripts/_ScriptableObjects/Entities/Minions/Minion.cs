@@ -1,15 +1,15 @@
-
-
 using UnityEngine;
+using System;
+
 
 namespace Lis
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Minion")]
     public class Minion : EntityMovement
     {
-        [Header("Minion")]
-        public GameObject ExplosionPrefab;
-        public Sound ExplosionSound;
+        [Header("Minion")] public Stat Power;
+
+        public event Action OnDeath;
 
         public override void InitializeBattle(int team)
         {
@@ -23,10 +23,20 @@ namespace Lis
                 MaxHealth.LevelUp();
                 Armor.LevelUp();
                 Speed.LevelUp();
+                Power.LevelUp();
             }
 
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
+
+        public int GetPower()
+        {
+            return Power.GetValue();
+        }
+
+        public void Death()
+        {
+            OnDeath?.Invoke();
+        }
     }
 }
-

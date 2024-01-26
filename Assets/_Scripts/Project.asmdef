@@ -2,7 +2,6 @@
     "name": "NewAssembly",
     "rootNamespace": "",
     "references": [
-        
         "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:15fc0a57446b3144c949da3e2b9737a9",
         "GUID:64d8cf56d57bbd746889f2fc3d490a0e",
@@ -19,7 +18,12 @@
         "GUID:5e0b455853cd340e0813387221dfd501",
         "GUID:4307f53044263cf4b835bd812fc161a4",
         "GUID:734d92eba21c94caba915361bd5ac177",
-        "GUID:e0cd26848372d4e5c891c569017e11f1"
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:586c26a6ab8923842bcb0848f39b6cf7",
+        "GUID:3d9288551f5f1b14b9fcbd11fd97a391",
+        "GUID:4fd5a72e5d614014db4a5bc43956b6a2",
+        "GUID:c38fb62397af04c51b143415e1db6d90",
+        "GUID:8819f35a0fc84499b990e90a4ca1911f"
     ],
     "includePlatforms": [
         "Editor",

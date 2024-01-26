@@ -444,6 +444,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1233197294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233197295}
+  - component: {fileID: 1233197299}
+  - component: {fileID: 1233197298}
+  - component: {fileID: 1233197297}
+  - component: {fileID: 1233197296}
+  m_Layer: 0
+  m_Name: Minion Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233197295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233197294}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1233197296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233197294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af109ddf510a5974799cbba2a500755a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1233197297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233197294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b461212d3690f4d92b5da871eac9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1233197298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233197294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38960c7f1b21971408598faae2c3ba40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1233197299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233197294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c8e2698f01cad4ebe38fcdf1404d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1633669038
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,14 +993,6 @@ PrefabInstance:
       propertyPath: _floorHolder
       value: 
       objectReference: {fileID: 1815445464}
-    - target: {fileID: 3416259486287488999, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _coin
-      value: 
-      objectReference: {fileID: 11400000, guid: e4968ff107bfff3428c3f9674cbc81a3, type: 2}
-    - target: {fileID: 3416259486287488999, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _pickupPrefab
-      value: 
-      objectReference: {fileID: 9016190225899810172, guid: c0be81422298d8142a727ab7e9129d74, type: 3}
     - target: {fileID: 5119385659013104313, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -958,62 +1033,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _abilityToGive
-      value: 
-      objectReference: {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.size
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[8]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e9852db2b4163c49b0f2b361030bd18, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[9]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8fb0356b40790974691df8c838dd2698, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[10]
-      value: 
-      objectReference: {fileID: 11400000, guid: d2478e2c8ef751f45a2838f8ba4b6ebc, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _allAbilities.Array.data[11]
-      value: 
-      objectReference: {fileID: 11400000, guid: d2728347576e3614fbc1fd7de6607e43, type: 2}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: EntityHolder
       value: 
@@ -1022,25 +1041,9 @@ PrefabInstance:
       propertyPath: AbilityHolder
       value: 
       objectReference: {fileID: 843739632}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: IsGameLoopBlocked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5119385659013104319, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_Name
       value: Battle Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _minionPoolHolder
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _enemyProjectilePoolHolder
-      value: 
-      objectReference: {fileID: 1633669039}
-    - target: {fileID: 8560908320832600270, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _vaseHolder
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1115,6 +1118,7 @@ SceneRoots:
   - {fileID: 1729261767}
   - {fileID: 38469474}
   - {fileID: 5119385660492297293}
+  - {fileID: 1233197295}
   - {fileID: 704174230}
   - {fileID: 1942892701}
   - {fileID: 296518730}
