@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -18,16 +14,18 @@ namespace Lis
         BattleHero _targetHero;
         bool _reachedHero;
 
+        static readonly int Attack = Animator.StringToHash("Attack");
+
         public override void InitializeEntity(Entity entity, int team)
         {
-            if (_GFX != null) _GFX.SetActive(true);
+            if (Gfx != null) Gfx.SetActive(true);
 
             base.InitializeEntity(entity, team);
             Minion = (Minion)entity;
 
             // minion pool
             IsDead = false;
-            _isDeathCoroutineStarted = false;
+            IsDeathCoroutineStarted = false;
             Collider.enabled = true;
         }
 
@@ -35,7 +33,7 @@ namespace Lis
         {
             base.InitializeBattle(ref opponents);
 
-            _targetHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
+            _targetHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
             StartRunEntityCoroutine();
         }
 
@@ -48,9 +46,9 @@ namespace Lis
 
         IEnumerator PathToHero()
         {
-            _GFX.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
+            Gfx.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
 
-            _agent.stoppingDistance = 2f;
+            Agent.stoppingDistance = 2f;
             yield return PathToTarget(_targetHero.transform);
 
             // something is blocking path, so just die...
@@ -70,12 +68,12 @@ namespace Lis
             SetDead();
             StopAllCoroutines();
 
-            _audioManager.PlaySFX(Minion.ExplosionSound, transform.position);
+            AudioManager.PlaySFX(Minion.ExplosionSound, transform.position);
 
-            Animator.SetTrigger("Attack");
+            Animator.SetTrigger(Attack);
 
             transform.DOMove(_targetHero.transform.position + Vector3.up * 2, 0.3f);
-            transform.DOPunchScale(transform.localScale * 1.2f, 0.2f, 10, 1)
+            transform.DOPunchScale(transform.localScale * 1.2f, 0.2f)
                 .SetDelay(0.2f)
                 .OnComplete(() =>
                 {
@@ -84,7 +82,7 @@ namespace Lis
 
                     _targetHero.BaseGetHit(5, default);
 
-                    _GFX.SetActive(false);
+                    Gfx.SetActive(false);
                     StartCoroutine(Die(hasLoot: false));
                 });
         }
@@ -92,11 +90,11 @@ namespace Lis
         protected override void DestroySelf()
         {
             if (!_reachedHero)
-                Destroy(Instantiate(_deathEffect, transform.position, Quaternion.identity), 1f);
+                _deathEffect.SetActive(true);
 
             DOTween.Kill(transform);
             StopAllCoroutines();
-            gameObject.SetActive(false); // there is a pool of minions
+            Gfx.SetActive(false);
         }
     }
 }

@@ -1,74 +1,76 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
-
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis
 {
     public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
-        protected GameManager _gameManager;
-        protected AudioManager _audioManager;
-        protected BattleManager _battleManager;
-        protected BattleGrabManager _grabManager;
-        protected BattlePickupManager _pickupManager;
+        protected GameManager GameManager;
+        protected AudioManager AudioManager;
+        protected BattleManager BattleManager;
+        BattleGrabManager _grabManager;
+        BattlePickupManager _pickupManager;
 
-        protected ObjectShaders _battleEntityShaders;
+        protected ObjectShaders BattleEntityShaders;
 
         public List<string> EntityLog = new();
 
-        [Header("Sounds")]
-        [SerializeField] Sound _spawnSound;
-        [SerializeField] protected Sound _deathSound;
-        [SerializeField] protected Sound _getHitSound;
+        [Header("Sounds")] [SerializeField] Sound _spawnSound;
+
+        [FormerlySerializedAs("_deathSound")] [SerializeField]
+        protected Sound DeathSound;
+
+        [FormerlySerializedAs("_getHitSound")] [SerializeField]
+        protected Sound GetHitSound;
 
         public Collider Collider { get; private set; }
 
-        public string BattleId { get; private set; }
-        public int Team { get; protected set; }
+        string BattleId { get; set; }
+        public int Team { get; private set; }
 
-        protected GameObject _GFX;
+        protected GameObject Gfx;
         Rigidbody _rigidbody;
-        public Animator Animator { get; private set; }
+        protected Animator Animator { get; private set; }
 
         public Entity Entity { get; private set; }
 
-        protected NavMeshAgent _agent;
-        protected Vector2Int _avoidancePriorityRange = new Vector2Int(20, 100);
+        protected NavMeshAgent Agent;
+        protected Vector2Int AvoidancePriorityRange = new Vector2Int(20, 100);
 
         [HideInInspector] public bool IsShielded;
-        protected bool _isEngaged;
+        protected bool IsEngaged;
         bool _isPoisoned;
-        protected bool _isGrabbed;
-        public bool IsDead { get; protected set; }
-        protected bool _isDeathCoroutineStarted;
+        bool _isGrabbed;
 
-        protected bool _blockRunEntity;
+        public bool IsDead { get; protected set; }
+        protected bool IsDeathCoroutineStarted;
 
         MMF_Player _feelPlayer;
 
-        protected IEnumerator _currentMainCoroutine;
-        protected IEnumerator _currentSecondaryCoroutine;
-        protected IEnumerator _currentAbilityCoroutine;
+        protected IEnumerator CurrentMainCoroutine;
+        protected IEnumerator CurrentSecondaryCoroutine;
+        protected IEnumerator CurrentAbilityCoroutine;
+
+        static readonly int AnimMove = Animator.StringToHash("Move");
+        static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
+        static readonly int AnimDie = Animator.StringToHash("Die");
+        private static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, EntityFight> OnDeath;
+
         void Awake()
         {
-            _gameManager = GameManager.Instance;
-            _audioManager = AudioManager.Instance;
+            GameManager = GameManager.Instance;
+            AudioManager = AudioManager.Instance;
         }
 
         public virtual void InitializeEntity(Entity entity, int team)
@@ -78,90 +80,78 @@ namespace Lis
             Entity = entity;
             Team = team;
 
-            _battleEntityShaders = GetComponent<ObjectShaders>();
+            BattleEntityShaders = GetComponent<ObjectShaders>();
 
             Collider = GetComponent<Collider>();
             if (team == 0) Collider.excludeLayers = LayerMask.GetMask("Player");
 
             Animator = GetComponentInChildren<Animator>();
-            _GFX = Animator.gameObject;
+            Gfx = Animator.gameObject;
             _feelPlayer = GetComponent<MMF_Player>();
-            _agent = GetComponent<NavMeshAgent>();
+            Agent = GetComponent<NavMeshAgent>();
 
-            if (_audioManager == null) _audioManager = AudioManager.Instance;
-            if (_spawnSound != null) _audioManager.PlaySFX(_spawnSound, transform.position);
+            if (AudioManager == null) AudioManager = AudioManager.Instance;
+            if (_spawnSound != null) AudioManager.PlaySFX(_spawnSound, transform.position);
 
             SetStats();
         }
 
-        public virtual void SetStats()
+        protected virtual void SetStats()
         {
-            if (Entity is EntityMovement em)
-            {
-                _agent.speed = em.Speed.GetValue();
-                em.Speed.OnValueChanged += (i) => _agent.speed = i;
-            }
+            if (Entity is not EntityMovement em) return;
+
+            Agent.speed = em.Speed.GetValue();
+            em.Speed.OnValueChanged += (i) => Agent.speed = i;
         }
 
         public virtual void InitializeBattle(ref List<BattleEntity> opponents)
         {
-            _battleManager = BattleManager.Instance;
-            _battleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
+            BattleManager = BattleManager.Instance;
+            BattleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
             _grabManager = BattleGrabManager.Instance;
-            _pickupManager = _battleManager.GetComponent<BattlePickupManager>();
+            _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
 
             _rigidbody = GetComponent<Rigidbody>();
             if (_rigidbody != null) _rigidbody.isKinematic = true;
 
             SetBattleId();
 
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity is initialized");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity is initialized");
         }
 
-        protected void SetBattleId()
+        void SetBattleId()
         {
             BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Entity.name)
                        + "_" + Helpers.GetRandomNumber(4);
             name = BattleId;
         }
 
-        public virtual void StartRunEntityCoroutine()
+        protected virtual void StartRunEntityCoroutine()
         {
             if (IsDead) return;
 
             StopRunEntityCoroutine();
-            EntityLog.Add($"{_battleManager.GetTime()}: Start run entity coroutine is called");
+            EntityLog.Add($"{BattleManager.GetTime()}: Start run entity coroutine is called");
 
-            _currentMainCoroutine = RunEntity();
-            StartCoroutine(_currentMainCoroutine);
+            CurrentMainCoroutine = RunEntity();
+            StartCoroutine(CurrentMainCoroutine);
         }
-
-        bool CanStartRunEntity()
+        
+        protected virtual void StopRunEntityCoroutine()
         {
-            if (this == null) return false;
-            if (_blockRunEntity) return false;
-            if (!isActiveAndEnabled) return false;
-            if (_isGrabbed) return false;
-            if (IsDead) return false;
+            EntityLog.Add($"{BattleManager.GetTime()}: Stop run entity coroutine is called");
 
-            return true;
-        }
+            if (CurrentMainCoroutine != null)
+                StopCoroutine(CurrentMainCoroutine);
+            if (CurrentSecondaryCoroutine != null)
+                StopCoroutine(CurrentSecondaryCoroutine);
+            if (CurrentAbilityCoroutine != null)
+                StopCoroutine(CurrentAbilityCoroutine);
 
-        public virtual void StopRunEntityCoroutine()
-        {
-            EntityLog.Add($"{_battleManager.GetTime()}: Stop run entity coroutine is called");
+            if (Agent.isActiveAndEnabled) Agent.isStopped = true;
+            Agent.enabled = false;
 
-            if (_currentMainCoroutine != null)
-                StopCoroutine(_currentMainCoroutine);
-            if (_currentSecondaryCoroutine != null)
-                StopCoroutine(_currentSecondaryCoroutine);
-            if (_currentAbilityCoroutine != null)
-                StopCoroutine(_currentAbilityCoroutine);
-
-            if (_agent.isActiveAndEnabled) _agent.isStopped = true;
-            _agent.enabled = false;
-
-            Animator.SetBool("Move", false);
+            Animator.SetBool(AnimMove, false);
         }
 
         protected virtual IEnumerator RunEntity()
@@ -171,37 +161,37 @@ namespace Lis
 
         protected virtual IEnumerator PathToPosition(Vector3 position)
         {
-            EntityLog.Add($"{_battleManager.GetTime()}: Path to position is called {position}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Path to position is called {position}");
 
-            _agent.enabled = true;
+            Agent.enabled = true;
             // TODO: pitiful solution for making entities push each other
-            _agent.avoidancePriority = Random.Range(_avoidancePriorityRange.x, _avoidancePriorityRange.y);
+            Agent.avoidancePriority = Random.Range(AvoidancePriorityRange.x, AvoidancePriorityRange.y);
 
-            while (!_agent.SetDestination(position)) yield return null;
-            while (_agent.pathPending) yield return null;
+            while (!Agent.SetDestination(position)) yield return null;
+            while (Agent.pathPending) yield return null;
 
-            Animator.SetBool("Move", true);
+            Animator.SetBool(AnimMove, true);
         }
 
         protected virtual IEnumerator PathToPositionAndStop(Vector3 position)
         {
             yield return PathToPosition(position);
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+            while (Agent.enabled && Agent.remainingDistance > Agent.stoppingDistance)
                 yield return new WaitForSeconds(0.1f);
 
             // reached destination
             StopWalking();
         }
 
-        protected virtual IEnumerator PathToTarget(Transform transform)
+        protected virtual IEnumerator PathToTarget(Transform t)
         {
-            EntityLog.Add($"{_battleManager.GetTime()}: Path to target is called {transform}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Path to target is called {t}");
 
-            yield return PathToPosition(transform.position);
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+            yield return PathToPosition(t.position);
+            while (Agent.enabled && Agent.remainingDistance > Agent.stoppingDistance)
             {
-                if (transform == null) yield break;
-                _agent.SetDestination(transform.position);
+                if (t == null) yield break;
+                Agent.SetDestination(t.position);
                 yield return new WaitForSeconds(0.1f);
             }
 
@@ -211,17 +201,17 @@ namespace Lis
 
         void StopWalking()
         {
-            _agent.avoidancePriority = 0;
-            Animator.SetBool("Move", false);
-            _agent.enabled = false;
+            Agent.avoidancePriority = 0;
+            Animator.SetBool(AnimMove, false);
+            Agent.enabled = false;
         }
 
-        public virtual void GetEngaged(BattleEntity engager)
+        public virtual void GetEngaged(BattleEntity attacker)
         {
-            if (_isEngaged) return;
-            _isEngaged = true;
+            if (IsEngaged) return;
+            IsEngaged = true;
 
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity gets engaged by {engager.name}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity gets engaged by {attacker.name}");
             StopRunEntityCoroutine();
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
         }
@@ -230,12 +220,15 @@ namespace Lis
         {
             if (IsDead) return;
 
-            _isEngaged = false;
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity disengages");
+            IsEngaged = false;
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity disengages");
             StartRunEntityCoroutine();
         }
 
-        public bool HasFullHealth() { return Entity.CurrentHealth.Value >= Entity.MaxHealth.GetValue(); }
+        public bool HasFullHealth()
+        {
+            return Entity.CurrentHealth.Value >= Entity.MaxHealth.GetValue();
+        }
 
         public int GetHealed(Ability ability)
         {
@@ -246,7 +239,7 @@ namespace Lis
 
         public void GetHealed(int value)
         {
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity gets healed by {value}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity gets healed by {value}");
 
             int v = Mathf.Clamp(value, 0, Entity.MaxHealth.GetValue() - Entity.CurrentHealth.Value);
             Entity.CurrentHealth.ApplyChange(v);
@@ -257,8 +250,8 @@ namespace Lis
         public virtual IEnumerator GetHit(Ability ability)
         {
             if (IsDead) yield break;
-            if (_battleManager == null) yield break;
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {ability.name}");
+            if (BattleManager == null) yield break;
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity gets attacked by {ability.name}");
 
             BaseGetHit(Entity.CalculateDamage(ability), ability.Element.Color.Secondary);
 
@@ -269,8 +262,8 @@ namespace Lis
         public virtual IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
         {
             if (IsDead) yield break;
-            if (_battleManager == null) yield break;
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity gets attacked by {attacker.name}");
+            if (BattleManager == null) yield break;
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity gets attacked by {attacker.name}");
 
             int damage = Entity.CalculateDamage(attacker);
             if (specialDamage > 0) damage = specialDamage;
@@ -285,13 +278,13 @@ namespace Lis
 
         public virtual void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
         {
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity takes damage {dmg}");
             StopRunEntityCoroutine();
 
-            if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
-            else _audioManager.PlaySFX("Hit", transform.position);
+            if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
+            else AudioManager.PlaySFX("Hit", transform.position);
 
-            Animator.SetTrigger("Take Damage");
+            Animator.SetTrigger(AnimTakeDamage);
             DisplayFloatingText(dmg.ToString(), color);
 
             OnDamageTaken?.Invoke(dmg);
@@ -316,21 +309,21 @@ namespace Lis
 
         public virtual IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
         {
-            if (_isDeathCoroutineStarted) yield break;
-            _isDeathCoroutineStarted = true;
+            if (IsDeathCoroutineStarted) yield break;
+            IsDeathCoroutineStarted = true;
 
             StopRunEntityCoroutine();
 
             if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();
-            if (_agent.isActiveAndEnabled) _agent.isStopped = true;
+            if (Agent.isActiveAndEnabled) Agent.isStopped = true;
 
             Collider.enabled = false;
 
-            if (_deathSound != null) _audioManager.PlaySFX(_deathSound, transform.position);
+            if (DeathSound != null) AudioManager.PlaySFX(DeathSound, transform.position);
             DOTween.Kill(transform);
             if (hasLoot) ResolveLoot();
 
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity dies.");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity dies.");
             OnDeath?.Invoke(this, attacker);
 
             if (Team == 1)
@@ -339,7 +332,7 @@ namespace Lis
                 yield break;
             }
 
-            Animator.SetTrigger("Die");
+            Animator.SetTrigger(AnimDie);
             transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
                 .OnComplete(() =>
@@ -358,7 +351,7 @@ namespace Lis
             Destroy(gameObject);
         }
 
-        protected void ResolveLoot()
+        void ResolveLoot()
         {
             if (Team == 0) return;
             _pickupManager.SpawnExpOrb(transform.position);
@@ -368,7 +361,7 @@ namespace Lis
         {
             if (_isPoisoned) yield break;
             if (IsDead) yield break;
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity gets poisoned by {attacker.name}.");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity gets poisoned by {attacker.name}.");
 
             _isPoisoned = true;
             DisplayFloatingText("Poisoned", Color.green);
@@ -389,6 +382,7 @@ namespace Lis
                     OnDamageTaken?.Invoke(damageTick);
                     Entity.CurrentHealth.ApplyChange(-damageTick);
                 }
+
                 totalDamage -= damageTick;
 
                 yield return new WaitForSeconds(1f);
@@ -397,24 +391,28 @@ namespace Lis
             _isPoisoned = false;
         }
 
-        protected IEnumerator Celebrate()
+        IEnumerator Celebrate()
         {
             if (IsDead) yield break;
 
             StopRunEntityCoroutine();
-
-            yield return transform.DODynamicLookAt(Camera.main.transform.position, 0.2f).WaitForCompletion();
-            Animator.SetBool("Celebrate", true);
+            Camera cam = Camera.main;
+            if (cam != null)
+                yield return transform.DODynamicLookAt(cam.transform.position, 0.2f).WaitForCompletion();
+            Animator.SetBool(AnimCelebrate, true);
         }
 
-        public void SetDead() { IsDead = true; }
+        protected void SetDead()
+        {
+            IsDead = true;
+        }
 
         /* grab */
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
 
-            _audioManager.PlaySFX(_spawnSound, transform.position);
+            AudioManager.PlaySFX(_spawnSound, transform.position);
 
             if (!CanBeGrabbed()) return;
 
@@ -450,7 +448,8 @@ namespace Lis
             floatingText.Value = text;
             floatingText.ForceColor = true;
             floatingText.AnimateColorGradient = Helpers.GetGradient(color);
-            _feelPlayer.PlayFeedbacks(transform.position + transform.localScale.y * Vector3.up);
+            Transform t = transform;
+            _feelPlayer.PlayFeedbacks(t.position + t.localScale.y * Vector3.up);
         }
     }
 }

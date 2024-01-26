@@ -49,7 +49,7 @@ namespace Lis
 
         void DropPickup()
         {
-            _currentPickup.transform.parent = _battleManager.EntityHolder;
+            _currentPickup.transform.parent = BattleManager.EntityHolder;
             _currentPickup.transform.position = transform.position;
         }
 
@@ -84,7 +84,7 @@ namespace Lis
             // if opp is in range, jump behind him not *10f
             if (IsOpponentInRange())
             {
-                targetPosition = transform.position + normal * (_agent.stoppingDistance * 2);
+                targetPosition = transform.position + normal * (Agent.stoppingDistance * 2);
                 StartCoroutine(Opponent.GetHit(Creature, Creature.Power.GetValue() * 3));
             }
             transform.DOJump(targetPosition, 2f, 1, 0.3f, false);

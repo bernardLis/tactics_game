@@ -40,7 +40,7 @@ namespace Lis
 
             DisplayFloatingText("Shielded", Color.blue);
             _shieldEffectInstance = Instantiate(_shieldEffect, transform.position, Quaternion.identity);
-            _shieldEffectInstance.transform.parent = _GFX.transform;
+            _shieldEffectInstance.transform.parent = Gfx.transform;
 
             IsShielded = true;
         }

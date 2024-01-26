@@ -41,7 +41,7 @@ namespace Lis
                 GetHealed(20); // TODO: hardcoded value
 
             _healEffectInstance = Instantiate(_healEffect, transform.position, Quaternion.identity);
-            _healEffectInstance.transform.parent = _GFX.transform;
+            _healEffectInstance.transform.parent = Gfx.transform;
         }
     }
 }

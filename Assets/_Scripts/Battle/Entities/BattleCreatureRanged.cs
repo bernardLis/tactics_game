@@ -17,7 +17,7 @@ namespace Lis
         {
             base.InitializeOpponentEntity();
 
-            _battleProjectileManager = _battleManager.GetComponent<BattleProjectileManager>();
+            _battleProjectileManager = BattleManager.GetComponent<BattleProjectileManager>();
         }
 
         protected override IEnumerator PathToOpponent()
@@ -30,7 +30,7 @@ namespace Lis
             }
 
             Vector3 point = ClosestPositionWithClearLOS();
-            _agent.stoppingDistance = 0;
+            Agent.stoppingDistance = 0;
             yield return PathToPosition(point);
 
             yield return new WaitForSeconds(1f);
@@ -108,7 +108,7 @@ namespace Lis
             }
 
             GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-            projectileInstance.transform.parent = _battleManager.EntityHolder;
+            projectileInstance.transform.parent = BattleManager.EntityHolder;
             BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
             p.Initialize(Team);
             Vector3 dir = (Opponent.transform.position - transform.position).normalized;

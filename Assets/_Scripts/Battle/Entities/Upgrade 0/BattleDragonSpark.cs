@@ -24,7 +24,7 @@ namespace Lis
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
             GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-            projectileInstance.transform.parent = _GFX.transform;
+            projectileInstance.transform.parent = Gfx.transform;
             BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
             p.Initialize(Team);
             Vector3 dir = (Opponent.transform.position - transform.position).normalized;

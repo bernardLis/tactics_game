@@ -38,7 +38,7 @@ namespace Lis
         {
             base.InitializeEntity(entity, team);
 
-            if (team == 0) _battleEntityShaders.LitShader();
+            if (team == 0) BattleEntityShaders.LitShader();
 
             Creature = (Creature)entity;
             Creature.OnLevelUp += OnLevelUp;
@@ -46,8 +46,8 @@ namespace Lis
             OnDamageDealt += Creature.AddDmgDealt;
             OnDamageTaken += Creature.AddDmgTaken;
 
-            _agent.stoppingDistance = Creature.AttackRange.GetValue();
-            _avoidancePriorityRange = new Vector2Int(0, 20);
+            Agent.stoppingDistance = Creature.AttackRange.GetValue();
+            AvoidancePriorityRange = new Vector2Int(0, 20);
         }
 
 
@@ -83,21 +83,21 @@ namespace Lis
 
         void StartHangOutCoroutine()
         {
-            if (Team == 0) _battleManager.OnOpponentEntityAdded += OpponentWasAdded;
-            if (Team == 1) _battleManager.OnPlayerCreatureAdded += OpponentWasAdded;
+            if (Team == 0) BattleManager.OnOpponentEntityAdded += OpponentWasAdded;
+            if (Team == 1) BattleManager.OnPlayerCreatureAdded += OpponentWasAdded;
 
-            if (_currentMainCoroutine != null)
-                StopCoroutine(_currentMainCoroutine);
-            _currentMainCoroutine = HangOut();
-            StartCoroutine(_currentMainCoroutine);
+            if (CurrentMainCoroutine != null)
+                StopCoroutine(CurrentMainCoroutine);
+            CurrentMainCoroutine = HangOut();
+            StartCoroutine(CurrentMainCoroutine);
         }
 
         void OpponentWasAdded(BattleEntity _)
         {
             if (this == null) return;
             StartRunEntityCoroutine();
-            if (Team == 0) _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
-            if (Team == 1) _battleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
+            if (Team == 0) BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+            if (Team == 1) BattleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
         }
 
         protected virtual IEnumerator HangOut()
@@ -106,7 +106,7 @@ namespace Lis
             while (true)
             {
                 // TODO: need to make sure that position is reachable
-                _agent.stoppingDistance = 0;
+                Agent.stoppingDistance = 0;
                 yield return PathToPositionAndStop(GetPositionCloseToHero());
 
                 yield return new WaitForSeconds(Random.Range(3f, 6f));
@@ -115,7 +115,7 @@ namespace Lis
 
         protected Vector3 GetPositionCloseToHero()
         {
-            BattleHero battleHero = _battleManager.GetComponent<BattleHeroManager>().BattleHero;
+            BattleHero battleHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
             Vector3 pos = battleHero.transform.position
                           + Vector3.right * Random.Range(-10f, 10f)
                           + Vector3.forward * Random.Range(-10f, 10f);
@@ -128,10 +128,10 @@ namespace Lis
         {
             if (!CanUseAbility()) yield break;
 
-            if (_currentAbilityCoroutine != null)
-                StopCoroutine(_currentAbilityCoroutine);
-            _currentAbilityCoroutine = CreatureAbility();
-            yield return _currentAbilityCoroutine;
+            if (CurrentAbilityCoroutine != null)
+                StopCoroutine(CurrentAbilityCoroutine);
+            CurrentAbilityCoroutine = CreatureAbility();
+            yield return CurrentAbilityCoroutine;
         }
 
         protected bool CanUseAbility()
@@ -149,34 +149,34 @@ namespace Lis
 
             if (Opponent == null) yield break;
 
-            if (_currentSecondaryCoroutine != null)
-                StopCoroutine(_currentSecondaryCoroutine);
-            _currentSecondaryCoroutine = PathToOpponent();
-            yield return _currentSecondaryCoroutine;
+            if (CurrentSecondaryCoroutine != null)
+                StopCoroutine(CurrentSecondaryCoroutine);
+            CurrentSecondaryCoroutine = PathToOpponent();
+            yield return CurrentSecondaryCoroutine;
         }
 
 
         protected IEnumerator ManageAttackCoroutine()
         {
-            if (_currentSecondaryCoroutine != null)
-                StopCoroutine(_currentSecondaryCoroutine);
-            _currentSecondaryCoroutine = Attack();
-            yield return _currentSecondaryCoroutine;
+            if (CurrentSecondaryCoroutine != null)
+                StopCoroutine(CurrentSecondaryCoroutine);
+            CurrentSecondaryCoroutine = Attack();
+            yield return CurrentSecondaryCoroutine;
         }
 
         protected virtual IEnumerator PathToOpponent()
         {
-            _agent.stoppingDistance = Creature.AttackRange.GetValue();
+            Agent.stoppingDistance = Creature.AttackRange.GetValue();
             yield return PathToTarget(Opponent.transform);
         }
 
-        public override void GetEngaged(BattleEntity engager)
+        public override void GetEngaged(BattleEntity attacker)
         {
-            if (_isEngaged) return;
-            _isEngaged = true;
+            if (IsEngaged) return;
+            IsEngaged = true;
 
-            EntityLog.Add($"{_battleManager.GetTime()}: Creature gets engaged by {engager.name}");
-            Opponent = engager;
+            EntityLog.Add($"{BattleManager.GetTime()}: Creature gets engaged by {attacker.name}");
+            Opponent = attacker;
             StartRunEntityCoroutine();
         }
 
@@ -185,11 +185,11 @@ namespace Lis
             while (!CanAttack()) yield return null;
             if (!IsOpponentInRange()) yield break;
 
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity attacked {Opponent.name}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity attacked {Opponent.name}");
 
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            if (_attackSound != null) _audioManager.PlaySFX(_attackSound, transform.position);
+            if (_attackSound != null) AudioManager.PlaySFX(_attackSound, transform.position);
             yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
             Animator.SetTrigger("Attack");
 
@@ -208,7 +208,7 @@ namespace Lis
 
         protected virtual IEnumerator CreatureAbility()
         {
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity uses ability");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity uses ability");
 
             Creature.CreatureAbility.Used();
             CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
@@ -216,7 +216,7 @@ namespace Lis
             Animator.SetTrigger("Creature Ability");
 
             if (Creature.CreatureAbility.Sound != null)
-                _audioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
+                AudioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
 
 
             bool isAbility = false;
@@ -273,7 +273,7 @@ namespace Lis
             }
 
             BattleEntity closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
-            EntityLog.Add($"{_battleManager.GetTime()}: Choosing {closest.name} as new target");
+            EntityLog.Add($"{BattleManager.GetTime()}: Choosing {closest.name} as new target");
             SetOpponent(closest);
         }
 
@@ -303,7 +303,7 @@ namespace Lis
         {
             yield return base.Die(attacker, hasLoot);
 
-            _battleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+            BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
         }
 
         void OnLevelUp()

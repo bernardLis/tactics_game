@@ -48,26 +48,26 @@ namespace Lis
         {
             base.InitializeBattle(ref opponents);
 
-            _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
+            _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
             _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
                 _battleAreaManager.GetTileFromPosition(transform.position),
                 _battleAreaManager.HomeTile);
             _nextTileIndex = 0;
 
-            float newSpeed = _agent.speed - _gameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
+            float newSpeed = Agent.speed - GameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
             if (newSpeed <= 0) newSpeed = 1f;
-            _agent.speed = newSpeed;
+            Agent.speed = newSpeed;
 
             InitializeAttacks();
             StartRunEntityCoroutine();
             StartAttackCoroutine();
 
             SetUpVariables();
-            _battleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
+            BattleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
 
-            _isStunUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
+            _isStunUnlocked = GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
 
-            Upgrade corruptionBreakNodesUpgrade = _gameManager.UpgradeBoard
+            Upgrade corruptionBreakNodesUpgrade = GameManager.UpgradeBoard
                 .GetUpgradeByName("Corruption Break Nodes");
             _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
             _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;
@@ -75,7 +75,7 @@ namespace Lis
 
         protected override IEnumerator RunEntity()
         {
-            _avoidancePriorityRange = new Vector2Int(0, 1);
+            AvoidancePriorityRange = new Vector2Int(0, 1);
 
             for (int i = _nextTileIndex; i < _pathToHomeTile.Count; i++)
             {
@@ -264,10 +264,10 @@ namespace Lis
         {
             if (_isStunned) dmg *= 2;
 
-            EntityLog.Add($"{_battleManager.GetTime()}: Entity takes damage {dmg}");
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity takes damage {dmg}");
 
-            if (_getHitSound != null) _audioManager.PlaySFX(_getHitSound, transform.position);
-            else _audioManager.PlaySFX("Hit", transform.position);
+            if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
+            else AudioManager.PlaySFX("Hit", transform.position);
 
             if (_isCorrupting) color = Color.yellow; // signifying stun
             DisplayFloatingText(dmg.ToString(), color);
@@ -291,14 +291,14 @@ namespace Lis
             CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
             CurrentDamageToBreakCorruption.SetValue(0);
             TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
-            TotalStunDuration.SetValue(10 + _gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").GetValue());
+            TotalStunDuration.SetValue(10 + GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").GetValue());
             CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
             CurrentStunDuration.SetValue(0);
         }
 
         /* EMPTY OVERRIDES */
 
-        public override void GetEngaged(BattleEntity engager)
+        public override void GetEngaged(BattleEntity attacker)
         {
             // boss is never engaged
             // all the single bosses, all the single bosses... 

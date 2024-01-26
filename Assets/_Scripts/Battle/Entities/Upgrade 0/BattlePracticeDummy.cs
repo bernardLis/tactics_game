@@ -30,7 +30,7 @@ namespace Lis
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
             _abilityEffectInstance = Instantiate(_abilityEffect, transform.position, Quaternion.identity);
-            _abilityEffectInstance.transform.parent = _GFX.transform;
+            _abilityEffectInstance.transform.parent = Gfx.transform;
 
             Collider[] colliders = Physics.OverlapSphere(transform.position, _abilityEffectRadius);
             foreach (Collider collider in colliders)

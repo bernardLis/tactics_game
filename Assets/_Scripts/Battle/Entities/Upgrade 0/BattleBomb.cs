@@ -25,7 +25,7 @@ namespace Lis
             yield return base.CreatureAbility();
 
             _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-            _explosionEffectInstance.transform.parent = _GFX.transform;
+            _explosionEffectInstance.transform.parent = Gfx.transform;
 
             Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
             foreach (Collider collider in colliders)

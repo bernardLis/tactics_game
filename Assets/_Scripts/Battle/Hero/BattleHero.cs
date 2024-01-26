@@ -16,7 +16,7 @@ namespace Lis
         public override void InitializeEntity(Entity entity, int team)
         {
             base.InitializeEntity(entity, 0);
-            _agent.enabled = true;
+            Agent.enabled = true;
 
             Hero = (Hero)entity;
 
@@ -63,21 +63,21 @@ namespace Lis
         public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
         {
             _thirdPersonController.enabled = false;
-            _battleManager.LoseBattle();
+            BattleManager.LoseBattle();
 
             yield return null;
         }
 
         /* OVERRIDES */
-        public override void StartRunEntityCoroutine()
+        protected override void StartRunEntityCoroutine()
         {
         }
 
-        public override void StopRunEntityCoroutine()
+        protected override void StopRunEntityCoroutine()
         {
         }
 
-        public override void GetEngaged(BattleEntity engager)
+        public override void GetEngaged(BattleEntity attacker)
         {
         }
 
