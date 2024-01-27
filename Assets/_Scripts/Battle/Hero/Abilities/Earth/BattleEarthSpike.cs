@@ -1,12 +1,12 @@
 using System.Collections;
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
     public class BattleEarthSpike : BattleAbilityObjectDmgOverTime
     {
-        [SerializeField] GameObject _GFX;
+        [FormerlySerializedAs("_GFX")] [SerializeField] GameObject _gfx;
         [SerializeField] GameObject _col;
         [SerializeField] ParticleSystem _spikes;
 
@@ -24,12 +24,12 @@ namespace Lis
         public override void Execute(Vector3 pos, Quaternion rot)
         {
             pos.y = 0;
-            base.Execute(pos, Quaternion.identity);
+            base.Execute(pos, rot);
         }
 
         protected override IEnumerator ExecuteCoroutine()
         {
-            _GFX.SetActive(true);
+            _gfx.SetActive(true);
             _col.SetActive(true);
 
             ParticleSystem.MainModule main = _spikes.main;
@@ -39,10 +39,8 @@ namespace Lis
             yield return new WaitForSeconds(0.5f);
 
             _col.SetActive(false);
-            _GFX.SetActive(false);
+            _gfx.SetActive(false);
             gameObject.SetActive(false);
         }
-
-
     }
 }

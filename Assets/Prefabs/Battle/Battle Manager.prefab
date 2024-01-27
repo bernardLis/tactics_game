@@ -177,10 +177,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minionPrefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
-  _earthMinion: {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
-  _fireMinion: {fileID: 11400000, guid: 7c6442770ed6a144aadb84a303d9b079, type: 2}
-  _waterMinion: {fileID: 11400000, guid: d27f5850471b8804885a52e28628ef0a, type: 2}
-  _windMinion: {fileID: 11400000, guid: 5d7bb2c9695389e45b4d2bc09bad050c, type: 2}
+  _minionPrefabData:
+  - ElementName: 3
+    MinionScriptableObject: {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
+  - ElementName: 0
+    MinionScriptableObject: {fileID: 11400000, guid: 7c6442770ed6a144aadb84a303d9b079, type: 2}
+  - ElementName: 1
+    MinionScriptableObject: {fileID: 11400000, guid: d27f5850471b8804885a52e28628ef0a, type: 2}
+  - ElementName: 2
+    MinionScriptableObject: {fileID: 11400000, guid: 5d7bb2c9695389e45b4d2bc09bad050c, type: 2}
 --- !u!114 &4810545558572652240
 MonoBehaviour:
   m_ObjectHideFlags: 0

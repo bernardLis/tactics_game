@@ -273,6 +273,23 @@ namespace Lis
             return Vector3.zero;
         }
 
+        public Vector3 GetRandomPositionInRangeOnActiveTile(Vector3 center, float range)
+        {
+            int tries = 0;
+            while (tries < 100)
+            {
+                tries++;
+                Vector2 r = Random.insideUnitCircle * range;
+                Vector3 randomPoint = center + new Vector3(r.x, 0, r.y);
+                randomPoint.y = 0;
+                if (IsPositionOnActiveTile(randomPoint))
+                    return randomPoint;
+            }
+
+            Debug.LogError($"Could not find random position within range {range} on active tile");
+            return Vector3.zero;
+        }
+
         bool IsPositionOnActiveTile(Vector3 pos)
         {
             foreach (BattleTile tile in _tiles)

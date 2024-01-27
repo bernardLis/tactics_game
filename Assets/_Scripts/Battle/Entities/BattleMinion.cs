@@ -34,6 +34,8 @@ namespace Lis
             IsDead = false;
             IsDeathCoroutineStarted = false;
             Collider.enabled = true;
+
+            Agent.speed = _minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f);
         }
 
         public override void InitializeBattle(ref List<BattleEntity> opponents)

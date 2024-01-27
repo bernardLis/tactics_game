@@ -25,8 +25,18 @@ namespace Lis
                 Speed.LevelUp();
                 Power.LevelUp();
             }
-
+            
             CurrentHealth.SetValue(MaxHealth.GetValue());
+        }
+
+
+        protected override void CreateStats()
+        {
+            base.CreateStats();
+
+            Power = Instantiate(Power);
+            Power.Initialize();
+            OnLevelUp += Power.LevelUp;
         }
 
         public int GetPower()

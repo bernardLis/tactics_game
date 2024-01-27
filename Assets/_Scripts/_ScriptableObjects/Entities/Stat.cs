@@ -27,7 +27,7 @@ namespace Lis
         {
             if (Icon == null)
                 Icon = GameManager.Instance.EntityDatabase.GetStatIconByType(StatType);
-            if (Description == null || Description.Length == 0)
+            if (string.IsNullOrEmpty(Description))
                 Description = GameManager.Instance.EntityDatabase.GetStatDescriptionByType(StatType);
         }
 

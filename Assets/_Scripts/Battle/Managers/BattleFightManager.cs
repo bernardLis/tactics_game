@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
@@ -19,17 +17,10 @@ namespace Lis
         Fight _currentFight;
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
-        [SerializeField] Minion _earthMinion;
-        [SerializeField] Minion _fireMinion;
-        [SerializeField] Minion _waterMinion;
-        [SerializeField] Minion _windMinion;
-
-        List<Minion> _availableEarthMinions = new();
-        List<Minion> _availableFireMinions = new();
-        List<Minion> _availableWaterMinions = new();
-        List<Minion> _availableWindMinions = new();
 
         readonly bool _debugSpawnMinion = true;
+
+        BattleHero _battleHero;
 
         public void Initialize()
         {
@@ -46,9 +37,12 @@ namespace Lis
 
             CreatePool(_minionPrefab);
 
+            _battleHero = _battleManager.BattleHero;
+
             CreateFight();
             StartCoroutine(StartFight());
         }
+
 
         void CreateFight()
         {
@@ -70,6 +64,8 @@ namespace Lis
                     continue;
                 }
 
+                if (_battleManager.BattleFinalized) yield break;
+
                 SpawnWave();
                 yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
             }
@@ -77,55 +73,43 @@ namespace Lis
 
         void OnOpponentEntityDeath(BattleEntity _)
         {
-            if (_battleManager.OpponentEntities.Count != 0) return;
-            if (!_currentFight.IsFinished()) return;
+            // if (!_currentFight.IsFinished()) return;
+            // if (_battleManager.OpponentEntities.Count != 0) return;
         }
 
         public void SpawnWave()
         {
-            EnemyWave wave = _currentFight.EnemyWaves[_currentFight.CurrentWaveIndex];
+            EnemyWave wave = _currentFight.GetCurrentWave();
             StartCoroutine(SpawnWaveCoroutine(wave));
         }
 
         IEnumerator SpawnWaveCoroutine(EnemyWave wave)
         {
-            // spawn minions on tiles next to the player or on the same tile
-            List<BattleTile> tiles = _battleAreaManager.GetTilesAroundPlayer();
-            yield return SpawnMinions(wave, tiles);
+            // // spawn minions on tiles next to the player or on the same tile
+            // List<BattleTile> tiles = _battleAreaManager.GetTilesAroundPlayer();
+            yield return SpawnMinions(wave);
             _currentFight.SpawningWaveFinished();
         }
 
-        public IEnumerator SpawnMinions(EnemyWave wave, List<BattleTile> tiles)
+        IEnumerator SpawnMinions(EnemyWave wave)
         {
-            BattleTile tile = tiles[Random.Range(0, tiles.Count)];
-            for (int i = 0; i < wave.Minions.Count; i++)
+            foreach (EnemyGroup group in wave.EnemyGroups)
             {
-                Minion m = wave.Minions[i];
-                Vector3 pos = tile.GetMinionPosition(i, wave.Minions.Count);
-                SpawnMinion(m, pos);
-                yield return new WaitForSeconds(0.05f);
+                foreach (Minion m in group.Minions)
+                {
+                    Vector3 pos =
+                        _battleAreaManager
+                            .GetRandomPositionInRangeOnActiveTile(_battleHero.transform.position,
+                                Random.Range(20, 40));
+
+                    SpawnMinion(m, pos);
+                    yield return new WaitForSeconds(0.05f);
+                }
             }
-
-            // HERE: ranged enemies are commented out for now
-            // for (int i = 0; i < wave.Creatures.Count; i++)
-            // {
-            //     Creature c = wave.Creatures[i];
-            //     c.InitializeBattle(1);
-
-            //     Vector3 pos = tile.GetPositionRandom(i, wave.Creatures.Count);
-
-            //     BattleEntity be = SpawnEntity(c, pos);
-            //     be.InitializeEntity(c, 1);
-            //     be.transform.position = pos;
-            //     be.gameObject.SetActive(true);
-            //     _battleManager.AddOpponentArmyEntity(be);
-            //     yield return new WaitForSeconds(0.05f);
-            // }
         }
 
-        void SpawnMinion(Minion m, Vector3 pos)
+        void SpawnMinion(Entity m, Vector3 pos)
         {
-            m.InitializeBattle(1);
             BattleEntity be = GetObjectFromPool();
             if (be == null)
             {
@@ -139,92 +123,6 @@ namespace Lis
             _battleManager.AddOpponentArmyEntity(be);
         }
 
-        // HERE: so much repetition
-        Minion GetMinionByElementName(ElementName elName)
-        {
-            Minion m = null;
-
-            switch (elName)
-            {
-                case ElementName.Earth:
-                {
-                    m = HandleEarthMinion();
-                    break;
-                }
-                case ElementName.Fire:
-                {
-                    m = HandleFireMinion();
-                    break;
-                }
-                case ElementName.Water:
-                {
-                    m = HandleWaterMinion();
-                    break;
-                }
-                case ElementName.Wind:
-                {
-                    m = HandleWindMinion();
-                    break;
-                }
-            }
-            return m;
-        }
-
-        Minion HandleEarthMinion()
-        {
-            if (_availableEarthMinions.Count == 0)
-            {
-                Minion m = Instantiate(_earthMinion);
-                m.OnDeath += () => _availableEarthMinions.Add(m);
-                return m;
-            }
-
-            Minion minion = _availableEarthMinions[0];
-            _availableEarthMinions.RemoveAt(0);
-            return minion;
-        }
-
-        Minion HandleFireMinion()
-        {
-            if (_availableFireMinions.Count == 0)
-            {
-                Minion m = Instantiate(_fireMinion);
-                m.OnDeath += () => _availableFireMinions.Add(m);
-                return m;
-            }
-
-            Minion minion = _availableFireMinions[0];
-            _availableFireMinions.RemoveAt(0);
-            return minion;
-        }
-
-        Minion HandleWaterMinion()
-        {
-            if (_availableWaterMinions.Count == 0)
-            {
-                Minion m = Instantiate(_waterMinion);
-                m.OnDeath += () => _availableWaterMinions.Add(m);
-                return m;
-            }
-
-            Minion minion = _availableWaterMinions[0];
-            _availableWaterMinions.RemoveAt(0);
-            return minion;
-        }
-
-        Minion HandleWindMinion()
-        {
-            if (_availableWindMinions.Count == 0)
-            {
-                Minion m = Instantiate(_windMinion);
-                m.OnDeath += () => _availableWindMinions.Add(m);
-                return m;
-            }
-
-            Minion minion = _availableWindMinions[0];
-            _availableWindMinions.RemoveAt(0);
-            return minion;
-        }
 
         // BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
         // {
@@ -232,6 +130,7 @@ namespace Lis
         //     BattleEntity be = instance.GetComponent<BattleEntity>();
         //     return be;
         // }
+#if UNITY_EDITOR
 
         int _debugMinionIndex;
         Camera _cam;
@@ -249,25 +148,9 @@ namespace Lis
             int layerMask = Tags.BattleFloorLayer;
 
             if (!Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask)) return;
-            switch (_debugMinionIndex)
-            {
-                case 0:
-                    SpawnMinion(GetMinionByElementName(ElementName.Earth), hit.point);
-                    _debugMinionIndex++;
-                    break;
-                case 1:
-                    SpawnMinion(GetMinionByElementName(ElementName.Fire), hit.point);
-                    _debugMinionIndex++;
-                    break;
-                case 2:
-                    SpawnMinion(GetMinionByElementName(ElementName.Water), hit.point);
-                    _debugMinionIndex++;
-                    break;
-                case 3:
-                    SpawnMinion(GetMinionByElementName(ElementName.Wind), hit.point);
-                    _debugMinionIndex = 0;
-                    break;
-            }
+            List<EnemyGroup> enemyGroups = _currentFight.GetCurrentWave().EnemyGroups;
+            SpawnMinion(enemyGroups[Random.Range(0, enemyGroups.Count)].Minions[0], hit.point);
         }
     }
+#endif
 }

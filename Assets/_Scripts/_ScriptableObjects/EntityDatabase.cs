@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
-
-
-
-
-
-
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
     public class EntityDatabase : ScriptableObject
     {
-
-        [Header("Creatures")]
-        public GameObject OpponentProjectilePrefab;
+        [Header("Creatures")] public GameObject OpponentProjectilePrefab;
         public Sprite[] CreatureIcons;
 
         public List<Creature> AllCreatures = new();
-        public Creature GetRandomCreature() { return AllCreatures[Random.Range(0, AllCreatures.Count)]; }
-        public Creature GetCreatureById(string id) { return AllCreatures.FirstOrDefault(x => x.Id == id); }
+
+        public Creature GetRandomCreature()
+        {
+            return AllCreatures[Random.Range(0, AllCreatures.Count)];
+        }
+
+        public Creature GetCreatureById(string id)
+        {
+            return AllCreatures.FirstOrDefault(x => x.Id == id);
+        }
+
         public Creature GetRandomCreatureByUpgradeTier(int tier)
         {
             List<Creature> creatures = new();
@@ -31,12 +31,14 @@ namespace Lis
 
             return creatures[Random.Range(0, creatures.Count)];
         }
+
         public Creature GetRandomCreatureByUpgradeTierAndLower(int tier)
         {
             List<Creature> creatures = AllCreatures.Where(c => c.UpgradeTier <= tier).ToList();
 
             return creatures[Random.Range(0, creatures.Count)];
         }
+
         public List<Creature> GetCreaturesByTierElement(int tier, Element element)
         {
             List<Creature> creatures = new();
@@ -51,64 +53,119 @@ namespace Lis
             return creatures;
         }
 
-        [Header("Minions")]
-        [SerializeField] Minion[] Minions;
+        [FormerlySerializedAs("Minions")] [Header("Minions")] [SerializeField]
+        Minion[] _minions;
+
         public Creature RangedOpponent;
 
-        public List<Minion> GetAllMinions() { return Minions.ToList(); }
-        public List<Minion> GetAllMinionsByElement(Element element)
+        public List<Minion> GetAllMinions()
         {
-            List<Minion> minions = new();
-            foreach (Minion m in Minions)
-                if (m.Element == element)
-                    minions.Add(m);
-            return minions;
+            return _minions.ToList();
         }
 
-        public Minion GetRandomMinion() { return Minions[Random.Range(0, Minions.Length)]; }
+        public Minion GetRandomMinionByElement(ElementName elName)
+        {
+            List<Minion> minions = new();
+            foreach (Minion m in _minions)
+                if (m.Element.ElementName == elName)
+                    minions.Add(m);
+            return minions[Random.Range(0, minions.Count)];
+        }
 
-        [SerializeField] StartingArmy[] StartingArmies;
-        public StartingArmy GetStartingArmy(Element element) { return StartingArmies.FirstOrDefault(x => x.Element == element); }
+        public Minion GetRandomMinion()
+        {
+            return _minions[Random.Range(0, _minions.Length)];
+        }
+
         [System.Serializable]
         public struct StartingArmy
         {
             public Element Element;
             public List<Creature> Creatures;
         }
-    
-        [Header("Turrets")]
-        [SerializeField] Turret[] Turrets;
-        public List<Turret> GetAllTurrets() { return Turrets.ToList(); }
-        public Turret GetRandomTurret() { return Turrets[Random.Range(0, Turrets.Length)]; }
 
-        [Header("Abilities")]
-        [SerializeField] Ability[] Abilities;
-        public List<Ability> GetAllBasicAbilities() { return Abilities.ToList(); }
-        public Ability GetAbilityById(string id) { return Abilities.FirstOrDefault(x => x.Id == id); }
-        public Ability GetRandomAbility() { return Abilities[Random.Range(0, Abilities.Length)]; }
+        [FormerlySerializedAs("Turrets")] [Header("Turrets")] [SerializeField]
+        Turret[] _turrets;
 
-        [Header("Stats")]
-        [SerializeField] StatBasics[] StatBasics;
-        public Sprite GetStatIconByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Sprite; }
-        public string GetStatDescriptionByType(StatType type) { return StatBasics.FirstOrDefault(x => x.StatType == type).Description; }
+        public List<Turret> GetAllTurrets()
+        {
+            return _turrets.ToList();
+        }
 
-        [SerializeField] Stat[] HeroStats;
-        public Stat GetHeroStatByType(StatType type) { return HeroStats.FirstOrDefault(x => x.StatType == type); }
+        public Turret GetRandomTurret()
+        {
+            return _turrets[Random.Range(0, _turrets.Length)];
+        }
+
+        [FormerlySerializedAs("Abilities")] [Header("Abilities")] [SerializeField]
+        Ability[] _abilities;
+
+        public List<Ability> GetAllBasicAbilities()
+        {
+            return _abilities.ToList();
+        }
+
+        public Ability GetAbilityById(string id)
+        {
+            return _abilities.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Ability GetRandomAbility()
+        {
+            return _abilities[Random.Range(0, _abilities.Length)];
+        }
+
+        [FormerlySerializedAs("StatBasics")] [Header("Stats")] [SerializeField]
+        StatBasics[] _statBasics;
+
+        public Sprite GetStatIconByType(StatType type)
+        {
+            return _statBasics.FirstOrDefault(x => x.StatType == type).Sprite;
+        }
+
+        public string GetStatDescriptionByType(StatType type)
+        {
+            return _statBasics.FirstOrDefault(x => x.StatType == type).Description;
+        }
+
+        [FormerlySerializedAs("HeroStats")] [SerializeField]
+        Stat[] _heroStats;
+
+        public Stat GetHeroStatByType(StatType type)
+        {
+            return _heroStats.FirstOrDefault(x => x.StatType == type);
+        }
+
         public Tablet[] HeroTablets;
-        [SerializeField] TabletAdvanced[] HeroTabletsAdvanced;
+
+        [FormerlySerializedAs("HeroTabletsAdvanced")] [SerializeField]
+        TabletAdvanced[] _heroTabletsAdvanced;
+
         public TabletAdvanced GetAdvancedTabletByElementNames(ElementName first, ElementName second)
         {
-            foreach (TabletAdvanced t in HeroTabletsAdvanced)
+            foreach (TabletAdvanced t in _heroTabletsAdvanced)
                 if (t.IsMadeOfElements(GetElementByName(first), GetElementByName(second)))
                     return t;
             return null;
         }
 
 
-        [Header("Elements")]
-        [SerializeField] Element[] Elements;
-        public List<Element> GetAllElements() { return Elements.ToList(); }
-        public Element GetRandomElement() { return Elements[Random.Range(0, Elements.Length)]; }
-        Element GetElementByName(ElementName str) { return Elements.FirstOrDefault(x => x.ElementName == str); }
+        [FormerlySerializedAs("Elements")] [Header("Elements")] [SerializeField]
+        Element[] _elements;
+
+        public List<Element> GetAllElements()
+        {
+            return _elements.ToList();
+        }
+
+        public Element GetRandomElement()
+        {
+            return _elements[Random.Range(0, _elements.Length)];
+        }
+
+        Element GetElementByName(ElementName str)
+        {
+            return _elements.FirstOrDefault(x => x.ElementName == str);
+        }
     }
 }

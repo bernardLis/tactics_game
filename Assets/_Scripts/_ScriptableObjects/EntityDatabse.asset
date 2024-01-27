@@ -51,17 +51,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
   Minions:
   - {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
-  - {fileID: 11400000, guid: ae1d2525f2b52fa40b410377b0c21d04, type: 2}
-  - {fileID: 11400000, guid: 126cd6f4df31c6b479280c25ca39d48c, type: 2}
-  - {fileID: 11400000, guid: 14a55f63bdbcb444bad64f7681dafe8a, type: 2}
-  - {fileID: 11400000, guid: 9689d29cbdc90914cb01e79c405bb71a, type: 2}
-  - {fileID: 11400000, guid: 5ef0aac3ddfbd274fa1a85fefa751cc0, type: 2}
-  - {fileID: 11400000, guid: d7a78634a4e3dce43ba032f9208184d5, type: 2}
-  - {fileID: 11400000, guid: 688cd8b484a62bf47a8ef6db47c0f8fc, type: 2}
-  - {fileID: 11400000, guid: 5a66601a0a8683c49a7fb1e3723b0980, type: 2}
-  - {fileID: 11400000, guid: f43883b5f433a62468b253079e196bfd, type: 2}
-  - {fileID: 11400000, guid: 239b1bc30f110984c9464c1a4845972c, type: 2}
-  - {fileID: 11400000, guid: 9dc3678d6ef83974f9709e8c998220a4, type: 2}
+  - {fileID: 11400000, guid: 7c6442770ed6a144aadb84a303d9b079, type: 2}
+  - {fileID: 11400000, guid: d27f5850471b8804885a52e28628ef0a, type: 2}
+  - {fileID: 11400000, guid: 5d7bb2c9695389e45b4d2bc09bad050c, type: 2}
   RangedOpponent: {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
   StartingArmies:
   - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}

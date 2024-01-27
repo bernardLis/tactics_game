@@ -30,7 +30,7 @@ namespace Lis
         }
 
         /* LEVELING */
-        public int GetExpValue(int gain)
+        int GetExpValue(int gain)
         {
             return Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
         }
@@ -43,9 +43,9 @@ namespace Lis
         public override int GetExpForNextLevel()
         {
             // TODO: math
-            float exponent = 2.5f;
-            float multiplier = 0.7f;
-            int baseExp = 100;
+            const float exponent = 2.5f;
+            const float multiplier = 0.7f;
+            const int baseExp = 100;
 
             int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
             result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
@@ -76,8 +76,7 @@ namespace Lis
                 foreach (Tablet t in Tablets)
                     TabletsByElement.Add(t.Element, t);
 
-            if (!TabletsByElement.ContainsKey(element)) return null;
-            return TabletsByElement[element];
+            return !TabletsByElement.ContainsKey(element) ? null : TabletsByElement[element];
         }
 
         void CheckAdvancedTablets()
