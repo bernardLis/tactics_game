@@ -5,8 +5,7 @@ namespace Lis
 {
     public class Entity : BaseScriptableObject
     {
-        [Header("Entity")]
-        public string EntityName;
+        [Header("Entity")] public string EntityName;
         public Sprite Icon;
         public Sprite[] IconAnimation;
         public int Price;
@@ -37,12 +36,14 @@ namespace Lis
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 
-        public void AddDmgTaken(int dmg) { TotalDamageTaken += dmg; }
+        public void AddDmgTaken(int dmg)
+        {
+            TotalDamageTaken += dmg;
+        }
 
-        [Header("Stats")]
+        [Header("Stats")] public Stat Armor;
         public Stat MaxHealth;
-        public IntVariable CurrentHealth;
-        public Stat Armor;
+        [HideInInspector] public IntVariable CurrentHealth;
 
         protected virtual void CreateStats()
         {
@@ -57,8 +58,7 @@ namespace Lis
         }
 
         /* LEVEL */
-        [Header("Level")]
-        public IntVariable Level;
+        [Header("Level")] public IntVariable Level;
         [HideInInspector] public IntVariable Experience;
         [HideInInspector] public IntVariable ExpForNextLevel;
         [HideInInspector] public int LeftoverExp;

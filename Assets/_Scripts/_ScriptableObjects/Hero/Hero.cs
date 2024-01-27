@@ -29,7 +29,6 @@ namespace Lis
             return Mathf.RoundToInt(damage);
         }
 
-
         /* LEVELING */
         public int GetExpValue(int gain)
         {

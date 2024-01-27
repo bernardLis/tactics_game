@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3d76b8063c97e4c94a908f2c9adc97, type: 3}
   m_Name: Max Health
   m_EditorClassIdentifier: 
-  Id: 2b2ff216-0110-487e-9ef2-db90a7c1b4c0
+  Id: 2a61c4f5-e49d-4913-9f89-f2cf8d98b517
   StatType: 1
   Icon: {fileID: 0}
   Description: 
   BaseValue: 20
   BonusValue: 0
   IsDecreasingPerLevel: 0
-  GrowthPerLevelRange: {x: 0, y: 5}
-  MaxMinValue: {x: 0, y: 50}
+  GrowthPerLevelRange: {x: 5, y: 5}
+  MinMaxValue: {x: 0, y: 999}

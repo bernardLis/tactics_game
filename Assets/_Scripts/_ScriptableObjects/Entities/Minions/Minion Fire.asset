@@ -23,12 +23,12 @@ MonoBehaviour:
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Team: 0
-  MaxHealth: {fileID: 11400000, guid: c8ba901baa9d13a4aa6f033ce6ab102e, type: 2}
+  MaxHealth: {fileID: 11400000, guid: 9a46e2f1761fddf46856f36c4d543313, type: 2}
   CurrentHealth: {fileID: 0}
-  Armor: {fileID: 11400000, guid: 56df2ac61848b6a47b96e4d0bf196a32, type: 2}
+  Armor: {fileID: 11400000, guid: 3c7de47bb129d2641a6016ace4f78366, type: 2}
   Level: {fileID: 11400000, guid: 0b0da3a316b689741b92578fd62d398b, type: 2}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  Speed: {fileID: 11400000, guid: 053f7f9c45aa38440ac61acacf8fa219, type: 2}
-  Power: {fileID: 11400000, guid: 6e5fce7999783e646bb2f0d2a103a593, type: 2}
+  Speed: {fileID: 11400000, guid: f8c5a4a11c00bac4a98f310dc8df631c, type: 2}
+  Power: {fileID: 11400000, guid: abb9465510874094da25a3f5730c648a, type: 2}
