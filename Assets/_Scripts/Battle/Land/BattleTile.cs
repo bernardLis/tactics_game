@@ -1,58 +1,48 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
-
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis
 {
     public class BattleTile : MonoBehaviour
     {
-        protected GameManager _gameManager;
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
         BattleTooltipManager _tooltipManager;
 
-        [Header("Tile")]
-        ObjectShaders _objectShaders;
+        [Header("Tile")] ObjectShaders _objectShaders;
 
         [SerializeField] Material[] _materials;
+        [SerializeField] GameObject _floor;
         [SerializeField] GameObject _surface;
         [SerializeField] GameObject _borderPrefab;
-        [SerializeField] GameObject _rewardChestPrefab;
         [SerializeField] GameObject _securedEffect;
 
-        public List<BattleTileBorder> _borders = new();
+        [FormerlySerializedAs("_borders")] public List<BattleTileBorder> Borders = new();
 
         public float Scale { get; private set; }
 
         public Building Building; //{ get; private set; }
         public BattleBuilding BattleBuilding { get; private set; }
 
-        MinionSpawningPattern _minionSpawningPattern;
-        bool _minionPositionExecuteOnce;
-        List<Vector3> _minionPositions = new();
-
         GameObject _tileIndicator;
 
-        bool _blockSecuring;
-        bool _isSecured;
         IEnumerator _securingCoroutine;
         IntVariable _currentSecuringTimeVariable;
         IntVariable _totalSecuringTimeVariable;
 
         public event Action<BattleTile> OnEnabled;
+
+        // at the beginning of the game
         public void Initialize(Building building)
         {
+            _battleManager = BattleManager.Instance;
+            _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
+
             _tooltipManager = BattleTooltipManager.Instance;
 
             _currentSecuringTimeVariable = ScriptableObject.CreateInstance<IntVariable>();
@@ -69,29 +59,12 @@ namespace Lis
             mr.material = _materials[Random.Range(0, _materials.Length)];
         }
 
-        public virtual void EnableTile()
+        // when tile next to it is secured
+        public void EnableTile()
         {
-            _gameManager = GameManager.Instance;
-            _battleManager = BattleManager.Instance;
-            _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-
-            _battleAreaManager.OnBossTileUnlocked += (a) => _blockSecuring = true;
-
+            _floor.SetActive(false);
             gameObject.SetActive(true);
-            StartCoroutine(EnableTileCoroutine());
-        }
-
-        IEnumerator EnableTileCoroutine()
-        {
-            _objectShaders.Dissolve(5f, true);
-
-            yield return new WaitForSeconds(1.5f);
-
-            HandleBorders();
-            yield return new WaitForSeconds(1.5f);
-            ShowTileIndicator();
-            OnEnabled?.Invoke(this);
-        }
+            ShowTileIndicator(); }
 
         void ShowTileIndicator()
         {
@@ -101,55 +74,27 @@ namespace Lis
             _tileIndicator = Instantiate(Building.TileIndicatorPrefab, transform);
             _tileIndicator.transform.localPosition = Vector3.up * 6f;
             _tileIndicator.transform.localScale = Vector3.one * 2f;
+            
+            
         }
 
-        void OnTriggerEnter(Collider collider)
+        // when player finishes the task 
+        public void Secure()
         {
-            if (!collider.TryGetComponent(out BattleHero hero)) return;
-            if (_isSecured) return;
-
-            StartSecuring();
-        }
-
-        void OnTriggerExit(Collider collider)
-        {
-            if (!collider.TryGetComponent(out BattleHero hero)) return;
-            if (_isSecured) return;
-
-            StopSecuring();
-        }
-
-        void StartSecuring()
-        {
-            if (_blockSecuring) return;
-            _securingCoroutine = SecuringCoroutine();
-            StartCoroutine(_securingCoroutine);
-
-            _tooltipManager.ShowTileSecureBar(_currentSecuringTimeVariable, _totalSecuringTimeVariable);
-        }
-
-        IEnumerator SecuringCoroutine()
-        {
-            while (_currentSecuringTimeVariable.Value < _totalSecuringTimeVariable.Value)
-            {
-                _currentSecuringTimeVariable.ApplyChange(1);
-                yield return new WaitForSeconds(1f);
-            }
-
-            Destroy(Instantiate(_securedEffect, transform.position, Quaternion.Euler(-90f, 0f, 0f)), 5f);
-            Secured();
-        }
-
-        void StopSecuring()
-        {
-            if (_securingCoroutine != null) StopCoroutine(_securingCoroutine);
-            _securingCoroutine = null;
             _tooltipManager.HideTileSecureBar();
+            if (_tileIndicator != null) Destroy(_tileIndicator);
+
+            StartCoroutine(SecureTileCoroutine());
         }
 
-        public virtual void Secured()
+        IEnumerator SecureTileCoroutine()
         {
-            _isSecured = true;
+            _securedEffect.SetActive(true);
+            _objectShaders.Dissolve(5f, true);
+
+            yield return new WaitForSeconds(1.5f);
+            HandleBorders();
+            yield return new WaitForSeconds(1.5f);
 
             BattleBuilding = GetComponentInChildren<BattleBuilding>();
             if (Building != null)
@@ -159,21 +104,7 @@ namespace Lis
                 BattleBuilding.Initialize(pos, Building);
             }
 
-            _tooltipManager.HideTileSecureBar();
-            if (_tileIndicator != null) Destroy(_tileIndicator);
-
-            // SpawnReward();
-        }
-
-
-        void SpawnReward()
-        {
-            Vector3 chestPosition = GetPositionOne(0, 0);
-            chestPosition.y = 0f;
-            GameObject chest = Instantiate(_rewardChestPrefab, chestPosition, Quaternion.identity);
-            chest.transform.localScale = Vector3.zero;
-            chest.transform.DOScale(2f, 1f);
-            chest.transform.SetParent(transform);
+            OnEnabled?.Invoke(this);
         }
 
         /* BORDERS */
@@ -189,7 +120,7 @@ namespace Lis
             UpdateTileBorders();
         }
 
-        public void UpdateTileBorders()
+        void UpdateTileBorders()
         {
             List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
             foreach (BattleTile tile in adjacentTiles)
@@ -214,7 +145,7 @@ namespace Lis
 
         BattleTileBorder BorderAtPosition(Vector3 position)
         {
-            foreach (BattleTileBorder b in _borders)
+            foreach (BattleTileBorder b in Borders)
                 if (b != null && b.transform.localPosition == position)
                     return b;
 
@@ -253,80 +184,10 @@ namespace Lis
 
             BattleTileBorder b = border.GetComponent<BattleTileBorder>();
             b.EnableBorder();
-            _borders.Add(b);
+            Borders.Add(b);
         }
 
-        /* POSITIONS ON TILE */
-        public Vector3 GetMinionPosition(int currentIndex, int numberOfMinions)
-        {
-            if (_minionSpawningPattern == MinionSpawningPattern.SurroundMiddle)
-                return GetPositionAroundMiddle(currentIndex, numberOfMinions);
-            if (_minionSpawningPattern == MinionSpawningPattern.Random)
-                return GetPositionRandom(currentIndex, numberOfMinions);
-            if (_minionSpawningPattern == MinionSpawningPattern.FewGroups)
-                return GetPositionFewGroups(currentIndex, numberOfMinions);
-            if (_minionSpawningPattern == MinionSpawningPattern.OneGroup)
-                return GetPositionOne(currentIndex, numberOfMinions);
-            if (_minionSpawningPattern == MinionSpawningPattern.Grid)
-                return GetPositionGrid(currentIndex, numberOfMinions);
-
-            return Vector3.zero;
-        }
-
-        Vector3 GetPositionFewGroups(int currentIndex, int numberOfMinions)
-        {
-            int numberOfGroups = numberOfMinions / 5;
-
-            if (!_minionPositionExecuteOnce)
-            {
-                _minionPositions = new();
-                for (int i = 0; i < numberOfGroups; i++)
-                    _minionPositions.Add(GetPositionRandom(0, 0));
-
-                _minionPositionExecuteOnce = true;
-            }
-
-            int minionsPerGroup = numberOfMinions / numberOfGroups;
-            int groupIndex = currentIndex / minionsPerGroup;
-            if (groupIndex >= numberOfGroups) groupIndex = numberOfGroups - 1;
-
-            return _minionPositions[groupIndex] + new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
-        }
-
-
-        Vector3 GetPositionOne(int currentIndex, int totalCount)
-        {
-            if (!_minionPositionExecuteOnce)
-            {
-                _minionPositions = new();
-                _minionPositions.Add(GetPositionRandom(0, 0));
-                _minionPositionExecuteOnce = true;
-            }
-
-            return _minionPositions[0] + new Vector3(Random.Range(-2, 2), 1, Random.Range(-2, 2));
-        }
-
-        Vector3 GetPositionGrid(int currentIndex, int totalCount)
-        {
-            int numberOfGroups = 5;
-            int minionsPerGroup = totalCount / numberOfGroups;
-            float rowOffset = Scale / numberOfGroups;
-            float columnOffset = Scale / minionsPerGroup;
-
-            Vector3 startPoint = transform.position
-                                 + Vector3.left * Scale * 0.4f
-                                 + Vector3.back * Scale * 0.4f;
-            startPoint.y = 1f;
-
-            int groupIndex = currentIndex / minionsPerGroup;
-            if (groupIndex >= numberOfGroups) groupIndex = numberOfGroups - 1;
-
-            return startPoint
-                   + Vector3.forward * rowOffset * groupIndex
-                   + Vector3.right * columnOffset * (currentIndex % minionsPerGroup);
-        }
-
-        public Vector3 GetPositionRandom(int currentIndex, int totalCount)
+        public Vector3 GetRandomPositionOnTile()
         {
             float halfScale = Scale * 0.5f - 2;
 
@@ -336,23 +197,14 @@ namespace Lis
 
             if (IsPositionOnNavMesh(point, out Vector3 result))
                 return result;
-            return GetPositionRandom(0, 0);
+            return GetRandomPositionOnTile();
         }
 
-        Vector3 GetPositionAroundMiddle(int currentIndex, int totalCount)
-        {
-            float radius = Scale * 0.5f - 1;
-            Vector3 pos = Helpers.GetPositionOnCircle(transform.position, radius, currentIndex, totalCount);
-            pos.y = 1f;
 
-            return pos;
-        }
-
-        bool IsPositionOnNavMesh(Vector3 point, out Vector3 result)
+        static bool IsPositionOnNavMesh(Vector3 point, out Vector3 result)
         {
-            NavMeshHit hit;
             //https://docs.unity3d.com/540/Documentation/ScriptReference/NavMesh.SamplePosition.html
-            if (NavMesh.SamplePosition(point, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(point, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
                 result = hit.position;
                 return true;
@@ -361,6 +213,5 @@ namespace Lis
             result = Vector3.zero;
             return false;
         }
-
     }
 }

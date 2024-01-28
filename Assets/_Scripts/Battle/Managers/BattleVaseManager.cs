@@ -39,7 +39,7 @@ namespace Lis
                 {
                     BattleTile tile = _battleAreaManager.GetRandomUnlockedTile();
 
-                    Vector3 pos = tile.GetPositionRandom(default, default);
+                    Vector3 pos = tile.GetRandomPositionOnTile();
                     SpawnVase(pos);
                     yield return new WaitForSeconds(0.15f);
                 }

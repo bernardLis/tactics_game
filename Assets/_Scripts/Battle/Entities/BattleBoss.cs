@@ -180,7 +180,7 @@ namespace Lis
                 Vector3 pos = Vector3.zero;
                 while (pos == Vector3.zero)
                 {
-                    pos = _currentTile.GetPositionRandom(0, 0);
+                    pos = _currentTile.GetRandomPositionOnTile();
                     if (Vector3.Distance(pos, transform.position) < 4f) pos = Vector3.zero;
                 }
 

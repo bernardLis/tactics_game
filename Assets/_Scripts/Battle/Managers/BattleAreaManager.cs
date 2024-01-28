@@ -83,7 +83,7 @@ namespace Lis
 
             UnlockedTiles.Add(HomeTile);
             HomeTile.EnableTile();
-            HomeTile.Secured();
+            HomeTile.Secure();
             HomeTile.HandleBorders();
 
             SetCornerTileIndicators();

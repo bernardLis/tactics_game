@@ -39,7 +39,7 @@ namespace Lis
             yield return new WaitForSeconds(1f);
             _battleAreaManager.UnlockNextTile(_bossTile);
             yield return new WaitForSeconds(1f);
-            _bossTile.Secured();
+            _bossTile.Secure();
         }
 
     }
