@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,8 +7,6 @@ namespace Lis
 {
     public class BattleBreakableVase : MonoBehaviour
     {
-        BattlePickupManager _battlePickupManager;
-
         bool _isBroken;
         [SerializeField] GameObject _breakParticles;
         [SerializeField] Transform _originalVase;
@@ -17,13 +14,12 @@ namespace Lis
         Collider _collider;
         Rigidbody _rigidbody;
 
-        public event Action OnBroken;
+        public event Action<BattleBreakableVase> OnBroken;
+
         void Awake()
         {
             _collider = GetComponent<Collider>();
             _rigidbody = GetComponent<Rigidbody>();
-
-            _battlePickupManager = BattleManager.Instance.GetComponent<BattlePickupManager>();
         }
 
         public void Initialize(Vector3 position)
@@ -31,8 +27,9 @@ namespace Lis
             if (_breakParticles != null)
                 _breakParticles.SetActive(false);
 
-            transform.position = position;
-            transform.localScale = Vector3.zero;
+            Transform t = transform;
+            t.position = position;
+            t.localScale = Vector3.zero;
             _isBroken = false;
             _collider.enabled = true;
             _rigidbody.isKinematic = false;
@@ -70,7 +67,7 @@ namespace Lis
             // HERE: no pickups
             // _battlePickupManager.SpawnPickup(transform.position);
 
-            OnBroken?.Invoke();
+            OnBroken?.Invoke(this);
 
             yield return new WaitForSeconds(5f);
             gameObject.SetActive(false);

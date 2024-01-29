@@ -1,35 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
-
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
     public class GameDatabase : BaseScriptableObject
     {
-        [Header("Buildings")]
-        [SerializeField] Building[] Buildings;
-        public Building GetBuildingByName(string name) { return Buildings.FirstOrDefault(b => b.name == name); }
+        [FormerlySerializedAs("Buildings")] [Header("Buildings")] [SerializeField]
+        Building[] _buildings;
+
+        public Building GetBuildingByName(string n)
+        {
+            return _buildings.FirstOrDefault(b => b.name == n);
+        }
+
         public void InitializeBuildings()
         {
-            foreach (Building b in Buildings)
+            foreach (Building b in _buildings)
                 b.Initialize();
         }
 
         public List<Building> GetUnlockedBuildings()
         {
             List<Building> unlockedBuildings = new();
-            foreach (Building b in Buildings)
+            foreach (Building b in _buildings)
                 if (b.IsUnlocked())
                     unlockedBuildings.Add(b);
             return unlockedBuildings;
         }
 
+        [Header("Pickups")] public QuestablePickup[] QuestablePickups;
 
-        [Header("Shaders")]
-        public Shader LitShader;
+        public QuestablePickup GetRandomQuestablePickup()
+        {
+            return QuestablePickups[Random.Range(0, QuestablePickups.Length)];
+        }
+
+
+        [Header("Shaders")] public Shader LitShader;
         public Shader ParticlesUnlitShader;
         public Shader DissolveShader;
         public Shader GrayScaleShader;
@@ -38,13 +47,16 @@ namespace Lis
         public List<Shader> KeepShadersMaterials = new();
 
 
-        [Header("General")]
-        public RewardIcon[] RewardIcons;
-
         [SerializeField] ColorVariable[] _colors;
-        public ColorVariable GetColorByName(string name) { return _colors.FirstOrDefault(c => c.name == name); }
 
-        [SerializeField] Sprite[] CoinSprites;
+        public ColorVariable GetColorByName(string n)
+        {
+            return _colors.FirstOrDefault(c => c.name == n);
+        }
+
+        [FormerlySerializedAs("CoinSprites")] [SerializeField]
+        Sprite[] _coinSprites;
+
         public Sprite[] LevelUpAnimationSprites;
         public Sprite[] TroopsElementAnimationSprites;
 
@@ -63,23 +75,43 @@ namespace Lis
             if (amount >= 3001)
                 index = 4;
 
-            return CoinSprites[index];
+            return _coinSprites[index];
         }
     }
 
 
-    public enum ItemRarity { Common, Uncommon, Rare, Epic }
-    public enum StatType { Power, Health, Armor, Speed, AttackRange, AttackCooldown, Pull, None, ExpBonus }
-
-    public enum ElementName { Fire, Water, Wind, Earth, Lightning, Metal, Wood, Ice, None }
-
-    public enum MinionSpawningPattern { SurroundMiddle, Random, FewGroups, OneGroup, Grid }
-
-    [System.Serializable]
-    public struct RewardIcon
+    public enum ItemRarity
     {
-        public string Text;
-        public Sprite Sprite;
+        Common,
+        Uncommon,
+        Rare,
+        Epic
+    }
+
+    public enum StatType
+    {
+        Power,
+        Health,
+        Armor,
+        Speed,
+        AttackRange,
+        AttackCooldown,
+        Pull,
+        None,
+        ExpBonus
+    }
+
+    public enum ElementName
+    {
+        Fire,
+        Water,
+        Wind,
+        Earth,
+        Lightning,
+        Metal,
+        Wood,
+        Ice,
+        None
     }
 
     [System.Serializable]
@@ -91,10 +123,9 @@ namespace Lis
     }
 
     [System.Serializable]
-    public struct OpponentGroupIcon
+    public struct QuestablePickup
     {
-        public Element Element;
-        public Sprite SpriteCreature;
-        public Sprite SpriteMinion;
+        public Pickup Pickup;
+        public Vector2Int AmountRange;
     }
 }

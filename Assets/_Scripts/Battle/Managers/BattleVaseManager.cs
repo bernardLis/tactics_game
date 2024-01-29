@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
-
-
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace Lis
 {
     public class BattleVaseManager : PoolManager<BattleBreakableVase>
     {
+        BattleManager _battleManager;
         BattleInputManager _battleInputManager;
         BattleAreaManager _battleAreaManager;
 
@@ -17,12 +18,18 @@ namespace Lis
 
         [SerializeField] bool _debugSpawnVase;
 
+        public event Action<BattleBreakableVase> OnVaseBroken;
+
+        Camera _cam;
+
         public void Initialize()
         {
+            _battleManager = GetComponent<BattleManager>();
             _battleAreaManager = GetComponent<BattleAreaManager>();
             _battleInputManager = GetComponent<BattleInputManager>();
 
 #if UNITY_EDITOR
+            _cam = Camera.main;
             _battleInputManager.OnLeftMouseClick += DebugSpawnVase;
 #endif
             CreatePool(_vasePrefab.gameObject);
@@ -33,6 +40,7 @@ namespace Lis
         {
             while (true)
             {
+                if (_battleManager.IsBossFight()) yield break;
                 yield return new WaitForSeconds(Random.Range(10f, 20f));
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
@@ -50,6 +58,13 @@ namespace Lis
         {
             BattleBreakableVase vase = GetObjectFromPool();
             vase.Initialize(position);
+            vase.OnBroken += VaseBroken;
+        }
+
+        void VaseBroken(BattleBreakableVase vase)
+        {
+            OnVaseBroken?.Invoke(vase);
+            vase.OnBroken -= VaseBroken;
         }
 
         public void BreakAllVases()
@@ -59,13 +74,14 @@ namespace Lis
                     vase.TriggerBreak();
         }
 
+
         void DebugSpawnVase()
         {
             if (!_debugSpawnVase) return;
 
             Mouse mouse = Mouse.current;
             Vector3 mousePosition = mouse.position.ReadValue();
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            Ray ray = _cam.ScreenPointToRay(mousePosition);
             int layerMask = Tags.BattleFloorLayer;
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
             {
@@ -73,7 +89,6 @@ namespace Lis
                 pos.y = 0.5f;
                 Debug.Log($"hit.point {hit.point}");
                 SpawnVase(pos);
-
             }
         }
     }

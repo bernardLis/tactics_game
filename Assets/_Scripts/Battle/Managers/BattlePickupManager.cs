@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
-
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Lis
 {
@@ -16,7 +16,10 @@ namespace Lis
         [SerializeField] Bag _bag;
         [SerializeField] Skull _skull;
 
-        [SerializeField] List<ExperienceOrb> ExpOrbs = new();
+        [FormerlySerializedAs("ExpOrbs")] [SerializeField]
+        List<ExperienceOrb> _expOrbs = new();
+
+        public event Action<Pickup> OnPickupCollected;
 
         public void Initialize()
         {
@@ -29,13 +32,14 @@ namespace Lis
             if (orb == null) return;
             BattlePickup battlePickup = GetObjectFromPool();
             battlePickup.Initialize(orb, position);
+            battlePickup.OnCollected += PickupCollected;
         }
 
         ExperienceOrb ChooseExpOrb()
         {
             int v = Random.Range(0, 101);
             List<ExperienceOrb> possibleOrbs = new();
-            foreach (ExperienceOrb orb in ExpOrbs)
+            foreach (ExperienceOrb orb in _expOrbs)
                 if (v <= orb.OrbChance)
                     possibleOrbs.Add(orb);
 
@@ -50,6 +54,7 @@ namespace Lis
                 ExperienceOrb instance = Instantiate(lowestChanceOrb);
                 return instance;
             }
+
             return null;
         }
 
@@ -73,6 +78,14 @@ namespace Lis
 
             BattlePickup battlePickup = GetObjectFromPool();
             battlePickup.Initialize(p, position);
+
+            battlePickup.OnCollected += PickupCollected;
+        }
+
+        void PickupCollected(BattlePickup battlePickup)
+        {
+            OnPickupCollected?.Invoke(battlePickup.Pickup);
+            battlePickup.OnCollected -= PickupCollected;
         }
 
         public void BagCollected()

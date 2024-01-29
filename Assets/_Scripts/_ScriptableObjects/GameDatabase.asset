@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  Buildings:
+  _buildings:
   - {fileID: 11400000, guid: 72186956f81250a4e94865e577a8c087, type: 2}
   - {fileID: 11400000, guid: 3be0f690158b8fa47aaf3e12523280f2, type: 2}
   - {fileID: 11400000, guid: c67070e7bd7d87144bf7c12a3b18f928, type: 2}
@@ -23,6 +23,25 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1dcda9e6754528d4e8c9f5ecbc3169e7, type: 2}
   - {fileID: 11400000, guid: 3a21aa73e5faf3c4f91e81f7988b67fd, type: 2}
   - {fileID: 11400000, guid: c80c3a42ad75d2c4eb9d736f3f1b0e59, type: 2}
+  QuestablePickups:
+  - Pickup: {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
+    AmountRange: {x: 20, y: 30}
+  - Pickup: {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
+    AmountRange: {x: 10, y: 20}
+  - Pickup: {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
+    AmountRange: {x: 5, y: 15}
+  - Pickup: {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
+    AmountRange: {x: 2, y: 7}
+  - Pickup: {fileID: 11400000, guid: e4968ff107bfff3428c3f9674cbc81a3, type: 2}
+    AmountRange: {x: 20, y: 100}
+  - Pickup: {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
+    AmountRange: {x: 2, y: 5}
+  - Pickup: {fileID: 11400000, guid: 73d49afde470c06499a6d8fb027d7551, type: 2}
+    AmountRange: {x: 2, y: 5}
+  - Pickup: {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
+    AmountRange: {x: 2, y: 5}
+  - Pickup: {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
+    AmountRange: {x: 2, y: 5}
   LitShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   ParticlesUnlitShader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4, type: 3}
@@ -31,23 +50,6 @@ MonoBehaviour:
   KeepShadersMaterials:
   - {fileID: -6465566751694194690, guid: 35a5889f855b33440b52b2a9b0e8b8ad, type: 3}
   - {fileID: 4800000, guid: 8b409af744179ac48ae9717baa10feb5, type: 3}
-  RewardIcons:
-  - Text: You are the bomb!
-    Sprite: {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
-  - Text: You got it bud!
-    Sprite: {fileID: 21300000, guid: fc97335eae445cd4d86554b9ecc4a09c, type: 3}
-  - Text: You are on fire!
-    Sprite: {fileID: 21300000, guid: 4aebd342907acac4d9b8d26046a04a32, type: 3}
-  - Text: Practice makes perfect!
-    Sprite: {fileID: 21300000, guid: 4af239bb9dbc4ee44be0b0e3a05eb55f, type: 3}
-  - Text: Snek!
-    Sprite: {fileID: 21300000, guid: 369847203aee31c4ab727ecf6dc6b5ee, type: 3}
-  - Text: You are my sun!
-    Sprite: {fileID: 21300000, guid: 88bfc829c2c9b6e47bb74802d2e51819, type: 3}
-  - Text: You got 2 woofs in you!
-    Sprite: {fileID: 21300000, guid: 1f8c5bd40d28bfd48a6accad9e36ce3c, type: 3}
-  - Text: Don't hide in your shell!
-    Sprite: {fileID: 21300000, guid: 973bc37610f9b934fa01495b27f5fb7a, type: 3}
   _colors:
   - {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
   - {fileID: 11400000, guid: 56988719a9e791d43b0d64e35a56f0f0, type: 2}
@@ -62,7 +64,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
   - {fileID: 11400000, guid: edac0f08ee9df8f44a0be73bea4c9721, type: 2}
   - {fileID: 11400000, guid: b2954c32997816242aaff6f3471fdec1, type: 2}
-  CoinSprites:
+  _coinSprites:
   - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
   - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

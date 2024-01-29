@@ -9,8 +9,8 @@ namespace Lis
 {
     public class BattlePickup : MonoBehaviour
     {
-        protected AudioManager _audioManager;
-        protected BattleManager _battleManager;
+        AudioManager _audioManager;
+        BattleManager _battleManager;
         MMF_Player _feelPlayer;
 
         [SerializeField] Transform _gfx;
@@ -20,7 +20,7 @@ namespace Lis
 
         public Pickup Pickup;
 
-        public event Action OnPickedUp;
+        public event Action<BattlePickup> OnCollected;
 
         public void Awake()
         {
@@ -29,7 +29,7 @@ namespace Lis
 
             _feelPlayer = GetComponent<MMF_Player>();
 
-            _hero = _battleManager.GetComponent<BattleHeroManager>().BattleHero.Hero as Hero;
+            _hero = _battleManager.GetComponent<BattleHeroManager>().BattleHero.Hero;
             _sphereCollider = GetComponent<SphereCollider>();
 
             _hero.Pull.OnValueChanged += SetPickUpRadius;
@@ -41,28 +41,29 @@ namespace Lis
                 Destroy(_gfx.GetChild(0).gameObject);
             Instantiate(pickup.GFX, _gfx);
 
-            transform.position = position;
+            Transform t = transform;
+            t.position = position;
             gameObject.SetActive(true);
 
-            transform.DOLocalMoveY(0.5f, 0.5f).SetEase(Ease.OutBack);
+            t.DOLocalMoveY(0.5f, 0.5f).SetEase(Ease.OutBack);
 
-            transform.localScale = Vector3.zero;
-            transform.DOScale(1, 1f).SetEase(Ease.OutBack);
+            t.localScale = Vector3.zero;
+            t.DOScale(1, 1f).SetEase(Ease.OutBack);
 
-            transform.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
+            t.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
                 .SetLoops(-1).SetEase(Ease.InOutSine);
 
             Pickup = pickup;
             Pickup.Initialize();
-            _audioManager.PlaySFX(pickup.DropSound, transform.position);
+            _audioManager.PlaySFX(pickup.DropSound, t.position);
 
             SetPickUpRadius(_hero.Pull.GetValue());
             _sphereCollider.enabled = true;
         }
 
-        void OnTriggerEnter(Collider collider)
+        void OnTriggerEnter(Collider col)
         {
-            if (!collider.TryGetComponent(out BattleHero hero)) return;
+            if (!col.TryGetComponent(out BattleHero hero)) return;
 
             PickUp(hero);
         }
@@ -70,21 +71,23 @@ namespace Lis
         protected virtual void PickUp(BattleHero hero)
         {
             if (Pickup == null) return;
-        
+
             _sphereCollider.enabled = false;
             transform.DOKill();
             DisplayText(Pickup.GetCollectedText(), Pickup.Color.Primary);
 
-            _audioManager.PlaySFX(Pickup.CollectSound, transform.position);
-            Destroy(Instantiate(Pickup.CollectEffect, transform.position, Quaternion.identity), 1f);
+            Vector3 position = transform.position;
+            _audioManager.PlaySFX(Pickup.CollectSound, position);
+            Destroy(Instantiate(Pickup.CollectEffect, position, Quaternion.identity), 1f);
 
             float punchDuration = 0.5f;
-            transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1, 1f);
+            transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1);
 
-            Vector3 jumpPos = new Vector3(
-                hero.transform.position.x,
-                hero.transform.position.y + 2f,
-                hero.transform.position.z
+            Vector3 heroPosition = hero.transform.position;
+            Vector3 jumpPos = new(
+                heroPosition.x,
+                heroPosition.y + 2f,
+                heroPosition.z
             );
             float jumpDuration = 0.6f;
 
@@ -99,7 +102,7 @@ namespace Lis
                     gameObject.SetActive(false);
                 });
 
-            OnPickedUp?.Invoke();
+            OnCollected?.Invoke(this);
         }
 
         void OnDestroy()
@@ -117,21 +120,18 @@ namespace Lis
             if (!gameObject.activeSelf) return;
 
             transform.DOMove(_battleManager.BattleHero.transform.position + Vector3.up, Random.Range(0.5f, 2f))
-                .OnComplete(() =>
-                {
-                    PickUp(_battleManager.BattleHero);
-                });
+                .OnComplete(() => { PickUp(_battleManager.BattleHero); });
         }
 
-        protected void DisplayText(string text, Color color)
+        void DisplayText(string text, Color color)
         {
             MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
             floatingText.Value = text;
             floatingText.ForceColor = true;
             floatingText.AnimateColorGradient = Helpers.GetGradient(color);
-            Vector3 pos = transform.position + new Vector3(0, transform.localScale.y * 0.8f, 0);
+            Transform t = transform;
+            Vector3 pos = t.position + new Vector3(0, t.localScale.y * 0.8f, 0);
             _feelPlayer.PlayFeedbacks(pos);
         }
-
     }
 }
