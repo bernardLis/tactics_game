@@ -8,7 +8,6 @@ namespace Lis
 {
     public class BattleBossManager : MonoBehaviour
     {
-        GameManager _gameManager;
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
 
@@ -19,10 +18,9 @@ namespace Lis
 
         public void Initialize()
         {
-            _gameManager = GameManager.Instance;
             _battleManager = BattleManager.Instance;
             _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-            _battleAreaManager.OnBossTileUnlocked += SpawnBoss;
+            // _battleAreaManager.OnBossTileUnlocked += SpawnBoss;
 
             _chosenBossBuilding = _bossBuildings[Random.Range(0, _bossBuildings.Length)];
         }
@@ -37,7 +35,7 @@ namespace Lis
             _bossTile = _battleAreaManager.ReplaceTile(tile, _chosenBossBuilding);
 
             yield return new WaitForSeconds(1f);
-            _battleAreaManager.UnlockNextTile(_bossTile);
+            // _battleAreaManager.SecureNextTile(_bossTile);
             yield return new WaitForSeconds(1f);
             _bossTile.Secure();
         }

@@ -25,14 +25,13 @@ namespace Lis
         {
             yield return new WaitForSeconds(0.5f);
             GetComponent<BattleAreaManager>().Initialize();
-
-            yield return new WaitForSeconds(2.5f);
-
+            yield return new WaitForSeconds(1f);
+            
             GetComponent<BattleManager>().Initialize(h);
             GetComponent<BattleGrabManager>().Initialize();
+            GetComponent<BattleAreaManager>().SecureHomeTile();
 
-            yield return new WaitForSeconds(1f);
-
+            yield return new WaitForSeconds(2f);
             GetComponent<BattleTooltipManager>().Initialize();
             GetComponent<BattleFightManager>().Initialize();
             GetComponent<BattleVaseManager>().Initialize();

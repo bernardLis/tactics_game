@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -12,15 +13,20 @@ namespace Lis
     {
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
-        BattleTooltipManager _tooltipManager;
 
         [Header("Tile")] ObjectShaders _objectShaders;
 
-        [SerializeField] Material[] _materials;
+        [Header("Base")] [SerializeField] Material[] _materials;
+
         [SerializeField] GameObject _floor;
         [SerializeField] GameObject _surface;
         [SerializeField] GameObject _borderPrefab;
-        [SerializeField] GameObject _securedEffect;
+
+        [Header("Enabled")] [SerializeField] GameObject _enabledEffect;
+        [SerializeField] GameObject _canvas;
+        [SerializeField] TMP_Text _taskText;
+
+        [Header("Secured")] [SerializeField] GameObject _securedEffect;
 
         [FormerlySerializedAs("_borders")] public List<BattleTileBorder> Borders = new();
 
@@ -31,24 +37,16 @@ namespace Lis
 
         GameObject _tileIndicator;
 
-        IEnumerator _securingCoroutine;
-        IntVariable _currentSecuringTimeVariable;
-        IntVariable _totalSecuringTimeVariable;
+        int _minionKillsToUnlockTile = 5;
 
-        public event Action<BattleTile> OnEnabled;
+
+        public event Action<BattleTile> OnSecured;
 
         // at the beginning of the game
         public void Initialize(Building building)
         {
             _battleManager = BattleManager.Instance;
             _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-
-            _tooltipManager = BattleTooltipManager.Instance;
-
-            _currentSecuringTimeVariable = ScriptableObject.CreateInstance<IntVariable>();
-            _currentSecuringTimeVariable.SetValue(0);
-            _totalSecuringTimeVariable = ScriptableObject.CreateInstance<IntVariable>();
-            _totalSecuringTimeVariable.SetValue(10);
 
             Building = building;
 
@@ -57,14 +55,35 @@ namespace Lis
             _objectShaders = GetComponent<ObjectShaders>();
             MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
             mr.material = _materials[Random.Range(0, _materials.Length)];
+
+            _minionKillsToUnlockTile = Random.Range(5, 50);
         }
 
         // when tile next to it is secured
-        public void EnableTile()
+        public void EnableTile(bool isHomeTile = false)
         {
             _floor.SetActive(false);
             gameObject.SetActive(true);
-            ShowTileIndicator(); }
+            ShowTileIndicator();
+
+
+            if (isHomeTile) return;
+            UpdateTask(default);
+            _battleManager.OnOpponentEntityDeath += UpdateTask;
+
+            _enabledEffect.SetActive(true);
+            _canvas.SetActive(true);
+        }
+
+        void UpdateTask(BattleEntity _)
+        {
+            _minionKillsToUnlockTile--;
+            _taskText.text = $"Kills to unlock tile: {_minionKillsToUnlockTile}";
+
+            if (_minionKillsToUnlockTile > 0) return;
+            Secure();
+            _battleManager.OnOpponentEntityDeath -= UpdateTask;
+        }
 
         void ShowTileIndicator()
         {
@@ -74,21 +93,27 @@ namespace Lis
             _tileIndicator = Instantiate(Building.TileIndicatorPrefab, transform);
             _tileIndicator.transform.localPosition = Vector3.up * 6f;
             _tileIndicator.transform.localScale = Vector3.one * 2f;
-            
-            
         }
 
         // when player finishes the task 
         public void Secure()
         {
-            _tooltipManager.HideTileSecureBar();
-            if (_tileIndicator != null) Destroy(_tileIndicator);
-
+            HideTileIndicator();
             StartCoroutine(SecureTileCoroutine());
+        }
+
+        void HideTileIndicator()
+        {
+            _enabledEffect.SetActive(false);
+            _canvas.SetActive(false);
+
+            Debug.Log("Hide tile indicator to be implemeted");
+            if (_tileIndicator != null) Destroy(_tileIndicator);
         }
 
         IEnumerator SecureTileCoroutine()
         {
+            _floor.SetActive(true);
             _securedEffect.SetActive(true);
             _objectShaders.Dissolve(5f, true);
 
@@ -104,7 +129,7 @@ namespace Lis
                 BattleBuilding.Initialize(pos, Building);
             }
 
-            OnEnabled?.Invoke(this);
+            OnSecured?.Invoke(this);
         }
 
         /* BORDERS */

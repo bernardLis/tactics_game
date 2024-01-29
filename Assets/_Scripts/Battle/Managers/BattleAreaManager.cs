@@ -1,16 +1,11 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis
 {
     public class BattleAreaManager : MonoBehaviour
     {
-        BattleManager _battleManager;
-
         [SerializeField] Transform _floorHolder;
         [SerializeField] GameObject _floorPrefab;
 
@@ -24,19 +19,13 @@ namespace Lis
 
         [HideInInspector] public BattleTile HomeTile;
 
-        [FormerlySerializedAs("_cornerTiles")] [HideInInspector]
-        public List<BattleTile> CornerTiles = new();
+        [HideInInspector] public List<BattleTile> CornerTiles = new();
 
         readonly List<BattleTile> _tiles = new();
-        public List<BattleTile> UnlockedTiles = new();
-
-        public event Action<BattleTile> OnTileUnlocked;
-        public event Action<BattleTile> OnBossTileUnlocked;
+        [HideInInspector] public List<BattleTile> SecuredTiles = new();
 
         public void Initialize()
         {
-            _battleManager = BattleManager.Instance;
-
             float tileScale = _floorPrefab.transform.localScale.x;
             _floor = Instantiate(_floorPrefab,
                 new Vector3(-tileScale * 0.5f, 0, -tileScale * 0.5f), // floor offset to make tiles centered
@@ -46,7 +35,6 @@ namespace Lis
             _unlockedBuildings = GameManager.Instance.GameDatabase.GetUnlockedBuildings();
 
             CreateArea();
-            StartCoroutine(UnlockTilesPeriodicallyCoroutine());
         }
 
         void CreateArea()
@@ -65,6 +53,7 @@ namespace Lis
                         building = _homeBuilding;
 
                     BattleTile bt = InstantiateTile(pos, building);
+                    bt.OnSecured += OnTileSecured;
                     _tiles.Add(bt);
 
                     if (pos == Vector3.zero)
@@ -81,13 +70,10 @@ namespace Lis
                 }
             }
 
-            UnlockedTiles.Add(HomeTile);
-            HomeTile.EnableTile();
-            HomeTile.Secure();
-            HomeTile.HandleBorders();
 
             SetCornerTileIndicators();
         }
+
 
         void SetCornerTileIndicators()
         {
@@ -95,94 +81,29 @@ namespace Lis
                 Instantiate(_cornerTileIndicators[i], CornerTiles[i].transform.position,
                     Quaternion.Euler(270f, 0, 0));
         }
+        
 
-        IEnumerator UnlockTilesPeriodicallyCoroutine()
+        public void SecureHomeTile()
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(60f);
-                if (_battleManager.IsGameLoopBlocked) continue;
-                if (UnlockedTiles.Count >= _tiles.Count) yield break;
-                UnlockNextTile();
-            }
+            HomeTile.EnableTile();
+            HomeTile.Secure();
         }
 
-        public void DebugSpawnBossTile()
+        void OnTileSecured(BattleTile tile)
         {
-            BattleTile selectedTile = SelectTile();
-            OnBossTileUnlocked?.Invoke(selectedTile);
-        }
+            SecuredTiles.Add(tile);
 
-        public void UnlockNextTile(BattleTile givenTile = null)
-        {
-            BattleTile selectedTile = givenTile ? givenTile : SelectTile();
-
-            // TODO: balance when boss spawns
-            if (UnlockedTiles.Count > 300)
+            List<BattleTile> adjacentTiles = GetAdjacentTiles(tile);
+            foreach (BattleTile t in adjacentTiles)
             {
-                OnBossTileUnlocked?.Invoke(selectedTile);
-                return;
+                if (t.gameObject.activeSelf) continue;
+                t.EnableTile();
             }
-
-            if (UnlockedTiles.Contains(selectedTile))
-            {
-                Debug.LogError($"Trying to unlock tile that is already unlocked");
-                return;
-            }
-
-            selectedTile.EnableTile();
-            UnlockedTiles.Add(selectedTile);
-            OnTileUnlocked?.Invoke(selectedTile);
-        }
-
-        BattleTile SelectTile()
-        {
-            List<BattleTile> allPossibleTiles = new();
-            foreach (BattleTile tile in UnlockedTiles)
-            {
-                foreach (BattleTile t in GetAdjacentTiles(tile))
-                {
-                    if (allPossibleTiles.Contains(t)) continue;
-                    if (UnlockedTiles.Contains(t)) continue;
-                    allPossibleTiles.Add(t);
-                }
-            }
-
-            return ChooseTileClosestToHero(allPossibleTiles);
-        }
-
-        BattleTile ChooseTileClosestToHero(List<BattleTile> tiles)
-        {
-            float minDistance = float.MaxValue;
-            BattleTile closestTile = null;
-            foreach (BattleTile tile in tiles)
-            {
-                Vector3 delta = tile.transform.position - _battleManager.BattleHero.transform.position;
-                float distance = delta.sqrMagnitude;
-                if (!(distance < minDistance)) continue;
-                minDistance = distance;
-                closestTile = tile;
-            }
-
-            return closestTile;
-        }
-
-        public List<BattleTile> GetTilesAroundPlayer()
-        {
-            BattleTile currentTile = GetTileFromPosition(_battleManager.BattleHero.transform.position);
-            List<BattleTile> tilesCloseToHero = GetAdjacentTiles(currentTile);
-            tilesCloseToHero.Add(currentTile);
-            List<BattleTile> activeTiles = new();
-            foreach (BattleTile t in tilesCloseToHero)
-                if (t.gameObject.activeSelf)
-                    activeTiles.Add(t);
-
-            return activeTiles;
         }
 
         public BattleTile GetRandomUnlockedTile()
         {
-            return UnlockedTiles[Random.Range(0, UnlockedTiles.Count)];
+            return SecuredTiles[Random.Range(0, SecuredTiles.Count)];
         }
 
         // TODO: there must be a smarter way to get adjacent tiles
@@ -279,6 +200,7 @@ namespace Lis
             while (tries < 100)
             {
                 tries++;
+                range -= 0.1f;
                 Vector2 r = Random.insideUnitCircle * range;
                 Vector3 randomPoint = center + new Vector3(r.x, 0, r.y);
                 randomPoint.y = 0;
@@ -294,7 +216,7 @@ namespace Lis
         {
             foreach (BattleTile tile in _tiles)
             {
-                if (!tile.gameObject.activeSelf) continue;
+                if (!SecuredTiles.Contains(tile)) continue;
                 if (pos.x > tile.transform.position.x - tile.Scale * 0.5f &&
                     pos.x < tile.transform.position.x + tile.Scale * 0.5f &&
                     pos.z > tile.transform.position.z - tile.Scale * 0.5f &&
@@ -374,7 +296,7 @@ namespace Lis
                 List<BattleTile> adjacentTiles = GetAdjacentTiles(currentAStarTile.Tile);
                 foreach (BattleTile tile in adjacentTiles)
                 {
-                    if (!tile.gameObject.activeSelf) continue;
+                    if (!SecuredTiles.Contains(tile)) continue;
                     if (closedList.Exists(t => t.Tile == tile)) continue;
 
                     float g = currentAStarTile.G + 1;

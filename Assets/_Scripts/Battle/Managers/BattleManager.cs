@@ -238,7 +238,7 @@ namespace Lis
 
         public bool IsBossFight()
         {
-            return CurrentBattle.TilesUntilBoss == _battleAreaManager.UnlockedTiles.Count - 1;
+            return CurrentBattle.TilesUntilBoss == _battleAreaManager.SecuredTiles.Count - 1;
         }
 
         public void LoseBattle() { StartCoroutine(BattleLost()); }

@@ -95,12 +95,10 @@ namespace Lis
 
         void DebugSpawnTile(InputAction.CallbackContext ctx)
         {
-            BattleManager.Instance.GetComponent<BattleAreaManager>().UnlockNextTile();
         }
 
         void DebugSpawnBossTile(InputAction.CallbackContext ctx)
         {
-            BattleManager.Instance.GetComponent<BattleAreaManager>().DebugSpawnBossTile();
         }
 
         void DebugKillHero(InputAction.CallbackContext ctx)

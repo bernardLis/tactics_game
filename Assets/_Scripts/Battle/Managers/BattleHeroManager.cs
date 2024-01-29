@@ -1,11 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
@@ -32,6 +26,7 @@ namespace Lis
         LevelUpScreen _levelUpScreen;
 
         public int RewardRerollsAvailable = 0;
+
         public void Initialize(Hero hero)
         {
             _gameManager = GameManager.Instance;
@@ -44,7 +39,7 @@ namespace Lis
             hero.InitializeBattle(0);
             hero.OnLevelUp += OnHeroLevelUp;
 
-            BattleHero = Instantiate(_heroPrefab, _battleAreaManager.HomeTile.transform.position + Vector3.up * 10f,
+            BattleHero = Instantiate(_heroPrefab, Vector3.zero + Vector3.up * 10f,
                 Quaternion.identity).GetComponent<BattleHero>();
 
             BattleHero.OnDeath += (a, b) => _battleManager.LoseBattle();
@@ -52,7 +47,8 @@ namespace Lis
             _placeholderAudioListener.enabled = false;
             StartCoroutine(MakeHeroFall(hero));
 
-            RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
+            RewardRerollsAvailable =
+                _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
 
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
@@ -113,9 +109,9 @@ namespace Lis
                 _abilityToGive.StartAbility();
                 return;
             }
+
             Hero.AddAbility(_abilityToGive);
         }
 #endif
-
     }
 }
