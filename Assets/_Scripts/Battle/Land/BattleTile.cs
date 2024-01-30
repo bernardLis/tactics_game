@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Lis
@@ -24,7 +25,8 @@ namespace Lis
 
         [Header("Enabled")] [SerializeField] GameObject _enabledEffect;
         [SerializeField] GameObject _canvas;
-        [SerializeField] TMP_Text _taskText;
+        [SerializeField] TMP_Text _questText;
+        [SerializeField] Image _questImage;
 
         [Header("Secured")] [SerializeField] GameObject _securedEffect;
 
@@ -37,8 +39,7 @@ namespace Lis
 
         GameObject _tileIndicator;
 
-        int _minionKillsToUnlockTile = 5;
-
+        Quest _quest;
 
         public event Action<BattleTile> OnSecured;
 
@@ -55,8 +56,6 @@ namespace Lis
             _objectShaders = GetComponent<ObjectShaders>();
             MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
             mr.material = _materials[Random.Range(0, _materials.Length)];
-
-            _minionKillsToUnlockTile = Random.Range(5, 50);
         }
 
         // when tile next to it is secured
@@ -66,23 +65,22 @@ namespace Lis
             gameObject.SetActive(true);
             ShowTileIndicator();
 
-
             if (isHomeTile) return;
-            UpdateTask(default);
-            _battleManager.OnOpponentEntityDeath += UpdateTask;
+            _quest = _battleAreaManager.GetQuest();
+            _questImage.sprite = _quest.GetIcon();
+            _quest.StartQuest();
+            _quest.OnQuestUpdated += UpdateQuestInfo;
+            _quest.OnQuestCompleted += Secure;
+
+            UpdateQuestInfo();
 
             _enabledEffect.SetActive(true);
             _canvas.SetActive(true);
         }
 
-        void UpdateTask(BattleEntity _)
+        void UpdateQuestInfo()
         {
-            _minionKillsToUnlockTile--;
-            _taskText.text = $"Kills to unlock tile: {_minionKillsToUnlockTile}";
-
-            if (_minionKillsToUnlockTile > 0) return;
-            Secure();
-            _battleManager.OnOpponentEntityDeath -= UpdateTask;
+            _questText.text = $"{_quest.TotalAmount - _quest.CurrentAmount}";
         }
 
         void ShowTileIndicator()
@@ -98,6 +96,9 @@ namespace Lis
         // when player finishes the task 
         public void Secure()
         {
+            _quest.OnQuestUpdated -= UpdateQuestInfo;
+            _quest.OnQuestCompleted -= Secure;
+
             HideTileIndicator();
             StartCoroutine(SecureTileCoroutine());
         }

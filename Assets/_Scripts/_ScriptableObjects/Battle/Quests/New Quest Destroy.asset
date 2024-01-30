@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e65e29bc3846264997ec2053e9a401d, type: 3}
+  m_Name: New Quest Destroy
+  m_EditorClassIdentifier: 
+  Id: 12ed903e-17e8-4a77-9717-e111fa2006b3
+  Difficulty: 0
+  TotalAmount: 0
+  CurrentAmount: 0

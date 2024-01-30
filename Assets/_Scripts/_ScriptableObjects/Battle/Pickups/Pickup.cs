@@ -1,12 +1,12 @@
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
     public class Pickup : BaseScriptableObject
     {
-        public GameObject GFX;
+        public Sprite Icon;
+        [FormerlySerializedAs("GFX")] public GameObject Gfx;
 
         public ColorVariable Color;
         public string CollectedText;
@@ -17,12 +17,10 @@ namespace Lis
 
         public virtual void Initialize()
         {
-
         }
 
         public virtual void Collected(Hero hero)
         {
-
         }
 
         public virtual string GetCollectedText()

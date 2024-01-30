@@ -13,6 +13,9 @@ namespace Lis
         [SerializeField] Building _homeBuilding;
         List<Building> _unlockedBuildings = new();
 
+        [SerializeField] Quest[] _quests;
+        List<Quest> _pastQuests = new();
+
         [SerializeField] List<GameObject> _cornerTileIndicators = new();
 
         GameObject _floor;
@@ -81,7 +84,7 @@ namespace Lis
                 Instantiate(_cornerTileIndicators[i], CornerTiles[i].transform.position,
                     Quaternion.Euler(270f, 0, 0));
         }
-        
+
 
         public void SecureHomeTile()
         {
@@ -99,6 +102,25 @@ namespace Lis
                 if (t.gameObject.activeSelf) continue;
                 t.EnableTile();
             }
+        }
+
+        public Quest GetQuest()
+        {
+            // ok, so quests should be semi random
+            // I want to take into consideration past quests and their types
+            Quest quest;
+            if (_pastQuests.Count % 3 == 0)
+                quest = Instantiate(_quests[0]);
+            else if (_pastQuests.Count % 3 == 1)
+                quest = Instantiate(_quests[1]);
+            else
+                quest = Instantiate(_quests[2]);
+
+
+            quest.CreateRandom(1, _pastQuests);
+            _pastQuests.Add(quest);
+
+            return quest;
         }
 
         public BattleTile GetRandomUnlockedTile()

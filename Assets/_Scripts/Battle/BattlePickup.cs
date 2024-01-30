@@ -39,7 +39,7 @@ namespace Lis
         {
             if (_gfx.childCount > 0)
                 Destroy(_gfx.GetChild(0).gameObject);
-            Instantiate(pickup.GFX, _gfx);
+            Instantiate(pickup.Gfx, _gfx);
 
             Transform t = transform;
             t.position = position;

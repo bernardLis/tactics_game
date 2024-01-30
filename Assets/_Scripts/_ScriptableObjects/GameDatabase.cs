@@ -30,6 +30,8 @@ namespace Lis
             return unlockedBuildings;
         }
 
+        public Sprite VaseIcon;
+
         [Header("Pickups")] public QuestablePickup[] QuestablePickups;
 
         public QuestablePickup GetRandomQuestablePickup()

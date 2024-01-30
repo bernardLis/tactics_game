@@ -1,5 +1,8 @@
+using UnityEngine;
+
 namespace Lis
 {
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Quest/Destroy")]
     public class QuestDestroy : Quest
     {
         // TODO: more breakable types
@@ -15,6 +18,11 @@ namespace Lis
         void CheckDestroyable(BattleBreakableVase vase)
         {
             UpdateQuest();
+        }
+
+        public override Sprite GetIcon()
+        {
+            return GameManager.Instance.GameDatabase.VaseIcon;
         }
     }
 }

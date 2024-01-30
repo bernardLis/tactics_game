@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Lis
@@ -12,7 +14,7 @@ namespace Lis
         public event Action OnQuestUpdated;
         public event Action OnQuestCompleted;
 
-        public virtual void CreateRandom(int level)
+        public virtual void CreateRandom(int level, List<Quest> previousQuests)
         {
             Difficulty = level;
             CurrentAmount = 0;
@@ -30,6 +32,12 @@ namespace Lis
 
             if (CurrentAmount >= TotalAmount)
                 OnQuestCompleted?.Invoke();
+        }
+
+        public virtual Sprite GetIcon()
+        {
+            // meant to be overwritten
+            return null;
         }
     }
 }
