@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using Cinemachine;
 
 namespace Lis
 {
@@ -11,11 +12,12 @@ namespace Lis
     {
         GameManager _gameManager;
         BattleManager _battleManager;
-        BattleAreaManager _battleAreaManager;
 
         VisualElement _root;
         VisualElement _bottomPanel;
         HeroElement _heroBattleElement;
+
+        [SerializeField] CinemachineVirtualCamera _heroFollowCamera;
 
         [SerializeField] AudioListener _placeholderAudioListener;
 
@@ -25,13 +27,12 @@ namespace Lis
 
         LevelUpScreen _levelUpScreen;
 
-        public int RewardRerollsAvailable = 0;
+        public int RewardRerollsAvailable;
 
         public void Initialize(Hero hero)
         {
             _gameManager = GameManager.Instance;
             _battleManager = GetComponent<BattleManager>();
-            _battleAreaManager = GetComponent<BattleAreaManager>();
             _root = GetComponent<UIDocument>().rootVisualElement;
             _bottomPanel = _root.Q<VisualElement>("bottomPanel");
 
@@ -41,8 +42,9 @@ namespace Lis
 
             BattleHero = Instantiate(_heroPrefab, Vector3.zero + Vector3.up * 10f,
                 Quaternion.identity).GetComponent<BattleHero>();
+            _heroFollowCamera.Follow = BattleHero.transform;
 
-            BattleHero.OnDeath += (a, b) => _battleManager.LoseBattle();
+            BattleHero.OnDeath += (_, _) => _battleManager.LoseBattle();
 
             _placeholderAudioListener.enabled = false;
             StartCoroutine(MakeHeroFall(hero));

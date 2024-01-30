@@ -128,7 +128,7 @@ namespace Lis
         void LateUpdate()
         {
             if (_disableUpdate) return;
-            RotateCamera();
+            // RotateCamera();
             // keeping player grounded
             transform.position = new Vector3(transform.position.x, -0.035f, transform.position.z);
         }

@@ -12,6 +12,9 @@ namespace Lis
 
         Color _healthColor;
 
+        BattleAreaManager _battleAreaManager;
+        [SerializeField] GameObject _tileSecuredEffectPrefab;
+
         public override void InitializeEntity(Entity entity, int team)
         {
             base.InitializeEntity(entity, 0);
@@ -31,7 +34,22 @@ namespace Lis
             HandleAbilities();
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
+
+            _battleAreaManager = BattleManager.Instance.GetComponent<BattleAreaManager>();
+            _battleAreaManager.OnTileSecured += OnTileSecured;
         }
+
+        void OnTileSecured(BattleTile tile)
+        {
+            GameObject tileSecuredEffect = Instantiate(_tileSecuredEffectPrefab, transform);
+            tileSecuredEffect.transform.localPosition = Vector3.zero;
+            // I would like tile secured effect to be rotated towards the secured tile
+            tileSecuredEffect.transform.rotation =
+                Quaternion.LookRotation(tile.transform.position - transform.position);
+
+            Destroy(tileSecuredEffect, 15f);
+        }
+
 
         void HandleAbilities()
         {

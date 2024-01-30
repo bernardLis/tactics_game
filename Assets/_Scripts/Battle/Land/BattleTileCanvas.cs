@@ -33,13 +33,13 @@ namespace Lis
             {
                 if (!gameObject.activeSelf) yield break;
 
-                Vector3 heroPos = _battleHeroTransform.position;
-                Vector3 tilePos = _battleTile.transform.position;
-
-                Vector3 dir = (heroPos - tilePos).normalized;
-                Vector3 newPos = tilePos + dir * _maxMoveDistance;
-                newPos.y = 2;
-                transform.position = newPos;
+                // Vector3 heroPos = _battleHeroTransform.position;
+                // Vector3 tilePos = _battleTile.transform.position;
+                //
+                // Vector3 dir = (heroPos - tilePos).normalized;
+                // Vector3 newPos = tilePos + dir * _maxMoveDistance;
+                // newPos.y = 2;
+                // transform.position = newPos;
 
                 // Vector3 lookRotation = Quaternion.LookRotation(dir, Vector3.up).eulerAngles;
                 // transform.rotation = Quaternion.Euler(lookRotation);

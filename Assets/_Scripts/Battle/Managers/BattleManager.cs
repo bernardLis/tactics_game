@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace Lis
@@ -117,6 +119,7 @@ namespace Lis
 
             OnBattleInitialized?.Invoke();
         }
+
         public void PauseGame()
         {
             Debug.Log($"Pausing the game...");
@@ -170,7 +173,10 @@ namespace Lis
             }
         }
 
-        public float GetTime() { return _battleTime; }
+        public float GetTime()
+        {
+            return _battleTime;
+        }
 
         public void AddPlayerArmyEntities(List<BattleEntity> list)
         {
@@ -241,8 +247,15 @@ namespace Lis
             return CurrentBattle.TilesUntilBoss == _battleAreaManager.SecuredTiles.Count - 1;
         }
 
-        public void LoseBattle() { StartCoroutine(BattleLost()); }
-        public void WinBattle() { StartCoroutine(BattleWon()); }
+        public void LoseBattle()
+        {
+            StartCoroutine(BattleLost());
+        }
+
+        public void WinBattle()
+        {
+            StartCoroutine(BattleWon());
+        }
 
         public void AddPlayerTurret(BattleTurret turret)
         {
@@ -309,6 +322,7 @@ namespace Lis
                 StartCoroutine(be.Die());
             }
         }
+
         [ContextMenu("Force Win Battle")]
         public void WinBattleAlternative()
         {
@@ -328,6 +342,5 @@ namespace Lis
         }
 
 #endif
-
     }
 }

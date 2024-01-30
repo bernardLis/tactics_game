@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,7 +15,7 @@ namespace Lis
         List<Building> _unlockedBuildings = new();
 
         [SerializeField] Quest[] _quests;
-        List<Quest> _pastQuests = new();
+        readonly List<Quest> _pastQuests = new();
 
         [SerializeField] List<GameObject> _cornerTileIndicators = new();
 
@@ -26,6 +27,8 @@ namespace Lis
 
         readonly List<BattleTile> _tiles = new();
         [HideInInspector] public List<BattleTile> SecuredTiles = new();
+
+        public event Action<BattleTile> OnTileSecured;
 
         public void Initialize()
         {
@@ -56,7 +59,7 @@ namespace Lis
                         building = _homeBuilding;
 
                     BattleTile bt = InstantiateTile(pos, building);
-                    bt.OnSecured += OnTileSecured;
+                    bt.OnSecured += TileSecured;
                     _tiles.Add(bt);
 
                     if (pos == Vector3.zero)
@@ -92,9 +95,10 @@ namespace Lis
             HomeTile.Secure();
         }
 
-        void OnTileSecured(BattleTile tile)
+        void TileSecured(BattleTile tile)
         {
             SecuredTiles.Add(tile);
+            OnTileSecured?.Invoke(tile);
 
             List<BattleTile> adjacentTiles = GetAdjacentTiles(tile);
             foreach (BattleTile t in adjacentTiles)
