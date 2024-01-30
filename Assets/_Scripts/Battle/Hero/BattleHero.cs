@@ -41,11 +41,10 @@ namespace Lis
 
         void OnTileSecured(BattleTile tile)
         {
-            GameObject tileSecuredEffect = Instantiate(_tileSecuredEffectPrefab, transform);
-            tileSecuredEffect.transform.localPosition = Vector3.zero;
-            // I would like tile secured effect to be rotated towards the secured tile
-            tileSecuredEffect.transform.rotation =
-                Quaternion.LookRotation(tile.transform.position - transform.position);
+            Vector3 pos = transform.position;
+            Quaternion rot = Quaternion.LookRotation(tile.transform.position - pos);
+            GameObject tileSecuredEffect =
+                Instantiate(_tileSecuredEffectPrefab, pos, rot);
 
             Destroy(tileSecuredEffect, 15f);
         }
