@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UIElements;
 
 namespace Lis
 {
@@ -28,6 +29,8 @@ namespace Lis
         readonly List<BattleTile> _tiles = new();
         [HideInInspector] public List<BattleTile> SecuredTiles = new();
 
+        VisualElement _questContainer;
+
         public event Action<BattleTile> OnTileSecured;
 
         public void Initialize()
@@ -40,7 +43,14 @@ namespace Lis
 
             _unlockedBuildings = GameManager.Instance.GameDatabase.GetUnlockedBuildings();
 
+            InitializeUI();
             CreateArea();
+        }
+
+        void InitializeUI()
+        {
+            _questContainer =
+                GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("activeQuestsContainer");
         }
 
         void CreateArea()
@@ -91,7 +101,7 @@ namespace Lis
 
         public void SecureHomeTile()
         {
-            HomeTile.EnableTile();
+            HomeTile.EnableTile(true);
             HomeTile.Secure();
         }
 
@@ -120,9 +130,11 @@ namespace Lis
             else
                 quest = Instantiate(_quests[2]);
 
-
             quest.CreateRandom(1, _pastQuests);
             _pastQuests.Add(quest);
+
+            QuestElement qe = new(quest);
+            _questContainer.Add(qe);
 
             return quest;
         }

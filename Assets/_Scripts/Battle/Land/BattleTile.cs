@@ -96,11 +96,12 @@ namespace Lis
         // when player finishes the task 
         public void Secure()
         {
-            _quest.OnQuestUpdated -= UpdateQuestInfo;
-            _quest.OnQuestCompleted -= Secure;
-
             HideTileIndicator();
             StartCoroutine(SecureTileCoroutine());
+
+            if (_quest == null) return;
+            _quest.OnQuestUpdated -= UpdateQuestInfo;
+            _quest.OnQuestCompleted -= Secure;
         }
 
         void HideTileIndicator()
