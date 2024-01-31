@@ -85,6 +85,7 @@ namespace Lis
         {
             if (_disableUpdate) return;
             Move();
+            SetAnimationBlend();
         }
 
         void LateUpdate()
@@ -216,18 +217,29 @@ namespace Lis
             Vector3 targetDirection = inputDirection;
             targetDirection.y = -0.01f;
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
-
-            // animation
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-            _animator.SetFloat(_animVelocityZ, inputDirection.z * _animationBlend);
-            _animator.SetFloat(_animVelocityX, inputDirection.x * _animationBlend);
         }
 
         bool IsGrounded()
         {
             return transform.position.y < 0.1f;
+        }
+
+        void SetAnimationBlend()
+        {
+            _animationBlend = Mathf.Lerp(_animationBlend, _speed, Time.deltaTime * SpeedChangeRate);
+            if (_animationBlend < 0.01f) _animationBlend = 0f;
+
+            Vector3 inputDirection = _movementDirection.normalized;
+            Transform t = transform;
+            Vector3 forward = t.forward;
+            Vector3 right = t.right;
+            float forwardDot = Vector3.Dot(inputDirection, forward);
+            float rightDot = Vector3.Dot(inputDirection, right);
+            float forwardBlend = Mathf.Abs(forwardDot);
+            float rightBlend = Mathf.Abs(rightDot);
+            float blend = Mathf.Max(forwardBlend, rightBlend);
+            _animator.SetFloat(_animVelocityZ, forwardDot * blend * _animationBlend);
+            _animator.SetFloat(_animVelocityX, rightDot * blend * _animationBlend);
         }
 
         void RotateTowardsMouse()
