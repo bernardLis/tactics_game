@@ -139,7 +139,7 @@ namespace Lis
             List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
             foreach (BattleTile tile in adjacentTiles)
             {
-                if (!tile.gameObject.activeSelf) continue;
+                if (!_battleAreaManager.SecuredTiles.Contains(tile)) continue;
                 tile.UpdateTileBorders();
             }
 
@@ -155,13 +155,13 @@ namespace Lis
                 Vector3 borderPosition = Scale * 0.5f * directionToTile + Vector3.up;
                 BattleTileBorder battleTileBorder = BorderAtPosition(borderPosition);
 
-                if (tile.gameObject.activeSelf && battleTileBorder != null)
+                if (_battleAreaManager.SecuredTiles.Contains(tile) && battleTileBorder != null)
                 {
                     battleTileBorder.DestroySelf();
                     continue;
                 }
 
-                if (!tile.gameObject.activeSelf && battleTileBorder == null)
+                if (!_battleAreaManager.SecuredTiles.Contains(tile) && battleTileBorder == null)
                     InstantiateBorder(borderPosition);
             }
 

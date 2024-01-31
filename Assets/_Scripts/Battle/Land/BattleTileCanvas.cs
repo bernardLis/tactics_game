@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Lis
 {
     public class BattleTileCanvas : MonoBehaviour
     {
+        Camera _cam;
         Transform _battleHeroTransform;
         BattleTile _battleTile;
+
         float _maxMoveDistance;
 
         IEnumerator _updatePositionCoroutine;
@@ -15,10 +18,17 @@ namespace Lis
         {
             _battleHeroTransform = BattleManager.Instance.BattleHero.transform;
             _battleTile = GetComponentInParent<BattleTile>();
-            _maxMoveDistance = _battleTile.Scale * 0.5f;
+            _maxMoveDistance = _battleTile.Scale * 0.5f - 5f; // TODO: magic 5
 
             _updatePositionCoroutine = UpdatePositionCoroutine();
             StartCoroutine(_updatePositionCoroutine);
+
+            transform.localPosition = Vector3.zero;
+
+            _cam = Camera.main;
+            if (_cam == null) return;
+            transform.LookAt(transform.position + _cam.transform.rotation * Vector3.forward,
+                Vector3.up);
         }
 
         private void OnDisable()
@@ -33,21 +43,23 @@ namespace Lis
             {
                 if (!gameObject.activeSelf) yield break;
 
-                // Vector3 heroPos = _battleHeroTransform.position;
-                // Vector3 tilePos = _battleTile.transform.position;
-                //
-                // Vector3 dir = (heroPos - tilePos).normalized;
-                // Vector3 newPos = tilePos + dir * _maxMoveDistance;
-                // newPos.y = 2;
-                // transform.position = newPos;
+                Vector3 heroPos = _battleHeroTransform.position;
+                Vector3 tilePos = _battleTile.transform.position;
+                float sqDist = (heroPos - tilePos).sqrMagnitude;
 
-                // Vector3 lookRotation = Quaternion.LookRotation(dir, Vector3.up).eulerAngles;
-                // transform.rotation = Quaternion.Euler(lookRotation);
-                Quaternion heroRot = _battleHeroTransform.rotation;
-                transform.LookAt(transform.position + heroRot * Vector3.forward,
-                    heroRot * Vector3.up);
+                while (sqDist > 1200)
+                {
+                    heroPos = _battleHeroTransform.position;
+                    sqDist = (heroPos - tilePos).sqrMagnitude;
+                    yield return new WaitForSeconds(0.3f);
+                }
 
-                yield return null;
+                Vector3 dir = (heroPos - tilePos).normalized;
+                Vector3 newPos = tilePos + dir * _maxMoveDistance;
+                newPos.y = 2;
+                transform.DOMove(newPos, 0.9f);
+
+                yield return new WaitForSeconds(1f);
             }
         }
     }
