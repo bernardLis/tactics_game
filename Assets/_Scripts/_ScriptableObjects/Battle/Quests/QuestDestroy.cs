@@ -9,10 +9,12 @@ namespace Lis
         public override void StartQuest()
         {
             base.StartQuest();
+            BattleVaseManager bvm = BattleManager.Instance.GetComponent<BattleVaseManager>();
 
-            BattleManager.Instance.GetComponent<BattleVaseManager>().OnVaseBroken += CheckDestroyable;
-            OnQuestCompleted += () =>
-                BattleManager.Instance.GetComponent<BattleVaseManager>().OnVaseBroken -= CheckDestroyable;
+            bvm.OnVaseBroken += CheckDestroyable;
+            OnQuestCompleted += () => bvm.OnVaseBroken -= CheckDestroyable;
+
+            TotalAmount = 2; // HERE: testing
         }
 
         void CheckDestroyable(BattleBreakableVase vase)

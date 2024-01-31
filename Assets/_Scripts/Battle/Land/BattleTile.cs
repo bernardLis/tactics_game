@@ -108,12 +108,14 @@ namespace Lis
             _enabledEffect.SetActive(false);
             _canvas.SetActive(false);
 
-            Debug.Log("Hide tile indicator to be implemeted");
+            Debug.Log("Hide tile indicator to be implemented");
             if (_tileIndicator != null) Destroy(_tileIndicator);
         }
 
         IEnumerator SecureTileCoroutine()
         {
+            OnSecured?.Invoke(this);
+
             _floor.SetActive(true);
             _securedEffect.SetActive(true);
             _objectShaders.Dissolve(5f, true);
@@ -129,12 +131,10 @@ namespace Lis
                 Vector3 pos = new(Random.Range(-10, 10), 0, Random.Range(-10, 10));
                 BattleBuilding.Initialize(pos, Building);
             }
-
-            OnSecured?.Invoke(this);
         }
 
         /* BORDERS */
-        public void HandleBorders()
+        void HandleBorders()
         {
             List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
             foreach (BattleTile tile in adjacentTiles)

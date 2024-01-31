@@ -41,14 +41,13 @@ namespace Lis
 
         void OnTileSecured(BattleTile tile)
         {
-            Vector3 pos = transform.position;
+            Vector3 pos = transform.position + Vector3.up * 1;
             Quaternion rot = Quaternion.LookRotation(tile.transform.position - pos);
             GameObject tileSecuredEffect =
                 Instantiate(_tileSecuredEffectPrefab, pos, rot);
-
+            tileSecuredEffect.SetActive(true);
             Destroy(tileSecuredEffect, 15f);
         }
-
 
         void HandleAbilities()
         {
@@ -57,8 +56,7 @@ namespace Lis
             foreach (Ability a in Hero.Abilities)
                 AddAbility(a);
         }
-
-
+        
         void OnDestroy()
         {
             Hero.OnAbilityAdded -= AddAbility;
