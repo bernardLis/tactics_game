@@ -17,7 +17,7 @@ namespace Lis
         VisualElement _bottomPanel;
         HeroElement _heroBattleElement;
 
-        [SerializeField] CinemachineVirtualCamera _heroFollowCamera;
+        public CinemachineVirtualCamera HeroFollowCamera;
 
         [SerializeField] AudioListener _placeholderAudioListener;
 
@@ -43,7 +43,7 @@ namespace Lis
             GameObject heroGameObject = Instantiate(_heroPrefab, Vector3.zero + Vector3.up * 10f,
                 Quaternion.identity);
             BattleHero = heroGameObject.GetComponentInChildren<BattleHero>();
-            _heroFollowCamera.Follow = heroGameObject.transform;
+            HeroFollowCamera.Follow = heroGameObject.transform;
 
             BattleHero.OnDeath += (_, _) => _battleManager.LoseBattle();
 
@@ -52,7 +52,7 @@ namespace Lis
 
             RewardRerollsAvailable =
                 _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
-            
+
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
 
 #if UNITY_EDITOR

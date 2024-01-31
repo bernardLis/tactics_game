@@ -8,7 +8,7 @@ namespace Lis
 {
     public class QuestElement : VisualElement
     {
-        Quest _quest;
+        readonly Quest _quest;
         readonly Label _countLabel;
 
         public QuestElement(Quest q)

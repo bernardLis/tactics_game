@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +10,7 @@ namespace Lis
     public class BattleHeroController : MonoBehaviour
     {
         Camera _cam;
+        CinemachineVirtualCamera _cinemachineVirtualCamera;
 
         [Header("Player Movement")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -33,6 +35,12 @@ namespace Lis
         float _targetRotation;
         float _rotationVelocity;
 
+        // camera zoom
+        readonly float _zoomSpeed = 0.05f;
+        float _targetZoom;
+        readonly float _zoomMin = 20f;
+        readonly float _zoomMax = 60f;
+
         // animation IDs
         int _animVelocityX;
         int _animVelocityZ;
@@ -51,6 +59,9 @@ namespace Lis
             _battleManager = BattleManager.Instance;
             _battleManager.OnGamePaused += () => _disableUpdate = true;
             _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
+
+            _cinemachineVirtualCamera = _battleManager.GetComponent<BattleHeroManager>().HeroFollowCamera;
+            _targetZoom = _cinemachineVirtualCamera.m_Lens.FieldOfView;
 
             _animator = GetComponentInChildren<Animator>();
             _controller = GetComponent<CharacterController>();
@@ -93,6 +104,7 @@ namespace Lis
             if (_disableUpdate) return;
 
             RotateTowardsMouse();
+            ZoomCameraSmoothly();
 
             // keeping player grounded
             Transform t = transform;
@@ -140,6 +152,8 @@ namespace Lis
 
             _playerInput.actions["PlayerMovement"].performed += GetMovementVector;
             _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
+
+            _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
         }
 
         void UnsubscribeInputActions()
@@ -149,6 +163,8 @@ namespace Lis
 
             _playerInput.actions["PlayerMovement"].performed -= GetMovementVector;
             _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
+
+            _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
         }
 
 
@@ -256,6 +272,24 @@ namespace Lis
 
             Quaternion lookRotation = Quaternion.LookRotation(relativePos, Vector3.up);
             transform.rotation = Quaternion.Euler(new(0, lookRotation.eulerAngles.y, 0));
+        }
+
+        void ZoomCamera(InputAction.CallbackContext ctx)
+        {
+            // check if mouse is over UI
+            if (!_battleManager.IsTimerOn) return;
+            // so it is 0,120 and 0,-120 on mouse scroll
+            Vector2 scrollValue = ctx.ReadValue<Vector2>();
+
+            float newValue = _cinemachineVirtualCamera.m_Lens.FieldOfView - scrollValue.y * _zoomSpeed;
+            _targetZoom = Mathf.Clamp(newValue, _zoomMin, _zoomMax);
+        }
+
+        void ZoomCameraSmoothly()
+        {
+            float newValue = Mathf.Lerp(_cinemachineVirtualCamera.m_Lens.FieldOfView, _targetZoom,
+                Time.deltaTime * 5);
+            _cinemachineVirtualCamera.m_Lens.FieldOfView = newValue;
         }
     }
 }
