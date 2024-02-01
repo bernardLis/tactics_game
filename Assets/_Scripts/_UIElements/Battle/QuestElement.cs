@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 namespace Lis
 {
@@ -42,7 +43,13 @@ namespace Lis
         {
             _quest.OnQuestUpdated -= UpdateCountLabel;
             _quest.OnQuestCompleted -= DestroySelf;
-            RemoveFromHierarchy();
+
+            parent.Insert(1, this);
+            style.alignSelf = Align.Center;
+
+            DOTween.To(x => transform.scale = x * Vector3.one, 1, 1.5f, 1f)
+                .SetEase(Ease.OutBack)
+                .OnComplete(RemoveFromHierarchy);
         }
     }
 }

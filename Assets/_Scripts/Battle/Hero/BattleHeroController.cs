@@ -167,7 +167,6 @@ namespace Lis
             _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
         }
 
-
         void SetSprinting(InputAction.CallbackContext ctx)
         {
             if (!_isSprintUnlocked) return;

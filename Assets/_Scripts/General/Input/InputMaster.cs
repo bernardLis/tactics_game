@@ -37,36 +37,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""1"",
+                    ""name"": ""ToggleMenu"",
                     ""type"": ""Button"",
-                    ""id"": ""a9fbf538-eea3-4950-b46b-7d02b60335dd"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""2"",
-                    ""type"": ""Button"",
-                    ""id"": ""a41d09fa-6b54-4ef0-adfe-affccd87b0c4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""3"",
-                    ""type"": ""Button"",
-                    ""id"": ""a11f8ce1-191f-48cf-8889-9031b36f2a02"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""4"",
-                    ""type"": ""Button"",
-                    ""id"": ""15ac7324-c7ec-4d0e-a088-8eb757b62ca6"",
+                    ""id"": ""ca7abc80-980a-4853-9771-b52a4f1792f4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -82,90 +55,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""RotateCamera"",
-                    ""type"": ""Value"",
-                    ""id"": ""a5eb88cc-9ebf-4956-8a15-80e412dd1f68"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""RotateCameraRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""7632cdc4-b0c3-4d81-b53a-b41839ede095"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateCameraLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ZoomCamera"",
-                    ""type"": ""Value"",
-                    ""id"": ""0acae7ae-0888-49c3-a1cb-e12b00201f40"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""CameraDefaultPosition"",
-                    ""type"": ""Button"",
-                    ""id"": ""096c2620-ff4b-48a7-97fc-76436ee2be5b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""EnableGrabbing"",
-                    ""type"": ""Button"",
-                    ""id"": ""afc68981-4f9d-4d4b-81a5-69c2811730ae"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ToggleMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""ca7abc80-980a-4853-9771-b52a4f1792f4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Shift"",
                     ""type"": ""Button"",
                     ""id"": ""cd30d0d9-d7f3-41e6-b3d8-950b540eb6b9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""StrafeLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""e0a585e0-20a8-4286-b25c-b7d9c440c171"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""StrafeRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""def3e43a-25a1-4f81-8053-790f762933d6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -181,18 +73,27 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LeftMouseClick"",
+                    ""name"": ""ZoomCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""0acae7ae-0888-49c3-a1cb-e12b00201f40"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RightMouseClick"",
                     ""type"": ""Button"",
-                    ""id"": ""1a7ea72d-fc37-4603-bb31-fa5597b5bd78"",
+                    ""id"": ""a9379f80-4b7f-4c44-9980-5a16e80afa14"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RightMouseClick"",
+                    ""name"": ""LeftMouseClick"",
                     ""type"": ""Button"",
-                    ""id"": ""a9379f80-4b7f-4c44-9980-5a16e80afa14"",
+                    ""id"": ""1a7ea72d-fc37-4603-bb31-fa5597b5bd78"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -251,50 +152,97 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""1"",
+                    ""type"": ""Button"",
+                    ""id"": ""a9fbf538-eea3-4950-b46b-7d02b60335dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""2"",
+                    ""type"": ""Button"",
+                    ""id"": ""a41d09fa-6b54-4ef0-adfe-affccd87b0c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a11f8ce1-191f-48cf-8889-9031b36f2a02"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""4"",
+                    ""type"": ""Button"",
+                    ""id"": ""15ac7324-c7ec-4d0e-a088-8eb757b62ca6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""29c04557-3559-4b26-a3b5-8379667fbe17"",
-                    ""path"": ""<Keyboard>/1"",
+                    ""id"": ""215f93c1-5c23-430f-8dac-32e22923ab48"",
+                    ""path"": ""<Keyboard>/backquote"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""1"",
+                    ""action"": ""ToggleCommandLine"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1c6334f9-05a2-45b7-8f0b-81f48e536f44"",
-                    ""path"": ""<Keyboard>/2"",
+                    ""id"": ""acf0e8aa-0cd6-4035-bd7d-505abcb542cf"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""2"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""DebugSpawnMinionWave"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""24feca61-bc21-4f83-b2cd-5b4ed3826bf8"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""id"": ""f0ee215b-2bda-443c-8cc1-1c3980841876"",
+                    ""path"": ""<Keyboard>/o"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""3"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""DebugSpawnTile"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""980e61c6-42f3-4827-949f-33c139270543"",
-                    ""path"": ""<Keyboard>/4"",
+                    ""id"": ""18ff402d-bf6d-483f-8539-4f2e555f9063"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""4"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""DebugSpawnBossTile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da91ea9-5dfe-4086-81bb-8cc412863e0c"",
+                    ""path"": ""<Keyboard>/leftBracket"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""DebugKillHero"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -410,78 +358,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""23aa9bfa-5fe0-47d2-b858-55f68f641b90"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)"",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""RotateCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""7a552cbc-ae10-4dba-8005-668862412bf8"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""ZoomCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""66bcf8db-06fd-40c2-b131-48be35d8d1bc"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CameraDefaultPosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""215f93c1-5c23-430f-8dac-32e22923ab48"",
-                    ""path"": ""<Keyboard>/backquote"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleCommandLine"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9fb4adbc-7d07-48ce-bc02-508d2072129f"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""EnableGrabbing"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1be51cf8-af2c-412f-b141-a5e095da8cc2"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""RotateCameraRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a034da1d-a9ce-4db9-8888-2d3368259811"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""RotateCameraLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -509,100 +391,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cef462bb-4f9e-40b8-ac83-2981b13f10e6"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""StrafeLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e82f8b34-8df6-4e83-a4a6-4d07b7bfc4fb"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""StrafeRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""9df3ee30-15d4-444b-88be-7fff8c6b4a62"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""acf0e8aa-0cd6-4035-bd7d-505abcb542cf"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DebugSpawnMinionWave"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f0ee215b-2bda-443c-8cc1-1c3980841876"",
-                    ""path"": ""<Keyboard>/o"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DebugSpawnTile"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""18ff402d-bf6d-483f-8539-4f2e555f9063"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DebugSpawnBossTile"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0da91ea9-5dfe-4086-81bb-8cc412863e0c"",
-                    ""path"": ""<Keyboard>/leftBracket"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DebugKillHero"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5c866da6-cc23-4720-8728-97a4e3590d69"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Space"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""16325e6b-391d-4203-b81f-c6390e663714"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -625,6 +419,72 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RightMouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16325e6b-391d-4203-b81f-c6390e663714"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c866da6-cc23-4720-8728-97a4e3590d69"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29c04557-3559-4b26-a3b5-8379667fbe17"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""980e61c6-42f3-4827-949f-33c139270543"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24feca61-bc21-4f83-b2cd-5b4ed3826bf8"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c6334f9-05a2-45b7-8f0b-81f48e536f44"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -653,30 +513,23 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_ToggleCommandLine = m_Battle.FindAction("ToggleCommandLine", throwIfNotFound: true);
-        m_Battle__1 = m_Battle.FindAction("1", throwIfNotFound: true);
-        m_Battle__2 = m_Battle.FindAction("2", throwIfNotFound: true);
-        m_Battle__3 = m_Battle.FindAction("3", throwIfNotFound: true);
-        m_Battle__4 = m_Battle.FindAction("4", throwIfNotFound: true);
-        m_Battle_PlayerMovement = m_Battle.FindAction("PlayerMovement", throwIfNotFound: true);
-        m_Battle_RotateCamera = m_Battle.FindAction("RotateCamera", throwIfNotFound: true);
-        m_Battle_RotateCameraRight = m_Battle.FindAction("RotateCameraRight", throwIfNotFound: true);
-        m_Battle_RotateCameraLeft = m_Battle.FindAction("RotateCameraLeft", throwIfNotFound: true);
-        m_Battle_ZoomCamera = m_Battle.FindAction("ZoomCamera", throwIfNotFound: true);
-        m_Battle_CameraDefaultPosition = m_Battle.FindAction("CameraDefaultPosition", throwIfNotFound: true);
-        m_Battle_EnableGrabbing = m_Battle.FindAction("EnableGrabbing", throwIfNotFound: true);
         m_Battle_ToggleMenu = m_Battle.FindAction("ToggleMenu", throwIfNotFound: true);
+        m_Battle_PlayerMovement = m_Battle.FindAction("PlayerMovement", throwIfNotFound: true);
         m_Battle_Shift = m_Battle.FindAction("Shift", throwIfNotFound: true);
-        m_Battle_StrafeLeft = m_Battle.FindAction("StrafeLeft", throwIfNotFound: true);
-        m_Battle_StrafeRight = m_Battle.FindAction("StrafeRight", throwIfNotFound: true);
         m_Battle_Interact = m_Battle.FindAction("Interact", throwIfNotFound: true);
-        m_Battle_LeftMouseClick = m_Battle.FindAction("LeftMouseClick", throwIfNotFound: true);
+        m_Battle_ZoomCamera = m_Battle.FindAction("ZoomCamera", throwIfNotFound: true);
         m_Battle_RightMouseClick = m_Battle.FindAction("RightMouseClick", throwIfNotFound: true);
+        m_Battle_LeftMouseClick = m_Battle.FindAction("LeftMouseClick", throwIfNotFound: true);
         m_Battle_Space = m_Battle.FindAction("Space", throwIfNotFound: true);
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_DebugSpawnMinionWave = m_Battle.FindAction("DebugSpawnMinionWave", throwIfNotFound: true);
         m_Battle_DebugSpawnTile = m_Battle.FindAction("DebugSpawnTile", throwIfNotFound: true);
         m_Battle_DebugSpawnBossTile = m_Battle.FindAction("DebugSpawnBossTile", throwIfNotFound: true);
         m_Battle_DebugKillHero = m_Battle.FindAction("DebugKillHero", throwIfNotFound: true);
+        m_Battle__1 = m_Battle.FindAction("1", throwIfNotFound: true);
+        m_Battle__2 = m_Battle.FindAction("2", throwIfNotFound: true);
+        m_Battle__3 = m_Battle.FindAction("3", throwIfNotFound: true);
+        m_Battle__4 = m_Battle.FindAction("4", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -739,59 +592,45 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Battle;
     private List<IBattleActions> m_BattleActionsCallbackInterfaces = new List<IBattleActions>();
     private readonly InputAction m_Battle_ToggleCommandLine;
-    private readonly InputAction m_Battle__1;
-    private readonly InputAction m_Battle__2;
-    private readonly InputAction m_Battle__3;
-    private readonly InputAction m_Battle__4;
-    private readonly InputAction m_Battle_PlayerMovement;
-    private readonly InputAction m_Battle_RotateCamera;
-    private readonly InputAction m_Battle_RotateCameraRight;
-    private readonly InputAction m_Battle_RotateCameraLeft;
-    private readonly InputAction m_Battle_ZoomCamera;
-    private readonly InputAction m_Battle_CameraDefaultPosition;
-    private readonly InputAction m_Battle_EnableGrabbing;
     private readonly InputAction m_Battle_ToggleMenu;
+    private readonly InputAction m_Battle_PlayerMovement;
     private readonly InputAction m_Battle_Shift;
-    private readonly InputAction m_Battle_StrafeLeft;
-    private readonly InputAction m_Battle_StrafeRight;
     private readonly InputAction m_Battle_Interact;
-    private readonly InputAction m_Battle_LeftMouseClick;
+    private readonly InputAction m_Battle_ZoomCamera;
     private readonly InputAction m_Battle_RightMouseClick;
+    private readonly InputAction m_Battle_LeftMouseClick;
     private readonly InputAction m_Battle_Space;
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_DebugSpawnMinionWave;
     private readonly InputAction m_Battle_DebugSpawnTile;
     private readonly InputAction m_Battle_DebugSpawnBossTile;
     private readonly InputAction m_Battle_DebugKillHero;
+    private readonly InputAction m_Battle__1;
+    private readonly InputAction m_Battle__2;
+    private readonly InputAction m_Battle__3;
+    private readonly InputAction m_Battle__4;
     public struct BattleActions
     {
         private @InputMaster m_Wrapper;
         public BattleActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @ToggleCommandLine => m_Wrapper.m_Battle_ToggleCommandLine;
-        public InputAction @_1 => m_Wrapper.m_Battle__1;
-        public InputAction @_2 => m_Wrapper.m_Battle__2;
-        public InputAction @_3 => m_Wrapper.m_Battle__3;
-        public InputAction @_4 => m_Wrapper.m_Battle__4;
-        public InputAction @PlayerMovement => m_Wrapper.m_Battle_PlayerMovement;
-        public InputAction @RotateCamera => m_Wrapper.m_Battle_RotateCamera;
-        public InputAction @RotateCameraRight => m_Wrapper.m_Battle_RotateCameraRight;
-        public InputAction @RotateCameraLeft => m_Wrapper.m_Battle_RotateCameraLeft;
-        public InputAction @ZoomCamera => m_Wrapper.m_Battle_ZoomCamera;
-        public InputAction @CameraDefaultPosition => m_Wrapper.m_Battle_CameraDefaultPosition;
-        public InputAction @EnableGrabbing => m_Wrapper.m_Battle_EnableGrabbing;
         public InputAction @ToggleMenu => m_Wrapper.m_Battle_ToggleMenu;
+        public InputAction @PlayerMovement => m_Wrapper.m_Battle_PlayerMovement;
         public InputAction @Shift => m_Wrapper.m_Battle_Shift;
-        public InputAction @StrafeLeft => m_Wrapper.m_Battle_StrafeLeft;
-        public InputAction @StrafeRight => m_Wrapper.m_Battle_StrafeRight;
         public InputAction @Interact => m_Wrapper.m_Battle_Interact;
-        public InputAction @LeftMouseClick => m_Wrapper.m_Battle_LeftMouseClick;
+        public InputAction @ZoomCamera => m_Wrapper.m_Battle_ZoomCamera;
         public InputAction @RightMouseClick => m_Wrapper.m_Battle_RightMouseClick;
+        public InputAction @LeftMouseClick => m_Wrapper.m_Battle_LeftMouseClick;
         public InputAction @Space => m_Wrapper.m_Battle_Space;
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @DebugSpawnMinionWave => m_Wrapper.m_Battle_DebugSpawnMinionWave;
         public InputAction @DebugSpawnTile => m_Wrapper.m_Battle_DebugSpawnTile;
         public InputAction @DebugSpawnBossTile => m_Wrapper.m_Battle_DebugSpawnBossTile;
         public InputAction @DebugKillHero => m_Wrapper.m_Battle_DebugKillHero;
+        public InputAction @_1 => m_Wrapper.m_Battle__1;
+        public InputAction @_2 => m_Wrapper.m_Battle__2;
+        public InputAction @_3 => m_Wrapper.m_Battle__3;
+        public InputAction @_4 => m_Wrapper.m_Battle__4;
         public InputActionMap Get() { return m_Wrapper.m_Battle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -804,60 +643,27 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @ToggleCommandLine.started += instance.OnToggleCommandLine;
             @ToggleCommandLine.performed += instance.OnToggleCommandLine;
             @ToggleCommandLine.canceled += instance.OnToggleCommandLine;
-            @_1.started += instance.On_1;
-            @_1.performed += instance.On_1;
-            @_1.canceled += instance.On_1;
-            @_2.started += instance.On_2;
-            @_2.performed += instance.On_2;
-            @_2.canceled += instance.On_2;
-            @_3.started += instance.On_3;
-            @_3.performed += instance.On_3;
-            @_3.canceled += instance.On_3;
-            @_4.started += instance.On_4;
-            @_4.performed += instance.On_4;
-            @_4.canceled += instance.On_4;
-            @PlayerMovement.started += instance.OnPlayerMovement;
-            @PlayerMovement.performed += instance.OnPlayerMovement;
-            @PlayerMovement.canceled += instance.OnPlayerMovement;
-            @RotateCamera.started += instance.OnRotateCamera;
-            @RotateCamera.performed += instance.OnRotateCamera;
-            @RotateCamera.canceled += instance.OnRotateCamera;
-            @RotateCameraRight.started += instance.OnRotateCameraRight;
-            @RotateCameraRight.performed += instance.OnRotateCameraRight;
-            @RotateCameraRight.canceled += instance.OnRotateCameraRight;
-            @RotateCameraLeft.started += instance.OnRotateCameraLeft;
-            @RotateCameraLeft.performed += instance.OnRotateCameraLeft;
-            @RotateCameraLeft.canceled += instance.OnRotateCameraLeft;
-            @ZoomCamera.started += instance.OnZoomCamera;
-            @ZoomCamera.performed += instance.OnZoomCamera;
-            @ZoomCamera.canceled += instance.OnZoomCamera;
-            @CameraDefaultPosition.started += instance.OnCameraDefaultPosition;
-            @CameraDefaultPosition.performed += instance.OnCameraDefaultPosition;
-            @CameraDefaultPosition.canceled += instance.OnCameraDefaultPosition;
-            @EnableGrabbing.started += instance.OnEnableGrabbing;
-            @EnableGrabbing.performed += instance.OnEnableGrabbing;
-            @EnableGrabbing.canceled += instance.OnEnableGrabbing;
             @ToggleMenu.started += instance.OnToggleMenu;
             @ToggleMenu.performed += instance.OnToggleMenu;
             @ToggleMenu.canceled += instance.OnToggleMenu;
+            @PlayerMovement.started += instance.OnPlayerMovement;
+            @PlayerMovement.performed += instance.OnPlayerMovement;
+            @PlayerMovement.canceled += instance.OnPlayerMovement;
             @Shift.started += instance.OnShift;
             @Shift.performed += instance.OnShift;
             @Shift.canceled += instance.OnShift;
-            @StrafeLeft.started += instance.OnStrafeLeft;
-            @StrafeLeft.performed += instance.OnStrafeLeft;
-            @StrafeLeft.canceled += instance.OnStrafeLeft;
-            @StrafeRight.started += instance.OnStrafeRight;
-            @StrafeRight.performed += instance.OnStrafeRight;
-            @StrafeRight.canceled += instance.OnStrafeRight;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @LeftMouseClick.started += instance.OnLeftMouseClick;
-            @LeftMouseClick.performed += instance.OnLeftMouseClick;
-            @LeftMouseClick.canceled += instance.OnLeftMouseClick;
+            @ZoomCamera.started += instance.OnZoomCamera;
+            @ZoomCamera.performed += instance.OnZoomCamera;
+            @ZoomCamera.canceled += instance.OnZoomCamera;
             @RightMouseClick.started += instance.OnRightMouseClick;
             @RightMouseClick.performed += instance.OnRightMouseClick;
             @RightMouseClick.canceled += instance.OnRightMouseClick;
+            @LeftMouseClick.started += instance.OnLeftMouseClick;
+            @LeftMouseClick.performed += instance.OnLeftMouseClick;
+            @LeftMouseClick.canceled += instance.OnLeftMouseClick;
             @Space.started += instance.OnSpace;
             @Space.performed += instance.OnSpace;
             @Space.canceled += instance.OnSpace;
@@ -876,6 +682,18 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @DebugKillHero.started += instance.OnDebugKillHero;
             @DebugKillHero.performed += instance.OnDebugKillHero;
             @DebugKillHero.canceled += instance.OnDebugKillHero;
+            @_1.started += instance.On_1;
+            @_1.performed += instance.On_1;
+            @_1.canceled += instance.On_1;
+            @_2.started += instance.On_2;
+            @_2.performed += instance.On_2;
+            @_2.canceled += instance.On_2;
+            @_3.started += instance.On_3;
+            @_3.performed += instance.On_3;
+            @_3.canceled += instance.On_3;
+            @_4.started += instance.On_4;
+            @_4.performed += instance.On_4;
+            @_4.canceled += instance.On_4;
         }
 
         private void UnregisterCallbacks(IBattleActions instance)
@@ -883,60 +701,27 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @ToggleCommandLine.started -= instance.OnToggleCommandLine;
             @ToggleCommandLine.performed -= instance.OnToggleCommandLine;
             @ToggleCommandLine.canceled -= instance.OnToggleCommandLine;
-            @_1.started -= instance.On_1;
-            @_1.performed -= instance.On_1;
-            @_1.canceled -= instance.On_1;
-            @_2.started -= instance.On_2;
-            @_2.performed -= instance.On_2;
-            @_2.canceled -= instance.On_2;
-            @_3.started -= instance.On_3;
-            @_3.performed -= instance.On_3;
-            @_3.canceled -= instance.On_3;
-            @_4.started -= instance.On_4;
-            @_4.performed -= instance.On_4;
-            @_4.canceled -= instance.On_4;
-            @PlayerMovement.started -= instance.OnPlayerMovement;
-            @PlayerMovement.performed -= instance.OnPlayerMovement;
-            @PlayerMovement.canceled -= instance.OnPlayerMovement;
-            @RotateCamera.started -= instance.OnRotateCamera;
-            @RotateCamera.performed -= instance.OnRotateCamera;
-            @RotateCamera.canceled -= instance.OnRotateCamera;
-            @RotateCameraRight.started -= instance.OnRotateCameraRight;
-            @RotateCameraRight.performed -= instance.OnRotateCameraRight;
-            @RotateCameraRight.canceled -= instance.OnRotateCameraRight;
-            @RotateCameraLeft.started -= instance.OnRotateCameraLeft;
-            @RotateCameraLeft.performed -= instance.OnRotateCameraLeft;
-            @RotateCameraLeft.canceled -= instance.OnRotateCameraLeft;
-            @ZoomCamera.started -= instance.OnZoomCamera;
-            @ZoomCamera.performed -= instance.OnZoomCamera;
-            @ZoomCamera.canceled -= instance.OnZoomCamera;
-            @CameraDefaultPosition.started -= instance.OnCameraDefaultPosition;
-            @CameraDefaultPosition.performed -= instance.OnCameraDefaultPosition;
-            @CameraDefaultPosition.canceled -= instance.OnCameraDefaultPosition;
-            @EnableGrabbing.started -= instance.OnEnableGrabbing;
-            @EnableGrabbing.performed -= instance.OnEnableGrabbing;
-            @EnableGrabbing.canceled -= instance.OnEnableGrabbing;
             @ToggleMenu.started -= instance.OnToggleMenu;
             @ToggleMenu.performed -= instance.OnToggleMenu;
             @ToggleMenu.canceled -= instance.OnToggleMenu;
+            @PlayerMovement.started -= instance.OnPlayerMovement;
+            @PlayerMovement.performed -= instance.OnPlayerMovement;
+            @PlayerMovement.canceled -= instance.OnPlayerMovement;
             @Shift.started -= instance.OnShift;
             @Shift.performed -= instance.OnShift;
             @Shift.canceled -= instance.OnShift;
-            @StrafeLeft.started -= instance.OnStrafeLeft;
-            @StrafeLeft.performed -= instance.OnStrafeLeft;
-            @StrafeLeft.canceled -= instance.OnStrafeLeft;
-            @StrafeRight.started -= instance.OnStrafeRight;
-            @StrafeRight.performed -= instance.OnStrafeRight;
-            @StrafeRight.canceled -= instance.OnStrafeRight;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @LeftMouseClick.started -= instance.OnLeftMouseClick;
-            @LeftMouseClick.performed -= instance.OnLeftMouseClick;
-            @LeftMouseClick.canceled -= instance.OnLeftMouseClick;
+            @ZoomCamera.started -= instance.OnZoomCamera;
+            @ZoomCamera.performed -= instance.OnZoomCamera;
+            @ZoomCamera.canceled -= instance.OnZoomCamera;
             @RightMouseClick.started -= instance.OnRightMouseClick;
             @RightMouseClick.performed -= instance.OnRightMouseClick;
             @RightMouseClick.canceled -= instance.OnRightMouseClick;
+            @LeftMouseClick.started -= instance.OnLeftMouseClick;
+            @LeftMouseClick.performed -= instance.OnLeftMouseClick;
+            @LeftMouseClick.canceled -= instance.OnLeftMouseClick;
             @Space.started -= instance.OnSpace;
             @Space.performed -= instance.OnSpace;
             @Space.canceled -= instance.OnSpace;
@@ -955,6 +740,18 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @DebugKillHero.started -= instance.OnDebugKillHero;
             @DebugKillHero.performed -= instance.OnDebugKillHero;
             @DebugKillHero.canceled -= instance.OnDebugKillHero;
+            @_1.started -= instance.On_1;
+            @_1.performed -= instance.On_1;
+            @_1.canceled -= instance.On_1;
+            @_2.started -= instance.On_2;
+            @_2.performed -= instance.On_2;
+            @_2.canceled -= instance.On_2;
+            @_3.started -= instance.On_3;
+            @_3.performed -= instance.On_3;
+            @_3.canceled -= instance.On_3;
+            @_4.started -= instance.On_4;
+            @_4.performed -= instance.On_4;
+            @_4.canceled -= instance.On_4;
         }
 
         public void RemoveCallbacks(IBattleActions instance)
@@ -984,29 +781,22 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     public interface IBattleActions
     {
         void OnToggleCommandLine(InputAction.CallbackContext context);
-        void On_1(InputAction.CallbackContext context);
-        void On_2(InputAction.CallbackContext context);
-        void On_3(InputAction.CallbackContext context);
-        void On_4(InputAction.CallbackContext context);
-        void OnPlayerMovement(InputAction.CallbackContext context);
-        void OnRotateCamera(InputAction.CallbackContext context);
-        void OnRotateCameraRight(InputAction.CallbackContext context);
-        void OnRotateCameraLeft(InputAction.CallbackContext context);
-        void OnZoomCamera(InputAction.CallbackContext context);
-        void OnCameraDefaultPosition(InputAction.CallbackContext context);
-        void OnEnableGrabbing(InputAction.CallbackContext context);
         void OnToggleMenu(InputAction.CallbackContext context);
+        void OnPlayerMovement(InputAction.CallbackContext context);
         void OnShift(InputAction.CallbackContext context);
-        void OnStrafeLeft(InputAction.CallbackContext context);
-        void OnStrafeRight(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnLeftMouseClick(InputAction.CallbackContext context);
+        void OnZoomCamera(InputAction.CallbackContext context);
         void OnRightMouseClick(InputAction.CallbackContext context);
+        void OnLeftMouseClick(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnDebugSpawnMinionWave(InputAction.CallbackContext context);
         void OnDebugSpawnTile(InputAction.CallbackContext context);
         void OnDebugSpawnBossTile(InputAction.CallbackContext context);
         void OnDebugKillHero(InputAction.CallbackContext context);
+        void On_1(InputAction.CallbackContext context);
+        void On_2(InputAction.CallbackContext context);
+        void On_3(InputAction.CallbackContext context);
+        void On_4(InputAction.CallbackContext context);
     }
 }

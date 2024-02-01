@@ -134,6 +134,7 @@ namespace Lis
             _pastQuests.Add(quest);
 
             QuestElement qe = new(quest);
+            
             _questContainer.Add(qe);
 
             return quest;

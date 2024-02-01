@@ -15,36 +15,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "1",
+                    "name": "ToggleMenu",
                     "type": "Button",
-                    "id": "a9fbf538-eea3-4950-b46b-7d02b60335dd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "2",
-                    "type": "Button",
-                    "id": "a41d09fa-6b54-4ef0-adfe-affccd87b0c4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "3",
-                    "type": "Button",
-                    "id": "a11f8ce1-191f-48cf-8889-9031b36f2a02",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "4",
-                    "type": "Button",
-                    "id": "15ac7324-c7ec-4d0e-a088-8eb757b62ca6",
+                    "id": "ca7abc80-980a-4853-9771-b52a4f1792f4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -60,90 +33,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "RotateCamera",
-                    "type": "Value",
-                    "id": "a5eb88cc-9ebf-4956-8a15-80e412dd1f68",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "RotateCameraRight",
-                    "type": "Button",
-                    "id": "7632cdc4-b0c3-4d81-b53a-b41839ede095",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateCameraLeft",
-                    "type": "Button",
-                    "id": "a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ZoomCamera",
-                    "type": "Value",
-                    "id": "0acae7ae-0888-49c3-a1cb-e12b00201f40",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "CameraDefaultPosition",
-                    "type": "Button",
-                    "id": "096c2620-ff4b-48a7-97fc-76436ee2be5b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "EnableGrabbing",
-                    "type": "Button",
-                    "id": "afc68981-4f9d-4d4b-81a5-69c2811730ae",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ToggleMenu",
-                    "type": "Button",
-                    "id": "ca7abc80-980a-4853-9771-b52a4f1792f4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Shift",
                     "type": "Button",
                     "id": "cd30d0d9-d7f3-41e6-b3d8-950b540eb6b9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "StrafeLeft",
-                    "type": "Button",
-                    "id": "e0a585e0-20a8-4286-b25c-b7d9c440c171",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "StrafeRight",
-                    "type": "Button",
-                    "id": "def3e43a-25a1-4f81-8053-790f762933d6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -159,18 +51,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftMouseClick",
+                    "name": "ZoomCamera",
+                    "type": "Value",
+                    "id": "0acae7ae-0888-49c3-a1cb-e12b00201f40",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightMouseClick",
                     "type": "Button",
-                    "id": "1a7ea72d-fc37-4603-bb31-fa5597b5bd78",
+                    "id": "a9379f80-4b7f-4c44-9980-5a16e80afa14",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightMouseClick",
+                    "name": "LeftMouseClick",
                     "type": "Button",
-                    "id": "a9379f80-4b7f-4c44-9980-5a16e80afa14",
+                    "id": "1a7ea72d-fc37-4603-bb31-fa5597b5bd78",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -229,50 +130,97 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "1",
+                    "type": "Button",
+                    "id": "a9fbf538-eea3-4950-b46b-7d02b60335dd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "2",
+                    "type": "Button",
+                    "id": "a41d09fa-6b54-4ef0-adfe-affccd87b0c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "3",
+                    "type": "Button",
+                    "id": "a11f8ce1-191f-48cf-8889-9031b36f2a02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "4",
+                    "type": "Button",
+                    "id": "15ac7324-c7ec-4d0e-a088-8eb757b62ca6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "29c04557-3559-4b26-a3b5-8379667fbe17",
-                    "path": "<Keyboard>/1",
+                    "id": "215f93c1-5c23-430f-8dac-32e22923ab48",
+                    "path": "<Keyboard>/backquote",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "1",
+                    "action": "ToggleCommandLine",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1c6334f9-05a2-45b7-8f0b-81f48e536f44",
-                    "path": "<Keyboard>/2",
+                    "id": "acf0e8aa-0cd6-4035-bd7d-505abcb542cf",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "2",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DebugSpawnMinionWave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "24feca61-bc21-4f83-b2cd-5b4ed3826bf8",
-                    "path": "<Keyboard>/3",
+                    "id": "f0ee215b-2bda-443c-8cc1-1c3980841876",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "3",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DebugSpawnTile",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "980e61c6-42f3-4827-949f-33c139270543",
-                    "path": "<Keyboard>/4",
+                    "id": "18ff402d-bf6d-483f-8539-4f2e555f9063",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "4",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DebugSpawnBossTile",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0da91ea9-5dfe-4086-81bb-8cc412863e0c",
+                    "path": "<Keyboard>/leftBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "DebugKillHero",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -388,78 +336,12 @@
                 },
                 {
                     "name": "",
-                    "id": "23aa9bfa-5fe0-47d2-b858-55f68f641b90",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)",
-                    "groups": "Keyboard & Mouse",
-                    "action": "RotateCamera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7a552cbc-ae10-4dba-8005-668862412bf8",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "ZoomCamera",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "66bcf8db-06fd-40c2-b131-48be35d8d1bc",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraDefaultPosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "215f93c1-5c23-430f-8dac-32e22923ab48",
-                    "path": "<Keyboard>/backquote",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleCommandLine",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9fb4adbc-7d07-48ce-bc02-508d2072129f",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "EnableGrabbing",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1be51cf8-af2c-412f-b141-a5e095da8cc2",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "RotateCameraRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a034da1d-a9ce-4db9-8888-2d3368259811",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "RotateCameraLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -487,100 +369,12 @@
                 },
                 {
                     "name": "",
-                    "id": "cef462bb-4f9e-40b8-ac83-2981b13f10e6",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "StrafeLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e82f8b34-8df6-4e83-a4a6-4d07b7bfc4fb",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "StrafeRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "9df3ee30-15d4-444b-88be-7fff8c6b4a62",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "acf0e8aa-0cd6-4035-bd7d-505abcb542cf",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "DebugSpawnMinionWave",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f0ee215b-2bda-443c-8cc1-1c3980841876",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "DebugSpawnTile",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "18ff402d-bf6d-483f-8539-4f2e555f9063",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "DebugSpawnBossTile",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0da91ea9-5dfe-4086-81bb-8cc412863e0c",
-                    "path": "<Keyboard>/leftBracket",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "DebugKillHero",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5c866da6-cc23-4720-8728-97a4e3590d69",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Space",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "16325e6b-391d-4203-b81f-c6390e663714",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -603,6 +397,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightMouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16325e6b-391d-4203-b81f-c6390e663714",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c866da6-cc23-4720-8728-97a4e3590d69",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29c04557-3559-4b26-a3b5-8379667fbe17",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "980e61c6-42f3-4827-949f-33c139270543",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24feca61-bc21-4f83-b2cd-5b4ed3826bf8",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c6334f9-05a2-45b7-8f0b-81f48e536f44",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
