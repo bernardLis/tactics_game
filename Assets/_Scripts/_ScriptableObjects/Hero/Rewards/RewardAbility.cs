@@ -43,7 +43,7 @@ namespace Lis
         public Ability GetValidAbility(List<Ability> forbiddenAbilities)
         {
             List<Ability> abilities = new(_gameManager.EntityDatabase.GetAllBasicAbilities());
-            if (_hero.Abilities.Count == 4) // only 4 ability buttons // HERE: ability limit
+            if (_hero.Abilities.Count == 5) // only 4 ability buttons // HERE: ability limit
                 abilities = new(_hero.Abilities);
 
             abilities.AddRange(_hero.AdvancedAbilities);

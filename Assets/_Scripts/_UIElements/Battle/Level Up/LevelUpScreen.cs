@@ -24,8 +24,7 @@ namespace Lis
         readonly List<float> _leftPositions = new();
         int _rewardElementWidth;
         int _rewardElementHeight;
-
-
+        
         readonly List<RewardElement> _allRewardElements = new();
 
         VisualElement _rerollContainer;
