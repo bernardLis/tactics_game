@@ -14,6 +14,7 @@ namespace Lis
     {
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
+        BattleTooltipManager _battleTooltipManager;
 
         [Header("Tile")] ObjectShaders _objectShaders;
 
@@ -48,6 +49,7 @@ namespace Lis
         {
             _battleManager = BattleManager.Instance;
             _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
+            _battleTooltipManager = _battleManager.GetComponent<BattleTooltipManager>();
 
             Building = building;
 
@@ -116,6 +118,7 @@ namespace Lis
         IEnumerator SecureTileCoroutine()
         {
             OnSecured?.Invoke(this);
+            _battleTooltipManager.ShowGameInfo("Tile Secured!", 2f);
 
             _floor.SetActive(true);
             _securedEffect.SetActive(true);

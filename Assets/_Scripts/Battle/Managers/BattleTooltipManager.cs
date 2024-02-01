@@ -1,11 +1,5 @@
 using System;
 using System.Collections;
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,7 +16,6 @@ namespace Lis
         VisualElement _root;
         VisualElement _tooltipCardContainer;
 
-        VisualElement _tileSecureBarContainer;
         VisualElement _gameInfoContainer;
         VisualElement _entityInfoContainer; // shows mouse hover info 
         EntityInfoElement _entityInfoElement;
@@ -40,6 +33,7 @@ namespace Lis
         bool _isBossHealthBarShown;
 
         public event Action OnTooltipHidden;
+
         public void Initialize()
         {
             _battleManager = BattleManager.Instance;
@@ -49,10 +43,8 @@ namespace Lis
             _tooltipCardContainer = _root.Q<VisualElement>("tooltipCardContainer");
             _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
             _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
-            _tileSecureBarContainer = _root.Q<VisualElement>("tileSecureBarContainer");
 
             SetUpEntityInfo();
-            SetUpTileSecureBar();
         }
 
         /* INPUT */
@@ -110,39 +102,6 @@ namespace Lis
             _entityInfoContainer.Add(_entityInfoElement);
         }
 
-        void SetUpTileSecureBar()
-        {
-            IntVariable current = ScriptableObject.CreateInstance<IntVariable>();
-            current.SetValue(0);
-            IntVariable total = ScriptableObject.CreateInstance<IntVariable>();
-            total.SetValue(0);
-
-            _tileSecureBar = new ResourceBarElement(Color.white, "Securing", current, total);
-            _tileSecureBar.HideText();
-            Label label = new("Securing");
-            label.style.fontSize = 24;
-            label.style.color = Color.magenta;
-            label.style.unityFontStyleAndWeight = FontStyle.Bold;
-            label.style.position = Position.Absolute;
-            _tileSecureBar.Add(label);
-
-            _tileSecureBar.style.minWidth = 500;
-            _tileSecureBarContainer.Add(_tileSecureBar);
-            _tileSecureBarContainer.style.display = DisplayStyle.None;
-        }
-
-        public void ShowTileSecureBar(IntVariable current, IntVariable total)
-        {
-            _tileSecureBar.UpdateTrackedVariables(current, total);
-            _tileSecureBarContainer.style.display = DisplayStyle.Flex;
-        }
-
-        public void HideTileSecureBar()
-        {
-            if (_tileSecureBarContainer == null) return;
-            _tileSecureBarContainer.style.display = DisplayStyle.None;
-        }
-
         public void ShowEntityInfo(BattleEntity entity)
         {
             if (entity.IsDead) return;
@@ -180,6 +139,7 @@ namespace Lis
 
         public void ShowGameInfo(string text)
         {
+            if (_gameInfoContainer == null) return;
             _gameInfoContainer.Clear();
             Label txt = new(text);
             _gameInfoContainer.Add(txt);
@@ -201,7 +161,6 @@ namespace Lis
                     _gameInfoContainer.style.display = DisplayStyle.None;
                     _gameInfoContainer.Clear();
                 });
-
         }
 
         /* TOOLTIP CARD */
