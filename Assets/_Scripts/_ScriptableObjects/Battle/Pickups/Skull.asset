@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6306c4bb621acbc479937cf243966228, type: 3}
   m_Name: Skull
   m_EditorClassIdentifier: 
-  Id: f5f80c04-e23d-4a46-a8ac-bf2e036f9224
+  Id: 458fcac6-fe94-4622-a89e-f3cf87a3e76b
   Icon: {fileID: 21300000, guid: 2030dcdadf41e224c8e4cdd8ffedb612, type: 3}
   Gfx: {fileID: 7574171971732737154, guid: 92723c91b6e685a479e78fecd0d47f57, type: 3}
   Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}

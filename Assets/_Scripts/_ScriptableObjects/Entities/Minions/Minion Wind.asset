@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Minion Wind
   m_EditorClassIdentifier: 
-  Id: 5143ed1b-e748-4311-bc54-e7e0ba06d431
+  Id: 5619fec0-13b7-4bae-bedc-f914ac6d8235
   EntityName: Minion Wind
   Icon: {fileID: 21300000, guid: d80314ca59e5e5743a32c893e3ad2c6a, type: 3}
   IconAnimation:

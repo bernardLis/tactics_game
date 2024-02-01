@@ -40,7 +40,7 @@ namespace Lis
 
         void CheckPickup(Pickup pickup)
         {
-            if (pickup == PickupToCollect)
+            if (pickup.Id == PickupToCollect.Id)
                 UpdateQuest();
         }
 

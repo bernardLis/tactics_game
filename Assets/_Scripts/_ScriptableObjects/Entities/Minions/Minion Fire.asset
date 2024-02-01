@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Minion Fire
   m_EditorClassIdentifier: 
-  Id: 5143ed1b-e748-4311-bc54-e7e0ba06d431
+  Id: 86dc0db7-0278-45a2-bff9-9a97d3d2cd93
   EntityName: Minion Fire
   Icon: {fileID: 21300000, guid: 95e548d678eb00349b7d2ab22a5b61aa, type: 3}
   IconAnimation:

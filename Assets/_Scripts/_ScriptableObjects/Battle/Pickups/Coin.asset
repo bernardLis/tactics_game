@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4359524c1d2b39b45b73f19eaa65d8c3, type: 3}
   m_Name: Coin
   m_EditorClassIdentifier: 
-  Id: e87513eb-ca2a-4de6-afc9-a0b7796b5a83
+  Id: be091342-8af9-4b73-bd5f-d2edcd44b9f1
   Icon: {fileID: 21300000, guid: b6dd3ff49511d944eaa7c5ba2cfb54e6, type: 3}
   Gfx: {fileID: 2361473545527228330, guid: 451d92d30cef2a540b526a992088a711, type: 3}
   Color: {fileID: 11400000, guid: 73b4a5531ad7427409439da604d41d3a, type: 2}

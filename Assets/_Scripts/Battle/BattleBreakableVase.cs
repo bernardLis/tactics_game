@@ -7,6 +7,8 @@ namespace Lis
 {
     public class BattleBreakableVase : MonoBehaviour
     {
+        BattlePickupManager _battlePickupManager;
+
         bool _isBroken;
         [SerializeField] GameObject _breakParticles;
         [SerializeField] Transform _originalVase;
@@ -18,6 +20,8 @@ namespace Lis
 
         void Awake()
         {
+            _battlePickupManager = BattleManager.Instance.GetComponent<BattlePickupManager>();
+            
             _collider = GetComponent<Collider>();
             _rigidbody = GetComponent<Rigidbody>();
         }
@@ -64,8 +68,7 @@ namespace Lis
                 _breakParticles.SetActive(true);
 
             _originalVase.gameObject.SetActive(false);
-            // HERE: no pickups
-            // _battlePickupManager.SpawnPickup(transform.position);
+            _battlePickupManager.SpawnPickup(transform.position);
 
             OnBroken?.Invoke(this);
 

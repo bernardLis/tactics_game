@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6001bbe2eae6743b73913caf5b9f3b, type: 3}
   m_Name: Uncommon Exp Orb
   m_EditorClassIdentifier: 
-  Id: 6f3900d3-1ede-4be7-b4f6-81a4866dd590
+  Id: 84c589a5-a5a2-4d02-a90a-b65795178d5e
   Icon: {fileID: 21300000, guid: f0bd04f4cda747b47af03b2d66100b50, type: 3}
-  Gfx: {fileID: 8003654745937716721, guid: b428d6c50e66a3249ac0a82a635107b8, type: 3}
+  Gfx: {fileID: 1910473656921494485, guid: 17d1e46924d7b1a419312f599dc09880, type: 3}
   Color: {fileID: 11400000, guid: 48f19b64fecbd5246ae2877b798ae156, type: 2}
   CollectedText: asd
   CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}

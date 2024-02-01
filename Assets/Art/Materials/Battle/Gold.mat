@@ -12,9 +12,10 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _EMISSION
   - _NORMALMAP
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
@@ -129,7 +130,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.7940298, b: 0.043396115, a: 1}
     - _Color: {r: 1, g: 0.7940298, b: 0.043396115, a: 1}
-    - _EmissionColor: {r: 1.6377357, g: 1.1049727, b: 0.08343168, a: 1}
+    - _EmissionColor: {r: 0.4882353, g: 0.38039216, b: 0.08431373, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

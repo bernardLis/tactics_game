@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0605ce4134a84704a8dbd6c0201848d2, type: 3}
   m_Name: Horseshoe
   m_EditorClassIdentifier: 
-  Id: 9ed75b37-2115-4ea4-aa82-6b3b15f55596
+  Id: b76f312d-96d3-484d-90a9-1b85fe222850
   Icon: {fileID: 21300000, guid: fabcf6da79d2874418149265dfc954a3, type: 3}
   Gfx: {fileID: 343573036321209310, guid: e35ac1f5ed1d667409fd8b89e3376826, type: 3}
   Color: {fileID: 11400000, guid: 15999d5d58e996f4c924cb363a10ca4b, type: 2}

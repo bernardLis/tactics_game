@@ -137,7 +137,6 @@ namespace Lis
 
         public void DebugSpawnMinion()
         {
-            Debug.Log("DebugSpawnMinion");
             if (!_debugSpawnMinion) return;
 
             Mouse mouse = Mouse.current;
@@ -148,7 +147,8 @@ namespace Lis
             int layerMask = Tags.BattleFloorLayer;
 
             if (!Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask)) return;
-            List<EnemyGroup> enemyGroups = _currentFight.GetCurrentWave().EnemyGroups;
+            List<EnemyGroup> enemyGroups =
+                _currentFight.EnemyWaves[Random.Range(0, _currentFight.EnemyWaves.Count)].EnemyGroups;
             SpawnMinion(enemyGroups[Random.Range(0, enemyGroups.Count)].Minions[0], hit.point);
         }
     }

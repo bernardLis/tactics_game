@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6001bbe2eae6743b73913caf5b9f3b, type: 3}
   m_Name: Epic Exp Orb
   m_EditorClassIdentifier: 
-  Id: 815ef72f-0dae-466f-a040-1cbf6a7accf8
+  Id: 928896d8-8f3e-4371-bdb7-8e79460487f9
   Icon: {fileID: 21300000, guid: 8ca40258ecfa2854ba09b393c9170e77, type: 3}
-  Gfx: {fileID: 6071390210427776473, guid: ae73c271cdb96934ea1bb676ac5911b9, type: 3}
+  Gfx: {fileID: 6312176490229388728, guid: 7c10f977b144454498f21e5cd94ff1f5, type: 3}
   Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
   CollectedText: asd
   CollectEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}

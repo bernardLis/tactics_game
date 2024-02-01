@@ -35,8 +35,7 @@ namespace Lis
 
         void CheckMinionDeath(BattleEntity entity)
         {
-            // TODO: this is incorrect, but for now I am going for it, just the elements
-            if (entity.Entity.Element == MinionToKill.Element)
+            if (entity.Entity.Id == MinionToKill.Id)
                 UpdateQuest();
         }
 

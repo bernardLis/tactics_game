@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ffdaeb0dab7f248856cddc6aca1ddd, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  Id: edef095c-6b57-4ffa-9038-28bb43fceb0e
+  Id: 851e5a44-da8c-4619-bb50-ce7f4f04f717
   Icon: {fileID: 21300000, guid: e4d1f9737b521614b9201df229bb3c40, type: 3}
   Gfx: {fileID: 7595492778914800432, guid: 288299bf06640ee43b81da82c15819ae, type: 3}
   Color: {fileID: 11400000, guid: 1321707bde01303439ad2ff9fbd9c3b6, type: 2}

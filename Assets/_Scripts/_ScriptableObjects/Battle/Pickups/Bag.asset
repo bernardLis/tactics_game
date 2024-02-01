@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac3db596e4994e4fa93bf5d500dfd15, type: 3}
   m_Name: Bag
   m_EditorClassIdentifier: 
-  Id: 77b7b898-3b8c-4a44-b3a6-c64415f6912f
+  Id: 56aee165-5969-4868-ade0-cdb0fd63e4f9
   Icon: {fileID: 21300000, guid: 9a06e7f64c40cc04ebda0ea05e969af0, type: 3}
   Gfx: {fileID: 3666234629522217981, guid: 38b581b4f9456c147a143446cde70833, type: 3}
   Color: {fileID: 11400000, guid: dc2e708567ff4794c8b72d72ab7fff02, type: 2}

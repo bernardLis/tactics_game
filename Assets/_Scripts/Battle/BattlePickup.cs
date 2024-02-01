@@ -44,21 +44,22 @@ namespace Lis
             Transform t = transform;
             t.position = position;
             gameObject.SetActive(true);
-
-            t.DOLocalMoveY(0.5f, 0.5f).SetEase(Ease.OutBack);
-
+            
             t.localScale = Vector3.zero;
             t.DOScale(1, 1f).SetEase(Ease.OutBack);
-
-            t.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
-                .SetLoops(-1).SetEase(Ease.InOutSine);
-
+            
             Pickup = pickup;
             Pickup.Initialize();
             _audioManager.PlaySFX(pickup.DropSound, t.position);
 
             SetPickUpRadius(_hero.Pull.GetValue());
             _sphereCollider.enabled = true;
+
+            if (Pickup is ExperienceOrb) return;
+            t.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
+                .SetLoops(-1).SetEase(Ease.InOutSine);
+
+            t.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
         }
 
         void OnTriggerEnter(Collider col)

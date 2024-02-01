@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
   m_Name: Minion Earth
   m_EditorClassIdentifier: 
-  Id: 5143ed1b-e748-4311-bc54-e7e0ba06d431
+  Id: c11c6da8-cde6-4077-8de0-a92895246046
   EntityName: Minion Earth
   Icon: {fileID: 21300000, guid: e4b7d7295abb3e14f93b34ece3636abc, type: 3}
   IconAnimation:
