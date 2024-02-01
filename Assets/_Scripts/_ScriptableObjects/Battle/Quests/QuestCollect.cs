@@ -48,5 +48,10 @@ namespace Lis
         {
             return PickupToCollect.Icon;
         }
+
+        public override string GetDescription()
+        {
+            return $"Collect {TotalAmount - CurrentAmount} {PickupToCollect.name}";
+        }
     }
 }

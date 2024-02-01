@@ -39,5 +39,11 @@ namespace Lis
             // meant to be overwritten
             return null;
         }
+
+        public virtual string GetDescription()
+        {
+            // meant to be overwritten
+            return $"{name}";
+        }
     }
 }

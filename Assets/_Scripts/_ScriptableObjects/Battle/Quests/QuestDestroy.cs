@@ -26,5 +26,10 @@ namespace Lis
         {
             return GameManager.Instance.GameDatabase.VaseIcon;
         }
+
+        public override string GetDescription()
+        {
+            return $"Destroy {TotalAmount - CurrentAmount} Vases";
+        }
     }
 }

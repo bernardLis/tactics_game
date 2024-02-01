@@ -119,12 +119,12 @@ namespace Lis
 
             _tileSecureBar = new ResourceBarElement(Color.white, "Securing", current, total);
             _tileSecureBar.HideText();
-            Label name = new("Securing");
-            name.style.fontSize = 24;
-            name.style.color = Color.magenta;
-            name.style.unityFontStyleAndWeight = FontStyle.Bold;
-            name.style.position = Position.Absolute;
-            _tileSecureBar.Add(name);
+            Label label = new("Securing");
+            label.style.fontSize = 24;
+            label.style.color = Color.magenta;
+            label.style.unityFontStyleAndWeight = FontStyle.Bold;
+            label.style.position = Position.Absolute;
+            _tileSecureBar.Add(label);
 
             _tileSecureBar.style.minWidth = 500;
             _tileSecureBarContainer.Add(_tileSecureBar);

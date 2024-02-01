@@ -43,5 +43,10 @@ namespace Lis
         {
             return MinionToKill.Icon;
         }
+
+        public override string GetDescription()
+        {
+            return $"Kill {TotalAmount - CurrentAmount} {MinionToKill.EntityName}";
+        }
     }
 }

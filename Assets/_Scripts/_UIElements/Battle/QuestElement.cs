@@ -7,7 +7,7 @@ using DG.Tweening;
 
 namespace Lis
 {
-    public class QuestElement : VisualElement
+    public class QuestElement : ElementWithTooltip
     {
         readonly Quest _quest;
         readonly Label _countLabel;
@@ -50,6 +50,12 @@ namespace Lis
             DOTween.To(x => transform.scale = x * Vector3.one, 1, 1.5f, 1f)
                 .SetEase(Ease.OutBack)
                 .OnComplete(RemoveFromHierarchy);
+        }
+
+        protected override void DisplayTooltip()
+        {
+            _tooltip = new(this, new Label(_quest.GetDescription()));
+            base.DisplayTooltip();
         }
     }
 }
