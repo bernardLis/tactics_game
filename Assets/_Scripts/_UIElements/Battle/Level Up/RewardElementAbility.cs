@@ -27,6 +27,7 @@ namespace Lis
             Add(nameLabel);
 
             Label descLabel = new(rewardAbility.Ability.Description);
+            descLabel.style.width = Length.Percent(50);
             descLabel.style.whiteSpace = WhiteSpace.Normal;
             Add(descLabel);
         }

@@ -41,8 +41,7 @@ namespace Lis
 
         IEnumerator HomingCoroutine()
         {
-            if (_endTime > Time.time) yield break;
-
+            if (_endTime < Time.time) yield break;
             StartCoroutine(BreakHomingCoroutine());
             yield return GoForward(0.5f);
 
