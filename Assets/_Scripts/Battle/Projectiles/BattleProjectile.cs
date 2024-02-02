@@ -28,6 +28,7 @@ namespace Lis
         protected Ability Ability;
 
         protected float Time;
+        protected Vector3 Direction;
 
         protected bool IsHitConnected;
 
@@ -82,11 +83,13 @@ namespace Lis
 
         protected IEnumerator ShootInDirectionCoroutine(Vector3 dir)
         {
-            dir.Normalize();
+            Direction = dir;
+            Direction.Normalize();
+            
             float t = 0;
             while (t <= Time)
             {
-                transform.position += dir * (Speed * UnityEngine.Time.fixedDeltaTime);
+                transform.position += Direction * (Speed * UnityEngine.Time.fixedDeltaTime);
                 t += UnityEngine.Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }

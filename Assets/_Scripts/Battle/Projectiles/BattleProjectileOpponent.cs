@@ -8,7 +8,6 @@ namespace Lis
         BattleEntity _battleEntity;
         int _power;
 
-        protected Vector3 Direction;
 
         public virtual void Shoot(BattleEntity shooter, Vector3 dir, float time, int power)
         {

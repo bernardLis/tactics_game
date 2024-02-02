@@ -10,7 +10,6 @@ namespace Lis
                 collision.gameObject.layer == Tags.BattleFloorLayer ||
                 collision.gameObject.layer == Tags.BattleInteractableLayer)
             {
-                Debug.Log("Wall Bounce");
                 Bounce(collision.contacts[0].normal);
                 return;
             }
