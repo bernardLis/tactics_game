@@ -37,7 +37,7 @@ namespace Lis
         public Hero Hero { get; private set; }
         public BattleHero BattleHero => _battleHeroManager.BattleHero;
 
-        public List<BattleEntity> PlayerCreatures = new();
+        public List<BattleEntity> PlayerEntities = new();
         public List<BattleEntity> OpponentEntities = new();
 
         public List<BattleEntity> KilledPlayerEntities = new();
@@ -87,7 +87,6 @@ namespace Lis
             _gameManager.SaveJsonData();
             CurrentBattle = _gameManager.CurrentBattle;
             _gameManager.OnGoldChanged += (g) => GoldCollected += g;
-
 
             _battleAreaManager = GetComponent<BattleAreaManager>();
 
@@ -191,7 +190,7 @@ namespace Lis
             b.InitializeBattle(ref OpponentEntities);
             if (b is BattleHero hero) b.gameObject.layer = 8;
             else b.gameObject.layer = 10;
-            PlayerCreatures.Add(b);
+            PlayerEntities.Add(b);
             b.OnDeath += OnPlayerCreatureDeath;
             if (b is BattleCreature creature)
                 OnPlayerCreatureAdded?.Invoke(creature);
@@ -205,9 +204,7 @@ namespace Lis
 
         public void AddOpponentArmyEntity(BattleEntity b)
         {
-            if (b is not BattleMinion) b.transform.parent = EntityHolder;
-
-            b.InitializeBattle(ref PlayerCreatures);
+            b.InitializeBattle(ref PlayerEntities);
             b.gameObject.layer = 11;
             OpponentEntities.Add(b);
             b.OnDeath += OnOpponentDeath;
@@ -217,7 +214,7 @@ namespace Lis
         void OnPlayerCreatureDeath(BattleEntity be, EntityFight killer)
         {
             KilledPlayerEntities.Add(be);
-            PlayerCreatures.Remove(be);
+            PlayerEntities.Remove(be);
             OnPlayerEntityDeath?.Invoke(be);
         }
 
@@ -230,7 +227,7 @@ namespace Lis
 
         public List<BattleEntity> GetAllies(BattleEntity battleEntity)
         {
-            if (battleEntity.Team == 0) return PlayerCreatures;
+            if (battleEntity.Team == 0) return PlayerEntities;
             //if (battleEntity.Team == 1) 
             return OpponentEntities;
         }
@@ -239,7 +236,7 @@ namespace Lis
         {
             if (team == 0) return OpponentEntities;
             //if (battleEntity.Team == 1) 
-            return PlayerCreatures;
+            return PlayerEntities;
         }
 
         public bool IsBossFight()
@@ -302,7 +299,7 @@ namespace Lis
 
         public void ClearAllEntities()
         {
-            PlayerCreatures.Clear();
+            PlayerEntities.Clear();
             OpponentEntities.Clear();
             foreach (Transform child in EntityHolder.transform)
             {

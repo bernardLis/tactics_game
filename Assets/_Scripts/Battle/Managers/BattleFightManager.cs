@@ -11,6 +11,7 @@ namespace Lis
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
         BattleInputManager _battleInputManager;
+        BattleRangedOpponentManager _battleRangedOpponentManager;
 
         int CurrentDifficulty { get; set; }
 
@@ -28,9 +29,11 @@ namespace Lis
             _battleManager.OnOpponentEntityDeath += OnOpponentEntityDeath;
             _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
             _battleInputManager = _battleManager.GetComponent<BattleInputManager>();
+            _battleRangedOpponentManager = _battleManager.GetComponent<BattleRangedOpponentManager>();
 
 #if UNITY_EDITOR
             _battleInputManager.OnRightMouseClick += DebugSpawnMinion;
+            _battleInputManager.OnOneClicked += DebugSpawnRangedOpponent;
 #endif
 
             CurrentDifficulty = 1;
@@ -73,8 +76,6 @@ namespace Lis
 
         void OnOpponentEntityDeath(BattleEntity _)
         {
-            // if (!_currentFight.IsFinished()) return;
-            // if (_battleManager.OpponentEntities.Count != 0) return;
         }
 
         public void SpawnWave()
@@ -85,9 +86,8 @@ namespace Lis
 
         IEnumerator SpawnWaveCoroutine(EnemyWave wave)
         {
-            // // spawn minions on tiles next to the player or on the same tile
-            // List<BattleTile> tiles = _battleAreaManager.GetTilesAroundPlayer();
             yield return SpawnMinions(wave);
+            if (wave.RangedOpponent != null) SpawnRangedOpponent(wave.RangedOpponent);
             _currentFight.SpawningWaveFinished();
         }
 
@@ -123,13 +123,13 @@ namespace Lis
             _battleManager.AddOpponentArmyEntity(be);
         }
 
+        void SpawnRangedOpponent(Entity entity)
+        {
+            Vector3 pos = _battleAreaManager.GetRandomPositionInRangeOnActiveTile(_battleHero.transform.position,
+                Random.Range(20, 40));
+            _battleRangedOpponentManager.SpawnRangedOpponent(entity, pos);
+        }
 
-        // BattleEntity SpawnEntity(Entity entity, Vector3 spawnPos)
-        // {
-        //     GameObject instance = Instantiate(entity.Prefab, spawnPos, transform.localRotation);
-        //     BattleEntity be = instance.GetComponent<BattleEntity>();
-        //     return be;
-        // }
 #if UNITY_EDITOR
 
         int _debugMinionIndex;
@@ -150,6 +150,13 @@ namespace Lis
             List<EnemyGroup> enemyGroups =
                 _currentFight.EnemyWaves[Random.Range(0, _currentFight.EnemyWaves.Count)].EnemyGroups;
             SpawnMinion(enemyGroups[Random.Range(0, enemyGroups.Count)].Minions[0], hit.point);
+        }
+
+        void DebugSpawnRangedOpponent()
+        {
+            if (_battleRangedOpponentManager == null) return;
+            Entity instance = Instantiate(GameManager.Instance.EntityDatabase.GetRandomRangedOpponent());
+            SpawnRangedOpponent(instance);
         }
     }
 #endif

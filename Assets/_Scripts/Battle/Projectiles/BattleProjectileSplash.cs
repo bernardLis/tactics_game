@@ -13,10 +13,10 @@ namespace Lis
             {
                 if (collider.TryGetComponent(out BattleEntity entity))
                 {
-                    if (entity.Team == _shooter.Team) continue; // splash damage is player friendly
+                    if (entity.Team == Shooter.Team) continue; // splash damage is player friendly
                     if (entity.IsDead) continue;
 
-                    StartCoroutine(entity.GetHit(_shooter));
+                    StartCoroutine(entity.GetHit(Shooter));
                 }
             }
             StartCoroutine(Explode(transform.position));

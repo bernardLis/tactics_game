@@ -15,10 +15,10 @@ namespace Lis
 
         IEnumerator SpeedChange()
         {
-            _speed = 4;
-            yield return DOTween.To(x => _speed = x, _speed, 0, 2f).SetEase(Ease.Linear).WaitForCompletion();
+            Speed = 4;
+            yield return DOTween.To(x => Speed = x, Speed, 0, 2f).SetEase(Ease.Linear).WaitForCompletion();
             yield return new WaitForSeconds(1f);
-            _speed = 15;
+            Speed = 15;
         }
 
     }

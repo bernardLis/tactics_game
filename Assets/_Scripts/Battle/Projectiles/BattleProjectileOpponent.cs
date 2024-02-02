@@ -8,17 +8,17 @@ namespace Lis
         BattleEntity _battleEntity;
         int _power;
 
-        protected Vector3 _direction;
+        protected Vector3 Direction;
 
         public virtual void Shoot(BattleEntity shooter, Vector3 dir, float time, int power)
         {
             _battleEntity = shooter;
-            _time = time;
+            Time = time;
             _power = power;
-            _direction = dir;
+            Direction = dir;
 
             EnableProjectile();
-            StartCoroutine(ShootInDirectionCoroutine(_direction));
+            StartCoroutine(ShootInDirectionCoroutine(Direction));
         }
 
         protected override void HitTarget(BattleEntity target)

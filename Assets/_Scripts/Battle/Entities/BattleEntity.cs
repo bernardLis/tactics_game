@@ -71,6 +71,8 @@ namespace Lis
         {
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
+            BattleManager = BattleManager.Instance;
+            _grabManager = BattleGrabManager.Instance;
         }
 
         public virtual void InitializeEntity(Entity entity, int team)
@@ -106,9 +108,7 @@ namespace Lis
 
         public virtual void InitializeBattle(ref List<BattleEntity> opponents)
         {
-            BattleManager = BattleManager.Instance;
             BattleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
-            _grabManager = BattleGrabManager.Instance;
             _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
 
             _rigidbody = GetComponent<Rigidbody>();
@@ -289,6 +289,7 @@ namespace Lis
 
             OnDamageTaken?.Invoke(dmg);
 
+            if (Entity == null) return;
             int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
             Entity.CurrentHealth.ApplyChange(-d);
             if (Entity.CurrentHealth.Value <= 0)

@@ -45,6 +45,7 @@ namespace Lis
             BattleHero = heroGameObject.GetComponentInChildren<BattleHero>();
             HeroFollowCamera.Follow = heroGameObject.transform;
 
+            _battleManager.PlayerEntities.Add(BattleHero);
             BattleHero.OnDeath += (_, _) => _battleManager.LoseBattle();
 
             _placeholderAudioListener.enabled = false;

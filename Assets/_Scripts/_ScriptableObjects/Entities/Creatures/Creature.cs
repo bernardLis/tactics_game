@@ -1,8 +1,4 @@
 using System;
-
-
-
-
 using UnityEngine;
 
 namespace Lis
@@ -10,8 +6,7 @@ namespace Lis
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
     public class Creature : EntityFight
     {
-        [Header("Creature")]
-        public int UpgradeTier;
+        [Header("Creature")] public int UpgradeTier;
 
         public CreatureAbility CreatureAbility;
 
@@ -22,7 +17,6 @@ namespace Lis
         public override void InitializeBattle(int team)
         {
             base.InitializeBattle(team);
-
             UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
             MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Health").GetValue());
             CurrentHealth.SetValue(MaxHealth.GetValue());
@@ -34,12 +28,12 @@ namespace Lis
                 LevelUp();
 
             if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
-
-            if (Team == 0) return;
-            Projectile = GameManager.Instance.EntityDatabase.OpponentProjectilePrefab;
         }
 
-        public bool IsAbilityUnlocked() { return Level.Value >= CreatureAbility.UnlockLevel; }
+        public bool IsAbilityUnlocked()
+        {
+            return Level.Value >= CreatureAbility.UnlockLevel;
+        }
 
         public bool CanUseAbility()
         {

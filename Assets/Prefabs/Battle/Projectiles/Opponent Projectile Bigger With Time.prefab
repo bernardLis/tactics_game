@@ -8,6 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 627268108075809745, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 627268108075809745, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 627268108075809745, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 627268108075809745, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 627268108075809745, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.7254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 627268108075809745, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
     - target: {fileID: 2541368232010311857, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -66,27 +90,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.2784314
+      value: 0.32941177
       objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
+      value: 0.7254902
       objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.39607844
+      value: 0.9843137
       objectReference: {fileID: 0}
     - target: {fileID: 5171322742888279648, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.27843142
+      value: 0.14117648
       objectReference: {fileID: 0}
     - target: {fileID: 5171322742888279648, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
+      value: 0.23529412
       objectReference: {fileID: 0}
     - target: {fileID: 5171322742888279648, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.3961337
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205156445069656232, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205156445069656232, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.7254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205156445069656232, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.9843137
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7985646470356588355, guid: f191a133bb2ba6840839372daa331f90, type: 3}
@@ -114,11 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef105d0b120ca84cbacbbb8e70c75d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  ExplosionSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   _shootSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  _gfx: {fileID: 5664480323348088273}
-  _explosion: {fileID: 9082832557383751629}
-  _speed: 4
+  Gfx: {fileID: 5664480323348088273}
+  Explosion: {fileID: 9082832557383751629}
+  Speed: 4
 --- !u!1 &5664480323348088273 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8588406263794962203, guid: f191a133bb2ba6840839372daa331f90, type: 3}

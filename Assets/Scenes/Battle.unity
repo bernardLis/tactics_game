@@ -622,6 +622,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1093471359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1093471360}
+  m_Layer: 0
+  m_Name: Ranged Opponent Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1093471360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093471359}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.666521, y: 0.49999988, z: -2.5118005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1106236924
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +679,7 @@ Transform:
   m_GameObject: {fileID: 1106236924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0001699962, y: 1.0733099, z: 24.835468}
+  m_LocalPosition: {x: -0.00016999904, y: 1.0733099, z: 24.835468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -875,37 +906,6 @@ Transform:
   - {fileID: 2053352406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
---- !u!1 &1633669038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1633669039}
-  m_Layer: 0
-  m_Name: Enemy Projectile Pool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1633669039
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633669038}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1729261766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,13 +1673,9 @@ PrefabInstance:
     - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _abilityToGive
       value: 
-      objectReference: {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
+      objectReference: {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
     - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: HeroFollowCamera
-      value: 
-      objectReference: {fileID: 1587620957}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _heroFollowCamera
       value: 
       objectReference: {fileID: 1587620957}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
@@ -1698,6 +1694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 7571233738056364626, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _rangedOpponentHolder
+      value: 
+      objectReference: {fileID: 1093471360}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1776,8 +1776,8 @@ SceneRoots:
   - {fileID: 1942892701}
   - {fileID: 296518730}
   - {fileID: 5885989640527615953}
+  - {fileID: 1815445464}
   - {fileID: 1078788522}
   - {fileID: 843739632}
-  - {fileID: 1815445464}
-  - {fileID: 1633669039}
+  - {fileID: 1093471360}
   - {fileID: 177294786}

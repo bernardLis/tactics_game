@@ -49,37 +49,28 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b04d5324785816b468904c1eae7bf242, type: 2}
   - {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}
   - {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
-  Minions:
+  _minions:
   - {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
   - {fileID: 11400000, guid: 7c6442770ed6a144aadb84a303d9b079, type: 2}
   - {fileID: 11400000, guid: d27f5850471b8804885a52e28628ef0a, type: 2}
   - {fileID: 11400000, guid: 5d7bb2c9695389e45b4d2bc09bad050c, type: 2}
-  RangedOpponent: {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
-  StartingArmies:
-  - Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-    Creatures:
-    - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
-  - Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-    Creatures:
-    - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
-  - Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-    Creatures:
-    - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
-  - Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-    Creatures:
-    - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
-  Turrets:
+  _rangedOpponents:
+  - {fileID: 11400000, guid: c5e9c531855d9174e91f455c8602501e, type: 2}
+  - {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
+  - {fileID: 11400000, guid: aad73a6a58d996e49ac3b0d6840cbf10, type: 2}
+  - {fileID: 11400000, guid: 27f47900057df5040b9d68f946100613, type: 2}
+  _turrets:
   - {fileID: 11400000, guid: f6068dfb486faa34882d832c3cabd2c1, type: 2}
   - {fileID: 11400000, guid: 77db412cb365f8740a211823c35ce855, type: 2}
   - {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
   - {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
-  Abilities:
+  _abilities:
   - {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
   - {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
   - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
   - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
-  StatBasics:
+  _statBasics:
   - StatType: 1
     Sprite: {fileID: 21300000, guid: 6cd7b56c2c64e11488db124808380608, type: 3}
     Description: 
@@ -104,7 +95,7 @@ MonoBehaviour:
   - StatType: 8
     Sprite: {fileID: 21300000, guid: cef658720d4996b41a2ca08c93524c85, type: 3}
     Description: Bonus Exp
-  HeroStats:
+  _heroStats:
   - {fileID: 11400000, guid: cc4ee840fad7da74aa0785407ed1b430, type: 2}
   - {fileID: 11400000, guid: 82661cd5bddc3f44d94feab9eaf761bd, type: 2}
   - {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
@@ -116,12 +107,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 439b0732f6f097d4981c349e17e6fb52, type: 2}
   - {fileID: 11400000, guid: c63e8b7fb72dbb6449700d758f76d1b6, type: 2}
   - {fileID: 11400000, guid: 1357f3a50988d05439a136bbae13ea98, type: 2}
-  HeroTabletsAdvanced:
+  _heroTabletsAdvanced:
   - {fileID: 11400000, guid: c75c971e27e100e40a3e98f3c4612f89, type: 2}
   - {fileID: 11400000, guid: 51d449ec56cd39441bc83d68df80e76a, type: 2}
   - {fileID: 11400000, guid: 8fe53c0b8106ccf4d945c217454f8e51, type: 2}
   - {fileID: 11400000, guid: 82581fd11790a5e4780ddec88389f1c1, type: 2}
-  Elements:
+  _elements:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}

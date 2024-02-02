@@ -10,16 +10,7 @@ namespace Lis
     public class BattleCreatureRanged : BattleCreature
     {
         [SerializeField] protected GameObject _projectileSpawnPoint;
-
-        BattleProjectileManager _battleProjectileManager;
-
-        protected override void InitializeOpponentEntity()
-        {
-            base.InitializeOpponentEntity();
-
-            _battleProjectileManager = BattleManager.GetComponent<BattleProjectileManager>();
-        }
-
+        
         protected override IEnumerator PathToOpponent()
         {
             // no obstacle blocking line of sight
@@ -29,7 +20,7 @@ namespace Lis
                 yield break;
             }
 
-            Vector3 point = ClosestPositionWithClearLOS();
+            Vector3 point = ClosestPositionWithClearLos();
             Agent.stoppingDistance = 0;
             yield return PathToPosition(point);
 
@@ -45,7 +36,7 @@ namespace Lis
                 out _, 1 << Tags.BattleObstacleLayer);
         }
 
-        protected Vector3 ClosestPositionWithClearLOS()
+        protected Vector3 ClosestPositionWithClearLos()
         {
             Vector3 dir = transform.position - Opponent.transform.position;
             Dictionary<Vector3, float> distances = new();
@@ -101,29 +92,14 @@ namespace Lis
         protected override IEnumerator Attack()
         {
             yield return base.Attack();
-            if (Team == 1)
-            {
-                OpponentAttack();
-                yield break;
-            }
 
-            GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-            projectileInstance.transform.parent = BattleManager.EntityHolder;
-            BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
-            p.Initialize(Team);
-            Vector3 dir = (Opponent.transform.position - transform.position).normalized;
-            p.Shoot(Creature, dir);
+            // GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+            // projectileInstance.transform.parent = BattleManager.EntityHolder;
+            // BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
+            // p.Initialize(Team);
+            // Vector3 dir = (Opponent.transform.position - transform.position).normalized;
+            // p.Shoot(Creature, dir);
         }
 
-        void OpponentAttack()
-        {
-            BattleProjectileOpponent p = _battleProjectileManager.GetObjectFromPool();
-            p.transform.position = transform.position;
-            p.Initialize(1);
-
-            Vector3 dir = (Opponent.transform.position - transform.position).normalized;
-            dir.y = 0;
-            p.Shoot(this, dir, 20, 5);
-        }
     }
 }

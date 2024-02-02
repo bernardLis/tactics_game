@@ -9,7 +9,7 @@ namespace Lis
     public class BattleBossAttack : MonoBehaviour
     {
         protected BattleManager _battleManager;
-        BattleProjectileManager _battleProjectileManager;
+        BattleRangedOpponentManager _battleRangedOpponentManager;
 
         protected BossAttack _attack;
         BattleBoss _battleBoss;
@@ -20,7 +20,7 @@ namespace Lis
 
             _battleManager = BattleManager.Instance;
 
-            _battleProjectileManager = _battleManager.GetComponent<BattleProjectileManager>();
+            _battleRangedOpponentManager = _battleManager.GetComponent<BattleRangedOpponentManager>();
         }
 
         public virtual IEnumerator Attack(int difficulty)
@@ -39,7 +39,7 @@ namespace Lis
             }
             Vector3 spawnPos = transform.position;
             spawnPos.y = 1f;
-            BattleProjectileOpponent p = _battleProjectileManager.GetObjectFromPool();
+            BattleProjectileOpponent p = _battleRangedOpponentManager.GetObjectFromPool();
             p.transform.position = spawnPos;
             p.Initialize(1);
             p.Shoot(_battleBoss, dir, _attack.ProjectileDuration, _attack.ProjectilePower);

@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41fecc272b4585543bfd21746d4d2eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroFollowCamera: {fileID: 0}
+  HeroFollowCamera: {fileID: 0}
   _placeholderAudioListener: {fileID: 1813988017654575525}
   _heroPrefab: {fileID: 5632361364057405493, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
   BattleHero: {fileID: 0}
   RewardRerollsAvailable: 0
-  _abilityToGive: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
+  _abilityToGive: {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
   _allAbilities:
   - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
@@ -283,7 +283,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af1b033ea87672449e6c8b17ac4d9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rangedOpponentHolder: {fileID: 0}
   _projectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+  _projectileBiggerWithTimePrefab: {fileID: 602424468116040452, guid: 63ee527b03c29454ebe5b3af5009bc2a, type: 3}
+  _projectileQuickPrefab: {fileID: 602424468116040452, guid: 65299529ede89e94c889edeeffc8e113, type: 3}
+  _projectileWallBouncePrefab: {fileID: 602424468116040452, guid: cf6cd879a1149a64eb42c73ed7d2a17d, type: 3}
+  _rangedOpponentPrefab: {fileID: 2307782763008038217, guid: c8a6a9ca0a0727640b1f1bfa5c5e8b31, type: 3}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

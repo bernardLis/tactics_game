@@ -68,7 +68,7 @@ namespace Lis
 
         void UpdateTroopsCountElement()
         {
-            int count = Mathf.Clamp(_battleManager.PlayerCreatures.Count - 1, 0, 9999);
+            int count = Mathf.Clamp(_battleManager.PlayerEntities.Count - 1, 0, 9999);
             _troopsCounter.UpdateCountContainer($"{count}", Color.white);
         }
 

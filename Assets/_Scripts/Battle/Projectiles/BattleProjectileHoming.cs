@@ -30,10 +30,10 @@ namespace Lis
         {
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
-            _ability = ability;
+            Ability = ability;
             EnableProjectile();
 
-            _endTime = Time.time + _ability.GetDuration();
+            _endTime = UnityEngine.Time.time + Ability.GetDuration();
 
             _homingCoroutine = HomingCoroutine();
             StartCoroutine(_homingCoroutine);
@@ -41,20 +41,20 @@ namespace Lis
 
         IEnumerator HomingCoroutine()
         {
-            if (_endTime < Time.time) yield break;
+            if (_endTime < UnityEngine.Time.time) yield break;
             StartCoroutine(BreakHomingCoroutine());
             yield return GoForward(0.5f);
 
-            while (_battleManager.GetOpponents(_team).Count == 0)
+            while (_battleManager.GetOpponents(Team).Count == 0)
                 yield return GoForward(0.5f);
 
-            _target = GetClosestEntity(_battleManager.GetOpponents(_team));
+            _target = GetClosestEntity(_battleManager.GetOpponents(Team));
             while (_target != null)
             {
                 if (_target.IsDead) break;
                 Transform t = transform;
                 Vector3 forward = t.forward;
-                _rb.velocity = forward * _speed;
+                _rb.velocity = forward * Speed;
                 Vector3 direction = _target.transform.position - t.position;
                 direction.Normalize();
 
@@ -70,13 +70,13 @@ namespace Lis
 
         IEnumerator BreakHomingCoroutine()
         {
-            yield return new WaitForSeconds(_ability.GetDuration());
+            yield return new WaitForSeconds(Ability.GetDuration());
             if (_homingCoroutine != null) HitConnected();
         }
 
         IEnumerator GoForward(float timeInSeconds)
         {
-            _rb.velocity = transform.forward * _speed;
+            _rb.velocity = transform.forward * Speed;
             yield return new WaitForSeconds(timeInSeconds);
         }
 

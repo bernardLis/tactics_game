@@ -54,7 +54,6 @@ namespace Lis
         public override void InitializeBattle(ref List<BattleEntity> opponents)
         {
             base.InitializeBattle(ref opponents);
-            if (Team == 1) InitializeOpponentEntity();
 
             _opponentList = opponents;
 
@@ -63,12 +62,7 @@ namespace Lis
 
             StartRunEntityCoroutine();
         }
-
-        protected virtual void InitializeOpponentEntity()
-        {
-            transform.localScale = Vector3.one * 0.8f;
-        }
-
+        
         protected override IEnumerator RunEntity()
         {
             while (true)

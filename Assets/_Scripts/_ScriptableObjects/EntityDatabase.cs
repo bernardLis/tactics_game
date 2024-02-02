@@ -7,7 +7,6 @@ namespace Lis
 {
     public class EntityDatabase : ScriptableObject
     {
-        [Header("Creatures")] public GameObject OpponentProjectilePrefab;
         public Sprite[] CreatureIcons;
 
         public List<Creature> AllCreatures = new();
@@ -52,11 +51,16 @@ namespace Lis
 
             return creatures;
         }
-
+        
         [FormerlySerializedAs("Minions")] [Header("Minions")] [SerializeField]
         Minion[] _minions;
 
-        public Creature RangedOpponent;
+        [SerializeField] List<Entity> _rangedOpponents;
+
+        public Entity GetRandomRangedOpponent()
+        {
+            return _rangedOpponents[Random.Range(0, _rangedOpponents.Count)];
+        }
 
         public List<Minion> GetAllMinions()
         {

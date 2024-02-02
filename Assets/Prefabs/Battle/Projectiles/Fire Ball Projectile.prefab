@@ -44838,13 +44838,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: Gfx
+      value: 
+      objectReference: {fileID: 1716336063936367171}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _gfx
       value: 
       objectReference: {fileID: 4601062829944080853}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: Speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 4601062829944080853}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _explosion
       value: 
@@ -44854,12 +44866,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 65adfea2fbc4f41409bfbe170661ae31, type: 2}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: ExplosionSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 00f95be13907e0b4ba22664472d80b93, type: 2}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _explosionSound
       value: 
       objectReference: {fileID: 11400000, guid: 00f95be13907e0b4ba22664472d80b93, type: 2}
     - target: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: m_Name
-      value: Fire Ball
+      value: Fire Ball Projectile
       objectReference: {fileID: 0}
     - target: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: m_IsActive

@@ -39216,11 +39216,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6493117ea2f1cb45a6eee42312f2bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionSound: {fileID: 11400000, guid: caee88d0edf00a64293a76f54917b860, type: 2}
+  ExplosionSound: {fileID: 11400000, guid: caee88d0edf00a64293a76f54917b860, type: 2}
   _shootSound: {fileID: 11400000, guid: e8abc68cc5952e945a69e1c09c57e3dd, type: 2}
-  _gfx: {fileID: 5405432314173393865}
-  _explosion: {fileID: 856231998865565855}
-  _speed: 7
+  Gfx: {fileID: 5405432314173393865}
+  Explosion: {fileID: 856231998865565855}
+  Speed: 7
   _rotateSpeed: 0.5
 --- !u!4 &4445669335262592270 stripped
 Transform:

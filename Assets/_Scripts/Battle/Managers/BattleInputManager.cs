@@ -1,6 +1,4 @@
 using System;
-
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,8 +14,14 @@ namespace Lis
         public event Action OnLeftMouseClick;
         public event Action OnRightMouseClick;
 
+        public event Action OnOneClicked;
+        public event Action OnTwoClicked;
+        public event Action OnThreeClicked;
+        public event Action OnFourClicked;
+
         public event Action OnSpaceClicked;
         public event Action OnEnterClicked;
+
         void Start()
         {
             _gameManager = GameManager.Instance;
@@ -59,7 +63,12 @@ namespace Lis
 
             _playerInput.actions["Space"].performed += SpaceClicked;
             _playerInput.actions["Enter"].performed += EnterClicked;
-        
+
+            _playerInput.actions["1"].performed += OneClicked;
+            _playerInput.actions["2"].performed += TwoClicked;
+            _playerInput.actions["3"].performed += ThreeClicked;
+            _playerInput.actions["4"].performed += FourClicked;
+
             _playerInput.actions["DebugSpawnMinionWave"].performed += DebugSpawnMinionWave;
             _playerInput.actions["DebugSpawnTile"].performed += DebugSpawnTile;
             _playerInput.actions["DebugSpawnBossTile"].performed += DebugSpawnBossTile;
@@ -76,6 +85,11 @@ namespace Lis
             _playerInput.actions["Space"].performed -= SpaceClicked;
             _playerInput.actions["Enter"].performed -= EnterClicked;
 
+            _playerInput.actions["1"].performed -= OneClicked;
+            _playerInput.actions["2"].performed -= TwoClicked;
+            _playerInput.actions["3"].performed -= ThreeClicked;
+            _playerInput.actions["4"].performed -= FourClicked;
+            
             _playerInput.actions["DebugSpawnMinionWave"].performed -= DebugSpawnMinionWave;
             _playerInput.actions["DebugSpawnTile"].performed -= DebugSpawnTile;
             _playerInput.actions["DebugSpawnBossTile"].performed -= DebugSpawnBossTile;
@@ -87,6 +101,11 @@ namespace Lis
         void RightMouseClicked(InputAction.CallbackContext ctx) => OnRightMouseClick?.Invoke();
         void SpaceClicked(InputAction.CallbackContext ctx) => OnSpaceClicked?.Invoke();
         void EnterClicked(InputAction.CallbackContext ctx) => OnEnterClicked?.Invoke();
+        
+        void OneClicked(InputAction.CallbackContext ctx) => OnOneClicked?.Invoke();
+        void TwoClicked(InputAction.CallbackContext ctx) => OnTwoClicked?.Invoke();
+        void ThreeClicked(InputAction.CallbackContext ctx) => OnThreeClicked?.Invoke();
+        void FourClicked(InputAction.CallbackContext ctx) => OnFourClicked?.Invoke();
 
         void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
         {
@@ -119,6 +138,5 @@ namespace Lis
         {
             _menuScreen = null;
         }
-
     }
 }

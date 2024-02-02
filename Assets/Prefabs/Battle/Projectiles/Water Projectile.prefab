@@ -73459,13 +73459,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: Gfx
+      value: 
+      objectReference: {fileID: 5669794822136750374}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _gfx
       value: 
       objectReference: {fileID: 5669794822136750374}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: Speed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _speed
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: Explosion
+      value: 
+      objectReference: {fileID: 427110881515802140}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _explosion
       value: 
@@ -73474,6 +73486,10 @@ PrefabInstance:
       propertyPath: _shootSound
       value: 
       objectReference: {fileID: 11400000, guid: e8abc68cc5952e945a69e1c09c57e3dd, type: 2}
+    - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: ExplosionSound
+      value: 
+      objectReference: {fileID: 11400000, guid: caee88d0edf00a64293a76f54917b860, type: 2}
     - target: {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: _explosionSound
       value: 

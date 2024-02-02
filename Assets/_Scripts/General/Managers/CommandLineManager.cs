@@ -165,7 +165,7 @@ namespace Lis
             Button levelUpButton = new() { text = "Level Up" };
             levelUpButton.clickable.clicked += () =>
             {
-                foreach (BattleEntity e in BattleManager.Instance.PlayerCreatures)
+                foreach (BattleEntity e in BattleManager.Instance.PlayerEntities)
                 {
                     BattleCreature bc = (BattleCreature)e;
                     bc.Creature.LevelUp();
@@ -239,7 +239,7 @@ namespace Lis
             Button clearButton = new() { text = "Clear" };
             clearButton.clickable.clicked += () =>
             {
-                List<BattleEntity> collection = new(battleManager.PlayerCreatures);
+                List<BattleEntity> collection = new(battleManager.PlayerEntities);
                 collection.AddRange(battleManager.OpponentEntities);
                 foreach (BattleEntity e in collection)
                     e.TriggerDieCoroutine();
@@ -390,7 +390,7 @@ namespace Lis
         {
             BattleManager battleManager = BattleManager.Instance;
             if (battleManager == null) return;
-            List<BattleEntity> creatures = new(battleManager.PlayerCreatures);
+            List<BattleEntity> creatures = new(battleManager.PlayerEntities);
             foreach (BattleCreature creature in creatures)
                 creature.TriggerDeath();
         }

@@ -17,8 +17,7 @@ namespace Lis
         [SerializeField] GameObject _deathEffect;
 
         BattleHero _targetHero;
-
-
+        
         public override void InitializeEntity(Entity entity, int team)
         {
             if (Gfx != null) Gfx.SetActive(true);

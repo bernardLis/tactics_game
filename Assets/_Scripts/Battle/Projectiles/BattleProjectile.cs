@@ -1,66 +1,70 @@
 using System;
 using System.Collections;
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
     public class BattleProjectile : MonoBehaviour
     {
-        protected AudioManager _audioManager;
+        AudioManager _audioManager;
 
-        [SerializeField] protected Sound _explosionSound;
+        [FormerlySerializedAs("_explosionSound")] [SerializeField]
+        protected Sound ExplosionSound;
+
         [SerializeField] Sound _shootSound;
 
-        [SerializeField] protected GameObject _gfx;
-        [SerializeField] protected GameObject _explosion;
+        [SerializeField] protected GameObject Gfx;
+        [SerializeField] protected GameObject Explosion;
 
-        [SerializeField] protected float _speed;
-        protected SphereCollider _collider;
+        [FormerlySerializedAs("_speed")] [SerializeField]
+        protected float Speed;
 
-        protected int _team;
-        protected EntityFight _shooter;
-        protected Ability _ability;
+        SphereCollider _collider;
 
-        protected float _time;
+        protected int Team;
+        protected EntityFight Shooter;
+        protected Ability Ability;
 
-        protected bool _hitConnected;
+        protected float Time;
+
+        protected bool IsHitConnected;
 
         public event Action OnExplode;
-        public virtual void Initialize(int Team)
+
+        public virtual void Initialize(int team)
         {
-            _team = Team;
+            Team = team;
             _audioManager = AudioManager.Instance;
             _collider = GetComponent<SphereCollider>();
         }
 
         public void Shoot(Ability ability, Vector3 dir)
         {
-            _ability = ability;
-            _time = _ability.GetDuration();
+            Ability = ability;
+            Time = Ability.GetDuration();
             BaseShoot(dir);
         }
 
         public void Shoot(EntityFight shooter, Vector3 dir)
         {
-            _shooter = shooter;
+            Shooter = shooter;
             // TODO: idk if this will work for range 
-            _time = _shooter.AttackRange.GetValue() / _speed;
+            Time = Shooter.AttackRange.GetValue() / Speed;
             BaseShoot(dir);
         }
 
         void BaseShoot(Vector3 dir)
         {
-            float targetScale = transform.localScale.x;
-            transform.localScale = transform.localScale * 0.5f;
+            Transform t = transform;
+            Vector3 scale = t.localScale;
+            float targetScale = scale.x;
+
+            scale *= 0.5f;
+            t.localScale = scale;
             transform.DOScale(targetScale, 1f);
-            transform.LookAt(transform.position + dir);
+            transform.LookAt(t.position + dir);
 
             EnableProjectile();
             StartCoroutine(ShootInDirectionCoroutine(dir));
@@ -70,9 +74,9 @@ namespace Lis
         {
             gameObject.SetActive(true);
             _collider.enabled = true;
-            _hitConnected = false;
-            _gfx.SetActive(true);
-            _explosion.SetActive(false);
+            IsHitConnected = false;
+            Gfx.SetActive(true);
+            Explosion.SetActive(false);
             _audioManager.PlaySFX(_shootSound, transform.position);
         }
 
@@ -80,24 +84,25 @@ namespace Lis
         {
             dir.Normalize();
             float t = 0;
-            while (t <= _time)
+            while (t <= Time)
             {
-                transform.position += dir * _speed * Time.fixedDeltaTime;
-                t += Time.fixedDeltaTime;
+                transform.position += dir * (Speed * UnityEngine.Time.fixedDeltaTime);
+                t += UnityEngine.Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
+
             yield return Explode(transform.position);
         }
 
         protected virtual void HitTarget(BattleEntity target)
         {
-            if (_shooter != null) StartCoroutine(target.GetHit(_shooter));
-            if (_ability != null) StartCoroutine(target.GetHit(_ability));
+            if (Shooter != null) StartCoroutine(target.GetHit(Shooter));
+            if (Ability != null) StartCoroutine(target.GetHit(Ability));
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
         {
-            if (_hitConnected) return;
+            if (IsHitConnected) return;
 
             if (collision.gameObject.layer == Tags.BattleObstacleLayer ||
                 collision.gameObject.layer == Tags.BattleInteractableLayer)
@@ -115,18 +120,15 @@ namespace Lis
                 return;
             }
 
-            if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
-            {
-                HitConnected();
-                bbv.TriggerBreak();
-                return;
-            }
+            if (!collision.gameObject.TryGetComponent(out BattleBreakableVase bbv)) return;
+            HitConnected();
+            bbv.TriggerBreak();
         }
 
         protected bool IsTargetValid(BattleEntity battleEntity)
         {
             if (battleEntity.IsDead) return false;
-            if (_team == battleEntity.Team) return false;
+            if (Team == battleEntity.Team) return false;
             return true;
         }
 
@@ -134,16 +136,16 @@ namespace Lis
         {
             if (!gameObject.activeSelf) return;
             _collider.enabled = false;
-            _hitConnected = true;
+            IsHitConnected = true;
             StopAllCoroutines();
             StartCoroutine(Explode(transform.position));
         }
 
         public virtual IEnumerator Explode(Vector3 position)
         {
-            _gfx.SetActive(false);
-            _audioManager.PlaySFX(_explosionSound, position);
-            _explosion.SetActive(true);
+            Gfx.SetActive(false);
+            _audioManager.PlaySFX(ExplosionSound, position);
+            Explosion.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);
 

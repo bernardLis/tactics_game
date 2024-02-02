@@ -9,6 +9,8 @@ namespace Lis
 
         public List<EnemyGroup> EnemyGroups = new();
 
+        public Entity RangedOpponent;
+
         public void CreateWave(int minionCount, Vector2Int minionLevelRange)
         {
             _gameManager = GameManager.Instance;
@@ -37,6 +39,9 @@ namespace Lis
             CreateEnemyGroupOfElement(ElementName.Fire, minionsPerElement, minionLevelRange);
             CreateEnemyGroupOfElement(ElementName.Water, minionsPerElement, minionLevelRange);
             CreateEnemyGroupOfElement(ElementName.Wind, minionsPerElement, minionLevelRange);
+
+            if (Random.value > 0.5f)
+                RangedOpponent = Instantiate(_gameManager.EntityDatabase.GetRandomRangedOpponent());
         }
 
         void CreateEnemyGroupOfElement(ElementName elementName, int minionCount, Vector2Int minionLevelRange)
