@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,48 +7,37 @@ namespace Lis
 {
     public class Fight : BaseScriptableObject
     {
-        public int Difficulty;
-
         public List<EnemyWave> EnemyWaves = new();
         public int CurrentWaveIndex;
         public float DelayBetweenWaves;
 
+        Hero _hero;
         public event Action OnWaveSpawned;
-        public void CreateFight(int difficulty)
+
+        public void CreateFight()
         {
-            Difficulty = difficulty;
+            _hero = BattleManager.Instance.Hero;
+            
             DelayBetweenWaves = Random.Range(10, 20);
             CreateWaves();
         }
 
         void CreateWaves()
         {
-            /*
-            params that I can use:
-            - number of minions
-            - minion level range
-            - delay between each group spawn
-           */
-            // TODO: math for wave difficulty
-
-            int numberOfWaves = 10;
+            const int numberOfWaves = 5;
             for (int i = 0; i < numberOfWaves; i++)
             {
-                int numberOfMinions = 5;//2 + Mathf.FloorToInt(difficulty * i * 1.1f);
-                numberOfMinions = Mathf.Clamp(numberOfMinions, 2, 50);
-                Vector2Int minionLevelRange = new Vector2Int(1, Difficulty + 1);
+                int points = 3 + EnemyWaves.Count + i;
+                points = Mathf.Clamp(points, 2, 300);
+
+                Vector2Int minionLevelRange = new(_hero.Level.Value, _hero.Level.Value + 1 + i);
 
                 EnemyWave wave = CreateInstance<EnemyWave>();
-                wave.CreateWave(numberOfMinions, minionLevelRange);
+                wave.CreateWave(points, minionLevelRange);
                 EnemyWaves.Add(wave);
             }
         }
-
-        public bool IsFinished()
-        {
-            return CurrentWaveIndex >= EnemyWaves.Count;
-        }
-
+        
         public void SpawningWaveFinished()
         {
             CurrentWaveIndex++;

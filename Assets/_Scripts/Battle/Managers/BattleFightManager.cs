@@ -12,9 +12,7 @@ namespace Lis
         BattleAreaManager _battleAreaManager;
         BattleInputManager _battleInputManager;
         BattleRangedOpponentManager _battleRangedOpponentManager;
-
-        int CurrentDifficulty { get; set; }
-
+        
         Fight _currentFight;
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
@@ -35,9 +33,7 @@ namespace Lis
             _battleInputManager.OnRightMouseClick += DebugSpawnMinion;
             _battleInputManager.OnOneClicked += DebugSpawnRangedOpponent;
 #endif
-
-            CurrentDifficulty = 1;
-
+            
             CreatePool(_minionPrefab);
 
             _battleHero = _battleManager.BattleHero;
@@ -50,7 +46,7 @@ namespace Lis
         void CreateFight()
         {
             Fight fight = ScriptableObject.CreateInstance<Fight>();
-            fight.CreateFight(CurrentDifficulty);
+            fight.CreateFight();
             _currentFight = fight;
         }
 

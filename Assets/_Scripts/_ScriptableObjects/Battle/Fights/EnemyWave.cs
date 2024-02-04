@@ -11,60 +11,80 @@ namespace Lis
 
         public Entity RangedOpponent;
 
-        public void CreateWave(int minionCount, Vector2Int minionLevelRange)
+        /*
+         * Wave should be point based
+         * Minions cost 1 point, ranged opponents cost 5 points
+         *
+         */
+        int _pointsLeft;
+        Vector2Int _minionLevelRange;
+
+        public void CreateWave(int points, Vector2Int minionLevelRange)
         {
             _gameManager = GameManager.Instance;
 
+            _pointsLeft = points;
+            _minionLevelRange = minionLevelRange;
+
             int val = Random.Range(0, 100);
-            switch (val)
+            if (val < 20)
             {
-                case < 5:
-                    CreateEnemyGroupOfElement(ElementName.Earth, minionCount, minionLevelRange);
-                    return;
-                case >= 5 and < 10:
-                    CreateEnemyGroupOfElement(ElementName.Fire, minionCount, minionLevelRange);
-                    return;
-                case >= 10 and < 15:
-                    CreateEnemyGroupOfElement(ElementName.Water, minionCount, minionLevelRange);
-                    return;
-                case >= 15 and < 20:
-                    CreateEnemyGroupOfElement(ElementName.Wind, minionCount, minionLevelRange);
-                    return;
+                SingleElementWave();
+                return;
             }
 
-            // split minion count evenly between elements
-            int minionsPerElement = minionCount / 4;
-            int minionsLeft = minionCount % 4;
-            CreateEnemyGroupOfElement(ElementName.Earth, minionsPerElement + minionsLeft, minionLevelRange);
-            CreateEnemyGroupOfElement(ElementName.Fire, minionsPerElement, minionLevelRange);
-            CreateEnemyGroupOfElement(ElementName.Water, minionsPerElement, minionLevelRange);
-            CreateEnemyGroupOfElement(ElementName.Wind, minionsPerElement, minionLevelRange);
+            if (points > 5 && val > 70)
+                AddRangedOpponent();
 
-            if (Random.value > 0.5f)
-                RangedOpponent = Instantiate(_gameManager.EntityDatabase.GetRandomRangedOpponent());
+            // split minion count evenly between elements
+            int pointsPerElement = _pointsLeft / 4;
+            int pointsLeftover = _pointsLeft % 4;
+            CreateEnemyGroupOfElement(ElementName.Earth, pointsPerElement + pointsLeftover);
+            CreateEnemyGroupOfElement(ElementName.Fire, pointsPerElement);
+            CreateEnemyGroupOfElement(ElementName.Water, pointsPerElement);
+            CreateEnemyGroupOfElement(ElementName.Wind, pointsPerElement);
         }
 
-        void CreateEnemyGroupOfElement(ElementName elementName, int minionCount, Vector2Int minionLevelRange)
+        void SingleElementWave()
+        {
+            int val = Random.Range(0, 4);
+            switch (val)
+            {
+                case 0:
+                    CreateEnemyGroupOfElement(ElementName.Earth, _pointsLeft);
+                    break;
+                case 1:
+                    CreateEnemyGroupOfElement(ElementName.Fire, _pointsLeft);
+                    break;
+                case 2:
+                    CreateEnemyGroupOfElement(ElementName.Water, _pointsLeft);
+                    break;
+                default:
+                    CreateEnemyGroupOfElement(ElementName.Wind, _pointsLeft);
+                    break;
+            }
+        }
+
+        void AddRangedOpponent()
+        {
+            RangedOpponent = Instantiate(_gameManager.EntityDatabase.GetRandomRangedOpponent());
+            RangedOpponent.InitializeBattle(1);
+            _pointsLeft -= 5;
+        }
+
+        void CreateEnemyGroupOfElement(ElementName elementName, int points)
         {
             EnemyGroup group = CreateInstance<EnemyGroup>();
             group.ElementName = elementName;
-            for (int i = 0; i < minionCount; i++)
+            for (int i = 0; i < points; i++)
             {
                 Minion minion = Instantiate(_gameManager.EntityDatabase.GetRandomMinionByElement(elementName));
-                minion.Level.SetValue(Random.Range(minionLevelRange.x, minionLevelRange.y + 1));
+                minion.Level.SetValue(Random.Range(_minionLevelRange.x, _minionLevelRange.y));
                 minion.InitializeBattle(1);
                 group.Minions.Add(minion);
             }
 
             EnemyGroups.Add(group);
         }
-
-
-        // void AddRangedOpponent()
-        // {
-        //     Creature rangedOpponent = Instantiate(_gameManager.EntityDatabase.RangedOpponent);
-        //     rangedOpponent.InitializeBattle(1);
-        //     Creatures.Add(rangedOpponent);
-        // }
     }
 }
