@@ -20,14 +20,14 @@ namespace Lis
             {
                 List<BattleEntity> currentEntities = new(EntitiesInCollider);
                 foreach (BattleEntity entity in currentEntities)
-                    StartCoroutine(entity.GetHit(_ability));
+                    StartCoroutine(entity.GetHit(Ability));
                 yield return new WaitForSeconds(interval);
             }
         }
 
         void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.layer == Tags.BattleObstacleLayer)
+            if (collision.gameObject.layer == Tags.UnpassableLayer)
                 UnpassableHit();
 
             if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))

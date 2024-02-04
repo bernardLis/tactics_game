@@ -107,7 +107,7 @@ namespace Lis
         {
             if (IsHitConnected) return;
 
-            if (collision.gameObject.layer == Tags.BattleObstacleLayer ||
+            if (collision.gameObject.layer == Tags.UnpassableLayer ||
                 collision.gameObject.layer == Tags.BattleInteractableLayer)
             {
                 HitConnected();

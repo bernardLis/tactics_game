@@ -1,12 +1,10 @@
 using System.Collections;
-
 using UnityEngine;
 
 namespace Lis
 {
     public class BattleAbilityWindTornado : BattleAbility
     {
-
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
@@ -19,11 +17,13 @@ namespace Lis
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = new(transform.position.x, 0, transform.position.z);
-                Quaternion q = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                Vector3 currentPosition = transform.position;
+                Vector3 pos = new(currentPosition.x, 0, currentPosition.z);
+                Quaternion look = Quaternion.LookRotation(GetRandomEnemyDirection(),
+                    Vector3.up);
 
                 BattleWindTornado tornado = GetInactiveAbilityObject() as BattleWindTornado;
-                tornado.Execute(pos, q);
+                if (tornado != null) tornado.Execute(pos, look);
                 yield return new WaitForSeconds(0.2f);
             }
         }

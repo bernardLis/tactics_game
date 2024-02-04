@@ -17,8 +17,6 @@ namespace Lis
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                // Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
-                //     Random.Range(7, 14));
                 Vector3 pos = BattleManager.GetRandomEnemyPosition();
                 BattleWaterTornado tornado = GetInactiveAbilityObject() as BattleWaterTornado;
                 if (tornado != null) tornado.Execute(pos, Quaternion.identity);

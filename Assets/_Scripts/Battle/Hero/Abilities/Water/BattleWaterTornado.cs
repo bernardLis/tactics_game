@@ -14,12 +14,12 @@ namespace Lis
         public override void Execute(Vector3 pos, Quaternion rot)
         {
             pos.y = 0;
-            transform.localScale = Vector3.one * _ability.GetScale();
+            transform.localScale = Vector3.one * Ability.GetScale();
 
             foreach (ParticleSystem ps in _psDurationChange)
             {
                 var main = ps.main;
-                main.startLifetime = _ability.GetDuration();
+                main.startLifetime = Ability.GetDuration();
             }
 
             base.Execute(pos, rot);
@@ -27,14 +27,14 @@ namespace Lis
 
         protected override IEnumerator ExecuteCoroutine()
         {
-            StartCoroutine(DamageCoroutine(Time.time + _ability.GetDuration()));
+            StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
 
             // I would like tornado to follow a circular path
             // - fuck it, just move it in random direction
             Vector3 rand = Random.insideUnitCircle;
             _dir = new(rand.x, 0, rand.y);
             _dir.Normalize();
-            float endTime = Time.time + _ability.GetDuration();
+            float endTime = Time.time + Ability.GetDuration();
             while (Time.time < endTime)
             {
                 transform.position += _dir * (_speed * Time.fixedDeltaTime);

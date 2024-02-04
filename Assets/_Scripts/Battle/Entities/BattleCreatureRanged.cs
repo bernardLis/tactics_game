@@ -33,7 +33,7 @@ namespace Lis
             if (Opponent == null) return false;
             //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
             return !Physics.Linecast(transform.position, Opponent.transform.position,
-                out _, 1 << Tags.BattleObstacleLayer);
+                out _, 1 << Tags.UnpassableLayer);
         }
 
         protected Vector3 ClosestPositionWithClearLos()
@@ -50,7 +50,7 @@ namespace Lis
                 // Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.red, 30f);
 
                 if (!Physics.Linecast(Opponent.transform.position, rotatedLine,
-                        out _, 1 << Tags.BattleObstacleLayer))
+                        out _, 1 << Tags.UnpassableLayer))
                 {
                     //   Debug.DrawLine(_opponent.transform.position, rotatedLine, Color.blue, 30f);
 

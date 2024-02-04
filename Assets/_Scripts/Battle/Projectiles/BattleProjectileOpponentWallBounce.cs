@@ -6,7 +6,7 @@ namespace Lis
     {
         protected override void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.layer == Tags.BattleObstacleLayer ||
+            if (collision.gameObject.layer == Tags.UnpassableLayer ||
                 collision.gameObject.layer == Tags.BattleFloorLayer ||
                 collision.gameObject.layer == Tags.BattleInteractableLayer)
             {

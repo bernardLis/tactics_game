@@ -1,17 +1,16 @@
 using System.Collections;
-
 using UnityEngine;
 
 namespace Lis
 {
     public class BattleAbilityObject : MonoBehaviour
     {
-        protected Ability _ability;
+        protected Ability Ability;
+
         public virtual void Initialize(Ability ability)
         {
-            _ability = ability;
-            _ability.OnLevelUp += OnAbilityLevelUp;
-
+            Ability = ability;
+            Ability.OnLevelUp += OnAbilityLevelUp;
         }
 
         protected virtual void OnAbilityLevelUp()
@@ -19,12 +18,13 @@ namespace Lis
             // override
         }
 
-        void OnDestroy() => _ability.OnLevelUp -= OnAbilityLevelUp;
+        void OnDestroy() => Ability.OnLevelUp -= OnAbilityLevelUp;
 
         public virtual void Execute(Vector3 pos, Quaternion rot)
         {
-            transform.localPosition = pos;
-            transform.localRotation = rot;
+            Transform t = transform;
+            t.localPosition = pos;
+            t.localRotation = rot;
             gameObject.SetActive(true);
             StartCoroutine(ExecuteCoroutine());
         }

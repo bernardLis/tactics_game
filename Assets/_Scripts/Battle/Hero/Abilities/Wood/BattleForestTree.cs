@@ -43,14 +43,14 @@ namespace Lis
                 if (c.TryGetComponent(out BattleEntity entity))
                 {
                     if (entity.Team == 0) continue; // TODO: hardcoded team number
-                    StartCoroutine(entity.GetHit(_ability));
+                    StartCoroutine(entity.GetHit(Ability));
                 }
             }
         }
 
         protected override IEnumerator ExecuteCoroutine()
         {
-            yield return DamageCoroutine(Time.time + _ability.GetDuration());
+            yield return DamageCoroutine(Time.time + Ability.GetDuration());
             transform.DOScale(0, 0.5f)
                 .OnComplete(Disable);
         }
@@ -71,7 +71,7 @@ namespace Lis
                     rot.z = 75;
                     transform.DORotate(rot, 0.1f)
                         .OnComplete(() => transform.DORotate(originalRot, 0.1f));
-                    StartCoroutine(entity.GetHit(_ability));
+                    StartCoroutine(entity.GetHit(Ability));
                 }
                 yield return new WaitForSeconds(0.7f);
             }

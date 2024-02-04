@@ -25,9 +25,9 @@ namespace Lis
             _col.gameObject.SetActive(true);
 
             SetDurations();
-            StartCoroutine(DamageCoroutine(_ability.GetDuration()));
+            StartCoroutine(DamageCoroutine(Ability.GetDuration()));
 
-            yield return new WaitForSeconds(_ability.GetDuration() + 0.5f);
+            yield return new WaitForSeconds(Ability.GetDuration() + 0.5f);
             _col.gameObject.SetActive(false);
 
             yield return new WaitForSeconds(3f); // for ice to disappear
@@ -38,19 +38,19 @@ namespace Lis
         void SetDurations()
         {
             var iceSpikesMain = _iceSpikes.main;
-            iceSpikesMain.startLifetime = _ability.GetDuration();
+            iceSpikesMain.startLifetime = Ability.GetDuration();
 
             var snowMain = _snow.main;
-            snowMain.startLifetime = _ability.GetDuration();
+            snowMain.startLifetime = Ability.GetDuration();
 
             foreach (ParticleSystem ps in _delayedEffects)
             {
                 var psMain = ps.main;
-                psMain.startDelay = _ability.GetDuration() - 1f;
+                psMain.startDelay = Ability.GetDuration() - 1f;
             }
 
             var iceExplosionMain = _iceExplosion.main;
-            iceExplosionMain.startDelay = _ability.GetDuration() - 0.1f;
+            iceExplosionMain.startDelay = Ability.GetDuration() - 0.1f;
         }
 
     }

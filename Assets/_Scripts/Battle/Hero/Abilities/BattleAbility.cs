@@ -76,13 +76,13 @@ namespace Lis
         {
             Vector3 rand = BattleManager.GetRandomEnemyPosition() - transform.position;
             rand.y = 0;
-            Vector3 dir = rand.normalized;
-            
+            Vector3 dir = rand;
+
             if (rand != Vector3.zero) return dir;
             rand = Random.insideUnitCircle;
             dir = new(rand.x, 0, rand.y);
 
-            return dir;
+            return dir.normalized;
         }
 
         BattleAbilityObject InitializeAbilityObject()

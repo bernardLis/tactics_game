@@ -17,7 +17,7 @@ namespace Lis
 
         protected override IEnumerator ExecuteCoroutine()
         {
-            transform.localScale = Vector3.one * _ability.GetScale();
+            transform.localScale = Vector3.one * Ability.GetScale();
 
             _circle.transform.localScale = Vector3.one;
             _meteor.transform.localScale = Vector3.one;
@@ -25,8 +25,8 @@ namespace Lis
             ManageCircles();
             yield return new WaitForSeconds(2f);
             ManageMeteors();
-            StartCoroutine(DamageCoroutine(Time.time + _ability.GetDuration()));
-            yield return new WaitForSeconds(_ability.GetDuration());
+            StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
+            yield return new WaitForSeconds(Ability.GetDuration());
             yield return _circle.transform.DOScale(0, 1f).WaitForCompletion();
             _meteor.transform.DOScale(0, 0.5f).OnComplete(
                 () =>
@@ -54,8 +54,8 @@ namespace Lis
             ps.Simulate(0.0f, true, true);
 
             ParticleSystem.ShapeModule shape = ps.shape;
-            shape.radius = _ability.GetScale();
-            int burstCount = Mathf.FloorToInt(_ability.GetDuration());
+            shape.radius = Ability.GetScale();
+            int burstCount = Mathf.FloorToInt(Ability.GetDuration());
             short burstCountShort = (short)burstCount;
             ParticleSystem.EmissionModule emission = ps.emission;
             emission.SetBursts(new ParticleSystem.Burst[] {

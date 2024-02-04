@@ -13,12 +13,12 @@ namespace Lis
         public override void Initialize(Ability ability)
         {
             base.Initialize(ability);
-            transform.localScale = Vector3.one * _ability.GetScale();
+            transform.localScale = Vector3.one * Ability.GetScale();
         }
 
         protected override void OnAbilityLevelUp()
         {
-            transform.localScale = Vector3.one * _ability.GetScale();
+            transform.localScale = Vector3.one * Ability.GetScale();
         }
 
         public override void Execute(Vector3 pos, Quaternion rot)
@@ -33,9 +33,9 @@ namespace Lis
             _col.SetActive(true);
 
             ParticleSystem.MainModule main = _spikes.main;
-            main.startLifetime = _ability.GetDuration();
+            main.startLifetime = Ability.GetDuration();
 
-            yield return DamageCoroutine(Time.time + _ability.GetDuration());
+            yield return DamageCoroutine(Time.time + Ability.GetDuration());
             yield return new WaitForSeconds(0.5f);
 
             _col.SetActive(false);

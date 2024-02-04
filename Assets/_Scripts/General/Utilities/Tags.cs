@@ -21,7 +21,7 @@ namespace Lis
             private set { }
         }
 
-        public static int BattleObstacleLayer
+        public static int UnpassableLayer
         {
             get { return 3; }
             private set { }
