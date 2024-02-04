@@ -15,10 +15,10 @@ namespace Lis
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             yield return base.ExecuteAbilityCoroutine();
-            for (int i = 0; i < _ability.GetAmount(); i++)
+            for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 // random position within circle radius
-                Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position, Random.Range(10, 20));
+                Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position, Random.Range(10, 20));
                 BattleMeteors meteor = GetInactiveAbilityObject() as BattleMeteors;
                 meteor.Execute(pos, Quaternion.identity);
             }

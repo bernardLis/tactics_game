@@ -17,7 +17,7 @@ namespace Lis
         {
             yield return base.ExecuteAbilityCoroutine();
 
-            for (int i = 0; i < _ability.GetAmount(); i++)
+            for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 Vector3 pos = new(transform.position.x, 0, transform.position.z);
                 Quaternion q = Quaternion.Euler(0, Random.Range(0f, 360f), 0);

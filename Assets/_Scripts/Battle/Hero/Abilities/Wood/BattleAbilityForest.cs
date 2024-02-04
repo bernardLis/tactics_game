@@ -23,10 +23,10 @@ namespace Lis
             _effect.SetActive(true);
             yield return new WaitForSeconds(1.5f);
 
-            for (int i = 0; i < _ability.GetAmount(); i++)
+            for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
-                    _radius * _ability.GetScale());
+                Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
+                    _radius * Ability.GetScale());
                 BattleForestTree tree = GetInactiveAbilityObject() as BattleForestTree;
                 tree.Execute(pos, Quaternion.identity);
             }

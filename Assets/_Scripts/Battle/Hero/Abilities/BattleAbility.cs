@@ -1,48 +1,51 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Lis
 {
     public class BattleAbility : MonoBehaviour
     {
-        protected BattleManager _battleManager;
-        protected BattleAreaManager _battleAreaManager;
+        protected BattleManager BattleManager;
+        protected BattleAreaManager BattleAreaManager;
 
-        protected Transform _abilityObjectParent;
-        [SerializeField] protected GameObject _abilityObjectPrefab;
+        protected Transform AbilityObjectParent;
+
+        [FormerlySerializedAs("_abilityObjectPrefab")] [SerializeField]
+        protected GameObject AbilityObjectPrefab;
+
         readonly List<BattleAbilityObject> _abilityObjectPool = new();
 
-        protected Ability _ability;
-        protected IEnumerator _runAbilityCoroutine;
-        protected IEnumerator _fireAbilityCoroutine;
+        protected Ability Ability;
+        IEnumerator _runAbilityCoroutine;
+        IEnumerator _fireAbilityCoroutine;
 
         public event Action<Vector3, Vector3> OnAbilityFire;
+
         public virtual void Initialize(Ability ability, bool startAbility = true)
         {
-            _battleManager = BattleManager.Instance;
-            _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-            _abilityObjectParent = _battleManager.AbilityHolder;
+            BattleManager = BattleManager.Instance;
+            BattleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
+            AbilityObjectParent = BattleManager.AbilityHolder;
 
-            _ability = ability;
+            Ability = ability;
 
-            _ability.OnStart += StartAbility;
-            _ability.OnStop += StopAbility;
+            Ability.OnStart += StartAbility;
+            Ability.OnStop += StopAbility;
 
             if (startAbility) StartAbility();
         }
 
-
-        public void StartAbility()
+        void StartAbility()
         {
             _runAbilityCoroutine = RunAbilityCoroutine();
             StartCoroutine(_runAbilityCoroutine);
         }
 
-        public void StopAbility()
+        void StopAbility()
         {
             StopCoroutine(_runAbilityCoroutine);
         }
@@ -55,25 +58,39 @@ namespace Lis
                 _fireAbilityCoroutine = ExecuteAbilityCoroutine();
                 StartCoroutine(_fireAbilityCoroutine);
 
-                if (_ability.GetCooldown() == 0) yield break; // for continuous abilities
-                _ability.StartCooldown();
-                yield return new WaitForSeconds(_ability.GetCooldown());
+                if (Ability.GetCooldown() == 0) yield break; // for continuous abilities
+                Ability.StartCooldown();
+                yield return new WaitForSeconds(Ability.GetCooldown());
             }
         }
 
         protected virtual IEnumerator ExecuteAbilityCoroutine()
         {
-            OnAbilityFire?.Invoke(transform.position, transform.rotation.eulerAngles);
+            Transform t = transform;
+            OnAbilityFire?.Invoke(t.position, t.rotation.eulerAngles);
             // override this method in child classes
             yield return null;
         }
 
-        protected BattleAbilityObject InitializeAbilityObject()
+        protected Vector3 GetRandomEnemyDirection()
         {
-            GameObject instance = Instantiate(_abilityObjectPrefab, Vector3.zero,
-                Quaternion.identity, _abilityObjectParent);
+            Vector3 rand = BattleManager.GetRandomEnemyPosition() - transform.position;
+            rand.y = 0;
+            Vector3 dir = rand.normalized;
+            
+            if (rand != Vector3.zero) return dir;
+            rand = Random.insideUnitCircle;
+            dir = new(rand.x, 0, rand.y);
+
+            return dir;
+        }
+
+        BattleAbilityObject InitializeAbilityObject()
+        {
+            GameObject instance = Instantiate(AbilityObjectPrefab, Vector3.zero,
+                Quaternion.identity, AbilityObjectParent);
             BattleAbilityObject ab = instance.GetComponent<BattleAbilityObject>();
-            ab.Initialize(_ability);
+            ab.Initialize(Ability);
             _abilityObjectPool.Add(ab);
             return ab;
         }

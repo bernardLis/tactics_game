@@ -17,9 +17,9 @@ namespace Lis
         {
             yield return base.ExecuteAbilityCoroutine();
 
-            for (int i = 0; i < _ability.GetAmount(); i++)
+            for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = _battleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
+                Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
                     Random.Range(7, 14));
                 BattleWaterTornado tornado = GetInactiveAbilityObject() as BattleWaterTornado;
                 tornado.Execute(pos, Quaternion.identity);

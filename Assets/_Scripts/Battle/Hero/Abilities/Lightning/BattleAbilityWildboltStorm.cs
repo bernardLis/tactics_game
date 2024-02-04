@@ -29,14 +29,14 @@ namespace Lis
             pos.y = 0.1f;
             _effect.transform.position = pos;
             yield return new WaitForSeconds(0.6f);
-            _effect.transform.parent = _battleManager.AbilityHolder;
+            _effect.transform.parent = BattleManager.AbilityHolder;
 
-            int projectileCount = _ability.GetAmount();
+            int projectileCount = Ability.GetAmount();
             for (int i = 0; i < projectileCount; i++)
             {
                 BattleWildbolt projectile = GetInactiveProjectile();
                 projectile.transform.position = transform.position;
-                projectile.Fire(_ability);
+                projectile.Fire(Ability);
             }
             yield return new WaitForSeconds(2f);
 
@@ -45,7 +45,7 @@ namespace Lis
 
         BattleWildbolt InitializeProjectile()
         {
-            GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity, _battleManager.AbilityHolder);
+            GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity, BattleManager.AbilityHolder);
             instance.SetActive(true);
 
             BattleWildbolt projectile = instance.GetComponent<BattleWildbolt>();

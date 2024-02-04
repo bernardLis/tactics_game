@@ -21,7 +21,7 @@ namespace Lis
         {
             yield return base.ExecuteAbilityCoroutine();
 
-            int projectileCount = _ability.GetAmount();
+            int projectileCount = Ability.GetAmount();
             for (int i = 0; i < projectileCount; i++)
             {
 
@@ -33,7 +33,7 @@ namespace Lis
                 projectile.transform.position = transform.position;
                 projectile.transform.rotation = q;
 
-                projectile.StartHoming(_ability);
+                projectile.StartHoming(Ability);
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -41,7 +41,7 @@ namespace Lis
         BattleProjectileHoming InitializeProjectile()
         {
             GameObject instance = Instantiate(_projectilePrefab, Vector3.zero, Quaternion.identity,
-                _battleManager.AbilityHolder);
+                BattleManager.AbilityHolder);
             instance.SetActive(true);
 
             BattleProjectileHoming projectile = instance.GetComponent<BattleProjectileHoming>();

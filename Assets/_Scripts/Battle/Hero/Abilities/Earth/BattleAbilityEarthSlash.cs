@@ -9,7 +9,7 @@ namespace Lis
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            _abilityObjectParent = transform;
+            AbilityObjectParent = transform;
 
             transform.localPosition = new Vector3(0f, 0f, 1f); // it is where the effect spawns...
         }
@@ -17,7 +17,7 @@ namespace Lis
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             yield return base.ExecuteAbilityCoroutine();
-            for (int i = 0; i < _ability.GetAmount(); i++)
+            for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 BattleEarthSlash s = GetInactiveAbilityObject() as BattleEarthSlash;
                 s.Execute(GetSlashPosition(i), GetSlashRotation(i));

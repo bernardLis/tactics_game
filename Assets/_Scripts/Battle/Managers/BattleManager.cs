@@ -239,6 +239,12 @@ namespace Lis
             return PlayerEntities;
         }
 
+        public Vector3 GetRandomEnemyPosition()
+        {
+            if (OpponentEntities.Count == 0) return Vector3.zero;
+            return OpponentEntities[UnityEngine.Random.Range(0, OpponentEntities.Count)].transform.position;
+        }
+
         public bool IsBossFight()
         {
             return CurrentBattle.TilesUntilBoss == _battleAreaManager.SecuredTiles.Count - 1;

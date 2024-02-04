@@ -17,14 +17,14 @@ namespace Lis
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            _ability.OnLevelUp += OnAbilityLevelUp;
+            Ability.OnLevelUp += OnAbilityLevelUp;
 
-            transform.localScale = Vector3.one * _ability.GetScale();
+            transform.localScale = Vector3.one * Ability.GetScale();
         }
 
         void OnAbilityLevelUp()
         {
-            transform.localScale = Vector3.one * _ability.GetScale();
+            transform.localScale = Vector3.one * Ability.GetScale();
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -34,8 +34,8 @@ namespace Lis
 
             ParticleSystem ps = _gfx.GetComponent<ParticleSystem>();
             var psMain = ps.main;
-            psMain.duration = _ability.GetDuration();
-            psMain.startLifetime = _ability.GetDuration();
+            psMain.duration = Ability.GetDuration();
+            psMain.startLifetime = Ability.GetDuration();
             yield return new WaitForSeconds(0.1f);
             _gfx.SetActive(true);
 
@@ -43,22 +43,22 @@ namespace Lis
 
             _col.gameObject.SetActive(true);
             _col.transform.localScale = Vector3.zero;
-            _col.transform.DOScale(Vector3.one * 2f, _ability.GetDuration() - 0.2f)
+            _col.transform.DOScale(Vector3.one * 2f, Ability.GetDuration() - 0.2f)
                 .OnComplete(() => _col.gameObject.SetActive(false));
 
-            yield return new WaitForSeconds(_ability.GetDuration());
+            yield return new WaitForSeconds(Ability.GetDuration());
 
             _gfx.SetActive(false);
         }
 
         IEnumerator DealDamage()
         {
-            float endTime = Time.time + _ability.GetDuration();
+            float endTime = Time.time + Ability.GetDuration();
             while (Time.time < endTime)
             {
                 List<BattleEntity> currentEntities = new(_entitiesInCollider);
                 foreach (BattleEntity entity in currentEntities)
-                    StartCoroutine(entity.GetHit(_ability));
+                    StartCoroutine(entity.GetHit(Ability));
                 yield return new WaitForSeconds(0.5f);
             }
         }

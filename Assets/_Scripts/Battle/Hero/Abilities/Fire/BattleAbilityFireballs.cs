@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
 using UnityEngine;
 
 namespace Lis
@@ -11,24 +9,24 @@ namespace Lis
         [SerializeField] GameObject _fireballPrefab;
         readonly List<BattleProjectile> _fireballPool = new();
 
-        public override void Initialize(Ability ability, bool startAbility)
+        public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            transform.localPosition = new Vector3(0f, 0.5f, 0f);
+            transform.localPosition = new(0f, 0.5f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             yield return base.ExecuteAbilityCoroutine();
-            Vector3 rand = Random.insideUnitCircle;
-            Vector3 dir = new Vector3(rand.x, 0, rand.y);
-            Vector3 projectileVariance = new Vector3(0, 0, 0.07f);
-            for (int i = 0; i < _ability.GetAmount(); i++)
+            Vector3 dir = GetRandomEnemyDirection();
+            Vector3 projectileVariance = new(0, 0, 0.1f);
+            for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 BattleProjectile projectile = GetInactiveFireball();
-                projectile.transform.localScale = Vector3.one * _ability.GetScale();
-                projectile.transform.position = transform.position;
-                projectile.Shoot(_ability, dir + projectileVariance * i);
+                Transform t = projectile.transform;
+                t.localScale = Vector3.one * Ability.GetScale();
+                t.position = transform.position;
+                projectile.Shoot(Ability, dir + projectileVariance * i);
             }
         }
 
@@ -43,7 +41,7 @@ namespace Lis
         BattleProjectile InitializeFireball()
         {
             GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity,
-                _battleManager.AbilityHolder);
+                BattleManager.AbilityHolder);
             instance.SetActive(true);
 
             BattleProjectile projectile = instance.GetComponent<BattleProjectile>();
@@ -51,6 +49,5 @@ namespace Lis
             _fireballPool.Add(projectile);
             return projectile;
         }
-
     }
 }

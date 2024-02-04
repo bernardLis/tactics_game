@@ -10,7 +10,7 @@ namespace Lis
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            _battleHero = _battleManager.BattleHero;
+            _battleHero = BattleManager.BattleHero;
             transform.localPosition = new Vector3(0f, 0f, 4f); // it is where the effect spawns...
             transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }

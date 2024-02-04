@@ -25,15 +25,15 @@ namespace Lis
             base.Initialize(ability, startAbility);
             transform.localPosition = new Vector3(0, 0.5f, 0f);
 
-            _ability.OnLevelUp += ScaleAbility;
+            Ability.OnLevelUp += ScaleAbility;
             _hero = BattleManager.Instance.BattleHero;
             ScaleAbility();
         }
 
         void ScaleAbility()
         {
-            transform.DOScale(Vector3.one * _ability.GetScale(), 0.5f).SetEase(Ease.InOutSine);
-            _circleRadius = 3 + _ability.GetScale();
+            transform.DOScale(Vector3.one * Ability.GetScale(), 0.5f).SetEase(Ease.InOutSine);
+            _circleRadius = 3 + Ability.GetScale();
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -68,7 +68,7 @@ namespace Lis
             if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                StartCoroutine(battleEntity.GetHit(_ability));
+                StartCoroutine(battleEntity.GetHit(Ability));
             }
         }
     }
