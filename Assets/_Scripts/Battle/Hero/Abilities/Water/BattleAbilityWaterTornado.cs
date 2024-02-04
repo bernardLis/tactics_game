@@ -1,16 +1,14 @@
 using System.Collections;
-
 using UnityEngine;
 
 namespace Lis
 {
     public class BattleAbilityWaterTornado : BattleAbility
     {
-
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            transform.localPosition = new Vector3(0.5f, 1f, 0f);
+            transform.localPosition = new(0.5f, 1f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -19,10 +17,11 @@ namespace Lis
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
-                    Random.Range(7, 14));
+                // Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
+                //     Random.Range(7, 14));
+                Vector3 pos = BattleManager.GetRandomEnemyPosition();
                 BattleWaterTornado tornado = GetInactiveAbilityObject() as BattleWaterTornado;
-                tornado.Execute(pos, Quaternion.identity);
+                if (tornado != null) tornado.Execute(pos, Quaternion.identity);
                 yield return new WaitForSeconds(0.1f);
             }
         }
