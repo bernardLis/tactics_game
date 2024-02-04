@@ -8,8 +8,9 @@ namespace Lis
     {
         [SerializeField] ParticleSystem[] _psDurationChange;
 
-        float _currentAngle;
-        
+        readonly float _speed = 2f;
+        Vector3 _dir;
+
         public override void Execute(Vector3 pos, Quaternion rot)
         {
             pos.y = 0;
@@ -31,12 +32,21 @@ namespace Lis
             // I would like tornado to follow a circular path
             // - fuck it, just move it in random direction
             Vector3 rand = Random.insideUnitCircle;
-            Vector3 dir = new(rand.x, 0, rand.y);
-            dir.Normalize();
-            Vector3 endPos = transform.position + dir * _ability.GetDuration();
-            yield return transform.DOMove(endPos, _ability.GetDuration()).WaitForCompletion();
+            _dir = new(rand.x, 0, rand.y);
+            _dir.Normalize();
+            float endTime = Time.time + _ability.GetDuration();
+            while (Time.time < endTime)
+            {
+                transform.position += _dir * (_speed * Time.fixedDeltaTime);
+                yield return new WaitForFixedUpdate();
+            }
 
             transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
+        }
+
+        protected override void UnpassableHit()
+        {
+            _dir *= -1;
         }
     }
 }

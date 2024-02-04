@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
 using UnityEngine;
 
 namespace Lis
 {
     public class BattleAbilityObjectDmgOverTime : BattleAbilityObject
     {
-        protected List<BattleEntity> _entitiesInCollider = new();
+        protected readonly List<BattleEntity> EntitiesInCollider = new();
 
         public override void Execute(Vector3 pos, Quaternion q)
         {
-            _entitiesInCollider.Clear();
+            EntitiesInCollider.Clear();
             base.Execute(pos, q);
         }
 
@@ -20,7 +18,7 @@ namespace Lis
         {
             while (Time.time < endTime)
             {
-                List<BattleEntity> currentEntities = new(_entitiesInCollider);
+                List<BattleEntity> currentEntities = new(EntitiesInCollider);
                 foreach (BattleEntity entity in currentEntities)
                     StartCoroutine(entity.GetHit(_ability));
                 yield return new WaitForSeconds(interval);
@@ -29,6 +27,9 @@ namespace Lis
 
         void OnCollisionEnter(Collision collision)
         {
+            if (collision.gameObject.layer == Tags.BattleObstacleLayer)
+                UnpassableHit();
+
             if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
                 bbv.TriggerBreak();
 
@@ -36,8 +37,13 @@ namespace Lis
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
                 battleEntity.OnDeath += RemoveEntityFromList;
-                _entitiesInCollider.Add(battleEntity);
+                EntitiesInCollider.Add(battleEntity);
             }
+        }
+
+        protected virtual void UnpassableHit()
+        {
+            // meant to be overridden
         }
 
         void OnCollisionExit(Collision collision)
@@ -52,8 +58,8 @@ namespace Lis
         void RemoveEntityFromList(BattleEntity entity, EntityFight ignored)
         {
             entity.OnDeath -= RemoveEntityFromList;
-            if (_entitiesInCollider.Contains(entity))
-                _entitiesInCollider.Remove(entity);
+            if (EntitiesInCollider.Contains(entity))
+                EntitiesInCollider.Remove(entity);
         }
     }
 }

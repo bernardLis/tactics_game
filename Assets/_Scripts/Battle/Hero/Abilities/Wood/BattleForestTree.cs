@@ -59,9 +59,9 @@ namespace Lis
         {
             while (Time.time < endTime)
             {
-                if (_entitiesInCollider.Count > 0)
+                if (EntitiesInCollider.Count > 0)
                 {
-                    BattleEntity entity = _entitiesInCollider[Random.Range(0, _entitiesInCollider.Count)];
+                    BattleEntity entity = EntitiesInCollider[Random.Range(0, EntitiesInCollider.Count)];
                     // rotate to face entity
                     transform.DOLookAt(entity.transform.position, 0.2f);
                     yield return new WaitForSeconds(0.2f);
