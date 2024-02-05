@@ -153,6 +153,7 @@ namespace Lis
 
         public void HideGameInfo()
         {
+            if (_gameInfoContainer == null) return;
             DOTween.To(x => _gameInfoContainer.style.opacity = x, 1, 0, 0.5f)
                 .SetEase(Ease.InOutSine)
                 .SetId(_gameInfoTweenID)

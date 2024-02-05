@@ -41,7 +41,7 @@ namespace Lis
             while (true)
             {
                 if (_battleManager.IsBossFight()) yield break;
-                yield return new WaitForSeconds(Random.Range(10f, 20f));
+                yield return new WaitForSeconds(Random.Range(2f, 5f)); // HERE: balance -> maybe longer
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
                 {

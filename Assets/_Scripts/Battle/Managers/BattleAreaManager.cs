@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using UnityEngine.UIElements;
 
@@ -27,7 +28,7 @@ namespace Lis
         [HideInInspector] public List<BattleTile> CornerTiles = new();
 
         readonly List<BattleTile> _tiles = new();
-        [HideInInspector] public List<BattleTile> SecuredTiles = new();
+        [FormerlySerializedAs("SecuredTiles")] [HideInInspector] public List<BattleTile> UnlockedTiles = new();
 
         VisualElement _questContainer;
 
@@ -69,7 +70,7 @@ namespace Lis
                         building = _homeBuilding;
 
                     BattleTile bt = InstantiateTile(pos, building);
-                    bt.OnSecured += TileSecured;
+                    bt.OnUnlocked += TileUnlocked;
                     _tiles.Add(bt);
 
                     if (pos == Vector3.zero)
@@ -102,12 +103,12 @@ namespace Lis
         public void SecureHomeTile()
         {
             HomeTile.EnableTile(true);
-            HomeTile.Secure();
+            HomeTile.Unlock();
         }
 
-        void TileSecured(BattleTile tile)
+        void TileUnlocked(BattleTile tile)
         {
-            SecuredTiles.Add(tile);
+            UnlockedTiles.Add(tile);
             OnTileSecured?.Invoke(tile);
 
             List<BattleTile> adjacentTiles = GetAdjacentTiles(tile);
@@ -142,7 +143,7 @@ namespace Lis
 
         public BattleTile GetRandomUnlockedTile()
         {
-            return SecuredTiles[Random.Range(0, SecuredTiles.Count)];
+            return UnlockedTiles[Random.Range(0, UnlockedTiles.Count)];
         }
 
         // TODO: there must be a smarter way to get adjacent tiles
@@ -255,7 +256,7 @@ namespace Lis
         {
             foreach (BattleTile tile in _tiles)
             {
-                if (!SecuredTiles.Contains(tile)) continue;
+                if (!UnlockedTiles.Contains(tile)) continue;
                 if (pos.x > tile.transform.position.x - tile.Scale * 0.5f &&
                     pos.x < tile.transform.position.x + tile.Scale * 0.5f &&
                     pos.z > tile.transform.position.z - tile.Scale * 0.5f &&
@@ -335,7 +336,7 @@ namespace Lis
                 List<BattleTile> adjacentTiles = GetAdjacentTiles(currentAStarTile.Tile);
                 foreach (BattleTile tile in adjacentTiles)
                 {
-                    if (!SecuredTiles.Contains(tile)) continue;
+                    if (!UnlockedTiles.Contains(tile)) continue;
                     if (closedList.Exists(t => t.Tile == tile)) continue;
 
                     float g = currentAStarTile.G + 1;

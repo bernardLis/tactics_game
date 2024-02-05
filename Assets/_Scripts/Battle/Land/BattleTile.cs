@@ -28,9 +28,7 @@ namespace Lis
         [SerializeField] GameObject _canvas;
         [SerializeField] TMP_Text _questText;
         [SerializeField] Image _questImage;
-
-        [Header("Secured")] [SerializeField] GameObject _securedEffect;
-
+        
         [FormerlySerializedAs("_borders")] public List<BattleTileBorder> Borders = new();
 
         public float Scale { get; private set; }
@@ -42,7 +40,7 @@ namespace Lis
 
         Quest _quest;
 
-        public event Action<BattleTile> OnSecured;
+        public event Action<BattleTile> OnUnlocked;
 
         // at the beginning of the game
         public void Initialize(Building building)
@@ -60,7 +58,7 @@ namespace Lis
             mr.material = _materials[Random.Range(0, _materials.Length)];
         }
 
-        // when tile next to it is secured
+        // when tile next to it is unlocked
         public void EnableTile(bool isHomeTile = false)
         {
             _floor.SetActive(false);
@@ -72,7 +70,7 @@ namespace Lis
             _questImage.sprite = _quest.GetIcon();
             _quest.StartQuest();
             _quest.OnQuestUpdated += UpdateQuestInfo;
-            _quest.OnQuestCompleted += Secure;
+            _quest.OnQuestCompleted += Unlock;
 
             UpdateQuestInfo();
 
@@ -96,14 +94,14 @@ namespace Lis
         }
 
         // when player finishes the task 
-        public void Secure()
+        public void Unlock()
         {
             HideTileIndicator();
-            StartCoroutine(SecureTileCoroutine());
+            StartCoroutine(UnlockTileCoroutine());
 
             if (_quest == null) return;
             _quest.OnQuestUpdated -= UpdateQuestInfo;
-            _quest.OnQuestCompleted -= Secure;
+            _quest.OnQuestCompleted -= Unlock;
         }
 
         void HideTileIndicator()
@@ -115,13 +113,12 @@ namespace Lis
             if (_tileIndicator != null) Destroy(_tileIndicator);
         }
 
-        IEnumerator SecureTileCoroutine()
+        IEnumerator UnlockTileCoroutine()
         {
-            OnSecured?.Invoke(this);
-            _battleTooltipManager.ShowGameInfo("Tile Secured!", 2f);
+            OnUnlocked?.Invoke(this);
+            _battleTooltipManager.ShowGameInfo("Tile Unlocked!", 2f);
 
             _floor.SetActive(true);
-            _securedEffect.SetActive(true);
             _objectShaders.Dissolve(5f, true);
 
             yield return new WaitForSeconds(1.5f);
@@ -143,7 +140,7 @@ namespace Lis
             List<BattleTile> adjacentTiles = _battleAreaManager.GetAdjacentTiles(this);
             foreach (BattleTile tile in adjacentTiles)
             {
-                if (!_battleAreaManager.SecuredTiles.Contains(tile)) continue;
+                if (!_battleAreaManager.UnlockedTiles.Contains(tile)) continue;
                 tile.UpdateTileBorders();
             }
 
@@ -159,13 +156,13 @@ namespace Lis
                 Vector3 borderPosition = Scale * 0.5f * directionToTile + Vector3.up;
                 BattleTileBorder battleTileBorder = BorderAtPosition(borderPosition);
 
-                if (_battleAreaManager.SecuredTiles.Contains(tile) && battleTileBorder != null)
+                if (_battleAreaManager.UnlockedTiles.Contains(tile) && battleTileBorder != null)
                 {
                     battleTileBorder.DestroySelf();
                     continue;
                 }
 
-                if (!_battleAreaManager.SecuredTiles.Contains(tile) && battleTileBorder == null)
+                if (!_battleAreaManager.UnlockedTiles.Contains(tile) && battleTileBorder == null)
                     InstantiateBorder(borderPosition);
             }
 
