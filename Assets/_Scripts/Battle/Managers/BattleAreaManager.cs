@@ -28,7 +28,9 @@ namespace Lis
         [HideInInspector] public List<BattleTile> CornerTiles = new();
 
         readonly List<BattleTile> _tiles = new();
-        [FormerlySerializedAs("SecuredTiles")] [HideInInspector] public List<BattleTile> UnlockedTiles = new();
+
+        [FormerlySerializedAs("SecuredTiles")] [HideInInspector]
+        public List<BattleTile> UnlockedTiles = new();
 
         VisualElement _questContainer;
 
@@ -102,7 +104,7 @@ namespace Lis
 
         public void SecureHomeTile()
         {
-            HomeTile.EnableTile(true);
+            HomeTile.EnableTile(-1, true);
             HomeTile.Unlock();
         }
 
@@ -112,10 +114,12 @@ namespace Lis
             OnTileSecured?.Invoke(tile);
 
             List<BattleTile> adjacentTiles = GetAdjacentTiles(tile);
+            int unlockedCount = 0;
             foreach (BattleTile t in adjacentTiles)
             {
                 if (t.gameObject.activeSelf) continue;
-                t.EnableTile();
+                t.EnableTile(unlockedCount);
+                unlockedCount++;
             }
         }
 
@@ -135,7 +139,7 @@ namespace Lis
             _pastQuests.Add(quest);
 
             QuestElement qe = new(quest);
-            
+
             _questContainer.Add(qe);
 
             return quest;

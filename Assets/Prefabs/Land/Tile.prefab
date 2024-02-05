@@ -218,7 +218,6 @@ MonoBehaviour:
   _canvas: {fileID: 2006485867420111554}
   _questText: {fileID: 7429672523401799923}
   _questImage: {fileID: 1516699989418446543}
-  _securedEffect: {fileID: 8744537602055453684}
   Borders: []
   Building: {fileID: 0}
 --- !u!65 &2872963564344711461
@@ -589,7 +588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e47c789fa5d00f340b4d6840069bb264, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9ed629fc0782f184a98f5857d515e3d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -843,11 +842,6 @@ PrefabInstance:
 --- !u!4 &1454957648499115261 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2531527971493130943, guid: 4bd2c7865d3ceae4ba9d6342bc2437ad, type: 3}
-  m_PrefabInstance: {fileID: 3967890086570702402}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8744537602055453684 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5641340847537032630, guid: 4bd2c7865d3ceae4ba9d6342bc2437ad, type: 3}
   m_PrefabInstance: {fileID: 3967890086570702402}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4376318388486621075

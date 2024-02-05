@@ -28,7 +28,7 @@ namespace Lis
         [SerializeField] GameObject _canvas;
         [SerializeField] TMP_Text _questText;
         [SerializeField] Image _questImage;
-        
+
         [FormerlySerializedAs("_borders")] public List<BattleTileBorder> Borders = new();
 
         public float Scale { get; private set; }
@@ -37,6 +37,9 @@ namespace Lis
         public BattleBuilding BattleBuilding { get; private set; }
 
         GameObject _tileIndicator;
+
+        int _totalTime;
+        int _timePassed;
 
         Quest _quest;
 
@@ -59,13 +62,51 @@ namespace Lis
         }
 
         // when tile next to it is unlocked
-        public void EnableTile(bool isHomeTile = false)
+        public void EnableTile(int questTimerIndex, bool isHomeTile = false)
         {
-            _floor.SetActive(false);
             gameObject.SetActive(true);
-            ShowTileIndicator();
 
             if (isHomeTile) return;
+
+            ShowTileIndicator();
+
+            _floor.SetActive(false);
+            _enabledEffect.SetActive(true);
+            _canvas.SetActive(true);
+
+            SetTimer(questTimerIndex);
+        }
+
+        void SetTimer(int questTimerIndex)
+        {
+            // HERE: balance 
+            _totalTime = 60 * questTimerIndex + _battleAreaManager.UnlockedTiles.Count * Random.Range(7, 13);
+
+            StartCoroutine(QuestTimer());
+            _questText.fontSize = 48;
+            _questText.text = questTimerIndex.ToString();
+        }
+
+        IEnumerator QuestTimer()
+        {
+            while (_timePassed < _totalTime)
+            {
+                _timePassed++;
+                int timeLeft = _totalTime - _timePassed;
+                int minutes = Mathf.FloorToInt(timeLeft / 60f);
+                int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
+                _questText.text = $"{minutes:00}:{seconds:00}";
+
+                yield return new WaitForSeconds(1f);
+            }
+
+            SetQuest();
+        }
+
+        void SetQuest()
+        {
+            _questText.fontSize = 64;
+
             _quest = _battleAreaManager.GetQuest();
             _questImage.sprite = _quest.GetIcon();
             _quest.StartQuest();
@@ -73,9 +114,6 @@ namespace Lis
             _quest.OnQuestCompleted += Unlock;
 
             UpdateQuestInfo();
-
-            _enabledEffect.SetActive(true);
-            _canvas.SetActive(true);
         }
 
         void UpdateQuestInfo()
