@@ -52,7 +52,7 @@ namespace Lis
             transform.DOScale(scale * 0.5f, 1f)
                 .SetEase(Ease.OutBounce);
 
-            List<BattleEntity> enemies = new(_battleManager.GetOpponents(0));
+            List<BattleEntity> enemies = new(BattleManager.GetOpponents(0));
             foreach (BattleEntity be in enemies)
                 be.BaseGetHit(100, Color.red);
 
@@ -71,10 +71,10 @@ namespace Lis
             StartCoroutine(_corruptionCoroutine);
         }
 
-        public override void Corrupted()
+        protected override void Corrupted()
         {
             base.Corrupted();
-            _battleManager.LoseBattle();
+            BattleManager.LoseBattle();
         }
     }
 }

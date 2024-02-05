@@ -61,7 +61,6 @@ namespace Lis
 
         static readonly int AnimMove = Animator.StringToHash("Move");
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
-        static readonly int AnimDie = Animator.StringToHash("Die");
         private static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
         public event Action<int> OnDamageTaken;
@@ -98,7 +97,7 @@ namespace Lis
             SetStats();
         }
 
-        protected virtual void SetStats()
+        void SetStats()
         {
             if (Entity is not EntityMovement em) return;
 
@@ -159,7 +158,7 @@ namespace Lis
             yield return null;
         }
 
-        protected virtual IEnumerator PathToPosition(Vector3 position)
+        protected IEnumerator PathToPosition(Vector3 position)
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Path to position is called {position}");
 
@@ -173,17 +172,16 @@ namespace Lis
             Animator.SetBool(AnimMove, true);
         }
 
-        protected virtual IEnumerator PathToPositionAndStop(Vector3 position)
+        protected IEnumerator PathToPositionAndStop(Vector3 position)
         {
             yield return PathToPosition(position);
             while (Agent.enabled && Agent.remainingDistance > Agent.stoppingDistance)
                 yield return new WaitForSeconds(0.1f);
 
-            // reached destination
             StopWalking();
         }
 
-        protected virtual IEnumerator PathToTarget(Transform t)
+        protected IEnumerator PathToTarget(Transform t)
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Path to target is called {t}");
 
@@ -195,7 +193,6 @@ namespace Lis
                 yield return new WaitForSeconds(0.1f);
             }
 
-            // reached destination
             StopWalking();
         }
 
@@ -216,7 +213,7 @@ namespace Lis
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
         }
 
-        public virtual void Disengage()
+        public void Disengage()
         {
             if (IsDead) return;
 
@@ -228,13 +225,6 @@ namespace Lis
         public bool HasFullHealth()
         {
             return Entity.CurrentHealth.Value >= Entity.MaxHealth.GetValue();
-        }
-
-        public int GetHealed(Ability ability)
-        {
-            int value = ability.GetPower();
-            GetHealed(value);
-            return value;
         }
 
         public void GetHealed(int value)
@@ -326,26 +316,6 @@ namespace Lis
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity dies.");
             OnDeath?.Invoke(this, attacker);
-
-            if (Team == 1) yield break;
-
-            Animator.SetTrigger(AnimDie);
-            transform.DOMoveY(-1, 10f)
-                .SetDelay(3f)
-                .OnComplete(() =>
-                {
-                    transform.DOKill();
-                    DestroySelf();
-                });
-
-            //StopAllCoroutines(); <- this breaks bomb exploding
-        }
-
-        protected virtual void DestroySelf()
-        {
-            StopAllCoroutines();
-            transform.DOKill();
-            Destroy(gameObject);
         }
 
         void ResolveLoot()
@@ -399,28 +369,20 @@ namespace Lis
             Animator.SetBool(AnimCelebrate, true);
         }
 
-        protected void SetDead()
-        {
-            IsDead = true;
-        }
-
         /* grab */
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
-
             AudioManager.PlaySFX(_spawnSound, transform.position);
 
             if (!CanBeGrabbed()) return;
-
             _grabManager.TryGrabbing(gameObject);
         }
 
         public virtual bool CanBeGrabbed()
         {
             if (IsDead) return false;
-            if (_grabManager == null) return false;
-            return true;
+            return _grabManager != null;
         }
 
         public virtual void Grabbed()

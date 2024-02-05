@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace Lis
@@ -54,8 +52,8 @@ namespace Lis
         int _battleTime;
 
         // HERE: testing - boss
-        [SerializeField] BattleEntitySpawner _spawner;
-        [SerializeField] Entity _boss;
+        // [SerializeField] BattleEntitySpawner _spawner;
+        // [SerializeField] Entity _boss;
 
         public event Action OnBattleInitialized;
         public event Action<BattleCreature> OnPlayerCreatureAdded;
@@ -103,6 +101,8 @@ namespace Lis
 
         public void Initialize(Hero hero)
         {
+            AudioManager.Instance.PlayMusic(_battleMusic);
+
             BattleFinalized = false;
             _battleTime = 0;
 
@@ -167,8 +167,10 @@ namespace Lis
                 int minutes = Mathf.FloorToInt(timeLeft / 60f);
                 int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
 
-                _timerLabel.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+                _timerLabel.text = $"{minutes:00}:{seconds:00}";
                 yield return new WaitForSeconds(1f);
+
+                if (timeLeft <= 0) yield break;
             }
         }
 
@@ -188,8 +190,7 @@ namespace Lis
             b.transform.parent = EntityHolder;
 
             b.InitializeBattle(ref OpponentEntities);
-            if (b is BattleHero hero) b.gameObject.layer = 8;
-            else b.gameObject.layer = 10;
+            b.gameObject.layer = b is BattleHero ? 8 : 10;
             PlayerEntities.Add(b);
             b.OnDeath += OnPlayerCreatureDeath;
             if (b is BattleCreature creature)

@@ -1,12 +1,5 @@
 using System;
 using System.Collections;
-
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,58 +7,58 @@ namespace Lis
 {
     public class BattleBuilding : MonoBehaviour, IInteractable
     {
-        protected GameManager _gameManager;
-        protected BattleManager _battleManager;
-        protected BattleTooltipManager _tooltipManager;
+        protected GameManager GameManager;
+        protected BattleManager BattleManager;
+        protected BattleTooltipManager TooltipManager;
 
         [SerializeField] GameObject _corruptionEffectPrefab;
         GameObject _buildingCorruptionEffect;
 
-        protected Building _building;
+        protected Building Building;
 
-        protected ProgressBarHandler _progressBarHandler;
+        protected ProgressBarHandler ProgressBarHandler;
 
         protected IEnumerator _corruptionCoroutine;
-        protected bool _corruptionPaused;
+        bool _corruptionPaused;
 
         public event Action OnBuildingCorrupted;
+
         public virtual void Initialize(Vector3 pos, Building building)
         {
-            _gameManager = GameManager.Instance;
-            _battleManager = BattleManager.Instance;
-            _tooltipManager = BattleTooltipManager.Instance;
+            GameManager = GameManager.Instance;
+            BattleManager = BattleManager.Instance;
+            TooltipManager = BattleTooltipManager.Instance;
 
-            _building = building;
+            Building = building;
 
             transform.localPosition = pos;
 
-            _progressBarHandler = GetComponentInChildren<ProgressBarHandler>();
-            _progressBarHandler.Initialize();
-            _progressBarHandler.HideProgressBar();
+            ProgressBarHandler = GetComponentInChildren<ProgressBarHandler>();
+            ProgressBarHandler.Initialize();
+            ProgressBarHandler.HideProgressBar();
 
             StartCoroutine(SecuredCoroutine());
         }
 
-
-        public virtual IEnumerator SecuredCoroutine()
+        protected virtual IEnumerator SecuredCoroutine()
         {
             yield return ShowBuilding();
 
-            _building.Secure();
+            Building.Secure();
         }
 
         protected virtual IEnumerator ShowBuilding()
         {
-            Vector3 scale = transform.localScale;
-            transform.localScale = Vector3.zero;
-            transform.LookAt(_battleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
+            Transform t = transform;
+            Vector3 scale = t.localScale;
+            t.localScale = Vector3.zero;
+            transform.LookAt(BattleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
 
             transform.DOScale(scale, 1f)
                 .SetEase(Ease.OutBack);
             yield return transform.DOLocalMoveY(transform.localPosition.y + scale.x * 0.5f, 1f)
                 .SetEase(Ease.OutBack)
                 .WaitForCompletion();
-
         }
 
         public virtual void StartCorruption(BattleBoss boss)
@@ -90,20 +83,20 @@ namespace Lis
         protected IEnumerator CorruptionCoroutine()
         {
             yield return DisplayCorruptionEffect();
-            Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Primary;
-            _progressBarHandler.SetFillColor(c);
-            _progressBarHandler.SetBorderColor(Color.black);
-            _progressBarHandler.SetProgress(0);
-            _progressBarHandler.ShowProgressBar();
+            Color c = GameManager.GameDatabase.GetColorByName("Corruption").Primary;
+            ProgressBarHandler.SetFillColor(c);
+            ProgressBarHandler.SetBorderColor(Color.black);
+            ProgressBarHandler.SetProgress(0);
+            ProgressBarHandler.ShowProgressBar();
 
-            int totalSecondsToCorrupt = _building.SecondsToCorrupt +
-                                        _gameManager.UpgradeBoard.GetUpgradeByName("Corruption Duration").GetValue();
+            int totalSecondsToCorrupt = Building.SecondsToCorrupt +
+                                        GameManager.UpgradeBoard.GetUpgradeByName("Corruption Duration").GetValue();
 
             for (int i = 0; i <= totalSecondsToCorrupt; i++)
             {
                 if (_corruptionPaused) yield return new WaitUntil(() => !_corruptionPaused);
                 yield return new WaitForSeconds(1);
-                _progressBarHandler.SetProgress((float)i / totalSecondsToCorrupt);
+                ProgressBarHandler.SetProgress((float)i / totalSecondsToCorrupt);
             }
 
             yield return HideCorruptionEffect();
@@ -116,7 +109,7 @@ namespace Lis
                 StopCoroutine(_corruptionCoroutine);
             _corruptionCoroutine = null;
 
-            _progressBarHandler.HideProgressBar();
+            ProgressBarHandler.HideProgressBar();
             StartCoroutine(HideCorruptionEffect());
         }
 
@@ -148,9 +141,9 @@ namespace Lis
                 .WaitForCompletion();
         }
 
-        public virtual void Corrupted()
+        protected virtual void Corrupted()
         {
-            _building.Corrupted();
+            Building.Corrupted();
             OnBuildingCorrupted?.Invoke();
         }
 
@@ -158,25 +151,24 @@ namespace Lis
         public virtual bool CanInteract(BattleInteractor interactor)
         {
             if (_corruptionCoroutine != null) return false;
-            return _building.IsSecured;
+            return Building.IsSecured;
         }
 
         public virtual void DisplayTooltip()
         {
-            if (_tooltipManager == null) return;
-            _tooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
+            if (TooltipManager == null) return;
+            TooltipManager.ShowTooltip(new BuildingCard(Building), gameObject);
         }
 
         public void HideTooltip()
         {
-            if (_tooltipManager == null) return;
-            _tooltipManager.HideTooltip();
+            if (TooltipManager == null) return;
+            TooltipManager.HideTooltip();
         }
 
         public virtual bool Interact(BattleInteractor interactor)
         {
             return true;
         }
-
     }
 }

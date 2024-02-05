@@ -5,33 +5,37 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis
 {
     public class BattleCreature : BattleEntity
     {
-        [SerializeField] protected Sound _attackSound;
+        [FormerlySerializedAs("_attackSound")] [SerializeField]
+        protected Sound AttackSound;
 
         public Creature Creature { get; private set; }
 
         List<BattleEntity> _opponentList = new();
 
-        public BattleEntity Opponent { get; private set; }
+        protected BattleEntity Opponent { get; private set; }
 
-        protected float _currentAttackCooldown;
-        public float CurrentAbilityCooldown { get; private set; }
+        protected float CurrentAttackCooldown;
+        static readonly int AnimAttack = Animator.StringToHash("Attack");
+        static readonly int AnimAbility = Animator.StringToHash("Creature Ability");
+        static readonly int AnimDie = Animator.StringToHash("Die");
 
-        public int DamageDealt { get; private set; }
+        float _currentAbilityCooldown;
 
         public event Action<int> OnDamageDealt;
 
         protected virtual void Update()
         {
-            if (_currentAttackCooldown >= 0)
-                _currentAttackCooldown -= Time.deltaTime;
-            if (CurrentAbilityCooldown >= 0)
-                CurrentAbilityCooldown -= Time.deltaTime;
+            if (CurrentAttackCooldown >= 0)
+                CurrentAttackCooldown -= Time.deltaTime;
+            if (_currentAbilityCooldown >= 0)
+                _currentAbilityCooldown -= Time.deltaTime;
         }
 
         public override void InitializeEntity(Entity entity, int team)
@@ -47,7 +51,7 @@ namespace Lis
             OnDamageTaken += Creature.AddDmgTaken;
 
             Agent.stoppingDistance = Creature.AttackRange.GetValue();
-            AvoidancePriorityRange = new Vector2Int(0, 20);
+            AvoidancePriorityRange = new(0, 20);
         }
 
 
@@ -57,12 +61,12 @@ namespace Lis
 
             _opponentList = opponents;
 
-            _currentAttackCooldown = 0;
-            CurrentAbilityCooldown = 0;
+            CurrentAttackCooldown = 0;
+            _currentAbilityCooldown = 0;
 
             StartRunEntityCoroutine();
         }
-        
+
         protected override IEnumerator RunEntity()
         {
             while (true)
@@ -107,18 +111,18 @@ namespace Lis
             }
         }
 
-        protected Vector3 GetPositionCloseToHero()
+        Vector3 GetPositionCloseToHero()
         {
             BattleHero battleHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
             Vector3 pos = battleHero.transform.position
                           + Vector3.right * Random.Range(-10f, 10f)
                           + Vector3.forward * Random.Range(-10f, 10f);
-            if (!NavMesh.SamplePosition(pos, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+            if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
                 return GetPositionCloseToHero();
             return pos;
         }
 
-        protected virtual IEnumerator ManageCreatureAbility()
+        protected IEnumerator ManageCreatureAbility()
         {
             if (!CanUseAbility()) yield break;
 
@@ -128,14 +132,13 @@ namespace Lis
             yield return CurrentAbilityCoroutine;
         }
 
-        protected bool CanUseAbility()
+        bool CanUseAbility()
         {
             if (!Creature.CanUseAbility()) return false;
-            if (CurrentAbilityCooldown > 0) return false;
-            return true;
+            return !(_currentAbilityCooldown > 0);
         }
 
-        protected IEnumerator ManagePathing()
+        IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
                 ChooseNewTarget();
@@ -150,7 +153,7 @@ namespace Lis
         }
 
 
-        protected IEnumerator ManageAttackCoroutine()
+        IEnumerator ManageAttackCoroutine()
         {
             if (CurrentSecondaryCoroutine != null)
                 StopCoroutine(CurrentSecondaryCoroutine);
@@ -181,11 +184,11 @@ namespace Lis
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity attacked {Opponent.name}");
 
-            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
+            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            if (_attackSound != null) AudioManager.PlaySFX(_attackSound, transform.position);
+            if (AttackSound != null) AudioManager.PlaySFX(AttackSound, transform.position);
             yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
-            Animator.SetTrigger("Attack");
+            Animator.SetTrigger(AnimAttack);
 
             bool isAttack = false;
             while (true)
@@ -205,9 +208,9 @@ namespace Lis
             EntityLog.Add($"{BattleManager.GetTime()}: Entity uses ability");
 
             Creature.CreatureAbility.Used();
-            CurrentAbilityCooldown = Creature.CreatureAbility.Cooldown;
+            _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
 
-            Animator.SetTrigger("Creature Ability");
+            Animator.SetTrigger(AnimAbility);
 
             if (Creature.CreatureAbility.Sound != null)
                 AudioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
@@ -226,9 +229,9 @@ namespace Lis
             }
         }
 
-        protected bool CanAttack()
+        bool CanAttack()
         {
-            return _currentAttackCooldown < 0;
+            return CurrentAttackCooldown < 0;
         }
 
         protected bool IsOpponentInRange()
@@ -242,7 +245,7 @@ namespace Lis
                    Creature.AttackRange.GetValue() * Creature.AttackRange.GetValue() + 0.5f;
         }
 
-        protected void ChooseNewTarget()
+        void ChooseNewTarget()
         {
             if (_opponentList.Count == 0)
             {
@@ -289,15 +292,7 @@ namespace Lis
 
         public void DealtDamage(int dmg)
         {
-            DamageDealt += dmg;
             OnDamageDealt?.Invoke(dmg);
-        }
-
-        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
-        {
-            yield return base.Die(attacker, hasLoot);
-
-            BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
         }
 
         void OnLevelUp()
@@ -306,8 +301,25 @@ namespace Lis
             Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
         }
 
+        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        {
+            yield return base.Die(attacker, hasLoot);
+            BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+            Animator.SetTrigger(AnimDie);
+            transform.DOMoveY(-1, 10f)
+                .SetDelay(3f)
+                .OnComplete(DeactivateSelf);
+        }
 
-        // #if UNITY_EDITOR
+        void DeactivateSelf()
+        {
+            StopAllCoroutines();
+            transform.DOKill();
+            gameObject.SetActive(false);
+        }
+
+
+#if UNITY_EDITOR
         [ContextMenu("Level up")]
         public void LevelUp()
         {
@@ -326,7 +338,6 @@ namespace Lis
         {
             TriggerDieCoroutine();
         }
-
-        // #endif
+#endif
     }
 }

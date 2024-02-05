@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
-    public class BattleBuildingProduction : BattleBuilding, IInteractable
+    public class BattleBuildingProduction : BattleBuilding
     {
-        [SerializeField] protected BattleEntitySpawner _spawnerPrefab;
-        [SerializeField] protected Transform _spawnPoint;
+        [FormerlySerializedAs("_spawnerPrefab")] [SerializeField]
+        protected BattleEntitySpawner SpawnerPrefab;
 
-        [SerializeField] protected SpriteRenderer[] _starRenderers;
-        [SerializeField] protected Sprite _star;
+        [FormerlySerializedAs("_spawnPoint")] [SerializeField]
+        protected Transform SpawnPoint;
 
-        protected IEnumerator _productionCoroutine;
+        [FormerlySerializedAs("_starRenderers")] [SerializeField]
+        protected SpriteRenderer[] StarRenderers;
+
+        [FormerlySerializedAs("_star")] [SerializeField]
+        protected Sprite Star;
+
+        IEnumerator _productionCoroutine;
         float _currentProductionDelaySecond;
 
         BuildingProduction _buildingProduction;
 
-        protected List<BattleCreature> _producedCreatures = new();
+        readonly List<BattleCreature> _producedCreatures = new();
 
         public override void Initialize(Vector3 pos, Building building)
         {
@@ -31,19 +32,19 @@ namespace Lis
             _buildingProduction = building as BuildingProduction;
         }
 
-        public override IEnumerator SecuredCoroutine()
+        protected override IEnumerator SecuredCoroutine()
         {
             yield return base.SecuredCoroutine();
 
             for (int i = 0; i < _buildingProduction.BuildingUpgrade.CurrentLevel + 1; i++)
-                _starRenderers[i].sprite = _star;
+                StarRenderers[i].sprite = Star;
 
             StartProductionCoroutine();
         }
 
         void StartProductionCoroutine()
         {
-            if (!_building.IsSecured) return;
+            if (!Building.IsSecured) return;
             if (_productionCoroutine != null) return;
 
             _productionCoroutine = ProductionCoroutine();
@@ -60,25 +61,25 @@ namespace Lis
         {
             yield return new WaitForSeconds(2f);
             Color c = _buildingProduction.ProducedCreature.Element.Color.Primary;
-            _progressBarHandler.SetBorderColor(c);
-            _progressBarHandler.SetFillColor(Color.white);
-            _progressBarHandler.SetProgress(0);
-            _progressBarHandler.ShowProgressBar();
+            ProgressBarHandler.SetBorderColor(c);
+            ProgressBarHandler.SetFillColor(Color.white);
+            ProgressBarHandler.SetProgress(0);
+            ProgressBarHandler.ShowProgressBar();
 
             while (_producedCreatures.Count < _buildingProduction.GetCurrentUpgrade().ProductionLimit)
             {
-                SpawnFriendlyCreature();
+                SpawnHostileCreature();
                 yield return ProductionDelay();
             }
 
-            _progressBarHandler.HideProgressBar();
+            ProgressBarHandler.HideProgressBar();
             _productionCoroutine = null;
         }
 
         void SpawnFriendlyCreature()
         {
-            BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
-                _spawnPoint.position, transform.rotation);
+            BattleEntitySpawner spawner = Instantiate(SpawnerPrefab,
+                SpawnPoint.position, transform.rotation);
 
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
             spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: creature.Element);
@@ -87,15 +88,16 @@ namespace Lis
                 // now I need to track the spawned wolf
                 BattleCreature bc = l[0] as BattleCreature;
                 _producedCreatures.Add(bc);
-                // if it dies, and coroutine is inactive - restart coroutine
+
+                BattleManager.AddPlayerArmyEntities(l);
+                spawner.DestroySelf();
+
+                if (bc == null) return;
                 bc.OnDeath += (_, __) =>
                 {
                     _producedCreatures.Remove(bc);
                     StartProductionCoroutine();
                 };
-
-                _battleManager.AddPlayerArmyEntities(l);
-                spawner.DestroySelf();
             };
         }
 
@@ -108,7 +110,7 @@ namespace Lis
             while (_currentProductionDelaySecond < totalDelay)
             {
                 _currentProductionDelaySecond += 0.5f;
-                _progressBarHandler.SetProgress(_currentProductionDelaySecond / totalDelay);
+                ProgressBarHandler.SetProgress(_currentProductionDelaySecond / totalDelay);
 
                 yield return new WaitForSeconds(0.5f);
             }
@@ -123,7 +125,7 @@ namespace Lis
             boss.OnCorruptionBroken += StartProductionCoroutine;
         }
 
-        public override void Corrupted()
+        protected override void Corrupted()
         {
             base.Corrupted();
 
@@ -135,25 +137,25 @@ namespace Lis
         {
             yield return new WaitForSeconds(2f);
 
-            Color c = _gameManager.GameDatabase.GetColorByName("Corruption").Primary;
-            _progressBarHandler.SetBorderColor(c);
-            _progressBarHandler.SetFillColor(Color.black);
-            _progressBarHandler.SetProgress(0);
-            _progressBarHandler.ShowProgressBar();
+            Color c = GameManager.GameDatabase.GetColorByName("Corruption").Primary;
+            ProgressBarHandler.SetBorderColor(c);
+            ProgressBarHandler.SetFillColor(Color.black);
+            ProgressBarHandler.SetProgress(0);
+            ProgressBarHandler.ShowProgressBar();
 
-            while (!_building.IsSecured)
+            while (!Building.IsSecured)
             {
                 SpawnHostileCreature();
                 yield return ProductionDelay();
             }
 
-            _progressBarHandler.HideProgressBar();
+            ProgressBarHandler.HideProgressBar();
         }
 
         void SpawnHostileCreature()
         {
-            BattleEntitySpawner spawner = Instantiate(_spawnerPrefab,
-                _spawnPoint.position, transform.rotation);
+            BattleEntitySpawner spawner = Instantiate(SpawnerPrefab,
+                SpawnPoint.position, transform.rotation);
 
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
             spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
@@ -162,7 +164,7 @@ namespace Lis
                 // now I need to track the spawned wolf
                 BattleCreature bc = l[0] as BattleCreature;
 
-                _battleManager.AddOpponentArmyEntity(bc);
+                BattleManager.AddOpponentArmyEntity(bc);
                 spawner.DestroySelf();
             };
         }
@@ -170,10 +172,9 @@ namespace Lis
         /* INTERACTION */
         public override void DisplayTooltip()
         {
-            if (_tooltipManager == null) return;
+            if (TooltipManager == null) return;
 
-            _tooltipManager.ShowTooltip(new BuildingProductionCard(_buildingProduction), gameObject);
+            TooltipManager.ShowTooltip(new BuildingProductionCard(_buildingProduction), gameObject);
         }
-
     }
 }

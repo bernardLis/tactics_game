@@ -1,12 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -36,6 +30,7 @@ namespace Lis
         public List<BattleEntity> SpawnedEntities = new();
 
         public event Action<List<BattleEntity>> OnSpawnComplete;
+
         void Awake()
         {
             _audioManager = AudioManager.Instance;
@@ -46,8 +41,9 @@ namespace Lis
             if (_portalShown) return;
             _portalShown = true;
 
-            _audioManager.PlaySFX(_portalOpenSound, transform.position);
-            _portalHumSource = _audioManager.PlaySFX(_portalHumSound, transform.position, true);
+            Vector3 position = transform.position;
+            _audioManager.PlaySFX(_portalOpenSound, position);
+            _portalHumSource = _audioManager.PlaySFX(_portalHumSound, position, true);
             _portal = _blackPortal;
             if (element != null)
                 _portal = _portalElements.Find(x => x.ElementName == element.ElementName).Portal;
@@ -73,9 +69,9 @@ namespace Lis
         {
             ShowPortal(_portalElement);
 
-            for (int i = 0; i < _entities.Count; i++)
+            foreach (Entity t in _entities)
             {
-                SpawnEntity(_entities[i], team);
+                SpawnEntity(t, team);
                 yield return new WaitForSeconds(_delay);
             }
 
@@ -85,16 +81,18 @@ namespace Lis
 
         void SpawnEntity(Entity entity, int team)
         {
-            _audioManager.PlaySFX(_portalPopEntitySound, transform.position);
+            Vector3 position = transform.position;
+            _audioManager.PlaySFX(_portalPopEntitySound, position);
 
             entity.InitializeBattle(team);
 
-            GameObject instance = Instantiate(entity.Prefab, transform.position, transform.localRotation);
+            GameObject instance = Instantiate(entity.Prefab, position, transform.localRotation);
             BattleEntity be = instance.GetComponent<BattleEntity>();
             be.InitializeEntity(entity, team);
             SpawnedEntities.Add(be);
 
-            Vector3 jumpPos = transform.position + transform.forward * Random.Range(2, 5) * instance.transform.localScale.z;
+            Vector3 jumpPos = position +
+                              transform.forward * (Random.Range(2, 5) * instance.transform.localScale.z);
             if (_entities.Count > 1)
                 jumpPos += Vector3.left * Random.Range(-2, 2);
             jumpPos.y = instance.transform.localScale.y;

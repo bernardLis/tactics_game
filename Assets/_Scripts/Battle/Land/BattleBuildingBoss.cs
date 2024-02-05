@@ -29,7 +29,7 @@ namespace Lis
             BattleEntitySpawner spawner = Instantiate(_battleEntitySpawnerPrefab,
                 _bossSpawnPoint.position,
                 Quaternion.identity);
-            spawner.transform.LookAt(_battleManager.BattleHero.transform.position);
+            spawner.transform.LookAt(BattleManager.BattleHero.transform.position);
             spawner.ShowPortal(null, Vector3.one * 5f);
             yield return new WaitForSeconds(1.5f);
 
@@ -38,7 +38,7 @@ namespace Lis
             spawner.OnSpawnComplete += list =>
             {
                 _boss = list[0] as BattleBoss;
-                _battleManager.AddOpponentArmyEntity(_boss);
+                BattleManager.AddOpponentArmyEntity(_boss);
             };
         }
     }

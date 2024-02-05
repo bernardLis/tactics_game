@@ -27,7 +27,7 @@ namespace Lis
 
             yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
             yield return base.CreatureAbility();
-            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
+            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
 
             _abilityEffectInstance = Instantiate(_abilityEffect, transform.position, Quaternion.identity);
             _abilityEffectInstance.transform.parent = Gfx.transform;
