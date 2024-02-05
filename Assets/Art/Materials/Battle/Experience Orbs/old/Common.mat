@@ -125,14 +125,14 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _Usecenterglow: 0
-    - _Usedepth: 1
+    - _Usedepth: 0
     m_Colors:
     - _Color: {r: 0.11764706, g: 0.7372549, b: 0.4509804, a: 1}
     - _DistortionSpeedXYPowerZ: {r: 0, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlowTiling: {r: 1, g: 1, b: 1, a: 0}
-    - _MainTexTiling: {r: 1, g: 2, b: 1, a: 0}
+    - _MainTexTiling: {r: 1, g: 1, b: 1, a: 0}
     - _MaskTiling: {r: 1, g: 1, b: 0, a: 0}
     - _NoiseTiling: {r: 1, g: 1, b: 1, a: 0}
-    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0, b: 0.05, a: 1}
+    - _SpeedMainTexUVNoiseZW: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

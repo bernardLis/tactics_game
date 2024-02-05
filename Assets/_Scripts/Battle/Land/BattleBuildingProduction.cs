@@ -25,7 +25,7 @@ namespace Lis
         BuildingProduction _buildingProduction;
 
         readonly List<BattleCreature> _producedCreatures = new();
-
+        
         public override void Initialize(Vector3 pos, Building building)
         {
             base.Initialize(pos, building);

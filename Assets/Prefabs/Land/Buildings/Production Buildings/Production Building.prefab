@@ -399,6 +399,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4486999745331207847, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 939455959102729452}
+    - targetCorrespondingSourceObject: {fileID: 4486999745331207847, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2820916784554393622}
   m_SourcePrefab: {fileID: 100100000, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
 --- !u!1 &4010079258826433049 stripped
 GameObject:
@@ -418,19 +421,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
-  _bannerSpawnPoint: {fileID: 4999593436186100466}
-  _spawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
-  _spawnPoint: {fileID: 4359606596326913651}
-  _starRenderers:
+  SpawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+  SpawnPoint: {fileID: 4359606596326913651}
+  StarRenderers:
   - {fileID: 9141891671611945431}
   - {fileID: 8113372920930373950}
   - {fileID: 1038455506887472247}
-  _star: {fileID: 21300000, guid: c44d1eb6f24e7ab41a257d01f6bf793a, type: 3}
---- !u!4 &4999593436186100466 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5512881027028205132, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
-  m_PrefabInstance: {fileID: 712606302819253438}
+  Star: {fileID: 21300000, guid: c44d1eb6f24e7ab41a257d01f6bf793a, type: 3}
+--- !u!114 &2820916784554393622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010079258826433049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a04a798cfdce64f9eac2462efd73c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6287470034534217982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6819077687855662144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
