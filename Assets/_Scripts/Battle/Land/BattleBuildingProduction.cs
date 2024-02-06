@@ -91,7 +91,7 @@ namespace Lis
         void SpawnHostileCreature()
         {
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
-            _spawner.NewSpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
+            _spawner.SpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
             // _spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
             _spawner.OnSpawnComplete += (l) =>
             {

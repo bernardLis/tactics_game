@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Lis
 {
@@ -17,7 +16,6 @@ namespace Lis
         [SerializeField] Sound _portalPopEntitySound;
 
         Element _portalElement;
-        List<Entity> _entities = new();
         [SerializeField] List<PortalElement> _portalElements = new();
         [SerializeField] GameObject _blackPortal;
 
@@ -56,7 +54,7 @@ namespace Lis
                 .SetEase(Ease.OutBack);
         }
 
-        public void NewSpawnEntity(Entity entity, BattleEntity battleEntity, int team)
+        public void SpawnEntity(Entity entity, BattleEntity battleEntity, int team)
         {
             SpawnedEntities = new();
             _portalShown = false;
@@ -78,10 +76,9 @@ namespace Lis
             Vector3 position = transform.position;
             _audioManager.PlaySFX(_portalPopEntitySound, position);
 
-            Vector3 jumpPos = position + transform.forward * battleEntity.transform.localScale.z;
-            if (_entities.Count > 1)
-                jumpPos += Vector3.left * Random.Range(-2, 2);
-            jumpPos.y = battleEntity.transform.localScale.y;
+            Vector3 scale = battleEntity.transform.localScale;
+            Vector3 jumpPos = position + transform.forward * scale.z;
+            jumpPos.y = scale.y;
 
             yield return battleEntity.transform.DOJump(jumpPos, 1f, 1, 0.5f)
                 .WaitForCompletion();
@@ -89,56 +86,6 @@ namespace Lis
 
             yield return new WaitForSeconds(1f);
             DisableSelf();
-        }
-
-        public void SpawnEntities(List<Entity> entities, Element portalElement = null,
-            float duration = 2f, int team = 0)
-        {
-            _entities = new(entities);
-            _portalElement = portalElement;
-            _delay = duration / _entities.Count;
-
-            StartCoroutine(SpawnShow(team));
-        }
-
-        IEnumerator SpawnShow(int team)
-        {
-            ShowPortal(_portalElement);
-
-            foreach (Entity t in _entities)
-            {
-                SpawnEntity(t, team);
-                yield return new WaitForSeconds(_delay);
-            }
-
-            OnSpawnComplete?.Invoke(SpawnedEntities);
-            Invoke(nameof(DestroySelf), 1f);
-        }
-
-        void SpawnEntity(Entity entity, int team)
-        {
-            Vector3 position = transform.position;
-            _audioManager.PlaySFX(_portalPopEntitySound, position);
-
-            entity.InitializeBattle(team);
-
-            GameObject instance = Instantiate(entity.Prefab, position, transform.localRotation);
-            BattleEntity be = instance.GetComponent<BattleEntity>();
-            be.InitializeEntity(entity, team);
-            SpawnedEntities.Add(be);
-
-            Vector3 jumpPos = position +
-                              transform.forward * (Random.Range(2, 5) * instance.transform.localScale.z);
-            if (_entities.Count > 1)
-                jumpPos += Vector3.left * Random.Range(-2, 2);
-            jumpPos.y = instance.transform.localScale.y;
-
-            instance.transform.DOJump(jumpPos, 1f, 1, 0.5f);
-        }
-
-        public void ClearSpawnedEntities()
-        {
-            SpawnedEntities.Clear();
         }
 
         void DisableSelf()
@@ -149,16 +96,6 @@ namespace Lis
 
             transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
                 .OnComplete(() => gameObject.SetActive(false));
-        }
-
-        public void DestroySelf()
-        {
-            _audioManager.PlaySFX(_portalCloseSound, transform.position);
-            if (_portalHumSource != null)
-                _portalHumSource.Stop();
-
-            transform.DOScale(0, 0.5f).SetEase(Ease.InBack);
-            Destroy(gameObject, 1f);
         }
     }
 

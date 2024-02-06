@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lis
@@ -34,7 +33,8 @@ namespace Lis
             yield return new WaitForSeconds(1.5f);
 
             Boss boss = Instantiate(_bossOriginal);
-            spawner.SpawnEntities(new List<Entity> { boss }, team: 1);
+            BattleEntity be = Instantiate(boss.Prefab).GetComponent<BattleEntity>();
+            spawner.SpawnEntity(boss, be, team: 1);
             spawner.OnSpawnComplete += list =>
             {
                 _boss = list[0] as BattleBoss;
