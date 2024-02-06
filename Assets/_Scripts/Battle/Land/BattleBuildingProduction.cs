@@ -30,8 +30,7 @@ namespace Lis
         BattleCreaturePool _creaturePool;
 
         readonly List<BattleCreature> _producedCreatures = new();
-
-        List<BattleEntity> _playerEntitiesWithinRange = new();
+        readonly List<BattleEntity> _playerEntitiesWithinRange = new();
 
         public event Action<BattleEntity> OnEntityInRange;
 
@@ -103,12 +102,11 @@ namespace Lis
             {
                 BattleCreature bc = l[0] as BattleCreature;
 
-                BattleManager.AddOpponentArmyEntity(bc, false);
+                BattleManager.AddOpponentArmyEntity(bc);
                 _producedCreatures.Add(bc);
 
                 if (bc == null) return;
                 bc.InitializeHostileCreature(this);
-                bc.InitializeBattle(ref _playerEntitiesWithinRange);
 
                 bc.OnDeath += (_, _) =>
                 {
@@ -132,7 +130,6 @@ namespace Lis
         {
             if (!other.gameObject.TryGetComponent(out BattleEntity battleEntity)) return;
             if (battleEntity.Team == 1) return; // TODO: hardcoded team number
-
             RemoveEntityFromList(battleEntity, null);
         }
 
@@ -141,6 +138,11 @@ namespace Lis
             entity.OnDeath -= RemoveEntityFromList;
             if (_playerEntitiesWithinRange.Contains(entity))
                 _playerEntitiesWithinRange.Remove(entity);
+        }
+
+        public List<BattleEntity> GetPlayerEntitiesWithinRange()
+        {
+            return _playerEntitiesWithinRange;
         }
 
         // void SpawnFriendlyCreature()

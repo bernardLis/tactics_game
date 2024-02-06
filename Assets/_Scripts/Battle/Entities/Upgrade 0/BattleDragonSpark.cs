@@ -23,7 +23,7 @@ namespace Lis
             yield return base.CreatureAbility();
             CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            GameObject projectileInstance = Instantiate(_abilityProjectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
+            GameObject projectileInstance = Instantiate(_abilityProjectile, ProjectileSpawnPoint.transform.position, Quaternion.identity);
             projectileInstance.transform.parent = Gfx.transform;
             BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
             p.Initialize(Team);

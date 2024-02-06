@@ -179,34 +179,18 @@ namespace Lis
             return _battleTime;
         }
 
-        public void AddPlayerArmyEntities(List<BattleEntity> list)
-        {
-            foreach (BattleEntity b in list)
-                AddPlayerArmyEntity(b);
-        }
 
         public void AddPlayerArmyEntity(BattleEntity b)
         {
             b.transform.parent = EntityHolder;
-
-            b.InitializeBattle(ref OpponentEntities);
-            b.gameObject.layer = b is BattleHero ? 8 : 10;
             PlayerEntities.Add(b);
             b.OnDeath += OnPlayerCreatureDeath;
             if (b is BattleCreature creature)
                 OnPlayerCreatureAdded?.Invoke(creature);
         }
-
-        public void AddOpponentArmyEntities(List<BattleEntity> list)
+        
+        public void AddOpponentArmyEntity(BattleEntity b)
         {
-            foreach (BattleEntity b in list)
-                AddOpponentArmyEntity(b);
-        }
-
-        public void AddOpponentArmyEntity(BattleEntity b, bool initBattle = true)
-        {
-            if (initBattle) b.InitializeBattle(ref PlayerEntities);
-            b.gameObject.layer = 11;
             OpponentEntities.Add(b);
             b.OnDeath += OnOpponentDeath;
             OnOpponentEntityAdded?.Invoke(b);

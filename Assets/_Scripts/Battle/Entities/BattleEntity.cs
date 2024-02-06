@@ -37,7 +37,6 @@ namespace Lis
         public int Team { get; private set; }
 
         protected GameObject Gfx;
-        Rigidbody _rigidbody;
         protected Animator Animator { get; private set; }
 
         public Entity Entity { get; private set; }
@@ -66,63 +65,54 @@ namespace Lis
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, EntityFight> OnDeath;
 
-        void Awake()
+        public void InitializeGameObject()
         {
+            EntityLog.Add($"{Time.time}: (GAME TIME) Entity is instantiated.");
+
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             _grabManager = BattleGrabManager.Instance;
-        }
-
-        public virtual void InitializeEntity(Entity entity, int team)
-        {
-            EntityLog.Add($"{Time.time}: (GAME TIME) Entity is spawned, team {team}");
-
-            Entity = entity;
-            Team = team;
+            _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
 
             BattleEntityShaders = GetComponent<ObjectShaders>();
-
             Collider = GetComponent<Collider>();
-            if (team == 0) Collider.excludeLayers = LayerMask.GetMask("Player");
-
             Animator = GetComponentInChildren<Animator>();
             Gfx = Animator.gameObject;
             _feelPlayer = GetComponent<MMF_Player>();
             Agent = GetComponent<NavMeshAgent>();
 
-            if (AudioManager == null) AudioManager = AudioManager.Instance;
-            if (_spawnSound != null) AudioManager.PlaySFX(_spawnSound, transform.position);
-
-            SetStats();
-        }
-
-        void SetStats()
-        {
-            if (Entity is not EntityMovement em) return;
-
-            Agent.speed = em.Speed.GetValue();
-            em.Speed.OnValueChanged += (i) => Agent.speed = i;
-        }
-
-        public virtual void InitializeBattle(ref List<BattleEntity> opponents)
-        {
             BattleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
-            _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
-
-            _rigidbody = GetComponent<Rigidbody>();
-            if (_rigidbody != null) _rigidbody.isKinematic = true;
-
-            SetBattleId();
-
-            EntityLog.Add($"{BattleManager.GetTime()}: Entity is initialized");
         }
 
-        void SetBattleId()
+        public virtual void InitializeEntity(Entity entity, int team)
         {
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity is initialized");
+
+            if (_spawnSound != null)
+                AudioManager.PlaySFX(_spawnSound, transform.position);
+
+            Entity = entity;
+            Team = team;
+
+            if (team == 0)
+            {
+                gameObject.layer = 10;
+                Collider.excludeLayers = LayerMask.GetMask("Player");
+            }
+            if (team == 1)
+            {
+                gameObject.layer = 11;
+                Collider.includeLayers = LayerMask.GetMask("Player");
+            }
+
             BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Entity.name)
                        + "_" + Helpers.GetRandomNumber(4);
             name = BattleId;
+
+            if (Entity is not EntityMovement em) return;
+            Agent.speed = em.Speed.GetValue();
+            em.Speed.OnValueChanged += (i) => Agent.speed = i;
         }
 
         protected virtual void StartRunEntityCoroutine()

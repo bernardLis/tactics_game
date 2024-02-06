@@ -1,12 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
-
-
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -44,34 +38,34 @@ namespace Lis
         public event Action OnCorruptionBroken;
         public event Action OnStunFinished;
 
-        public override void InitializeBattle(ref List<BattleEntity> opponents)
-        {
-            base.InitializeBattle(ref opponents);
-
-            _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
-            _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
-                _battleAreaManager.GetTileFromPosition(transform.position),
-                _battleAreaManager.HomeTile);
-            _nextTileIndex = 0;
-
-            float newSpeed = Agent.speed - GameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
-            if (newSpeed <= 0) newSpeed = 1f;
-            Agent.speed = newSpeed;
-
-            InitializeAttacks();
-            StartRunEntityCoroutine();
-            StartAttackCoroutine();
-
-            SetUpVariables();
-            BattleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
-
-            _isStunUnlocked = GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
-
-            Upgrade corruptionBreakNodesUpgrade = GameManager.UpgradeBoard
-                .GetUpgradeByName("Corruption Break Nodes");
-            _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
-            _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;
-        }
+        // public override void InitializeBattle(ref List<BattleEntity> opponents)
+        // {
+        //     base.InitializeBattle(ref opponents);
+        //
+        //     _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
+        //     _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
+        //         _battleAreaManager.GetTileFromPosition(transform.position),
+        //         _battleAreaManager.HomeTile);
+        //     _nextTileIndex = 0;
+        //
+        //     float newSpeed = Agent.speed - GameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
+        //     if (newSpeed <= 0) newSpeed = 1f;
+        //     Agent.speed = newSpeed;
+        //
+        //     InitializeAttacks();
+        //     StartRunEntityCoroutine();
+        //     StartAttackCoroutine();
+        //
+        //     SetUpVariables();
+        //     BattleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
+        //
+        //     _isStunUnlocked = GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
+        //
+        //     Upgrade corruptionBreakNodesUpgrade = GameManager.UpgradeBoard
+        //         .GetUpgradeByName("Corruption Break Nodes");
+        //     _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
+        //     _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;
+        // }
 
         protected override IEnumerator RunEntity()
         {

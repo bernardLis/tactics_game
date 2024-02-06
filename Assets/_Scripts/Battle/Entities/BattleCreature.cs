@@ -59,24 +59,17 @@ namespace Lis
         public void InitializeHostileCreature(BattleBuildingProduction battleBuilding)
         {
             _battleBuilding = battleBuilding;
-        }
-
-        public override void InitializeBattle(ref List<BattleEntity> opponents)
-        {
-            base.InitializeBattle(ref opponents);
-
-            _opponentList = opponents;
-
+            
             CurrentAttackCooldown = 0;
             _currentAbilityCooldown = 0;
+            
+            _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
 
             StartRunEntityCoroutine();
         }
-
+        
         protected override IEnumerator RunEntity()
         {
-            Debug.Log("RunEntity");
-
             while (true)
             {
                 if (IsDead) yield break;

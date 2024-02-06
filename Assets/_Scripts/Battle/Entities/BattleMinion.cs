@@ -17,7 +17,7 @@ namespace Lis
         [SerializeField] GameObject _deathEffect;
 
         BattleHero _targetHero;
-        
+
         public override void InitializeEntity(Entity entity, int team)
         {
             if (Gfx != null) Gfx.SetActive(true);
@@ -35,16 +35,11 @@ namespace Lis
             Collider.enabled = true;
 
             Agent.speed = _minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f);
-        }
-
-        public override void InitializeBattle(ref List<BattleEntity> opponents)
-        {
-            base.InitializeBattle(ref opponents);
 
             _targetHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
             StartRunEntityCoroutine();
         }
-
+        
         protected override IEnumerator RunEntity()
         {
             if (IsDead) yield break;

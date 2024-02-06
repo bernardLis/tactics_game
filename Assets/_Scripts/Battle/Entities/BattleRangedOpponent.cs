@@ -26,13 +26,7 @@ namespace Lis
             IsDeathCoroutineStarted = false;
             Collider.enabled = true;
         }
-
-        public override void InitializeBattle(ref List<BattleEntity> opponents)
-        {
-            base.InitializeBattle(ref opponents);
-            StartRunEntityCoroutine();
-        }
-
+        
         protected override IEnumerator Attack()
         {
             yield return base.Attack();

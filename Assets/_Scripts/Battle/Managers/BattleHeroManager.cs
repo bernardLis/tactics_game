@@ -43,6 +43,7 @@ namespace Lis
             GameObject heroGameObject = Instantiate(_heroPrefab, Vector3.zero + Vector3.up * 10f,
                 Quaternion.identity);
             BattleHero = heroGameObject.GetComponentInChildren<BattleHero>();
+            BattleHero.InitializeGameObject();
             HeroFollowCamera.Follow = heroGameObject.transform;
 
             _battleManager.PlayerEntities.Add(BattleHero);

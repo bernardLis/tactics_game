@@ -12,7 +12,7 @@ namespace Lis
         BattleAreaManager _battleAreaManager;
         BattleInputManager _battleInputManager;
         BattleRangedOpponentManager _battleRangedOpponentManager;
-        
+
         Fight _currentFight;
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
@@ -33,7 +33,7 @@ namespace Lis
             _battleInputManager.OnRightMouseClick += DebugSpawnMinion;
             _battleInputManager.OnOneClicked += DebugSpawnRangedOpponent;
 #endif
-            
+
             CreatePool(_minionPrefab);
 
             _battleHero = _battleManager.BattleHero;
@@ -113,9 +113,9 @@ namespace Lis
                 return;
             }
 
-            be.InitializeEntity(m, 1);
             be.transform.position = pos;
             be.gameObject.SetActive(true);
+            be.InitializeEntity(m, 1);
             _battleManager.AddOpponentArmyEntity(be);
         }
 

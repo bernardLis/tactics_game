@@ -17,21 +17,26 @@ namespace Lis
             _pool = new();
             for (int i = 0; i < count; i++)
             {
-                T p = Instantiate(prefab, PoolHolder).GetComponent<T>();
-                p.gameObject.SetActive(false);
-                _pool.Add(p);
+                InstantiateNewObject();
             }
         }
 
         public T GetObjectFromPool()
         {
             T obj = _pool.Find(o => !o.gameObject.activeSelf);
-            if (obj != null) return obj;
+            return obj != null ? obj : InstantiateNewObject();
+        }
+
+        T InstantiateNewObject()
+        {
             T p = Instantiate(_prefab, PoolHolder).GetComponent<T>();
+            if (p.TryGetComponent(out BattleEntity entity))
+                entity.InitializeGameObject();
+
             p.gameObject.SetActive(false);
             _pool.Add(p);
-            return p;
 
+            return p;
         }
 
         protected List<T> GetActiveObjects()

@@ -18,6 +18,8 @@ namespace Lis
         public override void InitializeEntity(Entity entity, int team)
         {
             base.InitializeEntity(entity, 0);
+            gameObject.layer = 8;
+
             Agent.enabled = true;
 
             Hero = (Hero)entity;
@@ -35,7 +37,7 @@ namespace Lis
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
-            _battleAreaManager = BattleManager.Instance.GetComponent<BattleAreaManager>();
+            _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
             _battleAreaManager.OnTileSecured += OnTileSecured;
         }
 
@@ -56,7 +58,7 @@ namespace Lis
             foreach (Ability a in Hero.Abilities)
                 AddAbility(a);
         }
-        
+
         void OnDestroy()
         {
             Hero.OnAbilityAdded -= AddAbility;

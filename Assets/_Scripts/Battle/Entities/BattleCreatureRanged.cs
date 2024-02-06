@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
     public class BattleCreatureRanged : BattleCreature
     {
-        [SerializeField] protected GameObject _projectileSpawnPoint;
-        
+        [FormerlySerializedAs("_projectileSpawnPoint")] [SerializeField]
+        protected GameObject ProjectileSpawnPoint;
+
         protected override IEnumerator PathToOpponent()
         {
             // no obstacle blocking line of sight
@@ -71,6 +70,7 @@ namespace Lis
                     closestPoint = kvp.Key;
                 }
             }
+
             return closestPoint;
         }
 
@@ -100,6 +100,5 @@ namespace Lis
             // Vector3 dir = (Opponent.transform.position - transform.position).normalized;
             // p.Shoot(Creature, dir);
         }
-
     }
 }
