@@ -12,10 +12,6 @@ namespace Lis
 
         [SerializeField] GameObject _landingEffect;
 
-        protected override IEnumerator ShowBuilding()
-        {
-            yield return null;
-        }
 
         void Awake()
         {

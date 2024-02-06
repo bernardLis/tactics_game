@@ -12,22 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metalon Lair
       objectReference: {fileID: 0}
-    - target: {fileID: 5167316545364897373, guid: 97d6455fa302a024881e375723f5d363, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8521b32b7fcd7ae41acc48012ada9ec0, type: 2}
-    - target: {fileID: 6287470034534217982, guid: 97d6455fa302a024881e375723f5d363, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287470034534217982, guid: 97d6455fa302a024881e375723f5d363, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287470034534217982, guid: 97d6455fa302a024881e375723f5d363, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6287470034534217982, guid: 97d6455fa302a024881e375723f5d363, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -67,10 +51,6 @@ PrefabInstance:
     - target: {fileID: 6287470034534217982, guid: 97d6455fa302a024881e375723f5d363, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287470034534217982, guid: 97d6455fa302a024881e375723f5d363, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -33,7 +33,7 @@ namespace Lis
             return BuildingUpgrade.CurrentLevel >= 0;
         }
 
-        public void Secure()
+        public void Unlocked()
         {
             IsSecured = true;
             OnSecured?.Invoke();

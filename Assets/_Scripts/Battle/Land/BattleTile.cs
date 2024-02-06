@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace Lis
 {
-    public class BattleTile : MonoBehaviour
+    public class BattleTile : MonoBehaviour, IPointerDownHandler
     {
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
@@ -59,6 +60,12 @@ namespace Lis
             _objectShaders = GetComponent<ObjectShaders>();
             MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
             mr.material = _materials[Random.Range(0, _materials.Length)];
+
+            BattleBuilding = GetComponentInChildren<BattleBuilding>();
+            if (Building == null) return;
+            BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
+            Vector3 pos = new(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            BattleBuilding.Initialize(pos, Building);
         }
 
         // when tile next to it is unlocked
@@ -162,14 +169,7 @@ namespace Lis
             yield return new WaitForSeconds(1.5f);
             HandleBorders();
             yield return new WaitForSeconds(1.5f);
-
-            BattleBuilding = GetComponentInChildren<BattleBuilding>();
-            if (Building != null)
-            {
-                BattleBuilding = Instantiate(Building.BuildingPrefab, transform).GetComponent<BattleBuilding>();
-                Vector3 pos = new(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-                BattleBuilding.Initialize(pos, Building);
-            }
+            BattleBuilding.ShowBuilding();
         }
 
         /* BORDERS */
@@ -277,6 +277,14 @@ namespace Lis
 
             result = Vector3.zero;
             return false;
+        }
+
+        // HERE: tile unlocking debug
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (_floor.activeSelf) return;
+
+            Unlock();
         }
     }
 }

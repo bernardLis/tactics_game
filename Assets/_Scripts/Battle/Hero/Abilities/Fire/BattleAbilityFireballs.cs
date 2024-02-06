@@ -19,13 +19,13 @@ namespace Lis
         {
             yield return base.ExecuteAbilityCoroutine();
             Vector3 dir = GetRandomEnemyDirection();
-            Vector3 projectileVariance = new(0, 0, 0.1f);
+            Vector3 projectileVariance = new(0.2f, 0, 0.2f);
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 BattleProjectile projectile = GetInactiveFireball();
                 Transform t = projectile.transform;
                 t.localScale = Vector3.one * Ability.GetScale();
-                t.position = transform.position;
+                t.position = transform.position + projectileVariance * i;
                 projectile.Shoot(Ability, dir + projectileVariance * i);
             }
         }

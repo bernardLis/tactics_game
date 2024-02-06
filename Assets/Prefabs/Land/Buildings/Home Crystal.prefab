@@ -191,6 +191,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6296792140203875650, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
   m_PrefabInstance: {fileID: 5412118675472935569}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5960182625067341153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1850249123602268144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 5412118675472935569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8457394222581838902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4486999745331207847, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
@@ -208,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2135406b30010c24e99edc455e0691cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gfx: {fileID: 5960182625067341153}
   _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
   _GFX: {fileID: 2051678064307386323}
   _landingEffect: {fileID: 889726265816205275, guid: 19617e6cf57f04147814655100e7eda0, type: 3}

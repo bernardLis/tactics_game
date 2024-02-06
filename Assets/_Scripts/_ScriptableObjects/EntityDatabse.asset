@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
   m_Name: EntityDatabse
   m_EditorClassIdentifier: 
-  OpponentProjectilePrefab: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
   CreatureIcons:
   - {fileID: 21300000, guid: f8897e4662a47cd468c4c7d4a3ccd308, type: 3}
   - {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
@@ -65,11 +64,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c15815c5948dbd54799d086ec4eb70c2, type: 2}
   - {fileID: 11400000, guid: bb2bbeb50363e0d459072fdd81558805, type: 2}
   _abilities:
-  - {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
-  - {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
-  - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
   - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
+  - {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
+  - {fileID: 11400000, guid: 91272aac93f7a854c928cc4026788e4c, type: 2}
+  - {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
+  - {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
+  - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
+  - {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
   _statBasics:
   - StatType: 1
     Sprite: {fileID: 21300000, guid: 6cd7b56c2c64e11488db124808380608, type: 3}

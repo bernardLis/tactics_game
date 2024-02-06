@@ -278,9 +278,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6819077687855662144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
   m_PrefabInstance: {fileID: 5861187858011458342}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2150098666346165610 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5512881027028205132, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+--- !u!1 &5258648056807650518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1850249123602268144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
   m_PrefabInstance: {fileID: 5861187858011458342}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8003487195852117377 stripped
@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865857923971678468f6b5640582edec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gfx: {fileID: 5258648056807650518}
   _corruptionEffectPrefab: {fileID: 0}
-  _bannerSpawnPoint: {fileID: 2150098666346165610}
   _bossSpawnPoint: {fileID: 7181207626517645498}
   _bossOriginal: {fileID: 11400000, guid: 26019ca15dd8ed9478affdbe9af0bd51, type: 2}
   _battleEntitySpawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}

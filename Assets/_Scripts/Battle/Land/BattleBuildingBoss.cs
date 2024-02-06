@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
-
-
 using UnityEngine;
 
 namespace Lis
@@ -20,9 +16,13 @@ namespace Lis
         {
             pos = Vector3.zero;
             base.Initialize(pos, building);
-            StartCoroutine(SpawnBossCoroutine());
         }
 
+        protected override IEnumerator ShowBuildingCoroutine()
+        {
+            yield return base.ShowBuildingCoroutine();
+            yield return SpawnBossCoroutine();
+        }
 
         IEnumerator SpawnBossCoroutine()
         {

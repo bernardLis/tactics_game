@@ -7,8 +7,10 @@ namespace Lis
 {
     public class BattleBuildingProduction : BattleBuilding
     {
+        
         [FormerlySerializedAs("_spawnerPrefab")] [SerializeField]
         protected BattleEntitySpawner SpawnerPrefab;
+        BattleEntitySpawner _spawner;
 
         [FormerlySerializedAs("_spawnPoint")] [SerializeField]
         protected Transform SpawnPoint;
@@ -24,21 +26,31 @@ namespace Lis
 
         BuildingProduction _buildingProduction;
 
+        BattleCreaturePool _creaturePool;
+
         readonly List<BattleCreature> _producedCreatures = new();
-        
+
         public override void Initialize(Vector3 pos, Building building)
         {
             base.Initialize(pos, building);
             _buildingProduction = building as BuildingProduction;
-        }
 
-        protected override IEnumerator SecuredCoroutine()
-        {
-            yield return base.SecuredCoroutine();
-
+            if (_buildingProduction == null) return;
             for (int i = 0; i < _buildingProduction.BuildingUpgrade.CurrentLevel + 1; i++)
                 StarRenderers[i].sprite = Star;
 
+            _creaturePool = GetComponent<BattleCreaturePool>();
+            _creaturePool.Initialize(_buildingProduction.ProducedCreature.Prefab);
+
+            Transform t = transform;
+            _spawner = Instantiate(SpawnerPrefab, t);
+            _spawner.transform.localPosition = SpawnPoint.localPosition;
+            _spawner.transform.localRotation = transform.rotation;
+        }
+
+        protected override IEnumerator ShowBuildingCoroutine()
+        {
+            yield return base.ShowBuildingCoroutine();
             StartProductionCoroutine();
         }
 
@@ -76,30 +88,51 @@ namespace Lis
             _productionCoroutine = null;
         }
 
-        void SpawnFriendlyCreature()
+        void SpawnHostileCreature()
         {
-            BattleEntitySpawner spawner = Instantiate(SpawnerPrefab,
-                SpawnPoint.position, transform.rotation);
-
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
-            spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: creature.Element);
-            spawner.OnSpawnComplete += (l) =>
+            _spawner.NewSpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
+            // _spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
+            _spawner.OnSpawnComplete += (l) =>
             {
-                // now I need to track the spawned wolf
                 BattleCreature bc = l[0] as BattleCreature;
+                BattleManager.AddOpponentArmyEntity(bc);
                 _producedCreatures.Add(bc);
 
-                BattleManager.AddPlayerArmyEntities(l);
-                spawner.DestroySelf();
-
                 if (bc == null) return;
-                bc.OnDeath += (_, __) =>
+                bc.OnDeath += (_, _) =>
                 {
-                    _producedCreatures.Remove(bc);
+                    if (_producedCreatures.Contains(bc))
+                        _producedCreatures.Remove(bc);
                     StartProductionCoroutine();
                 };
             };
         }
+
+        // void SpawnFriendlyCreature()
+        // {
+        //     BattleEntitySpawner spawner = Instantiate(SpawnerPrefab,
+        //         SpawnPoint.position, transform.rotation);
+        //
+        //     Creature creature = Instantiate(_buildingProduction.ProducedCreature);
+        //     spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: creature.Element);
+        //     spawner.OnSpawnComplete += (l) =>
+        //     {
+        //         // now I need to track the spawned wolf
+        //         BattleCreature bc = l[0] as BattleCreature;
+        //         _producedCreatures.Add(bc);
+        //
+        //         BattleManager.AddPlayerArmyEntities(l);
+        //         spawner.DestroySelf();
+        //
+        //         if (bc == null) return;
+        //         bc.OnDeath += (_, _) =>
+        //         {
+        //             _producedCreatures.Remove(bc);
+        //             StartProductionCoroutine();
+        //         };
+        //     };
+        // }
 
         IEnumerator ProductionDelay()
         {
@@ -152,22 +185,6 @@ namespace Lis
             ProgressBarHandler.HideProgressBar();
         }
 
-        void SpawnHostileCreature()
-        {
-            BattleEntitySpawner spawner = Instantiate(SpawnerPrefab,
-                SpawnPoint.position, transform.rotation);
-
-            Creature creature = Instantiate(_buildingProduction.ProducedCreature);
-            spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
-            spawner.OnSpawnComplete += (l) =>
-            {
-                // now I need to track the spawned wolf
-                BattleCreature bc = l[0] as BattleCreature;
-
-                BattleManager.AddOpponentArmyEntity(bc);
-                spawner.DestroySelf();
-            };
-        }
 
         /* INTERACTION */
         public override void DisplayTooltip()

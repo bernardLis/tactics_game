@@ -11,10 +11,12 @@ namespace Lis
         protected BattleManager BattleManager;
         protected BattleTooltipManager TooltipManager;
 
+        [SerializeField] GameObject _gfx;
         [SerializeField] GameObject _corruptionEffectPrefab;
         GameObject _buildingCorruptionEffect;
 
         protected Building Building;
+        Vector3 _originalScale;
 
         protected ProgressBarHandler ProgressBarHandler;
 
@@ -22,6 +24,7 @@ namespace Lis
         bool _corruptionPaused;
 
         public event Action OnBuildingCorrupted;
+
 
         public virtual void Initialize(Vector3 pos, Building building)
         {
@@ -31,34 +34,32 @@ namespace Lis
 
             Building = building;
 
-            transform.localPosition = pos;
+            Transform t = transform;
+            t.localPosition = pos;
+            _originalScale = t.localScale;
+        }
+
+        public void ShowBuilding()
+        {
+            Building.Unlocked();
+            StartCoroutine(ShowBuildingCoroutine());
+        }
+
+        protected virtual IEnumerator ShowBuildingCoroutine()
+        {
+            _gfx.SetActive(true);
 
             ProgressBarHandler = GetComponentInChildren<ProgressBarHandler>();
             ProgressBarHandler.Initialize();
             ProgressBarHandler.HideProgressBar();
 
-            StartCoroutine(SecuredCoroutine());
-        }
-
-        protected virtual IEnumerator SecuredCoroutine()
-        {
-            yield return ShowBuilding();
-
-            Building.Secure();
-        }
-
-        protected virtual IEnumerator ShowBuilding()
-        {
             Transform t = transform;
-            Vector3 scale = t.localScale;
             t.localScale = Vector3.zero;
             transform.LookAt(BattleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
 
-            transform.DOScale(scale, 1f)
+            transform.DOScale(_originalScale, 1f)
                 .SetEase(Ease.OutBack);
-            yield return transform.DOLocalMoveY(transform.localPosition.y + scale.x * 0.5f, 1f)
-                .SetEase(Ease.OutBack)
-                .WaitForCompletion();
+            yield return null;
         }
 
         public virtual void StartCorruption(BattleBoss boss)

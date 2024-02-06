@@ -78,7 +78,7 @@ namespace Lis
             rand.y = 0;
             Vector3 dir = rand;
 
-            if (rand != Vector3.zero) return dir;
+            if (rand != Vector3.zero) return dir.normalized;
             rand = Random.insideUnitCircle;
             dir = new(rand.x, 0, rand.y);
 
