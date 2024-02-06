@@ -54,6 +54,12 @@ namespace Lis
             AvoidancePriorityRange = new(0, 20);
         }
 
+        BattleBuildingProduction _battleBuilding;
+
+        public void InitializeHostileCreature(BattleBuildingProduction battleBuilding)
+        {
+            _battleBuilding = battleBuilding;
+        }
 
         public override void InitializeBattle(ref List<BattleEntity> opponents)
         {
@@ -69,6 +75,8 @@ namespace Lis
 
         protected override IEnumerator RunEntity()
         {
+            Debug.Log("RunEntity");
+
             while (true)
             {
                 if (IsDead) yield break;
@@ -82,11 +90,11 @@ namespace Lis
         void StartHangOutCoroutine()
         {
             if (Team == 0) BattleManager.OnOpponentEntityAdded += OpponentWasAdded;
-            if (Team == 1) BattleManager.OnPlayerCreatureAdded += OpponentWasAdded;
+            if (Team == 1) _battleBuilding.OnEntityInRange += OpponentWasAdded;
 
             if (CurrentMainCoroutine != null)
                 StopCoroutine(CurrentMainCoroutine);
-            CurrentMainCoroutine = HangOut();
+            CurrentMainCoroutine = HangOutCoroutine();
             StartCoroutine(CurrentMainCoroutine);
         }
 
@@ -95,20 +103,41 @@ namespace Lis
             if (this == null) return;
             StartRunEntityCoroutine();
             if (Team == 0) BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
-            if (Team == 1) BattleManager.OnPlayerCreatureAdded -= OpponentWasAdded;
+            if (Team == 1) _battleBuilding.OnEntityInRange -= OpponentWasAdded;
         }
 
-        protected virtual IEnumerator HangOut()
+        protected virtual IEnumerator HangOutCoroutine()
         {
-            if (Team == 1) yield break; // TODO: not implemented for enemies
+            if (Team == 1)
+            {
+                while (true)
+                {
+                    if (_opponentList.Count > 0) yield break;
+
+                    Agent.stoppingDistance = 0;
+                    yield return PathToPositionAndStop(GetPositionAroundBuilding());
+                    yield return new WaitForSeconds(Random.Range(3f, 6f));
+                }
+            }
+
             while (true)
             {
-                // TODO: need to make sure that position is reachable
+                if (_opponentList.Count > 0) yield break;
+
                 Agent.stoppingDistance = 0;
                 yield return PathToPositionAndStop(GetPositionCloseToHero());
-
                 yield return new WaitForSeconds(Random.Range(3f, 6f));
             }
+        }
+
+        Vector3 GetPositionAroundBuilding()
+        {
+            Vector3 pos = _battleBuilding.transform.position
+                          + Vector3.right * Random.Range(-10f, 10f)
+                          + Vector3.forward * Random.Range(-10f, 10f);
+            if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
+                return GetPositionAroundBuilding();
+            return pos;
         }
 
         Vector3 GetPositionCloseToHero()

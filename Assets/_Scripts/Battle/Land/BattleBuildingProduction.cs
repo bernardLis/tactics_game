@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ namespace Lis
 {
     public class BattleBuildingProduction : BattleBuilding
     {
-        
         [FormerlySerializedAs("_spawnerPrefab")] [SerializeField]
         protected BattleEntitySpawner SpawnerPrefab;
+
         BattleEntitySpawner _spawner;
 
         [FormerlySerializedAs("_spawnPoint")] [SerializeField]
@@ -30,6 +31,10 @@ namespace Lis
 
         readonly List<BattleCreature> _producedCreatures = new();
 
+        List<BattleEntity> _playerEntitiesWithinRange = new();
+
+        public event Action<BattleEntity> OnEntityInRange;
+
         public override void Initialize(Vector3 pos, Building building)
         {
             base.Initialize(pos, building);
@@ -44,8 +49,9 @@ namespace Lis
 
             Transform t = transform;
             _spawner = Instantiate(SpawnerPrefab, t);
-            _spawner.transform.localPosition = SpawnPoint.localPosition;
-            _spawner.transform.localRotation = transform.rotation;
+            Transform spawnerT = _spawner.transform;
+            spawnerT.localPosition = SpawnPoint.localPosition;
+            spawnerT.localRotation = transform.rotation;
         }
 
         protected override IEnumerator ShowBuildingCoroutine()
@@ -96,10 +102,14 @@ namespace Lis
             _spawner.OnSpawnComplete += (l) =>
             {
                 BattleCreature bc = l[0] as BattleCreature;
-                BattleManager.AddOpponentArmyEntity(bc);
+
+                BattleManager.AddOpponentArmyEntity(bc, false);
                 _producedCreatures.Add(bc);
 
                 if (bc == null) return;
+                bc.InitializeHostileCreature(this);
+                bc.InitializeBattle(ref _playerEntitiesWithinRange);
+
                 bc.OnDeath += (_, _) =>
                 {
                     if (_producedCreatures.Contains(bc))
@@ -107,6 +117,30 @@ namespace Lis
                     StartProductionCoroutine();
                 };
             };
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (!other.gameObject.TryGetComponent(out BattleEntity battleEntity)) return;
+            if (battleEntity.Team == 1) return; // TODO: hardcoded team number
+            battleEntity.OnDeath += RemoveEntityFromList;
+            _playerEntitiesWithinRange.Add(battleEntity);
+            OnEntityInRange?.Invoke(battleEntity);
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (!other.gameObject.TryGetComponent(out BattleEntity battleEntity)) return;
+            if (battleEntity.Team == 1) return; // TODO: hardcoded team number
+
+            RemoveEntityFromList(battleEntity, null);
+        }
+
+        void RemoveEntityFromList(BattleEntity entity, EntityFight ignored)
+        {
+            entity.OnDeath -= RemoveEntityFromList;
+            if (_playerEntitiesWithinRange.Contains(entity))
+                _playerEntitiesWithinRange.Remove(entity);
         }
 
         // void SpawnFriendlyCreature()

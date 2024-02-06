@@ -13,7 +13,7 @@ namespace Lis
         [SerializeField] GameObject _effect;
         GameObject _effectInstance;
 
-        protected override IEnumerator HangOut()
+        protected override IEnumerator HangOutCoroutine()
         {
             yield return new WaitForSeconds(Random.Range(2f, 4f));
 
@@ -44,7 +44,7 @@ namespace Lis
             //     yield return new WaitForSeconds(Random.Range(3f, 6f));
             // }
 
-            yield return base.HangOut();
+            yield return base.HangOutCoroutine();
         }
 
         void DropPickup()

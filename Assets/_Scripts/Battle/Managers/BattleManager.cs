@@ -203,9 +203,9 @@ namespace Lis
                 AddOpponentArmyEntity(b);
         }
 
-        public void AddOpponentArmyEntity(BattleEntity b)
+        public void AddOpponentArmyEntity(BattleEntity b, bool initBattle = true)
         {
-            b.InitializeBattle(ref PlayerEntities);
+            if (initBattle) b.InitializeBattle(ref PlayerEntities);
             b.gameObject.layer = 11;
             OpponentEntities.Add(b);
             b.OnDeath += OnOpponentDeath;
@@ -229,14 +229,12 @@ namespace Lis
         public List<BattleEntity> GetAllies(BattleEntity battleEntity)
         {
             if (battleEntity.Team == 0) return PlayerEntities;
-            //if (battleEntity.Team == 1) 
             return OpponentEntities;
         }
 
         public List<BattleEntity> GetOpponents(int team)
         {
             if (team == 0) return OpponentEntities;
-            //if (battleEntity.Team == 1) 
             return PlayerEntities;
         }
 
