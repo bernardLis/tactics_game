@@ -15,6 +15,16 @@ namespace Lis
         BattleAreaManager _battleAreaManager;
         [SerializeField] GameObject _tileSecuredEffectPrefab;
 
+        public override void InitializeGameObject()
+        {
+            base.InitializeGameObject();
+            _thirdPersonController = GetComponent<BattleHeroController>();
+            _battleHeroHealthBar = GetComponentInChildren<BattleHeroHealthBar>();
+            _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
+
+            GetComponent<BattleCreatureCatcher>().Initialize();
+        }
+
         public override void InitializeEntity(Entity entity, int team)
         {
             base.InitializeEntity(entity, 0);
@@ -24,11 +34,9 @@ namespace Lis
 
             Hero = (Hero)entity;
 
-            _thirdPersonController = GetComponent<BattleHeroController>();
             _thirdPersonController.SetMoveSpeed(Hero.Speed.GetValue());
             Hero.Speed.OnValueChanged += _thirdPersonController.SetMoveSpeed;
 
-            _battleHeroHealthBar = GetComponentInChildren<BattleHeroHealthBar>();
             _battleHeroHealthBar.Initialize(Hero);
 
             Animator.enabled = true;
@@ -37,7 +45,6 @@ namespace Lis
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
-            _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
             _battleAreaManager.OnTileSecured += OnTileSecured;
         }
 

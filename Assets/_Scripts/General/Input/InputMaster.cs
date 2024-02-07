@@ -100,6 +100,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ThrowBall"",
+                    ""type"": ""Button"",
+                    ""id"": ""92a2aced-a717-4e3d-81d7-4447f0dd4b0b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Space"",
                     ""type"": ""Button"",
                     ""id"": ""48c57600-1474-40eb-ae2a-7e1dc5b04924"",
@@ -487,6 +496,17 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55d3d782-9596-41c9-a23f-19aa7e1244e7"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""ThrowBall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -520,6 +540,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_ZoomCamera = m_Battle.FindAction("ZoomCamera", throwIfNotFound: true);
         m_Battle_RightMouseClick = m_Battle.FindAction("RightMouseClick", throwIfNotFound: true);
         m_Battle_LeftMouseClick = m_Battle.FindAction("LeftMouseClick", throwIfNotFound: true);
+        m_Battle_ThrowBall = m_Battle.FindAction("ThrowBall", throwIfNotFound: true);
         m_Battle_Space = m_Battle.FindAction("Space", throwIfNotFound: true);
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_DebugSpawnMinionWave = m_Battle.FindAction("DebugSpawnMinionWave", throwIfNotFound: true);
@@ -599,6 +620,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_ZoomCamera;
     private readonly InputAction m_Battle_RightMouseClick;
     private readonly InputAction m_Battle_LeftMouseClick;
+    private readonly InputAction m_Battle_ThrowBall;
     private readonly InputAction m_Battle_Space;
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_DebugSpawnMinionWave;
@@ -621,6 +643,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @ZoomCamera => m_Wrapper.m_Battle_ZoomCamera;
         public InputAction @RightMouseClick => m_Wrapper.m_Battle_RightMouseClick;
         public InputAction @LeftMouseClick => m_Wrapper.m_Battle_LeftMouseClick;
+        public InputAction @ThrowBall => m_Wrapper.m_Battle_ThrowBall;
         public InputAction @Space => m_Wrapper.m_Battle_Space;
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @DebugSpawnMinionWave => m_Wrapper.m_Battle_DebugSpawnMinionWave;
@@ -664,6 +687,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @LeftMouseClick.started += instance.OnLeftMouseClick;
             @LeftMouseClick.performed += instance.OnLeftMouseClick;
             @LeftMouseClick.canceled += instance.OnLeftMouseClick;
+            @ThrowBall.started += instance.OnThrowBall;
+            @ThrowBall.performed += instance.OnThrowBall;
+            @ThrowBall.canceled += instance.OnThrowBall;
             @Space.started += instance.OnSpace;
             @Space.performed += instance.OnSpace;
             @Space.canceled += instance.OnSpace;
@@ -722,6 +748,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @LeftMouseClick.started -= instance.OnLeftMouseClick;
             @LeftMouseClick.performed -= instance.OnLeftMouseClick;
             @LeftMouseClick.canceled -= instance.OnLeftMouseClick;
+            @ThrowBall.started -= instance.OnThrowBall;
+            @ThrowBall.performed -= instance.OnThrowBall;
+            @ThrowBall.canceled -= instance.OnThrowBall;
             @Space.started -= instance.OnSpace;
             @Space.performed -= instance.OnSpace;
             @Space.canceled -= instance.OnSpace;
@@ -788,6 +817,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnZoomCamera(InputAction.CallbackContext context);
         void OnRightMouseClick(InputAction.CallbackContext context);
         void OnLeftMouseClick(InputAction.CallbackContext context);
+        void OnThrowBall(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnDebugSpawnMinionWave(InputAction.CallbackContext context);

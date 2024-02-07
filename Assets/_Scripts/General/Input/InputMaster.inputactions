@@ -78,6 +78,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ThrowBall",
+                    "type": "Button",
+                    "id": "92a2aced-a717-4e3d-81d7-4447f0dd4b0b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Space",
                     "type": "Button",
                     "id": "48c57600-1474-40eb-ae2a-7e1dc5b04924",
@@ -463,6 +472,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55d3d782-9596-41c9-a23f-19aa7e1244e7",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "ThrowBall",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

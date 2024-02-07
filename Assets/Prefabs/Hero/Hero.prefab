@@ -1549,6 +1549,7 @@ GameObject:
   - component: {fileID: 5307087708510327211}
   - component: {fileID: 1953132942563509803}
   - component: {fileID: 6518020123395190426}
+  - component: {fileID: 8030932350976335069}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Player
@@ -1889,7 +1890,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 7
-  RotationSmoothTime: 0.3
   SpeedChangeRate: 5
 --- !u!114 &1953132942563509803
 MonoBehaviour:
@@ -1931,6 +1931,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &8030932350976335069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632361364057405493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67dcf6f1b43388d4689ee2bc239e2c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _friendsBallPrefab: {fileID: 516220572043044864, guid: 2e7cf8be99508ea429b3385ea25c1a14, type: 3}
 --- !u!1 &5670492309254171287
 GameObject:
   m_ObjectHideFlags: 0

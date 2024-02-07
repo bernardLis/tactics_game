@@ -65,7 +65,7 @@ namespace Lis
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, EntityFight> OnDeath;
 
-        public void InitializeGameObject()
+        public virtual void InitializeGameObject()
         {
             EntityLog.Add($"{Time.time}: (GAME TIME) Entity is instantiated.");
 
