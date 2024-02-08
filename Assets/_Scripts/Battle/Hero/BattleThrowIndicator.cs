@@ -56,13 +56,11 @@ namespace Lis
                 if (_mouse == null || _cam == null) yield break;
                 Vector3 mousePosition = _mouse.position.ReadValue();
                 Ray ray = _cam.ScreenPointToRay(mousePosition);
-                int layerMask = Tags.BattleFloorLayer;
-                // TODO: I have no clue why ray hits floor at 1.5f in front of the mouse
-                // Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow, 10);
-                if (!Physics.Raycast(ray, out RaycastHit hit, 100, layerMask))
+                if (!Physics.Raycast(ray, out RaycastHit hit, 100,  1 << LayerMask.NameToLayer("Floor")))
                     yield return new WaitForSeconds(1f);
 
                 Vector3 pos = hit.point;
+                Debug.Log($"pos: {pos}");
                 pos.y = 0.1f;
                 transform.position = pos;
                 yield return new WaitForFixedUpdate();

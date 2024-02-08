@@ -100,10 +100,12 @@ namespace Lis
                 gameObject.layer = 10;
                 Collider.excludeLayers = LayerMask.GetMask("Player");
             }
+
             if (team == 1)
             {
                 gameObject.layer = 11;
-                Collider.includeLayers = LayerMask.GetMask("Player");
+
+                Collider.includeLayers = LayerMask.GetMask("Player", "Ability");
             }
 
             BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Entity.name)

@@ -1,7 +1,4 @@
 using System.Collections;
-
-
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,14 +11,16 @@ namespace Lis
         CursorManager _cursorManager;
         PlayerInput _playerInput;
 
+        Camera _cam;
+        Mouse _mouse;
+
         bool _isGrabbingUnlocked;
-        public bool IsGrabbingEnabled { get; private set; }
+        bool _isGrabbingEnabled;
 
         bool _pointerDown;
 
         GameObject _grabbedObject;
         float _objectYPosition;
-        int _floorLayerMask;
 
         bool _wasInitialized;
 
@@ -34,7 +33,6 @@ namespace Lis
             _audioManager = AudioManager.Instance;
             _cursorManager = CursorManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _floorLayerMask = LayerMask.GetMask("Floor");
 
             _isGrabbingUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
             EnableGrabbing();
@@ -46,7 +44,7 @@ namespace Lis
             if (this == null) return;
             if (!_isGrabbingUnlocked) return;
 
-            IsGrabbingEnabled = true;
+            _isGrabbingEnabled = true;
         }
 
         /* INPUT */
@@ -117,12 +115,14 @@ namespace Lis
         {
             while (_grabbedObject != null)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-                if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _floorLayerMask))
-                {
-                    Vector3 pos = new(hit.point.x, _objectYPosition, hit.point.z);
-                    _grabbedObject.transform.position = pos;
-                }
+                Vector3 mousePosition = _mouse.position.ReadValue();
+                Ray ray = _cam.ScreenPointToRay(mousePosition);
+                if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                    yield return new WaitForSeconds(0.2f);
+
+                Vector3 pos = new(hit.point.x, _objectYPosition, hit.point.z);
+                _grabbedObject.transform.position = pos;
+
                 yield return new WaitForFixedUpdate();
             }
         }
@@ -131,7 +131,7 @@ namespace Lis
         {
             if (!_wasInitialized) return false;
             if (_grabbedObject != null) return false;
-            if (!IsGrabbingEnabled) return false;
+            if (!_isGrabbingEnabled) return false;
 
             return true;
         }

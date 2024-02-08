@@ -140,9 +140,9 @@ namespace Lis
             if (_cam == null) _cam = Camera.main;
             if (_cam == null) return;
             Ray ray = _cam.ScreenPointToRay(mousePosition);
-            int layerMask = Tags.BattleFloorLayer;
+            if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                return;
 
-            if (!Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask)) return;
             List<EnemyGroup> enemyGroups =
                 _currentFight.EnemyWaves[Random.Range(0, _currentFight.EnemyWaves.Count)].EnemyGroups;
             SpawnMinion(enemyGroups[Random.Range(0, enemyGroups.Count)].Minions[0], hit.point);

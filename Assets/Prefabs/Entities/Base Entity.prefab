@@ -418,10 +418,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
-  _deathSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
-  _getHitSound: {fileID: 0}
+  DeathSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
+  GetHitSound: {fileID: 0}
   IsShielded: 0
-  _attackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
+  AttackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
 --- !u!1 &378796256609413106
 GameObject:
   m_ObjectHideFlags: 0

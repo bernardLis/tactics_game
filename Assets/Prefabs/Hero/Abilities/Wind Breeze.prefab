@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7092976804805671490}
-  - component: {fileID: 3285655001808830738}
   - component: {fileID: 5621929703379954749}
+  - component: {fileID: 8169871071859965200}
   m_Layer: 13
   m_Name: Wind Breeze
   m_TagString: Untagged
@@ -35,7 +35,22 @@ Transform:
   - {fileID: 2061933715567215398}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3285655001808830738
+--- !u!114 &5621929703379954749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423351142748085253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf37a9e568f9c14e8757d134a34ddcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityObjectPrefab: {fileID: 0}
+  _gfx: {fileID: 9024145656628741542}
+  _col: {fileID: 493284381327564067}
+--- !u!54 &8169871071859965200
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,21 +77,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5621929703379954749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423351142748085253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bf37a9e568f9c14e8757d134a34ddcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityObjectPrefab: {fileID: 0}
-  _gfx: {fileID: 9024145656628741542}
-  _col: {fileID: 493284381327564067}
 --- !u!1 &7699146227452457353
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,9 +122,9 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9536
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

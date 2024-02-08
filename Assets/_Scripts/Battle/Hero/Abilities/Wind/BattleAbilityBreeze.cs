@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -62,26 +60,26 @@ namespace Lis
                 yield return new WaitForSeconds(0.5f);
             }
         }
-
-        void OnCollisionExit(Collision collision)
+        
+        void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+            if (other.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+                bbv.TriggerBreak();
+
+            if (other.gameObject.TryGetComponent(out BattleEntity battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                _entitiesInCollider.Add(battleEntity);
+            }
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out BattleEntity battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
                 if (_entitiesInCollider.Contains(battleEntity))
                     _entitiesInCollider.Remove(battleEntity);
-            }
-        }
-
-        void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
-                bbv.TriggerBreak();
-
-            if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                _entitiesInCollider.Add(battleEntity);
             }
         }
     }

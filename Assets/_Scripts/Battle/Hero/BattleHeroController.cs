@@ -10,6 +10,7 @@ namespace Lis
     public class BattleHeroController : MonoBehaviour
     {
         Camera _cam;
+        Mouse _mouse;
         CinemachineVirtualCamera _cinemachineVirtualCamera;
 
         [Header("Player Movement")] [Tooltip("Move speed of the character in m/s")]
@@ -54,6 +55,7 @@ namespace Lis
         void Start()
         {
             _cam = Camera.main;
+            _mouse = Mouse.current;
             _gameManager = GameManager.Instance;
 
             _battleManager = BattleManager.Instance;
@@ -259,11 +261,10 @@ namespace Lis
 
         void RotateTowardsMouse()
         {
-            Vector3 mousePosition = Mouse.current.position.ReadValue();
+            Vector3 mousePosition = _mouse.position.ReadValue();
             Ray ray = _cam.ScreenPointToRay(mousePosition);
-            int layerMask = Tags.BattleFloorLayer;
-
-            if (!Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask)) return;
+            if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                return;
 
             Vector3 relativePos = hit.point - transform.position;
             if (relativePos.magnitude < 0.1f)

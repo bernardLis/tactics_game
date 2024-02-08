@@ -21,6 +21,7 @@ namespace Lis
         public event Action<BattleBreakableVase> OnVaseBroken;
 
         Camera _cam;
+        Mouse _mouse;
 
         public void Initialize()
         {
@@ -79,17 +80,11 @@ namespace Lis
         {
             if (!_debugSpawnVase) return;
 
-            Mouse mouse = Mouse.current;
-            Vector3 mousePosition = mouse.position.ReadValue();
+            Vector3 mousePosition = _mouse.position.ReadValue();
             Ray ray = _cam.ScreenPointToRay(mousePosition);
-            int layerMask = Tags.BattleFloorLayer;
-            if (Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask))
-            {
-                Vector3 pos = hit.point;
-                pos.y = 0.5f;
-                Debug.Log($"hit.point {hit.point}");
-                SpawnVase(pos);
-            }
+            if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                return;
+            SpawnVase(hit.point);
         }
     }
 }
