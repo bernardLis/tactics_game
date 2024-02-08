@@ -9,53 +9,55 @@ namespace Lis
 {
     public class BattleFriendBall : MonoBehaviour
     {
-        Camera _cam;
-        Mouse _mouse;
+        BattleHero _hero;
 
         Rigidbody _rb;
         Collider _collider;
 
-        const int _minForceForward = 300;
+        const int _minForceForward = 100;
         const int _maxForceForward = 600;
-
-        const int _minThrowDistance = 10;
-        const int _maxThrowDistance = 25;
 
         int _floorCollisionCount;
 
         void Awake()
         {
-            _cam = Camera.main;
-            _mouse = Mouse.current;
             _rb = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
         }
 
-        public void Throw()
+        //https://forum.unity.com/threads/how-to-calculate-force-needed-to-jump-towards-target-point.372288/
+        public void Throw(Quaternion rot, Vector3 endPos)
         {
-            transform.DOScale(Vector3.one * 0.2f, 0.2f);
-
-            // ray to the floor where mouse is pointing
-            Vector3 mousePosition = _mouse.position.ReadValue();
-            Ray ray = _cam.ScreenPointToRay(mousePosition);
-            int layerMask = Tags.BattleFloorLayer;
-
-            if (!Physics.Raycast(ray, out RaycastHit hit, 1000, layerMask)) return;
-
-            Vector3 pos = new(hit.point.x, 1, hit.point.z);
             Transform t = transform;
-            t.LookAt(pos);
+            t.DOScale(Vector3.one * 0.2f, 0.2f);
+            t.rotation = rot;
             t.position += Vector3.up + t.forward;
-
-            // I want to add force depending on the distance between the mouse and the ball
-            float distance = Vector3.Distance(t.position, hit.point);
-            float force = Helpers.Remap(distance, _minThrowDistance, _maxThrowDistance,
-                _minForceForward, _maxForceForward);
-
-            _rb.AddForce(transform.forward * force);
-            _rb.AddForce(transform.up * force * 0.8f);
+            StartCoroutine(MoveInArcCoroutine(endPos));
 
             StartCoroutine(Disappear());
+        }
+
+        IEnumerator MoveInArcCoroutine(Vector3 pos)
+        {
+            float time = 0;
+            const float duration = 1f;
+            Vector3 startPos = transform.position;
+            Vector3 endPos = pos;
+            endPos.y = 0;
+            Vector3 midPoint = (startPos + endPos) / 2;
+            midPoint.y += 5;
+
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                float t = time / duration;
+                transform.position = Vector3.Lerp(Vector3.Lerp(startPos, midPoint, t),
+                    Vector3.Lerp(midPoint, endPos, t), t);
+                yield return new WaitForFixedUpdate();
+            }
+
+            // so it goes forward a bit
+            _rb.AddForce(transform.forward * 150);
         }
 
         IEnumerator Disappear()
@@ -73,10 +75,13 @@ namespace Lis
                     DisableSelf();
             }
 
+            if (other.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+                bbv.TriggerBreak();
+
             if (other.gameObject.TryGetComponent(out BattleCreature bc))
             {
                 if (bc.Team == 0) return; // TODO: hardcoded team number
-                Debug.Log("friends ball collision with hostile battle creature!");
+                Debug.Log("friend ball collision with hostile battle creature!");
             }
         }
 
@@ -85,6 +90,9 @@ namespace Lis
             _collider.enabled = false;
             transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
             {
+                _rb.velocity = Vector3.zero;
+                _rb.angularVelocity = Vector3.zero;
+
                 gameObject.SetActive(false);
                 transform.position = Vector3.zero;
                 _collider.enabled = true;

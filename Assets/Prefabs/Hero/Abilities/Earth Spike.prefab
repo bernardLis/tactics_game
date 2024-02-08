@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d32b4b3f1a3cb046814abe161b913da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _abilityObjectPrefab: {fileID: 7625813577985927177}
+  AbilityObjectPrefab: {fileID: 7625813577985927177}
 --- !u!1 &350551740150101344
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8431056563554645341}
   - component: {fileID: 3464135225178326645}
   - component: {fileID: 5970394280714027628}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,7 +4957,7 @@ GameObject:
   - component: {fileID: 8752319870188570700}
   - component: {fileID: 9184135222505822468}
   - component: {fileID: 631735156730333755}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9889,7 +9889,7 @@ GameObject:
   - component: {fileID: 1916740047564816040}
   - component: {fileID: 2289246233974913861}
   - component: {fileID: 8408450510075988464}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14807,7 +14807,7 @@ GameObject:
   - component: {fileID: 5956848621522696921}
   - component: {fileID: 1099492143483617145}
   - component: {fileID: 8129528824623983573}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GroundSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19707,7 +19707,7 @@ GameObject:
   - component: {fileID: 7067995666947764484}
   - component: {fileID: 2239087670396861917}
   - component: {fileID: 2932636034660628268}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Path2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24624,7 +24624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9171873485919206155}
   - component: {fileID: 5784683077235456240}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24678,7 +24678,7 @@ GameObject:
   - component: {fileID: 6483292555256515154}
   - component: {fileID: 2873713201134521613}
   - component: {fileID: 6364260068021737682}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29596,7 +29596,7 @@ GameObject:
   - component: {fileID: 5851701771548825128}
   - component: {fileID: 7547868212918041917}
   - component: {fileID: 4674792289537129651}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34496,7 +34496,7 @@ GameObject:
   - component: {fileID: 2829183267424802614}
   - component: {fileID: 3504728917753919617}
   - component: {fileID: 9044729329575952838}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterDistortion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39396,7 +39396,7 @@ GameObject:
   - component: {fileID: 2330679627741407064}
   - component: {fileID: 5763582589106593269}
   - component: {fileID: 1732944738357850800}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44296,7 +44296,7 @@ GameObject:
   - component: {fileID: 7086385493842743908}
   - component: {fileID: 6910728830812831519}
   - component: {fileID: 1629423434089027135}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterTrails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49214,7 +49214,7 @@ GameObject:
   - component: {fileID: 8755735673553667457}
   - component: {fileID: 4898727165457033797}
   - component: {fileID: 7568632177353798576}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterSparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54429,7 +54429,7 @@ GameObject:
   - component: {fileID: 5777174113600863821}
   - component: {fileID: 3378648397310899788}
   - component: {fileID: 3717984256260132435}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59329,7 +59329,7 @@ GameObject:
   - component: {fileID: 5707845050228343115}
   - component: {fileID: 4083483760996792750}
   - component: {fileID: 1276561610003695137}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64229,7 +64229,7 @@ GameObject:
   - component: {fileID: 2907842167986564666}
   - component: {fileID: 4782445767186857323}
   - component: {fileID: 6199992736353572259}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Earth Spike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64292,7 +64292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e801e35e1faf76d4a8ef43fb4334babe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _GFX: {fileID: 694744840861682096}
+  _gfx: {fileID: 694744840861682096}
   _col: {fileID: 2956777514317715042}
   _spikes: {fileID: 4241482427527597574}
 --- !u!1 &8292966334869014932
@@ -64306,7 +64306,7 @@ GameObject:
   - component: {fileID: 3241361427047827735}
   - component: {fileID: 1747558404769202473}
   - component: {fileID: 5009776620768180893}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CenterSparksUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69521,7 +69521,7 @@ GameObject:
   - component: {fileID: 7516746557538058403}
   - component: {fileID: 4241482427527597574}
   - component: {fileID: 5453579975697818777}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}

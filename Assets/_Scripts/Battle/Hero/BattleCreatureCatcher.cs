@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,25 +8,108 @@ namespace Lis
 {
     public class BattleCreatureCatcher : PoolManager<BattleFriendBall>
     {
+        [SerializeField] GameObject _throwIndicatorPrefab;
+        BattleThrowIndicator _throwIndicator;
+
         [SerializeField] GameObject _friendsBallPrefab;
 
         GameManager _gameManager;
         PlayerInput _playerInput;
 
+        // ok, so until 2 seconds is weak, 2-3 perfect, 3-5 too strong
+        // TODO: magic numbers
+        const float _maxChargeTime = 5;
+        const float _maxThrowDistance = 20;
+        float _throwCharge;
+        IEnumerator _throwChargeCoroutine;
+        bool _thrown;
+
         public void Initialize()
         {
+            _throwIndicator = Instantiate(_throwIndicatorPrefab, BattleManager.Instance.EntityHolder)
+                .GetComponent<BattleThrowIndicator>();
+            _throwIndicator.gameObject.SetActive(false);
+
             CreatePool(_friendsBallPrefab, 20);
         }
 
-        void ThrowBall(InputAction.CallbackContext context)
+        void StartBallThrow(InputAction.CallbackContext context)
         {
             if (this == null) return;
-            if (!context.performed) return;
 
+            if (_throwChargeCoroutine != null)
+                StopCoroutine(_throwChargeCoroutine);
+
+            _thrown = false;
+            _throwChargeCoroutine = ThrowChargeCoroutine();
+            StartCoroutine(_throwChargeCoroutine);
+        }
+
+        IEnumerator ThrowChargeCoroutine()
+        {
+            _throwIndicator.gameObject.SetActive(true);
+            _throwIndicator.Show();
+
+            _throwCharge = 0;
+            while (_throwCharge < _maxChargeTime)
+            {
+                _throwCharge += Time.fixedDeltaTime;
+                yield return new WaitForFixedUpdate();
+            }
+
+            EndBallThrow(default);
+        }
+
+        void EndBallThrow(InputAction.CallbackContext context)
+        {
+            if (this == null) return;
+            if (_throwChargeCoroutine != null)
+                StopCoroutine(_throwChargeCoroutine);
+
+            // if I force throw ball, I don't want to throw it again when I release button
+            if (_thrown) return;
+            _thrown = true;
+
+            _throwIndicator.EndShow();
+            Vector3 throwPosition = CalculateThrowPosition();
+
+            // this guy will be calculating throw position ball will be just flying to the position
+            // HERE: now
+            Debug.Log("Throwing ball with charge: " + _throwCharge);
             BattleFriendBall ball = GetObjectFromPool();
             ball.transform.position = transform.position;
             ball.gameObject.SetActive(true);
-            ball.Throw();
+            ball.Throw(transform.rotation, throwPosition);
+        }
+
+        Vector3 CalculateThrowPosition()
+        {
+            Vector3 heroPos = transform.position;
+            Vector3 indicatorPos = _throwIndicator.transform.position;
+            if (_throwCharge is >= 2 and <= 3)
+                return indicatorPos;
+
+            // if throw charge less then 2 throw closer than indicator position
+            if (_throwCharge < 2)
+            {
+                Vector3 direction = indicatorPos - heroPos;
+                float distance = direction.magnitude;
+                float throwDistance = Random.Range(0, distance);
+                return heroPos + direction.normalized * throwDistance;
+            }
+
+
+            // if throw charge more than 3 throw further than indicator position
+            if (_throwCharge > 3)
+            {
+                Vector3 brokenPos = indicatorPos + Vector3.right * Random.Range(-1, 1) * (_throwCharge - 2);
+                Vector3 direction = brokenPos - heroPos;
+                float distance = direction.magnitude;
+                float throwDistance = Random.Range(distance, _maxThrowDistance);
+                return heroPos + direction.normalized * throwDistance;
+            }
+
+            return Vector3.zero;
         }
 
         /* INPUT */
@@ -54,12 +138,14 @@ namespace Lis
 
         void SubscribeInputActions()
         {
-            _playerInput.actions["ThrowBall"].performed += ThrowBall;
+            _playerInput.actions["ThrowBall"].started += StartBallThrow;
+            _playerInput.actions["ThrowBall"].canceled += EndBallThrow;
         }
 
         void UnsubscribeInputActions()
         {
-            _playerInput.actions["ThrowBall"].performed -= ThrowBall;
+            _playerInput.actions["ThrowBall"].started -= StartBallThrow;
+            _playerInput.actions["ThrowBall"].canceled += EndBallThrow;
         }
     }
 }

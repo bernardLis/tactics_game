@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2177400570437412014}
   - component: {fileID: 7134527926482626559}
   - component: {fileID: 7601870674441674319}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trails Local
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4863,7 +4863,7 @@ GameObject:
   - component: {fileID: 3192368723856593264}
   - component: {fileID: 3701762673747958097}
   - component: {fileID: 4292715782506438097}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: Mega Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4951,6 +4951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586ae7f7d8d67b5489172aa34e6238d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityObjectPrefab: {fileID: 0}
 --- !u!1 &7172754302009621638
 GameObject:
   m_ObjectHideFlags: 0
@@ -4962,7 +4963,7 @@ GameObject:
   - component: {fileID: 8095363381706498295}
   - component: {fileID: 8079102364195437122}
   - component: {fileID: 3287402564229655530}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SparksLifetime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9804,7 +9805,7 @@ GameObject:
   - component: {fileID: 6145337883673531283}
   - component: {fileID: 5599118634630358042}
   - component: {fileID: 590163388076209383}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9887,7 +9888,7 @@ GameObject:
   - component: {fileID: 6947274116966026151}
   - component: {fileID: 6784211215965918861}
   - component: {fileID: 3851203560315733889}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}

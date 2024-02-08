@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7092976804805671490}
   - component: {fileID: 3285655001808830738}
   - component: {fileID: 5621929703379954749}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wind Breeze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf37a9e568f9c14e8757d134a34ddcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityObjectPrefab: {fileID: 0}
   _gfx: {fileID: 9024145656628741542}
   _col: {fileID: 493284381327564067}
 --- !u!1 &7699146227452457353
@@ -86,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2061933715567215398}
   - component: {fileID: 493284381327564067}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +141,7 @@ GameObject:
   - component: {fileID: 4801289223647352779}
   - component: {fileID: 6011386257529668749}
   - component: {fileID: 6417510847859214328}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -24662,6 +24662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53a253976feb664ca9c6cdd14e72618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityObjectPrefab: {fileID: 0}
   _effect: {fileID: 2134742639894736214}
   _wildboltPrefab: {fileID: 4276145276869849294}
 --- !u!1 &5573246265220643982
@@ -63926,6 +63927,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6652792097583290247}
     m_Modifications:
+    - target: {fileID: 4752439298633787975, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5390249906242393590, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 7583208114934978582, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -63966,13 +63975,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7609821348824351756, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609833971131261880, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610148293640220908, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610641989042815054, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610642643712519126, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610748812049604694, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8382066263665690967, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8901480791704916329, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
       propertyPath: m_Name
       value: Wildbolt
       objectReference: {fileID: 0}
+    - target: {fileID: 8901480791704916329, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 9168894416600817296, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196768687793932986, guid: b04d51fb29af6664fb3e26fb1972b74f, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -264,7 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1294087005770673567}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Interaction Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1943,6 +1943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67dcf6f1b43388d4689ee2bc239e2c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _throwIndicatorPrefab: {fileID: 64285997728907761, guid: dc214fe8ec08a3141a4cf5f5c2f91570, type: 3}
   _friendsBallPrefab: {fileID: 516220572043044864, guid: 2e7cf8be99508ea429b3385ea25c1a14, type: 3}
 --- !u!1 &5670492309254171287
 GameObject:

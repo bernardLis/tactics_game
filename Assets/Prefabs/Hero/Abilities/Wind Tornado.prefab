@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3659988622900426514}
   - component: {fileID: 6070250765692676864}
   - component: {fileID: 3628850564054261594}
-  m_Layer: 2
+  m_Layer: 13
   m_Name: Tornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 7277633419279913619}
   - component: {fileID: 7772098855383736310}
   - component: {fileID: 1474709687992341746}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: leaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4975,7 +4975,7 @@ GameObject:
   - component: {fileID: 7386243120204015024}
   - component: {fileID: 6568734738888288970}
   - component: {fileID: 5836004566051953649}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: smoke_spread
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9844,7 +9844,7 @@ GameObject:
   - component: {fileID: 8979012858757772862}
   - component: {fileID: 7419102130360315574}
   - component: {fileID: 8801509226727304574}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: particle_bright
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14857,7 +14857,7 @@ GameObject:
   - component: {fileID: 7195464960872214746}
   - component: {fileID: 5406422957629441716}
   - component: {fileID: 3390304985186694512}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: particle_dark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19872,7 +19872,7 @@ GameObject:
   - component: {fileID: 6836911366543898270}
   - component: {fileID: 5995199582088378269}
   - component: {fileID: 4191382589288696483}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wind Tornado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19997,7 +19997,7 @@ GameObject:
   - component: {fileID: 529919867107166354}
   - component: {fileID: 2216249190886109471}
   - component: {fileID: 5670556534049931395}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: smoke_side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24866,7 +24866,7 @@ GameObject:
   - component: {fileID: 7150298288991173581}
   - component: {fileID: 382371264586484955}
   - component: {fileID: 1244022340853800652}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FX_splash_wind_floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29799,7 +29799,7 @@ GameObject:
   - component: {fileID: 5155700818528271239}
   - component: {fileID: 3202927504694214502}
   - component: {fileID: 6654686633873123187}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: sharp_circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

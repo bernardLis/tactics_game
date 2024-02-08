@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdecdb731e82ab4f8709093712bb022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityObjectPrefab: {fileID: 0}
   _projectilePrefab: {fileID: 1202834902249715763}
 --- !u!114 &4316762759719260232
 MonoBehaviour:
@@ -135,9 +136,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6345754537730756457}
     m_Modifications:
+    - target: {fileID: 856231998865565855, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 857396265765683423, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 857415337576331831, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 857574565115510925, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 857599999547808285, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3388587843351458929, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
       propertyPath: m_Name
       value: Aqua Jet Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388587843351458929, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3388587843351458929, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
       propertyPath: m_IsActive
@@ -182,6 +207,18 @@ PrefabInstance:
     - target: {fileID: 4445669335262592270, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405162319448965085, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405262406890588867, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405432314173393865, guid: 82b8c3a38ec7d4142a1f469d7b16bf03, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
