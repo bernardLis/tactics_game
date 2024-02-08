@@ -15,10 +15,13 @@ namespace Lis
         [SerializeField] Disc _disc;
         [SerializeField] Disc _overflowDisc;
 
+        BattleHero _hero;
+
         IEnumerator _showCoroutine;
         IEnumerator _followMouseCoroutine;
 
         const float _fillTime = 2; // TODO: magic number
+        const float _maxDistanceFromHero = 20;
 
         public void Awake()
         {
@@ -28,6 +31,8 @@ namespace Lis
 
         public void Show()
         {
+            if (_hero == null) _hero = BattleManager.Instance.BattleHero;
+
             EndShow();
 
             _followMouseCoroutine = FollowMouseCoroutine();
@@ -56,13 +61,21 @@ namespace Lis
                 if (_mouse == null || _cam == null) yield break;
                 Vector3 mousePosition = _mouse.position.ReadValue();
                 Ray ray = _cam.ScreenPointToRay(mousePosition);
-                if (!Physics.Raycast(ray, out RaycastHit hit, 100,  1 << LayerMask.NameToLayer("Floor")))
-                    yield return new WaitForSeconds(1f);
+                if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                    yield return new WaitForSeconds(0.1f);
 
-                Vector3 pos = hit.point;
-                Debug.Log($"pos: {pos}");
-                pos.y = 0.1f;
-                transform.position = pos;
+                // limit distance from hero
+                Vector3 heroPos = _hero.transform.position;
+                Vector3 hitPos = hit.point;
+                Vector3 dir = hitPos - heroPos;
+                if (dir.magnitude > _maxDistanceFromHero)
+                {
+                    dir = dir.normalized * _maxDistanceFromHero;
+                    hitPos = heroPos + dir;
+                }
+
+                hitPos.y = 0.1f;
+                transform.position = hitPos;
                 yield return new WaitForFixedUpdate();
             }
         }
