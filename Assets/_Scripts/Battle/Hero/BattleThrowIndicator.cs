@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Shapes;
@@ -17,13 +15,12 @@ namespace Lis
 
         [SerializeField] Disc _disc;
         [SerializeField] Disc _overflowDisc;
-        [SerializeField] GameObject _lockIndicator;
 
         BattleHero _hero;
 
         IEnumerator _showCoroutine;
         IEnumerator _followMouseCoroutine;
-        
+
         const float _fillTime = 2; // TODO: magic number
         const float _maxDistanceFromHero = 20;
 
@@ -88,7 +85,6 @@ namespace Lis
 
         IEnumerator ShowCoroutine()
         {
-            _lockIndicator.transform.position = new(0, 0, -3f);
             _disc.gameObject.SetActive(true);
             _overflowDisc.gameObject.SetActive(false);
             yield return FillDiscInTime(_disc, _fillTime);
@@ -112,6 +108,24 @@ namespace Lis
                 disc.AngRadiansEnd = 2 * Mathf.PI * fill;
                 yield return new WaitForFixedUpdate();
             }
+        }
+
+        readonly Collider[] _colliders = new Collider[10];
+
+        public BattleCreature GetCreature()
+        {
+            // check if there are creatures in collider
+            int r = Physics.OverlapSphereNonAlloc(transform.position, 0.8f, _colliders);
+            if (r == 0) return null;
+            foreach (Collider c in _colliders)
+            {
+                if (c == null) continue;
+                if (!c.gameObject.TryGetComponent(out BattleCreature bc)) continue;
+                if (bc.Team != 1) continue;
+                return bc;
+            }
+
+            return null;
         }
     }
 }

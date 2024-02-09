@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +13,8 @@ namespace Lis
 
         GameManager _gameManager;
         PlayerInput _playerInput;
+
+        BattleHero _hero;
 
         // ok, so until 2 seconds is weak, 2-3 perfect, 3-5 too strong
         // TODO: magic numbers
@@ -31,6 +31,8 @@ namespace Lis
             _throwIndicator.gameObject.SetActive(false);
 
             CreatePool(_friendsBallPrefab, 20);
+
+            _hero = GetComponent<BattleHero>();
         }
 
         void StartBallThrow(InputAction.CallbackContext context)
@@ -71,15 +73,33 @@ namespace Lis
             _thrown = true;
 
             _throwIndicator.EndShow();
-            Vector3 throwPosition = CalculateThrowPosition();
 
-            // this guy will be calculating throw position ball will be just flying to the position
-            // HERE: now
+            if (IsPerfectThrow()) return;
+
+            Vector3 throwPosition = CalculateThrowPosition();
             Debug.Log("Throwing ball with charge: " + _throwCharge);
+            BattleFriendBall ball = InitializeBall();
+            ball.Throw(transform.rotation, throwPosition);
+        }
+
+        bool IsPerfectThrow()
+        {
+            if (_throwCharge is < 2 or > 3) return false;
+            BattleCreature bc = _throwIndicator.GetCreature();
+            if (bc == null) return false;
+            _hero.DisplayFloatingText("Perfect throw!", Color.yellow);
+            Debug.Log("Perfect throw!");
+            BattleFriendBall ball = InitializeBall();
+            ball.PerfectThrow(transform.rotation, bc);
+            return true;
+        }
+
+        BattleFriendBall InitializeBall()
+        {
             BattleFriendBall ball = GetObjectFromPool();
             ball.transform.position = transform.position;
             ball.gameObject.SetActive(true);
-            ball.Throw(transform.rotation, throwPosition);
+            return ball;
         }
 
         Vector3 CalculateThrowPosition()
@@ -92,16 +112,19 @@ namespace Lis
             // if throw charge less then 2 throw closer than indicator position
             if (_throwCharge < 2)
             {
+                _hero.DisplayFloatingText("Weak throw!", Color.green);
+
                 Vector3 direction = indicatorPos - heroPos;
                 float distance = direction.magnitude;
                 float throwDistance = Random.Range(0, distance);
                 return heroPos + direction.normalized * throwDistance;
             }
 
-
             // if throw charge more than 3 throw further than indicator position
             if (_throwCharge > 3)
             {
+                _hero.DisplayFloatingText("Overthrown!", Color.red);
+
                 Vector3 brokenPos = indicatorPos + Vector3.right * Random.Range(-1, 1) * (_throwCharge - 2);
                 Vector3 direction = brokenPos - heroPos;
                 float distance = direction.magnitude;

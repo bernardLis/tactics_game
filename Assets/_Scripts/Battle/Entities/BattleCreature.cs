@@ -59,15 +59,15 @@ namespace Lis
         public void InitializeHostileCreature(BattleBuildingProduction battleBuilding)
         {
             _battleBuilding = battleBuilding;
-            
+
             CurrentAttackCooldown = 0;
             _currentAbilityCooldown = 0;
-            
+
             _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
 
             StartRunEntityCoroutine();
         }
-        
+
         protected override IEnumerator RunEntity()
         {
             while (true)
@@ -340,6 +340,32 @@ namespace Lis
             gameObject.SetActive(false);
         }
 
+        /* CATCHING */
+        public void TryCatching(BattleFriendBall ball)
+        {
+            StopRunEntityCoroutine();
+            StopAllCoroutines();
+            transform.DOKill();
+            Collider.enabled = false;
+            Agent.enabled = false;
+
+            Vector3 pos = ball.transform.position;
+
+            transform.DOMove(pos, 0.3f);
+            transform.DOScale(0, 0.3f);
+        }
+
+        public void ReleaseFromCatching()
+        {
+            transform.DOMoveY(1, 0.3f);
+            transform.DOScale(1, 0.3f)
+                .OnComplete(() =>
+                {
+                    Collider.enabled = true;
+                    Agent.enabled = true;
+                    StartRunEntityCoroutine();
+                });
+        }
 
 #if UNITY_EDITOR
         [ContextMenu("Level up")]

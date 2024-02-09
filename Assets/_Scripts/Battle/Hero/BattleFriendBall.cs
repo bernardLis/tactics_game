@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.InputSystem;
 
 namespace Lis
 {
@@ -14,10 +11,8 @@ namespace Lis
         Rigidbody _rb;
         Collider _collider;
 
-        const int _minForceForward = 100;
-        const int _maxForceForward = 600;
-
         int _floorCollisionCount;
+        bool _wasTryingToCatch;
 
         void Awake()
         {
@@ -25,15 +20,38 @@ namespace Lis
             _collider = GetComponent<Collider>();
         }
 
-        //https://forum.unity.com/threads/how-to-calculate-force-needed-to-jump-towards-target-point.372288/
+        public void PerfectThrow(Quaternion rot, BattleCreature bc)
+        {
+            InitializeThrow(rot);
+            StartCoroutine(MoveInArcToCreatureCoroutine(bc));
+        }
+
+        IEnumerator MoveInArcToCreatureCoroutine(BattleCreature bc)
+        {
+            float time = 0;
+            const float duration = 1f;
+            Vector3 startPos = transform.position;
+            Vector3 endPos = bc.transform.position;
+            endPos.y = 0;
+            Vector3 midPoint = (startPos + endPos) / 2;
+            midPoint.y += 5;
+
+            while (time < duration)
+            {
+                endPos = bc.transform.position;
+
+                time += Time.deltaTime;
+                float t = time / duration;
+                transform.position = Vector3.Lerp(Vector3.Lerp(startPos, midPoint, t),
+                    Vector3.Lerp(midPoint, endPos, t), t);
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
         public void Throw(Quaternion rot, Vector3 endPos)
         {
-            Transform t = transform;
-            t.DOScale(Vector3.one * 0.2f, 0.2f);
-            t.rotation = rot;
-            t.position += Vector3.up + t.forward;
+            InitializeThrow(rot);
             StartCoroutine(MoveInArcCoroutine(endPos));
-
             StartCoroutine(Disappear());
         }
 
@@ -60,6 +78,16 @@ namespace Lis
             _rb.AddForce(transform.forward * 150);
         }
 
+        void InitializeThrow(Quaternion rot)
+        {
+            _wasTryingToCatch = false;
+
+            Transform t = transform;
+            t.DOScale(Vector3.one * 0.2f, 0.2f);
+            t.rotation = rot;
+            t.position += Vector3.up + t.forward;
+        }
+
         IEnumerator Disappear()
         {
             yield return new WaitForSeconds(3f);
@@ -81,8 +109,53 @@ namespace Lis
             if (other.gameObject.TryGetComponent(out BattleCreature bc))
             {
                 if (bc.Team == 0) return; // TODO: hardcoded team number
-                Debug.Log("friend ball collision with hostile battle creature!");
+                if (bc.IsDead) return;
+                TryCatching(bc);
             }
+        }
+
+        void TryCatching(BattleCreature bc)
+        {
+            if (_wasTryingToCatch) return;
+            _wasTryingToCatch = true;
+
+            StopAllCoroutines();
+            transform.DOKill();
+            StartCoroutine(CatchingCoroutine(bc));
+        }
+
+        IEnumerator CatchingCoroutine(BattleCreature bc)
+        {
+            // _rb.velocity = Vector3.zero;
+            // _rb.angularVelocity = Vector3.zero;
+            _rb.isKinematic = true;
+            bc.DisplayFloatingText("Catching... 25% chance!", Color.black);
+            yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
+            bc.TryCatching(this);
+            float punchScale = transform.localScale.x + 0.1f;
+            yield return transform.DOPunchScale(Vector3.one * punchScale, 1f, 3, 0.3f)
+                .SetLoops(2, LoopType.Restart)
+                .WaitForCompletion();
+
+            // TODO: math for catching - hero level/catching power vs creature level/health
+            // HERE: add creature to hero's team
+            bool wasCaught = false;
+            if (wasCaught)
+            {
+                bc.DisplayFloatingText("Caught!", Color.green);
+
+                yield return transform.DOMove(_hero.transform.position, 0.5f).WaitForCompletion();
+                // respawn it in the world
+
+                DisableSelf();
+                yield break;
+            }
+
+            bc.DisplayFloatingText("Escaped!", Color.red);
+            _rb.isKinematic = false;
+            bc.ReleaseFromCatching();
+            yield return new WaitForSeconds(2f);
+            DisableSelf();
         }
 
         void DisableSelf()
