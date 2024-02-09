@@ -87,7 +87,7 @@ namespace Lis
             if (_throwCharge is < 2 or > 3) return false;
             BattleCreature bc = _throwIndicator.GetCreature();
             if (bc == null) return false;
-            _hero.DisplayFloatingText("Perfect throw!", Color.yellow);
+            _hero.DisplayFloatingText("Perfect throw!", Color.green);
             Debug.Log("Perfect throw!");
             BattleFriendBall ball = InitializeBall();
             ball.PerfectThrow(transform.rotation, bc);
@@ -112,7 +112,7 @@ namespace Lis
             // if throw charge less then 2 throw closer than indicator position
             if (_throwCharge < 2)
             {
-                _hero.DisplayFloatingText("Weak throw!", Color.green);
+                _hero.DisplayFloatingText("Weak throw!", Color.yellow);
 
                 Vector3 direction = indicatorPos - heroPos;
                 float distance = direction.magnitude;

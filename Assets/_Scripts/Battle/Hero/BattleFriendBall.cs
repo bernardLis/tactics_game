@@ -129,7 +129,7 @@ namespace Lis
             // _rb.velocity = Vector3.zero;
             // _rb.angularVelocity = Vector3.zero;
             _rb.isKinematic = true;
-            bc.DisplayFloatingText("Catching... 25% chance!", Color.black);
+            bc.DisplayFloatingText("Catching... 50% chance!", Color.white);
             yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
             bc.TryCatching(this);
             float punchScale = transform.localScale.x + 0.1f;
@@ -138,14 +138,19 @@ namespace Lis
                 .WaitForCompletion();
 
             // TODO: math for catching - hero level/catching power vs creature level/health
-            // HERE: add creature to hero's team
-            bool wasCaught = false;
+            bool wasCaught = Random.value > 0.5f;
+            
             if (wasCaught)
             {
-                bc.DisplayFloatingText("Caught!", Color.green);
+                if (_hero == null) _hero = BattleManager.Instance.BattleHero;
+                Vector3 pos = _hero.transform.position
+                              + Vector3.right * Random.Range(-3f, 3f)
+                              + Vector3.forward * Random.Range(-3f, 3f)
+                              + Vector3.up * 3f;
 
-                yield return transform.DOMove(_hero.transform.position, 0.5f).WaitForCompletion();
-                // respawn it in the world
+                bc.DisplayFloatingText("Caught!", Color.green);
+                yield return transform.DOMove(pos, 0.5f).WaitForCompletion();
+                bc.Caught(pos);
 
                 DisableSelf();
                 yield break;
@@ -163,6 +168,8 @@ namespace Lis
             _collider.enabled = false;
             transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
             {
+                _rb.isKinematic = false;
+
                 _rb.velocity = Vector3.zero;
                 _rb.angularVelocity = Vector3.zero;
 

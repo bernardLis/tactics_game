@@ -94,7 +94,6 @@ namespace Lis
 
             Entity = entity;
             Team = team;
-
             if (team == 0)
             {
                 gameObject.layer = 10;

@@ -42,11 +42,15 @@ namespace Lis
         {
             base.InitializeEntity(entity, team);
 
+            Opponent = null;
             if (team == 0) BattleEntityShaders.LitShader();
 
             Creature = (Creature)entity;
+            Creature.OnLevelUp -= OnLevelUp; // just in case I initialize it twice :))))
             Creature.OnLevelUp += OnLevelUp;
 
+            OnDamageDealt -= Creature.AddDmgDealt;
+            OnDamageTaken -= Creature.AddDmgTaken;
             OnDamageDealt += Creature.AddDmgDealt;
             OnDamageTaken += Creature.AddDmgTaken;
 
@@ -275,6 +279,8 @@ namespace Lis
                 return;
             }
 
+            Debug.Log($"Choosing new target: {_opponentList.Count}");
+
             Dictionary<BattleEntity, float> sqrtDistances = new();
             foreach (BattleEntity be in _opponentList)
             {
@@ -341,8 +347,11 @@ namespace Lis
         }
 
         /* CATCHING */
+
         public void TryCatching(BattleFriendBall ball)
         {
+            IsDead = true;
+
             StopRunEntityCoroutine();
             StopAllCoroutines();
             transform.DOKill();
@@ -355,17 +364,33 @@ namespace Lis
             transform.DOScale(0, 0.3f);
         }
 
+        public void Caught(Vector3 spawnPos)
+        {
+            Creature.Caught();
+            InitializeEntity(Creature, 0);
+            BattleManager.OpponentEntities.Remove(this);
+            BattleManager.AddPlayerArmyEntity(this);
+
+            _opponentList = BattleManager.OpponentEntities;
+            _battleBuilding.OnEntityInRange -= OpponentWasAdded;
+
+            transform.DOMove(spawnPos, 0.5f)
+                .OnComplete(ReleaseFromCatching);
+        }
+
         public void ReleaseFromCatching()
         {
             transform.DOMoveY(1, 0.3f);
             transform.DOScale(1, 0.3f)
                 .OnComplete(() =>
                 {
+                    IsDead = false;
                     Collider.enabled = true;
                     Agent.enabled = true;
                     StartRunEntityCoroutine();
                 });
         }
+
 
 #if UNITY_EDITOR
         [ContextMenu("Level up")]

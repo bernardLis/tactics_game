@@ -41,6 +41,12 @@ namespace Lis
             return IsAbilityUnlocked();
         }
 
+        public void Caught()
+        {
+            CurrentHealth.SetValue(MaxHealth.GetValue());
+            Team = 0;
+        }
+
         new public CreatureData SerializeSelf()
         {
             // TODO: needs to be implemented
