@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +10,20 @@ namespace Lis
 {
     public class BattleThrowIndicator : MonoBehaviour
     {
+        BattleManager _battleManager;
+
         Camera _cam;
         Mouse _mouse;
 
         [SerializeField] Disc _disc;
         [SerializeField] Disc _overflowDisc;
+        [SerializeField] GameObject _lockIndicator;
 
         BattleHero _hero;
 
         IEnumerator _showCoroutine;
         IEnumerator _followMouseCoroutine;
-
+        
         const float _fillTime = 2; // TODO: magic number
         const float _maxDistanceFromHero = 20;
 
@@ -31,7 +35,9 @@ namespace Lis
 
         public void Show()
         {
-            if (_hero == null) _hero = BattleManager.Instance.BattleHero;
+            if (_battleManager == null) _battleManager = BattleManager.Instance;
+            if (_hero == null) _hero = _battleManager.BattleHero;
+            transform.parent = _battleManager.EntityHolder;
 
             EndShow();
 
@@ -82,6 +88,7 @@ namespace Lis
 
         IEnumerator ShowCoroutine()
         {
+            _lockIndicator.transform.position = new(0, 0, -3f);
             _disc.gameObject.SetActive(true);
             _overflowDisc.gameObject.SetActive(false);
             yield return FillDiscInTime(_disc, _fillTime);
@@ -95,7 +102,7 @@ namespace Lis
             yield return FillDiscInTime(_overflowDisc, _fillTime);
         }
 
-        private IEnumerator FillDiscInTime(Disc disc, float duration)
+        IEnumerator FillDiscInTime(Disc disc, float duration)
         {
             float time = 0;
             while (time < duration)

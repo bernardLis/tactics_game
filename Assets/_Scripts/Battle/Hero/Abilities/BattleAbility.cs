@@ -74,15 +74,17 @@ namespace Lis
 
         protected Vector3 GetRandomEnemyDirection()
         {
-            Vector3 rand = BattleManager.GetRandomEnemyPosition() - transform.position;
+            Vector3 rand;
+            if (BattleManager.OpponentEntities.Count == 0)
+            {
+                rand = Random.insideUnitCircle;
+                rand = new(rand.x, 0, rand.y);
+                return rand.normalized;
+            }
+
+            rand = BattleManager.GetRandomEnemyPosition() - transform.position;
             rand.y = 0;
-            Vector3 dir = rand;
-
-            if (rand != Vector3.zero) return dir.normalized;
-            rand = Random.insideUnitCircle;
-            dir = new(rand.x, 0, rand.y);
-
-            return dir.normalized;
+            return rand.normalized;
         }
 
         BattleAbilityObject InitializeAbilityObject()

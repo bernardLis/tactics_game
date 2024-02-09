@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4655668465196568706}
   - component: {fileID: 5178635545035461332}
+  - component: {fileID: 4275256461990974859}
   m_Layer: 0
   m_Name: Throw Indicator
   m_TagString: Untagged
@@ -48,6 +49,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _disc: {fileID: 6402108744246630986}
   _overflowDisc: {fileID: 1462082252503365781}
+  _lockIndicator: {fileID: 0}
+--- !u!135 &4275256461990974859
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64285997728907761}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1241989994317839988
 GameObject:
   m_ObjectHideFlags: 0
