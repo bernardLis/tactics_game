@@ -12,6 +12,7 @@ namespace Lis
         [SerializeField] GameObject _friendsBallPrefab;
 
         GameManager _gameManager;
+        AudioManager _audioManager;
         PlayerInput _playerInput;
 
         BattleHero _hero;
@@ -26,6 +27,8 @@ namespace Lis
 
         public void Initialize()
         {
+            _audioManager = AudioManager.Instance;
+
             _throwIndicator = Instantiate(_throwIndicatorPrefab, BattleManager.Instance.EntityHolder)
                 .GetComponent<BattleThrowIndicator>();
             _throwIndicator.gameObject.SetActive(false);
@@ -38,7 +41,15 @@ namespace Lis
         void StartBallThrow(InputAction.CallbackContext context)
         {
             if (this == null) return;
+            if (!_hero.Hero.HasFriendBalls())
+            {
+                // TODO: no friend balls sound
+                _audioManager.PlaySFX("Bang", transform.position);
+                _hero.DisplayFloatingText("No friend balls.", Color.red);
+                return;
+            }
 
+            _hero.Hero.UseFriendBall();
             if (_throwChargeCoroutine != null)
                 StopCoroutine(_throwChargeCoroutine);
 

@@ -4,6 +4,7 @@
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/RewardElementStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardElementStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Battle/LevelUpScreenStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#LevelUpScreenStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/AbilityElementStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityElementStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Hero/HeroElementStyles.uss?fileID=7433441132597879392&amp;guid=8f45396fe25429f42bf53e3c09280bb3&amp;type=3#HeroElementStyles" />
     <ui:VisualElement name="resourcePanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; right: 0; background-image: url(&apos;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/Flag_vert_2.png?fileID=2800000&amp;guid=9662f21ea2a1ff14fbcab7768ec0c94d&amp;type=3#Flag_vert_2&apos;); padding-bottom: 14px; align-items: flex-start; padding-left: 10px; padding-right: 10px; padding-top: 5px; display: none; width: auto; flex-direction: column; flex-shrink: 0;">
         <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="timer" class="common__text-primary" style="display: none; width: 50px; -unity-text-align: upper-center;" />
     </ui:VisualElement>

@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6306c4bb621acbc479937cf243966228, type: 3}
-  m_Name: Skull
+  m_Script: {fileID: 11500000, guid: f3583283c9c748c43add605e81d8de83, type: 3}
+  m_Name: Friend Ball
   m_EditorClassIdentifier: 
-  Id: 458fcac6-fe94-4622-a89e-f3cf87a3e76b
-  Icon: {fileID: 21300000, guid: 2030dcdadf41e224c8e4cdd8ffedb612, type: 3}
-  Gfx: {fileID: 7574171971732737154, guid: 92723c91b6e685a479e78fecd0d47f57, type: 3}
-  Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
-  CollectedText: Skull!
+  Id: 0a861848-062b-49c0-b873-bd3dec418790
+  Icon: {fileID: 21300000, guid: f7876974a1b60ed4ca3dfd37f229386f, type: 3}
+  Gfx: {fileID: 2361473545527228330, guid: a1cfe4090fe1b3c45893a89b6a77e3a3, type: 3}
+  Color: {fileID: 11400000, guid: 6d98edb46be457e4c917385b99b9317a, type: 2}
+  CollectedText: Friend Ball!
   CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   CollectSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}

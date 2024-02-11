@@ -2,6 +2,19 @@
     width: 100%;
 }
 
+.hero-element__friend-balls-container {
+    margin-left: 12px;
+    padding: 6px;
+    font-size: 24px;
+    align-self: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&guid=64327707a8db5e8429fdd9cc2a5e2916&type=3#long_shadow_light');
+    min-width: 50px;
+    min-height: 50px;
+}
+
 .hero-element__info-container {
     flex-direction: row;
     width: 100%;
@@ -24,17 +37,13 @@
 .hero-element__slot {
     width: 10px;
     height: 10px;
-
     margin-right: 50px;
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: 50px;
-
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-
     background-color: rgb(255, 255, 255);
 }
-

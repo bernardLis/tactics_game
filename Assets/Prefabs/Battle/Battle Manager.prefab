@@ -87,17 +87,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
-  IsGameLoopBlocked: 0
+  IsGameLoopBlocked: 1
   EntityHolder: {fileID: 0}
   AbilityHolder: {fileID: 0}
-  PlayerCreatures: []
+  PlayerEntities: []
   OpponentEntities: []
   KilledPlayerEntities: []
   KilledOpponentEntities: []
   PlayerTurrets: []
   BlockBattleEnd: 0
-  _spawner: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
-  _boss: {fileID: 11400000, guid: 4b2fef36baad30340bffb05419a1c6d9, type: 2}
 --- !u!114 &5119385659013104314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +113,7 @@ MonoBehaviour:
   _heroPrefab: {fileID: 5632361364057405493, guid: 9cf1c1de913370b498d17eb66077d391, type: 3}
   BattleHero: {fileID: 0}
   RewardRerollsAvailable: 0
-  _abilityToGive: {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
+  _abilityToGive: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
   _allAbilities:
   - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
@@ -217,7 +215,7 @@ MonoBehaviour:
   - {fileID: 4595489097737614975, guid: 7e700b4280431f54880c689fae4c9736, type: 3}
   HomeTile: {fileID: 0}
   CornerTiles: []
-  SecuredTiles: []
+  UnlockedTiles: []
 --- !u!114 &892723308641058941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +264,7 @@ MonoBehaviour:
   _horseshoe: {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
   _bag: {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
   _skull: {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
+  _friendBall: {fileID: 11400000, guid: e280819f18702574aa59542e361ec539, type: 2}
   _expOrbs:
   - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
   - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}

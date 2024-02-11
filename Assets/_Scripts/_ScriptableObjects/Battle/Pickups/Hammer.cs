@@ -7,11 +7,9 @@ namespace Lis
 
     public class Hammer : Pickup
     {
-
         public override void Collected(Hero hero)
         {
             BattleManager.Instance.GetComponent<BattleVaseManager>().BreakAllVases();
         }
-
     }
 }

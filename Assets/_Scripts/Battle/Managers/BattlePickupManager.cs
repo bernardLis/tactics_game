@@ -15,6 +15,8 @@ namespace Lis
         [SerializeField] Horseshoe _horseshoe;
         [SerializeField] Bag _bag;
         [SerializeField] Skull _skull;
+        [SerializeField] FriendBall _friendBall;
+
 
         [FormerlySerializedAs("ExpOrbs")] [SerializeField]
         List<ExperienceOrb> _expOrbs = new();
@@ -75,6 +77,8 @@ namespace Lis
                 p = Instantiate(_bag);
             else if (random == 6 || random == 7)
                 p = Instantiate(_skull);
+            else // if (random == 8 || random == 9) // HERE: testing f ball
+                p = Instantiate(_friendBall);
 
             BattlePickup battlePickup = GetObjectFromPool();
             battlePickup.Initialize(p, position);

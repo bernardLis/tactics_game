@@ -10,12 +10,17 @@ namespace Lis
 
         const string _ussClassName = "hero-element__";
         const string _ussMain = _ussClassName + "main";
+        const string _ussFriendBallsContainer = _ussClassName + "friend-balls-container";
         const string _ussInfoContainer = _ussClassName + "info-container";
         const string _ussStatContainer = _ussClassName + "stat-container";
         const string _ussTabletContainer = _ussClassName + "tablet-container";
         const string _ussSlot = _ussClassName + "slot";
 
+        GameManager _gameManager;
+
         readonly Hero _hero;
+
+        readonly VisualElement _friendBallsContainer;
 
         readonly VisualElement _heroInfoContainer;
         ResourceBarElement _expBar;
@@ -26,8 +31,8 @@ namespace Lis
 
         public HeroElement(Hero hero, bool isAdvanced = false)
         {
-            GameManager gameManager = GameManager.Instance;
-            StyleSheet ss = gameManager.GetComponent<AddressableManager>()
+            _gameManager = GameManager.Instance;
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.HeroElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -35,12 +40,18 @@ namespace Lis
             hero.OnLevelUp += OnHeroLevelUp;
             AddToClassList(_ussMain);
 
+            _friendBallsContainer = new();
+            _friendBallsContainer.AddToClassList(_ussFriendBallsContainer);
+            Add(_friendBallsContainer);
+
+
             _heroInfoContainer = new();
             _heroInfoContainer.AddToClassList(_ussInfoContainer);
             Add(_heroInfoContainer);
 
             _isAdvancedView = isAdvanced;
 
+            HandleFriendBalls();
             HandleAbilities();
             HandleExpBar();
 
@@ -53,17 +64,21 @@ namespace Lis
             _levelLabel.text = $"Level {_hero.Level.Value}";
         }
 
-        void HandleExpBar()
+        void HandleFriendBalls()
         {
-            Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Primary;
-            _expBar = new(c, "Experience", _hero.Experience, _hero.ExpForNextLevel);
+            Label icon = new();
+            icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.FriendBallIcon);
+            icon.style.width = 25;
+            icon.style.height = 25;
 
-            _levelLabel = new Label($"Level {_hero.Level.Value}");
-            _levelLabel.style.position = Position.Absolute;
-            _levelLabel.AddToClassList(_ussCommonTextPrimary);
-            _expBar.Add(_levelLabel);
+            Label friendBallCountLabel = new($"{_hero.NumberOfFriendBalls}");
+            friendBallCountLabel.AddToClassList(_ussCommonTextPrimary);
+            _hero.OnFriendBallCountChanged +=
+                () => friendBallCountLabel.text = $"{_hero.NumberOfFriendBalls}";
+            _heroInfoContainer.Add(friendBallCountLabel);
 
-            Add(_expBar);
+            _friendBallsContainer.Add(icon);
+            _friendBallsContainer.Add(friendBallCountLabel);
         }
 
         void HandleAbilities()
@@ -86,6 +101,20 @@ namespace Lis
                 AbilityElement abilityIcon = new(a, true);
                 container.Add(abilityIcon);
             };
+        }
+
+
+        void HandleExpBar()
+        {
+            Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Primary;
+            _expBar = new(c, "Experience", _hero.Experience, _hero.ExpForNextLevel);
+
+            _levelLabel = new($"Level {_hero.Level.Value}");
+            _levelLabel.style.position = Position.Absolute;
+            _levelLabel.AddToClassList(_ussCommonTextPrimary);
+            _expBar.Add(_levelLabel);
+
+            Add(_expBar);
         }
 
         void HandleAdvancedView()

@@ -31,7 +31,8 @@ namespace Lis
         }
 
         public Sprite VaseIcon;
-
+        public Sprite FriendBallIcon;
+        
         [Header("Pickups")] public QuestablePickup[] QuestablePickups;
 
         public QuestablePickup GetRandomQuestablePickup()

@@ -9,9 +9,20 @@ namespace Lis
     {
         GameManager _gameManager;
 
+        public int NumberOfFriendBalls;
+        public event Action OnFriendBallCountChanged;
+
         [Header("Stats")] public Stat Power;
         public Stat Pull;
         public Stat BonusExp;
+
+        public override void InitializeBattle(int team)
+        {
+            base.InitializeBattle(team);
+            UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
+
+            NumberOfFriendBalls = 2 + globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
+        }
 
         protected override void CreateStats()
         {
@@ -27,6 +38,25 @@ namespace Lis
 
             // abilities ignore armor
             return Mathf.RoundToInt(damage);
+        }
+
+        /* FRIEND BALLS */
+        public bool HasFriendBalls()
+        {
+            return NumberOfFriendBalls > 0;
+        }
+
+        public void UseFriendBall()
+        {
+            if (!HasFriendBalls()) return;
+            NumberOfFriendBalls--;
+            OnFriendBallCountChanged?.Invoke();
+        }
+
+        public void AddFriendBalls(int amount)
+        {
+            NumberOfFriendBalls += amount;
+            OnFriendBallCountChanged?.Invoke();
         }
 
         /* LEVELING */

@@ -679,7 +679,7 @@ Transform:
   m_GameObject: {fileID: 1106236924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00017001852, y: 1.0733099, z: 24.835468}
+  m_LocalPosition: {x: -0.00017001863, y: 1.0733099, z: 24.835468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1671,10 +1671,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _abilityToGive
-      value: 
-      objectReference: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
-    - target: {fileID: 5119385659013104314, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: HeroFollowCamera
       value: 
       objectReference: {fileID: 1587620957}
@@ -1686,10 +1682,6 @@ PrefabInstance:
       propertyPath: AbilityHolder
       value: 
       objectReference: {fileID: 843739632}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: IsGameLoopBlocked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5119385659013104319, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_Name
       value: Battle Manager
