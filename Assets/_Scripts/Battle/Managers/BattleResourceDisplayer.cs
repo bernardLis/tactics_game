@@ -1,6 +1,3 @@
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,9 +15,7 @@ namespace Lis
         TroopsCountElement _troopsCounter;
 
         GoldElement _goldElement;
-
-        LineTimerElement _nextTileTimer;
-
+        
         void Start()
         {
             _gameManager = GameManager.Instance;
@@ -40,12 +35,9 @@ namespace Lis
             DOTween.To(x => _resourcePanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
             UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
-            if (globalUpgradeBoard.GetUpgradeByName("Troops Count").CurrentLevel != -1)
-                AddTroopsCountElement();
+            AddTroopsCountElement();
             if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)
                 AddGoldElement();
-            if (globalUpgradeBoard.GetUpgradeByName("Next Tile Timer").CurrentLevel != -1)
-                AddNextTileTimer();
         }
 
         void AddGoldElement()
@@ -60,8 +52,8 @@ namespace Lis
             _troopsCounter = new("");
             _resourcePanel.Add(_troopsCounter);
 
-            _battleManager.OnPlayerCreatureAdded += (c) => UpdateTroopsCountElement();
-            _battleManager.OnPlayerEntityDeath += (c) => UpdateTroopsCountElement();
+            _battleManager.OnPlayerCreatureAdded += (_) => UpdateTroopsCountElement();
+            _battleManager.OnPlayerEntityDeath += (_) => UpdateTroopsCountElement();
 
             UpdateTroopsCountElement();
         }
@@ -77,13 +69,6 @@ namespace Lis
             int change = newValue - _goldElement.Amount;
             Helpers.DisplayTextOnElement(_root, _goldElement, "" + change, Color.yellow);
             _goldElement.ChangeAmount(newValue);
-        }
-
-        void AddNextTileTimer()
-        {
-            _nextTileTimer = new(55, 60, true, "Next Tile Unlocked In");
-            _nextTileTimer.HideLabel();
-            _resourcePanel.Add(_nextTileTimer);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Lis
         public GameObject Projectile;
         public GameObject HitPrefab;
 
+        float _baseCatchingPower;
 
         public override void InitializeBattle(int team)
         {
@@ -26,6 +27,8 @@ namespace Lis
 
             for (int i = 0; i < globalUpgradeBoard.GetUpgradeByName("Creature Level").GetValue(); i++)
                 LevelUp();
+
+            _baseCatchingPower = globalUpgradeBoard.GetUpgradeByName("Catching Power").GetValue() * 0.01f;
 
             if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
         }
@@ -43,8 +46,8 @@ namespace Lis
 
         public float CalculateChanceToCatch(Hero hero)
         {
-            // TODO: math for catching
-            float chance = 0.1f; // 10% is base // TODO: catching power
+            float chance = _baseCatchingPower; 
+            Debug.Log("Base chance: " + chance);
             // missing health %, *0.5f make it "less" important
             float missingHealthPercent = (1 - (float)CurrentHealth.Value / (float)MaxHealth.GetValue()) * 0.5f;
             chance += missingHealthPercent;

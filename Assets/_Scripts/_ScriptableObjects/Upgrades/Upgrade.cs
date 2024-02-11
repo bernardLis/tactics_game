@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace Lis
@@ -22,6 +21,7 @@ namespace Lis
         bool _isInitialized;
 
         public event Action OnLevelChanged;
+
         public virtual void Initialize(UpgradeBoard board)
         {
             _isInitialized = true;
@@ -107,8 +107,8 @@ namespace Lis
             };
 
             return data;
-
         }
+
         public void LoadFromData(UpgradeData data)
         {
             CurrentLevel = data.Level;
@@ -122,5 +122,14 @@ namespace Lis
         public int Level;
     }
 
-    public enum UpgradeType { Other, Hero, Building, Creature, Boss, Ability }
+    public enum UpgradeType
+    {
+        Other,
+        Hero,
+        Building,
+        Creature,
+        Boss,
+        Ability,
+        Team
+    }
 }

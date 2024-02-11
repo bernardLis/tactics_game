@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,7 +20,8 @@ namespace Lis
         public UpgradeScreen(UpgradeBoard upgradeBoard)
         {
             _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.UpgradeScreenStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.UpgradeScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _upgradeBoard = upgradeBoard;
@@ -38,6 +36,7 @@ namespace Lis
 
             CreateHeroUpgrades();
             CreateAbilityUpgrades();
+            CreateTeamUpgrades();
             CreateBuildingUpgrades();
             CreateCreatureUpgrades();
             CreateBossUpgrades();
@@ -66,80 +65,44 @@ namespace Lis
         void CreateHeroUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Hero Upgrades");
-
-            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Hero);
-            foreach (Upgrade upgrade in upgrades)
-            {
-                upgrade.Initialize(_upgradeBoard);
-                UpgradeElement element = new(upgrade);
-                container.Add(element);
-            }
+            AddUpgradesByType(container, UpgradeType.Hero);
         }
 
         void CreateAbilityUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Ability Upgrades");
+            AddUpgradesByType(container, UpgradeType.Ability);
+        }
 
-            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Ability);
-            foreach (Upgrade upgrade in upgrades)
-            {
-                upgrade.Initialize(_upgradeBoard);
-                UpgradeElement element = new(upgrade);
-                container.Add(element);
-            }
+        void CreateTeamUpgrades()
+        {
+            VisualElement container = CreateUpgradeContainer("Team Upgrades");
+            AddUpgradesByType(container, UpgradeType.Team);
         }
 
         void CreateBuildingUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Building Upgrades");
-
-            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Building);
-            foreach (Upgrade upgrade in upgrades)
-            {
-                upgrade.Initialize(_upgradeBoard);
-                UpgradeElement element = new(upgrade);
-                container.Add(element);
-            }
+            AddUpgradesByType(container, UpgradeType.Building);
         }
 
 
         void CreateCreatureUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Creature Upgrades");
-
-            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Creature);
-            foreach (Upgrade upgrade in upgrades)
-            {
-                upgrade.Initialize(_upgradeBoard);
-                UpgradeElement element = new(upgrade);
-                container.Add(element);
-            }
+            AddUpgradesByType(container, UpgradeType.Creature);
         }
 
         void CreateBossUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Boss Upgrades");
-            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Boss);
-            foreach (Upgrade upgrade in upgrades)
-            {
-                upgrade.Initialize(_upgradeBoard);
-                UpgradeElement element = new(upgrade);
-                container.Add(element);
-            }
+            AddUpgradesByType(container, UpgradeType.Boss);
         }
-
 
         void CreateOtherUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Other Upgrades");
-
-            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(UpgradeType.Other);
-            foreach (Upgrade upgrade in upgrades)
-            {
-                upgrade.Initialize(_upgradeBoard);
-                UpgradeElement element = new(upgrade);
-                container.Add(element);
-            }
+            AddUpgradesByType(container, UpgradeType.Other);
         }
 
         VisualElement CreateUpgradeContainer(string txt)
@@ -167,6 +130,17 @@ namespace Lis
             return upgradeContainer;
         }
 
+        void AddUpgradesByType(VisualElement c, UpgradeType t)
+        {
+            List<Upgrade> upgrades = _upgradeBoard.GetUpgradesByType(t);
+            foreach (Upgrade upgrade in upgrades)
+            {
+                upgrade.Initialize(_upgradeBoard);
+                UpgradeElement element = new(upgrade);
+                c.Add(element);
+            }
+        }
+
         void AddNavigationButtons()
         {
             VisualElement container = new();
@@ -185,10 +159,12 @@ namespace Lis
 
             MyButton playButton = new("Play", "common__menu-button", Play);
             container.Add(playButton);
-
         }
 
-        void RefundAll() { _upgradeBoard.RefundAll(); }
+        void RefundAll()
+        {
+            _upgradeBoard.RefundAll();
+        }
 
         void Play()
         {

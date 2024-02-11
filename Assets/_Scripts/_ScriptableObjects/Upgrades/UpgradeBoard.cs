@@ -14,6 +14,7 @@ namespace Lis
 
         public event Action OnRefundAll;
         public event Action OnUnlockAll;
+
         public void Initialize()
         {
             _upgradeDictionary = new();
@@ -21,14 +22,11 @@ namespace Lis
                 _upgradeDictionary.Add(upgrade.name, upgrade);
         }
 
-        public Upgrade GetUpgradeByName(string name)
+        public Upgrade GetUpgradeByName(string n)
         {
             if (_upgradeDictionary.Count == 0) Initialize();
 
-            if (_upgradeDictionary.ContainsKey(name))
-                return _upgradeDictionary[name];
-
-            return null;
+            return _upgradeDictionary.GetValueOrDefault(n);
         }
 
         public List<Upgrade> GetUpgradesByType(UpgradeType type)
@@ -40,8 +38,15 @@ namespace Lis
             return upgrades;
         }
 
-        public void RefundAll() { OnRefundAll?.Invoke(); }
-        public void UnlockAll() { OnUnlockAll?.Invoke(); }
+        public void RefundAll()
+        {
+            OnRefundAll?.Invoke();
+        }
+
+        public void UnlockAll()
+        {
+            OnUnlockAll?.Invoke();
+        }
 
         public void Reset()
         {

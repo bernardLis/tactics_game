@@ -130,7 +130,7 @@ namespace Lis
 
             if (_hero == null) _hero = BattleManager.Instance.BattleHero;
             float chanceToCatch = bc.Creature.CalculateChanceToCatch(_hero.Hero);
-            bc.DisplayFloatingText($"Catching... {chanceToCatch}% chance!", Color.white);
+            bc.DisplayFloatingText($"Catching... {chanceToCatch * 100}% chance!", Color.white);
 
             yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
             bc.TryCatching(this);

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
+  m_Name: Catching Power
+  m_EditorClassIdentifier: 
+  Id: 7456ad4a-700f-4b31-8153-5790d7c3425d
+  Icon: {fileID: 21300000, guid: 4ec047f3cae45fd4ba0910f29b744b7a, type: 3}
+  Description: Increases chance to catch a creature.
+  Type: 6
+  Levels:
+  - {fileID: 11400000, guid: 0c3f405bf1eb16a4399adb77309afa2d, type: 2}
+  - {fileID: 11400000, guid: 35edc46a0ce9d4149b7c36bb4a77d413, type: 2}
+  - {fileID: 11400000, guid: 92da6599c75e35f4f988d3dff9fba782, type: 2}
+  - {fileID: 11400000, guid: 32642b7d99506a946967c4bbdf8856ee, type: 2}
+  - {fileID: 11400000, guid: a4991a5316904d14d9eb502b762af4bf, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0
