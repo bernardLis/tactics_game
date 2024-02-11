@@ -126,10 +126,12 @@ namespace Lis
 
         IEnumerator CatchingCoroutine(BattleCreature bc)
         {
-            // _rb.velocity = Vector3.zero;
-            // _rb.angularVelocity = Vector3.zero;
             _rb.isKinematic = true;
-            bc.DisplayFloatingText("Catching... 50% chance!", Color.white);
+
+            if (_hero == null) _hero = BattleManager.Instance.BattleHero;
+            float chanceToCatch = bc.Creature.CalculateChanceToCatch(_hero.Hero);
+            bc.DisplayFloatingText($"Catching... {chanceToCatch}% chance!", Color.white);
+
             yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
             bc.TryCatching(this);
             float punchScale = transform.localScale.x + 0.1f;
@@ -137,10 +139,7 @@ namespace Lis
                 .SetLoops(2, LoopType.Restart)
                 .WaitForCompletion();
 
-            // TODO: math for catching - hero level/catching power vs creature level/health
-            bool wasCaught = Random.value > 0.5f;
-            
-            if (wasCaught)
+            if (Random.value <= chanceToCatch)
             {
                 if (_hero == null) _hero = BattleManager.Instance.BattleHero;
                 Vector3 pos = _hero.transform.position

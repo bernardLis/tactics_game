@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Shapes;
 using DG.Tweening;
+using TMPro;
 
 namespace Lis
 {
@@ -109,6 +110,58 @@ namespace Lis
                 yield return new WaitForFixedUpdate();
             }
         }
+
+        [SerializeField] Canvas _canvas;
+        [SerializeField] TMP_Text _captureChanceText;
+        BattleCreature _currentCreature;
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out BattleCreature bc))
+            {
+                if (bc.Team == 0) return; // TODO: hardcoded team number
+                DisplayChanceToCatch(bc);
+            }
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out BattleCreature bc))
+            {
+                if (bc != _currentCreature) return;
+                HideChanceToCatch();
+            }
+        }
+
+        void DisplayChanceToCatch(BattleCreature bc)
+        {
+            _currentCreature = bc;
+            _canvas.gameObject.SetActive(true);
+            UpdateCaptureChance(default);
+            bc.OnDamageTaken += UpdateCaptureChance;
+        }
+
+        void UpdateCaptureChance(int _)
+        {
+            float chanceToCatch = _currentCreature.Creature.CalculateChanceToCatch(_hero.Hero);
+            Color color = Color.red;
+            if (chanceToCatch > 0.4f) color = Color.yellow;
+            if (chanceToCatch > 0.6f) color = Color.green;
+            _captureChanceText.color = color;
+            
+            _captureChanceText.text =
+                $"{chanceToCatch * 100}% chance to catch";
+        }
+
+        void HideChanceToCatch()
+        {
+            _currentCreature.OnDamageTaken -= UpdateCaptureChance;
+
+            _currentCreature = null;
+            _canvas.gameObject.SetActive(false);
+            _captureChanceText.text = "";
+        }
+
 
         readonly Collider[] _colliders = new Collider[10];
 

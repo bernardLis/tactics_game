@@ -41,6 +41,19 @@ namespace Lis
             return IsAbilityUnlocked();
         }
 
+        public float CalculateChanceToCatch(Hero hero)
+        {
+            // TODO: math for catching
+            float chance = 0.1f; // 10% is base // TODO: catching power
+            // missing health %, *0.5f make it "less" important
+            float missingHealthPercent = (1 - (float)CurrentHealth.Value / (float)MaxHealth.GetValue()) * 0.5f;
+            chance += missingHealthPercent;
+            // difference in level between creature and hero
+            int levelDifference = hero.Level.Value - Level.Value;
+            chance += 0.1f * levelDifference;
+            return chance;
+        }
+
         public void Caught()
         {
             CurrentHealth.SetValue(MaxHealth.GetValue());
