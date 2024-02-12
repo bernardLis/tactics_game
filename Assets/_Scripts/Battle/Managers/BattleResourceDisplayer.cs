@@ -6,6 +6,9 @@ namespace Lis
 {
     public class BattleResourceDisplayer : MonoBehaviour
     {
+        const string _ussCommonTextPrimary = "common__text-primary";
+
+        
         GameManager _gameManager;
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
@@ -15,7 +18,9 @@ namespace Lis
         TroopsCountElement _troopsCounter;
 
         GoldElement _goldElement;
-        
+
+        Hero _hero;
+
         void Start()
         {
             _gameManager = GameManager.Instance;
@@ -30,11 +35,14 @@ namespace Lis
 
         void ResolveResourcePanel()
         {
+            _hero = _battleManager.Hero;
+
             _resourcePanel.style.opacity = 0f;
             _resourcePanel.style.display = DisplayStyle.Flex;
             DOTween.To(x => _resourcePanel.style.opacity = x, 0, 1, 0.5f).SetDelay(3f);
 
             UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
+            AddFriendBallCountElement();
             AddTroopsCountElement();
             if (globalUpgradeBoard.GetUpgradeByName("Gold Count").CurrentLevel != -1)
                 AddGoldElement();
@@ -47,21 +55,40 @@ namespace Lis
             _resourcePanel.Add(_goldElement);
         }
 
+        void AddFriendBallCountElement()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+
+            Label icon = new();
+            icon.style.backgroundImage = new(_gameManager.GameDatabase.FriendBallIcon);
+            icon.style.width = 25;
+            icon.style.height = 25;
+
+            Label friendBallCountLabel = new($"{_hero.NumberOfFriendBalls}");
+            friendBallCountLabel.AddToClassList(_ussCommonTextPrimary);
+            _hero.OnFriendBallCountChanged +=
+                () => friendBallCountLabel.text = $"{_hero.NumberOfFriendBalls}";
+
+            container.Add(icon);
+            container.Add(friendBallCountLabel);
+            _resourcePanel.Add(container);
+        }
+
         void AddTroopsCountElement()
         {
             _troopsCounter = new("");
             _resourcePanel.Add(_troopsCounter);
-
-            _battleManager.OnPlayerCreatureAdded += (_) => UpdateTroopsCountElement();
-            _battleManager.OnPlayerEntityDeath += (_) => UpdateTroopsCountElement();
+            _hero.OnTroopMemberAdded += (_) => UpdateTroopsCountElement();
+            _hero.TroopsLimit.OnValueChanged += (_) => UpdateTroopsCountElement();
 
             UpdateTroopsCountElement();
         }
 
         void UpdateTroopsCountElement()
         {
-            int count = Mathf.Clamp(_battleManager.PlayerEntities.Count - 1, 0, 9999);
-            _troopsCounter.UpdateCountContainer($"{count}", Color.white);
+            _troopsCounter.UpdateCountContainer($"{_hero.Troops.Count} / {_hero.TroopsLimit.Value}",
+                Color.white);
         }
 
         void OnGoldChanged(int newValue)

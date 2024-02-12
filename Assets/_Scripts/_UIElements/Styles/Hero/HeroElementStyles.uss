@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.hero-element__friend-balls-container {
+.hero-element__resources-container {
     margin-left: 12px;
     padding: 6px;
     font-size: 24px;
@@ -14,6 +14,18 @@
     min-width: 50px;
     min-height: 50px;
 }
+
+.hero-element__team-container {
+    margin-left: 12px;
+    align-self: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.8;
+    min-width: 50px;
+    min-height: 50px;
+}
+
 
 .hero-element__info-container {
     flex-direction: row;

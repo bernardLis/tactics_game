@@ -49,7 +49,6 @@ namespace Lis
                 return;
             }
 
-            _hero.Hero.UseFriendBall();
             if (_throwChargeCoroutine != null)
                 StopCoroutine(_throwChargeCoroutine);
 
@@ -82,10 +81,12 @@ namespace Lis
             // if I force throw ball, I don't want to throw it again when I release button
             if (_thrown) return;
             _thrown = true;
+            
+            _hero.Hero.UseFriendBall();
 
             _throwIndicator.EndShow();
 
-            if (IsPerfectThrow()) return;
+            if (HandlePerfectThrow()) return;
 
             Vector3 throwPosition = CalculateThrowPosition();
             Debug.Log("Throwing ball with charge: " + _throwCharge);
@@ -93,7 +94,7 @@ namespace Lis
             ball.Throw(transform.rotation, throwPosition);
         }
 
-        bool IsPerfectThrow()
+        bool HandlePerfectThrow()
         {
             if (_throwCharge is < 2 or > 3) return false;
             BattleCreature bc = _throwIndicator.GetCreature();

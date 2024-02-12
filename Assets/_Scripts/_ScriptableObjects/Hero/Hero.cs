@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
@@ -8,9 +9,6 @@ namespace Lis
     public class Hero : EntityMovement
     {
         GameManager _gameManager;
-
-        public int NumberOfFriendBalls;
-        public event Action OnFriendBallCountChanged;
 
         [Header("Stats")] public Stat Power;
         public Stat Pull;
@@ -22,6 +20,8 @@ namespace Lis
             UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
 
             NumberOfFriendBalls = 2 + globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
+            TroopsLimit = CreateInstance<IntVariable>();
+            TroopsLimit.SetValue(1 + globalUpgradeBoard.GetUpgradeByName("Troops Limit").GetValue());
         }
 
         protected override void CreateStats()
@@ -41,6 +41,9 @@ namespace Lis
         }
 
         /* FRIEND BALLS */
+        public int NumberOfFriendBalls;
+        public event Action OnFriendBallCountChanged;
+
         public bool HasFriendBalls()
         {
             return NumberOfFriendBalls > 0;
@@ -57,6 +60,24 @@ namespace Lis
         {
             NumberOfFriendBalls += amount;
             OnFriendBallCountChanged?.Invoke();
+        }
+
+        /* TEAM */
+        public IntVariable TroopsLimit;
+        public List<Creature> Troops = new();
+
+        public event Action<Creature> OnTroopMemberAdded;
+
+        public bool CanAddToTroops()
+        {
+            return Troops.Count < TroopsLimit.Value;
+        }
+
+        public void AddToTroops(Creature creature)
+        {
+            if (!CanAddToTroops()) return;
+            Troops.Add(creature);
+            OnTroopMemberAdded?.Invoke(creature);
         }
 
         /* LEVELING */

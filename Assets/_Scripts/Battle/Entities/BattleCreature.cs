@@ -139,7 +139,7 @@ namespace Lis
 
         Vector3 GetPositionCloseToHero()
         {
-            BattleHero battleHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
+            BattleHero battleHero = BattleManager.BattleHero;
             Vector3 pos = battleHero.transform.position
                           + Vector3.right * Random.Range(-10f, 10f)
                           + Vector3.forward * Random.Range(-10f, 10f);
@@ -366,7 +366,7 @@ namespace Lis
 
         public void Caught(Vector3 spawnPos)
         {
-            Creature.Caught();
+            Creature.Caught(BattleManager.BattleHero.Hero);
             InitializeEntity(Creature, 0);
             BattleManager.OpponentEntities.Remove(this);
             BattleManager.AddPlayerArmyEntity(this);

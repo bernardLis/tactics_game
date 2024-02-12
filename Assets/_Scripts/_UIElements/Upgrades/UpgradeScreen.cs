@@ -76,8 +76,8 @@ namespace Lis
 
         void CreateTeamUpgrades()
         {
-            VisualElement container = CreateUpgradeContainer("Team Upgrades");
-            AddUpgradesByType(container, UpgradeType.Team);
+            VisualElement container = CreateUpgradeContainer("Troops Upgrades");
+            AddUpgradesByType(container, UpgradeType.Troops);
         }
 
         void CreateBuildingUpgrades()
@@ -85,7 +85,6 @@ namespace Lis
             VisualElement container = CreateUpgradeContainer("Building Upgrades");
             AddUpgradesByType(container, UpgradeType.Building);
         }
-
 
         void CreateCreatureUpgrades()
         {

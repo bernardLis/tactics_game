@@ -87,4 +87,5 @@
     ],
     "omnisharp.useModernNet": false,
     "dotnet.defaultSolution": "_Game - 2022.3.sln",
+    "dotnet.preferCSharpExtension": true,
 }

@@ -130,7 +130,14 @@ namespace Lis
 
             if (_hero == null) _hero = BattleManager.Instance.BattleHero;
             float chanceToCatch = bc.Creature.CalculateChanceToCatch(_hero.Hero);
-            bc.DisplayFloatingText($"Catching... {chanceToCatch * 100}% chance!", Color.white);
+            string text = $"Catching... {chanceToCatch * 100}% chance!";
+            if (!_hero.Hero.CanAddToTroops())
+            {
+                chanceToCatch = -1;
+                text = "No space for more creatures!";
+            }
+
+            bc.DisplayFloatingText(text, Color.white);
 
             yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
             bc.TryCatching(this);
@@ -139,7 +146,8 @@ namespace Lis
                 .SetLoops(2, LoopType.Restart)
                 .WaitForCompletion();
 
-            if (Random.value <= chanceToCatch)
+            // HERE: testing team if (Random.value <= chanceToCatch)
+            if (true)
             {
                 if (_hero == null) _hero = BattleManager.Instance.BattleHero;
                 Vector3 pos = _hero.transform.position

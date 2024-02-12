@@ -77,7 +77,7 @@ namespace Lis
                 p = Instantiate(_bag);
             else if (random == 6 || random == 7)
                 p = Instantiate(_skull);
-            else // if (random == 8 || random == 9) // HERE: testing f ball
+            else if (random == 8 || random == 9)
                 p = Instantiate(_friendBall);
 
             BattlePickup battlePickup = GetObjectFromPool();

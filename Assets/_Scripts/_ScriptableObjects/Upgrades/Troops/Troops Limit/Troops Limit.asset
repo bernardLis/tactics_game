@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
-  m_Name: Team Limit
+  m_Name: Troops Limit
   m_EditorClassIdentifier: 
   Id: 911fdbae-dbd9-4fec-9a1a-9e464f4adf50
   Icon: {fileID: 21300000, guid: 86ccaf17ea741144cb41d1caf1e437ce, type: 3}
