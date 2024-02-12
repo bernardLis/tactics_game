@@ -33,7 +33,9 @@ namespace Lis
 
         void OnCreatureDeath()
         {
-            _overlayTimer = new(10, 10, false, "");
+            int time = Creature.DeathPenaltyBase +
+                       Creature.DeathPenaltyPerLevel * Entity.Level.Value;
+            _overlayTimer = new(time, time, false, "");
             Add(_overlayTimer);
             _overlayTimer.OnTimerFinished += RemoveOverlayTimer;
         }

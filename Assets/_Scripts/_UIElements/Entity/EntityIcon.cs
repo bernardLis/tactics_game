@@ -13,7 +13,7 @@ namespace Lis
 
         readonly GameManager _gameManager;
 
-        readonly Entity _entity;
+        protected readonly Entity Entity;
 
         protected readonly VisualElement IconContainer;
         protected readonly VisualElement Frame;
@@ -30,7 +30,7 @@ namespace Lis
                 .GetStyleSheetByName(StyleSheetType.EntityIconStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            _entity = entity;
+            Entity = entity;
 
             AddToClassList(_ussMain);
 
@@ -100,13 +100,13 @@ namespace Lis
             evt.StopImmediatePropagation();
 
             EntityScreen card = null;
-            if (_entity is Creature creature)
+            if (Entity is Creature creature)
                 card = new CreatureScreen(creature);
-            if (_entity is Turret turret)
+            if (Entity is Turret turret)
                 card = new EntityFightScreen(turret);
-            if (_entity is Minion minion)
+            if (Entity is Minion minion)
                 card = new EntityMovementScreen(minion);
-            if (_entity is Boss boss)
+            if (Entity is Boss boss)
                 card = new BossScreen(boss);
 
             card?.Initialize();

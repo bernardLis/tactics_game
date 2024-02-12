@@ -6,6 +6,9 @@ namespace Lis
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
     public class Creature : EntityFight
     {
+        public const int DeathPenaltyBase = 30;
+        public const int DeathPenaltyPerLevel = 5;
+
         [Header("Creature")] public int UpgradeTier;
 
         public CreatureAbility CreatureAbility;
@@ -64,6 +67,7 @@ namespace Lis
         }
 
         public event Action OnDeath;
+
         public void Die()
         {
             OnDeath?.Invoke();

@@ -359,7 +359,8 @@ namespace Lis
 
         IEnumerator Respawn()
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(Creature.DeathPenaltyBase +
+                                            Creature.DeathPenaltyPerLevel * Creature.Level.Value);
             // TODO: an effect
             transform.position = BattleManager.BattleHero.transform.position +
                                  new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
