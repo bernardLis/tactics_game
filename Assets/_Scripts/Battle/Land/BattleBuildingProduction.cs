@@ -61,19 +61,11 @@ namespace Lis
 
         void StartProductionCoroutine()
         {
-            if (!Building.IsSecured) return;
             if (_productionCoroutine != null) return;
-
             _productionCoroutine = ProductionCoroutine();
             StartCoroutine(_productionCoroutine);
         }
-
-        void StopProductionCoroutine()
-        {
-            if (_productionCoroutine != null) StopCoroutine(_productionCoroutine);
-            _productionCoroutine = null;
-        }
-
+        
         IEnumerator ProductionCoroutine()
         {
             yield return new WaitForSeconds(2f);
@@ -110,6 +102,7 @@ namespace Lis
 
                 bc.OnDeath += (_, _) =>
                 {
+                    if (bc.Team == 0) return; // Team 0 creatures are resurrected
                     if (_producedCreatures.Contains(bc))
                         _producedCreatures.Remove(bc);
                     StartProductionCoroutine();
@@ -144,37 +137,10 @@ namespace Lis
         {
             return _playerEntitiesWithinRange;
         }
-
-        // void SpawnFriendlyCreature()
-        // {
-        //     BattleEntitySpawner spawner = Instantiate(SpawnerPrefab,
-        //         SpawnPoint.position, transform.rotation);
-        //
-        //     Creature creature = Instantiate(_buildingProduction.ProducedCreature);
-        //     spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: creature.Element);
-        //     spawner.OnSpawnComplete += (l) =>
-        //     {
-        //         // now I need to track the spawned wolf
-        //         BattleCreature bc = l[0] as BattleCreature;
-        //         _producedCreatures.Add(bc);
-        //
-        //         BattleManager.AddPlayerArmyEntities(l);
-        //         spawner.DestroySelf();
-        //
-        //         if (bc == null) return;
-        //         bc.OnDeath += (_, _) =>
-        //         {
-        //             _producedCreatures.Remove(bc);
-        //             StartProductionCoroutine();
-        //         };
-        //     };
-        // }
-
+        
         IEnumerator ProductionDelay()
         {
             float totalDelay = _buildingProduction.GetCurrentUpgrade().ProductionDelay;
-            if (!_buildingProduction.IsSecured) totalDelay *= 2; // double delay for corrupted production
-
             _currentProductionDelaySecond = 0f;
             while (_currentProductionDelaySecond < totalDelay)
             {
@@ -184,44 +150,7 @@ namespace Lis
                 yield return new WaitForSeconds(0.5f);
             }
         }
-
-        /* CORRUPTION */
-        public override void StartCorruption(BattleBoss boss)
-        {
-            base.StartCorruption(boss);
-            StopProductionCoroutine();
-
-            boss.OnCorruptionBroken += StartProductionCoroutine;
-        }
-
-        protected override void Corrupted()
-        {
-            base.Corrupted();
-
-            _productionCoroutine = CorruptedProductionCoroutine();
-            StartCoroutine(_productionCoroutine);
-        }
-
-        IEnumerator CorruptedProductionCoroutine()
-        {
-            yield return new WaitForSeconds(2f);
-
-            Color c = GameManager.GameDatabase.GetColorByName("Corruption").Primary;
-            ProgressBarHandler.SetBorderColor(c);
-            ProgressBarHandler.SetFillColor(Color.black);
-            ProgressBarHandler.SetProgress(0);
-            ProgressBarHandler.ShowProgressBar();
-
-            while (!Building.IsSecured)
-            {
-                SpawnHostileCreature();
-                yield return ProductionDelay();
-            }
-
-            ProgressBarHandler.HideProgressBar();
-        }
-
-
+        
         /* INTERACTION */
         public override void DisplayTooltip()
         {

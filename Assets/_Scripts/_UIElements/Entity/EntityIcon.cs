@@ -1,9 +1,3 @@
-
-
-
-
-
-
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,34 +15,35 @@ namespace Lis
 
         readonly Entity _entity;
 
-        readonly VisualElement _iconContainer;
-        public VisualElement Frame;
+        protected readonly VisualElement IconContainer;
+        protected readonly VisualElement Frame;
 
         readonly bool _blockClick;
 
         readonly AnimationElement _animationElement;
         bool _isAnimationBlocked;
+
         public EntityIcon(Entity entity, bool blockClick = false)
         {
             _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityIconStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.EntityIconStyles);
+            if (ss != null) styleSheets.Add(ss);
 
             _entity = entity;
 
             AddToClassList(_ussMain);
 
-            _iconContainer = new();
-            _iconContainer.AddToClassList(_ussIconContainer);
+            IconContainer = new();
+            IconContainer.AddToClassList(_ussIconContainer);
 
             _animationElement = new(entity.IconAnimation, 50, true);
-            _iconContainer.Add(_animationElement);
+            IconContainer.Add(_animationElement);
 
             Frame = new();
             Frame.AddToClassList(_ussFrame);
 
-            Add(_iconContainer);
+            Add(IconContainer);
             Add(Frame);
 
             RegisterCallback<MouseEnterEvent>(OnMouseEnter);
@@ -82,7 +77,7 @@ namespace Lis
             UnregisterCallback<MouseLeaveEvent>(OnMouseLeave);
         }
 
-        void OnMouseEnter(MouseEnterEvent evt)
+        protected void OnMouseEnter(MouseEnterEvent evt)
         {
             if (_isAnimationBlocked) return;
             _animationElement.PlayAnimation();
@@ -91,7 +86,7 @@ namespace Lis
                 DOTween.Kill(transform);
         }
 
-        void OnMouseLeave(MouseLeaveEvent evt)
+        protected void OnMouseLeave(MouseLeaveEvent evt)
         {
             if (_isAnimationBlocked) return;
             _animationElement.PauseAnimation();

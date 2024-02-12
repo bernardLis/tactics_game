@@ -15,7 +15,7 @@ namespace Lis
 
         protected override void PopulateCard()
         {
-            _buildingProduction = _building as BuildingProduction;
+            _buildingProduction = Building as BuildingProduction;
 
             base.PopulateCard();
             HandleLevelLabel();
@@ -29,24 +29,24 @@ namespace Lis
 
         void HandleLevelLabel()
         {
-            _levelLabel = new();
-            _levelLabel.text = $"Level {_buildingProduction.BuildingUpgrade.CurrentLevel + 1}";
-            _topRightContainer.Add(_levelLabel);
+            LevelLabel = new();
+            LevelLabel.text = $"Level {_buildingProduction.BuildingUpgrade.CurrentLevel + 1}";
+            _topRightContainer.Add(LevelLabel);
 
         }
 
         protected override void HandleBuildingInfoContainer()
         {
-            _infoContainer = new();
-            _middleContainer.Add(_infoContainer);
+            InfoContainer = new();
+            _middleContainer.Add(InfoContainer);
 
             UpgradeLevelBuilding currentUpgrade = _buildingProduction.GetCurrentUpgrade();
 
             Label limitLabel = new($"Max: {currentUpgrade.ProductionLimit}");
-            _infoContainer.Add(limitLabel);
+            InfoContainer.Add(limitLabel);
 
             Label delayLabel = new($"Respawn: {currentUpgrade.ProductionDelay}s");
-            _infoContainer.Add(delayLabel);
+            InfoContainer.Add(delayLabel);
         }
     }
 }

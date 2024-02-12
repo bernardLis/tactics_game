@@ -145,8 +145,8 @@ namespace Lis
             _isCorrupting = true;
             CurrentDamageToBreakCorruption.SetValue(0);
 
-            _currentBuilding.StartCorruption(this);
-            _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
+            // _currentBuilding.StartCorruption(this);
+            // _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
             OnCorruptionStarted?.Invoke();
 
             if (_areCorruptionBreakNodesUnlocked)
@@ -225,7 +225,7 @@ namespace Lis
         {
             CurrentDamageToBreakCorruption.SetValue(0);
             _isCorrupting = false;
-            _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
+            // _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
             DestroyAllCorruptionBreakNodes();
         }
 

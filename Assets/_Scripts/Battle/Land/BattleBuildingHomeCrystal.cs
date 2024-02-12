@@ -57,20 +57,5 @@ namespace Lis
             _GFX.DORotate(new Vector3(0, 360, 0), 10f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Restart);
         }
-
-        public override void StartCorruption(BattleBoss boss)
-        {
-            boss.OnCorruptionBroken += PauseCorruption;
-            boss.OnStunFinished += ResumeCorruption;
-
-            _corruptionCoroutine = CorruptionCoroutine();
-            StartCoroutine(_corruptionCoroutine);
-        }
-
-        protected override void Corrupted()
-        {
-            base.Corrupted();
-            BattleManager.LoseBattle();
-        }
     }
 }

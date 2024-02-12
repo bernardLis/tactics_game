@@ -56,6 +56,8 @@ namespace Lis
 
             if (_showCoroutine != null)
                 StopCoroutine(_showCoroutine);
+
+            HideChanceToCatch();
         }
 
         IEnumerator FollowMouseCoroutine()
@@ -148,23 +150,21 @@ namespace Lis
             if (chanceToCatch > 0.4f) color = Color.yellow;
             if (chanceToCatch > 0.6f) color = Color.green;
             _captureChanceText.color = color;
-            
+
             _captureChanceText.text =
                 $"{chanceToCatch * 100}% chance to catch";
         }
 
         void HideChanceToCatch()
         {
+            if (_currentCreature == null) return;
             _currentCreature.OnDamageTaken -= UpdateCaptureChance;
-
             _currentCreature = null;
             _canvas.gameObject.SetActive(false);
             _captureChanceText.text = "";
         }
-
-
+        
         readonly Collider[] _colliders = new Collider[10];
-
         public BattleCreature GetCreature()
         {
             // check if there are creatures in collider

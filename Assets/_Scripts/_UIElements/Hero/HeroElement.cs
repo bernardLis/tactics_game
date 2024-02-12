@@ -39,7 +39,6 @@ namespace Lis
             _hero = hero;
             hero.OnLevelUp += OnHeroLevelUp;
             AddToClassList(_ussMain);
-
             
             _teamContainer = new();
             _teamContainer.AddToClassList(_ussTeamContainer);
@@ -70,13 +69,13 @@ namespace Lis
             foreach (Creature c in _hero.Troops)
             {
                 // TODO: creature icon that handles death & resurrection
-                EntityIcon icon = new(c);
+                CreatureIcon icon = new(c);
                 _teamContainer.Add(icon);
             }
 
             _hero.OnTroopMemberAdded += (c) =>
             {
-                EntityIcon icon = new(c);
+                CreatureIcon icon = new(c);
                 _teamContainer.Add(icon);
             };
         }

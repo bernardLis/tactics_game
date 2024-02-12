@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   Id: d93f7566-c951-4f19-a86e-d962cbf8a56f
-  Icon: {fileID: 0}
   Cost: 0
   Value: 0
-  IsPurchased: 0
   Description: 
   ProductionDelay: 20
-  ProductionLimit: 1
+  ProductionLimit: 2

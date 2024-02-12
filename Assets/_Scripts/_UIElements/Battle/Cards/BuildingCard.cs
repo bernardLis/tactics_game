@@ -1,7 +1,3 @@
-
-
-
-
 using UnityEngine.UIElements;
 
 namespace Lis
@@ -12,26 +8,22 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussIcon = _ussClassName + "icon";
 
-        protected ElementalElement _elementalElement;
-        protected Label _nameLabel;
-        protected Label _levelLabel;
+        Label _nameLabel;
+        protected Label LevelLabel;
+        protected VisualElement InfoContainer;
+        protected readonly Building Building;
 
-        protected VisualElement _infoContainer;
-
-        protected LockOverlayElement _lockElement;
-
-        protected Building _building;
-    
 
         public BuildingCard(Building building)
         {
             Initialize();
 
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.BuildingCardStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.BuildingCardStyles);
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussMain);
 
-            _building = building;
+            Building = building;
             PopulateCard();
         }
 
@@ -40,40 +32,27 @@ namespace Lis
             HandleIcon();
             HandleNameLabel();
             HandleBuildingInfoContainer();
-            HandleBuildingSecured();
         }
 
         protected virtual void HandleIcon()
         {
             VisualElement icon = new();
             icon.AddToClassList(_ussIcon);
-            if (_building.Icon != null)
-                icon.style.backgroundImage = _building.Icon.texture;
+            if (Building.Icon != null)
+                icon.style.backgroundImage = Building.Icon.texture;
 
             _topLeftContainer.Add(icon);
         }
 
         protected virtual void HandleNameLabel()
         {
-            _nameLabel = new(Helpers.ParseScriptableObjectName(_building.name));
+            _nameLabel = new(Helpers.ParseScriptableObjectName(Building.name));
             _nameLabel.AddToClassList(_ussName);
             _topRightContainer.Add(_nameLabel);
         }
 
         protected virtual void HandleBuildingInfoContainer()
         {
-        }
-
-        void HandleBuildingSecured()
-        {
-            if (_building.IsSecured) return;
-            Label txt = new("Secure tile to unlock.");
-            _lockElement = new(txt);
-            _middleContainer.Add(_lockElement);
-            _building.OnSecured += () =>
-            {
-                _lockElement.Unlock();
-            };
         }
     }
 }
