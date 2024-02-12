@@ -333,6 +333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Production Building
       objectReference: {fileID: 0}
+    - target: {fileID: 5021059352081785933, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5512881027028205132, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.3
@@ -492,6 +496,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175096929549583182}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2600578063014568518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3311469883335040760, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 712606302819253438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!223 &3324359654833814097 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 2864800455597000431, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 712606302819253438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4010079258826433049 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4486999745331207847, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
@@ -510,7 +530,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gfx: {fileID: 1175096929549583182}
-  _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
+  Canvas: {fileID: 3324359654833814097}
+  _icon: {fileID: 8450089798041744744}
+  _productionLimitText: {fileID: 8942565006127134655}
+  _productionTimerText: {fileID: 2600578063014568518}
   SpawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
   SpawnPoint: {fileID: 4359606596326913651}
   StarRenderers:
@@ -561,3 +584,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6296792140203875650, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
   m_PrefabInstance: {fileID: 712606302819253438}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8450089798041744744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8982165912032430550, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 712606302819253438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8942565006127134655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8501090575216610049, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 712606302819253438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

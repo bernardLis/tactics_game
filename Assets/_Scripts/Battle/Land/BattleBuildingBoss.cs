@@ -35,9 +35,9 @@ namespace Lis
             Boss boss = Instantiate(_bossOriginal);
             BattleEntity be = Instantiate(boss.Prefab).GetComponent<BattleEntity>();
             spawner.SpawnEntity(boss, be, team: 1);
-            spawner.OnSpawnComplete += list =>
+            spawner.OnSpawnComplete += be =>
             {
-                _boss = list[0] as BattleBoss;
+                _boss = be as BattleBoss;
                 BattleManager.AddOpponentArmyEntity(_boss);
             };
         }

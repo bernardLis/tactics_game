@@ -196,6 +196,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1850249123602268144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
   m_PrefabInstance: {fileID: 5412118675472935569}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &7843693390468148350 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 2864800455597000431, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 5412118675472935569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8457394222581838902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4486999745331207847, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
@@ -214,6 +219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gfx: {fileID: 5960182625067341153}
-  _corruptionEffectPrefab: {fileID: 3101708934095852180, guid: 0a139a78da456694aad68736750fc3f2, type: 3}
+  Canvas: {fileID: 7843693390468148350}
   _GFX: {fileID: 2051678064307386323}
   _landingEffect: {fileID: 889726265816205275, guid: 19617e6cf57f04147814655100e7eda0, type: 3}

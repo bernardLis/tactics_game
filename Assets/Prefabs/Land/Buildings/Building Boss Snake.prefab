@@ -217,7 +217,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gfx: {fileID: 5258648056807650518}
-  _corruptionEffectPrefab: {fileID: 0}
+  Canvas: {fileID: 8545245609935211977}
   _bossSpawnPoint: {fileID: 7181207626517645498}
   _bossOriginal: {fileID: 11400000, guid: 4b2fef36baad30340bffb05419a1c6d9, type: 2}
   _battleEntitySpawnerPrefab: {fileID: 4923369291984236664, guid: c47fcd83fb351d644aabc1f4fd13d8c8, type: 3}
+--- !u!223 &8545245609935211977 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 2864800455597000431, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+  m_PrefabInstance: {fileID: 5861187858011458342}
+  m_PrefabAsset: {fileID: 0}

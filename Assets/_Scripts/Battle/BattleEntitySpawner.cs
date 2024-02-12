@@ -27,7 +27,7 @@ namespace Lis
 
         public List<BattleEntity> SpawnedEntities = new();
 
-        public event Action<List<BattleEntity>> OnSpawnComplete;
+        public event Action<BattleEntity> OnSpawnComplete;
 
         void Awake()
         {
@@ -67,22 +67,23 @@ namespace Lis
         IEnumerator SpawnCoroutine(Entity entity, BattleEntity battleEntity, int team)
         {
             yield return new WaitForSeconds(0.6f);
+            Vector3 pos = transform.position;
 
+            battleEntity.transform.position = pos;
             battleEntity.gameObject.SetActive(true);
             entity.InitializeBattle(team);
             battleEntity.InitializeEntity(entity, team);
             SpawnedEntities.Add(battleEntity);
 
-            Vector3 position = transform.position;
-            _audioManager.PlaySFX(_portalPopEntitySound, position);
+            _audioManager.PlaySFX(_portalPopEntitySound, pos);
 
             Vector3 scale = battleEntity.transform.localScale;
-            Vector3 jumpPos = position + transform.forward * scale.z;
+            Vector3 jumpPos = pos + transform.forward * scale.z;
             jumpPos.y = scale.y;
 
             yield return battleEntity.transform.DOJump(jumpPos, 1f, 1, 0.5f)
                 .WaitForCompletion();
-            OnSpawnComplete?.Invoke(SpawnedEntities);
+            OnSpawnComplete?.Invoke(battleEntity);
 
             yield return new WaitForSeconds(1f);
             DisableSelf();

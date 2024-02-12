@@ -3,11 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
+using TMPro;
 
 namespace Lis
 {
     public class BattleBuildingProduction : BattleBuilding
     {
+        [SerializeField] Image _icon;
+        [SerializeField] TMP_Text _productionLimitText;
+        [SerializeField] TMP_Text _productionTimerText;
+
         [FormerlySerializedAs("_spawnerPrefab")] [SerializeField]
         protected BattleEntitySpawner SpawnerPrefab;
 
@@ -23,13 +29,13 @@ namespace Lis
         protected Sprite Star;
 
         IEnumerator _productionCoroutine;
-        float _currentProductionDelaySecond;
+        int _currentProductionDelaySecond;
 
         BuildingProduction _buildingProduction;
 
         BattleCreaturePool _creaturePool;
 
-        readonly List<BattleCreature> _producedCreatures = new();
+        List<BattleCreature> _producedCreatures = new();
         readonly List<BattleEntity> _playerEntitiesWithinRange = new();
 
         public event Action<BattleEntity> OnEntityInRange;
@@ -40,6 +46,9 @@ namespace Lis
             _buildingProduction = building as BuildingProduction;
 
             if (_buildingProduction == null) return;
+
+            _icon.sprite = _buildingProduction.ProducedCreature.Icon;
+
             for (int i = 0; i < _buildingProduction.BuildingUpgrade.CurrentLevel + 1; i++)
                 StarRenderers[i].sprite = Star;
 
@@ -51,6 +60,8 @@ namespace Lis
             Transform spawnerT = _spawner.transform;
             spawnerT.localPosition = SpawnPoint.localPosition;
             spawnerT.localRotation = transform.rotation;
+
+            UpdateProductionLimitText();
         }
 
         protected override IEnumerator ShowBuildingCoroutine()
@@ -65,15 +76,10 @@ namespace Lis
             _productionCoroutine = ProductionCoroutine();
             StartCoroutine(_productionCoroutine);
         }
-        
+
         IEnumerator ProductionCoroutine()
         {
             yield return new WaitForSeconds(2f);
-            Color c = _buildingProduction.ProducedCreature.Element.Color.Primary;
-            ProgressBarHandler.SetBorderColor(c);
-            ProgressBarHandler.SetFillColor(Color.white);
-            ProgressBarHandler.SetProgress(0);
-            ProgressBarHandler.ShowProgressBar();
 
             while (_producedCreatures.Count < _buildingProduction.GetCurrentUpgrade().ProductionLimit)
             {
@@ -81,7 +87,6 @@ namespace Lis
                 yield return ProductionDelay();
             }
 
-            ProgressBarHandler.HideProgressBar();
             _productionCoroutine = null;
         }
 
@@ -89,13 +94,14 @@ namespace Lis
         {
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
             _spawner.SpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
-            // _spawner.SpawnEntities(new List<Entity>() { creature }, portalElement: null, team: 1);
-            _spawner.OnSpawnComplete += (l) =>
+
+            _spawner.OnSpawnComplete += (be) =>
             {
-                BattleCreature bc = l[0] as BattleCreature;
+                BattleCreature bc = be as BattleCreature;
 
                 BattleManager.AddOpponentArmyEntity(bc);
                 _producedCreatures.Add(bc);
+                UpdateProductionLimitText();
 
                 if (bc == null) return;
                 bc.InitializeHostileCreature(this);
@@ -137,26 +143,45 @@ namespace Lis
         {
             return _playerEntitiesWithinRange;
         }
-        
+
         IEnumerator ProductionDelay()
         {
-            float totalDelay = _buildingProduction.GetCurrentUpgrade().ProductionDelay;
-            _currentProductionDelaySecond = 0f;
+            int totalDelay = Mathf.RoundToInt(_buildingProduction.GetCurrentUpgrade().ProductionDelay);
+            _currentProductionDelaySecond = 0;
             while (_currentProductionDelaySecond < totalDelay)
             {
-                _currentProductionDelaySecond += 0.5f;
-                ProgressBarHandler.SetProgress(_currentProductionDelaySecond / totalDelay);
+                _currentProductionDelaySecond += 1;
+                int timeLeft = totalDelay - _currentProductionDelaySecond;
+                int minutes = Mathf.FloorToInt(timeLeft / 60f);
+                int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
+                _productionTimerText.text = $"{minutes:00}:{seconds:00}";
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
             }
         }
-        
+
+        void UpdateProductionLimitText()
+        {
+            int limit = _buildingProduction.GetCurrentUpgrade().ProductionLimit;
+            _productionLimitText.text = _producedCreatures.Count + "/" + limit;
+        }
+
         /* INTERACTION */
         public override void DisplayTooltip()
         {
-            if (TooltipManager == null) return;
+            Debug.Log("DisplayTooltip");
+            Canvas.gameObject.SetActive(true);
 
+            if (TooltipManager == null) return;
             TooltipManager.ShowTooltip(new BuildingProductionCard(_buildingProduction), gameObject);
+        }
+
+        public override void HideTooltip()
+        {
+            Canvas.gameObject.SetActive(false);
+
+            if (TooltipManager == null) return;
+            TooltipManager.HideTooltip();
         }
     }
 }

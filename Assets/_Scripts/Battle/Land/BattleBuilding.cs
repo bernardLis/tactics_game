@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 namespace Lis
 {
@@ -12,11 +15,11 @@ namespace Lis
         protected BattleTooltipManager TooltipManager;
 
         [SerializeField] GameObject _gfx;
+        [SerializeField] protected Canvas Canvas;
+
 
         Building _building;
         Vector3 _originalScale;
-
-        protected ProgressBarHandler ProgressBarHandler;
 
         bool _corruptionPaused;
 
@@ -31,6 +34,8 @@ namespace Lis
             Transform t = transform;
             t.localPosition = pos;
             _originalScale = t.localScale;
+
+            Canvas.gameObject.SetActive(false);
         }
 
         public void ShowBuilding()
@@ -42,10 +47,6 @@ namespace Lis
         protected virtual IEnumerator ShowBuildingCoroutine()
         {
             _gfx.SetActive(true);
-
-            ProgressBarHandler = GetComponentInChildren<ProgressBarHandler>();
-            ProgressBarHandler.Initialize();
-            ProgressBarHandler.HideProgressBar();
 
             Transform t = transform;
             t.localScale = Vector3.zero;
@@ -68,7 +69,7 @@ namespace Lis
             TooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
         }
 
-        public void HideTooltip()
+        public virtual void HideTooltip()
         {
             if (TooltipManager == null) return;
             TooltipManager.HideTooltip();

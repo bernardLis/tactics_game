@@ -69,7 +69,7 @@ namespace Lis
 
             _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
 
-            StartRunEntityCoroutine();
+            EnableSelf();
         }
 
         protected override IEnumerator RunEntity()
