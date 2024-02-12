@@ -47,7 +47,6 @@ namespace Lis
         public float CalculateChanceToCatch(Hero hero)
         {
             float chance = _baseCatchingPower;
-            Debug.Log("Base chance: " + chance);
             // missing health %, *0.5f make it "less" important
             float missingHealthPercent = (1 - (float)CurrentHealth.Value / (float)MaxHealth.GetValue()) * 0.5f;
             chance += missingHealthPercent;
@@ -59,9 +58,15 @@ namespace Lis
 
         public void Caught(Hero hero)
         {
+            Team = 0;
             CurrentHealth.SetValue(MaxHealth.GetValue());
             hero.AddToTroops(this);
-            Team = 0;
+        }
+
+        public event Action OnDeath;
+        public void Die()
+        {
+            OnDeath?.Invoke();
         }
 
         new public CreatureData SerializeSelf()

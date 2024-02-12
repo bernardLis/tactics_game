@@ -9,6 +9,8 @@ namespace Lis
 {
     public class CreatureIcon : EntityIcon
     {
+        OverlayTimerElement _overlayTimer;
+
         // used only in troops element for now, maybe should have different name?
         public CreatureIcon(Creature creature, bool blockClick = false) : base(creature, blockClick)
         {
@@ -24,6 +26,25 @@ namespace Lis
 
             Frame.style.width = 50;
             Frame.style.height = 50;
+
+            if (creature.Team != 0) return;
+            creature.OnDeath += OnCreatureDeath;
+        }
+
+        void OnCreatureDeath()
+        {
+            _overlayTimer = new(10, 10, false, "");
+            Add(_overlayTimer);
+            _overlayTimer.OnTimerFinished += RemoveOverlayTimer;
+        }
+
+        void RemoveOverlayTimer()
+        {
+            if (_overlayTimer != null)
+            {
+                _overlayTimer.RemoveFromHierarchy();
+                _overlayTimer = null;
+            }
         }
     }
 }

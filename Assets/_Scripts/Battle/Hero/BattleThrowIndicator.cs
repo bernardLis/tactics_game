@@ -16,6 +16,7 @@ namespace Lis
 
         [SerializeField] Disc _disc;
         [SerializeField] Disc _overflowDisc;
+        Collider _collider;
 
         BattleHero _hero;
 
@@ -29,6 +30,7 @@ namespace Lis
         {
             _cam = Camera.main;
             _mouse = Mouse.current;
+            _collider = GetComponent<Collider>();
         }
 
         public void Show()
@@ -37,17 +39,23 @@ namespace Lis
             if (_hero == null) _hero = _battleManager.BattleHero;
             transform.parent = _battleManager.EntityHolder;
 
-            EndShow();
-
+            _collider.enabled = true;
+            
+            if (_followMouseCoroutine != null)
+                StopCoroutine(_followMouseCoroutine);
             _followMouseCoroutine = FollowMouseCoroutine();
             StartCoroutine(_followMouseCoroutine);
 
+            if (_showCoroutine != null)
+                StopCoroutine(_showCoroutine);
             _showCoroutine = ShowCoroutine();
             StartCoroutine(_showCoroutine);
         }
 
         public void EndShow()
         {
+            _collider.enabled = false;
+
             _disc.gameObject.SetActive(false);
             _overflowDisc.gameObject.SetActive(false);
 
@@ -163,8 +171,9 @@ namespace Lis
             _canvas.gameObject.SetActive(false);
             _captureChanceText.text = "";
         }
-        
+
         readonly Collider[] _colliders = new Collider[10];
+
         public BattleCreature GetCreature()
         {
             // check if there are creatures in collider

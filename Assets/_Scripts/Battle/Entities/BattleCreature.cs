@@ -86,6 +86,7 @@ namespace Lis
 
         void StartHangOutCoroutine()
         {
+            UnsubscribeFromEvents();
             if (Team == 0) BattleManager.OnOpponentEntityAdded += OpponentWasAdded;
             if (Team == 1) _battleBuilding.OnEntityInRange += OpponentWasAdded;
 
@@ -99,6 +100,11 @@ namespace Lis
         {
             if (this == null) return;
             StartRunEntityCoroutine();
+            UnsubscribeFromEvents();
+        }
+
+        void UnsubscribeFromEvents()
+        {
             if (Team == 0) BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
             if (Team == 1) _battleBuilding.OnEntityInRange -= OpponentWasAdded;
         }
@@ -279,8 +285,6 @@ namespace Lis
                 return;
             }
 
-            Debug.Log($"Choosing new target: {_opponentList.Count}");
-
             Dictionary<BattleEntity, float> sqrtDistances = new();
             foreach (BattleEntity be in _opponentList)
             {
@@ -332,11 +336,53 @@ namespace Lis
         public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
         {
             yield return base.Die(attacker, hasLoot);
-            BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+            Creature.Die();
+            UnsubscribeFromEvents();
+            if (Team == 0)
+            {
+                Agent.enabled = false;
+
+                transform.DOScale(0, 0.5f);
+                transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
+                yield return new WaitForSeconds(0.5f);
+
+                StartCoroutine(Respawn());
+
+                yield break;
+            }
+
             Animator.SetTrigger(AnimDie);
             transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
                 .OnComplete(DeactivateSelf);
+        }
+
+        IEnumerator Respawn()
+        {
+            yield return new WaitForSeconds(10f);
+            // TODO: an effect
+            transform.position = BattleManager.BattleHero.transform.position +
+                                 new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
+
+            ReleaseFromCatching();
+        }
+
+        void DisableSelf()
+        {
+            Collider.enabled = false;
+            Agent.enabled = false;
+            StopRunEntityCoroutine();
+            StopAllCoroutines();
+            transform.DOKill();
+        }
+
+        void EnableSelf()
+        {
+            IsDeathCoroutineStarted = false;
+            Collider.enabled = true;
+            Agent.enabled = true;
+            IsDead = false;
+            StartRunEntityCoroutine();
         }
 
         void DeactivateSelf()
@@ -352,12 +398,7 @@ namespace Lis
         {
             IsDead = true;
 
-            StopRunEntityCoroutine();
-            StopAllCoroutines();
-            transform.DOKill();
-            Collider.enabled = false;
-            Agent.enabled = false;
-
+            DisableSelf();
             Vector3 pos = ball.transform.position;
 
             transform.DOMove(pos, 0.3f);
@@ -378,17 +419,11 @@ namespace Lis
                 .OnComplete(ReleaseFromCatching);
         }
 
-        public void ReleaseFromCatching()
+        public void ReleaseFromCatching() // should be named differently...
         {
             transform.DOMoveY(1, 0.3f);
             transform.DOScale(1, 0.3f)
-                .OnComplete(() =>
-                {
-                    IsDead = false;
-                    Collider.enabled = true;
-                    Agent.enabled = true;
-                    StartRunEntityCoroutine();
-                });
+                .OnComplete(EnableSelf);
         }
 
 

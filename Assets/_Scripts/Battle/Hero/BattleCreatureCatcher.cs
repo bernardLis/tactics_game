@@ -100,7 +100,6 @@ namespace Lis
             BattleCreature bc = _throwIndicator.GetCreature();
             if (bc == null) return false;
             _hero.DisplayFloatingText("Perfect throw!", Color.green);
-            Debug.Log("Perfect throw!");
             BattleFriendBall ball = InitializeBall();
             ball.PerfectThrow(transform.rotation, bc);
             return true;
