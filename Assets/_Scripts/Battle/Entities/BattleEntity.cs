@@ -92,7 +92,6 @@ namespace Lis
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Entity is initialized");
 
-
             if (_spawnSound != null)
                 AudioManager.PlaySFX(_spawnSound, transform.position);
 

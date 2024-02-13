@@ -96,7 +96,12 @@ namespace Lis
                 _portalHumSource.Stop();
 
             transform.DOScale(0, 0.5f).SetEase(Ease.InBack)
-                .OnComplete(() => gameObject.SetActive(false));
+                .OnComplete(() =>
+                {
+                    transform.localScale = Vector3.one;
+                    _portal.SetActive(false);
+                    gameObject.SetActive(false);
+                });
         }
     }
 
