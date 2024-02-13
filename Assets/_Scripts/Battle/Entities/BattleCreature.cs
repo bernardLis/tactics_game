@@ -28,6 +28,8 @@ namespace Lis
 
         float _currentAbilityCooldown;
 
+        [SerializeField] GameObject _respwanEffect;
+
         public event Action<int> OnDamageDealt;
         public event Action<BattleCreature, BattleHero> OnGettingCaught;
 
@@ -353,6 +355,8 @@ namespace Lis
 
                 transform.DOScale(0, 0.5f);
                 transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
+                _respwanEffect.SetActive(false);
+
                 yield return new WaitForSeconds(0.5f);
 
                 StartCoroutine(Respawn());
@@ -370,10 +374,11 @@ namespace Lis
         {
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +
                                             Creature.DeathPenaltyPerLevel * Creature.Level.Value);
-            // TODO: an effect
             transform.position = BattleManager.BattleHero.transform.position +
                                  new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
 
+            _respwanEffect.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
             ReleaseFromCatching();
         }
 

@@ -1604,6 +1604,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 7286800686397408468}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7312161198604291585 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 7286800686397408468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7354756291987998506 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1623,9 +1628,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 2c8085f55ebad0748ad8aa0aa2063445, type: 2}
-  _deathSound: {fileID: 11400000, guid: 3e207db311a5e464e9aeccb7ac2a7334, type: 2}
-  _getHitSound: {fileID: 0}
+  DeathSound: {fileID: 11400000, guid: 3e207db311a5e464e9aeccb7ac2a7334, type: 2}
+  GetHitSound: {fileID: 0}
+  _levelUpEffect: {fileID: 7312161198604291585}
   IsShielded: 0
-  _attackSound: {fileID: 11400000, guid: df003baa72a76d4498bddfa912ba5697, type: 2}
+  AttackSound: {fileID: 11400000, guid: df003baa72a76d4498bddfa912ba5697, type: 2}
+  _opponentList: []
+  _respwanEffect: {fileID: 7823611480176181607}
   _pickupPosition: {fileID: 142110509405080974}
   _effect: {fileID: 7147467545461903783, guid: f0be77bc46a88494dab81240b00f18f8, type: 3}
+--- !u!1 &7823611480176181607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 7286800686397408468}
+  m_PrefabAsset: {fileID: 0}

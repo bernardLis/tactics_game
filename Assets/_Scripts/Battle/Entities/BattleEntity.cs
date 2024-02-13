@@ -31,6 +31,7 @@ namespace Lis
         [FormerlySerializedAs("_getHitSound")] [SerializeField]
         protected Sound GetHitSound;
 
+        [SerializeField] GameObject _levelUpEffect;
         public Collider Collider { get; private set; }
 
         string BattleId { get; set; }
@@ -94,6 +95,7 @@ namespace Lis
 
             Entity = entity;
             Team = team;
+            entity.OnLevelUp += OnLevelUp;
             if (team == 0)
             {
                 gameObject.layer = 10;
@@ -114,6 +116,19 @@ namespace Lis
             if (Entity is not EntityMovement em) return;
             Agent.speed = em.Speed.GetValue();
             em.Speed.OnValueChanged += (i) => Agent.speed = i;
+        }
+
+        void OnLevelUp()
+        {
+            if (_levelUpEffect == null) return;
+            _levelUpEffect.SetActive(true);
+            StartCoroutine(DisableLevelUpEffect());
+        }
+
+        IEnumerator DisableLevelUpEffect()
+        {
+            yield return new WaitForSeconds(2f);
+            _levelUpEffect.SetActive(false);
         }
 
         protected virtual void StartRunEntityCoroutine()

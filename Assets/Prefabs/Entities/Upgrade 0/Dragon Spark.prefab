@@ -1649,6 +1649,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 8452855693877204164}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8442976291431259665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 8452855693877204164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8520861121768953658 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1668,11 +1673,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 71b9d1e4e5e19cc47b94ad6358e2f017, type: 2}
-  _deathSound: {fileID: 11400000, guid: 352b4a037130855478d4e254d6459217, type: 2}
-  _healedEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
+  DeathSound: {fileID: 11400000, guid: 352b4a037130855478d4e254d6459217, type: 2}
+  GetHitSound: {fileID: 0}
+  _levelUpEffect: {fileID: 8442976291431259665}
   IsShielded: 0
-  _attackSound: {fileID: 0}
-  _creatureAbilitySound: {fileID: 0}
-  _gravePrefab: {fileID: 5673495966164839875, guid: 1de9074430961a143bfcf7510c365ec0, type: 3}
-  _projectileSpawnPoint: {fileID: 3845954562454435672}
+  AttackSound: {fileID: 0}
+  _opponentList: []
+  _respwanEffect: {fileID: 8989876288897143159}
+  ProjectileSpawnPoint: {fileID: 3845954562454435672}
   _abilityProjectile: {fileID: 5028919531350398989, guid: 6bf5c3a3a459e5541a713ddb624d627e, type: 3}
+--- !u!1 &8989876288897143159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 8452855693877204164}
+  m_PrefabAsset: {fileID: 0}

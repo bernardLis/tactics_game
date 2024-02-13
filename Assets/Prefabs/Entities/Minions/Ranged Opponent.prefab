@@ -224,6 +224,7 @@ PrefabInstance:
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    - {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
@@ -284,8 +285,9 @@ MonoBehaviour:
   DeathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   GetHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   IsShielded: 0
-  _attackSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  _projectileSpawnPoint: {fileID: 0}
+  AttackSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _opponentList: []
+  ProjectileSpawnPoint: {fileID: 0}
   _deathEffect: {fileID: 8115328119009709232, guid: bca8d7af6e3825549a4647ab829dbba6, type: 3}
 --- !u!4 &8561734750023571471 stripped
 Transform:
