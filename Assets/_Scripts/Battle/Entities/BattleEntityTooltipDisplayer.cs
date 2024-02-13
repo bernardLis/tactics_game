@@ -1,13 +1,11 @@
-
-
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 namespace Lis
 {
-    public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+    public class BattleEntityTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler,
+        IPointerExitHandler
     {
         BattleEntity _battleEntity;
         BattleTooltipManager _tooltipManager;
@@ -39,7 +37,7 @@ namespace Lis
             _tooltipManager.HideEntityInfo();
         }
 
-        void OnDeath(BattleEntity a, EntityFight b)
+        void OnDeath(BattleEntity a, BattleEntity b)
         {
             if (_tooltipManager.CurrentEntityInfo == _battleEntity)
                 _tooltipManager.HideEntityInfo();
@@ -52,14 +50,11 @@ namespace Lis
 
         bool CanDisplayTooltip()
         {
-
             if (_tooltipManager == null) return false;
             if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;
             if (_battleEntity.IsDead) return false;
 
             return true;
         }
-
     }
 }
-

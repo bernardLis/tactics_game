@@ -55,7 +55,7 @@ namespace Lis
             }
         }
 
-        void RemoveEntityFromList(BattleEntity entity, EntityFight ignored)
+        void RemoveEntityFromList(BattleEntity entity, BattleEntity ignored)
         {
             entity.OnDeath -= RemoveEntityFromList;
             if (EntitiesInCollider.Contains(entity))

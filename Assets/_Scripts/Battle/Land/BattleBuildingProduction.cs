@@ -136,7 +136,7 @@ namespace Lis
             RemoveEntityFromList(battleEntity, null);
         }
 
-        void RemoveEntityFromList(BattleEntity entity, EntityFight ignored)
+        void RemoveEntityFromList(BattleEntity entity, BattleEntity ignored)
         {
             entity.OnDeath -= RemoveEntityFromList;
             if (_playerEntitiesWithinRange.Contains(entity))

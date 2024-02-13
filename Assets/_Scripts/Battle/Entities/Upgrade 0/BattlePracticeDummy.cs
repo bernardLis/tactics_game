@@ -40,7 +40,7 @@ namespace Lis
                     if (entity.Team == Team) continue; // splash damage is player friendly
                     if (entity.IsDead) continue;
 
-                    StartCoroutine(entity.GetHit(Creature, Creature.Power.GetValue() * 2));
+                    StartCoroutine(entity.GetHit(this, Creature.Power.GetValue() * 2));
                     Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                     GameObject hitInstance = Instantiate(Creature.HitPrefab, entity.Collider.bounds.center, q);
                     hitInstance.transform.parent = Opponent.transform;

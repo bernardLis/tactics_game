@@ -196,14 +196,14 @@ namespace Lis
             OnOpponentEntityAdded?.Invoke(b);
         }
 
-        void OnPlayerCreatureDeath(BattleEntity be, EntityFight killer)
+        void OnPlayerCreatureDeath(BattleEntity be, BattleEntity killer)
         {
             KilledPlayerEntities.Add(be);
             PlayerEntities.Remove(be);
             OnPlayerEntityDeath?.Invoke(be);
         }
 
-        void OnOpponentDeath(BattleEntity be, EntityFight killer)
+        void OnOpponentDeath(BattleEntity be, BattleEntity killer)
         {
             KilledOpponentEntities.Add(be.Entity);
             OpponentEntities.Remove(be);

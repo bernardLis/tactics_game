@@ -1,6 +1,4 @@
 using System.Collections;
-
-
 using UnityEngine;
 
 namespace Lis
@@ -56,7 +54,7 @@ namespace Lis
             yield return base.GetHit(ability);
         }
 
-        public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
+        public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
         {
             if (IsShielded)
             {
@@ -64,7 +62,7 @@ namespace Lis
                 yield break;
             }
 
-            yield return base.GetHit(attacker);
+            yield return base.GetHit(attacker, specialDamage);
         }
 
         public void BreakShield()

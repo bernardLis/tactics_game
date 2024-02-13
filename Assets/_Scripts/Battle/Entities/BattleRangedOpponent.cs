@@ -44,7 +44,7 @@ namespace Lis
         }
 
 
-        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             yield return base.Die(attacker, hasLoot);
             _deathEffect.SetActive(true);

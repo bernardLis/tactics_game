@@ -17,7 +17,7 @@ namespace Lis
 
         public Creature Creature { get; private set; }
 
-        List<BattleEntity> _opponentList = new();
+        public List<BattleEntity> _opponentList = new();
 
         protected BattleEntity Opponent { get; private set; }
 
@@ -29,6 +29,7 @@ namespace Lis
         float _currentAbilityCooldown;
 
         public event Action<int> OnDamageDealt;
+        public event Action<BattleCreature, BattleHero> OnGettingCaught;
 
         protected virtual void Update()
         {
@@ -105,8 +106,9 @@ namespace Lis
 
         void UnsubscribeFromEvents()
         {
-            if (Team == 0) BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
-            if (Team == 1) _battleBuilding.OnEntityInRange -= OpponentWasAdded;
+            BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+            if (_battleBuilding != null)
+                _battleBuilding.OnEntityInRange -= OpponentWasAdded;
         }
 
         protected virtual IEnumerator HangOutCoroutine()
@@ -183,7 +185,6 @@ namespace Lis
             CurrentSecondaryCoroutine = PathToOpponent();
             yield return CurrentSecondaryCoroutine;
         }
-
 
         IEnumerator ManageAttackCoroutine()
         {
@@ -301,19 +302,27 @@ namespace Lis
                 return;
             }
 
+
             BattleEntity closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
             EntityLog.Add($"{BattleManager.GetTime()}: Choosing {closest.name} as new target");
+
             SetOpponent(closest);
         }
 
         void SetOpponent(BattleEntity opponent)
         {
             Opponent = opponent;
-            Opponent.OnDeath += (_, _) =>
-            {
-                if (this == null) return;
-                StartRunEntityCoroutine();
-            };
+            Opponent.OnDeath += ResetOpponent;
+            if (opponent is not BattleCreature bc) return;
+            bc.OnGettingCaught += ResetOpponent;
+        }
+
+        void ResetOpponent(BattleEntity _, BattleEntity __)
+        {
+            if (this == null) return;
+            Opponent.OnDeath -= ResetOpponent;
+            Opponent = null;
+            StartRunEntityCoroutine();
         }
 
         public override void Grabbed()
@@ -333,7 +342,7 @@ namespace Lis
             Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
         }
 
-        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             yield return base.Die(attacker, hasLoot);
             Creature.Die();
@@ -398,6 +407,7 @@ namespace Lis
         public void TryCatching(BattleFriendBall ball)
         {
             IsDead = true;
+            OnGettingCaught?.Invoke(this, BattleManager.BattleHero);
 
             DisableSelf();
             Vector3 pos = ball.transform.position;
@@ -408,6 +418,7 @@ namespace Lis
 
         public void Caught(Vector3 spawnPos)
         {
+            Opponent = null;
             Creature.Caught(BattleManager.BattleHero.Hero);
             InitializeEntity(Creature, 0);
             BattleManager.OpponentEntities.Remove(this);

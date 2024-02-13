@@ -77,7 +77,7 @@ namespace Lis
             abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
         }
 
-        public override IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
+        public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
         {
             BaseGetHit(5, default);
             yield return null;
@@ -89,7 +89,7 @@ namespace Lis
             yield return null;
         }
 
-        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             _thirdPersonController.enabled = false;
             BattleManager.LoseBattle();

@@ -13,7 +13,7 @@ namespace Lis
         readonly List<GameObject> _hitInstances = new();
         GameObject _explosionEffectInstance;
 
-        public override IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             yield return ManageCreatureAbility();
             Invoke(nameof(CleanUp), 2f);
@@ -35,7 +35,7 @@ namespace Lis
                     if (entity.Team == Team) continue; // splash damage is player friendly
                     if (entity.IsDead) continue;
 
-                    StartCoroutine(entity.GetHit(Creature, 50));
+                    StartCoroutine(entity.GetHit(this, 50));
                     Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
                     GameObject hitInstance = Instantiate(Creature.HitPrefab, collider.bounds.center, q);
                     hitInstance.transform.parent = entity.transform;

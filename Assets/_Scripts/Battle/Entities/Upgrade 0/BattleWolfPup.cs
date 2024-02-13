@@ -85,7 +85,7 @@ namespace Lis
             if (IsOpponentInRange())
             {
                 targetPosition = transform.position + normal * (Agent.stoppingDistance * 2);
-                StartCoroutine(Opponent.GetHit(Creature, Creature.Power.GetValue() * 3));
+                StartCoroutine(Opponent.GetHit(this, Creature.Power.GetValue() * 3));
             }
             transform.DOJump(targetPosition, 2f, 1, 0.3f, false);
 

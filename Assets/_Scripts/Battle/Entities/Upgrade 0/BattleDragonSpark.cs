@@ -28,7 +28,7 @@ namespace Lis
             BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
             p.Initialize(Team);
             Vector3 dir = (Opponent.transform.position - transform.position).normalized;
-            p.Shoot(Creature, dir);
+            p.Shoot(this, dir);
         }
     }
 }

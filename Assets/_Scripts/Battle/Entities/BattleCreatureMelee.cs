@@ -18,10 +18,13 @@ namespace Lis
             yield return base.Attack();
 
             Quaternion q = Quaternion.Euler(0, -90, 0);
+
+            if (Opponent == null) yield break;
+            if (Opponent.Collider == null) yield break;
             _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
             _hitInstance.transform.SetParent(BattleManager.EntityHolder);
-        
-            yield return Opponent.GetHit(Creature);
+
+            yield return Opponent.GetHit(this);
             Invoke(nameof(DestroyHitInstance), 2f);
         }
 

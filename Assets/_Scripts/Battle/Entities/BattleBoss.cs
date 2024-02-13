@@ -254,7 +254,7 @@ namespace Lis
         }
 
         /* GET HIT */
-        public override void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
+        public override void BaseGetHit(int dmg, Color color, BattleEntity attacker = null)
         {
             if (_isStunned) dmg *= 2;
 

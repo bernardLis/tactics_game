@@ -63,7 +63,7 @@ namespace Lis
         private static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
         public event Action<int> OnDamageTaken;
-        public event Action<BattleEntity, EntityFight> OnDeath;
+        public event Action<BattleEntity, BattleEntity> OnDeath;
 
         public virtual void InitializeGameObject()
         {
@@ -240,24 +240,24 @@ namespace Lis
                 ability.AddKill();
         }
 
-        public virtual IEnumerator GetHit(EntityFight attacker, int specialDamage = 0)
+        public virtual IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
         {
             if (IsDead) yield break;
             if (BattleManager == null) yield break;
             EntityLog.Add($"{BattleManager.GetTime()}: Entity gets attacked by {attacker.name}");
 
-            int damage = Entity.CalculateDamage(attacker);
+            int damage = Entity.CalculateDamage(attacker.Entity as EntityFight);
             if (specialDamage > 0) damage = specialDamage;
+            if (attacker.Entity is not EntityFight attackerFight) yield break;
+            attackerFight.AddDmgDealt(damage);
 
-            attacker.AddDmgDealt(damage);
-
-            BaseGetHit(damage, attacker.Element.Color.Primary, attacker);
+            BaseGetHit(damage, attackerFight.Element.Color.Primary, attacker);
 
             if (Entity.CurrentHealth.Value <= 0)
-                attacker.AddKill(Entity);
+                attackerFight.AddKill(Entity);
         }
 
-        public virtual void BaseGetHit(int dmg, Color color, EntityFight attacker = null)
+        public virtual void BaseGetHit(int dmg, Color color, BattleEntity attacker = null)
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Entity takes damage {dmg}");
             StopRunEntityCoroutine();
@@ -282,14 +282,14 @@ namespace Lis
             StartRunEntityCoroutine();
         }
 
-        public void TriggerDieCoroutine(EntityFight attacker = null)
+        public void TriggerDieCoroutine(BattleEntity attacker = null)
         {
             IsDead = true;
             if (gameObject.activeInHierarchy)
                 StartCoroutine(Die(attacker: attacker));
         }
 
-        public virtual IEnumerator Die(EntityFight attacker = null, bool hasLoot = true)
+        public virtual IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             if (IsDeathCoroutineStarted) yield break;
             IsDeathCoroutineStarted = true;

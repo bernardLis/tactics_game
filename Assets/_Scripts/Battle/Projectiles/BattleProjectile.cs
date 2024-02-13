@@ -24,7 +24,7 @@ namespace Lis
         SphereCollider _collider;
 
         protected int Team;
-        protected EntityFight Shooter;
+        protected BattleEntity Shooter;
         protected Ability Ability;
 
         protected float Time;
@@ -48,11 +48,11 @@ namespace Lis
             BaseShoot(dir);
         }
 
-        public void Shoot(EntityFight shooter, Vector3 dir)
+        public void Shoot(BattleEntity shooter, Vector3 dir)
         {
             Shooter = shooter;
             // TODO: idk if this will work for range 
-            Time = Shooter.AttackRange.GetValue() / Speed;
+//            Time = Shooter.Entity.AttackRange.GetValue() / Speed;
             BaseShoot(dir);
         }
 
@@ -85,7 +85,7 @@ namespace Lis
         {
             Direction = dir;
             Direction.Normalize();
-            
+
             float t = 0;
             while (t <= Time)
             {

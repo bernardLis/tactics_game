@@ -119,7 +119,7 @@ namespace Lis
             projectileInstance.transform.parent = transform;
             projectileInstance.Initialize(Team);
             Vector3 dir = (_target.transform.position - transform.position).normalized;
-            projectileInstance.Shoot(Turret, dir);
+            // projectileInstance.Shoot(this, dir);
         }
 
         public bool CanBeGrabbed() { return true; }
