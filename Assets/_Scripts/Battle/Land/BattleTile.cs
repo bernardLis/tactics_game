@@ -37,8 +37,6 @@ namespace Lis
         public Building Building; //{ get; private set; }
         public BattleBuilding BattleBuilding { get; private set; }
 
-        GameObject _tileIndicator;
-
         int _totalTime;
         int _timePassed;
 
@@ -74,8 +72,6 @@ namespace Lis
             gameObject.SetActive(true);
 
             if (isHomeTile) return;
-
-            ShowTileIndicator();
 
             _floor.SetActive(false);
             _enabledEffect.SetActive(true);
@@ -128,34 +124,17 @@ namespace Lis
             _questText.text = $"{_quest.TotalAmount - _quest.CurrentAmount}";
         }
 
-        void ShowTileIndicator()
-        {
-            if (Building == null) return;
-            if (Building.TileIndicatorPrefab == null) return;
-
-            _tileIndicator = Instantiate(Building.TileIndicatorPrefab, transform);
-            _tileIndicator.transform.localPosition = Vector3.up * 6f;
-            _tileIndicator.transform.localScale = Vector3.one * 2f;
-        }
-
         // when player finishes the task 
         public void Unlock()
         {
-            HideTileIndicator();
             StartCoroutine(UnlockTileCoroutine());
+
+            _enabledEffect.SetActive(false);
+            _canvas.SetActive(false);
 
             if (_quest == null) return;
             _quest.OnQuestUpdated -= UpdateQuestInfo;
             _quest.OnQuestCompleted -= Unlock;
-        }
-
-        void HideTileIndicator()
-        {
-            _enabledEffect.SetActive(false);
-            _canvas.SetActive(false);
-
-            Debug.Log("Hide tile indicator to be implemented");
-            if (_tileIndicator != null) Destroy(_tileIndicator);
         }
 
         IEnumerator UnlockTileCoroutine()

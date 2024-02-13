@@ -14,15 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: ba2fc175-2a44-4e42-963b-9c57ad410630
   Icon: {fileID: 0}
-  IsSecured: 0
-  BuildingType: 10
-  BuildingUpgrade: {fileID: 0}
-  SecondsToCorrupt: 30
+  BuildingUpgrade: {fileID: 11400000, guid: e27aab3a3fec49a41933504166fb5c7f, type: 2}
   BuildingPrefab: {fileID: 5815386888447326932, guid: fb975caee9b70c54d99be254001b3b9f, type: 3}
-  TileIndicatorPrefab: {fileID: 5500558569641440802, guid: ac428a32fb905a84d82fe00bdb26ba0e, type: 3}
-  CurrentLevel: {fileID: 0}
   ProducedCreature: {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
-  BuildingUpgrades:
-  - {fileID: 11400000, guid: 315da04080d381543b9ee382a16cf8c6, type: 2}
-  - {fileID: 11400000, guid: f93831355ee79744d96b4d3d8e4a995e, type: 2}
-  - {fileID: 11400000, guid: 00017f0ee9a27a048bf23fa038cdd540, type: 2}

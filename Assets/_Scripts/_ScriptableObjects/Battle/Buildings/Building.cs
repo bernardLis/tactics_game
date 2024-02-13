@@ -12,8 +12,7 @@ namespace Lis
         public event Action OnUnlocked;
 
         public GameObject BuildingPrefab;
-        public GameObject TileIndicatorPrefab;
-        
+
         public virtual void Initialize()
         {
             BuildingUpgrade = GameManager.Instance.UpgradeBoard
