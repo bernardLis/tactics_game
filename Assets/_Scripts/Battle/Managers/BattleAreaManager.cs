@@ -34,7 +34,7 @@ namespace Lis
 
         VisualElement _questContainer;
 
-        public event Action<BattleTile> OnTileSecured;
+        public event Action<BattleTile> OnTileUnlocked;
 
         public void Initialize()
         {
@@ -111,7 +111,7 @@ namespace Lis
         void TileUnlocked(BattleTile tile)
         {
             UnlockedTiles.Add(tile);
-            OnTileSecured?.Invoke(tile);
+            OnTileUnlocked?.Invoke(tile);
 
             List<BattleTile> adjacentTiles = GetAdjacentTiles(tile);
             int unlockedCount = 0;

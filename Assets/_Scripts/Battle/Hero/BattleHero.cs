@@ -45,10 +45,10 @@ namespace Lis
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
-            _battleAreaManager.OnTileSecured += OnTileSecured;
+            _battleAreaManager.OnTileUnlocked += OnTileUnlocked;
         }
 
-        void OnTileSecured(BattleTile tile)
+        void OnTileUnlocked(BattleTile tile)
         {
             Vector3 pos = transform.position + Vector3.up * 1;
             Quaternion rot = Quaternion.LookRotation(tile.transform.position - pos);

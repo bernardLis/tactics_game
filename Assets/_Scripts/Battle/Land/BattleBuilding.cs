@@ -2,7 +2,6 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
-
 namespace Lis
 {
     public class BattleBuilding : MonoBehaviour, IInteractable

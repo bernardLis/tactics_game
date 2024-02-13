@@ -17,7 +17,6 @@ namespace Lis
         [SerializeField] Skull _skull;
         [SerializeField] FriendBall _friendBall;
 
-
         [FormerlySerializedAs("ExpOrbs")] [SerializeField]
         List<ExperienceOrb> _expOrbs = new();
 

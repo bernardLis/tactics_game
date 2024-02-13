@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 8560908320832600270}
   - component: {fileID: 3416259486287488999}
   - component: {fileID: 7571233738056364626}
+  - component: {fileID: 1381006878476443658}
   - component: {fileID: 1813988017654575525}
   m_Layer: 0
   m_Name: Battle Manager
@@ -204,6 +205,7 @@ MonoBehaviour:
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
   _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   _homeBuilding: {fileID: 11400000, guid: 5fca7a2d027d73e4e930ea647df74142, type: 2}
+  _unlockedBuildings: []
   _quests:
   - {fileID: 11400000, guid: c2939f11c4ceabb4f975b143f546f919, type: 2}
   - {fileID: 11400000, guid: 23706b81d6926e444bb2e5949a66ff6b, type: 2}
@@ -288,6 +290,19 @@ MonoBehaviour:
   _projectileQuickPrefab: {fileID: 602424468116040452, guid: 65299529ede89e94c889edeeffc8e113, type: 3}
   _projectileWallBouncePrefab: {fileID: 602424468116040452, guid: cf6cd879a1149a64eb42c73ed7d2a17d, type: 3}
   _rangedOpponentPrefab: {fileID: 2307782763008038217, guid: c8a6a9ca0a0727640b1f1bfa5c5e8b31, type: 3}
+--- !u!114 &1381006878476443658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f1e4ea0013c944c90913321f7f31e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stats: {fileID: 11400000, guid: 5d4051bd02a2edb458862b00e4055585, type: 2}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

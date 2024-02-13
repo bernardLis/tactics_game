@@ -38,6 +38,7 @@ namespace Lis
             GetComponent<BattlePickupManager>().Initialize();
             GetComponent<BattleRangedOpponentManager>().Initialize();
             GetComponent<BattleBossManager>().Initialize();
+            GetComponent<BattleStatsTracker>().Initialize();
         }
     }
 }

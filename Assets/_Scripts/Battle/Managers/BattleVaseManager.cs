@@ -14,7 +14,7 @@ namespace Lis
 
         [SerializeField] BattleBreakableVase _vasePrefab;
 
-        readonly int _vasesPerSpawn = 5;
+        const int _vasesPerSpawn = 5;
 
         [SerializeField] bool _debugSpawnVase;
 
@@ -74,8 +74,7 @@ namespace Lis
                 if (vase.gameObject.activeSelf)
                     vase.TriggerBreak();
         }
-
-
+        
         void DebugSpawnVase()
         {
             if (!_debugSpawnVase) return;
