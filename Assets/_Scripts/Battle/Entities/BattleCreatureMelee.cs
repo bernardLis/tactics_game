@@ -28,6 +28,7 @@ namespace Lis
         protected override IEnumerator Attack()
         {
             yield return base.Attack();
+            if (!IsOpponentInRange()) yield break;
 
             if (Opponent == null) yield break;
             if (Opponent.Collider == null) yield break;
