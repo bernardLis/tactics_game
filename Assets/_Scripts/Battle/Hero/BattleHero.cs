@@ -79,6 +79,7 @@ namespace Lis
 
         public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
         {
+            EntityLog.Add($"{BattleManager.GetTime()}: Hero gets hit by {attacker.name}");
             BaseGetHit(5, default);
             yield return null;
         }

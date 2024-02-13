@@ -1639,8 +1639,7 @@ MonoBehaviour:
   _deathEffect: {fileID: 1277203195592734071}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: df003baa72a76d4498bddfa912ba5697, type: 2}
-  _opponentList: []
-  _respwanEffect: {fileID: 7823611480176181607}
+  _respawnEffect: {fileID: 7823611480176181607}
   _pickupPosition: {fileID: 142110509405080974}
   _effect: {fileID: 7147467545461903783, guid: f0be77bc46a88494dab81240b00f18f8, type: 3}
 --- !u!1 &7823611480176181607 stripped

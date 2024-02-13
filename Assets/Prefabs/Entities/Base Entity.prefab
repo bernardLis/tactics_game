@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 4053181206122729452}
   - component: {fileID: 7988765233820874705}
   - component: {fileID: 1288290802793613283}
+  - component: {fileID: 3607482803401989862}
   m_Layer: 0
   m_Name: Base Entity
   m_TagString: Enemy
@@ -425,8 +426,19 @@ MonoBehaviour:
   _deathEffect: {fileID: 8405514708836561315}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
-  _opponentList: []
-  _respwanEffect: {fileID: 688179574862480819}
+  _respawnEffect: {fileID: 0}
+--- !u!114 &3607482803401989862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220321774683407358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e7af304943755145b6d83675bfc01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &378796256609413106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,11 +1583,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
---- !u!1 &688179574862480819 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2439972382333205281, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
-  m_PrefabInstance: {fileID: 2904929894513278610}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3057495327130778742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 161572778031153892, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}

@@ -17,7 +17,7 @@ namespace Lis
 
         public Creature Creature { get; private set; }
 
-        public List<BattleEntity> _opponentList = new();
+        List<BattleEntity> _opponentList = new();
 
         protected BattleEntity Opponent { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Lis
 
         float _currentAbilityCooldown;
 
-        [SerializeField] GameObject _respwanEffect;
+        [SerializeField] GameObject _respawnEffect;
 
         public event Action<int> OnDamageDealt;
         public event Action<BattleCreature, BattleHero> OnGettingCaught;
@@ -67,8 +67,8 @@ namespace Lis
         {
             _battleBuilding = battleBuilding;
 
-            CurrentAttackCooldown = 0;
-            _currentAbilityCooldown = 0;
+            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
+            _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
 
             _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
 
@@ -304,7 +304,6 @@ namespace Lis
                 return;
             }
 
-
             BattleEntity closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
             EntityLog.Add($"{BattleManager.GetTime()}: Choosing {closest.name} as new target");
 
@@ -371,13 +370,13 @@ namespace Lis
 
         IEnumerator Respawn()
         {
-            _respwanEffect.SetActive(false);
+            _respawnEffect.SetActive(false);
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +
                                             Creature.DeathPenaltyPerLevel * Creature.Level.Value);
             transform.position = BattleManager.BattleHero.transform.position +
                                  new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
 
-            _respwanEffect.SetActive(true);
+            _respawnEffect.SetActive(true);
             yield return new WaitForSeconds(1.5f);
             transform.DOMoveY(1, 0.3f);
             Gfx.transform.DOScale(1, 0.3f)

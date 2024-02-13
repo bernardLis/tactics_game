@@ -465,6 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    - {fileID: 3607482803401989862, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -510,8 +511,7 @@ MonoBehaviour:
   _deathEffect: {fileID: 2569987743184627362}
   IsShielded: 0
   AttackSound: {fileID: 0}
-  _opponentList: []
-  _respwanEffect: {fileID: 6809700501429228210}
+  _respawnEffect: {fileID: 6809700501429228210}
   ProjectileSpawnPoint: {fileID: 8928407045434391330}
   _effect: {fileID: 2954389165149253133, guid: 7ebb0151d77c0f94f97c1ae221a7b0fa, type: 3}
 --- !u!1 &6298816689884159444 stripped

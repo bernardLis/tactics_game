@@ -10250,6 +10250,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 1109390869919694126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    - {fileID: 3607482803401989862, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
@@ -10291,8 +10292,7 @@ MonoBehaviour:
   _deathEffect: {fileID: 9136927704223461392}
   IsShielded: 0
   AttackSound: {fileID: 0}
-  _opponentList: []
-  _respwanEffect: {fileID: 281026293816329216}
+  _respawnEffect: {fileID: 281026293816329216}
   ProjectileSpawnPoint: {fileID: 5768453582871689746}
   _explosionRadius: 5
   _explosionEffect: {fileID: 1913955008231385040, guid: 1cb6420f158ffcc468cff060385ede5c, type: 3}

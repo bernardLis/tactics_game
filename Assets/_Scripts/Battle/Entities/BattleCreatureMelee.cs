@@ -5,7 +5,19 @@ namespace Lis
 {
     public class BattleCreatureMelee : BattleCreature
     {
-        GameObject _hitInstance;
+        BattleHitEffectPool _hitEffectPool;
+
+        public override void InitializeGameObject()
+        {
+            base.InitializeGameObject();
+            _hitEffectPool = GetComponent<BattleHitEffectPool>();
+        }
+
+        public override void InitializeEntity(Entity entity, int team)
+        {
+            base.InitializeEntity(entity, team);
+            _hitEffectPool.Initialize(Creature.HitPrefab);
+        }
 
         protected override IEnumerator PathToOpponent()
         {
@@ -17,20 +29,11 @@ namespace Lis
         {
             yield return base.Attack();
 
-            Quaternion q = Quaternion.Euler(0, -90, 0);
-
             if (Opponent == null) yield break;
             if (Opponent.Collider == null) yield break;
-            _hitInstance = Instantiate(Creature.HitPrefab, Opponent.Collider.bounds.center, q);
-            _hitInstance.transform.SetParent(BattleManager.EntityHolder);
+            _hitEffectPool.GetObjectFromPool().PlayEffect(Opponent);
 
             yield return Opponent.GetHit(this);
-            Invoke(nameof(DestroyHitInstance), 2f);
-        }
-
-        void DestroyHitInstance()
-        {
-            Destroy(_hitInstance);
         }
     }
 }

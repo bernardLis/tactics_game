@@ -70,7 +70,6 @@ namespace Lis
 
         protected override IEnumerator CreatureAbility()
         {
-
             yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y).WaitForCompletion();
             yield return base.CreatureAbility();
             CurrentAttackCooldown = Creature.AttackCooldown.GetValue();

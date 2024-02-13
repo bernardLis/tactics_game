@@ -1459,8 +1459,7 @@ MonoBehaviour:
   _deathEffect: {fileID: 6101652215613970458}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: e250bb92afc6fac4997659e9e7d3fd7c, type: 2}
-  _opponentList: []
-  _respwanEffect: {fileID: 2992616552177134602}
+  _respawnEffect: {fileID: 2992616552177134602}
   _abilityHit: {fileID: 1362302443581621742, guid: 7ac9696f2f6725e438a8b1505d214f72, type: 3}
 --- !u!1 &2992616552177134602 stripped
 GameObject:
