@@ -1,10 +1,8 @@
-
-
 using UnityEngine;
 
 namespace Lis
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building Production")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Building Production")]
     public class BuildingProduction : Building
     {
         public Creature ProducedCreature;

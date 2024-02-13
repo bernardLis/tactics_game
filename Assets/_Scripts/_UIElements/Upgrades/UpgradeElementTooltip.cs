@@ -8,7 +8,6 @@ namespace Lis
     {
         readonly Upgrade _upgrade;
 
-
         public UpgradeElementTooltip(Upgrade upgrade)
         {
             _upgrade = upgrade;
@@ -20,7 +19,7 @@ namespace Lis
         void HandleTooltip()
         {
             Clear();
-            if (_upgrade.Type == UpgradeType.Building)
+            if (_upgrade.Type == UpgradeType.BuildingProduction)
             {
                 CreateBuildingTooltip();
                 return;

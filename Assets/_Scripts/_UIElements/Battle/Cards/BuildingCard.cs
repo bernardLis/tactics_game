@@ -13,7 +13,6 @@ namespace Lis
         protected VisualElement InfoContainer;
         protected readonly Building Building;
 
-
         public BuildingCard(Building building)
         {
             Initialize();

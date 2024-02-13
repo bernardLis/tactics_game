@@ -23,6 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1dcda9e6754528d4e8c9f5ecbc3169e7, type: 2}
   - {fileID: 11400000, guid: 3a21aa73e5faf3c4f91e81f7988b67fd, type: 2}
   - {fileID: 11400000, guid: c80c3a42ad75d2c4eb9d736f3f1b0e59, type: 2}
+  - {fileID: 11400000, guid: 608dd33a8d392154982fb7d3c3122b57, type: 2}
   VaseIcon: {fileID: 21300000, guid: e47c789fa5d00f340b4d6840069bb264, type: 3}
   FriendBallIcon: {fileID: 21300000, guid: f7876974a1b60ed4ca3dfd37f229386f, type: 3}
   QuestablePickups:

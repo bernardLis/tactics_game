@@ -1,17 +1,13 @@
 using System;
-
-
 using UnityEngine;
 
 namespace Lis
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Building")]
     public class Building : BaseScriptableObject
     {
         public Sprite Icon;
         public Upgrade BuildingUpgrade;
-
-        public int SecondsToCorrupt;
 
         public event Action OnUnlocked;
 
@@ -30,7 +26,7 @@ namespace Lis
             return BuildingUpgrade.CurrentLevel >= 0;
         }
 
-        public void Unlocked()
+        public virtual void Unlocked()
         {
             OnUnlocked?.Invoke();
         }

@@ -17,7 +17,6 @@ namespace Lis
         [SerializeField] GameObject _gfx;
         [SerializeField] protected Canvas Canvas;
 
-
         Building _building;
         Vector3 _originalScale;
 
@@ -65,14 +64,12 @@ namespace Lis
 
         public virtual void DisplayTooltip()
         {
-            if (TooltipManager == null) return;
-            TooltipManager.ShowTooltip(new BuildingCard(_building), gameObject);
+            Canvas.gameObject.SetActive(true);
         }
 
         public virtual void HideTooltip()
         {
-            if (TooltipManager == null) return;
-            TooltipManager.HideTooltip();
+            Canvas.gameObject.SetActive(false);
         }
 
         public virtual bool Interact(BattleInteractor interactor)

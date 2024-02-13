@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
-  m_Name: Dragon Spark Lair
+  m_Name: Shell Lair
   m_EditorClassIdentifier: 
   Id: fd9dd6ef-3858-47f5-8cd2-e76cbe47408e
-  Icon: {fileID: 21300000, guid: 4aebd342907acac4d9b8d26046a04a32, type: 3}
+  Icon: {fileID: 21300000, guid: 973bc37610f9b934fa01495b27f5fb7a, type: 3}
   Description: 
-  Type: 2
+  Type: 7
   Levels:
-  - {fileID: 11400000, guid: 5be25bd4be2668341924ccba6ef98863, type: 2}
-  - {fileID: 11400000, guid: ac4560644454d7a4592bba131a855f38, type: 2}
-  - {fileID: 11400000, guid: 3e86e57502d776e44ab989d607a2a445, type: 2}
+  - {fileID: 11400000, guid: df70754d33d9f264bb85b730e74723f2, type: 2}
+  - {fileID: 11400000, guid: 1a0a1419732096a4b9962e7e53558dae, type: 2}
+  - {fileID: 11400000, guid: eb09b6f600cbebf4ab2858b7e51f8183, type: 2}
   CurrentLevel: -1
   PermanentlyUnlocked: 0

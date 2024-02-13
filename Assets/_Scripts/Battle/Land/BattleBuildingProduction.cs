@@ -80,7 +80,6 @@ namespace Lis
 
         IEnumerator ProductionCoroutine()
         {
-            Debug.Log("ProductionCoroutine");
             yield return new WaitForSeconds(2f);
 
             while (_producedCreatures.Count < _buildingProduction.GetCurrentUpgrade().ProductionLimit)
@@ -168,18 +167,6 @@ namespace Lis
         {
             int limit = _buildingProduction.GetCurrentUpgrade().ProductionLimit;
             _productionLimitText.text = _producedCreatures.Count + "/" + limit;
-        }
-
-        /* INTERACTION */
-        public override void DisplayTooltip()
-        {
-            Debug.Log("DisplayTooltip");
-            Canvas.gameObject.SetActive(true);
-        }
-
-        public override void HideTooltip()
-        {
-            Canvas.gameObject.SetActive(false);
         }
     }
 }

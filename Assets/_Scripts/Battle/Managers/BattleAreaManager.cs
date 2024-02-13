@@ -14,7 +14,7 @@ namespace Lis
 
         [SerializeField] GameObject _tilePrefab;
         [SerializeField] Building _homeBuilding;
-        List<Building> _unlockedBuildings = new();
+        public List<Building> _unlockedBuildings = new();
 
         [SerializeField] Quest[] _quests;
         readonly List<Quest> _pastQuests = new();

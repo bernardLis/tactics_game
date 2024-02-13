@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
-  m_Name: Wolf Pup Lair
+  m_Name: Bud Lair
   m_EditorClassIdentifier: 
   Id: fd9dd6ef-3858-47f5-8cd2-e76cbe47408e
-  Icon: {fileID: 21300000, guid: 1f8c5bd40d28bfd48a6accad9e36ce3c, type: 3}
+  Icon: {fileID: 21300000, guid: fc97335eae445cd4d86554b9ecc4a09c, type: 3}
   Description: 
-  Type: 2
+  Type: 7
   Levels:
-  - {fileID: 11400000, guid: 43b2d9c5e6462b14ea4f4200c8f7627f, type: 2}
-  - {fileID: 11400000, guid: aca1049c59523a44d9771dabed1277f1, type: 2}
-  - {fileID: 11400000, guid: c1a7d45eb3920214d80dc617c7d681e0, type: 2}
+  - {fileID: 11400000, guid: be909507bb6583143a03042105fada68, type: 2}
+  - {fileID: 11400000, guid: 3ffa6f9fbb49f70478d1934caf548e0b, type: 2}
+  - {fileID: 11400000, guid: 087cc8de8c045124ebc5f516f7c3951b, type: 2}
   CurrentLevel: -1
-  PermanentlyUnlocked: 1
+  PermanentlyUnlocked: 0

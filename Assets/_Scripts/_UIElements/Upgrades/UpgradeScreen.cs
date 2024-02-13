@@ -38,6 +38,7 @@ namespace Lis
             CreateAbilityUpgrades();
             CreateTeamUpgrades();
             CreateBuildingUpgrades();
+            CreateLairUpgrades();
             CreateCreatureUpgrades();
             CreateBossUpgrades();
             CreateOtherUpgrades();
@@ -84,6 +85,12 @@ namespace Lis
         {
             VisualElement container = CreateUpgradeContainer("Building Upgrades");
             AddUpgradesByType(container, UpgradeType.Building);
+        }
+
+        void CreateLairUpgrades()
+        {
+            VisualElement container = CreateUpgradeContainer("Lair Upgrades");
+            AddUpgradesByType(container, UpgradeType.BuildingProduction);
         }
 
         void CreateCreatureUpgrades()

@@ -62,7 +62,7 @@ namespace Lis
             OnFriendBallCountChanged?.Invoke();
         }
 
-        /* TEAM */
+        /* TROOPS */
         public IntVariable TroopsLimit;
         public List<Creature> Troops = new();
 

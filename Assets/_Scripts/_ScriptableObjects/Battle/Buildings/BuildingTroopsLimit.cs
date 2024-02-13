@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingTroopsLimit : MonoBehaviour
+namespace Lis
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Troops Limit")]
+    public class BuildingTroopsLimit : Building
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Unlocked()
+        {
+            base.Unlocked();
+            BattleManager.Instance.BattleHero.Hero.TroopsLimit.ApplyChange(2);
+        }
     }
 }

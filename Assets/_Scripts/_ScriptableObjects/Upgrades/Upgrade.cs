@@ -130,6 +130,7 @@ namespace Lis
         Creature,
         Boss,
         Ability,
-        Troops
+        Troops,
+        BuildingProduction,
     }
 }

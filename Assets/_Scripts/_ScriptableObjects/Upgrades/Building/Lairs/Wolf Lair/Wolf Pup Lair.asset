@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16dae5fe6609d44ea3db9ff864b001c, type: 3}
-  m_Name: Shell Lair
+  m_Name: Wolf Pup Lair
   m_EditorClassIdentifier: 
   Id: fd9dd6ef-3858-47f5-8cd2-e76cbe47408e
-  Icon: {fileID: 21300000, guid: 973bc37610f9b934fa01495b27f5fb7a, type: 3}
+  Icon: {fileID: 21300000, guid: 1f8c5bd40d28bfd48a6accad9e36ce3c, type: 3}
   Description: 
-  Type: 2
+  Type: 7
   Levels:
-  - {fileID: 11400000, guid: df70754d33d9f264bb85b730e74723f2, type: 2}
-  - {fileID: 11400000, guid: 1a0a1419732096a4b9962e7e53558dae, type: 2}
-  - {fileID: 11400000, guid: eb09b6f600cbebf4ab2858b7e51f8183, type: 2}
+  - {fileID: 11400000, guid: 43b2d9c5e6462b14ea4f4200c8f7627f, type: 2}
+  - {fileID: 11400000, guid: aca1049c59523a44d9771dabed1277f1, type: 2}
+  - {fileID: 11400000, guid: c1a7d45eb3920214d80dc617c7d681e0, type: 2}
   CurrentLevel: -1
-  PermanentlyUnlocked: 0
+  PermanentlyUnlocked: 1
