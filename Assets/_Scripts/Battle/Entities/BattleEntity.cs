@@ -32,6 +32,8 @@ namespace Lis
         protected Sound GetHitSound;
 
         [SerializeField] GameObject _levelUpEffect;
+        [SerializeField] GameObject _deathEffect;
+
         public Collider Collider { get; private set; }
 
         string BattleId { get; set; }
@@ -90,9 +92,11 @@ namespace Lis
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Entity is initialized");
 
+
             if (_spawnSound != null)
                 AudioManager.PlaySFX(_spawnSound, transform.position);
 
+            _deathEffect.SetActive(false);
             Entity = entity;
             Team = team;
             entity.OnLevelUp += OnLevelUp;
@@ -105,7 +109,6 @@ namespace Lis
             if (team == 1)
             {
                 gameObject.layer = 11;
-
                 Collider.includeLayers = LayerMask.GetMask("Player", "Ability");
             }
 
@@ -317,6 +320,9 @@ namespace Lis
             Collider.enabled = false;
 
             if (DeathSound != null) AudioManager.PlaySFX(DeathSound, transform.position);
+
+            _deathEffect.SetActive(true);
+
             DOTween.Kill(transform);
             if (hasLoot) ResolveLoot();
 

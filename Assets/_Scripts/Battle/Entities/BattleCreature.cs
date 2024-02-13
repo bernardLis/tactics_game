@@ -353,9 +353,8 @@ namespace Lis
             {
                 Agent.enabled = false;
 
-                transform.DOScale(0, 0.5f);
+                Gfx.transform.DOScale(0, 0.5f);
                 transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
-                _respwanEffect.SetActive(false);
 
                 yield return new WaitForSeconds(0.5f);
 
@@ -372,6 +371,7 @@ namespace Lis
 
         IEnumerator Respawn()
         {
+            _respwanEffect.SetActive(false);
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +
                                             Creature.DeathPenaltyPerLevel * Creature.Level.Value);
             transform.position = BattleManager.BattleHero.transform.position +
@@ -379,7 +379,9 @@ namespace Lis
 
             _respwanEffect.SetActive(true);
             yield return new WaitForSeconds(1.5f);
-            ReleaseFromCatching();
+            transform.DOMoveY(1, 0.3f);
+            Gfx.transform.DOScale(1, 0.3f)
+                .OnComplete(EnableSelf);
         }
 
         void DisableSelf()
@@ -436,7 +438,7 @@ namespace Lis
                 .OnComplete(ReleaseFromCatching);
         }
 
-        public void ReleaseFromCatching() // should be named differently...
+        public void ReleaseFromCatching()
         {
             transform.DOMoveY(1, 0.3f);
             transform.DOScale(1, 0.3f)

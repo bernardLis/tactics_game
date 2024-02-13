@@ -1909,6 +1909,7 @@ MonoBehaviour:
   DeathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   GetHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   _levelUpEffect: {fileID: 2581224419072762184}
+  _deathEffect: {fileID: 2581224419072762184}
   IsShielded: 0
   _tileSecuredEffectPrefab: {fileID: 8238207760253545085}
 --- !u!114 &6518020123395190426

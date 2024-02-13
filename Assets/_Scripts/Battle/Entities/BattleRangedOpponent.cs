@@ -9,8 +9,6 @@ namespace Lis
     {
         BattleRangedOpponentManager _battleRangedOpponentManager;
 
-        [SerializeField] GameObject _deathEffect;
-
         public override void InitializeEntity(Entity entity, int team)
         {
             base.InitializeEntity(entity, team);
@@ -47,7 +45,6 @@ namespace Lis
         public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             yield return base.Die(attacker, hasLoot);
-            _deathEffect.SetActive(true);
             Gfx.SetActive(false);
             StopAllCoroutines();
             yield return new WaitForSeconds(1f);

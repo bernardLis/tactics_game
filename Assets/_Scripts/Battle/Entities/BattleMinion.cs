@@ -14,7 +14,6 @@ namespace Lis
         [SerializeField] GameObject _waterGfx;
         [SerializeField] GameObject _windGfx;
 
-        [SerializeField] GameObject _deathEffect;
 
         BattleHero _targetHero;
 
@@ -81,7 +80,6 @@ namespace Lis
         public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
             yield return base.Die(attacker, hasLoot);
-            _deathEffect.SetActive(true);
             Gfx.SetActive(false);
             StopAllCoroutines();
             yield return new WaitForSeconds(1f);

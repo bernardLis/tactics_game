@@ -480,6 +480,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 6272402861689575169}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2569987743184627362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 6272402861689575169}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6053594737241183487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -502,6 +507,7 @@ MonoBehaviour:
   DeathSound: {fileID: 11400000, guid: 119581ae922d8b347adf77cb51fbb4cb, type: 2}
   GetHitSound: {fileID: 0}
   _levelUpEffect: {fileID: 6298816689884159444}
+  _deathEffect: {fileID: 2569987743184627362}
   IsShielded: 0
   AttackSound: {fileID: 0}
   _opponentList: []

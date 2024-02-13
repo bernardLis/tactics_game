@@ -1763,11 +1763,17 @@ MonoBehaviour:
   DeathSound: {fileID: 11400000, guid: 55917a66746165448925f78c726a9171, type: 2}
   GetHitSound: {fileID: 0}
   _levelUpEffect: {fileID: 3219802196726874569}
+  _deathEffect: {fileID: 6371612011005344447}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: 1af641eabd0578b4c83f69bb6f0cdc33, type: 2}
   _opponentList: []
   _respwanEffect: {fileID: 2685842916916088495}
   _abilityEffectRadius: 5
+--- !u!1 &6371612011005344447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 3227638692538731292}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8724560309207090596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
