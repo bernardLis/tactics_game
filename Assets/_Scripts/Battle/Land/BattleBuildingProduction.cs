@@ -35,7 +35,7 @@ namespace Lis
 
         BattleCreaturePool _creaturePool;
 
-        List<BattleCreature> _producedCreatures = new();
+        public List<BattleCreature> _producedCreatures = new();
         readonly List<BattleEntity> _playerEntitiesWithinRange = new();
 
         public event Action<BattleEntity> OnEntityInRange;
@@ -57,6 +57,7 @@ namespace Lis
 
             Transform t = transform;
             _spawner = Instantiate(SpawnerPrefab, t);
+            _spawner.OnSpawnComplete += OnCreatureSpawned;
             Transform spawnerT = _spawner.transform;
             spawnerT.localPosition = SpawnPoint.localPosition;
             spawnerT.localRotation = transform.rotation;
@@ -79,6 +80,7 @@ namespace Lis
 
         IEnumerator ProductionCoroutine()
         {
+            Debug.Log("ProductionCoroutine");
             yield return new WaitForSeconds(2f);
 
             while (_producedCreatures.Count < _buildingProduction.GetCurrentUpgrade().ProductionLimit)
@@ -87,32 +89,34 @@ namespace Lis
                 yield return ProductionDelay();
             }
 
+            _productionTimerText.text = "-";
             _productionCoroutine = null;
         }
 
         void SpawnHostileCreature()
         {
+            Debug.Log("SpawnHostileCreature");
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
             _spawner.SpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
+        }
 
-            _spawner.OnSpawnComplete += (be) =>
+        void OnCreatureSpawned(BattleEntity be)
+        {
+            BattleCreature bc = be as BattleCreature;
+
+            BattleManager.AddOpponentArmyEntity(bc);
+            _producedCreatures.Add(bc);
+            UpdateProductionLimitText();
+
+            if (bc == null) return;
+            bc.InitializeHostileCreature(this);
+
+            bc.OnDeath += (_, _) =>
             {
-                BattleCreature bc = be as BattleCreature;
-
-                BattleManager.AddOpponentArmyEntity(bc);
-                _producedCreatures.Add(bc);
-                UpdateProductionLimitText();
-
-                if (bc == null) return;
-                bc.InitializeHostileCreature(this);
-
-                bc.OnDeath += (_, _) =>
-                {
-                    if (bc.Team == 0) return; // Team 0 creatures are resurrected
-                    if (_producedCreatures.Contains(bc))
-                        _producedCreatures.Remove(bc);
-                    StartProductionCoroutine();
-                };
+                if (bc.Team == 0) return; // Team 0 creatures are resurrected
+                if (_producedCreatures.Contains(bc))
+                    _producedCreatures.Remove(bc);
+                StartProductionCoroutine();
             };
         }
 
@@ -171,17 +175,11 @@ namespace Lis
         {
             Debug.Log("DisplayTooltip");
             Canvas.gameObject.SetActive(true);
-
-            if (TooltipManager == null) return;
-            TooltipManager.ShowTooltip(new BuildingProductionCard(_buildingProduction), gameObject);
         }
 
         public override void HideTooltip()
         {
             Canvas.gameObject.SetActive(false);
-
-            if (TooltipManager == null) return;
-            TooltipManager.HideTooltip();
         }
     }
 }
