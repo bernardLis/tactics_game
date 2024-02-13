@@ -94,7 +94,6 @@ namespace Lis
 
         void SpawnHostileCreature()
         {
-            Debug.Log("SpawnHostileCreature");
             Creature creature = Instantiate(_buildingProduction.ProducedCreature);
             _spawner.SpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
         }

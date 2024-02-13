@@ -75,7 +75,7 @@ namespace Lis
         }
 
         // https://stackoverflow.com/questions/51905268/how-to-find-closest-point-on-line
-        public Vector3 FindNearestPointOnLine(Vector3 origin, Vector3 end, Vector3 point)
+        Vector3 FindNearestPointOnLine(Vector3 origin, Vector3 end, Vector3 point)
         {
             //Get heading
             Vector3 heading = end - origin;

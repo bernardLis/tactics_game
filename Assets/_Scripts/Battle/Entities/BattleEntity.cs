@@ -217,7 +217,9 @@ namespace Lis
             IsEngaged = true;
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity gets engaged by {attacker.name}");
-            StopRunEntityCoroutine();
+            StartCoroutine(PathToTarget(attacker.transform));
+
+            // StopRunEntityCoroutine();
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
         }
 

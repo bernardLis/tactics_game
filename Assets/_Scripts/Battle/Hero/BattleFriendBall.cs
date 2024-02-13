@@ -146,8 +146,7 @@ namespace Lis
                 .SetLoops(2, LoopType.Restart)
                 .WaitForCompletion();
 
-            // HERE: testing team if (Random.value <= chanceToCatch)
-            if (true)
+            if (Random.value <= chanceToCatch)
             {
                 if (_hero == null) _hero = BattleManager.Instance.BattleHero;
                 Vector3 pos = _hero.transform.position

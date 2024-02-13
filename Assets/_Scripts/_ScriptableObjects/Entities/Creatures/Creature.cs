@@ -56,7 +56,9 @@ namespace Lis
             // difference in level between creature and hero
             int levelDifference = hero.Level.Value - Level.Value;
             chance += 0.1f * levelDifference;
-            return chance;
+            return 1;
+
+            return chance; // HERE: return chance
         }
 
         public void Caught(Hero hero)
