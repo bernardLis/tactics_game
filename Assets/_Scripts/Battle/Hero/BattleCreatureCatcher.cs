@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 namespace Lis
 {
@@ -25,6 +27,7 @@ namespace Lis
         IEnumerator _throwChargeCoroutine;
         bool _thrown;
 
+        public event Action OnBallThrown;
         public void Initialize()
         {
             _audioManager = AudioManager.Instance;
@@ -81,7 +84,8 @@ namespace Lis
             // if I force throw ball, I don't want to throw it again when I release button
             if (_thrown) return;
             _thrown = true;
-            
+
+            OnBallThrown?.Invoke();
             _hero.Hero.UseFriendBall();
 
             _throwIndicator.EndShow();

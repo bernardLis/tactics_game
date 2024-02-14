@@ -1,39 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lis
 {
     public class BattleStatsTracker : MonoBehaviour
     {
-        [SerializeField] BattleStats _stats;
+        public BattleStats Stats;
 
         public void Initialize()
         {
-            _stats.Initialize();
+            Stats.Initialize();
             TrackKills();
             TracksVases();
             TrackTiles();
             TracksPickups();
+            TrackFriendBalls();
         }
 
         void TrackKills()
         {
             BattleManager.Instance.OnOpponentEntityDeath += (be) =>
             {
-                if (be is BattleCreature) _stats.CreaturesKilled++;
-                else if (be is BattleMinion) _stats.MinionsKilled++;
+                if (be is BattleCreature) Stats.CreaturesKilled++;
+                else if (be is BattleMinion) Stats.MinionsKilled++;
             };
         }
 
         void TracksVases()
         {
-            GetComponent<BattleVaseManager>().OnVaseBroken += _ => _stats.VasesBroken++;
+            GetComponent<BattleVaseManager>().OnVaseBroken += _ => Stats.VasesBroken++;
         }
 
         void TrackTiles()
         {
-            GetComponent<BattleAreaManager>().OnTileUnlocked += (_) => _stats.TilesUnlocked++;
+            GetComponent<BattleAreaManager>().OnTileUnlocked += (_) => Stats.TilesUnlocked++;
         }
 
         void TracksPickups()
@@ -43,28 +42,34 @@ namespace Lis
                 switch (pickup)
                 {
                     case Coin _:
-                        _stats.CoinsCollected++;
+                        Stats.CoinsCollected++;
                         break;
                     case Hammer _:
-                        _stats.HammersCollected++;
+                        Stats.HammersCollected++;
                         break;
                     case Horseshoe _:
-                        _stats.HorseshoesCollected++;
+                        Stats.HorseshoesCollected++;
                         break;
                     case Bag _:
-                        _stats.BagsCollected++;
+                        Stats.BagsCollected++;
                         break;
                     case Skull _:
-                        _stats.SkullsCollected++;
+                        Stats.SkullsCollected++;
                         break;
                     case FriendBall _:
-                        _stats.FriendBallsCollected++;
+                        Stats.FriendBallsCollected++;
                         break;
                     case ExperienceOrb _:
-                        _stats.ExpOrbsCollected++;
+                        Stats.ExpOrbsCollected++;
                         break;
                 }
             };
+        }
+
+        void TrackFriendBalls()
+        {
+            BattleManager.Instance.BattleHero.GetComponent<BattleCreatureCatcher>().OnBallThrown +=
+                () => Stats.FriendBallsThrown++;
         }
     }
 }

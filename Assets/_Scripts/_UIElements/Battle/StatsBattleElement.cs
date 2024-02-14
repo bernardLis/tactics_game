@@ -1,9 +1,4 @@
 using System.Collections.Generic;
-
-
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,20 +17,19 @@ namespace Lis
         const string _ussCreatureLabel = _ussClassName + "creature-label";
         const string _ussCreatureIcon = _ussClassName + "creature-icon";
 
-        readonly GameManager _gameManager;
         readonly BattleManager _battleManager;
 
         readonly VisualElement _leftPanel;
         readonly VisualElement _middlePanel;
         readonly VisualElement _rightPanel;
 
+        BattleStats _battleStats;
+
         public StatsBattleElement()
         {
-            _gameManager = GameManager.Instance;
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-            if (commonStyles != null)
-                styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StatsBattleElementStyles);
+            GameManager gameManager = GameManager.Instance;
+            StyleSheet ss = gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.StatsBattleElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -46,12 +40,14 @@ namespace Lis
                 return;
             }
 
+            _battleStats = _battleManager.GetComponent<BattleStatsTracker>().Stats;
+
             AddToClassList(_ussMain);
             AddToClassList(_ussCommonTextPrimary);
 
-            _leftPanel = new VisualElement();
-            _middlePanel = new VisualElement();
-            _rightPanel = new VisualElement();
+            _leftPanel = new();
+            _middlePanel = new();
+            _rightPanel = new();
             _leftPanel.AddToClassList(_ussPanel);
             _middlePanel.AddToClassList(_ussPanel);
             _rightPanel.AddToClassList(_ussPanel);
@@ -68,14 +64,17 @@ namespace Lis
         {
             AddTotalGold();
             AddTimeSurvived();
+            AddTilesUnlocked();
         }
 
         void PopulateMiddlePanel()
         {
+            _middlePanel.Add(new PickupStatsElement(_battleStats));
         }
 
         void PopulateRightPanel()
         {
+            AddFriendBallsThrown();
             AddMinionsKilled();
             AddCreatureKills();
         }
@@ -107,12 +106,30 @@ namespace Lis
             container.Add(text);
         }
 
-        void AddMinionsKilled()
+        void AddTilesUnlocked()
+        {
+            VisualElement container = new();
+            _leftPanel.Add(container);
+
+            Label text = new($"Tiles unlocked: {_battleStats.TilesUnlocked}");
+            container.Add(text);
+        }
+
+        void AddFriendBallsThrown()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             _rightPanel.Add(container);
 
+            Label text = new($"Friend balls thrown: {_battleStats.FriendBallsThrown}");
+            container.Add(text);
+        }
+
+        void AddMinionsKilled()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            _rightPanel.Add(container);
 
             Label text = new($"Minions defeated: ");
             container.Add(text);
@@ -158,7 +175,6 @@ namespace Lis
                 VisualElement c = new();
                 c.style.flexDirection = FlexDirection.Row;
                 iconContainer.Add(c);
-
                 Label txt = new($"{entry.Value} x ");
                 c.Add(txt);
 

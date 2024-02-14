@@ -20,6 +20,8 @@ public class BattleStats : ScriptableObject
 
     public int ExpOrbsCollected;
 
+    public int FriendBallsThrown;
+
 
     public void Initialize()
     {
@@ -34,5 +36,6 @@ public class BattleStats : ScriptableObject
         SkullsCollected = 0;
         FriendBallsCollected = 0;
         ExpOrbsCollected = 0;
+        FriendBallsThrown = 0;
     }
 }
