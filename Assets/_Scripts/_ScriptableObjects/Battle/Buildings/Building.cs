@@ -7,7 +7,7 @@ namespace Lis
     public class Building : BaseScriptableObject
     {
         public Sprite Icon;
-        public Upgrade BuildingUpgrade;
+        [HideInInspector] public Upgrade BuildingUpgrade;
 
         public event Action OnUnlocked;
 

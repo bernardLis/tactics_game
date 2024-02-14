@@ -29,6 +29,7 @@ namespace Lis
 
         public Transform EntityHolder;
         public Transform AbilityHolder;
+        public Transform ProjectilePoolHolder;
 
         public bool IsTimerOn { get; private set; }
 

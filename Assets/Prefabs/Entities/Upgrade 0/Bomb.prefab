@@ -10261,6 +10261,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8084239815089807177}
+    - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4136679000733734035}
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
 --- !u!1 &281026293816329216 stripped
 GameObject:
@@ -10296,6 +10299,18 @@ MonoBehaviour:
   ProjectileSpawnPoint: {fileID: 5768453582871689746}
   _explosionRadius: 5
   _explosionEffect: {fileID: 1913955008231385040, guid: 1cb6420f158ffcc468cff060385ede5c, type: 3}
+--- !u!114 &4136679000733734035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676733176724701773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7774d53be4fb92145ab10ada7dca4f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &724913522891443046 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

@@ -51,8 +51,9 @@ namespace Lis
         public void Shoot(BattleEntity shooter, Vector3 dir)
         {
             Shooter = shooter;
-            // TODO: idk if this will work for range 
-//            Time = Shooter.Entity.AttackRange.GetValue() / Speed;
+            BattleCreature bc = shooter as BattleCreature;
+            if (bc == null) return;
+            Time = bc.Creature.AttackRange.GetValue() / Speed; // TODO: idk if this will work for range
             BaseShoot(dir);
         }
 

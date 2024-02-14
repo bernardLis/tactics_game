@@ -10,6 +10,20 @@ namespace Lis
         [FormerlySerializedAs("_projectileSpawnPoint")] [SerializeField]
         protected GameObject ProjectileSpawnPoint;
 
+        BattleProjectilePool _projectilePool;
+
+        public override void InitializeGameObject()
+        {
+            base.InitializeGameObject();
+            _projectilePool = GetComponent<BattleProjectilePool>();
+        }
+
+        public override void InitializeEntity(Entity entity, int team)
+        {
+            base.InitializeEntity(entity, team);
+            _projectilePool.Initialize(Creature.Projectile);
+        }
+
         protected override IEnumerator PathToOpponent()
         {
             // no obstacle blocking line of sight
@@ -93,12 +107,22 @@ namespace Lis
         {
             yield return base.Attack();
 
-            // GameObject projectileInstance = Instantiate(Creature.Projectile, _projectileSpawnPoint.transform.position, Quaternion.identity);
-            // projectileInstance.transform.parent = BattleManager.EntityHolder;
-            // BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
-            // p.Initialize(Team);
-            // Vector3 dir = (Opponent.transform.position - transform.position).normalized;
-            // p.Shoot(Creature, dir);
+            BattleProjectile projectile = _projectilePool.GetObjectFromPool();
+            if (Team == 1)
+                projectile = BattleManager.GetComponent<BattleRangedOpponentManager>()
+                    .GetProjectileFromPool(Entity.Element.ElementName);
+            projectile.Initialize(Team);
+            projectile.transform.position = ProjectileSpawnPoint.transform.position;
+            Vector3 dir = (Opponent.transform.position - transform.position).normalized;
+            dir.y = 0;
+
+            if (Team == 0)
+                projectile.Shoot(this, dir);
+            if (Team == 1)
+            {
+                BattleProjectileOpponent p = (BattleProjectileOpponent)projectile;
+                p.Shoot(this, dir, 15, Creature.Power.GetValue());
+            }
         }
     }
 }
