@@ -30,6 +30,9 @@ namespace Lis
 
         [SerializeField] GameObject _respawnEffect;
 
+        BattleHero _battleHero;
+        BattleHeroOpponentTracker _battleHeroOpponentTracker;
+
         public event Action<int> OnDamageDealt;
         public event Action<BattleCreature, BattleHero> OnGettingCaught;
 
@@ -90,7 +93,8 @@ namespace Lis
         void StartHangOutCoroutine()
         {
             UnsubscribeFromEvents();
-            if (Team == 0) BattleManager.OnOpponentEntityAdded += OpponentWasAdded;
+            if (Team == 0)
+                _battleHeroOpponentTracker.OnOpponentAdded += OpponentWasAdded;
             if (Team == 1) _battleBuilding.OnEntityInRange += OpponentWasAdded;
 
             if (CurrentMainCoroutine != null)
@@ -108,7 +112,8 @@ namespace Lis
 
         void UnsubscribeFromEvents()
         {
-            BattleManager.OnOpponentEntityAdded -= OpponentWasAdded;
+            if (_battleHeroOpponentTracker != null)
+                _battleHeroOpponentTracker.OnOpponentAdded -= OpponentWasAdded;
             if (_battleBuilding != null)
                 _battleBuilding.OnEntityInRange -= OpponentWasAdded;
         }
@@ -282,6 +287,7 @@ namespace Lis
 
         void ChooseNewTarget()
         {
+            // TODO: this may be a performance bottleneck
             if (_opponentList.Count == 0)
             {
                 Opponent = null;
@@ -424,13 +430,17 @@ namespace Lis
 
         public void Caught(Vector3 spawnPos)
         {
+            _battleHero = BattleManager.BattleHero;
+            _battleHeroOpponentTracker = _battleHero.GetComponentInChildren<BattleHeroOpponentTracker>();
+
             Opponent = null;
             Creature.Caught(BattleManager.BattleHero.Hero);
             InitializeEntity(Creature, 0);
             BattleManager.OpponentEntities.Remove(this);
             BattleManager.AddPlayerArmyEntity(this);
+            _battleHeroOpponentTracker.RemoveOpponent(this);
 
-            _opponentList = BattleManager.OpponentEntities;
+            _opponentList = _battleHeroOpponentTracker.OpponentsInRange;
             _battleBuilding.OnEntityInRange -= OpponentWasAdded;
 
             transform.DOMove(spawnPos, 0.5f)

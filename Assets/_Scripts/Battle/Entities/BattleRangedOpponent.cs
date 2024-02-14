@@ -24,7 +24,7 @@ namespace Lis
             IsDeathCoroutineStarted = false;
             Collider.enabled = true;
         }
-        
+
         protected override IEnumerator Attack()
         {
             yield return base.Attack();
@@ -36,7 +36,7 @@ namespace Lis
             p.Initialize(1);
 
             Vector3 dir = (Opponent.transform.position - pos).normalized;
-            dir.y = 0;
+            dir.y = 0; // TODO: creatures miss small minions entirely
             p.Shoot(this, dir, 15, Creature.Power.GetValue());
             yield return null;
         }
