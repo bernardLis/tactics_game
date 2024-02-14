@@ -19,7 +19,7 @@ namespace Lis
             base.InitializeBattle(team);
             UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
 
-            NumberOfFriendBalls = 2 + globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
+            NumberOfFriendBalls = 666 + globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
             TroopsLimit = CreateInstance<IntVariable>();
             TroopsLimit.SetValue(2 + globalUpgradeBoard.GetUpgradeByName("Troops Limit").GetValue());
         }

@@ -113,6 +113,7 @@ namespace Lis
                     .GetProjectileFromPool(Entity.Element.ElementName);
             projectile.Initialize(Team);
             projectile.transform.position = ProjectileSpawnPoint.transform.position;
+            if (Opponent == null) yield break;
             Vector3 dir = (Opponent.transform.position - transform.position).normalized;
             dir.y = 0;
 
