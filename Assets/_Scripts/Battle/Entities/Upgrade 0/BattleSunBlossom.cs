@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace Lis
@@ -26,6 +25,7 @@ namespace Lis
         protected override IEnumerator CreatureAbility()
         {
             yield return base.CreatureAbility();
+            Debug.Log("SunBlossom ability");
 
             List<BattleEntity> copyOfAllies = new(BattleManager.Instance.GetAllies(this));
             bool hasHealed = false;

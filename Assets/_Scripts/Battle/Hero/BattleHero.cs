@@ -10,8 +10,6 @@ namespace Lis
         BattleHeroController _thirdPersonController;
         BattleHeroHealthBar _battleHeroHealthBar;
 
-        Color _healthColor;
-
         BattleAreaManager _battleAreaManager;
         [SerializeField] GameObject _tileSecuredEffectPrefab;
 
@@ -41,8 +39,6 @@ namespace Lis
             Animator.enabled = true;
 
             HandleAbilities();
-
-            _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
             _battleAreaManager.OnTileUnlocked += OnTileUnlocked;
         }
@@ -85,7 +81,7 @@ namespace Lis
 
         public IEnumerator GetHit(Minion minion)
         {
-            BaseGetHit(Hero.CalculateDamage(minion), _healthColor);
+            BaseGetHit(Hero.CalculateDamage(minion), HealthColor);
             yield return null;
         }
 

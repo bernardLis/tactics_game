@@ -1272,7 +1272,7 @@ MonoBehaviour:
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: 6e13260d5ab5ef64ab48fbb97bea53d4, type: 2}
   _respawnEffect: {fileID: 2016759830087285941}
-  _healEffect: {fileID: 2247497184909312135, guid: 88290fe09cc621d4eae26d399c3ed3c8, type: 3}
+  _healEffect: {fileID: 1532818682007109407, guid: 3b840b4994afe984783932c8d26b7385, type: 3}
 --- !u!1 &1303218764086834131 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

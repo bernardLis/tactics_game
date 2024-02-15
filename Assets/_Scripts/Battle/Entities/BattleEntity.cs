@@ -57,6 +57,8 @@ namespace Lis
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
         static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
+        protected Color HealthColor;
+
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, BattleEntity> OnDeath;
 
@@ -69,6 +71,8 @@ namespace Lis
             BattleManager = BattleManager.Instance;
             _grabManager = BattleGrabManager.Instance;
             _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
+
+            HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
             BattleEntityShaders = GetComponent<ObjectShaders>();
             BattleEntityPathing = GetComponent<BattleEntityPathing>();
@@ -184,6 +188,7 @@ namespace Lis
             return Entity.CurrentHealth.Value >= Entity.MaxHealth.GetValue();
         }
 
+
         public void GetHealed(int value)
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Entity gets healed by {value}");
@@ -191,7 +196,7 @@ namespace Lis
             int v = Mathf.Clamp(value, 0, Entity.MaxHealth.GetValue() - Entity.CurrentHealth.Value);
             Entity.CurrentHealth.ApplyChange(v);
 
-            DisplayFloatingText("+" + v, Color.green);
+            DisplayFloatingText("+" + v, HealthColor);
         }
 
         public virtual IEnumerator GetHit(Ability ability)

@@ -62,6 +62,8 @@ namespace Lis
 
             BattleEntityPathing.SetAvoidancePriorityRange(new(0, 20));
             BattleEntityPathing.SetStoppingDistance(Creature.AttackRange.GetValue());
+
+            // HERE: testing creature abilities
         }
 
         BattleBuildingProduction _battleBuilding;
@@ -76,6 +78,10 @@ namespace Lis
             _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
 
             EnableSelf();
+            for (int i = 0; i < 6; i++)
+            {
+                Creature.LevelUp();
+            }
         }
 
         protected override IEnumerator RunEntity()
@@ -118,7 +124,7 @@ namespace Lis
                 _battleBuilding.OnEntityInRange -= OpponentWasAdded;
         }
 
-        protected virtual IEnumerator HangOutCoroutine()
+        protected IEnumerator HangOutCoroutine()
         {
             while (true)
             {
