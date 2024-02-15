@@ -69,7 +69,7 @@ namespace Lis
 
         protected override IEnumerator RunEntity()
         {
-            AvoidancePriorityRange = new Vector2Int(0, 1);
+            // AvoidancePriorityRange = new Vector2Int(0, 1);
 
             for (int i = _nextTileIndex; i < _pathToHomeTile.Count; i++)
             {
@@ -89,7 +89,7 @@ namespace Lis
 
                 Vector3 pos = _currentTile.transform.position;
                 if (_currentBuilding != null) pos = _currentBuilding.transform.position;
-                yield return PathToPositionAndStop(pos);
+                // yield return PathToPositionAndStop(pos);
 
                 if (_currentBuilding != null) StartBuildingCorruption();
                 else yield return new WaitForSeconds(10f);

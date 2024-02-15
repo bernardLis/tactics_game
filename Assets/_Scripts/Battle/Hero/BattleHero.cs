@@ -29,8 +29,7 @@ namespace Lis
         {
             base.InitializeEntity(entity, 0);
             gameObject.layer = 8;
-
-            Agent.enabled = true;
+            BattleEntityPathing.EnableAgent();
 
             Hero = (Hero)entity;
 

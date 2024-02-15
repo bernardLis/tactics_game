@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,11 +8,10 @@ namespace Lis
     {
         Minion _minion;
 
-        [SerializeField] GameObject _earthGfx;
+        [Header("Minion")] [SerializeField] GameObject _earthGfx;
         [SerializeField] GameObject _fireGfx;
         [SerializeField] GameObject _waterGfx;
         [SerializeField] GameObject _windGfx;
-
 
         BattleHero _targetHero;
 
@@ -33,12 +31,12 @@ namespace Lis
             IsDeathCoroutineStarted = false;
             Collider.enabled = true;
 
-            Agent.speed = _minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f);
+            BattleEntityPathing.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
 
             _targetHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
             StartRunEntityCoroutine();
         }
-        
+
         protected override IEnumerator RunEntity()
         {
             if (IsDead) yield break;
@@ -51,8 +49,8 @@ namespace Lis
 
         IEnumerator PathToHero()
         {
-            Agent.stoppingDistance = 0.7f;
-            yield return PathToTarget(_targetHero.transform);
+            BattleEntityPathing.SetStoppingDistance(0.7f);
+            yield return BattleEntityPathing.PathToTarget(_targetHero.transform);
 
             // something is blocking path, so just die...
             if (Vector3.Distance(transform.position, _targetHero.transform.position) > 2.5f)

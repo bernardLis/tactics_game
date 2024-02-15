@@ -60,8 +60,8 @@ namespace Lis
             OnDamageDealt += Creature.AddDmgDealt;
             OnDamageTaken += Creature.AddDmgTaken;
 
-            Agent.stoppingDistance = Creature.AttackRange.GetValue();
-            AvoidancePriorityRange = new(0, 20);
+            BattleEntityPathing.SetAvoidancePriorityRange(new(0, 20));
+            BattleEntityPathing.SetStoppingDistance(Creature.AttackRange.GetValue());
         }
 
         BattleBuildingProduction _battleBuilding;
@@ -120,24 +120,14 @@ namespace Lis
 
         protected virtual IEnumerator HangOutCoroutine()
         {
-            if (Team == 1)
-            {
-                while (true)
-                {
-                    if (_opponentList.Count > 0) yield break;
-
-                    Agent.stoppingDistance = 0;
-                    yield return PathToPositionAndStop(GetPositionAroundBuilding());
-                    yield return new WaitForSeconds(Random.Range(3f, 6f));
-                }
-            }
-
             while (true)
             {
                 if (_opponentList.Count > 0) yield break;
-
-                Agent.stoppingDistance = 0;
-                yield return PathToPositionAndStop(GetPositionCloseToHero());
+                Vector3 pos = Team == 0
+                    ? GetPositionCloseToHero()
+                    : GetPositionAroundBuilding();
+                BattleEntityPathing.SetStoppingDistance(0);
+                yield return BattleEntityPathing.PathToPositionAndStop(pos);
                 yield return new WaitForSeconds(Random.Range(3f, 6f));
             }
         }
@@ -203,8 +193,8 @@ namespace Lis
 
         protected virtual IEnumerator PathToOpponent()
         {
-            Agent.stoppingDistance = Creature.AttackRange.GetValue();
-            yield return PathToTarget(Opponent.transform);
+            BattleEntityPathing.SetStoppingDistance(Creature.AttackRange.GetValue());
+            yield return BattleEntityPathing.PathToTarget(Opponent.transform);
         }
 
         public override void GetEngaged(BattleEntity attacker)
@@ -354,10 +344,9 @@ namespace Lis
             yield return base.Die(attacker, hasLoot);
             Creature.Die();
             UnsubscribeFromEvents();
+
             if (Team == 0)
             {
-                Agent.enabled = false;
-
                 Gfx.transform.DOScale(0, 0.5f);
                 transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
 
@@ -389,22 +378,22 @@ namespace Lis
                 .OnComplete(EnableSelf);
         }
 
-        void DisableSelf()
-        {
-            Collider.enabled = false;
-            Agent.enabled = false;
-            StopRunEntityCoroutine();
-            StopAllCoroutines();
-            transform.DOKill();
-        }
-
         void EnableSelf()
         {
             IsDeathCoroutineStarted = false;
             Collider.enabled = true;
-            Agent.enabled = true;
+            BattleEntityPathing.EnableAgent();
             IsDead = false;
             StartRunEntityCoroutine();
+        }
+
+        void DisableSelf()
+        {
+            Collider.enabled = false;
+            BattleEntityPathing.DisableAgent();
+            StopRunEntityCoroutine();
+            StopAllCoroutines();
+            transform.DOKill();
         }
 
         void DeactivateSelf()

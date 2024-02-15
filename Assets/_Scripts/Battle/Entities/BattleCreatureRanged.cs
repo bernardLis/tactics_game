@@ -34,8 +34,8 @@ namespace Lis
             }
 
             Vector3 point = ClosestPositionWithClearLos();
-            Agent.stoppingDistance = 0;
-            yield return PathToPosition(point);
+            BattleEntityPathing.SetStoppingDistance(0);
+            yield return BattleEntityPathing.PathToPosition(point);
 
             yield return new WaitForSeconds(1f);
             yield return PathToOpponent();

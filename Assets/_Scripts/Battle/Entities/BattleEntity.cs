@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis
@@ -19,33 +17,28 @@ namespace Lis
         BattleGrabManager _grabManager;
         BattlePickupManager _pickupManager;
 
-        protected ObjectShaders BattleEntityShaders;
-
         public List<string> EntityLog = new();
 
-        [Header("Sounds")] [SerializeField] Sound _spawnSound;
+        [Header("Sounds")]
+        [SerializeField] Sound _spawnSound;
 
-        [FormerlySerializedAs("_deathSound")] [SerializeField]
-        protected Sound DeathSound;
+        [SerializeField] protected Sound DeathSound;
+        [SerializeField] protected Sound GetHitSound;
 
-        [FormerlySerializedAs("_getHitSound")] [SerializeField]
-        protected Sound GetHitSound;
-
+        [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
+
         [SerializeField] GameObject _deathEffect;
 
+        protected ObjectShaders BattleEntityShaders;
+        protected BattleEntityPathing BattleEntityPathing;
         public Collider Collider { get; private set; }
-
-        string BattleId { get; set; }
-        public int Team { get; private set; }
-
         protected GameObject Gfx;
         protected Animator Animator { get; private set; }
 
         public Entity Entity { get; private set; }
-
-        protected NavMeshAgent Agent;
-        protected Vector2Int AvoidancePriorityRange = new Vector2Int(20, 100);
+        string BattleId { get; set; }
+        public int Team { get; private set; }
 
         [HideInInspector] public bool IsShielded;
         protected bool IsEngaged;
@@ -61,9 +54,8 @@ namespace Lis
         protected IEnumerator CurrentSecondaryCoroutine;
         protected IEnumerator CurrentAbilityCoroutine;
 
-        static readonly int AnimMove = Animator.StringToHash("Move");
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
-        private static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
+        static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, BattleEntity> OnDeath;
@@ -79,11 +71,13 @@ namespace Lis
             _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
 
             BattleEntityShaders = GetComponent<ObjectShaders>();
+            BattleEntityPathing = GetComponent<BattleEntityPathing>();
+            BattleEntityPathing.Initialize(new(20, 100));
+
             Collider = GetComponent<Collider>();
             Animator = GetComponentInChildren<Animator>();
             Gfx = Animator.gameObject;
             _feelPlayer = GetComponent<MMF_Player>();
-            Agent = GetComponent<NavMeshAgent>();
 
             BattleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
         }
@@ -116,8 +110,7 @@ namespace Lis
             name = BattleId;
 
             if (Entity is not EntityMovement em) return;
-            Agent.speed = em.Speed.GetValue();
-            em.Speed.OnValueChanged += (i) => Agent.speed = i;
+            BattleEntityPathing.InitializeEntity(em);
         }
 
         void OnLevelUp()
@@ -155,61 +148,15 @@ namespace Lis
             if (CurrentAbilityCoroutine != null)
                 StopCoroutine(CurrentAbilityCoroutine);
 
-            if (Agent.isActiveAndEnabled) Agent.isStopped = true;
-            Agent.enabled = false;
-
-            Animator.SetBool(AnimMove, false);
+            BattleEntityPathing.DisableAgent();
         }
 
         protected virtual IEnumerator RunEntity()
         {
+            // meant to be overwritten
             yield return null;
         }
 
-        protected IEnumerator PathToPosition(Vector3 position)
-        {
-            EntityLog.Add($"{BattleManager.GetTime()}: Path to position is called {position}");
-
-            Agent.enabled = true;
-            // TODO: pitiful solution for making entities push each other
-            Agent.avoidancePriority = Random.Range(AvoidancePriorityRange.x, AvoidancePriorityRange.y);
-
-            while (!Agent.SetDestination(position)) yield return null;
-            while (Agent.pathPending) yield return null;
-
-            Animator.SetBool(AnimMove, true);
-        }
-
-        protected IEnumerator PathToPositionAndStop(Vector3 position)
-        {
-            yield return PathToPosition(position);
-            while (Agent.enabled && Agent.remainingDistance > Agent.stoppingDistance)
-                yield return new WaitForSeconds(0.1f);
-
-            StopWalking();
-        }
-
-        protected IEnumerator PathToTarget(Transform t)
-        {
-            EntityLog.Add($"{BattleManager.GetTime()}: Path to target is called {t}");
-
-            yield return PathToPosition(t.position);
-            while (Agent.enabled && Agent.remainingDistance > Agent.stoppingDistance)
-            {
-                if (t == null) yield break;
-                Agent.SetDestination(t.position);
-                yield return new WaitForSeconds(0.1f);
-            }
-
-            StopWalking();
-        }
-
-        void StopWalking()
-        {
-            Agent.avoidancePriority = 0;
-            Animator.SetBool(AnimMove, false);
-            Agent.enabled = false;
-        }
 
         public virtual void GetEngaged(BattleEntity attacker)
         {
@@ -217,7 +164,7 @@ namespace Lis
             IsEngaged = true;
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity gets engaged by {attacker.name}");
-            StartCoroutine(PathToTarget(attacker.transform));
+            StartCoroutine(BattleEntityPathing.PathToTarget(attacker.transform));
 
             // StopRunEntityCoroutine();
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
@@ -314,17 +261,13 @@ namespace Lis
             IsDeathCoroutineStarted = true;
 
             StopRunEntityCoroutine();
-
             if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();
-            if (Agent.isActiveAndEnabled) Agent.isStopped = true;
-
             Collider.enabled = false;
+            DOTween.Kill(transform);
 
             if (DeathSound != null) AudioManager.PlaySFX(DeathSound, transform.position);
-
             _deathEffect.SetActive(true);
 
-            DOTween.Kill(transform);
             if (hasLoot) ResolveLoot();
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity dies.");

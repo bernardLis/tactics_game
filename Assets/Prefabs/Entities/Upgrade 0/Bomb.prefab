@@ -10287,7 +10287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 3bfce13ca501fc948b9986bb733ec170, type: 2}
-  DeathSound: {fileID: 0}
+  DeathSound: {fileID: 11400000, guid: 9c28a0715de0dea40a8e67621db5f037, type: 2}
   GetHitSound: {fileID: 0}
   _levelUpEffect: {fileID: 724913522891443046}
   _deathEffect: {fileID: 9136927704223461392}
