@@ -102934,7 +102934,7 @@ MonoBehaviour:
   _shootSound: {fileID: 11400000, guid: 308d8a93f467f7049a9b92880d7842ea, type: 2}
   Gfx: {fileID: 5160164186349538327}
   Explosion: {fileID: 5069900992799681954}
-  Speed: 25
+  Speed: 15
   _splashRadius: 3
 --- !u!4 &6304707078823727474 stripped
 Transform:
