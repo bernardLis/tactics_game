@@ -86,6 +86,7 @@ namespace Lis
         {
             Direction = dir;
             Direction.Normalize();
+            Direction.y = 0;
 
             float t = 0;
             while (t <= Time)
@@ -145,13 +146,13 @@ namespace Lis
             StartCoroutine(Explode(transform.position));
         }
 
-        public virtual IEnumerator Explode(Vector3 position)
+        protected virtual IEnumerator Explode(Vector3 position)
         {
             Gfx.SetActive(false);
             _audioManager.PlaySFX(ExplosionSound, position);
             Explosion.SetActive(true);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(3f);
 
             transform.DOKill(transform);
             gameObject.SetActive(false);

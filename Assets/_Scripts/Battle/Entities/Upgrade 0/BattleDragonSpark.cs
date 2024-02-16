@@ -1,5 +1,4 @@
 using System.Collections;
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -19,16 +18,19 @@ namespace Lis
         {
             if (!IsOpponentInRange()) yield break;
 
-            yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f).WaitForCompletion();
+            Vector3 oppPos = Opponent.transform.position;
+            yield return transform.DODynamicLookAt(oppPos, 0.2f).WaitForCompletion();
             yield return base.CreatureAbility();
             CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            GameObject projectileInstance = Instantiate(_abilityProjectile, ProjectileSpawnPoint.transform.position, Quaternion.identity);
+            GameObject projectileInstance = Instantiate(_abilityProjectile, ProjectileSpawnPoint.transform.position,
+                Quaternion.identity);
             projectileInstance.transform.parent = Gfx.transform;
             BattleProjectile p = projectileInstance.GetComponent<BattleProjectile>();
             p.Initialize(Team);
-            Vector3 dir = (Opponent.transform.position - transform.position).normalized;
+            Vector3 dir = (oppPos - transform.position).normalized;
             p.Shoot(this, dir);
+            p.OnExplode += () => Destroy(p.gameObject);
         }
     }
 }

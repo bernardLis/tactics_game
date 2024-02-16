@@ -20,7 +20,7 @@ namespace Lis
             transform.DOMoveY(currentY + scaleMultiplier * 0.25f, time).SetEase(Ease.InOutSine);
         }
 
-        public override IEnumerator Explode(Vector3 position)
+        protected override IEnumerator Explode(Vector3 position)
         {
             yield return base.Explode(position);
             transform.localScale = Vector3.one * 0.5f;
