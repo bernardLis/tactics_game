@@ -21,4 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d0cc4a303724d8e43b156c3573ac2cb3, type: 2}
   - {fileID: 11400000, guid: 59e1a6a7ab594b945ac50eaed4409228, type: 2}
   CurrentLevel: -1
-  PermanentlyUnlocked: 1
+  PermanentlyUnlocked: 0

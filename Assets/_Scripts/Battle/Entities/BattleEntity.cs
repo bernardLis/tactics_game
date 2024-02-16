@@ -242,8 +242,7 @@ namespace Lis
             OnDamageTaken?.Invoke(dmg);
 
             if (Entity == null) return;
-            int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
-            Entity.CurrentHealth.ApplyChange(-d);
+            Entity.CurrentHealth.ApplyChange(-dmg);
             if (Entity.CurrentHealth.Value <= 0)
             {
                 TriggerDieCoroutine(attacker);

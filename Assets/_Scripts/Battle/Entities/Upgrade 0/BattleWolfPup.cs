@@ -7,7 +7,6 @@ namespace Lis
     public class BattleWolfPup : BattleCreatureMelee
     {
         [SerializeField] GameObject _effect;
-        GameObject _effectInstance;
 
         //TODO: I'd prefer if it used its ability whenever it is off cooldown, it is not shielded and ability is available
         protected override IEnumerator Attack()
@@ -30,8 +29,7 @@ namespace Lis
             yield return base.CreatureAbility();
             CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            _effectInstance = Instantiate(_effect, transformPosition, Quaternion.identity);
-            _effectInstance.transform.parent = transform;
+            _effect.SetActive(true);
 
             Vector3 normal = (oppPosition - transformPosition).normalized;
             Vector3 targetPosition = transformPosition + normal * 10f;
@@ -43,6 +41,7 @@ namespace Lis
                 StartCoroutine(Opponent.GetHit(this, Mathf.FloorToInt(Creature.Power.GetValue() * 3)));
             }
 
+            targetPosition.y = 1;
             transform.DOJump(targetPosition, 2f, 1, 0.3f);
 
             Invoke(nameof(CleanUp), 2f);
@@ -50,8 +49,7 @@ namespace Lis
 
         void CleanUp()
         {
-            if (_effectInstance != null)
-                Destroy(_effectInstance);
+            _effect.SetActive(false);
         }
     }
 }
