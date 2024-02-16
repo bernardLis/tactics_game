@@ -80,7 +80,7 @@ namespace Lis
             yield return base.Die(attacker, hasLoot);
             Gfx.SetActive(false);
             StopAllCoroutines();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
 
             _earthGfx.SetActive(false);
             _fireGfx.SetActive(false);

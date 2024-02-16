@@ -111,7 +111,7 @@ namespace Lis
             _hero.Pull.OnValueChanged -= SetPickUpRadius;
         }
 
-        void SetPickUpRadius(int i)
+        void SetPickUpRadius(float i)
         {
             _sphereCollider.radius = i;
         }

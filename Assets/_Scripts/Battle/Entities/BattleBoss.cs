@@ -266,7 +266,7 @@ namespace Lis
             if (_isCorrupting) color = Color.yellow; // signifying stun
             DisplayFloatingText(dmg.ToString(), color);
 
-            int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
+            int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
             Entity.CurrentHealth.ApplyChange(-d);
             if (Entity.CurrentHealth.Value <= 0)
             {

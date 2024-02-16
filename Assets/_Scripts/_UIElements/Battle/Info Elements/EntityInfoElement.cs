@@ -1,7 +1,3 @@
-
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,7 +18,8 @@ namespace Lis
         public EntityInfoElement(BattleEntity be)
         {
             _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityInfoElementStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.EntityInfoElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
             AddToClassList(_ussMain);
@@ -34,7 +31,7 @@ namespace Lis
             _name.style.position = Position.Absolute;
 
             Color c = _gameManager.GameDatabase.GetColorByName("Health").Primary;
-            _bar = new(c, "Health", ScriptableObject.CreateInstance<IntVariable>());
+            _bar = new(c, "Health", ScriptableObject.CreateInstance<FloatVariable>());
 
             _bar.Add(_name);
             _bar.HideText();

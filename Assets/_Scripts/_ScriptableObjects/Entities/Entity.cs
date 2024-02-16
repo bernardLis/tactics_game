@@ -26,13 +26,13 @@ namespace Lis
 
             Level = Instantiate(Level);
 
-            Experience = CreateInstance<IntVariable>();
+            Experience = CreateInstance<FloatVariable>();
             Experience.SetValue(0);
 
-            ExpForNextLevel = CreateInstance<IntVariable>();
+            ExpForNextLevel = CreateInstance<FloatVariable>();
             ExpForNextLevel.SetValue(GetExpForNextLevel());
 
-            CurrentHealth = CreateInstance<IntVariable>();
+            CurrentHealth = CreateInstance<FloatVariable>();
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 
@@ -43,7 +43,7 @@ namespace Lis
 
         [Header("Stats")] public Stat Armor;
         public Stat MaxHealth;
-        [HideInInspector] public IntVariable CurrentHealth;
+        [HideInInspector] public FloatVariable CurrentHealth;
 
         protected virtual void CreateStats()
         {
@@ -59,9 +59,9 @@ namespace Lis
 
         /* LEVEL */
         [Header("Level")] public IntVariable Level;
-        [HideInInspector] public IntVariable Experience;
-        [HideInInspector] public IntVariable ExpForNextLevel;
-        [HideInInspector] public int LeftoverExp;
+        [HideInInspector] public FloatVariable Experience;
+        [HideInInspector] public FloatVariable ExpForNextLevel;
+        [HideInInspector] public float LeftoverExp;
         public event Action OnLevelUp;
 
         public virtual int GetExpForNextLevel()
@@ -70,12 +70,12 @@ namespace Lis
             return 100;
         }
 
-        public virtual void AddExp(int gain)
+        public virtual void AddExp(float gain)
         {
             LeftoverExp = gain;
             if (Experience.Value + gain >= ExpForNextLevel.Value)
             {
-                LeftoverExp = Experience.Value + gain - ExpForNextLevel.Value;
+                LeftoverExp = Mathf.FloorToInt(Experience.Value + gain - ExpForNextLevel.Value);
                 LevelUp();
             }
 

@@ -29,7 +29,7 @@ namespace Lis
             _hero.CurrentHealth.OnValueChanged -= UpdateHealthBar;
         }
 
-        void UpdateHealthBar(int _)
+        void UpdateHealthBar(float _)
         {
             float newValue = (float)_hero.CurrentHealth.Value / _hero.MaxHealth.GetValue();
             newValue = Mathf.Clamp(newValue, 0, 1);

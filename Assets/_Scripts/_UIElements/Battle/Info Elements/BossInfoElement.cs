@@ -15,14 +15,14 @@ namespace Lis
 
             style.minWidth = 600;
 
-            string text = "Stun";
-            if (_gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel == -1)
-                text = "Buy Upgrade To Stun Boss";
+            // string text = "Stun";
+            // if (_gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel == -1)
+            //     text = "Buy Upgrade To Stun Boss";
 
 
             Color c = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
-            _stunBar = new(c, text, bs.CurrentDamageToBreakCorruption,
-                bs.TotalDamageToBreakCorruption);
+            // _stunBar = new(c, text, bs.CurrentDamageToBreakCorruption,
+            //     bs.TotalDamageToBreakCorruption);
 
             _stunBar.HideText();
             _stunBar.style.backgroundImage = null;
@@ -48,20 +48,20 @@ namespace Lis
 
         void OnCorruptionBroken()
         {
-            _stunBar.UpdateTrackedVariables(_battleBoss.CurrentStunDuration,
-                _battleBoss.TotalStunDuration);
+            // _stunBar.UpdateTrackedVariables(_battleBoss.CurrentStunDuration,
+            //     _battleBoss.TotalStunDuration);
         }
 
         void OnCorruptionStarted()
         {
-            _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToBreakCorruption,
-                _battleBoss.TotalDamageToBreakCorruption);
+            // _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToBreakCorruption,
+            //     _battleBoss.TotalDamageToBreakCorruption);
         }
 
         void OnStunFinished()
         {
-            _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToBreakCorruption,
-                _battleBoss.TotalDamageToBreakCorruption);
+            // _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToBreakCorruption,
+            //     _battleBoss.TotalDamageToBreakCorruption);
         }
     }
 }

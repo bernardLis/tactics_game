@@ -342,7 +342,7 @@ namespace Lis
         void OnLevelUp()
         {
             DisplayFloatingText("Level Up!", Color.white);
-            Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
+            Creature.CurrentHealth.SetValue(Mathf.FloorToInt(Creature.MaxHealth.GetValue()));
         }
 
         public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)

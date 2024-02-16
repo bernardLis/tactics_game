@@ -1,7 +1,4 @@
 using System;
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,34 +16,33 @@ namespace Lis
 
         readonly GameManager _gameManager;
 
-        public VisualElement ResourceBar;
-        public VisualElement MissingBar;
+        public readonly VisualElement ResourceBar;
+        public readonly VisualElement MissingBar;
         readonly Label _text;
 
-        int _displayedAmount;
-        IntVariable _currentInt;
-        IntVariable _totalInt;
+        float _displayedAmount;
+        FloatVariable _current;
+        FloatVariable _total;
         Stat _totalStat;
 
         IVisualElementScheduledItem _animation;
 
         readonly string _tooltipText;
 
-        Color _color;
         readonly int _valueChangeDelay;
 
         public event Action OnAnimationFinished;
 
         public ResourceBarElement(Color color, string tooltipText,
-            IntVariable currentIntVar,
-            IntVariable totalIntVar = null, Stat totalStat = null,
-            int valueChangeDelayMs = 200) : base()
+            FloatVariable currentFloatVar,
+            FloatVariable totalFloatVar = null, Stat totalStat = null,
+            int valueChangeDelayMs = 200)
         {
             _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            _color = color;
             _valueChangeDelay = valueChangeDelayMs;
 
             _tooltipText = tooltipText;
@@ -63,7 +59,7 @@ namespace Lis
             ResourceBar.Add(_text);
 
             UpdateStyles(_ussContainer, _ussMain, _ussMissing, _ussBarText);
-            UpdateTrackedVariables(currentIntVar, totalIntVar, totalStat);
+            UpdateTrackedVariables(currentFloatVar, totalFloatVar, totalStat);
             DisplayMissingAmount();
 
             RegisterCallback<DetachFromPanelEvent>(UnsubscribeFromValueChanges);
@@ -71,9 +67,9 @@ namespace Lis
 
         void UnsubscribeFromValueChanges(DetachFromPanelEvent evt)
         {
-            if (_currentInt != null) _currentInt.OnValueChanged -= OnValueChanged;
-            if (_totalInt != null) _totalInt.OnValueChanged -= OnTotalChanged;
-            if (_totalStat != null) _totalStat.OnValueChanged -= _totalInt.SetValue;
+            if (_current != null) _current.OnValueChanged -= OnValueChanged;
+            if (_total != null) _total.OnValueChanged -= OnTotalChanged;
+            if (_totalStat != null) _totalStat.OnValueChanged -= _total.SetValue;
         }
 
         void UpdateStyles(string container, string main, string missing, string text)
@@ -84,75 +80,80 @@ namespace Lis
             _text.AddToClassList(text);
         }
 
-        public void UpdateTrackedVariables(IntVariable current, IntVariable totalInt = null, Stat totalStat = null)
+        public void UpdateTrackedVariables(FloatVariable current, FloatVariable totalFloat = null,
+            Stat totalStat = null)
         {
             UnsubscribeFromValueChanges(default);
 
-            _currentInt = current;
-            _displayedAmount = _currentInt.Value;
+            _current = current;
+            _displayedAmount = _current.Value;
             current.OnValueChanged += OnValueChanged;
 
-            _totalInt = totalInt;
+            _total = totalFloat;
 
             if (totalStat != null)
             {
                 _totalStat = totalStat;
-                _totalInt = ScriptableObject.CreateInstance<IntVariable>();
-                _totalInt.SetValue(totalStat.GetValue());
-                _totalStat.OnValueChanged += _totalInt.SetValue;
+                _total = ScriptableObject.CreateInstance<FloatVariable>();
+                _total.SetValue(totalStat.GetValue());
+                _totalStat.OnValueChanged += _total.SetValue;
             }
-            if (_totalInt == null) return;
 
-            _totalInt.OnValueChanged += OnTotalChanged;
+            if (_total == null) return;
+
+            _total.OnValueChanged += OnTotalChanged;
             DisplayMissingAmount();
         }
 
-        void OnTotalChanged(int total)
+        void OnTotalChanged(float _)
         {
             DisplayMissingAmount();
         }
 
-        public void DisplayMissingAmount()
+        void DisplayMissingAmount()
         {
-            if (_totalInt == null) return;
+            if (_total == null) return;
 
             MissingBar.style.display = DisplayStyle.Flex;
 
-            float missingPercent = (float)_displayedAmount / (float)_totalInt.Value;
+            float missingPercent = _displayedAmount / _total.Value;
             missingPercent = Mathf.Clamp(missingPercent, 0, 1);
 
             MissingBar.style.width = Length.Percent((1 - missingPercent) * 100);
 
-            SetText($"{_displayedAmount}/{_totalInt.Value}");
+            SetText($"{_displayedAmount}/{_total.Value}");
         }
 
-        public void SetText(string newText) { _text.text = newText; }
+        void SetText(string newText)
+        {
+            _text.text = newText;
+        }
 
         public void ChangeValueNoAnimation(int value)
         {
             _displayedAmount = value;
             DisplayMissingAmount();
-            _currentInt.OnValueChanged -= OnValueChanged;
-            _currentInt.SetValue(value);
-            _currentInt.OnValueChanged += OnValueChanged;
+            _current.OnValueChanged -= OnValueChanged;
+            _current.SetValue(value);
+            _current.OnValueChanged += OnValueChanged;
         }
 
-        void OnValueChanged(int newValue)
+        void OnValueChanged(float newValue)
         {
-            int change = Mathf.Abs(newValue - _currentInt.PreviousValue);
+            float change = Mathf.Abs(newValue - _current.PreviousValue);
 
             if (change == 0) return;
 
             if (_animation != null)
             {
                 _animation.Pause();
-                _displayedAmount = _currentInt.PreviousValue;
+                _displayedAmount = _current.PreviousValue;
                 DisplayMissingAmount();
             }
 
             int delay = Mathf.FloorToInt(_valueChangeDelay / change); // do it in 1second
 
-            if (newValue - _currentInt.PreviousValue < 0)
+            if (newValue - _current.PreviousValue < 0)
                 _animation = schedule.Execute(HandleDecrease).Every(delay);
             else
                 _animation = schedule.Execute(HandleIncrease).Every(delay);
@@ -160,7 +161,7 @@ namespace Lis
 
         void HandleDecrease()
         {
-            if (_currentInt.Value >= _displayedAmount)
+            if (_current.Value >= _displayedAmount)
             {
                 _animation.Pause();
                 OnAnimationFinished?.Invoke();
@@ -173,7 +174,7 @@ namespace Lis
 
         void HandleIncrease()
         {
-            if (_currentInt.Value <= _displayedAmount)
+            if (_current.Value <= _displayedAmount)
             {
                 _animation.Pause();
                 OnAnimationFinished?.Invoke();
@@ -190,6 +191,9 @@ namespace Lis
             base.DisplayTooltip();
         }
 
-        public void HideText() { _text.style.display = DisplayStyle.None; }
+        public void HideText()
+        {
+            _text.style.display = DisplayStyle.None;
+        }
     }
 }

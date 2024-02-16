@@ -39,7 +39,7 @@ namespace Lis
             OnLevelUp += Power.LevelUp;
         }
 
-        public int GetPower()
+        public float GetPower()
         {
             return Power.GetValue();
         }

@@ -200,7 +200,7 @@ namespace Lis
             _animator.transform.DOLocalMove(Vector3.zero, 1f);
         }
 
-        public void SetMoveSpeed(int speed)
+        public void SetMoveSpeed(float speed)
         {
             MoveSpeed = speed;
         }

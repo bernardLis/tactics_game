@@ -1,6 +1,3 @@
-
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,25 +9,26 @@ namespace Lis
         const string _ussMain = _ussClassName + "main";
         const string _ussElement = _ussClassName + "element";
 
-        public EntityIcon EntityIcon;
-        protected ElementalElement _elementalElement;
-        protected Label _nameLabel;
-        protected Label _levelLabel;
-        protected ResourceBarElement _healthBar;
+        EntityIcon _entityIcon;
+        ElementalElement _elementalElement;
+        Label _nameLabel;
+        Label _levelLabel;
+        ResourceBarElement _healthBar;
 
-        public Entity Entity;
+        readonly Entity _entity;
+
         public EntityCard(Entity entity)
         {
             Initialize();
 
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.EntityCardStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.EntityCardStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            Entity = entity;
+            _entity = entity;
 
             AddToClassList(_ussMain);
             PopulateCard();
-
         }
 
         protected virtual void PopulateCard()
@@ -44,42 +42,38 @@ namespace Lis
 
         protected virtual void HandleEntityIcon()
         {
-            EntityIcon = new(Entity);
-            _topLeftContainer.Add(EntityIcon);
+            _entityIcon = new(_entity);
+            _topLeftContainer.Add(_entityIcon);
         }
 
         protected virtual void HandleElementalElement()
         {
-            _elementalElement = new(Entity.Element);
+            _elementalElement = new(_entity.Element);
             _elementalElement.AddToClassList(_ussElement);
             _topLeftContainer.Add(_elementalElement);
         }
 
         protected virtual void HandleNameLabel()
         {
-            _nameLabel = new(Entity.EntityName);
+            _nameLabel = new(_entity.EntityName);
             _nameLabel.AddToClassList(_ussName);
             _topRightContainer.Add(_nameLabel);
         }
 
-
-        protected virtual void HandleLevelLabel()
+        void HandleLevelLabel()
         {
             _levelLabel = new();
-            _levelLabel.text = $"Level {Entity.Level.Value}";
+            _levelLabel.text = $"Level {_entity.Level.Value}";
             _topRightContainer.Add(_levelLabel);
 
-            Entity.Level.OnValueChanged += (i) =>
-            {
-                _levelLabel.text = $"Level {i}";
-            };
+            _entity.Level.OnValueChanged += (i) => { _levelLabel.text = $"Level {i}"; };
         }
 
-        protected virtual void HandleHealthBar()
+        void HandleHealthBar()
         {
             Color c = _gameManager.GameDatabase.GetColorByName("Health").Primary;
 
-            _healthBar = new(c, "health", currentIntVar: Entity.CurrentHealth, totalStat: Entity.MaxHealth);
+            _healthBar = new(c, "health", currentFloatVar: _entity.CurrentHealth, totalStat: _entity.MaxHealth);
             _topRightContainer.Add(_healthBar);
         }
     }

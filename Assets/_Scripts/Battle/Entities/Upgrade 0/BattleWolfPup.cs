@@ -40,7 +40,7 @@ namespace Lis
             if (IsOpponentInRange())
             {
                 targetPosition = transform.position + normal * (Creature.AttackRange.GetValue() * 2);
-                StartCoroutine(Opponent.GetHit(this, Creature.Power.GetValue() * 3));
+                StartCoroutine(Opponent.GetHit(this, Mathf.FloorToInt(Creature.Power.GetValue() * 3)));
             }
 
             transform.DOJump(targetPosition, 2f, 1, 0.3f);

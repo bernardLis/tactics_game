@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UIElements;
-
 
 namespace Lis
 {
@@ -36,6 +32,7 @@ namespace Lis
             int time = Creature.DeathPenaltyBase +
                        Creature.DeathPenaltyPerLevel * Entity.Level.Value;
             _overlayTimer = new(time, time, false, "");
+            _overlayTimer.style.fontSize = 12;
             Add(_overlayTimer);
             _overlayTimer.OnTimerFinished += RemoveOverlayTimer;
         }

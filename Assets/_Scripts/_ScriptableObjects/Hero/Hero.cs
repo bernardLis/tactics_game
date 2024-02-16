@@ -81,12 +81,12 @@ namespace Lis
         }
 
         /* LEVELING */
-        int GetExpValue(int gain)
+        int GetExpValue(float gain)
         {
             return Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
         }
 
-        public override void AddExp(int gain)
+        public override void AddExp(float gain)
         {
             base.AddExp(GetExpValue(gain));
         }

@@ -1,6 +1,4 @@
-
-
-
+using System.Globalization;
 using UnityEngine.UIElements;
 
 namespace Lis
@@ -16,20 +14,18 @@ namespace Lis
 
         readonly GameManager _gameManager;
 
-        public Label Icon;
-        public Label Value;
+        Label _icon;
+        Label _value;
 
         readonly Stat _stat;
 
         string _tooltipText;
 
-        public StatElement(Stat stat) : base()
+        public StatElement(Stat stat)
         {
             _gameManager = GameManager.Instance;
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-            if (commonStyles != null)
-                styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StatElementStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.StatElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -41,16 +37,16 @@ namespace Lis
 
         void BaseStatVisual()
         {
-            Icon = new();
-            Icon.AddToClassList(_ussIcon);
-            Icon.style.backgroundImage = new StyleBackground(_stat.Icon);
-            Add(Icon);
+            _icon = new();
+            _icon.AddToClassList(_ussIcon);
+            _icon.style.backgroundImage = new StyleBackground(_stat.Icon);
+            Add(_icon);
 
-            Value = new();
-            Value.AddToClassList(_ussValue);
-            Value.AddToClassList(_ussCommonTextPrimary);
-            Value.text = _stat.GetValue().ToString();
-            Add(Value);
+            _value = new();
+            _value.AddToClassList(_ussValue);
+            _value.AddToClassList(_ussCommonTextPrimary);
+            _value.text = _stat.GetValue().ToString(CultureInfo.InvariantCulture);
+            Add(_value);
 
             string description = _stat.Description;
             if (description.Length == 0)
@@ -58,7 +54,10 @@ namespace Lis
             _tooltipText = description;
         }
 
-        public void UpdateValue(int value) { Value.text = value.ToString(); }
+        void UpdateValue(float value)
+        {
+            _value.text = value.ToString(CultureInfo.InvariantCulture);
+        }
 
         protected override void DisplayTooltip()
         {

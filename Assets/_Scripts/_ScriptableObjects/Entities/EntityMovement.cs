@@ -43,6 +43,6 @@ namespace Lis
     {
         public EntityData EntityBaseData;
 
-        public int Speed;
+        public float Speed;
     }
 }

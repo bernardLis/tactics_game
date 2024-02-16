@@ -122,7 +122,7 @@ namespace Lis
             if (Team == 1)
             {
                 BattleProjectileOpponent p = (BattleProjectileOpponent)projectile;
-                p.Shoot(this, dir, 15, Creature.Power.GetValue());
+                p.Shoot(this, dir, 15, Mathf.FloorToInt(Creature.Power.GetValue()));
             }
         }
     }

@@ -188,12 +188,12 @@ namespace Lis
             return Entity.CurrentHealth.Value >= Entity.MaxHealth.GetValue();
         }
 
-
         public void GetHealed(int value)
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Entity gets healed by {value}");
 
-            int v = Mathf.Clamp(value, 0, Entity.MaxHealth.GetValue() - Entity.CurrentHealth.Value);
+            int v = Mathf.FloorToInt(Mathf.Clamp(value, 0,
+                Entity.MaxHealth.GetValue() - Entity.CurrentHealth.Value));
             Entity.CurrentHealth.ApplyChange(v);
 
             DisplayFloatingText("+" + v, HealthColor);
@@ -242,7 +242,7 @@ namespace Lis
             OnDamageTaken?.Invoke(dmg);
 
             if (Entity == null) return;
-            int d = Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value);
+            int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
             Entity.CurrentHealth.ApplyChange(-d);
             if (Entity.CurrentHealth.Value <= 0)
             {
