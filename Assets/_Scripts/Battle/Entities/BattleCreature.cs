@@ -354,7 +354,7 @@ namespace Lis
             Animator.SetTrigger(AnimDie);
             if (Team == 0)
             {
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(3f);
                 Gfx.transform.DOScale(0, 0.5f);
                 transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
                 yield return new WaitForSeconds(0.5f);
