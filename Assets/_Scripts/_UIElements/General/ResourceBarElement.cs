@@ -121,7 +121,7 @@ namespace Lis
 
             MissingBar.style.width = Length.Percent((1 - missingPercent) * 100);
 
-            SetText($"{_displayedAmount}/{_total.Value}");
+            SetText($"{Mathf.FloorToInt(_displayedAmount)}/{Mathf.FloorToInt(_total.Value)}");
         }
 
         void SetText(string newText)

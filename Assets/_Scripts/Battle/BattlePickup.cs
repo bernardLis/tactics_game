@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
@@ -56,7 +55,7 @@ namespace Lis
             _sphereCollider.enabled = true;
 
             if (Pickup is ExperienceOrb) return;
-            t.DORotate(new Vector3(0, 360, 0), 15f, RotateMode.FastBeyond360)
+            t.DORotate(new(0, 360, 0), 15f, RotateMode.FastBeyond360)
                 .SetLoops(-1).SetEase(Ease.InOutSine);
 
             t.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
@@ -69,7 +68,7 @@ namespace Lis
             PickUp(hero);
         }
 
-        protected virtual void PickUp(BattleHero hero)
+        void PickUp(BattleHero hero)
         {
             if (Pickup == null) return;
 

@@ -39,13 +39,13 @@ namespace Lis
         {
             _icon = new();
             _icon.AddToClassList(_ussIcon);
-            _icon.style.backgroundImage = new StyleBackground(_stat.Icon);
+            _icon.style.backgroundImage = new(_stat.Icon);
             Add(_icon);
 
             _value = new();
             _value.AddToClassList(_ussValue);
             _value.AddToClassList(_ussCommonTextPrimary);
-            _value.text = _stat.GetValue().ToString(CultureInfo.InvariantCulture);
+            _value.text = _stat.GetValue().ToString("#.0", CultureInfo.InvariantCulture);
             Add(_value);
 
             string description = _stat.Description;
@@ -56,7 +56,7 @@ namespace Lis
 
         void UpdateValue(float value)
         {
-            _value.text = value.ToString(CultureInfo.InvariantCulture);
+            _value.text = value.ToString("#.0", CultureInfo.InvariantCulture);
         }
 
         protected override void DisplayTooltip()
