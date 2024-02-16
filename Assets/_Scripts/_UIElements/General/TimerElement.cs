@@ -1,6 +1,4 @@
 using System;
-
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,43 +8,42 @@ namespace Lis
     {
         const string _ussCommonTextPrimary = "common__text-primary";
 
-        protected const string _ussClassName = "timer-element__";
+        protected const string UssClassName = "timer-element__";
 
-        const string _ussLabelWrapper = _ussClassName + "label-wrapper";
-        const string _ussLabel = _ussClassName + "label";
-        const string _ussSecondsLeftLabel = _ussClassName + "seconds-left-label";
+        const string _ussLabelWrapper = UssClassName + "label-wrapper";
+        const string _ussLabel = UssClassName + "label";
+        const string _ussSecondsLeftLabel = UssClassName + "seconds-left-label";
 
         readonly GameManager _gameManager;
         readonly BattleManager _battleManager;
 
-        protected VisualElement _labelWrapper;
+        protected VisualElement LabelWrapper;
         Label _label;
         Label _secondsLeftLabel;
         readonly string _text;
 
-        protected int _totalTicks;
-        protected int _ticksLeft;
-        protected bool _isLooping;
+        protected int TotalTicks;
+        protected int TicksLeft;
+        readonly bool _isLooping;
 
         readonly IVisualElementScheduledItem _timer;
 
         public event Action OnLoopFinished;
         public event Action OnTimerFinished;
-        public TimerElement(float timeLeft, float totalTime, bool isLooping, string text)
+
+        protected TimerElement(float timeLeft, float totalTime, bool isLooping, string text)
         {
             _gameManager = GameManager.Instance;
             _battleManager = BattleManager.Instance;
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
-            if (commonStyles != null)
-                styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TimerElementStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.TimerElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
             _text = text;
 
-            _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
-            _totalTicks = Mathf.RoundToInt(totalTime * 10);
+            TicksLeft = Mathf.RoundToInt(timeLeft * 10);
+            TotalTicks = Mathf.RoundToInt(totalTime * 10);
             _isLooping = isLooping;
 
             _timer = schedule.Execute(UpdateTimer).Every(100);
@@ -61,56 +58,63 @@ namespace Lis
 
         protected VisualElement AddLabelWrapper()
         {
-            _labelWrapper = new();
-            Add(_labelWrapper);
-            _labelWrapper.AddToClassList(_ussLabelWrapper);
+            LabelWrapper = new();
+            Add(LabelWrapper);
+            LabelWrapper.AddToClassList(_ussLabelWrapper);
 
             _label = new(_text);
-            _labelWrapper.Add(_label);
+            LabelWrapper.Add(_label);
             _label.AddToClassList(_ussCommonTextPrimary);
             _label.AddToClassList(_ussLabel);
 
             _secondsLeftLabel = new();
-            _labelWrapper.Add(_secondsLeftLabel);
+            LabelWrapper.Add(_secondsLeftLabel);
             _secondsLeftLabel.AddToClassList(_ussCommonTextPrimary);
             _secondsLeftLabel.AddToClassList(_ussSecondsLeftLabel);
 
-            return _labelWrapper;
+            return LabelWrapper;
         }
 
         public void UpdateTimerValues(float timeLeft, float totalTime)
         {
-            _ticksLeft = Mathf.RoundToInt(timeLeft * 10);
-            _totalTicks = Mathf.RoundToInt(totalTime * 10);
+            TicksLeft = Mathf.RoundToInt(timeLeft * 10);
+            TotalTicks = Mathf.RoundToInt(totalTime * 10);
         }
 
-        public float GetTimeLeft() { return _ticksLeft * 0.1f; }
-
-        public void UpdateLabel(string txt) { _label.text = txt; }
-
-        public void Pause() { _timer.Pause(); }
-        public void Resume() { _timer.Resume(); }
-
-        void OnTimerStateChanged(bool isOn)
+        public float GetTimeLeft()
         {
-            if (_timer == null)
-                return;
+            return TicksLeft * 0.1f;
+        }
 
-            if (isOn)
-                _timer.Resume();
-            else
-                _timer.Pause();
+        public void UpdateLabel(string txt)
+        {
+            _label.text = txt;
+        }
+
+        public void SetTimerFontSize(int size)
+        {
+            _secondsLeftLabel.style.fontSize = size;
+        }
+
+        void Pause()
+        {
+            _timer.Pause();
+        }
+
+        public void Resume()
+        {
+            _timer.Resume();
         }
 
         protected virtual void UpdateTimer()
         {
-            string timeLeft = (_ticksLeft * 0.1f).ToString("F1");
+            string timeLeft = (TicksLeft * 0.1f).ToString("F1");
 
             if (_secondsLeftLabel != null)
                 _secondsLeftLabel.text = timeLeft;
 
-            _ticksLeft--;
-            if (_ticksLeft <= -1)
+            TicksLeft--;
+            if (TicksLeft <= -1)
             {
                 if (_isLooping)
                     FinishLoop();
@@ -121,7 +125,7 @@ namespace Lis
 
         void FinishLoop()
         {
-            _ticksLeft = _totalTicks;
+            TicksLeft = TotalTicks;
             OnLoopFinished?.Invoke();
         }
 

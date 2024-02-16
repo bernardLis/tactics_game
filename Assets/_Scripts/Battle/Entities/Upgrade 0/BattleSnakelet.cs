@@ -6,9 +6,7 @@ namespace Lis
 {
     public class Snakelet : BattleCreatureMelee
     {
-
         [SerializeField] GameObject _abilityHit;
-        GameObject _abilityHitInstance;
 
         protected override IEnumerator Attack()
         {
@@ -24,8 +22,9 @@ namespace Lis
             yield return base.CreatureAbility();
             CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            _abilityHitInstance = Instantiate(_abilityHit, Opponent.transform.position, Quaternion.identity);
-            _abilityHitInstance.transform.parent = Opponent.transform;
+            _abilityHit.transform.parent = Opponent.transform;
+            _abilityHit.transform.localPosition = Vector3.one;
+            _abilityHit.SetActive(true);
             StartCoroutine(Opponent.GetPoisoned(this));
 
             Invoke(nameof(CleanUp), 2f);
@@ -33,8 +32,8 @@ namespace Lis
 
         void CleanUp()
         {
-            if (_abilityHitInstance != null)
-                Destroy(_abilityHitInstance);
+            _abilityHit.transform.parent = transform;
+            _abilityHit.SetActive(false);
         }
     }
 }

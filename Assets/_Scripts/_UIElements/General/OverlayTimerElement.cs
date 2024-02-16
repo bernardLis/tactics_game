@@ -4,8 +4,8 @@ namespace Lis
 {
     public class OverlayTimerElement : TimerElement
     {
-        const string _ussOverlayMain = _ussClassName + "overlay-main";
-        const string _ussOverlayMask = _ussClassName + "overlay-mask";
+        const string _ussOverlayMain = UssClassName + "overlay-main";
+        const string _ussOverlayMask = UssClassName + "overlay-mask";
 
         readonly VisualElement _overlayMask;
 
@@ -22,21 +22,22 @@ namespace Lis
 
         public void SetStyles(string mainStyle, string overlayMaskStyle, string labelWrapperStyles)
         {
-            if (mainStyle != null && mainStyle != string.Empty)
+            if (!string.IsNullOrEmpty(mainStyle))
             {
                 ClearClassList();
                 AddToClassList(mainStyle);
             }
-            if (overlayMaskStyle != null && overlayMaskStyle != string.Empty)
+
+            if (!string.IsNullOrEmpty(overlayMaskStyle))
             {
                 _overlayMask.ClearClassList();
                 _overlayMask.AddToClassList(overlayMaskStyle);
             }
 
-            if (labelWrapperStyles != null || labelWrapperStyles != string.Empty)
+            if (!string.IsNullOrEmpty(labelWrapperStyles))
             {
-                _labelWrapper.ClearClassList();
-                _labelWrapper.AddToClassList(labelWrapperStyles);
+                LabelWrapper.ClearClassList();
+                LabelWrapper.AddToClassList(labelWrapperStyles);
             }
         }
 
@@ -44,10 +45,8 @@ namespace Lis
         {
             base.UpdateTimer();
 
-            float h = (float)_ticksLeft / (float)_totalTicks * 100;
+            float h = TicksLeft / (float)TotalTicks * 100;
             _overlayMask.style.height = Length.Percent(h);
         }
-
     }
 }
-

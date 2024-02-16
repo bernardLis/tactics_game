@@ -351,19 +351,18 @@ namespace Lis
             Creature.Die();
             UnsubscribeFromEvents();
 
+            Animator.SetTrigger(AnimDie);
             if (Team == 0)
             {
+                yield return new WaitForSeconds(1.5f);
                 Gfx.transform.DOScale(0, 0.5f);
                 transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
-
                 yield return new WaitForSeconds(0.5f);
-
                 StartCoroutine(Respawn());
 
                 yield break;
             }
 
-            Animator.SetTrigger(AnimDie);
             transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
                 .OnComplete(DeactivateSelf);

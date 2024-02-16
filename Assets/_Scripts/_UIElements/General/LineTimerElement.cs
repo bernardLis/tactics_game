@@ -5,9 +5,9 @@ namespace Lis
 {
     public class LineTimerElement : TimerElement
     {
-        const string _ussLineMain = _ussClassName + "line-main";
-        const string _ussLineWrapper = _ussClassName + "line-wrapper";
-        const string _ussLine = _ussClassName + "line";
+        const string _ussLineMain = UssClassName + "line-main";
+        const string _ussLineWrapper = UssClassName + "line-wrapper";
+        const string _ussLine = UssClassName + "line";
 
         readonly VisualElement _wrapper;
 
@@ -23,7 +23,7 @@ namespace Lis
             Add(_line);
             _line.AddToClassList(_ussLine);
 
-            float w = (float)_ticksLeft / (float)_totalTicks * 100;
+            float w = (float)TicksLeft / (float)TotalTicks * 100;
             _line.style.width = Length.Percent(w);
 
             _wrapper = new();
@@ -31,13 +31,13 @@ namespace Lis
             _wrapper.AddToClassList(_ussLineWrapper);
 
 
-            _labelWrapper.style.position = Position.Absolute;
+            LabelWrapper.style.position = Position.Absolute;
             // Add(AddLabelWrapper());
         }
 
         public void HideLabel()
         {
-            _labelWrapper.style.display = DisplayStyle.None;
+            LabelWrapper.style.display = DisplayStyle.None;
         }
 
         public void SetStyles(string wrapperClass, string lineClass)
@@ -59,7 +59,7 @@ namespace Lis
         {
             base.UpdateTimer();
 
-            float w = (float)_ticksLeft / (float)_totalTicks * 100;
+            float w = (float)TicksLeft / (float)TotalTicks * 100;
 
             w = Mathf.Clamp(w, 0, 100);
             _line.style.width = Length.Percent(w);

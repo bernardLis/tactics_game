@@ -32,7 +32,7 @@ namespace Lis
             int time = Creature.DeathPenaltyBase +
                        Creature.DeathPenaltyPerLevel * Entity.Level.Value;
             _overlayTimer = new(time, time, false, "");
-            _overlayTimer.style.fontSize = 12;
+            _overlayTimer.SetTimerFontSize(14);
             Add(_overlayTimer);
             _overlayTimer.OnTimerFinished += RemoveOverlayTimer;
         }
