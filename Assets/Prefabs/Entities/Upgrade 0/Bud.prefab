@@ -473,7 +473,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   _respawnEffect: {fileID: 6809700501429228210}
   ProjectileSpawnPoint: {fileID: 8928407045434391330}
-  _effect: {fileID: 2954389165149253133, guid: 7ebb0151d77c0f94f97c1ae221a7b0fa, type: 3}
+  _effect: {fileID: 3147876337970576343, guid: 7ebb0151d77c0f94f97c1ae221a7b0fa, type: 3}
 --- !u!114 &9219246509799020321
 MonoBehaviour:
   m_ObjectHideFlags: 0

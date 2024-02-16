@@ -20,13 +20,10 @@ namespace Lis
 
             // teleport
             _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity);
-            _effectInstance.transform.parent = transform;
-
             Vector3 point = ClosestPositionWithClearLos();
             transform.position = point;
 
             Invoke(nameof(CleanUp), 2f);
-
         }
 
         void CleanUp()
@@ -34,6 +31,5 @@ namespace Lis
             if (_effectInstance != null)
                 Destroy(_effectInstance);
         }
-
     }
 }

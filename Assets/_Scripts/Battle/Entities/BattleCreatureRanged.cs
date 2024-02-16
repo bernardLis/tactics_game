@@ -54,7 +54,7 @@ namespace Lis
             Vector3 dir = transform.position - Opponent.transform.position;
             Dictionary<Vector3, float> distances = new();
 
-            int numberOfLines = 100;
+            int numberOfLines = 25;
             for (int i = 0; i < numberOfLines; i++)
             {
                 Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
