@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 namespace Lis
@@ -9,9 +8,6 @@ namespace Lis
     {
         [SerializeField] float _explosionRadius = 5f;
         [SerializeField] GameObject _explosionEffect;
-
-        readonly List<GameObject> _hitInstances = new();
-        GameObject _explosionEffectInstance;
 
         public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
         {
@@ -24,37 +20,23 @@ namespace Lis
         {
             yield return base.CreatureAbility();
 
-            _explosionEffectInstance = Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-            _explosionEffectInstance.transform.parent = Gfx.transform;
-
-            Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionRadius);
-            foreach (Collider collider in colliders)
+            _explosionEffect.SetActive(true);
+            Collider[] colliders = new Collider[10];
+            Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, colliders);
+            foreach (Collider c in colliders)
             {
-                if (collider.TryGetComponent(out BattleEntity entity))
-                {
-                    if (entity.Team == Team) continue; // splash damage is player friendly
-                    if (entity.IsDead) continue;
+                if (c == null) continue;
+                if (!c.TryGetComponent(out BattleEntity entity)) continue;
+                if (entity.Team == Team) continue; // splash damage is player friendly
+                if (entity.IsDead) continue;
 
-                    StartCoroutine(entity.GetHit(this, 50));
-                    Quaternion q = Quaternion.Euler(0, -90, 0); // face default camera position
-                    GameObject hitInstance = Instantiate(Creature.HitPrefab, collider.bounds.center, q);
-                    hitInstance.transform.parent = entity.transform;
-                    _hitInstances.Add(hitInstance);
-                }
+                StartCoroutine(entity.GetHit(this, 50));
             }
         }
 
         void CleanUp()
         {
-            if (_explosionEffectInstance != null)
-                Destroy(_explosionEffectInstance);
-
-            for (int i = _hitInstances.Count - 1; i >= 0; i--)
-            {
-                Destroy(_hitInstances[i]);
-                _hitInstances.RemoveAt(i);
-            }
+            _explosionEffect.SetActive(false);
         }
-
     }
 }
