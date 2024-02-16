@@ -37,9 +37,7 @@ namespace Lis
             yield return base.CreatureAbility();
 
             DisplayFloatingText("Shielded", Color.blue);
-            _shieldEffectInstance = Instantiate(_shieldEffect, transform.position, Quaternion.identity);
-            _shieldEffectInstance.transform.parent = Gfx.transform;
-
+            _shieldEffect.SetActive(true);
             IsShielded = true;
         }
 
@@ -65,12 +63,11 @@ namespace Lis
             yield return base.GetHit(attacker, specialDamage);
         }
 
-        public void BreakShield()
+        void BreakShield()
         {
             DisplayFloatingText("Shield Broken", Color.blue);
             IsShielded = false;
-            if (_shieldEffectInstance != null)
-                Destroy(_shieldEffectInstance);
+            _shieldEffect.SetActive(false);
         }
     }
 }

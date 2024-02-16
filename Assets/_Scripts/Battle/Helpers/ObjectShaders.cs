@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -32,8 +31,11 @@ namespace Lis
             List<Renderer> renderers = new(GetComponentsInChildren<Renderer>());
             foreach (Renderer r in renderers)
             {
+                if (r is SpriteRenderer) continue;
+                if (r is ParticleSystemRenderer) continue;
+
                 Material mat = r.material;
-            
+
                 if (_gameManager == null) _gameManager = GameManager.Instance;
                 if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
 
@@ -41,9 +43,7 @@ namespace Lis
                 mat.shader = _litShader;
                 mat.SetTexture("_Base_Texture", tex);
 
-                if (r.GetComponent<ParticleSystem>() != null)
-                    mat.shader = _particlesUnlitShader;
-
+                mat.shader = _particlesUnlitShader;
             }
         }
 
