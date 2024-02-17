@@ -22,12 +22,6 @@ namespace Lis
             transform.localScale = Vector3.one * Ability.GetScale();
         }
 
-        public override void Execute(Vector3 pos, Quaternion rot)
-        {
-            base.Execute(pos, rot);
-        
-        }
-
         protected override IEnumerator ExecuteCoroutine()
         {
             _effect.SetActive(true);
@@ -45,12 +39,12 @@ namespace Lis
             gameObject.SetActive(false);
         }
 
-        void OnCollisionEnter(Collision collision)
+        void OnTriggerEnter(Collider col)
         {
-            if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            if (col.gameObject.TryGetComponent(out BattleBreakableVase bbv))
                 bbv.TriggerBreak();
 
-            if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+            if (col.gameObject.TryGetComponent(out BattleEntity battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
                 StartCoroutine(battleEntity.GetHit(Ability));

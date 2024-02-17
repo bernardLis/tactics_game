@@ -39,15 +39,15 @@ namespace Lis
             transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
         }
 
-        void OnCollisionEnter(Collision collision)
+        void OnTriggerEnter(Collider col)
         {
-            if (collision.gameObject.layer == Tags.UnpassableLayer && _isUnpassableCollisionActive)
+            if (col.gameObject.layer == Tags.UnpassableLayer && _isUnpassableCollisionActive)
                 _currentSpeed = 0;
 
-            if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            if (col.gameObject.TryGetComponent(out BattleBreakableVase bbv))
                 bbv.TriggerBreak();
 
-            if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+            if (col.gameObject.TryGetComponent(out BattleEntity battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
                 StartCoroutine(battleEntity.GetHit(Ability));

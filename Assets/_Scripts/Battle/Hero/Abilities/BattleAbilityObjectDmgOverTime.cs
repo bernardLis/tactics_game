@@ -25,15 +25,15 @@ namespace Lis
             }
         }
 
-        void OnCollisionEnter(Collision collision)
+        void OnTriggerEnter(Collider col)
         {
-            if (collision.gameObject.layer == Tags.UnpassableLayer)
+            if (col.gameObject.layer == Tags.UnpassableLayer)
                 UnpassableHit();
 
-            if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            if (col.gameObject.TryGetComponent(out BattleBreakableVase bbv))
                 bbv.TriggerBreak();
 
-            if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+            if (col.gameObject.TryGetComponent(out BattleEntity battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
                 battleEntity.OnDeath += RemoveEntityFromList;
@@ -46,9 +46,9 @@ namespace Lis
             // meant to be overridden
         }
 
-        void OnCollisionExit(Collision collision)
+        void OnTriggerExit(Collider col)
         {
-            if (collision.gameObject.TryGetComponent(out BattleEntity battleEntity))
+            if (col.gameObject.TryGetComponent(out BattleEntity battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
                 RemoveEntityFromList(battleEntity, null);

@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Opponent Projectile Bigger With Time
       objectReference: {fileID: 0}
+    - target: {fileID: 3838830018007215671, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
     - target: {fileID: 4699645862852569717, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.32941177
