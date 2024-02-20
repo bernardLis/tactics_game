@@ -66,6 +66,8 @@ namespace Lis
             // ...
             // rest% chance of spawning coin
             int random = Random.Range(0, 100);
+            if (random > 51) return; // 50/50 there is a pickup
+
             Pickup p = Instantiate(_coin);
 
             if (random == 0 || random == 1)

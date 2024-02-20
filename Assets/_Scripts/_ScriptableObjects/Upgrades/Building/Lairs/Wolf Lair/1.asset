@@ -17,4 +17,4 @@ MonoBehaviour:
   Value: 0
   Description: 
   ProductionDelay: 20
-  ProductionLimit: 2
+  ProductionLimit: 1

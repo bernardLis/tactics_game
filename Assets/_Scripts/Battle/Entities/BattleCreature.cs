@@ -78,10 +78,29 @@ namespace Lis
             _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
 
             EnableSelf();
+            // HERE: testing
             for (int i = 0; i < 6; i++)
             {
                 Creature.LevelUp();
             }
+        }
+
+        // HERE: testing
+        public void DebugInitialize(int team)
+        {
+            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
+            _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
+
+            if (team == 0)
+            {
+                _battleHero = BattleManager.BattleHero;
+                _battleHeroOpponentTracker = _battleHero.GetComponentInChildren<BattleHeroOpponentTracker>();
+                _opponentList = BattleManager.OpponentEntities;
+            }
+
+            if (team == 1) _opponentList = BattleManager.PlayerEntities;
+
+            EnableSelf();
         }
 
         protected override IEnumerator RunEntity()
@@ -124,7 +143,7 @@ namespace Lis
                 _battleBuilding.OnEntityInRange -= OpponentWasAdded;
         }
 
-        protected IEnumerator HangOutCoroutine()
+        IEnumerator HangOutCoroutine()
         {
             while (true)
             {
@@ -283,7 +302,6 @@ namespace Lis
 
         void ChooseNewTarget()
         {
-            // TODO: this may be a performance bottleneck
             if (_opponentList.Count == 0)
             {
                 Opponent = null;

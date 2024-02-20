@@ -150,14 +150,14 @@ namespace Lis
                 if (cLeft != null)
                 {
                     Creature instance = Instantiate(cLeft);
-                    AddCreature(instance, 0);
+                    AddCreature(instance, 0, Vector3.zero);
                 }
 
                 Creature cRight = _allCreatures.Find(x => x.name == dropDownRight.value);
                 if (cRight != null)
                 {
                     Creature instance = Instantiate(cRight);
-                    AddCreature(instance, 1);
+                    AddCreature(instance, 1, Vector3.zero);
                 }
             };
             creatureFoldout.Add(b);
@@ -172,16 +172,41 @@ namespace Lis
                 }
             };
             creatureFoldout.Add(levelUpButton);
+
+            Button spawnAllFriendly = new() { text = "Spawn All Friendly" };
+            spawnAllFriendly.clickable.clicked += () =>
+            {
+                foreach (Creature c in _allCreatures)
+                {
+                    Creature instance = Instantiate(c);
+                    AddCreature(instance, 0, GetMousePosition());
+                }
+            };
+            creatureFoldout.Add(spawnAllFriendly);
+
+            Button spawnAllHostile = new() { text = "Spawn All Hostile" };
+            spawnAllHostile.clickable.clicked += () =>
+            {
+                foreach (Creature c in _allCreatures)
+                {
+                    Creature instance = Instantiate(c);
+                    AddCreature(instance, 1, GetMousePosition());
+                }
+            };
+            creatureFoldout.Add(spawnAllHostile);
         }
 
-        void AddCreature(Creature c, int team)
+        void AddCreature(Creature c, int team, Vector3 pos)
         {
             c.InitializeBattle(team);
-            BattleEntity be = SpawnEntity(c, team, Vector3.zero);
+            BattleEntity be = SpawnEntity(c, team, pos);
             if (team == 0)
                 BattleManager.Instance.AddPlayerArmyEntity(be);
             if (team == 1)
                 BattleManager.Instance.AddOpponentArmyEntity(be);
+
+            BattleCreature bc = (BattleCreature)be;
+            bc.DebugInitialize(team);
         }
 
         void AddRandomCreature(int team)
@@ -228,6 +253,7 @@ namespace Lis
             Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
             GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
             BattleEntity be = instance.GetComponent<BattleEntity>();
+            be.InitializeGameObject();
             be.InitializeEntity(entity, team);
             return be;
         }
@@ -413,6 +439,20 @@ namespace Lis
                 myLog = myLog.Substring(0, 4000);
 
             FileManager.WriteToFile("log", myLog);
+        }
+
+        Camera _cam;
+
+        Vector3 GetMousePosition()
+        {
+            Mouse mouse = Mouse.current;
+            Vector3 mousePosition = mouse.position.ReadValue();
+            if (_cam == null) _cam = Camera.main;
+            if (_cam == null) return Vector3.zero;
+            Ray ray = _cam.ScreenPointToRay(mousePosition);
+            if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                return Vector3.zero;
+            return hit.point;
         }
     }
 }

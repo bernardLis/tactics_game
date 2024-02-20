@@ -41,8 +41,10 @@ namespace Lis
                 StartCoroutine(Opponent.GetHit(this, Mathf.FloorToInt(Creature.Power.GetValue() * 3)));
             }
 
+            Collider.enabled = false;
             targetPosition.y = 1;
-            transform.DOJump(targetPosition, 2f, 1, 0.3f);
+            transform.DOJump(targetPosition, 2f, 1, 0.3f)
+                .OnComplete(() => Collider.enabled = true);
 
             Invoke(nameof(CleanUp), 2f);
         }
