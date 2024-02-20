@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +12,8 @@ namespace Lis
         [SerializeField] Image _icon;
         [SerializeField] TMP_Text _productionLimitText;
         [SerializeField] TMP_Text _productionTimerText;
+
+        BattleBuildingEntityTracker _buildingEntityTracker;
 
         [FormerlySerializedAs("_spawnerPrefab")] [SerializeField]
         protected BattleEntitySpawner SpawnerPrefab;
@@ -30,15 +31,10 @@ namespace Lis
 
         IEnumerator _productionCoroutine;
         int _currentProductionDelaySecond;
-
         BuildingProduction _buildingProduction;
-
         BattleCreaturePool _creaturePool;
+        readonly List<BattleCreature> _producedCreatures = new();
 
-        public List<BattleCreature> _producedCreatures = new();
-        readonly List<BattleEntity> _playerEntitiesWithinRange = new();
-
-        public event Action<BattleEntity> OnEntityInRange;
 
         public override void Initialize(Vector3 pos, Building building)
         {
@@ -55,14 +51,25 @@ namespace Lis
             _creaturePool = GetComponent<BattleCreaturePool>();
             _creaturePool.Initialize(_buildingProduction.ProducedCreature.Prefab);
 
+            InitializeSpawner();
+            InitializePlayerEntitiesTracker();
+
+            UpdateProductionLimitText();
+        }
+
+        void InitializeSpawner()
+        {
             Transform t = transform;
             _spawner = Instantiate(SpawnerPrefab, t);
             _spawner.OnSpawnComplete += OnCreatureSpawned;
             Transform spawnerT = _spawner.transform;
             spawnerT.localPosition = SpawnPoint.localPosition;
             spawnerT.localRotation = transform.rotation;
+        }
 
-            UpdateProductionLimitText();
+        void InitializePlayerEntitiesTracker()
+        {
+            _buildingEntityTracker = GetComponentInChildren<BattleBuildingEntityTracker>();
         }
 
         protected override IEnumerator ShowBuildingCoroutine()
@@ -107,7 +114,7 @@ namespace Lis
             UpdateProductionLimitText();
 
             if (bc == null) return;
-            bc.InitializeHostileCreature(this);
+            bc.InitializeHostileCreature(_buildingEntityTracker);
 
             bc.OnDeath += (_, _) =>
             {
@@ -118,32 +125,9 @@ namespace Lis
             };
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (!other.gameObject.TryGetComponent(out BattleEntity battleEntity)) return;
-            if (battleEntity.Team == 1) return; // TODO: hardcoded team number
-            battleEntity.OnDeath += RemoveEntityFromList;
-            _playerEntitiesWithinRange.Add(battleEntity);
-            OnEntityInRange?.Invoke(battleEntity);
-        }
-
-        void OnTriggerExit(Collider other)
-        {
-            if (!other.gameObject.TryGetComponent(out BattleEntity battleEntity)) return;
-            if (battleEntity.Team == 1) return; // TODO: hardcoded team number
-            RemoveEntityFromList(battleEntity, null);
-        }
-
-        void RemoveEntityFromList(BattleEntity entity, BattleEntity ignored)
-        {
-            entity.OnDeath -= RemoveEntityFromList;
-            if (_playerEntitiesWithinRange.Contains(entity))
-                _playerEntitiesWithinRange.Remove(entity);
-        }
-
         public List<BattleEntity> GetPlayerEntitiesWithinRange()
         {
-            return _playerEntitiesWithinRange;
+            return _buildingEntityTracker.PlayerEntitiesWithinRange;
         }
 
         IEnumerator ProductionDelay()

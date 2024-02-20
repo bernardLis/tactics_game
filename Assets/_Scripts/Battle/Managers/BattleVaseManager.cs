@@ -14,7 +14,7 @@ namespace Lis
 
         [SerializeField] BattleBreakableVase _vasePrefab;
 
-        const int _vasesPerSpawn = 0; // HERE: disabled vases
+        const int _vasesPerSpawn = 5; // HERE: disabled vases
 
         [SerializeField] bool _debugSpawnVase;
 

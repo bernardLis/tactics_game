@@ -2068,7 +2068,7 @@ GameObject:
   - component: {fileID: 4530405555064602727}
   - component: {fileID: 5638225279707895156}
   - component: {fileID: 2202540427768894821}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Opponent Tracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

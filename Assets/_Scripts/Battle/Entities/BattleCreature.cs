@@ -62,20 +62,18 @@ namespace Lis
 
             BattleEntityPathing.SetAvoidancePriorityRange(new(0, 20));
             BattleEntityPathing.SetStoppingDistance(Creature.AttackRange.GetValue());
-
-            // HERE: testing creature abilities
         }
 
-        BattleBuildingProduction _battleBuilding;
+        BattleBuildingEntityTracker _entityTracker;
 
-        public void InitializeHostileCreature(BattleBuildingProduction battleBuilding)
+        public void InitializeHostileCreature(BattleBuildingEntityTracker entityTracker)
         {
-            _battleBuilding = battleBuilding;
+            _entityTracker = entityTracker;
 
             CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
             _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
 
-            _opponentList = _battleBuilding.GetPlayerEntitiesWithinRange();
+            _opponentList = _entityTracker.PlayerEntitiesWithinRange;
 
             EnableSelf();
             // HERE: testing
@@ -120,7 +118,7 @@ namespace Lis
             UnsubscribeFromEvents();
             if (Team == 0)
                 _battleHeroOpponentTracker.OnOpponentAdded += OpponentWasAdded;
-            if (Team == 1) _battleBuilding.OnEntityInRange += OpponentWasAdded;
+            if (Team == 1) _entityTracker.OnEntityInRange += OpponentWasAdded;
 
             if (CurrentMainCoroutine != null)
                 StopCoroutine(CurrentMainCoroutine);
@@ -139,8 +137,8 @@ namespace Lis
         {
             if (_battleHeroOpponentTracker != null)
                 _battleHeroOpponentTracker.OnOpponentAdded -= OpponentWasAdded;
-            if (_battleBuilding != null)
-                _battleBuilding.OnEntityInRange -= OpponentWasAdded;
+            if (_entityTracker != null)
+                _entityTracker.OnEntityInRange -= OpponentWasAdded;
         }
 
         IEnumerator HangOutCoroutine()
@@ -159,7 +157,7 @@ namespace Lis
 
         Vector3 GetPositionAroundBuilding()
         {
-            Vector3 pos = _battleBuilding.transform.position
+            Vector3 pos = _entityTracker.transform.position
                           + Vector3.right * Random.Range(-10f, 10f)
                           + Vector3.forward * Random.Range(-10f, 10f);
             if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
@@ -453,7 +451,7 @@ namespace Lis
             _battleHeroOpponentTracker.RemoveOpponent(this);
 
             _opponentList = _battleHeroOpponentTracker.OpponentsInRange;
-            _battleBuilding.OnEntityInRange -= OpponentWasAdded;
+            _entityTracker.OnEntityInRange -= OpponentWasAdded;
 
             transform.DOMove(spawnPos, 0.5f)
                 .OnComplete(ReleaseFromCatching);

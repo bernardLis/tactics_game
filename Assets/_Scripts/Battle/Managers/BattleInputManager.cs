@@ -89,7 +89,7 @@ namespace Lis
             _playerInput.actions["2"].performed -= TwoClicked;
             _playerInput.actions["3"].performed -= ThreeClicked;
             _playerInput.actions["4"].performed -= FourClicked;
-            
+
             _playerInput.actions["DebugSpawnMinionWave"].performed -= DebugSpawnMinionWave;
             _playerInput.actions["DebugSpawnTile"].performed -= DebugSpawnTile;
             _playerInput.actions["DebugSpawnBossTile"].performed -= DebugSpawnBossTile;
@@ -101,7 +101,7 @@ namespace Lis
         void RightMouseClicked(InputAction.CallbackContext ctx) => OnRightMouseClick?.Invoke();
         void SpaceClicked(InputAction.CallbackContext ctx) => OnSpaceClicked?.Invoke();
         void EnterClicked(InputAction.CallbackContext ctx) => OnEnterClicked?.Invoke();
-        
+
         void OneClicked(InputAction.CallbackContext ctx) => OnOneClicked?.Invoke();
         void TwoClicked(InputAction.CallbackContext ctx) => OnTwoClicked?.Invoke();
         void ThreeClicked(InputAction.CallbackContext ctx) => OnThreeClicked?.Invoke();

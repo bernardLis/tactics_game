@@ -21,7 +21,7 @@ namespace Lis
         void Awake()
         {
             _battlePickupManager = BattleManager.Instance.GetComponent<BattlePickupManager>();
-            
+
             _collider = GetComponent<Collider>();
             _rigidbody = GetComponent<Rigidbody>();
         }
@@ -46,6 +46,7 @@ namespace Lis
 
         void OnMouseDown()
         {
+            Debug.Log("OnMouseDown");
             TriggerBreak();
         }
 
