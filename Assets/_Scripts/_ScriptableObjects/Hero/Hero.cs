@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis
 {
@@ -110,7 +109,7 @@ namespace Lis
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
         public Dictionary<Element, Tablet> TabletsByElement = new();
 
-        public void CreateTablets()
+        void CreateTablets()
         {
             foreach (Tablet original in _gameManager.EntityDatabase.HeroTablets)
             {

@@ -68,6 +68,7 @@ namespace Lis
 
         void AddAbility(Ability ability)
         {
+            EntityLog.Add($"{BattleManager.GetTime()}: Hero adds an ability {ability.name}");
             GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab, transform);
             abilityPrefab.GetComponent<BattleAbility>().Initialize(ability);
         }
@@ -75,12 +76,14 @@ namespace Lis
         public override IEnumerator GetHit(BattleEntity attacker, int specialDamage = 0)
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Hero gets hit by {attacker.name}");
-            BaseGetHit(5, default);
+            int damage = Entity.CalculateDamage(attacker.Entity as EntityFight);
+            BaseGetHit(damage, HealthColor);
             yield return null;
         }
 
         public IEnumerator GetHit(Minion minion)
         {
+            EntityLog.Add($"{BattleManager.GetTime()}: Hero gets hit by a minion {minion.name}");
             BaseGetHit(Hero.CalculateDamage(minion), HealthColor);
             yield return null;
         }
