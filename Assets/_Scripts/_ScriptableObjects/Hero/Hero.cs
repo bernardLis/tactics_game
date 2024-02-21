@@ -9,6 +9,9 @@ namespace Lis
     {
         GameManager _gameManager;
 
+        [Header("Selector")]
+        public GameObject SelectorPrefab;
+
         [Header("Stats")] public Stat Power;
         public Stat Pull;
         public Stat BonusExp;

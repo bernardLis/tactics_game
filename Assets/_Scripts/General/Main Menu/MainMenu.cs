@@ -25,7 +25,6 @@ namespace Lis
         VisualElement _menuContainer;
         VisualElement _settingsContainer;
 
-
         protected override void Awake()
         {
             base.Awake();

@@ -1,9 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MainMenuStyles.uss?fileID=7433441132597879392&amp;guid=b0e97e6777d53f14e9667ef0e584cead&amp;type=3#MainMenuStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Global%20Upgrades/GlobalUpgradeStyles.uss?fileID=7433441132597879392&amp;guid=2bc0f58d0e54039498a8e2f58e009d0e&amp;type=3#GlobalUpgradeStyles" />
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Upgrades/UpgradeStyles.uss?fileID=7433441132597879392&amp;guid=2bc0f58d0e54039498a8e2f58e009d0e&amp;type=3#UpgradeStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="menuContainer" style="justify-content: flex-end; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
-        <ui:VisualElement name="bannerContainer" class="common__text-primary" style="flex-grow: 1; min-width: 100px; min-height: 100px; flex-shrink: 0; align-items: center; justify-content: flex-start; padding-top: 5%;" />
+        <ui:VisualElement name="heroContainer" class="common__text-primary" style="flex-grow: 1; min-width: 100px; min-height: 100px; flex-shrink: 0; align-items: center; justify-content: flex-start; padding-top: 5%;">
+            <ui:VisualElement name="heroInfoContainer" style="flex-grow: 1; position: absolute; right: 5%; top: 20%; min-width: 400px; min-height: 600px; background-color: rgba(213, 191, 138, 0); background-image: url(&quot;project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&amp;guid=64327707a8db5e8429fdd9cc2a5e2916&amp;type=3#long_shadow_light&quot;); padding-top: 20px; padding-bottom: 40px;" />
+            <ui:VisualElement name="arrowContainer" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; position: absolute; bottom: 5%; min-width: 200px; min-height: 100px; width: 100%;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
