@@ -35,6 +35,8 @@ namespace Lis
         public VisualElement Root { get; private set; }
         public List<FullScreenElement> OpenFullScreens = new();
 
+        public Hero SelectedHero;
+
         public event Action<int> OnGoldChanged;
 
         public event Action<string> OnLevelLoaded;

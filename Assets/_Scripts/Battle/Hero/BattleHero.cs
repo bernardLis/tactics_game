@@ -11,7 +11,10 @@ namespace Lis
         BattleHeroHealthBar _battleHeroHealthBar;
 
         BattleAreaManager _battleAreaManager;
+        [Header("Hero")]
         [SerializeField] GameObject _tileSecuredEffectPrefab;
+
+
 
         public override void InitializeGameObject()
         {

@@ -11,14 +11,14 @@ namespace Lis
         {
             _gameManager = GameManager.Instance;
 
-            Hero newChar = ScriptableObject.CreateInstance<Hero>();
-            newChar.CreateHero("HERO", _gameManager.EntityDatabase.GetRandomElement());
+            Hero h = Instantiate(_gameManager.SelectedHero);
+            h.InitializeHero();
 
             Battle battle = ScriptableObject.CreateInstance<Battle>();
             battle.CreateRandom(1);
             _gameManager.CurrentBattle = battle;
 
-            StartCoroutine(DelayedStart(newChar));
+            StartCoroutine(DelayedStart(h));
         }
 
         IEnumerator DelayedStart(Hero h)

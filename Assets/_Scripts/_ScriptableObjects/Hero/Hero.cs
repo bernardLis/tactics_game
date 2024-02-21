@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lis
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Player")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Hero")]
     public class Hero : EntityMovement
     {
         GameManager _gameManager;
@@ -162,7 +162,11 @@ namespace Lis
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }
 
-        [Header("Abilities")] public List<Ability> Abilities = new();
+
+        [Header("Abilities")]
+        public Ability StartingAbility;
+
+        public List<Ability> Abilities = new();
         public List<Ability> AdvancedAbilities = new();
         public event Action<Ability> OnAbilityAdded;
 
@@ -197,6 +201,13 @@ namespace Lis
 
             EntityName = heroName;
             Element = element;
+
+            InitializeHero();
+        }
+
+        public void InitializeHero()
+        {
+            _gameManager = GameManager.Instance;
 
             CreateBaseStats();
             CreateTablets();

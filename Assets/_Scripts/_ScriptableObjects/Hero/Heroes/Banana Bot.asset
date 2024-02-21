@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47bfac7cbb484a43a1d1e5877abadf0, type: 3}
+  m_Name: Banana Bot
+  m_EditorClassIdentifier: 
+  Id: bf2732a4-4ca6-4b52-9b39-1121d054b6c5
+  EntityName: Banana Bot
+  Icon: {fileID: 21300000, guid: cf247cc0be3452e4c9460e8cb2eef5e6, type: 3}
+  IconAnimation: []
+  Price: 10
+  Element: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Prefab: {fileID: 7950552444784125351, guid: f3f452111e13ea34eb037dec7180146f, type: 3}
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Team: 0
+  Armor: {fileID: 11400000, guid: cc4ee840fad7da74aa0785407ed1b430, type: 2}
+  MaxHealth: {fileID: 11400000, guid: 82661cd5bddc3f44d94feab9eaf761bd, type: 2}
+  CurrentHealth: {fileID: 0}
+  Level: {fileID: 0}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  Speed: {fileID: 11400000, guid: e7ffcc7d601424748b15d27dff66e269, type: 2}
+  Power: {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
+  Pull: {fileID: 11400000, guid: 0f6eb857cfbce764a9cac1e2d7964a6e, type: 2}
+  BonusExp: {fileID: 11400000, guid: ae82378499959984b96144dbfbc3143c, type: 2}
+  NumberOfFriendBalls: 666
+  TroopsLimit: {fileID: 0}
+  Troops: []
+  Tablets: []
+  AdvancedTablet: {fileID: 0}
+  StartingAbility: {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
+  Abilities: []
+  AdvancedAbilities: []

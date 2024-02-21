@@ -21,7 +21,6 @@ namespace Lis
 
         [SerializeField] AudioListener _placeholderAudioListener;
 
-        [SerializeField] GameObject _heroPrefab;
         [HideInInspector] public BattleHero BattleHero;
         public Hero Hero { get; private set; }
 
@@ -40,7 +39,7 @@ namespace Lis
             hero.InitializeBattle(0);
             hero.OnLevelUp += OnHeroLevelUp;
 
-            GameObject heroGameObject = Instantiate(_heroPrefab, Vector3.zero + Vector3.up * 10f,
+            GameObject heroGameObject = Instantiate(hero.Prefab, Vector3.zero + Vector3.up * 10f,
                 Quaternion.identity);
             BattleHero = heroGameObject.GetComponentInChildren<BattleHero>();
             BattleHero.InitializeGameObject();
@@ -57,13 +56,11 @@ namespace Lis
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
 
-#if UNITY_EDITOR
-            if (_abilityToGive != null)
+            if (hero.StartingAbility != null)
             {
-                Hero.AddAbility(_abilityToGive);
+                Hero.AddAbility(hero.StartingAbility);
                 _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
             }
-#endif
         }
 
         IEnumerator MakeHeroFall(Hero hero)
