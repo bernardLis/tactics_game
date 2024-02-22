@@ -1,9 +1,5 @@
 using System;
 using System.Collections.Generic;
-
-
-
-
 using UnityEngine;
 
 namespace Lis
@@ -18,6 +14,7 @@ namespace Lis
 
         [Header("Base Characteristics")]
         public string Description = "New Description";
+
         public Sprite Icon;
         public int Level;
 
@@ -41,6 +38,7 @@ namespace Lis
         float _scaleMultiplier = 1f;
 
         Hero _hero;
+
         public void InitializeBattle(Hero hero)
         {
             _hero = hero;
@@ -61,6 +59,7 @@ namespace Lis
         public int GetPower()
         {
             float pow = Levels[Level].Power;
+            if (_hero == null) return Mathf.FloorToInt(pow);
             pow += _hero.Power.GetValue(); // hero power
             Tablet t = _hero.GetTabletByElement(Element);
             if (t != null) pow += pow * t.Level.Value * 0.1f; // elemental bonus - tablet level * 10%
@@ -94,7 +93,10 @@ namespace Lis
             return Level >= Levels.Count - 1;
         }
 
-        public void AddKill() { KillCount++; }
+        public void AddKill()
+        {
+            KillCount++;
+        }
 
         public void LevelUp()
         {
@@ -110,8 +112,15 @@ namespace Lis
                 Level--;
         }
 
-        public void StartAbility() { OnStart?.Invoke(); }
-        public void StopAbility() { OnStop?.Invoke(); }
+        public void StartAbility()
+        {
+            OnStart?.Invoke();
+        }
+
+        public void StopAbility()
+        {
+            OnStop?.Invoke();
+        }
 
         public void LoadFromData(AbilityData data)
         {

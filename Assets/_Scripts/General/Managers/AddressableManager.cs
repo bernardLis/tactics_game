@@ -71,6 +71,8 @@ namespace Lis
         TabletElementStyles, TabletTooltipElementStyles,
         TabletAdvancedScreenStyles,
 
+        HeroSelectorInfoStyles,
+
 
 
     }

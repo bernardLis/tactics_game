@@ -1,0 +1,12 @@
+.hero-selector-info__main {
+    align-items: center;
+}
+
+.hero-selector-info__name-container {
+    flex-direction: row;
+    align-items: center;
+}
+
+.hero-selector-info__name {
+    font-size: 48px;
+}

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,12 +6,16 @@ namespace Lis
 {
     public class HeroSelector : MonoBehaviour
     {
+        const string _ussCommonMenuButton = "common__menu-button";
+        const string _ussCommonButtonArrow = "common__button-arrow";
+
+        const string _ussMainMenuArrowButton = "main-menu__arrow-button";
+
         GameManager _gameManager;
         MainMenu _mainMenu;
 
-        [SerializeField] GameObject _heroContainer;
         [SerializeField] Hero[] _heroes;
-        readonly List<HeroBoxManager> _heroPrefabs = new();
+        readonly List<HeroSelectorManager> _heroPrefabs = new();
         int _currentIndex;
 
         VisualElement _heroInfoContainer;
@@ -21,25 +24,24 @@ namespace Lis
 
         void Start()
         {
-            _gameManager = GameManager.Instance;
             _mainMenu = MainMenu.Instance;
-
+            _gameManager = GameManager.Instance;
             SetUpUI();
             InstantiateHeroes();
 
             _currentIndex = 0;
-            SetHeroActive(_currentIndex);
+            ShowHero(_currentIndex);
         }
 
         void InstantiateHeroes()
         {
-            Vector3 pos = new(1f, -0.07f, -7.5f);
+            // Vector3 pos = new(1f, -0.07f, -7.5f);
             foreach (Hero hero in _heroes)
             {
-                HeroBoxManager h =
-                    Instantiate(hero.SelectorPrefab, pos, Quaternion.identity).GetComponent<HeroBoxManager>();
-
-                h.gameObject.SetActive(false);
+                HeroSelectorManager h =
+                    Instantiate(hero.SelectorPrefab, transform).GetComponent<HeroSelectorManager>();
+                h.transform.localPosition = Vector3.up * 6.93f;
+                h.Initialize();
                 _heroPrefabs.Add(h);
             }
         }
@@ -51,8 +53,8 @@ namespace Lis
             _heroInfoContainer = root.Q<VisualElement>("heroInfoContainer");
 
             VisualElement arrowContainer = root.Q<VisualElement>("arrowContainer");
-            _previousButton = new("<", null, ShowPreviousHero);
-            _nextButton = new(">", null, ShowNextHero);
+            _previousButton = new("<", _ussMainMenuArrowButton, ShowPreviousHero);
+            _nextButton = new(">", _ussMainMenuArrowButton, ShowNextHero);
             arrowContainer.Add(_previousButton);
             arrowContainer.Add(_nextButton);
         }
@@ -63,7 +65,7 @@ namespace Lis
             _currentIndex++;
             if (_currentIndex >= _heroPrefabs.Count)
                 _currentIndex = 0;
-            SetHeroActive(_currentIndex);
+            ShowHero(_currentIndex);
         }
 
         void ShowPreviousHero()
@@ -72,14 +74,13 @@ namespace Lis
             _currentIndex--;
             if (_currentIndex < 0)
                 _currentIndex = _heroPrefabs.Count - 1;
-            SetHeroActive(_currentIndex);
+            ShowHero(_currentIndex);
         }
 
-        void SetHeroActive(int index)
+        void ShowHero(int index)
         {
             _heroInfoContainer.Clear();
-            //_heroInfoContainer.Add(new HeroInfo(_heroes[index]));
-            _heroInfoContainer.Add(new Label($"{_heroes[index].EntityName}"));
+            _heroInfoContainer.Add(new HeroSelectorInfoElement(_heroes[index]));
             _heroPrefabs[index].Show();
             _gameManager.SelectedHero = _heroes[index];
         }

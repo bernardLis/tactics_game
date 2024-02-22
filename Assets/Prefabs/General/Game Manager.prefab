@@ -97,16 +97,8 @@ MonoBehaviour:
     m_ActionName: Battle/CameraMovement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a5eb88cc-9ebf-4956-8a15-80e412dd1f68
-    m_ActionName: Battle/RotateCamera[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 0acae7ae-0888-49c3-a1cb-e12b00201f40
     m_ActionName: Battle/ZoomCamera[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 096c2620-ff4b-48a7-97fc-76436ee2be5b
-    m_ActionName: Battle/CameraDefaultPosition[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7872737d-8ce3-4153-8ef3-20c5c317d60b
@@ -121,18 +113,6 @@ MonoBehaviour:
     m_ActionName: Battle/Enter[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: afc68981-4f9d-4d4b-81a5-69c2811730ae
-    m_ActionName: Battle/EnableGrabbing[/Keyboard/g]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a7d815aa-a3ca-4a88-8075-7f4c9d2a8f69
-    m_ActionName: Battle/RotateCameraLeft[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7632cdc4-b0c3-4d81-b53a-b41839ede095
-    m_ActionName: Battle/RotateCameraRight[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: ca7abc80-980a-4853-9771-b52a4f1792f4
     m_ActionName: Battle/ToggleMenu[/Keyboard/escape]
   - m_PersistentCalls:
@@ -141,16 +121,28 @@ MonoBehaviour:
     m_ActionName: Battle/Shift[/Keyboard/shift]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: e0a585e0-20a8-4286-b25c-b7d9c440c171
-    m_ActionName: Battle/StrafeLeft[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: def3e43a-25a1-4f81-8053-790f762933d6
-    m_ActionName: Battle/StrafeRight[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 0ebe2236-c7f9-41e5-9143-195604586563
     m_ActionName: Battle/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 92a2aced-a717-4e3d-81d7-4447f0dd4b0b
+    m_ActionName: Battle/ThrowBall[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9700237-27eb-4342-a7fb-c61afa329c42
+    m_ActionName: Battle/DebugSpawnMinionWave[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7314b5d1-03c1-4a0e-a06d-2f6c252b9470
+    m_ActionName: Battle/DebugSpawnTile[/Keyboard/o]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94f07135-4971-4f83-a3f6-199b6108e92a
+    m_ActionName: Battle/DebugSpawnBossTile[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 77c90cfd-3296-4dd9-b49b-7b450be68c53
+    m_ActionName: Battle/DebugKillHero[/Keyboard/leftBracket]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Battle
@@ -229,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871185a95a28a524bb14fc4dedbf8683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StyleSheetReferences:
+  _styleSheetReferences:
   - m_AssetGUID: d9a86c5788d7b6f4e9a3577d65d2967f
     m_SubObjectName: 
     m_SubObjectType: 
@@ -358,6 +350,10 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  - m_AssetGUID: 89b4ecf86bbb3154381012457ca6a211
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &544190253530085464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,8 +426,10 @@ MonoBehaviour:
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
   EntityDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   UpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}
+  PoolManagerPrefab: {fileID: 0}
   BattleNumber: 0
   CurrentBattle: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
+  SelectedHero: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

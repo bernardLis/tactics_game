@@ -1,0 +1,13 @@
+.main-menu__arrow-button {
+    font-size: 48px;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: 0;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-width: 100px;
+    min-height: 90px;
+}
