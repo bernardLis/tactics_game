@@ -7,6 +7,31 @@ namespace Lis
 {
     public class EntityDatabase : ScriptableObject
     {
+        public void Initialize()
+        {
+            foreach (Hero h in Heroes)
+            {
+                h.TimesPicked = PlayerPrefs.GetInt(h.Id, 0);
+            }
+        }
+
+        [Header("Hero")]
+        public Hero[] Heroes;
+
+        public Tablet[] HeroTablets;
+
+        [FormerlySerializedAs("HeroTabletsAdvanced")] [SerializeField]
+        TabletAdvanced[] _heroTabletsAdvanced;
+
+        public TabletAdvanced GetAdvancedTabletByElementNames(ElementName first, ElementName second)
+        {
+            foreach (TabletAdvanced t in _heroTabletsAdvanced)
+                if (t.IsMadeOfElements(GetElementByName(first), GetElementByName(second)))
+                    return t;
+            return null;
+        }
+
+        [Header("Creatures")]
         public Sprite[] CreatureIcons;
 
         public List<Creature> AllCreatures = new();
@@ -51,7 +76,7 @@ namespace Lis
 
             return creatures;
         }
-        
+
         [FormerlySerializedAs("Minions")] [Header("Minions")] [SerializeField]
         Minion[] _minions;
 
@@ -130,27 +155,6 @@ namespace Lis
         public string GetStatDescriptionByType(StatType type)
         {
             return _statBasics.FirstOrDefault(x => x.StatType == type).Description;
-        }
-
-        [FormerlySerializedAs("HeroStats")] [SerializeField]
-        Stat[] _heroStats;
-
-        public Stat GetHeroStatByType(StatType type)
-        {
-            return _heroStats.FirstOrDefault(x => x.StatType == type);
-        }
-
-        public Tablet[] HeroTablets;
-
-        [FormerlySerializedAs("HeroTabletsAdvanced")] [SerializeField]
-        TabletAdvanced[] _heroTabletsAdvanced;
-
-        public TabletAdvanced GetAdvancedTabletByElementNames(ElementName first, ElementName second)
-        {
-            foreach (TabletAdvanced t in _heroTabletsAdvanced)
-                if (t.IsMadeOfElements(GetElementByName(first), GetElementByName(second)))
-                    return t;
-            return null;
         }
 
 

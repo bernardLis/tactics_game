@@ -1,9 +1,5 @@
 using System;
 using System.Collections.Generic;
-
-
-
-
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using UnityEngine;
@@ -42,6 +38,7 @@ namespace Lis
         public event Action<string> OnLevelLoaded;
         public event Action OnNewSaveFileCreation;
         public event Action OnClearSaveData;
+
         protected override void Awake()
         {
             base.Awake();
@@ -64,6 +61,7 @@ namespace Lis
 
             UpgradeBoard.Initialize();
             GameDatabase.InitializeBuildings();
+            EntityDatabase.Initialize();
             //  }
             //   else
             //     LoadFromSaveFile();
@@ -99,6 +97,7 @@ namespace Lis
 
         public void StartGame()
         {
+            PlayerPrefs.SetInt(SelectedHero.Id, SelectedHero.TimesPicked + 1);
             LoadScene(Scenes.Battle);
         }
 
@@ -122,9 +121,9 @@ namespace Lis
 
 
         /*************
-    * Saving and Loading
-    * https://www.youtube.com/watch?v=uD7y4T4PVk0
-    */
+         * Saving and Loading
+         * https://www.youtube.com/watch?v=uD7y4T4PVk0
+         */
         void CreateNewSaveFile()
         {
             Debug.Log($"Creating new save file...");
@@ -146,7 +145,10 @@ namespace Lis
             SaveJsonData();
         }
 
-        public void LoadFromSaveFile() { LoadJsonData(PlayerPrefs.GetString("saveName")); }
+        public void LoadFromSaveFile()
+        {
+            LoadJsonData(PlayerPrefs.GetString("saveName"));
+        }
 
         public void SaveJsonData()
         {
@@ -176,6 +178,7 @@ namespace Lis
                 LoadFromSaveData(sd);
                 return;
             }
+
             CreateNewSaveFile();
         }
 
@@ -206,6 +209,5 @@ namespace Lis
             LoadScene(Scenes.MainMenu);
             OnClearSaveData?.Invoke();
         }
-
     }
 }

@@ -10,8 +10,7 @@ namespace Lis
 
         const string _ussNameLabel = _ussClassName + "name";
 
-
-        Hero _hero;
+        readonly Hero _hero;
 
         public HeroSelectorInfoElement(Hero hero)
         {
@@ -23,19 +22,10 @@ namespace Lis
 
             _hero = hero;
             AddNameAndElement();
+            AddStatsContainer();
 
             Add(new AbilityElement(hero.StartingAbility));
-
-            VisualElement statContainer = new();
-            statContainer.style.flexDirection = FlexDirection.Row;
-            // statContainer.AddToClassList(_ussStatContainer);
-            Add(statContainer);
-
-            foreach (Stat s in hero.GetAllStats())
-            {
-                StatElement statElement = new(s);
-                statContainer.Add(statElement);
-            }
+            Add(new Label($"Times picked: {hero.TimesPicked}"));
         }
 
         void AddNameAndElement()
@@ -48,6 +38,18 @@ namespace Lis
             nameLabel.AddToClassList(_ussNameLabel);
             container.Add(nameLabel);
             container.Add(new ElementalElement(_hero.Element));
+        }
+
+        void AddStatsContainer()
+        {
+            VisualElement statContainer = new();
+            statContainer.style.flexDirection = FlexDirection.Row;
+            Add(statContainer);
+            foreach (Stat s in _hero.GetAllStats())
+            {
+                StatElement statElement = new(s);
+                statContainer.Add(statElement);
+            }
         }
     }
 }

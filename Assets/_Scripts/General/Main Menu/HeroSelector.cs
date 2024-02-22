@@ -6,15 +6,12 @@ namespace Lis
 {
     public class HeroSelector : MonoBehaviour
     {
-        const string _ussCommonMenuButton = "common__menu-button";
-        const string _ussCommonButtonArrow = "common__button-arrow";
-
         const string _ussMainMenuArrowButton = "main-menu__arrow-button";
 
         GameManager _gameManager;
         MainMenu _mainMenu;
 
-        [SerializeField] Hero[] _heroes;
+        readonly List<Hero> _heroInstances = new();
         readonly List<HeroSelectorManager> _heroPrefabs = new();
         int _currentIndex;
 
@@ -35,9 +32,12 @@ namespace Lis
 
         void InstantiateHeroes()
         {
-            // Vector3 pos = new(1f, -0.07f, -7.5f);
-            foreach (Hero hero in _heroes)
+            foreach (Hero hero in _gameManager.EntityDatabase.Heroes)
             {
+                Hero instance = Instantiate(hero);
+                instance.InitializeHero();
+                _heroInstances.Add(instance);
+
                 HeroSelectorManager h =
                     Instantiate(hero.SelectorPrefab, transform).GetComponent<HeroSelectorManager>();
                 h.transform.localPosition = Vector3.up * 6.93f;
@@ -79,10 +79,21 @@ namespace Lis
 
         void ShowHero(int index)
         {
+            _previousButton.SetEnabled(false);
+            _nextButton.SetEnabled(false);
+
             _heroInfoContainer.Clear();
-            _heroInfoContainer.Add(new HeroSelectorInfoElement(_heroes[index]));
+            _heroInfoContainer.Add(new HeroSelectorInfoElement(_heroInstances[index]));
             _heroPrefabs[index].Show();
-            _gameManager.SelectedHero = _heroes[index];
+            _gameManager.SelectedHero = _heroInstances[index];
+
+            Invoke(nameof(EnableArrows), 0.5f);
+        }
+
+        void EnableArrows()
+        {
+            _previousButton.SetEnabled(true);
+            _nextButton.SetEnabled(true);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Lis
         GameManager _gameManager;
 
         [Header("Selector")]
+        public int TimesPicked;
+
         public GameObject SelectorPrefab;
 
         [Header("Stats")] public Stat Power;
@@ -225,24 +227,22 @@ namespace Lis
             Level = CreateInstance<IntVariable>();
             Level.SetValue(1);
 
-            EntityDatabase entityDatabase = _gameManager.EntityDatabase;
-
-            MaxHealth = Instantiate(entityDatabase.GetHeroStatByType(StatType.Health));
+            MaxHealth = Instantiate(MaxHealth);
             MaxHealth.Initialize();
 
-            Armor = Instantiate(entityDatabase.GetHeroStatByType(StatType.Armor));
+            Armor = Instantiate(Armor);
             Armor.Initialize();
 
-            Speed = Instantiate(entityDatabase.GetHeroStatByType(StatType.Speed));
+            Speed = Instantiate(Speed);
             Speed.Initialize();
 
-            Pull = Instantiate(entityDatabase.GetHeroStatByType(StatType.Pull));
+            Pull = Instantiate(Pull);
             Pull.Initialize();
 
-            Power = Instantiate(entityDatabase.GetHeroStatByType(StatType.Power));
+            Power = Instantiate(Power);
             Power.Initialize();
 
-            BonusExp = Instantiate(entityDatabase.GetHeroStatByType(StatType.ExpBonus));
+            BonusExp = Instantiate(BonusExp);
             BonusExp.Initialize();
 
             UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;

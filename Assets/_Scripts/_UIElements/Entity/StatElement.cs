@@ -45,8 +45,8 @@ namespace Lis
             _value = new();
             _value.AddToClassList(_ussValue);
             _value.AddToClassList(_ussCommonTextPrimary);
-            _value.text = _stat.GetValue().ToString("#.0", CultureInfo.InvariantCulture);
             Add(_value);
+            UpdateValue(_stat.GetValue());
 
             string description = _stat.Description;
             if (description.Length == 0)
@@ -56,7 +56,7 @@ namespace Lis
 
         void UpdateValue(float value)
         {
-            _value.text = value.ToString("#.0", CultureInfo.InvariantCulture);
+            _value.text = value == 0 ? "0" : value.ToString("#.#", CultureInfo.InvariantCulture);
         }
 
         protected override void DisplayTooltip()

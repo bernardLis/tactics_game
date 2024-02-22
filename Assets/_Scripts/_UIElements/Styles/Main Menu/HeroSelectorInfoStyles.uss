@@ -1,9 +1,10 @@
 .hero-selector-info__main {
     align-items: center;
+    height: 100%;
+    justify-content: space-around;
 }
 
 .hero-selector-info__name-container {
-    flex-direction: row;
     align-items: center;
 }
 
