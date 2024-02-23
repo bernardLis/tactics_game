@@ -5,10 +5,9 @@ namespace Lis
 {
     public class BattleBossAttackThreeCircles : BattleBossAttack
     {
-
-        public override IEnumerator Attack(int difficulty)
+        public override IEnumerator Attack()
         {
-            int total = Random.Range(50, 80); // TODO: difficulty
+            int total = Random.Range(50, 80);
             int shotsPerGroup = total / 3;
 
             for (int i = 0; i < 3; i++)
@@ -25,8 +24,10 @@ namespace Lis
                     Vector3 dir = (pos - spawnPos).normalized;
                     SpawnProjectile(dir);
                 }
+
                 yield return new WaitForSeconds(0.3f);
             }
+
             yield return null;
         }
     }

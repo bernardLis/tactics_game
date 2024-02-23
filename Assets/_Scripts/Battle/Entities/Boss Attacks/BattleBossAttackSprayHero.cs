@@ -5,10 +5,9 @@ namespace Lis
 {
     public class BattleBossAttackSprayHero : BattleBossAttack
     {
-
-        public override IEnumerator Attack(int difficulty)
+        public override IEnumerator Attack()
         {
-            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y);
             float waitTime = BossAttack.TotalAttackDuration / total;
             for (int i = 0; i < total; i++)
             {
@@ -23,6 +22,7 @@ namespace Lis
                 SpawnProjectile(dir);
                 yield return new WaitForSeconds(waitTime);
             }
+
             yield return null;
         }
     }

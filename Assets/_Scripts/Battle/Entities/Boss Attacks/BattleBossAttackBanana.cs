@@ -6,9 +6,9 @@ namespace Lis
     public class BattleBossAttackBanana : BattleBossAttack
     {
 
-        public override IEnumerator Attack(int difficulty)
+        public override IEnumerator Attack()
         {
-            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y);
             int shotsPerGroup = total / BossAttack.GroupCount;
             float waitTime = BossAttack.TotalAttackDuration / BossAttack.GroupCount;
             int halfTotalShots = Mathf.FloorToInt(shotsPerGroup / 2);

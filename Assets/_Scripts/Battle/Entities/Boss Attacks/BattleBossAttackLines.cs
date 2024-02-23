@@ -6,9 +6,9 @@ namespace Lis
     public class BattleBossAttackLines : BattleBossAttack
     {
 
-        public override IEnumerator Attack(int difficulty)
+        public override IEnumerator Attack()
         {
-            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y);
             int shotsPerGroup = total / BossAttack.GroupCount;
 
             for (int i = 0; i < BossAttack.GroupCount; i++)

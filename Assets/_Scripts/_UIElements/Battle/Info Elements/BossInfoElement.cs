@@ -29,9 +29,16 @@ namespace Lis
 
             Add(_stunBar);
 
+            bs.OnStunStarted += OnStunStarted;
             bs.OnStunFinished += OnStunFinished;
 
             UpdateEntityInfo(bs);
+        }
+
+        void OnStunStarted()
+        {
+            _stunBar.UpdateTrackedVariables(_battleBoss.CurrentStunDuration,
+                _battleBoss.TotalStunDuration);
         }
 
         void OnStunFinished()

@@ -21,7 +21,7 @@ namespace Lis
             _battleRangedOpponentManager = BattleManager.GetComponent<BattleRangedOpponentManager>();
         }
 
-        public virtual IEnumerator Attack(int difficulty)
+        public virtual IEnumerator Attack()
         {
             // Meant to be overwritten
             yield return new WaitForSeconds(1f);

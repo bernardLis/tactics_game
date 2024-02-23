@@ -14,6 +14,7 @@ namespace Lis
         [Header("Attacks")] readonly List<BossAttack> _attacks = new();
         IEnumerator _attackCoroutine;
 
+        Color _stunColor;
         bool _isStunUnlocked;
         bool _isStunned;
         [HideInInspector] public FloatVariable TotalDamageToStun;
@@ -22,14 +23,19 @@ namespace Lis
         [HideInInspector] public FloatVariable TotalStunDuration;
         [HideInInspector] public FloatVariable CurrentStunDuration;
 
+
+        public event Action OnStunStarted;
         public event Action OnStunFinished;
 
         public override void InitializeGameObject()
         {
             base.InitializeGameObject();
 
-            _isStunUnlocked = GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
+            _isStunUnlocked =
+                true; //HERE:testing stun GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
             SetUpVariables();
+
+            _stunColor = GameManager.GameDatabase.GetColorByName("Stun").Primary;
         }
 
         public override void InitializeEntity(Entity entity, int team)
@@ -84,12 +90,11 @@ namespace Lis
         {
             while (true)
             {
-                for (int i = 0; i < _attacks.Count; i++)
+                foreach (BossAttack t in _attacks)
                 {
                     if (_isStunned) yield break;
-                    yield return AttackCooldownCoroutine(_attacks[i]);
-                    int difficulty = 1; // TODO: difficulty
-                    yield return _attacks[i].BattleBossAttack.Attack(difficulty);
+                    yield return AttackCooldownCoroutine(t);
+                    yield return t.BattleBossAttack.Attack();
                 }
             }
         }
@@ -103,9 +108,47 @@ namespace Lis
             }
         }
 
+
+        /* GET HIT */
+        public override void BaseGetHit(int dmg, Color color, BattleEntity attacker = null)
+        {
+            if (_isStunned) dmg *= 2;
+
+            EntityLog.Add($"{BattleManager.GetTime()}: Entity takes damage {dmg}");
+
+            if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
+            else AudioManager.PlaySFX("Hit", transform.position);
+
+            DisplayFloatingText(dmg.ToString(), color);
+
+            int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
+            Entity.CurrentHealth.ApplyChange(-d);
+            if (Entity.CurrentHealth.Value <= 0)
+            {
+                TriggerDieCoroutine(attacker);
+                return;
+            }
+
+            HandleStun(d);
+        }
+
+        void HandleStun(int dmg)
+        {
+            if (!_isStunUnlocked) return;
+            if (_isStunned) return;
+
+            CurrentDamageToStun.ApplyChange(dmg);
+            if (CurrentDamageToStun.Value < TotalDamageToStun.Value) return;
+
+            CurrentDamageToStun.SetValue(0);
+            StartCoroutine(StunCoroutine());
+        }
+
+
         IEnumerator StunCoroutine()
         {
-            DisplayFloatingText("Stunned", Color.yellow);
+            OnStunStarted?.Invoke();
+            DisplayFloatingText("Stunned", _stunColor);
             CurrentStunDuration.SetValue(TotalStunDuration.Value);
 
             _stunEffect.SetActive(true);
@@ -126,29 +169,11 @@ namespace Lis
             OnStunFinished?.Invoke();
         }
 
-        /* GET HIT */
-        public override void BaseGetHit(int dmg, Color color, BattleEntity attacker = null)
-        {
-            if (_isStunned) dmg *= 2;
-
-            EntityLog.Add($"{BattleManager.GetTime()}: Entity takes damage {dmg}");
-
-            if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
-            else AudioManager.PlaySFX("Hit", transform.position);
-
-            DisplayFloatingText(dmg.ToString(), color);
-
-            int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
-            Entity.CurrentHealth.ApplyChange(-d);
-            if (Entity.CurrentHealth.Value <= 0)
-                TriggerDieCoroutine(attacker);
-        }
-
         /* HELPERS */
         void SetUpVariables()
         {
             TotalDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
-            TotalDamageToStun.SetValue(1000);
+            TotalDamageToStun.SetValue(100); //HERE: 666
             CurrentDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
             CurrentDamageToStun.SetValue(0);
 

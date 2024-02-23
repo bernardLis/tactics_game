@@ -6,9 +6,9 @@ namespace Lis
     public class BattleBossAttackSpiral : BattleBossAttack
     {
 
-        public override IEnumerator Attack(int difficulty)
+        public override IEnumerator Attack()
         {
-            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y);
             int shotsPerGroup = total / BossAttack.GroupCount;
             float waitTime = 3f / BossAttack.GroupCount;
             for (int i = 0; i < BossAttack.GroupCount; i++)
