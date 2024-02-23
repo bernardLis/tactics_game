@@ -27,14 +27,6 @@ namespace Lis
             _stunBar.style.height = 20;
             _stunBar.style.opacity = 0.8f;
 
-            // HERE: empty styles in info element
-            // _stunBar.ResourceBar.style.height = Length.Percent(100);
-            // _stunBar.ResourceBar.style.width = Length.Percent(100);
-            // _stunBar.ResourceBar.style.marginLeft = Length.Percent(0);
-            // _stunBar.ResourceBar.style.marginRight = Length.Percent(0);
-
-            // _stunBar.MissingBar.style.height = Length.Percent(100);
-
             Add(_stunBar);
 
             bs.OnStunFinished += OnStunFinished;

@@ -8,7 +8,7 @@ namespace Lis
 
         public override IEnumerator Attack(int difficulty)
         {
-            int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
             for (int i = 0; i < total; i++)
             {
                 Vector3 spawnPos = transform.position;

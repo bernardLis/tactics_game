@@ -29,14 +29,13 @@ namespace Lis
         {
             yield return base.Attack();
 
-            BattleProjectileOpponent p = _battleRangedOpponentManager
-                .GetProjectileFromPool(Entity.Element.ElementName);
+            BattleProjectileOpponent p = _battleRangedOpponentManager.GetProjectileFromPool(Entity.Element.ElementName);
             Vector3 pos = transform.position;
             p.transform.position = pos;
             p.Initialize(1);
 
             Vector3 dir = (Opponent.transform.position - pos).normalized;
-            dir.y = 0; // TODO: creatures miss small minions entirely
+            dir.y = 0;
             p.Shoot(this, dir, 15, Mathf.FloorToInt(Creature.Power.GetValue()));
             yield return null;
         }

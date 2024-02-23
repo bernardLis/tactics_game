@@ -8,10 +8,10 @@ namespace Lis
 
         public override IEnumerator Attack(int difficulty)
         {
-            int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
-            int shotsPerGroup = total / _attack.GroupCount;
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            int shotsPerGroup = total / BossAttack.GroupCount;
 
-            for (int i = 0; i < _attack.GroupCount; i++)
+            for (int i = 0; i < BossAttack.GroupCount; i++)
             {
                 for (int j = 0; j < shotsPerGroup; j++)
                 {

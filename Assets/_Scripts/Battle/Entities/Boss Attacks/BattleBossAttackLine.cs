@@ -8,15 +8,15 @@ namespace Lis
 
         public override IEnumerator Attack(int difficulty)
         {
-            int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
-            int shotsPerGroup = total / _attack.GroupCount;
-            float waitTime = _attack.TotalAttackDuration / _attack.GroupCount;
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            int shotsPerGroup = total / BossAttack.GroupCount;
+            float waitTime = BossAttack.TotalAttackDuration / BossAttack.GroupCount;
 
-            for (int i = 0; i < _attack.GroupCount; i++)
+            for (int i = 0; i < BossAttack.GroupCount; i++)
             {
                 Vector3 spawnPos = transform.position;
                 spawnPos.y = 1f;
-                Vector3 pos = _battleManager.BattleHero.transform.position;
+                Vector3 pos = BattleManager.BattleHero.transform.position;
                 pos.y = 1f;
                 Vector3 dir = (pos - spawnPos).normalized;
                 for (int j = 0; j < shotsPerGroup; j++)

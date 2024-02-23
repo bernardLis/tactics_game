@@ -6,7 +6,6 @@ namespace Lis
     public class BattleBossManager : MonoBehaviour
     {
         BattleManager _battleManager;
-        BattleAreaManager _battleAreaManager;
 
         Boss _selectedBoss;
         BattleBoss _battleBoss;
@@ -14,7 +13,6 @@ namespace Lis
         public void Initialize()
         {
             _battleManager = BattleManager.Instance;
-            _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
 
             _selectedBoss = Instantiate(GameManager.Instance.EntityDatabase.GetRandomBoss());
             _selectedBoss.InitializeBattle(1);

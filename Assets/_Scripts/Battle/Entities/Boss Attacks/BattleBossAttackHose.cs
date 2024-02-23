@@ -8,8 +8,8 @@ namespace Lis
 
         public override IEnumerator Attack(int difficulty)
         {
-            int total = Random.Range(_attack.TotalShotCount.x, _attack.TotalShotCount.y); // TODO: difficulty
-            float waitTime = _attack.TotalAttackDuration / total;
+            int total = Random.Range(BossAttack.TotalShotCount.x, BossAttack.TotalShotCount.y); // TODO: difficulty
+            float waitTime = BossAttack.TotalAttackDuration / total;
         
             for (int i = 0; i < total; i++)
             {

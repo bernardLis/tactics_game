@@ -26,7 +26,7 @@ namespace Lis
         public GameObject BossAttackManagerPrefab;
         [HideInInspector] public BattleBossAttack BattleBossAttack;
 
-        public GameObject SpecialProjectilePrefab;
+        public bool UseElementalProjectile;
 
         public void Initialize(BattleBoss bb)
         {
