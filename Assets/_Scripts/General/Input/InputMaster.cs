@@ -145,7 +145,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DebugSpawnBossTile"",
+                    ""name"": ""DebugSpawnBoss"",
                     ""type"": ""Button"",
                     ""id"": ""94f07135-4971-4f83-a3f6-199b6108e92a"",
                     ""expectedControlType"": ""Button"",
@@ -240,7 +240,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""DebugSpawnBossTile"",
+                    ""action"": ""DebugSpawnBoss"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -545,7 +545,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Battle_Enter = m_Battle.FindAction("Enter", throwIfNotFound: true);
         m_Battle_DebugSpawnMinionWave = m_Battle.FindAction("DebugSpawnMinionWave", throwIfNotFound: true);
         m_Battle_DebugSpawnTile = m_Battle.FindAction("DebugSpawnTile", throwIfNotFound: true);
-        m_Battle_DebugSpawnBossTile = m_Battle.FindAction("DebugSpawnBossTile", throwIfNotFound: true);
+        m_Battle_DebugSpawnBoss = m_Battle.FindAction("DebugSpawnBoss", throwIfNotFound: true);
         m_Battle_DebugKillHero = m_Battle.FindAction("DebugKillHero", throwIfNotFound: true);
         m_Battle__1 = m_Battle.FindAction("1", throwIfNotFound: true);
         m_Battle__2 = m_Battle.FindAction("2", throwIfNotFound: true);
@@ -625,7 +625,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Battle_Enter;
     private readonly InputAction m_Battle_DebugSpawnMinionWave;
     private readonly InputAction m_Battle_DebugSpawnTile;
-    private readonly InputAction m_Battle_DebugSpawnBossTile;
+    private readonly InputAction m_Battle_DebugSpawnBoss;
     private readonly InputAction m_Battle_DebugKillHero;
     private readonly InputAction m_Battle__1;
     private readonly InputAction m_Battle__2;
@@ -648,7 +648,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Enter => m_Wrapper.m_Battle_Enter;
         public InputAction @DebugSpawnMinionWave => m_Wrapper.m_Battle_DebugSpawnMinionWave;
         public InputAction @DebugSpawnTile => m_Wrapper.m_Battle_DebugSpawnTile;
-        public InputAction @DebugSpawnBossTile => m_Wrapper.m_Battle_DebugSpawnBossTile;
+        public InputAction @DebugSpawnBoss => m_Wrapper.m_Battle_DebugSpawnBoss;
         public InputAction @DebugKillHero => m_Wrapper.m_Battle_DebugKillHero;
         public InputAction @_1 => m_Wrapper.m_Battle__1;
         public InputAction @_2 => m_Wrapper.m_Battle__2;
@@ -702,9 +702,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @DebugSpawnTile.started += instance.OnDebugSpawnTile;
             @DebugSpawnTile.performed += instance.OnDebugSpawnTile;
             @DebugSpawnTile.canceled += instance.OnDebugSpawnTile;
-            @DebugSpawnBossTile.started += instance.OnDebugSpawnBossTile;
-            @DebugSpawnBossTile.performed += instance.OnDebugSpawnBossTile;
-            @DebugSpawnBossTile.canceled += instance.OnDebugSpawnBossTile;
+            @DebugSpawnBoss.started += instance.OnDebugSpawnBoss;
+            @DebugSpawnBoss.performed += instance.OnDebugSpawnBoss;
+            @DebugSpawnBoss.canceled += instance.OnDebugSpawnBoss;
             @DebugKillHero.started += instance.OnDebugKillHero;
             @DebugKillHero.performed += instance.OnDebugKillHero;
             @DebugKillHero.canceled += instance.OnDebugKillHero;
@@ -763,9 +763,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @DebugSpawnTile.started -= instance.OnDebugSpawnTile;
             @DebugSpawnTile.performed -= instance.OnDebugSpawnTile;
             @DebugSpawnTile.canceled -= instance.OnDebugSpawnTile;
-            @DebugSpawnBossTile.started -= instance.OnDebugSpawnBossTile;
-            @DebugSpawnBossTile.performed -= instance.OnDebugSpawnBossTile;
-            @DebugSpawnBossTile.canceled -= instance.OnDebugSpawnBossTile;
+            @DebugSpawnBoss.started -= instance.OnDebugSpawnBoss;
+            @DebugSpawnBoss.performed -= instance.OnDebugSpawnBoss;
+            @DebugSpawnBoss.canceled -= instance.OnDebugSpawnBoss;
             @DebugKillHero.started -= instance.OnDebugKillHero;
             @DebugKillHero.performed -= instance.OnDebugKillHero;
             @DebugKillHero.canceled -= instance.OnDebugKillHero;
@@ -822,7 +822,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnEnter(InputAction.CallbackContext context);
         void OnDebugSpawnMinionWave(InputAction.CallbackContext context);
         void OnDebugSpawnTile(InputAction.CallbackContext context);
-        void OnDebugSpawnBossTile(InputAction.CallbackContext context);
+        void OnDebugSpawnBoss(InputAction.CallbackContext context);
         void OnDebugKillHero(InputAction.CallbackContext context);
         void On_1(InputAction.CallbackContext context);
         void On_2(InputAction.CallbackContext context);

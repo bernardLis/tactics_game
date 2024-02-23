@@ -80,7 +80,7 @@ namespace Lis
         [Header("Bosses")]
         [SerializeField] Boss[] _bosses;
 
-        public Boss GeRandomBoss() => _bosses[Random.Range(0, _bosses.Length)];
+        public Boss GetRandomBoss() => _bosses[Random.Range(0, _bosses.Length)];
 
 
         [FormerlySerializedAs("StatBasics")] [Header("Stats")] [SerializeField]

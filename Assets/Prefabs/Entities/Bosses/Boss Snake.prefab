@@ -2069,9 +2069,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Name
       value: Boss Snake
+      objectReference: {fileID: 0}
+    - target: {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2098491213415467078, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Mass
@@ -2222,6 +2230,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 6047243539379941351}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2831212627965926980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 6047243539379941351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5828399577187593241 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -2241,13 +2254,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityLog: []
   _spawnSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  _deathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  _getHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  DeathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  GetHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _levelUpEffect: {fileID: 9044758019991601169}
+  _deathEffect: {fileID: 2831212627965926980}
   IsShielded: 0
-  _corruptionBreakNodePrefab: {fileID: 353195011699167727, guid: 50d80a0a58b95c04a81c976501e40651, type: 3}
   _stunEffect: {fileID: 9044758019991601169}
-  TotalDamageToBreakCorruption: {fileID: 0}
-  CurrentDamageToBreakCorruption: {fileID: 0}
+  TotalDamageToStun: {fileID: 0}
+  CurrentDamageToStun: {fileID: 0}
   TotalStunDuration: {fileID: 0}
   CurrentStunDuration: {fileID: 0}
 --- !u!1001 &7898058331242730854

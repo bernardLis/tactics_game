@@ -86,6 +86,7 @@ namespace Lis
             {
                 for (int i = 0; i < _attacks.Count; i++)
                 {
+                    if (_isStunned) yield break;
                     yield return AttackCooldownCoroutine(_attacks[i]);
                     int difficulty = 1; // TODO: difficulty
                     yield return _attacks[i].BattleBossAttack.Attack(difficulty);
@@ -140,10 +141,7 @@ namespace Lis
             int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
             Entity.CurrentHealth.ApplyChange(-d);
             if (Entity.CurrentHealth.Value <= 0)
-            {
                 TriggerDieCoroutine(attacker);
-                return;
-            }
         }
 
         /* HELPERS */

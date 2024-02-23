@@ -4840,7 +4840,7 @@ GameObject:
   - component: {fileID: 2772292817901481040}
   - component: {fileID: 7034285806433627688}
   m_Layer: 0
-  m_Name: Corruption Effect
+  m_Name: Boss Death Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

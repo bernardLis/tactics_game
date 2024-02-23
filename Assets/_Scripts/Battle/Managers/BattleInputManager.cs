@@ -71,7 +71,7 @@ namespace Lis
 
             _playerInput.actions["DebugSpawnMinionWave"].performed += DebugSpawnMinionWave;
             _playerInput.actions["DebugSpawnTile"].performed += DebugSpawnTile;
-            _playerInput.actions["DebugSpawnBossTile"].performed += DebugSpawnBossTile;
+            _playerInput.actions["DebugSpawnBoss"].performed += DebugSpawnBoss;
             _playerInput.actions["DebugKillHero"].performed += DebugKillHero;
         }
 
@@ -92,7 +92,7 @@ namespace Lis
 
             _playerInput.actions["DebugSpawnMinionWave"].performed -= DebugSpawnMinionWave;
             _playerInput.actions["DebugSpawnTile"].performed -= DebugSpawnTile;
-            _playerInput.actions["DebugSpawnBossTile"].performed -= DebugSpawnBossTile;
+            _playerInput.actions["DebugSpawnBoss"].performed -= DebugSpawnBoss;
             _playerInput.actions["DebugKillHero"].performed -= DebugKillHero;
         }
 
@@ -116,8 +116,9 @@ namespace Lis
         {
         }
 
-        void DebugSpawnBossTile(InputAction.CallbackContext ctx)
+        void DebugSpawnBoss(InputAction.CallbackContext ctx)
         {
+            BattleManager.Instance.GetComponent<BattleBossManager>().SpawnBoss();
         }
 
         void DebugKillHero(InputAction.CallbackContext ctx)
