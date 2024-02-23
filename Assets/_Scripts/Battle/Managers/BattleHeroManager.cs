@@ -20,6 +20,7 @@ namespace Lis
         public CinemachineVirtualCamera HeroFollowCamera;
 
         [SerializeField] AudioListener _placeholderAudioListener;
+        [SerializeField] GameObject _heroSpawnEffectPrefab;
 
         [HideInInspector] public BattleHero BattleHero;
         public Hero Hero { get; private set; }
@@ -65,6 +66,8 @@ namespace Lis
 
         IEnumerator MakeHeroFall(Hero hero)
         {
+            Instantiate(_heroSpawnEffectPrefab);
+
             Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
             heroAnimator.SetBool("FreeFall", true);
             BattleHero.transform.DOMoveY(0f, 1f);

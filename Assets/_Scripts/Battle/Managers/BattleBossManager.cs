@@ -10,6 +10,8 @@ namespace Lis
         Boss _selectedBoss;
         BattleBoss _battleBoss;
 
+        [SerializeField] GameObject _bossSpawnEffectPrefab;
+
         public void Initialize()
         {
             _battleManager = BattleManager.Instance;
@@ -25,6 +27,10 @@ namespace Lis
 
         IEnumerator SpawnBossCoroutine()
         {
+            Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);
+
+            yield return new WaitForSeconds(1.5f);
+
             BattleEntity be = Instantiate(_selectedBoss.Prefab).GetComponent<BattleEntity>();
             be.transform.position = Vector3.up * 2.5f;
             be.gameObject.SetActive(true);
