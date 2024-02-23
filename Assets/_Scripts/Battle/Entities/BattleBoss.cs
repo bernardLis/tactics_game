@@ -32,7 +32,7 @@ namespace Lis
             base.InitializeGameObject();
 
             _isStunUnlocked =
-                true; //HERE:testing stun GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
+                GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
             SetUpVariables();
 
             _stunColor = GameManager.GameDatabase.GetColorByName("Stun").Primary;
