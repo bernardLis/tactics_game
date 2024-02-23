@@ -30,16 +30,13 @@ namespace Lis
             return unlockedBuildings;
         }
 
-        public Sprite VaseIcon;
-        public Sprite FriendBallIcon;
-        
+
         [Header("Pickups")] public QuestablePickup[] QuestablePickups;
 
         public QuestablePickup GetRandomQuestablePickup()
         {
             return QuestablePickups[Random.Range(0, QuestablePickups.Length)];
         }
-
 
         [Header("Shaders")] public Shader LitShader;
         public Shader ParticlesUnlitShader;
@@ -49,7 +46,7 @@ namespace Lis
 
         public List<Shader> KeepShadersMaterials = new();
 
-
+        [Header("Colors")]
         [SerializeField] ColorVariable[] _colors;
 
         public ColorVariable GetColorByName(string n)
@@ -57,11 +54,16 @@ namespace Lis
             return _colors.FirstOrDefault(c => c.name == n);
         }
 
-        [FormerlySerializedAs("CoinSprites")] [SerializeField]
-        Sprite[] _coinSprites;
+        [Header("Icons")]
+        public Sprite VaseIcon;
+
+        public Sprite FriendBallIcon;
 
         public Sprite[] LevelUpAnimationSprites;
         public Sprite[] TroopsElementAnimationSprites;
+
+        [FormerlySerializedAs("CoinSprites")] [SerializeField]
+        Sprite[] _coinSprites;
 
         public Sprite GetCoinSprite(int amount)
         {
@@ -80,15 +82,6 @@ namespace Lis
 
             return _coinSprites[index];
         }
-    }
-
-
-    public enum ItemRarity
-    {
-        Common,
-        Uncommon,
-        Rare,
-        Epic
     }
 
     public enum StatType

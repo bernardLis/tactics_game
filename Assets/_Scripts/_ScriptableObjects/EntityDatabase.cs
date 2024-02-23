@@ -18,10 +18,21 @@ namespace Lis
         [Header("Hero")]
         public Hero[] Heroes;
 
-        public Tablet[] HeroTablets;
+        [SerializeField] Ability[] _abilities;
 
-        [FormerlySerializedAs("HeroTabletsAdvanced")] [SerializeField]
-        TabletAdvanced[] _heroTabletsAdvanced;
+        public List<Ability> GetAllBasicAbilities()
+        {
+            return _abilities.ToList();
+        }
+
+        public Ability GetAbilityById(string id)
+        {
+            return _abilities.FirstOrDefault(x => x.Id == id);
+        }
+
+
+        public Tablet[] HeroTablets;
+        [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
 
         public TabletAdvanced GetAdvancedTabletByElementNames(ElementName first, ElementName second)
         {
@@ -31,54 +42,8 @@ namespace Lis
             return null;
         }
 
-        [Header("Creatures")]
-        public Sprite[] CreatureIcons;
-
-        public List<Creature> AllCreatures = new();
-
-        public Creature GetRandomCreature()
-        {
-            return AllCreatures[Random.Range(0, AllCreatures.Count)];
-        }
-
-        public Creature GetCreatureById(string id)
-        {
-            return AllCreatures.FirstOrDefault(x => x.Id == id);
-        }
-
-        public Creature GetRandomCreatureByUpgradeTier(int tier)
-        {
-            List<Creature> creatures = new();
-            foreach (Creature c in AllCreatures)
-                if (c.UpgradeTier == tier)
-                    creatures.Add(c);
-
-            return creatures[Random.Range(0, creatures.Count)];
-        }
-
-        public Creature GetRandomCreatureByUpgradeTierAndLower(int tier)
-        {
-            List<Creature> creatures = AllCreatures.Where(c => c.UpgradeTier <= tier).ToList();
-
-            return creatures[Random.Range(0, creatures.Count)];
-        }
-
-        public List<Creature> GetCreaturesByTierElement(int tier, Element element)
-        {
-            List<Creature> creatures = new();
-            foreach (Creature c in AllCreatures)
-                if (c.UpgradeTier <= tier)
-                    creatures.Add(c);
-
-            for (int i = creatures.Count - 1; i >= 0; i--)
-                if (creatures[i].Element != element)
-                    creatures.RemoveAt(i);
-
-            return creatures;
-        }
-
-        [FormerlySerializedAs("Minions")] [Header("Minions")] [SerializeField]
-        Minion[] _minions;
+        [Header("Minions")]
+        [SerializeField] Minion[] _minions;
 
         [SerializeField] List<Entity> _rangedOpponents;
 
@@ -106,43 +71,17 @@ namespace Lis
             return _minions[Random.Range(0, _minions.Length)];
         }
 
-        [System.Serializable]
-        public struct StartingArmy
-        {
-            public Element Element;
-            public List<Creature> Creatures;
-        }
+        [Header("Creatures")]
+        public Sprite[] CreatureIcons;
 
-        [FormerlySerializedAs("Turrets")] [Header("Turrets")] [SerializeField]
-        Turret[] _turrets;
+        public List<Creature> AllCreatures = new();
 
-        public List<Turret> GetAllTurrets()
-        {
-            return _turrets.ToList();
-        }
 
-        public Turret GetRandomTurret()
-        {
-            return _turrets[Random.Range(0, _turrets.Length)];
-        }
+        [Header("Bosses")]
+        [SerializeField] Boss[] _bosses;
 
-        [FormerlySerializedAs("Abilities")] [Header("Abilities")] [SerializeField]
-        Ability[] _abilities;
+        public Boss GeRandomBoss() => _bosses[Random.Range(0, _bosses.Length)];
 
-        public List<Ability> GetAllBasicAbilities()
-        {
-            return _abilities.ToList();
-        }
-
-        public Ability GetAbilityById(string id)
-        {
-            return _abilities.FirstOrDefault(x => x.Id == id);
-        }
-
-        public Ability GetRandomAbility()
-        {
-            return _abilities[Random.Range(0, _abilities.Length)];
-        }
 
         [FormerlySerializedAs("StatBasics")] [Header("Stats")] [SerializeField]
         StatBasics[] _statBasics;
@@ -158,18 +97,8 @@ namespace Lis
         }
 
 
-        [FormerlySerializedAs("Elements")] [Header("Elements")] [SerializeField]
+        [Header("Elements")] [SerializeField]
         Element[] _elements;
-
-        public List<Element> GetAllElements()
-        {
-            return _elements.ToList();
-        }
-
-        public Element GetRandomElement()
-        {
-            return _elements[Random.Range(0, _elements.Length)];
-        }
 
         Element GetElementByName(ElementName str)
         {

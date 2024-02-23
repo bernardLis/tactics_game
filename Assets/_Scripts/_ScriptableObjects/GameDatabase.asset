@@ -51,7 +51,6 @@ MonoBehaviour:
   GrayScaleShader: {fileID: 4800000, guid: 4303e1617f4f86b42898e34475ec45ed, type: 3}
   SepiaToneShader: {fileID: 4800000, guid: b11af97c1da75e749879fd6f40c33449, type: 3}
   KeepShadersMaterials:
-  - {fileID: -6465566751694194690, guid: 35a5889f855b33440b52b2a9b0e8b8ad, type: 3}
   - {fileID: 4800000, guid: 8b409af744179ac48ae9717baa10feb5, type: 3}
   _colors:
   - {fileID: 11400000, guid: a3c667aeea7682345b5141ce78cd7ce5, type: 2}
