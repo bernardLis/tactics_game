@@ -8,92 +8,57 @@ namespace Lis
 {
     public class BattleBoss : BattleEntity
     {
-        BattleAreaManager _battleAreaManager;
-
         [Header("Boss")]
-        [SerializeField] GameObject _corruptionBreakNodePrefab;
         [SerializeField] GameObject _stunEffect;
 
         [Header("Attacks")] readonly List<BossAttack> _attacks = new();
         IEnumerator _attackCoroutine;
 
-        List<BattleTile> _pathToHomeTile = new();
-        int _nextTileIndex;
-        BattleTile _currentTile;
-        BattleBuilding _currentBuilding;
-
-        bool _isCorrupting;
         bool _isStunUnlocked;
         bool _isStunned;
-        [HideInInspector] public IntVariable TotalDamageToBreakCorruption;
-        [HideInInspector] public IntVariable CurrentDamageToBreakCorruption;
-        [HideInInspector] public IntVariable TotalStunDuration;
-        [HideInInspector] public IntVariable CurrentStunDuration;
+        [HideInInspector] public FloatVariable TotalDamageToStun;
+        [HideInInspector] public FloatVariable CurrentDamageToStun;
 
-        bool _areCorruptionBreakNodesUnlocked;
-        float _corruptionBreakNodeDmgBonus = 0;
-        List<BattleCorruptionBreakNode> _corruptionBreakNodes = new();
+        [HideInInspector] public FloatVariable TotalStunDuration;
+        [HideInInspector] public FloatVariable CurrentStunDuration;
 
-        public event Action OnCorruptionStarted;
-        public event Action OnCorruptionBroken;
         public event Action OnStunFinished;
 
-        // public override void InitializeBattle(ref List<BattleEntity> opponents)
-        // {
-        //     base.InitializeBattle(ref opponents);
-        //
-        //     _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
-        //     _pathToHomeTile = _battleAreaManager.GetTilePathFromTo(
-        //         _battleAreaManager.GetTileFromPosition(transform.position),
-        //         _battleAreaManager.HomeTile);
-        //     _nextTileIndex = 0;
-        //
-        //     float newSpeed = Agent.speed - GameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
-        //     if (newSpeed <= 0) newSpeed = 1f;
-        //     Agent.speed = newSpeed;
-        //
-        //     InitializeAttacks();
-        //     StartRunEntityCoroutine();
-        //     StartAttackCoroutine();
-        //
-        //     SetUpVariables();
-        //     BattleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
-        //
-        //     _isStunUnlocked = GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
-        //
-        //     Upgrade corruptionBreakNodesUpgrade = GameManager.UpgradeBoard
-        //         .GetUpgradeByName("Corruption Break Nodes");
-        //     _areCorruptionBreakNodesUnlocked = corruptionBreakNodesUpgrade.CurrentLevel >= 0;
-        //     _corruptionBreakNodeDmgBonus = corruptionBreakNodesUpgrade.GetValue() / 100f;
-        // }
+        public override void InitializeGameObject()
+        {
+            base.InitializeGameObject();
+
+            _isStunUnlocked = GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel >= 0;
+            SetUpVariables();
+        }
+
+        public override void InitializeEntity(Entity entity, int team)
+        {
+            base.InitializeEntity(entity, team);
+
+            BattleEntityPathing.SetAvoidancePriorityRange(new(0, 1));
+            Boss b = (Boss)Entity;
+            float newSpeed = b.Speed.GetValue() - GameManager.UpgradeBoard.GetUpgradeByName("Boss Slowdown").GetValue();
+            if (newSpeed <= 0) newSpeed = 1f;
+            BattleEntityPathing.SetSpeed(newSpeed);
+
+            BattleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
+
+            InitializeAttacks();
+            StartRunEntityCoroutine();
+            StartAttackCoroutine();
+        }
 
         protected override IEnumerator RunEntity()
         {
-            // AvoidancePriorityRange = new Vector2Int(0, 1);
+            yield return new WaitForSeconds(2f);
 
-            for (int i = _nextTileIndex; i < _pathToHomeTile.Count; i++)
+            while (true)
             {
-                // first tile is where the boss is spawned
-                if (i == 0)
-                {
-                    yield return new WaitForSeconds(2f);
-                    continue;
-                }
+                if (_isStunned) yield break;
+                yield return BattleEntityPathing.PathToPositionAndStop(GetPositionCloseToHero());
 
-                // if already at the last tile, do nothing
-                // if (i == _pathToHomeTile.Count - 1) break;
-
-                _nextTileIndex = i + 1;
-                _currentTile = _pathToHomeTile[i];
-                _currentBuilding = _pathToHomeTile[i].BattleBuilding;
-
-                Vector3 pos = _currentTile.transform.position;
-                if (_currentBuilding != null) pos = _currentBuilding.transform.position;
-                // yield return PathToPositionAndStop(pos);
-
-                if (_currentBuilding != null) StartBuildingCorruption();
-                else yield return new WaitForSeconds(10f);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(Random.Range(5, 10));
             }
         }
 
@@ -137,102 +102,9 @@ namespace Lis
             }
         }
 
-        /* CORRUPTION */
-        void StartBuildingCorruption()
-        {
-            Animator.SetTrigger("Creature Ability");
-            StopRunEntityCoroutine();
-            _isCorrupting = true;
-            CurrentDamageToBreakCorruption.SetValue(0);
-
-            // _currentBuilding.StartCorruption(this);
-            // _currentBuilding.OnBuildingCorrupted += OnBuildingCorrupted;
-            OnCorruptionStarted?.Invoke();
-
-            if (_areCorruptionBreakNodesUnlocked)
-                StartCoroutine(CreateCorruptionBreakNodes());
-        }
-
-        void OnBuildingCorrupted()
-        {
-            if (_isStunned) return;
-            CorruptionCleanup();
-            StartRunEntityCoroutine();
-        }
-
-        IEnumerator CreateCorruptionBreakNodes()
-        {
-            _corruptionBreakNodes = new();
-            for (int i = 0; i < 3; i++)
-            {
-                yield return new WaitForSeconds(Random.Range(1f, 3f));
-
-                if (!_isCorrupting) yield break;
-                BattleCorruptionBreakNode node = Instantiate(_corruptionBreakNodePrefab,
-                        transform.position, Quaternion.identity)
-                    .GetComponent<BattleCorruptionBreakNode>();
-                Vector3 pos = Vector3.zero;
-                while (pos == Vector3.zero)
-                {
-                    pos = _currentTile.GetRandomPositionOnTile();
-                    if (Vector3.Distance(pos, transform.position) < 4f) pos = Vector3.zero;
-                }
-
-                node.Initialize(this, pos);
-                node.OnNodeBroken += OnCorruptionNodeBroken;
-                _corruptionBreakNodes.Add(node);
-
-                yield return new WaitForSeconds(Random.Range(1f, 3f));
-            }
-        }
-
-        void OnCorruptionNodeBroken(BattleCorruptionBreakNode node)
-        {
-            _corruptionBreakNodes.Remove(node);
-            float multiplier = (float)0.3f + _corruptionBreakNodeDmgBonus;
-            int damage = Mathf.RoundToInt(TotalDamageToBreakCorruption.Value * multiplier);
-            BaseGetHit(damage, Color.yellow);
-        }
-
-        void DestroyAllCorruptionBreakNodes()
-        {
-            foreach (BattleCorruptionBreakNode node in _corruptionBreakNodes)
-            {
-                if (node == null) continue;
-                node.OnNodeBroken -= OnCorruptionNodeBroken;
-                node.DestroySelf();
-            }
-            _corruptionBreakNodes = new();
-        }
-
-        void HandleCorruptionBreak(int damage)
-        {
-            if (!_isStunUnlocked) return;
-
-            CurrentDamageToBreakCorruption.ApplyChange(damage);
-
-            if (CurrentDamageToBreakCorruption.Value < TotalDamageToBreakCorruption.Value) return;
-
-            OnCorruptionBroken?.Invoke();
-            StartCoroutine(StunCoroutine());
-
-            // can't break corruption on the last building
-            if (_nextTileIndex < _pathToHomeTile.Count)
-                CorruptionCleanup();
-        }
-
-        void CorruptionCleanup()
-        {
-            CurrentDamageToBreakCorruption.SetValue(0);
-            _isCorrupting = false;
-            // _currentBuilding.OnBuildingCorrupted -= OnBuildingCorrupted;
-            DestroyAllCorruptionBreakNodes();
-        }
-
         IEnumerator StunCoroutine()
         {
             DisplayFloatingText("Stunned", Color.yellow);
-            CurrentDamageToBreakCorruption.SetValue(0);
             CurrentStunDuration.SetValue(TotalStunDuration.Value);
 
             _stunEffect.SetActive(true);
@@ -263,7 +135,6 @@ namespace Lis
             if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
             else AudioManager.PlaySFX("Hit", transform.position);
 
-            if (_isCorrupting) color = Color.yellow; // signifying stun
             DisplayFloatingText(dmg.ToString(), color);
 
             int d = Mathf.FloorToInt(Mathf.Clamp(dmg, 0, Entity.CurrentHealth.Value));
@@ -273,32 +144,32 @@ namespace Lis
                 TriggerDieCoroutine(attacker);
                 return;
             }
-
-            if (_isCorrupting) HandleCorruptionBreak(dmg);
         }
 
         /* HELPERS */
         void SetUpVariables()
         {
-            TotalDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
-            TotalDamageToBreakCorruption.SetValue(1000);
-            CurrentDamageToBreakCorruption = ScriptableObject.CreateInstance<IntVariable>();
-            CurrentDamageToBreakCorruption.SetValue(0);
-            TotalStunDuration = ScriptableObject.CreateInstance<IntVariable>();
+            TotalDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
+            TotalDamageToStun.SetValue(1000);
+            CurrentDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
+            CurrentDamageToStun.SetValue(0);
+
+            TotalStunDuration = ScriptableObject.CreateInstance<FloatVariable>();
             TotalStunDuration.SetValue(10 + GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").GetValue());
-            CurrentStunDuration = ScriptableObject.CreateInstance<IntVariable>();
+            CurrentStunDuration = ScriptableObject.CreateInstance<FloatVariable>();
             CurrentStunDuration.SetValue(0);
         }
 
         /* EMPTY OVERRIDES */
-
         public override void GetEngaged(BattleEntity attacker)
         {
             // boss is never engaged
-            // all the single bosses, all the single bosses... 
+            // all the single bosses, all the single bosses...
         }
 
-        public override bool CanBeGrabbed() { return false; }
-
+        public override bool CanBeGrabbed()
+        {
+            return false;
+        }
     }
 }

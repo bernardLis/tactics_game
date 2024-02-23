@@ -13,8 +13,6 @@ namespace Lis
         [SerializeField] GameObject _waterGfx;
         [SerializeField] GameObject _windGfx;
 
-        BattleHero _targetHero;
-
         public override void InitializeEntity(Entity entity, int team)
         {
             if (Gfx != null) Gfx.SetActive(true);
@@ -32,8 +30,6 @@ namespace Lis
             Collider.enabled = true;
 
             BattleEntityPathing.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
-
-            _targetHero = BattleManager.GetComponent<BattleHeroManager>().BattleHero;
             StartRunEntityCoroutine();
         }
 
@@ -50,10 +46,10 @@ namespace Lis
         IEnumerator PathToHero()
         {
             BattleEntityPathing.SetStoppingDistance(0.7f);
-            yield return BattleEntityPathing.PathToTarget(_targetHero.transform);
+            yield return BattleEntityPathing.PathToTarget(BattleHero.transform);
 
             // something is blocking path, so just die...
-            if (Vector3.Distance(transform.position, _targetHero.transform.position) > 2.5f)
+            if (Vector3.Distance(transform.position, BattleHero.transform.position) > 2.5f)
             {
                 StartCoroutine(Die(hasLoot: false));
                 yield break;
@@ -70,7 +66,7 @@ namespace Lis
         IEnumerator Attack()
         {
             Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
-            StartCoroutine(_targetHero.GetHit(_minion));
+            StartCoroutine(BattleHero.GetHit(_minion));
             yield return new WaitForSeconds(0.5f);
             StartRunEntityCoroutine();
         }

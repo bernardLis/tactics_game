@@ -7,7 +7,6 @@ namespace Lis
     public class Boss : EntityMovement
     {
         [Header("Attacks")]
-        public List<BossAttack> Attacks = new List<BossAttack>();
-
+        public List<BossAttack> Attacks = new();
     }
 }

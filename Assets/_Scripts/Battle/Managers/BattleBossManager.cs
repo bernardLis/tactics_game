@@ -1,7 +1,4 @@
 using System.Collections;
-
-
-
 using UnityEngine;
 
 namespace Lis
@@ -11,34 +8,21 @@ namespace Lis
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
 
-        [SerializeField] Building[] _bossBuildings;
-        BattleTile _bossTile;
-
-        Building _chosenBossBuilding;
 
         public void Initialize()
         {
             _battleManager = BattleManager.Instance;
             _battleAreaManager = _battleManager.GetComponent<BattleAreaManager>();
-            // _battleAreaManager.OnBossTileUnlocked += SpawnBoss;
-
-            _chosenBossBuilding = _bossBuildings[Random.Range(0, _bossBuildings.Length)];
         }
 
-        public void SpawnBoss(BattleTile tile)
+        public void SpawnBoss()
         {
-            StartCoroutine(SpawnBossCoroutine(tile));
+            StartCoroutine(SpawnBossCoroutine());
         }
 
-        IEnumerator SpawnBossCoroutine(BattleTile tile)
+        IEnumerator SpawnBossCoroutine()
         {
-            _bossTile = _battleAreaManager.ReplaceTile(tile, _chosenBossBuilding);
-
-            yield return new WaitForSeconds(1f);
-            // _battleAreaManager.SecureNextTile(_bossTile);
-            yield return new WaitForSeconds(1f);
-            _bossTile.Unlock();
+            yield return null;
         }
-
     }
 }

@@ -30,7 +30,6 @@ namespace Lis
 
         [SerializeField] GameObject _respawnEffect;
 
-        BattleHero _battleHero;
         BattleHeroOpponentTracker _battleHeroOpponentTracker;
 
         public event Action<int> OnDamageDealt;
@@ -91,8 +90,8 @@ namespace Lis
 
             if (team == 0)
             {
-                _battleHero = BattleManager.BattleHero;
-                _battleHeroOpponentTracker = _battleHero.GetComponentInChildren<BattleHeroOpponentTracker>();
+                BattleHero = BattleManager.BattleHero;
+                _battleHeroOpponentTracker = BattleHero.GetComponentInChildren<BattleHeroOpponentTracker>();
                 _opponentList = BattleManager.OpponentEntities;
             }
 
@@ -165,16 +164,6 @@ namespace Lis
             return pos;
         }
 
-        Vector3 GetPositionCloseToHero()
-        {
-            BattleHero battleHero = BattleManager.BattleHero;
-            Vector3 pos = battleHero.transform.position
-                          + Vector3.right * Random.Range(-10f, 10f)
-                          + Vector3.forward * Random.Range(-10f, 10f);
-            if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
-                return GetPositionCloseToHero();
-            return pos;
-        }
 
         protected IEnumerator ManageCreatureAbility()
         {
@@ -372,7 +361,7 @@ namespace Lis
             {
                 yield return new WaitForSeconds(3f);
                 Gfx.transform.DOScale(0, 0.5f);
-                transform.DOMove(BattleManager.BattleHero.transform.position, 0.5f);
+                transform.DOMove(BattleHero.transform.position, 0.5f);
                 yield return new WaitForSeconds(0.5f);
                 StartCoroutine(Respawn());
 
@@ -389,7 +378,7 @@ namespace Lis
             _respawnEffect.SetActive(false);
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +
                                             Creature.DeathPenaltyPerLevel * Creature.Level.Value);
-            transform.position = BattleManager.BattleHero.transform.position +
+            transform.position = BattleHero.transform.position +
                                  new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
 
             _respawnEffect.SetActive(true);
@@ -429,7 +418,7 @@ namespace Lis
         public void TryCatching(BattleFriendBall ball)
         {
             IsDead = true;
-            OnGettingCaught?.Invoke(this, BattleManager.BattleHero);
+            OnGettingCaught?.Invoke(this, BattleHero);
 
             DisableSelf();
             Vector3 pos = ball.transform.position;
@@ -440,11 +429,10 @@ namespace Lis
 
         public void Caught(Vector3 spawnPos)
         {
-            _battleHero = BattleManager.BattleHero;
-            _battleHeroOpponentTracker = _battleHero.GetComponentInChildren<BattleHeroOpponentTracker>();
+            _battleHeroOpponentTracker = BattleHero.GetComponentInChildren<BattleHeroOpponentTracker>();
 
             Opponent = null;
-            Creature.Caught(BattleManager.BattleHero.Hero);
+            Creature.Caught(BattleHero.Hero);
             InitializeEntity(Creature, 0);
             BattleManager.OpponentEntities.Remove(this);
             BattleManager.AddPlayerArmyEntity(this);

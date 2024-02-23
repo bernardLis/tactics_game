@@ -20,7 +20,6 @@ namespace Lis
 
         // global data
         public int Seed { get; private set; }
-
         public int BattleNumber;
 
         public int TotalGoldCollected { get; private set; }
@@ -97,6 +96,7 @@ namespace Lis
 
         public void StartGame()
         {
+            BattleNumber++;
             PlayerPrefs.SetInt(SelectedHero.Id, SelectedHero.TimesPicked + 1);
             LoadScene(Scenes.Battle);
         }

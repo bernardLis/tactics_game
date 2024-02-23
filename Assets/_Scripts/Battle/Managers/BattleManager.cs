@@ -96,7 +96,6 @@ namespace Lis
 #if UNITY_EDITOR
             GetComponent<BattleInputManager>().OnEnterClicked += LevelUpHero;
             GetComponent<BattleInputManager>().OnSpaceClicked += KillAllOpponents;
-
 #endif
         }
 
@@ -277,8 +276,6 @@ namespace Lis
             // if entities die "at the same time" it triggers twice
             if (BattleFinalized) yield break;
             BattleFinalized = true;
-
-            _gameManager.BattleNumber++; // TODO: hihihihihi
 
             yield return new WaitForSeconds(3f);
 

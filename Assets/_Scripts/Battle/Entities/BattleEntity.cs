@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
@@ -59,6 +60,8 @@ namespace Lis
 
         protected Color HealthColor;
 
+        protected BattleHero BattleHero;
+
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, BattleEntity> OnDeath;
 
@@ -112,6 +115,8 @@ namespace Lis
             BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Entity.name)
                        + "_" + Helpers.GetRandomNumber(4);
             name = BattleId;
+
+            BattleHero = BattleManager.BattleHero;
 
             if (Entity is not EntityMovement em) return;
             BattleEntityPathing.InitializeEntity(em);
@@ -369,6 +374,17 @@ namespace Lis
             floatingText.AnimateColorGradient = Helpers.GetGradient(color);
             Transform t = transform;
             _feelPlayer.PlayFeedbacks(t.position + t.localScale.y * Vector3.up);
+        }
+
+
+        protected Vector3 GetPositionCloseToHero()
+        {
+            Vector3 pos = BattleHero.transform.position
+                          + Vector3.right * Random.Range(-10f, 10f)
+                          + Vector3.forward * Random.Range(-10f, 10f);
+            if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
+                return GetPositionCloseToHero();
+            return pos;
         }
     }
 }
