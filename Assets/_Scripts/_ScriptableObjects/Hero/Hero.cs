@@ -18,6 +18,22 @@ namespace Lis
         public Stat Pull;
         public Stat BonusExp;
 
+        bool _isInitialized; // mostly for testing
+        public void InitializeHero()
+        {
+            if(_isInitialized) return;
+            _isInitialized = true;
+
+            _gameManager = GameManager.Instance;
+
+            CreateBaseStats();
+            CreateTablets();
+            foreach (Tablet t in Tablets)
+                t.Initialize(this);
+
+            Abilities = new();
+        }
+
         public override void InitializeBattle(int team)
         {
             base.InitializeBattle(team);
@@ -195,31 +211,6 @@ namespace Lis
                 if (a.Id == id)
                     return a;
             return null;
-        }
-
-        public void CreateHero(string heroName, Element element)
-        {
-            _gameManager = GameManager.Instance;
-
-            Id = Guid.NewGuid().ToString();
-            name = heroName;
-
-            EntityName = heroName;
-            Element = element;
-
-            InitializeHero();
-        }
-
-        public void InitializeHero()
-        {
-            _gameManager = GameManager.Instance;
-
-            CreateBaseStats();
-            CreateTablets();
-            foreach (Tablet t in Tablets)
-                t.Initialize(this);
-
-            Abilities = new();
         }
 
         void CreateBaseStats()

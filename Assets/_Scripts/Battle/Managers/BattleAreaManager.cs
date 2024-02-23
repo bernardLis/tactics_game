@@ -14,18 +14,14 @@ namespace Lis
 
         [SerializeField] GameObject _tilePrefab;
         [SerializeField] Building _homeBuilding;
-        public List<Building> _unlockedBuildings = new();
+        List<Building> _unlockedBuildings = new();
 
         [SerializeField] Quest[] _quests;
         readonly List<Quest> _pastQuests = new();
 
-        [SerializeField] List<GameObject> _cornerTileIndicators = new();
-
         GameObject _floor;
 
         [HideInInspector] public BattleTile HomeTile;
-
-        [HideInInspector] public List<BattleTile> CornerTiles = new();
 
         readonly List<BattleTile> _tiles = new();
 
@@ -40,7 +36,7 @@ namespace Lis
         {
             float tileScale = _floorPrefab.transform.localScale.x;
             _floor = Instantiate(_floorPrefab,
-                new Vector3(-tileScale * 0.5f, 0, -tileScale * 0.5f), // floor offset to make tiles centered
+                new(-tileScale * 0.5f, 0, -tileScale * 0.5f), // floor offset to make tiles centered
                 Quaternion.identity);
             _floor.transform.SetParent(_floorHolder);
 
@@ -77,30 +73,9 @@ namespace Lis
 
                     if (pos == Vector3.zero)
                         HomeTile = bt;
-
-                    // put corner tiles into the list
-                    if (pos.x == -5 * tileScale && pos.z == -5 * tileScale ||
-                        pos.x == -5 * tileScale && pos.z == 4 * tileScale ||
-                        pos.x == 4 * tileScale && pos.z == -5 * tileScale ||
-                        pos.x == 4 * tileScale && pos.z == 4 * tileScale)
-                    {
-                        CornerTiles.Add(bt);
-                    }
                 }
             }
-
-
-            SetCornerTileIndicators();
         }
-
-
-        void SetCornerTileIndicators()
-        {
-            for (int i = 0; i < 4; i++)
-                Instantiate(_cornerTileIndicators[i], CornerTiles[i].transform.position,
-                    Quaternion.Euler(270f, 0, 0));
-        }
-
 
         public void SecureHomeTile()
         {

@@ -12,7 +12,7 @@ namespace Lis
             _gameManager = GameManager.Instance;
 
             Hero h = Instantiate(_gameManager.SelectedHero);
-            // h.InitializeHero();
+            h.InitializeHero();
 
             Battle battle = ScriptableObject.CreateInstance<Battle>();
             battle.CreateRandom(1);
