@@ -11,8 +11,13 @@ namespace Lis
         Rigidbody _rb;
         Collider _collider;
 
+        [SerializeField] GameObject _flash;
+        [SerializeField] GameObject _hit;
+        [SerializeField] GameObject _successEffect;
+
         int _floorCollisionCount;
         bool _wasTryingToCatch;
+
 
         void Awake()
         {
@@ -80,6 +85,7 @@ namespace Lis
 
         void InitializeThrow(Quaternion rot)
         {
+            _flash.SetActive(true);
             _wasTryingToCatch = false;
 
             Transform t = transform;
@@ -126,18 +132,18 @@ namespace Lis
 
         IEnumerator CatchingCoroutine(BattleCreature bc)
         {
+            _hit.SetActive(true);
+
             _rb.isKinematic = true;
 
             if (_hero == null) _hero = BattleManager.Instance.BattleHero;
             float chanceToCatch = bc.Creature.CalculateChanceToCatch(_hero.Hero);
-            string text = $"Catching... {chanceToCatch * 100}% chance!";
             if (!_hero.Hero.CanAddToTroops())
             {
                 chanceToCatch = -1;
-                text = "No space for more creatures!";
+                string text = "No space for more creatures!";
+                bc.DisplayFloatingText(text, Color.white);
             }
-
-            bc.DisplayFloatingText(text, Color.white);
 
             yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
             bc.TryCatching(this);
@@ -156,6 +162,13 @@ namespace Lis
 
                 bc.DisplayFloatingText("Caught!", Color.green);
                 yield return transform.DOMove(pos, 0.5f).WaitForCompletion();
+
+                Vector3 effPos = bc.transform.position;
+                effPos.y = 0;
+                GameObject successEffect = Instantiate(_successEffect, effPos, Quaternion.identity);
+                successEffect.SetActive(true);
+                Destroy(successEffect, 4f);
+
                 bc.Caught(pos);
 
                 DisableSelf();
@@ -171,6 +184,9 @@ namespace Lis
 
         void DisableSelf()
         {
+            _flash.SetActive(false);
+            _hit.SetActive(false);
+
             _collider.enabled = false;
             transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
             {
