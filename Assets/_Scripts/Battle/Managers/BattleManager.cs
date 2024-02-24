@@ -20,7 +20,7 @@ namespace Lis
 
         public bool IsGameLoopBlocked;
 
-        public Battle CurrentBattle { get; private set; }
+        Battle _currentBattle;
 
         public VisualElement Root { get; private set; }
 
@@ -84,7 +84,7 @@ namespace Lis
 
             _gameManager = GameManager.Instance;
             _gameManager.SaveJsonData();
-            CurrentBattle = _gameManager.CurrentBattle;
+            _currentBattle = _gameManager.CurrentBattle;
             _gameManager.OnGoldChanged += (g) => GoldCollected += g;
 
             _battleAreaManager = GetComponent<BattleAreaManager>();
@@ -163,7 +163,7 @@ namespace Lis
             while (true)
             {
                 _battleTime++;
-                float timeLeft = CurrentBattle.Duration - _battleTime;
+                float timeLeft = _currentBattle.Duration - _battleTime;
                 int minutes = Mathf.FloorToInt(timeLeft / 60f);
                 int seconds = Mathf.FloorToInt(timeLeft - minutes * 60);
 
@@ -179,6 +179,10 @@ namespace Lis
             return _battleTime;
         }
 
+        public float GetTimeLeft()
+        {
+            return _currentBattle.Duration - _battleTime;
+        }
 
         public void AddPlayerArmyEntity(BattleEntity b)
         {
@@ -188,7 +192,7 @@ namespace Lis
             if (b is BattleCreature creature)
                 OnPlayerCreatureAdded?.Invoke(creature);
         }
-        
+
         public void AddOpponentArmyEntity(BattleEntity b)
         {
             OpponentEntities.Add(b);
@@ -230,7 +234,7 @@ namespace Lis
 
         public bool IsBossFight()
         {
-            return CurrentBattle.TilesUntilBoss == _battleAreaManager.UnlockedTiles.Count - 1;
+            return _currentBattle.TilesUntilBoss == _battleAreaManager.UnlockedTiles.Count - 1;
         }
 
         public void LoseBattle()

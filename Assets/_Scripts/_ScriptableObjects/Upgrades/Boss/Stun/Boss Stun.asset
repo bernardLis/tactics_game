@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss Stun
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 8b9aae5383fb62a44b41ebee16e00c4b, type: 3}
+  Icon: {fileID: 21300000, guid: a01a175f22bfe014c906de08e9088076, type: 3}
   Description: Stun the boss when it is corrupting a building to break the corruption
     and deal more damage
   Type: 4

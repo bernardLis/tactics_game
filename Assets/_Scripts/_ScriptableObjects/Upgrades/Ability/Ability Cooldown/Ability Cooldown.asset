@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ability Cooldown
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 067c9036465b53f46ad467915cc39a65, type: 3}
+  Icon: {fileID: 21300000, guid: 90fc2e3e8d4e60a44a275e419a959d60, type: 3}
   Description: Hero Ability Cooldown Reduction
   Type: 5
   Levels:

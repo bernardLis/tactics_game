@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Exp Bonus
   m_EditorClassIdentifier: 
   Id: 8e7ee1a6-a64c-441d-b5c3-092a6d51a879
-  Icon: {fileID: 21300000, guid: 6ee05b2f40a3b5347b5d781b72de6e99, type: 3}
+  Icon: {fileID: 21300000, guid: da35fecfc420bab43b96209ff489521a, type: 3}
   Description: Hero Exp Bonus
   Type: 1
   Levels:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Pull
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 3f3b634968ef2dd45bf1755d63af692d, type: 3}
+  Icon: {fileID: 21300000, guid: 0bd2d0ba272e3d24cb8fedfc620f0dbf, type: 3}
   Description: Hero Pull - Range of pickups pickup
   Type: 1
   Levels:

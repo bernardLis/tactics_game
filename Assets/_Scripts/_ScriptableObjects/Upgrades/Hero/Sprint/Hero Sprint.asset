@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Sprint
   m_EditorClassIdentifier: 
   Id: 8e7ee1a6-a64c-441d-b5c3-092a6d51a879
-  Icon: {fileID: 21300000, guid: f6a96eca8b47ec04594b42f23f117936, type: 3}
+  Icon: {fileID: 21300000, guid: 912caa359e4ee10459a14d4e7a6dc2cd, type: 3}
   Description: Unlock Hero Sprint
   Type: 1
   Levels:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Building Troops Limit
   m_EditorClassIdentifier: 
   Id: fd9dd6ef-3858-47f5-8cd2-e76cbe47408e
-  Icon: {fileID: 21300000, guid: ea345a26bdd5b2945a0d0cc332ecc9a5, type: 3}
+  Icon: {fileID: 21300000, guid: 61a253738a9148c42b8246d535efd2b0, type: 3}
   Description: 
   Type: 2
   Levels:

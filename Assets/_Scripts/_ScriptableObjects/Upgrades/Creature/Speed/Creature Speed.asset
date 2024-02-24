@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Creature Speed
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 52a13c57b2a30e94080d26c72a39b1ee, type: 3}
+  Icon: {fileID: 21300000, guid: a2cb8b9ebb636ff479a0eaa44c253365, type: 3}
   Description: Creature Speed
   Type: 3
   Levels:

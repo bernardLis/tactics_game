@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Creature Armor
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 9e7d77319cb50b84f95c174a4e90cc80, type: 3}
+  Icon: {fileID: 21300000, guid: d9c817875be63464194096e014dee2c7, type: 3}
   Description: Creature Armor
   Type: 3
   Levels:

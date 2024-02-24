@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Starting Friend Balls
   m_EditorClassIdentifier: 
   Id: a05205e2-a700-4dd6-8bf7-e52d19a71a08
-  Icon: {fileID: 21300000, guid: 067c9036465b53f46ad467915cc39a65, type: 3}
+  Icon: {fileID: 21300000, guid: 541b6834b577c8c47b029478f7a75253, type: 3}
   Description: Increases number of starting friend balls.
   Type: 6
   Levels:

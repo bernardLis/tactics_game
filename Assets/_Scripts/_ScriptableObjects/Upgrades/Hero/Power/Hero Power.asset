@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Power
   m_EditorClassIdentifier: 
   Id: 4d0f4702-a6b8-40f9-96bb-f68b0554501c
-  Icon: {fileID: 21300000, guid: 68e24a42a36be2b428b10cf2aa6d568f, type: 3}
+  Icon: {fileID: 21300000, guid: 384b8d873f804a8418fed8c99e671bed, type: 3}
   Description: Hero Power
   Type: 1
   Levels:

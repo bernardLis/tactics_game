@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 using Cinemachine;
+using UnityEngine.Serialization;
 
 namespace Lis
 {
@@ -20,7 +21,7 @@ namespace Lis
         public CinemachineVirtualCamera HeroFollowCamera;
 
         [SerializeField] AudioListener _placeholderAudioListener;
-        [SerializeField] GameObject _heroSpawnEffectPrefab;
+        [SerializeField] GameObject _battleIntro;
 
         [HideInInspector] public BattleHero BattleHero;
         public Hero Hero { get; private set; }
@@ -66,7 +67,8 @@ namespace Lis
 
         IEnumerator MakeHeroFall(Hero hero)
         {
-            Instantiate(_heroSpawnEffectPrefab);
+            GameObject g = Instantiate(_battleIntro);
+            g.GetComponent<BattleIntro>().Initialize();
 
             Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
             heroAnimator.SetBool("FreeFall", true);

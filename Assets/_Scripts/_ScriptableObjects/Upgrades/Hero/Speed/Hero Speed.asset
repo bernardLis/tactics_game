@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Speed
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 4a27db71098aa784bbc434ee0f42cabb, type: 3}
+  Icon: {fileID: 21300000, guid: 9f78d1fa5436b744fbca95a50833dd7e, type: 3}
   Description: Hero Speed
   Type: 1
   Levels:

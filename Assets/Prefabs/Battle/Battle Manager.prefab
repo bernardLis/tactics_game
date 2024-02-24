@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeroFollowCamera: {fileID: 0}
   _placeholderAudioListener: {fileID: 1813988017654575525}
-  _heroSpawnEffectPrefab: {fileID: 2664498276748635270, guid: cab7c3a03dc3f5a41892360914ba488c, type: 3}
+  _battleIntro: {fileID: 5144896527666591926, guid: 1dc618647b981114bb1852689b1c8ef1, type: 3}
   BattleHero: {fileID: 0}
   RewardRerollsAvailable: 0
   _abilityToGive: {fileID: 0}

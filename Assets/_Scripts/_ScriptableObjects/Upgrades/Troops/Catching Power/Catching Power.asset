@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Catching Power
   m_EditorClassIdentifier: 
   Id: 7456ad4a-700f-4b31-8153-5790d7c3425d
-  Icon: {fileID: 21300000, guid: 4ec047f3cae45fd4ba0910f29b744b7a, type: 3}
+  Icon: {fileID: 21300000, guid: 5768acecc48a92942b843ecb27de743f, type: 3}
   Description: Increases chance to catch a creature.
   Type: 6
   Levels:

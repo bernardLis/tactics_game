@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Creature Level
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: 9115f364e3af4394a81c2ce016560c4a, type: 3}
+  Icon: {fileID: 21300000, guid: 8b719b1a72981204982d020d0af774fc, type: 3}
   Description: Starting Creature Level
   Type: 3
   Levels:

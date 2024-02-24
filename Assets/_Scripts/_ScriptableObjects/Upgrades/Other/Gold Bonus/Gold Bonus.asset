@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gold Bonus
   m_EditorClassIdentifier: 
   Id: 8e7ee1a6-a64c-441d-b5c3-092a6d51a879
-  Icon: {fileID: 21300000, guid: 6953607a5f7880b49a498defff611280, type: 3}
+  Icon: {fileID: 21300000, guid: 04706c85ab40a0f4c8355c33c75abc65, type: 3}
   Description: Get More Gold
   Type: 0
   Levels:

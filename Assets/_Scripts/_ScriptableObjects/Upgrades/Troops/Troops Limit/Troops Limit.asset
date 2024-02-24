@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Troops Limit
   m_EditorClassIdentifier: 
   Id: 911fdbae-dbd9-4fec-9a1a-9e464f4adf50
-  Icon: {fileID: 21300000, guid: 86ccaf17ea741144cb41d1caf1e437ce, type: 3}
+  Icon: {fileID: 21300000, guid: 749bbb3510c702744b3255e9de63871f, type: 3}
   Description: Increases number of creatures you can have in a team.
   Type: 6
   Levels:

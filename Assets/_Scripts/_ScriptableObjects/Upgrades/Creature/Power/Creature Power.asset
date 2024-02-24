@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Creature Power
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: fa4b12122a0d33e438f5bccb3e3dc02f, type: 3}
+  Icon: {fileID: 21300000, guid: cc25d35dad358514f85b08768fa234f6, type: 3}
   Description: Creature Power
   Type: 3
   Levels:

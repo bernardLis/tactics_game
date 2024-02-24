@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Reward Reroll
   m_EditorClassIdentifier: 
   Id: 5f03509e-de9e-4689-922f-c244fbc32c1d
-  Icon: {fileID: 21300000, guid: a080dd8faab77c641afa819eb830fcff, type: 3}
+  Icon: {fileID: 21300000, guid: 48ddc10af7a0aa840b6ec3bda2e1ba04, type: 3}
   Description: Number of reward rerolls per battle
   Type: 0
   Levels:
