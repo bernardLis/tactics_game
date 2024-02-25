@@ -85,11 +85,13 @@ namespace Lis
 
         void InitializeThrow(Quaternion rot)
         {
+            if (_hero == null) _hero = BattleManager.Instance.BattleHero;
+
             _flash.SetActive(true);
             _wasTryingToCatch = false;
 
             Transform t = transform;
-            t.DOScale(Vector3.one * 0.2f, 0.2f);
+            t.DOScale(Vector3.one, 0.2f);
             t.rotation = rot;
             t.position += Vector3.up + t.forward;
         }
@@ -134,44 +136,22 @@ namespace Lis
         {
             _hit.SetActive(true);
 
-            _rb.isKinematic = true;
-
-            if (_hero == null) _hero = BattleManager.Instance.BattleHero;
-            float chanceToCatch = bc.Creature.CalculateChanceToCatch(_hero.Hero);
             if (!_hero.Hero.CanAddToTroops())
             {
-                chanceToCatch = -1;
                 string text = "No space for more creatures!";
                 bc.DisplayFloatingText(text, Color.white);
+                yield break;
             }
 
+            _rb.isKinematic = true;
             yield return transform.DOMoveY(5f, 0.5f).WaitForCompletion();
             bc.TryCatching(this);
-            float punchScale = transform.localScale.x + 0.1f;
-            yield return transform.DOPunchScale(Vector3.one * punchScale, 1f, 3, 0.3f)
-                .SetLoops(2, LoopType.Restart)
-                .WaitForCompletion();
+            yield return CatchingEffect();
 
+            float chanceToCatch = bc.Creature.CalculateChanceToCatch(_hero.Hero);
             if (Random.value <= chanceToCatch)
             {
-                if (_hero == null) _hero = BattleManager.Instance.BattleHero;
-                Vector3 pos = _hero.transform.position
-                              + Vector3.right * Random.Range(-3f, 3f)
-                              + Vector3.forward * Random.Range(-3f, 3f)
-                              + Vector3.up * 3f;
-
-                bc.DisplayFloatingText("Caught!", Color.green);
-                yield return transform.DOMove(pos, 0.5f).WaitForCompletion();
-
-                Vector3 effPos = bc.transform.position;
-                effPos.y = 0;
-                GameObject successEffect = Instantiate(_successEffect, effPos, Quaternion.identity);
-                successEffect.SetActive(true);
-                Destroy(successEffect, 4f);
-
-                bc.Caught(pos);
-
-                DisableSelf();
+                StartCoroutine(Caught(bc));
                 yield break;
             }
 
@@ -179,6 +159,43 @@ namespace Lis
             _rb.isKinematic = false;
             bc.ReleaseFromCatching();
             yield return new WaitForSeconds(2f);
+            DisableSelf();
+        }
+
+        IEnumerator CatchingEffect()
+        {
+            yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+            int shakeCount = Random.Range(1, 4);
+            Transform t = transform;
+            t.DOShakePosition(1, Vector3.one * 0.5f)
+                .SetLoops(shakeCount, LoopType.Restart);
+            float punchScale = t.localScale.x + 0.1f;
+            yield return t.DOPunchScale(Vector3.one * punchScale, 1f, 3, 0.3f)
+                .SetLoops(shakeCount, LoopType.Restart)
+                .WaitForCompletion();
+            yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+        }
+
+        IEnumerator Caught(BattleCreature bc)
+        {
+            if (_hero == null) _hero = BattleManager.Instance.BattleHero;
+            Vector3 pos = _hero.transform.position
+                          + Vector3.right * Random.Range(-3f, 3f)
+                          + Vector3.forward * Random.Range(-3f, 3f)
+                          + Vector3.up * 3f;
+
+            bc.DisplayFloatingText("Caught!", Color.green);
+            Vector3 effPos = bc.transform.position;
+            effPos.y = 0;
+            GameObject successEffect = Instantiate(_successEffect, effPos, Quaternion.identity);
+            successEffect.SetActive(true);
+            Destroy(successEffect, 4f);
+
+            yield return new WaitForSeconds(1f);
+            yield return transform.DOMove(pos, 0.5f).WaitForCompletion();
+
+            bc.Caught(pos);
+
             DisableSelf();
         }
 
