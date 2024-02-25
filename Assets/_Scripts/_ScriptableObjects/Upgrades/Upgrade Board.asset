@@ -42,15 +42,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 268e14c61d78b4e4eac0a55d9c6a8723, type: 2}
   - {fileID: 11400000, guid: e89216b90af79b3479bd20730c7510a1, type: 2}
   - {fileID: 11400000, guid: dfc467aa1ff24034fb9075817522bda3, type: 2}
-  - {fileID: 11400000, guid: 10a0250efcc221c418a1505e87664685, type: 2}
   - {fileID: 11400000, guid: ac4ee666fe3dc004aad79363799239cc, type: 2}
   - {fileID: 11400000, guid: 8ed9a91768f654e4aa667b1e3be461c8, type: 2}
   - {fileID: 11400000, guid: 315f67fc49aec044a8389a42db300a7c, type: 2}
   - {fileID: 11400000, guid: dd41083f7d1c0d0458d749f1b9f014b6, type: 2}
   - {fileID: 11400000, guid: d70870647a029e349980a856fafa1cdc, type: 2}
   Upgrades:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

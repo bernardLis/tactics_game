@@ -22,6 +22,9 @@ namespace Lis
 
         readonly VisualElement _teamContainer;
 
+        VisualElement _resourcesContainer;
+        TroopsCountElement _troopsCounter;
+
         readonly VisualElement _heroInfoContainer;
         ResourceBarElement _expBar;
         Label _levelLabel;
@@ -39,10 +42,13 @@ namespace Lis
             _hero = hero;
             hero.OnLevelUp += OnHeroLevelUp;
             AddToClassList(_ussMain);
-            
+
             _teamContainer = new();
             _teamContainer.AddToClassList(_ussTeamContainer);
             Add(_teamContainer);
+
+            _resourcesContainer = new();
+            _teamContainer.Add(_resourcesContainer);
 
             _heroInfoContainer = new();
             _heroInfoContainer.AddToClassList(_ussInfoContainer);
@@ -50,6 +56,7 @@ namespace Lis
 
             _isAdvancedView = isAdvanced;
 
+            HandleResources();
             HandleTeam();
             HandleAbilities();
             HandleExpBar();
@@ -63,12 +70,52 @@ namespace Lis
             _levelLabel.text = $"Level {_hero.Level.Value}";
         }
 
+        void HandleResources()
+        {
+            AddFriendBallCountElement();
+            AddTroopsCountElement();
+        }
+
+        void AddFriendBallCountElement()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+
+            Label icon = new();
+            icon.style.backgroundImage = new(_gameManager.GameDatabase.FriendBallIcon);
+            icon.style.width = 25;
+            icon.style.height = 25;
+
+            Label friendBallCountLabel = new($"{_hero.NumberOfFriendBalls}");
+            friendBallCountLabel.AddToClassList(_ussCommonTextPrimary);
+            _hero.OnFriendBallCountChanged +=
+                () => friendBallCountLabel.text = $"{_hero.NumberOfFriendBalls}";
+
+            container.Add(icon);
+            container.Add(friendBallCountLabel);
+            _resourcesContainer.Add(container);
+        }
+
+        void AddTroopsCountElement()
+        {
+            _troopsCounter = new("");
+            _resourcesContainer.Add(_troopsCounter);
+            _hero.OnTroopMemberAdded += (_) => UpdateTroopsCountElement();
+            _hero.TroopsLimit.OnValueChanged += (_) => UpdateTroopsCountElement();
+
+            UpdateTroopsCountElement();
+        }
+
+        void UpdateTroopsCountElement()
+        {
+            _troopsCounter.UpdateCountContainer($"{_hero.Troops.Count}/{_hero.TroopsLimit.Value}",
+                Color.white);
+        }
 
         void HandleTeam()
         {
             foreach (Creature c in _hero.Troops)
             {
-                // TODO: creature icon that handles death & resurrection
                 CreatureIcon icon = new(c);
                 _teamContainer.Add(icon);
             }

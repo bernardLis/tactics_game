@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using DG.Tweening;
 
@@ -9,6 +6,8 @@ namespace Lis
 {
     public class QuestElement : ElementWithTooltip
     {
+        const string _ussCommonTextPrimary = "common__text-primary";
+
         readonly Quest _quest;
         readonly Label _countLabel;
 
@@ -22,10 +21,11 @@ namespace Lis
             Label icon = new();
             icon.style.width = 40;
             icon.style.height = 40;
-            icon.style.backgroundImage = new StyleBackground(q.GetIcon());
+            icon.style.backgroundImage = new(q.GetIcon());
             Add(icon);
 
-            _countLabel = new Label();
+            _countLabel = new();
+            _countLabel.AddToClassList(_ussCommonTextPrimary);
             _countLabel.style.fontSize = 20;
             Add(_countLabel);
             UpdateCountLabel();

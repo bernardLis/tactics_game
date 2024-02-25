@@ -11,7 +11,6 @@ namespace Lis
         Rigidbody _rb;
         Collider _collider;
 
-        [SerializeField] GameObject _flash;
         [SerializeField] GameObject _hit;
         [SerializeField] GameObject _successEffect;
 
@@ -87,7 +86,6 @@ namespace Lis
         {
             if (_hero == null) _hero = BattleManager.Instance.BattleHero;
 
-            _flash.SetActive(true);
             _wasTryingToCatch = false;
 
             Transform t = transform;
@@ -201,7 +199,6 @@ namespace Lis
 
         void DisableSelf()
         {
-            _flash.SetActive(false);
             _hit.SetActive(false);
 
             _collider.enabled = false;

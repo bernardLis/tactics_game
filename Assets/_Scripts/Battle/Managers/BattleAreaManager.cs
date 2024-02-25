@@ -30,6 +30,8 @@ namespace Lis
 
         VisualElement _questContainer;
 
+        VisualElement _questElementContainer;
+
         public event Action<BattleTile> OnTileUnlocked;
 
         public void Initialize()
@@ -48,7 +50,9 @@ namespace Lis
 
         void InitializeUI()
         {
-            _questContainer =
+            _questContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("quests");
+            _questContainer.style.visibility = Visibility.Hidden;
+            _questElementContainer =
                 GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("activeQuestsContainer");
         }
 
@@ -114,8 +118,8 @@ namespace Lis
             _pastQuests.Add(quest);
 
             QuestElement qe = new(quest);
-
-            _questContainer.Add(qe);
+            _questElementContainer.Add(qe);
+            _questContainer.style.visibility = Visibility.Visible;
 
             return quest;
         }

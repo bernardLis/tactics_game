@@ -1,5 +1,4 @@
 using System.Collections;
-using Codice.Client.Commands;
 using DG.Tweening;
 using UnityEngine;
 using TMPro;
@@ -9,17 +8,13 @@ namespace Lis
 {
     public class BattleIntro : MonoBehaviour
     {
-        BattleManager _battleManager;
-
         [SerializeField] TMP_Text _introText;
-
         [SerializeField] Transform _effect;
 
         readonly string _introString = "Time is the soul of this world";
 
         public void Initialize()
         {
-            _battleManager = BattleManager.Instance;
             _introText.text = _introString;
             StartCoroutine(DisplayIntroTextCoroutine());
         }
@@ -48,9 +43,10 @@ namespace Lis
             transform.DOScale(0, 0.5f).SetEase(Ease.OutBack);
             StopAllCoroutines();
             transform.DOKill();
-            gameObject.SetActive(false);
+            GameObject g = gameObject;
+            g.SetActive(false);
             yield return new WaitForSeconds(0.5f);
-            Destroy(gameObject);
+            Destroy(g);
 
             // foreach (string s in _introStrings)
             // {
@@ -58,6 +54,5 @@ namespace Lis
             //     yield return new WaitForSeconds(3f);
             // }
         }
-
     }
 }
