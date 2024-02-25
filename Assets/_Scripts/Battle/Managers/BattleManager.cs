@@ -14,7 +14,6 @@ namespace Lis
         GameManager _gameManager;
 
         BattleHeroManager _battleHeroManager;
-        BattleAreaManager _battleAreaManager;
 
         [SerializeField] Sound _battleMusic;
 
@@ -24,7 +23,6 @@ namespace Lis
 
         public VisualElement Root { get; private set; }
 
-        VisualElement _resourcePanel;
         Label _timerLabel;
 
         public Transform EntityHolder;
@@ -52,10 +50,6 @@ namespace Lis
         IEnumerator _timerCoroutine;
         int _battleTime;
 
-        // HERE: testing - boss
-        // [SerializeField] BattleEntitySpawner _spawner;
-        // [SerializeField] Entity _boss;
-
         public event Action OnBattleInitialized;
         public event Action<BattleCreature> OnPlayerCreatureAdded;
         public event Action<BattleEntity> OnPlayerEntityDeath;
@@ -73,8 +67,7 @@ namespace Lis
 
             Root = GetComponent<UIDocument>().rootVisualElement;
 
-            _resourcePanel = Root.Q<VisualElement>("resourcePanel");
-            _timerLabel = _resourcePanel.Q<Label>("timer");
+            _timerLabel = Root.Q<Label>("timer");
         }
 
         void Start()
@@ -86,8 +79,6 @@ namespace Lis
             _gameManager.SaveJsonData();
             _currentBattle = _gameManager.CurrentBattle;
             _gameManager.OnGoldChanged += (g) => GoldCollected += g;
-
-            _battleAreaManager = GetComponent<BattleAreaManager>();
 
             Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
@@ -230,11 +221,6 @@ namespace Lis
         {
             if (OpponentEntities.Count == 0) return Vector3.zero;
             return OpponentEntities[UnityEngine.Random.Range(0, OpponentEntities.Count)].transform.position;
-        }
-
-        public bool IsBossFight()
-        {
-            return _currentBattle.TilesUntilBoss == _battleAreaManager.UnlockedTiles.Count - 1;
         }
 
         public void LoseBattle()

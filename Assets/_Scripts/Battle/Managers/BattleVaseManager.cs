@@ -41,7 +41,7 @@ namespace Lis
         {
             while (true)
             {
-                if (_battleManager.IsBossFight()) yield break;
+                if (_battleManager.GetTimeLeft() < 0) yield break;
                 yield return new WaitForSeconds(Random.Range(2f, 5f)); // HERE: balance -> maybe longer
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
@@ -74,7 +74,7 @@ namespace Lis
                 if (vase.gameObject.activeSelf)
                     vase.TriggerBreak();
         }
-        
+
         void DebugSpawnVase()
         {
             if (!_debugSpawnVase) return;

@@ -11,7 +11,6 @@ namespace Lis
     {
         BattleManager _battleManager;
 
-        [SerializeField] TMP_Text _timerText;
         [SerializeField] TMP_Text _introText;
 
         [SerializeField] Transform _effect;
@@ -23,7 +22,6 @@ namespace Lis
             _battleManager = BattleManager.Instance;
             _introText.text = _introString;
             StartCoroutine(DisplayIntroTextCoroutine());
-            StartCoroutine(DisplayTimer());
         }
 
         IEnumerator DisplayIntroTextCoroutine()
@@ -61,19 +59,5 @@ namespace Lis
             // }
         }
 
-        IEnumerator DisplayTimer()
-        {
-            while (true)
-            {
-                float t = _battleManager.GetTimeLeft();
-                int minutes = Mathf.FloorToInt(t / 60f);
-                int seconds = Mathf.FloorToInt(t - minutes * 60);
-
-                _timerText.text = $"{minutes:00}:{seconds:00}";
-                yield return new WaitForSeconds(1f);
-
-                if (t <= 0) yield break;
-            }
-        }
     }
 }
