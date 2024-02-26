@@ -14,7 +14,10 @@ namespace Lis
         public UpgradeType Type;
 
         public List<UpgradeLevel> Levels;
+
+        [Tooltip("0 is unlocked, -1 is locked")]
         public int CurrentLevel = -1;
+
         public bool PermanentlyUnlocked;
 
         UpgradeBoard _board;
@@ -82,6 +85,7 @@ namespace Lis
             for (int i = 0; i < Levels.Count; i++)
                 if (i <= CurrentLevel)
                     val += Levels[i].Value;
+
             return val;
         }
 

@@ -8,7 +8,8 @@ namespace Lis
     public class BattleBuildingEntityTracker : MonoBehaviour
     {
         public readonly List<BattleEntity> PlayerEntitiesWithinRange = new();
-        public event Action<BattleEntity> OnEntityInRange;
+        public event Action<BattleEntity> OnEntityEnter;
+        public event Action<BattleEntity> OnEntityExit;
 
         public void Initialize()
         {
@@ -20,7 +21,7 @@ namespace Lis
             if (battleEntity.Team == 1) return; // TODO: hardcoded team number
             battleEntity.OnDeath += RemoveEntityFromList;
             PlayerEntitiesWithinRange.Add(battleEntity);
-            OnEntityInRange?.Invoke(battleEntity);
+            OnEntityEnter?.Invoke(battleEntity);
         }
 
         void OnTriggerExit(Collider other)
@@ -28,6 +29,7 @@ namespace Lis
             if (!other.gameObject.TryGetComponent(out BattleEntity battleEntity)) return;
             if (battleEntity.Team == 1) return; // TODO: hardcoded team number
             RemoveEntityFromList(battleEntity, null);
+            OnEntityExit?.Invoke(battleEntity);
         }
 
         void RemoveEntityFromList(BattleEntity entity, BattleEntity ignored)

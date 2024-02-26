@@ -41,7 +41,7 @@ namespace Lis
 
             NumberOfFriendBalls = 666 + globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
             TroopsLimit = CreateInstance<IntVariable>();
-            TroopsLimit.SetValue(2 + globalUpgradeBoard.GetUpgradeByName("Troops Limit").GetValue());
+            TroopsLimit.SetValue(2 + globalUpgradeBoard.GetUpgradeByName("Starting Troops Limit").GetValue());
         }
 
         protected override void CreateStats()

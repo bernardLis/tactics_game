@@ -24,8 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a21aa73e5faf3c4f91e81f7988b67fd, type: 2}
   - {fileID: 11400000, guid: c80c3a42ad75d2c4eb9d736f3f1b0e59, type: 2}
   - {fileID: 11400000, guid: 608dd33a8d392154982fb7d3c3122b57, type: 2}
-  VaseIcon: {fileID: 21300000, guid: e47c789fa5d00f340b4d6840069bb264, type: 3}
-  FriendBallIcon: {fileID: 21300000, guid: f7876974a1b60ed4ca3dfd37f229386f, type: 3}
+  - {fileID: 11400000, guid: 44ca396e2884fea4198970b63aa3cddb, type: 2}
   QuestablePickups:
   - Pickup: {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
     AmountRange: {x: 20, y: 30}
@@ -66,12 +65,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
   - {fileID: 11400000, guid: edac0f08ee9df8f44a0be73bea4c9721, type: 2}
   - {fileID: 11400000, guid: b2954c32997816242aaff6f3471fdec1, type: 2}
-  _coinSprites:
-  - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: 1029492290, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
-  - {fileID: 987951257, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  VaseIcon: {fileID: 21300000, guid: e47c789fa5d00f340b4d6840069bb264, type: 3}
+  FriendBallIcon: {fileID: 21300000, guid: bf55c32f120645b48b4f011180e3d57b, type: 3}
   LevelUpAnimationSprites:
   - {fileID: 1314029660, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}
   - {fileID: -1217882384, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}
@@ -109,3 +104,9 @@ MonoBehaviour:
   - {fileID: 1803947089, guid: e4da207c4e614bd4692db927253a703c, type: 3}
   - {fileID: -2055436937, guid: e4da207c4e614bd4692db927253a703c, type: 3}
   - {fileID: -1502597863, guid: e4da207c4e614bd4692db927253a703c, type: 3}
+  _coinSprites:
+  - {fileID: 1872467551, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: -1967989760, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: -1827811568, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: 1029492290, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}
+  - {fileID: 987951257, guid: 1a7355868c1b85d41a28f37011e26432, type: 3}

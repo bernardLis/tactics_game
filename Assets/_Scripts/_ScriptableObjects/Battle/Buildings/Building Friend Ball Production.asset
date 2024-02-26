@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9dd9f9c68924e4fa5e42acadbf1e7d, type: 3}
+  m_Name: Building Friend Ball Production
+  m_EditorClassIdentifier: 
+  Id: b185dbe8-1884-45e8-9b66-db8fb28602a2
+  Icon: {fileID: 21300000, guid: d6eebf509a4b56544b0e56d2b488957d, type: 3}
+  BuildingUpgrade: {fileID: 0}
+  BuildingPrefab: {fileID: 2907219933103629445, guid: 02b503ed7dceb22408b8df57342dc550, type: 3}

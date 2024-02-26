@@ -13,7 +13,7 @@ namespace Lis
         [SerializeField] GameObject _gfx;
         [SerializeField] protected Canvas Canvas;
 
-        Building _building;
+        protected Building Building;
         Vector3 _originalScale;
 
         bool _corruptionPaused;
@@ -24,18 +24,21 @@ namespace Lis
             BattleManager = BattleManager.Instance;
             TooltipManager = BattleTooltipManager.Instance;
 
-            _building = building;
+            Building = building;
 
             Transform t = transform;
             t.localPosition = pos;
             _originalScale = t.localScale;
 
             Canvas.gameObject.SetActive(false);
+
+            GetComponentInChildren<BattleBuildingEntityTracker>().OnEntityEnter += OnEntityEnter;
+            GetComponentInChildren<BattleBuildingEntityTracker>().OnEntityExit += OnEntityExit;
         }
 
         public void ShowBuilding()
         {
-            _building.Unlocked();
+            Building.Unlocked();
             StartCoroutine(ShowBuildingCoroutine());
         }
 
@@ -50,6 +53,19 @@ namespace Lis
             transform.DOScale(_originalScale, 1f)
                 .SetEase(Ease.OutBack);
             yield return null;
+        }
+
+
+        void OnEntityEnter(BattleEntity be)
+        {
+            if (!be.TryGetComponent(out BattleHero _)) return;
+            DisplayTooltip();
+        }
+
+        void OnEntityExit(BattleEntity be)
+        {
+            if (!be.TryGetComponent(out BattleHero _)) return;
+            HideTooltip();
         }
 
         /* INTERACTION */

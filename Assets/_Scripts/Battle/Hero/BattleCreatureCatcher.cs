@@ -93,7 +93,6 @@ namespace Lis
             if (HandlePerfectThrow()) return;
 
             Vector3 throwPosition = CalculateThrowPosition();
-            Debug.Log("Throwing ball with charge: " + _throwCharge);
             BattleFriendBall ball = InitializeBall();
             ball.Throw(transform.rotation, throwPosition);
         }

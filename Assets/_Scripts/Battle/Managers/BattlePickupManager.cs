@@ -106,5 +106,13 @@ namespace Lis
                 if (p.Pickup is ExperienceOrb)
                     p.GetToHero();
         }
+
+        public BattlePickup GetFriendBall(Vector3 pos)
+        {
+            BattlePickup battlePickup = GetObjectFromPool();
+            battlePickup.Initialize(Instantiate(_friendBall), pos);
+            battlePickup.OnCollected += PickupCollected;
+            return battlePickup;
+        }
     }
 }

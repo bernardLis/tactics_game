@@ -117,7 +117,7 @@ namespace Lis
             UnsubscribeFromEvents();
             if (Team == 0)
                 _battleHeroOpponentTracker.OnOpponentAdded += OpponentWasAdded;
-            if (Team == 1) _entityTracker.OnEntityInRange += OpponentWasAdded;
+            if (Team == 1) _entityTracker.OnEntityEnter += OpponentWasAdded;
 
             if (CurrentMainCoroutine != null)
                 StopCoroutine(CurrentMainCoroutine);
@@ -137,7 +137,7 @@ namespace Lis
             if (_battleHeroOpponentTracker != null)
                 _battleHeroOpponentTracker.OnOpponentAdded -= OpponentWasAdded;
             if (_entityTracker != null)
-                _entityTracker.OnEntityInRange -= OpponentWasAdded;
+                _entityTracker.OnEntityEnter -= OpponentWasAdded;
         }
 
         IEnumerator HangOutCoroutine()
@@ -439,7 +439,7 @@ namespace Lis
             _battleHeroOpponentTracker.RemoveOpponent(this);
 
             _opponentList = _battleHeroOpponentTracker.OpponentsInRange;
-            _entityTracker.OnEntityInRange -= OpponentWasAdded;
+            _entityTracker.OnEntityEnter -= OpponentWasAdded;
 
             transform.DOMove(spawnPos, 0.5f)
                 .OnComplete(ReleaseFromCatching);
