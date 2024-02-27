@@ -40,7 +40,7 @@ namespace Lis
             transform.parent = _battleManager.EntityHolder;
 
             _collider.enabled = true;
-            
+
             if (_followMouseCoroutine != null)
                 StopCoroutine(_followMouseCoroutine);
             _followMouseCoroutine = FollowMouseCoroutine();
@@ -153,6 +153,8 @@ namespace Lis
 
         void UpdateCaptureChance(int _)
         {
+            if (_currentCreature == null) return;
+
             float chanceToCatch = _currentCreature.Creature.CalculateChanceToCatch(_hero.Hero);
             Color color = Color.red;
             if (chanceToCatch > 0.4f) color = Color.yellow;

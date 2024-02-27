@@ -10,11 +10,24 @@ namespace Lis
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
+            Debug.Log("Dash before checks");
+            if (BattleCreature.Opponent == null || BattleCreature.IsDead)
+            {
+                yield return base.ExecuteAbilityCoroutine();
+                yield break;
+            }
+
+            BattleCreature.EntityLog.Add(
+                $"{BattleManager.GetTime()}: Entity uses ability {Creature.CreatureAbility.name}");
+
+            Debug.Log($"Dash after checks opponent: {BattleCreature.Opponent.name}");
+
             BattleCreature.StopRunEntityCoroutine();
 
             Vector3 transformPosition = transform.position;
             Vector3 oppPosition = BattleCreature.Opponent.transform.position;
-            yield return transform.DODynamicLookAt(oppPosition, 0.2f, AxisConstraint.Y).WaitForCompletion();
+            yield return BattleCreature.transform.DODynamicLookAt(oppPosition, 0.2f, AxisConstraint.Y)
+                .WaitForCompletion();
 
             _effect.SetActive(true);
 
@@ -29,10 +42,11 @@ namespace Lis
                     Mathf.FloorToInt(Creature.Power.GetValue() * 3)));
             }
 
+            Debug.Log($"Dash target position: {targetPosition}");
             Collider.enabled = false;
             targetPosition.y = 1;
             Animator.SetTrigger(AnimAbility);
-            transform.DOJump(targetPosition, 2f, 1, 0.3f)
+            BattleCreature.transform.DOJump(targetPosition, 2f, 1, 0.3f)
                 .OnComplete(() => Collider.enabled = true);
 
             Invoke(nameof(CleanUp), 2f);

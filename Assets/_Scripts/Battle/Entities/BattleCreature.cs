@@ -30,10 +30,10 @@ namespace Lis
         [SerializeField] GameObject _respawnEffect;
 
         BattleHeroOpponentTracker _battleHeroOpponentTracker;
+        BattleCreatureAbility _battleCreatureAbility;
 
         public event Action<int> OnDamageDealt;
         public event Action<BattleCreature, BattleHero> OnGettingCaught;
-
         public event Action OnAttackReady;
         public event Action OnStartedMoving;
 
@@ -167,21 +167,21 @@ namespace Lis
         }
 
 
-        protected IEnumerator ManageCreatureAbility()
-        {
-            if (!CanUseAbility()) yield break;
+        // protected IEnumerator ManageCreatureAbility()
+        // {
+        //     if (!CanUseAbility()) yield break;
+        //
+        //     if (CurrentAbilityCoroutine != null)
+        //         StopCoroutine(CurrentAbilityCoroutine);
+        //     CurrentAbilityCoroutine = CreatureAbility();
+        //     yield return CurrentAbilityCoroutine;
+        // }
 
-            if (CurrentAbilityCoroutine != null)
-                StopCoroutine(CurrentAbilityCoroutine);
-            CurrentAbilityCoroutine = CreatureAbility();
-            yield return CurrentAbilityCoroutine;
-        }
-
-        bool CanUseAbility()
-        {
-            if (!Creature.CanUseAbility()) return false;
-            return !(_currentAbilityCooldown > 0);
-        }
+        // bool CanUseAbility()
+        // {
+        //     if (!Creature.CanUseAbility()) return false;
+        //     return !(_currentAbilityCooldown > 0);
+        // }
 
         IEnumerator ManagePathing()
         {
@@ -249,29 +249,29 @@ namespace Lis
             }
         }
 
-        protected virtual IEnumerator CreatureAbility()
-        {
-            EntityLog.Add($"{BattleManager.GetTime()}: Entity uses ability");
-
-            _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
-
-
-            if (Creature.CreatureAbility.Sound != null)
-                AudioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
-
-
-            bool isAbility = false;
-            while (true)
-            {
-                if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Creature Ability"))
-                    isAbility = true;
-                bool isAbilityFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
-
-                if (isAbility && isAbilityFinished) break;
-
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
+        // protected virtual IEnumerator CreatureAbility()
+        // {
+        //     EntityLog.Add($"{BattleManager.GetTime()}: Entity uses ability");
+        //
+        //     _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
+        //
+        //
+        //     if (Creature.CreatureAbility.Sound != null)
+        //         AudioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
+        //
+        //
+        //     bool isAbility = false;
+        //     while (true)
+        //     {
+        //         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Creature Ability"))
+        //             isAbility = true;
+        //         bool isAbilityFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
+        //
+        //         if (isAbility && isAbilityFinished) break;
+        //
+        //         yield return new WaitForSeconds(0.1f);
+        //     }
+        // }
 
         bool CanAttack()
         {
@@ -355,9 +355,9 @@ namespace Lis
                 Creature.Level.Value != Creature.CreatureAbility.UnlockLevel) return;
             Creature.CreatureAbility.Unlock();
             DisplayFloatingText("Ability Unlocked!", Color.white);
-            BattleCreatureAbility bca = Instantiate(Creature.CreatureAbility.AbilityPrefab, transform)
+            _battleCreatureAbility = Instantiate(Creature.CreatureAbility.AbilityPrefab, transform)
                 .GetComponent<BattleCreatureAbility>();
-            bca.Initialize(this);
+            _battleCreatureAbility.Initialize(this);
         }
 
         public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
@@ -385,6 +385,9 @@ namespace Lis
 
         IEnumerator Respawn()
         {
+            Animator.Rebind();
+            Animator.Update(0f);
+
             _respawnEffect.SetActive(false);
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +
                                             Creature.DeathPenaltyPerLevel * Creature.Level.Value);
@@ -396,6 +399,10 @@ namespace Lis
             transform.DOMoveY(1, 0.3f);
             Gfx.transform.DOScale(1, 0.3f)
                 .OnComplete(EnableSelf);
+
+
+            if (_battleCreatureAbility != null)
+                _battleCreatureAbility.StartAbilityCooldownCoroutine();
         }
 
         void EnableSelf()
@@ -405,6 +412,9 @@ namespace Lis
             BattleEntityPathing.EnableAgent();
             IsDead = false;
             StartRunEntityCoroutine();
+
+            if (_battleCreatureAbility != null)
+                _battleCreatureAbility.StartAbilityCooldownCoroutine();
         }
 
         void DisableSelf()
@@ -468,12 +478,6 @@ namespace Lis
         public void LevelUp()
         {
             Creature.LevelUp();
-        }
-
-        [ContextMenu("Trigger Ability")]
-        public void TriggerAbility()
-        {
-            StartCoroutine(CreatureAbility());
         }
 
 

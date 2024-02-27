@@ -6,8 +6,8 @@ namespace Lis
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
     public class Creature : EntityFight
     {
-        public const int DeathPenaltyBase = 30;
-        public const int DeathPenaltyPerLevel = 5;
+        public const int DeathPenaltyBase = 1; // HERE: testing 30
+        public const int DeathPenaltyPerLevel = 1; // 5
 
         [Header("Creature")] public int UpgradeTier;
 
@@ -39,12 +39,6 @@ namespace Lis
         public bool IsAbilityUnlocked()
         {
             return Level.Value >= CreatureAbility.UnlockLevel;
-        }
-
-        public bool CanUseAbility()
-        {
-            if (CreatureAbility == null) return false;
-            return IsAbilityUnlocked();
         }
 
         public float CalculateChanceToCatch(Hero hero)
