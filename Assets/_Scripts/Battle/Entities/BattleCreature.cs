@@ -330,6 +330,8 @@ namespace Lis
         void ResetOpponent(BattleEntity _, BattleEntity __)
         {
             if (this == null) return;
+            if (Opponent == null) return;
+            if (IsDead) return;
             Opponent.OnDeath -= ResetOpponent;
             Opponent = null;
             StartRunEntityCoroutine();
@@ -387,6 +389,7 @@ namespace Lis
         {
             Animator.Rebind();
             Animator.Update(0f);
+            Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
 
             _respawnEffect.SetActive(false);
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +

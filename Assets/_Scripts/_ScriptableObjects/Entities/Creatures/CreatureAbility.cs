@@ -14,7 +14,9 @@ namespace Lis
 
         public int UnlockLevel;
 
+        [Header("Execution Conditions")]
         public bool ExecuteOnCooldown;
+
         public bool ExecuteOnMove;
         public bool ExecuteOnAttack;
         public bool ExecuteOnDeath;
@@ -22,12 +24,14 @@ namespace Lis
         public GameObject AbilityPrefab;
 
         public event Action OnAbilityUsed;
+
         public void Used()
         {
             OnAbilityUsed?.Invoke();
         }
 
         public event Action OnAbilityUnlocked;
+
         public void Unlock()
         {
             OnAbilityUnlocked?.Invoke();

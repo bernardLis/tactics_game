@@ -17,7 +17,7 @@ namespace Lis
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
 
-        readonly bool _debugSpawnMinion = false;
+        readonly bool _debugSpawnMinion = true;
 
         BattleHero _battleHero;
 
