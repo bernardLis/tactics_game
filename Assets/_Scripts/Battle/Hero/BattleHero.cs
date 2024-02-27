@@ -108,11 +108,11 @@ namespace Lis
         }
 
         /* OVERRIDES */
-        protected override void StartRunEntityCoroutine()
+        public override void StartRunEntityCoroutine()
         {
         }
 
-        protected override void StopRunEntityCoroutine()
+        public override void StopRunEntityCoroutine()
         {
         }
 

@@ -12,7 +12,7 @@ namespace Lis
 {
     public class BattleEntity : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
-        protected GameManager GameManager;
+        protected GameManager GameManager; /**/
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
         BattleGrabManager _grabManager;
@@ -135,7 +135,7 @@ namespace Lis
             _levelUpEffect.SetActive(false);
         }
 
-        protected virtual void StartRunEntityCoroutine()
+        public virtual void StartRunEntityCoroutine()
         {
             if (IsDead) return;
 
@@ -146,7 +146,7 @@ namespace Lis
             StartCoroutine(CurrentMainCoroutine);
         }
 
-        protected virtual void StopRunEntityCoroutine()
+        public virtual void StopRunEntityCoroutine()
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Stop run entity coroutine is called");
 

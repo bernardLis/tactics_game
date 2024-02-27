@@ -44,7 +44,7 @@ namespace Lis
             _quest.OnQuestUpdated -= UpdateCountLabel;
             _quest.OnQuestCompleted -= DestroySelf;
 
-            parent.Insert(1, this);
+            parent.Insert(0, this);
             style.alignSelf = Align.Center;
 
             DOTween.To(x => transform.scale = x * Vector3.one, 1, 1.5f, 1f)

@@ -19,11 +19,10 @@ namespace Lis
 
         List<BattleEntity> _opponentList = new();
 
-        protected BattleEntity Opponent { get; private set; }
+        public BattleEntity Opponent { get; private set; }
 
         protected float CurrentAttackCooldown;
         static readonly int AnimAttack = Animator.StringToHash("Attack");
-        static readonly int AnimAbility = Animator.StringToHash("Creature Ability");
         static readonly int AnimDie = Animator.StringToHash("Die");
 
         float _currentAbilityCooldown;
@@ -34,6 +33,9 @@ namespace Lis
 
         public event Action<int> OnDamageDealt;
         public event Action<BattleCreature, BattleHero> OnGettingCaught;
+
+        public event Action OnAttackReady;
+        public event Action OnStartedMoving;
 
         protected virtual void Update()
         {
@@ -205,6 +207,7 @@ namespace Lis
 
         protected virtual IEnumerator PathToOpponent()
         {
+            OnStartedMoving?.Invoke();
             BattleEntityPathing.SetStoppingDistance(Creature.AttackRange.GetValue());
             yield return BattleEntityPathing.PathToTarget(Opponent.transform);
         }
@@ -223,6 +226,7 @@ namespace Lis
         {
             while (!CanAttack()) yield return null;
             if (!IsOpponentInRange()) yield break;
+            OnAttackReady?.Invoke();
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity attacked {Opponent.name}");
 
@@ -249,10 +253,8 @@ namespace Lis
         {
             EntityLog.Add($"{BattleManager.GetTime()}: Entity uses ability");
 
-            Creature.CreatureAbility.Used();
             _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
 
-            Animator.SetTrigger(AnimAbility);
 
             if (Creature.CreatureAbility.Sound != null)
                 AudioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
@@ -276,7 +278,7 @@ namespace Lis
             return CurrentAttackCooldown < 0;
         }
 
-        protected bool IsOpponentInRange()
+        public bool IsOpponentInRange()
         {
             if (Opponent == null) return false;
             if (Opponent.IsDead) return false;
@@ -348,6 +350,14 @@ namespace Lis
         {
             DisplayFloatingText("Level Up!", Color.white);
             Creature.CurrentHealth.SetValue(Mathf.FloorToInt(Creature.MaxHealth.GetValue()));
+
+            if (Creature.CreatureAbility is null ||
+                Creature.Level.Value != Creature.CreatureAbility.UnlockLevel) return;
+            Creature.CreatureAbility.Unlock();
+            DisplayFloatingText("Ability Unlocked!", Color.white);
+            BattleCreatureAbility bca = Instantiate(Creature.CreatureAbility.AbilityPrefab, transform)
+                .GetComponent<BattleCreatureAbility>();
+            bca.Initialize(this);
         }
 
         public override IEnumerator Die(BattleEntity attacker = null, bool hasLoot = true)
