@@ -8,7 +8,7 @@ namespace Lis
     public class BattleCreatureRanged : BattleCreature
     {
         [FormerlySerializedAs("_projectileSpawnPoint")] [SerializeField]
-        protected GameObject ProjectileSpawnPoint;
+        public GameObject ProjectileSpawnPoint;
 
         BattleProjectilePool _projectilePool;
 
@@ -49,7 +49,7 @@ namespace Lis
                 out _, 1 << Tags.UnpassableLayer);
         }
 
-        protected Vector3 ClosestPositionWithClearLos()
+        public Vector3 ClosestPositionWithClearLos()
         {
             Vector3 dir = transform.position - Opponent.transform.position;
             Dictionary<Vector3, float> distances = new();

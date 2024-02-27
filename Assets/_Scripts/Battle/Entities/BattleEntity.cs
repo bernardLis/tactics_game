@@ -53,15 +53,16 @@ namespace Lis
 
         protected IEnumerator CurrentMainCoroutine;
         protected IEnumerator CurrentSecondaryCoroutine;
-        protected IEnumerator CurrentAbilityCoroutine;
 
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
         static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
         protected Color HealthColor;
+        Color _shieldColor;
 
         protected BattleHero BattleHero;
 
+        public event Action OnHit;
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, BattleEntity> OnDeath;
 
@@ -76,6 +77,7 @@ namespace Lis
             _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
 
             HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
+            _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
 
             BattleEntityShaders = GetComponent<ObjectShaders>();
             BattleEntityPathing = GetComponent<BattleEntityPathing>();
@@ -154,8 +156,6 @@ namespace Lis
                 StopCoroutine(CurrentMainCoroutine);
             if (CurrentSecondaryCoroutine != null)
                 StopCoroutine(CurrentSecondaryCoroutine);
-            if (CurrentAbilityCoroutine != null)
-                StopCoroutine(CurrentAbilityCoroutine);
 
             BattleEntityPathing.DisableAgent();
         }
@@ -235,6 +235,14 @@ namespace Lis
 
         public virtual void BaseGetHit(int dmg, Color color, BattleEntity attacker = null)
         {
+            OnHit?.Invoke();
+
+            if (IsShielded)
+            {
+                EntityLog.Add($"{BattleManager.GetTime()}: {dmg} shielded damage");
+                return;
+            }
+
             EntityLog.Add($"{BattleManager.GetTime()}: Entity takes damage {dmg}");
             StopRunEntityCoroutine();
 

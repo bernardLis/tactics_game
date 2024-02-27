@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace Lis
 {
-    public class BattleCreatureAbilityExplode : BattleCreatureAbility
+    public class BattleCreatureAbilityWhirlwind: BattleCreatureAbility
     {
         readonly float _explosionRadius = 5f;
         [SerializeField] GameObject _effect;
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-
             _effect.SetActive(true);
             Collider[] colliders = new Collider[25];
             Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, colliders);

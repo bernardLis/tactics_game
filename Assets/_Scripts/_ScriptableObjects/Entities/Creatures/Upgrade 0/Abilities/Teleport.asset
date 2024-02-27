@@ -18,3 +18,8 @@ MonoBehaviour:
   Cooldown: 10
   Sound: {fileID: 11400000, guid: 15938c58f62062547b8f31f9727d8b2e, type: 2}
   UnlockLevel: 6
+  ExecuteOnCooldown: 0
+  ExecuteOnMove: 1
+  ExecuteOnAttack: 0
+  ExecuteOnDeath: 0
+  AbilityPrefab: {fileID: 115320881711401229, guid: b2fbeed1a4a361341ad5b33aac5b1773, type: 3}
