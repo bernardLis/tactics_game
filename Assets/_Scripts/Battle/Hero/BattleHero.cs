@@ -5,15 +5,15 @@ namespace Lis
 {
     public class BattleHero : BattleEntity
     {
+        BattleAreaManager _battleAreaManager;
+
         public Hero Hero { get; private set; }
 
         BattleHeroController _thirdPersonController;
         BattleHeroHealthBar _battleHeroHealthBar;
 
-        BattleAreaManager _battleAreaManager;
         [Header("Hero")]
-        [SerializeField] GameObject _tileSecuredEffectPrefab;
-
+        [SerializeField] GameObject _tileSecuredMarkerPrefab;
 
 
         public override void InitializeGameObject()
@@ -24,6 +24,26 @@ namespace Lis
             _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
 
             GetComponent<BattleCreatureCatcher>().Initialize();
+
+            _battleAreaManager.OnTileUnlocked += OnTileUnlocked;
+        }
+
+        void OnTileUnlocked(BattleTile tile)
+        {
+            if (tile == _battleAreaManager.HomeTile) return;
+
+            Vector3 heroPos = transform.position;
+            Vector3 tilePos = tile.transform.position;
+            Vector3 dir = (tilePos - heroPos).normalized;
+            Vector3 pos = heroPos + dir * 2;
+            pos.y = 2f;
+
+            GameObject instance = Instantiate(_tileSecuredMarkerPrefab);
+            instance.transform.position = pos;
+            instance.transform.rotation = Quaternion.LookRotation(heroPos - tilePos);
+            instance.SetActive(true);
+
+            Destroy(instance, 8f);
         }
 
         public override void InitializeEntity(Entity entity, int team)
@@ -42,18 +62,6 @@ namespace Lis
             Animator.enabled = true;
 
             HandleAbilities();
-
-            _battleAreaManager.OnTileUnlocked += OnTileUnlocked;
-        }
-
-        void OnTileUnlocked(BattleTile tile)
-        {
-            Vector3 pos = transform.position + Vector3.up * 1;
-            Quaternion rot = Quaternion.LookRotation(tile.transform.position - pos);
-            GameObject tileSecuredEffect =
-                Instantiate(_tileSecuredEffectPrefab, pos, rot);
-            tileSecuredEffect.SetActive(true);
-            Destroy(tileSecuredEffect, 15f);
         }
 
         void HandleAbilities()

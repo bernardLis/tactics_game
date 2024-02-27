@@ -80,6 +80,18 @@ namespace Lis
             SetTimer(questTimerIndex);
         }
 
+        public Vector3 GetBuildingPosition()
+        {
+            if (BattleBuilding != null)
+            {
+                Debug.Log($"BattleBuilding: {BattleBuilding.transform.position}");
+
+                return BattleBuilding.transform.position;
+            }
+
+            return transform.position;
+        }
+
         void SetTimer(int questTimerIndex)
         {
             // HERE: balance 

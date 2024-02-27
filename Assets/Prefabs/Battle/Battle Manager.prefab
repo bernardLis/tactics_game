@@ -199,6 +199,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fcdbbbf7052d43b4da8cdbd1d1f54e1b, type: 2}
   HomeTile: {fileID: 0}
   UnlockedTiles: []
+  _tileUnlockedEffectPrefab: {fileID: 5146476291331516527, guid: 3e6d2a74ce93e60419db05248bccdef6, type: 3}
 --- !u!114 &892723308641058941
 MonoBehaviour:
   m_ObjectHideFlags: 0

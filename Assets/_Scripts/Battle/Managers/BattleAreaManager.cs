@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using UnityEngine.UIElements;
 
@@ -9,6 +8,8 @@ namespace Lis
 {
     public class BattleAreaManager : MonoBehaviour
     {
+        GameObject _floor;
+
         [SerializeField] Transform _floorHolder;
         [SerializeField] GameObject _floorPrefab;
 
@@ -19,17 +20,11 @@ namespace Lis
         [SerializeField] Quest[] _quests;
         readonly List<Quest> _pastQuests = new();
 
-        GameObject _floor;
-
         [HideInInspector] public BattleTile HomeTile;
-
         readonly List<BattleTile> _tiles = new();
-
-        [FormerlySerializedAs("SecuredTiles")] [HideInInspector]
-        public List<BattleTile> UnlockedTiles = new();
+        [HideInInspector] public List<BattleTile> UnlockedTiles = new();
 
         VisualElement _questContainer;
-
         VisualElement _questElementContainer;
 
         public event Action<BattleTile> OnTileUnlocked;
@@ -279,6 +274,7 @@ namespace Lis
         //https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
         public List<BattleTile> GetTilePathFromTo(BattleTile startTile, BattleTile endTile)
         {
+            Debug.Log($"Finding path from {startTile.transform.position} to {endTile.transform.position}");
             List<AStarTile> openList = new();
             List<AStarTile> closedList = new();
             openList.Add(new AStarTile(startTile, 0, 0));
@@ -312,6 +308,7 @@ namespace Lis
                         }
                     }
 
+                    if (!path.Contains(endTile)) path.Add(endTile);
                     path.Reverse();
                     return path;
                 }
