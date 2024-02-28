@@ -1618,6 +1618,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metalon
       objectReference: {fileID: 0}
+    - target: {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: DeathSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 55917a66746165448925f78c726a9171, type: 2}
+    - target: {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: AttackSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 1af641eabd0578b4c83f69bb6f0cdc33, type: 2}
+    - target: {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: _spawnSound
+      value: 
+      objectReference: {fileID: 11400000, guid: ddcd213015c1c2c4da3616b9ce6c1522, type: 2}
     - target: {fileID: 3648242271941825938, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 0.91
@@ -1722,151 +1734,17 @@ PrefabInstance:
       propertyPath: m_Direction
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7003760951700481026}
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1266497902482617696}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1283830976017516023}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
---- !u!1 &2685842916916088495 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 3227638692538731292}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3219802196726874569 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 3227638692538731292}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3441978505357297890 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 3227638692538731292}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1283830976017516023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3441978505357297890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34854aea4bf0a2d4f83859c956fbbabc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EntityLog: []
-  _spawnSound: {fileID: 11400000, guid: ddcd213015c1c2c4da3616b9ce6c1522, type: 2}
-  DeathSound: {fileID: 11400000, guid: 55917a66746165448925f78c726a9171, type: 2}
-  GetHitSound: {fileID: 0}
-  _levelUpEffect: {fileID: 3219802196726874569}
-  _deathEffect: {fileID: 6371612011005344447}
-  IsShielded: 0
-  AttackSound: {fileID: 11400000, guid: 1af641eabd0578b4c83f69bb6f0cdc33, type: 2}
-  _respawnEffect: {fileID: 2685842916916088495}
-  _abilityEffectRadius: 5
-  _tauntEffect: {fileID: 7386034014208607103}
---- !u!1 &6371612011005344447 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 3227638692538731292}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6964317707937470865 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 3227638692538731292}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8724560309207090596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 3227638692538731292}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6905898382649141616
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6964317707937470865}
-    m_Modifications:
-    - target: {fileID: 1428131391042895622, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131730711178930703, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_Name
-      value: Metalon Taunt Effect
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131730711178930703, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
---- !u!4 &7003760951700481026 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4532018185014398322, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-  m_PrefabInstance: {fileID: 6905898382649141616}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7386034014208607103 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4131730711178930703, guid: 79b6b001bd439704f955bca97e76eb0c, type: 3}
-  m_PrefabInstance: {fileID: 6905898382649141616}
   m_PrefabAsset: {fileID: 0}

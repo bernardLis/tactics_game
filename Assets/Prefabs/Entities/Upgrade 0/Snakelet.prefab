@@ -1352,6 +1352,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snakelet
       objectReference: {fileID: 0}
+    - target: {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: DeathSound
+      value: 
+      objectReference: {fileID: 11400000, guid: a62d33a6e46622a43994f35fedb13a2e, type: 2}
+    - target: {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: AttackSound
+      value: 
+      objectReference: {fileID: 11400000, guid: e250bb92afc6fac4997659e9e7d3fd7c, type: 2}
+    - target: {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: _spawnSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 483843f1d6792a04f90e78668c7e80f7, type: 2}
     - target: {fileID: 3648242271941825938, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
       value: 0.84
@@ -1416,8 +1428,7 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: -0.14
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
@@ -1427,53 +1438,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6735960244540457975}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1045339762359388827}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
---- !u!1 &2337058182760571756 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 2308956050098973113}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2523619118933518919 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 2308956050098973113}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1045339762359388827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2523619118933518919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72ca42cb9ffff047b846cff82cc4e4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EntityLog: []
-  _spawnSound: {fileID: 11400000, guid: 483843f1d6792a04f90e78668c7e80f7, type: 2}
-  DeathSound: {fileID: 11400000, guid: a62d33a6e46622a43994f35fedb13a2e, type: 2}
-  GetHitSound: {fileID: 0}
-  _levelUpEffect: {fileID: 2337058182760571756}
-  _deathEffect: {fileID: 6101652215613970458}
-  IsShielded: 0
-  AttackSound: {fileID: 11400000, guid: e250bb92afc6fac4997659e9e7d3fd7c, type: 2}
-  _respawnEffect: {fileID: 2992616552177134602}
-  _abilityHit: {fileID: 8202547833249253834}
---- !u!1 &2992616552177134602 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 2308956050098973113}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6101652215613970458 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 2308956050098973113}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7811446341659523892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1548,10 +1514,5 @@ PrefabInstance:
 --- !u!4 &1202297124683582303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8443459574572565693, guid: 7ac9696f2f6725e438a8b1505d214f72, type: 3}
-  m_PrefabInstance: {fileID: 7314509221519282146}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8202547833249253834 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1465665121303987752, guid: 7ac9696f2f6725e438a8b1505d214f72, type: 3}
   m_PrefabInstance: {fileID: 7314509221519282146}
   m_PrefabAsset: {fileID: 0}

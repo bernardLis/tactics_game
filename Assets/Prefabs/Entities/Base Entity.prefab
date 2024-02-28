@@ -427,7 +427,7 @@ MonoBehaviour:
   _deathEffect: {fileID: 8405514708836561315}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
-  _respawnEffect: {fileID: 0}
+  _respawnEffect: {fileID: 688179574862480819}
 --- !u!114 &3607482803401989862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1596,6 +1596,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
+--- !u!1 &688179574862480819 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2439972382333205281, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
+  m_PrefabInstance: {fileID: 2904929894513278610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3057495327130778742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 161572778031153892, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
