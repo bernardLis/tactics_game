@@ -62,7 +62,7 @@ namespace Lis
 
         protected BattleHero BattleHero;
 
-        public event Action OnHit;
+        public event Action OnShieldBroken;
         public event Action<int> OnDamageTaken;
         public event Action<BattleEntity, BattleEntity> OnDeath;
 
@@ -235,11 +235,10 @@ namespace Lis
 
         public virtual void BaseGetHit(int dmg, Color color, BattleEntity attacker = null)
         {
-            OnHit?.Invoke();
-
             if (IsShielded)
             {
                 EntityLog.Add($"{BattleManager.GetTime()}: {dmg} shielded damage");
+                BreakShield();
                 return;
             }
 
@@ -263,6 +262,13 @@ namespace Lis
             }
 
             StartRunEntityCoroutine();
+        }
+
+        void BreakShield()
+        {
+            DisplayFloatingText("Shield broken", _shieldColor);
+            IsShielded = false;
+            OnShieldBroken?.Invoke();
         }
 
         public void TriggerDieCoroutine(BattleEntity attacker = null)

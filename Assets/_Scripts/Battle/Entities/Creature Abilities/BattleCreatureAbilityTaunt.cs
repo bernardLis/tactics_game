@@ -1,26 +1,26 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Lis
 {
     public class BattleCreatureAbilityTaunt : BattleCreatureAbility
     {
-        readonly float _explosionRadius = 5f;
+        const float _radius = 5f;
         [SerializeField] GameObject _effect;
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            _effect.SetActive(true);
-            Collider[] colliders = new Collider[25];
-            Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, colliders);
-            foreach (Collider c in colliders)
-            {
-                if (c == null) continue;
-                if (!c.TryGetComponent(out BattleEntity entity)) continue;
-                if (entity.Team == Creature.Team) continue; // splash damage is player friendly
-                if (entity.IsDead) continue;
+            if (!BattleCreature.IsOpponentInRange()) yield break;
 
-                StartCoroutine(entity.GetHit(BattleCreature, 50));
+            yield return transform.DODynamicLookAt(BattleCreature.Opponent.transform.position, 0.2f, AxisConstraint.Y);
+            _effect.SetActive(true);
+            Animator.SetTrigger(AnimAbility);
+
+            foreach (BattleEntity be in GetOpponentsInRadius(_radius))
+            {
+                be.DisplayFloatingText("Taunted", Color.red);
+                be.GetEngaged(BattleCreature);
             }
 
             Invoke(nameof(CleanUp), 2f);

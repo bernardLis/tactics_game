@@ -3,24 +3,22 @@ using UnityEngine;
 
 namespace Lis
 {
-    public class BattleCreatureAbilityWhirlwind: BattleCreatureAbility
+    public class BattleCreatureAbilityWhirlwind : BattleCreatureAbility
     {
-        readonly float _explosionRadius = 5f;
+        readonly float _radius = 5f;
         [SerializeField] GameObject _effect;
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
+            if (!BattleCreature.IsOpponentInRange()) yield break;
             _effect.SetActive(true);
-            Collider[] colliders = new Collider[25];
-            Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, colliders);
-            foreach (Collider c in colliders)
-            {
-                if (c == null) continue;
-                if (!c.TryGetComponent(out BattleEntity entity)) continue;
-                if (entity.Team == Creature.Team) continue; // splash damage is player friendly
-                if (entity.IsDead) continue;
 
-                StartCoroutine(entity.GetHit(BattleCreature, 50));
+            Animator.SetTrigger(AnimAbility);
+
+            foreach (BattleEntity be in GetOpponentsInRadius(_radius))
+            {
+                StartCoroutine(be.GetHit(BattleCreature,
+                    Mathf.FloorToInt(Creature.Power.GetValue() * 2)));
             }
 
             Invoke(nameof(CleanUp), 2f);

@@ -39,6 +39,11 @@ namespace Lis
             Team = team;
             _audioManager = AudioManager.Instance;
             _collider = GetComponent<SphereCollider>();
+
+            if (team == 0)
+                _collider.excludeLayers = LayerMask.GetMask("Player", "Team 0", "Ability");
+            if (team == 1)
+                _collider.excludeLayers = LayerMask.GetMask("Team 1");
         }
 
         public void Shoot(Ability ability, Vector3 dir)

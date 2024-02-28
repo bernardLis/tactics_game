@@ -10,19 +10,11 @@ namespace Lis
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
+            Animator.SetTrigger(AnimAbility);
 
             _effect.SetActive(true);
-            Collider[] colliders = new Collider[25];
-            Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, colliders);
-            foreach (Collider c in colliders)
-            {
-                if (c == null) continue;
-                if (!c.TryGetComponent(out BattleEntity entity)) continue;
-                if (entity.Team == Creature.Team) continue; // splash damage is player friendly
-                if (entity.IsDead) continue;
-
-                StartCoroutine(entity.GetHit(BattleCreature, 50));
-            }
+            foreach (BattleEntity be in GetOpponentsInRadius(_explosionRadius))
+                StartCoroutine(be.GetHit(BattleCreature, 50));
 
             Invoke(nameof(CleanUp), 2f);
             yield return base.ExecuteAbilityCoroutine();

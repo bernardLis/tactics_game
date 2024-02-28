@@ -211,7 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a97bbc09cbeda49995b697a6762127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _flash: {fileID: 4870599233609553413}
   _hit: {fileID: 6333902958231775550}
   _successEffect: {fileID: 1719533934823155711}
 --- !u!1 &1719533934823155711
@@ -39536,7 +39535,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 2
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 1
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 0

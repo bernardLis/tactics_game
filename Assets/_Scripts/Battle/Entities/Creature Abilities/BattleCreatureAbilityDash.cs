@@ -42,7 +42,6 @@ namespace Lis
                     Mathf.FloorToInt(Creature.Power.GetValue() * 3)));
             }
 
-            Debug.Log($"Dash target position: {targetPosition}");
             Collider.enabled = false;
             targetPosition.y = 1;
             Animator.SetTrigger(AnimAbility);

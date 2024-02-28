@@ -13,6 +13,7 @@ namespace Lis
             if (!BattleCreature.IsOpponentInRange()) yield break;
 
             yield return transform.DODynamicLookAt(BattleCreature.Opponent.transform.position, 0.2f, AxisConstraint.Y);
+            Animator.SetTrigger(AnimAbility);
 
             _effect.transform.parent = BattleCreature.Opponent.transform;
             _effect.transform.localPosition = Vector3.one;

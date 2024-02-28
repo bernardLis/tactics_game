@@ -23,11 +23,22 @@ namespace Lis
             }
 
             if (!hasHealed) healedEntity = BattleCreature;
-            if (BattleCreature.HasFullHealth() && healedEntity == BattleCreature) yield break;
+            if (BattleCreature.HasFullHealth() && healedEntity == BattleCreature)
+            {
+                yield return base.ExecuteAbilityCoroutine();
+                yield break;
+            }
 
+            Animator.SetTrigger(AnimAbility);
             _healEffect.SetActive(true);
+
             yield return new WaitForSeconds(0.5f);
-            if (healedEntity == null) yield break;
+            if (healedEntity == null)
+            {
+                yield return base.ExecuteAbilityCoroutine();
+                yield break;
+            }
+
             _healedEffect.transform.parent = healedEntity.transform;
             _healedEffect.transform.localPosition = Vector3.up * 2;
             _healedEffect.transform.localRotation = Quaternion.Euler(new(180, 0, 0));

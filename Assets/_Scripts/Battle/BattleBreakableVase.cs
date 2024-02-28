@@ -46,7 +46,6 @@ namespace Lis
 
         void OnMouseDown()
         {
-            Debug.Log("OnMouseDown");
             TriggerBreak();
         }
 

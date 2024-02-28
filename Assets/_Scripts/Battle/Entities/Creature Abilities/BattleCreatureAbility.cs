@@ -20,9 +20,9 @@ namespace Lis
         float _currentAbilityCooldown;
 
         protected readonly int AnimAbility = Animator.StringToHash("Creature Ability");
+        bool _isInitialized;
 
         IEnumerator _abilityCooldownCoroutine;
-
         public event Action OnCooldownEnd;
 
         public virtual void Initialize(BattleCreature battleCreature)
@@ -86,6 +86,7 @@ namespace Lis
 
         protected virtual void ExecuteAbility()
         {
+            Debug.Log($"Execute ability {_currentAbilityCooldown}");
             if (_currentAbilityCooldown > 0) return;
             StartCoroutine(ExecuteAbilityCoroutine());
         }
@@ -97,6 +98,23 @@ namespace Lis
             BattleCreature.StartRunEntityCoroutine();
             StartAbilityCooldownCoroutine();
             yield return null;
+        }
+
+        protected List<BattleEntity> GetOpponentsInRadius(float radius)
+        {
+            List<BattleEntity> opponents = new List<BattleEntity>();
+            Collider[] colliders = new Collider[25];
+            Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
+            foreach (Collider c in colliders)
+            {
+                if (c == null) continue;
+                if (!c.TryGetComponent(out BattleEntity entity)) continue;
+                if (entity.Team == Creature.Team) continue;
+                if (entity.IsDead) continue;
+                opponents.Add(entity);
+            }
+
+            return opponents;
         }
     }
 }

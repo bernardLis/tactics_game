@@ -6,7 +6,6 @@ namespace Lis
     public class BattleCreatureAbilityShield : BattleCreatureAbility
     {
         [SerializeField] GameObject _effect;
-        GameObject _effectInstance;
 
         Color _shieldedColor;
 
@@ -14,23 +13,25 @@ namespace Lis
         {
             base.Initialize(battleCreature);
 
-            BattleCreature.OnDeath += (_, _) =>
-            {
-                if (_effectInstance != null)
-                    Destroy(_effectInstance);
-            };
+            BattleCreature.OnDeath += (_, _) => { _effect.SetActive(false); };
 
             _shieldedColor = GameManager.Instance.GameDatabase.GetColorByName("Water").Primary;
-            _effectInstance = Instantiate(_effect, transform);
-            BattleCreature.OnHit += BreakShield;
+            BattleCreature.OnShieldBroken += BreakShield;
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            if (BattleCreature.IsShielded) yield break;
+            Debug.Log($"Trying to shield is already shielded? {BattleCreature.IsShielded}");
+            if (BattleCreature.IsShielded || BattleCreature.IsDead)
+            {
+                yield return base.ExecuteAbilityCoroutine();
+                yield break;
+            }
+
+            Animator.SetTrigger(AnimAbility);
 
             BattleCreature.DisplayFloatingText("Shielded", _shieldedColor);
-            _effectInstance.SetActive(true);
+            _effect.SetActive(true);
             BattleCreature.IsShielded = true;
 
             yield return base.ExecuteAbilityCoroutine();
@@ -38,11 +39,7 @@ namespace Lis
 
         void BreakShield()
         {
-            if (!BattleCreature.IsShielded) return;
-
-            BattleCreature.DisplayFloatingText("Shield broken", _shieldedColor);
-            _effectInstance.SetActive(false);
-            BattleCreature.IsShielded = false;
+            _effect.SetActive(false);
         }
     }
 }

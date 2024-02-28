@@ -52,6 +52,7 @@ namespace Lis
             // TODO: pitiful solution for making entities push each other
             _agent.avoidancePriority = Random.Range(_avoidancePriorityRange.x, _avoidancePriorityRange.y);
 
+            if (!IsAgentOk()) yield break;
             while (!_agent.SetDestination(position)) yield return null;
             while (_agent.pathPending) yield return null;
 
@@ -72,7 +73,7 @@ namespace Lis
             // EntityLog.Add($"{BattleManager.GetTime()}: Path to target is called {t}");
 
             yield return PathToPosition(t.position);
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+            while (IsAgentOk() && _agent.remainingDistance > _agent.stoppingDistance)
             {
                 if (t == null) yield break;
                 _agent.SetDestination(t.position);
@@ -80,6 +81,14 @@ namespace Lis
             }
 
             DisableAgent();
+        }
+
+        bool IsAgentOk()
+        {
+            if (!_agent.isOnNavMesh) return false;
+            if (!_agent.isActiveAndEnabled) return false;
+            if (!_agent.enabled) return false;
+            return true;
         }
     }
 }

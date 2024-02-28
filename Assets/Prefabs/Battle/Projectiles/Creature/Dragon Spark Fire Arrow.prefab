@@ -4927,7 +4927,7 @@ Transform:
   m_GameObject: {fileID: 552793172771074997}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -122599,6 +122599,7 @@ GameObject:
   - component: {fileID: 5398840201927249182}
   - component: {fileID: 1864324561131462408}
   - component: {fileID: 2504167416232423300}
+  - component: {fileID: 362746876505275661}
   m_Layer: 0
   m_Name: Glow
   m_TagString: Untagged
@@ -127559,6 +127560,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &362746876505275661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6549989667174564076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &6573066238485722956
 GameObject:
   m_ObjectHideFlags: 0
@@ -171701,7 +171725,15 @@ PrefabInstance:
       objectReference: {fileID: 6776528639051855213}
     - target: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
       propertyPath: m_Name
-      value: Dragon Spark Splash Projectile
+      value: Dragon Spark Fire Arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850608504391433320, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163057434876474257, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
+      propertyPath: m_Radius
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5814588451866522659, guid: ca6c9d019cbdc5845984d2420a79f030, type: 3}
