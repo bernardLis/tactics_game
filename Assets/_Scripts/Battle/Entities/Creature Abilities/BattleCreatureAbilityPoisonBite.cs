@@ -14,6 +14,7 @@ namespace Lis
 
             yield return transform.DODynamicLookAt(BattleCreature.Opponent.transform.position, 0.2f, AxisConstraint.Y);
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
 
             _effect.transform.parent = BattleCreature.Opponent.transform;
             _effect.transform.localPosition = Vector3.one;

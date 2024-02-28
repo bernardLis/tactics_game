@@ -14,6 +14,7 @@ namespace Lis
             _effect.SetActive(true);
 
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
 
             foreach (BattleEntity be in GetOpponentsInRadius(_radius))
             {

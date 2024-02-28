@@ -7,6 +7,7 @@ namespace Lis
 {
     public class BattleCreatureAbility : MonoBehaviour
     {
+        protected AudioManager AudioManager;
         protected BattleManager BattleManager;
 
         [HideInInspector] public BattleCreature BattleCreature;
@@ -15,7 +16,7 @@ namespace Lis
         protected Animator Animator;
         protected Collider Collider;
 
-        CreatureAbility _creatureAbility;
+        protected CreatureAbility CreatureAbility;
 
         float _currentAbilityCooldown;
 
@@ -27,6 +28,7 @@ namespace Lis
 
         public virtual void Initialize(BattleCreature battleCreature)
         {
+            AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
 
             BattleCreature = battleCreature;
@@ -35,23 +37,23 @@ namespace Lis
             Animator = battleCreature.GetComponentInChildren<Animator>();
             Collider = battleCreature.GetComponent<Collider>();
 
-            _creatureAbility = Creature.CreatureAbility;
+            CreatureAbility = Creature.CreatureAbility;
             ResolveAbilityExecution();
             StartAbilityCooldownCoroutine();
         }
 
         void ResolveAbilityExecution()
         {
-            if (_creatureAbility.ExecuteOnCooldown)
+            if (CreatureAbility.ExecuteOnCooldown)
                 OnCooldownEnd += ExecuteAbility;
 
-            if (_creatureAbility.ExecuteOnAttack)
+            if (CreatureAbility.ExecuteOnAttack)
                 BattleCreature.OnAttackReady += ExecuteAbility;
 
-            if (_creatureAbility.ExecuteOnMove)
+            if (CreatureAbility.ExecuteOnMove)
                 BattleCreature.OnStartedMoving += ExecuteAbility;
 
-            if (_creatureAbility.ExecuteOnDeath)
+            if (CreatureAbility.ExecuteOnDeath)
                 BattleCreature.OnDeath += ExecuteAbilityOnDeath;
         }
 
@@ -68,7 +70,7 @@ namespace Lis
         {
             Debug.Log("Ability cooldown started");
 
-            _currentAbilityCooldown = _creatureAbility.Cooldown;
+            _currentAbilityCooldown = CreatureAbility.Cooldown;
             while (_currentAbilityCooldown > 0)
             {
                 _currentAbilityCooldown -= 1;

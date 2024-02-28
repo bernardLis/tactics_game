@@ -21,11 +21,9 @@ namespace Lis
 
         public BattleEntity Opponent { get; private set; }
 
-        protected float CurrentAttackCooldown;
+        float _currentAttackCooldown;
         static readonly int AnimAttack = Animator.StringToHash("Attack");
         static readonly int AnimDie = Animator.StringToHash("Die");
-
-        float _currentAbilityCooldown;
 
         [SerializeField] GameObject _respawnEffect;
 
@@ -39,10 +37,8 @@ namespace Lis
 
         protected virtual void Update()
         {
-            if (CurrentAttackCooldown >= 0)
-                CurrentAttackCooldown -= Time.deltaTime;
-            if (_currentAbilityCooldown >= 0)
-                _currentAbilityCooldown -= Time.deltaTime;
+            if (_currentAttackCooldown >= 0)
+                _currentAttackCooldown -= Time.deltaTime;
         }
 
         public override void InitializeEntity(Entity entity, int team)
@@ -71,9 +67,7 @@ namespace Lis
         {
             _entityTracker = entityTracker;
 
-            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
-            _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
-
+            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
             _opponentList = _entityTracker.PlayerEntitiesWithinRange;
 
             EnableSelf();
@@ -87,8 +81,7 @@ namespace Lis
         // HERE: testing
         public void DebugInitialize(int team)
         {
-            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
-            _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
+            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
             if (team == 0)
             {
@@ -166,23 +159,6 @@ namespace Lis
             return pos;
         }
 
-
-        // protected IEnumerator ManageCreatureAbility()
-        // {
-        //     if (!CanUseAbility()) yield break;
-        //
-        //     if (CurrentAbilityCoroutine != null)
-        //         StopCoroutine(CurrentAbilityCoroutine);
-        //     CurrentAbilityCoroutine = CreatureAbility();
-        //     yield return CurrentAbilityCoroutine;
-        // }
-
-        // bool CanUseAbility()
-        // {
-        //     if (!Creature.CanUseAbility()) return false;
-        //     return !(_currentAbilityCooldown > 0);
-        // }
-
         IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
@@ -230,7 +206,7 @@ namespace Lis
 
             EntityLog.Add($"{BattleManager.GetTime()}: Entity attacked {Opponent.name}");
 
-            CurrentAttackCooldown = Creature.AttackCooldown.GetValue();
+            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
             if (AttackSound != null) AudioManager.PlaySFX(AttackSound, transform.position);
             yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
@@ -249,33 +225,9 @@ namespace Lis
             }
         }
 
-        // protected virtual IEnumerator CreatureAbility()
-        // {
-        //     EntityLog.Add($"{BattleManager.GetTime()}: Entity uses ability");
-        //
-        //     _currentAbilityCooldown = Creature.CreatureAbility.Cooldown;
-        //
-        //
-        //     if (Creature.CreatureAbility.Sound != null)
-        //         AudioManager.PlaySFX(Creature.CreatureAbility.Sound, transform.position);
-        //
-        //
-        //     bool isAbility = false;
-        //     while (true)
-        //     {
-        //         if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Creature Ability"))
-        //             isAbility = true;
-        //         bool isAbilityFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
-        //
-        //         if (isAbility && isAbilityFinished) break;
-        //
-        //         yield return new WaitForSeconds(0.1f);
-        //     }
-        // }
-
         bool CanAttack()
         {
-            return CurrentAttackCooldown < 0;
+            return _currentAttackCooldown < 0;
         }
 
         public bool IsOpponentInRange()
@@ -402,7 +354,6 @@ namespace Lis
             transform.DOMoveY(1, 0.3f);
             Gfx.transform.DOScale(1, 0.3f)
                 .OnComplete(EnableSelf);
-
 
             if (_battleCreatureAbility != null)
                 _battleCreatureAbility.StartAbilityCooldownCoroutine();

@@ -30,6 +30,7 @@ namespace Lis
             }
 
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
             _healEffect.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);

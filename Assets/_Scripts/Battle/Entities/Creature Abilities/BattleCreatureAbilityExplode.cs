@@ -11,6 +11,7 @@ namespace Lis
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
 
             _effect.SetActive(true);
             foreach (BattleEntity be in GetOpponentsInRadius(_explosionRadius))

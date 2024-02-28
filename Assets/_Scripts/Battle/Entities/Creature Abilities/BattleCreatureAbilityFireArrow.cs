@@ -20,6 +20,7 @@ namespace Lis
             if (!BattleCreature.IsOpponentInRange()) yield break;
 
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
 
             Vector3 oppPos = BattleCreature.Opponent.transform.position;
             yield return transform.DODynamicLookAt(oppPos, 0.2f).WaitForCompletion();

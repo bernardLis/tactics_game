@@ -45,6 +45,7 @@ namespace Lis
             Collider.enabled = false;
             targetPosition.y = 1;
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
             BattleCreature.transform.DOJump(targetPosition, 2f, 1, 0.3f)
                 .OnComplete(() => Collider.enabled = true);
 

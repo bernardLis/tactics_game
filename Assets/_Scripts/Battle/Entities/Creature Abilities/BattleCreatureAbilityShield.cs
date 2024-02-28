@@ -29,6 +29,7 @@ namespace Lis
             }
 
             Animator.SetTrigger(AnimAbility);
+            AudioManager.PlaySFX(CreatureAbility.Sound, transform.position);
 
             BattleCreature.DisplayFloatingText("Shielded", _shieldedColor);
             _effect.SetActive(true);
