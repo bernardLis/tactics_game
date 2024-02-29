@@ -8,7 +8,7 @@ namespace Lis
         public override void Unlocked()
         {
             base.Unlocked();
-            BattleManager.Instance.BattleHero.Hero.TroopsLimit.ApplyChange(2);
+            BattleManager.Instance.HeroController.Hero.TroopsLimit.ApplyChange(2);
         }
     }
 }

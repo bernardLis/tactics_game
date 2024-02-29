@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units;
+using Lis.Units.Hero;
+using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Lis
 {
-    public class BattleFightManager : PoolManager<BattleEntity>
+    public class BattleFightManager : PoolManager<UnitController>
     {
         BattleManager _battleManager;
         BattleAreaManager _battleAreaManager;
@@ -21,7 +24,7 @@ namespace Lis
 
         readonly bool _debugSpawnMinion = true;
 
-        BattleHero _battleHero;
+        HeroController _heroController;
 
         public void Initialize()
         {
@@ -38,7 +41,7 @@ namespace Lis
 
             CreatePool(_minionPrefab);
 
-            _battleHero = _battleManager.BattleHero;
+            _heroController = _battleManager.HeroController;
 
             CreateFight();
             StartCoroutine(StartFight());
@@ -72,7 +75,7 @@ namespace Lis
             }
         }
 
-        void OnOpponentEntityDeath(BattleEntity _)
+        void OnOpponentEntityDeath(UnitController _)
         {
         }
 
@@ -97,7 +100,7 @@ namespace Lis
                 {
                     Vector3 pos =
                         _battleAreaManager
-                            .GetRandomPositionInRangeOnActiveTile(_battleHero.transform.position,
+                            .GetRandomPositionInRangeOnActiveTile(_heroController.transform.position,
                                 Random.Range(20, 40));
 
                     SpawnMinion(m, pos);
@@ -106,9 +109,9 @@ namespace Lis
             }
         }
 
-        void SpawnMinion(Entity m, Vector3 pos)
+        void SpawnMinion(Unit m, Vector3 pos)
         {
-            BattleEntity be = GetObjectFromPool();
+            UnitController be = GetObjectFromPool();
             if (be == null)
             {
                 Debug.LogError("No more minions in pool");
@@ -121,11 +124,11 @@ namespace Lis
             _battleManager.AddOpponentArmyEntity(be);
         }
 
-        void SpawnRangedOpponent(Entity entity)
+        void SpawnRangedOpponent(Unit unit)
         {
-            Vector3 pos = _battleAreaManager.GetRandomPositionInRangeOnActiveTile(_battleHero.transform.position,
+            Vector3 pos = _battleAreaManager.GetRandomPositionInRangeOnActiveTile(_heroController.transform.position,
                 Random.Range(20, 40));
-            _battleRangedOpponentManager.SpawnRangedOpponent(entity, pos);
+            _battleRangedOpponentManager.SpawnRangedOpponent(unit, pos);
         }
 
 #if UNITY_EDITOR
@@ -153,7 +156,7 @@ namespace Lis
         void DebugSpawnRangedOpponent()
         {
             if (_battleRangedOpponentManager == null) return;
-            Entity instance = Instantiate(GameManager.Instance.EntityDatabase.GetRandomRangedOpponent());
+            Unit instance = Instantiate(GameManager.Instance.EntityDatabase.GetRandomRangedOpponent());
             SpawnRangedOpponent(instance);
         }
     }

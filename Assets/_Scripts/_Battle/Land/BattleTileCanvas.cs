@@ -16,7 +16,7 @@ namespace Lis
 
         void OnEnable()
         {
-            _battleHeroTransform = BattleManager.Instance.BattleHero.transform;
+            _battleHeroTransform = BattleManager.Instance.HeroController.transform;
             _battleTile = GetComponentInParent<BattleTile>();
             _maxMoveDistance = _battleTile.Scale * 0.5f - 5f; // TODO: magic 5
 

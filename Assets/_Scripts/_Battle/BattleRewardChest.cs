@@ -6,6 +6,7 @@ using System.Collections;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units.Hero;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ namespace Lis
 
         void OnTriggerEnter(Collider collider)
         {
-            if (!collider.TryGetComponent(out BattleHero hero)) return;
+            if (!collider.TryGetComponent(out HeroController hero)) return;
             if (_isOpened) return;
 
             StartCoroutine(Open());

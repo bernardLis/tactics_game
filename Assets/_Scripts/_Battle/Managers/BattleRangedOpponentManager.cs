@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units;
+using Lis.Units.Minion;
+using Lis.Units.Projectile;
 using UnityEngine;
 
 namespace Lis
 {
-    public class BattleRangedOpponentManager : PoolManager<BattleProjectileOpponent>
+    public class BattleRangedOpponentManager : PoolManager<OpponentProjectileController>
     {
         BattleManager _battleManager;
 
@@ -58,9 +61,9 @@ namespace Lis
             return null;
         }
 
-        public void SpawnRangedOpponent(Entity entity, Vector3 pos)
+        public void SpawnRangedOpponent(Unit unit, Vector3 pos)
         {
-            entity.InitializeBattle(1);
+            unit.InitializeBattle(1);
             
             GameObject rangedOpponent = GetFromPool(_rangedOpponentPool);
             if (rangedOpponent == null) return;
@@ -68,29 +71,29 @@ namespace Lis
             rangedOpponent.transform.position = pos;
             rangedOpponent.SetActive(true);
 
-            BattleRangedOpponent opponent = rangedOpponent.GetComponent<BattleRangedOpponent>();
-            opponent.InitializeEntity(entity, 1);
-            _battleManager.AddOpponentArmyEntity(opponent);
+            RangedMinionController minionController = rangedOpponent.GetComponent<RangedMinionController>();
+            minionController.InitializeEntity(unit, 1);
+            _battleManager.AddOpponentArmyEntity(minionController);
         }
 
-        public BattleProjectileOpponent GetProjectileFromPool(ElementName element)
+        public OpponentProjectileController GetProjectileFromPool(ElementName element)
         {
-            BattleProjectileOpponent projectile = GetObjectFromPool();
+            OpponentProjectileController opponentProjectileController = GetObjectFromPool();
 
             switch (element)
             {
                 case ElementName.Earth:
-                    projectile = GetFromPool(_projectilePoolBiggerWithTime).GetComponent<BattleProjectileOpponent>();
+                    opponentProjectileController = GetFromPool(_projectilePoolBiggerWithTime).GetComponent<OpponentProjectileController>();
                     break;
                 case ElementName.Fire:
-                    projectile = GetFromPool(_projectilePoolQuick).GetComponent<BattleProjectileOpponent>();
+                    opponentProjectileController = GetFromPool(_projectilePoolQuick).GetComponent<OpponentProjectileController>();
                     break;
                 case ElementName.Wind:
-                    projectile = GetFromPool(_projectilePoolWallBounce).GetComponent<BattleProjectileOpponent>();
+                    opponentProjectileController = GetFromPool(_projectilePoolWallBounce).GetComponent<OpponentProjectileController>();
                     break;
             }
 
-            return projectile;
+            return opponentProjectileController;
         }
     }
 }

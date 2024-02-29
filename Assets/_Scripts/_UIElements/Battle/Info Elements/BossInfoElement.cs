@@ -1,17 +1,18 @@
 using Lis.Core;
+using Lis.Units.Boss;
 using UnityEngine;
 
 namespace Lis
 {
     public class BossInfoElement : EntityInfoElement
     {
-        readonly BattleBoss _battleBoss;
+        readonly BossController _bossController;
 
         readonly ResourceBarElement _stunBar;
 
-        public BossInfoElement(BattleBoss bs) : base(bs)
+        public BossInfoElement(BossController bs) : base(bs)
         {
-            _battleBoss = bs;
+            _bossController = bs;
 
             style.minWidth = 600;
 
@@ -38,14 +39,14 @@ namespace Lis
 
         void OnStunStarted()
         {
-            _stunBar.UpdateTrackedVariables(_battleBoss.CurrentStunDuration,
-                _battleBoss.TotalStunDuration);
+            _stunBar.UpdateTrackedVariables(_bossController.CurrentStunDuration,
+                _bossController.TotalStunDuration);
         }
 
         void OnStunFinished()
         {
-            _stunBar.UpdateTrackedVariables(_battleBoss.CurrentDamageToStun,
-                _battleBoss.TotalDamageToStun);
+            _stunBar.UpdateTrackedVariables(_bossController.CurrentDamageToStun,
+                _bossController.TotalDamageToStun);
         }
     }
 }

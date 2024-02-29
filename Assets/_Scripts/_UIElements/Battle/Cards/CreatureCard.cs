@@ -1,6 +1,9 @@
 
 
 
+using Lis.Units.Creature;
+using Lis.Units.Creature.Ability;
+
 namespace Lis
 {
     public class CreatureCard : EntityCard
@@ -13,8 +16,8 @@ namespace Lis
 
             PopulateCard();
 
-            if (_creature.CreatureAbility != null)
-                _topRightContainer.Add(new CreatureAbilityElement(_creature.CreatureAbility));
+            if (_creature.Ability != null)
+                _topRightContainer.Add(new Element(_creature.Ability));
         }
     }
 }

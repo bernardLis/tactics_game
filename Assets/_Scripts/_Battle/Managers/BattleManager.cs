@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units;
+using Lis.Units.Creature;
+using Lis.Units.Hero;
+using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,15 +38,13 @@ namespace Lis
         public bool IsTimerOn { get; private set; }
 
         public Hero Hero { get; private set; }
-        public BattleHero BattleHero => _battleHeroManager.BattleHero;
+        public HeroController HeroController => _battleHeroManager.HeroController;
 
-        public List<BattleEntity> PlayerEntities = new();
-        public List<BattleEntity> OpponentEntities = new();
+        public List<UnitController> PlayerEntities = new();
+        public List<UnitController> OpponentEntities = new();
 
-        public List<BattleEntity> KilledPlayerEntities = new();
-        public List<Entity> KilledOpponentEntities = new();
-
-        public List<BattleTurret> PlayerTurrets = new();
+        public List<UnitController> KilledPlayerEntities = new();
+        public List<Unit> KilledOpponentEntities = new();
 
         public int GoldCollected { get; private set; }
 
@@ -53,11 +55,10 @@ namespace Lis
         int _battleTime;
 
         public event Action OnBattleInitialized;
-        public event Action<BattleCreature> OnPlayerCreatureAdded;
-        public event Action<BattleEntity> OnPlayerEntityDeath;
-        public event Action<BattleEntity> OnOpponentEntityAdded;
-        public event Action<BattleEntity> OnOpponentEntityDeath;
-        public event Action<BattleTurret> OnPlayerTurretAdded;
+        public event Action<CreatureController> OnPlayerCreatureAdded;
+        public event Action<UnitController> OnPlayerEntityDeath;
+        public event Action<UnitController> OnOpponentEntityAdded;
+        public event Action<UnitController> OnOpponentEntityDeath;
         public event Action OnBattleFinalized;
 
         public event Action OnGamePaused;
@@ -177,43 +178,43 @@ namespace Lis
             return _currentBattle.Duration - _battleTime;
         }
 
-        public void AddPlayerArmyEntity(BattleEntity b)
+        public void AddPlayerArmyEntity(UnitController b)
         {
             b.transform.parent = EntityHolder;
             PlayerEntities.Add(b);
             b.OnDeath += OnPlayerCreatureDeath;
-            if (b is BattleCreature creature)
+            if (b is CreatureController creature)
                 OnPlayerCreatureAdded?.Invoke(creature);
         }
 
-        public void AddOpponentArmyEntity(BattleEntity b)
+        public void AddOpponentArmyEntity(UnitController b)
         {
             OpponentEntities.Add(b);
             b.OnDeath += OnOpponentDeath;
             OnOpponentEntityAdded?.Invoke(b);
         }
 
-        void OnPlayerCreatureDeath(BattleEntity be, BattleEntity killer)
+        void OnPlayerCreatureDeath(UnitController be, UnitController killer)
         {
             KilledPlayerEntities.Add(be);
             PlayerEntities.Remove(be);
             OnPlayerEntityDeath?.Invoke(be);
         }
 
-        void OnOpponentDeath(BattleEntity be, BattleEntity killer)
+        void OnOpponentDeath(UnitController be, UnitController killer)
         {
-            KilledOpponentEntities.Add(be.Entity);
+            KilledOpponentEntities.Add(be.Unit);
             OpponentEntities.Remove(be);
             OnOpponentEntityDeath?.Invoke(be);
         }
 
-        public List<BattleEntity> GetAllies(BattleEntity battleEntity)
+        public List<UnitController> GetAllies(UnitController unitController)
         {
-            if (battleEntity.Team == 0) return PlayerEntities;
+            if (unitController.Team == 0) return PlayerEntities;
             return OpponentEntities;
         }
 
-        public List<BattleEntity> GetOpponents(int team)
+        public List<UnitController> GetOpponents(int team)
         {
             if (team == 0) return OpponentEntities;
             return PlayerEntities;
@@ -235,18 +236,12 @@ namespace Lis
             StartCoroutine(BattleWon());
         }
 
-        public void AddPlayerTurret(BattleTurret turret)
-        {
-            PlayerTurrets.Add(turret);
-            OnPlayerTurretAdded?.Invoke(turret);
-        }
-
         public void SkullCollected()
         {
             if (this == null) return;
-            List<BattleEntity> copy = new(OpponentEntities);
-            foreach (BattleEntity be in copy)
-                if (be is BattleMinion)
+            List<UnitController> copy = new(OpponentEntities);
+            foreach (UnitController be in copy)
+                if (be is MinionController)
                     StartCoroutine(be.Die());
         }
 
@@ -292,8 +287,8 @@ namespace Lis
         public void KillAllOpponents()
         {
             if (this == null) return;
-            List<BattleEntity> copy = new(OpponentEntities);
-            foreach (BattleEntity be in copy)
+            List<UnitController> copy = new(OpponentEntities);
+            foreach (UnitController be in copy)
             {
                 StartCoroutine(be.Die());
             }

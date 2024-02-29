@@ -1,6 +1,8 @@
 using System.Collections;
 using DG.Tweening;
 using Lis.Core;
+using Lis.Units;
+using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis
@@ -49,7 +51,7 @@ namespace Lis
 
             Transform t = transform;
             t.localScale = Vector3.zero;
-            transform.LookAt(BattleManager.GetComponent<BattleHeroManager>().BattleHero.transform.position);
+            transform.LookAt(BattleManager.GetComponent<BattleHeroManager>().HeroController.transform.position);
 
             transform.DOScale(_originalScale, 1f)
                 .SetEase(Ease.OutBack);
@@ -57,20 +59,20 @@ namespace Lis
         }
 
 
-        void OnEntityEnter(BattleEntity be)
+        void OnEntityEnter(UnitController be)
         {
-            if (!be.TryGetComponent(out BattleHero _)) return;
+            if (!be.TryGetComponent(out HeroController _)) return;
             DisplayTooltip();
         }
 
-        void OnEntityExit(BattleEntity be)
+        void OnEntityExit(UnitController be)
         {
-            if (!be.TryGetComponent(out BattleHero _)) return;
+            if (!be.TryGetComponent(out HeroController _)) return;
             HideTooltip();
         }
 
         /* INTERACTION */
-        public virtual bool CanInteract(BattleInteractor interactor)
+        public virtual bool CanInteract(Interactor interactor)
         {
             return true;
         }
@@ -85,7 +87,7 @@ namespace Lis
             Canvas.gameObject.SetActive(false);
         }
 
-        public virtual bool Interact(BattleInteractor interactor)
+        public virtual bool Interact(Interactor interactor)
         {
             return true;
         }

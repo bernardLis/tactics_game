@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units.Hero;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -30,7 +31,7 @@ namespace Lis
 
             _feelPlayer = GetComponent<MMF_Player>();
 
-            _hero = _battleManager.GetComponent<BattleHeroManager>().BattleHero.Hero;
+            _hero = _battleManager.GetComponent<BattleHeroManager>().HeroController.Hero;
             _sphereCollider = GetComponent<SphereCollider>();
 
             _hero.Pull.OnValueChanged += SetPickUpRadius;
@@ -65,12 +66,12 @@ namespace Lis
 
         void OnTriggerEnter(Collider col)
         {
-            if (!col.TryGetComponent(out BattleHero hero)) return;
+            if (!col.TryGetComponent(out HeroController hero)) return;
 
             PickUp(hero);
         }
 
-        void PickUp(BattleHero hero)
+        void PickUp(HeroController heroController)
         {
             if (Pickup == null) return;
 
@@ -85,7 +86,7 @@ namespace Lis
             float punchDuration = 0.5f;
             transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1);
 
-            Vector3 heroPosition = hero.transform.position;
+            Vector3 heroPosition = heroController.transform.position;
             Vector3 jumpPos = new(
                 heroPosition.x,
                 heroPosition.y + 2f,
@@ -100,7 +101,7 @@ namespace Lis
                 .SetDelay(punchDuration)
                 .OnComplete(() =>
                 {
-                    Pickup.Collected(hero.Hero);
+                    Pickup.Collected(heroController.Hero);
                     gameObject.SetActive(false);
                 });
 
@@ -121,8 +122,8 @@ namespace Lis
         {
             if (!gameObject.activeSelf) return;
 
-            transform.DOMove(_battleManager.BattleHero.transform.position + Vector3.up, Random.Range(0.5f, 2f))
-                .OnComplete(() => { PickUp(_battleManager.BattleHero); });
+            transform.DOMove(_battleManager.HeroController.transform.position + Vector3.up, Random.Range(0.5f, 2f))
+                .OnComplete(() => { PickUp(_battleManager.HeroController); });
         }
 
         void DisplayText(string text, Color color)

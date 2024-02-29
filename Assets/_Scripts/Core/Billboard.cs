@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Core
 {
     public class Billboard : MonoBehaviour
     {

@@ -4,6 +4,8 @@ using System.Linq;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units.Hero;
+using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;

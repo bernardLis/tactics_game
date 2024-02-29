@@ -2,6 +2,7 @@
 
 
 using Lis.Core;
+using Lis.Units.Hero.Rewards;
 
 namespace Lis
 {

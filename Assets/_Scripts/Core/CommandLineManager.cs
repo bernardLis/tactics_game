@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core.Utilities;
+using Lis.Units;
+using Lis.Units.Creature;
+using Lis.Units.Hero;
+using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -166,9 +170,9 @@ namespace Lis.Core
             Button levelUpButton = new() { text = "Level Up" };
             levelUpButton.clickable.clicked += () =>
             {
-                foreach (BattleEntity e in BattleManager.Instance.PlayerEntities)
+                foreach (UnitController e in BattleManager.Instance.PlayerEntities)
                 {
-                    BattleCreature bc = (BattleCreature)e;
+                    CreatureController bc = (CreatureController)e;
                     bc.Creature.LevelUp();
                 }
             };
@@ -200,13 +204,13 @@ namespace Lis.Core
         void AddCreature(Creature c, int team, Vector3 pos)
         {
             c.InitializeBattle(team);
-            BattleEntity be = SpawnEntity(c, team, pos);
+            UnitController be = SpawnEntity(c, team, pos);
             if (team == 0)
                 BattleManager.Instance.AddPlayerArmyEntity(be);
             if (team == 1)
                 BattleManager.Instance.AddOpponentArmyEntity(be);
 
-            BattleCreature bc = (BattleCreature)be;
+            CreatureController bc = (CreatureController)be;
             bc.DebugInitialize(team);
         }
 
@@ -214,7 +218,7 @@ namespace Lis.Core
         {
             Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
             c.InitializeBattle(team);
-            BattleEntity be = SpawnEntity(c, team, Vector3.zero);
+            UnitController be = SpawnEntity(c, team, Vector3.zero);
             if (team == 0)
                 BattleManager.Instance.AddPlayerArmyEntity(be);
             if (team == 1)
@@ -249,13 +253,13 @@ namespace Lis.Core
         }
 
 
-        BattleEntity SpawnEntity(Entity entity, int team, Vector3 spawnPos)
+        UnitController SpawnEntity(Unit unit, int team, Vector3 spawnPos)
         {
             Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
-            GameObject instance = Instantiate(entity.Prefab, pos, transform.localRotation);
-            BattleEntity be = instance.GetComponent<BattleEntity>();
+            GameObject instance = Instantiate(unit.Prefab, pos, transform.localRotation);
+            UnitController be = instance.GetComponent<UnitController>();
             be.InitializeGameObject();
-            be.InitializeEntity(entity, team);
+            be.InitializeEntity(unit, team);
             return be;
         }
 
@@ -266,9 +270,9 @@ namespace Lis.Core
             Button clearButton = new() { text = "Clear" };
             clearButton.clickable.clicked += () =>
             {
-                List<BattleEntity> collection = new(battleManager.PlayerEntities);
+                List<UnitController> collection = new(battleManager.PlayerEntities);
                 collection.AddRange(battleManager.OpponentEntities);
-                foreach (BattleEntity e in collection)
+                foreach (UnitController e in collection)
                     e.TriggerDieCoroutine();
                 Invoke(nameof(Clear), 1f);
             };
@@ -417,8 +421,8 @@ namespace Lis.Core
         {
             BattleManager battleManager = BattleManager.Instance;
             if (battleManager == null) return;
-            List<BattleEntity> creatures = new(battleManager.PlayerEntities);
-            foreach (BattleCreature creature in creatures)
+            List<UnitController> creatures = new(battleManager.PlayerEntities);
+            foreach (CreatureController creature in creatures)
                 creature.TriggerDeath();
         }
 

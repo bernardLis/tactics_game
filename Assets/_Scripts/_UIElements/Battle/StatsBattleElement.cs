@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units;
+using Lis.Units.Creature;
+using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -136,7 +139,7 @@ namespace Lis
             container.Add(text);
 
             int minionKillCount = 0;
-            foreach (Entity e in _battleManager.KilledOpponentEntities)
+            foreach (Unit e in _battleManager.KilledOpponentEntities)
                 if (e is Minion)
                     minionKillCount++;
 
@@ -162,7 +165,7 @@ namespace Lis
 
             Dictionary<Sprite, int> creatureKillCount = new();
 
-            foreach (Entity e in _battleManager.KilledOpponentEntities)
+            foreach (Unit e in _battleManager.KilledOpponentEntities)
             {
                 if (e is not Creature) continue;
                 if (creatureKillCount.ContainsKey(e.Icon))

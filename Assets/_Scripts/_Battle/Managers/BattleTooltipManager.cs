@@ -3,6 +3,8 @@ using System.Collections;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units;
+using Lis.Units.Boss;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -27,7 +29,7 @@ namespace Lis
         VisualElement _currentTooltip;
         public GameObject CurrentTooltipDisplayer { get; private set; }
 
-        public BattleEntity CurrentEntityInfo { get; private set; }
+        public UnitController CurrentEntityInfo { get; private set; }
 
 
         ResourceBarElement _tileSecureBar;
@@ -99,12 +101,12 @@ namespace Lis
 
         void SetUpEntityInfo()
         {
-            _entityInfoElement = new EntityInfoElement(_battleManager.BattleHero); // placeholder entity
+            _entityInfoElement = new EntityInfoElement(_battleManager.HeroController); // placeholder unit
             _entityInfoElement.style.display = DisplayStyle.None;
             _entityInfoContainer.Add(_entityInfoElement);
         }
 
-        public void ShowEntityInfo(BattleEntity entity)
+        public void ShowEntityInfo(UnitController entity)
         {
             if (entity.IsDead) return;
             if (_isBossHealthBarShown) return;
@@ -121,12 +123,12 @@ namespace Lis
             _entityInfoElement.style.display = DisplayStyle.None;
         }
 
-        public void ShowBossHealthBar(BattleBoss boss)
+        public void ShowBossHealthBar(BossController bossController)
         {
             HideEntityInfo();
 
-            CurrentEntityInfo = boss;
-            BossInfoElement info = new(boss);
+            CurrentEntityInfo = bossController;
+            BossInfoElement info = new(bossController);
             _entityInfoContainer.Add(info);
             _entityInfoContainer.style.display = DisplayStyle.Flex;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using DG.Tweening;
+using Lis.Units;
 using UnityEngine;
 
 namespace Lis
@@ -48,8 +49,8 @@ namespace Lis
             transform.DOScale(scale * 0.5f, 1f)
                 .SetEase(Ease.OutBounce);
 
-            List<BattleEntity> enemies = new(BattleManager.GetOpponents(0));
-            foreach (BattleEntity be in enemies)
+            List<UnitController> enemies = new(BattleManager.GetOpponents(0));
+            foreach (UnitController be in enemies)
                 be.BaseGetHit(100, Color.red);
 
             yield return new WaitForSeconds(4f);

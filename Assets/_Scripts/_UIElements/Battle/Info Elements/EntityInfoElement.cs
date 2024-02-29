@@ -1,4 +1,5 @@
 using Lis.Core;
+using Lis.Units;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,7 +9,7 @@ namespace Lis
     {
         const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "entity-info__";
+        const string _ussClassName = "unit-info__";
         const string _ussMain = _ussClassName + "main";
 
         protected GameManager _gameManager;
@@ -16,7 +17,7 @@ namespace Lis
         readonly Label _name;
         readonly ResourceBarElement _bar;
 
-        public EntityInfoElement(BattleEntity be)
+        public EntityInfoElement(UnitController be)
         {
             _gameManager = GameManager.Instance;
             StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
@@ -52,10 +53,10 @@ namespace Lis
             Add(_bar);
         }
 
-        public void UpdateEntityInfo(BattleEntity be)
+        public void UpdateEntityInfo(UnitController be)
         {
-            _name.text = be.Entity.EntityName;
-            _bar.UpdateTrackedVariables(be.Entity.CurrentHealth, totalStat: be.Entity.MaxHealth);
+            _name.text = be.Unit.EntityName;
+            _bar.UpdateTrackedVariables(be.Unit.CurrentHealth, totalStat: be.Unit.MaxHealth);
         }
     }
 }

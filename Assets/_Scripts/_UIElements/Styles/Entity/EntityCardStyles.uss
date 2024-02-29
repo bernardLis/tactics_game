@@ -1,9 +1,0 @@
-.entity-card__main {
-}
-
-
-.entity-card__element {
-    position: absolute;
-    top: -20px;
-    right: -20px;
-}

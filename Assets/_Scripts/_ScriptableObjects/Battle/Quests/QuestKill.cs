@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units;
+using Lis.Units.Minion;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,9 +36,9 @@ namespace Lis
             OnQuestCompleted += () => BattleManager.Instance.OnOpponentEntityDeath -= CheckMinionDeath;
         }
 
-        void CheckMinionDeath(BattleEntity entity)
+        void CheckMinionDeath(UnitController entity)
         {
-            if (entity.Entity.Id == MinionToKill.Id)
+            if (entity.Unit.Id == MinionToKill.Id)
                 UpdateQuest();
         }
 

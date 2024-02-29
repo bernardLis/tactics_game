@@ -1,0 +1,9 @@
+.unit-card__main {
+}
+
+
+.unit-card__element {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+}

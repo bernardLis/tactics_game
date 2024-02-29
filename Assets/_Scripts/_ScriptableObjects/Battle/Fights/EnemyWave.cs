@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units;
+using Lis.Units.Minion;
 using UnityEngine;
 
 namespace Lis
@@ -10,7 +12,7 @@ namespace Lis
 
         public List<EnemyGroup> EnemyGroups = new();
 
-        public Entity RangedOpponent;
+        public Unit RangedOpponent;
 
         /*
          * Wave should be point based

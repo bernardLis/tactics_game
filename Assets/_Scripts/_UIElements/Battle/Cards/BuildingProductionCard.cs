@@ -1,6 +1,7 @@
 
 
 
+using Lis.Units;
 using Lis.Upgrades;
 using UnityEngine.UIElements;
 
@@ -24,8 +25,8 @@ namespace Lis
 
         protected override void HandleIcon()
         {
-            EntityIcon entityIcon = new(_buildingProduction.ProducedCreature);
-            _topLeftContainer.Add(entityIcon);
+            UnitIcon unitIcon = new(_buildingProduction.ProducedCreature);
+            _topLeftContainer.Add(unitIcon);
         }
 
         void HandleLevelLabel()

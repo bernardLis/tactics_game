@@ -10,7 +10,7 @@ public class BattleTrackHeroPosition : MonoBehaviour
 
     void OnEnable()
     {
-        _heroTransform = BattleManager.Instance.BattleHero.transform;
+        _heroTransform = BattleManager.Instance.HeroController.transform;
         _updatePositionCoroutine = UpdatePosition();
         StartCoroutine(_updatePositionCoroutine);
     }

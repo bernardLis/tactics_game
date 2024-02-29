@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
+using Lis.Units;
 using UnityEngine;
 
 namespace Lis
@@ -26,9 +27,9 @@ namespace Lis
         bool _portalShown;
         AudioSource _portalHumSource;
 
-        public List<BattleEntity> SpawnedEntities = new();
+        public List<UnitController> SpawnedEntities = new();
 
-        public event Action<BattleEntity> OnSpawnComplete;
+        public event Action<UnitController> OnSpawnComplete;
 
         void Awake()
         {
@@ -55,36 +56,36 @@ namespace Lis
                 .SetEase(Ease.OutBack);
         }
 
-        public void SpawnEntity(Entity entity, BattleEntity battleEntity, int team)
+        public void SpawnEntity(Unit unit, UnitController unitController, int team)
         {
             SpawnedEntities = new();
             _portalShown = false;
             gameObject.SetActive(true);
-            ShowPortal(entity.Element);
+            ShowPortal(unit.Element);
 
-            StartCoroutine(SpawnCoroutine(entity, battleEntity, team));
+            StartCoroutine(SpawnCoroutine(unit, unitController, team));
         }
 
-        IEnumerator SpawnCoroutine(Entity entity, BattleEntity battleEntity, int team)
+        IEnumerator SpawnCoroutine(Unit unit, UnitController unitController, int team)
         {
             yield return new WaitForSeconds(0.6f);
             Vector3 pos = transform.position;
 
-            battleEntity.transform.position = pos;
-            battleEntity.gameObject.SetActive(true);
-            entity.InitializeBattle(team);
-            battleEntity.InitializeEntity(entity, team);
-            SpawnedEntities.Add(battleEntity);
+            unitController.transform.position = pos;
+            unitController.gameObject.SetActive(true);
+            unit.InitializeBattle(team);
+            unitController.InitializeEntity(unit, team);
+            SpawnedEntities.Add(unitController);
 
             _audioManager.PlaySFX(_portalPopEntitySound, pos);
 
-            Vector3 scale = battleEntity.transform.localScale;
+            Vector3 scale = unitController.transform.localScale;
             Vector3 jumpPos = pos + transform.forward * scale.z;
             jumpPos.y = scale.y;
 
-            yield return battleEntity.transform.DOJump(jumpPos, 1f, 1, 0.5f)
+            yield return unitController.transform.DOJump(jumpPos, 1f, 1, 0.5f)
                 .WaitForCompletion();
-            OnSpawnComplete?.Invoke(battleEntity);
+            OnSpawnComplete?.Invoke(unitController);
 
             yield return new WaitForSeconds(1f);
             DisableSelf();

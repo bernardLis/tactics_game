@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lis.Units;
 using UnityEngine;
 
 namespace Lis.Core.Utilities
@@ -30,7 +31,7 @@ namespace Lis.Core.Utilities
         T InstantiateNewObject()
         {
             T p = Instantiate(_prefab, PoolHolder).GetComponent<T>();
-            if (p.TryGetComponent(out BattleEntity entity))
+            if (p.TryGetComponent(out UnitController entity))
                 entity.InitializeGameObject();
 
             p.gameObject.SetActive(false);

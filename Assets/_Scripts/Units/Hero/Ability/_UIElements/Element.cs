@@ -1,0 +1,126 @@
+using System.Collections.Generic;
+using Lis.Core;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace Lis.Units.Hero.Ability
+{
+    public class Element : ElementWithTooltip
+    {
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonButtonBasic = "common__button-basic";
+
+        const string _ussClassName = "ability-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussBorder = _ussClassName + "border";
+        const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
+        const string _ussLevelDotFull = _ussClassName + "level-dot-full";
+
+        readonly AudioManager _audioManager;
+
+        readonly VisualElement _icon;
+
+        readonly Ability _ability;
+
+        OverlayTimerElement _cooldownTimer;
+
+        public Element(Ability ability, bool showLevel = false, int size = 100)
+        {
+            StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
+            if (ss != null) styleSheets.Add(ss);
+
+            _audioManager = AudioManager.Instance;
+
+            _ability = ability;
+            _ability.OnCooldownStarted += StartCooldown;
+
+            AddToClassList(_ussMain);
+            AddToClassList(_ussCommonTextPrimary);
+            AddToClassList(_ussCommonButtonBasic);
+            style.width = size;
+            style.height = size;
+
+            _icon = new();
+            _icon.AddToClassList(_ussIcon);
+            _icon.style.backgroundImage = ability.Icon.texture;
+            Add(_icon);
+
+            VisualElement border = new();
+            border.AddToClassList(_ussBorder);
+            Add(border);
+
+
+            if (showLevel) AddLevelUpDots();
+        }
+
+        void AddLevelUpDots()
+        {
+            VisualElement dotContainer = new();
+            dotContainer.style.flexDirection = FlexDirection.Row;
+            dotContainer.style.position = Position.Absolute;
+            dotContainer.style.top = Length.Percent(15);
+            Add(dotContainer);
+            List<VisualElement> dots = new();
+            for (int i = 0; i < _ability.Levels.Count; i++)
+            {
+                VisualElement dot = new();
+                dot.AddToClassList(_ussLevelDotEmpty);
+                dots.Add(dot);
+                dotContainer.Add(dot);
+            }
+
+            for (int i = 0; i < _ability.Level + 1; i++)
+                dots[i].AddToClassList(_ussLevelDotFull);
+
+            _ability.OnLevelUp += () =>
+            {
+                for (int i = 0; i < _ability.Level + 1; i++)
+                    dots[i].AddToClassList(_ussLevelDotFull);
+            };
+        }
+
+
+        void StartCooldown()
+        {
+            _icon.style.opacity = 0.5f;
+            transform.scale = Vector3.one * 0.9f;
+
+            if (_cooldownTimer != null) RemoveCooldownTimer();
+
+            _cooldownTimer = new OverlayTimerElement(_ability.GetCooldown() - 0.5f, _ability.GetCooldown(), false, "");
+            _cooldownTimer.style.width = Length.Percent(90);
+            _cooldownTimer.style.height = Length.Percent(90);
+
+            Add(_cooldownTimer);
+            _cooldownTimer.OnTimerFinished += OnCooldownFinished;
+        }
+
+        void OnCooldownFinished()
+        {
+            _audioManager.PlayUI("Ability Available");
+            _icon.style.opacity = 1f;
+            transform.scale = Vector3.one;
+
+            RemoveCooldownTimer();
+        }
+
+        void RemoveCooldownTimer()
+        {
+            if (_cooldownTimer != null)
+            {
+                Remove(_cooldownTimer);
+                _cooldownTimer.OnTimerFinished -= OnCooldownFinished;
+                _cooldownTimer = null;
+            }
+        }
+
+        protected override void DisplayTooltip()
+        {
+            TooltipElement tt = new(_ability);
+            _tooltip = new(this, tt);
+            base.DisplayTooltip();
+        }
+    }
+}

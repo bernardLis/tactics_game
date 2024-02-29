@@ -1,0 +1,24 @@
+.unit-icon__main {
+    width: 100px;
+    height: 100px;
+}
+
+.unit-icon__icon-container {
+    width: 90px;
+    height: 90px;
+    -unity-background-scale-mode: scale-to-fit;
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    margin-left: 5px;
+    margin-top: 5px;
+    position: absolute;
+}
+
+.unit-icon__frame {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/icon_frame.png?fileID=2800000&guid=b6f2846fb71927d4dab52664cc1c07f1&type=3#icon_frame');
+}

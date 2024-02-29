@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lis.Units;
+using Lis.Units.Creature;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -33,7 +35,7 @@ namespace Lis
         int _currentProductionDelaySecond;
         BuildingProduction _buildingProduction;
         BattleCreaturePool _creaturePool;
-        readonly List<BattleCreature> _producedCreatures = new();
+        readonly List<CreatureController> _producedCreatures = new();
 
 
         public override void Initialize(Vector3 pos, Building building)
@@ -105,9 +107,9 @@ namespace Lis
             _spawner.SpawnEntity(creature, _creaturePool.GetObjectFromPool(), 1);
         }
 
-        void OnCreatureSpawned(BattleEntity be)
+        void OnCreatureSpawned(UnitController be)
         {
-            BattleCreature bc = be as BattleCreature;
+            CreatureController bc = be as CreatureController;
 
             BattleManager.AddOpponentArmyEntity(bc);
             _producedCreatures.Add(bc);
@@ -125,7 +127,7 @@ namespace Lis
             };
         }
 
-        public List<BattleEntity> GetPlayerEntitiesWithinRange()
+        public List<UnitController> GetPlayerEntitiesWithinRange()
         {
             return _buildingEntityTracker.PlayerEntitiesWithinRange;
         }

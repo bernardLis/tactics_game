@@ -1,3 +1,6 @@
+using Lis.Units.Creature;
+using Lis.Units.Hero;
+using Lis.Units.Minion;
 using UnityEngine;
 
 namespace Lis
@@ -20,8 +23,8 @@ namespace Lis
         {
             BattleManager.Instance.OnOpponentEntityDeath += (be) =>
             {
-                if (be is BattleCreature) Stats.CreaturesKilled++;
-                else if (be is BattleMinion) Stats.MinionsKilled++;
+                if (be is CreatureController) Stats.CreaturesKilled++;
+                else if (be is MinionController) Stats.MinionsKilled++;
             };
         }
 
@@ -68,7 +71,7 @@ namespace Lis
 
         void TrackFriendBalls()
         {
-            BattleManager.Instance.BattleHero.GetComponent<BattleCreatureCatcher>().OnBallThrown +=
+            BattleManager.Instance.HeroController.GetComponent<CreatureCatcher>().OnBallThrown +=
                 () => Stats.FriendBallsThrown++;
         }
     }

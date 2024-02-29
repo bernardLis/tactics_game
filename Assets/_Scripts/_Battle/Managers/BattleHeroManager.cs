@@ -6,6 +6,9 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using Cinemachine;
 using Lis.Core;
+using Lis.Units.Hero;
+using Lis.Units.Hero.Ability;
+using Lis.Units.Hero.Tablets;
 using UnityEngine.Serialization;
 
 namespace Lis
@@ -24,7 +27,7 @@ namespace Lis
         [SerializeField] AudioListener _placeholderAudioListener;
         [SerializeField] GameObject _battleIntro;
 
-        [HideInInspector] public BattleHero BattleHero;
+        [FormerlySerializedAs("BattleHero")] [HideInInspector] public HeroController HeroController;
         public Hero Hero { get; private set; }
 
         LevelUpScreen _levelUpScreen;
@@ -44,12 +47,12 @@ namespace Lis
 
             GameObject heroGameObject = Instantiate(hero.Prefab, Vector3.zero + Vector3.up * 10f,
                 Quaternion.identity);
-            BattleHero = heroGameObject.GetComponentInChildren<BattleHero>();
-            BattleHero.InitializeGameObject();
+            HeroController = heroGameObject.GetComponentInChildren<HeroController>();
+            HeroController.InitializeGameObject();
             HeroFollowCamera.Follow = heroGameObject.transform;
 
-            _battleManager.PlayerEntities.Add(BattleHero);
-            BattleHero.OnDeath += (_, _) => _battleManager.LoseBattle();
+            _battleManager.PlayerEntities.Add(HeroController);
+            HeroController.OnDeath += (_, _) => _battleManager.LoseBattle();
 
             _placeholderAudioListener.enabled = false;
             StartCoroutine(MakeHeroFall(hero));
@@ -71,18 +74,18 @@ namespace Lis
             GameObject g = Instantiate(_battleIntro);
             g.GetComponent<BattleIntro>().Initialize();
 
-            Animator heroAnimator = BattleHero.GetComponentInChildren<Animator>();
+            Animator heroAnimator = HeroController.GetComponentInChildren<Animator>();
             heroAnimator.SetBool("FreeFall", true);
-            BattleHero.transform.DOMoveY(0f, 1f);
+            HeroController.transform.DOMoveY(0f, 1f);
             yield return new WaitForSeconds(0.5f);
             heroAnimator.SetBool("FreeFall", false);
             heroAnimator.SetBool("Grounded", true);
 
-            BattleHero.InitializeEntity(hero, 0);
-            _battleManager.AddPlayerArmyEntity(BattleHero);
+            HeroController.InitializeEntity(hero, 0);
+            _battleManager.AddPlayerArmyEntity(HeroController);
             _heroBattleElement = new(hero);
             _bottomPanel.Add(_heroBattleElement);
-            BattleHero.GetComponent<NavMeshAgent>().enabled = true;
+            HeroController.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         void OnHeroLevelUp()
