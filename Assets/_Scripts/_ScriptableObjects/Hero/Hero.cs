@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Lis.Core;
+using Lis.Upgrades;
 using UnityEngine;
 
 namespace Lis
@@ -18,10 +20,11 @@ namespace Lis
         public Stat Pull;
         public Stat BonusExp;
 
-        bool _isInitialized; // mostly for testing
+        bool _isInitialized; //HERE: testing (mostly)
+
         public void InitializeHero()
         {
-            if(_isInitialized) return;
+            if (_isInitialized) return;
             _isInitialized = true;
 
             _gameManager = GameManager.Instance;
@@ -132,6 +135,7 @@ namespace Lis
 
         void CreateTablets()
         {
+            if (Tablets.Count > 0) return; // safety check
             foreach (Tablet original in _gameManager.EntityDatabase.HeroTablets)
             {
                 Tablet instance = Instantiate(original);

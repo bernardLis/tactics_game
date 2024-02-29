@@ -1,6 +1,7 @@
 
 
 
+using Lis.Upgrades;
 using UnityEngine.UIElements;
 
 namespace Lis
@@ -40,7 +41,7 @@ namespace Lis
             InfoContainer = new();
             _middleContainer.Add(InfoContainer);
 
-            UpgradeLevelBuilding currentUpgrade = _buildingProduction.GetCurrentUpgrade();
+            UpgradeLevelLair currentUpgrade = _buildingProduction.GetCurrentUpgrade();
 
             Label limitLabel = new($"Max: {currentUpgrade.ProductionLimit}");
             InfoContainer.Add(limitLabel);

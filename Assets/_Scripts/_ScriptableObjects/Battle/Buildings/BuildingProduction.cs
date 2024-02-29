@@ -1,3 +1,4 @@
+using Lis.Upgrades;
 using UnityEngine;
 
 namespace Lis
@@ -7,9 +8,9 @@ namespace Lis
     {
         public Creature ProducedCreature;
 
-        public UpgradeLevelBuilding GetCurrentUpgrade()
+        public UpgradeLevelLair GetCurrentUpgrade()
         {
-            return BuildingUpgrade.GetCurrentLevel() as UpgradeLevelBuilding;
+            return BuildingUpgrade.GetCurrentLevel() as UpgradeLevelLair;
         }
     }
 }

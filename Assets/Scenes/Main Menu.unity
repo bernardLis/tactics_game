@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 992446820543363232, guid: 07e54ca28b618334fb537455890d127a, type: 3}
       propertyPath: m_Name
-      value: Hero Selector Pillar
+      value: Hero Selector
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

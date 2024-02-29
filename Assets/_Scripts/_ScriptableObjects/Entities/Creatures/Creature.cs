@@ -1,4 +1,5 @@
 using System;
+using Lis.Upgrades;
 using UnityEngine;
 
 namespace Lis
