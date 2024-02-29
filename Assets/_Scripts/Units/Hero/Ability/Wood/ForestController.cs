@@ -24,7 +24,7 @@ namespace Lis.Units.Hero.Ability
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = BattleAreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
+                Vector3 pos = AreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
                     _radius * Ability.GetScale());
                 ForestTreeObjectController treeObjectController = GetInactiveAbilityObject() as ForestTreeObjectController;
                 treeObjectController.Execute(pos, Quaternion.identity);

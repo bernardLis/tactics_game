@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Lis.Battle;
+using Lis.Battle.Land;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -10,7 +12,7 @@ namespace Lis.Units.Hero.Ability
     public class Controller : MonoBehaviour
     {
         protected BattleManager BattleManager;
-        protected BattleAreaManager BattleAreaManager;
+        protected AreaManager AreaManager;
 
         protected Transform AbilityObjectParent;
 
@@ -26,7 +28,7 @@ namespace Lis.Units.Hero.Ability
         public virtual void Initialize(Ability ability, bool startAbility = true)
         {
             BattleManager = BattleManager.Instance;
-            BattleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
+            AreaManager = BattleManager.GetComponent<AreaManager>();
             AbilityObjectParent = BattleManager.AbilityHolder;
 
             Ability = ability;

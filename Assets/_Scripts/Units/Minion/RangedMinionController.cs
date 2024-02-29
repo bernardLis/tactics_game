@@ -1,4 +1,5 @@
 using System.Collections;
+using Lis.Battle.Fight;
 using Lis.Units.Creature;
 using Lis.Units.Projectile;
 using Shapes;
@@ -8,7 +9,7 @@ namespace Lis.Units.Minion
 {
     public class RangedMinionController : CreatureControllerRanged
     {
-        BattleRangedOpponentManager _battleRangedOpponentManager;
+        RangedOpponentManager _rangedOpponentManager;
 
         public override void InitializeEntity(Unit unit, int team)
         {
@@ -17,8 +18,8 @@ namespace Lis.Units.Minion
             if (Gfx != null) Gfx.SetActive(true);
             Gfx.GetComponentInChildren<Sphere>().Color = unit.Element.Color.Primary;
 
-            if (_battleRangedOpponentManager == null)
-                _battleRangedOpponentManager = BattleManager.GetComponent<BattleRangedOpponentManager>();
+            if (_rangedOpponentManager == null)
+                _rangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
 
             // pool
             IsDead = false;
@@ -30,7 +31,7 @@ namespace Lis.Units.Minion
         {
             yield return base.Attack();
 
-            OpponentProjectileController p = _battleRangedOpponentManager.GetProjectileFromPool(Unit.Element.ElementName);
+            OpponentProjectileController p = _rangedOpponentManager.GetProjectileFromPool(Unit.Element.ElementName);
             Vector3 pos = transform.position;
             p.transform.position = pos;
             p.Initialize(1);

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Lis.Battle.Land.Building;
 using Lis.Core;
 using Lis.Units.Creature.Ability;
 using Lis.Units.Hero;
@@ -64,9 +65,9 @@ namespace Lis.Units.Creature
             UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
         }
 
-        BattleBuildingEntityTracker _entityTracker;
+        PlayerUnitTracker _entityTracker;
 
-        public void InitializeHostileCreature(BattleBuildingEntityTracker entityTracker)
+        public void InitializeHostileCreature(PlayerUnitTracker entityTracker)
         {
             _entityTracker = entityTracker;
 

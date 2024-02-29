@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace Lis.Units.Hero.Ability
             if (col.gameObject.layer == Tags.UnpassableLayer)
                 UnpassableHit();
 
-            if (col.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
             if (col.gameObject.TryGetComponent(out UnitController battleEntity))

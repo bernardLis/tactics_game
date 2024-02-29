@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using Lis.Units.Projectile;
 using UnityEngine;
@@ -111,7 +112,7 @@ namespace Lis.Units.Creature
 
             ProjectileController projectileController = _projectilePoolManager.GetObjectFromPool();
             if (Team == 1)
-                projectileController = BattleManager.GetComponent<BattleRangedOpponentManager>()
+                projectileController = BattleManager.GetComponent<RangedOpponentManager>()
                     .GetProjectileFromPool(Unit.Element.ElementName);
             projectileController.Initialize(Team);
             projectileController.transform.position = ProjectileSpawnPoint.transform.position;

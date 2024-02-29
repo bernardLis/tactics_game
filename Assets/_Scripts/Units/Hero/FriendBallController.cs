@@ -1,5 +1,7 @@
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle;
+using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
 using Lis.Units.Creature;
 using UnityEngine;
@@ -111,7 +113,7 @@ namespace Lis.Units.Hero
                     DisableSelf();
             }
 
-            if (other.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            if (other.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
             if (other.gameObject.TryGetComponent(out CreatureController bc))

@@ -325,6 +325,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1087612744450731785, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
+      propertyPath: m_Name
+      value: Player Unit Tracker
+      objectReference: {fileID: 0}
     - target: {fileID: 1850249123602268144, guid: 000bff737a64a9f45949dc2ae562d05f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -542,7 +546,6 @@ MonoBehaviour:
   - {fileID: 8113372920930373950}
   - {fileID: 1038455506887472247}
   Star: {fileID: 21300000, guid: c44d1eb6f24e7ab41a257d01f6bf793a, type: 3}
-  _producedCreatures: []
 --- !u!114 &2820916784554393622
 MonoBehaviour:
   m_ObjectHideFlags: 0

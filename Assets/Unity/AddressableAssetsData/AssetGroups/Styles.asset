@@ -122,11 +122,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 78710e345d14d424393c02462d9ee261
-    m_Address: TurretIconStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc6b8e71b22b0d54fb6719bf94998476
     m_Address: Assets/_Scripts/_UIElements/Styles/BattleFinishedStyles.uss
     m_ReadOnly: 0
@@ -149,11 +144,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7b6b9302b282d604bb6b1bc7d2284bb8
     m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleTooltipCardStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 089463495570ecb48900f7602b407f51
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BuildingCardStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Creature;
@@ -134,7 +135,7 @@ namespace Lis.Units.Projectile
                 return;
             }
 
-            if (!collision.gameObject.TryGetComponent(out BattleBreakableVase bbv)) return;
+            if (!collision.gameObject.TryGetComponent(out BreakableVaseController bbv)) return;
             HitConnected();
             bbv.TriggerBreak();
         }

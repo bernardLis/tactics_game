@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle.Pickup;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
@@ -33,7 +34,7 @@ namespace Lis.Units.Hero.Ability
             Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
             foreach (Collider c in colliders)
             {
-                if (c.TryGetComponent(out BattleBreakableVase bbv))
+                if (c.TryGetComponent(out BreakableVaseController bbv))
                 {
                     bbv.TriggerBreak();
                     continue;

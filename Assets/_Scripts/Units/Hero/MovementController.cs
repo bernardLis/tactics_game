@@ -1,6 +1,7 @@
 using System.Collections;
 using Cinemachine;
 using DG.Tweening;
+using Lis.Battle;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -63,7 +64,7 @@ namespace Lis.Units.Hero
             _battleManager.OnGamePaused += () => _disableUpdate = true;
             _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
 
-            _cinemachineVirtualCamera = _battleManager.GetComponent<BattleHeroManager>().HeroFollowCamera;
+            _cinemachineVirtualCamera = _battleManager.GetComponent<HeroManager>().HeroFollowCamera;
             _targetZoom = _cinemachineVirtualCamera.m_Lens.FieldOfView;
 
             _animator = GetComponentInChildren<Animator>();

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Lis.Battle;
+using Lis.Battle.Fight;
+using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Creature;
@@ -106,7 +109,7 @@ namespace Lis.Core
         Foldout _otherFoldout;
         [SerializeField] List<Creature> _allCreatures = new();
         [SerializeField] GameObject _chestPrefab;
-        [SerializeField] ExperienceOrb[] _expOrbs;
+        [SerializeField] ExperienceStone[] _expOrbs;
 
         void AddButtons()
         {
@@ -245,7 +248,7 @@ namespace Lis.Core
                 if (!int.TryParse(input.value, out int count)) return;
 
                 for (int i = 0; i < count; i++)
-                    BattleManager.Instance.GetComponent<BattleFightManager>().DebugSpawnMinion();
+                    BattleManager.Instance.GetComponent<FightManager>().DebugSpawnMinion();
             };
             container.Add(input);
             container.Add(bMinions);
@@ -306,7 +309,7 @@ namespace Lis.Core
             Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
             spawnExpOrbButton.clickable.clicked += () =>
             {
-                BattleManager.Instance.GetComponent<BattlePickupManager>().SpawnExpOrb(Vector3.zero);
+                BattleManager.Instance.GetComponent<PickupManager>().SpawnExpOrb(Vector3.zero);
             };
             _otherFoldout.Add(spawnExpOrbButton);
         }

@@ -1,3 +1,4 @@
+using Lis.Battle;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -8,12 +9,12 @@ namespace Lis.Units
         IPointerExitHandler
     {
         UnitController _unitController;
-        BattleTooltipManager _tooltipManager;
+        TooltipManager _tooltipManager;
 
         void Start()
         {
             _unitController = GetComponent<UnitController>();
-            _tooltipManager = BattleTooltipManager.Instance;
+            _tooltipManager = TooltipManager.Instance;
             _unitController.OnDeath += OnDeath;
         }
 

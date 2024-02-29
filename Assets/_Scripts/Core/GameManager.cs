@@ -28,7 +28,7 @@ namespace Lis.Core
         public int TotalGoldCollected { get; private set; }
         public int Gold { get; private set; }
 
-        public Battle CurrentBattle; // HERE: battle testing { get; private set; }
+        public Battle.Battle CurrentBattle; // HERE: battle testing { get; private set; }
 
         public VisualElement Root { get; private set; }
         public List<FullScreenElement> OpenFullScreens = new();

@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Lis.Battle;
+using Lis.Battle.Fight;
+using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Creature;
@@ -21,8 +24,8 @@ namespace Lis.Units
         protected GameManager GameManager; /**/
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
-        BattleGrabManager _grabManager;
-        BattlePickupManager _pickupManager;
+        GrabManager _grabManager;
+        PickupManager _pickupManager;
 
         public List<string> UnitLog = new();
 
@@ -79,8 +82,8 @@ namespace Lis.Units
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
-            _grabManager = BattleGrabManager.Instance;
-            _pickupManager = BattleManager.GetComponent<BattlePickupManager>();
+            _grabManager = GrabManager.Instance;
+            _pickupManager = BattleManager.GetComponent<PickupManager>();
 
             HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
@@ -290,7 +293,7 @@ namespace Lis.Units
             IsDeathCoroutineStarted = true;
 
             StopRunEntityCoroutine();
-            if (_isGrabbed) BattleGrabManager.Instance.CancelGrabbing();
+            if (_isGrabbed) GrabManager.Instance.CancelGrabbing();
             Collider.enabled = false;
             DOTween.Kill(transform);
 

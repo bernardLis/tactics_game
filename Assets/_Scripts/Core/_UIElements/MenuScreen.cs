@@ -1,3 +1,4 @@
+using Lis.Battle;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace Lis.Core
             _container.AddToClassList(_ussContainer);
             _content.Add(_container);
 
-            _container.Add(new StatsBattleElement());
+            _container.Add(new StatsElement());
             _container.Add(new HorizontalSpacerElement());
 
             AddMenuButtons();

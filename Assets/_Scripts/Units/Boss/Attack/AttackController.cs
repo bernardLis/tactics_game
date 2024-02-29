@@ -1,4 +1,6 @@
 using System.Collections;
+using Lis.Battle;
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units.Projectile;
 using UnityEngine;
@@ -8,7 +10,7 @@ namespace Lis.Units.Boss.Attack
     public class AttackController : MonoBehaviour
     {
         protected BattleManager BattleManager;
-        BattleRangedOpponentManager _battleRangedOpponentManager;
+        RangedOpponentManager _rangedOpponentManager;
 
         protected Attack Attack;
         BossController _bossController;
@@ -20,7 +22,7 @@ namespace Lis.Units.Boss.Attack
 
             BattleManager = BattleManager.Instance;
 
-            _battleRangedOpponentManager = BattleManager.GetComponent<BattleRangedOpponentManager>();
+            _rangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
         }
 
         public virtual IEnumerator Execute()
@@ -32,10 +34,10 @@ namespace Lis.Units.Boss.Attack
         protected void SpawnProjectile(Vector3 dir)
         {
             // basic projectile
-            OpponentProjectileController p = _battleRangedOpponentManager.GetProjectileFromPool(ElementName.Water);
+            OpponentProjectileController p = _rangedOpponentManager.GetProjectileFromPool(ElementName.Water);
 
             if (Attack.UseElementalProjectile)
-                p = _battleRangedOpponentManager.GetProjectileFromPool(_bossController.Unit.Element.ElementName);
+                p = _rangedOpponentManager.GetProjectileFromPool(_bossController.Unit.Element.ElementName);
 
             Vector3 spawnPos = transform.position;
             spawnPos.y = 0.5f;

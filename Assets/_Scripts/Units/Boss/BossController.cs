@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Lis.Battle;
 using Lis.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -48,7 +49,7 @@ namespace Lis.Units.Boss
             if (newSpeed <= 0) newSpeed = 1f;
             UnitPathingController.SetSpeed(newSpeed);
 
-            BattleManager.GetComponent<BattleTooltipManager>().ShowBossHealthBar(this);
+            BattleManager.GetComponent<TooltipManager>().ShowBossHealthBar(this);
 
             InitializeAttacks();
             StartRunEntityCoroutine();

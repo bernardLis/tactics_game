@@ -1,5 +1,7 @@
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle;
+using Lis.Battle.Pickup;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
@@ -59,7 +61,7 @@ namespace Lis.Units.Hero.Ability
 
         void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.TryGetComponent(out BattleBreakableVase bbv))
+            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
             if (collision.gameObject.TryGetComponent(out UnitController battleEntity))

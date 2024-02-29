@@ -1,4 +1,5 @@
 using System.Collections;
+using Lis.Battle.Land;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Lis.Units.Hero
 {
     public class HeroController : UnitController
     {
-        BattleAreaManager _battleAreaManager;
+        AreaManager _areaManager;
 
         public Hero Hero { get; private set; }
 
@@ -22,19 +23,19 @@ namespace Lis.Units.Hero
             base.InitializeGameObject();
             _thirdPersonMovementController = GetComponent<MovementController>();
             _healthBarDisplayer = GetComponentInChildren<HealthBarDisplayer>();
-            _battleAreaManager = BattleManager.GetComponent<BattleAreaManager>();
+            _areaManager = BattleManager.GetComponent<AreaManager>();
 
             GetComponent<CreatureCatcher>().Initialize();
 
-            _battleAreaManager.OnTileUnlocked += OnTileUnlocked;
+            _areaManager.OnTileUnlocked += OnTileUnlocked;
         }
 
-        void OnTileUnlocked(BattleTile tile)
+        void OnTileUnlocked(TileController tileController)
         {
-            if (tile == _battleAreaManager.HomeTile) return;
+            if (tileController == _areaManager.HomeTileController) return;
 
             Vector3 heroPos = transform.position;
-            Vector3 tilePos = tile.transform.position;
+            Vector3 tilePos = tileController.transform.position;
             Vector3 dir = (tilePos - heroPos).normalized;
             Vector3 pos = heroPos + dir * 2;
             pos.y = 2f;
