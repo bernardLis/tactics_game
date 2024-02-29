@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using Lis.Core;
 
 namespace Lis
 {

@@ -1,6 +1,8 @@
 
 
 
+using Lis.Core;
+
 namespace Lis
 {
     public class RewardElementGold : RewardElement

@@ -2,6 +2,8 @@
 
 
 
+using Lis.Core;
+
 namespace Lis
 {
     public class TurretIcon : ElementWithTooltip

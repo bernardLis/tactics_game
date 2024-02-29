@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 using Cinemachine;
+using Lis.Core;
 using UnityEngine.Serialization;
 
 namespace Lis
