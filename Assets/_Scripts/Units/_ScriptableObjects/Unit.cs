@@ -8,7 +8,7 @@ namespace Lis.Units
 {
     public class Unit : BaseScriptableObject
     {
-        [Header("Unit")] public string EntityName;
+        [Header("Unit")] public string UnitName;
         public Sprite Icon;
         public Sprite[] IconAnimation;
         public int Price;

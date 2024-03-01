@@ -83,7 +83,7 @@ namespace Lis.Units
         void AddName()
         {
             _nameContainer = new();
-            Label n = new(_unit.EntityName);
+            Label n = new(_unit.UnitName);
             n.style.fontSize = 34;
             _nameContainer.Add(n);
             _basicInfoContainer.Add(_nameContainer);

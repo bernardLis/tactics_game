@@ -72,8 +72,6 @@ namespace Lis.Units
             while (IsAgentOk() && _agent.remainingDistance >= _agent.stoppingDistance)
             {
                 if (t == null) yield break;
-                Debug.Log(
-                    $"PathToTarget | remainign dis: {_agent.remainingDistance} | stopping dist {_agent.stoppingDistance}");
                 _agent.SetDestination(t.position);
                 yield return new WaitForSeconds(0.1f);
             }

@@ -16,12 +16,14 @@ namespace Lis.Units
             _unitController = GetComponent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
             _unitController.OnDeath += OnDeath;
+
+            Debug.Log($"UnitTooltipDisplayer initialized {_unitController} ");
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             if (!CanDisplayTooltip()) return;
-            VisualElement el = new EntityCard(_unitController.Unit);
+            VisualElement el = new UnitCard(_unitController.Unit);
 
             _tooltipManager.ShowTooltip(el, gameObject);
         }
@@ -29,6 +31,8 @@ namespace Lis.Units
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!CanDisplayTooltip()) return;
+            Debug.Log($"on pointer enter {_unitController} ");
+
             _tooltipManager.ShowEntityInfo(_unitController);
         }
 
@@ -45,14 +49,13 @@ namespace Lis.Units
 
             if (_tooltipManager.CurrentTooltipDisplayer == _unitController.gameObject)
                 _tooltipManager.HideTooltip();
-
-            _unitController.OnDeath -= OnDeath;
         }
 
         bool CanDisplayTooltip()
         {
             if (_tooltipManager == null) return false;
             if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;
+            if (_unitController == null) return false;
             if (_unitController.IsDead) return false;
 
             return true;

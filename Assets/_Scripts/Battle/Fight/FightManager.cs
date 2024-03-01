@@ -148,10 +148,10 @@ namespace Lis.Battle.Fight
             Ray ray = _cam.ScreenPointToRay(mousePosition);
             if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
                 return;
-
-            List<EnemyGroup> enemyGroups =
-                _currentFight.EnemyWaves[Random.Range(0, _currentFight.EnemyWaves.Count)].EnemyGroups;
-            SpawnMinion(enemyGroups[Random.Range(0, enemyGroups.Count)].Minions[0], hit.point);
+            List<Minion> minions = GameManager.Instance.EntityDatabase.GetAllMinions();
+            Minion m = Instantiate(minions[Random.Range(0, minions.Count)]);
+            m.InitializeBattle(1);
+            SpawnMinion(m, hit.point);
         }
 
         void DebugSpawnRangedOpponent()

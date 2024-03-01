@@ -244,11 +244,6 @@ namespace Lis.Units.Creature
             Vector3 delta = Opponent.transform.position - transform.position;
             float distanceSqr = delta.sqrMagnitude;
             float attackRangeSqr = (Creature.AttackRange.GetValue() + 0.5f) * (Creature.AttackRange.GetValue() + 0.5f);
-            Debug.Log(
-                $"delta.sqrt {distanceSqr} | {attackRangeSqr}");
-            Debug.Log(
-                $"is in range? {distanceSqr < attackRangeSqr}"
-            );
             return distanceSqr <= attackRangeSqr;
         }
 
@@ -372,8 +367,8 @@ namespace Lis.Units.Creature
 
         void EnableSelf()
         {
+            Collider.enabled = true;
             IsDeathCoroutineStarted = false;
-            //HERE: Collider.enabled = true;
             UnitPathingController.EnableAgent();
             IsDead = false;
             RunUnit();

@@ -19827,7 +19827,7 @@ Transform:
   m_GameObject: {fileID: 6918271129132886870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19859,7 +19859,7 @@ MonoBehaviour:
   stencilRefID: 0
   stencilReadMask: 255
   stencilWriteMask: 255
-  size: {x: 1, y: 1, z: 1}
+  size: {x: 1, y: 2, z: 1}
   sizeSpace: 0
 --- !u!33 &1915471243188931157
 MeshFilter:
@@ -19939,7 +19939,7 @@ Transform:
   m_GameObject: {fileID: 7209022164293869814}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20130,7 +20130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Height
@@ -20142,7 +20142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Center.y
-      value: -0.45
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

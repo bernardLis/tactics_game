@@ -17,7 +17,7 @@ namespace Lis.Battle
         readonly Label _name;
         readonly ResourceBarElement _bar;
 
-        public EntityInfoElement(UnitController be)
+        public EntityInfoElement(UnitController _)
         {
             _gameManager = GameManager.Instance;
             StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
@@ -53,10 +53,11 @@ namespace Lis.Battle
             Add(_bar);
         }
 
-        public void UpdateEntityInfo(UnitController be)
+        public void UpdateEntityInfo(UnitController unitController)
         {
-            _name.text = be.Unit.EntityName;
-            _bar.UpdateTrackedVariables(be.Unit.CurrentHealth, totalStat: be.Unit.MaxHealth);
+            Debug.Log($"UpdateEntityInfo {unitController}");
+            _name.text = unitController.Unit.UnitName;
+            _bar.UpdateTrackedVariables(unitController.Unit.CurrentHealth, totalStat: unitController.Unit.MaxHealth);
         }
     }
 }

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Ranged Wind
   m_EditorClassIdentifier: 
   Id: ad1f54d0-7f19-42a4-a755-6f6548bb6885
-  EntityName: Ranged Boi/Grill
+  UnitName: Ranged Minion Wind
   Icon: {fileID: 21300000, guid: c5632919c7eedf34ea3fce4ddb103880, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: d6ad81e08a7491e4695ebaa3438fb676, type: 3}
   Price: 30
-  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 2307782763008038217, guid: c8a6a9ca0a0727640b1f1bfa5c5e8b31, type: 3}
   OldDamageTaken: 0
   TotalDamageTaken: 0
@@ -39,6 +39,6 @@ MonoBehaviour:
   OldDamageDealt: 0
   TotalDamageDealt: 0
   UpgradeTier: 0
-  CreatureAbility: {fileID: 0}
+  Ability: {fileID: 0}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 0}

@@ -3,7 +3,7 @@ using Lis.Units.Creature.Ability;
 
 namespace Lis.Battle
 {
-    public class CreatureCard : EntityCard
+    public class CreatureCard : UnitCard
     {
         protected Creature _creature;
 

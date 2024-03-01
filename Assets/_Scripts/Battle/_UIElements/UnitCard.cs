@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace Lis.Battle
 {
-    public class EntityCard : TooltipCard
+    public class UnitCard : TooltipCard
     {
         const string _ussClassName = "unit-card__";
         const string _ussMain = _ussClassName + "main";
@@ -19,7 +19,7 @@ namespace Lis.Battle
 
         readonly Unit _unit;
 
-        public EntityCard(Unit unit)
+        public UnitCard(Unit unit)
         {
             Initialize();
 
@@ -33,7 +33,7 @@ namespace Lis.Battle
             PopulateCard();
         }
 
-        protected virtual void PopulateCard()
+        protected void PopulateCard()
         {
             HandleEntityIcon();
             HandleElementalElement();
@@ -57,7 +57,7 @@ namespace Lis.Battle
 
         protected virtual void HandleNameLabel()
         {
-            _nameLabel = new(_unit.EntityName);
+            _nameLabel = new(_unit.UnitName);
             _nameLabel.AddToClassList(_ussName);
             _topRightContainer.Add(_nameLabel);
         }

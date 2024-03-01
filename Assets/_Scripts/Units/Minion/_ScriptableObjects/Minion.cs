@@ -14,7 +14,7 @@ namespace Lis.Units.Minion
         public override void InitializeBattle(int team)
         {
             base.InitializeBattle(team);
-            if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
+            if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
 
             if (Level.Value <= 1) return;
 

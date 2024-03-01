@@ -106,13 +106,14 @@ namespace Lis.Battle
             _entityInfoContainer.Add(_entityInfoElement);
         }
 
-        public void ShowEntityInfo(UnitController entity)
+        public void ShowEntityInfo(UnitController unitController)
         {
-            if (entity.IsDead) return;
+            if (unitController.IsDead) return;
             if (_isBossHealthBarShown) return;
 
-            CurrentEntityInfo = entity;
-            _entityInfoElement.UpdateEntityInfo(entity);
+            Debug.Log($"ShowEntityInfo {unitController} ");
+            CurrentEntityInfo = unitController;
+            _entityInfoElement.UpdateEntityInfo(unitController);
             _entityInfoElement.style.display = DisplayStyle.Flex;
         }
 

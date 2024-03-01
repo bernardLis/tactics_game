@@ -49,7 +49,7 @@ namespace Lis.Battle.Quest
 
         public override string GetDescription()
         {
-            return $"Kill {TotalAmount - CurrentAmount} {MinionToKill.EntityName}";
+            return $"Kill {TotalAmount - CurrentAmount} {MinionToKill.UnitName}";
         }
     }
 }

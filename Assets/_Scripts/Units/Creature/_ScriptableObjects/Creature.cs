@@ -37,7 +37,7 @@ namespace Lis.Units.Creature
 
             _baseCatchingPower = globalUpgradeBoard.GetUpgradeByName("Catching Power").GetValue() * 0.01f;
 
-            if (EntityName.Length == 0) EntityName = Helpers.ParseScriptableObjectName(name);
+            if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
         }
 
         public bool IsAbilityUnlocked()
@@ -80,7 +80,7 @@ namespace Lis.Units.Creature
             {
                 CreatureId = Id,
 
-                Name = EntityName,
+                Name = UnitName,
                 Level = Level.Value,
 
                 KillCount = TotalKillCount,
@@ -93,7 +93,7 @@ namespace Lis.Units.Creature
 
         public void LoadFromData(CreatureData data)
         {
-            EntityName = data.Name;
+            UnitName = data.Name;
 
             Level = CreateInstance<IntVariable>();
             Level.SetValue(data.Level);
