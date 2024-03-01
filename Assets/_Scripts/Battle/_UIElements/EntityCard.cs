@@ -50,7 +50,7 @@ namespace Lis.Battle
 
         protected virtual void HandleElementalElement()
         {
-            _elementalElement = new(_unit.Element);
+            _elementalElement = new(_unit.Nature);
             _elementalElement.AddToClassList(_ussElement);
             _topLeftContainer.Add(_elementalElement);
         }

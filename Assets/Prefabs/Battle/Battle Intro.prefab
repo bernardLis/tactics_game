@@ -4917,7 +4917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5144828252769924049
 Transform:
   m_ObjectHideFlags: 0
@@ -14753,7 +14753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7633356520290526442
 Transform:
   m_ObjectHideFlags: 0
@@ -24562,7 +24562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8353600550257590318
 Transform:
   m_ObjectHideFlags: 0
@@ -44450,7 +44450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1360066158733979966
 Transform:
   m_ObjectHideFlags: 0
@@ -49500,7 +49500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71da937d3d1543a449fb74f5db6cecfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timerText: {fileID: 0}
   _introText: {fileID: 2749800648017227892}
   _effect: {fileID: 2978636633729902497}
 --- !u!1 &5430017967203743049
@@ -49625,7 +49624,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 0.0001
       minScalar: 5
       maxCurve:
         serializedVersion: 2

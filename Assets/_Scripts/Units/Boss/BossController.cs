@@ -39,9 +39,9 @@ namespace Lis.Units.Boss
             _stunColor = GameManager.GameDatabase.GetColorByName("Stun").Primary;
         }
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
-            base.InitializeEntity(unit, team);
+            base.InitializeUnit(unit, team);
 
             UnitPathingController.SetAvoidancePriorityRange(new(0, 1));
             Boss b = (Boss)Unit;
@@ -52,11 +52,11 @@ namespace Lis.Units.Boss
             BattleManager.GetComponent<TooltipManager>().ShowBossHealthBar(this);
 
             InitializeAttacks();
-            StartRunEntityCoroutine();
+            RunUnit();
             StartAttackCoroutine();
         }
 
-        protected override IEnumerator RunEntity()
+        protected override IEnumerator RunUnitCoroutine()
         {
             yield return new WaitForSeconds(2f);
 
@@ -155,7 +155,7 @@ namespace Lis.Units.Boss
             _stunEffect.SetActive(true);
             _isStunned = true;
             Animator.enabled = false;
-            StopRunEntityCoroutine();
+            StopUnit();
 
             for (int i = 0; i < TotalStunDuration.Value; i++)
             {
@@ -165,7 +165,7 @@ namespace Lis.Units.Boss
 
             _stunEffect.SetActive(false);
             Animator.enabled = true;
-            StartRunEntityCoroutine();
+            RunUnit();
             _isStunned = false;
             OnStunFinished?.Invoke();
         }

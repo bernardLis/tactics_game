@@ -214,7 +214,7 @@ namespace Lis.Units.Hero
                 Element icon = new(a, true);
                 container.Insert(_hero.Abilities.Count - 1, icon);
 
-                if (a.Element.IsAdvanced && slots.Count > 0)
+                if (a.Nature.IsAdvanced && slots.Count > 0)
                     slots[^1].style.backgroundColor = Color.white;
             };
         }

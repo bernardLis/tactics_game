@@ -262,7 +262,7 @@ namespace Lis.Core
             GameObject instance = Instantiate(unit.Prefab, pos, transform.localRotation);
             UnitController be = instance.GetComponent<UnitController>();
             be.InitializeGameObject();
-            be.InitializeEntity(unit, team);
+            be.InitializeUnit(unit, team);
             return be;
         }
 

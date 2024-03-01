@@ -1,24 +1,25 @@
+using Lis.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero.Tablets
 {
     using Ability;
-    using Element = Core.Element;
 
     [CreateAssetMenu(menuName = "ScriptableObject/Hero/Tablet Advanced")]
     public class TabletAdvanced : Tablet
     {
-        [Header("Advanced Tablet")]
-        public Element FirstElement;
+        [FormerlySerializedAs("FirstElement")] [Header("Advanced Tablet")]
+        public Nature FirstNature;
 
-        public Element SecondElement;
+        [FormerlySerializedAs("SecondElement")] public Nature SecondNature;
 
         public Ability Ability;
 
-        public bool IsMadeOfElements(Element firstElement, Element secondElement)
+        public bool IsMadeOfElements(Nature firstNature, Nature secondNature)
         {
-            return (FirstElement == firstElement && SecondElement == secondElement) ||
-                   (FirstElement == secondElement && SecondElement == firstElement);
+            return (FirstNature == firstNature && SecondNature == secondNature) ||
+                   (FirstNature == secondNature && SecondNature == firstNature);
         }
     }
 }

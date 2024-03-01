@@ -1,17 +1,14 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis.Battle.Land.Building
 {
-    public class BuildingController : MonoBehaviour, IInteractable
+    public class BuildingController : MonoBehaviour
     {
-        protected GameManager GameManager;
         protected BattleManager BattleManager;
-        protected TooltipManager TooltipManager;
 
         [SerializeField] GameObject _gfx;
         [SerializeField] protected Canvas Canvas;
@@ -23,9 +20,7 @@ namespace Lis.Battle.Land.Building
 
         public virtual void Initialize(Vector3 pos, Building building)
         {
-            GameManager = GameManager.Instance;
             BattleManager = BattleManager.Instance;
-            TooltipManager = TooltipManager.Instance;
 
             Building = building;
 
@@ -71,12 +66,6 @@ namespace Lis.Battle.Land.Building
             HideTooltip();
         }
 
-        /* INTERACTION */
-        public virtual bool CanInteract(Interactor interactor)
-        {
-            return true;
-        }
-
         public virtual void DisplayTooltip()
         {
             Canvas.gameObject.SetActive(true);
@@ -85,11 +74,6 @@ namespace Lis.Battle.Land.Building
         public virtual void HideTooltip()
         {
             Canvas.gameObject.SetActive(false);
-        }
-
-        public virtual bool Interact(Interactor interactor)
-        {
-            return true;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Lis.Units.Creature.Ability
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            Debug.Log("Dash before checks");
             if (CreatureController.Opponent == null || CreatureController.IsDead)
             {
                 yield return base.ExecuteAbilityCoroutine();
@@ -20,9 +19,7 @@ namespace Lis.Units.Creature.Ability
             CreatureController.UnitLog.Add(
                 $"{BattleManager.GetTime()}: Unit uses ability {Creature.Ability.name}");
 
-            Debug.Log($"Dash after checks opponent: {CreatureController.Opponent.name}");
-
-            CreatureController.StopRunEntityCoroutine();
+            CreatureController.StopUnit();
 
             Vector3 transformPosition = transform.position;
             Vector3 oppPosition = CreatureController.Opponent.transform.position;

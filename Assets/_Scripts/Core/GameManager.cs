@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Upgrades;
-using Unity.Services.Analytics;
-using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,21 +15,17 @@ namespace Lis.Core
         public GameDatabase GameDatabase;
         public EntityDatabase EntityDatabase;
         public UpgradeBoard UpgradeBoard;
-        public GameObject PoolManagerPrefab;
-
-        SaveData _originalSaveData;
 
         // global data
-        public int Seed { get; private set; }
+        int _seed;
         public int BattleNumber;
 
-        public int TotalGoldCollected { get; private set; }
         public int Gold { get; private set; }
 
         public Battle.Battle CurrentBattle; // HERE: battle testing { get; private set; }
 
         public VisualElement Root { get; private set; }
-        public List<FullScreenElement> OpenFullScreens = new();
+        public readonly List<FullScreenElement> OpenFullScreens = new();
 
         public Hero SelectedHero;
 
@@ -69,28 +63,29 @@ namespace Lis.Core
             //     LoadFromSaveFile();
         }
 
-        async void Services()
-        {
-            await UnityServices.InitializeAsync();
-            // TODO: analytics - need opt in flow
-            AnalyticsService.Instance.StartDataCollection();
-
-            HandleCustomEvent();
-        }
-
-        void HandleCustomEvent()
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>()
-            {
-                { "fabulousString", "hello there" },
-                { "sparklingInt", 1337 },
-                { "spectacularFloat", 0.451f },
-                { "peculiarBool", true },
-            };
-
-            AnalyticsService.Instance.CustomData("gameStart", parameters);
-        }
-
+        // using Unity.Services.Analytics;
+        // using Unity.Services.Core;
+        // async void Services()
+        // {
+        //     await UnityServices.InitializeAsync();
+        //     // TODO: analytics - need opt in flow
+        //     AnalyticsService.Instance.StartDataCollection();
+        //
+        //     HandleCustomEvent();
+        // }
+        //
+        // void HandleCustomEvent()
+        // {
+        //     Dictionary<string, object> parameters = new Dictionary<string, object>()
+        //     {
+        //         { "fabulousString", "hello there" },
+        //         { "sparklingInt", 1337 },
+        //         { "spectacularFloat", 0.451f },
+        //         { "peculiarBool", true },
+        //     };
+        //
+        //     AnalyticsService.Instance.CustomData("gameStart", parameters);
+        // }
 
         public void Play()
         {
@@ -108,7 +103,6 @@ namespace Lis.Core
         public void ChangeGoldValue(int o)
         {
             if (o == 0) return;
-            if (o > 0) TotalGoldCollected += o;
 
             Gold += o;
             OnGoldChanged?.Invoke(Gold);
@@ -130,7 +124,7 @@ namespace Lis.Core
         void CreateNewSaveFile()
         {
             Debug.Log($"Creating new save file...");
-            Seed = Environment.TickCount;
+            _seed = Environment.TickCount;
 
             BattleNumber = 0;
             Gold = 10000;
@@ -165,7 +159,7 @@ namespace Lis.Core
         public void PopulateSaveData(SaveData saveData)
         {
             // global data
-            saveData.Seed = Seed;
+            saveData.Seed = _seed;
             saveData.BattleNumber = BattleNumber;
 
             saveData.Gold = Gold;
@@ -188,10 +182,8 @@ namespace Lis.Core
         public void LoadFromSaveData(SaveData saveData)
         {
             Debug.Log($"Loading from save data");
-            _originalSaveData = saveData; // stored for later
-
             // global data
-            Seed = saveData.Seed;
+            _seed = saveData.Seed;
             BattleNumber = saveData.BattleNumber;
 
             Gold = saveData.Gold;
@@ -200,7 +192,7 @@ namespace Lis.Core
 
         public void ClearSaveData()
         {
-            Seed = Environment.TickCount;
+            _seed = Environment.TickCount;
             BattleNumber = 0;
 
             Gold = 1000;

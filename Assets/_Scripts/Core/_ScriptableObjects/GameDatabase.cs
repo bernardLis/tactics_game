@@ -99,7 +99,7 @@ namespace Lis.Core
         ExpBonus
     }
 
-    public enum ElementName
+    public enum NatureName
     {
         Fire,
         Water,

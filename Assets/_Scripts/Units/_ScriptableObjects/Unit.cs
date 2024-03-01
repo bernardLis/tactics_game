@@ -2,7 +2,7 @@ using System;
 using Lis.Core;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
-using Element = Lis.Core.Element;
+using UnityEngine.Serialization;
 
 namespace Lis.Units
 {
@@ -12,7 +12,7 @@ namespace Lis.Units
         public Sprite Icon;
         public Sprite[] IconAnimation;
         public int Price;
-        public Element Element;
+        [FormerlySerializedAs("Element")] public Nature Nature;
         public GameObject Prefab;
 
         [HideInInspector] public int OldDamageTaken;
@@ -104,7 +104,7 @@ namespace Lis.Units
         {
             float damage = attacker.Power.GetValue();
 
-            damage *= GetElementalDamageMultiplier(attacker.Element);
+            damage *= GetElementalDamageMultiplier(attacker.Nature);
 
             damage -= Armor.GetValue();
             if (damage < 0)
@@ -117,19 +117,19 @@ namespace Lis.Units
         {
             float damage = ability.GetPower();
 
-            damage *= GetElementalDamageMultiplier(ability.Element);
+            damage *= GetElementalDamageMultiplier(ability.Nature);
 
             // abilities ignore armor
             return Mathf.RoundToInt(damage);
         }
 
 
-        float GetElementalDamageMultiplier(Element attackerElement)
+        float GetElementalDamageMultiplier(Nature attackerNature)
         {
             float elementalDamageBonus = 1f;
-            if (Element.StrongAgainst == attackerElement)
+            if (Nature.StrongAgainst == attackerNature)
                 elementalDamageBonus = 0.5f;
-            if (Element.WeakAgainst == attackerElement)
+            if (Nature.WeakAgainst == attackerNature)
                 elementalDamageBonus = 1.5f;
 
             return elementalDamageBonus;

@@ -5,6 +5,7 @@ using DG.Tweening;
 using Lis.Core;
 using Lis.Units;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Battle.Fight
 {
@@ -17,7 +18,7 @@ namespace Lis.Battle.Fight
         [SerializeField] Sound _portalHumSound;
         [SerializeField] Sound _portalPopEntitySound;
 
-        Element _portalElement;
+        Nature _portalNature;
         [SerializeField] List<PortalElement> _portalElements = new();
         [SerializeField] GameObject _blackPortal;
 
@@ -36,7 +37,7 @@ namespace Lis.Battle.Fight
             _audioManager = AudioManager.Instance;
         }
 
-        void ShowPortal(Element element, Vector3 scale = default)
+        void ShowPortal(Nature nature, Vector3 scale = default)
         {
             if (_portalShown) return;
             _portalShown = true;
@@ -45,8 +46,8 @@ namespace Lis.Battle.Fight
             _audioManager.PlaySFX(_portalOpenSound, position);
             _portalHumSource = _audioManager.PlaySFX(_portalHumSound, position, true);
             _portal = _blackPortal;
-            if (element != null)
-                _portal = _portalElements.Find(x => x.ElementName == element.ElementName).Portal;
+            if (nature != null)
+                _portal = _portalElements.Find(x => x.NatureName == nature.NatureName).Portal;
 
             if (scale == default) scale = Vector3.one * 2f;
 
@@ -61,7 +62,7 @@ namespace Lis.Battle.Fight
             SpawnedEntities = new();
             _portalShown = false;
             gameObject.SetActive(true);
-            ShowPortal(unit.Element);
+            ShowPortal(unit.Nature);
 
             StartCoroutine(SpawnCoroutine(unit, unitController, team));
         }
@@ -74,7 +75,7 @@ namespace Lis.Battle.Fight
             unitController.transform.position = pos;
             unitController.gameObject.SetActive(true);
             unit.InitializeBattle(team);
-            unitController.InitializeEntity(unit, team);
+            unitController.InitializeUnit(unit, team);
             SpawnedEntities.Add(unitController);
 
             _audioManager.PlaySFX(_portalPopEntitySound, pos);
@@ -110,7 +111,7 @@ namespace Lis.Battle.Fight
     [Serializable]
     public struct PortalElement
     {
-        public ElementName ElementName;
+        [FormerlySerializedAs("ElementName")] public NatureName NatureName;
         public GameObject Portal;
     }
 }

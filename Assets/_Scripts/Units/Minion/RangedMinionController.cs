@@ -11,12 +11,12 @@ namespace Lis.Units.Minion
     {
         RangedOpponentManager _rangedOpponentManager;
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
-            base.InitializeEntity(unit, team);
+            base.InitializeUnit(unit, team);
 
             if (Gfx != null) Gfx.SetActive(true);
-            Gfx.GetComponentInChildren<Sphere>().Color = unit.Element.Color.Primary;
+            Gfx.GetComponentInChildren<Sphere>().Color = unit.Nature.Color.Primary;
 
             if (_rangedOpponentManager == null)
                 _rangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
@@ -31,7 +31,7 @@ namespace Lis.Units.Minion
         {
             yield return base.Attack();
 
-            OpponentProjectileController p = _rangedOpponentManager.GetProjectileFromPool(Unit.Element.ElementName);
+            OpponentProjectileController p = _rangedOpponentManager.GetProjectileFromPool(Unit.Nature.NatureName);
             Vector3 pos = transform.position;
             p.transform.position = pos;
             p.Initialize(1);

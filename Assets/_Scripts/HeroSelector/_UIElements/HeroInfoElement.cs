@@ -42,7 +42,7 @@ namespace Lis.HeroSelector
             Label nameLabel = new($"{_hero.EntityName}");
             nameLabel.AddToClassList(_ussNameLabel);
             container.Add(nameLabel);
-            container.Add(new ElementalElement(_hero.Element));
+            container.Add(new ElementalElement(_hero.Nature));
         }
 
         void AddStatsContainer()

@@ -45,9 +45,9 @@ namespace Lis.Units.Creature
                 _currentAttackCooldown -= Time.deltaTime;
         }
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
-            base.InitializeEntity(unit, team);
+            base.InitializeUnit(unit, team);
 
             Opponent = null;
             if (team == 0) ObjectShaders.LitShader();
@@ -99,7 +99,7 @@ namespace Lis.Units.Creature
             EnableSelf();
         }
 
-        protected override IEnumerator RunEntity()
+        protected override IEnumerator RunUnitCoroutine()
         {
             while (true)
             {
@@ -127,7 +127,7 @@ namespace Lis.Units.Creature
         void OpponentWasAdded(UnitController _)
         {
             if (this == null) return;
-            StartRunEntityCoroutine();
+            RunUnit();
             UnsubscribeFromEvents();
         }
 
@@ -187,6 +187,7 @@ namespace Lis.Units.Creature
 
         protected virtual IEnumerator PathToOpponent()
         {
+            AddToLog($"Pathing to opponent {Opponent.name}");
             OnStartedMoving?.Invoke();
             UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
             yield return UnitPathingController.PathToTarget(Opponent.transform);
@@ -197,9 +198,9 @@ namespace Lis.Units.Creature
             if (IsEngaged) return;
             IsEngaged = true;
 
-            UnitLog.Add($"{BattleManager.GetTime()}: Creature gets engaged by {attacker.name}");
+            AddToLog($"Creature gets engaged by {attacker.name}");
             Opponent = attacker;
-            StartRunEntityCoroutine();
+            RunUnit();
         }
 
         protected virtual IEnumerator Attack()
@@ -208,7 +209,7 @@ namespace Lis.Units.Creature
             if (!IsOpponentInRange()) yield break;
             OnAttackReady?.Invoke();
 
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit attacked {Opponent.name}");
+            AddToLog($"Unit attacked {Opponent.name}");
 
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
@@ -241,8 +242,14 @@ namespace Lis.Units.Creature
 
             // +0.5 wiggle room
             Vector3 delta = Opponent.transform.position - transform.position;
-            return delta.sqrMagnitude <
-                   Creature.AttackRange.GetValue() * Creature.AttackRange.GetValue() + 0.5f;
+            float distanceSqr = delta.sqrMagnitude;
+            float attackRangeSqr = (Creature.AttackRange.GetValue() + 0.5f) * (Creature.AttackRange.GetValue() + 0.5f);
+            Debug.Log(
+                $"delta.sqrt {distanceSqr} | {attackRangeSqr}");
+            Debug.Log(
+                $"is in range? {distanceSqr < attackRangeSqr}"
+            );
+            return distanceSqr <= attackRangeSqr;
         }
 
         void ChooseNewTarget()
@@ -270,7 +277,7 @@ namespace Lis.Units.Creature
             }
 
             UnitController closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
-            UnitLog.Add($"{BattleManager.GetTime()}: Choosing {closest.name} as new target");
+            AddToLog($"Choosing {closest.name} as new target");
 
             SetOpponent(closest);
         }
@@ -290,7 +297,7 @@ namespace Lis.Units.Creature
             if (IsDead) return;
             Opponent.OnDeath -= ResetOpponent;
             Opponent = null;
-            StartRunEntityCoroutine();
+            RunUnit();
         }
 
         public override void Grabbed()
@@ -366,10 +373,10 @@ namespace Lis.Units.Creature
         void EnableSelf()
         {
             IsDeathCoroutineStarted = false;
-            Collider.enabled = true;
+            //HERE: Collider.enabled = true;
             UnitPathingController.EnableAgent();
             IsDead = false;
-            StartRunEntityCoroutine();
+            RunUnit();
 
             if (_controller != null)
                 _controller.StartAbilityCooldownCoroutine();
@@ -379,7 +386,7 @@ namespace Lis.Units.Creature
         {
             Collider.enabled = false;
             UnitPathingController.DisableAgent();
-            StopRunEntityCoroutine();
+            StopUnit();
             StopAllCoroutines();
             transform.DOKill();
         }
@@ -411,7 +418,7 @@ namespace Lis.Units.Creature
 
             Opponent = null;
             Creature.Caught(HeroController.Hero);
-            InitializeEntity(Creature, 0);
+            InitializeUnit(Creature, 0);
             BattleManager.OpponentEntities.Remove(this);
             BattleManager.AddPlayerArmyEntity(this);
             _opponentTracker.RemoveOpponent(this);

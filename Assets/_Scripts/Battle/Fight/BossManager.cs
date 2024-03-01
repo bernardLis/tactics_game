@@ -35,7 +35,7 @@ namespace Lis.Battle.Fight
             be.transform.position = Vector3.up * 2.5f;
             be.gameObject.SetActive(true);
             be.InitializeGameObject();
-            be.InitializeEntity(_selectedBoss, 1);
+            be.InitializeUnit(_selectedBoss, 1);
 
             _bossController = be as BossController;
             _battleManager.AddOpponentArmyEntity(_bossController);

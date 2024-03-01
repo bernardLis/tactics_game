@@ -27,7 +27,7 @@ namespace Lis.Units.Hero.Ability
             n.AddToClassList(_ussCommonTextPrimary);
             n.style.alignSelf = Align.Center;
             container.Add(n);
-            container.Add(new ElementalElement(ability.Element));
+            container.Add(new ElementalElement(ability.Nature));
 
             Label description = new(ability.Description);
             description.AddToClassList(_ussCommonTextSecondary);

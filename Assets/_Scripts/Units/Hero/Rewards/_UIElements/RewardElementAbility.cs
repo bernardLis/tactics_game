@@ -19,7 +19,7 @@ namespace Lis
             if (!rewardAbility.IsUpgrade)
             {
                 txt.text = "New!";
-                txt.style.color = rewardAbility.Ability.Element.Color.Primary;
+                txt.style.color = rewardAbility.Ability.Nature.Color.Primary;
             }
 
             Add(new Element(rewardAbility.Ability, size: 200));

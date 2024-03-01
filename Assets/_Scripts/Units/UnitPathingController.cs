@@ -37,6 +37,7 @@ namespace Lis.Units
 
         public void DisableAgent()
         {
+            if (!gameObject.activeSelf) return;
             if (_agent.isActiveAndEnabled) _agent.isStopped = true;
             _agent.enabled = false;
             _animator.SetBool(AnimMove, false);
@@ -45,8 +46,6 @@ namespace Lis.Units
 
         public IEnumerator PathToPosition(Vector3 position)
         {
-            // EntityLog.Add($"{BattleManager.GetTime()}: Path to position is called {position}");
-
             _agent.enabled = true;
             // TODO: pitiful solution for making entities push each other
             _agent.avoidancePriority = Random.Range(_avoidancePriorityRange.x, _avoidancePriorityRange.y);
@@ -69,12 +68,12 @@ namespace Lis.Units
 
         public IEnumerator PathToTarget(Transform t)
         {
-            // EntityLog.Add($"{BattleManager.GetTime()}: Path to target is called {t}");
-
             yield return PathToPosition(t.position);
-            while (IsAgentOk() && _agent.remainingDistance > _agent.stoppingDistance)
+            while (IsAgentOk() && _agent.remainingDistance >= _agent.stoppingDistance)
             {
                 if (t == null) yield break;
+                Debug.Log(
+                    $"PathToTarget | remainign dis: {_agent.remainingDistance} | stopping dist {_agent.stoppingDistance}");
                 _agent.SetDestination(t.position);
                 yield return new WaitForSeconds(0.1f);
             }

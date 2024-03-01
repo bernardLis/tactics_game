@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 9ba5a3d0-1bd9-47e4-be85-a50e55caa87e
   Duration: 1200
-  TilesUntilBoss: 2
-  Won: 0
+  Stats: {fileID: 11400000, guid: 6cf74251d6908d64bac571abc668f2c7, type: 2}
+  Boss: {fileID: 0}

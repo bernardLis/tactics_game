@@ -42,10 +42,10 @@ namespace Lis.Battle.Fight
             // split minion count evenly between elements
             int pointsPerElement = _pointsLeft / 4;
             int pointsLeftover = _pointsLeft % 4;
-            CreateEnemyGroupOfElement(ElementName.Earth, pointsPerElement + pointsLeftover);
-            CreateEnemyGroupOfElement(ElementName.Fire, pointsPerElement);
-            CreateEnemyGroupOfElement(ElementName.Water, pointsPerElement);
-            CreateEnemyGroupOfElement(ElementName.Wind, pointsPerElement);
+            CreateEnemyGroupOfElement(NatureName.Earth, pointsPerElement + pointsLeftover);
+            CreateEnemyGroupOfElement(NatureName.Fire, pointsPerElement);
+            CreateEnemyGroupOfElement(NatureName.Water, pointsPerElement);
+            CreateEnemyGroupOfElement(NatureName.Wind, pointsPerElement);
         }
 
         void SingleElementWave()
@@ -54,16 +54,16 @@ namespace Lis.Battle.Fight
             switch (val)
             {
                 case 0:
-                    CreateEnemyGroupOfElement(ElementName.Earth, _pointsLeft);
+                    CreateEnemyGroupOfElement(NatureName.Earth, _pointsLeft);
                     break;
                 case 1:
-                    CreateEnemyGroupOfElement(ElementName.Fire, _pointsLeft);
+                    CreateEnemyGroupOfElement(NatureName.Fire, _pointsLeft);
                     break;
                 case 2:
-                    CreateEnemyGroupOfElement(ElementName.Water, _pointsLeft);
+                    CreateEnemyGroupOfElement(NatureName.Water, _pointsLeft);
                     break;
                 default:
-                    CreateEnemyGroupOfElement(ElementName.Wind, _pointsLeft);
+                    CreateEnemyGroupOfElement(NatureName.Wind, _pointsLeft);
                     break;
             }
         }
@@ -75,13 +75,13 @@ namespace Lis.Battle.Fight
             _pointsLeft -= 5;
         }
 
-        void CreateEnemyGroupOfElement(ElementName elementName, int points)
+        void CreateEnemyGroupOfElement(NatureName natureName, int points)
         {
             EnemyGroup group = CreateInstance<EnemyGroup>();
-            group.ElementName = elementName;
+            group.NatureName = natureName;
             for (int i = 0; i < points; i++)
             {
-                Minion minion = Instantiate(_gameManager.EntityDatabase.GetRandomMinionByElement(elementName));
+                Minion minion = Instantiate(_gameManager.EntityDatabase.GetRandomMinionByElement(natureName));
                 minion.Level.SetValue(Random.Range(_minionLevelRange.x, _minionLevelRange.y));
                 minion.InitializeBattle(1);
                 group.Minions.Add(minion);

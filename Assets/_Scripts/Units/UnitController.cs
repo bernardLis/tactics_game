@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Battle;
-using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -14,7 +13,6 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units
@@ -77,8 +75,6 @@ namespace Lis.Units
 
         public virtual void InitializeGameObject()
         {
-            UnitLog.Add($"{Time.time}: (GAME TIME) Unit is instantiated.");
-
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
@@ -98,11 +94,13 @@ namespace Lis.Units
             _feelPlayer = GetComponent<MMF_Player>();
 
             BattleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
+
+            AddToLog($"Game Object is initialized.");
         }
 
-        public virtual void InitializeEntity(Unit unit, int team)
+        public virtual void InitializeUnit(Unit unit, int team)
         {
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit is initialized");
+            AddToLog($"Unit is initialized, team: {team}");
 
             if (_spawnSound != null)
                 AudioManager.PlaySFX(_spawnSound, transform.position);
@@ -146,20 +144,21 @@ namespace Lis.Units
             _levelUpEffect.SetActive(false);
         }
 
-        public virtual void StartRunEntityCoroutine()
+        public virtual void RunUnit()
         {
+            AddToLog("Run unit is called");
+
             if (IsDead) return;
 
-            StopRunEntityCoroutine();
-            UnitLog.Add($"{BattleManager.GetTime()}: Start run unit coroutine is called");
+            StopUnit();
 
-            CurrentMainCoroutine = RunEntity();
+            CurrentMainCoroutine = RunUnitCoroutine();
             StartCoroutine(CurrentMainCoroutine);
         }
 
-        public virtual void StopRunEntityCoroutine()
+        public virtual void StopUnit()
         {
-            UnitLog.Add($"{BattleManager.GetTime()}: Stop run unit coroutine is called");
+            AddToLog("Stop unit is called");
 
             if (CurrentMainCoroutine != null)
                 StopCoroutine(CurrentMainCoroutine);
@@ -169,7 +168,7 @@ namespace Lis.Units
             UnitPathingController.DisableAgent();
         }
 
-        protected virtual IEnumerator RunEntity()
+        protected virtual IEnumerator RunUnitCoroutine()
         {
             // meant to be overwritten
             yield return null;
@@ -181,10 +180,8 @@ namespace Lis.Units
             if (IsEngaged) return;
             IsEngaged = true;
 
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit gets engaged by {attacker.name}");
+            AddToLog($"Unit gets engaged by {attacker.name}");
             StartCoroutine(UnitPathingController.PathToTarget(attacker.transform));
-
-            // StopRunEntityCoroutine();
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
         }
 
@@ -193,8 +190,8 @@ namespace Lis.Units
             if (IsDead) return;
 
             IsEngaged = false;
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit disengages");
-            StartRunEntityCoroutine();
+            AddToLog("Unit disengages");
+            RunUnit();
         }
 
         public bool HasFullHealth()
@@ -204,7 +201,7 @@ namespace Lis.Units
 
         public void GetHealed(int value)
         {
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit gets healed by {value}");
+            AddToLog($"Unit gets healed by {value}");
 
             int v = Mathf.FloorToInt(Mathf.Clamp(value, 0,
                 Unit.MaxHealth.GetValue() - Unit.CurrentHealth.Value));
@@ -213,13 +210,13 @@ namespace Lis.Units
             DisplayFloatingText("+" + v, HealthColor);
         }
 
-        public virtual IEnumerator GetHit(Ability ability)
+        public IEnumerator GetHit(Ability ability)
         {
             if (IsDead) yield break;
             if (BattleManager == null) yield break;
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit gets attacked by {ability.name}");
+            AddToLog($"Unit gets attacked by {ability.name}");
 
-            BaseGetHit(Unit.CalculateDamage(ability), ability.Element.Color.Secondary);
+            BaseGetHit(Unit.CalculateDamage(ability), ability.Nature.Color.Secondary);
 
             if (Unit.CurrentHealth.Value <= 0)
                 ability.AddKill();
@@ -229,14 +226,14 @@ namespace Lis.Units
         {
             if (IsDead) yield break;
             if (BattleManager == null) yield break;
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit gets attacked by {attacker.name}");
+            AddToLog($"Unit gets attacked by {attacker.name}");
 
             int damage = Unit.CalculateDamage(attacker.Unit as UnitFight);
             if (specialDamage > 0) damage = specialDamage;
             if (attacker.Unit is not UnitFight attackerFight) yield break;
             attackerFight.AddDmgDealt(damage);
 
-            BaseGetHit(damage, attackerFight.Element.Color.Primary, attacker);
+            BaseGetHit(damage, attackerFight.Nature.Color.Primary, attacker);
 
             if (Unit.CurrentHealth.Value <= 0)
                 attackerFight.AddKill(Unit);
@@ -246,13 +243,13 @@ namespace Lis.Units
         {
             if (IsShielded)
             {
-                UnitLog.Add($"{BattleManager.GetTime()}: {dmg} shielded damage");
+                AddToLog($"{dmg} damage is shielded");
                 BreakShield();
                 return;
             }
 
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit takes damage {dmg}");
-            StopRunEntityCoroutine();
+            AddToLog($"Unit takes damage {dmg}");
+            StopUnit();
 
             if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
             else AudioManager.PlaySFX("Hit", transform.position);
@@ -270,7 +267,7 @@ namespace Lis.Units
                 return;
             }
 
-            StartRunEntityCoroutine();
+            RunUnit();
         }
 
         void BreakShield()
@@ -292,7 +289,7 @@ namespace Lis.Units
             if (IsDeathCoroutineStarted) yield break;
             IsDeathCoroutineStarted = true;
 
-            StopRunEntityCoroutine();
+            StopUnit();
             if (_isGrabbed) GrabManager.Instance.CancelGrabbing();
             Collider.enabled = false;
             DOTween.Kill(transform);
@@ -302,7 +299,7 @@ namespace Lis.Units
 
             if (hasLoot) ResolveLoot();
 
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit dies.");
+            AddToLog("Unit dies.");
             OnDeath?.Invoke(this, attacker);
         }
 
@@ -316,7 +313,7 @@ namespace Lis.Units
         {
             if (_isPoisoned) yield break;
             if (IsDead) yield break;
-            UnitLog.Add($"{BattleManager.GetTime()}: Unit gets poisoned by {attacker.name}.");
+            AddToLog($"Unit gets poisoned by {attacker.name}.");
 
             _isPoisoned = true;
             DisplayFloatingText("Poisoned", Color.green);
@@ -350,7 +347,7 @@ namespace Lis.Units
         {
             if (IsDead) yield break;
 
-            StopRunEntityCoroutine();
+            StopUnit();
             Camera cam = Camera.main;
             if (cam != null)
                 yield return transform.DODynamicLookAt(cam.transform.position, 0.2f).WaitForCompletion();
@@ -377,14 +374,14 @@ namespace Lis.Units
         {
             _isGrabbed = true;
             Animator.enabled = false;
-            StopRunEntityCoroutine();
+            StopUnit();
         }
 
         public void Released()
         {
             _isGrabbed = false;
             Animator.enabled = true;
-            StartRunEntityCoroutine();
+            RunUnit();
         }
 
         /* weird helpers */
@@ -408,6 +405,11 @@ namespace Lis.Units
             if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
                 return GetPositionCloseToHero();
             return pos;
+        }
+
+        protected void AddToLog(string s)
+        {
+            UnitLog.Add($"{BattleManager.GetTime()}: {s}.");
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using Lis.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero.Tablets
 {
@@ -9,7 +10,7 @@ namespace Lis.Units.Hero.Tablets
     {
         public Sprite Icon;
         public string Description;
-        public Element Element;
+        [FormerlySerializedAs("Element")] public Nature Nature;
 
         [HideInInspector] public IntVariable Level;
         public int MaxLevel = 7;

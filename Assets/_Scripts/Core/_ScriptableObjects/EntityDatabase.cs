@@ -41,7 +41,7 @@ namespace Lis.Core
         public Tablet[] HeroTablets;
         [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
 
-        public TabletAdvanced GetAdvancedTabletByElementNames(ElementName first, ElementName second)
+        public TabletAdvanced GetAdvancedTabletByElementNames(NatureName first, NatureName second)
         {
             foreach (TabletAdvanced t in _heroTabletsAdvanced)
                 if (t.IsMadeOfElements(GetElementByName(first), GetElementByName(second)))
@@ -64,11 +64,11 @@ namespace Lis.Core
             return _minions.ToList();
         }
 
-        public Minion GetRandomMinionByElement(ElementName elName)
+        public Minion GetRandomMinionByElement(NatureName elName)
         {
             List<Minion> minions = new();
             foreach (Minion m in _minions)
-                if (m.Element.ElementName == elName)
+                if (m.Nature.NatureName == elName)
                     minions.Add(m);
             return minions[Random.Range(0, minions.Count)];
         }
@@ -105,11 +105,11 @@ namespace Lis.Core
 
 
         [Header("Elements")] [SerializeField]
-        Element[] _elements;
+        Nature[] _elements;
 
-        Element GetElementByName(ElementName str)
+        Nature GetElementByName(NatureName str)
         {
-            return _elements.FirstOrDefault(x => x.ElementName == str);
+            return _elements.FirstOrDefault(x => x.NatureName == str);
         }
     }
 }

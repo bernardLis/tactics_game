@@ -34,10 +34,10 @@ namespace Lis.Units.Boss.Attack
         protected void SpawnProjectile(Vector3 dir)
         {
             // basic projectile
-            OpponentProjectileController p = _rangedOpponentManager.GetProjectileFromPool(ElementName.Water);
+            OpponentProjectileController p = _rangedOpponentManager.GetProjectileFromPool(NatureName.Water);
 
             if (Attack.UseElementalProjectile)
-                p = _rangedOpponentManager.GetProjectileFromPool(_bossController.Unit.Element.ElementName);
+                p = _rangedOpponentManager.GetProjectileFromPool(_bossController.Unit.Nature.NatureName);
 
             Vector3 spawnPos = transform.position;
             spawnPos.y = 0.5f;

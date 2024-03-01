@@ -28,7 +28,7 @@ namespace Lis.Battle
         readonly VisualElement _middlePanel;
         readonly VisualElement _rightPanel;
 
-        Stats _stats;
+        readonly Stats _stats;
 
         public StatsElement()
         {
@@ -45,7 +45,7 @@ namespace Lis.Battle
                 return;
             }
 
-            _stats = _battleManager.GetComponent<StatsTracker>().Stats;
+            _stats = _battleManager.Battle.Stats;
 
             AddToClassList(_ussMain);
             AddToClassList(_ussCommonTextPrimary);

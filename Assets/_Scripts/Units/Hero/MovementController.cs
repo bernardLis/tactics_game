@@ -51,9 +51,6 @@ namespace Lis.Units.Hero
         // HERE: testing
         bool _isSprinting;
 
-        // strafe
-        private static readonly int Interaction = Animator.StringToHash("Interaction");
-
         void Start()
         {
             _cam = Camera.main;
@@ -70,24 +67,9 @@ namespace Lis.Units.Hero
             _animator = GetComponentInChildren<Animator>();
             _controller = GetComponent<CharacterController>();
 
-            GetComponent<Interactor>().OnInteract += InteractionAnimation;
-
             AssignAnimationIDs();
 
             _isSprintUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
-        }
-
-        // TODO: this is wrong. It should somehow work without this code, but I don't know which button to click in Unity. 
-        void InteractionAnimation()
-        {
-            _animator.SetLayerWeight(1, 1);
-            _animator.SetTrigger(Interaction);
-            Invoke(nameof(ResetArmsLayerWeight), 2f);
-        }
-
-        void ResetArmsLayerWeight()
-        {
-            _animator.SetLayerWeight(1, 0);
         }
 
         IEnumerator DelayedStart(float delay)

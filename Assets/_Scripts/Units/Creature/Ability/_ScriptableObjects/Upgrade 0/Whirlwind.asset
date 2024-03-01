@@ -22,4 +22,4 @@ MonoBehaviour:
   ExecuteOnMove: 0
   ExecuteOnAttack: 1
   ExecuteOnDeath: 0
-  AbilityPrefab: {fileID: 2005618007794049060, guid: f9033928b0793654eae40a7de43d28ad, type: 3}
+  Prefab: {fileID: 2005618007794049060, guid: f9033928b0793654eae40a7de43d28ad, type: 3}

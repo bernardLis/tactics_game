@@ -72,25 +72,25 @@ namespace Lis.Battle.Fight
             rangedOpponent.SetActive(true);
 
             RangedMinionController minionController = rangedOpponent.GetComponent<RangedMinionController>();
-            minionController.InitializeEntity(unit, 1);
+            minionController.InitializeUnit(unit, 1);
             _battleManager.AddOpponentArmyEntity(minionController);
         }
 
-        public OpponentProjectileController GetProjectileFromPool(ElementName element)
+        public OpponentProjectileController GetProjectileFromPool(NatureName nature)
         {
             OpponentProjectileController opponentProjectileController = GetObjectFromPool();
 
-            switch (element)
+            switch (nature)
             {
-                case ElementName.Earth:
+                case NatureName.Earth:
                     opponentProjectileController = GetFromPool(_projectilePoolBiggerWithTime)
                         .GetComponent<OpponentProjectileController>();
                     break;
-                case ElementName.Fire:
+                case NatureName.Fire:
                     opponentProjectileController =
                         GetFromPool(_projectilePoolQuick).GetComponent<OpponentProjectileController>();
                     break;
-                case ElementName.Wind:
+                case NatureName.Wind:
                     opponentProjectileController = GetFromPool(_projectilePoolWallBounce)
                         .GetComponent<OpponentProjectileController>();
                     break;

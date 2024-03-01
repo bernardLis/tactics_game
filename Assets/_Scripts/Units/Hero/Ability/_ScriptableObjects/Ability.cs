@@ -4,6 +4,7 @@ using Lis.Core;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero.Ability
 {
@@ -23,7 +24,7 @@ namespace Lis.Units.Hero.Ability
 
         public List<Level> Levels;
 
-        public Core.Element Element;
+        [FormerlySerializedAs("Element")] public Core.Nature Nature;
         [HideInInspector] public int KillCount;
 
         public bool IsAdvanced;
@@ -64,7 +65,7 @@ namespace Lis.Units.Hero.Ability
             float pow = Levels[Level].Power;
             if (_hero == null) return Mathf.FloorToInt(pow);
             pow += _hero.Power.GetValue(); // hero power
-            Tablet t = _hero.GetTabletByElement(Element);
+            Tablet t = _hero.GetTabletByElement(Nature);
             if (t != null) pow += pow * t.Level.Value * 0.1f; // elemental bonus - tablet level * 10%
 
 

@@ -39,7 +39,7 @@ namespace Lis.Units.Hero.Tablets
 
             Label name = new(Helpers.ParseScriptableObjectName(_tablet.name));
             container.Add(name);
-            ElementalElement element = new(_tablet.Element);
+            ElementalElement element = new(_tablet.Nature);
             container.Add(element);
 
             Label level = new($"Level: {_tablet.Level.Value}");
@@ -53,7 +53,7 @@ namespace Lis.Units.Hero.Tablets
             Label title = new("Current Effect");
             Add(title);
 
-            Label bonusDmg = new($"{_tablet.Element.ElementName} damage +{_tablet.Level.Value * 10}%");
+            Label bonusDmg = new($"{_tablet.Nature.NatureName} damage +{_tablet.Level.Value * 10}%");
             Add(bonusDmg);
 
             Label bonusPrimaryStat = new($"{_tablet.PrimaryStat.StatType} +{_tablet.Level.Value * _tablet.PrimaryStat.Value}");
@@ -73,7 +73,7 @@ namespace Lis.Units.Hero.Tablets
             Label title = new("Next Effect");
             Add(title);
 
-            Label bonusDmg = new($"{_tablet.Element.ElementName} damage +{(_tablet.Level.Value + 1) * 10}%");
+            Label bonusDmg = new($"{_tablet.Nature.NatureName} damage +{(_tablet.Level.Value + 1) * 10}%");
             Add(bonusDmg);
 
             Label bonusPrimaryStat = new($"{_tablet.PrimaryStat.StatType} +{(_tablet.Level.Value + 1) * _tablet.PrimaryStat.Value}");

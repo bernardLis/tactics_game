@@ -5,8 +5,6 @@ using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Element = Lis.Core.Element;
 
 namespace Lis.Units.Hero
 {
@@ -135,7 +133,7 @@ namespace Lis.Units.Hero
         [Header("Tablets")] public List<Tablet> Tablets = new();
         public TabletAdvanced AdvancedTablet;
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
-        public Dictionary<Element, Tablet> TabletsByElement = new();
+        public Dictionary<Nature, Tablet> TabletsByElement = new();
 
         void CreateTablets()
         {
@@ -149,44 +147,44 @@ namespace Lis.Units.Hero
             }
         }
 
-        public Tablet GetTabletByElement(Element element)
+        public Tablet GetTabletByElement(Nature nature)
         {
             if (TabletsByElement.Count < Tablets.Count)
                 foreach (Tablet t in Tablets)
-                    TabletsByElement.Add(t.Element, t);
+                    TabletsByElement.Add(t.Nature, t);
 
-            return !TabletsByElement.ContainsKey(element) ? null : TabletsByElement[element];
+            return !TabletsByElement.ContainsKey(nature) ? null : TabletsByElement[nature];
         }
 
         void CheckAdvancedTablets()
         {
             if (AdvancedTablet != null) return; // only one advanced tablet
 
-            ElementName firstElement = ElementName.None;
+            NatureName firstNature = NatureName.None;
             foreach (Tablet t in Tablets)
             {
                 if (!t.IsMaxLevel()) continue;
-                if (firstElement == ElementName.None)
+                if (firstNature == NatureName.None)
                 {
-                    firstElement = t.Element.ElementName;
+                    firstNature = t.Nature.NatureName;
                     continue;
                 }
 
-                ElementName secondElement = t.Element.ElementName;
-                AddAdvancedTablet(firstElement, secondElement);
+                NatureName secondNature = t.Nature.NatureName;
+                AddAdvancedTablet(firstNature, secondNature);
                 break;
             }
         }
 
-        void AddAdvancedTablet(ElementName firstElement, ElementName secondElement)
+        void AddAdvancedTablet(NatureName firstNature, NatureName secondNature)
         {
             TabletAdvanced original =
-                _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstElement, secondElement);
+                _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstNature, secondNature);
             if (original == null) return;
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 
-            TabletsByElement.Add(AdvancedTablet.Element, AdvancedTablet);
+            TabletsByElement.Add(AdvancedTablet.Nature, AdvancedTablet);
 
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }
@@ -328,7 +326,7 @@ namespace Lis.Units.Hero
     [Serializable]
     public struct HeroData
     {
-        [FormerlySerializedAs("EntityMovementData")] public UnitMovementData UnitMovementData;
+        public UnitMovementData UnitMovementData;
         public string Id;
 
         public List<AbilityData> AbilityData;

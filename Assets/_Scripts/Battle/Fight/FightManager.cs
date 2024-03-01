@@ -121,7 +121,7 @@ namespace Lis.Battle.Fight
 
             be.transform.position = pos;
             be.gameObject.SetActive(true);
-            be.InitializeEntity(m, 1);
+            be.InitializeUnit(m, 1);
             _battleManager.AddOpponentArmyEntity(be);
         }
 

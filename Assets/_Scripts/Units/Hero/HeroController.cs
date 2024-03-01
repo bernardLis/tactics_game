@@ -48,9 +48,9 @@ namespace Lis.Units.Hero
             Destroy(instance, 8f);
         }
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
-            base.InitializeEntity(unit, 0);
+            base.InitializeUnit(unit, 0);
             gameObject.layer = 8;
             UnitPathingController.EnableAgent();
 
@@ -110,11 +110,11 @@ namespace Lis.Units.Hero
         }
 
         /* OVERRIDES */
-        public override void StartRunEntityCoroutine()
+        public override void RunUnit()
         {
         }
 
-        public override void StopRunEntityCoroutine()
+        public override void StopUnit()
         {
         }
 

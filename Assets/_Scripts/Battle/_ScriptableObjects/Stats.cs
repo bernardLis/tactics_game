@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Lis.Battle
 {
-    [CreateAssetMenu]
     public class Stats : ScriptableObject
     {
         public int MinionsKilled;

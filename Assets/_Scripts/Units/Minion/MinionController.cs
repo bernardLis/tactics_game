@@ -14,15 +14,15 @@ namespace Lis.Units.Minion
         [SerializeField] GameObject _waterGfx;
         [SerializeField] GameObject _windGfx;
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
             if (Gfx != null) Gfx.SetActive(true);
-            if (unit.Element.ElementName == ElementName.Earth) _earthGfx.SetActive(true);
-            if (unit.Element.ElementName == ElementName.Fire) _fireGfx.SetActive(true);
-            if (unit.Element.ElementName == ElementName.Water) _waterGfx.SetActive(true);
-            if (unit.Element.ElementName == ElementName.Wind) _windGfx.SetActive(true);
+            if (unit.Nature.NatureName == NatureName.Earth) _earthGfx.SetActive(true);
+            if (unit.Nature.NatureName == NatureName.Fire) _fireGfx.SetActive(true);
+            if (unit.Nature.NatureName == NatureName.Water) _waterGfx.SetActive(true);
+            if (unit.Nature.NatureName == NatureName.Wind) _windGfx.SetActive(true);
 
-            base.InitializeEntity(unit, team);
+            base.InitializeUnit(unit, team);
             _minion = (Minion)unit;
 
             // minion pool
@@ -31,10 +31,10 @@ namespace Lis.Units.Minion
             Collider.enabled = true;
 
             UnitPathingController.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
-            StartRunEntityCoroutine();
+            RunUnit();
         }
 
-        protected override IEnumerator RunEntity()
+        protected override IEnumerator RunUnitCoroutine()
         {
             if (IsDead) yield break;
 
@@ -69,7 +69,7 @@ namespace Lis.Units.Minion
             Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
             StartCoroutine(HeroController.GetHit(_minion));
             yield return new WaitForSeconds(0.5f);
-            StartRunEntityCoroutine();
+            RunUnit();
         }
 
         public override IEnumerator Die(UnitController attacker = null, bool hasLoot = true)

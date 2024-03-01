@@ -21,9 +21,9 @@ namespace Lis.Units.Creature
             _projectilePoolManager = GetComponent<ProjectilePoolManager>();
         }
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
-            base.InitializeEntity(unit, team);
+            base.InitializeUnit(unit, team);
             _projectilePoolManager.Initialize(Creature.Projectile);
         }
 
@@ -113,7 +113,7 @@ namespace Lis.Units.Creature
             ProjectileController projectileController = _projectilePoolManager.GetObjectFromPool();
             if (Team == 1)
                 projectileController = BattleManager.GetComponent<RangedOpponentManager>()
-                    .GetProjectileFromPool(Unit.Element.ElementName);
+                    .GetProjectileFromPool(Unit.Nature.NatureName);
             projectileController.Initialize(Team);
             projectileController.transform.position = ProjectileSpawnPoint.transform.position;
             if (Opponent == null) yield break;

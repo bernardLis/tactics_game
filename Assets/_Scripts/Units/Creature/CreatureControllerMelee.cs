@@ -12,9 +12,9 @@ namespace Lis.Units.Creature
             _hitEffectPoolManager = GetComponent<HitEffectPoolManager>();
         }
 
-        public override void InitializeEntity(Unit unit, int team)
+        public override void InitializeUnit(Unit unit, int team)
         {
-            base.InitializeEntity(unit, team);
+            base.InitializeUnit(unit, team);
             _hitEffectPoolManager.Initialize(Creature.HitPrefab);
         }
 

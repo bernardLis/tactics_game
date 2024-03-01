@@ -95,7 +95,7 @@ namespace Lis.Units.Creature.Ability
         {
             // meant to be overwritten and it goes at the end of ability
             Creature.Ability.Used();
-            CreatureController.StartRunEntityCoroutine();
+            CreatureController.RunUnit();
             StartAbilityCooldownCoroutine();
             yield return null;
         }

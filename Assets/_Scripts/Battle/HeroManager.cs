@@ -36,6 +36,9 @@ namespace Lis.Battle
 
         public int RewardRerollsAvailable;
 
+        // HERE: testing
+        readonly bool _turnOffAbility = true;
+
         public void Initialize(Hero hero)
         {
             _gameManager = GameManager.Instance;
@@ -64,11 +67,9 @@ namespace Lis.Battle
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
 
-            if (hero.StartingAbility != null)
-            {
-                Hero.AddAbility(hero.StartingAbility);
-                _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
-            }
+            if (hero.StartingAbility == null || _turnOffAbility) return;
+            Hero.AddAbility(hero.StartingAbility);
+            _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
         }
 
         IEnumerator MakeHeroFall(Hero hero)
@@ -83,7 +84,7 @@ namespace Lis.Battle
             heroAnimator.SetBool(AnimFreeFall, false);
             heroAnimator.SetBool(AnimGrounded, true);
 
-            HeroController.InitializeEntity(hero, 0);
+            HeroController.InitializeUnit(hero, 0);
             _battleManager.AddPlayerArmyEntity(HeroController);
             _heroBattleElement = new(hero);
             _bottomPanel.Add(_heroBattleElement);
