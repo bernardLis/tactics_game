@@ -228,6 +228,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6955958387312108167, guid: d21e67c60664616448005c54fee1aebe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955958387312108167, guid: d21e67c60664616448005c54fee1aebe, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955958387312108167, guid: d21e67c60664616448005c54fee1aebe, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6955958387312108167, guid: d21e67c60664616448005c54fee1aebe, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293963318757502593, guid: d21e67c60664616448005c54fee1aebe, type: 3}
       propertyPath: m_Name
       value: Hero Selection Objects

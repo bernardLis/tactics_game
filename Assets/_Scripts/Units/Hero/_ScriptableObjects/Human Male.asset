@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Human Male
   m_EditorClassIdentifier: 
   Id: 8793a274-b952-45c8-a9cf-b6a9b6f0cd9a
-  EntityName: Human Male
+  UnitName: Human Male
   Icon: {fileID: 21300000, guid: cf247cc0be3452e4c9460e8cb2eef5e6, type: 3}
   IconAnimation: []
   Price: 10
-  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Prefab: {fileID: 3625945350642629027, guid: 91d6f74fb628bd34ca9729fb9fad0b5f, type: 3}
   OldDamageTaken: 0
   TotalDamageTaken: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: e7ffcc7d601424748b15d27dff66e269, type: 2}
+  TimesPicked: 2
   SelectorPrefab: {fileID: 3132514255091843268, guid: 33e427f3245cd8b48b941430cd724800, type: 3}
   Power: {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
   Pull: {fileID: 11400000, guid: 0f6eb857cfbce764a9cac1e2d7964a6e, type: 2}

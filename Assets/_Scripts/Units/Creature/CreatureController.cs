@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Lis.Battle.Land.Building;
+using Lis.Battle.Tiles.Building;
 using Lis.Core;
 using Lis.Units.Creature.Ability;
 using Lis.Units.Hero;

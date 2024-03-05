@@ -42,12 +42,12 @@ namespace Lis.Upgrades
             return upgrades;
         }
 
-        public List<UpgradeBuilding> GetUnlockedBuildings()
+        public List<UpgradeTile> GetUnlockedBuildings()
         {
-            List<UpgradeBuilding> buildings = new();
+            List<UpgradeTile> buildings = new();
             foreach (Upgrade upgrade in Upgrades)
                 if (upgrade.Type == UpgradeType.Building && upgrade.CurrentLevel > -1)
-                    buildings.Add((UpgradeBuilding)upgrade);
+                    buildings.Add((UpgradeTile)upgrade);
             return buildings;
         }
 

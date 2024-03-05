@@ -10847,6 +10847,7 @@ MonoBehaviour:
   _aura: {fileID: 6023827995496311235}
   _effect: {fileID: 5718713642495086152}
   _gfx: {fileID: 8190238745381770355}
+  _gfxShowDelay: 0.5
 --- !u!1 &3140549833255035104
 GameObject:
   m_ObjectHideFlags: 0
@@ -21260,7 +21261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1528917780429829777
 Transform:
   m_ObjectHideFlags: 0
@@ -31716,7 +31717,7 @@ CapsuleCollider:
   m_Radius: 0.27
   m_Height: 1.35
   m_Direction: 1
-  m_Center: {x: 0, y: 0.64, z: 0}
+  m_Center: {x: 0, y: 0.69, z: 0}
 --- !u!54 &1662421738281116528
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle.Land;
+using Lis.Battle.Tiles;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units;

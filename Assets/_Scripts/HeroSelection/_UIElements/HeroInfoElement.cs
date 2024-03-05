@@ -29,19 +29,19 @@ namespace Lis.HeroSelection._UIElements
             AddStatsContainer();
 
             Add(new Element(hero.StartingAbility));
+            Add(new HorizontalSpacerElement());
             Add(new Label($"Times picked: {hero.TimesPicked}"));
         }
 
         void AddNameAndElement()
         {
-            VisualElement container = new();
-            container.AddToClassList(_ussNameContainer);
-            Add(container);
-
             Label nameLabel = new($"{_hero.UnitName}");
             nameLabel.AddToClassList(_ussNameLabel);
-            container.Add(nameLabel);
-            container.Add(new ElementalElement(_hero.Nature));
+            Add(nameLabel);
+
+            Add(new HorizontalSpacerElement());
+
+            Add(new ElementalElement(_hero.Nature));
         }
 
         void AddStatsContainer()

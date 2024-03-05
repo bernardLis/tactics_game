@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Lis.Battle.Land;
+using Lis.Battle.Tiles;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;

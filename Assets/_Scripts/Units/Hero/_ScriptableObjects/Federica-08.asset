@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Federica-08
   m_EditorClassIdentifier: 
   Id: 85583b85-d4e9-40c1-813c-8ba5b193f01d
-  EntityName: Federica-08
+  UnitName: Federica-08
   Icon: {fileID: 21300000, guid: cf247cc0be3452e4c9460e8cb2eef5e6, type: 3}
   IconAnimation: []
   Price: 10
-  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 8070108761241838950, guid: 5618e87f517bda14b84b1d8f2fb9b652, type: 3}
   OldDamageTaken: 0
   TotalDamageTaken: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: e7ffcc7d601424748b15d27dff66e269, type: 2}
+  TimesPicked: 14
   SelectorPrefab: {fileID: 3132514255091843268, guid: 4b2950c20462e61488191b844ca017fa, type: 3}
   Power: {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
   Pull: {fileID: 11400000, guid: 0f6eb857cfbce764a9cac1e2d7964a6e, type: 2}

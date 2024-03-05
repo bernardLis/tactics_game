@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
-using Lis.Battle.Land;
+using Lis.Battle.Tiles;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;

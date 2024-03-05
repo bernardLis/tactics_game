@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
+  m_Name: Upgrade - Home
+  m_EditorClassIdentifier: 
+  Id: aec54af4-00a8-4051-a909-02725381dbc2
+  Icon: {fileID: 21300000, guid: cdbd17a156c768645ac49c74924c9c4b, type: 3}
+  Description: Friend ball production, produces x friend balls and stops production
+    until they are picked up.
+  Type: 2
+  Levels:
+  - {fileID: 11400000, guid: 495d4596885cfd443aed4f5d13cedc47, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 1
+  TilePrefab: {fileID: 1365502149142884417, guid: 13c25e7cebeba2e42be3aab554d16b1d, type: 3}
