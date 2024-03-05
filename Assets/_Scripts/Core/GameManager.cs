@@ -56,7 +56,6 @@ namespace Lis.Core
             CreateNewSaveFile();
 
             UpgradeBoard.Initialize();
-            GameDatabase.InitializeBuildings();
             EntityDatabase.Initialize();
             //  }
             //   else

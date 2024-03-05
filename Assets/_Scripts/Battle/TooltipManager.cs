@@ -111,7 +111,6 @@ namespace Lis.Battle
             if (unitController.IsDead) return;
             if (_isBossHealthBarShown) return;
 
-            Debug.Log($"ShowEntityInfo {unitController} ");
             CurrentEntityInfo = unitController;
             _entityInfoElement.UpdateEntityInfo(unitController);
             _entityInfoElement.style.display = DisplayStyle.Flex;

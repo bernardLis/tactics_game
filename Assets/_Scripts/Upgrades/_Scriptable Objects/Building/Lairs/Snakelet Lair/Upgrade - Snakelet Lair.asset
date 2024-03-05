@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
+  m_Name: Upgrade - Snakelet Lair
+  m_EditorClassIdentifier: 
+  Id: 8117513f-38c0-47b5-a509-60b976eebe37
+  Icon: {fileID: 21300000, guid: c93d86b2a774cb1488cfa16d14846cfc, type: 3}
+  Description: 
+  Type: 2
+  Levels:
+  - {fileID: 11400000, guid: e77339a127679294d9d51fb7f3a0915e, type: 2}
+  - {fileID: 11400000, guid: 80deb3c30ac842543b2910ca9e0bf6ba, type: 2}
+  - {fileID: 11400000, guid: c0efb0f10ffff5e4d9664897567206b1, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0
+  BuildingPrefab: {fileID: 3034882981886160044, guid: 10104319984dc9f429a11fa3e47aec3a, type: 3}

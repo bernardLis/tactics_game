@@ -18,7 +18,7 @@ namespace Lis.Upgrades
         void HandleTooltip()
         {
             Clear();
-            if (_upgrade.Type == UpgradeType.BuildingProduction)
+            if (_upgrade.Type == UpgradeType.Building)
             {
                 CreateBuildingTooltip();
                 return;

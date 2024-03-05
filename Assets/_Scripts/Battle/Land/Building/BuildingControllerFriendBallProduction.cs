@@ -1,6 +1,7 @@
 using System.Collections;
 using Lis.Battle.Pickup;
 using Lis.Core;
+using Lis.Upgrades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,12 +22,12 @@ namespace Lis.Battle.Land.Building
         Transform _originalParentOfPickup;
         float _radians;
 
-        public override void Initialize(Vector3 pos, Building building)
+        public override void Initialize(Vector3 pos, UpgradeBuilding upgrade)
         {
-            base.Initialize(pos, building);
+            base.Initialize(pos, upgrade);
 
             _pickupManager = BattleManager.GetComponent<PickupManager>();
-            _productionLimit = Building.BuildingUpgrade.GetValue();
+            _productionLimit = upgrade.GetValue();
 
             _radians = 2 * Mathf.PI / _productionLimit;
 

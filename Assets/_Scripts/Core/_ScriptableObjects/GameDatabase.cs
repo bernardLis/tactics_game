@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Lis.Battle.Land.Building;
 using Lis.Battle.Pickup;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,30 +8,6 @@ namespace Lis.Core
 {
     public class GameDatabase : BaseScriptableObject
     {
-        [FormerlySerializedAs("Buildings")] [Header("Buildings")] [SerializeField]
-        Building[] _buildings;
-
-        public Building GetBuildingByName(string n)
-        {
-            return _buildings.FirstOrDefault(b => b.name == n);
-        }
-
-        public void InitializeBuildings()
-        {
-            foreach (Building b in _buildings)
-                b.Initialize();
-        }
-
-        public List<Building> GetUnlockedBuildings()
-        {
-            List<Building> unlockedBuildings = new();
-            foreach (Building b in _buildings)
-                if (b.IsUnlocked())
-                    unlockedBuildings.Add(b);
-            return unlockedBuildings;
-        }
-
-
         [Header("Pickups")] public QuestablePickup[] QuestablePickups;
 
         public QuestablePickup GetRandomQuestablePickup()

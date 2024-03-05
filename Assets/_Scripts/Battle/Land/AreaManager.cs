@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Lis.Battle.Quest;
 using Lis.Core;
+using Lis.Upgrades;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -17,8 +17,8 @@ namespace Lis.Battle.Land
         [SerializeField] GameObject _floorPrefab;
 
         [SerializeField] GameObject _tilePrefab;
-        [SerializeField] Building.Building _homeBuilding;
-        List<Building.Building> _unlockedBuildings = new();
+        [SerializeField] UpgradeBuilding _homeUpgrade; //HERE: home upgrade
+        List<UpgradeBuilding> _unlockedBuildings = new();
 
         [SerializeField] Quest.Quest[] _quests;
         readonly List<Quest.Quest> _pastQuests = new();
@@ -40,7 +40,7 @@ namespace Lis.Battle.Land
                 Quaternion.identity);
             _floor.transform.SetParent(_floorHolder);
 
-            _unlockedBuildings = GameManager.Instance.GameDatabase.GetUnlockedBuildings();
+            _unlockedBuildings = GameManager.Instance.UpgradeBoard.GetUnlockedBuildings();
 
             InitializeUI();
             CreateArea();
@@ -65,11 +65,11 @@ namespace Lis.Battle.Land
                 for (int z = -5; z < 5; z++)
                 {
                     Vector3 pos = new(x * tileScale, 0, z * tileScale);
-                    Building.Building building = _unlockedBuildings[Random.Range(0, _unlockedBuildings.Count)];
+                    UpgradeBuilding upgrade = _unlockedBuildings[Random.Range(0, _unlockedBuildings.Count)];
                     if (pos == Vector3.zero)
-                        building = _homeBuilding;
+                        upgrade = _homeUpgrade;
 
-                    TileController bt = InstantiateTile(pos, building);
+                    TileController bt = InstantiateTile(pos, upgrade);
                     bt.OnUnlocked += TileUnlocked;
                     _tiles.Add(bt);
 
@@ -157,7 +157,7 @@ namespace Lis.Battle.Land
             return adjacentTiles;
         }
 
-        public TileController ReplaceTile(TileController tileController, Building.Building newBuilding)
+        public TileController ReplaceTile(TileController tileController, UpgradeBuilding newBuilding)
         {
             TileController newTileController = InstantiateTile(tileController.transform.position, newBuilding);
 
@@ -168,15 +168,14 @@ namespace Lis.Battle.Land
             return newTileController;
         }
 
-        TileController InstantiateTile(Vector3 pos, Building.Building b)
+        TileController InstantiateTile(Vector3 pos, UpgradeBuilding b)
         {
             GameObject tile = Instantiate(_tilePrefab, _floorHolder);
             tile.transform.position = pos;
             tile.SetActive(false);
 
-            Building.Building buildingInstance = Instantiate(b);
             TileController bt = tile.GetComponent<TileController>();
-            bt.Initialize(buildingInstance);
+            bt.Initialize(b);
 
             return bt;
         }

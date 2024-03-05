@@ -55,7 +55,6 @@ namespace Lis.Battle
 
         public void UpdateEntityInfo(UnitController unitController)
         {
-            Debug.Log($"UpdateEntityInfo {unitController}");
             _name.text = unitController.Unit.UnitName;
             _bar.UpdateTrackedVariables(unitController.Unit.CurrentHealth, totalStat: unitController.Unit.MaxHealth);
         }

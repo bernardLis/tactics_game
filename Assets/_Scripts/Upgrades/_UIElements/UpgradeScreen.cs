@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -39,7 +40,6 @@ namespace Lis.Upgrades
             CreateAbilityUpgrades();
             CreateTeamUpgrades();
             CreateBuildingUpgrades();
-            CreateLairUpgrades();
             CreateCreatureUpgrades();
             CreateBossUpgrades();
             CreateOtherUpgrades();
@@ -86,12 +86,6 @@ namespace Lis.Upgrades
         {
             VisualElement container = CreateUpgradeContainer("Building Upgrades");
             AddUpgradesByType(container, UpgradeType.Building);
-        }
-
-        void CreateLairUpgrades()
-        {
-            VisualElement container = CreateUpgradeContainer("Lair Upgrades");
-            AddUpgradesByType(container, UpgradeType.BuildingProduction);
         }
 
         void CreateCreatureUpgrades()
@@ -176,7 +170,7 @@ namespace Lis.Upgrades
         void Play()
         {
             Hide();
-            OnHide += () => _gameManager.StartGame();
+            OnHide += () => _gameManager.LoadScene(Scenes.HeroSelection);
         }
     }
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
+  m_Name: Upgrade - Troops Limit Building
+  m_EditorClassIdentifier: 
+  Id: c67e035d-0d4c-4d5f-8f67-07768b00e0b0
+  Icon: {fileID: 21300000, guid: 61a253738a9148c42b8246d535efd2b0, type: 3}
+  Description: Increases troops limit.
+  Type: 2
+  Levels:
+  - {fileID: 11400000, guid: 90e35b5a8b7faa54586c57a2625f6974, type: 2}
+  - {fileID: 11400000, guid: c6da2e9c507918046bbcb2998e36fa4b, type: 2}
+  - {fileID: 11400000, guid: bf2ed7f80225dfd4088b069a696db944, type: 2}
+  CurrentLevel: -1
+  PermanentlyUnlocked: 0
+  BuildingPrefab: {fileID: 2070979985311246429, guid: c8ddbf373ba68054893589a23b867406, type: 3}

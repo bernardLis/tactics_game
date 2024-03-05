@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle.Land.Building;
 using Lis.Core;
+using Lis.Upgrades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,8 +37,8 @@ namespace Lis.Battle.Land
 
         public float Scale { get; private set; }
 
-        public Building.Building Building; //{ get; private set; }
-        public BuildingController BuildingController { get; private set; }
+        public UpgradeBuilding Upgrade;
+        BuildingController _buildingController;
 
         int _totalTime;
         int _timePassed;
@@ -47,13 +48,13 @@ namespace Lis.Battle.Land
         public event Action<TileController> OnUnlocked;
 
         // at the beginning of the game
-        public void Initialize(Building.Building building)
+        public void Initialize(UpgradeBuilding upgrade)
         {
             _battleManager = BattleManager.Instance;
             _areaManager = _battleManager.GetComponent<AreaManager>();
             _tooltipManager = _battleManager.GetComponent<TooltipManager>();
 
-            Building = building;
+            Upgrade = upgrade;
 
             Scale = _surface.transform.localScale.x;
 
@@ -61,11 +62,11 @@ namespace Lis.Battle.Land
             MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
             mr.material = _materials[Random.Range(0, _materials.Length)];
 
-            BuildingController = GetComponentInChildren<BuildingController>();
-            if (Building == null) return;
-            BuildingController = Instantiate(Building.BuildingPrefab, transform).GetComponent<BuildingController>();
+            _buildingController = GetComponentInChildren<BuildingController>();
+            if (Upgrade == null) return;
+            _buildingController = Instantiate(Upgrade.BuildingPrefab, transform).GetComponent<BuildingController>();
             Vector3 pos = new(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-            BuildingController.Initialize(pos, Building);
+            _buildingController.Initialize(pos, Upgrade);
         }
 
         // when tile next to it is unlocked
@@ -84,8 +85,8 @@ namespace Lis.Battle.Land
 
         public Vector3 GetBuildingPosition()
         {
-            if (BuildingController != null)
-                return BuildingController.transform.position;
+            if (_buildingController != null)
+                return _buildingController.transform.position;
 
             return transform.position;
         }
@@ -158,7 +159,7 @@ namespace Lis.Battle.Land
             yield return new WaitForSeconds(1.5f);
             HandleBorders();
             yield return new WaitForSeconds(1.5f);
-            BuildingController.ShowBuilding();
+            _buildingController.ShowBuilding();
         }
 
         /* BORDERS */

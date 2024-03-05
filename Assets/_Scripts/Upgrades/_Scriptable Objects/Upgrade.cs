@@ -22,27 +22,19 @@ namespace Lis.Upgrades
         public bool PermanentlyUnlocked;
 
         UpgradeBoard _board;
-        bool _isInitialized;
 
         public event Action OnLevelChanged;
 
         public void Initialize(UpgradeBoard board)
         {
-            _isInitialized = true;
             _gameManager = GameManager.Instance;
             _board = board;
+
+            _board.OnRefundAll -= Refund;
+            _board.OnUnlockAll -= PurchaseAll;
+
             _board.OnRefundAll += Refund;
             _board.OnUnlockAll += PurchaseAll;
-
-            if (CurrentLevel > 0) return;
-            if (PermanentlyUnlocked) CurrentLevel = 0;
-        }
-
-        // HERE: testing
-        public void DebugInitialize()
-        {
-            if (_isInitialized) return;
-            _isInitialized = true;
 
             if (CurrentLevel > 0) return;
             if (PermanentlyUnlocked) CurrentLevel = 0;
@@ -134,6 +126,5 @@ namespace Lis.Upgrades
         Boss,
         Ability,
         Troops,
-        BuildingProduction,
     }
 }

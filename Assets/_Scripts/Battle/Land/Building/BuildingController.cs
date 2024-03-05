@@ -2,6 +2,7 @@ using System.Collections;
 using DG.Tweening;
 using Lis.Units;
 using Lis.Units.Hero;
+using Lis.Upgrades;
 using UnityEngine;
 
 namespace Lis.Battle.Land.Building
@@ -13,16 +14,16 @@ namespace Lis.Battle.Land.Building
         [SerializeField] GameObject _gfx;
         [SerializeField] protected Canvas Canvas;
 
-        protected Building Building;
+        protected UpgradeBuilding Building;
         Vector3 _originalScale;
 
         bool _corruptionPaused;
 
-        public virtual void Initialize(Vector3 pos, Building building)
+        public virtual void Initialize(Vector3 pos, UpgradeBuilding upgrade)
         {
             BattleManager = BattleManager.Instance;
 
-            Building = building;
+            Building = upgrade;
 
             Transform t = transform;
             t.localPosition = pos;
@@ -36,7 +37,6 @@ namespace Lis.Battle.Land.Building
 
         public void ShowBuilding()
         {
-            Building.Unlocked();
             StartCoroutine(ShowBuildingCoroutine());
         }
 

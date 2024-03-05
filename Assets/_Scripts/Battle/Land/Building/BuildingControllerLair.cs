@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lis.Battle.Fight;
 using Lis.Units;
 using Lis.Units.Creature;
+using Lis.Upgrades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -32,27 +33,28 @@ namespace Lis.Battle.Land.Building
         [FormerlySerializedAs("_star")] [SerializeField]
         protected Sprite Star;
 
+        public Creature ProducedCreature;
         IEnumerator _productionCoroutine;
         int _currentProductionDelaySecond;
-        BuildingLair _buildingLair;
+        UpgradeBuilding _upgrade;
         CreaturePoolManager _creaturePoolManager;
         readonly List<CreatureController> _producedCreatures = new();
 
 
-        public override void Initialize(Vector3 pos, Building building)
+        public override void Initialize(Vector3 pos, UpgradeBuilding building)
         {
             base.Initialize(pos, building);
-            _buildingLair = building as BuildingLair;
+            _upgrade = building;
 
-            if (_buildingLair == null) return;
+            if (_upgrade == null) return;
 
-            _icon.sprite = _buildingLair.ProducedCreature.Icon;
+            _icon.sprite = building.Icon;
 
-            for (int i = 0; i < _buildingLair.BuildingUpgrade.CurrentLevel + 1; i++)
+            for (int i = 0; i < building.CurrentLevel + 1; i++)
                 StarRenderers[i].sprite = Star;
 
             _creaturePoolManager = GetComponent<CreaturePoolManager>();
-            _creaturePoolManager.Initialize(_buildingLair.ProducedCreature.Prefab);
+            _creaturePoolManager.Initialize(ProducedCreature.Prefab);
 
             InitializeSpawner();
             InitializePlayerEntitiesTracker();
@@ -92,7 +94,7 @@ namespace Lis.Battle.Land.Building
         {
             yield return new WaitForSeconds(2f);
 
-            while (_producedCreatures.Count < _buildingLair.GetCurrentUpgrade().ProductionLimit)
+            while (_producedCreatures.Count < _upgrade.CurrentLevel + 1) // HERE: production limit`
             {
                 SpawnHostileCreature();
                 yield return ProductionDelay();
@@ -104,7 +106,7 @@ namespace Lis.Battle.Land.Building
 
         void SpawnHostileCreature()
         {
-            Creature creature = Instantiate(_buildingLair.ProducedCreature);
+            Creature creature = Instantiate(ProducedCreature);
             _spawner.SpawnEntity(creature, _creaturePoolManager.GetObjectFromPool(), 1);
         }
 
@@ -135,7 +137,7 @@ namespace Lis.Battle.Land.Building
 
         IEnumerator ProductionDelay()
         {
-            int totalDelay = Mathf.RoundToInt(_buildingLair.GetCurrentUpgrade().ProductionDelay);
+            int totalDelay = Mathf.RoundToInt(20); //HERE: _upgrade.GetCurrentUpgrade().ProductionDelay
             _currentProductionDelaySecond = 0;
             while (_currentProductionDelaySecond < totalDelay)
             {
@@ -151,7 +153,7 @@ namespace Lis.Battle.Land.Building
 
         void UpdateProductionLimitText()
         {
-            int limit = _buildingLair.GetCurrentUpgrade().ProductionLimit;
+            int limit = _upgrade.CurrentLevel + 1; // HERE: production limit
             _productionLimitText.text = _producedCreatures.Count + "/" + limit;
         }
     }

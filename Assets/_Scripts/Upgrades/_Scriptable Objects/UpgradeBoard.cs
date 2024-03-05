@@ -20,7 +20,10 @@ namespace Lis.Upgrades
         {
             _upgradeDictionary = new();
             foreach (Upgrade upgrade in Upgrades)
+            {
+                upgrade.Initialize(this);
                 _upgradeDictionary.Add(upgrade.name, upgrade);
+            }
         }
 
         public Upgrade GetUpgradeByName(string n)
@@ -37,6 +40,15 @@ namespace Lis.Upgrades
                 if (upgrade.Type == type)
                     upgrades.Add(upgrade);
             return upgrades;
+        }
+
+        public List<UpgradeBuilding> GetUnlockedBuildings()
+        {
+            List<UpgradeBuilding> buildings = new();
+            foreach (Upgrade upgrade in Upgrades)
+                if (upgrade.Type == UpgradeType.Building && upgrade.CurrentLevel > -1)
+                    buildings.Add((UpgradeBuilding)upgrade);
+            return buildings;
         }
 
         public void RefundAll()
