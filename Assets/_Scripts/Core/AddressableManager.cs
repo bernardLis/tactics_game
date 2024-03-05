@@ -57,7 +57,7 @@ namespace Lis.Core
         LevelUpScreenStyles,
         RewardElementStyles,
 
-        UnitIconStyles, EntityCardStyles, UnitScreenStyles,
+        UnitIconStyles, UnitCardStyles, UnitScreenStyles,
 
         CreatureAbilityStyles, CreatureAbilityTooltipStyles,
 

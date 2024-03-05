@@ -27,6 +27,7 @@ namespace Lis.Units.Hero
 
         Animator _animator;
         CharacterController _controller;
+        Transform _gfx;
 
         Vector3 _movementDirection;
         bool _disableUpdate;
@@ -66,6 +67,7 @@ namespace Lis.Units.Hero
 
             _animator = GetComponentInChildren<Animator>();
             _controller = GetComponent<CharacterController>();
+            _gfx = _animator.transform;
 
             AssignAnimationIDs();
 
@@ -255,7 +257,7 @@ namespace Lis.Units.Hero
                 return; // HERE: does it help with jiggle when mouse is super close to player
 
             Quaternion lookRotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            transform.rotation = Quaternion.Euler(new(0, lookRotation.eulerAngles.y, 0));
+            _gfx.rotation = Quaternion.Euler(new(0, lookRotation.eulerAngles.y, 0));
         }
 
         void ZoomCamera(InputAction.CallbackContext ctx)

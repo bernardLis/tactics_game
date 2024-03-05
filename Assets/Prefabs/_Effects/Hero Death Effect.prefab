@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6490562049723755111}
   - component: {fileID: 48733650839366128}
   m_Layer: 0
-  m_Name: Hero Level Up Effect
+  m_Name: Hero Death Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

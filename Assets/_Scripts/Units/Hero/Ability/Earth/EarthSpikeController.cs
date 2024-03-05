@@ -11,8 +11,6 @@ namespace Lis.Units.Hero.Ability
         {
             base.Initialize(ability, startAbility);
             _heroController = BattleManager.HeroController;
-            transform.localPosition = new Vector3(0f, 0f, 4f); // it is where the effect spawns...
-            transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -20,7 +18,8 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
             EarthSpikeObjectController spikeObjectController = GetInactiveAbilityObject() as EarthSpikeObjectController;
             if (spikeObjectController == null) yield break;
-            spikeObjectController.Execute(transform.position, _heroController.transform.rotation);
+            Transform t = _heroController.Animator.transform;
+            spikeObjectController.Execute(t.position + t.forward * 3, t.rotation);
         }
     }
 }
