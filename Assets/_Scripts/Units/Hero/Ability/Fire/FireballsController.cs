@@ -21,7 +21,8 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
             Vector3 dir = GetRandomEnemyDirection();
             Vector3 projectileVariance = new(0.2f, 0, 0.2f);
-            for (int i = 0; i < Ability.GetAmount(); i++)
+            int half = Mathf.FloorToInt(Ability.GetAmount() * 0.5f);
+            for (int i = -half; i <= half; i++)
             {
                 ProjectileController projectileController = GetInactiveFireball();
                 Transform t = projectileController.transform;

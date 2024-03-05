@@ -16,8 +16,6 @@ namespace Lis.Units
             _unitController = GetComponent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
             _unitController.OnDeath += OnDeath;
-
-            Debug.Log($"UnitTooltipDisplayer initialized {_unitController} ");
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -31,8 +29,6 @@ namespace Lis.Units
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (!CanDisplayTooltip()) return;
-            Debug.Log($"on pointer enter {_unitController} ");
-
             _tooltipManager.ShowEntityInfo(_unitController);
         }
 
