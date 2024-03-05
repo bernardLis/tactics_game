@@ -22,4 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3019e705535abb4ca0091b17cec313a, type: 2}
   CurrentLevel: -1
   PermanentlyUnlocked: 0
-  BuildingPrefab: {fileID: 8932181688098081540, guid: 760b513c1aba2b749b121f67a27343b1, type: 3}
+  TilePrefab: {fileID: 5841589855020612578, guid: eb2c8542780ac9346a9c677ba3178414, type: 3}
