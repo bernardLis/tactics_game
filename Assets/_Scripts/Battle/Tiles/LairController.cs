@@ -80,7 +80,11 @@ namespace Lis
         {
             yield return new WaitForSeconds(2f);
 
-            while (_producedCreatures.Count < Upgrade.CurrentLevel + 1) // HERE: production limit`
+            int limit = Upgrade.CurrentLevel + 1;
+            if (Upgrade.GetCurrentLevel() is UpgradeLevelLair up)
+                limit = Mathf.RoundToInt(up.ProductionLimit);
+
+            while (_producedCreatures.Count < limit)
             {
                 SpawnHostileCreature();
                 yield return ProductionDelay();
@@ -123,8 +127,11 @@ namespace Lis
 
         IEnumerator ProductionDelay()
         {
-            int totalDelay = Mathf.RoundToInt(20); //HERE: _upgrade.GetCurrentUpgrade().ProductionDelay
             _currentProductionDelaySecond = 0;
+            int totalDelay = Mathf.RoundToInt(20);
+            if (Upgrade.GetCurrentLevel() is UpgradeLevelLair up)
+                totalDelay = Mathf.RoundToInt(up.ProductionDelay);
+
             while (_currentProductionDelaySecond < totalDelay)
             {
                 _currentProductionDelaySecond += 1;
@@ -139,7 +146,10 @@ namespace Lis
 
         void UpdateProductionLimitText()
         {
-            int limit = Upgrade.CurrentLevel + 1; // HERE: production limit
+            int limit = Upgrade.CurrentLevel + 1;
+            if (Upgrade.GetCurrentLevel() is UpgradeLevelLair up)
+                limit = Mathf.RoundToInt(up.ProductionLimit);
+
             _productionLimitText.text = _producedCreatures.Count + "/" + limit;
         }
     }
