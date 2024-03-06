@@ -27,7 +27,6 @@ namespace Lis.Upgrades
             if (ss != null) styleSheets.Add(ss);
 
             _upgradeBoard = upgradeBoard;
-            style.backgroundColor = new Color(0, 0, 0, 1f);
 
             AddHeader();
 
@@ -111,8 +110,13 @@ namespace Lis.Upgrades
             VisualElement container = new();
             container.AddToClassList(_ussUpgradeContainer);
             _upgradeContainer.Add(container);
-            Color c = new Color(0.3f, 0.3f, 0.3f);
-            if (_isGray) c = new Color(0.6f, 0.6f, 0.6f);
+            //313638
+            //374E4A
+            // Color c = new Color(0.3f, 0.3f, 0.3f);
+            // if (_isGray) c = new Color(0.6f, 0.6f, 0.6f);
+            Color c = new(0.192f, 0.211f, 0.219f);
+            if (_isGray) c = new(0.215f, 0.305f, 0.290f);
+
             container.style.backgroundColor = c;
 
             _isGray = !_isGray;

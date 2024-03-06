@@ -50,14 +50,14 @@
 .common__button-arrow {
     width: 50px;
     height: 50px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark");
     justify-content: center;
     -unity-font-style: bold;
     font-size: 32px;
 }
 
 .common__ui-container {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2");
     -unity-background-scale-mode: stretch-to-fill;
     padding-left: 40px;
     padding-right: 40px;
@@ -91,7 +91,7 @@
     transition-duration: 0.5s;
     margin-left: 0;
     margin-right: 0;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark");
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -102,7 +102,7 @@
     -unity-text-outline-color: rgb(255, 255, 255);
     -unity-text-outline-width: 0;
     -unity-font-style: normal;
-    -unity-font: url('project://database/Assets/_Scripts/_UIElements/UI/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari');
+    -unity-font: url("project://database/Assets/_Scripts/_UIElements/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari");
     -unity-text-align: middle-center;
     transition-timing-function: ease-in-out;
 }
@@ -122,25 +122,25 @@
 }
 
 .common__menu-button:disabled {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark");
 }
 
 .common__horizontal-spacer {
     height: 50px;
     width: 100%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .common__vertical-spacer {
     height: 100%;
     width: 20px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Settings_elements/Settings_inscription_2.png?fileID=2800000&guid=af4e12d8f12541547a81cdb65bd4b9c6&type=3#Settings_inscription_2");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .vfx {
-    background-image: url('project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture');
+    background-image: url("project://database/Assets/Unity/VFX%20Render%20Texture.renderTexture?fileID=8400000&guid=136053425ac46cf4db1aeec74e7d3839&type=2#VFX Render Texture");
     position: absolute;
     width: 100%;
     height: 100%;
@@ -152,7 +152,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(49, 54, 56, 0.8);
 }
 
 .common__full-screen-content {
@@ -163,7 +163,7 @@
 .common__reroll-icon {
     width: 100px;
     height: 100px;
-    background-image: url('project://database/Assets/Art/Sprites/Other/Dice.png?fileID=2800000&guid=a080dd8faab77c641afa819eb830fcff&type=3#Dice');
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Other/Dice.png?fileID=2800000&guid=a080dd8faab77c641afa819eb830fcff&type=3#Dice");
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
 }
@@ -187,11 +187,6 @@
     justify-content: center;
     width: 300px;
     height: 100px;
-    /*
-    position: absolute;
-
-    bottom: 30%;
-  */
     align-self: center;
     color: aliceblue;
     opacity: 0.8;
@@ -199,11 +194,11 @@
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out-sine;
     -unity-text-align: middle-center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_little_dark.png?fileID=2800000&guid=2c5623243a815cb43b89adacca408352&type=3#Button_little_dark");
 }
 
 .common__purchase-button {
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_square.png?fileID=2800000&guid=5293e95ef7caaeb4a9437132279d1f71&type=3#Button_square");
     min-width: 150px;
     min-height: 70px;
     justify-content: center;
@@ -213,7 +208,7 @@
 .common__purchased {
     width: 50px;
     height: 50px;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/37_accept.png?fileID=2800000&guid=26b44eca4309ac74c9658e1a6ac1357a&type=3#37_accept');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/37_accept.png?fileID=2800000&guid=26b44eca4309ac74c9658e1a6ac1357a&type=3#37_accept");
 }
 
 .common__lock-overlay-main {
@@ -231,12 +226,12 @@
     position: absolute;
     top: 25%;
     left: 25%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/38_lock.png?fileID=2800000&guid=09a2538c67ad7e845a379265f3957fe1&type=3#38_lock');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/38_lock.png?fileID=2800000&guid=09a2538c67ad7e845a379265f3957fe1&type=3#38_lock");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .common__lock-overlay-icon-unlocked {
     width: 50%;
     height: 50%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/39_unlock.png?fileID=2800000&guid=345b005ffe8d5db47968d9c039e8b168&type=3#39_unlock');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/39_unlock.png?fileID=2800000&guid=345b005ffe8d5db47968d9c039e8b168&type=3#39_unlock");
 }

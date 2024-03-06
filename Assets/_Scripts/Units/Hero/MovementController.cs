@@ -233,7 +233,7 @@ namespace Lis.Units.Hero
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             Vector3 inputDirection = _movementDirection.normalized;
-            Transform t = transform;
+            Transform t = _gfx.transform;
             Vector3 forward = t.forward;
             Vector3 right = t.right;
             float forwardDot = Vector3.Dot(inputDirection, forward);
