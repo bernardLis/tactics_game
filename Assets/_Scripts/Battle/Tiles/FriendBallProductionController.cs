@@ -5,10 +5,12 @@ using Lis.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 
 namespace Lis
 {
-    public class TileFriendBallProductionController : TileProductionController
+    public class FriendBallProductionController : ProductionController
     {
         PickupManager _pickupManager;
 
@@ -22,7 +24,7 @@ namespace Lis
         Transform _originalParentOfPickup;
         float _radians;
 
-        protected override void OnTileUnlocked(TileController tile)
+        protected override void OnTileUnlocked(Controller tile)
         {
             base.OnTileUnlocked(tile);
             _pickupManager = BattleManager.GetComponent<PickupManager>();
@@ -58,6 +60,11 @@ namespace Lis
                 float horizontal = Mathf.Cos(_radians * _activeFriendBalls);
                 Vector3 spawnDir = new(horizontal, 0, vertical);
                 bp.transform.localPosition = spawnDir;
+                bp.GetComponentInChildren<Rigidbody>().isKinematic = true;
+                bp.transform.DOMoveY(2, 5f)
+                    .SetEase(Ease.InOutSine)
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetDelay(1f);
 
                 UpdateFriendBallCountText();
 
@@ -74,6 +81,7 @@ namespace Lis
         {
             _activeFriendBalls--;
             _friendBallCountText.text = $"{_activeFriendBalls}/{_productionLimit}";
+            bp.GetComponentInChildren<Rigidbody>().isKinematic = false;
             bp.transform.parent = _originalParentOfPickup;
             bp.OnCollected -= OnFriendBallCollected;
             StartProduction();

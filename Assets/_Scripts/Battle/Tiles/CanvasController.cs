@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Lis.Battle.Tiles
 {
-    public class TileCanvasController : MonoBehaviour
+    public class CanvasController : MonoBehaviour
     {
         Camera _cam;
         Transform _heroTransform;
-        TileController _tileController;
+        Controller _controller;
 
         float _maxMoveDistance;
 
@@ -17,8 +17,8 @@ namespace Lis.Battle.Tiles
         void OnEnable()
         {
             _heroTransform = BattleManager.Instance.HeroController.transform;
-            _tileController = GetComponentInParent<TileController>();
-            _maxMoveDistance = _tileController.Scale * 0.5f - 5f; // TODO: magic 5
+            _controller = GetComponentInParent<Controller>();
+            _maxMoveDistance = _controller.Scale * 0.5f - 5f; // TODO: magic 5
 
             _updatePositionCoroutine = UpdatePositionCoroutine();
             StartCoroutine(_updatePositionCoroutine);
@@ -44,7 +44,7 @@ namespace Lis.Battle.Tiles
                 if (!gameObject.activeSelf) yield break;
 
                 Vector3 heroPos = _heroTransform.position;
-                Vector3 tilePos = _tileController.transform.position;
+                Vector3 tilePos = _controller.transform.position;
                 float sqDist = (heroPos - tilePos).sqrMagnitude;
 
                 while (sqDist > 1200)

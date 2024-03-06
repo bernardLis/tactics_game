@@ -1,9 +1,9 @@
 ﻿
 namespace Lis.Battle.Tiles
 {
-    public class TileTroopsLimitController : TileProductionController
+    public class TroopsLimitController : ProductionController
     {
-        protected override void OnTileUnlocked(TileController tile)
+        protected override void OnTileUnlocked(Controller tile)
         {
             base.OnTileUnlocked(tile);
 

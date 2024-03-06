@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace Lis
 {
-    public class TileLairController : TileProductionController
+    public class LairController : ProductionController
     {
         [SerializeField] Image _icon;
         [SerializeField] TMP_Text _productionLimitText;
@@ -47,7 +47,7 @@ namespace Lis
             UpdateProductionLimitText();
         }
 
-        protected override void OnTileUnlocked(TileController tile)
+        protected override void OnTileUnlocked(Controller tile)
         {
             base.OnTileUnlocked(tile);
             StartProduction();

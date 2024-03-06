@@ -4,6 +4,7 @@ using Lis.Battle.Quest;
 using Lis.Core;
 using Lis.Upgrades;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -22,14 +23,14 @@ namespace Lis.Battle.Tiles
         [SerializeField] Quest.Quest[] _quests;
         readonly List<Quest.Quest> _pastQuests = new();
 
-        [HideInInspector] public TileController HomeTileController;
-        readonly List<TileController> _tiles = new();
-        [HideInInspector] public List<TileController> UnlockedTiles = new();
+        [FormerlySerializedAs("HomeTileController")] [HideInInspector] public Controller HomeController;
+        readonly List<Controller> _tiles = new();
+        [HideInInspector] public List<Controller> UnlockedTiles = new();
 
         VisualElement _questContainer;
         VisualElement _questElementContainer;
 
-        public event Action<TileController> OnTileUnlocked;
+        public event Action<Controller> OnTileUnlocked;
 
         public void Initialize()
         {
@@ -68,30 +69,30 @@ namespace Lis.Battle.Tiles
                     if (pos == Vector3.zero)
                         upgrade = _homeUpgrade;
 
-                    TileController bt = InstantiateTile(pos, upgrade);
+                    Controller bt = InstantiateTile(pos, upgrade);
                     bt.OnTileUnlocked += TileTileUnlocked;
                     _tiles.Add(bt);
 
                     if (pos == Vector3.zero)
-                        HomeTileController = bt;
+                        HomeController = bt;
                 }
             }
         }
 
         public void SecureHomeTile()
         {
-            HomeTileController.EnableTile(-1, true);
-            HomeTileController.Unlock();
+            HomeController.EnableTile(-1, true);
+            HomeController.Unlock();
         }
 
-        void TileTileUnlocked(TileController tileController)
+        void TileTileUnlocked(Controller controller)
         {
-            UnlockedTiles.Add(tileController);
-            OnTileUnlocked?.Invoke(tileController);
+            UnlockedTiles.Add(controller);
+            OnTileUnlocked?.Invoke(controller);
 
-            List<TileController> adjacentTiles = GetAdjacentTiles(tileController);
+            List<Controller> adjacentTiles = GetAdjacentTiles(controller);
             int unlockedCount = 0;
-            foreach (TileController t in adjacentTiles)
+            foreach (Controller t in adjacentTiles)
             {
                 if (t.gameObject.activeSelf) continue;
                 t.EnableTile(unlockedCount);
@@ -121,32 +122,32 @@ namespace Lis.Battle.Tiles
             return quest;
         }
 
-        public TileController GetRandomUnlockedTile()
+        public Controller GetRandomUnlockedTile()
         {
             return UnlockedTiles[Random.Range(0, UnlockedTiles.Count)];
         }
 
         // TODO: there must be a smarter way to get adjacent tiles
-        public List<TileController> GetAdjacentTiles(TileController tileController)
+        public List<Controller> GetAdjacentTiles(Controller controller)
         {
-            List<TileController> adjacentTiles = new List<TileController>();
-            Vector3 tilePos = tileController.transform.position;
-            foreach (TileController t in _tiles)
+            List<Controller> adjacentTiles = new List<Controller>();
+            Vector3 tilePos = controller.transform.position;
+            foreach (Controller t in _tiles)
             {
                 if (t.transform.position == tilePos) continue;
 
                 if (t.transform.position.x == tilePos.x)
                 {
-                    if (t.transform.position.z == tilePos.z + HomeTileController.Scale ||
-                        t.transform.position.z == tilePos.z - HomeTileController.Scale)
+                    if (t.transform.position.z == tilePos.z + HomeController.Scale ||
+                        t.transform.position.z == tilePos.z - HomeController.Scale)
                     {
                         adjacentTiles.Add(t);
                     }
                 }
                 else if (t.transform.position.z == tilePos.z)
                 {
-                    if (t.transform.position.x == tilePos.x + HomeTileController.Scale ||
-                        t.transform.position.x == tilePos.x - HomeTileController.Scale)
+                    if (t.transform.position.x == tilePos.x + HomeController.Scale ||
+                        t.transform.position.x == tilePos.x - HomeController.Scale)
                     {
                         adjacentTiles.Add(t);
                     }
@@ -156,32 +157,32 @@ namespace Lis.Battle.Tiles
             return adjacentTiles;
         }
 
-        public TileController ReplaceTile(TileController tileController, UpgradeTile newTile)
+        public Controller ReplaceTile(Controller controller, UpgradeTile newTile)
         {
-            TileController newTileController = InstantiateTile(tileController.transform.position, newTile);
+            Controller newController = InstantiateTile(controller.transform.position, newTile);
 
-            _tiles.Insert(_tiles.IndexOf(tileController), newTileController);
-            _tiles.Remove(tileController);
-            Destroy(tileController.gameObject);
+            _tiles.Insert(_tiles.IndexOf(controller), newController);
+            _tiles.Remove(controller);
+            Destroy(controller.gameObject);
 
-            return newTileController;
+            return newController;
         }
 
-        TileController InstantiateTile(Vector3 pos, UpgradeTile b)
+        Controller InstantiateTile(Vector3 pos, UpgradeTile b)
         {
             GameObject tile = Instantiate(b.TilePrefab, _floorHolder);
             tile.transform.position = pos;
             tile.SetActive(false);
 
-            TileController bt = tile.GetComponent<TileController>();
+            Controller bt = tile.GetComponent<Controller>();
             bt.Initialize(b);
 
             return bt;
         }
 
-        public TileController GetTileFromPosition(Vector3 pos)
+        public Controller GetTileFromPosition(Vector3 pos)
         {
-            foreach (TileController tile in _tiles)
+            foreach (Controller tile in _tiles)
             {
                 // tile pos is a middle of tile
                 // so we need to check if pos is inside tile
@@ -233,7 +234,7 @@ namespace Lis.Battle.Tiles
 
         bool IsPositionOnActiveTile(Vector3 pos)
         {
-            foreach (TileController tile in _tiles)
+            foreach (Controller tile in _tiles)
             {
                 if (!UnlockedTiles.Contains(tile)) continue;
                 if (pos.x > tile.transform.position.x - tile.Scale * 0.5f &&
@@ -251,10 +252,10 @@ namespace Lis.Battle.Tiles
         /* ASTAR */
         struct AStarTile
         {
-            public AStarTile(TileController tileController, float g, float h,
-                TileController parent = null)
+            public AStarTile(Controller controller, float g, float h,
+                Controller parent = null)
             {
-                TileController = tileController;
+                Controller = controller;
 
                 G = g;
                 H = h;
@@ -263,24 +264,24 @@ namespace Lis.Battle.Tiles
                 Parent = parent;
             }
 
-            public readonly TileController TileController;
+            public readonly Controller Controller;
 
             public readonly float F; //F = G + H
             public readonly float G; // G is the distance between the current node and the start node.
             public readonly float H; //H is the heuristic — estimated distance from the current node to the end node.
 
-            public readonly TileController Parent;
+            public readonly Controller Parent;
         }
 
         //https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2
-        public List<TileController> GetTilePathFromTo(TileController startTileController,
-            TileController endTileController)
+        public List<Controller> GetTilePathFromTo(Controller startController,
+            Controller endController)
         {
             Debug.Log(
-                $"Finding path from {startTileController.transform.position} to {endTileController.transform.position}");
+                $"Finding path from {startController.transform.position} to {endController.transform.position}");
             List<AStarTile> openList = new();
             List<AStarTile> closedList = new();
-            openList.Add(new AStarTile(startTileController, 0, 0));
+            openList.Add(new AStarTile(startController, 0, 0));
 
             while (openList.Count > 0)
             {
@@ -294,42 +295,42 @@ namespace Lis.Battle.Tiles
                 openList.Remove(currentAStarTile);
                 closedList.Add(currentAStarTile);
 
-                if (currentAStarTile.TileController == endTileController)
+                if (currentAStarTile.Controller == endController)
                 {
-                    List<TileController> path = new();
-                    path.Add(currentAStarTile.TileController);
-                    while (currentAStarTile.TileController != startTileController)
+                    List<Controller> path = new();
+                    path.Add(currentAStarTile.Controller);
+                    while (currentAStarTile.Controller != startController)
                     {
                         foreach (AStarTile tile in closedList)
                         {
-                            if (tile.TileController == currentAStarTile.Parent)
+                            if (tile.Controller == currentAStarTile.Parent)
                             {
-                                path.Add(tile.TileController);
+                                path.Add(tile.Controller);
                                 currentAStarTile = tile;
                                 break;
                             }
                         }
                     }
 
-                    if (!path.Contains(endTileController)) path.Add(endTileController);
+                    if (!path.Contains(endController)) path.Add(endController);
                     path.Reverse();
                     return path;
                 }
 
-                List<TileController> adjacentTiles = GetAdjacentTiles(currentAStarTile.TileController);
-                foreach (TileController tile in adjacentTiles)
+                List<Controller> adjacentTiles = GetAdjacentTiles(currentAStarTile.Controller);
+                foreach (Controller tile in adjacentTiles)
                 {
                     if (!UnlockedTiles.Contains(tile)) continue;
-                    if (closedList.Exists(t => t.TileController == tile)) continue;
+                    if (closedList.Exists(t => t.Controller == tile)) continue;
 
                     float g = currentAStarTile.G + 1;
-                    float h = Vector3.Distance(tile.transform.position, endTileController.transform.position);
+                    float h = Vector3.Distance(tile.transform.position, endController.transform.position);
 
-                    AStarTile child = new(tile, g, h, currentAStarTile.TileController);
+                    AStarTile child = new(tile, g, h, currentAStarTile.Controller);
 
-                    if (openList.Exists(t => t.TileController == tile))
+                    if (openList.Exists(t => t.Controller == tile))
                     {
-                        AStarTile openTile = openList.Find(t => t.TileController == tile);
+                        AStarTile openTile = openList.Find(t => t.Controller == tile);
                         if (g > openTile.G) continue;
                     }
 
@@ -337,7 +338,7 @@ namespace Lis.Battle.Tiles
                 }
             }
 
-            Debug.LogError($"Did not find the path from {startTileController} to {endTileController}");
+            Debug.LogError($"Did not find the path from {startController} to {endController}");
             return new();
         }
     }

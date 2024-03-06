@@ -49,9 +49,9 @@ namespace Lis.Battle.Pickup
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
                 {
-                    TileController tileController = _areaManager.GetRandomUnlockedTile();
+                    Controller controller = _areaManager.GetRandomUnlockedTile();
 
-                    Vector3 pos = tileController.GetRandomPositionOnTile();
+                    Vector3 pos = controller.GetRandomPositionOnTile();
                     SpawnVase(pos);
                     yield return new WaitForSeconds(0.15f);
                 }

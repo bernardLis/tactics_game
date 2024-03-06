@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Lis.Battle.Tiles
 {
-    public class TileBorderController : MonoBehaviour
+    public class BorderController : MonoBehaviour
     {
 
         public void EnableBorder()

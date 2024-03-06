@@ -2,6 +2,7 @@ using System.Collections;
 using Lis.Battle.Tiles;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
+using Controller = Lis.Battle.Tiles.Controller;
 
 namespace Lis.Units.Hero
 {
@@ -30,12 +31,12 @@ namespace Lis.Units.Hero
             _areaManager.OnTileUnlocked += OnTileUnlocked;
         }
 
-        void OnTileUnlocked(TileController tileController)
+        void OnTileUnlocked(Controller controller)
         {
-            if (tileController == _areaManager.HomeTileController) return;
+            if (controller == _areaManager.HomeController) return;
 
             Vector3 heroPos = transform.position;
-            Vector3 tilePos = tileController.transform.position;
+            Vector3 tilePos = controller.transform.position;
             Vector3 dir = (tilePos - heroPos).normalized;
             Vector3 pos = heroPos + dir * 2;
             pos.y = 2f;
@@ -83,7 +84,7 @@ namespace Lis.Units.Hero
         {
             UnitLog.Add($"{BattleManager.GetTime()}: Hero adds an ability {ability.name}");
             GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab, transform);
-            abilityPrefab.GetComponent<Controller>().Initialize(ability);
+            abilityPrefab.GetComponent<Ability.Controller>().Initialize(ability);
         }
 
         public override IEnumerator GetHit(UnitController attacker, int specialDamage = 0)

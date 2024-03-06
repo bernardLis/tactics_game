@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Lis
 {
-    public class TileProductionController : MonoBehaviour
+    public class ProductionController : MonoBehaviour
     {
         protected BattleManager BattleManager;
 
@@ -19,8 +19,8 @@ namespace Lis
 
         void Awake()
         {
-            GetComponent<TileController>().OnTileEnabled += OnTileEnabled;
-            GetComponent<TileController>().OnTileUnlocked += OnTileUnlocked;
+            GetComponent<Controller>().OnTileEnabled += OnTileEnabled;
+            GetComponent<Controller>().OnTileUnlocked += OnTileUnlocked;
         }
 
         protected virtual void OnTileEnabled(UpgradeTile upgrade)
@@ -29,7 +29,7 @@ namespace Lis
             Upgrade = upgrade;
         }
 
-        protected virtual void OnTileUnlocked(TileController tile)
+        protected virtual void OnTileUnlocked(Controller tile)
         {
             Canvas.gameObject.SetActive(false);
             if (_gfx != null)

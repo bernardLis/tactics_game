@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Tiles
 {
-    public class TileController : MonoBehaviour, IPointerDownHandler
+    public class Controller : MonoBehaviour, IPointerDownHandler
     {
         BattleManager _battleManager;
         AreaManager _areaManager;
@@ -32,7 +32,7 @@ namespace Lis.Battle.Tiles
         [SerializeField] Image _questImage;
 
         [Header("Unlocked")]
-        public List<TileBorderController> Borders = new();
+        public List<BorderController> Borders = new();
 
         public float Scale { get; private set; }
 
@@ -44,12 +44,11 @@ namespace Lis.Battle.Tiles
         Quest.Quest _quest;
 
         public event Action<UpgradeTile> OnTileEnabled;
-        public event Action<TileController> OnTileUnlocked;
+        public event Action<Controller> OnTileUnlocked;
 
         // at the beginning of the game
         public void Initialize(UpgradeTile upgrade)
         {
-            Debug.Log($"Initialize {upgrade.name}");
             _battleManager = BattleManager.Instance;
             _areaManager = _battleManager.GetComponent<AreaManager>();
             _tooltipManager = _battleManager.GetComponent<TooltipManager>();
@@ -154,8 +153,8 @@ namespace Lis.Battle.Tiles
         /* BORDERS */
         void HandleBorders()
         {
-            List<TileController> adjacentTiles = _areaManager.GetAdjacentTiles(this);
-            foreach (TileController tile in adjacentTiles)
+            List<Controller> adjacentTiles = _areaManager.GetAdjacentTiles(this);
+            foreach (Controller tile in adjacentTiles)
             {
                 if (!_areaManager.UnlockedTiles.Contains(tile)) continue;
                 tile.UpdateTileBorders();
@@ -166,20 +165,20 @@ namespace Lis.Battle.Tiles
 
         void UpdateTileBorders()
         {
-            List<TileController> adjacentTiles = _areaManager.GetAdjacentTiles(this);
-            foreach (TileController tile in adjacentTiles)
+            List<Controller> adjacentTiles = _areaManager.GetAdjacentTiles(this);
+            foreach (Controller tile in adjacentTiles)
             {
                 Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
                 Vector3 borderPosition = Scale * 0.5f * directionToTile + Vector3.up;
-                TileBorderController tileBorderController = BorderAtPosition(borderPosition);
+                BorderController borderController = BorderAtPosition(borderPosition);
 
-                if (_areaManager.UnlockedTiles.Contains(tile) && tileBorderController != null)
+                if (_areaManager.UnlockedTiles.Contains(tile) && borderController != null)
                 {
-                    tileBorderController.DestroySelf();
+                    borderController.DestroySelf();
                     continue;
                 }
 
-                if (!_areaManager.UnlockedTiles.Contains(tile) && tileBorderController == null)
+                if (!_areaManager.UnlockedTiles.Contains(tile) && borderController == null)
                     InstantiateBorder(borderPosition);
             }
 
@@ -187,19 +186,19 @@ namespace Lis.Battle.Tiles
                 UpdateGameBorders(adjacentTiles);
         }
 
-        TileBorderController BorderAtPosition(Vector3 position)
+        BorderController BorderAtPosition(Vector3 position)
         {
-            foreach (TileBorderController b in Borders)
+            foreach (BorderController b in Borders)
                 if (b != null && b.transform.localPosition == position)
                     return b;
 
             return null;
         }
 
-        void UpdateGameBorders(List<TileController> adjacentTiles)
+        void UpdateGameBorders(List<Controller> adjacentTiles)
         {
             List<Vector3> directions = new() { Vector3.forward, Vector3.right, Vector3.back, Vector3.left };
-            foreach (TileController tile in adjacentTiles)
+            foreach (Controller tile in adjacentTiles)
             {
                 Vector3 directionToTile = (tile.transform.position - transform.position).normalized;
                 directions.Remove(directionToTile);
@@ -226,7 +225,7 @@ namespace Lis.Battle.Tiles
             Vector3 borderScale = new(0.05f, 2f, Scale);
             border.transform.localScale = borderScale;
 
-            TileBorderController b = border.GetComponent<TileBorderController>();
+            BorderController b = border.GetComponent<BorderController>();
             b.EnableBorder();
             Borders.Add(b);
         }
