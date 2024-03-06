@@ -178,6 +178,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8575773180111838314, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
+      propertyPath: _objectPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8575773180111838314, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
+      propertyPath: _objectPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2541459213102469865}
     - target: {fileID: 8705915451383396962, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
       propertyPath: ProducedCreature
       value: 
@@ -189,37 +197,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2676296446416347064, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3939695988979613887}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4296503609964771749, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4507008553147947993}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
 --- !u!4 &5734592166272703999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2676296446416347064, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
-  m_PrefabInstance: {fileID: 7687996687086076487}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5841589855020612578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4296503609964771749, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
-  m_PrefabInstance: {fileID: 7687996687086076487}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4507008553147947993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5841589855020612578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2bbec48fae7ce240a88dc09c9fe8929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GfxHolder: {fileID: 7493780493097327118}
-  _branchPrefab: {fileID: 2541459213102469865}
---- !u!1 &7493780493097327118 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 958705860378630217, guid: e3977cf8f33d34746bfc60940c2e43ed, type: 3}
   m_PrefabInstance: {fileID: 7687996687086076487}
   m_PrefabAsset: {fileID: 0}

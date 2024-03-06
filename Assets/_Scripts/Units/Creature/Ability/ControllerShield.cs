@@ -22,7 +22,6 @@ namespace Lis.Units.Creature.Ability
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            Debug.Log($"Trying to shield is already shielded? {CreatureController.IsShielded}");
             if (CreatureController.IsShielded || CreatureController.IsDead)
             {
                 yield return base.ExecuteAbilityCoroutine();
