@@ -50,7 +50,8 @@ namespace Lis
         protected override void OnTileUnlocked(Controller tile)
         {
             base.OnTileUnlocked(tile);
-            StartProduction();
+
+            Invoke(nameof(StartProduction), 5f);
         }
 
         void InitializeSpawner()
