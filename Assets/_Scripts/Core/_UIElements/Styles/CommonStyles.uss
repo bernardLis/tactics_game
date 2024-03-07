@@ -1,5 +1,15 @@
+:root {
+    --color-primary-dark: rgb(46, 34, 47);
+    --color-primary-dark-opaque: rgba(46, 34, 47, 0.8);
+    --color-primary-light: rgb(62, 53, 70);
+    --color-highlight: rgb(98, 85, 101);
+    --color-highlight1: rgb(105, 79, 98);
+    --color-highlight2: rgb(127, 112, 138);
+    --color-white: rgb(255, 255, 255);
+}
+
 .common__text-primary {
-    color: rgb(255, 255, 255);
+    color: var(--color-white);
     font-size: 16px;
     -unity-text-align: middle-center;
 }
@@ -10,12 +20,12 @@
 }
 
 .common__text-secondary {
-    color: rgb(255, 255, 255);
+    color: var(--color-white);
     font-size: 12px;
 }
 
 .common__text-header {
-    color: rgb(255, 255, 255);
+    color: var(--color-white);
     font-size: 32px;
 }
 
@@ -59,66 +69,33 @@
 .common__ui-container {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Flag2_bar2.png?fileID=2800000&guid=6f411ced6d558fd459c6c285d9cdc7ec&type=3#Flag2_bar2");
     -unity-background-scale-mode: stretch-to-fill;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding: 40px;
     align-items: flex-start;
     justify-content: center;
     width: auto;
 }
 
 .common__menu-button {
+    color: var(--color-white);
     font-size: 24px;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0);
-    margin-bottom: 5px;
-    margin-top: 5px;
-    margin-left: 1px;
-    color: rgb(255, 255, 255);
-    border-left-color: rgb(255, 133, 125);
-    border-right-color: rgb(255, 133, 125);
-    border-top-color: rgb(255, 133, 125);
-    border-bottom-color: rgb(255, 133, 125);
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    transition-duration: 0.5s;
-    margin-left: 0;
-    margin-right: 0;
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/Buttons_C/Button_middle_dark.png?fileID=2800000&guid=c039ccb2fde35a74d82b4dc33146410d&type=3#Button_middle_dark");
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
     width: 300px;
     min-height: 90px;
-    transition-property: all;
-    -unity-text-outline-color: rgb(255, 255, 255);
-    -unity-text-outline-width: 0;
     -unity-font-style: normal;
     -unity-font: url("project://database/Assets/_Scripts/_UIElements/Pixellari.ttf?fileID=12800000&guid=e2ef6fe3a5f2ad741bd809f9098af174&type=3#Pixellari");
     -unity-text-align: middle-center;
-    transition-timing-function: ease-in-out;
-}
-
-.common__menu-button:hover {
     transition-property: all;
-    scale: 1.05 1.05;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out-sine;
 }
 
+.common__menu-button:hover {
+    scale: 1.05 1.05;
+}
+
 .common__menu-button:active {
-    transition-property: all;
     scale: 0.95 0.95;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
 }
 
 .common__menu-button:disabled {
@@ -152,7 +129,7 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-color: rgba(49, 54, 56, 0.8);
+    background-color: var(--color-primary-dark-opaque);
 }
 
 .common__full-screen-content {
@@ -172,10 +149,7 @@
     width: 200px;
     justify-content: center;
     align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px;
 }
 
 .common__reroll-icon-hover {

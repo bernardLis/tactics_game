@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Core.Utilities;
 using Lis.HeroSelection._UIElements;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -59,9 +60,13 @@ namespace Lis.HeroSelection
             arrowContainer.Add(_previousButton);
             arrowContainer.Add(_nextButton);
 
-            VisualElement buttonContainer = root.Q<VisualElement>("buttonContainer");
+            VisualElement playButtonContainer = root.Q<VisualElement>("playButtonContainer");
             MyButton playButton = new("Play", "common__menu-button", Play);
-            buttonContainer.Add(playButton);
+            playButtonContainer.Add(playButton);
+
+            VisualElement backButtonContainer = root.Q<VisualElement>("backButtonContainer");
+            MyButton backButton = new("Back", "common__menu-button", Back);
+            backButtonContainer.Add(backButton);
         }
 
         void ShowNextHero()
@@ -104,6 +109,11 @@ namespace Lis.HeroSelection
         void Play()
         {
             _gameManager.StartGame();
+        }
+
+        void Back()
+        {
+            _gameManager.LoadScene(Scenes.MainMenu);
         }
     }
 }

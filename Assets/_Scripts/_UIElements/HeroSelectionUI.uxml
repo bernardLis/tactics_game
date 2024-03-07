@@ -17,6 +17,7 @@
                 <ui:VisualElement name="spacer" class="common__horizontal-spacer" style="flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="buttonContainer" style="flex-grow: 1; position: absolute; bottom: 20%; left: auto; right: 5%; width: 400px; align-items: center;" />
+        <ui:VisualElement name="backButtonContainer" style="flex-grow: 1; position: absolute; bottom: 20%; left: 5%; right: auto; width: 400px; align-items: center;" />
+        <ui:VisualElement name="playButtonContainer" style="flex-grow: 1; position: absolute; bottom: 20%; left: auto; right: 5%; width: 400px; align-items: center;" />
     </ui:VisualElement>
 </ui:UXML>

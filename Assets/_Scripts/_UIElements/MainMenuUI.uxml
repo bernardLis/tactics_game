@@ -6,8 +6,8 @@
     <Style src="project://database/Assets/_Scripts/Units/Hero/Ability/_UIElements/AbilityTooltipElementStyles.uss?fileID=7433441132597879392&amp;guid=27b95a083abeef74588b14faf61ce37e&amp;type=3#AbilityTooltipElementStyles" />
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/ElementalElementStyles.uss?fileID=7433441132597879392&amp;guid=06dac8c48602d3f4e859c4ff45cfa55f&amp;type=3#ElementalElementStyles" />
     <Style src="project://database/Assets/_Scripts/Units/_UIElements/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
-    <Style src="project://database/Assets/_Scripts/HeroSelector/_UIElements/HeroSelectorInfoStyles.uss?fileID=7433441132597879392&amp;guid=89b4ecf86bbb3154381012457ca6a211&amp;type=3#HeroSelectorInfoStyles" />
+    <Style src="project://database/Assets/_Scripts/HeroSelection/_UIElements/HeroSelectorInfoStyles.uss?fileID=7433441132597879392&amp;guid=89b4ecf86bbb3154381012457ca6a211&amp;type=3#HeroSelectorInfoStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="menuContainer" style="justify-content: flex-end; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
+        <ui:VisualElement name="menuContainer" style="justify-content: center; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
     </ui:VisualElement>
 </ui:UXML>

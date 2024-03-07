@@ -13,6 +13,7 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units
@@ -36,7 +37,7 @@ namespace Lis.Units
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
 
-        [SerializeField] GameObject _deathEffect;
+        [FormerlySerializedAs("_deathEffect")] [SerializeField] protected GameObject DeathEffect;
 
         protected ObjectShaders ObjectShaders;
         protected UnitPathingController UnitPathingController;
@@ -105,7 +106,7 @@ namespace Lis.Units
             if (_spawnSound != null)
                 AudioManager.PlaySFX(_spawnSound, transform.position);
 
-            _deathEffect.SetActive(false);
+            DeathEffect.SetActive(false);
             Unit = unit;
             Team = team;
             unit.OnLevelUp += OnLevelUp;
@@ -295,7 +296,7 @@ namespace Lis.Units
             DOTween.Kill(transform);
 
             if (DeathSound != null) AudioManager.PlaySFX(DeathSound, transform.position);
-            _deathEffect.SetActive(true);
+            DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
 

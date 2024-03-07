@@ -306,7 +306,7 @@ Transform:
   m_GameObject: {fileID: 5768453582871689742}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.2, z: 0}
+  m_LocalPosition: {x: -0, y: -1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10171,7 +10171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
-      value: 0.76
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 4748893319486061140, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10231,15 +10231,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Height
-      value: 2.07
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
-      value: 0.8
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: -0.49
       objectReference: {fileID: 0}
     - target: {fileID: 8538832651087049126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_IsActive
@@ -10300,7 +10300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1773d6b2204e7541bffda7f4360e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityLog: []
+  UnitLog: []
   _spawnSound: {fileID: 11400000, guid: 3bfce13ca501fc948b9986bb733ec170, type: 2}
   DeathSound: {fileID: 11400000, guid: 9c28a0715de0dea40a8e67621db5f037, type: 2}
   GetHitSound: {fileID: 0}
@@ -10309,7 +10309,7 @@ MonoBehaviour:
   IsShielded: 0
   AttackSound: {fileID: 0}
   _respawnEffect: {fileID: 281026293816329216}
-  ProjectileSpawnPoint: {fileID: 5768453582871689746}
+  ProjectileSpawnPoint: {fileID: 5768453582871689750}
 --- !u!1 &724913522891443046 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

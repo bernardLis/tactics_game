@@ -1,3 +1,4 @@
+using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -23,6 +24,12 @@ namespace Lis.Units.Projectile
                 IsHitConnected = true;
                 StopAllCoroutines();
                 HitTarget(battleEntity);
+            }
+
+            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
+            {
+                HitConnected();
+                bbv.TriggerBreak();
             }
         }
 

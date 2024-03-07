@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ice
   m_EditorClassIdentifier: 
   Id: 26b305f7-3835-4325-86d9-7a7b471ab318
-  Primary: {r: 0.3019608, g: 0.39607844, b: 0.7058824, a: 1}
-  Secondary: {r: 1, g: 1, b: 1, a: 1}
+  Primary: {r: 0.28235295, g: 0.2901961, b: 0.46666667, a: 1}
+  Secondary: {r: 0.3019608, g: 0.39607844, b: 0.7058824, a: 1}

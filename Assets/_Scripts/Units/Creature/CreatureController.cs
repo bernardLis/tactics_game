@@ -368,6 +368,7 @@ namespace Lis.Units.Creature
         void EnableSelf()
         {
             Collider.enabled = true;
+            DeathEffect.SetActive(false);
             IsDeathCoroutineStarted = false;
             UnitPathingController.EnableAgent();
             IsDead = false;

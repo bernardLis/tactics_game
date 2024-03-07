@@ -8,14 +8,12 @@ namespace Lis.Core
 {
     public class MenuScreen : FullScreenElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
-
         const string _ussClassName = "menu__";
         const string _ussContainer = _ussClassName + "container";
         const string _ussButtonContainer = _ussClassName + "button-container";
 
         readonly VisualElement _container;
-        public MenuScreen() : base()
+        public MenuScreen()
         {
             var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.MenuStyles);
             if (ss != null)

@@ -135,9 +135,11 @@ namespace Lis.Units.Projectile
                 return;
             }
 
-            if (!collision.gameObject.TryGetComponent(out BreakableVaseController bbv)) return;
-            HitConnected();
-            bbv.TriggerBreak();
+            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
+            {
+                HitConnected();
+                bbv.TriggerBreak();
+            }
         }
 
         protected bool IsTargetValid(UnitController unitController)
