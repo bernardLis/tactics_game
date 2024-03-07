@@ -16,7 +16,14 @@ namespace Lis.Units.Minion
 
         public override void InitializeUnit(Unit unit, int team)
         {
-            if (Gfx != null) Gfx.SetActive(true);
+            // minion pool
+
+            if (Gfx != null)
+            {
+                Gfx.transform.localScale = Vector3.one;
+                Gfx.SetActive(true);
+            }
+
             if (unit.Nature.NatureName == NatureName.Earth) _earthGfx.SetActive(true);
             if (unit.Nature.NatureName == NatureName.Fire) _fireGfx.SetActive(true);
             if (unit.Nature.NatureName == NatureName.Water) _waterGfx.SetActive(true);
@@ -24,11 +31,6 @@ namespace Lis.Units.Minion
 
             base.InitializeUnit(unit, team);
             _minion = (Minion)unit;
-
-            // minion pool
-            IsDead = false;
-            IsDeathCoroutineStarted = false;
-            Collider.enabled = true;
 
             UnitPathingController.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
             RunUnit();
@@ -52,7 +54,7 @@ namespace Lis.Units.Minion
             // something is blocking path, so just die...
             if (Vector3.Distance(transform.position, HeroController.transform.position) > 2.5f)
             {
-                StartCoroutine(Die(hasLoot: false));
+                Die();
                 yield break;
             }
 
@@ -72,11 +74,12 @@ namespace Lis.Units.Minion
             RunUnit();
         }
 
-        public override IEnumerator Die(UnitController attacker = null, bool hasLoot = true)
+        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
-            yield return base.Die(attacker, hasLoot);
-            Gfx.SetActive(false);
-            StopAllCoroutines();
+            yield return base.DieCoroutine(attacker, hasLoot);
+            Gfx.transform.DOScale(0, 0.5f)
+                .OnComplete(() => Gfx.SetActive(false));
+
             yield return new WaitForSeconds(5f);
 
             _earthGfx.SetActive(false);

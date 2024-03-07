@@ -102,7 +102,7 @@ namespace Lis.Units.Hero
             yield return null;
         }
 
-        public override IEnumerator Die(UnitController attacker = null, bool hasLoot = true)
+        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             _thirdPersonMovementController.enabled = false;
             BattleManager.LoseBattle();

@@ -1566,7 +1566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3651833648164836247, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
-      value: 0.86
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 4748893319486061140, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1622,11 +1622,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Height
-      value: 2.5
+      value: 1.46
       objectReference: {fileID: 0}
     - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       propertyPath: m_Radius
-      value: 1
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380300988558303525, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      propertyPath: m_Center.y
+      value: -0.27
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -1692,12 +1696,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1773d6b2204e7541bffda7f4360e360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityLog: []
+  UnitLog: []
   _spawnSound: {fileID: 11400000, guid: 71b9d1e4e5e19cc47b94ad6358e2f017, type: 2}
   DeathSound: {fileID: 11400000, guid: 352b4a037130855478d4e254d6459217, type: 2}
   GetHitSound: {fileID: 0}
   _levelUpEffect: {fileID: 8442976291431259665}
-  _deathEffect: {fileID: 137624083972384103}
+  DeathEffect: {fileID: 137624083972384103}
   IsShielded: 0
   AttackSound: {fileID: 0}
   _respawnEffect: {fileID: 8989876288897143159}

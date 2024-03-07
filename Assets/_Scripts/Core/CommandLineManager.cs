@@ -276,7 +276,7 @@ namespace Lis.Core
                 List<UnitController> collection = new(battleManager.PlayerEntities);
                 collection.AddRange(battleManager.OpponentEntities);
                 foreach (UnitController e in collection)
-                    e.TriggerDieCoroutine();
+                    e.Die();
                 Invoke(nameof(Clear), 1f);
             };
             _buttonContainer.Add(clearButton);

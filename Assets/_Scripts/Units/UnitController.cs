@@ -37,7 +37,8 @@ namespace Lis.Units
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
 
-        [FormerlySerializedAs("_deathEffect")] [SerializeField] protected GameObject DeathEffect;
+        [FormerlySerializedAs("_deathEffect")] [SerializeField]
+        protected GameObject DeathEffect;
 
         protected ObjectShaders ObjectShaders;
         protected UnitPathingController UnitPathingController;
@@ -107,6 +108,11 @@ namespace Lis.Units
                 AudioManager.PlaySFX(_spawnSound, transform.position);
 
             DeathEffect.SetActive(false);
+            IsDead = false;
+            IsDeathCoroutineStarted = false;
+            Collider.enabled = true;
+            IsEngaged = false;
+
             Unit = unit;
             Team = team;
             unit.OnLevelUp += OnLevelUp;
@@ -148,7 +154,6 @@ namespace Lis.Units
         public virtual void RunUnit()
         {
             AddToLog("Run unit is called");
-
             if (IsDead) return;
 
             StopUnit();
@@ -178,6 +183,7 @@ namespace Lis.Units
 
         public virtual void GetEngaged(UnitController attacker)
         {
+            if (IsDead) return;
             if (IsEngaged) return;
             IsEngaged = true;
 
@@ -189,7 +195,6 @@ namespace Lis.Units
         public void Disengage()
         {
             if (IsDead) return;
-
             IsEngaged = false;
             AddToLog("Unit disengages");
             RunUnit();
@@ -264,7 +269,7 @@ namespace Lis.Units
             Unit.CurrentHealth.ApplyChange(-dmg);
             if (Unit.CurrentHealth.Value <= 0)
             {
-                TriggerDieCoroutine(attacker);
+                Die(attacker);
                 return;
             }
 
@@ -278,19 +283,19 @@ namespace Lis.Units
             OnShieldBroken?.Invoke();
         }
 
-        public void TriggerDieCoroutine(UnitController attacker = null)
+        public void Die(UnitController attacker = null)
         {
+            AddToLog("Unit dies.");
             IsDead = true;
             if (gameObject.activeInHierarchy)
-                StartCoroutine(Die(attacker: attacker));
+                StartCoroutine(DieCoroutine(attacker: attacker));
         }
 
-        public virtual IEnumerator Die(UnitController attacker = null, bool hasLoot = true)
+        public virtual IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             if (IsDeathCoroutineStarted) yield break;
             IsDeathCoroutineStarted = true;
 
-            StopUnit();
             if (_isGrabbed) GrabManager.Instance.CancelGrabbing();
             Collider.enabled = false;
             DOTween.Kill(transform);
@@ -299,8 +304,6 @@ namespace Lis.Units
             DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
-
-            AddToLog("Unit dies.");
             OnDeath?.Invoke(this, attacker);
         }
 

@@ -43,9 +43,9 @@ namespace Lis.Units.Minion
         }
 
 
-        public override IEnumerator Die(UnitController attacker = null, bool hasLoot = true)
+        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
-            yield return base.Die(attacker, hasLoot);
+            yield return base.DieCoroutine(attacker, hasLoot);
             Gfx.SetActive(false);
             StopAllCoroutines();
             yield return new WaitForSeconds(1f);

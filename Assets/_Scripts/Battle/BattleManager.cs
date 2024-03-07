@@ -242,7 +242,7 @@ namespace Lis.Battle
             List<UnitController> copy = new(OpponentEntities);
             foreach (UnitController be in copy)
                 if (be is MinionController)
-                    StartCoroutine(be.Die());
+                    StartCoroutine(be.DieCoroutine());
         }
 
         IEnumerator BattleLost()
@@ -290,7 +290,7 @@ namespace Lis.Battle
             List<UnitController> copy = new(OpponentEntities);
             foreach (UnitController be in copy)
             {
-                StartCoroutine(be.Die());
+                StartCoroutine(be.DieCoroutine());
             }
         }
 

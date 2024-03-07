@@ -9,9 +9,9 @@ namespace Lis.Units.Projectile
         protected override void HitTarget(UnitController target)
         {
             Collider[] colliders = Physics.OverlapSphere(target.Collider.bounds.center, _splashRadius);
-            foreach (Collider collider in colliders)
+            foreach (Collider c in colliders)
             {
-                if (collider.TryGetComponent(out UnitController entity))
+                if (c.TryGetComponent(out UnitController entity))
                 {
                     if (entity.Team == Shooter.Team) continue; // splash damage is player friendly
                     if (entity.IsDead) continue;

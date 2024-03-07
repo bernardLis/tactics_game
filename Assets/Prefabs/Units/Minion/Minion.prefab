@@ -14933,7 +14933,7 @@ Transform:
   - {fileID: 6279509725403693573}
   - {fileID: 2851006602593304932}
   - {fileID: 8948390697697709823}
-  m_Father: {fileID: 9447474543494346}
+  m_Father: {fileID: 1843229004339943679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &6705793699006625153
 ParticleSystem:
@@ -20153,6 +20153,9 @@ PrefabInstance:
     - {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1756821568406033406}
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5341081722935466846}
@@ -20165,9 +20168,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3611207224372379789}
-    - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1756821568406033406}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
@@ -20179,6 +20179,11 @@ PrefabInstance:
 --- !u!4 &9447474543494346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 6194891810920303218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1843229004339943679 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5507016433323774605, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 6194891810920303218}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6266213777921296780 stripped
@@ -20203,7 +20208,7 @@ MonoBehaviour:
   DeathSound: {fileID: 11400000, guid: 9d94c1ad15f84bf49a705eed1c845854, type: 2}
   GetHitSound: {fileID: 11400000, guid: d580ca4677ea82b4d81cfa640abf5945, type: 2}
   _levelUpEffect: {fileID: 0}
-  _deathEffect: {fileID: 6562038711135377065}
+  DeathEffect: {fileID: 6562038711135377065}
   IsShielded: 0
   _earthGfx: {fileID: 6918271129132886870}
   _fireGfx: {fileID: 7209022164293869814}

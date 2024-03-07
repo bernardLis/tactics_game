@@ -126,7 +126,7 @@ namespace Lis.Units.Boss
             Unit.CurrentHealth.ApplyChange(-d);
             if (Unit.CurrentHealth.Value <= 0)
             {
-                TriggerDieCoroutine(attacker);
+                Die(attacker);
                 return;
             }
 

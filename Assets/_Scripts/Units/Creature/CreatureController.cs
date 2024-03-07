@@ -320,9 +320,9 @@ namespace Lis.Units.Creature
             _controller.Initialize(this);
         }
 
-        public override IEnumerator Die(UnitController attacker = null, bool hasLoot = true)
+        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
-            yield return base.Die(attacker, hasLoot);
+            yield return base.DieCoroutine(attacker, hasLoot);
             Creature.Die();
             UnsubscribeFromEvents();
 
@@ -445,7 +445,7 @@ namespace Lis.Units.Creature
         [ContextMenu("Trigger Death")]
         public void TriggerDeath()
         {
-            TriggerDieCoroutine();
+            Die();
         }
 #endif
     }
