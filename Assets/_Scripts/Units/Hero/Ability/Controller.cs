@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
@@ -21,6 +20,7 @@ namespace Lis.Units.Hero.Ability
 
         readonly List<ObjectController> _abilityObjectPool = new();
 
+        protected OpponentTracker OpponentTracker;
         protected Ability Ability;
         IEnumerator _runAbilityCoroutine;
         IEnumerator _fireAbilityCoroutine;
@@ -30,6 +30,7 @@ namespace Lis.Units.Hero.Ability
             BattleManager = BattleManager.Instance;
             AreaManager = BattleManager.GetComponent<AreaManager>();
             AbilityObjectParent = BattleManager.AbilityHolder;
+            OpponentTracker = BattleManager.HeroController.GetComponentInChildren<OpponentTracker>();
 
             Ability = ability;
 
@@ -66,7 +67,6 @@ namespace Lis.Units.Hero.Ability
 
         protected virtual IEnumerator ExecuteAbilityCoroutine()
         {
-            Transform t = transform;
             // override this method in child classes
             yield return null;
         }

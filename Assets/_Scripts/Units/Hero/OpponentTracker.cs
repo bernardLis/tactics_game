@@ -42,5 +42,12 @@ namespace Lis.Units.Hero
             be.OnDeath -= RemoveOpponentOnDeath;
             RemoveOpponent(be);
         }
+
+        public Vector3 GetRandomOpponentPosition()
+        {
+            return OpponentsInRange.Count == 0
+                ? Vector3.zero
+                : OpponentsInRange[UnityEngine.Random.Range(0, OpponentsInRange.Count)].transform.position;
+        }
     }
 }

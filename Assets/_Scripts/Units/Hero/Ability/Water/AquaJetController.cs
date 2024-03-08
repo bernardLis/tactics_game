@@ -23,14 +23,14 @@ namespace Lis.Units.Hero.Ability
             int projectileCount = Ability.GetAmount();
             for (int i = 0; i < projectileCount; i++)
             {
-
                 Quaternion q = Quaternion.Euler(Random.Range(180f, 360f),
                     Random.Range(0f, 360f),
                     Random.Range(0f, 360f));
 
                 HomingProjectileController homingProjectileController = GetInactiveProjectile();
-                homingProjectileController.transform.position = transform.position;
-                homingProjectileController.transform.rotation = q;
+                Transform t = homingProjectileController.transform;
+                t.position = transform.position;
+                t.rotation = q;
 
                 homingProjectileController.StartHoming(Ability);
                 yield return new WaitForSeconds(0.1f);

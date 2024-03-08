@@ -17,8 +17,11 @@ namespace Lis.Units.Hero.Ability
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = BattleManager.GetRandomEnemyPosition();
-                WaterTornadoObjectController tornadoObjectController = GetInactiveAbilityObject() as WaterTornadoObjectController;
+                Vector3 pos = transform.position + new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20));
+                if (OpponentTracker.OpponentsInRange.Count > 0)
+                    pos = OpponentTracker.GetRandomOpponentPosition();
+                WaterTornadoObjectController tornadoObjectController =
+                    GetInactiveAbilityObject() as WaterTornadoObjectController;
                 if (tornadoObjectController != null) tornadoObjectController.Execute(pos, Quaternion.identity);
                 yield return new WaitForSeconds(0.1f);
             }
