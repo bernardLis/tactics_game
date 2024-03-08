@@ -22,7 +22,6 @@ namespace Lis.MainMenu
         MyButton _quitButton;
 
         VisualElement _menuContainer;
-        VisualElement _settingsContainer;
 
         protected override void Awake()
         {
@@ -39,16 +38,19 @@ namespace Lis.MainMenu
 
         void Start()
         {
-            _playButton = new MyButton("Play", _ussCommonMenuButton, ShowGlobalUpgradesMenu);
-            _settingsButton = new MyButton("Settings", _ussCommonMenuButton, Settings);
-            _quitButton = new MyButton("Quit", _ussCommonMenuButton, ConfirmQuit);
+            _playButton = new("Play", _ussCommonMenuButton, ShowGlobalUpgradesMenu);
+            _settingsButton = new("Settings", _ussCommonMenuButton, Settings);
+            _quitButton = new("Quit", _ussCommonMenuButton, ConfirmQuit);
 
             _menuContainer = Root.Q<VisualElement>("menuContainer");
             _menuContainer.Add(_playButton);
             _menuContainer.Add(_settingsButton);
             _menuContainer.Add(_quitButton);
 
-            _settingsContainer = Root.Q<VisualElement>("settingsContainer");
+            VisualElement statsContainer = Root.Q<VisualElement>("gameStatsContainer");
+            GameStatsElement stats = new(_gameManager.GameStats);
+            Debug.Log($"showing stats: {_gameManager.GameStats.GetInstanceID()}");
+            statsContainer.Add(stats);
 
             AudioManager.Instance.PlayMusic(_mainMenuTheme);
         }
@@ -56,10 +58,12 @@ namespace Lis.MainMenu
         void ShowGlobalUpgradesMenu()
         {
             _globalUpgradeManager.ShowUpgradeMenu();
-            // _gameManager.Play();
         }
 
-        void Settings() { new SettingsScreen(); }
+        void Settings()
+        {
+            new SettingsScreen();
+        }
 
         void ConfirmQuit()
         {
@@ -67,7 +71,9 @@ namespace Lis.MainMenu
             pop.Initialize(Root, Quit);
         }
 
-        void Quit() { Application.Quit(); }
-
+        void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

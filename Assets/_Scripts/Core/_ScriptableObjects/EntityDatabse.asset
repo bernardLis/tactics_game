@@ -26,6 +26,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e3eab34b423aec49868e9d42a20f48b, type: 2}
   - {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
   - {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
+  _advancedAbilities:
+  - {fileID: 11400000, guid: d2728347576e3614fbc1fd7de6607e43, type: 2}
+  - {fileID: 11400000, guid: d2478e2c8ef751f45a2838f8ba4b6ebc, type: 2}
+  - {fileID: 11400000, guid: 8fb0356b40790974691df8c838dd2698, type: 2}
+  - {fileID: 11400000, guid: 0e9852db2b4163c49b0f2b361030bd18, type: 2}
   HeroTablets:
   - {fileID: 11400000, guid: 619e3a1a91d7930418bf9ac2c4f46f1b, type: 2}
   - {fileID: 11400000, guid: 439b0732f6f097d4981c349e17e6fb52, type: 2}
@@ -74,14 +79,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
   - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
   - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
-  - {fileID: 11400000, guid: 781e2964c503f234391e050e4a468f35, type: 2}
-  - {fileID: 11400000, guid: daca97b5f2623ff46a5cd980f82ce627, type: 2}
-  - {fileID: 11400000, guid: 87befecc986df7943bbab53ca05c9f5f, type: 2}
-  - {fileID: 11400000, guid: 2d70bf271513bd44fa9efbc8c010340c, type: 2}
-  - {fileID: 11400000, guid: 46c3a5d4b1a3d9741b66619ef1c54303, type: 2}
-  - {fileID: 11400000, guid: b04d5324785816b468904c1eae7bf242, type: 2}
-  - {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}
-  - {fileID: 11400000, guid: 997eae81a58e0a84088fda32fe9b3758, type: 2}
   _bosses:
   - {fileID: 11400000, guid: 1a26836a33edbc04e85a1b1fcb6528ce, type: 2}
   - {fileID: 11400000, guid: 26019ca15dd8ed9478affdbe9af0bd51, type: 2}

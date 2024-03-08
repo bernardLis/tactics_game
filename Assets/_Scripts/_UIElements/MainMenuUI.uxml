@@ -1,17 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
     <Style src="project://database/Assets/_Scripts/MainMenu/_UIElements/MainMenuStyles.uss?fileID=7433441132597879392&amp;guid=b0e97e6777d53f14e9667ef0e584cead&amp;type=3#MainMenuStyles" />
-    <Style src="project://database/Assets/_Scripts/Upgrades/_UIElements/UpgradeStyles.uss?fileID=7433441132597879392&amp;guid=2bc0f58d0e54039498a8e2f58e009d0e&amp;type=3#UpgradeStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/Hero/Ability/_UIElements/AbilityElementStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/Hero/Ability/_UIElements/AbilityTooltipElementStyles.uss?fileID=7433441132597879392&amp;guid=27b95a083abeef74588b14faf61ce37e&amp;type=3#AbilityTooltipElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/ElementalElementStyles.uss?fileID=7433441132597879392&amp;guid=06dac8c48602d3f4e859c4ff45cfa55f&amp;type=3#ElementalElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/_UIElements/StatElementStyles.uss?fileID=7433441132597879392&amp;guid=00c44fd568fbaa74f8d441924bb2f493&amp;type=3#StatElementStyles" />
-    <Style src="project://database/Assets/_Scripts/HeroSelection/_UIElements/HeroSelectorInfoStyles.uss?fileID=7433441132597879392&amp;guid=89b4ecf86bbb3154381012457ca6a211&amp;type=3#HeroSelectorInfoStyles" />
+    <Style src="project://database/Assets/_Scripts/MainMenu/_UIElements/GameStatsStyles.uss?fileID=7433441132597879392&amp;guid=4c8e8ae342da327439fa8a83920b043f&amp;type=3#GameStatsStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="menuContainer" style="justify-content: center; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
-        <ui:VisualElement style="flex-grow: 1; align-items: center; height: 250px; flex-direction: row; justify-content: flex-start;">
-            <ui:VisualElement style="flex-grow: 0; width: 100px; height: 100px; position: relative; background-image: url(&quot;project://database/Assets/Art/Units/Boss/Sprites/Boss%20Icons/bloom_boss.png?fileID=2800000&amp;guid=ea4329aa74f05c346816d418660c2f21&amp;type=3#bloom_boss&quot;); -unity-background-image-tint-color: rgb(46, 34, 47);" />
-            <ui:Label tabindex="-1" text="????" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        <ui:VisualElement name="gameStatsContainer" style="flex-grow: 1; flex-direction: column; height: 80%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-self: center;">
+            <ui:Label tabindex="-1" text="Stats:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="common__text-primary" style="font-size: 34px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

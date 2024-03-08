@@ -26,10 +26,17 @@ namespace Lis.Core
         public Hero[] Heroes;
 
         [SerializeField] Ability[] _abilities;
+        [SerializeField] Ability[] _advancedAbilities;
+
 
         public List<Ability> GetAllBasicAbilities()
         {
             return _abilities.ToList();
+        }
+
+        public List<Ability> GetAllAbilities()
+        {
+            return _abilities.Concat(_advancedAbilities).ToList();
         }
 
         public Ability GetAbilityById(string id)
@@ -40,6 +47,11 @@ namespace Lis.Core
 
         public Tablet[] HeroTablets;
         [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
+
+        public List<TabletAdvanced> GetAllAdvancedTablets()
+        {
+            return _heroTabletsAdvanced.ToList();
+        }
 
         public TabletAdvanced GetAdvancedTabletByElementNames(NatureName first, NatureName second)
         {
@@ -86,6 +98,11 @@ namespace Lis.Core
 
         [Header("Bosses")]
         [SerializeField] Boss[] _bosses;
+
+        public List<Boss> GetAllBosses()
+        {
+            return _bosses.ToList();
+        }
 
         public Boss GetRandomBoss() => _bosses[Random.Range(0, _bosses.Length)];
 

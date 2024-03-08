@@ -84,6 +84,7 @@ namespace Lis.Core
 
         public void CreatureCaptured(Creature c)
         {
+            Debug.Log($"Captured {c.name}");
             foreach (MyObjectData data in CreaturesCaptured)
             {
                 if (data.Id == c.Id)
@@ -94,6 +95,7 @@ namespace Lis.Core
             }
 
             CreaturesCaptured.Add(new MyObjectData { Id = c.Id, Count = 1 });
+            Debug.Log($"CreaturesCaptured {CreaturesCaptured.Count}");
         }
 
         public void TabletCollected(Tablet t)
@@ -140,6 +142,7 @@ namespace Lis.Core
 
         public void AddStats(Stats newStats)
         {
+            Debug.Log($"Adding stats to global stats {newStats.CreaturesCaptured.Count}");
             MinionsKilled += newStats.MinionsKilled;
             CreaturesKilled += newStats.CreaturesKilled;
 
