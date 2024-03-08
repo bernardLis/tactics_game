@@ -1,4 +1,4 @@
-namespace Lis
+namespace Lis.Core
 {
     public interface IGrabbable
     {

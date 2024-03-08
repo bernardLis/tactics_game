@@ -20,9 +20,17 @@ namespace Lis.Core.Utilities
 
         public UpgradeBoardData GlobalUpgradeBoard = new();
 
-        public string ToJson() { return JsonUtility.ToJson(this); }
+        public GameStats GameStats = new();
 
-        public void LoadFromJson(string jsonString) { JsonUtility.FromJsonOverwrite(jsonString, this); }
+        public string ToJson()
+        {
+            return JsonUtility.ToJson(this);
+        }
+
+        public void LoadFromJson(string jsonString)
+        {
+            JsonUtility.FromJsonOverwrite(jsonString, this);
+        }
     }
 
     public interface ISavable

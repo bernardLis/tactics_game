@@ -20,7 +20,7 @@ namespace Lis
             container.style.alignItems = Align.Center;
             Add(container);
 
-            ElementalElement element = new(tablet.Nature);
+            NatureElement element = new(tablet.Nature);
             container.Add(element);
 
             Label txt = new($"{Helpers.ToRoman(tablet.Level.Value + 1)}");

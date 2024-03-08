@@ -156,7 +156,7 @@ namespace Lis.Units.Hero
             return !TabletsByElement.ContainsKey(nature) ? null : TabletsByElement[nature];
         }
 
-        void CheckAdvancedTablets()
+        void CheckAdvancedTablets(Tablet _)
         {
             if (AdvancedTablet != null) return; // only one advanced tablet
 

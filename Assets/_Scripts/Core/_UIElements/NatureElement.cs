@@ -2,19 +2,19 @@ using UnityEngine.UIElements;
 
 namespace Lis.Core
 {
-    public class ElementalElement : ElementWithTooltip
+    public class NatureElement : ElementWithTooltip
     {
-        const string _ussClassName = "elemental-element__";
+        const string _ussClassName = "nature-element__";
         const string _ussIcon = _ussClassName + "icon";
 
         readonly Nature _nature;
 
         readonly Label _icon;
 
-        public ElementalElement(Nature nature, int size = 0)
+        public NatureElement(Nature nature, int size = 0)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
-                .GetStyleSheetByName(StyleSheetType.ElementalElementStyles);
+                .GetStyleSheetByName(StyleSheetType.NatureElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 

@@ -103,7 +103,7 @@ namespace Lis.Units
 
         void AddElement()
         {
-            ElementalElement e = new(_unit.Nature);
+            NatureElement e = new(_unit.Nature);
             _basicInfoContainer.Add(e);
         }
 

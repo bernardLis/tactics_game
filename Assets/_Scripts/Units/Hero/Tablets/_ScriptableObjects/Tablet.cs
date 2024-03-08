@@ -20,9 +20,9 @@ namespace Lis.Units.Hero.Tablets
 
         Hero _hero;
 
-        public event Action OnLevelUp;
+        public event Action<Tablet> OnLevelUp;
 
-        public virtual void Initialize(Hero hero)
+        public void Initialize(Hero hero)
         {
             Level = CreateInstance<IntVariable>();
             Level.SetValue(0);
@@ -30,7 +30,7 @@ namespace Lis.Units.Hero.Tablets
             _hero = hero;
         }
 
-        public virtual void LevelUp()
+        public void LevelUp()
         {
             if (IsMaxLevel()) return;
 
@@ -41,7 +41,7 @@ namespace Lis.Units.Hero.Tablets
             if (SecondaryStat.StatType != StatType.None)
                 _hero.GetStatByType(SecondaryStat.StatType).ApplyBaseValueChange(SecondaryStat.Value);
 
-            OnLevelUp?.Invoke();
+            OnLevelUp?.Invoke(this);
         }
 
         public bool IsMaxLevel()

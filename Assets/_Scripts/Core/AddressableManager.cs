@@ -10,7 +10,9 @@ namespace Lis.Core
 {
     public class AddressableManager : MonoBehaviour
     {
-        [FormerlySerializedAs("StyleSheetReferences")] [SerializeField] List<AssetReference> _styleSheetReferences = new();
+        [FormerlySerializedAs("StyleSheetReferences")] [SerializeField]
+        List<AssetReference> _styleSheetReferences = new();
+
         readonly List<StyleSheet> _styleSheets = new();
 
         void Start()
@@ -19,7 +21,8 @@ namespace Lis.Core
             Addressables.InitializeAsync().Completed += AddressableManager_Completed;
         }
 
-        void AddressableManager_Completed(AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
+        void AddressableManager_Completed(
+            AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
         {
             foreach (AssetReference reference in _styleSheetReferences)
             {
@@ -44,36 +47,47 @@ namespace Lis.Core
 
     public enum StyleSheetType
     {
-        CommonStyles, TooltipElementStyles, ConfirmPopupStyles,
-        MenuStyles, SettingsMenuStyles,
+        CommonStyles,
+        TooltipElementStyles,
+        ConfirmPopupStyles,
+        MenuStyles,
+        SettingsMenuStyles,
         FinishedBattleScreenStyles,
         TimerElementStyles,
         StarRankElementStyles,
         GoldElementStyles,
-        ResourceBarStyles, StatElementStyles, ElementalElementStyles,
-        AbilityElementStyles, AbilityIconStyles, AbilityTooltipElementStyles,
+        ResourceBarStyles,
+        StatElementStyles,
+        NatureElementStyles,
+        AbilityElementStyles,
+        AbilityIconStyles,
+        AbilityTooltipElementStyles,
 
         EntityInfoElementStyles,
         LevelUpScreenStyles,
         RewardElementStyles,
 
-        UnitIconStyles, UnitCardStyles, UnitScreenStyles,
+        UnitIconStyles,
+        UnitCardStyles,
+        UnitScreenStyles,
 
-        CreatureAbilityStyles, CreatureAbilityTooltipStyles,
+        CreatureAbilityStyles,
+        CreatureAbilityTooltipStyles,
 
-        UpgradeStyles, UpgradeScreenStyles,
+        UpgradeStyles,
+        UpgradeScreenStyles,
 
         TurretIconStyles,
         StatsBattleElementStyles,
         TextPrintingStyles,
         HeroElementStyles,
-        TooltipCardStyles, BuildingCardStyles,
-        TabletElementStyles, TabletTooltipElementStyles,
+        TooltipCardStyles,
+        BuildingCardStyles,
+        TabletElementStyles,
+        TabletTooltipElementStyles,
         TabletAdvancedScreenStyles,
 
         HeroSelectorInfoStyles,
-
-
-
+        GameStatsStyles,
     }
 }

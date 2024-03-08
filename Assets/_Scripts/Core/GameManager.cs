@@ -15,6 +15,7 @@ namespace Lis.Core
         public GameDatabase GameDatabase;
         public EntityDatabase EntityDatabase;
         public UpgradeBoard UpgradeBoard;
+        public Stats GameStats;
 
         // global data
         int _seed;
@@ -163,6 +164,7 @@ namespace Lis.Core
 
             saveData.Gold = Gold;
             saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
+            saveData.GameStats = GameStats.SerializeSelf();
         }
 
         void LoadJsonData(string fileName)
@@ -187,6 +189,7 @@ namespace Lis.Core
 
             Gold = saveData.Gold;
             UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
+            GameStats.LoadFromData(saveData.GameStats);
         }
 
         public void ClearSaveData()
@@ -194,8 +197,9 @@ namespace Lis.Core
             _seed = Environment.TickCount;
             BattleNumber = 0;
 
-            Gold = 1000;
+            Gold = 2137;
             UpgradeBoard.Reset();
+            GameStats.Reset();
 
             if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), ""))
                 Debug.Log("Cleared active save");

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c1f3853a7ff95f47a860785d724e78d, type: 3}
-  m_Name: Stats
+  m_Name: Stats Game
   m_EditorClassIdentifier: 
   MinionsKilled: 0
   CreaturesKilled: 0

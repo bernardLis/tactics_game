@@ -1,7 +1,6 @@
 using Lis.Core;
 using Lis.Units.Boss;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Battle
 {
@@ -15,7 +14,7 @@ namespace Lis.Battle
 
         public void Initialize(int level)
         {
-            Stats = CreateInstance<Stats>();
+            Stats.Reset();
 
             Boss = Instantiate(GameManager.Instance.EntityDatabase.GetRandomBoss());
             Boss.InitializeBattle(1);

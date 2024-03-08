@@ -264,6 +264,8 @@ namespace Lis.Battle
             if (BattleFinalized) yield break;
             BattleFinalized = true;
 
+            _gameManager.GameStats.AddStats(_gameManager.CurrentBattle.Stats);
+
             yield return new WaitForSeconds(3f);
 
             // ClearAllEntities();

@@ -12,7 +12,7 @@ namespace Lis.Battle
         const string _ussElement = _ussClassName + "element";
 
         UnitIcon _unitIcon;
-        ElementalElement _elementalElement;
+        NatureElement _natureElement;
         Label _nameLabel;
         Label _levelLabel;
         ResourceBarElement _healthBar;
@@ -50,9 +50,9 @@ namespace Lis.Battle
 
         protected virtual void HandleElementalElement()
         {
-            _elementalElement = new(_unit.Nature);
-            _elementalElement.AddToClassList(_ussElement);
-            _topLeftContainer.Add(_elementalElement);
+            _natureElement = new(_unit.Nature);
+            _natureElement.AddToClassList(_ussElement);
+            _topLeftContainer.Add(_natureElement);
         }
 
         protected virtual void HandleNameLabel()

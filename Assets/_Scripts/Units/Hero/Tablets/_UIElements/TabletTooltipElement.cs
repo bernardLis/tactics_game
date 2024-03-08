@@ -39,7 +39,7 @@ namespace Lis.Units.Hero.Tablets
 
             Label name = new(Helpers.ParseScriptableObjectName(_tablet.name));
             container.Add(name);
-            ElementalElement element = new(_tablet.Nature);
+            NatureElement element = new(_tablet.Nature);
             container.Add(element);
 
             Label level = new($"Level: {_tablet.Level.Value}");

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b6001bbe2eae6743b73913caf5b9f3b, type: 3}
-  m_Name: Epic Exp Orb
+  m_Name: Rare Exp Stone
   m_EditorClassIdentifier: 
-  Id: 928896d8-8f3e-4371-bdb7-8e79460487f9
-  Icon: {fileID: 21300000, guid: 8ca40258ecfa2854ba09b393c9170e77, type: 3}
-  Gfx: {fileID: 6312176490229388728, guid: 7c10f977b144454498f21e5cd94ff1f5, type: 3}
-  Color: {fileID: 11400000, guid: 2ce302c3643e7824196b41843ad616ea, type: 2}
+  Id: 81c27635-6c23-491d-b0ec-19de00aa8ff2
+  Icon: {fileID: 21300000, guid: 58538311e24f48747aeaf2ebd78e2e9b, type: 3}
+  Gfx: {fileID: 4148834081827750332, guid: fbd55f0bd9e603b4485cf29f2430c43b, type: 3}
+  Color: {fileID: 11400000, guid: 713d618788e2864488ff113adcf64812, type: 2}
   CollectedText: asd
-  CollectEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}
+  CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   CollectSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
-  Amount: 50
-  OrbChance: 1
+  Amount: 20
+  OrbChance: 5

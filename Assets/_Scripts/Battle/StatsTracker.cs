@@ -1,7 +1,10 @@
 using Lis.Battle.Pickup;
 using Lis.Battle.Tiles;
+using Lis.Core;
+using Lis.Units.Boss;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
+using Lis.Units.Hero.Tablets;
 using Lis.Units.Minion;
 using UnityEngine;
 
@@ -16,12 +19,17 @@ namespace Lis.Battle
         {
             _battleManager = BattleManager.Instance;
             _stats = _battleManager.Battle.Stats;
+            _stats.Reset();
 
             TrackKills();
             TracksVases();
             TrackTiles();
             TracksPickups();
             TrackFriendBalls();
+            TrackCreaturesCaptured();
+            TrackAbilitiesUnlocked();
+            TrackTabletsCollected();
+            TrackAdvancedTabletsCollected();
         }
 
         void TrackKills()
@@ -30,6 +38,7 @@ namespace Lis.Battle
             {
                 if (be is CreatureController) _stats.CreaturesKilled++;
                 else if (be is MinionController) _stats.MinionsKilled++;
+                else if (be is BossController) _stats.BossKilled(be.Unit as Boss);
             };
         }
 
@@ -67,17 +76,53 @@ namespace Lis.Battle
                     case FriendBall _:
                         _stats.FriendBallsCollected++;
                         break;
-                    case ExperienceStone _:
-                        _stats.ExpOrbsCollected++;
+                    case ExperienceStone stone:
+                        AssignOrb(stone);
                         break;
                 }
             };
+        }
+
+        void AssignOrb(ExperienceStone stone)
+        {
+            // meh solution
+            if (stone.name == "Common Experience Stone")
+                _stats.CommonExpOrbsCollected++;
+            else if (stone.name == "Uncommon Experience Stone")
+                _stats.UncommonExpOrbsCollected++;
+            else if (stone.name == "Rare Experience Stone")
+                _stats.RareExpOrbsCollected++;
+            else if (stone.name == "Epic Experience Stone")
+                _stats.EpicExpOrbsCollected++;
         }
 
         void TrackFriendBalls()
         {
             _battleManager.HeroController.GetComponent<CreatureCatcher>().OnBallThrown +=
                 () => _stats.FriendBallsThrown++;
+        }
+
+        void TrackCreaturesCaptured()
+        {
+            _battleManager.Hero.OnTroopMemberAdded += creature => _stats.CreatureCaptured(creature);
+        }
+
+        void TrackAbilitiesUnlocked()
+        {
+            _battleManager.Hero.OnAbilityAdded += ability => _stats.AbilityUnlocked(ability);
+        }
+
+        void TrackTabletsCollected()
+        {
+            foreach (Tablet t in _battleManager.Hero.Tablets)
+            {
+                t.OnLevelUp += tablet => _stats.TabletCollected(tablet);
+            }
+        }
+
+        void TrackAdvancedTabletsCollected()
+        {
+            _battleManager.Hero.OnTabletAdvancedAdded += t => _stats.AdvancedTabletCollected(t);
         }
     }
 }

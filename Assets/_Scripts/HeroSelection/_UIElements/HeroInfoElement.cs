@@ -41,7 +41,7 @@ namespace Lis.HeroSelection._UIElements
 
             Add(new HorizontalSpacerElement());
 
-            Add(new ElementalElement(_hero.Nature));
+            Add(new NatureElement(_hero.Nature));
         }
 
         void AddStatsContainer()

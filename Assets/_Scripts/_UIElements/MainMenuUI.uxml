@@ -9,5 +9,9 @@
     <Style src="project://database/Assets/_Scripts/HeroSelection/_UIElements/HeroSelectorInfoStyles.uss?fileID=7433441132597879392&amp;guid=89b4ecf86bbb3154381012457ca6a211&amp;type=3#HeroSelectorInfoStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="menuContainer" style="justify-content: center; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
+        <ui:VisualElement style="flex-grow: 1; align-items: center; height: 250px; flex-direction: row; justify-content: flex-start;">
+            <ui:VisualElement style="flex-grow: 0; width: 100px; height: 100px; position: relative; background-image: url(&quot;project://database/Assets/Art/Units/Boss/Sprites/Boss%20Icons/bloom_boss.png?fileID=2800000&amp;guid=ea4329aa74f05c346816d418660c2f21&amp;type=3#bloom_boss&quot;); -unity-background-image-tint-color: rgb(46, 34, 47);" />
+            <ui:Label tabindex="-1" text="????" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

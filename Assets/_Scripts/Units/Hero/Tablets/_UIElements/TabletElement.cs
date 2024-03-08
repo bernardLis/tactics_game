@@ -51,7 +51,7 @@ namespace Lis.Units.Hero.Tablets
             for (int i = 0; i < _tablet.Level.Value; i++)
                 dots[i].AddToClassList(_ussLevelDotFull);
 
-            _tablet.OnLevelUp += () =>
+            _tablet.OnLevelUp += (t) =>
             {
                 for (int i = 0; i < _tablet.Level.Value; i++)
                     dots[i].AddToClassList(_ussLevelDotFull);
