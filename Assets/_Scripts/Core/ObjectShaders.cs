@@ -87,17 +87,10 @@ namespace Lis.Core
                 if (_gameManager == null) _gameManager = GameManager.Instance;
                 if (_gameManager.GameDatabase.KeepShadersMaterials.Contains(mat.shader)) continue;
 
-                Vector2 texScale = mat.mainTextureScale; // tiling
-                Texture2D tex = mat.mainTexture as Texture2D;
-                Texture2D metallicMap = null;
-                if (mat.HasProperty("_MetallicGlossMap"))
-                    metallicMap = mat.GetTexture("_MetallicGlossMap") as Texture2D;
+                mat.EnableKeyword("_NORMALMAP");
+                mat.EnableKeyword("_METALLICGLOSSMAP");
 
-                mat.shader = _dissolveShader;
-                mat.SetTexture("_Base_Texture", tex);
-                if (metallicMap != null)
-                    mat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
-                mat.SetVector("_Tiling", texScale);
+                if (mat.shader != _dissolveShader) SetShader(mat);
 
                 float startValue = isReverse ? 1f : 0f;
                 float endValue = isReverse ? 0f : 1f;
@@ -105,6 +98,27 @@ namespace Lis.Core
                 mat.SetFloat("_Dissolve", startValue);
                 DOTween.To(x => mat.SetFloat("_Dissolve", x), startValue, endValue, time);
             }
+        }
+
+        void SetShader(Material originalMat)
+        {
+            Vector2 texScale = originalMat.mainTextureScale; // tiling
+            Texture2D tex = originalMat.mainTexture as Texture2D;
+            Texture2D metallicMap = null;
+            Texture2D normalMap = null;
+
+            if (originalMat.HasProperty("_MetallicGlossMap"))
+                metallicMap = originalMat.GetTexture("_MetallicGlossMap") as Texture2D;
+            if (originalMat.HasProperty("_BumpMap"))
+                normalMap = originalMat.GetTexture("_BumpMap") as Texture2D; // does not work
+
+            originalMat.shader = _dissolveShader;
+            originalMat.SetTexture("_Base_Texture", tex);
+            if (metallicMap != null)
+                originalMat.SetTexture("_R_Metallic_G_Occulsion_A_Smoothness", metallicMap);
+            if (normalMap != null)
+                originalMat.SetTexture("_BumpMap", normalMap);
+            originalMat.SetVector("_Tiling", texScale);
         }
     }
 }

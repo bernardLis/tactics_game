@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
+using Lis.Battle.Pickup;
 using Lis.Core;
 using UnityEngine;
 
@@ -108,6 +109,11 @@ namespace Lis.Units.Creature.Ability
             foreach (Collider c in colliders)
             {
                 if (c == null) continue;
+                if (c.TryGetComponent(out BreakableVaseController bbv))
+                {
+                    bbv.TriggerBreak();
+                    continue;
+                }
                 if (!c.TryGetComponent(out UnitController entity)) continue;
                 if (entity.Team == Creature.Team) continue;
                 if (entity.IsDead) continue;

@@ -17,6 +17,7 @@
 
 .hero-element__team-container {
     margin-left: 12px;
+    padding-bottom: 12px;
     align-self: flex-start;
     flex-direction: row;
     justify-content: center;
