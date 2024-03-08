@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle;
 using UnityEngine;
 
 namespace Lis.Units.Creature.Ability
@@ -12,13 +11,16 @@ namespace Lis.Units.Creature.Ability
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            List<UnitController> copyOfAllies = new(BattleManager.Instance.GetAllies(CreatureController));
+            if (CreatureController.Team != 0) yield break;
+
+            List<UnitController> copyOfAllies = new(BattleManager.GetAllies(CreatureController));
             bool hasHealed = false;
             UnitController healedEntity = null;
             foreach (UnitController b in copyOfAllies)
             {
                 if (b.HasFullHealth()) continue;
                 if (b.IsDead) continue;
+                if (Vector3.Distance(b.transform.position, transform.position) > 20) continue;
                 hasHealed = true;
                 healedEntity = b;
             }

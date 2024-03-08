@@ -113,6 +113,12 @@ namespace Lis.Units.Creature
 
         void StartHangOutCoroutine()
         {
+            if (Opponent != null)
+            {
+                ResetOpponent(default, default); // otherwise creature executes abilities towards opponent
+                return;
+            }
+
             UnsubscribeFromEvents();
             if (Team == 0)
                 _opponentTracker.OnOpponentAdded += OpponentWasAdded;
@@ -289,9 +295,9 @@ namespace Lis.Units.Creature
         {
             if (this == null) return;
             if (Opponent == null) return;
-            if (IsDead) return;
             Opponent.OnDeath -= ResetOpponent;
             Opponent = null;
+            if (IsDead) return;
             RunUnit();
         }
 
@@ -325,6 +331,7 @@ namespace Lis.Units.Creature
             yield return base.DieCoroutine(attacker, hasLoot);
             Creature.Die();
             UnsubscribeFromEvents();
+            ResetOpponent(null, null);
 
             Animator.SetTrigger(AnimDie);
             if (Team == 0)
