@@ -48,26 +48,29 @@ namespace Lis.Units.Minion
 
         IEnumerator PathToHero()
         {
+            AddToLog("Pathing to hero");
             UnitPathingController.SetStoppingDistance(0.7f);
             yield return UnitPathingController.PathToTarget(HeroController.transform);
-
-            // something is blocking path, so just die...
-            if (Vector3.Distance(transform.position, HeroController.transform.position) > 2.5f)
-            {
-                Die();
-                yield break;
-            }
 
             ReachedHero();
         }
 
         void ReachedHero()
         {
+            AddToLog("Reached hero");
             StartCoroutine(Attack());
         }
 
         IEnumerator Attack()
         {
+            if (Vector3.Distance(transform.position, HeroController.transform.position) > 1f)
+            {
+                AddToLog("Hero is too far to attack");
+                yield return PathToHero();
+                yield break;
+            }
+
+            AddToLog("Attacking hero");
             Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
             StartCoroutine(HeroController.GetHit(_minion));
             yield return new WaitForSeconds(0.5f);

@@ -205,11 +205,11 @@ namespace Lis.Units.Creature
 
         protected virtual IEnumerator Attack()
         {
-            while (!CanAttack()) yield return null;
+            while (!CanAttack()) yield return new WaitForSeconds(0.1f);
             if (!IsOpponentInRange()) yield break;
             OnAttackReady?.Invoke();
 
-            AddToLog($"Unit attacked {Opponent.name}");
+            AddToLog($"Unit attacks {Opponent.name}");
 
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
@@ -232,7 +232,7 @@ namespace Lis.Units.Creature
 
         bool CanAttack()
         {
-            return _currentAttackCooldown < 0;
+            return _currentAttackCooldown <= 0;
         }
 
         public bool IsOpponentInRange()

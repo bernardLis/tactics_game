@@ -188,6 +188,7 @@ namespace Lis.Units
             IsEngaged = true;
 
             AddToLog($"Unit gets engaged by {attacker.name}");
+            StopUnit();
             StartCoroutine(UnitPathingController.PathToTarget(attacker.transform));
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
         }
