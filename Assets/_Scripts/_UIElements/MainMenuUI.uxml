@@ -3,9 +3,9 @@
     <Style src="project://database/Assets/_Scripts/MainMenu/_UIElements/MainMenuStyles.uss?fileID=7433441132597879392&amp;guid=b0e97e6777d53f14e9667ef0e584cead&amp;type=3#MainMenuStyles" />
     <Style src="project://database/Assets/_Scripts/MainMenu/_UIElements/GameStatsStyles.uss?fileID=7433441132597879392&amp;guid=4c8e8ae342da327439fa8a83920b043f&amp;type=3#GameStatsStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="menuContainer" style="justify-content: center; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;" />
-        <ui:VisualElement name="gameStatsContainer" style="flex-grow: 1; flex-direction: column; height: 80%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-self: center;">
-            <ui:Label tabindex="-1" text="Stats:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="common__text-primary" style="font-size: 34px;" />
+        <ui:VisualElement name="menuContainer" style="justify-content: center; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;">
+            <ui:VisualElement name="buttonContainer" style="flex-grow: 1; width: 100%; position: absolute; right: auto; bottom: 24%;" />
         </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Game with no name" parse-escape-sequences="true" display-tooltip-when-elided="true" class="common__text-primary" style="position: absolute; font-size: 64px; -unity-font-style: bold; align-self: auto; align-items: center; width: 100%; top: 33%;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -25,7 +25,7 @@ namespace Lis.Core
         {
             _audioManger = AudioManager.Instance;
 
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SettingsMenuStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SettingsScreenStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 

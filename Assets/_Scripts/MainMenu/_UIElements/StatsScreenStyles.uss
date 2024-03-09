@@ -1,76 +1,80 @@
-.game-stats__stat-container {
-    justify-content: center;
+.stats-screen__stat-container {
+    width: 600px;
+    align-self: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
     font-size: 22px;
+    background-image: none;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
-.game-stats__icon {
+.stats-screen__icon {
     width: 100px;
     height: 100px;
 }
 
-.game-stats__icon-undiscovered {
+.stats-screen__icon-undiscovered {
     -unity-background-image-tint-color: rgb(38, 38, 38);
 }
 
-.game-stats__minions-killed-icon {
+.stats-screen__minions-killed-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__creatures-killed-icon {
+.stats-screen__creatures-killed-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__tiles-unlocked-icon {
+.stats-screen__tiles-unlocked-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__vases-broken-icon {
+.stats-screen__vases-broken-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__coins-collected-icon {
+.stats-screen__coins-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__hammers-collected-icon {
+.stats-screen__hammers-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__horseshoes-collected-icon {
+.stats-screen__horseshoes-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__bags-collected-icon {
+.stats-screen__bags-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__skulls-collected-icon {
+.stats-screen__skulls-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__friend-balls-collected-icon {
+.stats-screen__friend-balls-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__common-exp-orbs-collected-icon {
+.stats-screen__common-exp-orbs-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__uncommon-exp-orbs-collected-icon {
+.stats-screen__uncommon-exp-orbs-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__rare-exp-orbs-collected-icon {
+.stats-screen__rare-exp-orbs-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__epic-exp-orbs-collected-icon {
+.stats-screen__epic-exp-orbs-collected-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
 
-.game-stats__friend-balls-thrown-icon {
+.stats-screen__friend-balls-thrown-icon {
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
 }
-

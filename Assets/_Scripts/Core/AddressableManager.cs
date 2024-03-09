@@ -51,7 +51,7 @@ namespace Lis.Core
         TooltipElementStyles,
         ConfirmPopupStyles,
         MenuStyles,
-        SettingsMenuStyles,
+        SettingsScreenStyles,
         FinishedBattleScreenStyles,
         TimerElementStyles,
         StarRankElementStyles,
@@ -88,6 +88,6 @@ namespace Lis.Core
         TabletAdvancedScreenStyles,
 
         HeroSelectorInfoStyles,
-        GameStatsStyles,
+        StatsScreenStyles,
     }
 }

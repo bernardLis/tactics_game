@@ -18,6 +18,7 @@ namespace Lis.MainMenu
 
         public VisualElement Root;
         MyButton _playButton;
+        MyButton _statsButton;
         MyButton _settingsButton;
         MyButton _quitButton;
 
@@ -39,18 +40,16 @@ namespace Lis.MainMenu
         void Start()
         {
             _playButton = new("Play", _ussCommonMenuButton, ShowGlobalUpgradesMenu);
+            _statsButton = new("Stats", _ussCommonMenuButton, ShowStatsScreen);
             _settingsButton = new("Settings", _ussCommonMenuButton, Settings);
             _quitButton = new("Quit", _ussCommonMenuButton, ConfirmQuit);
 
             _menuContainer = Root.Q<VisualElement>("menuContainer");
-            _menuContainer.Add(_playButton);
-            _menuContainer.Add(_settingsButton);
-            _menuContainer.Add(_quitButton);
-
-            VisualElement statsContainer = Root.Q<VisualElement>("gameStatsContainer");
-            GameStatsElement stats = new(_gameManager.GameStats);
-            Debug.Log($"showing stats: {_gameManager.GameStats.GetInstanceID()}");
-            statsContainer.Add(stats);
+            VisualElement buttonContainer = Root.Q<VisualElement>("buttonContainer");
+            buttonContainer.Add(_playButton);
+            buttonContainer.Add(_statsButton);
+            buttonContainer.Add(_settingsButton);
+            buttonContainer.Add(_quitButton);
 
             AudioManager.Instance.PlayMusic(_mainMenuTheme);
         }
@@ -58,6 +57,11 @@ namespace Lis.MainMenu
         void ShowGlobalUpgradesMenu()
         {
             _globalUpgradeManager.ShowUpgradeMenu();
+        }
+
+        void ShowStatsScreen()
+        {
+            new StatsScreen(_gameManager.GameStats);
         }
 
         void Settings()

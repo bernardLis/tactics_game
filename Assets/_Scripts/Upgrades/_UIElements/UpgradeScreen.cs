@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Upgrades
 {
     public class UpgradeScreen : FullScreenElement
     {
+        const string _commonOddBackground = "common__odd-background";
+        const string _commonEvenBackground = "common__even-background";
+
         const string _ussClassName = "upgrade-screen__";
         const string _ussMain = _ussClassName + "main";
         const string _ussHeaderContainer = _ussClassName + "header-container";
         const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
 
-        bool _isGray;
 
         readonly UpgradeBoard _upgradeBoard;
 
@@ -105,21 +106,15 @@ namespace Lis.Upgrades
             AddUpgradesByType(container, UpgradeType.Other);
         }
 
+        bool _isEven;
+
         VisualElement CreateUpgradeContainer(string txt)
         {
             VisualElement container = new();
             container.AddToClassList(_ussUpgradeContainer);
             _upgradeContainer.Add(container);
-            //313638
-            //374E4A
-            // Color c = new Color(0.3f, 0.3f, 0.3f);
-            // if (_isGray) c = new Color(0.6f, 0.6f, 0.6f);
-            Color c = new(0.192f, 0.211f, 0.219f);
-            if (_isGray) c = new(0.215f, 0.305f, 0.290f);
-
-            container.style.backgroundColor = c;
-
-            _isGray = !_isGray;
+            container.AddToClassList(_isEven ? _commonEvenBackground : _commonOddBackground);
+            _isEven = !_isEven;
 
             Label title = new(txt);
             title.style.width = 300;

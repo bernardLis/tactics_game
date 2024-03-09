@@ -75,6 +75,15 @@
     width: auto;
 }
 
+.common__even-background {
+    background-color: var(--color-highlight);
+}
+
+.common__odd-background {
+    background-color: var(--color-highlight1);
+}
+
+
 .common__menu-button {
     color: var(--color-white);
     font-size: 24px;
@@ -157,10 +166,15 @@
 }
 
 .common__continue-button {
+    flex-grow: 1;
+    flex-shrink: 0;
     font-size: 36px;
     justify-content: center;
+    max-width: 300px;
+    max-height: 100px;
     width: 300px;
     height: 100px;
+
     align-self: center;
     color: aliceblue;
     opacity: 0.8;

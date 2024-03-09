@@ -8,11 +8,13 @@ using UnityEngine.UIElements;
 
 namespace Lis
 {
-    public class GameStatsElement : VisualElement
+    public class StatsScreen : FullScreenElement
     {
         const string _commonTextPrimary = "common__text-primary";
+        const string _commonOddBackground = "common__odd-background";
+        const string _commonEvenBackground = "common__even-background";
 
-        const string _ussClassName = "game-stats__";
+        const string _ussClassName = "stats-screen__";
         const string _ussStatContainer = _ussClassName + "stat-container";
         const string _ussIcon = _ussClassName + "icon";
         const string _ussIconUndiscovered = _ussClassName + "icon-undiscovered";
@@ -36,31 +38,30 @@ namespace Lis
 
         const string _ussFriendBallsThrownIcon = _ussClassName + "friend-balls-thrown-icon";
 
-        GameManager _gameManager;
-        Stats _stats;
+        readonly Stats _stats;
+        readonly ScrollView _scrollView;
+        readonly IVisualElementScheduledItem _scrollScheduler;
 
-        ScrollView _scrollView;
-
-        IVisualElementScheduledItem _scrollScheduler;
-
-        public GameStatsElement(Stats stats)
+        public StatsScreen(Stats stats)
         {
-            _gameManager = GameManager.Instance;
             StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
-                .GetStyleSheetByName(StyleSheetType.GameStatsStyles);
+                .GetStyleSheetByName(StyleSheetType.StatsScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             AddToClassList(_commonTextPrimary);
 
             _stats = stats;
+            Label title = new("Stats");
+            title.style.fontSize = 48;
+            _content.Add(title);
 
             _scrollView = new();
-            Add(_scrollView);
+            _content.Add(_scrollView);
 
             AddStat("Minions Killed: ", _stats.MinionsKilled, _ussMinionsKilledIcon);
             AddStat("Creatures Killed: ", _stats.CreaturesKilled, _ussCreaturesKilledIcon);
             AddStat("Tiles Unlocked: ", _stats.TilesUnlocked, _ussTilesUnlockedIcon);
-
+            _scrollView.Add(new HorizontalSpacerElement());
             AddStat("Vases Broken: ", _stats.VasesBroken, _ussVasesBrokenIcon);
             AddStat("Coins Collected: ", _stats.CoinsCollected, _ussCoinsCollectedIcon);
             AddStat("Hammers Collected: ", _stats.HammersCollected, _ussHammersCollectedIcon);
@@ -68,23 +69,34 @@ namespace Lis
             AddStat("Bags Collected: ", _stats.BagsCollected, _ussBagsCollectedIcon);
             AddStat("Skulls Collected: ", _stats.SkullsCollected, _ussSkullsCollectedIcon);
             AddStat("Friend Balls Collected: ", _stats.FriendBallsCollected, _ussFriendBallsCollectedIcon);
+            _scrollView.Add(new HorizontalSpacerElement());
 
             AddStat("Common Exp Orbs Collected: ", _stats.CommonExpOrbsCollected, _ussCommonExpOrbsCollectedIcon);
             AddStat("Uncommon Exp Orbs Collected: ", _stats.UncommonExpOrbsCollected, _ussUncommonExpOrbsCollectedIcon);
             AddStat("Rare Exp Orbs Collected: ", _stats.RareExpOrbsCollected, _ussRareExpOrbsCollectedIcon);
             AddStat("Epic Exp Orbs Collected: ", _stats.EpicExpOrbsCollected, _ussEpicExpOrbsCollectedIcon);
+            _scrollView.Add(new HorizontalSpacerElement());
 
             AddStat("Friend Balls Thrown: ", _stats.FriendBallsThrown, _ussFriendBallsThrownIcon);
 
             AddCreaturesCaptured();
+            _scrollView.Add(new HorizontalSpacerElement());
+
             AddCollectedTablets();
+
             AddCollectedAdvancedTablets();
+            _scrollView.Add(new HorizontalSpacerElement());
+
             AddAbilitiesUnlocked();
+            _scrollView.Add(new HorizontalSpacerElement());
+
             AddBossesKilled();
 
             _scrollScheduler = schedule.Execute(ScrollDown).Every(1500);
             RegisterCallback<MouseEnterEvent>(StopScrolling);
             RegisterCallback<MouseLeaveEvent>(ResumeScrolling);
+
+            AddContinueButton();
         }
 
         int _currentChild;
@@ -105,11 +117,14 @@ namespace Lis
             _scrollScheduler.Resume();
         }
 
+        bool _isEven;
 
         void AddStat(string text, int value, string iconClass, Texture2D iconSprite = null)
         {
             VisualElement container = new();
             container.AddToClassList(_ussStatContainer);
+            container.AddToClassList(_isEven ? _commonEvenBackground : _commonOddBackground);
+            _isEven = !_isEven;
 
             VisualElement icon = new();
             icon.AddToClassList(_ussIcon);
