@@ -87,13 +87,13 @@ namespace Lis.Battle
         {
             // meh solution
             if (stone.name == "Common Experience Stone")
-                _stats.CommonExpOrbsCollected++;
+                _stats.CommonExpStonesCollected++;
             else if (stone.name == "Uncommon Experience Stone")
-                _stats.UncommonExpOrbsCollected++;
+                _stats.UncommonExpStonesCollected++;
             else if (stone.name == "Rare Experience Stone")
-                _stats.RareExpOrbsCollected++;
+                _stats.RareExpStonesCollected++;
             else if (stone.name == "Epic Experience Stone")
-                _stats.EpicExpOrbsCollected++;
+                _stats.EpicExpStonesCollected++;
         }
 
         void TrackFriendBalls()

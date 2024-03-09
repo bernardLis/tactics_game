@@ -23,10 +23,10 @@ namespace Lis.Core
         public int SkullsCollected;
         public int FriendBallsCollected;
 
-        public int CommonExpOrbsCollected;
-        public int UncommonExpOrbsCollected;
-        public int RareExpOrbsCollected;
-        public int EpicExpOrbsCollected;
+        public int CommonExpStonesCollected;
+        public int UncommonExpStonesCollected;
+        public int RareExpStonesCollected;
+        public int EpicExpStonesCollected;
 
         public int FriendBallsThrown;
         public List<MyObjectData> CreaturesCaptured = new();
@@ -52,10 +52,10 @@ namespace Lis.Core
             SkullsCollected = 0;
             FriendBallsCollected = 0;
 
-            CommonExpOrbsCollected = 0;
-            UncommonExpOrbsCollected = 0;
-            RareExpOrbsCollected = 0;
-            EpicExpOrbsCollected = 0;
+            CommonExpStonesCollected = 0;
+            UncommonExpStonesCollected = 0;
+            RareExpStonesCollected = 0;
+            EpicExpStonesCollected = 0;
 
             FriendBallsThrown = 0;
             CreaturesCaptured.Clear();
@@ -84,7 +84,6 @@ namespace Lis.Core
 
         public void CreatureCaptured(Creature c)
         {
-            Debug.Log($"Captured {c.name}");
             foreach (MyObjectData data in CreaturesCaptured)
             {
                 if (data.Id == c.Id)
@@ -95,7 +94,6 @@ namespace Lis.Core
             }
 
             CreaturesCaptured.Add(new MyObjectData { Id = c.Id, Count = 1 });
-            Debug.Log($"CreaturesCaptured {CreaturesCaptured.Count}");
         }
 
         public void TabletCollected(Tablet t)
@@ -142,7 +140,6 @@ namespace Lis.Core
 
         public void AddStats(Stats newStats)
         {
-            Debug.Log($"Adding stats to global stats {newStats.CreaturesCaptured.Count}");
             MinionsKilled += newStats.MinionsKilled;
             CreaturesKilled += newStats.CreaturesKilled;
 
@@ -156,10 +153,10 @@ namespace Lis.Core
             SkullsCollected += newStats.SkullsCollected;
             FriendBallsCollected += newStats.FriendBallsCollected;
 
-            CommonExpOrbsCollected += newStats.CommonExpOrbsCollected;
-            UncommonExpOrbsCollected += newStats.UncommonExpOrbsCollected;
-            RareExpOrbsCollected += newStats.RareExpOrbsCollected;
-            EpicExpOrbsCollected += newStats.EpicExpOrbsCollected;
+            CommonExpStonesCollected += newStats.CommonExpStonesCollected;
+            UncommonExpStonesCollected += newStats.UncommonExpStonesCollected;
+            RareExpStonesCollected += newStats.RareExpStonesCollected;
+            EpicExpStonesCollected += newStats.EpicExpStonesCollected;
 
             FriendBallsThrown += newStats.FriendBallsThrown;
 
@@ -209,10 +206,10 @@ namespace Lis.Core
                 SkullsCollected = SkullsCollected,
                 FriendBallsCollected = FriendBallsCollected,
 
-                CommonExpOrbsCollected = CommonExpOrbsCollected,
-                UncommonExpOrbsCollected = UncommonExpOrbsCollected,
-                RareExpOrbsCollected = RareExpOrbsCollected,
-                EpicExpOrbsCollected = EpicExpOrbsCollected,
+                CommonExpOrbsCollected = CommonExpStonesCollected,
+                UncommonExpOrbsCollected = UncommonExpStonesCollected,
+                RareExpOrbsCollected = RareExpStonesCollected,
+                EpicExpOrbsCollected = EpicExpStonesCollected,
 
                 FriendBallsThrown = FriendBallsThrown,
                 CreaturesCaptured = CreaturesCaptured,
@@ -241,10 +238,10 @@ namespace Lis.Core
             SkullsCollected = data.SkullsCollected;
             FriendBallsCollected = data.FriendBallsCollected;
 
-            CommonExpOrbsCollected = data.CommonExpOrbsCollected;
-            UncommonExpOrbsCollected = data.UncommonExpOrbsCollected;
-            RareExpOrbsCollected = data.RareExpOrbsCollected;
-            EpicExpOrbsCollected = data.EpicExpOrbsCollected;
+            CommonExpStonesCollected = data.CommonExpOrbsCollected;
+            UncommonExpStonesCollected = data.UncommonExpOrbsCollected;
+            RareExpStonesCollected = data.RareExpOrbsCollected;
+            EpicExpStonesCollected = data.EpicExpOrbsCollected;
 
             FriendBallsThrown = data.FriendBallsThrown;
             CreaturesCaptured = data.CreaturesCaptured;

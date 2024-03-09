@@ -31,10 +31,10 @@ namespace Lis
         const string _ussSkullsCollectedIcon = _ussClassName + "skulls-collected-icon";
         const string _ussFriendBallsCollectedIcon = _ussClassName + "friend-balls-collected-icon";
 
-        const string _ussCommonExpOrbsCollectedIcon = _ussClassName + "common-exp-orbs-collected-icon";
-        const string _ussUncommonExpOrbsCollectedIcon = _ussClassName + "uncommon-exp-orbs-collected-icon";
-        const string _ussRareExpOrbsCollectedIcon = _ussClassName + "rare-exp-orbs-collected-icon";
-        const string _ussEpicExpOrbsCollectedIcon = _ussClassName + "epic-exp-orbs-collected-icon";
+        const string _ussCommonExpStonesCollectedIcon = _ussClassName + "common-exp-stones-collected-icon";
+        const string _ussUncommonExpStonesCollectedIcon = _ussClassName + "uncommon-exp-stones-collected-icon";
+        const string _ussRareExpStonesCollectedIcon = _ussClassName + "rare-exp-stones-collected-icon";
+        const string _ussEpicExpStonesCollectedIcon = _ussClassName + "epic-exp-stones-collected-icon";
 
         const string _ussFriendBallsThrownIcon = _ussClassName + "friend-balls-thrown-icon";
 
@@ -58,10 +58,35 @@ namespace Lis
             _scrollView = new();
             _content.Add(_scrollView);
 
+            AddBasicStats();
+            AddPickupStats();
+            AddExpStoneStats();
+
+            AddStat("Friend Balls Thrown: ", _stats.FriendBallsThrown, _ussFriendBallsThrownIcon);
+            AddCreaturesCaptured();
+            _scrollView.Add(new HorizontalSpacerElement());
+
+            AddCollectedTablets();
+            AddCollectedAdvancedTablets();
+            _scrollView.Add(new HorizontalSpacerElement());
+
+            AddAbilitiesUnlocked();
+            _scrollView.Add(new HorizontalSpacerElement());
+            AddBossesKilled();
+
+            AddContinueButton();
+        }
+
+        void AddBasicStats()
+        {
             AddStat("Minions Killed: ", _stats.MinionsKilled, _ussMinionsKilledIcon);
             AddStat("Creatures Killed: ", _stats.CreaturesKilled, _ussCreaturesKilledIcon);
             AddStat("Tiles Unlocked: ", _stats.TilesUnlocked, _ussTilesUnlockedIcon);
             _scrollView.Add(new HorizontalSpacerElement());
+        }
+
+        void AddPickupStats()
+        {
             AddStat("Vases Broken: ", _stats.VasesBroken, _ussVasesBrokenIcon);
             AddStat("Coins Collected: ", _stats.CoinsCollected, _ussCoinsCollectedIcon);
             AddStat("Hammers Collected: ", _stats.HammersCollected, _ussHammersCollectedIcon);
@@ -70,55 +95,18 @@ namespace Lis
             AddStat("Skulls Collected: ", _stats.SkullsCollected, _ussSkullsCollectedIcon);
             AddStat("Friend Balls Collected: ", _stats.FriendBallsCollected, _ussFriendBallsCollectedIcon);
             _scrollView.Add(new HorizontalSpacerElement());
-
-            AddStat("Common Exp Orbs Collected: ", _stats.CommonExpOrbsCollected, _ussCommonExpOrbsCollectedIcon);
-            AddStat("Uncommon Exp Orbs Collected: ", _stats.UncommonExpOrbsCollected, _ussUncommonExpOrbsCollectedIcon);
-            AddStat("Rare Exp Orbs Collected: ", _stats.RareExpOrbsCollected, _ussRareExpOrbsCollectedIcon);
-            AddStat("Epic Exp Orbs Collected: ", _stats.EpicExpOrbsCollected, _ussEpicExpOrbsCollectedIcon);
-            _scrollView.Add(new HorizontalSpacerElement());
-
-            AddStat("Friend Balls Thrown: ", _stats.FriendBallsThrown, _ussFriendBallsThrownIcon);
-
-            AddCreaturesCaptured();
-            _scrollView.Add(new HorizontalSpacerElement());
-
-            AddCollectedTablets();
-
-            AddCollectedAdvancedTablets();
-            _scrollView.Add(new HorizontalSpacerElement());
-
-            AddAbilitiesUnlocked();
-            _scrollView.Add(new HorizontalSpacerElement());
-
-            AddBossesKilled();
-
-            _scrollScheduler = schedule.Execute(ScrollDown).Every(1500);
-            RegisterCallback<MouseEnterEvent>(StopScrolling);
-            RegisterCallback<MouseLeaveEvent>(ResumeScrolling);
-
-            AddContinueButton();
         }
 
-        int _currentChild;
-
-        void ScrollDown()
+        void AddExpStoneStats()
         {
-            _scrollView.ScrollTo(_scrollView[_currentChild % _scrollView.childCount]);
-            _currentChild++;
-        }
-
-        void StopScrolling(MouseEnterEvent e)
-        {
-            _scrollScheduler.Pause();
-        }
-
-        void ResumeScrolling(MouseLeaveEvent e)
-        {
-            _scrollScheduler.Resume();
+            AddStat("Common Exp Stones Collected: ", _stats.CommonExpStonesCollected, _ussCommonExpStonesCollectedIcon);
+            AddStat("Uncommon Exp Stones Collected: ", _stats.UncommonExpStonesCollected, _ussUncommonExpStonesCollectedIcon);
+            AddStat("Rare Exp Stones Collected: ", _stats.RareExpStonesCollected, _ussRareExpStonesCollectedIcon);
+            AddStat("Epic Exp Stones Collected: ", _stats.EpicExpStonesCollected, _ussEpicExpStonesCollectedIcon);
+            _scrollView.Add(new HorizontalSpacerElement());
         }
 
         bool _isEven;
-
         void AddStat(string text, int value, string iconClass, Texture2D iconSprite = null)
         {
             VisualElement container = new();
@@ -198,12 +186,3 @@ namespace Lis
         }
     }
 }
-
-/*
-public List<MyObjectData> TabletsCollected = new();
-public List<MyObjectData> AdvancedTabletsCollected = new();
-
-public List<MyObjectData> AbilitiesUnlocked = new();
-
-public List<MyObjectData> BossesKilled = new();
-*/
