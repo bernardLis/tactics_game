@@ -20,61 +20,61 @@
 }
 
 .stats-screen__minions-killed-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/42_diplomacy.png?fileID=2800000&guid=ce6df1e788327d144a41df5a31750a50&type=3#42_diplomacy");
 }
 
 .stats-screen__creatures-killed-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/80_meat.png?fileID=2800000&guid=b1570a6869ec16747a6434a20e563243&type=3#80_meat");
 }
 
 .stats-screen__tiles-unlocked-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/22_cross.png?fileID=2800000&guid=104b670fb730e0347ac4e4ed9055bcc2&type=3#22_cross");
 }
 
 .stats-screen__vases-broken-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/vase%20icon.png?fileID=2800000&guid=e47c789fa5d00f340b4d6840069bb264&type=3#vase icon");
 }
 
 .stats-screen__coins-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/06_money.png?fileID=2800000&guid=9cff88ef95f95be47af437526c628fd5&type=3#06_money");
 }
 
 .stats-screen__hammers-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/29_upgrade.png?fileID=2800000&guid=38e88bd6185ae254fbaec10cd0a6aa18&type=3#29_upgrade");
 }
 
 .stats-screen__horseshoes-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/Pickup%20Icons/horseshoe.png?fileID=2800000&guid=fabcf6da79d2874418149265dfc954a3&type=3#horseshoe");
 }
 
 .stats-screen__bags-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/02_bag.png?fileID=2800000&guid=9a06e7f64c40cc04ebda0ea05e969af0&type=3#02_bag");
 }
 
 .stats-screen__skulls-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/skull.PNG?fileID=2800000&guid=2030dcdadf41e224c8e4cdd8ffedb612&type=3#skull");
 }
 
 .stats-screen__friend-balls-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/Pickup%20Icons/friend_ball_icon.png?fileID=2800000&guid=bf55c32f120645b48b4f011180e3d57b&type=3#friend_ball_icon");
 }
 
 .stats-screen__common-exp-stones-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/Pickup%20Icons/exp%20orb%20common.png?fileID=2800000&guid=384179dedc3879c45aafdc105f0e3d57&type=3#exp orb common");
 }
 
 .stats-screen__uncommon-exp-stones-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/Pickup%20Icons/exp%20orb%20uncommon.png?fileID=2800000&guid=f0bd04f4cda747b47af03b2d66100b50&type=3#exp orb uncommon");
 }
 
 .stats-screen__rare-exp-stones-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/Pickup%20Icons/exp%20orb%20rare.png?fileID=2800000&guid=58538311e24f48747aeaf2ebd78e2e9b&type=3#exp orb rare");
 }
 
 .stats-screen__epic-exp-stones-collected-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Art/Battle/Sprites/Pickup%20Icons/exp%20orb%20epic.png?fileID=2800000&guid=8ca40258ecfa2854ba09b393c9170e77&type=3#exp orb epic");
 }
 
 .stats-screen__friend-balls-thrown-icon {
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/15_army.png?fileID=2800000&guid=ff7b81c35285dba44a3ef98c56d9b31f&type=3#15_army");
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/13_skills.png?fileID=2800000&guid=d6eebf509a4b56544b0e56d2b488957d&type=3#13_skills");
 }

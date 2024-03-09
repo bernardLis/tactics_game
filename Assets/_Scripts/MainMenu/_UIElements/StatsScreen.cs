@@ -62,7 +62,7 @@ namespace Lis
             AddPickupStats();
             AddExpStoneStats();
 
-            AddStat("Friend Balls Thrown: ", _stats.FriendBallsThrown, _ussFriendBallsThrownIcon);
+            AddStat("Friend Balls Thrown", _stats.FriendBallsThrown, _ussFriendBallsThrownIcon);
             AddCreaturesCaptured();
             _scrollView.Add(new HorizontalSpacerElement());
 
@@ -79,30 +79,30 @@ namespace Lis
 
         void AddBasicStats()
         {
-            AddStat("Minions Killed: ", _stats.MinionsKilled, _ussMinionsKilledIcon);
-            AddStat("Creatures Killed: ", _stats.CreaturesKilled, _ussCreaturesKilledIcon);
-            AddStat("Tiles Unlocked: ", _stats.TilesUnlocked, _ussTilesUnlockedIcon);
+            AddStat("Minions Killed", _stats.MinionsKilled, _ussMinionsKilledIcon);
+            AddStat("Creatures Killed", _stats.CreaturesKilled, _ussCreaturesKilledIcon);
+            AddStat("Tiles Unlocked", _stats.TilesUnlocked, _ussTilesUnlockedIcon);
             _scrollView.Add(new HorizontalSpacerElement());
         }
 
         void AddPickupStats()
         {
-            AddStat("Vases Broken: ", _stats.VasesBroken, _ussVasesBrokenIcon);
-            AddStat("Coins Collected: ", _stats.CoinsCollected, _ussCoinsCollectedIcon);
-            AddStat("Hammers Collected: ", _stats.HammersCollected, _ussHammersCollectedIcon);
-            AddStat("Horseshoes Collected: ", _stats.HorseshoesCollected, _ussHorseshoesCollectedIcon);
-            AddStat("Bags Collected: ", _stats.BagsCollected, _ussBagsCollectedIcon);
-            AddStat("Skulls Collected: ", _stats.SkullsCollected, _ussSkullsCollectedIcon);
-            AddStat("Friend Balls Collected: ", _stats.FriendBallsCollected, _ussFriendBallsCollectedIcon);
+            AddStat("Vases Broken", _stats.VasesBroken, _ussVasesBrokenIcon);
+            AddStat("Coins Collected", _stats.CoinsCollected, _ussCoinsCollectedIcon);
+            AddStat("Hammers Collected", _stats.HammersCollected, _ussHammersCollectedIcon);
+            AddStat("Horseshoes Collected", _stats.HorseshoesCollected, _ussHorseshoesCollectedIcon);
+            AddStat("Bags Collected", _stats.BagsCollected, _ussBagsCollectedIcon);
+            AddStat("Skulls Collected", _stats.SkullsCollected, _ussSkullsCollectedIcon);
+            AddStat("Friend Balls Collected", _stats.FriendBallsCollected, _ussFriendBallsCollectedIcon);
             _scrollView.Add(new HorizontalSpacerElement());
         }
 
         void AddExpStoneStats()
         {
-            AddStat("Common Exp Stones Collected: ", _stats.CommonExpStonesCollected, _ussCommonExpStonesCollectedIcon);
-            AddStat("Uncommon Exp Stones Collected: ", _stats.UncommonExpStonesCollected, _ussUncommonExpStonesCollectedIcon);
-            AddStat("Rare Exp Stones Collected: ", _stats.RareExpStonesCollected, _ussRareExpStonesCollectedIcon);
-            AddStat("Epic Exp Stones Collected: ", _stats.EpicExpStonesCollected, _ussEpicExpStonesCollectedIcon);
+            AddStat("Common Exp Stones Collected", _stats.CommonExpStonesCollected, _ussCommonExpStonesCollectedIcon);
+            AddStat("Uncommon Exp Stones Collected", _stats.UncommonExpStonesCollected, _ussUncommonExpStonesCollectedIcon);
+            AddStat("Rare Exp Stones Collected", _stats.RareExpStonesCollected, _ussRareExpStonesCollectedIcon);
+            AddStat("Epic Exp Stones Collected", _stats.EpicExpStonesCollected, _ussEpicExpStonesCollectedIcon);
             _scrollView.Add(new HorizontalSpacerElement());
         }
 
@@ -159,7 +159,7 @@ namespace Lis
                 int value = 0;
                 if (_stats.AdvancedTabletsCollected.Exists(d => d.Id == tablet.Id))
                     value = _stats.AdvancedTabletsCollected.Find(d => d.Id == tablet.Id).Count;
-                AddStat($"Collected {tablet.name} (Advanced)", value, "", tablet.Icon.texture);
+                AddStat($"Collected {tablet.name}", value, "", tablet.Icon.texture);
             }
         }
 

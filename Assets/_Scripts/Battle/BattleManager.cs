@@ -263,11 +263,6 @@ namespace Lis.Battle
             // if entities die "at the same time" it triggers twice
             if (BattleFinalized) yield break;
             BattleFinalized = true;
-            Debug.Log($"trying to merge stats");
-
-            Debug.Log($" battlestats id: {Battle.Stats.GetInstanceID()}");
-            Debug.Log($" gamestats id: {_gameManager.GameStats}");
-
             _gameManager.GameStats.AddStats(Battle.Stats);
 
             yield return new WaitForSeconds(3f);

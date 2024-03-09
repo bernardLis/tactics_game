@@ -1,7 +1,6 @@
 using Lis.Battle;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Core
@@ -13,11 +12,12 @@ namespace Lis.Core
         const string _ussButtonContainer = _ussClassName + "button-container";
 
         readonly VisualElement _container;
+
         public MenuScreen()
         {
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.MenuStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.MenuStyles);
+            if (ss != null) styleSheets.Add(ss);
 
             _container = new();
             _container.AddToClassList(_ussContainer);
@@ -28,10 +28,10 @@ namespace Lis.Core
 
             AddMenuButtons();
 
-            BattleManager battleManager = BattleManager.Instance;
-            if (battleManager == null) return;
-            if (battleManager.HeroController == null) return;
-            Add(new HeroElement(battleManager.HeroController.Hero, true));
+            _battleManager = BattleManager.Instance;
+            if (_battleManager == null) return;
+            if (_battleManager.HeroController == null) return;
+            Add(new HeroElement(_battleManager.HeroController.Hero, true));
         }
 
         void AddMenuButtons()
@@ -42,29 +42,23 @@ namespace Lis.Core
 
             AddContinueButton();
             MyButton settingsButton = new("Settings", _ussCommonMenuButton, ShowSettingsScreen);
-            MyButton mainMenuButton = new("Main Menu", _ussCommonMenuButton, GoToMainMenu);
-            MyButton quitButton = new("Quit", _ussCommonMenuButton, ConfirmQuit);
+            MyButton mainMenuButton = new("Abandon Run", _ussCommonMenuButton, GoToMainMenu);
 
             buttonContainer.Add(_continueButton);
             buttonContainer.Add(settingsButton);
             buttonContainer.Add(mainMenuButton);
-            buttonContainer.Add(quitButton);
         }
 
-        void ShowSettingsScreen() { new SettingsScreen(); }
+        void ShowSettingsScreen()
+        {
+            new SettingsScreen();
+        }
 
         void GoToMainMenu()
         {
+            _gameManager.GameStats.AddStats(_battleManager.Battle.Stats);
             _gameManager.LoadScene(Scenes.MainMenu);
             Hide();
         }
-
-        void ConfirmQuit()
-        {
-            ConfirmPopUp pop = new();
-            pop.Initialize(GameManager.Instance.Root, Quit);
-        }
-
-        void Quit() { Application.Quit(); }
     }
 }

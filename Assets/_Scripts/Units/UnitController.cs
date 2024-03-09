@@ -64,7 +64,6 @@ namespace Lis.Units
         protected IEnumerator CurrentSecondaryCoroutine;
 
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
-        static readonly int AnimCelebrate = Animator.StringToHash("Celebrate");
 
         protected Color HealthColor;
         Color _shieldColor;
@@ -94,8 +93,6 @@ namespace Lis.Units
             Animator = GetComponentInChildren<Animator>();
             Gfx = Animator.gameObject;
             _feelPlayer = GetComponent<MMF_Player>();
-
-            BattleManager.OnBattleFinalized += () => StartCoroutine(Celebrate());
 
             AddToLog($"Game Object is initialized.");
         }
@@ -346,17 +343,6 @@ namespace Lis.Units
             }
 
             _isPoisoned = false;
-        }
-
-        IEnumerator Celebrate()
-        {
-            if (IsDead) yield break;
-
-            StopUnit();
-            Camera cam = Camera.main;
-            if (cam != null)
-                yield return transform.DODynamicLookAt(cam.transform.position, 0.2f).WaitForCompletion();
-            Animator.SetBool(AnimCelebrate, true);
         }
 
         /* grab */
