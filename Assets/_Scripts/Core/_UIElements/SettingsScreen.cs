@@ -9,10 +9,13 @@ namespace Lis.Core
     public class SettingsScreen : FullScreenElement
     {
         const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussCommonUIContainer = "common__ui-container";
+        const string _ussCommonEvenBackground = "common__even-background";
+        const string _ussCommonOddBackground = "common__odd-background";
 
-        const string _ussClassName = "settings-menu__";
+        const string _ussClassName = "settings-screen__";
         const string _ussMain = _ussClassName + "main";
+        const string _ussUiContainer = _ussClassName + "ui-container";
+        const string _ussTitle = _ussClassName + "title";
         const string _ussVolumeSlider = _ussClassName + "volume-slider";
 
         readonly AudioManager _audioManger;
@@ -21,37 +24,20 @@ namespace Lis.Core
 
         Toggle _fullScreenToggle;
 
-        public SettingsScreen() : base()
+        public SettingsScreen()
         {
             _audioManger = AudioManager.Instance;
 
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.SettingsScreenStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.SettingsScreenStyles);
+            if (ss != null) styleSheets.Add(ss);
 
             _container = new();
             _container.AddToClassList(_ussMain);
             _content.Add(_container);
 
-            // sound
-            VisualElement soundContainer = new();
-            soundContainer.AddToClassList(_ussCommonUIContainer);
-            Label sound = new("Sound");
-            sound.AddToClassList(_ussCommonTextPrimary);
-            soundContainer.Add(sound);
-            _container.Add(soundContainer);
-            AddVolumeSliders(soundContainer);
-
-            // graphics
-            VisualElement graphicsContainer = new();
-            graphicsContainer.AddToClassList(_ussCommonUIContainer);
-            Label graphics = new("Graphics");
-            graphics.AddToClassList(_ussCommonTextPrimary);
-            graphicsContainer.Add(graphics);
-            _container.Add(graphicsContainer);
-
-            AddFullScreenToggle(graphicsContainer);
-            AddRadioResolutionGroup(graphicsContainer);
+            AddSoundOptions();
+            AddGraphicsOptions();
 
             if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
                 AddClearSaveButton();
@@ -59,54 +45,83 @@ namespace Lis.Core
             AddContinueButton();
         }
 
-        void AddVolumeSliders(VisualElement parent)
+        void AddSoundOptions()
         {
-            Slider master = AddVolumeSlider("Master", parent);
+            VisualElement soundContainer = new();
+            soundContainer.AddToClassList(_ussCommonEvenBackground);
+            soundContainer.AddToClassList(_ussUiContainer);
+            Label sound = new("Sound");
+            sound.AddToClassList(_ussTitle);
+
+            // sound.AddToClassList(_ussCommonTextPrimary);
+            soundContainer.Add(sound);
+            _container.Add(soundContainer);
+            AddVolumeSliders(soundContainer);
+        }
+
+        void AddGraphicsOptions()
+        {
+            VisualElement graphicsContainer = new();
+            graphicsContainer.AddToClassList(_ussCommonOddBackground);
+            graphicsContainer.AddToClassList(_ussUiContainer);
+            Label graphics = new("Graphics");
+            graphics.AddToClassList(_ussTitle);
+
+            // graphics.AddToClassList(_ussCommonTextPrimary);
+            graphicsContainer.Add(graphics);
+            _container.Add(graphicsContainer);
+
+            AddFullScreenToggle(graphicsContainer);
+            AddRadioResolutionGroup(graphicsContainer);
+        }
+
+        void AddVolumeSliders(VisualElement p)
+        {
+            Slider master = AddVolumeSlider("Master", p);
             master.AddToClassList(_ussVolumeSlider);
             master.value = PlayerPrefs.GetFloat("MasterVolume", 1);
             master.RegisterValueChangedCallback(MasterVolumeChange);
 
-            Slider music = AddVolumeSlider("Music", parent);
+            Slider music = AddVolumeSlider("Music", p);
             music.AddToClassList(_ussVolumeSlider);
             music.value = PlayerPrefs.GetFloat("MusicVolume", 1);
             music.RegisterValueChangedCallback(MusicVolumeChange);
 
-            Slider ambience = AddVolumeSlider("Ambience", parent);
+            Slider ambience = AddVolumeSlider("Ambience", p);
             ambience.AddToClassList(_ussVolumeSlider);
             ambience.value = PlayerPrefs.GetFloat("AmbienceVolume", 1);
             ambience.RegisterValueChangedCallback(AmbienceVolumeChange);
 
-            Slider dialogue = AddVolumeSlider("Dialogue", parent);
+            Slider dialogue = AddVolumeSlider("Dialogue", p);
             dialogue.AddToClassList(_ussVolumeSlider);
             dialogue.value = PlayerPrefs.GetFloat("DialogueVolume", 1);
             dialogue.RegisterValueChangedCallback(DialogueVolumeChange);
 
-            Slider SFX = AddVolumeSlider("SFX", parent);
-            SFX.AddToClassList(_ussVolumeSlider);
-            SFX.value = PlayerPrefs.GetFloat("SFXVolume", 1);
-            SFX.RegisterValueChangedCallback(SFXVolumeChange);
+            Slider sfx = AddVolumeSlider("SFX", p);
+            sfx.AddToClassList(_ussVolumeSlider);
+            sfx.value = PlayerPrefs.GetFloat("SFXVolume", 1);
+            sfx.RegisterValueChangedCallback(SfxVolumeChange);
 
-            Slider UI = AddVolumeSlider("UI", parent);
-            UI.AddToClassList(_ussVolumeSlider);
-            UI.value = PlayerPrefs.GetFloat("UIVolume", 1);
-            UI.RegisterValueChangedCallback(UIVolumeChange);
-
+            Slider ui = AddVolumeSlider("UI", p);
+            ui.AddToClassList(_ussVolumeSlider);
+            ui.value = PlayerPrefs.GetFloat("UIVolume", 1);
+            ui.RegisterValueChangedCallback(UIVolumeChange);
         }
 
-        Slider AddVolumeSlider(string name, VisualElement parent)
+        Slider AddVolumeSlider(string n, VisualElement p)
         {
             //https://forum.unity.com/threads/changing-audio-mixer-group-volume-with-ui-slider.297884/
-            VisualElement container = CreateContainer(name);
+            VisualElement container = CreateContainer(n);
             Slider volumeSlider = new()
             {
                 lowValue = 0.001f,
                 highValue = 1f
             };
             volumeSlider.style.width = 200;
-            volumeSlider.value = PlayerPrefs.GetFloat(name, 1);
+            volumeSlider.value = PlayerPrefs.GetFloat(n, 1);
 
             container.Add(volumeSlider);
-            parent.Add(container);
+            p.Add(container);
 
             return volumeSlider;
         }
@@ -139,7 +154,7 @@ namespace Lis.Core
             _audioManger.SetDialogueVolume(evt.newValue);
         }
 
-        void SFXVolumeChange(ChangeEvent<float> evt)
+        void SfxVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
             PlayerPrefs.Save();
@@ -153,10 +168,10 @@ namespace Lis.Core
             _audioManger.SetUIVolume(evt.newValue);
         }
 
-        void AddFullScreenToggle(VisualElement parent)
+        void AddFullScreenToggle(VisualElement p)
         {
             VisualElement container = CreateContainer("Full Screen");
-            parent.Add(container);
+            p.Add(container);
 
             _fullScreenToggle = new Toggle();
             container.Add(_fullScreenToggle);
@@ -179,14 +194,14 @@ namespace Lis.Core
                 Screen.fullScreen = false;
         }
 
-        void AddRadioResolutionGroup(VisualElement parent)
+        void AddRadioResolutionGroup(VisualElement p)
         {
             List<string> supportedResolutions = new();
             foreach (Resolution res in Screen.resolutions)
                 supportedResolutions.Add(res.ToString());
 
             VisualElement container = CreateContainer("Resolution");
-            parent.Add(container);
+            p.Add(container);
 
             DropdownField dropdown = new();
             container.Add(dropdown);
@@ -203,7 +218,9 @@ namespace Lis.Core
             string[] split1 = split[1].Split(" @ ");
             int height = int.Parse(split1[0]);
             int hz = int.Parse(split1[1].Split(".")[0]);
-            FullScreenMode fullScreenMode = (PlayerPrefs.GetInt("fullScreen", 1) != 0) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.Windowed;
+            FullScreenMode fullScreenMode = (PlayerPrefs.GetInt("fullScreen", 1) != 0)
+                ? FullScreenMode.ExclusiveFullScreen
+                : FullScreenMode.Windowed;
             RefreshRate rr = new() { numerator = (uint)hz, denominator = 1 };
             Screen.SetResolution(width, height, fullScreenMode, rr);
         }
@@ -221,11 +238,14 @@ namespace Lis.Core
         void AddClearSaveButton()
         {
             ConfirmPopUp popUp = new();
-            MyButton button = new("Clear Save Data", _ussCommonMenuButton, () => popUp.Initialize(GameManager.Instance.Root, ClearSaveData));
+            MyButton button = new("Clear Save Data", _ussCommonMenuButton,
+                () => popUp.Initialize(GameManager.Instance.Root, ClearSaveData));
             _container.Add(button);
         }
 
-        void ClearSaveData() { _gameManager.ClearSaveData(); }
-
+        void ClearSaveData()
+        {
+            _gameManager.ClearSaveData();
+        }
     }
 }

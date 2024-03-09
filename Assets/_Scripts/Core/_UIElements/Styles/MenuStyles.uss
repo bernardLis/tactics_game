@@ -7,7 +7,7 @@
     padding-right: 50px;
     justify-content: center;
     align-items: center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/Classic_Skin/UI_elements_C/Main_bar_hori.png?fileID=2800000&guid=455b4694deb662245b4cbfaee5e6c318&type=3#Main_bar_hori');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&guid=b764c73bf47635548a80bafe4627b037&type=3#long_shadow");
     -unity-background-scale-mode: stretch-to-fill;
 }
 
