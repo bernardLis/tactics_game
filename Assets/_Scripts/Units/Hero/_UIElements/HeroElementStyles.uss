@@ -2,6 +2,24 @@
     width: 100%;
 }
 
+.hero-element__button-guide-container {
+    margin-left: 12px;
+    padding: 6px;
+    font-size: 24px;
+}
+
+.hero-element__b-icon {
+    width: 50px;
+    height: 50px;
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Key%20Guide/Keyboard%20and%20Mouse/B_Key_Light.png?fileID=2800000&guid=bd3c067642b25614b82d392e041cb658&type=3#B_Key_Light");
+}
+
+.hero-element__q-icon {
+    width: 50px;
+    height: 50px;
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Key%20Guide/Keyboard%20and%20Mouse/Q_Key_Light.png?fileID=2800000&guid=8317b55a350659243a81c93e12d4774f&type=3#Q_Key_Light");
+}
+
 .hero-element__resources-container {
     margin-left: 12px;
     padding: 6px;
@@ -10,7 +28,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&guid=64327707a8db5e8429fdd9cc2a5e2916&type=3#long_shadow_light');
+    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow_light.png?fileID=2800000&guid=64327707a8db5e8429fdd9cc2a5e2916&type=3#long_shadow_light");
     min-width: 50px;
     min-height: 50px;
 }
@@ -26,7 +44,6 @@
     min-width: 50px;
     min-height: 50px;
 }
-
 
 .hero-element__info-container {
     flex-direction: row;
@@ -50,13 +67,7 @@
 .hero-element__slot {
     width: 10px;
     height: 10px;
-    margin-right: 50px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-left: 50px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    margin: 50px;
+    border-radius: 20px;
     background-color: rgb(255, 255, 255);
 }

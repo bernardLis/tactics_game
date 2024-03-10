@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Creature;
-using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,6 +14,10 @@ namespace Lis.Units.Hero
 
         const string _ussClassName = "hero-element__";
         const string _ussMain = _ussClassName + "main";
+
+        const string _ussBIcon = _ussClassName + "b-icon";
+        const string _ussQIcon = _ussClassName + "q-icon";
+
         const string _ussTeamContainer = _ussClassName + "team-container";
         const string _ussInfoContainer = _ussClassName + "info-container";
         const string _ussStatContainer = _ussClassName + "stat-container";
@@ -25,9 +28,11 @@ namespace Lis.Units.Hero
 
         readonly Hero _hero;
 
-        readonly VisualElement _teamContainer;
+        VisualElement _topContainer;
+        VisualElement _teamContainer;
+        VisualElement _buttonGuideContainer;
 
-        readonly VisualElement _resourcesContainer;
+        VisualElement _resourcesContainer;
         TroopsCountElement _troopsCounter;
 
         readonly VisualElement _heroInfoContainer;
@@ -43,17 +48,13 @@ namespace Lis.Units.Hero
             StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.HeroElementStyles);
             if (ss != null) styleSheets.Add(ss);
+            AddToClassList(_ussCommonTextPrimary);
 
             _hero = hero;
             hero.OnLevelUp += OnHeroLevelUp;
             AddToClassList(_ussMain);
 
-            _teamContainer = new();
-            _teamContainer.AddToClassList(_ussTeamContainer);
-            Add(_teamContainer);
-
-            _resourcesContainer = new();
-            _teamContainer.Add(_resourcesContainer);
+            CreateTopContainer();
 
             _heroInfoContainer = new();
             _heroInfoContainer.AddToClassList(_ussInfoContainer);
@@ -61,6 +62,7 @@ namespace Lis.Units.Hero
 
             _isAdvancedView = isAdvanced;
 
+            HandleButtonGuide();
             HandleResources();
             HandleTeam();
             HandleAbilities();
@@ -70,9 +72,51 @@ namespace Lis.Units.Hero
             HandleAdvancedView();
         }
 
+        void CreateTopContainer()
+        {
+            _topContainer = new();
+            _topContainer.style.flexDirection = FlexDirection.Row;
+            _topContainer.style.justifyContent = Justify.SpaceBetween;
+            Add(_topContainer);
+
+            _teamContainer = new();
+            _teamContainer.AddToClassList(_ussTeamContainer);
+            _topContainer.Add(_teamContainer);
+
+            _resourcesContainer = new();
+            _teamContainer.Add(_resourcesContainer);
+
+            _buttonGuideContainer = new();
+            _topContainer.Add(_buttonGuideContainer);
+        }
+
         void OnHeroLevelUp()
         {
             _levelLabel.text = $"Level {_hero.Level.Value}";
+        }
+
+        void HandleButtonGuide()
+        {
+            if (_isAdvancedView) return;
+
+            VisualElement containerQ = new();
+            containerQ.style.flexDirection = FlexDirection.Row;
+            Label qIcon = new();
+            qIcon.AddToClassList(_ussQIcon);
+            Label qLabel = new("Throw Friend Ball");
+            containerQ.Add(qIcon);
+            containerQ.Add(qLabel);
+
+            VisualElement containerB = new();
+            containerB.style.flexDirection = FlexDirection.Row;
+            Label bIcon = new();
+            bIcon.AddToClassList(_ussBIcon);
+            Label bLabel = new("Recall Troops");
+            containerB.Add(bIcon);
+            containerB.Add(bLabel);
+
+            _buttonGuideContainer.Add(containerQ);
+            _buttonGuideContainer.Add(containerB);
         }
 
         void HandleResources()

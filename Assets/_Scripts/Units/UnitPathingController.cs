@@ -60,7 +60,7 @@ namespace Lis.Units
         public IEnumerator PathToPositionAndStop(Vector3 position)
         {
             yield return PathToPosition(position);
-            while (_agent.enabled && _agent.remainingDistance > _agent.stoppingDistance)
+            while (IsAgentOk() && _agent.remainingDistance > _agent.stoppingDistance)
                 yield return new WaitForSeconds(0.1f);
 
             DisableAgent();
