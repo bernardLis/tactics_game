@@ -15,23 +15,24 @@ namespace Lis.Core
 
         public MenuScreen()
         {
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.MenuStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _container = new();
             _container.AddToClassList(_ussContainer);
-            _content.Add(_container);
+            Content.Add(_container);
+            Content.style.height = Length.Percent(100);
 
             _container.Add(new StatsElement());
             _container.Add(new HorizontalSpacerElement());
 
             AddMenuButtons();
 
-            _battleManager = BattleManager.Instance;
-            if (_battleManager == null) return;
-            if (_battleManager.HeroController == null) return;
-            Add(new HeroElement(_battleManager.HeroController.Hero, true));
+            BattleManager = BattleManager.Instance;
+            if (BattleManager == null) return;
+            if (BattleManager.HeroController == null) return;
+            Add(new HeroElement(BattleManager.HeroController.Hero, true));
         }
 
         void AddMenuButtons()
@@ -41,10 +42,10 @@ namespace Lis.Core
             _container.Add(buttonContainer);
 
             AddContinueButton();
-            MyButton settingsButton = new("Settings", _ussCommonMenuButton, ShowSettingsScreen);
-            MyButton mainMenuButton = new("Abandon Run", _ussCommonMenuButton, GoToMainMenu);
+            MyButton settingsButton = new("Settings", USSCommonButton, ShowSettingsScreen);
+            MyButton mainMenuButton = new("Abandon Run", USSCommonButton, GoToMainMenu);
 
-            buttonContainer.Add(_continueButton);
+            buttonContainer.Add(ContinueButton);
             buttonContainer.Add(settingsButton);
             buttonContainer.Add(mainMenuButton);
         }
@@ -56,8 +57,8 @@ namespace Lis.Core
 
         void GoToMainMenu()
         {
-            _gameManager.GameStats.AddStats(_battleManager.Battle.Stats);
-            _gameManager.LoadScene(Scenes.MainMenu);
+            GameManager.GameStats.AddStats(BattleManager.Battle.Stats);
+            GameManager.LoadScene(Scenes.MainMenu);
             Hide();
         }
     }

@@ -7,7 +7,7 @@ namespace Lis.Core
     {
 
         const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussCommonMenuButton = "common__menu-button";
+        const string _ussCommonButton = "common__button";
 
         const string _ussClassName = "confirm-popup__";
         const string _ussMain = _ussClassName + "main";
@@ -50,7 +50,7 @@ namespace Lis.Core
             container.AddToClassList(_ussButtonContainer);
             Add(container);
 
-            _confirmButton = new MyButton("Yaasss Queen", _ussCommonMenuButton, callback);
+            _confirmButton = new MyButton("Yaasss Queen", _ussCommonButton, callback);
             container.Add(_confirmButton);
             _confirmButton.clickable.clicked += Hide;
 
@@ -58,7 +58,7 @@ namespace Lis.Core
             spacer.style.width = 50;
             container.Add(spacer);
 
-            _cancelButton = new MyButton("Cancel!@!", _ussCommonMenuButton, Hide);
+            _cancelButton = new MyButton("Cancel!@!", _ussCommonButton, Hide);
             container.Add(_cancelButton);
         }
 

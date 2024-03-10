@@ -12,13 +12,13 @@ namespace Lis.Battle
 
         public FinishedBattleScreen() : base()
         {
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
+            var ss = GameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
 
             _mainContainer = new();
             _mainContainer.AddToClassList(_ussMain);
-            _content.Add(_mainContainer);
+            Content.Add(_mainContainer);
 
             AddTitle();
 

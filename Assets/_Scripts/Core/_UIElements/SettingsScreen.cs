@@ -28,13 +28,13 @@ namespace Lis.Core
         {
             _audioManger = AudioManager.Instance;
 
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.SettingsScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _container = new();
             _container.AddToClassList(_ussMain);
-            _content.Add(_container);
+            Content.Add(_container);
 
             AddSoundOptions();
             AddGraphicsOptions();
@@ -238,14 +238,14 @@ namespace Lis.Core
         void AddClearSaveButton()
         {
             ConfirmPopUp popUp = new();
-            MyButton button = new("Clear Save Data", _ussCommonMenuButton,
+            MyButton button = new("Clear Save Data", USSCommonButton,
                 () => popUp.Initialize(GameManager.Instance.Root, ClearSaveData));
             _container.Add(button);
         }
 
         void ClearSaveData()
         {
-            _gameManager.ClearSaveData();
+            GameManager.ClearSaveData();
         }
     }
 }

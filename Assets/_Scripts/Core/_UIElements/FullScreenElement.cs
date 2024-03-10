@@ -9,43 +9,43 @@ namespace Lis.Core
     public class FullScreenElement : VisualElement
     {
         const string _ussCommonTextPrimary = "common__text-primary";
-        protected const string _ussCommonMenuButton = "common__menu-button";
-        protected const string _ussCommonHorizontalSpacer = "common__horizontal-spacer";
+        protected const string USSCommonButton = "common__button";
+        protected const string USSCommonHorizontalSpacer = "common__horizontal-spacer";
         const string _ussCommonFullScreenMain = "common__full-screen-main";
         const string _ussCommonFullScreenContent = "common__full-screen-content";
 
-
-        protected GameManager _gameManager;
-        protected BattleManager _battleManager;
+        protected GameManager GameManager;
+        protected BattleManager BattleManager;
 
         public event Action OnHide;
 
         VisualElement _root;
 
-        protected VisualElement _content;
-        protected ContinueButton _continueButton;
+        protected readonly VisualElement Content;
+        protected ContinueButton ContinueButton;
 
         bool _isNavigationDisabled;
 
-        public FullScreenElement()
+        protected FullScreenElement()
         {
-            _gameManager = GameManager.Instance;
-            _battleManager = BattleManager.Instance;
+            GameManager = GameManager.Instance;
+            BattleManager = BattleManager.Instance;
 
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            StyleSheet commonStyles = GameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null) styleSheets.Add(commonStyles);
 
             ResolveRoot();
 
-            _gameManager.OpenFullScreens.Add(this);
-            if (_battleManager != null) _battleManager.PauseGame();
+            GameManager.OpenFullScreens.Add(this);
+            if (BattleManager != null) BattleManager.PauseGame();
 
             AddToClassList(_ussCommonFullScreenMain);
             AddToClassList(_ussCommonTextPrimary);
 
-            _content = new();
-            _content.AddToClassList(_ussCommonFullScreenContent);
-            Add(_content);
+            Content = new();
+            Content.AddToClassList(_ussCommonFullScreenContent);
+            Add(Content);
 
             focusable = true;
             Focus();
@@ -58,8 +58,8 @@ namespace Lis.Core
 
         void ResolveRoot()
         {
-            _root = _gameManager.Root;
-            if (_battleManager != null) _root = _battleManager.Root;
+            _root = GameManager.Root;
+            if (BattleManager != null) _root = BattleManager.Root;
 
             _root.Add(this);
         }
@@ -75,7 +75,6 @@ namespace Lis.Core
             _isNavigationDisabled = true;
             UnregisterCallback<PointerDownEvent>(OnPointerDown);
             UnregisterCallback<KeyDownEvent>(OnKeyDown);
-
         }
 
         void OnPointerDown(PointerDownEvent evt)
@@ -95,33 +94,32 @@ namespace Lis.Core
             Hide();
         }
 
-        public void AddContinueButton()
+        protected void AddContinueButton()
         {
-            _continueButton = new("Continue", callback: Hide);
-            _content.Add(_continueButton);
+            ContinueButton = new("Continue", callback: Hide);
+            Content.Add(ContinueButton);
         }
 
-        public virtual void Hide()
+        public void Hide()
         {
             VisualElement tt = _root.Q<VisualElement>("tooltipContainer");
             if (tt != null) tt.style.display = DisplayStyle.None;
 
             DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f)
                 .SetUpdate(true);
-            DOTween.To(x => _content.style.opacity = x, 1, 0, 0.5f)
+            DOTween.To(x => Content.style.opacity = x, 1, 0, 0.5f)
                 .SetUpdate(true)
                 .OnComplete(() =>
                 {
                     OnHide?.Invoke();
 
-                    _gameManager.OpenFullScreens.Remove(this);
-                    if (_gameManager.OpenFullScreens.Count > 0) _gameManager.OpenFullScreens[^1].Focus();
-                    else if (_battleManager != null) _battleManager.ResumeGame();
+                    GameManager.OpenFullScreens.Remove(this);
+                    if (GameManager.OpenFullScreens.Count > 0) GameManager.OpenFullScreens[^1].Focus();
+                    else if (BattleManager != null) BattleManager.ResumeGame();
 
                     SetEnabled(false);
                     RemoveFromHierarchy();
                 });
         }
-
     }
 }

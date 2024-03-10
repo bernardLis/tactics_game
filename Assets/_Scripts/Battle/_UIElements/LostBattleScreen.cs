@@ -32,13 +32,13 @@ namespace Lis.Battle
             container.style.alignItems = Align.Center;
             _mainContainer.Add(container);
 
-            MyButton noAdvantage = new("Back To Main Menu", _ussCommonMenuButton, BackToMainMenu);
+            MyButton noAdvantage = new("Back To Main Menu", USSCommonButton, BackToMainMenu);
             container.Add(noAdvantage);
         }
 
         void BackToMainMenu()
         {
-            _gameManager.LoadScene(Scenes.MainMenu);
+            GameManager.LoadScene(Scenes.MainMenu);
         }
     }
 }

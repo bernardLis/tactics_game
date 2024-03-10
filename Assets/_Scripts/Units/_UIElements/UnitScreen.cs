@@ -28,7 +28,7 @@ namespace Lis.Units
 
         public UnitScreen(Unit unit)
         {
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.UnitScreenStyles);
             if (ss != null)
                 styleSheets.Add(ss);
@@ -39,7 +39,7 @@ namespace Lis.Units
 
             MainCardContainer = new();
             MainCardContainer.AddToClassList(_ussContent);
-            _content.Add(MainCardContainer);
+            Content.Add(MainCardContainer);
         }
 
         public virtual void Initialize()
@@ -68,13 +68,13 @@ namespace Lis.Units
             MainCardContainer.Add(_basicInfoContainer);
 
             VisualElement spacer = new();
-            spacer.AddToClassList(_ussCommonHorizontalSpacer);
+            spacer.AddToClassList(USSCommonHorizontalSpacer);
             MainCardContainer.Add(spacer);
 
             MainCardContainer.Add(StatsContainer);
 
             VisualElement spacer1 = new();
-            spacer1.AddToClassList(_ussCommonHorizontalSpacer);
+            spacer1.AddToClassList(USSCommonHorizontalSpacer);
             MainCardContainer.Add(spacer1);
 
             MainCardContainer.Add(OtherContainer);

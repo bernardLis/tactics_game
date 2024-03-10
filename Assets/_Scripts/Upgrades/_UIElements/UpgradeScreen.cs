@@ -9,6 +9,7 @@ namespace Lis.Upgrades
     {
         const string _commonOddBackground = "common__odd-background";
         const string _commonEvenBackground = "common__even-background";
+        const string _ussCommonButton = "common__button";
 
         const string _ussClassName = "upgrade-screen__";
         const string _ussMain = _ussClassName + "main";
@@ -22,8 +23,8 @@ namespace Lis.Upgrades
 
         public UpgradeScreen(UpgradeBoard upgradeBoard)
         {
-            _gameManager = GameManager.Instance;
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            GameManager = GameManager.Instance;
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.UpgradeScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -34,7 +35,7 @@ namespace Lis.Upgrades
             _upgradeContainer = new();
             _upgradeContainer.style.flexDirection = FlexDirection.Row;
             _upgradeContainer.style.flexWrap = Wrap.Wrap;
-            _content.Add(_upgradeContainer);
+            Content.Add(_upgradeContainer);
 
             CreateHeroUpgrades();
             CreateAbilityUpgrades();
@@ -51,17 +52,17 @@ namespace Lis.Upgrades
         {
             VisualElement container = new();
             container.AddToClassList(_ussHeaderContainer);
-            _content.Add(container);
+            Content.Add(container);
 
             Label title = new("Click & hold to purchase");
             title.style.fontSize = 24;
             container.Add(title);
 
-            GoldElement goldElement = new(_gameManager.Gold);
+            GoldElement goldElement = new(GameManager.Gold);
             goldElement.MakeItBig();
             goldElement.style.alignSelf = Align.Center;
             container.Add(goldElement);
-            _gameManager.OnGoldChanged += goldElement.ChangeAmount;
+            GameManager.OnGoldChanged += goldElement.ChangeAmount;
         }
 
         void CreateHeroUpgrades()
@@ -148,16 +149,16 @@ namespace Lis.Upgrades
             container.style.justifyContent = Justify.SpaceAround;
             Add(container);
 
-            MyButton unlockAllButton = new("Unlock All", "common__menu-button", _upgradeBoard.UnlockAll);
+            MyButton unlockAllButton = new("Unlock All", _ussCommonButton, _upgradeBoard.UnlockAll);
             container.Add(unlockAllButton);
 
-            MyButton refundAllButton = new("Refund All", "common__menu-button", RefundAll);
+            MyButton refundAllButton = new("Refund All", _ussCommonButton, RefundAll);
             container.Add(refundAllButton);
 
-            MyButton backButton = new("Back", "common__menu-button", Hide);
+            MyButton backButton = new("Back", _ussCommonButton, Hide);
             container.Add(backButton);
 
-            MyButton playButton = new("Play", "common__menu-button", Play);
+            MyButton playButton = new("Play", _ussCommonButton, Play);
             container.Add(playButton);
         }
 
@@ -169,7 +170,7 @@ namespace Lis.Upgrades
         void Play()
         {
             Hide();
-            OnHide += () => _gameManager.LoadScene(Scenes.HeroSelection);
+            OnHide += () => GameManager.LoadScene(Scenes.HeroSelection);
         }
     }
 }

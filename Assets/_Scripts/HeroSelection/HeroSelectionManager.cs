@@ -10,6 +10,7 @@ namespace Lis.HeroSelection
 {
     public class HeroSelectionManager : MonoBehaviour
     {
+        const string _ussCommonButton = "common__button";
         const string _ussMainMenuArrowButton = "hero-selection__arrow-button";
 
         GameManager _gameManager;
@@ -55,17 +56,17 @@ namespace Lis.HeroSelection
             _heroInfoContainer = root.Q<VisualElement>("heroInfoContainer");
 
             VisualElement arrowContainer = root.Q<VisualElement>("arrowContainer");
-            _previousButton = new("<", _ussMainMenuArrowButton, ShowPreviousHero);
-            _nextButton = new(">", _ussMainMenuArrowButton, ShowNextHero);
+            _previousButton = new("<", _ussCommonButton, ShowPreviousHero);
+            _nextButton = new(">", _ussCommonButton, ShowNextHero);
             arrowContainer.Add(_previousButton);
             arrowContainer.Add(_nextButton);
 
             VisualElement playButtonContainer = root.Q<VisualElement>("playButtonContainer");
-            MyButton playButton = new("Play", "common__menu-button", Play);
+            MyButton playButton = new("Play", _ussCommonButton, Play);
             playButtonContainer.Add(playButton);
 
             VisualElement backButtonContainer = root.Q<VisualElement>("backButtonContainer");
-            MyButton backButton = new("Back", "common__menu-button", Back);
+            MyButton backButton = new("Back", _ussCommonButton, Back);
             backButtonContainer.Add(backButton);
         }
 

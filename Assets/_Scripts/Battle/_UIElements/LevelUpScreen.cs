@@ -41,15 +41,15 @@ namespace Lis.Battle
 
         public LevelUpScreen()
         {
-            _audioManager = _gameManager.GetComponent<AudioManager>();
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            _audioManager = GameManager.GetComponent<AudioManager>();
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            _numberOfRewards = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
-            _heroManager = _battleManager.GetComponent<HeroManager>();
+            _numberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
+            _heroManager = BattleManager.GetComponent<HeroManager>();
 
-            _content.AddToClassList(_ussMain);
+            Content.AddToClassList(_ussMain);
 
             MakeItRain();
             PlayLevelUpAnimation();
@@ -59,7 +59,7 @@ namespace Lis.Battle
 
         void MakeItRain()
         {
-            List<Sprite> sprites = _gameManager.EntityDatabase.CreatureIcons.ToList();
+            List<Sprite> sprites = GameManager.EntityDatabase.CreatureIcons.ToList();
             for (int i = 0; i < 100; i++)
             {
                 VisualElement el = new();
@@ -90,7 +90,7 @@ namespace Lis.Battle
             container.Add(label);
             DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
 
-            AnimationElement anim = new(_gameManager.GameDatabase.LevelUpAnimationSprites,
+            AnimationElement anim = new(GameManager.GameDatabase.LevelUpAnimationSprites,
                 50, false);
             container.Add(anim);
             anim.PlayAnimation();
@@ -109,12 +109,12 @@ namespace Lis.Battle
             _title = new("Choose a reward:");
             _title.style.fontSize = 48;
             _title.style.opacity = 0;
-            _content.Add(_title);
+            Content.Add(_title);
             DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f)
                 .SetUpdate(true);
             VisualElement spacer = new();
-            spacer.AddToClassList(_ussCommonHorizontalSpacer);
-            _content.Add(spacer);
+            spacer.AddToClassList(USSCommonHorizontalSpacer);
+            Content.Add(spacer);
 
             AddRewardContainer();
             AddRerollButton();
@@ -126,7 +126,7 @@ namespace Lis.Battle
         {
             _rewardContainer = new();
             _rewardContainer.AddToClassList(_ussRewardContainer);
-            _content.Add(_rewardContainer);
+            Content.Add(_rewardContainer);
 
             List<RewardElement> hiddenCards = new();
             for (int i = 0; i < _numberOfRewards; i++)
@@ -154,7 +154,7 @@ namespace Lis.Battle
         {
             _rerollContainer = new();
             _rerollContainer.style.opacity = 0;
-            _content.Add(_rerollContainer);
+            Content.Add(_rerollContainer);
 
             if (_heroManager.RewardRerollsAvailable <= 0) return;
 

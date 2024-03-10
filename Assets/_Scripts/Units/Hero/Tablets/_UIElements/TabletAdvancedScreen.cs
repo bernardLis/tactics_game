@@ -15,17 +15,17 @@ namespace Lis.Units.Hero.Tablets
 
         public TabletAdvancedScreen(TabletAdvanced tabletAdvanced)
         {
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.TabletAdvancedScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _tabletAdvanced = tabletAdvanced;
-            _content.AddToClassList(_ussMain);
+            Content.AddToClassList(_ussMain);
 
             AddElements();
-            _content.Add(new HorizontalSpacerElement());
+            Content.Add(new HorizontalSpacerElement());
             AddAbility();
-            Add(new HeroElement(_battleManager.Hero, true));
+            Add(new HeroElement(BattleManager.Hero, true));
 
             DisableNavigation();
         }
@@ -34,11 +34,11 @@ namespace Lis.Units.Hero.Tablets
         {
             Label title = new("Element Combo Unlocked!");
             title.style.fontSize = 34;
-            _content.Add(title);
+            Content.Add(title);
 
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
-            _content.Add(container);
+            Content.Add(container);
 
             VisualElement elementContainer1 = new();
             elementContainer1.Add(new NatureElement(_tabletAdvanced.FirstNature, 100));
@@ -64,16 +64,16 @@ namespace Lis.Units.Hero.Tablets
         {
             Label title = new("You Gain A New Ability:");
             title.style.fontSize = 34;
-            _content.Add(title);
+            Content.Add(title);
 
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             container.style.flexGrow = 1;
-            _content.Add(container);
+            Content.Add(container);
 
             Ability.Ability a = ScriptableObject.Instantiate(_tabletAdvanced.Ability);
-            a.InitializeBattle(_battleManager.Hero);
-            _battleManager.Hero.AddAbility(a);
+            a.InitializeBattle(BattleManager.Hero);
+            BattleManager.Hero.AddAbility(a);
 
             _element = new(a, false, 200);
 

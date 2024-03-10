@@ -1,3 +1,4 @@
+using System;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Upgrades;
@@ -8,7 +9,7 @@ namespace Lis.MainMenu
 {
     public class MainMenu : Singleton<MainMenu>
     {
-        const string _ussCommonMenuButton = "common__menu-button";
+        const string _ussCommonButton = "common__button";
 
         [SerializeField] Sound _mainMenuTheme;
         [SerializeField] GameObject _gameManagerPrefab;
@@ -21,8 +22,6 @@ namespace Lis.MainMenu
         MyButton _statsButton;
         MyButton _settingsButton;
         MyButton _quitButton;
-
-        VisualElement _menuContainer;
 
         protected override void Awake()
         {
@@ -39,12 +38,11 @@ namespace Lis.MainMenu
 
         void Start()
         {
-            _playButton = new("Play", _ussCommonMenuButton, ShowGlobalUpgradesMenu);
-            _statsButton = new("Stats", _ussCommonMenuButton, ShowStatsScreen);
-            _settingsButton = new("Settings", _ussCommonMenuButton, Settings);
-            _quitButton = new("Quit", _ussCommonMenuButton, ConfirmQuit);
+            _playButton = new("Play", _ussCommonButton, ShowGlobalUpgradesMenu);
+            _statsButton = new("Stats", _ussCommonButton, ShowStatsScreen);
+            _settingsButton = new("Settings", _ussCommonButton, Settings);
+            _quitButton = new("Quit", _ussCommonButton, ConfirmQuit);
 
-            _menuContainer = Root.Q<VisualElement>("menuContainer");
             VisualElement buttonContainer = Root.Q<VisualElement>("buttonContainer");
             buttonContainer.Add(_playButton);
             buttonContainer.Add(_statsButton);
@@ -61,12 +59,14 @@ namespace Lis.MainMenu
 
         void ShowStatsScreen()
         {
-            new StatsScreen(_gameManager.GameStats);
+            StatsScreen statsScreen = new(_gameManager.GameStats);
+            if (statsScreen == null) throw new ArgumentNullException(nameof(statsScreen));
         }
 
         void Settings()
         {
-            new SettingsScreen();
+            SettingsScreen settingsScreen = new();
+            if (settingsScreen == null) throw new ArgumentNullException(nameof(settingsScreen));
         }
 
         void ConfirmQuit()

@@ -14,8 +14,8 @@ namespace Lis.Battle
         public event Action OnFinishedPlaying;
         public WonBattleScreen()
         {
-            _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
+            GameManager = GameManager.Instance;
+            var ss = GameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             AddToClassList(_ussMain);
@@ -45,15 +45,15 @@ namespace Lis.Battle
             text.style.fontSize = 24;
             container.Add(text);
 
-            MyButton continuePlaying = new("Continue playing", _ussCommonMenuButton,
+            MyButton continuePlaying = new("Continue playing", USSCommonButton,
                 callback: ContinuePlaying);
             container.Add(continuePlaying);
 
             MyButton advantage = new("Quit (+1k gold next time)",
-                _ussCommonMenuButton, callback: AdvantageButton);
+                USSCommonButton, callback: AdvantageButton);
             container.Add(advantage);
 
-            MyButton noAdvantage = new("Quit", _ussCommonMenuButton, callback: QuitButton);
+            MyButton noAdvantage = new("Quit", USSCommonButton, callback: QuitButton);
             container.Add(noAdvantage);
         }
 
@@ -71,7 +71,7 @@ namespace Lis.Battle
         void QuitButton()
         {
             OnFinishedPlaying?.Invoke();
-            _gameManager.LoadScene(Scenes.MainMenu);
+            GameManager.LoadScene(Scenes.MainMenu);
         }
     }
 }

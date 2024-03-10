@@ -44,7 +44,7 @@ namespace Lis
 
         public StatsScreen(Stats stats)
         {
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.StatsScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -53,10 +53,10 @@ namespace Lis
             _stats = stats;
             Label title = new("Stats");
             title.style.fontSize = 48;
-            _content.Add(title);
+            Content.Add(title);
 
             _scrollView = new();
-            _content.Add(_scrollView);
+            Content.Add(_scrollView);
 
             AddBasicStats();
             AddPickupStats();
@@ -132,7 +132,7 @@ namespace Lis
 
         void AddCreaturesCaptured()
         {
-            foreach (Creature creature in _gameManager.EntityDatabase.AllCreatures)
+            foreach (Creature creature in GameManager.EntityDatabase.AllCreatures)
             {
                 int value = 0;
                 if (_stats.CreaturesCaptured.Exists(d => d.Id == creature.Id))
@@ -143,7 +143,7 @@ namespace Lis
 
         void AddCollectedTablets()
         {
-            foreach (Tablet tablet in _gameManager.EntityDatabase.HeroTablets)
+            foreach (Tablet tablet in GameManager.EntityDatabase.HeroTablets)
             {
                 int value = 0;
                 if (_stats.TabletsCollected.Exists(d => d.Id == tablet.Id))
@@ -154,7 +154,7 @@ namespace Lis
 
         void AddCollectedAdvancedTablets()
         {
-            foreach (TabletAdvanced tablet in _gameManager.EntityDatabase.GetAllAdvancedTablets())
+            foreach (TabletAdvanced tablet in GameManager.EntityDatabase.GetAllAdvancedTablets())
             {
                 int value = 0;
                 if (_stats.AdvancedTabletsCollected.Exists(d => d.Id == tablet.Id))
@@ -165,7 +165,7 @@ namespace Lis
 
         void AddAbilitiesUnlocked()
         {
-            foreach (Ability ability in _gameManager.EntityDatabase.GetAllAbilities())
+            foreach (Ability ability in GameManager.EntityDatabase.GetAllAbilities())
             {
                 int value = 0;
                 if (_stats.AbilitiesUnlocked.Exists(d => d.Id == ability.Id))
@@ -176,7 +176,7 @@ namespace Lis
 
         void AddBossesKilled()
         {
-            foreach (Boss boss in _gameManager.EntityDatabase.GetAllBosses())
+            foreach (Boss boss in GameManager.EntityDatabase.GetAllBosses())
             {
                 int value = 0;
                 if (_stats.BossesKilled.Exists(d => d.Id == boss.Id))

@@ -20,7 +20,7 @@ namespace Lis.Units.Boss
         void AddBossAttacks()
         {
             VisualElement spacer = new();
-            spacer.AddToClassList(_ussCommonHorizontalSpacer);
+            spacer.AddToClassList(USSCommonHorizontalSpacer);
             MainCardContainer.Add(spacer);
 
             VisualElement container = new();
