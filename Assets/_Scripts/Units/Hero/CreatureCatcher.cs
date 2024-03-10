@@ -12,16 +12,16 @@ namespace Lis.Units.Hero
 {
     public class CreatureCatcher : PoolManager<FriendBallController>
     {
-        [SerializeField] GameObject _throwIndicatorPrefab;
-        FriendBallThrowIndicator _throwIndicator;
-
-        [SerializeField] GameObject _friendsBallPrefab;
-
         GameManager _gameManager;
         AudioManager _audioManager;
         PlayerInput _playerInput;
 
         HeroController _heroController;
+
+        [SerializeField] GameObject _throwIndicatorPrefab;
+        FriendBallThrowIndicator _throwIndicator;
+
+        [SerializeField] GameObject _friendsBallPrefab;
 
         // ok, so until 2 seconds is weak, 2-3 perfect, 3-5 too strong
         // TODO: magic numbers
@@ -32,7 +32,8 @@ namespace Lis.Units.Hero
         bool _thrown;
 
         public event Action OnBallThrown;
-        public void Initialize()
+
+        public void Initialize(HeroController heroController)
         {
             _audioManager = AudioManager.Instance;
 
@@ -41,8 +42,7 @@ namespace Lis.Units.Hero
             _throwIndicator.gameObject.SetActive(false);
 
             CreatePool(_friendsBallPrefab, 20);
-
-            _heroController = GetComponent<HeroController>();
+            _heroController = heroController;
         }
 
         void StartBallThrow(InputAction.CallbackContext context)

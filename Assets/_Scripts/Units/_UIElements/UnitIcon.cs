@@ -2,7 +2,6 @@ using DG.Tweening;
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Units
@@ -51,22 +50,22 @@ namespace Lis.Units
 
             _blockClick = blockClick;
             if (blockClick) return;
-            MoveIcon();
+            // MoveIcon();
             RegisterCallback<ClickEvent>(OnClick);
         }
 
-        void MoveIcon()
-        {
-            DOTween.To(x => transform.scale = x * Vector3.one, 1f, 1.1f, 1.5f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine)
-                .SetTarget(transform);
-
-            DOTween.To(x => style.rotate = new Rotate(x), -5f, 5f, 1.5f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine)
-                .SetTarget(transform);
-        }
+        // void MoveIcon()
+        // {
+        //     DOTween.To(x => transform.scale = x * Vector3.one, 1f, 1.1f, 1.5f)
+        //         .SetLoops(-1, LoopType.Yoyo)
+        //         .SetEase(Ease.InOutSine)
+        //         .SetTarget(transform);
+        //
+        //     DOTween.To(x => style.rotate = new Rotate(x), -5f, 5f, 1.5f)
+        //         .SetLoops(-1, LoopType.Yoyo)
+        //         .SetEase(Ease.InOutSine)
+        //         .SetTarget(transform);
+        // }
 
         public void PlayAnimationAlways()
         {
@@ -89,8 +88,8 @@ namespace Lis.Units
             if (_isAnimationBlocked) return;
             _animationElement.PauseAnimation();
 
-            if (!_blockClick)
-                MoveIcon();
+            // if (!_blockClick)
+            //     MoveIcon();
         }
 
         void OnClick(ClickEvent evt)

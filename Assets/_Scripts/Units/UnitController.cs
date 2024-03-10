@@ -37,6 +37,8 @@ namespace Lis.Units
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
 
+        [SerializeField] GameObject _recallEffect;
+
         [FormerlySerializedAs("_deathEffect")] [SerializeField]
         protected GameObject DeathEffect;
 
@@ -87,7 +89,8 @@ namespace Lis.Units
 
             ObjectShaders = GetComponent<ObjectShaders>();
             UnitPathingController = GetComponent<UnitPathingController>();
-            UnitPathingController.Initialize(new(20, 100));
+            if (UnitPathingController != null)
+                UnitPathingController.Initialize(new(20, 100));
 
             Collider = GetComponent<Collider>();
             Animator = GetComponentInChildren<Animator>();
@@ -132,7 +135,8 @@ namespace Lis.Units
             HeroController = BattleManager.HeroController;
 
             if (Unit is not UnitMovement em) return;
-            UnitPathingController.InitializeUnit(em);
+            if (UnitPathingController != null)
+                UnitPathingController.InitializeUnit(em);
         }
 
         void OnLevelUp()
@@ -372,6 +376,26 @@ namespace Lis.Units
         {
             _isGrabbed = false;
             Animator.enabled = true;
+            RunUnit();
+        }
+
+        /* Recall */
+        public void RecallToHero()
+        {
+            StartCoroutine(RecallCoroutine());
+        }
+
+        IEnumerator RecallCoroutine()
+        {
+            if (IsDead) yield break;
+            StopUnit();
+            _recallEffect.SetActive(false);
+            AddToLog("Unit is recalled to hero.");
+            yield return new WaitForSeconds(0.1f);
+            transform.position = HeroController.transform.position +
+                                 new Vector3(Random.Range(-5, 5), 1, Random.Range(-5, 5));
+            _recallEffect.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
             RunUnit();
         }
 

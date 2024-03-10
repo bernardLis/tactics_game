@@ -98,7 +98,7 @@ namespace Lis.Battle
 
         void TrackFriendBalls()
         {
-            _battleManager.HeroController.GetComponent<CreatureCatcher>().OnBallThrown +=
+            _battleManager.HeroController.GetComponentInChildren<CreatureCatcher>().OnBallThrown +=
                 () => _stats.FriendBallsThrown++;
         }
 

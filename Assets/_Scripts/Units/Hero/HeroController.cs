@@ -1,6 +1,5 @@
 using System.Collections;
 using Lis.Battle.Tiles;
-using Lis.Units.Hero.Ability;
 using UnityEngine;
 using Controller = Lis.Battle.Tiles.Controller;
 
@@ -12,21 +11,21 @@ namespace Lis.Units.Hero
 
         public Hero Hero { get; private set; }
 
-        MovementController _thirdPersonMovementController;
+        MovementController _movementController;
         HealthBarDisplayer _healthBarDisplayer;
 
         [Header("Hero")]
         [SerializeField] GameObject _tileSecuredMarkerPrefab;
 
-
         public override void InitializeGameObject()
         {
             base.InitializeGameObject();
-            _thirdPersonMovementController = GetComponent<MovementController>();
+            _movementController = GetComponent<MovementController>();
             _healthBarDisplayer = GetComponentInChildren<HealthBarDisplayer>();
             _areaManager = BattleManager.GetComponent<AreaManager>();
 
-            GetComponent<CreatureCatcher>().Initialize();
+            GetComponentInChildren<CreatureCatcher>().Initialize(this);
+            GetComponentInChildren<CreatureRecaller>().Initialize(this);
 
             _areaManager.OnTileUnlocked += OnTileUnlocked;
         }
@@ -57,8 +56,8 @@ namespace Lis.Units.Hero
 
             Hero = (Hero)unit;
 
-            _thirdPersonMovementController.SetMoveSpeed(Hero.Speed.GetValue());
-            Hero.Speed.OnValueChanged += _thirdPersonMovementController.SetMoveSpeed;
+            _movementController.SetMoveSpeed(Hero.Speed.GetValue());
+            Hero.Speed.OnValueChanged += _movementController.SetMoveSpeed;
 
             _healthBarDisplayer.Initialize(Hero);
 
@@ -104,7 +103,7 @@ namespace Lis.Units.Hero
 
         public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
-            _thirdPersonMovementController.enabled = false;
+            _movementController.enabled = false;
             BattleManager.LoseBattle();
 
             yield return null;

@@ -1,3 +1,4 @@
+using System;
 using Lis.Battle;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
@@ -52,7 +53,8 @@ namespace Lis.Core
 
         void ShowSettingsScreen()
         {
-            new SettingsScreen();
+            SettingsScreen settingsScreen = new();
+            if (settingsScreen == null) throw new ArgumentNullException(nameof(settingsScreen));
         }
 
         void GoToMainMenu()

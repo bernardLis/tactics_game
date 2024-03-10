@@ -80,11 +80,20 @@ namespace Lis.Units.Hero
             _disableUpdate = false;
         }
 
+        public void DisableMovement()
+        {
+            _disableUpdate = true;
+            _animator.SetFloat(_animVelocityZ, 0);
+            _animator.SetFloat(_animVelocityX, 0);
+        }
+
+        public void EnableMovement() => _disableUpdate = false;
+
         void Update()
         {
             if (_disableUpdate) return;
-            Move();
             SetAnimationBlend();
+            Move();
         }
 
         void LateUpdate()

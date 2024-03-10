@@ -87,6 +87,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "RecallCreatures",
+                    "type": "Button",
+                    "id": "d49de728-4de5-4a58-b21b-727cfddd0280",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Space",
                     "type": "Button",
                     "id": "48c57600-1474-40eb-ae2a-7e1dc5b04924",
@@ -483,6 +492,17 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "ThrowBall",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c29ed34-b22f-4ec6-ab67-afd5c68e66eb",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "RecallCreatures",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

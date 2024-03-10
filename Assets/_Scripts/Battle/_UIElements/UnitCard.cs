@@ -23,7 +23,7 @@ namespace Lis.Battle
         {
             Initialize();
 
-            var ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.UnitCardStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -36,7 +36,7 @@ namespace Lis.Battle
         protected void PopulateCard()
         {
             HandleUnitIcon();
-            HandleElementalElement();
+            HandleNature();
             HandleNameLabel();
             HandleLevelLabel();
             HandleHealthBar();
@@ -48,14 +48,14 @@ namespace Lis.Battle
             _topLeftContainer.Add(_unitIcon);
         }
 
-        protected virtual void HandleElementalElement()
+        void HandleNature()
         {
             _natureElement = new(_unit.Nature);
             _natureElement.AddToClassList(_ussElement);
             _topLeftContainer.Add(_natureElement);
         }
 
-        protected virtual void HandleNameLabel()
+        void HandleNameLabel()
         {
             _nameLabel = new(_unit.UnitName);
             _nameLabel.AddToClassList(_ussName);
