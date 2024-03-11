@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Lis.Core
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/General/Sound")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Core/Sound")]
     [System.Serializable]
     public class Sound : BaseScriptableObject
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using DG.Tweening;
 using Lis.Battle;
 using Lis.Battle.Pickup;
+using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Creature;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Lis.Units.Hero
 {
     public class FriendBallController : MonoBehaviour
     {
+        AudioManager _audioManager;
         HeroController _heroController;
 
         Rigidbody _rb;
@@ -18,12 +20,16 @@ namespace Lis.Units.Hero
         [SerializeField] GameObject _hit;
         [SerializeField] GameObject _successEffect;
 
+        [SerializeField] Sound _caughtSound;
+        [SerializeField] Sound _notCaughtSound;
+
         int _floorCollisionCount;
         bool _wasTryingToCatch;
 
 
         void Awake()
         {
+            _audioManager = AudioManager.Instance;
             _rb = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
         }
@@ -140,6 +146,7 @@ namespace Lis.Units.Hero
 
             if (!_heroController.Hero.CanAddToTroops())
             {
+                _audioManager.PlaySFX(_notCaughtSound, transform.position);
                 string text = "No space for more creatures!";
                 bc.DisplayFloatingText(text, Color.white);
                 yield break;
@@ -157,6 +164,7 @@ namespace Lis.Units.Hero
                 yield break;
             }
 
+            _audioManager.PlaySFX(_notCaughtSound, transform.position);
             bc.DisplayFloatingText("Escaped!", Color.red);
             _rb.isKinematic = false;
             bc.ReleaseFromCatching();
@@ -186,6 +194,7 @@ namespace Lis.Units.Hero
                           + Vector3.forward * Random.Range(-3f, 3f)
                           + Vector3.up * 3f;
 
+            _audioManager.PlaySFX(_caughtSound, transform.position);
             bc.DisplayFloatingText("Caught!", Color.green);
             Vector3 effPos = bc.transform.position;
             effPos.y = 0;

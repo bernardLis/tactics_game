@@ -16,7 +16,6 @@ namespace Lis.Upgrades
         const string _ussHeaderContainer = _ussClassName + "header-container";
         const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
 
-
         readonly UpgradeBoard _upgradeBoard;
 
         readonly ScrollView _upgradeContainer;

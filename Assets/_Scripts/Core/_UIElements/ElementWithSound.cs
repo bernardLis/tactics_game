@@ -9,10 +9,10 @@ namespace Lis.Core
         protected ElementWithSound()
         {
             _audioManager = AudioManager.Instance;
-            RegisterCallback<MouseEnterEvent>(PlayClick);
+            RegisterCallback<PointerEnterEvent>(PlayClick);
         }
 
-        void PlayClick(MouseEnterEvent evt)
+        void PlayClick(PointerEnterEvent evt)
         {
             _audioManager.PlayUI("UI Click");
         }

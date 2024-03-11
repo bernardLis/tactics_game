@@ -39452,6 +39452,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwIndicatorPrefab: {fileID: 5567822528306382176}
   _friendsBallPrefab: {fileID: 5529979041991582353}
+  _throwSound: {fileID: 11400000, guid: d815f2b626575d94e94aadeaead65620, type: 2}
+  _perfectThrow: {fileID: 11400000, guid: f4825a793b62fed46ace3abcae3d9789, type: 2}
+  _noMoreBallsSound: {fileID: 11400000, guid: bc87ec0c19e968745ac6697631f42aac, type: 2}
 --- !u!1 &5529979041991582353
 GameObject:
   m_ObjectHideFlags: 0
@@ -39552,6 +39555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hit: {fileID: 7753950491318728741}
   _successEffect: {fileID: 3990450487902861181}
+  _caughtSound: {fileID: 11400000, guid: 469892c9f83acd0459f6f362aa478027, type: 2}
+  _notCaughtSound: {fileID: 11400000, guid: 14291d047ac43b642ba2f2ee0406f4a6, type: 2}
 --- !u!1 &5567822528306382176
 GameObject:
   m_ObjectHideFlags: 0

@@ -4946,6 +4946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _recallEffect: {fileID: 3340827811221289142}
+  _startRecallSound: {fileID: 11400000, guid: 5f81e48b0d754784885c067b11fba76f, type: 2}
+  _recallSwooshSound: {fileID: 11400000, guid: 07b7be9e8f6eeb94fa10d22e2bbac254, type: 2}
 --- !u!1 &2264018760540982828
 GameObject:
   m_ObjectHideFlags: 0

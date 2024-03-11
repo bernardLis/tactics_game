@@ -31,6 +31,9 @@ namespace Lis.Units
         [Header("Sounds")]
         [SerializeField] Sound _spawnSound;
 
+        [SerializeField] Sound _levelUpSound;
+        [SerializeField] Sound _isRecalledSound;
+
         [SerializeField] protected Sound DeathSound;
         [SerializeField] protected Sound GetHitSound;
 
@@ -143,6 +146,8 @@ namespace Lis.Units
         {
             if (_levelUpEffect == null) return;
             _levelUpEffect.SetActive(true);
+            if (_levelUpSound != null)
+                AudioManager.PlaySFX(_levelUpSound, transform.position);
             StartCoroutine(DisableLevelUpEffect());
         }
 
@@ -395,6 +400,8 @@ namespace Lis.Units
             transform.position = HeroController.transform.position +
                                  new Vector3(Random.Range(-5, 5), 1, Random.Range(-5, 5));
             _recallEffect.SetActive(true);
+            if (_isRecalledSound != null)
+                AudioManager.PlaySFX(_isRecalledSound, transform.position);
             yield return new WaitForSeconds(0.5f);
             RunUnit();
         }

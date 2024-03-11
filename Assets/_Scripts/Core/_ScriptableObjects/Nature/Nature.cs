@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Lis.Core
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Nature")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Core/Nature")]
     public class Nature : BaseScriptableObject
     {
         public NatureName NatureName;

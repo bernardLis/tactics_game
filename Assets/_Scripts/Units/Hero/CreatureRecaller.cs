@@ -13,17 +13,21 @@ namespace Lis
     public class CreatureRecaller : MonoBehaviour
     {
         GameManager _gameManager;
+        AudioManager _audioManager;
         PlayerInput _playerInput;
         BattleManager _battleManager;
         MovementController _heroMovementController;
 
         [SerializeField] GameObject _recallEffect;
+        [SerializeField] Sound _startRecallSound;
+        [SerializeField] Sound _recallSwooshSound;
+        AudioSource _swooshSoundSource;
 
         IEnumerator _recallCoroutine;
 
         public void Initialize(HeroController heroController)
         {
-            // TODO: creature teleporter sounds
+            _audioManager = AudioManager.Instance;
             _battleManager = BattleManager.Instance;
             _heroMovementController = heroController.GetComponent<MovementController>();
         }
@@ -42,10 +46,12 @@ namespace Lis
         {
             _heroMovementController.DisableMovement();
 
-            // there is a visual effect
             _recallEffect.transform.localScale = Vector3.one;
             _recallEffect.SetActive(true);
 
+            Vector3 pos = transform.position;
+            _audioManager.PlaySFX(_startRecallSound, pos);
+            _swooshSoundSource = _audioManager.PlaySFX(_recallSwooshSound, pos, true);
             int totalDelay = 3;
             int currentDelay = 0;
             while (currentDelay < totalDelay)
@@ -70,15 +76,23 @@ namespace Lis
         void EndCreatureRecall(InputAction.CallbackContext context)
         {
             if (this == null) return;
-            if (_recallCoroutine != null) StopCoroutine(_recallCoroutine);
+            StopRecall();
             _heroMovementController.EnableMovement();
+        }
+
+        void StopRecall()
+        {
+            if (_recallCoroutine == null) return;
+            StopCoroutine(_recallCoroutine);
+            if (_swooshSoundSource != null)
+                _swooshSoundSource.Stop();
+            _swooshSoundSource = null;
             _recallEffect.transform.DOScale(0, 1f).OnComplete(() =>
             {
                 _recallEffect.SetActive(false);
                 _recallCoroutine = null;
             });
         }
-
 
         /* INPUT */
         void OnEnable()

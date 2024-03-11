@@ -422,13 +422,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitLog: []
   _spawnSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
+  _levelUpSound: {fileID: 11400000, guid: 8e019c9a146ea1848a1c1e4084f1146a, type: 2}
+  _isRecalledSound: {fileID: 11400000, guid: 3039ca0adb67d6d4ab8245c2cccced03, type: 2}
   DeathSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
-  GetHitSound: {fileID: 0}
+  GetHitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   _levelUpEffect: {fileID: 28685449354431189}
   _recallEffect: {fileID: 4718462892151406175}
   DeathEffect: {fileID: 8405514708836561315}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: 75058dd04fb4a024ea2120fca77771d8, type: 2}
+  _respawnSound: {fileID: 11400000, guid: 8e3154bfa42f2b341b08833c9befd570, type: 2}
   _respawnEffect: {fileID: 688179574862480819}
 --- !u!114 &3607482803401989862
 MonoBehaviour:

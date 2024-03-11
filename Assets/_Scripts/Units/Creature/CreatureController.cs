@@ -19,6 +19,8 @@ namespace Lis.Units.Creature
         [FormerlySerializedAs("_attackSound")] [SerializeField]
         protected Sound AttackSound;
 
+        [SerializeField] Sound _respawnSound;
+
         public Creature Creature { get; private set; }
 
         List<UnitController> _opponentList = new();
@@ -359,9 +361,11 @@ namespace Lis.Units.Creature
             _respawnEffect.SetActive(false);
             yield return new WaitForSeconds(Creature.DeathPenaltyBase +
                                             Creature.DeathPenaltyPerLevel * Creature.Level.Value);
-            transform.position = HeroController.transform.position +
-                                 new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
+            Transform t = transform;
+            t.position = HeroController.transform.position +
+                         new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
 
+            AudioManager.PlaySFX(_respawnSound, t.position);
             _respawnEffect.SetActive(true);
             yield return new WaitForSeconds(1.5f);
             transform.DOMoveY(1, 0.3f);

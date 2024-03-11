@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Upgrades
@@ -20,6 +21,7 @@ namespace Lis.Upgrades
         const string _ussFill = _ussClassName + "fill";
 
         readonly GameManager _gameManager;
+        AudioManager _audioManager;
 
         readonly Upgrade _upgrade;
 
@@ -31,14 +33,17 @@ namespace Lis.Upgrades
 
         readonly string _tweenId = "fill";
 
+        AudioSource _swooshAudioSource;
+
         IVisualElementScheduledItem _purchaseScheduler;
 
         public UpgradeElement(Upgrade upgrade)
         {
             _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.UpgradeStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            _audioManager = AudioManager.Instance;
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.UpgradeStyles);
+            if (ss != null) styleSheets.Add(ss);
 
             _upgrade = upgrade;
             upgrade.OnLevelChanged += OnUpgradeLevelChanged;
@@ -55,6 +60,7 @@ namespace Lis.Upgrades
 
             if (_upgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
 
+            RegisterCallback<PointerEnterEvent>(OnPointerEnter);
             RegisterCallback<PointerDownEvent>(OnPointerDown);
             RegisterCallback<PointerUpEvent>(OnPointerUp);
         }
@@ -65,12 +71,17 @@ namespace Lis.Upgrades
             UpdatePrice();
         }
 
+        void OnPointerEnter(PointerEnterEvent evt)
+        {
+            _audioManager.PlayUI("UI Click");
+        }
+
         void OnPointerDown(PointerDownEvent evt)
         {
             if (_upgrade.IsMaxLevel()) return;
             if (_gameManager.Gold < _upgrade.GetNextLevel().Cost) return;
 
-            // TODO: play sound
+            _swooshAudioSource = _audioManager.PlayUI("Upgrade - Swoosh");
 
             _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1000);
             DOTween.Kill(_tweenId);
@@ -82,6 +93,12 @@ namespace Lis.Upgrades
         void OnPointerUp(PointerUpEvent evt)
         {
             if (_purchaseScheduler != null) _purchaseScheduler.Pause();
+            if (_swooshAudioSource != null)
+            {
+                _swooshAudioSource.Stop();
+                _swooshAudioSource = null;
+            }
+
             DOTween.Kill(_tweenId);
             DOTween.To(x => _fill.style.height = Length.Percent(x), _fill.style.height.value.value, 0, 0.3f)
                 .SetEase(Ease.InOutSine)
@@ -166,12 +183,24 @@ namespace Lis.Upgrades
 
         void Purchase()
         {
-            if (_upgrade.IsMaxLevel()) return;
+            if (_upgrade.IsMaxLevel())
+            {
+                _audioManager.PlayUI("Upgrade - Max Level");
+
+                return;
+            }
 
             _gameManager.ChangeGoldValue(-_upgrade.GetNextLevel().Cost);
             _upgrade.Purchased();
             if (_upgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
 
+            if (_swooshAudioSource != null)
+            {
+                _swooshAudioSource.Stop();
+                _swooshAudioSource = null;
+            }
+
+            _audioManager.PlayUI("Upgrade - Bought");
             DisplayTooltip();
 
             DOTween.To(x => _fill.style.opacity = x, _fill.style.opacity.value, 1, 0.1f)
