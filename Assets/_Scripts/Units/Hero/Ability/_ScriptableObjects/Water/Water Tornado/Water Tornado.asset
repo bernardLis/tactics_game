@@ -24,7 +24,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b2f189f748cdfc249906cff9a1fa99b3, type: 2}
   - {fileID: 11400000, guid: 6dff2dc13cfe9764782725acfefa3317, type: 2}
   - {fileID: 11400000, guid: 522949e2f44c0f04ab28af008581e610, type: 2}
-  Element: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   KillCount: 228
   IsAdvanced: 0
   AbilityManagerPrefab: {fileID: 1356729713075176178, guid: 01d130741b03ab341946762dbaedae09, type: 3}
+  ExecuteSound: {fileID: 11400000, guid: 2282d3513647db244a81180978d4109d, type: 2}

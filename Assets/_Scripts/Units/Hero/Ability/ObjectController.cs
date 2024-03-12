@@ -1,14 +1,18 @@
 using System.Collections;
+using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
 {
     public class ObjectController : MonoBehaviour
     {
+       protected AudioManager AudioManager;
         protected Ability Ability;
 
         public virtual void Initialize(Ability ability)
         {
+            AudioManager = AudioManager.Instance;
+
             Ability = ability;
             Ability.OnLevelUp += OnAbilityLevelUp;
         }

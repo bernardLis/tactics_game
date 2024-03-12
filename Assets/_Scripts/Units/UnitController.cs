@@ -108,7 +108,7 @@ namespace Lis.Units
             AddToLog($"Unit is initialized, team: {team}");
 
             if (_spawnSound != null)
-                AudioManager.PlaySFX(_spawnSound, transform.position);
+                AudioManager.PlaySfx(_spawnSound, transform.position);
 
             DeathEffect.SetActive(false);
             IsDead = false;
@@ -147,7 +147,7 @@ namespace Lis.Units
             if (_levelUpEffect == null) return;
             _levelUpEffect.SetActive(true);
             if (_levelUpSound != null)
-                AudioManager.PlaySFX(_levelUpSound, transform.position);
+                AudioManager.PlaySfx(_levelUpSound, transform.position);
             StartCoroutine(DisableLevelUpEffect());
         }
 
@@ -264,8 +264,8 @@ namespace Lis.Units
             AddToLog($"Unit takes damage {dmg}");
             StopUnit();
 
-            if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
-            else AudioManager.PlaySFX("Hit", transform.position);
+            if (GetHitSound != null) AudioManager.PlaySfx(GetHitSound, transform.position);
+            else AudioManager.PlaySfx("Hit", transform.position);
 
             Animator.SetTrigger(AnimTakeDamage);
             DisplayFloatingText(dmg.ToString(), color);
@@ -307,7 +307,7 @@ namespace Lis.Units
             Collider.enabled = false;
             DOTween.Kill(transform);
 
-            if (DeathSound != null) AudioManager.PlaySFX(DeathSound, transform.position);
+            if (DeathSound != null) AudioManager.PlaySfx(DeathSound, transform.position);
             DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
@@ -358,7 +358,7 @@ namespace Lis.Units
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
-            AudioManager.PlaySFX(_spawnSound, transform.position);
+            AudioManager.PlaySfx(_spawnSound, transform.position);
 
             if (!CanBeGrabbed()) return;
             _grabManager.TryGrabbing(gameObject);
@@ -401,7 +401,7 @@ namespace Lis.Units
                                  new Vector3(Random.Range(-5, 5), 1, Random.Range(-5, 5));
             _recallEffect.SetActive(true);
             if (_isRecalledSound != null)
-                AudioManager.PlaySFX(_isRecalledSound, transform.position);
+                AudioManager.PlaySfx(_isRecalledSound, transform.position);
             yield return new WaitForSeconds(0.5f);
             RunUnit();
         }

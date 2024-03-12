@@ -10,7 +10,7 @@ namespace Lis.Units.Hero.Ability
             base.Initialize(ability, startAbility);
             AbilityObjectParent = transform;
 
-            transform.localPosition = new Vector3(0f, 0f, 1f); // it is where the effect spawns...
+            transform.localPosition = new(0f, 0f, 1f); // it is where the effect spawns...
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -18,8 +18,9 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
+
                 EarthSlashObjectController s = GetInactiveAbilityObject() as EarthSlashObjectController;
-                s.Execute(GetSlashPosition(i), GetSlashRotation(i));
+                if (s != null) s.Execute(GetSlashPosition(i), GetSlashRotation(i));
             }
         }
 
@@ -39,6 +40,5 @@ namespace Lis.Units.Hero.Ability
                 return Quaternion.Euler(0f, 180f, 0f);
             return Quaternion.identity;
         }
-
     }
 }

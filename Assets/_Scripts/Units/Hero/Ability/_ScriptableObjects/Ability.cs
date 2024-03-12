@@ -24,13 +24,17 @@ namespace Lis.Units.Hero.Ability
 
         public List<Level> Levels;
 
-        [FormerlySerializedAs("Element")] public Core.Nature Nature;
+        [FormerlySerializedAs("Element")] public Nature Nature;
         [HideInInspector] public int KillCount;
 
         public bool IsAdvanced;
 
         [Header("Battle GameObjects")]
         public GameObject AbilityManagerPrefab;
+
+        [Header("Sounds")]
+        public Sound ExecuteSound;
+
 
         public event Action OnCooldownStarted;
         public event Action OnLevelUp;

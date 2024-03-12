@@ -16,7 +16,7 @@ namespace Lis.Units.Creature.Ability
             yield return transform.DODynamicLookAt(CreatureController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
             _effect.SetActive(true);
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             foreach (UnitController be in GetOpponentsInRadius(_radius))
             {

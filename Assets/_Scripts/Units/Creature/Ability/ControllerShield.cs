@@ -29,7 +29,7 @@ namespace Lis.Units.Creature.Ability
             }
 
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             CreatureController.DisplayFloatingText("Shielded", _shieldedColor);
             _effect.SetActive(true);

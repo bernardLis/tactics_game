@@ -39,7 +39,7 @@ namespace Lis.Battle
         public int RewardRerollsAvailable;
 
         // HERE: testing
-        readonly bool _turnOffAbility = true;
+        readonly bool _turnOffAbility = false;
 
         public void Initialize(Hero hero)
         {
@@ -97,7 +97,7 @@ namespace Lis.Battle
         void OnHeroLevelUp()
         {
             _levelUpScreen = new();
-            _audioManager.PlaySFX(_levelUpSound, HeroController.transform.position);
+            _audioManager.PlaySfx(_levelUpSound, HeroController.transform.position);
             _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
         }
 

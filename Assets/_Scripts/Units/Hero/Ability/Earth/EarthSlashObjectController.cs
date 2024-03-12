@@ -25,13 +25,11 @@ namespace Lis.Units.Hero.Ability
         {
             _effect.SetActive(true);
             _col.SetActive(true);
+            if (Ability.ExecuteSound != null) AudioManager.PlaySfx(Ability.ExecuteSound, transform.position);
 
             Vector3 colliderRotation = new(90f, 0f, -45f);
             _col.transform.DOLocalRotate(colliderRotation, Ability.GetDuration())
-                .OnComplete(() =>
-                {
-                    _col.SetActive(false);
-                });
+                .OnComplete(() => { _col.SetActive(false); });
 
             yield return new WaitForSeconds(1f);
             _effect.SetActive(false);

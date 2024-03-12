@@ -17,7 +17,7 @@ namespace Lis.Units.Creature.Ability
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             _effectInstance.transform.position = transform.position;
             _effectInstance.SetActive(true);

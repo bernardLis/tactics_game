@@ -11,7 +11,7 @@ namespace Lis.Units.Creature.Ability
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             _effect.SetActive(true);
             foreach (UnitController be in GetOpponentsInRadius(_explosionRadius))

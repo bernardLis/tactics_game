@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -6,8 +7,11 @@ namespace Lis.Units.Hero.Ability
 {
     public class MeteorsObjectController : ObjectControllerDmgOverTime
     {
-        [SerializeField] GameObject _circle;    // start lifetime determines how long the circle will be growing (4 seconds now)
+        [SerializeField]
+        GameObject _circle; // start lifetime determines how long the circle will be growing (4 seconds now)
+
         [SerializeField] GameObject _meteor;
+
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {
@@ -25,8 +29,12 @@ namespace Lis.Units.Hero.Ability
             ManageCircles();
             yield return new WaitForSeconds(2f);
             ManageMeteors();
+            StartCoroutine(PlaySound());
+
             StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
             yield return new WaitForSeconds(Ability.GetDuration());
+            StopSound();
+
             yield return _circle.transform.DOScale(0, 1f).WaitForCompletion();
             _meteor.transform.DOScale(0, 0.5f).OnComplete(
                 () =>
@@ -34,6 +42,26 @@ namespace Lis.Units.Hero.Ability
                     _meteor.SetActive(false);
                     gameObject.SetActive(false);
                 });
+        }
+
+        readonly List<AudioSource> _audioSources = new();
+
+        IEnumerator PlaySound()
+        {
+            if (Ability.ExecuteSound == null) yield break;
+            for (int i = 0; i < 5; i++)
+            {
+                AudioSource ass = AudioManager.PlaySfx(Ability.ExecuteSound, transform.position, true);
+                _audioSources.Add(ass);
+                yield return new WaitForSeconds(Random.Range(0.1f, 0.2f));
+            }
+        }
+
+        void StopSound()
+        {
+            foreach (AudioSource ass in _audioSources)
+                ass.Stop();
+            _audioSources.Clear();
         }
 
         void ManageCircles()
@@ -58,7 +86,8 @@ namespace Lis.Units.Hero.Ability
             int burstCount = Mathf.FloorToInt(Ability.GetDuration());
             short burstCountShort = (short)burstCount;
             ParticleSystem.EmissionModule emission = ps.emission;
-            emission.SetBursts(new ParticleSystem.Burst[] {
+            emission.SetBursts(new ParticleSystem.Burst[]
+            {
                 new ParticleSystem.Burst(0f, burstCountShort, burstCountShort, 20, 0.1f)
             });
 

@@ -221,7 +221,7 @@ namespace Lis.Units.Creature
 
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
 
-            if (AttackSound != null) AudioManager.PlaySFX(AttackSound, transform.position);
+            if (AttackSound != null) AudioManager.PlaySfx(AttackSound, transform.position);
             yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
             Animator.SetTrigger(AnimAttack);
 
@@ -365,7 +365,7 @@ namespace Lis.Units.Creature
             t.position = HeroController.transform.position +
                          new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
 
-            AudioManager.PlaySFX(_respawnSound, t.position);
+            AudioManager.PlaySfx(_respawnSound, t.position);
             _respawnEffect.SetActive(true);
             yield return new WaitForSeconds(1.5f);
             transform.DOMoveY(1, 0.3f);

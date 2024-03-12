@@ -42,7 +42,7 @@ namespace Lis.Units.Creature.Ability
             Collider.enabled = false;
             targetPosition.y = 1;
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
             CreatureController.transform.DOJump(targetPosition, 2f, 1, 0.3f)
                 .OnComplete(() => Collider.enabled = true);
 

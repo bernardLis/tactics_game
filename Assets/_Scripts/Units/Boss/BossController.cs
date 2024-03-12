@@ -121,8 +121,8 @@ namespace Lis.Units.Boss
 
             UnitLog.Add($"{BattleManager.GetTime()}: Unit takes damage {dmg}");
 
-            if (GetHitSound != null) AudioManager.PlaySFX(GetHitSound, transform.position);
-            else AudioManager.PlaySFX("Hit", transform.position);
+            if (GetHitSound != null) AudioManager.PlaySfx(GetHitSound, transform.position);
+            else AudioManager.PlaySfx("Hit", transform.position);
 
             DisplayFloatingText(dmg.ToString(), color);
 
@@ -154,8 +154,8 @@ namespace Lis.Units.Boss
         {
             OnStunStarted?.Invoke();
             Vector3 pos = transform.position;
-            AudioManager.PlaySFX(_stunStart, pos);
-            _stunAudioSource = AudioManager.PlaySFX(_stunDuration, pos, true);
+            AudioManager.PlaySfx(_stunStart, pos);
+            _stunAudioSource = AudioManager.PlaySfx(_stunDuration, pos, true);
 
             DisplayFloatingText("Stunned", _stunColor);
             CurrentStunDuration.SetValue(TotalStunDuration.Value);

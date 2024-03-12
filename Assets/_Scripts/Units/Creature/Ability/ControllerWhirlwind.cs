@@ -14,7 +14,7 @@ namespace Lis.Units.Creature.Ability
             _effect.SetActive(true);
 
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             foreach (UnitController be in GetOpponentsInRadius(_radius))
             {

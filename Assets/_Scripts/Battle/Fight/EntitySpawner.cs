@@ -43,8 +43,8 @@ namespace Lis.Battle.Fight
             _portalShown = true;
 
             Vector3 position = transform.position;
-            _audioManager.PlaySFX(_portalOpenSound, position);
-            _portalHumSource = _audioManager.PlaySFX(_portalHumSound, position, true);
+            _audioManager.PlaySfx(_portalOpenSound, position);
+            _portalHumSource = _audioManager.PlaySfx(_portalHumSound, position, true);
             _portal = _blackPortal;
             if (nature != null)
                 _portal = _portalElements.Find(x => x.NatureName == nature.NatureName).Portal;
@@ -78,7 +78,7 @@ namespace Lis.Battle.Fight
             unitController.InitializeUnit(unit, team);
             SpawnedEntities.Add(unitController);
 
-            _audioManager.PlaySFX(_portalPopEntitySound, pos);
+            _audioManager.PlaySfx(_portalPopEntitySound, pos);
 
             Vector3 scale = unitController.transform.localScale;
             Vector3 jumpPos = pos + transform.forward * scale.z;
@@ -94,7 +94,7 @@ namespace Lis.Battle.Fight
 
         void DisableSelf()
         {
-            _audioManager.PlaySFX(_portalCloseSound, transform.position);
+            _audioManager.PlaySfx(_portalCloseSound, transform.position);
             if (_portalHumSource != null)
                 _portalHumSource.Stop();
 

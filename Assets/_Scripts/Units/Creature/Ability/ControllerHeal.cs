@@ -33,7 +33,7 @@ namespace Lis.Units.Creature.Ability
             }
 
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
             _healEffect.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);

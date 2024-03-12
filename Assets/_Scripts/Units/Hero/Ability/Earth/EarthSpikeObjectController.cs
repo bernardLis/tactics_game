@@ -31,6 +31,7 @@ namespace Lis.Units.Hero.Ability
         {
             _gfx.SetActive(true);
             _col.SetActive(true);
+            if (Ability.ExecuteSound != null) AudioManager.PlaySfx(Ability.ExecuteSound, transform.position);
 
             ParticleSystem.MainModule main = _spikes.main;
             main.startLifetime = Ability.GetDuration();

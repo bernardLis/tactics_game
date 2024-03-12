@@ -146,7 +146,7 @@ namespace Lis.Units.Hero
 
             if (!_heroController.Hero.CanAddToTroops())
             {
-                _audioManager.PlaySFX(_notCaughtSound, transform.position);
+                _audioManager.PlaySfx(_notCaughtSound, transform.position);
                 string text = "No space for more creatures!";
                 bc.DisplayFloatingText(text, Color.white);
                 yield break;
@@ -164,7 +164,7 @@ namespace Lis.Units.Hero
                 yield break;
             }
 
-            _audioManager.PlaySFX(_notCaughtSound, transform.position);
+            _audioManager.PlaySfx(_notCaughtSound, transform.position);
             bc.DisplayFloatingText("Escaped!", Color.red);
             _rb.isKinematic = false;
             bc.ReleaseFromCatching();
@@ -194,7 +194,7 @@ namespace Lis.Units.Hero
                           + Vector3.forward * Random.Range(-3f, 3f)
                           + Vector3.up * 3f;
 
-            _audioManager.PlaySFX(_caughtSound, transform.position);
+            _audioManager.PlaySfx(_caughtSound, transform.position);
             bc.DisplayFloatingText("Caught!", Color.green);
             Vector3 effPos = bc.transform.position;
             effPos.y = 0;

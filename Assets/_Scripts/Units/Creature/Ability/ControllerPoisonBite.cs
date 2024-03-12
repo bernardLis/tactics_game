@@ -14,7 +14,7 @@ namespace Lis.Units.Creature.Ability
 
             yield return transform.DODynamicLookAt(CreatureController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             _effect.transform.parent = CreatureController.Opponent.transform;
             _effect.transform.localPosition = Vector3.one;

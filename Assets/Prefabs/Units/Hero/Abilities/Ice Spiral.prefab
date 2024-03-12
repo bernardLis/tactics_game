@@ -24573,6 +24573,8 @@ MonoBehaviour:
   - {fileID: 7566439427070420343}
   - {fileID: 3955242308138307120}
   _iceExplosion: {fileID: 6141650217829099810}
+  _startSound: {fileID: 11400000, guid: c869275e885be164a8281c971c52b3dc, type: 2}
+  _explodeSound: {fileID: 11400000, guid: fedf0ae3d52420b478798bd8f1cde792, type: 2}
 --- !u!1 &6181251727473689538
 GameObject:
   m_ObjectHideFlags: 0

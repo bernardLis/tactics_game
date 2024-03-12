@@ -158,7 +158,7 @@ namespace Lis.Core
         {
             PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
             PlayerPrefs.Save();
-            _audioManger.SetSFXVolume(evt.newValue);
+            _audioManger.SetSfxVolume(evt.newValue);
         }
 
         void UIVolumeChange(ChangeEvent<float> evt)

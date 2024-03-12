@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
+  m_Name: Meteors - Execute
+  m_EditorClassIdentifier: 
+  Id: 6e3b1934-2cbf-4352-a1ae-fa3ae9a52346
+  Clips:
+  - {fileID: 8300000, guid: 1e637bfc691aa8b408f814a4cd71988a, type: 3}
+  Volume: 1
+  Pitch: 1
+  IsPitchRandomized: 1
+  PitchRange: {x: 0.9, y: 1.1}
+  Source: {fileID: 0}

@@ -50,8 +50,8 @@ namespace Lis
             _recallEffect.SetActive(true);
 
             Vector3 pos = transform.position;
-            _audioManager.PlaySFX(_startRecallSound, pos);
-            _swooshSoundSource = _audioManager.PlaySFX(_recallSwooshSound, pos, true);
+            _audioManager.PlaySfx(_startRecallSound, pos);
+            _swooshSoundSource = _audioManager.PlaySfx(_recallSwooshSound, pos, true);
             int totalDelay = 3;
             int currentDelay = 0;
             while (currentDelay < totalDelay)

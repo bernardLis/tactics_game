@@ -55,7 +55,7 @@ namespace Lis.Units.Hero
             if (this == null) return;
             if (!_heroController.Hero.HasFriendBalls())
             {
-                _audioManager.PlaySFX(_noMoreBallsSound, transform.position);
+                _audioManager.PlaySfx(_noMoreBallsSound, transform.position);
                 _heroController.DisplayFloatingText("No friend balls.", Color.red);
                 return;
             }
@@ -96,7 +96,7 @@ namespace Lis.Units.Hero
 
             OnBallThrown?.Invoke();
             _heroController.Hero.UseFriendBall();
-            _audioManager.PlaySFX(_throwSound, transform.position);
+            _audioManager.PlaySfx(_throwSound, transform.position);
             _throwIndicator.EndShow();
 
             if (HandlePerfectThrow()) return;
@@ -112,7 +112,7 @@ namespace Lis.Units.Hero
             CreatureController bc = _throwIndicator.GetCreature();
             if (bc == null) return false;
 
-            _audioManager.PlaySFX(_perfectThrow, transform.position);
+            _audioManager.PlaySfx(_perfectThrow, transform.position);
             _heroController.DisplayFloatingText("Perfect throw!", Color.green);
             FriendBallController ballController = InitializeBall();
             ballController.PerfectThrow(transform.rotation, bc);

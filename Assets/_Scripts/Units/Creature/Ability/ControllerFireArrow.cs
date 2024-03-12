@@ -21,7 +21,7 @@ namespace Lis.Units.Creature.Ability
             if (!CreatureController.IsOpponentInRange()) yield break;
 
             Animator.SetTrigger(AnimAbility);
-            AudioManager.PlaySFX(Ability.Sound, transform.position);
+            AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             Vector3 oppPos = CreatureController.Opponent.transform.position;
             yield return transform.DODynamicLookAt(oppPos, 0.2f).WaitForCompletion();

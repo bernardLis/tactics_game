@@ -29,7 +29,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnBossCoroutine()
         {
-            _audioManager.PlaySFX(_bossSpawnSound, _battleManager.HeroController.transform.position);
+            _audioManager.PlaySfx(_bossSpawnSound, _battleManager.HeroController.transform.position);
             Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);
 
             yield return new WaitForSeconds(1.5f);

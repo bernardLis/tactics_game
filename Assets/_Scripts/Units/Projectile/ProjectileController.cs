@@ -89,7 +89,7 @@ namespace Lis.Units.Projectile
             IsHitConnected = false;
             Gfx.SetActive(true);
             Explosion.SetActive(false);
-            _audioManager.PlaySFX(_shootSound, transform.position);
+            _audioManager.PlaySfx(_shootSound, transform.position);
         }
 
         protected IEnumerator ShootInDirectionCoroutine(Vector3 dir)
@@ -161,7 +161,7 @@ namespace Lis.Units.Projectile
         protected virtual IEnumerator Explode(Vector3 position)
         {
             Gfx.SetActive(false);
-            _audioManager.PlaySFX(ExplosionSound, position);
+            _audioManager.PlaySfx(ExplosionSound, position);
             Explosion.SetActive(true);
 
             yield return new WaitForSeconds(3f);

@@ -78,7 +78,6 @@ namespace Lis.Core
 
                 _uiAudioSources.Add(a);
             }
-
         }
 
         public void PlayMusic(Sound sound)
@@ -88,6 +87,7 @@ namespace Lis.Core
                 Debug.LogError("No music to play");
                 return;
             }
+
             _currentMusicSound = sound;
             _currentMusicClipIndex = 0;
             _musicAudioSource.pitch = sound.Pitch;
@@ -125,11 +125,8 @@ namespace Lis.Core
         public void PlayAmbience(Sound sound)
         {
             Debug.LogError($"not implemented");
-            if (sound == null)
-            {
-                Debug.LogError("no ambience to play");
-                return;
-            }
+            if (sound != null) return;
+            Debug.LogError("no ambience to play");
         }
 
         public AudioSource PlayDialogue(Sound sound)
@@ -140,19 +137,24 @@ namespace Lis.Core
 
             return _dialogueAudioSource;
         }
-        public void StopDialogue() { _dialogueAudioSource.Stop(); }
 
-        public void PlaySFXDelayed(string soundName, Vector3 pos, float delay)
+        public void StopDialogue()
         {
-            StartCoroutine(PlaySFXDelayedCoroutine(soundName, pos, delay));
+            _dialogueAudioSource.Stop();
         }
-        IEnumerator PlaySFXDelayedCoroutine(string soundName, Vector3 pos, float delay)
+
+        public void PlaySfxDelayed(string soundName, Vector3 pos, float delay)
+        {
+            StartCoroutine(PlaySfxDelayedCoroutine(soundName, pos, delay));
+        }
+
+        IEnumerator PlaySfxDelayedCoroutine(string soundName, Vector3 pos, float delay)
         {
             yield return new WaitForSeconds(delay);
-            PlaySFX(soundName, pos);
+            PlaySfx(soundName, pos);
         }
 
-        public AudioSource PlaySFX(string soundName, Vector3 pos)
+        public AudioSource PlaySfx(string soundName, Vector3 pos)
         {
             Sound sound = Sounds.First(s => s.name == soundName);
             if (sound == null)
@@ -161,10 +163,17 @@ namespace Lis.Core
                 return null;
             }
 
-            return PlaySFX(sound, pos);
+            return PlaySfx(sound, pos);
         }
 
-        public AudioSource PlaySFX(Sound sound, Vector3 pos, bool isLooping = false)
+        public AudioSource PlaySfx(Sound sound, Transform t, bool isLooping = false)
+        {
+            AudioSource a = PlaySfx(sound, t.position, isLooping);
+            a.transform.parent = t;
+            return a;
+        }
+
+        public AudioSource PlaySfx(Sound sound, Vector3 pos, bool isLooping = false)
         {
             AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
 
@@ -182,6 +191,7 @@ namespace Lis.Core
         {
             StartCoroutine(PlayUIDelayedCoroutine(soundName, delay));
         }
+
         IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
         {
             yield return new WaitForSecondsRealtime(delay);
@@ -211,11 +221,11 @@ namespace Lis.Core
             return a;
         }
 
-        public Sound GetSound(string name)
+        public Sound GetSound(string n)
         {
-            Sound s = Sounds.First(s => s.name == name);
+            Sound s = Sounds.First(s => s.name == n);
             if (s == null)
-                Debug.LogError($"No sound with name {name} in library");
+                Debug.LogError($"No sound with name {n} in library");
             return s;
         }
 
@@ -226,7 +236,7 @@ namespace Lis.Core
             SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 1));
             SetAmbienceVolume(PlayerPrefs.GetFloat("AmbienceVolume", 1));
             SetDialogueVolume(PlayerPrefs.GetFloat("DialogueVolume", 1));
-            SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 1));
+            SetSfxVolume(PlayerPrefs.GetFloat("SFXVolume", 1));
             SetUIVolume(PlayerPrefs.GetFloat("UIVolume", 1));
         }
 
@@ -251,7 +261,7 @@ namespace Lis.Core
             _mixer.SetFloat("DialogueVolume", Mathf.Log(volume) * 20);
         }
 
-        public void SetSFXVolume(float volume)
+        public void SetSfxVolume(float volume)
         {
             _mixer.SetFloat("SFXVolume", Mathf.Log(volume) * 20);
         }
@@ -260,6 +270,5 @@ namespace Lis.Core
         {
             _mixer.SetFloat("UIVolume", Mathf.Log(volume) * 20);
         }
-
     }
 }
