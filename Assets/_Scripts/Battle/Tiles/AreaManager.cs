@@ -17,6 +17,7 @@ namespace Lis.Battle.Tiles
         [SerializeField] Transform _floorHolder;
         [SerializeField] GameObject _floorPrefab;
 
+
         [SerializeField] UpgradeTile _homeUpgrade;
         List<UpgradeTile> _unlockedBuildings = new();
 

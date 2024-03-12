@@ -285,14 +285,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d60e47e14ea3c041b754c32058568b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityLog: []
-  _spawnSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  DeathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  GetHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  UnitLog: []
+  _spawnSound: {fileID: 0}
+  _levelUpSound: {fileID: 0}
+  _isRecalledSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  GetHitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   _levelUpEffect: {fileID: 2552890134230637666}
-  _deathEffect: {fileID: 6822824505440408674}
+  _recallEffect: {fileID: 0}
+  DeathEffect: {fileID: 6822824505440408674}
   IsShielded: 0
   AttackSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _respawnSound: {fileID: 0}
   _respawnEffect: {fileID: 0}
   ProjectileSpawnPoint: {fileID: 0}
 --- !u!1 &2552890134230637666 stripped

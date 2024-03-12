@@ -15,6 +15,7 @@ namespace Lis.Battle.Tiles
 {
     public class Controller : MonoBehaviour, IPointerDownHandler
     {
+        AudioManager _audioManager;
         BattleManager _battleManager;
         AreaManager _areaManager;
         TooltipManager _tooltipManager;
@@ -33,6 +34,7 @@ namespace Lis.Battle.Tiles
 
         [Header("Unlocked")]
         public List<BorderController> Borders = new();
+        [SerializeField] Sound _unlockSound;
 
         public float Scale { get; private set; }
 
@@ -49,6 +51,7 @@ namespace Lis.Battle.Tiles
         // at the beginning of the game
         public void Initialize(UpgradeTile upgrade)
         {
+            _audioManager = AudioManager.Instance;
             _battleManager = BattleManager.Instance;
             _areaManager = _battleManager.GetComponent<AreaManager>();
             _tooltipManager = _battleManager.GetComponent<TooltipManager>();
@@ -138,6 +141,7 @@ namespace Lis.Battle.Tiles
         {
             OnTileUnlocked?.Invoke(this);
 
+            _audioManager.PlayUI(_unlockSound);
             _tooltipManager.ShowGameInfo("Tile Unlocked!", 2f);
 
             _floor.SetActive(true);

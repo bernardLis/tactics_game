@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Metalon - Attack
+  m_Name: Battle Lost
   m_EditorClassIdentifier: 
-  Id: metalon-fbb9-4952-8f15-4ad18f427d56
+  Id: 3655c159-f839-4a1e-b366-4c4bb1229400
   Clips:
-  - {fileID: 8300000, guid: 5a5f77a1ffa135044a2e38608f577df3, type: 3}
-  Volume: 0.7
+  - {fileID: 8300000, guid: 2b932dfaa80b9644e8cf76ac3f869773, type: 3}
+  Volume: 1
   Pitch: 1
   IsPitchRandomized: 0
   PitchRange: {x: 0, y: 0}

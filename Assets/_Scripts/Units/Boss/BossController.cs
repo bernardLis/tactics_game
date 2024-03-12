@@ -13,6 +13,10 @@ namespace Lis.Units.Boss
         [Header("Boss")]
         [SerializeField] GameObject _stunEffect;
 
+        [SerializeField] Sound _stunStart;
+        [SerializeField] Sound _stunDuration;
+        AudioSource _stunAudioSource;
+
         [Header("Attacks")] readonly List<Attack.Attack> _attacks = new();
         IEnumerator _attackCoroutine;
 
@@ -149,6 +153,10 @@ namespace Lis.Units.Boss
         IEnumerator StunCoroutine()
         {
             OnStunStarted?.Invoke();
+            Vector3 pos = transform.position;
+            AudioManager.PlaySFX(_stunStart, pos);
+            _stunAudioSource = AudioManager.PlaySFX(_stunDuration, pos, true);
+
             DisplayFloatingText("Stunned", _stunColor);
             CurrentStunDuration.SetValue(TotalStunDuration.Value);
 
@@ -161,6 +169,12 @@ namespace Lis.Units.Boss
             {
                 yield return new WaitForSeconds(1f);
                 CurrentStunDuration.ApplyChange(-1);
+            }
+
+            if (_stunAudioSource != null)
+            {
+                _stunAudioSource.Stop();
+                _stunAudioSource = null;
             }
 
             _stunEffect.SetActive(false);

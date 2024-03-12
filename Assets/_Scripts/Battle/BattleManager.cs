@@ -18,10 +18,12 @@ namespace Lis.Battle
         public static bool BlockBattleInput;
 
         GameManager _gameManager;
-
+        AudioManager _audioManager;
         HeroManager _heroManager;
 
         [SerializeField] Sound _battleMusic;
+        [SerializeField] Sound _battleLost;
+        [SerializeField] Sound _battleWon;
 
         public bool IsGameLoopBlocked;
 
@@ -79,6 +81,7 @@ namespace Lis.Battle
             // VFXCameraManager.Instance.gameObject.SetActive(false);
 
             _gameManager = GameManager.Instance;
+            _audioManager = AudioManager.Instance;
             _gameManager.SaveJsonData();
             Battle = _gameManager.CurrentBattle;
             _gameManager.OnGoldChanged += (g) => GoldCollected += g;
@@ -247,12 +250,14 @@ namespace Lis.Battle
 
         IEnumerator BattleLost()
         {
+            _audioManager.PlayUI(_battleLost);
             LostBattleScreen lostScreen = new();
             yield return FinalizeBattle();
         }
 
         IEnumerator BattleWon()
         {
+            _audioManager.PlayUI(_battleWon);
             WonBattleScreen wonScreen = new();
             wonScreen.OnFinishedPlaying += () => StartCoroutine(FinalizeBattle());
             yield return null;

@@ -87,6 +87,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleMusic: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
+  _battleLost: {fileID: 11400000, guid: 7e67c128bba768b499348ec2fb017791, type: 2}
+  _battleWon: {fileID: 11400000, guid: d351dd8b29f77524ba1d26895e4e32b9, type: 2}
   IsGameLoopBlocked: 1
   Battle: {fileID: 0}
   EntityHolder: {fileID: 0}
@@ -211,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d653eda90c7e0cc4c854ee094722280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bossSpawnSound: {fileID: 11400000, guid: c0c643e3f04235a419df678a8cc5876d, type: 2}
   _bossSpawnEffectPrefab: {fileID: 4690701299957870980, guid: 3233f19c09563b34fb6b27ad10679297, type: 3}
 --- !u!114 &8560908320832600270
 MonoBehaviour:

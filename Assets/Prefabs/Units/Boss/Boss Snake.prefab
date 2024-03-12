@@ -2252,14 +2252,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7f55a95de7d7b4ba1985950d4d96d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityLog: []
+  UnitLog: []
   _spawnSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _levelUpSound: {fileID: 0}
+  _isRecalledSound: {fileID: 0}
   DeathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   GetHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
   _levelUpEffect: {fileID: 9044758019991601169}
-  _deathEffect: {fileID: 2831212627965926980}
+  _recallEffect: {fileID: 0}
+  DeathEffect: {fileID: 2831212627965926980}
   IsShielded: 0
   _stunEffect: {fileID: 9044758019991601169}
+  _stunStart: {fileID: 11400000, guid: 6956957e747dae74e8799caf28eced4f, type: 2}
+  _stunDuration: {fileID: 11400000, guid: 91a6682ef3ebd224ab6ce91d550dd6f0, type: 2}
   TotalDamageToStun: {fileID: 0}
   CurrentDamageToStun: {fileID: 0}
   TotalStunDuration: {fileID: 0}

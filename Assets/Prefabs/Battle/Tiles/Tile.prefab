@@ -306,6 +306,7 @@ MonoBehaviour:
   _questText: {fileID: 7429672523401799923}
   _questImage: {fileID: 1516699989418446543}
   Borders: []
+  _unlockSound: {fileID: 11400000, guid: a3f459a0cfcc24a4998aff8e4adafcc2, type: 2}
   Upgrade: {fileID: 0}
 --- !u!1 &1545300450884362017
 GameObject:

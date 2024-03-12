@@ -8,15 +8,17 @@ namespace Lis.Battle.Fight
 {
     public class BossManager : MonoBehaviour
     {
+        AudioManager _audioManager;
         BattleManager _battleManager;
 
         Boss _selectedBoss;
         BossController _bossController;
-
+        [SerializeField] Sound _bossSpawnSound;
         [SerializeField] GameObject _bossSpawnEffectPrefab;
 
         public void Initialize()
         {
+            _audioManager = AudioManager.Instance;
             _battleManager = BattleManager.Instance;
         }
 
@@ -27,6 +29,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnBossCoroutine()
         {
+            _audioManager.PlaySFX(_bossSpawnSound, _battleManager.HeroController.transform.position);
             Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);
 
             yield return new WaitForSeconds(1.5f);
