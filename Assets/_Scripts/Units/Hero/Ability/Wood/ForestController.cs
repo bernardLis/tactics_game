@@ -20,15 +20,20 @@ namespace Lis.Units.Hero.Ability
         {
             yield return base.ExecuteAbilityCoroutine();
             _effect.SetActive(true);
+            if (Ability.ExecuteSound != null)
+                AudioManager.PlaySfx(Ability.ExecuteSound, transform.position);
+
             yield return new WaitForSeconds(1.5f);
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 Vector3 pos = AreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position,
                     _radius * Ability.GetScale());
-                ForestTreeObjectController treeObjectController = GetInactiveAbilityObject() as ForestTreeObjectController;
-                treeObjectController.Execute(pos, Quaternion.identity);
+                ForestTreeObjectController treeObjectController =
+                    GetInactiveAbilityObject() as ForestTreeObjectController;
+                if (treeObjectController != null) treeObjectController.Execute(pos, Quaternion.identity);
             }
+
             yield return new WaitForSeconds(3f);
             _effect.SetActive(false);
         }

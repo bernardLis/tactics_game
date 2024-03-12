@@ -55244,3 +55244,4 @@ MonoBehaviour:
   - {fileID: 2499669303499635937}
   - {fileID: 8008708447228415595}
   _effect: {fileID: 4119846150612676212}
+  _smackSound: {fileID: 11400000, guid: 752ac69c76469c34498b05c75c924dcb, type: 2}

@@ -40,6 +40,6 @@ MonoBehaviour:
   Troops: []
   Tablets: []
   AdvancedTablet: {fileID: 0}
-  StartingAbility: {fileID: 11400000, guid: 8fb0356b40790974691df8c838dd2698, type: 2}
+  StartingAbility: {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   Abilities: []
   AdvancedAbilities: []

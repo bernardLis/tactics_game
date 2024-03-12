@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using Lis.Battle.Pickup;
+using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
@@ -9,6 +10,8 @@ namespace Lis.Units.Hero.Ability
     {
         [SerializeField] GameObject[] _treeGFX;
         [SerializeField] GameObject _effect;
+
+        [SerializeField] Sound _smackSound;
 
         public override void Initialize(Ability ability)
         {
@@ -39,6 +42,7 @@ namespace Lis.Units.Hero.Ability
                     bbv.TriggerBreak();
                     continue;
                 }
+
                 if (c.TryGetComponent(out UnitController entity))
                 {
                     if (entity.Team == 0) continue; // TODO: hardcoded team number
@@ -60,18 +64,21 @@ namespace Lis.Units.Hero.Ability
             {
                 if (UnitsInCollider.Count > 0)
                 {
+                    Transform t = transform;
                     UnitController entity = UnitsInCollider[Random.Range(0, UnitsInCollider.Count)];
                     // rotate to face unit
                     transform.DOLookAt(entity.transform.position, 0.2f);
                     yield return new WaitForSeconds(0.2f);
+                    AudioManager.PlaySfx(_smackSound, t.position);
                     // punch rotation to 90 degrees forward
                     Vector3 originalRot = transform.eulerAngles;
-                    Vector3 rot = transform.eulerAngles;
+                    Vector3 rot = t.eulerAngles;
                     rot.z = 75;
                     transform.DORotate(rot, 0.1f)
                         .OnComplete(() => transform.DORotate(originalRot, 0.1f));
                     StartCoroutine(entity.GetHit(Ability));
                 }
+
                 yield return new WaitForSeconds(0.7f);
             }
         }

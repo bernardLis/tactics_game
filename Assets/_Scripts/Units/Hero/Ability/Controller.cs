@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
 using Lis.Battle.Tiles;
+using Lis.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -10,6 +11,7 @@ namespace Lis.Units.Hero.Ability
 {
     public class Controller : MonoBehaviour
     {
+        protected AudioManager AudioManager;
         protected BattleManager BattleManager;
         protected AreaManager AreaManager;
 
@@ -27,6 +29,7 @@ namespace Lis.Units.Hero.Ability
 
         public virtual void Initialize(Ability ability, bool startAbility = true)
         {
+            AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             AreaManager = BattleManager.GetComponent<AreaManager>();
             AbilityObjectParent = BattleManager.AbilityHolder;

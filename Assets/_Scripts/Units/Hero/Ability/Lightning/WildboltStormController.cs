@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lis.Core;
 using Lis.Units.Projectile;
 using UnityEngine;
 
@@ -15,17 +16,23 @@ namespace Lis.Units.Hero.Ability
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            transform.localPosition = new Vector3(0, 0.5f, 0f);
+            transform.localPosition = new(0, 0.5f, 0f);
         }
 
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
+
             yield return base.ExecuteAbilityCoroutine();
 
+            if (Ability.ExecuteSound != null)
+                AudioManager.PlaySfx(Ability.ExecuteSound, transform.position);
+
+            Transform t = transform;
             _effect.SetActive(true);
-            _effect.transform.parent = transform;
-            Vector3 pos = transform.position;
+            _effect.transform.parent = t;
+
+            Vector3 pos = t.position;
             pos.y = 0.1f;
             _effect.transform.position = pos;
             yield return new WaitForSeconds(0.6f);
@@ -38,6 +45,7 @@ namespace Lis.Units.Hero.Ability
                 projectile.transform.position = transform.position;
                 projectile.Fire(Ability);
             }
+
             yield return new WaitForSeconds(2f);
 
             _effect.SetActive(false);
@@ -45,7 +53,8 @@ namespace Lis.Units.Hero.Ability
 
         WildboltProjectileController InitializeProjectile()
         {
-            GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity, BattleManager.AbilityHolder);
+            GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity,
+                BattleManager.AbilityHolder);
             instance.SetActive(true);
 
             WildboltProjectileController projectile = instance.GetComponent<WildboltProjectileController>();

@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Units.Hero;
-using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,7 +37,7 @@ namespace Lis.Battle
         public int RewardRerollsAvailable;
 
         // HERE: testing
-        readonly bool _turnOffAbility = false;
+        readonly bool _turnOffAbility = true;
 
         public void Initialize(Hero hero)
         {
@@ -72,7 +70,6 @@ namespace Lis.Battle
 
             if (hero.StartingAbility == null || _turnOffAbility) return;
             Hero.AddAbility(hero.StartingAbility);
-            _currentIndex = _allAbilities.IndexOf(_abilityToGive) + 1;
         }
 
         IEnumerator MakeHeroFall(Hero hero)
@@ -106,28 +103,5 @@ namespace Lis.Battle
             _levelUpScreen.Hide();
             TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
         }
-
-#if UNITY_EDITOR
-        [SerializeField] Ability _abilityToGive;
-        [SerializeField] List<Ability> _allAbilities = new();
-        int _currentIndex;
-        [ContextMenu("Next Ability")]
-        void NextAbility()
-        {
-            Hero.StopAllAbilities();
-
-            _abilityToGive = _allAbilities[_currentIndex];
-            _currentIndex++;
-            if (_currentIndex >= _allAbilities.Count)
-                _currentIndex = 0;
-            if (Hero.Abilities.Contains(_abilityToGive))
-            {
-                _abilityToGive.StartAbility();
-                return;
-            }
-
-            Hero.AddAbility(_abilityToGive);
-        }
-#endif
     }
 }
