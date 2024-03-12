@@ -18,5 +18,5 @@ MonoBehaviour:
   Color: {fileID: 11400000, guid: 15999d5d58e996f4c924cb363a10ca4b, type: 2}
   CollectedText: Horseshoe!
   CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
-  DropSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  CollectSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: efc46b75168827a4287edeef64d031f5, type: 2}

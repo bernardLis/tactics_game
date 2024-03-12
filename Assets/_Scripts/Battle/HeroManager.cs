@@ -15,6 +15,7 @@ namespace Lis.Battle
     public class HeroManager : MonoBehaviour
     {
         GameManager _gameManager;
+        AudioManager _audioManager;
         BattleManager _battleManager;
 
         VisualElement _root;
@@ -33,6 +34,7 @@ namespace Lis.Battle
         public Hero Hero { get; private set; }
 
         LevelUpScreen _levelUpScreen;
+        [SerializeField] Sound _levelUpSound;
 
         public int RewardRerollsAvailable;
 
@@ -42,6 +44,7 @@ namespace Lis.Battle
         public void Initialize(Hero hero)
         {
             _gameManager = GameManager.Instance;
+            _audioManager = AudioManager.Instance;
             _battleManager = GetComponent<BattleManager>();
             _root = GetComponent<UIDocument>().rootVisualElement;
             _bottomPanel = _root.Q<VisualElement>("bottomPanel");
@@ -94,7 +97,7 @@ namespace Lis.Battle
         void OnHeroLevelUp()
         {
             _levelUpScreen = new();
-
+            _audioManager.PlaySFX(_levelUpSound, HeroController.transform.position);
             _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
         }
 

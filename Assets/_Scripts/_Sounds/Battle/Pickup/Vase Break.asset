@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
+  m_Name: Vase Break
+  m_EditorClassIdentifier: 
+  Id: 4470e707-dc60-4435-bf93-759b9a17001f
+  Clips:
+  - {fileID: 8300000, guid: 7974cf7a380e6df4686659115097cc93, type: 3}
+  - {fileID: 8300000, guid: 910e151c4d3040044b43e0188e10181e, type: 3}
+  - {fileID: 8300000, guid: cdd93a5af5fc025498a7892923cb549c, type: 3}
+  - {fileID: 8300000, guid: 6498602c6aeb7214387a70842da65291, type: 3}
+  - {fileID: 8300000, guid: 1186a909a4be9544f94b3d457fc3557b, type: 3}
+  - {fileID: 8300000, guid: bac58bbb0aefddc4da1148dede51f274, type: 3}
+  - {fileID: 8300000, guid: 89f6d4395045c414798de593e3bde94c, type: 3}
+  - {fileID: 8300000, guid: 877d97b9e69eb614ea81deb4017c296a, type: 3}
+  Volume: 1
+  Pitch: 1
+  IsPitchRandomized: 0
+  PitchRange: {x: 0, y: 0}
+  Source: {fileID: 0}

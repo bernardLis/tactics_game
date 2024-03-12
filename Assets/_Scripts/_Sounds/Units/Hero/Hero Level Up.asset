@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Ability Available
+  m_Name: Hero Level Up
   m_EditorClassIdentifier: 
-  Id: 7bb44ea7-e8fc-4534-ba9a-c577f34f4494
+  Id: 150f6c28-cf93-429c-80b8-131e3a595947
   Clips:
-  - {fileID: 8300000, guid: 3be3273a6456ffc4dbd669119ba7016d, type: 3}
-  Volume: 0.1
+  - {fileID: 8300000, guid: 3fc6778cff412e44dbc6a30c8eee09ab, type: 3}
+  Volume: 1
   Pitch: 1
   IsPitchRandomized: 0
   PitchRange: {x: 0, y: 0}

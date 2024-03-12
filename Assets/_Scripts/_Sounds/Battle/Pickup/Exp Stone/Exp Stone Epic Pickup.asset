@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Ability Available
+  m_Name: Exp Stone Epic Pickup
   m_EditorClassIdentifier: 
-  Id: 7bb44ea7-e8fc-4534-ba9a-c577f34f4494
+  Id: 4470e707-dc60-4435-bf93-759b9a17001f
   Clips:
-  - {fileID: 8300000, guid: 3be3273a6456ffc4dbd669119ba7016d, type: 3}
-  Volume: 0.1
+  - {fileID: 8300000, guid: 1ee988cf8cf12774f911338f54d7d158, type: 3}
+  Volume: 1
   Pitch: 1
   IsPitchRandomized: 0
   PitchRange: {x: 0, y: 0}

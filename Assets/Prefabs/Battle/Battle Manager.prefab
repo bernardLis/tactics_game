@@ -113,6 +113,7 @@ MonoBehaviour:
   _placeholderAudioListener: {fileID: 1813988017654575525}
   _battleIntro: {fileID: 5144896527666591926, guid: 1dc618647b981114bb1852689b1c8ef1, type: 3}
   HeroController: {fileID: 0}
+  _levelUpSound: {fileID: 11400000, guid: 9b046087fac6c0649a0b550e32b37949, type: 2}
   RewardRerollsAvailable: 0
   _abilityToGive: {fileID: 0}
   _allAbilities:
@@ -191,13 +192,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floorHolder: {fileID: 0}
   _floorPrefab: {fileID: 6970361934516152637, guid: 426d327d053e2074e9b0df1571568505, type: 3}
-  _tilePrefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   _homeUpgrade: {fileID: 11400000, guid: 8914d875a0a66fb49a8119e95a7d3507, type: 2}
   _quests:
   - {fileID: 11400000, guid: c2939f11c4ceabb4f975b143f546f919, type: 2}
   - {fileID: 11400000, guid: 23706b81d6926e444bb2e5949a66ff6b, type: 2}
   - {fileID: 11400000, guid: fcdbbbf7052d43b4da8cdbd1d1f54e1b, type: 2}
-  HomeTileController: {fileID: 0}
+  HomeController: {fileID: 0}
   UnlockedTiles: []
 --- !u!114 &892723308641058941
 MonoBehaviour:

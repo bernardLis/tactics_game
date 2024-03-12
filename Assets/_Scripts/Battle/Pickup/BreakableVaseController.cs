@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Battle.Pickup
 {
     public class BreakableVaseController : MonoBehaviour
     {
+        AudioManager _audioManager;
         PickupManager _pickupManager;
 
         bool _isBroken;
         [SerializeField] GameObject _breakParticles;
         [SerializeField] Transform _originalVase;
+        [SerializeField] Sound _breakSound;
 
         Collider _collider;
         Rigidbody _rigidbody;
@@ -20,6 +23,7 @@ namespace Lis.Battle.Pickup
 
         void Awake()
         {
+            _audioManager = AudioManager.Instance;
             _pickupManager = BattleManager.Instance.GetComponent<PickupManager>();
 
             _collider = GetComponent<Collider>();
@@ -56,10 +60,10 @@ namespace Lis.Battle.Pickup
 
         IEnumerator BreakObject()
         {
-            // TODO: play audio
-
             if (_isBroken) yield break;
             _isBroken = true;
+
+            _audioManager.PlaySFX(_breakSound, transform.position);
 
             _collider.enabled = false;
             _rigidbody.isKinematic = true;

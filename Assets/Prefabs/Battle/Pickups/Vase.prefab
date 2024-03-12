@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _breakParticles: {fileID: 8629189351334620895}
   _originalVase: {fileID: 6472741938451850545}
+  _breakSound: {fileID: 11400000, guid: c7e78a436fab5c247b4f897a97c47ad5, type: 2}
 --- !u!54 &4416292015547065557
 Rigidbody:
   m_ObjectHideFlags: 0
