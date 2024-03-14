@@ -127,7 +127,7 @@ namespace Lis.Core
             _seed = Environment.TickCount;
 
             BattleNumber = 0;
-            Gold = 10000;
+            Gold = 2137;
 
             UpgradeBoard.Reset();
 

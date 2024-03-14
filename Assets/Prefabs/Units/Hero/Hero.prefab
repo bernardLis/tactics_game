@@ -6809,9 +6809,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitLog: []
-  _spawnSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  DeathSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  GetHitSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  _spawnSound: {fileID: 0}
+  _levelUpSound: {fileID: 0}
+  _isRecalledSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  GetHitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   _levelUpEffect: {fileID: 2581224419072762184}
   _recallEffect: {fileID: 0}
   DeathEffect: {fileID: 797867176139117970}

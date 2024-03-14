@@ -156,6 +156,8 @@ namespace Lis.Battle.Fight
 
         void DebugSpawnRangedOpponent()
         {
+            if (!_debugSpawnMinion) return;
+
             if (_rangedOpponentManager == null) return;
             Unit instance = Instantiate(GameManager.Instance.EntityDatabase.GetRandomRangedOpponent());
             SpawnRangedOpponent(instance);

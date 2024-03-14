@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Lis.Battle.Tiles.Building;
 using Lis.Core;
-using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Minion;
 using Lis.Units.Projectile;
@@ -8,20 +8,20 @@ using UnityEngine;
 
 namespace Lis.Battle.Fight
 {
-    public class RangedOpponentManager : PoolManager<OpponentProjectileController>
+    public class RangedOpponentManager : MonoBehaviour
     {
         BattleManager _battleManager;
 
         [SerializeField] Transform _rangedOpponentHolder;
 
         [SerializeField] GameObject _projectilePrefab;
-
         [SerializeField] GameObject _projectileBiggerWithTimePrefab;
         [SerializeField] GameObject _projectileQuickPrefab;
         [SerializeField] GameObject _projectileWallBouncePrefab;
 
         [SerializeField] GameObject _rangedOpponentPrefab;
 
+        readonly List<GameObject> _projectilePool = new();
         readonly List<GameObject> _projectilePoolBiggerWithTime = new();
         readonly List<GameObject> _projectilePoolQuick = new();
         readonly List<GameObject> _projectilePoolWallBounce = new();
@@ -31,12 +31,10 @@ namespace Lis.Battle.Fight
         {
             _battleManager = GetComponent<BattleManager>();
 
-            CreatePool(_projectilePrefab);
-
+            CreateNewPool(_projectilePrefab, _projectilePool);
             CreateNewPool(_projectileBiggerWithTimePrefab, _projectilePoolBiggerWithTime);
             CreateNewPool(_projectileQuickPrefab, _projectilePoolQuick);
             CreateNewPool(_projectileWallBouncePrefab, _projectilePoolWallBounce);
-
             CreateNewPool(_rangedOpponentPrefab, _rangedOpponentPool);
         }
 
@@ -47,6 +45,8 @@ namespace Lis.Battle.Fight
                 GameObject obj = Instantiate(prefab, _rangedOpponentHolder);
                 obj.SetActive(false);
                 pool.Add(obj);
+                if (obj.TryGetComponent(out UnitController unit))
+                    unit.InitializeGameObject();
             }
         }
 
@@ -71,14 +71,17 @@ namespace Lis.Battle.Fight
             rangedOpponent.transform.position = pos;
             rangedOpponent.SetActive(true);
 
-            RangedMinionController minionController = rangedOpponent.GetComponent<RangedMinionController>();
-            minionController.InitializeUnit(unit, 1);
-            _battleManager.AddOpponentArmyEntity(minionController);
+            RangedMinionController controller
+                = rangedOpponent.GetComponent<RangedMinionController>();
+            controller.InitializeUnit(unit, 1);
+            controller.InitializeHostileCreature(default);
+            _battleManager.AddOpponentArmyEntity(controller);
         }
 
         public OpponentProjectileController GetProjectileFromPool(NatureName nature)
         {
-            OpponentProjectileController opponentProjectileController = GetObjectFromPool();
+            OpponentProjectileController opponentProjectileController = GetFromPool(_projectilePool)
+                .GetComponent<OpponentProjectileController>();
 
             switch (nature)
             {

@@ -431,6 +431,7 @@ namespace Lis.Units
 
         protected void AddToLog(string s)
         {
+            if (BattleManager == null) return;
             UnitLog.Add($"{BattleManager.GetTime()}: {s}.");
         }
     }

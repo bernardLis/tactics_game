@@ -31,8 +31,8 @@ namespace Lis.Core.Utilities
         T InstantiateNewObject()
         {
             T p = Instantiate(_prefab, PoolHolder).GetComponent<T>();
-            if (p.TryGetComponent(out UnitController entity))
-                entity.InitializeGameObject();
+            if (p.TryGetComponent(out UnitController unit))
+                unit.InitializeGameObject();
 
             p.gameObject.SetActive(false);
             _pool.Add(p);

@@ -98,7 +98,7 @@ namespace Lis.Battle
 
         public void Initialize(Hero hero)
         {
-            AudioManager.Instance.PlayMusic(_battleMusic);
+            //HERE: battle music AudioManager.Instance.PlayMusic(_battleMusic);
 
             BattleFinalized = false;
             _battleTime = 0;
@@ -245,7 +245,7 @@ namespace Lis.Battle
             List<UnitController> copy = new(OpponentEntities);
             foreach (UnitController be in copy)
                 if (be is MinionController)
-                    StartCoroutine(be.DieCoroutine());
+                    be.Die();
         }
 
         IEnumerator BattleLost()

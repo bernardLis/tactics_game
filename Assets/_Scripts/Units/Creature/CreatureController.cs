@@ -25,7 +25,7 @@ namespace Lis.Units.Creature
 
         List<UnitController> _opponentList = new();
 
-        public UnitController Opponent { get; private set; }
+        public UnitController Opponent { get; protected set; }
 
         float _currentAttackCooldown;
         static readonly int AnimAttack = Animator.StringToHash("Attack");
@@ -69,19 +69,16 @@ namespace Lis.Units.Creature
 
         PlayerUnitTracker _entityTracker;
 
-        public void InitializeHostileCreature(PlayerUnitTracker entityTracker)
+        public virtual void InitializeHostileCreature(PlayerUnitTracker entityTracker)
         {
+            AddToLog("Initializing hostile creature");
             _entityTracker = entityTracker;
 
             _currentAttackCooldown = Creature.AttackCooldown.GetValue();
-            _opponentList = _entityTracker.PlayerEntitiesWithinRange;
+            if (entityTracker != null)
+                _opponentList = _entityTracker.PlayerEntitiesWithinRange;
 
             EnableSelf();
-            // HERE: testing
-            for (int i = 0; i < 6; i++)
-            {
-                Creature.LevelUp();
-            }
         }
 
         // HERE: testing
@@ -171,7 +168,7 @@ namespace Lis.Units.Creature
             return pos;
         }
 
-        IEnumerator ManagePathing()
+        protected IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
                 ChooseNewTarget();
@@ -185,7 +182,7 @@ namespace Lis.Units.Creature
             yield return CurrentSecondaryCoroutine;
         }
 
-        IEnumerator ManageAttackCoroutine()
+        protected IEnumerator ManageAttackCoroutine()
         {
             if (CurrentSecondaryCoroutine != null)
                 StopCoroutine(CurrentSecondaryCoroutine);
@@ -378,6 +375,7 @@ namespace Lis.Units.Creature
 
         void EnableSelf()
         {
+            AddToLog("Unit enables itself");
             Collider.enabled = true;
             DeathEffect.SetActive(false);
             IsDeathCoroutineStarted = false;

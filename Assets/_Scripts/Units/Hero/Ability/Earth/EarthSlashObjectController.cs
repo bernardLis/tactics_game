@@ -28,7 +28,7 @@ namespace Lis.Units.Hero.Ability
             if (Ability.ExecuteSound != null) AudioManager.PlaySfx(Ability.ExecuteSound, transform.position);
 
             Vector3 colliderRotation = new(90f, 0f, -45f);
-            _col.transform.DOLocalRotate(colliderRotation, Ability.GetDuration())
+            _col.transform.DOLocalRotate(colliderRotation, Ability.GetDuration() - 0.2f)
                 .OnComplete(() => { _col.SetActive(false); });
 
             yield return new WaitForSeconds(1f);

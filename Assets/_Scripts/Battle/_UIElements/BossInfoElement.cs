@@ -17,10 +17,10 @@ namespace Lis.Battle
             style.minWidth = 600;
 
             string text = "Stun";
-            if (_gameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel == -1)
+            if (GameManager.UpgradeBoard.GetUpgradeByName("Boss Stun").CurrentLevel == -1)
                 text = "Buy Upgrade To Stun Boss";
 
-            Color c = _gameManager.GameDatabase.GetColorByName("Stun").Primary;
+            Color c = GameManager.GameDatabase.GetColorByName("Stun").Primary;
             _stunBar = new(c, text, bs.CurrentDamageToStun, bs.TotalDamageToStun);
 
             _stunBar.HideText();

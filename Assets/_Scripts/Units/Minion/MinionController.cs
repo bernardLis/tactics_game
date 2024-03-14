@@ -14,6 +14,8 @@ namespace Lis.Units.Minion
         [SerializeField] GameObject _waterGfx;
         [SerializeField] GameObject _windGfx;
 
+        IEnumerator _currentCoroutine;
+
         public override void InitializeUnit(Unit unit, int team)
         {
             // minion pool
@@ -43,7 +45,8 @@ namespace Lis.Units.Minion
             Gfx.transform.localScale = Vector3.one;
             Gfx.transform.localPosition = Vector3.zero; // idk, gfx moves up for some reason
 
-            yield return PathToHero();
+            _currentCoroutine = PathToHero();
+            yield return _currentCoroutine;
         }
 
         IEnumerator PathToHero()
@@ -57,12 +60,15 @@ namespace Lis.Units.Minion
 
         void ReachedHero()
         {
+            if (IsDead) return;
             AddToLog("Reached hero");
-            StartCoroutine(Attack());
+            _currentCoroutine = Attack();
+            StartCoroutine(_currentCoroutine);
         }
 
         IEnumerator Attack()
         {
+            if (IsDead) yield break;
             if (Vector3.Distance(transform.position, HeroController.transform.position) > 1f)
             {
                 AddToLog("Hero is too far to attack");
@@ -90,7 +96,9 @@ namespace Lis.Units.Minion
             _waterGfx.SetActive(false);
             _windGfx.SetActive(false);
 
+            StopCoroutine(_currentCoroutine);
             gameObject.SetActive(false);
+
         }
     }
 }

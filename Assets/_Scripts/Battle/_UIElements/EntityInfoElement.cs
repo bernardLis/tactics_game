@@ -12,15 +12,15 @@ namespace Lis.Battle
         const string _ussClassName = "unit-info__";
         const string _ussMain = _ussClassName + "main";
 
-        protected GameManager _gameManager;
+        protected readonly GameManager GameManager;
 
         readonly Label _name;
         readonly ResourceBarElement _bar;
 
         public EntityInfoElement(UnitController _)
         {
-            _gameManager = GameManager.Instance;
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            GameManager = GameManager.Instance;
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.EntityInfoElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -32,7 +32,7 @@ namespace Lis.Battle
             _name.style.unityFontStyleAndWeight = FontStyle.Bold;
             _name.style.position = Position.Absolute;
 
-            Color c = _gameManager.GameDatabase.GetColorByName("Health").Primary;
+            Color c = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _bar = new(c, "Health", ScriptableObject.CreateInstance<FloatVariable>());
 
             _bar.Add(_name);
@@ -55,6 +55,7 @@ namespace Lis.Battle
 
         public void UpdateEntityInfo(UnitController unitController)
         {
+            if (unitController.Unit == null) return;
             _name.text = unitController.Unit.UnitName;
             _bar.UpdateTrackedVariables(unitController.Unit.CurrentHealth, totalStat: unitController.Unit.MaxHealth);
         }

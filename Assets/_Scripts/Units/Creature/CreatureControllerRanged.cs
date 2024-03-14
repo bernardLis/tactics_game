@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle.Fight;
+using Lis.Battle.Tiles.Building;
 using Lis.Core.Utilities;
 using Lis.Units.Projectile;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Lis.Units.Creature
 
         ProjectilePoolManager _projectilePoolManager;
 
+        protected RangedOpponentManager RangedOpponentManager;
+
         public override void InitializeGameObject()
         {
             base.InitializeGameObject();
@@ -24,7 +27,15 @@ namespace Lis.Units.Creature
         public override void InitializeUnit(Unit unit, int team)
         {
             base.InitializeUnit(unit, team);
+
+            if (Creature.Projectile == null) return;
             _projectilePoolManager.Initialize(Creature.Projectile);
+        }
+
+        public override void InitializeHostileCreature(PlayerUnitTracker entityTracker)
+        {
+            base.InitializeHostileCreature(entityTracker);
+            RangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
         }
 
         protected override IEnumerator PathToOpponent()
@@ -106,14 +117,17 @@ namespace Lis.Units.Creature
             return origin + heading * dotP;
         }
 
+
         protected override IEnumerator Attack()
         {
             yield return base.Attack();
 
-            ProjectileController projectileController = _projectilePoolManager.GetObjectFromPool();
-            if (Team == 1)
-                projectileController = BattleManager.GetComponent<RangedOpponentManager>()
-                    .GetProjectileFromPool(Unit.Nature.NatureName);
+            ProjectileController projectileController;
+            if (Team == 0)
+                projectileController = _projectilePoolManager.GetObjectFromPool();
+            else
+                projectileController = RangedOpponentManager.GetProjectileFromPool(Unit.Nature.NatureName);
+
             projectileController.Initialize(Team);
             projectileController.transform.position = ProjectileSpawnPoint.transform.position;
             if (Opponent == null) yield break;
