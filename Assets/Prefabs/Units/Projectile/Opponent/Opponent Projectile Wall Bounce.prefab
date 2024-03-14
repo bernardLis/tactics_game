@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1af08142ea77bf41bda436eb2b7fa13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExplosionSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
-  _shootSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  ExplosionSound: {fileID: 0}
+  _shootSound: {fileID: 0}
   Gfx: {fileID: 5664480323348088273}
   Explosion: {fileID: 9082832557383751629}
   Speed: 4

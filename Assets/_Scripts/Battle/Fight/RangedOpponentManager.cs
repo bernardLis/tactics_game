@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Lis.Battle.Tiles.Building;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Minion;
@@ -58,7 +57,13 @@ namespace Lis.Battle.Fight
                 return pool[i];
             }
 
-            return null;
+            GameObject obj = Instantiate(pool[0], _rangedOpponentHolder);
+            obj.SetActive(false);
+            pool.Add(obj);
+            if (obj.TryGetComponent(out UnitController unit))
+                unit.InitializeGameObject();
+
+            return obj;
         }
 
         public void SpawnRangedOpponent(Unit unit, Vector3 pos)

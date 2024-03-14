@@ -329,7 +329,7 @@ MonoBehaviour:
   _recallEffect: {fileID: 0}
   DeathEffect: {fileID: 6822824505440408674}
   IsShielded: 0
-  AttackSound: {fileID: 11400000, guid: 54aa6097f2590c54a8863a0cc5f70277, type: 2}
+  AttackSound: {fileID: 0}
   _respawnSound: {fileID: 0}
   _respawnEffect: {fileID: 0}
   ProjectileSpawnPoint: {fileID: 6213380206093909606}
