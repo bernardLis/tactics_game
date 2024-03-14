@@ -15,8 +15,6 @@ namespace Lis.Core
         const string _ussMissing = _ussClassName + "__missing";
         const string _ussBarText = _ussClassName + "__bar-text";
 
-        readonly GameManager _gameManager;
-
         public readonly VisualElement ResourceBar;
         public readonly VisualElement MissingBar;
         readonly Label _text;
@@ -39,8 +37,8 @@ namespace Lis.Core
             FloatVariable totalFloatVar = null, Stat totalStat = null,
             int valueChangeDelayMs = 200)
         {
-            _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>()
+            GameManager gameManager = GameManager.Instance;
+            StyleSheet ss = gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.ResourceBarStyles);
             if (ss != null) styleSheets.Add(ss);
 

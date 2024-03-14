@@ -358,7 +358,8 @@ namespace Lis.Units
         public void OnPointerDown(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
-            AudioManager.PlaySfx(_spawnSound, transform.position);
+            if (_spawnSound != null)
+                AudioManager.PlaySfx(_spawnSound, transform.position);
 
             if (!CanBeGrabbed()) return;
             _grabManager.TryGrabbing(gameObject);

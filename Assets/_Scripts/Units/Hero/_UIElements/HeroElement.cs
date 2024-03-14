@@ -198,7 +198,6 @@ namespace Lis.Units.Hero
             };
         }
 
-
         void HandleExpBar()
         {
             Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Primary;
@@ -207,6 +206,9 @@ namespace Lis.Units.Hero
             _levelLabel = new($"Level {_hero.Level.Value}");
             _levelLabel.style.position = Position.Absolute;
             _levelLabel.AddToClassList(_ussCommonTextPrimary);
+            _levelLabel.style.fontSize = 46;
+
+            _expBar.style.height = 50;
             _expBar.Add(_levelLabel);
 
             Add(_expBar);
