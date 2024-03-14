@@ -139,12 +139,13 @@ namespace Lis.Core.Utilities
             Label l = new(text);
             l.style.color = color;
 
-            Vector3 start = new Vector3(element.worldBound.xMin, element.worldBound.yMin, 0);
-            Vector3 end = new Vector3(element.worldBound.xMin + Random.Range(-100, 100),
+            Vector3 start = new(element.worldBound.xMin, element.worldBound.yMin, 0);
+            Vector3 end = new(element.worldBound.xMin + Random.Range(-100, 100),
                 element.worldBound.yMin - 100, 0);
 
             ArcMovementElement arcMovementElement = _arcMovementElements.FirstOrDefault(x => !x.IsMoving);
             if (arcMovementElement == null) return;
+            arcMovementElement.BringToFront();
             arcMovementElement.InitializeMovement(l, start, end);
             arcMovementElement.OnArcMovementFinished += ()
                 => DOTween.To(x => arcMovementElement.style.opacity = x, 1, 0, 1).SetUpdate(true);

@@ -78,8 +78,19 @@ namespace Lis.Upgrades
 
         void OnPointerDown(PointerDownEvent evt)
         {
-            if (_upgrade.IsMaxLevel()) return;
-            if (_gameManager.Gold < _upgrade.GetNextLevel().Cost) return;
+            if (_upgrade.IsMaxLevel())
+            {
+                Helpers.DisplayTextOnElement(this.parent, this, "Max Level", Color.red);
+                _audioManager.PlayUI("Upgrade - Max Level");
+                return;
+            }
+
+            if (_gameManager.Gold < _upgrade.GetNextLevel().Cost)
+            {
+                Helpers.DisplayTextOnElement(this.parent, this, "$$$", Color.red);
+                _audioManager.PlayUI("Upgrade - Not Enough Gold");
+                return;
+            }
 
             _swooshAudioSource = _audioManager.PlayUI("Upgrade - Swoosh");
 
@@ -183,12 +194,7 @@ namespace Lis.Upgrades
 
         void Purchase()
         {
-            if (_upgrade.IsMaxLevel())
-            {
-                _audioManager.PlayUI("Upgrade - Max Level");
-
-                return;
-            }
+            if (_upgrade.IsMaxLevel()) return;
 
             _gameManager.ChangeGoldValue(-_upgrade.GetNextLevel().Cost);
             _upgrade.Purchased();

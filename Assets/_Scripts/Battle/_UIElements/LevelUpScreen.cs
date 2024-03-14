@@ -28,7 +28,7 @@ namespace Lis.Battle
         readonly List<float> _leftPositions = new();
         int _rewardElementWidth;
         int _rewardElementHeight;
-        
+
         readonly List<RewardElement> _allRewardElements = new();
 
         VisualElement _rerollContainer;
@@ -201,8 +201,7 @@ namespace Lis.Battle
         {
             if (_heroManager.RewardRerollsAvailable <= 0)
             {
-                Helpers.DisplayTextOnElement(BattleManager.Instance.GetComponent<UIDocument>().rootVisualElement,
-                    _rerollButton, "Not More Rerolls!", Color.red);
+                Helpers.DisplayTextOnElement(BattleManager.Root, _rerollButton, "Not More Rerolls!", Color.red);
                 return;
             }
 
