@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
@@ -25,13 +26,17 @@ namespace Lis.Units.Hero.Ability
             base.Execute(pos, rot);
         }
 
-        AudioSource _audioSource;
-
         protected override IEnumerator ExecuteCoroutine()
         {
             StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
             if (Ability.ExecuteSound != null)
-                _audioSource = AudioManager.PlaySfx(Ability.ExecuteSound, transform, true);
+                AudioSource = AudioManager.PlaySfx(Ability.ExecuteSound, transform, true);
+
+            BattleManager.OnGamePaused += () =>
+            {
+                if (AudioSource != null)
+                    AudioSource.Pause();
+            };
 
             // I would like tornado to follow a circular path
             // - fuck it, just move it in random direction
@@ -45,11 +50,11 @@ namespace Lis.Units.Hero.Ability
                 yield return new WaitForFixedUpdate();
             }
 
-            if (_audioSource != null)
+            if (AudioSource != null)
             {
-                _audioSource.Stop();
-                _audioSource.transform.parent = AudioManager.transform;
-                _audioSource = null;
+                AudioSource.Stop();
+                AudioSource.transform.parent = AudioManager.transform;
+                AudioSource = null;
             }
 
             transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));

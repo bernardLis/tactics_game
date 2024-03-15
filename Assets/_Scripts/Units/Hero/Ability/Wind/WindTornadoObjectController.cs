@@ -19,8 +19,6 @@ namespace Lis.Units.Hero.Ability
             base.Execute(pos, q);
         }
 
-        AudioSource _audioSource;
-
         protected override IEnumerator ExecuteCoroutine()
         {
             Transform t = transform;
@@ -30,7 +28,7 @@ namespace Lis.Units.Hero.Ability
             _isUnpassableCollisionActive = false;
 
             if (Ability.ExecuteSound != null)
-                _audioSource = AudioManager.PlaySfx(Ability.ExecuteSound, transform, true);
+                AudioSource = AudioManager.PlaySfx(Ability.ExecuteSound, transform, true);
 
             float elapsedTime = 0;
             while (elapsedTime < Ability.GetDuration())
@@ -43,11 +41,11 @@ namespace Lis.Units.Hero.Ability
                 yield return new WaitForFixedUpdate();
             }
 
-            if (_audioSource != null)
+            if (AudioSource != null)
             {
-                _audioSource.Stop();
-                _audioSource.transform.parent = AudioManager.transform;
-                _audioSource = null;
+                AudioSource.Stop();
+                AudioSource.transform.parent = AudioManager.transform;
+                AudioSource = null;
             }
 
             transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));

@@ -12,7 +12,6 @@ namespace Lis.Units.Hero.Ability
 
         [SerializeField] GameObject _meteor;
 
-
         public override void Execute(Vector3 pos, Quaternion rot)
         {
             pos.y = 0;
@@ -55,6 +54,20 @@ namespace Lis.Units.Hero.Ability
                 _audioSources.Add(ass);
                 yield return new WaitForSeconds(Random.Range(0.1f, 0.2f));
             }
+        }
+
+        protected override void OnGamePaused()
+        {
+            base.OnGamePaused();
+            foreach (AudioSource ass in _audioSources)
+                ass.Pause();
+        }
+
+        protected override void OnGameResumed()
+        {
+            base.OnGameResumed();
+            foreach (AudioSource ass in _audioSources)
+                ass.UnPause();
         }
 
         void StopSound()
