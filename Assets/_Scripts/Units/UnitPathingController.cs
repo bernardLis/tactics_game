@@ -19,6 +19,12 @@ namespace Lis.Units
             _avoidancePriorityRange = avoidancePriorityRange;
         }
 
+        public void SetAnimator(Animator animator)
+        {
+            // TODO: for minions, but dunno if correct way to do this
+            _animator = animator;
+        }
+
         public void SetAvoidancePriorityRange(Vector2Int range) => _avoidancePriorityRange = range;
         public void SetStoppingDistance(float distance) => _agent.stoppingDistance = distance;
         public void SetSpeed(float speed) => _agent.speed = speed;

@@ -73,7 +73,11 @@ namespace Lis.Units.Hero.Ability
         void StopSound()
         {
             foreach (AudioSource ass in _audioSources)
+            {
+                if (ass == null) continue;
                 ass.Stop();
+            }
+
             _audioSources.Clear();
         }
 
@@ -101,7 +105,7 @@ namespace Lis.Units.Hero.Ability
             ParticleSystem.EmissionModule emission = ps.emission;
             emission.SetBursts(new ParticleSystem.Burst[]
             {
-                new ParticleSystem.Burst(0f, burstCountShort, burstCountShort, 20, 0.1f)
+                new(0f, burstCountShort, burstCountShort, 20, 0.1f)
             });
 
             _meteor.SetActive(true);

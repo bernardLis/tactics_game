@@ -56,28 +56,38 @@ namespace Lis.Core
 
             _sfxAudioSources = new();
             for (int i = 0; i < 25; i++)
-            {
-                GameObject sfxGameObject = new("SFX" + i);
-                sfxGameObject.transform.parent = transform;
-                AudioSource a = sfxGameObject.AddComponent<AudioSource>();
-                a.spatialBlend = 1;
-                a.rolloffMode = AudioRolloffMode.Custom;
-                a.maxDistance = 50;
-                a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
-
-                _sfxAudioSources.Add(a);
-            }
+                CreateSfxAudioSource();
 
             _uiAudioSources = new();
             for (int i = 0; i < 10; i++)
-            {
-                GameObject uiGameObject = new("UI" + i);
-                uiGameObject.transform.parent = transform;
-                AudioSource a = uiGameObject.AddComponent<AudioSource>();
-                a.outputAudioMixerGroup = _mixer.FindMatchingGroups("UI")[0];
+                CreateUiAudioSource();
+        }
 
-                _uiAudioSources.Add(a);
-            }
+        AudioSource CreateSfxAudioSource()
+        {
+            GameObject sfxGameObject = new("SFX" + _sfxAudioSources.Count);
+            sfxGameObject.transform.parent = transform;
+            AudioSource a = sfxGameObject.AddComponent<AudioSource>();
+            a.spatialBlend = 1;
+            a.rolloffMode = AudioRolloffMode.Custom;
+            a.maxDistance = 50;
+            a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+
+            _sfxAudioSources.Add(a);
+
+            return a;
+        }
+
+        AudioSource CreateUiAudioSource()
+        {
+            GameObject uiGameObject = new("UI" + _uiAudioSources.Count);
+            uiGameObject.transform.parent = transform;
+            AudioSource a = uiGameObject.AddComponent<AudioSource>();
+            a.outputAudioMixerGroup = _mixer.FindMatchingGroups("UI")[0];
+
+            _uiAudioSources.Add(a);
+
+            return a;
         }
 
         public void PlayMusic(Sound sound)
@@ -176,8 +186,7 @@ namespace Lis.Core
         public AudioSource PlaySfx(Sound sound, Vector3 pos, bool isLooping = false)
         {
             AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
-
-            if (a == null) return null;
+            if (a == null) a = CreateSfxAudioSource();
 
             a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
             a.loop = isLooping;
@@ -213,7 +222,7 @@ namespace Lis.Core
         public AudioSource PlayUI(Sound sound)
         {
             AudioSource a = _uiAudioSources.FirstOrDefault(s => s.isPlaying == false);
-            if (a == null) return null;
+            if (a == null) a = CreateUiAudioSource();
 
             Sound instance = Instantiate(sound);
             instance.Play(a);

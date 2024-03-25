@@ -14,28 +14,36 @@ namespace Lis.Units.Minion
         [SerializeField] GameObject _waterGfx;
         [SerializeField] GameObject _windGfx;
 
+        static readonly int AnimAttack = Animator.StringToHash("Attack");
+
         IEnumerator _currentCoroutine;
 
         public override void InitializeUnit(Unit unit, int team)
         {
             // minion pool
-
             if (Gfx != null)
             {
                 Gfx.transform.localScale = Vector3.one;
                 Gfx.SetActive(true);
             }
 
-            if (unit.Nature.NatureName == NatureName.Earth) _earthGfx.SetActive(true);
-            if (unit.Nature.NatureName == NatureName.Fire) _fireGfx.SetActive(true);
-            if (unit.Nature.NatureName == NatureName.Water) _waterGfx.SetActive(true);
-            if (unit.Nature.NatureName == NatureName.Wind) _windGfx.SetActive(true);
+            if (unit.Nature.NatureName == NatureName.Earth) InitializeElement(_earthGfx);
+            if (unit.Nature.NatureName == NatureName.Fire) InitializeElement(_fireGfx);
+            if (unit.Nature.NatureName == NatureName.Water) InitializeElement(_waterGfx);
+            if (unit.Nature.NatureName == NatureName.Wind) InitializeElement(_windGfx);
 
             base.InitializeUnit(unit, team);
             _minion = (Minion)unit;
 
             UnitPathingController.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
             RunUnit();
+        }
+
+        void InitializeElement(GameObject elementGfx)
+        {
+            elementGfx.SetActive(true);
+            Animator = elementGfx.GetComponentInChildren<Animator>();
+            UnitPathingController.SetAnimator(Animator);
         }
 
         protected override IEnumerator RunUnitCoroutine()
@@ -77,7 +85,9 @@ namespace Lis.Units.Minion
             }
 
             AddToLog("Attacking hero");
-            Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
+            Animator.SetTrigger(AnimAttack);
+
+//            Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
             StartCoroutine(HeroController.GetHit(_minion));
             yield return new WaitForSeconds(0.5f);
             RunUnit();
@@ -98,7 +108,6 @@ namespace Lis.Units.Minion
 
             StopCoroutine(_currentCoroutine);
             gameObject.SetActive(false);
-
         }
     }
 }

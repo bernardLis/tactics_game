@@ -49,7 +49,7 @@ namespace Lis.Units
         protected UnitPathingController UnitPathingController;
         public Collider Collider { get; private set; }
         protected GameObject Gfx;
-        public Animator Animator { get; private set; }
+        public Animator Animator { get; protected set; }
 
         public Unit Unit { get; private set; }
         string BattleId { get; set; }
