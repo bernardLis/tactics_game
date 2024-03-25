@@ -20,5 +20,5 @@ MonoBehaviour:
   CollectEffect: {fileID: 5617353156991115116, guid: 2f38177ef00c14e48b0f0dd6bb440893, type: 3}
   DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
   CollectSound: {fileID: 11400000, guid: 365c0428888f82049b216aea5cd96877, type: 2}
-  Amount: 50
+  Amount: 25
   OrbChance: 1

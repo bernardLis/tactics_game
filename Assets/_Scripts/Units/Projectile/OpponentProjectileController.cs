@@ -25,6 +25,5 @@ namespace Lis.Units.Projectile
             target.BaseGetHit(_power, Color.black);
             HitConnected();
         }
-
     }
 }

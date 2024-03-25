@@ -59,7 +59,7 @@ namespace Lis.Battle
 
         void MakeItRain()
         {
-            List<Sprite> sprites = GameManager.EntityDatabase.CreatureIcons.ToList();
+            List<Sprite> sprites = GameManager.UnitDatabase.CreatureIcons.ToList();
             for (int i = 0; i < 100; i++)
             {
                 VisualElement el = new();

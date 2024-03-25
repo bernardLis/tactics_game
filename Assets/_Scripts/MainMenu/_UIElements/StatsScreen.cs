@@ -132,7 +132,7 @@ namespace Lis
 
         void AddCreaturesCaptured()
         {
-            foreach (Creature creature in GameManager.EntityDatabase.AllCreatures)
+            foreach (Creature creature in GameManager.UnitDatabase.AllCreatures)
             {
                 int value = 0;
                 if (_stats.CreaturesCaptured.Exists(d => d.Id == creature.Id))
@@ -143,7 +143,7 @@ namespace Lis
 
         void AddCollectedTablets()
         {
-            foreach (Tablet tablet in GameManager.EntityDatabase.HeroTablets)
+            foreach (Tablet tablet in GameManager.UnitDatabase.HeroTablets)
             {
                 int value = 0;
                 if (_stats.TabletsCollected.Exists(d => d.Id == tablet.Id))
@@ -154,7 +154,7 @@ namespace Lis
 
         void AddCollectedAdvancedTablets()
         {
-            foreach (TabletAdvanced tablet in GameManager.EntityDatabase.GetAllAdvancedTablets())
+            foreach (TabletAdvanced tablet in GameManager.UnitDatabase.GetAllAdvancedTablets())
             {
                 int value = 0;
                 if (_stats.AdvancedTabletsCollected.Exists(d => d.Id == tablet.Id))
@@ -165,7 +165,7 @@ namespace Lis
 
         void AddAbilitiesUnlocked()
         {
-            foreach (Ability ability in GameManager.EntityDatabase.GetAllAbilities())
+            foreach (Ability ability in GameManager.UnitDatabase.GetAllAbilities())
             {
                 int value = 0;
                 if (_stats.AbilitiesUnlocked.Exists(d => d.Id == ability.Id))
@@ -176,7 +176,7 @@ namespace Lis
 
         void AddBossesKilled()
         {
-            foreach (Boss boss in GameManager.EntityDatabase.GetAllBosses())
+            foreach (Boss boss in GameManager.UnitDatabase.GetAllBosses())
             {
                 int value = 0;
                 if (_stats.BossesKilled.Exists(d => d.Id == boss.Id))

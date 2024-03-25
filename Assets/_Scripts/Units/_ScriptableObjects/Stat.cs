@@ -30,9 +30,9 @@ namespace Lis.Units
         public void Initialize()
         {
             if (Icon == null)
-                Icon = GameManager.Instance.EntityDatabase.GetStatIconByType(StatType);
+                Icon = GameManager.Instance.UnitDatabase.GetStatIconByType(StatType);
             if (string.IsNullOrEmpty(Description))
-                Description = GameManager.Instance.EntityDatabase.GetStatDescriptionByType(StatType);
+                Description = GameManager.Instance.UnitDatabase.GetStatDescriptionByType(StatType);
         }
 
         public void LevelUp()

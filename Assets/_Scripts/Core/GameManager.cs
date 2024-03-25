@@ -4,6 +4,7 @@ using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Upgrades;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace Lis.Core
@@ -13,7 +14,7 @@ namespace Lis.Core
         LevelLoader _levelLoader;
 
         public GameDatabase GameDatabase;
-        public EntityDatabase EntityDatabase;
+        [FormerlySerializedAs("EntityDatabase")] public UnitDatabase UnitDatabase;
         public UpgradeBoard UpgradeBoard;
         public Stats GameStats;
 
@@ -57,7 +58,7 @@ namespace Lis.Core
             CreateNewSaveFile();
 
             UpgradeBoard.Initialize();
-            EntityDatabase.Initialize();
+            UnitDatabase.Initialize();
             //  }
             //   else
             //     LoadFromSaveFile();

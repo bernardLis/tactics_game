@@ -42,7 +42,7 @@ namespace Lis.Units.Hero.Rewards
 
         Ability GetValidAbility(List<Ability> forbiddenAbilities)
         {
-            List<Ability> abilities = new(GameManager.EntityDatabase.GetAllBasicAbilities());
+            List<Ability> abilities = new(GameManager.UnitDatabase.GetAllBasicAbilities());
             if (Hero.Abilities.Count >= 4) // only 4 ability buttons // HERE: ability limit
                 abilities = new(Hero.Abilities);
 

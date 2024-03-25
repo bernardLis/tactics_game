@@ -17,7 +17,7 @@ namespace Lis.Battle.Quest
             base.CreateRandom(level, previousQuests);
 
             GameManager gameManager = GameManager.Instance;
-            List<Minion> minions = gameManager.EntityDatabase.GetAllMinions();
+            List<Minion> minions = gameManager.UnitDatabase.GetAllMinions();
             foreach (Quest q in previousQuests)
                 if (q is QuestKill questKill)
                     minions.Remove(questKill.MinionToKill);
@@ -25,7 +25,7 @@ namespace Lis.Battle.Quest
             // TODO: something more sophisticated, like a minion that is not in the previous x quests
             MinionToKill = minions.Count > 0
                 ? minions[Random.Range(0, minions.Count)]
-                : gameManager.EntityDatabase.GetRandomMinion();
+                : gameManager.UnitDatabase.GetRandomMinion();
         }
 
         public override void StartQuest()

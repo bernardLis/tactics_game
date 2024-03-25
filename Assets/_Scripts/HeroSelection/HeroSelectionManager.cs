@@ -35,7 +35,7 @@ namespace Lis.HeroSelection
 
         void InstantiateHeroes()
         {
-            foreach (Hero hero in _gameManager.EntityDatabase.Heroes)
+            foreach (Hero hero in _gameManager.UnitDatabase.Heroes)
             {
                 Hero instance = Instantiate(hero);
                 instance.InitializeHero();

@@ -352,12 +352,12 @@ namespace Lis.Core
             heroFoldout.Add(decreaseGatherStrength);
 
             List<string> abilityChoices = new();
-            abilityChoices.AddRange(_gameManager.EntityDatabase.GetAllBasicAbilities().ConvertAll(x => x.name));
+            abilityChoices.AddRange(_gameManager.UnitDatabase.GetAllBasicAbilities().ConvertAll(x => x.name));
             var abilityDropdown = new DropdownField("Ability", abilityChoices, 0);
             Button b = new() { text = "Add Ability" };
             b.clickable.clicked += () =>
             {
-                Ability a = _gameManager.EntityDatabase.GetAllBasicAbilities()
+                Ability a = _gameManager.UnitDatabase.GetAllBasicAbilities()
                     .Find(x => x.name == abilityDropdown.value);
                 if (a != null)
                 {

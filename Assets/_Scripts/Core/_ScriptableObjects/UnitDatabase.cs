@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 
 namespace Lis.Core
 {
-    public class EntityDatabase : ScriptableObject
+    public class UnitDatabase : ScriptableObject
     {
         public void Initialize()
         {

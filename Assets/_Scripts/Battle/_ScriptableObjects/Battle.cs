@@ -16,7 +16,7 @@ namespace Lis.Battle
         {
             Stats = CreateInstance<Stats>();
 
-            Boss = Instantiate(GameManager.Instance.EntityDatabase.GetRandomBoss());
+            Boss = Instantiate(GameManager.Instance.UnitDatabase.GetRandomBoss());
             Boss.InitializeBattle(1);
         }
     }

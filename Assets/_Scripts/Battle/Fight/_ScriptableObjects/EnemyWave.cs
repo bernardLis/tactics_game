@@ -70,7 +70,7 @@ namespace Lis.Battle.Fight
 
         void AddRangedOpponent()
         {
-            RangedOpponent = Instantiate(_gameManager.EntityDatabase.GetRandomRangedOpponent());
+            RangedOpponent = Instantiate(_gameManager.UnitDatabase.GetRandomRangedOpponent());
             RangedOpponent.InitializeBattle(1);
             _pointsLeft -= 5;
         }
@@ -81,7 +81,7 @@ namespace Lis.Battle.Fight
             group.NatureName = natureName;
             for (int i = 0; i < points; i++)
             {
-                Minion minion = Instantiate(_gameManager.EntityDatabase.GetRandomMinionByElement(natureName));
+                Minion minion = Instantiate(_gameManager.UnitDatabase.GetRandomMinionByElement(natureName));
                 minion.Level.SetValue(Random.Range(_minionLevelRange.x, _minionLevelRange.y));
                 minion.InitializeBattle(1);
                 group.Minions.Add(minion);

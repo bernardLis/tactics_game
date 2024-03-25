@@ -138,7 +138,7 @@ namespace Lis.Units.Hero
         void CreateTablets()
         {
             if (Tablets.Count > 0) return; // safety check
-            foreach (Tablet original in _gameManager.EntityDatabase.HeroTablets)
+            foreach (Tablet original in _gameManager.UnitDatabase.HeroTablets)
             {
                 Tablet instance = Instantiate(original);
                 Tablets.Add(instance);
@@ -179,7 +179,7 @@ namespace Lis.Units.Hero
         void AddAdvancedTablet(NatureName firstNature, NatureName secondNature)
         {
             TabletAdvanced original =
-                _gameManager.EntityDatabase.GetAdvancedTabletByElementNames(firstNature, secondNature);
+                _gameManager.UnitDatabase.GetAdvancedTabletByElementNames(firstNature, secondNature);
             if (original == null) return;
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
@@ -305,7 +305,7 @@ namespace Lis.Units.Hero
         public void LoadFromData(HeroData data)
         {
             _gameManager = GameManager.Instance;
-            EntityDatabase heroDatabase = _gameManager.EntityDatabase;
+            UnitDatabase heroDatabase = _gameManager.UnitDatabase;
 
             Id = data.Id;
 

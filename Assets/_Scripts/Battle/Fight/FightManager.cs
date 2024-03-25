@@ -88,9 +88,14 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnWaveCoroutine(EnemyWave wave)
         {
-            yield return SpawnMinions(wave);
-            if (wave.RangedOpponent != null) SpawnRangedOpponent(wave.RangedOpponent);
+            // HERE: ranged minion testing
+            // yield return SpawnMinions(wave);
+            // if (wave.RangedOpponent != null) SpawnRangedOpponent(wave.RangedOpponent);
+            Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomRangedOpponent());
+
+            SpawnRangedOpponent(instance);
             _currentFight.SpawningWaveFinished();
+            yield return null;
         }
 
         IEnumerator SpawnMinions(EnemyWave wave)
@@ -148,7 +153,7 @@ namespace Lis.Battle.Fight
             Ray ray = _cam.ScreenPointToRay(mousePosition);
             if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
                 return;
-            List<Minion> minions = GameManager.Instance.EntityDatabase.GetAllMinions();
+            List<Minion> minions = GameManager.Instance.UnitDatabase.GetAllMinions();
             Minion m = Instantiate(minions[Random.Range(0, minions.Count)]);
             m.InitializeBattle(1);
             SpawnMinion(m, hit.point);
@@ -159,7 +164,7 @@ namespace Lis.Battle.Fight
             if (!_debugSpawnMinion) return;
 
             if (_rangedOpponentManager == null) return;
-            Unit instance = Instantiate(GameManager.Instance.EntityDatabase.GetRandomRangedOpponent());
+            Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomRangedOpponent());
             SpawnRangedOpponent(instance);
         }
     }

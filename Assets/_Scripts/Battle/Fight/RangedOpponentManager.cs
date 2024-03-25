@@ -73,6 +73,7 @@ namespace Lis.Battle.Fight
             GameObject rangedOpponent = GetFromPool(_rangedOpponentPool);
             if (rangedOpponent == null) return;
 
+            pos.y = 0;
             rangedOpponent.transform.position = pos;
             rangedOpponent.SetActive(true);
 

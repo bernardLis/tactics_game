@@ -68,19 +68,19 @@ namespace Lis.Battle.Pickup
             // ...
             // rest% chance of spawning coin
             int random = Random.Range(0, 100);
-            if (random > 51) return; // 50/50 there is a pickup
+            if (random > 26) return; // 50/50 there is a pickup
 
             Pickup p = Instantiate(_coin);
 
-            if (random == 0 || random == 1)
+            if (random == 0)
                 p = Instantiate(_hammer);
-            else if (random == 2 || random == 3)
+            else if (random == 1)
                 p = Instantiate(_horseshoe);
-            else if (random == 4 || random == 5)
+            else if (random == 2)
                 p = Instantiate(_bag);
-            else if (random == 6 || random == 7)
+            else if (random == 3)
                 p = Instantiate(_skull);
-            else if (random == 8 || random == 9)
+            else if (random == 4)
                 p = Instantiate(_friendBall);
 
             PickupController pickupController = GetObjectFromPool();

@@ -22,7 +22,7 @@ MonoBehaviour:
   Prefab: {fileID: 2307782763008038217, guid: c8a6a9ca0a0727640b1f1bfa5c5e8b31, type: 3}
   OldDamageTaken: 0
   TotalDamageTaken: 0
-  Team: 0
+  Team: 1
   Armor: {fileID: 11400000, guid: 3c437313d342f0f47952267a978b92a6, type: 2}
   MaxHealth: {fileID: 11400000, guid: 429ba66b2e062784eb4a8654ccdc40f5, type: 2}
   CurrentHealth: {fileID: 0}
