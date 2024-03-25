@@ -84,7 +84,8 @@ namespace Lis.Core
         Metal,
         Wood,
         Ice,
-        None
+        None,
+        Neutral
     }
 
     [System.Serializable]
