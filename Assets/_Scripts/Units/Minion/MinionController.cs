@@ -25,6 +25,7 @@ namespace Lis.Units.Minion
             {
                 Gfx.transform.localScale = Vector3.one;
                 Gfx.SetActive(true);
+                Gfx.GetComponent<MinionMaterialSetter>().SetMaterial(unit);
             }
 
             if (unit.Nature.NatureName == NatureName.Earth) InitializeElement(_earthGfx);

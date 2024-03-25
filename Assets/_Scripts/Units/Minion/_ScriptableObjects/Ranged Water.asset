@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ranged Water
   m_EditorClassIdentifier: 
   Id: c6a4ad3f-4f05-43d4-9f0b-ed584d944599
-  UnitName: Ranged Minion Water
+  UnitName: Water Mage
   Icon: {fileID: 21300000, guid: c5632919c7eedf34ea3fce4ddb103880, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: d6ad81e08a7491e4695ebaa3438fb676, type: 3}

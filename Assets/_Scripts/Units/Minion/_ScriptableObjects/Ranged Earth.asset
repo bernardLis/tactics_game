@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ranged Earth
   m_EditorClassIdentifier: 
   Id: 3faeef11-c222-4d77-9b19-a8f59cc1f3e2
-  UnitName: Ranged Minion Earth
+  UnitName: Earth Mage
   Icon: {fileID: 21300000, guid: c5632919c7eedf34ea3fce4ddb103880, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: d6ad81e08a7491e4695ebaa3438fb676, type: 3}

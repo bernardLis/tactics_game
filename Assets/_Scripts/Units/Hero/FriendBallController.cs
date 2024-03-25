@@ -5,6 +5,7 @@ using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Creature;
+using Lis.Units.Minion;
 using UnityEngine;
 
 namespace Lis.Units.Hero
@@ -126,6 +127,7 @@ namespace Lis.Units.Hero
             {
                 if (bc.Team == 0) return; // TODO: hardcoded team number
                 if (bc.IsDead) return;
+                if (bc is RangedMinionController) return;
                 TryCatching(bc);
             }
         }

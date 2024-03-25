@@ -2922,6 +2922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 507944888860654658}
   - component: {fileID: 7988323444993916538}
+  - component: {fileID: 8440005386946777234}
   m_Layer: 0
   m_Name: TT_Mage
   m_TagString: Untagged
@@ -3016,7 +3017,7 @@ Animator:
   m_GameObject: {fileID: 1784431540975388848}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 02ded044b8e0963439276550f50be6f9, type: 3}
-  m_Controller: {fileID: 22100000, guid: 3afbf3b9e921718448d0953d4f6e825b, type: 2}
+  m_Controller: {fileID: 22100000, guid: d4d693000725cd64da0f1a71697b66c1, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3027,6 +3028,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8440005386946777234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784431540975388848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff99ad3bdc7f2b341b5d07c3141bfb0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderers:
+  - {fileID: 9165305417831711076}
+  - {fileID: 3756914029285469868}
+  _skinnedMeshRenderers:
+  - {fileID: 8024605830566466026}
+  _neutralMaterial: {fileID: 2100000, guid: cf1fa6c73dc509448863697c25254027, type: 2}
+  _earthMaterial: {fileID: 2100000, guid: 32515cc96492c6d4ab732a997912d2e0, type: 2}
+  _fireMaterial: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
+  _waterMaterial: {fileID: 2100000, guid: 792a4bad9e08b8e41bfbd3f0b8aac1ab, type: 2}
+  _windMaterial: {fileID: 2100000, guid: f9ec407a080d408459742617c9dc6607, type: 2}
 --- !u!1 &1811486984810848158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3652,7 +3675,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dccf8e44ede71db42b49378af93c5fb7, type: 2}
+  - {fileID: 2100000, guid: 23fe6e6315af1c6458ea91a3b762eaa4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15281,7 +15304,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dccf8e44ede71db42b49378af93c5fb7, type: 2}
+  - {fileID: 2100000, guid: 23fe6e6315af1c6458ea91a3b762eaa4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16647,7 +16670,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dccf8e44ede71db42b49378af93c5fb7, type: 2}
+  - {fileID: 2100000, guid: 23fe6e6315af1c6458ea91a3b762eaa4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

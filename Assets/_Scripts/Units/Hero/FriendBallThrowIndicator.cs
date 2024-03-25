@@ -2,6 +2,7 @@ using System.Collections;
 using DG.Tweening;
 using Lis.Battle;
 using Lis.Units.Creature;
+using Lis.Units.Minion;
 using Shapes;
 using TMPro;
 using UnityEngine;
@@ -129,28 +130,29 @@ namespace Lis.Units.Hero
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out CreatureController bc))
+            if (other.gameObject.TryGetComponent(out CreatureController cc))
             {
-                if (bc.Team == 0) return; // TODO: hardcoded team number
-                DisplayChanceToCatch(bc);
+                if (cc.Team == 0) return; // TODO: hardcoded team number
+                if (cc is RangedMinionController) return;
+                DisplayChanceToCatch(cc);
             }
         }
 
         void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out CreatureController bc))
+            if (other.gameObject.TryGetComponent(out CreatureController cc))
             {
-                if (bc != _currentCreatureController) return;
+                if (cc != _currentCreatureController) return;
                 HideChanceToCatch();
             }
         }
 
-        void DisplayChanceToCatch(CreatureController bc)
+        void DisplayChanceToCatch(CreatureController cc)
         {
-            _currentCreatureController = bc;
+            _currentCreatureController = cc;
             _canvas.gameObject.SetActive(true);
             UpdateCaptureChance(default);
-            bc.OnDamageTaken += UpdateCaptureChance;
+            cc.OnDamageTaken += UpdateCaptureChance;
         }
 
         void UpdateCaptureChance(int _)
@@ -188,6 +190,7 @@ namespace Lis.Units.Hero
                 if (c == null) continue;
                 if (!c.gameObject.TryGetComponent(out CreatureController bc)) continue;
                 if (bc.Team != 1) continue;
+                if (bc is RangedMinionController) continue;
                 return bc;
             }
 
