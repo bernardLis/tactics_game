@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -8,6 +10,9 @@ namespace Lis.Units.Minion
     public class Minion : UnitMovement
     {
         [Header("Minion")] public Stat Power;
+        public GameObject GfxPrefab;
+        public List<Nature> AvailableNatures = new();
+        public Vector2Int LevelRange;
 
         public event Action OnDeath;
 
@@ -25,10 +30,16 @@ namespace Lis.Units.Minion
                 Speed.LevelUp();
                 Power.LevelUp();
             }
-            
+
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 
+        public void SetNature(NatureName natureName)
+        {
+            foreach (Nature n in AvailableNatures)
+                if (n.NatureName == natureName)
+                    Nature = n;
+        }
 
         protected override void CreateStats()
         {

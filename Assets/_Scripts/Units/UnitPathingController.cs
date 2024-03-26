@@ -21,7 +21,7 @@ namespace Lis.Units
 
         public void SetAnimator(Animator animator)
         {
-            // TODO: for minions, but dunno if correct way to do this
+            // TODO: for minions, but dunno if this is the correct way to do this
             _animator = animator;
         }
 

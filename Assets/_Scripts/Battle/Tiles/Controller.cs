@@ -239,7 +239,7 @@ namespace Lis.Battle.Tiles
             float halfScale = Scale * 0.5f - 2;
 
             Vector3 point = transform.position +
-                            new Vector3(Random.Range(-halfScale, halfScale), 1,
+                            new Vector3(Random.Range(-halfScale, halfScale), 0,
                                 Random.Range(-halfScale, halfScale));
 
             if (IsPositionOnNavMesh(point, out Vector3 result))

@@ -88,30 +88,23 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnWaveCoroutine(EnemyWave wave)
         {
-            // HERE: ranged minion testing
-            // yield return SpawnMinions(wave);
-            // if (wave.RangedOpponent != null) SpawnRangedOpponent(wave.RangedOpponent);
-            Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomRangedOpponent());
-
-            SpawnRangedOpponent(instance);
+            yield return SpawnMinions(wave);
+            if (wave.RangedOpponent != null) SpawnRangedOpponent(wave.RangedOpponent);
             _currentFight.SpawningWaveFinished();
             yield return null;
         }
 
         IEnumerator SpawnMinions(EnemyWave wave)
         {
-            foreach (EnemyGroup group in wave.EnemyGroups)
+            foreach (Minion m in wave.Minions)
             {
-                foreach (Minion m in group.Minions)
-                {
-                    Vector3 pos =
-                        _areaManager
-                            .GetRandomPositionInRangeOnActiveTile(_heroController.transform.position,
-                                Random.Range(20, 40));
+                Vector3 pos =
+                    _areaManager
+                        .GetRandomPositionInRangeOnActiveTile(_heroController.transform.position,
+                            Random.Range(20, 40));
 
-                    SpawnMinion(m, pos);
-                    yield return new WaitForSeconds(0.05f);
-                }
+                SpawnMinion(m, pos);
+                yield return new WaitForSeconds(0.05f);
             }
         }
 

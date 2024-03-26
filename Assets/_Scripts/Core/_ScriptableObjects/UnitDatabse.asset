@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
-  m_Name: EntityDatabse
+  m_Name: UnitDatabse
   m_EditorClassIdentifier: 
   Heroes:
   - {fileID: 11400000, guid: 673d6b70424faa2499236d2dde8f3af6, type: 2}
@@ -42,10 +42,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8fe53c0b8106ccf4d945c217454f8e51, type: 2}
   - {fileID: 11400000, guid: 82581fd11790a5e4780ddec88389f1c1, type: 2}
   _minions:
-  - {fileID: 11400000, guid: 27427328862dabf42892a61e93da6513, type: 2}
-  - {fileID: 11400000, guid: 7c6442770ed6a144aadb84a303d9b079, type: 2}
-  - {fileID: 11400000, guid: d27f5850471b8804885a52e28628ef0a, type: 2}
-  - {fileID: 11400000, guid: 5d7bb2c9695389e45b4d2bc09bad050c, type: 2}
+  - {fileID: 11400000, guid: a9c2594af98ac7b439783420f9e2aa58, type: 2}
+  - {fileID: 11400000, guid: fde5d86bec884d849aa64a6b2b9e9e95, type: 2}
+  - {fileID: 11400000, guid: 86a104b0cd72bc8418d9a81c3e13527d, type: 2}
   _rangedOpponents:
   - {fileID: 11400000, guid: c5e9c531855d9174e91f455c8602501e, type: 2}
   - {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}

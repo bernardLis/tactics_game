@@ -1,6 +1,5 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Minion
@@ -9,42 +8,32 @@ namespace Lis.Units.Minion
     {
         Minion _minion;
 
-        [Header("Minion")] [SerializeField] GameObject _earthGfx;
-        [SerializeField] GameObject _fireGfx;
-        [SerializeField] GameObject _waterGfx;
-        [SerializeField] GameObject _windGfx;
-
+        [Header("Minion")]
         static readonly int AnimAttack = Animator.StringToHash("Attack");
 
         IEnumerator _currentCoroutine;
 
         public override void InitializeUnit(Unit unit, int team)
         {
+            _minion = (Minion)unit;
+
             // minion pool
             if (Gfx != null)
             {
                 Gfx.transform.localScale = Vector3.one;
                 Gfx.SetActive(true);
-                Gfx.GetComponent<MinionMaterialSetter>().SetMaterial(unit);
+
+                GameObject gfxInstance = Instantiate(_minion.GfxPrefab, Gfx.transform);
+                MinionMaterialSetter ms = gfxInstance.GetComponent<MinionMaterialSetter>();
+                if (ms != null) ms.SetMaterial(unit);
+                Animator = gfxInstance.GetComponent<Animator>();
+                UnitPathingController.SetAnimator(Animator);
             }
 
-            if (unit.Nature.NatureName == NatureName.Earth) InitializeElement(_earthGfx);
-            if (unit.Nature.NatureName == NatureName.Fire) InitializeElement(_fireGfx);
-            if (unit.Nature.NatureName == NatureName.Water) InitializeElement(_waterGfx);
-            if (unit.Nature.NatureName == NatureName.Wind) InitializeElement(_windGfx);
-
             base.InitializeUnit(unit, team);
-            _minion = (Minion)unit;
 
             UnitPathingController.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
             RunUnit();
-        }
-
-        void InitializeElement(GameObject elementGfx)
-        {
-            elementGfx.SetActive(true);
-            Animator = elementGfx.GetComponentInChildren<Animator>();
-            UnitPathingController.SetAnimator(Animator);
         }
 
         protected override IEnumerator RunUnitCoroutine()
@@ -98,14 +87,15 @@ namespace Lis.Units.Minion
         {
             yield return base.DieCoroutine(attacker, hasLoot);
             Gfx.transform.DOScale(0, 0.5f)
-                .OnComplete(() => Gfx.SetActive(false));
+                .OnComplete(() =>
+                {
+                    Debug.Log($"{Gfx.transform.GetChild(0)}");
+                    Destroy(Gfx.transform.GetChild(0).gameObject);
+                    Gfx.SetActive(false);
+                });
 
             yield return new WaitForSeconds(5f);
 
-            _earthGfx.SetActive(false);
-            _fireGfx.SetActive(false);
-            _waterGfx.SetActive(false);
-            _windGfx.SetActive(false);
 
             StopCoroutine(_currentCoroutine);
             gameObject.SetActive(false);

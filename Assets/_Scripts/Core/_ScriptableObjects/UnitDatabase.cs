@@ -71,16 +71,21 @@ namespace Lis.Core
             return _rangedOpponents[Random.Range(0, _rangedOpponents.Count)];
         }
 
+        public Unit GetRangedOpponentByNature(NatureName natureName)
+        {
+            return _rangedOpponents.FirstOrDefault(x => x.Nature.NatureName == natureName);
+        }
+
         public List<Minion> GetAllMinions()
         {
             return _minions.ToList();
         }
 
-        public Minion GetRandomMinionByElement(NatureName elName)
+        public Minion GetMinionByLevel(int level)
         {
             List<Minion> minions = new();
             foreach (Minion m in _minions)
-                if (m.Nature.NatureName == elName)
+                if (m.LevelRange.x < level && m.LevelRange.y > level)
                     minions.Add(m);
             return minions[Random.Range(0, minions.Count)];
         }

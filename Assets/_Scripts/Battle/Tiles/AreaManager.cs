@@ -17,14 +17,15 @@ namespace Lis.Battle.Tiles
         [SerializeField] Transform _floorHolder;
         [SerializeField] GameObject _floorPrefab;
 
-
         [SerializeField] UpgradeTile _homeUpgrade;
         List<UpgradeTile> _unlockedBuildings = new();
 
         [SerializeField] Quest.Quest[] _quests;
         readonly List<Quest.Quest> _pastQuests = new();
 
-        [FormerlySerializedAs("HomeTileController")] [HideInInspector] public Controller HomeController;
+        [FormerlySerializedAs("HomeTileController")] [HideInInspector]
+        public Controller HomeController;
+
         readonly List<Controller> _tiles = new();
         [HideInInspector] public List<Controller> UnlockedTiles = new();
 
@@ -37,7 +38,7 @@ namespace Lis.Battle.Tiles
         {
             float tileScale = _floorPrefab.transform.localScale.x;
             _floor = Instantiate(_floorPrefab,
-                new(-tileScale * 0.5f, 0, -tileScale * 0.5f), // floor offset to make tiles centered
+                new(-tileScale * 0.5f, -0.1f, -tileScale * 0.5f), // floor offset to make tiles centered
                 Quaternion.identity);
             _floor.transform.SetParent(_floorHolder);
 

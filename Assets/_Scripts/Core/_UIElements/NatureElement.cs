@@ -37,8 +37,11 @@ namespace Lis.Core
             VisualElement container = new();
             container.Add(new Label(_nature.NatureName.ToString()));
             container.Add(new Label(_nature.Description));
-            container.Add(new Label("Strong against: " + _nature.StrongAgainst.NatureName.ToString()));
-            container.Add(new Label("Weak against: " + _nature.WeakAgainst.NatureName.ToString()));
+            if (_nature.StrongAgainst != null && _nature.WeakAgainst != null)
+            {
+                container.Add(new Label("Strong against: " + _nature.StrongAgainst.NatureName.ToString()));
+                container.Add(new Label("Weak against: " + _nature.WeakAgainst.NatureName.ToString()));
+            }
 
             _tooltip = new(this, container);
             base.DisplayTooltip();

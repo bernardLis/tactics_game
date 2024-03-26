@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
+  m_Name: Peasant
+  m_EditorClassIdentifier: 
+  Id: bca815dd-5293-40cd-80b8-09dba9299f3f
+  UnitName: Peasant
+  Icon: {fileID: 21300000, guid: 6c1766314e2f43444b247160656d9ef5, type: 3}
+  IconAnimation:
+  - {fileID: 21300000, guid: 1f254419908660c48aaf441d2df58b09, type: 3}
+  Price: 5
+  Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
+  Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Team: 1
+  Armor: {fileID: 11400000, guid: b3ee2fed36de52041ba38254bced12a6, type: 2}
+  MaxHealth: {fileID: 11400000, guid: ffc2aa2ef75b2994783edee8a7715ef6, type: 2}
+  CurrentHealth: {fileID: 0}
+  Level: {fileID: 11400000, guid: 78f51d4c27c32b94497eb2ff76a1acad, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  Speed: {fileID: 11400000, guid: 35c46375ece550f4c80ee63fdd3fe0da, type: 2}
+  Power: {fileID: 11400000, guid: 6e5fce7999783e646bb2f0d2a103a593, type: 2}
+  GfxPrefab: {fileID: 7177606250843362213, guid: e4fd54d2320f4954286ca84afd62b4a9, type: 3}
+  AvailableNatures:
+  - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
+  LevelRange: {x: 0, y: 3}
