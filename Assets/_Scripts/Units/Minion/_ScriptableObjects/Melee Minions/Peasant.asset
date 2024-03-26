@@ -31,7 +31,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: 35c46375ece550f4c80ee63fdd3fe0da, type: 2}
-  Power: {fileID: 11400000, guid: 6e5fce7999783e646bb2f0d2a103a593, type: 2}
+  Power: {fileID: 11400000, guid: bae7ec3255841244281c070f838dc298, type: 2}
   GfxPrefab: {fileID: 7177606250843362213, guid: e4fd54d2320f4954286ca84afd62b4a9, type: 3}
   AvailableNatures:
   - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}

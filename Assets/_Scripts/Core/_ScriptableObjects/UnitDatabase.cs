@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lis.Units;
@@ -9,6 +10,7 @@ using Lis.Units.Hero.Tablets;
 using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Lis.Core
 {
@@ -64,6 +66,26 @@ namespace Lis.Core
         [Header("Minions")]
         [SerializeField] Minion[] _minions;
 
+        public List<Minion> GetAllMinions()
+        {
+            return _minions.ToList();
+        }
+
+        public Minion GetMinionByLevel(int level)
+        {
+            Debug.Log("GetMinionByLevel: " + level);
+            List<Minion> minions = new();
+            foreach (Minion m in _minions)
+                if (m.LevelRange.x < level && m.LevelRange.y > level)
+                    minions.Add(m);
+            return minions[Random.Range(0, minions.Count)];
+        }
+
+        public Minion GetRandomMinion()
+        {
+            return _minions[Random.Range(0, _minions.Length)];
+        }
+
         [SerializeField] List<Unit> _rangedOpponents;
 
         public Unit GetRandomRangedOpponent()
@@ -76,24 +98,20 @@ namespace Lis.Core
             return _rangedOpponents.FirstOrDefault(x => x.Nature.NatureName == natureName);
         }
 
-        public List<Minion> GetAllMinions()
+        [Serializable]
+        public struct MinionMaterial
         {
-            return _minions.ToList();
+            public NatureName NatureName;
+            public Material Material;
         }
 
-        public Minion GetMinionByLevel(int level)
+        public MinionMaterial[] MinionMaterials;
+
+        public Material GetMinionMaterialByNature(NatureName natureName)
         {
-            List<Minion> minions = new();
-            foreach (Minion m in _minions)
-                if (m.LevelRange.x < level && m.LevelRange.y > level)
-                    minions.Add(m);
-            return minions[Random.Range(0, minions.Count)];
+            return MinionMaterials.FirstOrDefault(x => x.NatureName == natureName).Material;
         }
 
-        public Minion GetRandomMinion()
-        {
-            return _minions[Random.Range(0, _minions.Length)];
-        }
 
         [Header("Creatures")]
         public Sprite[] CreatureIcons;
