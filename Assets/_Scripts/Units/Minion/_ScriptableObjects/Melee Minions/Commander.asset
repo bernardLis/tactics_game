@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
+  m_Name: Commander
+  m_EditorClassIdentifier: 
+  Id: bca815dd-5293-40cd-80b8-09dba9299f3f
+  UnitName: Commander
+  Icon: {fileID: 21300000, guid: 6c1766314e2f43444b247160656d9ef5, type: 3}
+  IconAnimation:
+  - {fileID: 21300000, guid: 1f254419908660c48aaf441d2df58b09, type: 3}
+  Price: 5
+  Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
+  Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
+  OldDamageTaken: 0
+  TotalDamageTaken: 0
+  Team: 1
+  Armor: {fileID: 11400000, guid: 858ca1a8f65e28347b9ce119c68e3d2c, type: 2}
+  MaxHealth: {fileID: 11400000, guid: 5a177f1b9931f164f894edc9c537e5fe, type: 2}
+  CurrentHealth: {fileID: 0}
+  Level: {fileID: 11400000, guid: 89b90f93634a3ed4db06577f388790f3, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  Speed: {fileID: 11400000, guid: a4b8dea5c601fd849984bf685f7b8092, type: 2}
+  Power: {fileID: 11400000, guid: 3dd1f6d3595cd704f8f4a426ec130c35, type: 2}
+  GfxPrefab: {fileID: 4056344413847021506, guid: 42ff63c874c1f8a41891c322f2ee8af2, type: 3}
+  AvailableNatures:
+  - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
+  - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  LevelRange: {x: 20, y: 100}

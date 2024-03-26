@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lis.Units;
@@ -73,7 +72,6 @@ namespace Lis.Core
 
         public Minion GetMinionByLevel(int level)
         {
-            Debug.Log("GetMinionByLevel: " + level);
             List<Minion> minions = new();
             foreach (Minion m in _minions)
                 if (m.LevelRange.x < level && m.LevelRange.y > level)
@@ -98,19 +96,6 @@ namespace Lis.Core
             return _rangedOpponents.FirstOrDefault(x => x.Nature.NatureName == natureName);
         }
 
-        [Serializable]
-        public struct MinionMaterial
-        {
-            public NatureName NatureName;
-            public Material Material;
-        }
-
-        public MinionMaterial[] MinionMaterials;
-
-        public Material GetMinionMaterialByNature(NatureName natureName)
-        {
-            return MinionMaterials.FirstOrDefault(x => x.NatureName == natureName).Material;
-        }
 
 
         [Header("Creatures")]

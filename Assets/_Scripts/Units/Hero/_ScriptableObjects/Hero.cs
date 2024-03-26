@@ -121,7 +121,7 @@ namespace Lis.Units.Hero
             // TODO: math
             const float exponent = 2.5f;
             const float multiplier = 0.7f;
-            const int baseExp = 100;
+            const int baseExp = 20;
 
             int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
             result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens

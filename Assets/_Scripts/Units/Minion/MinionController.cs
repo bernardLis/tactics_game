@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units.Minion
 {
@@ -8,10 +10,13 @@ namespace Lis.Units.Minion
     {
         Minion _minion;
 
-        [Header("Minion")]
         static readonly int AnimAttack = Animator.StringToHash("Attack");
 
         IEnumerator _currentCoroutine;
+
+        [Header("Minion")]
+        [SerializeField] MinionBody[] _minionBodies;
+        GameObject _currentActiveBody;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -23,10 +28,15 @@ namespace Lis.Units.Minion
                 Gfx.transform.localScale = Vector3.one;
                 Gfx.SetActive(true);
 
-                GameObject gfxInstance = Instantiate(_minion.GfxPrefab, Gfx.transform);
-                MinionMaterialSetter ms = gfxInstance.GetComponent<MinionMaterialSetter>();
-                if (ms != null) ms.SetMaterial(unit);
-                Animator = gfxInstance.GetComponent<Animator>();
+                foreach (MinionBody mb in _minionBodies)
+                {
+                    if (mb.Name != unit.UnitName) continue;
+                    _currentActiveBody = mb.Gfx;
+                }
+
+                _currentActiveBody.SetActive(true);
+                Animator = _currentActiveBody.GetComponent<Animator>();
+                // _currentActiveBody.GetComponentInChildren<MinionMaterialSetter>().SetMaterial(unit);
                 UnitPathingController.SetAnimator(Animator);
             }
 
@@ -89,8 +99,7 @@ namespace Lis.Units.Minion
             Gfx.transform.DOScale(0, 0.5f)
                 .OnComplete(() =>
                 {
-                    Debug.Log($"{Gfx.transform.GetChild(0)}");
-                    Destroy(Gfx.transform.GetChild(0).gameObject);
+                    _currentActiveBody.SetActive(false);
                     Gfx.SetActive(false);
                 });
 
@@ -101,4 +110,11 @@ namespace Lis.Units.Minion
             gameObject.SetActive(false);
         }
     }
+}
+
+[Serializable]
+public struct MinionBody
+{
+    public string Name;
+    public GameObject Gfx;
 }

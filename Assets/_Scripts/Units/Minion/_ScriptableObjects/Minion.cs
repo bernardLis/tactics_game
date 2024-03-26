@@ -10,7 +10,6 @@ namespace Lis.Units.Minion
     public class Minion : UnitMovement
     {
         [Header("Minion")] public Stat Power;
-        public GameObject GfxPrefab;
         public List<Nature> AvailableNatures = new();
         public Vector2Int LevelRange;
 
@@ -61,3 +60,4 @@ namespace Lis.Units.Minion
         }
     }
 }
+
