@@ -70,13 +70,13 @@ namespace Lis.Core
             return _minions.ToList();
         }
 
-        public Minion GetMinionByLevel(int level)
+        public List<Minion> GetMinionsByLevelRange(int level)
         {
             List<Minion> minions = new();
             foreach (Minion m in _minions)
-                if (m.LevelRange.x < level && m.LevelRange.y > level)
+                if (m.LevelRange.x <= level && m.LevelRange.y >= level)
                     minions.Add(m);
-            return minions[Random.Range(0, minions.Count)];
+            return minions;
         }
 
         public Minion GetRandomMinion()
@@ -95,7 +95,6 @@ namespace Lis.Core
         {
             return _rangedOpponents.FirstOrDefault(x => x.Nature.NatureName == natureName);
         }
-
 
 
         [Header("Creatures")]

@@ -118,13 +118,14 @@ namespace Lis.Units.Hero
 
         public override int GetExpForNextLevel()
         {
-            // TODO: math
-            const float exponent = 2.5f;
-            const float multiplier = 0.7f;
+            // TODO: balance
+            const float exponent = 2f;
+            const float multiplier = 5f;
             const int baseExp = 20;
 
             int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
             result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
+            Debug.Log("exp Result: " + result);
             int expRequired = result + baseExp;
 
             return expRequired;

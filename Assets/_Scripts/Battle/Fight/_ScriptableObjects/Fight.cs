@@ -26,16 +26,14 @@ namespace Lis.Battle.Fight
 
         void CreateWaves()
         {
-            const int numberOfWaves = 5;
+            const int numberOfWaves = 2;
             for (int i = 0; i < numberOfWaves; i++)
             {
-                int points = 3 + EnemyWaves.Count + i;
+                int points = 6 + EnemyWaves.Count + i;
                 points = Mathf.Clamp(points, 2, 300);
 
-                Vector2Int minionLevelRange = new(_hero.Level.Value, _hero.Level.Value + 1 + i);
-
                 EnemyWave wave = CreateInstance<EnemyWave>();
-                wave.CreateWave(points, minionLevelRange);
+                wave.CreateWave(points, _hero.Level.Value);
                 EnemyWaves.Add(wave);
             }
         }
