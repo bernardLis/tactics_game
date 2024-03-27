@@ -24,7 +24,7 @@ namespace Lis.Units
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
         GrabManager _grabManager;
-        PickupManager _pickupManager;
+        protected PickupManager PickupManager;
 
         public List<string> UnitLog = new();
 
@@ -85,7 +85,7 @@ namespace Lis.Units
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             _grabManager = GrabManager.Instance;
-            _pickupManager = BattleManager.GetComponent<PickupManager>();
+            PickupManager = BattleManager.GetComponent<PickupManager>();
 
             HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
@@ -317,7 +317,7 @@ namespace Lis.Units
         void ResolveLoot()
         {
             if (Team == 0) return;
-            _pickupManager.SpawnExpOrb(transform.position);
+            PickupManager.SpawnExpOrb(transform.position);
         }
 
         public IEnumerator GetPoisoned(CreatureController attacker)

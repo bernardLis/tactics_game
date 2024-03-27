@@ -125,7 +125,6 @@ namespace Lis.Units.Hero
 
             int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
             result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
-            Debug.Log("exp Result: " + result);
             int expRequired = result + baseExp;
 
             return expRequired;

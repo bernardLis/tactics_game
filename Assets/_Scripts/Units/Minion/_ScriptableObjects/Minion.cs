@@ -12,6 +12,7 @@ namespace Lis.Units.Minion
         [Header("Minion")] public Stat Power;
         public List<Nature> AvailableNatures = new();
         public Vector2Int LevelRange;
+        public bool IsMiniBoss;
 
         public event Action OnDeath;
 
@@ -30,6 +31,14 @@ namespace Lis.Units.Minion
                 Power.LevelUp();
             }
 
+            CurrentHealth.SetValue(MaxHealth.GetValue());
+        }
+
+        public void SetMiniBoss()
+        {
+            Debug.Log("SetMiniBoss");
+            IsMiniBoss = true;
+            MaxHealth.BaseValue *= 20;
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 
@@ -60,4 +69,3 @@ namespace Lis.Units.Minion
         }
     }
 }
-

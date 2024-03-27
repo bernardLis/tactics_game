@@ -16,8 +16,8 @@ MonoBehaviour:
   StatType: 1
   Icon: {fileID: 0}
   Description: 
-  BaseValue: 100
+  BaseValue: 1000
   BonusValue: 0
   IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 0, y: 10}
-  MaxMinValue: {x: 100, y: 500}
+  MinMaxValue: {x: 0, y: 999}

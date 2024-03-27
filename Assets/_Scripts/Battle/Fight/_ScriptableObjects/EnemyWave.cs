@@ -17,7 +17,7 @@ namespace Lis.Battle.Fight
          * Minions cost 1 point, ranged opponents cost 5 points
          *
          */
-        public void CreateWave(int points, int minionLevel)
+        public void CreateWave(int waveIndex, int points, int minionLevel)
         {
             _gameManager = GameManager.Instance;
 
@@ -38,17 +38,10 @@ namespace Lis.Battle.Fight
             }
 
             // single element wave
-            if (val < 10)
-                SingleElementWave();
-            //
-            //
-            // // split minion count evenly between elements
-            // int pointsPerElement = _pointsLeft / 4;
-            // int pointsLeftover = _pointsLeft % 4;
-            // CreateEnemyGroupOfElement(NatureName.Earth, pointsPerElement + pointsLeftover);
-            // CreateEnemyGroupOfElement(NatureName.Fire, pointsPerElement);
-            // CreateEnemyGroupOfElement(NatureName.Water, pointsPerElement);
-            // CreateEnemyGroupOfElement(NatureName.Wind, pointsPerElement);
+            if (val < 10) SingleElementWave();
+
+            // mini boss
+            if (waveIndex % 5 == 0) Minions[Random.Range(0, Minions.Count)].SetMiniBoss();
         }
 
         void SingleElementWave()

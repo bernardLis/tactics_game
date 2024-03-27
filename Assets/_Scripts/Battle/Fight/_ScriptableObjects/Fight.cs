@@ -19,7 +19,7 @@ namespace Lis.Battle.Fight
         public void CreateFight()
         {
             _hero = BattleManager.Instance.Hero;
-            
+
             DelayBetweenWaves = Random.Range(10, 20);
             CreateWaves();
         }
@@ -33,11 +33,11 @@ namespace Lis.Battle.Fight
                 points = Mathf.Clamp(points, 2, 300);
 
                 EnemyWave wave = CreateInstance<EnemyWave>();
-                wave.CreateWave(points, _hero.Level.Value);
+                wave.CreateWave(EnemyWaves.Count + i, points, _hero.Level.Value);
                 EnemyWaves.Add(wave);
             }
         }
-        
+
         public void SpawningWaveFinished()
         {
             CurrentWaveIndex++;

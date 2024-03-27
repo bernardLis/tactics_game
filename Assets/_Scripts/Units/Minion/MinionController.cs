@@ -16,6 +16,9 @@ namespace Lis.Units.Minion
 
         [Header("Minion")]
         [SerializeField] MinionBody[] _minionBodies;
+
+        [SerializeField] GameObject _miniBossEffect;
+
         GameObject _currentActiveBody;
 
         public override void InitializeUnit(Unit unit, int team)
@@ -23,27 +26,36 @@ namespace Lis.Units.Minion
             _minion = (Minion)unit;
 
             // minion pool
-            if (Gfx != null)
-            {
-                Gfx.transform.localScale = Vector3.one;
-                Gfx.SetActive(true);
-
-                foreach (MinionBody mb in _minionBodies)
-                {
-                    if (mb.Name != unit.UnitName) continue;
-                    _currentActiveBody = mb.Gfx;
-                }
-
-                _currentActiveBody.SetActive(true);
-                Animator = _currentActiveBody.GetComponent<Animator>();
-                // _currentActiveBody.GetComponentInChildren<MinionMaterialSetter>().SetMaterial(unit);
-                UnitPathingController.SetAnimator(Animator);
-            }
-
+            if (Gfx != null) InitializeMinion();
             base.InitializeUnit(unit, team);
 
-            UnitPathingController.SetSpeed(_minion.Speed.GetValue() + _minion.Level.Value * Random.Range(0.1f, 0.2f));
+            if (_minion.IsMiniBoss) InitializeMiniBoss();
+
+            UnitPathingController.SetSpeed(_minion.Speed.GetValue() + Random.Range(0.1f, 0.2f));
             RunUnit();
+        }
+
+        void InitializeMinion()
+        {
+            Gfx.transform.localScale = Vector3.one;
+            Gfx.SetActive(true);
+
+            foreach (MinionBody mb in _minionBodies)
+            {
+                if (mb.Name != _minion.UnitName) continue;
+                _currentActiveBody = mb.Gfx;
+            }
+
+            _currentActiveBody.SetActive(true);
+            Animator = _currentActiveBody.GetComponent<Animator>();
+            _currentActiveBody.GetComponentInChildren<MinionMaterialSetter>().SetMaterial(_minion);
+            UnitPathingController.SetAnimator(Animator);
+        }
+
+        void InitializeMiniBoss()
+        {
+            transform.localScale = Vector3.one * 2;
+            _miniBossEffect.SetActive(true);
         }
 
         protected override IEnumerator RunUnitCoroutine()
@@ -87,7 +99,6 @@ namespace Lis.Units.Minion
             AddToLog("Attacking hero");
             Animator.SetTrigger(AnimAttack);
 
-//            Gfx.transform.DOPunchScale(Vector3.one * 1.1f, 0.2f, 1, 0.5f);
             StartCoroutine(HeroController.GetHit(_minion));
             yield return new WaitForSeconds(0.5f);
             RunUnit();
@@ -96,18 +107,29 @@ namespace Lis.Units.Minion
         public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             yield return base.DieCoroutine(attacker, hasLoot);
+
             Gfx.transform.DOScale(0, 0.5f)
                 .OnComplete(() =>
                 {
                     _currentActiveBody.SetActive(false);
                     Gfx.SetActive(false);
+                    if (_minion.IsMiniBoss) ResolveMiniBossDeath();
                 });
 
             yield return new WaitForSeconds(5f);
 
-
             StopCoroutine(_currentCoroutine);
             gameObject.SetActive(false);
+        }
+
+        void ResolveMiniBossDeath()
+        {
+            int v = Random.Range(3, 8);
+            for (int i = 0; i < v; i++)
+                PickupManager.SpawnExpOrb(transform.position +
+                                          new Vector3(Random.Range(-1f, 1f), 2, Random.Range(-1f, 1f)));
+            transform.localScale = Vector3.one * 0.5f;
+            _miniBossEffect.SetActive(false);
         }
     }
 }
