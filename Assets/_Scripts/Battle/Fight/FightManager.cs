@@ -23,7 +23,7 @@ namespace Lis.Battle.Fight
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
 
-        readonly bool _debugSpawnMinion = false;
+        readonly bool _debugSpawnMinion = true;
 
         HeroController _heroController;
 
@@ -89,7 +89,8 @@ namespace Lis.Battle.Fight
         IEnumerator SpawnWaveCoroutine(EnemyWave wave)
         {
             yield return SpawnMinions(wave);
-            if (wave.RangedOpponent != null) SpawnRangedOpponent(wave.RangedOpponent);
+            if (wave.RangedOpponent != null)
+                SpawnRangedOpponent(wave.RangedOpponent);
             _currentFight.SpawningWaveFinished();
             yield return null;
         }

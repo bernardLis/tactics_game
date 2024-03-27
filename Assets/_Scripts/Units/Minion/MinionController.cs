@@ -56,6 +56,7 @@ namespace Lis.Units.Minion
         {
             transform.localScale = Vector3.one * 2;
             _miniBossEffect.SetActive(true);
+            UnitPathingController.SetStoppingDistance(1.3f);
         }
 
         protected override IEnumerator RunUnitCoroutine()
@@ -72,7 +73,6 @@ namespace Lis.Units.Minion
         IEnumerator PathToHero()
         {
             AddToLog("Pathing to hero");
-            UnitPathingController.SetStoppingDistance(0.7f);
             yield return UnitPathingController.PathToTarget(HeroController.transform);
 
             ReachedHero();
@@ -89,7 +89,7 @@ namespace Lis.Units.Minion
         IEnumerator Attack()
         {
             if (IsDead) yield break;
-            if (Vector3.Distance(transform.position, HeroController.transform.position) > 1f)
+            if (Vector3.Distance(transform.position, HeroController.transform.position) > 1.5f)
             {
                 AddToLog("Hero is too far to attack");
                 yield return PathToHero();
@@ -100,7 +100,7 @@ namespace Lis.Units.Minion
             Animator.SetTrigger(AnimAttack);
 
             StartCoroutine(HeroController.GetHit(_minion));
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.6f);
             RunUnit();
         }
 
@@ -125,11 +125,13 @@ namespace Lis.Units.Minion
         void ResolveMiniBossDeath()
         {
             int v = Random.Range(3, 8);
+            Debug.Log($"Spawning {v} exp orbs");
             for (int i = 0; i < v; i++)
                 PickupManager.SpawnExpOrb(transform.position +
                                           new Vector3(Random.Range(-1f, 1f), 2, Random.Range(-1f, 1f)));
             transform.localScale = Vector3.one * 0.5f;
             _miniBossEffect.SetActive(false);
+            UnitPathingController.SetStoppingDistance(0.7f);
         }
     }
 }
