@@ -201,7 +201,12 @@ namespace Lis.Units.Hero
         {
             Ability.Ability instance = Instantiate(ability);
             instance.InitializeBattle(this);
-            Abilities.Add(instance);
+
+            if (ability.IsAdvanced)
+                AdvancedAbilities.Add(instance);
+            else
+                Abilities.Add(instance);
+
             OnAbilityAdded?.Invoke(instance);
         }
 
@@ -217,6 +222,14 @@ namespace Lis.Units.Hero
                 if (a.Id == id)
                     return a;
             return null;
+        }
+
+        public List<Ability.Ability> GetAllAbilities()
+        {
+            List<Ability.Ability> allAbilities = new();
+            allAbilities.AddRange(Abilities);
+            allAbilities.AddRange(AdvancedAbilities);
+            return allAbilities;
         }
 
         void CreateBaseStats()

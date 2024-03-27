@@ -35,7 +35,6 @@ namespace Lis.Units.Hero.Ability
         [Header("Sounds")]
         public Sound ExecuteSound;
 
-
         public event Action OnCooldownStarted;
         public event Action OnLevelUp;
 

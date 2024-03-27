@@ -41,7 +41,8 @@ namespace Lis.Battle.Fight
             if (val < 10) SingleElementWave();
 
             // mini boss
-            if (waveIndex % 5 == 0) Minions[Random.Range(0, Minions.Count)].SetMiniBoss();
+            if (waveIndex > 1 && waveIndex % 5 == 0)
+                Minions[Random.Range(0, Minions.Count)].SetMiniBoss();
         }
 
         void SingleElementWave()

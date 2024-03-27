@@ -185,7 +185,7 @@ namespace Lis.Units.Hero
             container.style.alignItems = Align.Center;
             _heroInfoContainer.Add(container);
 
-            foreach (Ability.Ability ability in _hero.Abilities)
+            foreach (Ability.Ability ability in _hero.GetAllAbilities())
             {
                 Element icon = new(ability, true);
                 container.Add(icon);
@@ -231,14 +231,14 @@ namespace Lis.Units.Hero
             container.style.alignItems = Align.Center;
             _heroInfoContainer.Add(container);
 
-            foreach (Ability.Ability ability in _hero.Abilities)
+            foreach (Ability.Ability ability in _hero.GetAllAbilities())
             {
                 Element icon = new(ability, true);
                 container.Add(icon);
             }
 
             List<VisualElement> slots = new();
-            for (int i = 0; i < 5 - _hero.Abilities.Count; i++)
+            for (int i = 0; i < 5 - _hero.GetAllAbilities().Count; i++)
             {
                 VisualElement slot = new();
                 slot.AddToClassList(_ussSlot);
