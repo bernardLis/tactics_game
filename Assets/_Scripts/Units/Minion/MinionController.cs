@@ -125,7 +125,6 @@ namespace Lis.Units.Minion
         void ResolveMiniBossDeath()
         {
             int v = Random.Range(3, 8);
-            Debug.Log($"Spawning {v} exp orbs");
             for (int i = 0; i < v; i++)
                 PickupManager.SpawnExpStone(transform.position +
                                           new Vector3(Random.Range(-1f, 1f), 2, Random.Range(-1f, 1f)));

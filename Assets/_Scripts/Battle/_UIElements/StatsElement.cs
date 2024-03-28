@@ -81,7 +81,7 @@ namespace Lis.Battle
         void PopulateRightPanel()
         {
             AddFriendBallsThrown();
-            AddMinionsKilled();
+            // AddMinionsKilled();
             AddCreatureKills();
         }
 
@@ -139,24 +139,33 @@ namespace Lis.Battle
             container.Add(text);
         }
 
-        void AddMinionsKilled()
-        {
-            VisualElement container = new();
-            container.style.flexDirection = FlexDirection.Row;
-            _rightPanel.Add(container);
-
-            Label text = new($"Minions defeated: ");
-            container.Add(text);
-
-            int minionKillCount = 0;
-            foreach (Unit e in _battleManager.KilledOpponentEntities)
-                if (e is Minion)
-                    minionKillCount++;
-
-            ChangingValueElement minionCount = new();
-            minionCount.Initialize(minionKillCount, 18);
-            container.Add(minionCount);
-        }
+        // void AddMinionsKilled()
+        // {
+        //     VisualElement container = new();
+        //     container.AddToClassList(_ussCreatureContainer);
+        //     // container.style.flexDirection = FlexDirection.Row;
+        //     _rightPanel.Add(container);
+        //
+        //     Label text = new($"Minions defeated: ");
+        //     text.AddToClassList(_ussCreatureLabel);
+        //     container.Add(text);
+        //
+        //     VisualElement iconContainer = new();
+        //     iconContainer.style.flexWrap = Wrap.Wrap;
+        //     iconContainer.style.flexDirection = FlexDirection.Row;
+        //     container.Add(iconContainer);
+        //
+        //     Dictionary<Sprite, int> minionKillCount = new();
+        //
+        //     // int minionKillCount = 0;
+        //     foreach (Unit e in _battleManager.KilledOpponentEntities)
+        //         if (e is not Minion)
+        //             minionKillCount++;
+        //
+        //     ChangingValueElement minionCount = new();
+        //     minionCount.Initialize(minionKillCount, 18);
+        //     container.Add(minionCount);
+        // }
 
         void AddCreatureKills()
         {
@@ -164,7 +173,7 @@ namespace Lis.Battle
             container.AddToClassList(_ussCreatureContainer);
             _rightPanel.Add(container);
 
-            Label text = new("Creatures defeated:");
+            Label text = new("Opponents defeated:");
             text.AddToClassList(_ussCreatureLabel);
             container.Add(text);
 
@@ -177,7 +186,7 @@ namespace Lis.Battle
 
             foreach (Unit e in _battleManager.KilledOpponentEntities)
             {
-                if (e is not Creature) continue;
+                // if (e is not Creature) continue;
                 if (creatureKillCount.ContainsKey(e.Icon))
                     creatureKillCount[e.Icon]++;
                 else

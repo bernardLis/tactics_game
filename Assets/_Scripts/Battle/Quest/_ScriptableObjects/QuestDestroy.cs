@@ -15,8 +15,6 @@ namespace Lis.Battle.Quest
 
             bvm.OnVaseBroken += CheckDestroyable;
             OnQuestCompleted += () => bvm.OnVaseBroken -= CheckDestroyable;
-
-            TotalAmount = 2; // HERE: testing
         }
 
         void CheckDestroyable(BreakableVaseController vaseController)

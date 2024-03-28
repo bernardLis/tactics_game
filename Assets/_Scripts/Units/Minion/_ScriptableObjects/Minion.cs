@@ -31,7 +31,6 @@ namespace Lis.Units.Minion
             }
 
             MaxHealth.BonusValue = 0;
-            Debug.Log("Minion " + UnitName + " max health:" + MaxHealth.GetValue());
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 

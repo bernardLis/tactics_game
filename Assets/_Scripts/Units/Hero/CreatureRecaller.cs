@@ -35,6 +35,12 @@ namespace Lis
         void StartCreatureRecall(InputAction.CallbackContext context)
         {
             if (this == null) return;
+            if (_battleManager.Hero.Troops.Count == 0)
+            {
+                _battleManager.HeroController.DisplayFloatingText("No Creatures To Recall!", Color.red);
+                return; // HERE: recall failed sound
+            }
+
             Debug.Log("Creature recall started");
             if (_recallCoroutine != null) return;
             _recallCoroutine = RecallCoroutine();
@@ -58,7 +64,6 @@ namespace Lis
             {
                 yield return new WaitForSeconds(1);
                 currentDelay++;
-                Debug.Log("Recalling creatures: " + currentDelay + "s");
             }
 
             float creatureRecallDelay = 1.5f / _battleManager.Hero.Troops.Count;
