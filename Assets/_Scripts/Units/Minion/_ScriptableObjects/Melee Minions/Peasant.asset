@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: bca815dd-5293-40cd-80b8-09dba9299f3f
   UnitName: Peasant
-  Icon: {fileID: 21300000, guid: 6c1766314e2f43444b247160656d9ef5, type: 3}
+  Icon: {fileID: 21300000, guid: 772021f7479baeb419a98908bded2a23, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 1f254419908660c48aaf441d2df58b09, type: 3}
+  - {fileID: 21300000, guid: 772021f7479baeb419a98908bded2a23, type: 3}
   Price: 5
   Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
@@ -32,7 +32,7 @@ MonoBehaviour:
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: 35c46375ece550f4c80ee63fdd3fe0da, type: 2}
   Power: {fileID: 11400000, guid: bae7ec3255841244281c070f838dc298, type: 2}
-  GfxPrefab: {fileID: 7177606250843362213, guid: e4fd54d2320f4954286ca84afd62b4a9, type: 3}
   AvailableNatures:
   - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   LevelRange: {x: 0, y: 3}
+  IsMiniBoss: 0

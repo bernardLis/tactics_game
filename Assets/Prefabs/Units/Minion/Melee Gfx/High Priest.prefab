@@ -1361,8 +1361,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2645193809559602725, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: m_Name
-      value: Commander 4
+      value: High Priest
       objectReference: {fileID: 0}
+    - target: {fileID: 4472405804361595243, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 8daca6e0ba9ad9049beae27729b3a670, type: 2}
     - target: {fileID: 9130588416791660596, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: _meshRenderers.Array.size
       value: 1

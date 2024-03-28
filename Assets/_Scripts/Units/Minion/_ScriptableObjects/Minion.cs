@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units.Minion
 {
@@ -36,10 +37,15 @@ namespace Lis.Units.Minion
 
         public void SetMiniBoss()
         {
-            Debug.Log("SetMiniBoss");
             IsMiniBoss = true;
             MaxHealth.BaseValue *= 20;
             CurrentHealth.SetValue(MaxHealth.GetValue());
+            Speed.SetBonusValue(0.5f);
+        }
+
+        public void SetRandomNature()
+        {
+            Nature = AvailableNatures[Random.Range(0, AvailableNatures.Count)];
         }
 
         public void SetNature(NatureName natureName)

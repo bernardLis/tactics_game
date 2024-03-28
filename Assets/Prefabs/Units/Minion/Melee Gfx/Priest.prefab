@@ -1066,7 +1066,7 @@ Transform:
   m_Children:
   - {fileID: 5518901723956421650}
   m_Father: {fileID: 7716017347627280999}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.186299, y: 17.203243, z: 163.67363}
 --- !u!1 &7929735154256036194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,8 +1244,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2645193809559602725, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: m_Name
-      value: Commander 9
+      value: Priest
       objectReference: {fileID: 0}
+    - target: {fileID: 4472405804361595243, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 8daca6e0ba9ad9049beae27729b3a670, type: 2}
     - target: {fileID: 9130588416791660596, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: _meshRenderers.Array.size
       value: 0

@@ -28,11 +28,18 @@ namespace Lis.Battle.Fight
                 points -= 5;
             }
 
+            Debug.Log("Wave " + waveIndex + " Points: " + points + " Level: " + minionLevel);
             List<Minion> availableMinions = new(_gameManager.UnitDatabase.GetMinionsByLevelRange(minionLevel));
+            foreach (Minion m in availableMinions)
+            {
+                Debug.Log(m.UnitName);
+            }
+
             for (int i = 0; i < points; i++)
             {
                 Minion minion = Instantiate(availableMinions[Random.Range(0, availableMinions.Count)]);
                 minion.Level.SetValue(minionLevel);
+                minion.SetRandomNature();
                 minion.InitializeBattle(1);
                 Minions.Add(minion);
             }

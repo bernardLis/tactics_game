@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: bca815dd-5293-40cd-80b8-09dba9299f3f
   UnitName: Priest
-  Icon: {fileID: 21300000, guid: 6c1766314e2f43444b247160656d9ef5, type: 3}
+  Icon: {fileID: 21300000, guid: 746d74f8ab15bbb42a058c9edec697de, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 1f254419908660c48aaf441d2df58b09, type: 3}
+  - {fileID: 21300000, guid: 746d74f8ab15bbb42a058c9edec697de, type: 3}
   Price: 5
   Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
@@ -32,7 +32,6 @@ MonoBehaviour:
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: 08fc5735d83e8a043853565cbdfbaf47, type: 2}
   Power: {fileID: 11400000, guid: 6a27a4a67348e40418f9c56c4c7b61ad, type: 2}
-  GfxPrefab: {fileID: 6594688136076488454, guid: 04844fab3c406c94f9a17e1cbe64cc41, type: 3}
   AvailableNatures:
   - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
@@ -40,3 +39,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   LevelRange: {x: 2, y: 6}
+  IsMiniBoss: 0

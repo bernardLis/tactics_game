@@ -972,7 +972,7 @@ Transform:
   m_Children:
   - {fileID: 8499355183912839272}
   m_Father: {fileID: 7661936712654093214}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.962838, y: 2.454785, z: 173.33849}
 --- !u!1 &6121427165528702463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2645193809559602725, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: m_Name
-      value: Commander 5
+      value: King
       objectReference: {fileID: 0}
     - target: {fileID: 9130588416791660596, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: _meshRenderers.Array.size

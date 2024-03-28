@@ -29,11 +29,12 @@ namespace Lis.Battle.Fight
             const int numberOfWaves = 2;
             for (int i = 0; i < numberOfWaves; i++)
             {
-                int points = 6 + EnemyWaves.Count + i;
+                // TODO: balance math minion spawning
+                int points = 6 + EnemyWaves.Count;
                 points = Mathf.Clamp(points, 2, 300);
 
                 EnemyWave wave = CreateInstance<EnemyWave>();
-                wave.CreateWave(EnemyWaves.Count + i, points, _hero.Level.Value);
+                wave.CreateWave(EnemyWaves.Count, points, _hero.Level.Value);
                 EnemyWaves.Add(wave);
             }
         }

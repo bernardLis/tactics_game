@@ -1278,7 +1278,7 @@ Transform:
   m_Children:
   - {fileID: 8362791851488698752}
   m_Father: {fileID: 7076230302475091811}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.2418878, y: 6.2030344, z: 172.4421}
 --- !u!1 &9213251148856970106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,8 +1360,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2645193809559602725, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: m_Name
-      value: Commander 10
+      value: Spearman
       objectReference: {fileID: 0}
+    - target: {fileID: 4472405804361595243, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 6dcc72e08454ee2468e98125ebf23ae7, type: 2}
     - target: {fileID: 9130588416791660596, guid: 23650837d05dc2343b1a5e4e6b0715a7, type: 3}
       propertyPath: _meshRenderers.Array.size
       value: 0

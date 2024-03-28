@@ -23,7 +23,7 @@ namespace Lis.Battle.Fight
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
 
-        readonly bool _debugSpawnMinion = true;
+        readonly bool _debugSpawnMinion = false;
 
         HeroController _heroController;
 

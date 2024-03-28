@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: bca815dd-5293-40cd-80b8-09dba9299f3f
   UnitName: Spearman
-  Icon: {fileID: 21300000, guid: 6c1766314e2f43444b247160656d9ef5, type: 3}
+  Icon: {fileID: 21300000, guid: b732869e5689f3044b1ade9f8f455f6b, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 1f254419908660c48aaf441d2df58b09, type: 3}
+  - {fileID: 21300000, guid: b732869e5689f3044b1ade9f8f455f6b, type: 3}
   Price: 5
   Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
@@ -32,7 +32,6 @@ MonoBehaviour:
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: 194ece6107c7f02448367d45fb893dfa, type: 2}
   Power: {fileID: 11400000, guid: c1f4af522c942ad4d9b862e6c63a4a20, type: 2}
-  GfxPrefab: {fileID: 4170599948098777758, guid: 1454615e0b6108d429eabd7de5dedaf4, type: 3}
   AvailableNatures:
   - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
@@ -40,3 +39,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   LevelRange: {x: 3, y: 10}
+  IsMiniBoss: 0

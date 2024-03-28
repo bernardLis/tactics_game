@@ -16,6 +16,7 @@ namespace Lis.Core
         bool _isFinished;
 
         public event Action OnAnimationFinished;
+
         public AnimationElement(Sprite[] animationSprites, int delayBetweenSprites, bool isLoop, bool noStyles = false)
         {
             if (!noStyles)
@@ -30,6 +31,7 @@ namespace Lis.Core
             _isLoop = isLoop;
 
             style.backgroundImage = new StyleBackground(_animationSprites[0]);
+            style.backgroundSize = new BackgroundSize(BackgroundSizeType.Contain);
         }
 
         public void SwapAnimationSprites(Sprite[] animationSprites)
@@ -39,11 +41,30 @@ namespace Lis.Core
             style.backgroundImage = new StyleBackground(_animationSprites[0]);
         }
 
-        public void SetLoop(bool isLoop) { _isLoop = isLoop; }
-        public bool IsAnimationFinished() { return _isFinished; }
-        public void PlayAnimation() { _animationScheduler = schedule.Execute(Animate).Every(_delay); }
-        public void PauseAnimation() { _animationScheduler.Pause(); }
-        public void ResumeAnimation() { _animationScheduler.Resume(); }
+        public void SetLoop(bool isLoop)
+        {
+            _isLoop = isLoop;
+        }
+
+        public bool IsAnimationFinished()
+        {
+            return _isFinished;
+        }
+
+        public void PlayAnimation()
+        {
+            _animationScheduler = schedule.Execute(Animate).Every(_delay);
+        }
+
+        public void PauseAnimation()
+        {
+            _animationScheduler.Pause();
+        }
+
+        public void ResumeAnimation()
+        {
+            _animationScheduler.Resume();
+        }
 
         void Animate()
         {
@@ -56,8 +77,10 @@ namespace Lis.Core
                     FinishAnimation();
                     return;
                 }
+
                 _animationSpriteIndex = 0;
             }
+
             style.backgroundImage = new StyleBackground(_animationSprites[_animationSpriteIndex]);
             _animationSpriteIndex++;
         }
