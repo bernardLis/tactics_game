@@ -48,12 +48,12 @@ MonoBehaviour:
   _skinnedMeshRenderers: []
   _minionMaterials:
   - NatureName: 9
-    Material: {fileID: 2100000, guid: cf1fa6c73dc509448863697c25254027, type: 2}
+    Material: {fileID: 2100000, guid: fe69adac92d11544ab520f27fc3491cb, type: 2}
   - NatureName: 3
-    Material: {fileID: 2100000, guid: 32515cc96492c6d4ab732a997912d2e0, type: 2}
+    Material: {fileID: 2100000, guid: d97bfa8b9d17b1c4e8fb2faa436194dc, type: 2}
   - NatureName: 0
-    Material: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
+    Material: {fileID: 2100000, guid: dc42dddb3ef13944d86a1d6e4cba4552, type: 2}
   - NatureName: 1
-    Material: {fileID: 2100000, guid: 792a4bad9e08b8e41bfbd3f0b8aac1ab, type: 2}
+    Material: {fileID: 2100000, guid: 3f3bd29863fb6b146aedcf508909f740, type: 2}
   - NatureName: 2
-    Material: {fileID: 2100000, guid: f9ec407a080d408459742617c9dc6607, type: 2}
+    Material: {fileID: 2100000, guid: 71093f3a148663e48844e1d16209201b, type: 2}
