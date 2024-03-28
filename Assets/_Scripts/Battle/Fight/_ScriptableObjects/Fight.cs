@@ -13,14 +13,13 @@ namespace Lis.Battle.Fight
         public int CurrentWaveIndex;
         public float DelayBetweenWaves;
 
-        Hero _hero;
+        public int CurrentDifficulty;
+
         public event Action OnWaveSpawned;
 
         public void CreateFight()
         {
-            _hero = BattleManager.Instance.Hero;
-
-            DelayBetweenWaves = Random.Range(10, 20);
+            DelayBetweenWaves = 15; // Random.Range(10, 20);
             CreateWaves();
         }
 
@@ -30,11 +29,13 @@ namespace Lis.Battle.Fight
             for (int i = 0; i < numberOfWaves; i++)
             {
                 // TODO: balance math minion spawning
-                int points = 6 + EnemyWaves.Count;
+                CurrentDifficulty = Mathf.FloorToInt(EnemyWaves.Count / 5);
+
+                int points = 10 + EnemyWaves.Count * 2;
                 points = Mathf.Clamp(points, 2, 300);
 
                 EnemyWave wave = CreateInstance<EnemyWave>();
-                wave.CreateWave(EnemyWaves.Count, points, _hero.Level.Value);
+                wave.CreateWave(EnemyWaves.Count, points, CurrentDifficulty);
                 EnemyWaves.Add(wave);
             }
         }

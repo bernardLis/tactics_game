@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,28 +23,32 @@ namespace Lis.Battle.Pickup
         [FormerlySerializedAs("ExpOrbs")] [SerializeField]
         List<ExperienceStone> _expOrbs = new();
 
+
+        Fight.Fight _currentFight;
         public event Action<Pickup> OnPickupCollected;
 
         public void Initialize()
         {
             CreatePool(_pickupControllerPrefab.gameObject);
+
+            _currentFight = GetComponent<FightManager>().CurrentFight;
         }
 
-        public void SpawnExpOrb(Vector3 position)
+        public void SpawnExpStone(Vector3 position)
         {
-            ExperienceStone stone = ChooseExpOrb();
+            ExperienceStone stone = ChooseExpStone();
             if (stone == null) return;
             PickupController pickupController = GetObjectFromPool();
             pickupController.Initialize(stone, position);
             pickupController.OnCollected += PickupCollected;
         }
 
-        ExperienceStone ChooseExpOrb()
+        ExperienceStone ChooseExpStone()
         {
             int v = Random.Range(0, 101);
             List<ExperienceStone> possibleOrbs = new();
             foreach (ExperienceStone orb in _expOrbs)
-                if (v <= orb.OrbChance)
+                if (v <= orb.OrbChance && _currentFight.CurrentDifficulty >= orb.MinDifficulty)
                     possibleOrbs.Add(orb);
 
             // return the exp orb with the lowest chance

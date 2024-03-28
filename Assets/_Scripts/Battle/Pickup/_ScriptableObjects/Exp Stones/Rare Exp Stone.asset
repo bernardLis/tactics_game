@@ -22,3 +22,4 @@ MonoBehaviour:
   CollectSound: {fileID: 11400000, guid: f32181805f67be742827dec30fa6a2e0, type: 2}
   Amount: 10
   OrbChance: 2
+  MinDifficulty: 4

@@ -7,7 +7,7 @@ namespace Lis.Battle
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Battle")]
     public class Battle : BaseScriptableObject
     {
-        public int Duration = 1200;
+        public int Duration = 900;
         public Stats Stats;
 
         public Boss Boss;

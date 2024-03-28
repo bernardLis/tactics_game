@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Minion;
@@ -9,6 +10,11 @@ namespace Lis.Battle.Fight
     public class EnemyWave : BaseScriptableObject
     {
         GameManager _gameManager;
+
+        public int WaveIndex;
+        public int Points;
+        public int MinionLevel;
+
         public List<Minion> Minions = new();
         public Unit RangedOpponent;
 
@@ -21,6 +27,10 @@ namespace Lis.Battle.Fight
         {
             _gameManager = GameManager.Instance;
 
+            WaveIndex = waveIndex;
+            Points = points;
+            MinionLevel = minionLevel;
+
             int val = Random.Range(0, 100);
             if (points > 10 && val > 70)
             {
@@ -28,13 +38,7 @@ namespace Lis.Battle.Fight
                 points -= 5;
             }
 
-            Debug.Log("Wave " + waveIndex + " Points: " + points + " Level: " + minionLevel);
             List<Minion> availableMinions = new(_gameManager.UnitDatabase.GetMinionsByLevelRange(minionLevel));
-            foreach (Minion m in availableMinions)
-            {
-                Debug.Log(m.UnitName);
-            }
-
             for (int i = 0; i < points; i++)
             {
                 Minion minion = Instantiate(availableMinions[Random.Range(0, availableMinions.Count)]);
@@ -49,7 +53,14 @@ namespace Lis.Battle.Fight
 
             // mini boss
             if (waveIndex > 1 && waveIndex % 5 == 0)
-                Minions[Random.Range(0, Minions.Count)].SetMiniBoss();
+                AddMiniBoss();
+        }
+
+
+        void AddRangedOpponent()
+        {
+            RangedOpponent = Instantiate(_gameManager.UnitDatabase.GetRandomRangedOpponent());
+            RangedOpponent.InitializeBattle(1);
         }
 
         void SingleElementWave()
@@ -66,10 +77,19 @@ namespace Lis.Battle.Fight
             RangedOpponent = Instantiate(_gameManager.UnitDatabase.GetRangedOpponentByNature(n));
         }
 
-        void AddRangedOpponent()
+        void AddMiniBoss()
         {
-            RangedOpponent = Instantiate(_gameManager.UnitDatabase.GetRandomRangedOpponent());
-            RangedOpponent.InitializeBattle(1);
+            List<Minion> minions = _gameManager.UnitDatabase.GetAllMinions();
+            minions = minions.OrderBy(m => m.LevelRange.x).ToList();
+            int index = Mathf.FloorToInt(MinionLevel / 5);
+            if (index >= minions.Count) index = minions.Count - 1;
+            Minion miniBoss = Instantiate(minions[index]);
+
+            miniBoss.SetMiniBoss();
+            miniBoss.Level.SetValue(MinionLevel);
+            miniBoss.SetRandomNature();
+            miniBoss.InitializeBattle(1);
+            Minions.Add(miniBoss);
         }
     }
 }

@@ -317,7 +317,7 @@ namespace Lis.Units
         void ResolveLoot()
         {
             if (Team == 0) return;
-            PickupManager.SpawnExpOrb(transform.position);
+            PickupManager.SpawnExpStone(transform.position);
         }
 
         public IEnumerator GetPoisoned(CreatureController attacker)

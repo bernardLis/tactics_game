@@ -309,7 +309,7 @@ namespace Lis.Core
             Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
             spawnExpOrbButton.clickable.clicked += () =>
             {
-                BattleManager.Instance.GetComponent<PickupManager>().SpawnExpOrb(Vector3.zero);
+                BattleManager.Instance.GetComponent<PickupManager>().SpawnExpStone(Vector3.zero);
             };
             _otherFoldout.Add(spawnExpOrbButton);
         }

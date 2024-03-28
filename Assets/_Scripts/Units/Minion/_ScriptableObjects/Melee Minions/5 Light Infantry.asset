@@ -10,33 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d2ec455ebafa6440ad4ec19290d0df1, type: 3}
-  m_Name: Priest
+  m_Name: 5 Light Infantry
   m_EditorClassIdentifier: 
   Id: bca815dd-5293-40cd-80b8-09dba9299f3f
-  UnitName: Priest
-  Icon: {fileID: 21300000, guid: 746d74f8ab15bbb42a058c9edec697de, type: 3}
+  UnitName: Light Infantry
+  Icon: {fileID: 21300000, guid: 04ff44984817d2543942cf1cfbf31eca, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 746d74f8ab15bbb42a058c9edec697de, type: 3}
+  - {fileID: 21300000, guid: 04ff44984817d2543942cf1cfbf31eca, type: 3}
   Price: 5
   Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   Prefab: {fileID: 6266213777921296780, guid: 9d6674f7658479d43af29e2105a7ca03, type: 3}
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Team: 1
-  Armor: {fileID: 11400000, guid: f032b84d23489274daedf42f8faf4017, type: 2}
-  MaxHealth: {fileID: 11400000, guid: bdff55cdb866d3541bf14c6948de80f2, type: 2}
+  Armor: {fileID: 11400000, guid: e6566d8bfb5fb374593542c7b2cc9b86, type: 2}
+  MaxHealth: {fileID: 11400000, guid: f5978154f8de81f4b940dee38599e303, type: 2}
   CurrentHealth: {fileID: 0}
-  Level: {fileID: 11400000, guid: a49393b0a9a6be44396d6b9b46d61fe8, type: 2}
+  Level: {fileID: 11400000, guid: 1c418aa82cc850d4b85e6fc6495b02a3, type: 2}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  Speed: {fileID: 11400000, guid: 08fc5735d83e8a043853565cbdfbaf47, type: 2}
-  Power: {fileID: 11400000, guid: 6a27a4a67348e40418f9c56c4c7b61ad, type: 2}
+  Speed: {fileID: 11400000, guid: 5070327b4fc993e4ca4f71cd32d756d4, type: 2}
+  Power: {fileID: 11400000, guid: c1cd10f0e65298749b008e64f446463b, type: 2}
   AvailableNatures:
   - {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  LevelRange: {x: 2, y: 6}
+  LevelRange: {x: 5, y: 8}
   IsMiniBoss: 0

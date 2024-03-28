@@ -127,7 +127,7 @@ namespace Lis.Units.Minion
             int v = Random.Range(3, 8);
             Debug.Log($"Spawning {v} exp orbs");
             for (int i = 0; i < v; i++)
-                PickupManager.SpawnExpOrb(transform.position +
+                PickupManager.SpawnExpStone(transform.position +
                                           new Vector3(Random.Range(-1f, 1f), 2, Random.Range(-1f, 1f)));
             transform.localScale = Vector3.one * 0.5f;
             _miniBossEffect.SetActive(false);

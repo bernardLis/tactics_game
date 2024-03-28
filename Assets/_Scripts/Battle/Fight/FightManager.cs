@@ -8,6 +8,8 @@ using Lis.Units.Hero;
 using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -19,13 +21,16 @@ namespace Lis.Battle.Fight
         InputManager _inputManager;
         RangedOpponentManager _rangedOpponentManager;
 
-        Fight _currentFight;
+        public Fight CurrentFight;
 
         [Header("Minion")] [SerializeField] GameObject _minionPrefab;
 
         readonly bool _debugSpawnMinion = false;
 
         HeroController _heroController;
+
+        VisualElement _debugInfoContainer;
+        Label _debugInfoLabel;
 
         public void Initialize()
         {
@@ -39,6 +44,7 @@ namespace Lis.Battle.Fight
             _inputManager.OnRightMouseClick += DebugSpawnMinion;
             _inputManager.OnOneClicked += DebugSpawnRangedOpponent;
 #endif
+            SetupDebugInfo();
 
             CreatePool(_minionPrefab);
 
@@ -48,12 +54,18 @@ namespace Lis.Battle.Fight
             StartCoroutine(StartFight());
         }
 
+        void SetupDebugInfo()
+        {
+            _debugInfoLabel = new Label();
+            _debugInfoContainer = BattleManager.Instance.Root.Q<VisualElement>("fightDebugContainer");
+            _debugInfoContainer.Add(_debugInfoLabel);
+        }
 
         void CreateFight()
         {
             Fight fight = ScriptableObject.CreateInstance<Fight>();
             fight.CreateFight();
-            _currentFight = fight;
+            CurrentFight = fight;
         }
 
         IEnumerator StartFight()
@@ -65,14 +77,14 @@ namespace Lis.Battle.Fight
                 // HERE: testing
                 if (_battleManager.IsGameLoopBlocked)
                 {
-                    yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
+                    yield return new WaitForSeconds(CurrentFight.DelayBetweenWaves);
                     continue;
                 }
 
                 if (_battleManager.BattleFinalized) yield break;
 
                 SpawnWave();
-                yield return new WaitForSeconds(_currentFight.DelayBetweenWaves);
+                yield return new WaitForSeconds(CurrentFight.DelayBetweenWaves);
             }
         }
 
@@ -82,8 +94,15 @@ namespace Lis.Battle.Fight
 
         public void SpawnWave()
         {
-            EnemyWave wave = _currentFight.GetCurrentWave();
+            EnemyWave wave = CurrentFight.GetCurrentWave();
+            UpdateDebugInfo(wave);
             StartCoroutine(SpawnWaveCoroutine(wave));
+        }
+
+        void UpdateDebugInfo(EnemyWave wave)
+        {
+            _debugInfoLabel.text =
+                "Wave: " + wave.WaveIndex + " Points: " + wave.Points + " Level: " + wave.MinionLevel;
         }
 
         IEnumerator SpawnWaveCoroutine(EnemyWave wave)
@@ -91,7 +110,7 @@ namespace Lis.Battle.Fight
             yield return SpawnMinions(wave);
             if (wave.RangedOpponent != null)
                 SpawnRangedOpponent(wave.RangedOpponent);
-            _currentFight.SpawningWaveFinished();
+            CurrentFight.SpawningWaveFinished();
             yield return null;
         }
 

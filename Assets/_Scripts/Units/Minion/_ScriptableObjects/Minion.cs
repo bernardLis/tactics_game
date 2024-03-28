@@ -22,9 +22,7 @@ namespace Lis.Units.Minion
             base.InitializeBattle(team);
             if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
 
-            if (Level.Value <= 1) return;
-
-            for (int i = 1; i < Level.Value; i++)
+            for (int i = 1; i < Level.Value - LevelRange.x; i++) // bonus stats for higher level minions
             {
                 MaxHealth.LevelUp();
                 Armor.LevelUp();

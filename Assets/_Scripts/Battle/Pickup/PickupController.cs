@@ -81,7 +81,7 @@ namespace Lis.Battle.Pickup
 
             Vector3 position = transform.position;
             _audioManager.PlaySfx(Pickup.CollectSound, position);
-            Destroy(Instantiate(Pickup.CollectEffect, position, Quaternion.identity), 1f);
+            // Destroy(Instantiate(Pickup.CollectEffect, position, Quaternion.identity), 1f);
 
             float punchDuration = 0.5f;
             transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1);

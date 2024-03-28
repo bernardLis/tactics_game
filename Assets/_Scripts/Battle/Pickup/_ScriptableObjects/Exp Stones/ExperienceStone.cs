@@ -8,6 +8,7 @@ namespace Lis.Battle.Pickup
     {
         public int Amount;
         public int OrbChance;
+        public int MinDifficulty;
 
         public override void Collected(Hero hero)
         {
