@@ -3,6 +3,7 @@ using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Creature;
+using Lis.Units.Hero.Ability;
 using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,7 +17,6 @@ namespace Lis.Battle
         const string _ussClassName = "stats-battle-element__";
         const string _ussMain = _ussClassName + "main";
         const string _ussPanel = _ussClassName + "panel";
-
 
         const string _ussCreatureContainer = _ussClassName + "creature-container";
         const string _ussCreatureLabel = _ussClassName + "creature-label";
@@ -67,14 +67,15 @@ namespace Lis.Battle
 
         void PopulateLeftPanel()
         {
-            AddTotalGold();
-            AddTimeSurvived();
-            AddTilesUnlocked();
+            AddAbilityStats();
         }
 
         void PopulateMiddlePanel()
         {
             _middlePanel.Add(new PickupStatsElement(_stats));
+            AddTotalGold();
+            AddTimeSurvived();
+            AddTilesUnlocked();
         }
 
         void PopulateRightPanel()
@@ -82,6 +83,14 @@ namespace Lis.Battle
             AddFriendBallsThrown();
             AddMinionsKilled();
             AddCreatureKills();
+        }
+
+        void AddAbilityStats()
+        {
+            foreach (Ability a in _battleManager.Hero.GetAllAbilities())
+            {
+                _leftPanel.Add(new AbilityStatsElement(a));
+            }
         }
 
         void AddTotalGold()
@@ -94,13 +103,13 @@ namespace Lis.Battle
 
             GoldElement el = new(_battleManager.GoldCollected);
             container.Add(el);
-            _leftPanel.Add(container);
+            _middlePanel.Add(container);
         }
 
         void AddTimeSurvived()
         {
             VisualElement container = new();
-            _leftPanel.Add(container);
+            _middlePanel.Add(container);
 
             int minutes = Mathf.FloorToInt(_battleManager.GetTime() / 60f);
             int seconds = Mathf.FloorToInt(_battleManager.GetTime() - minutes * 60);
@@ -114,7 +123,7 @@ namespace Lis.Battle
         void AddTilesUnlocked()
         {
             VisualElement container = new();
-            _leftPanel.Add(container);
+            _middlePanel.Add(container);
 
             Label text = new($"Tiles unlocked: {_stats.TilesUnlocked}");
             container.Add(text);

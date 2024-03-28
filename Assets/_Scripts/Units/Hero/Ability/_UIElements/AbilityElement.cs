@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace Lis.Units.Hero.Ability
 {
-    public class Element : ElementWithTooltip
+    public class AbilityElement : ElementWithTooltip
     {
         const string _ussCommonTextPrimary = "common__text-primary";
         const string _ussCommonButtonBasic = "common__button-basic";
@@ -25,7 +25,7 @@ namespace Lis.Units.Hero.Ability
 
         OverlayTimerElement _cooldownTimer;
 
-        public Element(Ability ability, bool showLevel = false, int size = 100)
+        public AbilityElement(Ability ability, bool showLevel = false, int size = 100)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
@@ -118,7 +118,7 @@ namespace Lis.Units.Hero.Ability
 
         protected override void DisplayTooltip()
         {
-            TooltipElement tt = new(_ability);
+            AbilityTooltipElement tt = new(_ability);
             _tooltip = new(this, tt);
             base.DisplayTooltip();
         }

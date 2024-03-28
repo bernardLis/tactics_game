@@ -22,7 +22,7 @@ namespace Lis
                 txt.style.color = rewardAbility.Ability.Nature.Color.Primary;
             }
 
-            Add(new Element(rewardAbility.Ability, size: 200));
+            Add(new AbilityElement(rewardAbility.Ability, size: 200));
 
             Label nameLabel = new(Helpers.ParseScriptableObjectName(rewardAbility.Ability.name));
             nameLabel.style.whiteSpace = WhiteSpace.Normal;

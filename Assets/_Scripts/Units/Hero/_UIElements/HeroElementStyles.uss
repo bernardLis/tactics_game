@@ -3,7 +3,7 @@
 }
 
 .hero-element__button-guide-container {
-    margin-left: 12px;
+    margin-right: 12px;
     padding: 6px;
     font-size: 24px;
 }

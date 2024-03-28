@@ -22,7 +22,7 @@ namespace Lis.Units.Minion
             base.InitializeBattle(team);
             if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
 
-            for (int i = 1; i < Level.Value - LevelRange.x; i++) // bonus stats for higher level minions
+            for (int i = 0; i < Level.Value - LevelRange.x; i++) // bonus stats for higher level minions
             {
                 MaxHealth.LevelUp();
                 Armor.LevelUp();
@@ -30,13 +30,15 @@ namespace Lis.Units.Minion
                 Power.LevelUp();
             }
 
+            MaxHealth.BonusValue = 0;
+            Debug.Log("Minion " + UnitName + " max health:" + MaxHealth.GetValue());
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 
         public void SetMiniBoss()
         {
             IsMiniBoss = true;
-            MaxHealth.BaseValue *= 20;
+            MaxHealth.BonusValue = MaxHealth.GetValue() * 20;
             CurrentHealth.SetValue(MaxHealth.GetValue());
             Speed.SetBonusValue(0.5f);
         }

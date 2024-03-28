@@ -85,10 +85,10 @@ namespace Lis.Battle.Fight
             if (index >= minions.Count) index = minions.Count - 1;
             Minion miniBoss = Instantiate(minions[index]);
 
-            miniBoss.SetMiniBoss();
             miniBoss.Level.SetValue(MinionLevel);
             miniBoss.SetRandomNature();
             miniBoss.InitializeBattle(1);
+            miniBoss.SetMiniBoss();
             Minions.Add(miniBoss);
         }
     }

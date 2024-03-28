@@ -1,8 +1,8 @@
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
+using Lis.Units.Hero.Ability;
 using UnityEngine.UIElements;
-using Element = Lis.Units.Hero.Ability.Element;
 
 namespace Lis.HeroSelection._UIElements
 {
@@ -28,7 +28,7 @@ namespace Lis.HeroSelection._UIElements
             AddNameAndElement();
             AddStatsContainer();
 
-            Add(new Element(hero.StartingAbility));
+            Add(new AbilityElement(hero.StartingAbility));
             Add(new HorizontalSpacerElement());
             Add(new Label($"Times picked: {hero.TimesPicked}"));
         }

@@ -17,7 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Description: 
   BaseValue: 10
-  BonusValue: 0
+  BonusValue: 19980
   IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 10, y: 10}
   MinMaxValue: {x: 0, y: 999}

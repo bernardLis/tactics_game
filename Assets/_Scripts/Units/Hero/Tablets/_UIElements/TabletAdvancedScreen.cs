@@ -1,7 +1,7 @@
 using Lis.Core;
+using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Element = Lis.Units.Hero.Ability.Element;
 
 namespace Lis.Units.Hero.Tablets
 {
@@ -11,7 +11,7 @@ namespace Lis.Units.Hero.Tablets
         const string _ussMain = _ussClassName + "main";
 
         readonly TabletAdvanced _tabletAdvanced;
-        Element _element;
+        AbilityElement _abilityElement;
 
         public TabletAdvancedScreen(TabletAdvanced tabletAdvanced)
         {
@@ -75,9 +75,9 @@ namespace Lis.Units.Hero.Tablets
             a.InitializeBattle(BattleManager.Hero);
             BattleManager.Hero.AddAbility(a);
 
-            _element = new(a, false, 200);
+            _abilityElement = new(a, false, 200);
 
-            container.Add(_element);
+            container.Add(_abilityElement);
 
             AddContinueButton();
         }

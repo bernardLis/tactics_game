@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lis.Battle;
 using Lis.Core;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
@@ -44,6 +45,9 @@ namespace Lis.Units.Hero.Ability
         float _cooldownMultiplier = 1f;
         float _scaleMultiplier = 1f;
 
+        public int BattleTimeActivated;
+        public int DamageDealt;
+
         Hero _hero;
 
         public void InitializeBattle(Hero hero)
@@ -56,6 +60,18 @@ namespace Lis.Units.Hero.Ability
 
             _cooldownMultiplier = 1 - cooldownUpgrade * 0.01f;
             _scaleMultiplier = 1 + scaleUpgrade * 0.01f;
+
+            BattleTimeActivated = Mathf.FloorToInt(BattleManager.Instance.GetTime());
+        }
+
+        public void AddDamageDealt(int dmg)
+        {
+            DamageDealt += dmg;
+        }
+
+        public float GetDpsSinceActive()
+        {
+            return DamageDealt / (BattleManager.Instance.GetTime() - BattleTimeActivated);
         }
 
         public void StartCooldown()

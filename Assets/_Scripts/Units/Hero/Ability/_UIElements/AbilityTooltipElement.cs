@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace Lis.Units.Hero.Ability
 {
-    public class TooltipElement : VisualElement
+    public class AbilityTooltipElement : VisualElement
     {
         const string _ussCommonTextPrimary = "common__text-primary";
         const string _ussCommonTextSecondary = "common__text-secondary";
@@ -12,7 +12,7 @@ namespace Lis.Units.Hero.Ability
         const string _ussClassName = "ability-tooltip-element__";
         const string _ussMain = _ussClassName + "main";
 
-        public TooltipElement(Ability ability)
+        public AbilityTooltipElement(Ability ability)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
             if (ss != null)

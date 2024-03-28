@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Creature;
+using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Element = Lis.Units.Hero.Ability.Element;
 
 namespace Lis.Units.Hero
 {
@@ -77,6 +77,8 @@ namespace Lis.Units.Hero
             _topContainer = new();
             _topContainer.style.flexDirection = FlexDirection.Row;
             _topContainer.style.justifyContent = Justify.SpaceBetween;
+            _topContainer.style.paddingTop = 12;
+            _topContainer.style.paddingBottom = 12;
             Add(_topContainer);
 
             _teamContainer = new();
@@ -187,13 +189,13 @@ namespace Lis.Units.Hero
 
             foreach (Ability.Ability ability in _hero.GetAllAbilities())
             {
-                Element icon = new(ability, true);
+                AbilityElement icon = new(ability, true);
                 container.Add(icon);
             }
 
             _hero.OnAbilityAdded += (a) =>
             {
-                Element icon = new(a, true);
+                AbilityElement icon = new(a, true);
                 container.Add(icon);
             };
         }
@@ -229,11 +231,13 @@ namespace Lis.Units.Hero
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             container.style.alignItems = Align.Center;
+            container.style.paddingBottom = 12;
+            container.style.paddingTop = 12;
             _heroInfoContainer.Add(container);
 
             foreach (Ability.Ability ability in _hero.GetAllAbilities())
             {
-                Element icon = new(ability, true);
+                AbilityElement icon = new(ability, true);
                 container.Add(icon);
             }
 
@@ -257,7 +261,7 @@ namespace Lis.Units.Hero
                     slots.RemoveAt(0);
                 }
 
-                Element icon = new(a, true);
+                AbilityElement icon = new(a, true);
                 container.Insert(_hero.Abilities.Count - 1, icon);
 
                 if (a.Nature.IsAdvanced && slots.Count > 0)

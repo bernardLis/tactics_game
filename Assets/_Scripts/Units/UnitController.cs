@@ -229,7 +229,9 @@ namespace Lis.Units
             if (BattleManager == null) yield break;
             AddToLog($"Unit gets attacked by {ability.name}");
 
-            BaseGetHit(Unit.CalculateDamage(ability), ability.Nature.Color.Secondary);
+            int damage = Unit.CalculateDamage(ability);
+            ability.AddDamageDealt(damage);
+            BaseGetHit(damage, ability.Nature.Color.Secondary);
 
             if (Unit.CurrentHealth.Value <= 0)
                 ability.AddKill();
