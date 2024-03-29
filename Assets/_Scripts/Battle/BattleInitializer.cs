@@ -11,7 +11,7 @@ namespace Lis.Battle
     public class BattleInitializer : MonoBehaviour
     {
         GameManager _gameManager;
-        
+
         void Start()
         {
             _gameManager = GameManager.Instance;
@@ -35,7 +35,7 @@ namespace Lis.Battle
             GetComponent<BattleManager>().Initialize(h);
             GetComponent<GrabManager>().Initialize();
             GetComponent<AreaManager>().SecureHomeTile();
-            
+
             yield return new WaitForSeconds(2f);
             GetComponent<TooltipManager>().Initialize();
             GetComponent<FightManager>().Initialize();

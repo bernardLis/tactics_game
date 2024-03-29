@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Home
+  m_Name: Friend Ball Production
   m_EditorClassIdentifier: 
   Id: aec54af4-00a8-4051-a909-02725381dbc2
-  Icon: {fileID: 21300000, guid: cdbd17a156c768645ac49c74924c9c4b, type: 3}
+  Icon: {fileID: 21300000, guid: 03a5277d38fd7ed458a92035d81c32c3, type: 3}
   Description: Friend ball production, produces x friend balls and stops production
     until they are picked up.
   Type: 2
   Levels:
-  - {fileID: 11400000, guid: 495d4596885cfd443aed4f5d13cedc47, type: 2}
+  - {fileID: 11400000, guid: 52ad6bee04fb1f24faf141d377bd3ed8, type: 2}
+  - {fileID: 11400000, guid: 1ca88a0c3da505844bd82c86e43f7db0, type: 2}
+  - {fileID: 11400000, guid: 93e590b820a48d64892eef89f8bc2c77, type: 2}
   CurrentLevel: -1
-  PermanentlyUnlocked: 1
-  TilePrefab: {fileID: 1365502149142884417, guid: 13c25e7cebeba2e42be3aab554d16b1d, type: 3}
+  PermanentlyUnlocked: 0
+  TilePrefab: {fileID: 939000242625945888, guid: 7b716a5f8fd709f4dbe3ce08e90cb639, type: 3}

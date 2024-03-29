@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Shell Lair
+  m_Name: Shell Lair
   m_EditorClassIdentifier: 
   Id: fc9271c8-9ec1-44b6-ae73-dcc8f2a3b7c1
   Icon: {fileID: 21300000, guid: 973bc37610f9b934fa01495b27f5fb7a, type: 3}

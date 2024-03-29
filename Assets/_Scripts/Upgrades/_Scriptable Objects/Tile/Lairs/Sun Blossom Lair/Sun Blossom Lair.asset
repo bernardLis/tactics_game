@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Sun Blossom Lair
+  m_Name: Sun Blossom Lair
   m_EditorClassIdentifier: 
   Id: 66b45b4b-ec2d-4017-b388-5db49c13e364
   Icon: {fileID: 21300000, guid: 88bfc829c2c9b6e47bb74802d2e51819, type: 3}

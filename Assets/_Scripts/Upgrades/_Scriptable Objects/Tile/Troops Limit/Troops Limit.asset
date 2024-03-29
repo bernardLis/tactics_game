@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Troops Limit Building
+  m_Name: Troops Limit
   m_EditorClassIdentifier: 
   Id: c67e035d-0d4c-4d5f-8f67-07768b00e0b0
   Icon: {fileID: 21300000, guid: 61a253738a9148c42b8246d535efd2b0, type: 3}

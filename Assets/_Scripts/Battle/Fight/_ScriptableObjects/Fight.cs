@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
 {
     public class Fight : BaseScriptableObject
     {
+        HeroController _heroController;
+
         public List<EnemyWave> EnemyWaves = new();
         public int CurrentWaveIndex;
         public float DelayBetweenWaves;
@@ -19,32 +20,30 @@ namespace Lis.Battle.Fight
 
         public void CreateFight()
         {
+            _heroController = BattleManager.Instance.HeroController;
             DelayBetweenWaves = 15; // Random.Range(10, 20);
-            CreateWaves();
+            CreateWave();
         }
 
-        void CreateWaves()
+        void CreateWave()
         {
-            const int numberOfWaves = 2;
-            for (int i = 0; i < numberOfWaves; i++)
-            {
-                // TODO: balance math minion spawning
-                CurrentDifficulty = Mathf.FloorToInt(EnemyWaves.Count / 5);
+            // TODO: balance math minion spawning
+            CurrentDifficulty = Mathf.FloorToInt(EnemyWaves.Count / 5);
+            Debug.Log($"_heroController.GetCurrentThreatLevel(): {_heroController.GetCurrentThreatLevel()}");
+            CurrentDifficulty += _heroController.GetCurrentThreatLevel();
 
-                int points = 10 + EnemyWaves.Count * 2;
-                points = Mathf.Clamp(points, 2, 300);
+            int points = 10 + EnemyWaves.Count * 2;
+            points = Mathf.Clamp(points, 2, 300);
 
-                EnemyWave wave = CreateInstance<EnemyWave>();
-                wave.CreateWave(EnemyWaves.Count, points, CurrentDifficulty);
-                EnemyWaves.Add(wave);
-            }
+            EnemyWave wave = CreateInstance<EnemyWave>();
+            wave.CreateWave(EnemyWaves.Count, points, CurrentDifficulty);
+            EnemyWaves.Add(wave);
         }
 
         public void SpawningWaveFinished()
         {
             CurrentWaveIndex++;
-            if (CurrentWaveIndex < EnemyWaves.Count)
-                CreateWaves();
+            CreateWave();
             OnWaveSpawned?.Invoke();
         }
 

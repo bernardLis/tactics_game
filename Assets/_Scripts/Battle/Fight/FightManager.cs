@@ -8,7 +8,6 @@ using Lis.Units.Hero;
 using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 

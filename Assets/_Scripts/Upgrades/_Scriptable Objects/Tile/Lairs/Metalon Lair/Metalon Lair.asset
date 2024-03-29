@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Metalon Lair
+  m_Name: Metalon Lair
   m_EditorClassIdentifier: 
   Id: 6bc6e863-5234-40dd-a516-896b7dff98e7
   Icon: {fileID: 21300000, guid: 06a042d8d1cba28468cb45ec7894c63b, type: 3}

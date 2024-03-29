@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Wolf Lair
+  m_Name: Practice Dummy Lair
   m_EditorClassIdentifier: 
-  Id: 8066d75a-0d8a-47d7-98df-fb88485ae2fc
-  Icon: {fileID: 21300000, guid: 1f8c5bd40d28bfd48a6accad9e36ce3c, type: 3}
+  Id: 4e8cb3fe-6ab4-4506-ac4d-6603ab7f67a0
+  Icon: {fileID: 21300000, guid: 4af239bb9dbc4ee44be0b0e3a05eb55f, type: 3}
   Description: 
   Type: 2
   Levels:
-  - {fileID: 11400000, guid: 43b2d9c5e6462b14ea4f4200c8f7627f, type: 2}
-  - {fileID: 11400000, guid: aca1049c59523a44d9771dabed1277f1, type: 2}
-  - {fileID: 11400000, guid: c1a7d45eb3920214d80dc617c7d681e0, type: 2}
+  - {fileID: 11400000, guid: db2e4435a8882b6449e314fadb58f72b, type: 2}
+  - {fileID: 11400000, guid: af89e73be4f0bbd4baa8718e5cf0d673, type: 2}
+  - {fileID: 11400000, guid: a0dc422e53ba0314185110370a369e1a, type: 2}
   CurrentLevel: -1
   PermanentlyUnlocked: 0
-  TilePrefab: {fileID: 5841589855020612578, guid: 54352f5d70ad4d84baa0734d309527cf, type: 3}
+  TilePrefab: {fileID: 5841589855020612578, guid: 1e82badb2ed5f664e867b4bce71f3550, type: 3}

@@ -17,6 +17,8 @@ namespace Lis.Units.Hero
         [Header("Hero")]
         [SerializeField] GameObject _tileSecuredMarkerPrefab;
 
+        ThreatLevelController _threatLevelController;
+
         public override void InitializeGameObject()
         {
             base.InitializeGameObject();
@@ -46,6 +48,17 @@ namespace Lis.Units.Hero
             instance.SetActive(true);
 
             Destroy(instance, 8f);
+        }
+
+        public void SetThreatLevelController(ThreatLevelController threatLevelController)
+        {
+            _threatLevelController = threatLevelController;
+        }
+
+        public int GetCurrentThreatLevel()
+        {
+            if (_threatLevelController == null) return 0;
+            return _threatLevelController.GetThreatLevel();
         }
 
         public override void InitializeUnit(Unit unit, int team)

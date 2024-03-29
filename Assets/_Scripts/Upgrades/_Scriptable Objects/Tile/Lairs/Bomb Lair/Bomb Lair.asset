@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 563e52c8bfaeb6248bdc615e776da5ac, type: 3}
-  m_Name: Upgrade - Bud Lair
+  m_Name: Bomb Lair
   m_EditorClassIdentifier: 
-  Id: 7dd77fa9-b3d0-480b-8f34-55a419c15c88
-  Icon: {fileID: 21300000, guid: fc97335eae445cd4d86554b9ecc4a09c, type: 3}
+  Id: ae2f288c-9b84-4250-97de-57a0fb0b3af0
+  Icon: {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
   Description: 
   Type: 2
   Levels:
-  - {fileID: 11400000, guid: be909507bb6583143a03042105fada68, type: 2}
-  - {fileID: 11400000, guid: 3ffa6f9fbb49f70478d1934caf548e0b, type: 2}
-  - {fileID: 11400000, guid: 087cc8de8c045124ebc5f516f7c3951b, type: 2}
+  - {fileID: 11400000, guid: 189beae96f8c22a42bb72edc06f8401b, type: 2}
+  - {fileID: 11400000, guid: 6fcead915a831164ab9296c5b64dd464, type: 2}
+  - {fileID: 11400000, guid: f3019e705535abb4ca0091b17cec313a, type: 2}
   CurrentLevel: -1
   PermanentlyUnlocked: 0
-  TilePrefab: {fileID: 5841589855020612578, guid: 85b3139ee006ad94698cc616fcfab14f, type: 3}
+  TilePrefab: {fileID: 5841589855020612578, guid: eb2c8542780ac9346a9c677ba3178414, type: 3}

@@ -34,7 +34,9 @@ namespace Lis.Battle.Tiles
 
         [Header("Unlocked")]
         public List<BorderController> Borders = new();
+
         [SerializeField] Sound _unlockSound;
+        public ThreatLevelController ThreatLevelController;
 
         public float Scale { get; private set; }
 
@@ -63,6 +65,8 @@ namespace Lis.Battle.Tiles
             _objectShaders = GetComponent<ObjectShaders>();
             MeshRenderer mr = _surface.GetComponent<MeshRenderer>();
             mr.material = _materials[Random.Range(0, _materials.Length)];
+            ThreatLevelController = GetComponentInChildren<ThreatLevelController>();
+            ThreatLevelController.Initialize(this);
         }
 
         // when tile next to it is unlocked

@@ -257,6 +257,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4678796601906987245}
   - {fileID: 266379397262207586}
   - {fileID: 6330205466427307380}
   - {fileID: 982266612229736899}
@@ -307,6 +308,7 @@ MonoBehaviour:
   _questImage: {fileID: 1516699989418446543}
   Borders: []
   _unlockSound: {fileID: 11400000, guid: a3f459a0cfcc24a4998aff8e4adafcc2, type: 2}
+  ThreatLevelController: {fileID: 0}
   Upgrade: {fileID: 0}
 --- !u!1 &1545300450884362017
 GameObject:
@@ -6179,6 +6181,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2b0cf06869d904186e5046b13b475f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8056240417553135767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4678796601906987245}
+  - component: {fileID: 5207564579773969429}
+  - component: {fileID: 7073180173841693901}
+  m_Layer: 2
+  m_Name: Tile Threat Level Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4678796601906987245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8056240417553135767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5103032281565103522}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5207564579773969429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8056240417553135767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24ed0e5f2bb82145b36b25769792934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7073180173841693901
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8056240417553135767}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 50, y: 1, z: 50}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9037706177036480167
 GameObject:
   m_ObjectHideFlags: 0
