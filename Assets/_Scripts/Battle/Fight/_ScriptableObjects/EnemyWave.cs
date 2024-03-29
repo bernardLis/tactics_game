@@ -23,7 +23,7 @@ namespace Lis.Battle.Fight
          * Minions cost 1 point, ranged opponents cost 5 points
          *
          */
-        public void CreateWave(int waveIndex, int points, int minionLevel)
+        public void CreateWave(int waveIndex, int points, int minionLevel, int threatLevel)
         {
             _gameManager = GameManager.Instance;
 
@@ -42,7 +42,7 @@ namespace Lis.Battle.Fight
             for (int i = 0; i < points; i++)
             {
                 Minion minion = Instantiate(availableMinions[Random.Range(0, availableMinions.Count)]);
-                minion.Level.SetValue(minionLevel);
+                minion.Level.SetValue(minionLevel + threatLevel);
                 minion.SetRandomNature();
                 minion.InitializeBattle(1);
                 Minions.Add(minion);
