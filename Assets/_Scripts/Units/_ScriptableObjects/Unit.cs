@@ -116,10 +116,14 @@ namespace Lis.Units
         public int CalculateDamage(Ability ability)
         {
             float damage = ability.GetPower();
-
             damage *= GetElementalDamageMultiplier(ability.Nature);
 
-            // abilities ignore armor
+            if (!ability.IsArmorPiercing)
+                damage -= Armor.GetValue();
+
+            if (damage < 0)
+                damage = 0;
+
             return Mathf.RoundToInt(damage);
         }
 

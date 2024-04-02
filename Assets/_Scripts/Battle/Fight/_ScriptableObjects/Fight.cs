@@ -34,7 +34,7 @@ namespace Lis.Battle.Fight
             points = Mathf.Clamp(points, 2, 300);
 
             EnemyWave wave = CreateInstance<EnemyWave>();
-            wave.CreateWave(EnemyWaves.Count, points, CurrentDifficulty, _heroController.GetCurrentThreatLevel());
+            wave.CreateWave(EnemyWaves.Count, points, CurrentDifficulty, 0); //_heroController.GetCurrentThreatLevel())
             EnemyWaves.Add(wave);
         }
 

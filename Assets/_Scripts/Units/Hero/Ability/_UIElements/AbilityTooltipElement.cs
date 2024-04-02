@@ -14,7 +14,8 @@ namespace Lis.Units.Hero.Ability
 
         public AbilityTooltipElement(Ability ability)
         {
-            StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
+            StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.AbilityTooltipElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -51,6 +52,12 @@ namespace Lis.Units.Hero.Ability
             Add(power);
             Add(cooldown);
             Add(scale);
+
+            if (!ability.IsArmorPiercing) return;
+
+            Label armorPiercing = new("Armor Piercing");
+            armorPiercing.AddToClassList(_ussCommonTextSecondary);
+            Add(armorPiercing);
         }
     }
 }

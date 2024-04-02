@@ -24,6 +24,7 @@ namespace Lis.Units.Hero.Ability
         public int Level;
 
         public List<Level> Levels;
+        public bool IsArmorPiercing;
 
         [FormerlySerializedAs("Element")] public Nature Nature;
         [HideInInspector] public int KillCount;
@@ -84,7 +85,7 @@ namespace Lis.Units.Hero.Ability
             float pow = Levels[Level].Power;
             if (_hero == null) return Mathf.FloorToInt(pow);
             pow += _hero.Power.GetValue(); // hero power
-            Tablet t = _hero.GetTabletByElement(Nature);
+            Tablet t = _hero.GetTabletByElement(Nature.NatureName);
             if (t != null) pow += pow * t.Level.Value * 0.1f; // elemental bonus - tablet level * 10%
 
 

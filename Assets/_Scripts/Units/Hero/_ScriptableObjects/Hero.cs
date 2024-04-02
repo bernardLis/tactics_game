@@ -119,9 +119,9 @@ namespace Lis.Units.Hero
         public override int GetExpForNextLevel()
         {
             // TODO: balance
-            const float exponent = 2f;
-            const float multiplier = 5f;
-            const int baseExp = 20;
+            const float exponent = 2.5f;
+            const float multiplier = 10f;
+            const int baseExp = 100;
 
             int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Level.Value, exponent));
             result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
@@ -133,7 +133,7 @@ namespace Lis.Units.Hero
         [Header("Tablets")] public List<Tablet> Tablets = new();
         public TabletAdvanced AdvancedTablet;
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
-        public Dictionary<Nature, Tablet> TabletsByElement = new();
+        public Dictionary<NatureName, Tablet> TabletsByElement = new();
 
         void CreateTablets()
         {
@@ -147,33 +147,67 @@ namespace Lis.Units.Hero
             }
         }
 
-        public Tablet GetTabletByElement(Nature nature)
+        public Tablet GetTabletByElement(NatureName natureName)
         {
             if (TabletsByElement.Count < Tablets.Count)
                 foreach (Tablet t in Tablets)
-                    TabletsByElement.Add(t.Nature, t);
+                    TabletsByElement.Add(t.Nature.NatureName, t);
 
-            return !TabletsByElement.ContainsKey(nature) ? null : TabletsByElement[nature];
+            return !TabletsByElement.ContainsKey(natureName) ? null : TabletsByElement[natureName];
         }
 
-        void CheckAdvancedTablets(Tablet _)
+        void CheckAdvancedTablets(Tablet tablet)
         {
             if (AdvancedTablet != null) return; // only one advanced tablet
+            if (!tablet.IsMaxLevel()) return;
 
-            NatureName firstNature = NatureName.None;
-            foreach (Tablet t in Tablets)
+            // TODO: this can be handled better
+            if (tablet.Nature.NatureName == NatureName.Earth)
             {
-                if (!t.IsMaxLevel()) continue;
-                if (firstNature == NatureName.None)
-                {
-                    firstNature = t.Nature.NatureName;
-                    continue;
-                }
-
-                NatureName secondNature = t.Nature.NatureName;
-                AddAdvancedTablet(firstNature, secondNature);
-                break;
+                if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Earth, NatureName.Fire);
+                else if (GetTabletByElement(NatureName.Water).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Earth, NatureName.Water);
             }
+
+            if (tablet.Nature.NatureName == NatureName.Fire)
+            {
+                if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Fire, NatureName.Earth);
+                else if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Fire, NatureName.Wind);
+            }
+
+            if (tablet.Nature.NatureName == NatureName.Water)
+            {
+                if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Water, NatureName.Wind);
+                else if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Water, NatureName.Earth);
+            }
+
+            if (tablet.Nature.NatureName == NatureName.Wind)
+            {
+                if (GetTabletByElement(NatureName.Water).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Wind, NatureName.Water);
+                else if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
+                    AddAdvancedTablet(NatureName.Wind, NatureName.Fire);
+            }
+
+            // NatureName firstNature = NatureName.None;
+            // foreach (Tablet t in Tablets)
+            // {
+            //     if (!t.IsMaxLevel()) continue;
+            //     if (firstNature == NatureName.None)
+            //     {
+            //         firstNature = t.Nature.NatureName;
+            //         continue;
+            //     }
+            //
+            //     NatureName secondNature = t.Nature.NatureName;
+            //     AddAdvancedTablet(firstNature, secondNature);
+            //     break;
+            // }
         }
 
         void AddAdvancedTablet(NatureName firstNature, NatureName secondNature)
@@ -184,7 +218,7 @@ namespace Lis.Units.Hero
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 
-            TabletsByElement.Add(AdvancedTablet.Nature, AdvancedTablet);
+            TabletsByElement.Add(AdvancedTablet.Nature.NatureName, AdvancedTablet);
 
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }

@@ -19,12 +19,11 @@ MonoBehaviour:
   Level: 0
   Levels:
   - {fileID: 11400000, guid: b3c1e49a5b0eb5b49b17bed909c4e841, type: 2}
-  - {fileID: 11400000, guid: 56470d1279e1583489d2bc774915712b, type: 2}
-  - {fileID: 11400000, guid: a13c93b828df9404296e08561da1d8f7, type: 2}
-  - {fileID: 11400000, guid: 74a3a456add4cf74faca136a775daf5f, type: 2}
-  - {fileID: 11400000, guid: 8299587406301494aa8e29ee626ba951, type: 2}
-  - {fileID: 11400000, guid: 531a1b45c9398104aa3d4efc534626cb, type: 2}
-  Element: {fileID: 11400000, guid: 0af18cfc89b2850438fb7d153a140d80, type: 2}
+  IsArmorPiercing: 1
+  Nature: {fileID: 11400000, guid: 0af18cfc89b2850438fb7d153a140d80, type: 2}
   KillCount: 228
   IsAdvanced: 1
   AbilityManagerPrefab: {fileID: 6441035112612074677, guid: efae6bdf4a6075a4582cc9e800be51f6, type: 3}
+  ExecuteSound: {fileID: 0}
+  BattleTimeActivated: 0
+  DamageDealt: 0

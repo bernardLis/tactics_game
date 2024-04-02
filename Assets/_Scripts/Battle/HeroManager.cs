@@ -94,7 +94,7 @@ namespace Lis.Battle
         void OnHeroLevelUp()
         {
             _levelUpScreen = new();
-            _audioManager.PlaySfx(_levelUpSound, HeroController.transform.position);
+            _audioManager.PlayUI(_levelUpSound);
             _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
         }
 

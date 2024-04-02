@@ -123,7 +123,7 @@ namespace Lis.Units.Projectile
             if (collision.gameObject.layer == Tags.UnpassableLayer ||
                 collision.gameObject.layer == Tags.BattleInteractableLayer)
             {
-                HitConnected();
+                CollideWithUnpassable(collision);
                 return;
             }
 
@@ -141,6 +141,11 @@ namespace Lis.Units.Projectile
                 HitConnected();
                 bbv.TriggerBreak();
             }
+        }
+
+        protected virtual void CollideWithUnpassable(Collision collision)
+        {
+            HitConnected();
         }
 
         protected bool IsTargetValid(UnitController unitController)

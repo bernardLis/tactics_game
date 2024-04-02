@@ -81,7 +81,6 @@ namespace Lis.Battle.Fight
             List<Minion> minions = _gameManager.UnitDatabase.GetAllMinions();
             minions = minions.OrderBy(m => m.LevelRange.x).ToList();
             int index = Mathf.FloorToInt(MinionLevel - 1);
-            Debug.Log("Mini boss Index: " + index);
             if (index >= minions.Count) index = minions.Count - 1;
             Minion miniBoss = Instantiate(minions[index]);
 
