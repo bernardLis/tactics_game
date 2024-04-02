@@ -25,8 +25,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a1cb2ac5c7bb5024fabb5e0048ab350d, type: 2}
   - {fileID: 11400000, guid: 0efade4cd54b60b4ea248922822fcee6, type: 2}
   - {fileID: 11400000, guid: d47de0b2ef91b56438b712a6f8e4ae2f, type: 2}
+  - {fileID: 11400000, guid: 4534da25570922241a7985eaefdf9078, type: 2}
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   KillCount: 228
   IsAdvanced: 0
   AbilityManagerPrefab: {fileID: 5429259200537196069, guid: 6044b0b563cdb83468432fa02919c2f3, type: 3}
   ExecuteSound: {fileID: 11400000, guid: 05eafebdb0d3da64a8b7ad733b42ce82, type: 2}
+  BattleTimeActivated: 71
+  DamageDealt: 0

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62df120f5241fe447afccb5c311b8b22, type: 3}
-  m_Name: 4
+  m_Name: 6
   m_EditorClassIdentifier: 
   Id: dc7ecfc6-1d82-4c75-8b20-7d04276d4d75
-  Power: 30
-  Cooldown: 2.4
-  Scale: 1.7
+  Power: 40
+  Cooldown: 2
+  Scale: 2
   Amount: 2
   Duration: 0.5

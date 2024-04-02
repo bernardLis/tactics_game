@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   Id: 08fe5652-6537-4974-abce-c474d837ba69
-  Level: 3
-  Power: 20
-  Cooldown: 1.5
+  Power: 50
+  Cooldown: 2
   Scale: 1
   Amount: 5
   Duration: 10

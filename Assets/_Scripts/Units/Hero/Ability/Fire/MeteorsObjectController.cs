@@ -31,8 +31,9 @@ namespace Lis.Units.Hero.Ability
             StartCoroutine(PlaySound());
 
             StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
-            yield return new WaitForSeconds(Ability.GetDuration());
+            yield return new WaitForSeconds(Ability.GetDuration() - 0.5f);
             StopSound();
+            yield return new WaitForSeconds(0.5f);
 
             yield return _circle.transform.DOScale(0, 1f).WaitForCompletion();
             _meteor.transform.DOScale(0, 0.5f).OnComplete(

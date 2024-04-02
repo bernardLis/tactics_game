@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: 5
   m_EditorClassIdentifier: 
   Id: dc7ecfc6-1d82-4c75-8b20-7d04276d4d75
-  Level: 6
   Power: 35
-  Cooldown: 2
-  Scale: 3
+  Cooldown: 2.3
+  Scale: 1.9
   Amount: 2
   Duration: 0.5
