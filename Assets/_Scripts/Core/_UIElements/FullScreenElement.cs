@@ -64,13 +64,13 @@ namespace Lis.Core
             _root.Add(this);
         }
 
-        protected void EnableNavigation()
+        void EnableNavigation()
         {
             RegisterCallback<PointerDownEvent>(OnPointerDown);
             RegisterCallback<KeyDownEvent>(OnKeyDown); // TODO: full screen management vs menu opening and closing
         }
 
-        public void DisableNavigation()
+        protected void DisableNavigation()
         {
             _isNavigationDisabled = true;
             UnregisterCallback<PointerDownEvent>(OnPointerDown);
@@ -96,7 +96,7 @@ namespace Lis.Core
 
         protected void AddContinueButton()
         {
-            ContinueButton = new("Continue", callback: Hide);
+            ContinueButton = new(callback: Hide);
             Content.Add(ContinueButton);
         }
 

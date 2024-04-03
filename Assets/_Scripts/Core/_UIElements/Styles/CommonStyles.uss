@@ -198,3 +198,13 @@
     height: 50%;
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/39_unlock.png?fileID=2800000&guid=345b005ffe8d5db47968d9c039e8b168&type=3#39_unlock");
 }
+
+.common__loading-screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-primary-dark);
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+}
+

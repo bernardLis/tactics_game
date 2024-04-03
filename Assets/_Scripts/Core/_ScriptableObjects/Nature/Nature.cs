@@ -11,7 +11,5 @@ namespace Lis.Core
         public string Description;
         public Nature StrongAgainst;
         public Nature WeakAgainst;
-
-        public bool IsAdvanced;
     }
 }

@@ -14,6 +14,11 @@ namespace Lis.Core
         public List<Sound> Sounds = new();
 
         [SerializeField] AudioMixer _mixer;
+        AudioMixerGroup _musicMixerGroup;
+        AudioMixerGroup _ambienceMixerGroup;
+        AudioMixerGroup _dialogueMixerGroup;
+        AudioMixerGroup _sfxMixerGroup;
+        AudioMixerGroup _uiMixerGroup;
 
         AudioSource _musicAudioSource;
         AudioSource _ambienceAudioSource;
@@ -30,9 +35,18 @@ namespace Lis.Core
         protected override void Awake()
         {
             base.Awake();
-
+            GetMixerGroups();
             PopulateAudioSources();
             SetPlayerPrefVolume();
+        }
+
+        void GetMixerGroups()
+        {
+            _musicMixerGroup = _mixer.FindMatchingGroups("Music")[0];
+            _ambienceMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
+            _dialogueMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
+            _sfxMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+            _uiMixerGroup = _mixer.FindMatchingGroups("UI")[0];
         }
 
         void PopulateAudioSources()
@@ -41,18 +55,18 @@ namespace Lis.Core
             musicGameObject.transform.parent = transform;
             _musicAudioSource = musicGameObject.AddComponent<AudioSource>();
             _musicAudioSource.loop = true;
-            _musicAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Music")[0];
+            _musicAudioSource.outputAudioMixerGroup = _musicMixerGroup;
 
             GameObject ambienceGameObject = new("Ambience");
             ambienceGameObject.transform.parent = transform;
             _ambienceAudioSource = ambienceGameObject.AddComponent<AudioSource>();
             _ambienceAudioSource.loop = true;
-            _ambienceAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
+            _ambienceAudioSource.outputAudioMixerGroup = _ambienceMixerGroup;
 
             GameObject dialogueGameObject = new("Dialogue");
             dialogueGameObject.transform.parent = transform;
             _dialogueAudioSource = dialogueGameObject.AddComponent<AudioSource>();
-            _dialogueAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
+            _dialogueAudioSource.outputAudioMixerGroup = _dialogueMixerGroup;
 
             _sfxAudioSources = new();
             for (int i = 0; i < 25; i++)
@@ -71,7 +85,7 @@ namespace Lis.Core
             a.spatialBlend = 1;
             a.rolloffMode = AudioRolloffMode.Custom;
             a.maxDistance = 50;
-            a.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+            a.outputAudioMixerGroup = _sfxMixerGroup;
 
             _sfxAudioSources.Add(a);
 
@@ -83,7 +97,7 @@ namespace Lis.Core
             GameObject uiGameObject = new("UI" + _uiAudioSources.Count);
             uiGameObject.transform.parent = transform;
             AudioSource a = uiGameObject.AddComponent<AudioSource>();
-            a.outputAudioMixerGroup = _mixer.FindMatchingGroups("UI")[0];
+            a.outputAudioMixerGroup = _uiMixerGroup;
 
             _uiAudioSources.Add(a);
 
@@ -278,6 +292,20 @@ namespace Lis.Core
         public void SetUIVolume(float volume)
         {
             _mixer.SetFloat("UIVolume", Mathf.Log(volume) * 20);
+        }
+
+
+        public void MuteAllButMusic()
+        {
+            _mixer.SetFloat("AmbienceVolume", -80);
+            _mixer.SetFloat("DialogueVolume", -80);
+            _mixer.SetFloat("SFXVolume", -80);
+            _mixer.SetFloat("UIVolume", -80);
+        }
+
+        public void UnmuteAll()
+        {
+            SetPlayerPrefVolume();
         }
     }
 }

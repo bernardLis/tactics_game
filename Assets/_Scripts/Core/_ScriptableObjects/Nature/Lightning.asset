@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 303cc20ba1ecef34aba314b3fc919c7f, type: 3}
+  m_Script: {fileID: 11500000, guid: d7703578573d52542b071a0a6819e843, type: 3}
   m_Name: Lightning
   m_EditorClassIdentifier: 
-  Id: 67e15bfb-5d18-4376-a97f-164fd58c07f3
+  Id: 8cf517de-3919-4ff2-ac61-e2a1db63a0f7
   NatureName: 4
   Icon: {fileID: 21300000, guid: 9a359ab235bedba4483a3302cee895d2, type: 3}
   Color: {fileID: 11400000, guid: 15999d5d58e996f4c924cb363a10ca4b, type: 2}
-  Description: Fire + Wind
-  StrongAgainst: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  WeakAgainst: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  IsAdvanced: 1
+  Description: 
+  StrongAgainst: {fileID: 0}
+  WeakAgainst: {fileID: 0}
+  FirstNature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  SecondNature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}

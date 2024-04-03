@@ -264,7 +264,7 @@ namespace Lis.Units.Hero
                 AbilityElement icon = new(a, true);
                 container.Insert(_hero.Abilities.Count - 1, icon);
 
-                if (a.Nature.IsAdvanced && slots.Count > 0)
+                if (a.Nature is NatureAdvanced && slots.Count > 0)
                     slots[^1].style.backgroundColor = Color.white;
             };
         }

@@ -9,28 +9,19 @@ namespace Lis.Battle
         const string _ussClassName = "finished-battle-screen__";
         const string _ussMain = _ussClassName + "lost-main";
 
-        public LostBattleScreen() : base()
+        public LostBattleScreen()
         {
-            _mainContainer.AddToClassList(_ussMain);
+            MainContainer.AddToClassList(_ussMain);
             AddButtons();
 
-            AudioManager audioManager = AudioManager.Instance;
-            audioManager.PlayDialogue(audioManager.GetSound("You Lost"));
-        }
-
-        protected override void AddTitle()
-        {
-            Label text = new("Battle lost!");
-            text.style.fontSize = 34;
-
-            _mainContainer.Add(text);
+            Title.text = "Battle lost!";
         }
 
         void AddButtons()
         {
             VisualElement container = new();
             container.style.alignItems = Align.Center;
-            _mainContainer.Add(container);
+            MainContainer.Add(container);
 
             MyButton noAdvantage = new("Back To Main Menu", USSCommonButton, BackToMainMenu);
             container.Add(noAdvantage);

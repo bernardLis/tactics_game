@@ -57,7 +57,7 @@ namespace Lis.Core
         public TabletAdvanced GetAdvancedTabletByElementNames(NatureName first, NatureName second)
         {
             foreach (TabletAdvanced t in _heroTabletsAdvanced)
-                if (t.IsMadeOfElements(GetElementByName(first), GetElementByName(second)))
+                if (t.IsMadeOfElements(GetNatureByName(first), GetNatureByName(second)))
                     return t;
             return null;
         }
@@ -128,12 +128,19 @@ namespace Lis.Core
         }
 
 
-        [Header("Elements")] [SerializeField]
-        Nature[] _elements;
+        [Header("Natures")] [SerializeField]
+        Nature[] _natures;
 
-        Nature GetElementByName(NatureName str)
+        Nature GetNatureByName(NatureName str)
         {
-            return _elements.FirstOrDefault(x => x.NatureName == str);
+            return _natures.FirstOrDefault(x => x.NatureName == str);
+        }
+
+        [SerializeField] NatureAdvanced[] _advancedNatures;
+
+        public NatureAdvanced GetRandomAdvancedNature()
+        {
+            return _advancedNatures[Random.Range(0, _advancedNatures.Length)];
         }
     }
 }

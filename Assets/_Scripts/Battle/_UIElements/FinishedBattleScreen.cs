@@ -7,30 +7,37 @@ namespace Lis.Battle
     {
         const string _ussClassName = "finished-battle-screen__";
         const string _ussMain = _ussClassName + "main";
+        protected AudioManager AudioManager;
 
-        protected VisualElement _mainContainer;
+        protected readonly VisualElement MainContainer;
+        protected readonly Label Title;
+        protected readonly Label SubTitle;
 
-        public FinishedBattleScreen() : base()
+        protected FinishedBattleScreen()
         {
-            var ss = GameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.FinishedBattleScreenStyles);
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.FinishedBattleStyles);
             if (ss != null) styleSheets.Add(ss);
+            AudioManager = AudioManager.Instance;
 
+            MainContainer = new();
+            MainContainer.AddToClassList(_ussMain);
+            Content.Add(MainContainer);
+            Content.style.width = Length.Percent(100);
+            Content.style.height = Length.Percent(100);
 
-            _mainContainer = new();
-            _mainContainer.AddToClassList(_ussMain);
-            Content.Add(_mainContainer);
+            Title = new();
+            Title.style.fontSize = 34;
+            MainContainer.Add(Title);
 
-            AddTitle();
+            SubTitle = new();
+            MainContainer.Add(SubTitle);
 
-            _mainContainer.Add(new StatsElement());
-            _mainContainer.Add(new HorizontalSpacerElement());
+            MainContainer.Add(new HorizontalSpacerElement());
+            MainContainer.Add(new StatsElement());
+            MainContainer.Add(new HorizontalSpacerElement());
 
             DisableNavigation();
-        }
-
-        protected virtual void AddTitle()
-        {
-            // meant to be overwritten
         }
     }
 }

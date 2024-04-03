@@ -52,7 +52,7 @@ namespace Lis.Core
         ConfirmPopupStyles,
         MenuStyles,
         SettingsScreenStyles,
-        FinishedBattleScreenStyles,
+        FinishedBattleStyles,
         TimerElementStyles,
         StarRankElementStyles,
         GoldElementStyles,

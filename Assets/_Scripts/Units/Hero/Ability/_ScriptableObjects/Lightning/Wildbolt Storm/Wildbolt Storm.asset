@@ -20,7 +20,7 @@ MonoBehaviour:
   Levels:
   - {fileID: 11400000, guid: 6620d8ed95f103340b0ab9e6fcaacdf5, type: 2}
   IsArmorPiercing: 1
-  Nature: {fileID: 11400000, guid: 7242fc082e4174940905433ec1f098e6, type: 2}
+  Nature: {fileID: 11400000, guid: 393b855c90410ae438db257e109ffcbc, type: 2}
   KillCount: 228
   IsAdvanced: 1
   AbilityManagerPrefab: {fileID: 5555423606146481828, guid: e182d88dfa470084a8655f71c181a11e, type: 3}

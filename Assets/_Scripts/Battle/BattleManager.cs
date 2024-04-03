@@ -259,8 +259,7 @@ namespace Lis.Battle
         {
             _audioManager.PlayUI(_battleWon);
             WonBattleScreen wonScreen = new();
-            wonScreen.OnFinishedPlaying += () => StartCoroutine(FinalizeBattle());
-            yield return null;
+            yield return FinalizeBattle();
         }
 
         IEnumerator FinalizeBattle()

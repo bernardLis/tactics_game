@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: ec6934a4-fbac-458f-8252-01211a3f819d
   Icon: {fileID: 21300000, guid: fffbc8e5b4510c3418a1a6e67ee6bb96, type: 3}
   Description: Ice, Ice Baby!
-  Element: {fileID: 11400000, guid: 6638e0f821e37d9458e6085e43d3e47f, type: 2}
+  Nature: {fileID: 11400000, guid: 0fa60ea52fcbb7d409bebb1b3549caa7, type: 2}
   Level: {fileID: 0}
   MaxLevel: 2
   PrimaryStat:
@@ -24,6 +24,6 @@ MonoBehaviour:
   SecondaryStat:
     StatType: 7
     Value: 0
-  FirstElement: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  SecondElement: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  FirstNature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  SecondNature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Ability: {fileID: 11400000, guid: 0e9852db2b4163c49b0f2b361030bd18, type: 2}

@@ -59,17 +59,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
   - {fileID: 11400000, guid: aad73a6a58d996e49ac3b0d6840cbf10, type: 2}
   - {fileID: 11400000, guid: 27f47900057df5040b9d68f946100613, type: 2}
-  MinionMaterials:
-  - NatureName: 9
-    Material: {fileID: 2100000, guid: cf1fa6c73dc509448863697c25254027, type: 2}
-  - NatureName: 3
-    Material: {fileID: 2100000, guid: 32515cc96492c6d4ab732a997912d2e0, type: 2}
-  - NatureName: 0
-    Material: {fileID: 2100000, guid: 98a7fdcb4ebb44344b4afe0424d44b82, type: 2}
-  - NatureName: 1
-    Material: {fileID: 2100000, guid: 792a4bad9e08b8e41bfbd3f0b8aac1ab, type: 2}
-  - NatureName: 2
-    Material: {fileID: 2100000, guid: f9ec407a080d408459742617c9dc6607, type: 2}
   CreatureIcons:
   - {fileID: 21300000, guid: f8897e4662a47cd468c4c7d4a3ccd308, type: 3}
   - {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
@@ -127,8 +116,13 @@ MonoBehaviour:
   - StatType: 8
     Sprite: {fileID: 21300000, guid: cef658720d4996b41a2ca08c93524c85, type: 3}
     Description: Bonus Exp
-  _elements:
+  _natures:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   - {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   - {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  _advancedNatures:
+  - {fileID: 11400000, guid: 0fa60ea52fcbb7d409bebb1b3549caa7, type: 2}
+  - {fileID: 11400000, guid: 393b855c90410ae438db257e109ffcbc, type: 2}
+  - {fileID: 11400000, guid: 85e247551d7a8d249bada267db628a26, type: 2}
+  - {fileID: 11400000, guid: bc393ef136c0a924fb52f91254b25411, type: 2}
