@@ -22,19 +22,19 @@ MonoBehaviour:
   OldDamageTaken: 0
   TotalDamageTaken: 0
   Team: 0
-  Armor: {fileID: 11400000, guid: cc4ee840fad7da74aa0785407ed1b430, type: 2}
-  MaxHealth: {fileID: 11400000, guid: 82661cd5bddc3f44d94feab9eaf761bd, type: 2}
+  Armor: {fileID: 11400000, guid: ecd49a1b093dd6a4c8f74c9d30937c15, type: 2}
+  MaxHealth: {fileID: 11400000, guid: 5c6f17419fea37c458b755b85a7e3e24, type: 2}
   CurrentHealth: {fileID: 0}
   Level: {fileID: 0}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  Speed: {fileID: 11400000, guid: e7ffcc7d601424748b15d27dff66e269, type: 2}
-  TimesPicked: 14
+  Speed: {fileID: 11400000, guid: f0e6de126b34376449a7f98ba3e15f75, type: 2}
+  TimesPicked: 19
   SelectorPrefab: {fileID: 3132514255091843268, guid: 4b2950c20462e61488191b844ca017fa, type: 3}
-  Power: {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
-  Pull: {fileID: 11400000, guid: 0f6eb857cfbce764a9cac1e2d7964a6e, type: 2}
-  BonusExp: {fileID: 11400000, guid: ae82378499959984b96144dbfbc3143c, type: 2}
+  Power: {fileID: 11400000, guid: ae27119d42a79af4894bea3a66b361f8, type: 2}
+  Pull: {fileID: 11400000, guid: 9e4a27dc8f7c4084292d8bb0a608bd43, type: 2}
+  BonusExp: {fileID: 11400000, guid: 126124eb1b0e2d04c98ecfece32de864, type: 2}
   NumberOfFriendBalls: 666
   TroopsLimit: {fileID: 0}
   Troops: []

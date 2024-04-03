@@ -58,6 +58,9 @@ namespace Lis.HeroSelection
             VisualElement arrowContainer = root.Q<VisualElement>("arrowContainer");
             _previousButton = new("<", _ussCommonButton, ShowPreviousHero);
             _nextButton = new(">", _ussCommonButton, ShowNextHero);
+            _previousButton.style.width = 150;
+            _nextButton.style.width = 150;
+
             arrowContainer.Add(_previousButton);
             arrowContainer.Add(_nextButton);
 
