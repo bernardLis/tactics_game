@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: 3
   m_EditorClassIdentifier: 
   Id: d93f7566-c951-4f19-a86e-d962cbf8a56f
-  Icon: {fileID: 0}
-  Cost: 300
+  Cost: 3000
   Value: 1
-  IsPurchased: 0
   Description: Bud Lair +2
   ProductionDelay: 10
   ProductionLimit: 3

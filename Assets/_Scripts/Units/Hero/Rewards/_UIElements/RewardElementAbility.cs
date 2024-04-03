@@ -16,13 +16,15 @@ namespace Lis
             Label txt = new($"Level {rewardAbility.Level}");
             Add(txt);
 
+            bool isUpgrade = true;
             if (!rewardAbility.IsUpgrade)
             {
                 txt.text = "New!";
                 txt.style.color = rewardAbility.Ability.Nature.Color.Primary;
+                isUpgrade = false;
             }
 
-            Add(new AbilityElement(rewardAbility.Ability, size: 200));
+            Add(new AbilityElement(rewardAbility.Ability, size: 200, isUpgrade: isUpgrade));
 
             Label nameLabel = new(Helpers.ParseScriptableObjectName(rewardAbility.Ability.name));
             nameLabel.style.whiteSpace = WhiteSpace.Normal;

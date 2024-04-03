@@ -72,6 +72,7 @@ namespace Lis.Units.Hero
             AssignAnimationIDs();
 
             _isSprintUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
+            Debug.Log("Sprint unlocked: " + _isSprintUnlocked);
         }
 
         IEnumerator DelayedStart(float delay)
@@ -167,7 +168,6 @@ namespace Lis.Units.Hero
         void SetSprinting(InputAction.CallbackContext ctx)
         {
             if (!_isSprintUnlocked) return;
-
             _isSprinting = true;
         }
 
@@ -205,7 +205,7 @@ namespace Lis.Units.Hero
             if (!IsGrounded()) return;
 
             float targetSpeed = MoveSpeed;
-            if (_isSprinting) targetSpeed *= 2f;
+            if (_isSprinting) targetSpeed *= 1.5f;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
             Vector3 velocity = _controller.velocity;

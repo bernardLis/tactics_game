@@ -82,34 +82,58 @@ namespace Lis.Units.Hero.Ability
 
         public int GetPower()
         {
-            float pow = Levels[Level].Power;
+            return GetPower(Level);
+        }
+
+        public int GetPower(int abilityLevel)
+        {
+            float pow = Levels[abilityLevel].Power;
             if (_hero == null) return Mathf.FloorToInt(pow);
             pow += _hero.Power.GetValue(); // hero power
             Tablet t = _hero.GetTabletByElement(Nature.NatureName);
             if (t != null) pow += pow * t.Level.Value * 0.1f; // elemental bonus - tablet level * 10%
-
 
             return Mathf.FloorToInt(pow);
         }
 
         public float GetCooldown()
         {
-            return Levels[Level].Cooldown * _cooldownMultiplier;
+            return GetCooldown(Level);
+        }
+
+        public float GetCooldown(int abilityLevel)
+        {
+            return Levels[abilityLevel].Cooldown * _cooldownMultiplier;
         }
 
         public float GetScale()
         {
-            return Levels[Level].Scale * _scaleMultiplier;
+            return GetScale(Level);
+        }
+
+        public float GetScale(int abilityLevel)
+        {
+            return Levels[abilityLevel].Scale * _scaleMultiplier;
         }
 
         public int GetAmount()
         {
-            return Levels[Level].Amount;
+            return GetAmount(Level);
+        }
+
+        public int GetAmount(int abilityLevel)
+        {
+            return Levels[abilityLevel].Amount;
         }
 
         public float GetDuration()
         {
-            return Levels[Level].Duration;
+            return GetDuration(Level);
+        }
+
+        public float GetDuration(int abilityLevel)
+        {
+            return Levels[abilityLevel].Duration;
         }
 
         public bool IsMaxLevel()

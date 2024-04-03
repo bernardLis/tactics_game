@@ -148,8 +148,8 @@ namespace Lis.Upgrades
             container.style.justifyContent = Justify.SpaceAround;
             Add(container);
 
-            MyButton unlockAllButton = new("Unlock All", _ussCommonButton, _upgradeBoard.UnlockAll);
-            container.Add(unlockAllButton);
+            // MyButton unlockAllButton = new("Unlock All", _ussCommonButton, _upgradeBoard.UnlockAll);
+            // container.Add(unlockAllButton);
 
             MyButton refundAllButton = new("Refund All", _ussCommonButton, RefundAll);
             container.Add(refundAllButton);

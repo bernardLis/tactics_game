@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   Id: d93f7566-c951-4f19-a86e-d962cbf8a56f
-  Icon: {fileID: 0}
-  Cost: 200
+  Cost: 2000
   Value: 0
-  IsPurchased: 0
   Description: 
   ProductionDelay: 15
   ProductionLimit: 2

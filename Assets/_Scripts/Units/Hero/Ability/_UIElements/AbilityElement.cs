@@ -25,7 +25,9 @@ namespace Lis.Units.Hero.Ability
 
         OverlayTimerElement _cooldownTimer;
 
-        public AbilityElement(Ability ability, bool showLevel = false, int size = 100)
+        bool _isUpgrade;
+
+        public AbilityElement(Ability ability, bool showLevel = false, int size = 100, bool isUpgrade = false)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.AbilityElementStyles);
@@ -35,6 +37,8 @@ namespace Lis.Units.Hero.Ability
 
             _ability = ability;
             _ability.OnCooldownStarted += StartCooldown;
+
+            _isUpgrade = isUpgrade;
 
             AddToClassList(_ussMain);
             AddToClassList(_ussCommonTextPrimary);
@@ -118,7 +122,7 @@ namespace Lis.Units.Hero.Ability
 
         protected override void DisplayTooltip()
         {
-            AbilityTooltipElement tt = new(_ability);
+            AbilityTooltipElement tt = new(_ability, _isUpgrade);
             _tooltip = new(this, tt);
             base.DisplayTooltip();
         }

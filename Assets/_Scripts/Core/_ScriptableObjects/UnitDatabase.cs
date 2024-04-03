@@ -54,10 +54,10 @@ namespace Lis.Core
             return _heroTabletsAdvanced.ToList();
         }
 
-        public TabletAdvanced GetAdvancedTabletByElementNames(NatureName first, NatureName second)
+        public TabletAdvanced GetAdvancedTabletByNatureNames(NatureName first, NatureName second)
         {
             foreach (TabletAdvanced t in _heroTabletsAdvanced)
-                if (t.IsMadeOfElements(GetNatureByName(first), GetNatureByName(second)))
+                if (t.IsMadeOfNatures(GetNatureByName(first), GetNatureByName(second)))
                     return t;
             return null;
         }

@@ -14,7 +14,10 @@ namespace Lis.Core
         LevelLoader _levelLoader;
 
         public GameDatabase GameDatabase;
-        [FormerlySerializedAs("EntityDatabase")] public UnitDatabase UnitDatabase;
+
+        [FormerlySerializedAs("EntityDatabase")]
+        public UnitDatabase UnitDatabase;
+
         public UpgradeBoard UpgradeBoard;
         public Stats GameStats;
 
@@ -49,19 +52,17 @@ namespace Lis.Core
             Debug.Log($"Game manager Start");
             _levelLoader = GetComponent<LevelLoader>();
             Root = GetComponent<UIDocument>().rootVisualElement;
+            Helpers.SetUpHelpers(Root);
 
             // HERE: testing
             // global save per 'game'
-            //  if (PlayerPrefs.GetString("saveName").Length == 0)
-            //   {
-            Helpers.SetUpHelpers(Root);
-            CreateNewSaveFile();
+            if (PlayerPrefs.GetString("saveName").Length == 0)
+                CreateNewSaveFile();
+            else
+                LoadFromSaveFile();
 
             UpgradeBoard.Initialize();
             UnitDatabase.Initialize();
-            //  }
-            //   else
-            //     LoadFromSaveFile();
         }
 
         // using Unity.Services.Analytics;
@@ -143,7 +144,7 @@ namespace Lis.Core
             SaveJsonData();
         }
 
-        public void LoadFromSaveFile()
+        void LoadFromSaveFile()
         {
             LoadJsonData(PlayerPrefs.GetString("saveName"));
         }
@@ -153,8 +154,8 @@ namespace Lis.Core
             SaveData sd = new SaveData();
             PopulateSaveData(sd);
             FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson());
-            //  if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
-            //    Debug.Log("Save successful");
+            // if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
+            //     Debug.Log("Save successful");
         }
 
         public void PopulateSaveData(SaveData saveData)

@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: 5
   m_EditorClassIdentifier: 
   Id: 002d4f29-decd-4492-9139-4c069a61391e
-  Icon: {fileID: 0}
-  Cost: 66666
+  Cost: 666666
   Value: 666
-  IsPurchased: 0
   Description: 666

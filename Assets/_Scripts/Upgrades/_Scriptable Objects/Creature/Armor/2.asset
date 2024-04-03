@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   Id: 002d4f29-decd-4492-9139-4c069a61391e
-  Icon: {fileID: 0}
-  Cost: 500
+  Cost: 5000
   Value: 1
-  IsPurchased: 0
   Description: Armor +2

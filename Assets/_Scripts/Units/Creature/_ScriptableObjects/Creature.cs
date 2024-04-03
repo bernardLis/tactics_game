@@ -10,12 +10,13 @@ namespace Lis.Units.Creature
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
     public class Creature : UnitFight
     {
-        public const int DeathPenaltyBase = 1; // HERE: testing 30
-        public const int DeathPenaltyPerLevel = 1; // 5
+        public const int DeathPenaltyBase = 30;
+        public const int DeathPenaltyPerLevel = 5;
 
         [Header("Creature")] public int UpgradeTier;
 
-        [FormerlySerializedAs("CreatureAbility")] public Ability.Ability Ability;
+        [FormerlySerializedAs("CreatureAbility")]
+        public Ability.Ability Ability;
 
         public GameObject Projectile;
         public GameObject HitPrefab;
@@ -49,14 +50,12 @@ namespace Lis.Units.Creature
         {
             float chance = _baseCatchingPower;
             // missing health %, *0.5f make it "less" important
-            float missingHealthPercent = (1 - (float)CurrentHealth.Value / (float)MaxHealth.GetValue()) * 0.5f;
+            float missingHealthPercent = (1 - CurrentHealth.Value / MaxHealth.GetValue()) * 0.5f;
             chance += missingHealthPercent;
             // difference in level between creature and hero
             int levelDifference = hero.Level.Value - Level.Value;
             chance += 0.1f * levelDifference;
-            return 1;
-
-            return chance; // HERE: return chance
+            return chance;
         }
 
         public void Caught(Hero.Hero hero)

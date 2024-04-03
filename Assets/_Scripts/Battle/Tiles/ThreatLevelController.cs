@@ -71,7 +71,7 @@ namespace Lis
             {
                 yield return new WaitForSeconds(1f);
                 _threatPoints++;
-                _threatLevelLabel.text = $"| Threat: {GetThreatLevel()}";
+                // _threatLevelLabel.text = $"| Threat: {GetThreatLevel()}";
                 if (this == null) yield break;
             }
         }

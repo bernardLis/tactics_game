@@ -30,7 +30,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   Speed: {fileID: 11400000, guid: e7ffcc7d601424748b15d27dff66e269, type: 2}
-  TimesPicked: 17
+  TimesPicked: 19
   SelectorPrefab: {fileID: 3132514255091843268, guid: fb940a831e7ea6c46b634c7bd4fc061a, type: 3}
   Power: {fileID: 11400000, guid: 9e00f072eb5ca4d4f995d842861d065f, type: 2}
   Pull: {fileID: 11400000, guid: 0f6eb857cfbce764a9cac1e2d7964a6e, type: 2}
@@ -40,6 +40,6 @@ MonoBehaviour:
   Troops: []
   Tablets: []
   AdvancedTablet: {fileID: 0}
-  StartingAbility: {fileID: 11400000, guid: d3be1b049ef58af4781420cf724c9025, type: 2}
+  StartingAbility: {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   Abilities: []
   AdvancedAbilities: []

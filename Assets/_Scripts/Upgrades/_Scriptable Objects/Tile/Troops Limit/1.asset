@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   Id: f483da7e-8c2a-48bd-be62-4f8c46256054
-  Cost: 0
+  Cost: 2000
   Value: 2
   Description: Building Increases Troops Limit By 2 When Unlocked

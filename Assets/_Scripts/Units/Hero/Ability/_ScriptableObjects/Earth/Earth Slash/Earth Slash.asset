@@ -31,5 +31,5 @@ MonoBehaviour:
   IsAdvanced: 0
   AbilityManagerPrefab: {fileID: 5437731499957775799, guid: df93a021cbf9cca4cb02c887bf8d8294, type: 3}
   ExecuteSound: {fileID: 11400000, guid: d5a7a5f2c1629f04d87fe32b64236003, type: 2}
-  BattleTimeActivated: 0
+  BattleTimeActivated: 4
   DamageDealt: 0

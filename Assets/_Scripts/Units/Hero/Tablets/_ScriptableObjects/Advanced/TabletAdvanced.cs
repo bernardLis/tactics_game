@@ -11,7 +11,7 @@ namespace Lis.Units.Hero.Tablets
         [Header("Advanced Tablet")]
         public Ability Ability;
 
-        public bool IsMadeOfElements(Nature firstNature, Nature secondNature)
+        public bool IsMadeOfNatures(Nature firstNature, Nature secondNature)
         {
             NatureAdvanced nature = (NatureAdvanced)Nature;
             return (nature.FirstNature == firstNature && nature.SecondNature == secondNature) ||

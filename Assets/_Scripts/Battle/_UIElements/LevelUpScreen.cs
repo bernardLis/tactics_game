@@ -176,8 +176,12 @@ namespace Lis.Battle
 
         void RunCardShow()
         {
-            _rerollButton.SetEnabled(false);
-            schedule.Execute(() => _rerollButton.SetEnabled(true)).StartingIn(_numberOfRewards * 200);
+            if (_rerollButton != null)
+            {
+                _rerollButton.SetEnabled(false);
+                schedule.Execute(() => _rerollButton.SetEnabled(true)).StartingIn(_numberOfRewards * 200);
+            }
+
             for (int i = 0; i < _numberOfRewards; i++)
             {
                 RewardElement card = _allRewardElements[i];

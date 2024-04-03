@@ -44,7 +44,7 @@ namespace Lis.Units.Hero
             base.InitializeBattle(team);
             UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
 
-            NumberOfFriendBalls = 666 + globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
+            NumberOfFriendBalls = globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
             TroopsLimit = CreateInstance<IntVariable>();
             TroopsLimit.SetValue(2 + globalUpgradeBoard.GetUpgradeByName("Starting Troops Limit").GetValue());
         }
@@ -161,38 +161,51 @@ namespace Lis.Units.Hero
             if (AdvancedTablet != null) return; // only one advanced tablet
             if (!tablet.IsMaxLevel()) return;
 
-            // TODO: this can be handled better
-            if (tablet.Nature.NatureName == NatureName.Earth)
+            Nature first = tablet.Nature;
+            foreach (Tablet t in Tablets)
             {
-                if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Earth, NatureName.Fire);
-                else if (GetTabletByElement(NatureName.Water).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Earth, NatureName.Water);
+                if (t.IsMaxLevel() && t != tablet)
+                {
+                    TabletAdvanced adv = _gameManager.UnitDatabase.GetAdvancedTabletByNatureNames(first.NatureName,
+                        t.Nature.NatureName);
+                    if (adv == null) continue;
+                    AddAdvancedTablet(adv);
+                    return;
+                }
             }
 
-            if (tablet.Nature.NatureName == NatureName.Fire)
-            {
-                if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Fire, NatureName.Earth);
-                else if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Fire, NatureName.Wind);
-            }
-
-            if (tablet.Nature.NatureName == NatureName.Water)
-            {
-                if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Water, NatureName.Wind);
-                else if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Water, NatureName.Earth);
-            }
-
-            if (tablet.Nature.NatureName == NatureName.Wind)
-            {
-                if (GetTabletByElement(NatureName.Water).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Wind, NatureName.Water);
-                else if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
-                    AddAdvancedTablet(NatureName.Wind, NatureName.Fire);
-            }
+            // // TODO: this can be handled better
+            // if (tablet.Nature.NatureName == NatureName.Earth)
+            // {
+            //     if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Earth, NatureName.Fire);
+            //     else if (GetTabletByElement(NatureName.Water).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Earth, NatureName.Water);
+            // }
+            //
+            // if (tablet.Nature.NatureName == NatureName.Fire)
+            // {
+            //     if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Fire, NatureName.Earth);
+            //     else if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Fire, NatureName.Wind);
+            // }
+            //
+            // if (tablet.Nature.NatureName == NatureName.Water)
+            // {
+            //     if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Water, NatureName.Wind);
+            //     else if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Water, NatureName.Earth);
+            // }
+            //
+            // if (tablet.Nature.NatureName == NatureName.Wind)
+            // {
+            //     if (GetTabletByElement(NatureName.Water).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Wind, NatureName.Water);
+            //     else if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
+            //         AddAdvancedTablet(NatureName.Wind, NatureName.Fire);
+            // }
 
             // NatureName firstNature = NatureName.None;
             // foreach (Tablet t in Tablets)
@@ -210,11 +223,8 @@ namespace Lis.Units.Hero
             // }
         }
 
-        void AddAdvancedTablet(NatureName firstNature, NatureName secondNature)
+        void AddAdvancedTablet(TabletAdvanced original)
         {
-            TabletAdvanced original =
-                _gameManager.UnitDatabase.GetAdvancedTabletByElementNames(firstNature, secondNature);
-            if (original == null) return;
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 

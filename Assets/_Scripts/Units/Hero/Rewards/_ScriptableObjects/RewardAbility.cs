@@ -19,8 +19,7 @@ namespace Lis.Units.Hero.Rewards
 
             Ability = GetValidAbility(otherRewardCards);
             if (Ability == null) return false;
-
-            Ability.InitializeBattle(hero);
+            Ability.Level = 0;
 
             foreach (Ability heroAbility in Hero.GetAllAbilities())
             {
@@ -28,15 +27,21 @@ namespace Lis.Units.Hero.Rewards
                 {
                     IsUpgrade = true;
                     Level = heroAbility.Level + 2;
+                    Ability.Level = heroAbility.Level + 1;
                 }
             }
+
+            Ability.InitializeBattle(hero);
 
             return true;
         }
 
         Ability GetValidAbility(List<RewardElement> otherRewardCards)
         {
-            List<Ability> validAbilities = new(GameManager.UnitDatabase.GetAllBasicAbilities());
+            List<Ability> validAbilities = new();
+            foreach (Ability a in GameManager.UnitDatabase.GetAllBasicAbilities())
+                validAbilities.Add(Instantiate(a));
+
             if (Hero.Abilities.Count >= 4) // HERE: ability limit
             {
                 validAbilities = new();
