@@ -44,7 +44,6 @@ namespace Lis.Units.Projectile
 
         protected override void CollideWithUnpassable(Collision collision)
         {
-            base.CollideWithUnpassable(collision);
             _dir = Vector3.Reflect(_dir, collision.contacts[0].normal);
             transform.rotation = Quaternion.LookRotation(_dir);
         }

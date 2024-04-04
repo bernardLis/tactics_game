@@ -20,7 +20,7 @@ namespace Lis.Battle.Quest
             Difficulty = level;
             CurrentAmount = 0;
             // TODO: quest balance
-            TotalAmount = Random.Range(Difficulty, Difficulty + 20) + Difficulty;
+            TotalAmount = Random.Range(20, 60);
         }
 
         public virtual void StartQuest()

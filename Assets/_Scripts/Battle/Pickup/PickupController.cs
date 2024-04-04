@@ -41,17 +41,20 @@ namespace Lis.Battle.Pickup
         {
             if (_gfx.childCount > 0)
                 Destroy(_gfx.GetChild(0).gameObject);
-            Instantiate(pickup.Gfx, _gfx);
+
+            Pickup = pickup;
+            Pickup.Initialize();
 
             Transform t = transform;
+            position.y = 0;
             t.position = position;
             gameObject.SetActive(true);
+
+            Instantiate(pickup.Gfx, _gfx);
 
             t.localScale = Vector3.zero;
             t.DOScale(1, 1f).SetEase(Ease.OutBack);
 
-            Pickup = pickup;
-            Pickup.Initialize();
             _audioManager.PlaySfx(pickup.DropSound, t.position);
 
             SetPickUpRadius(_hero.Pull.GetValue());

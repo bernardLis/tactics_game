@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 002d4f29-decd-4492-9139-4c069a61391e
   Cost: 10000
-  Value: 1
-  Description: Hero Armor +3
+  Value: 5
+  Description: Hero Armor +15

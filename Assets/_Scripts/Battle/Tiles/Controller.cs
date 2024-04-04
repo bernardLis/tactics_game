@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Tiles
 {
-    public class Controller : MonoBehaviour, IPointerDownHandler
+    public class Controller : MonoBehaviour
     {
         AudioManager _audioManager;
         BattleManager _battleManager;
@@ -263,14 +263,6 @@ namespace Lis.Battle.Tiles
 
             result = Vector3.zero;
             return false;
-        }
-
-        // HERE: tile unlocking debug
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (_floor.activeSelf) return;
-
-            Unlock();
         }
     }
 }

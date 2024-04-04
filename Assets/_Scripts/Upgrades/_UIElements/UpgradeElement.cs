@@ -21,7 +21,7 @@ namespace Lis.Upgrades
         const string _ussFill = _ussClassName + "fill";
 
         readonly GameManager _gameManager;
-        AudioManager _audioManager;
+        readonly AudioManager _audioManager;
 
         readonly Upgrade _upgrade;
 
@@ -69,6 +69,9 @@ namespace Lis.Upgrades
         {
             UpdateStars();
             UpdatePrice();
+
+            if (_upgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
+            else RemoveFromClassList(_ussFullyUnlocked);
         }
 
         void OnPointerEnter(PointerEnterEvent evt)
@@ -198,7 +201,6 @@ namespace Lis.Upgrades
 
             _gameManager.ChangeGoldValue(-_upgrade.GetNextLevel().Cost);
             _upgrade.Purchased();
-            if (_upgrade.IsMaxLevel()) AddToClassList(_ussFullyUnlocked);
 
             if (_swooshAudioSource != null)
             {

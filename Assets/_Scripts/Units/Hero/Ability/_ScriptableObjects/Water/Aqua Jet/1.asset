@@ -16,5 +16,5 @@ MonoBehaviour:
   Power: 40
   Cooldown: 4
   Scale: 1
-  Amount: 8
+  Amount: 6
   Duration: 10

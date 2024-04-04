@@ -13,29 +13,17 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  _buildings:
-  - {fileID: 11400000, guid: 72186956f81250a4e94865e577a8c087, type: 2}
-  - {fileID: 11400000, guid: 3be0f690158b8fa47aaf3e12523280f2, type: 2}
-  - {fileID: 11400000, guid: c67070e7bd7d87144bf7c12a3b18f928, type: 2}
-  - {fileID: 11400000, guid: 03bf3577c72574c4aaa8d29d34f83b1d, type: 2}
-  - {fileID: 11400000, guid: 287f21e936213c8469dbf9c19edd2da5, type: 2}
-  - {fileID: 11400000, guid: 578966bbe20e38f4fb09ae1fb83a4e1d, type: 2}
-  - {fileID: 11400000, guid: 1dcda9e6754528d4e8c9f5ecbc3169e7, type: 2}
-  - {fileID: 11400000, guid: 3a21aa73e5faf3c4f91e81f7988b67fd, type: 2}
-  - {fileID: 11400000, guid: c80c3a42ad75d2c4eb9d736f3f1b0e59, type: 2}
-  - {fileID: 11400000, guid: 608dd33a8d392154982fb7d3c3122b57, type: 2}
-  - {fileID: 11400000, guid: 44ca396e2884fea4198970b63aa3cddb, type: 2}
   QuestablePickups:
   - Pickup: {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
-    AmountRange: {x: 20, y: 30}
+    AmountRange: {x: 50, y: 90}
   - Pickup: {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
-    AmountRange: {x: 10, y: 20}
+    AmountRange: {x: 30, y: 50}
   - Pickup: {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
-    AmountRange: {x: 5, y: 15}
+    AmountRange: {x: 10, y: 30}
   - Pickup: {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
-    AmountRange: {x: 2, y: 7}
+    AmountRange: {x: 9, y: 15}
   - Pickup: {fileID: 11400000, guid: e4968ff107bfff3428c3f9674cbc81a3, type: 2}
-    AmountRange: {x: 20, y: 100}
+    AmountRange: {x: 50, y: 100}
   - Pickup: {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
     AmountRange: {x: 2, y: 5}
   - Pickup: {fileID: 11400000, guid: 73d49afde470c06499a6d8fb027d7551, type: 2}
