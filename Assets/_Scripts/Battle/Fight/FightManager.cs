@@ -31,6 +31,8 @@ namespace Lis.Battle.Fight
         VisualElement _debugInfoContainer;
         Label _debugInfoLabel;
 
+        IEnumerator _fightCoroutine;
+
         public void Initialize()
         {
             _battleManager = BattleManager.Instance;
@@ -50,8 +52,12 @@ namespace Lis.Battle.Fight
             _heroController = _battleManager.HeroController;
 
             CreateFight();
-            StartCoroutine(StartFight());
+            _fightCoroutine = StartFightCoroutine();
+            StartCoroutine(_fightCoroutine);
+
+            _battleManager.OnTimeEnded += StopFight;
         }
+
 
         void SetupDebugInfo()
         {
@@ -67,7 +73,8 @@ namespace Lis.Battle.Fight
             CurrentFight = fight;
         }
 
-        IEnumerator StartFight()
+
+        IEnumerator StartFightCoroutine()
         {
             yield return new WaitForSeconds(2f);
 
@@ -85,6 +92,12 @@ namespace Lis.Battle.Fight
                 SpawnWave();
                 yield return new WaitForSeconds(CurrentFight.DelayBetweenWaves);
             }
+        }
+
+        void StopFight()
+        {
+            if (_fightCoroutine == null) return;
+            StopCoroutine(_fightCoroutine);
         }
 
         void OnOpponentEntityDeath(UnitController _)

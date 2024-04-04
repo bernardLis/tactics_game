@@ -153,22 +153,17 @@ namespace Lis.Units.Hero
 
         void CheckAdvancedTablets(Tablet tablet)
         {
-            Debug.Log("Checking advanced tablets");
             if (AdvancedTablet != null) return; // only one advanced tablet
-            Debug.Log("No advanced tablet");
             if (!tablet.IsMaxLevel()) return;
-            Debug.Log($"Tablet {tablet.name} is max level");
 
             Nature first = tablet.Nature;
             foreach (Tablet t in Tablets)
             {
                 if (t.IsMaxLevel() && t != tablet)
                 {
-                    Debug.Log($"trying to get advanced tablet: {t.name} is max level");
                     TabletAdvanced adv = _gameManager.UnitDatabase.GetAdvancedTabletByNatureNames(first.NatureName,
                         t.Nature.NatureName);
                     if (adv == null) continue;
-                    Debug.Log($"advanced tablet found: {adv.name}");
                     AddAdvancedTablet(adv);
                     return;
                 }
@@ -177,13 +172,11 @@ namespace Lis.Units.Hero
 
         public void AddAdvancedTablet(TabletAdvanced original)
         {
-            Debug.Log($"Adding advanced tablet {original.name}");
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 
             TabletsByElement.Add(AdvancedTablet.Nature.NatureName, AdvancedTablet);
 
-            Debug.Log("invoking on advanced tablet added");
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }
 
@@ -196,7 +189,6 @@ namespace Lis.Units.Hero
 
         public void AddAbility(Ability.Ability ability)
         {
-            Debug.Log($"Adding ability {ability.name}");
             Ability.Ability instance = Instantiate(ability);
             instance.InitializeBattle(this);
 

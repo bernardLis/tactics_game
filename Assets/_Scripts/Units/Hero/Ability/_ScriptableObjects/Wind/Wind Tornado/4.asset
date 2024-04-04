@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4
   m_EditorClassIdentifier: 
   Id: 167c133b-ae38-439f-afe8-6c609d24647f
-  Power: 30
+  Power: 50
   Cooldown: 6
   Scale: 1
   Amount: 3

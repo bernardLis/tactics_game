@@ -16,7 +16,7 @@ MonoBehaviour:
   StatType: 1
   Icon: {fileID: 0}
   Description: 
-  BaseValue: 60
+  BaseValue: 70
   BonusValue: 0
   IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 15, y: 15}

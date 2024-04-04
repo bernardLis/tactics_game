@@ -65,6 +65,7 @@ namespace Lis.Battle
 
         public event Action OnGamePaused;
         public event Action OnGameResumed;
+        public event Action OnTimeEnded;
 
         protected override void Awake()
         {
@@ -162,7 +163,11 @@ namespace Lis.Battle
                 _timerLabel.text = $"{minutes:00}:{seconds:00}";
                 yield return new WaitForSeconds(1f);
 
-                if (timeLeft <= 0) yield break;
+                if (timeLeft <= 0)
+                {
+                    OnTimeEnded?.Invoke();
+                    yield break;
+                }
             }
         }
 
@@ -224,14 +229,20 @@ namespace Lis.Battle
             return OpponentEntities[UnityEngine.Random.Range(0, OpponentEntities.Count)].transform.position;
         }
 
+        IEnumerator _endBattleCoroutine;
+
         public void LoseBattle()
         {
-            StartCoroutine(BattleLost());
+            if (_endBattleCoroutine != null) return;
+            _endBattleCoroutine = BattleLost();
+            StartCoroutine(_endBattleCoroutine);
         }
 
         public void WinBattle()
         {
-            StartCoroutine(BattleWon());
+            if (_endBattleCoroutine != null) return;
+            _endBattleCoroutine = BattleWon();
+            StartCoroutine(_endBattleCoroutine);
         }
 
         public void SkullCollected()

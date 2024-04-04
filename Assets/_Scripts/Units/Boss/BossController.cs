@@ -188,7 +188,7 @@ namespace Lis.Units.Boss
         void SetUpVariables()
         {
             TotalDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
-            TotalDamageToStun.SetValue(100); //HERE: 666
+            TotalDamageToStun.SetValue(666); //HERE: 666
             CurrentDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
             CurrentDamageToStun.SetValue(0);
 
@@ -197,6 +197,18 @@ namespace Lis.Units.Boss
             CurrentStunDuration = ScriptableObject.CreateInstance<FloatVariable>();
             CurrentStunDuration.SetValue(0);
         }
+
+        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        {
+            if (IsDead) yield break;
+            IsDead = true;
+            StopUnit();
+
+            BattleManager.WinBattle();
+
+            yield return null;
+        }
+
 
         /* EMPTY OVERRIDES */
         public override void GetEngaged(UnitController attacker)

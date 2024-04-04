@@ -23,8 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ce6466e393e59e41b2c2d4622236cd1, type: 2}
   - {fileID: 11400000, guid: b857c03223d6f474aae18682e728e482, type: 2}
   - {fileID: 11400000, guid: ba6e2a4c3aa2ea741b71970f9e4c2a7a, type: 2}
-  - {fileID: 11400000, guid: cb494abc9bd49b44187ad61ac6d09172, type: 2}
-  - {fileID: 11400000, guid: 1081c1e32a070c442b9023b2f93525b6, type: 2}
+  IsArmorPiercing: 0
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   KillCount: 228
   IsAdvanced: 0

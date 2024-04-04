@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: 08fe5652-6537-4974-abce-c474d837ba69
   Power: 40
   Cooldown: 9
-  Scale: 5
+  Scale: 6
   Amount: 1
   Duration: 3.5

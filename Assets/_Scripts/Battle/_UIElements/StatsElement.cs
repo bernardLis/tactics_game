@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Units;
-using Lis.Units.Creature;
 using Lis.Units.Hero.Ability;
-using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -98,7 +96,7 @@ namespace Lis.Battle
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
 
-            Label text = new("Gold collected: ");
+            Label text = new("Gold: ");
             container.Add(text);
 
             GoldElement el = new(_battleManager.GoldCollected);

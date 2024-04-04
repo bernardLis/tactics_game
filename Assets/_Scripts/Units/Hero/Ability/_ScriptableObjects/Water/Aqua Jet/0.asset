@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: bb96f253-97de-4cb7-be6c-d2c48c6df4c2
   Power: 30
-  Cooldown: 5
+  Cooldown: 4
   Scale: 1
   Amount: 6
   Duration: 10

@@ -53,7 +53,6 @@ namespace Lis.Units.Hero.Ability
 
         public void InitializeBattle(Hero hero)
         {
-            Debug.Log($"{name} Ability InitializeBattle {hero.name}");
             _hero = hero;
 
             UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
