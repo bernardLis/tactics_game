@@ -72,7 +72,6 @@ namespace Lis.Units.Hero
             AssignAnimationIDs();
 
             _isSprintUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
-            Debug.Log("Sprint unlocked: " + _isSprintUnlocked);
         }
 
         IEnumerator DelayedStart(float delay)

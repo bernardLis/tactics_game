@@ -1,5 +1,6 @@
 using System.Collections;
 using Lis.Battle.Tiles;
+using Lis.Core;
 using UnityEngine;
 using Controller = Lis.Battle.Tiles.Controller;
 
@@ -139,6 +140,13 @@ namespace Lis.Units.Hero
         public void GetHitContextMenu()
         {
             BaseGetHit(5, default);
+        }
+
+        [ContextMenu("Add Advanced Tablet")]
+        public void AddAdvancedTablet()
+        {
+            Hero.AddAdvancedTablet(
+                GameManager.UnitDatabase.GetAdvancedTabletByNatureNames(NatureName.Earth, NatureName.Fire));
         }
     }
 }

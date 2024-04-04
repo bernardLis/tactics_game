@@ -3,7 +3,6 @@ using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Battle.Tiles;
 using Lis.Core;
-using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis.Battle
@@ -26,25 +25,22 @@ namespace Lis.Battle
             _audioManager = AudioManager.Instance;
             _audioManager.MuteAllButMusic();
 
-            Hero h = Instantiate(_gameManager.SelectedHero);
-            h.InitializeHero();
-
             Battle battle = ScriptableObject.CreateInstance<Battle>();
             battle.Initialize(1);
             _gameManager.CurrentBattle = battle;
 
             BattleManager.Instance.ResumeGame();
 
-            StartCoroutine(DelayedStart(h));
+            StartCoroutine(DelayedStart());
         }
 
-        IEnumerator DelayedStart(Hero h)
+        IEnumerator DelayedStart()
         {
             yield return new WaitForSeconds(0.5f);
             GetComponent<AreaManager>().Initialize();
             yield return new WaitForSeconds(1f);
 
-            GetComponent<BattleManager>().Initialize(h);
+            GetComponent<BattleManager>().Initialize(_gameManager.SelectedHero);
             GetComponent<GrabManager>().Initialize();
             GetComponent<AreaManager>().SecureHomeTile();
 
@@ -60,7 +56,6 @@ namespace Lis.Battle
 
             _loadingScreen.Hide();
             _audioManager.UnmuteAll();
-
         }
     }
 }

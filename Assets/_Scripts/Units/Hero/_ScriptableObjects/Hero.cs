@@ -22,13 +22,8 @@ namespace Lis.Units.Hero
         public Stat Pull;
         public Stat BonusExp;
 
-        bool _isInitialized; //HERE: testing (mostly)
-
         public void InitializeHero()
         {
-            if (_isInitialized) return;
-            _isInitialized = true;
-
             _gameManager = GameManager.Instance;
 
             CreateBaseStats();
@@ -158,81 +153,39 @@ namespace Lis.Units.Hero
 
         void CheckAdvancedTablets(Tablet tablet)
         {
+            Debug.Log("Checking advanced tablets");
             if (AdvancedTablet != null) return; // only one advanced tablet
+            Debug.Log("No advanced tablet");
             if (!tablet.IsMaxLevel()) return;
+            Debug.Log($"Tablet {tablet.name} is max level");
 
             Nature first = tablet.Nature;
             foreach (Tablet t in Tablets)
             {
                 if (t.IsMaxLevel() && t != tablet)
                 {
+                    Debug.Log($"trying to get advanced tablet: {t.name} is max level");
                     TabletAdvanced adv = _gameManager.UnitDatabase.GetAdvancedTabletByNatureNames(first.NatureName,
                         t.Nature.NatureName);
                     if (adv == null) continue;
+                    Debug.Log($"advanced tablet found: {adv.name}");
                     AddAdvancedTablet(adv);
                     return;
                 }
             }
-
-            // // TODO: this can be handled better
-            // if (tablet.Nature.NatureName == NatureName.Earth)
-            // {
-            //     if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Earth, NatureName.Fire);
-            //     else if (GetTabletByElement(NatureName.Water).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Earth, NatureName.Water);
-            // }
-            //
-            // if (tablet.Nature.NatureName == NatureName.Fire)
-            // {
-            //     if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Fire, NatureName.Earth);
-            //     else if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Fire, NatureName.Wind);
-            // }
-            //
-            // if (tablet.Nature.NatureName == NatureName.Water)
-            // {
-            //     if (GetTabletByElement(NatureName.Wind).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Water, NatureName.Wind);
-            //     else if (GetTabletByElement(NatureName.Earth).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Water, NatureName.Earth);
-            // }
-            //
-            // if (tablet.Nature.NatureName == NatureName.Wind)
-            // {
-            //     if (GetTabletByElement(NatureName.Water).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Wind, NatureName.Water);
-            //     else if (GetTabletByElement(NatureName.Fire).IsMaxLevel())
-            //         AddAdvancedTablet(NatureName.Wind, NatureName.Fire);
-            // }
-
-            // NatureName firstNature = NatureName.None;
-            // foreach (Tablet t in Tablets)
-            // {
-            //     if (!t.IsMaxLevel()) continue;
-            //     if (firstNature == NatureName.None)
-            //     {
-            //         firstNature = t.Nature.NatureName;
-            //         continue;
-            //     }
-            //
-            //     NatureName secondNature = t.Nature.NatureName;
-            //     AddAdvancedTablet(firstNature, secondNature);
-            //     break;
-            // }
         }
 
-        void AddAdvancedTablet(TabletAdvanced original)
+        public void AddAdvancedTablet(TabletAdvanced original)
         {
+            Debug.Log($"Adding advanced tablet {original.name}");
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 
             TabletsByElement.Add(AdvancedTablet.Nature.NatureName, AdvancedTablet);
 
+            Debug.Log("invoking on advanced tablet added");
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }
-
 
         [Header("Abilities")]
         public Ability.Ability StartingAbility;
@@ -243,6 +196,7 @@ namespace Lis.Units.Hero
 
         public void AddAbility(Ability.Ability ability)
         {
+            Debug.Log($"Adding ability {ability.name}");
             Ability.Ability instance = Instantiate(ability);
             instance.InitializeBattle(this);
 

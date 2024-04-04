@@ -63,11 +63,12 @@ namespace Lis.Battle
             _placeholderAudioListener.enabled = false;
             StartCoroutine(MakeHeroFall(hero));
 
-            RewardRerollsAvailable =
-                _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel().Value;
+            RewardRerollsAvailable = 666 +
+                                     _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
+                                         .Value;
+
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
-
             if (hero.StartingAbility == null || _turnOffAbility) return;
             Hero.AddAbility(hero.StartingAbility);
         }
@@ -100,7 +101,8 @@ namespace Lis.Battle
 
         void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
         {
-            _levelUpScreen.Hide();
+            if (_levelUpScreen != null) _levelUpScreen.Hide();
+            Hero.AddAbility(tabletAdvanced.Ability);
             TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
         }
     }

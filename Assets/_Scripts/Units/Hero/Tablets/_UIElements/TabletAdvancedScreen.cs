@@ -51,9 +51,6 @@ namespace Lis.Units.Hero.Tablets
             Content.Add(container);
 
             Ability.Ability a = ScriptableObject.Instantiate(_tabletAdvanced.Ability);
-            a.InitializeBattle(BattleManager.Hero);
-            BattleManager.Hero.AddAbility(a);
-
             _abilityElement = new(a, false, 200);
 
             container.Add(_abilityElement);
