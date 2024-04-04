@@ -22,7 +22,7 @@ namespace Lis.Core.Utilities
 
             _crossfade.style.opacity = 0;
             _crossfade.style.display = DisplayStyle.Flex;
-            DOTween.To(() => _crossfade.style.opacity.value, x => _crossfade.style.opacity = x, 1f, 1f)
+            DOTween.To(() => _crossfade.style.opacity.value, x => _crossfade.style.opacity = x, 1f, 0.5f)
                 .SetEase(Ease.InSine)
                 .OnComplete(() => FadeIn(newScene));
         }
@@ -33,7 +33,7 @@ namespace Lis.Core.Utilities
 
             _crossfade.style.opacity = 1;
             _crossfade.style.display = DisplayStyle.Flex;
-            DOTween.To(() => _crossfade.style.opacity.value, x => _crossfade.style.opacity = x, 0f, 1f)
+            DOTween.To(() => _crossfade.style.opacity.value, x => _crossfade.style.opacity = x, 0f, 0.5f)
                 .SetEase(Ease.InSine)
                 .OnComplete(HideCrossfade);
         }

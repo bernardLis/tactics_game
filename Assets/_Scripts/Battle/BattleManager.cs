@@ -39,7 +39,7 @@ namespace Lis.Battle
 
         public bool IsTimerOn { get; private set; }
 
-        public Hero Hero { get; private set; }
+        public Hero Hero => _heroManager.Hero;
         public HeroController HeroController => _heroManager.HeroController;
 
         public List<UnitController> PlayerEntities = new();
@@ -72,6 +72,7 @@ namespace Lis.Battle
 
             Root = GetComponent<UIDocument>().rootVisualElement;
 
+
             _timerLabel = Root.Q<Label>("timer");
         }
 
@@ -90,26 +91,20 @@ namespace Lis.Battle
 
             _timerLabel.style.display = DisplayStyle.Flex;
 
+            _heroManager = GetComponent<HeroManager>();
+
 #if UNITY_EDITOR
             GetComponent<InputManager>().OnEnterClicked += LevelUpHero;
             GetComponent<InputManager>().OnSpaceClicked += KillAllOpponents;
 #endif
         }
 
-        public void Initialize(Hero hero)
+        public void Initialize()
         {
             //HERE: battle music AudioManager.Instance.PlayMusic(_battleMusic);
 
             BattleFinalized = false;
             _battleTime = 0;
-
-            if (hero != null)
-            {
-                Hero = hero;
-                _heroManager = GetComponent<HeroManager>();
-                _heroManager.enabled = true;
-                _heroManager.Initialize(hero);
-            }
 
             ResumeTimer();
 

@@ -101,7 +101,7 @@ namespace Lis.Battle
 
         void SetUpEntityInfo()
         {
-            _entityInfoElement = new EntityInfoElement(_battleManager.HeroController); // placeholder unit
+            _entityInfoElement = new(_battleManager.HeroController); // placeholder unit
             _entityInfoElement.style.display = DisplayStyle.None;
             _entityInfoContainer.Add(_entityInfoElement);
         }
