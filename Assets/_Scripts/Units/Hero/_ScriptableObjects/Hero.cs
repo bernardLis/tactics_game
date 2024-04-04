@@ -103,7 +103,7 @@ namespace Lis.Units.Hero
         /* LEVELING */
         int GetExpValue(float gain)
         {
-            return Mathf.CeilToInt(gain + gain * BonusExp.GetValue() * 0.01f);
+            return Mathf.CeilToInt(gain);
         }
 
         public override void AddExp(float gain)

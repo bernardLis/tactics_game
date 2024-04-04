@@ -21,6 +21,10 @@ namespace Lis.Battle.Pickup
         {
         }
 
+        public virtual void HandleHeroBonuses(Hero hero)
+        {
+        }
+
         public virtual void Collected(Hero hero)
         {
         }

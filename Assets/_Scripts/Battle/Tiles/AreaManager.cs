@@ -72,7 +72,7 @@ namespace Lis.Battle.Tiles
                         upgrade = _homeUpgrade;
 
                     Controller bt = InstantiateTile(pos, upgrade);
-                    bt.OnTileUnlocked += TileTileUnlocked;
+                    bt.OnTileUnlocked += TileUnlocked;
                     _tiles.Add(bt);
 
                     if (pos == Vector3.zero)
@@ -87,7 +87,7 @@ namespace Lis.Battle.Tiles
             HomeController.Unlock();
         }
 
-        void TileTileUnlocked(Controller controller)
+        void TileUnlocked(Controller controller)
         {
             UnlockedTiles.Add(controller);
             OnTileUnlocked?.Invoke(controller);

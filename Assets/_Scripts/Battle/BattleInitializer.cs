@@ -48,7 +48,7 @@ namespace Lis.Battle
             GetComponent<GrabManager>().Initialize();
             GetComponent<AreaManager>().SecureHomeTile();
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             GetComponent<TooltipManager>().Initialize();
             GetComponent<FightManager>().Initialize();
             GetComponent<BreakableVaseManager>().Initialize();
@@ -56,7 +56,7 @@ namespace Lis.Battle
             GetComponent<RangedOpponentManager>().Initialize();
             GetComponent<BossManager>().Initialize();
             GetComponent<StatsTracker>().Initialize();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             GetComponent<BattleManager>().Initialize();
 
 

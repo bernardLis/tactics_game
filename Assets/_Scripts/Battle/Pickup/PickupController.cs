@@ -46,10 +46,10 @@ namespace Lis.Battle.Pickup
             Transform t = transform;
             t.position = position;
             gameObject.SetActive(true);
-            
+
             t.localScale = Vector3.zero;
             t.DOScale(1, 1f).SetEase(Ease.OutBack);
-            
+
             Pickup = pickup;
             Pickup.Initialize();
             _audioManager.PlaySfx(pickup.DropSound, t.position);
@@ -76,15 +76,18 @@ namespace Lis.Battle.Pickup
             if (Pickup == null) return;
 
             _sphereCollider.enabled = false;
-            transform.DOKill();
+            Transform t = transform;
+            t.DOKill();
+
+            Pickup.HandleHeroBonuses(heroController.Hero);
             DisplayText(Pickup.GetCollectedText(), Pickup.Color.Primary);
 
-            Vector3 position = transform.position;
+            Vector3 position = t.position;
             _audioManager.PlaySfx(Pickup.CollectSound, position);
             // Destroy(Instantiate(Pickup.CollectEffect, position, Quaternion.identity), 1f);
 
             float punchDuration = 0.5f;
-            transform.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1);
+            t.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1);
 
             Vector3 heroPosition = heroController.transform.position;
             Vector3 jumpPos = new(

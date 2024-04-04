@@ -58,7 +58,6 @@ namespace Lis.Battle
             HeroFollowCamera.Follow = heroGameObject.transform;
 
             _battleManager.PlayerEntities.Add(HeroController);
-            HeroController.OnDeath += (_, _) => _battleManager.LoseBattle();
 
             _placeholderAudioListener.enabled = false;
             StartCoroutine(MakeHeroFall(hero));

@@ -1,3 +1,4 @@
+using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
 
@@ -10,6 +11,15 @@ namespace Lis.Battle.Pickup
         public int OrbChance;
         public int MinDifficulty;
 
+
+        public override void HandleHeroBonuses(Hero hero)
+        {
+            base.HandleHeroBonuses(hero);
+            Amount += Mathf.FloorToInt(Amount *
+                                       hero.GetStatByType(StatType.ExpBonus).GetValue()
+                                       * 0.01f);
+        }
+
         public override void Collected(Hero hero)
         {
             hero.AddExp(Amount);
@@ -19,6 +29,5 @@ namespace Lis.Battle.Pickup
         {
             return $"+{Amount} EXP";
         }
-
     }
 }
