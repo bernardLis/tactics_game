@@ -145,8 +145,12 @@ namespace Lis.Battle
             StartCoroutine(_timerCoroutine);
         }
 
+        bool _timeEndedWasTriggered;
+
         IEnumerator UpdateTimer()
         {
+            if (_battleTime > Battle.Duration) yield break;
+
             while (true)
             {
                 _battleTime++;
@@ -157,8 +161,9 @@ namespace Lis.Battle
                 _timerLabel.text = $"{minutes:00}:{seconds:00}";
                 yield return new WaitForSeconds(1f);
 
-                if (timeLeft <= 0)
+                if (timeLeft <= 0 && !_timeEndedWasTriggered)
                 {
+                    _timeEndedWasTriggered = true;
                     OnTimeEnded?.Invoke();
                     yield break;
                 }

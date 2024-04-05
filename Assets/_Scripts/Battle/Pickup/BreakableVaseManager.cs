@@ -17,7 +17,7 @@ namespace Lis.Battle.Pickup
 
         [FormerlySerializedAs("_vasePrefab")] [SerializeField] BreakableVaseController _vaseControllerPrefab;
 
-        const int _vasesPerSpawn = 3;
+        const int _vasesPerSpawn = 5;
 
         [SerializeField] bool _debugSpawnVase;
 

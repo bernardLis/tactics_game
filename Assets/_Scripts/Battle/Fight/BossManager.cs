@@ -19,7 +19,6 @@ namespace Lis.Battle.Fight
         {
             _audioManager = AudioManager.Instance;
             _battleManager = BattleManager.Instance;
-            SpawnBoss();
             _battleManager.OnTimeEnded += SpawnBoss;
         }
 
