@@ -451,11 +451,6 @@ namespace Lis.Units.Creature
         }
 
 
-        [ContextMenu("Trigger Death")]
-        public void TriggerDeath()
-        {
-            Die();
-        }
 #endif
     }
 }

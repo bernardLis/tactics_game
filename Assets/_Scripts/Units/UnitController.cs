@@ -437,5 +437,13 @@ namespace Lis.Units
             if (BattleManager == null) return;
             UnitLog.Add($"{BattleManager.GetTime()}: {s}.");
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Trigger Death")]
+        public void TriggerDeath()
+        {
+            Die();
+        }
+#endif
     }
 }

@@ -200,10 +200,7 @@ namespace Lis.Units.Boss
 
         public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
-            if (IsDead) yield break;
-            IsDead = true;
             StopUnit();
-
             BattleManager.WinBattle();
 
             yield return null;
