@@ -60,11 +60,11 @@ namespace Lis.Battle.Tiles
         {
             // TODO: create area magic numbers
             // current set-up only works when
-            // I get 100 tiles with surface scaled to floor scale
+            // I get x tiles with surface scaled to floor scale
             float tileScale = _floorPrefab.transform.localScale.x;
-            for (int x = -5; x < 5; x++)
+            for (int x = -2; x < 2; x++)
             {
-                for (int z = -5; z < 5; z++)
+                for (int z = -2; z < 2; z++)
                 {
                     Vector3 pos = new(x * tileScale, 0, z * tileScale);
                     UpgradeTile upgrade = _unlockedBuildings[Random.Range(0, _unlockedBuildings.Count)];

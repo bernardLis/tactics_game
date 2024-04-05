@@ -11,31 +11,27 @@ namespace Lis.Battle
     {
         AudioManager _audioManager;
         GameManager _gameManager;
+        BattleManager _battleManager;
 
         LoadingScreen _loadingScreen;
-
-        void Awake()
-        {
-            _loadingScreen = new LoadingScreen();
-        }
 
         void Start()
         {
             _gameManager = GameManager.Instance;
+            _battleManager = BattleManager.Instance;
             _audioManager = AudioManager.Instance;
             _audioManager.MuteAllButMusic();
 
-            Battle battle = ScriptableObject.CreateInstance<Battle>();
-            battle.Initialize(1);
-            _gameManager.CurrentBattle = battle;
-
-            BattleManager.Instance.ResumeGame();
+            _loadingScreen = new LoadingScreen();
+            _battleManager.Initialize();
+            _battleManager.ResumeGame();
 
             StartCoroutine(DelayedStart());
         }
 
         IEnumerator DelayedStart()
         {
+
             yield return new WaitForSeconds(0.5f);
             GetComponent<AreaManager>().Initialize();
 
@@ -57,7 +53,6 @@ namespace Lis.Battle
             GetComponent<BossManager>().Initialize();
             GetComponent<StatsTracker>().Initialize();
             yield return new WaitForSeconds(0.1f);
-            GetComponent<BattleManager>().Initialize();
 
 
             _loadingScreen.Hide();

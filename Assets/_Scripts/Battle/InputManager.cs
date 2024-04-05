@@ -59,7 +59,7 @@ namespace Lis.Battle
         void SubscribeInputActions()
         {
             _playerInput.actions["ToggleMenu"].performed += OpenMenu;
-
+#if UNITY_EDITOR
             _playerInput.actions["LeftMouseClick"].performed += LeftMouseClicked;
             _playerInput.actions["RightMouseClick"].performed += RightMouseClicked;
 
@@ -75,11 +75,13 @@ namespace Lis.Battle
             _playerInput.actions["DebugSpawnTile"].performed += DebugSpawnTile;
             _playerInput.actions["DebugSpawnBoss"].performed += DebugSpawnBoss;
             _playerInput.actions["DebugKillHero"].performed += DebugKillHero;
+#endif
         }
 
         void UnsubscribeInputActions()
         {
             _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
+#if UNITY_EDITOR
 
             _playerInput.actions["LeftMouseClick"].performed -= LeftMouseClicked;
             _playerInput.actions["RightMouseClick"].performed -= RightMouseClicked;
@@ -96,6 +98,7 @@ namespace Lis.Battle
             _playerInput.actions["DebugSpawnTile"].performed -= DebugSpawnTile;
             _playerInput.actions["DebugSpawnBoss"].performed -= DebugSpawnBoss;
             _playerInput.actions["DebugKillHero"].performed -= DebugKillHero;
+#endif
         }
 
         /* DEBUG inputs */

@@ -11,7 +11,6 @@ namespace Lis.Battle.Fight
         AudioManager _audioManager;
         BattleManager _battleManager;
 
-        Boss _selectedBoss;
         BossController _bossController;
         [SerializeField] Sound _bossSpawnSound;
         [SerializeField] GameObject _bossSpawnEffectPrefab;
@@ -20,7 +19,6 @@ namespace Lis.Battle.Fight
         {
             _audioManager = AudioManager.Instance;
             _battleManager = BattleManager.Instance;
-
             _battleManager.OnTimeEnded += SpawnBoss;
         }
 
@@ -31,16 +29,18 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnBossCoroutine()
         {
+            _battleManager.GetComponent<TooltipManager>().ShowGameInfo("Boss is Spawned!", 2f);
+
             _audioManager.PlaySfx(_bossSpawnSound, _battleManager.HeroController.transform.position);
             Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);
 
             yield return new WaitForSeconds(1.5f);
-
-            UnitController be = Instantiate(_battleManager.Battle.Boss.Prefab).GetComponent<UnitController>();
+            Boss boss = _battleManager.Battle.Boss;
+            UnitController be = Instantiate(boss.Prefab).GetComponent<UnitController>();
             be.transform.position = Vector3.up * 2.5f;
             be.gameObject.SetActive(true);
             be.InitializeGameObject();
-            be.InitializeUnit(_selectedBoss, 1);
+            be.InitializeUnit(boss, 1);
 
             _bossController = be as BossController;
             _battleManager.AddOpponentArmyEntity(_bossController);

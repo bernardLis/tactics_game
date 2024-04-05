@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bloooooom
   m_EditorClassIdentifier: 
   Id: c42058d2-2ddc-4d8d-93cc-65acf7cc191f
-  UnitName: 
+  UnitName: Bloooooom
   Icon: {fileID: 21300000, guid: ea4329aa74f05c346816d418660c2f21, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: ea4329aa74f05c346816d418660c2f21, type: 3}

@@ -48,8 +48,6 @@ namespace Lis.Battle
         public List<UnitController> KilledPlayerEntities = new();
         public List<Unit> KilledOpponentEntities = new();
 
-        public int GoldCollected { get; private set; }
-
         public bool BlockBattleEnd;
         public bool BattleFinalized { get; private set; }
 
@@ -72,8 +70,6 @@ namespace Lis.Battle
             base.Awake();
 
             Root = GetComponent<UIDocument>().rootVisualElement;
-
-
             _timerLabel = Root.Q<Label>("timer");
         }
 
@@ -85,8 +81,6 @@ namespace Lis.Battle
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
             _gameManager.SaveJsonData();
-            Battle = _gameManager.CurrentBattle;
-            _gameManager.OnGoldChanged += (g) => GoldCollected += g;
 
             Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
 
@@ -103,11 +97,11 @@ namespace Lis.Battle
         public void Initialize()
         {
             //HERE: battle music AudioManager.Instance.PlayMusic(_battleMusic);
+            Battle = Instantiate(_gameManager.CurrentBattle);
+            Battle.Initialize(1);
 
             BattleFinalized = false;
             _battleTime = 0;
-
-            ResumeTimer();
 
             OnBattleInitialized?.Invoke();
         }

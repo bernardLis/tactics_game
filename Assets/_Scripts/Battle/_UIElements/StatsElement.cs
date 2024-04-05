@@ -20,6 +20,7 @@ namespace Lis.Battle
         const string _ussCreatureLabel = _ussClassName + "creature-label";
         const string _ussCreatureIcon = _ussClassName + "creature-icon";
 
+        readonly GameManager _gameManager;
         readonly BattleManager _battleManager;
 
         readonly VisualElement _leftPanel;
@@ -30,11 +31,10 @@ namespace Lis.Battle
 
         public StatsElement()
         {
-            GameManager gameManager = GameManager.Instance;
-            StyleSheet ss = gameManager.GetComponent<AddressableManager>()
+            _gameManager = GameManager.Instance;
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.StatsBattleElementStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            if (ss != null) styleSheets.Add(ss);
 
             _battleManager = BattleManager.Instance;
             if (_battleManager == null)
@@ -99,7 +99,7 @@ namespace Lis.Battle
             Label text = new("Gold: ");
             container.Add(text);
 
-            GoldElement el = new(_battleManager.GoldCollected);
+            GoldElement el = new(_gameManager.Gold);
             container.Add(el);
             _middlePanel.Add(container);
         }
