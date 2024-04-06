@@ -215,7 +215,12 @@ namespace Lis.Core
         public void BattleSfxCleanup()
         {
             foreach (AudioSource a in _sfxAudioSources)
-                a.transform.parent = transform;
+            {
+                if (a.transform.parent != transform)
+                    a.transform.parent = transform;
+                if (a.isPlaying)
+                    a.Stop();
+            }
         }
 
         public void PlayUIDelayed(string soundName, float delay)

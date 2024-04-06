@@ -76,7 +76,7 @@ namespace Lis.Units.Hero.Rewards
             if (validAbilities.Count != 0) return validAbilities[Random.Range(0, validAbilities.Count)];
 
             // // TODO: possibly error if no abilities to choose from
-            Debug.LogError("Reward - no abilities to choose from");
+            Debug.LogWarning("Reward - no abilities to choose from");
             return null;
         }
 

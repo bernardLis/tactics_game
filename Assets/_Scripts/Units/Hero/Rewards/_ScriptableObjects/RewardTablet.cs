@@ -31,7 +31,7 @@ namespace Lis.Units.Hero.Rewards
 
             if (availableTablets.Count == 0)
             {
-                Debug.LogError("Reward - no tablet to upgrade");
+                Debug.LogWarning("Reward - no tablet to upgrade");
                 return false;
             }
 

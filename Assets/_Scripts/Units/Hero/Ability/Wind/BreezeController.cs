@@ -31,28 +31,32 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
             _entitiesInCollider = new();
 
+            float duration = Ability.GetDuration();
+            float cooldown = Ability.GetCooldown();
+            if (duration < cooldown) duration = cooldown - 0.3f;
+
             ParticleSystem ps = _gfx.GetComponent<ParticleSystem>();
             var psMain = ps.main;
-            psMain.duration = Ability.GetDuration();
-            psMain.startLifetime = Ability.GetDuration();
+            psMain.duration = duration;
+            psMain.startLifetime = duration;
             yield return new WaitForSeconds(0.1f);
             _gfx.SetActive(true);
 
-            StartCoroutine(DealDamage());
+            StartCoroutine(DealDamage(duration));
 
             _col.gameObject.SetActive(true);
             _col.transform.localScale = Vector3.zero;
-            _col.transform.DOScale(Vector3.one * 2f, Ability.GetDuration() - 0.2f)
+            _col.transform.DOScale(Vector3.one * 2f, duration - 0.2f)
                 .OnComplete(() => _col.gameObject.SetActive(false));
 
-            yield return new WaitForSeconds(Ability.GetDuration());
+            yield return new WaitForSeconds(duration);
 
             _gfx.SetActive(false);
         }
 
-        IEnumerator DealDamage()
+        IEnumerator DealDamage(float duration)
         {
-            float endTime = Time.time + Ability.GetDuration();
+            float endTime = Time.time + duration;
             while (Time.time < endTime)
             {
                 List<UnitController> currentEntities = new(_entitiesInCollider);
@@ -61,7 +65,7 @@ namespace Lis.Units.Hero.Ability
                 yield return new WaitForSeconds(0.5f);
             }
         }
-        
+
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out BreakableVaseController bbv))
