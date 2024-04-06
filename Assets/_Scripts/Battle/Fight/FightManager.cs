@@ -192,6 +192,6 @@ namespace Lis.Battle.Fight
             Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomRangedOpponent());
             SpawnRangedOpponent(instance);
         }
-    }
 #endif
+    }
 }

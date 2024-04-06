@@ -62,9 +62,8 @@ namespace Lis.Battle
             _placeholderAudioListener.enabled = false;
             StartCoroutine(MakeHeroFall(hero));
 
-            RewardRerollsAvailable = 666 +
-                                     _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
-                                         .Value;
+            RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
+                .Value;
 
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;

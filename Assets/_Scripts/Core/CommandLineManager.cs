@@ -247,8 +247,9 @@ namespace Lis.Core
             {
                 if (!int.TryParse(input.value, out int count)) return;
 
-                for (int i = 0; i < count; i++)
-                    BattleManager.Instance.GetComponent<FightManager>().DebugSpawnMinion();
+                // HERE: for the build
+                // for (int i = 0; i < count; i++)
+                //     BattleManager.Instance.GetComponent<FightManager>().DebugSpawnMinion();
             };
             container.Add(input);
             container.Add(bMinions);
@@ -425,8 +426,9 @@ namespace Lis.Core
             BattleManager battleManager = BattleManager.Instance;
             if (battleManager == null) return;
             List<UnitController> creatures = new(battleManager.PlayerEntities);
-            foreach (CreatureController creature in creatures)
-                creature.TriggerDeath();
+            // HERE: for the build
+            // foreach (CreatureController creature in creatures)
+            //     creature.TriggerDeath();
         }
 
         void DoTweenSeeAllTweens()
