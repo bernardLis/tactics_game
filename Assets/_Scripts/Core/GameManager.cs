@@ -113,6 +113,7 @@ namespace Lis.Core
         /* LEVELS */
         public void LoadScene(string level)
         {
+            OpenFullScreens.Clear();
             Time.timeScale = 1f;
             _levelLoader.LoadLevel(level);
             OnLevelLoaded?.Invoke(level);

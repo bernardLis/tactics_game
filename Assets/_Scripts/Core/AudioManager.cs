@@ -201,6 +201,7 @@ namespace Lis.Core
         {
             AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
             if (a == null) a = CreateSfxAudioSource();
+            if (a == null) return null;
 
             a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
             a.loop = isLooping;
@@ -208,6 +209,13 @@ namespace Lis.Core
             instance.Play(a);
 
             return a;
+        }
+
+        // TODO: not the right way to do it
+        public void BattleSfxCleanup()
+        {
+            foreach (AudioSource a in _sfxAudioSources)
+                a.transform.parent = transform;
         }
 
         public void PlayUIDelayed(string soundName, float delay)

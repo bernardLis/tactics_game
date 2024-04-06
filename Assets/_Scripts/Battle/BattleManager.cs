@@ -272,6 +272,7 @@ namespace Lis.Battle
             // if entities die "at the same time" it triggers twice
             if (BattleFinalized) yield break;
             BattleFinalized = true;
+            _audioManager.BattleSfxCleanup();
             _gameManager.GameStats.AddStats(Battle.Stats);
 
             yield return new WaitForSeconds(3f);

@@ -27,7 +27,6 @@ namespace Lis.Battle
             container.style.alignItems = Align.Center;
             MainContainer.Add(container);
 
-
             MyButton noAdvantage = new("Back To Main Menu", USSCommonButton, callback: QuitButton);
             container.Add(noAdvantage);
         }
