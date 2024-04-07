@@ -49,7 +49,7 @@ namespace Lis.MainMenu
             buttonContainer.Add(_settingsButton);
             buttonContainer.Add(_quitButton);
 
-            // AudioManager.Instance.PlayMusic(_mainMenuTheme);
+            AudioManager.Instance.PlayMusic(_mainMenuTheme);
         }
 
         void ShowGlobalUpgradesMenu()

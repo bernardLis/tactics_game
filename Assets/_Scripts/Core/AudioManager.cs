@@ -55,6 +55,9 @@ namespace Lis.Core
             musicGameObject.transform.parent = transform;
             _musicAudioSource = musicGameObject.AddComponent<AudioSource>();
             _musicAudioSource.loop = true;
+            _musicAudioSource.spatialBlend = 0;
+            _musicAudioSource.rolloffMode = AudioRolloffMode.Custom;
+            _musicAudioSource.maxDistance = 99999;
             _musicAudioSource.outputAudioMixerGroup = _musicMixerGroup;
 
             GameObject ambienceGameObject = new("Ambience");
@@ -111,6 +114,8 @@ namespace Lis.Core
                 Debug.LogError("No music to play");
                 return;
             }
+
+            Debug.Log($"Playing music {sound.name}");
 
             _currentMusicSound = sound;
             _currentMusicClipIndex = 0;
@@ -220,6 +225,7 @@ namespace Lis.Core
                     a.transform.parent = transform;
                 if (a.isPlaying)
                     a.Stop();
+                a.clip = null;
             }
         }
 

@@ -87,8 +87,8 @@ namespace Lis.Upgrades
                 if (i <= CurrentLevel)
                     val += Levels[i].Cost;
             GameManager.Instance.ChangeGoldValue(val);
-            CurrentLevel = -1;
             if (PermanentlyUnlocked) CurrentLevel = 0;
+            else CurrentLevel = -1;
             OnLevelChanged?.Invoke();
         }
 

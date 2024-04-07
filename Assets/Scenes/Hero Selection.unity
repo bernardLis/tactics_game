@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero Selector Pillar
       objectReference: {fileID: 0}
+    - target: {fileID: 3980106233401154660, guid: 07e54ca28b618334fb537455890d127a, type: 3}
+      propertyPath: _music
+      value: 
+      objectReference: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

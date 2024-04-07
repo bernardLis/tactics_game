@@ -15,6 +15,7 @@ namespace Lis.HeroSelection
 
         GameManager _gameManager;
 
+        [SerializeField] Sound _music;
         readonly List<Hero> _heroInstances = new();
         readonly List<HeroDisplayer> _heroPrefabs = new();
         int _currentIndex;
@@ -26,6 +27,7 @@ namespace Lis.HeroSelection
         void Start()
         {
             _gameManager = GameManager.Instance;
+            AudioManager.Instance.PlayMusic(_music);
             SetUpUI();
             InstantiateHeroes();
 

@@ -21,7 +21,6 @@ namespace Lis.Battle
         AudioManager _audioManager;
         HeroManager _heroManager;
 
-        [SerializeField] Sound _battleMusic;
         [SerializeField] Sound _battleLost;
         [SerializeField] Sound _battleWon;
 
@@ -48,7 +47,6 @@ namespace Lis.Battle
         public List<UnitController> KilledPlayerEntities = new();
         public List<Unit> KilledOpponentEntities = new();
 
-        public bool BlockBattleEnd;
         public bool BattleFinalized { get; private set; }
 
         IEnumerator _timerCoroutine;
@@ -96,7 +94,6 @@ namespace Lis.Battle
 
         public void Initialize()
         {
-            //HERE: battle music AudioManager.Instance.PlayMusic(_battleMusic);
             Battle = Instantiate(_gameManager.CurrentBattle);
             Battle.Initialize(1);
 
