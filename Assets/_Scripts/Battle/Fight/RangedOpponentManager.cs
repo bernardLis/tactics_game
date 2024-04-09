@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
-using Lis.Units.Minion;
 using Lis.Units.Projectile;
 using UnityEngine;
 
@@ -9,8 +8,6 @@ namespace Lis.Battle.Fight
 {
     public class RangedOpponentManager : MonoBehaviour
     {
-        BattleManager _battleManager;
-
         [SerializeField] Transform _rangedOpponentHolder;
 
         [SerializeField] GameObject _projectilePrefab;
@@ -28,8 +25,6 @@ namespace Lis.Battle.Fight
 
         public void Initialize()
         {
-            _battleManager = GetComponent<BattleManager>();
-
             CreateNewPool(_projectilePrefab, _projectilePool);
             CreateNewPool(_projectileBiggerWithTimePrefab, _projectilePoolBiggerWithTime);
             CreateNewPool(_projectileQuickPrefab, _projectilePoolQuick);
@@ -64,24 +59,6 @@ namespace Lis.Battle.Fight
                 unit.InitializeGameObject();
 
             return obj;
-        }
-
-        public void SpawnRangedOpponent(Unit unit, Vector3 pos)
-        {
-            unit.InitializeBattle(1);
-
-            GameObject rangedOpponent = GetFromPool(_rangedOpponentPool);
-            if (rangedOpponent == null) return;
-
-            pos.y = 0;
-            rangedOpponent.transform.position = pos;
-            rangedOpponent.SetActive(true);
-
-            RangedMinionController controller
-                = rangedOpponent.GetComponent<RangedMinionController>();
-            controller.InitializeUnit(unit, 1);
-            controller.InitializeHostileCreature(default);
-            _battleManager.AddOpponentArmyEntity(controller);
         }
 
         public OpponentProjectileController GetProjectileFromPool(NatureName nature)

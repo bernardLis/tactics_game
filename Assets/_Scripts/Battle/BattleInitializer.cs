@@ -1,7 +1,7 @@
 using System.Collections;
+using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
-using Lis.Battle.Tiles;
 using Lis.Core;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ namespace Lis.Battle
             _audioManager = AudioManager.Instance;
             _audioManager.MuteAllButMusic();
 
-            _loadingScreen = new LoadingScreen();
+            _loadingScreen = new();
             _battleManager.Initialize();
             _battleManager.ResumeGame();
 
@@ -33,7 +33,7 @@ namespace Lis.Battle
         {
 
             yield return new WaitForSeconds(0.5f);
-            GetComponent<AreaManager>().Initialize();
+            GetComponent<ArenaManager>().Initialize();
 
             HeroManager heroManager = GetComponent<HeroManager>();
             heroManager.enabled = true;
@@ -42,7 +42,6 @@ namespace Lis.Battle
             yield return new WaitForSeconds(0.5f);
 
             GetComponent<GrabManager>().Initialize();
-            GetComponent<AreaManager>().SecureHomeTile();
 
             yield return new WaitForSeconds(0.1f);
             GetComponent<TooltipManager>().Initialize();

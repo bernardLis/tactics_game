@@ -99,8 +99,6 @@ namespace Lis.Units
             UnitScreen card = null;
             if (Unit is Creature.Creature creature)
                 card = new CreatureScreen(creature);
-            if (Unit is Minion.Minion minion)
-                card = new UnitMovementScreen(minion);
             if (Unit is Boss.Boss boss)
                 card = new BossScreen(boss);
 

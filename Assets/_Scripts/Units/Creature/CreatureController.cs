@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Lis.Battle.Tiles.Building;
 using Lis.Core;
 using Lis.Units.Creature.Ability;
-using Lis.Units.Hero;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -32,12 +29,9 @@ namespace Lis.Units.Creature
         static readonly int AnimDie = Animator.StringToHash("Die");
 
         [SerializeField] GameObject _respawnEffect;
-
-        OpponentTracker _opponentTracker;
-        Controller _controller;
+        Controller _abilityController;
 
         public event Action<int> OnDamageDealt;
-        public event Action<CreatureController, HeroController> OnGettingCaught;
         public event Action OnAttackReady;
         public event Action OnStartedMoving;
 
@@ -67,35 +61,9 @@ namespace Lis.Units.Creature
             UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
         }
 
-        PlayerUnitTracker _entityTracker;
-
-        public virtual void InitializeHostileCreature(PlayerUnitTracker entityTracker)
+        public virtual void InitializeHostileCreature()
         {
-            AddToLog("Initializing hostile creature");
-            _entityTracker = entityTracker;
-
-            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
-            if (entityTracker != null)
-                _opponentList = _entityTracker.PlayerEntitiesWithinRange;
-
-            EnableSelf();
-        }
-
-        // HERE: testing
-        public void DebugInitialize(int team)
-        {
-            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
-
-            if (team == 0)
-            {
-                HeroController = BattleManager.HeroController;
-                _opponentTracker = HeroController.GetComponentInChildren<OpponentTracker>();
-                _opponentList = BattleManager.OpponentEntities;
-            }
-
-            if (team == 1) _opponentList = BattleManager.PlayerEntities;
-
-            EnableSelf();
+            // TODO:
         }
 
         protected override IEnumerator RunUnitCoroutine()
@@ -103,30 +71,14 @@ namespace Lis.Units.Creature
             while (true)
             {
                 if (IsDead) yield break;
-                if (_opponentList.Count == 0) StartHangOutCoroutine();
+                while (_opponentList.Count == 0)
+                {
+                    yield return new WaitForSeconds(1f);
+                }
 
                 yield return ManagePathing();
                 yield return ManageAttackCoroutine();
             }
-        }
-
-        void StartHangOutCoroutine()
-        {
-            if (Opponent != null)
-            {
-                ResetOpponent(default, default); // otherwise creature executes abilities towards opponent
-                return;
-            }
-
-            UnsubscribeFromEvents();
-            if (Team == 0)
-                _opponentTracker.OnOpponentAdded += OpponentWasAdded;
-            if (Team == 1) _entityTracker.OnEntityEnter += OpponentWasAdded;
-
-            if (CurrentMainCoroutine != null)
-                StopCoroutine(CurrentMainCoroutine);
-            CurrentMainCoroutine = HangOutCoroutine();
-            StartCoroutine(CurrentMainCoroutine);
         }
 
         void OpponentWasAdded(UnitController _)
@@ -138,34 +90,6 @@ namespace Lis.Units.Creature
 
         void UnsubscribeFromEvents()
         {
-            if (_opponentTracker != null)
-                _opponentTracker.OnOpponentAdded -= OpponentWasAdded;
-            if (_entityTracker != null)
-                _entityTracker.OnEntityEnter -= OpponentWasAdded;
-        }
-
-        IEnumerator HangOutCoroutine()
-        {
-            while (true)
-            {
-                if (_opponentList.Count > 0) yield break;
-                Vector3 pos = Team == 0
-                    ? GetPositionCloseToHero()
-                    : GetPositionAroundBuilding();
-                UnitPathingController.SetStoppingDistance(0);
-                yield return UnitPathingController.PathToPositionAndStop(pos);
-                yield return new WaitForSeconds(Random.Range(3f, 6f));
-            }
-        }
-
-        Vector3 GetPositionAroundBuilding()
-        {
-            Vector3 pos = _entityTracker.transform.position
-                          + Vector3.right * Random.Range(-10f, 10f)
-                          + Vector3.forward * Random.Range(-10f, 10f);
-            if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
-                return GetPositionAroundBuilding();
-            return pos;
         }
 
         protected IEnumerator ManagePathing()
@@ -286,8 +210,6 @@ namespace Lis.Units.Creature
         {
             Opponent = opponent;
             Opponent.OnDeath += ResetOpponent;
-            if (opponent is not CreatureController bc) return;
-            bc.OnGettingCaught += ResetOpponent;
         }
 
         void ResetOpponent(UnitController _, UnitController __)
@@ -320,9 +242,9 @@ namespace Lis.Units.Creature
                 Creature.Level.Value != Creature.Ability.UnlockLevel) return;
             Creature.Ability.Unlock();
             DisplayFloatingText("Ability Unlocked!", Color.white);
-            _controller = Instantiate(Creature.Ability.Prefab, transform)
+            _abilityController = Instantiate(Creature.Ability.Prefab, transform)
                 .GetComponent<Controller>();
-            _controller.Initialize(this);
+            _abilityController.Initialize(this);
         }
 
         public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
@@ -333,16 +255,6 @@ namespace Lis.Units.Creature
             ResetOpponent(null, null);
 
             Animator.SetTrigger(AnimDie);
-            if (Team == 0)
-            {
-                yield return new WaitForSeconds(3f);
-                Gfx.transform.DOScale(0, 0.5f);
-                transform.DOMove(HeroController.transform.position, 0.5f);
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(Respawn());
-
-                yield break;
-            }
 
             transform.DOMoveY(-1, 10f)
                 .SetDelay(3f)
@@ -369,8 +281,8 @@ namespace Lis.Units.Creature
             Gfx.transform.DOScale(1, 0.3f)
                 .OnComplete(EnableSelf);
 
-            if (_controller != null)
-                _controller.StartAbilityCooldownCoroutine();
+            if (_abilityController != null)
+                _abilityController.StartAbilityCooldownCoroutine();
         }
 
         void EnableSelf()
@@ -383,65 +295,21 @@ namespace Lis.Units.Creature
             IsDead = false;
             RunUnit();
 
-            if (_controller != null)
-                _controller.StartAbilityCooldownCoroutine();
-        }
-
-        void DisableSelf()
-        {
-            Collider.enabled = false;
-            UnitPathingController.DisableAgent();
-            StopUnit();
-            StopAllCoroutines();
-            transform.DOKill();
+            if (_abilityController != null)
+                _abilityController.StartAbilityCooldownCoroutine();
         }
 
         void DeactivateSelf()
         {
+            StopUnit();
             StopAllCoroutines();
+
+            Collider.enabled = false;
+            UnitPathingController.DisableAgent();
+
             transform.DOKill();
             gameObject.SetActive(false);
         }
-
-        /* CATCHING */
-
-        public void TryCatching(FriendBallController ballController)
-        {
-            IsDead = true;
-            OnGettingCaught?.Invoke(this, HeroController);
-
-            DisableSelf();
-            Vector3 pos = ballController.transform.position;
-
-            transform.DOMove(pos, 0.3f);
-            transform.DOScale(0, 0.3f);
-        }
-
-        public void Caught(Vector3 spawnPos)
-        {
-            _opponentTracker = HeroController.GetComponentInChildren<OpponentTracker>();
-
-            Opponent = null;
-            Creature.Caught(HeroController.Hero);
-            InitializeUnit(Creature, 0);
-            BattleManager.OpponentEntities.Remove(this);
-            BattleManager.AddPlayerArmyEntity(this);
-            _opponentTracker.RemoveOpponent(this);
-
-            _opponentList = _opponentTracker.OpponentsInRange;
-            _entityTracker.OnEntityEnter -= OpponentWasAdded;
-
-            transform.DOMove(spawnPos, 0.5f)
-                .OnComplete(ReleaseFromCatching);
-        }
-
-        public void ReleaseFromCatching()
-        {
-            transform.DOMoveY(1, 0.3f);
-            transform.DOScale(1, 0.3f)
-                .OnComplete(EnableSelf);
-        }
-
 
 #if UNITY_EDITOR
         [ContextMenu("Level up")]

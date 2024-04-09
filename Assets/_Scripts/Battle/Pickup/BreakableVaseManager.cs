@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Lis.Battle.Tiles;
+using Lis.Battle.Arena;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +13,7 @@ namespace Lis.Battle.Pickup
     {
         BattleManager _battleManager;
         InputManager _inputManager;
-        AreaManager _areaManager;
+        ArenaManager _arenaManager;
 
         [FormerlySerializedAs("_vasePrefab")] [SerializeField] BreakableVaseController _vaseControllerPrefab;
 
@@ -29,7 +29,7 @@ namespace Lis.Battle.Pickup
         public void Initialize()
         {
             _battleManager = GetComponent<BattleManager>();
-            _areaManager = GetComponent<AreaManager>();
+            _arenaManager = GetComponent<ArenaManager>();
             _inputManager = GetComponent<InputManager>();
 
 #if UNITY_EDITOR
@@ -49,9 +49,7 @@ namespace Lis.Battle.Pickup
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
                 {
-                    Controller controller = _areaManager.GetRandomUnlockedTile();
-
-                    Vector3 pos = controller.GetRandomPositionOnTile();
+                    Vector3 pos = _arenaManager.GetRandomPosition();
                     SpawnVase(pos);
                     yield return new WaitForSeconds(0.15f);
                 }

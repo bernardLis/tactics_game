@@ -49,17 +49,6 @@ namespace Lis.Units.Hero
             // Hero handles it through CreateBaseStats() instead 
         }
 
-        public int CalculateDamage(Minion.Minion minion)
-        {
-            float damage = minion.GetPower();
-
-            damage -= Armor.GetValue();
-            if (damage < 0) damage = 0;
-
-            // abilities ignore armor
-            return Mathf.RoundToInt(damage);
-        }
-
         /* FRIEND BALLS */
         public int NumberOfFriendBalls;
         public event Action OnFriendBallCountChanged;

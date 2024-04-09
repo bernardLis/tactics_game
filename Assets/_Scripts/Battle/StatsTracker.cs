@@ -1,11 +1,8 @@
 using Lis.Battle.Pickup;
-using Lis.Battle.Tiles;
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
-using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
-using Lis.Units.Minion;
 using UnityEngine;
 
 namespace Lis.Battle
@@ -23,9 +20,7 @@ namespace Lis.Battle
 
             TrackKills();
             TracksVases();
-            TrackTiles();
             TracksPickups();
-            TrackFriendBalls();
             TrackCreaturesCaptured();
             TrackAbilitiesUnlocked();
             TrackTabletsCollected();
@@ -37,7 +32,6 @@ namespace Lis.Battle
             _battleManager.OnOpponentEntityDeath += (be) =>
             {
                 if (be is CreatureController) _stats.CreaturesKilled++;
-                else if (be is MinionController) _stats.MinionsKilled++;
                 else if (be is BossController) _stats.BossKilled(be.Unit as Boss);
             };
         }
@@ -47,10 +41,6 @@ namespace Lis.Battle
             GetComponent<BreakableVaseManager>().OnVaseBroken += _ => _stats.VasesBroken++;
         }
 
-        void TrackTiles()
-        {
-            GetComponent<AreaManager>().OnTileUnlocked += (_) => _stats.TilesUnlocked++;
-        }
 
         void TracksPickups()
         {
@@ -94,12 +84,6 @@ namespace Lis.Battle
                 _stats.RareExpStonesCollected++;
             else if (stone.name == "Epic Experience Stone")
                 _stats.EpicExpStonesCollected++;
-        }
-
-        void TrackFriendBalls()
-        {
-            _battleManager.HeroController.GetComponentInChildren<CreatureCatcher>().OnBallThrown +=
-                () => _stats.FriendBallsThrown++;
         }
 
         void TrackCreaturesCaptured()

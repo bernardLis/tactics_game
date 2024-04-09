@@ -7,7 +7,6 @@ using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
-using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -244,10 +243,7 @@ namespace Lis.Battle
         public void SkullCollected()
         {
             if (this == null) return;
-            List<UnitController> copy = new(OpponentEntities);
-            foreach (UnitController be in copy)
-                if (be is MinionController)
-                    be.Die();
+            // TODO: skull collected
         }
 
         IEnumerator BattleLost()

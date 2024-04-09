@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
-using Lis.Battle.Tiles;
+using Lis.Battle.Arena;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,7 +13,7 @@ namespace Lis.Units.Hero.Ability
     {
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
-        protected AreaManager AreaManager;
+        protected ArenaManager ArenaManager;
 
         protected Transform AbilityObjectParent;
 
@@ -31,7 +31,7 @@ namespace Lis.Units.Hero.Ability
         {
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
-            AreaManager = BattleManager.GetComponent<AreaManager>();
+            ArenaManager = BattleManager.GetComponent<ArenaManager>();
             AbilityObjectParent = BattleManager.AbilityHolder;
             OpponentTracker = BattleManager.HeroController.GetComponentInChildren<OpponentTracker>();
 

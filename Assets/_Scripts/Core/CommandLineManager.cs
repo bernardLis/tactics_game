@@ -214,7 +214,7 @@ namespace Lis.Core
                 BattleManager.Instance.AddOpponentArmyEntity(be);
 
             CreatureController bc = (CreatureController)be;
-            bc.DebugInitialize(team);
+            // bc.DebugInitialize(team);
         }
 
         void AddRandomCreature(int team)

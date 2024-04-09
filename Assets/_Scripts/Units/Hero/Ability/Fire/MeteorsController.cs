@@ -17,7 +17,7 @@ namespace Lis.Units.Hero.Ability
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 // random position within circle radius
-                Vector3 pos = AreaManager.GetRandomPositionWithinRangeOnActiveTile(transform.position, Random.Range(10, 20));
+                Vector3 pos = ArenaManager.GetRandomPositionWithinRange(transform.position, Random.Range(10, 20));
                 MeteorsObjectController meteorObjectController = GetInactiveAbilityObject() as MeteorsObjectController;
                 meteorObjectController.Execute(pos, Quaternion.identity);
             }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle.Fight;
-using Lis.Battle.Tiles.Building;
 using Lis.Core.Utilities;
 using Lis.Units.Projectile;
 using UnityEngine;
@@ -32,9 +31,9 @@ namespace Lis.Units.Creature
             _projectilePoolManager.Initialize(Creature.Projectile);
         }
 
-        public override void InitializeHostileCreature(PlayerUnitTracker entityTracker)
+        public override void InitializeHostileCreature()
         {
-            base.InitializeHostileCreature(entityTracker);
+            base.InitializeHostileCreature();
             RangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
         }
 

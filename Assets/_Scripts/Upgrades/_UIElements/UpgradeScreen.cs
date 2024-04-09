@@ -39,7 +39,6 @@ namespace Lis.Upgrades
             CreateHeroUpgrades();
             CreateAbilityUpgrades();
             CreateTeamUpgrades();
-            CreateBuildingUpgrades();
             CreateCreatureUpgrades();
             CreateBossUpgrades();
             CreateOtherUpgrades();
@@ -80,12 +79,6 @@ namespace Lis.Upgrades
         {
             VisualElement container = CreateUpgradeContainer("Troops Upgrades");
             AddUpgradesByType(container, UpgradeType.Troops);
-        }
-
-        void CreateBuildingUpgrades()
-        {
-            VisualElement container = CreateUpgradeContainer("Building Upgrades");
-            AddUpgradesByType(container, UpgradeType.Building);
         }
 
         void CreateCreatureUpgrades()

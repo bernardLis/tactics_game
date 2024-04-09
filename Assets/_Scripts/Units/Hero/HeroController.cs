@@ -1,65 +1,23 @@
 using System.Collections;
-using Lis.Battle.Tiles;
 using Lis.Core;
 using UnityEngine;
-using Controller = Lis.Battle.Tiles.Controller;
 
 namespace Lis.Units.Hero
 {
     public class HeroController : UnitController
     {
-        AreaManager _areaManager;
 
         public Hero Hero { get; private set; }
 
         MovementController _movementController;
         HealthBarDisplayer _healthBarDisplayer;
 
-        [Header("Hero")]
-        [SerializeField] GameObject _tileSecuredMarkerPrefab;
-
-        ThreatLevelController _threatLevelController;
 
         public override void InitializeGameObject()
         {
             base.InitializeGameObject();
             _movementController = GetComponent<MovementController>();
             _healthBarDisplayer = GetComponentInChildren<HealthBarDisplayer>();
-            _areaManager = BattleManager.GetComponent<AreaManager>();
-
-            GetComponentInChildren<CreatureCatcher>().Initialize(this);
-            GetComponentInChildren<CreatureRecaller>().Initialize(this);
-
-            _areaManager.OnTileUnlocked += OnTileUnlocked;
-        }
-
-        void OnTileUnlocked(Controller controller)
-        {
-            if (controller == _areaManager.HomeController) return;
-
-            Vector3 heroPos = transform.position;
-            Vector3 tilePos = controller.transform.position;
-            Vector3 dir = (tilePos - heroPos).normalized;
-            Vector3 pos = heroPos + dir * 2;
-            pos.y = 2f;
-
-            GameObject instance = Instantiate(_tileSecuredMarkerPrefab);
-            instance.transform.position = pos;
-            instance.transform.rotation = Quaternion.LookRotation(heroPos - tilePos);
-            instance.SetActive(true);
-
-            Destroy(instance, 8f);
-        }
-
-        public void SetThreatLevelController(ThreatLevelController threatLevelController)
-        {
-            _threatLevelController = threatLevelController;
-        }
-
-        public int GetCurrentThreatLevel()
-        {
-            if (_threatLevelController == null) return 0;
-            return _threatLevelController.GetThreatLevel();
         }
 
         public override void InitializeUnit(Unit unit, int team)
@@ -105,13 +63,6 @@ namespace Lis.Units.Hero
             UnitLog.Add($"{BattleManager.GetTime()}: Hero gets hit by {attacker.name}");
             int damage = Unit.CalculateDamage(attacker.Unit as UnitFight);
             BaseGetHit(damage, HealthColor);
-            yield return null;
-        }
-
-        public IEnumerator GetHit(Minion.Minion minion)
-        {
-            UnitLog.Add($"{BattleManager.GetTime()}: Hero gets hit by a minion {minion.name}");
-            BaseGetHit(Hero.CalculateDamage(minion), HealthColor);
             yield return null;
         }
 

@@ -114,7 +114,6 @@ namespace Lis.Battle
 
         void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
         {
-            BattleManager.Instance.GetComponent<FightManager>().SpawnWave();
         }
 
         void DebugSpawnTile(InputAction.CallbackContext ctx)

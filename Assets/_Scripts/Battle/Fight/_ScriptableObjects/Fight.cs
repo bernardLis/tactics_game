@@ -8,46 +8,85 @@ namespace Lis.Battle.Fight
 {
     public class Fight : BaseScriptableObject
     {
-        HeroController _heroController;
-
-        public List<EnemyWave> EnemyWaves = new();
-        public int CurrentWaveIndex;
-        public float DelayBetweenWaves;
-
         public int CurrentDifficulty;
-
-        public event Action OnWaveSpawned;
 
         public void CreateFight()
         {
-            _heroController = BattleManager.Instance.HeroController;
-            DelayBetweenWaves = 15;
-            CreateWave();
-        }
+            // CurrentDifficulty = Mathf.FloorToInt(EnemyWaves.Count / 5);
+            //
+            // int points = 10 + EnemyWaves.Count * 2;
+            // points = Mathf.Clamp(points, 2, 300);
 
-        void CreateWave()
+        }
+        /*
+         *         public void CreateWave(int waveIndex, int points, int minionLevel, int threatLevel)
         {
-            // TODO: balance math minion spawning
-            CurrentDifficulty = Mathf.FloorToInt(EnemyWaves.Count / 5);
+            _gameManager = GameManager.Instance;
 
-            int points = 10 + EnemyWaves.Count * 2;
-            points = Mathf.Clamp(points, 2, 300);
+            WaveIndex = waveIndex;
+            Points = points;
+            MinionLevel = minionLevel;
 
-            EnemyWave wave = CreateInstance<EnemyWave>();
-            wave.CreateWave(EnemyWaves.Count, points, CurrentDifficulty, 0); //_heroController.GetCurrentThreatLevel())
-            EnemyWaves.Add(wave);
+            int val = Random.Range(0, 100);
+            if (points > 10 && val > 70)
+            {
+                AddRangedOpponent();
+                points -= 5;
+            }
+
+            List<Minion> availableMinions = new(_gameManager.UnitDatabase.GetMinionsByLevelRange(minionLevel));
+            for (int i = 0; i < points; i++)
+            {
+                Minion minion = Instantiate(availableMinions[Random.Range(0, availableMinions.Count)]);
+                minion.Level.SetValue(minionLevel + threatLevel);
+                minion.SetRandomNature();
+                minion.InitializeBattle(1);
+                Minions.Add(minion);
+            }
+
+            // single element wave
+            if (val < 10) SingleElementWave();
+
+            // mini boss
+            if (waveIndex > 1 && waveIndex % 5 == 0)
+                AddMiniBoss();
         }
 
-        public void SpawningWaveFinished()
+        void AddRangedOpponent()
         {
-            CurrentWaveIndex++;
-            CreateWave();
-            OnWaveSpawned?.Invoke();
+            RangedOpponent = Instantiate(_gameManager.UnitDatabase.GetRandomRangedOpponent());
+            RangedOpponent.InitializeBattle(1);
         }
 
-        public EnemyWave GetCurrentWave()
+        void SingleElementWave()
         {
-            return EnemyWaves[CurrentWaveIndex];
+            NatureName[] natures =
+                { NatureName.Earth, NatureName.Fire, NatureName.Water, NatureName.Wind };
+            int val = Random.Range(0, 4);
+            NatureName n = natures[val];
+
+            foreach (Minion m in Minions)
+                m.SetNature(n);
+
+            if (RangedOpponent == null) return;
+            RangedOpponent = Instantiate(_gameManager.UnitDatabase.GetRangedOpponentByNature(n));
         }
+
+        void AddMiniBoss()
+        {
+            List<Minion> minions = _gameManager.UnitDatabase.GetAllMinions();
+            minions = minions.OrderBy(m => m.LevelRange.x).ToList();
+            int index = Mathf.FloorToInt(MinionLevel - 1);
+            if (index >= minions.Count) index = minions.Count - 1;
+            Minion miniBoss = Instantiate(minions[index]);
+
+            miniBoss.Level.SetValue(MinionLevel);
+            miniBoss.SetRandomNature();
+            miniBoss.InitializeBattle(1);
+            miniBoss.SetMiniBoss();
+            Minions.Add(miniBoss);
+        }
+
+         */
     }
 }

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Lis.Units;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
-using Lis.Units.Minion;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -61,41 +59,6 @@ namespace Lis.Core
                     return t;
             return null;
         }
-
-        [Header("Minions")]
-        [SerializeField] Minion[] _minions;
-
-        public List<Minion> GetAllMinions()
-        {
-            return _minions.ToList();
-        }
-
-        public List<Minion> GetMinionsByLevelRange(int level)
-        {
-            List<Minion> minions = new();
-            foreach (Minion m in _minions)
-                if (m.LevelRange.x <= level && m.LevelRange.y >= level)
-                    minions.Add(m);
-            return minions;
-        }
-
-        public Minion GetRandomMinion()
-        {
-            return _minions[Random.Range(0, _minions.Length)];
-        }
-
-        [SerializeField] List<Unit> _rangedOpponents;
-
-        public Unit GetRandomRangedOpponent()
-        {
-            return _rangedOpponents[Random.Range(0, _rangedOpponents.Count)];
-        }
-
-        public Unit GetRangedOpponentByNature(NatureName natureName)
-        {
-            return _rangedOpponents.FirstOrDefault(x => x.Nature.NatureName == natureName);
-        }
-
 
         [Header("Creatures")]
         public Sprite[] CreatureIcons;
