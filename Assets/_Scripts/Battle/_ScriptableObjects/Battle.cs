@@ -1,5 +1,6 @@
+using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units.Boss;
+using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis.Battle
@@ -7,18 +8,35 @@ namespace Lis.Battle
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Battle")]
     public class Battle : BaseScriptableObject
     {
-        public int Duration = 900;
         public Stats Stats;
 
-        public Boss Boss;
+        public Hero SelectedHero;
+
+        public List<Arena.Arena> Arenas;
+
+        public Arena.Arena CurrentArena;
 
         public void Initialize(int level)
         {
             Stats = CreateInstance<Stats>();
 
-            Boss = Instantiate(GameManager.Instance.UnitDatabase.GetRandomBoss());
-            Debug.Log($"boss name {Boss.name}");
-            Boss.InitializeBattle(1);
+            foreach (Arena.Arena arena in Arenas)
+                arena.Initialize(level);
+
+            SetCurrentArena();
+            SetRandomHero();
+        }
+
+        void SetCurrentArena()
+        {
+            CurrentArena = Arenas[0];
+        }
+
+        void SetRandomHero()
+        {
+            SelectedHero = Instantiate(GameManager.Instance.UnitDatabase.GetRandomHero());
+            SelectedHero.InitializeHero();
+
         }
     }
 }

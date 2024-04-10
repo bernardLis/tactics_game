@@ -2,6 +2,7 @@ using System.Collections;
 using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Core;
+using Lis.Units.Hero;
 using Lis.Units.Projectile;
 using UnityEngine;
 
@@ -15,12 +16,16 @@ namespace Lis.Units.Boss.Attack
         protected Attack Attack;
         BossController _bossController;
 
+        protected HeroController HeroController;
+
         public void Initialize(Attack attack, BossController bossController)
         {
             Attack = attack;
             _bossController = bossController;
 
             BattleManager = BattleManager.Instance;
+
+            HeroController = BattleManager.GetComponent<HeroManager>().HeroController;
 
             _rangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
         }

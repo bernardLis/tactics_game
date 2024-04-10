@@ -1,6 +1,5 @@
-using System.Collections;
 using Cinemachine;
-using DG.Tweening;
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
@@ -14,19 +13,15 @@ namespace Lis.Battle
     {
         GameManager _gameManager;
         AudioManager _audioManager;
-        BattleManager _battleManager;
+        FightManager _fightManager;
 
         VisualElement _root;
         VisualElement _bottomPanel;
         HeroElement _heroBattleElement;
 
-        static readonly int AnimFreeFall = Animator.StringToHash("FreeFall");
-        static readonly int AnimGrounded = Animator.StringToHash("Grounded");
-
         public CinemachineVirtualCamera HeroFollowCamera;
 
         [SerializeField] AudioListener _placeholderAudioListener;
-        [SerializeField] GameObject _battleIntro;
 
         [HideInInspector] public HeroController HeroController;
         public Hero Hero { get; private set; }
@@ -43,51 +38,39 @@ namespace Lis.Battle
         {
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
-            _battleManager = GetComponent<BattleManager>();
             _root = GetComponent<UIDocument>().rootVisualElement;
             _bottomPanel = _root.Q<VisualElement>("bottomPanel");
+            _fightManager = GetComponent<FightManager>();
 
             Hero = hero;
             hero.InitializeBattle(0);
             hero.OnLevelUp += OnHeroLevelUp;
 
-            GameObject heroGameObject = Instantiate(hero.Prefab, Vector3.zero + Vector3.up * 10f,
-                Quaternion.identity);
-            HeroController = heroGameObject.GetComponentInChildren<HeroController>();
-            HeroController.InitializeGameObject();
-            HeroFollowCamera.Follow = heroGameObject.transform;
-
-            _battleManager.PlayerEntities.Add(HeroController);
-
-            _placeholderAudioListener.enabled = false;
-            StartCoroutine(MakeHeroFall(hero));
+            InitializeHeroGameObject(hero);
 
             RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
                 .Value;
-
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
             if (hero.StartingAbility == null || _turnOffAbility) return;
             Hero.AddAbility(hero.StartingAbility);
         }
 
-        IEnumerator MakeHeroFall(Hero hero)
+        void InitializeHeroGameObject(Hero hero)
         {
-            GameObject g = Instantiate(_battleIntro);
-            g.GetComponent<IntroManager>().Initialize();
+            GameObject heroGameObject = Instantiate(hero.Prefab, Vector3.zero, Quaternion.identity);
+            HeroController = heroGameObject.GetComponentInChildren<HeroController>();
+            HeroController.InitializeGameObject();
+            HeroFollowCamera.Follow = heroGameObject.transform;
+            _fightManager.PlayerUnits.Add(HeroController);
 
-            Animator heroAnimator = HeroController.GetComponentInChildren<Animator>();
-            heroAnimator.SetBool(AnimFreeFall, true);
-            HeroController.transform.DOMoveY(0f, 1f);
-            yield return new WaitForSeconds(0.5f);
-            heroAnimator.SetBool(AnimFreeFall, false);
-            heroAnimator.SetBool(AnimGrounded, true);
+            _placeholderAudioListener.enabled = false;
 
             HeroController.InitializeUnit(hero, 0);
-            _battleManager.AddPlayerArmyEntity(HeroController);
+            HeroController.GetComponent<NavMeshAgent>().enabled = true;
+
             _heroBattleElement = new(hero);
             _bottomPanel.Add(_heroBattleElement);
-            HeroController.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         void OnHeroLevelUp()

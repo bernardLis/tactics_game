@@ -127,7 +127,6 @@ namespace Lis.Battle
 
         void DebugKillHero(InputAction.CallbackContext ctx)
         {
-            BattleManager.Instance.HeroController.BaseGetHit(1000, default);
         }
 
         public void OpenMenu(InputAction.CallbackContext ctx)

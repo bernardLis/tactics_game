@@ -5,7 +5,6 @@ namespace Lis.Units.Boss.Attack
 {
     public class AttackControllerBanana : AttackController
     {
-
         public override IEnumerator Execute()
         {
             int total = Random.Range(Attack.TotalShotCount.x, Attack.TotalShotCount.y);
@@ -15,9 +14,9 @@ namespace Lis.Units.Boss.Attack
 
             for (int i = 0; i < Attack.GroupCount; i++)
             {
-                Vector3 heroPosNorm = BattleManager.HeroController.transform.position;
+                Vector3 heroPosNorm = HeroController.transform.position;
                 heroPosNorm.y = 1f;
-                Vector3 transformPosNorm = new Vector3(transform.position.x, 1f, transform.position.z);
+                Vector3 transformPosNorm = new(transform.position.x, 1f, transform.position.z);
 
                 for (int j = -halfTotalShots; j <= halfTotalShots; j++)
                 {
@@ -27,8 +26,10 @@ namespace Lis.Units.Boss.Attack
 
                     SpawnProjectile(dirToHero);
                 }
+
                 yield return new WaitForSeconds(waitTime);
             }
+
             yield return null;
         }
     }

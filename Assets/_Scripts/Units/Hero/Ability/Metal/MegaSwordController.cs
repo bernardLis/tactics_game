@@ -1,6 +1,5 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle;
 using Lis.Battle.Pickup;
 using UnityEngine;
 
@@ -22,10 +21,9 @@ namespace Lis.Units.Hero.Ability
         public override void Initialize(Ability ability, bool startAbility = true)
         {
             base.Initialize(ability, startAbility);
-            transform.localPosition = new Vector3(0, 0.5f, 0f);
+            transform.localPosition = new(0, 0.5f, 0f);
 
             Ability.OnLevelUp += ScaleAbility;
-            _heroController = BattleManager.Instance.HeroController;
             ScaleAbility();
         }
 

@@ -18,6 +18,7 @@ namespace Lis.Battle.Pickup
         [SerializeField] Transform _gfx;
 
         SphereCollider _sphereCollider;
+        HeroController _heroController;
         Hero _hero;
 
         public Pickup Pickup;
@@ -31,7 +32,9 @@ namespace Lis.Battle.Pickup
 
             _feelPlayer = GetComponent<MMF_Player>();
 
-            _hero = _battleManager.GetComponent<HeroManager>().HeroController.Hero;
+            _heroController = _battleManager.GetComponent<HeroManager>().HeroController;
+            _hero = _heroController.Hero;
+
             _sphereCollider = GetComponent<SphereCollider>();
 
             _hero.Pull.OnValueChanged += SetPickUpRadius;
@@ -128,8 +131,8 @@ namespace Lis.Battle.Pickup
         {
             if (!gameObject.activeSelf) return;
 
-            transform.DOMove(_battleManager.HeroController.transform.position + Vector3.up, Random.Range(0.5f, 2f))
-                .OnComplete(() => { PickUp(_battleManager.HeroController); });
+            transform.DOMove(_heroController.transform.position + Vector3.up, Random.Range(0.5f, 2f))
+                .OnComplete(() => { PickUp(_heroController); });
         }
 
         void DisplayText(string text, Color color)

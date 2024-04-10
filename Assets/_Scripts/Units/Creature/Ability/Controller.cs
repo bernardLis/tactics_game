@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
+using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Lis.Units.Creature.Ability
     {
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
+        protected FightManager FightManager;
 
         [HideInInspector] public CreatureController CreatureController;
         protected Creature Creature;
@@ -33,6 +35,7 @@ namespace Lis.Units.Creature.Ability
         {
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
+            FightManager = BattleManager.GetComponent<FightManager>();
 
             CreatureController = creatureController;
             Creature = creatureController.Creature;
@@ -114,6 +117,7 @@ namespace Lis.Units.Creature.Ability
                     bbv.TriggerBreak();
                     continue;
                 }
+
                 if (!c.TryGetComponent(out UnitController entity)) continue;
                 if (entity.Team == Creature.Team) continue;
                 if (entity.IsDead) continue;

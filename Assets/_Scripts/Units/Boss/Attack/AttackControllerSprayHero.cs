@@ -11,7 +11,7 @@ namespace Lis.Units.Boss.Attack
             float waitTime = Attack.TotalAttackDuration / total;
             for (int i = 0; i < total; i++)
             {
-                Vector3 heroPosAdjusted = BattleManager.HeroController.transform.position
+                Vector3 heroPosAdjusted = HeroController.transform.position
                                           + new Vector3(Random.Range(-Attack.Spread, Attack.Spread),
                                               0,
                                               Random.Range(-Attack.Spread, Attack.Spread));

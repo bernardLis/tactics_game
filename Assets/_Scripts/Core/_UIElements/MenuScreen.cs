@@ -32,8 +32,9 @@ namespace Lis.Core
 
             BattleManager = BattleManager.Instance;
             if (BattleManager == null) return;
-            if (BattleManager.HeroController == null) return;
-            Add(new HeroElement(BattleManager.HeroController.Hero, true));
+            HeroController hc = BattleManager.GetComponent<HeroManager>().HeroController;
+            if (hc == null) return;
+            Add(new HeroElement(hc.Hero, true));
         }
 
         void AddMenuButtons()

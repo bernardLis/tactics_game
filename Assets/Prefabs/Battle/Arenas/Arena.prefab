@@ -125,7 +125,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5103032281565103522}
-  - component: {fileID: 4567954077695690055}
+  - component: {fileID: 2839316527576109740}
   m_Layer: 6
   m_Name: Arena
   m_TagString: Untagged
@@ -171,7 +171,7 @@ Transform:
   - {fileID: 841944027514074065}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4567954077695690055
+--- !u!114 &2839316527576109740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1525327832846669260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 086cfca3730834b49aca4438ba33dcd7, type: 3}
+  m_Script: {fileID: 11500000, guid: 87426f3a86cc5a94ea2eb49723bb1de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2577522674817414176
@@ -5065,7 +5065,6 @@ GameObject:
   - component: {fileID: 5519813437199636816}
   - component: {fileID: 4803193711429446478}
   - component: {fileID: 8334119125094237900}
-  - component: {fileID: 3411993013091153199}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -5138,24 +5137,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3411993013091153199
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6700821354001622975}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

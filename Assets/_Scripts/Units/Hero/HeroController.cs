@@ -6,12 +6,12 @@ namespace Lis.Units.Hero
 {
     public class HeroController : UnitController
     {
-
         public Hero Hero { get; private set; }
 
         MovementController _movementController;
         HealthBarDisplayer _healthBarDisplayer;
 
+        private static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
         public override void InitializeGameObject()
         {
@@ -34,6 +34,7 @@ namespace Lis.Units.Hero
             _healthBarDisplayer.Initialize(Hero);
 
             Animator.enabled = true;
+            Animator.SetBool(AnimGrounded, true);
 
             HandleAbilities();
         }

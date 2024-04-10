@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
 using Lis.Battle.Arena;
+using Lis.Battle.Fight;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,6 +14,8 @@ namespace Lis.Units.Hero.Ability
     {
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
+        protected HeroManager HeroManager;
+        protected FightManager FightManager;
         protected ArenaManager ArenaManager;
 
         protected Transform AbilityObjectParent;
@@ -22,6 +25,7 @@ namespace Lis.Units.Hero.Ability
 
         readonly List<ObjectController> _abilityObjectPool = new();
 
+        protected HeroController HeroController;
         protected OpponentTracker OpponentTracker;
         protected Ability Ability;
         IEnumerator _runAbilityCoroutine;
@@ -32,8 +36,13 @@ namespace Lis.Units.Hero.Ability
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             ArenaManager = BattleManager.GetComponent<ArenaManager>();
+            HeroManager = BattleManager.GetComponent<HeroManager>();
+            FightManager = BattleManager.GetComponent<FightManager>();
+
             AbilityObjectParent = BattleManager.AbilityHolder;
-            OpponentTracker = BattleManager.HeroController.GetComponentInChildren<OpponentTracker>();
+
+            HeroController = HeroManager.HeroController;
+            OpponentTracker = HeroController.GetComponentInChildren<OpponentTracker>();
 
             Ability = ability;
 
@@ -77,14 +86,14 @@ namespace Lis.Units.Hero.Ability
         protected Vector3 GetRandomEnemyDirection()
         {
             Vector3 rand;
-            if (BattleManager.OpponentEntities.Count == 0)
+            if (FightManager.OpponentUnits.Count == 0)
             {
                 rand = Random.insideUnitCircle;
                 rand = new(rand.x, 0, rand.y);
                 return rand.normalized;
             }
 
-            rand = BattleManager.GetRandomEnemyPosition() - transform.position;
+            rand = FightManager.GetRandomEnemyPosition() - transform.position;
             rand.y = 0;
             return rand.normalized;
         }

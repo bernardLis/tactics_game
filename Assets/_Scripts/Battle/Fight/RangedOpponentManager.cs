@@ -21,7 +21,6 @@ namespace Lis.Battle.Fight
         readonly List<GameObject> _projectilePoolBiggerWithTime = new();
         readonly List<GameObject> _projectilePoolQuick = new();
         readonly List<GameObject> _projectilePoolWallBounce = new();
-        readonly List<GameObject> _rangedOpponentPool = new();
 
         public void Initialize()
         {
@@ -29,7 +28,6 @@ namespace Lis.Battle.Fight
             CreateNewPool(_projectileBiggerWithTimePrefab, _projectilePoolBiggerWithTime);
             CreateNewPool(_projectileQuickPrefab, _projectilePoolQuick);
             CreateNewPool(_projectileWallBouncePrefab, _projectilePoolWallBounce);
-            CreateNewPool(_rangedOpponentPrefab, _rangedOpponentPool);
         }
 
         void CreateNewPool(GameObject prefab, List<GameObject> pool)

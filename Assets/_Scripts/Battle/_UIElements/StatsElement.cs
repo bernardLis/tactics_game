@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Units;
@@ -22,6 +23,8 @@ namespace Lis.Battle
 
         readonly GameManager _gameManager;
         readonly BattleManager _battleManager;
+        readonly HeroManager _heroManager;
+        readonly FightManager _fightManager;
 
         readonly VisualElement _leftPanel;
         readonly VisualElement _middlePanel;
@@ -42,6 +45,9 @@ namespace Lis.Battle
                 Debug.LogError("BattleManager is null");
                 return;
             }
+
+            _heroManager = _battleManager.GetComponent<HeroManager>();
+            _fightManager = _battleManager.GetComponent<FightManager>();
 
             _stats = _battleManager.Battle.Stats;
 
@@ -85,10 +91,8 @@ namespace Lis.Battle
 
         void AddAbilityStats()
         {
-            foreach (Ability a in _battleManager.Hero.GetAllAbilities())
-            {
+            foreach (Ability a in _heroManager.Hero.GetAllAbilities())
                 _leftPanel.Add(new AbilityStatsElement(a));
-            }
         }
 
         void AddTotalGold()
@@ -182,7 +186,7 @@ namespace Lis.Battle
 
             Dictionary<Sprite, int> creatureKillCount = new();
 
-            foreach (Unit e in _battleManager.KilledOpponentEntities)
+            foreach (Unit e in _fightManager.KilledOpponentUnits)
             {
                 // if (e is not Creature) continue;
                 if (creatureKillCount.ContainsKey(e.Icon))

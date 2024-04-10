@@ -13,7 +13,7 @@ namespace Lis.Units.Creature.Ability
         {
             if (CreatureController.Team != 0) yield break;
 
-            List<UnitController> copyOfAllies = new(BattleManager.GetAllies(CreatureController));
+            List<UnitController> copyOfAllies = new(FightManager.GetAllies(CreatureController));
             bool hasHealed = false;
             UnitController healedEntity = null;
             foreach (UnitController b in copyOfAllies)

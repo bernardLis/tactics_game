@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Battle
   m_EditorClassIdentifier: 
   Id: 9ba5a3d0-1bd9-47e4-be85-a50e55caa87e
-  Duration: 900
   Stats: {fileID: 11400000, guid: 6cf74251d6908d64bac571abc668f2c7, type: 2}
-  Boss: {fileID: 11400000, guid: 1a26836a33edbc04e85a1b1fcb6528ce, type: 2}
+  SelectedHero: {fileID: 0}
+  Arenas:
+  - {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
+  CurrentArena: {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}

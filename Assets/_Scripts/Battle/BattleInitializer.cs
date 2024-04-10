@@ -9,7 +9,7 @@ namespace Lis.Battle
 {
     public class BattleInitializer : MonoBehaviour
     {
-        AudioManager _audioManager;
+        // AudioManager _audioManager;
         GameManager _gameManager;
         BattleManager _battleManager;
 
@@ -19,25 +19,26 @@ namespace Lis.Battle
         {
             _gameManager = GameManager.Instance;
             _battleManager = BattleManager.Instance;
-            _audioManager = AudioManager.Instance;
-            _audioManager.MuteAllButMusic();
+            // HERE: testing
+            // _audioManager = AudioManager.Instance;
+            // _audioManager.MuteAllButMusic();
 
-            _loadingScreen = new();
+            // _loadingScreen = new();
             _battleManager.Initialize();
-            _battleManager.ResumeGame();
+            // _battleManager.ResumeGame();
 
             StartCoroutine(DelayedStart());
         }
 
         IEnumerator DelayedStart()
         {
-
             yield return new WaitForSeconds(0.5f);
-            GetComponent<ArenaManager>().Initialize();
+            GetComponent<ArenaManager>().Initialize(_gameManager.CurrentBattle);
+            yield return new WaitForSeconds(0.5f);
 
             HeroManager heroManager = GetComponent<HeroManager>();
             heroManager.enabled = true;
-            heroManager.Initialize(_gameManager.SelectedHero);
+            heroManager.Initialize(_gameManager.CurrentBattle.SelectedHero);
 
             yield return new WaitForSeconds(0.5f);
 
@@ -53,9 +54,9 @@ namespace Lis.Battle
             GetComponent<StatsTracker>().Initialize();
             yield return new WaitForSeconds(0.1f);
 
-
-            _loadingScreen.Hide();
-            _audioManager.UnmuteAll();
+            // HERE: testing
+            // _loadingScreen.Hide();
+            // _audioManager.UnmuteAll();
         }
     }
 }

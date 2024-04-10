@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
+using Lis.Battle.Fight;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Lis.Units.Projectile
     public class HomingProjectileController : ProjectileController
     {
         BattleManager _battleManager;
+        FightManager _fightManager;
 
         Rigidbody _rb;
 
@@ -25,6 +27,7 @@ namespace Lis.Units.Projectile
             base.Initialize(team);
 
             _battleManager = BattleManager.Instance;
+            _fightManager = _battleManager.GetComponent<FightManager>();
             _rb = GetComponent<Rigidbody>();
         }
 
@@ -47,10 +50,10 @@ namespace Lis.Units.Projectile
             StartCoroutine(BreakHomingCoroutine());
             yield return GoForward(0.5f);
 
-            while (_battleManager.GetOpponents(Team).Count == 0)
+            while (_fightManager.GetOpponents(Team).Count == 0)
                 yield return GoForward(0.5f);
 
-            _target = GetClosestEntity(_battleManager.GetOpponents(Team));
+            _target = GetClosestEntity(_fightManager.GetOpponents(Team));
             while (_target != null)
             {
                 if (_target.IsDead) break;

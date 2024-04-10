@@ -101,7 +101,7 @@ namespace Lis.HeroSelection
             _heroInfoContainer.Clear();
             _heroInfoContainer.Add(new HeroInfoElement(_heroInstances[index]));
             _heroPrefabs[index].Show();
-            _gameManager.SelectedHero = _heroInstances[index];
+            _gameManager.SetHero(_heroInstances[index]);
 
             Invoke(nameof(EnableArrows), 0.5f);
         }

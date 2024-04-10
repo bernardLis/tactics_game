@@ -16,13 +16,16 @@ namespace Lis.Core
         public void Initialize()
         {
             foreach (Hero h in Heroes)
-            {
                 h.TimesPicked = PlayerPrefs.GetInt(h.Id, 0);
-            }
         }
 
         [Header("Hero")]
         public Hero[] Heroes;
+
+        public Hero GetRandomHero()
+        {
+            return Heroes[Random.Range(0, Heroes.Length)];
+        }
 
         [SerializeField] Ability[] _abilities;
         [SerializeField] Ability[] _advancedAbilities;

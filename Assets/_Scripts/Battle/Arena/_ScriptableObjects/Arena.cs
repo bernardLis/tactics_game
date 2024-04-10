@@ -1,7 +1,8 @@
 using Lis.Core;
+using Lis.Units.Boss;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Battle.Arena
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Arena")]
     public class Arena : BaseScriptableObject
@@ -11,5 +12,14 @@ namespace Lis
         public Vector3 EnemySpawnPoint;
         public int EnemyPoints;
         public int EnemyPointsGrowth;
+
+        public Boss Boss;
+
+        public void Initialize(int level)
+        {
+            Boss = Instantiate(GameManager.Instance.UnitDatabase.GetRandomBoss());
+            Boss.InitializeBattle(1);
+
+        }
     }
 }

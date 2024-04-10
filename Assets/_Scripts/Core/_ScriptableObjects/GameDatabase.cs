@@ -8,6 +8,8 @@ namespace Lis.Core
 {
     public class GameDatabase : BaseScriptableObject
     {
+        [Header("Battle")] public Battle.Battle SampleBattle;
+
         [Header("Pickups")] public QuestablePickup[] QuestablePickups;
 
         public QuestablePickup GetRandomQuestablePickup()

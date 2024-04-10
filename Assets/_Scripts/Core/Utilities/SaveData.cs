@@ -11,9 +11,6 @@ namespace Lis.Core.Utilities
     {
         // global data
         public int Seed;
-
-        public int BattleNumber;
-
         public int Gold;
 
         public HeroData PlayerHero = new();

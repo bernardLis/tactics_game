@@ -1,3 +1,4 @@
+using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Units.Boss;
@@ -10,18 +11,21 @@ namespace Lis.Battle
     public class StatsTracker : MonoBehaviour
     {
         BattleManager _battleManager;
+        FightManager _fightManager;
+        HeroManager _heroManager;
         Stats _stats;
 
         public void Initialize()
         {
             _battleManager = BattleManager.Instance;
+            _fightManager = _battleManager.GetComponent<FightManager>();
+            _heroManager = _battleManager.GetComponent<HeroManager>();
             _stats = _battleManager.Battle.Stats;
             _stats.Reset();
 
             TrackKills();
             TracksVases();
             TracksPickups();
-            TrackCreaturesCaptured();
             TrackAbilitiesUnlocked();
             TrackTabletsCollected();
             TrackAdvancedTabletsCollected();
@@ -29,7 +33,7 @@ namespace Lis.Battle
 
         void TrackKills()
         {
-            _battleManager.OnOpponentEntityDeath += (be) =>
+            _fightManager.OnOpponentUnitDeath += (be) =>
             {
                 if (be is CreatureController) _stats.CreaturesKilled++;
                 else if (be is BossController) _stats.BossKilled(be.Unit as Boss);
@@ -86,19 +90,14 @@ namespace Lis.Battle
                 _stats.EpicExpStonesCollected++;
         }
 
-        void TrackCreaturesCaptured()
-        {
-            _battleManager.Hero.OnTroopMemberAdded += creature => _stats.CreatureCaptured(creature);
-        }
-
         void TrackAbilitiesUnlocked()
         {
-            _battleManager.Hero.OnAbilityAdded += ability => _stats.AbilityUnlocked(ability);
+            _heroManager.Hero.OnAbilityAdded += ability => _stats.AbilityUnlocked(ability);
         }
 
         void TrackTabletsCollected()
         {
-            foreach (Tablet t in _battleManager.Hero.Tablets)
+            foreach (Tablet t in _heroManager.Hero.Tablets)
             {
                 t.OnLevelUp += tablet => _stats.TabletCollected(tablet);
             }
@@ -106,7 +105,7 @@ namespace Lis.Battle
 
         void TrackAdvancedTabletsCollected()
         {
-            _battleManager.Hero.OnTabletAdvancedAdded += t => _stats.AdvancedTabletCollected(t);
+            _heroManager.Hero.OnTabletAdvancedAdded += t => _stats.AdvancedTabletCollected(t);
         }
     }
 }

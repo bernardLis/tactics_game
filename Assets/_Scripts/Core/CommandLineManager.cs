@@ -115,7 +115,6 @@ namespace Lis.Core
         {
             _buttonContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("commandButtonsContainer");
 
-            AddHeroButtons();
             AddCreatureButtons();
             AddMinionButtons();
 
@@ -171,14 +170,7 @@ namespace Lis.Core
             creatureFoldout.Add(b);
 
             Button levelUpButton = new() { text = "Level Up" };
-            levelUpButton.clickable.clicked += () =>
-            {
-                foreach (UnitController e in BattleManager.Instance.PlayerEntities)
-                {
-                    CreatureController bc = (CreatureController)e;
-                    bc.Creature.LevelUp();
-                }
-            };
+            levelUpButton.clickable.clicked += () => { };
             creatureFoldout.Add(levelUpButton);
 
             Button spawnAllFriendly = new() { text = "Spawn All Friendly" };
@@ -208,10 +200,6 @@ namespace Lis.Core
         {
             c.InitializeBattle(team);
             UnitController be = SpawnEntity(c, team, pos);
-            if (team == 0)
-                BattleManager.Instance.AddPlayerArmyEntity(be);
-            if (team == 1)
-                BattleManager.Instance.AddOpponentArmyEntity(be);
 
             CreatureController bc = (CreatureController)be;
             // bc.DebugInitialize(team);
@@ -222,10 +210,6 @@ namespace Lis.Core
             Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
             c.InitializeBattle(team);
             UnitController be = SpawnEntity(c, team, Vector3.zero);
-            if (team == 0)
-                BattleManager.Instance.AddPlayerArmyEntity(be);
-            if (team == 1)
-                BattleManager.Instance.AddOpponentArmyEntity(be);
         }
 
         void AddMinionButtons()
@@ -246,10 +230,6 @@ namespace Lis.Core
             bMinions.clickable.clicked += () =>
             {
                 if (!int.TryParse(input.value, out int count)) return;
-
-                // HERE: for the build
-                // for (int i = 0; i < count; i++)
-                //     BattleManager.Instance.GetComponent<FightManager>().DebugSpawnMinion();
             };
             container.Add(input);
             container.Add(bMinions);
@@ -274,18 +254,12 @@ namespace Lis.Core
             Button clearButton = new() { text = "Clear" };
             clearButton.clickable.clicked += () =>
             {
-                List<UnitController> collection = new(battleManager.PlayerEntities);
-                collection.AddRange(battleManager.OpponentEntities);
-                foreach (UnitController e in collection)
-                    e.Die();
-                Invoke(nameof(Clear), 1f);
             };
             _buttonContainer.Add(clearButton);
         }
 
         void Clear()
         {
-            BattleManager.Instance.ClearAllEntities();
         }
 
         void AddSpawnChestButton()
@@ -315,92 +289,6 @@ namespace Lis.Core
             _otherFoldout.Add(spawnExpOrbButton);
         }
 
-        void AddHeroButtons()
-        {
-            Foldout heroFoldout = new()
-            {
-                text = "Hero",
-                value = false
-            };
-            _buttonContainer.Add(heroFoldout);
-
-            BattleManager battleManager = BattleManager.Instance;
-            if (battleManager == null) return;
-            Hero hero = battleManager.Hero;
-
-            Button levelUpButton = new() { text = "Level up" };
-            levelUpButton.clickable.clicked += () =>
-            {
-                hero = BattleManager.Instance.Hero;
-                hero.AddExp(hero.GetExpForNextLevel() - hero.Experience.Value);
-            };
-            heroFoldout.Add(levelUpButton);
-
-            Button increaseGatherStrength = new() { text = "Increase Pull" };
-            increaseGatherStrength.clickable.clicked += () =>
-            {
-                hero = BattleManager.Instance.Hero;
-                hero.Pull.SetBaseValue(hero.Pull.GetValue() + 1);
-            };
-            heroFoldout.Add(increaseGatherStrength);
-
-            Button decreaseGatherStrength = new() { text = "Decrease Pull" };
-            decreaseGatherStrength.clickable.clicked += () =>
-            {
-                hero = BattleManager.Instance.Hero;
-                hero.Pull.SetBaseValue(hero.Pull.GetValue() - 1);
-            };
-            heroFoldout.Add(decreaseGatherStrength);
-
-            List<string> abilityChoices = new();
-            abilityChoices.AddRange(_gameManager.UnitDatabase.GetAllBasicAbilities().ConvertAll(x => x.name));
-            var abilityDropdown = new DropdownField("Ability", abilityChoices, 0);
-            Button b = new() { text = "Add Ability" };
-            b.clickable.clicked += () =>
-            {
-                Ability a = _gameManager.UnitDatabase.GetAllBasicAbilities()
-                    .Find(x => x.name == abilityDropdown.value);
-                if (a != null)
-                {
-                    BattleManager.Instance.Hero.AddAbility(a);
-                }
-            };
-
-            heroFoldout.Add(abilityDropdown);
-            heroFoldout.Add(b);
-
-            Button abilityLevelUp = new() { text = "Level up abilities" };
-            abilityLevelUp.clickable.clicked += () =>
-            {
-                foreach (Ability a in BattleManager.Instance.Hero.Abilities)
-                {
-                    a.LevelUp();
-                }
-            };
-            heroFoldout.Add(abilityLevelUp);
-
-            // start abilities
-            Button startAbilities = new() { text = "Start abilities" };
-            startAbilities.clickable.clicked += () =>
-            {
-                foreach (Ability a in BattleManager.Instance.Hero.Abilities)
-                {
-                    a.StartAbility();
-                }
-            };
-            heroFoldout.Add(startAbilities);
-
-            // stop abilities
-            Button stopAbilities = new() { text = "Stop abilities" };
-            stopAbilities.clickable.clicked += () =>
-            {
-                foreach (Ability a in BattleManager.Instance.Hero.Abilities)
-                {
-                    a.StopAbility();
-                }
-            };
-            heroFoldout.Add(stopAbilities);
-        }
 
 
         /* COMMANDS */
@@ -425,10 +313,6 @@ namespace Lis.Core
         {
             BattleManager battleManager = BattleManager.Instance;
             if (battleManager == null) return;
-            List<UnitController> creatures = new(battleManager.PlayerEntities);
-            // HERE: for the build
-            // foreach (CreatureController creature in creatures)
-            //     creature.TriggerDeath();
         }
 
         void DoTweenSeeAllTweens()

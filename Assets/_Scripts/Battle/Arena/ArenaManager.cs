@@ -6,9 +6,12 @@ namespace Lis.Battle.Arena
     public class ArenaManager : MonoBehaviour
     {
         GameObject _arenaObject;
+        Arena _arena;
 
-        public void Initialize()
+        public void Initialize(Battle battle)
         {
+            _arena = battle.CurrentArena;
+            _arenaObject = Instantiate(_arena.Prefab, Vector3.zero, Quaternion.identity);
         }
 
         public Vector3 GetRandomPositionWithinRange(Vector3 center, float range)

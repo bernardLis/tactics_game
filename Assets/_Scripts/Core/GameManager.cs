@@ -23,16 +23,13 @@ namespace Lis.Core
 
         // global data
         int _seed;
-        public int BattleNumber;
 
         public int Gold { get; private set; }
 
-        public Battle.Battle CurrentBattle; // HERE: battle testing { get; private set; }
+        public Battle.Battle CurrentBattle { get; private set; }
 
         public VisualElement Root { get; private set; }
         public readonly List<FullScreenElement> OpenFullScreens = new();
-
-        public Hero SelectedHero;
 
         public event Action<int> OnGoldChanged;
 
@@ -63,6 +60,9 @@ namespace Lis.Core
 
             UpgradeBoard.Initialize();
             UnitDatabase.Initialize();
+
+            CurrentBattle = Instantiate(GameDatabase.SampleBattle);
+            CurrentBattle.Initialize(1);
         }
 
         // using Unity.Services.Analytics;
@@ -89,6 +89,11 @@ namespace Lis.Core
         //     AnalyticsService.Instance.CustomData("gameStart", parameters);
         // }
 
+        public void SetHero(Hero hero)
+        {
+            CurrentBattle.SelectedHero = hero;
+        }
+
         public void Play()
         {
             StartGame();
@@ -96,8 +101,7 @@ namespace Lis.Core
 
         public void StartGame()
         {
-            BattleNumber++;
-            PlayerPrefs.SetInt(SelectedHero.Id, SelectedHero.TimesPicked + 1);
+            PlayerPrefs.SetInt(CurrentBattle.SelectedHero.Id, CurrentBattle.SelectedHero.TimesPicked + 1);
             LoadScene(Scenes.Battle);
         }
 
@@ -119,7 +123,6 @@ namespace Lis.Core
             OnLevelLoaded?.Invoke(level);
         }
 
-
         /*************
          * Saving and Loading
          * https://www.youtube.com/watch?v=uD7y4T4PVk0
@@ -129,7 +132,6 @@ namespace Lis.Core
             Debug.Log($"Creating new save file...");
             _seed = Environment.TickCount;
 
-            BattleNumber = 0;
             Gold = 2137;
 
             UpgradeBoard.Reset();
@@ -163,7 +165,6 @@ namespace Lis.Core
         {
             // global data
             saveData.Seed = _seed;
-            saveData.BattleNumber = BattleNumber;
 
             saveData.Gold = Gold;
             saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
@@ -188,7 +189,6 @@ namespace Lis.Core
             Debug.Log($"Loading from save data");
             // global data
             _seed = saveData.Seed;
-            BattleNumber = saveData.BattleNumber;
 
             Gold = saveData.Gold;
             UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
@@ -198,7 +198,6 @@ namespace Lis.Core
         public void ClearSaveData()
         {
             _seed = Environment.TickCount;
-            BattleNumber = 0;
 
             Gold = 2137;
             UpgradeBoard.Reset();

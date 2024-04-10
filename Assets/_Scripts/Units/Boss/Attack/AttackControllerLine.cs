@@ -16,7 +16,7 @@ namespace Lis.Units.Boss.Attack
             {
                 Vector3 spawnPos = transform.position;
                 spawnPos.y = 1f;
-                Vector3 pos = BattleManager.HeroController.transform.position;
+                Vector3 pos = HeroController.transform.position;
                 pos.y = 1f;
                 Vector3 dir = (pos - spawnPos).normalized;
                 for (int j = 0; j < shotsPerGroup; j++)

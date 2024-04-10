@@ -40,8 +40,6 @@ namespace Lis.Units
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
 
-        [SerializeField] GameObject _recallEffect;
-
         [FormerlySerializedAs("_deathEffect")] [SerializeField]
         protected GameObject DeathEffect;
 
@@ -49,7 +47,7 @@ namespace Lis.Units
         protected UnitPathingController UnitPathingController;
         public Collider Collider { get; private set; }
         protected GameObject Gfx;
-        public Animator Animator { get; protected set; }
+        public Animator Animator { get; private set; }
 
         public Unit Unit { get; private set; }
         string BattleId { get; set; }
@@ -135,7 +133,7 @@ namespace Lis.Units
                        + "_" + Helpers.GetRandomNumber(4);
             name = BattleId;
 
-            HeroController = BattleManager.HeroController;
+            HeroController = BattleManager.GetComponent<HeroManager>().HeroController;
 
             if (Unit is not UnitMovement em) return;
             if (UnitPathingController != null)
@@ -384,28 +382,6 @@ namespace Lis.Units
         {
             _isGrabbed = false;
             Animator.enabled = true;
-            RunUnit();
-        }
-
-        /* Recall */
-        public void RecallToHero()
-        {
-            StartCoroutine(RecallCoroutine());
-        }
-
-        IEnumerator RecallCoroutine()
-        {
-            if (IsDead) yield break;
-            StopUnit();
-            _recallEffect.SetActive(false);
-            AddToLog("Unit is recalled to hero.");
-            yield return new WaitForSeconds(0.1f);
-            transform.position = HeroController.transform.position +
-                                 new Vector3(Random.Range(-5, 5), 1, Random.Range(-5, 5));
-            _recallEffect.SetActive(true);
-            if (_isRecalledSound != null)
-                AudioManager.PlaySfx(_isRecalledSound, transform.position);
-            yield return new WaitForSeconds(0.5f);
             RunUnit();
         }
 

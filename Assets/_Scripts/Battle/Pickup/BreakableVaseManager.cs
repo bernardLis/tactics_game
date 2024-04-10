@@ -15,7 +15,8 @@ namespace Lis.Battle.Pickup
         InputManager _inputManager;
         ArenaManager _arenaManager;
 
-        [FormerlySerializedAs("_vasePrefab")] [SerializeField] BreakableVaseController _vaseControllerPrefab;
+        [FormerlySerializedAs("_vasePrefab")] [SerializeField]
+        BreakableVaseController _vaseControllerPrefab;
 
         const int _vasesPerSpawn = 5;
 
@@ -44,7 +45,7 @@ namespace Lis.Battle.Pickup
         {
             while (true)
             {
-                if (_battleManager.GetTimeLeft() < 0) yield break;
+                if (this == null) yield break;
                 yield return new WaitForSeconds(Random.Range(10f, 20f)); // HERE: balance -> maybe longer
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
