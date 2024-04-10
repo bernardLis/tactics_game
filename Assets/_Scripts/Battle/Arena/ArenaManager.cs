@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Arena
@@ -22,7 +23,8 @@ namespace Lis.Battle.Arena
                 tries++;
                 Vector3 randomPoint = center + Random.insideUnitSphere * range;
                 randomPoint.y = 0;
-                if (IsPositionOnActiveTile(randomPoint))
+
+                if (IsPositionOnNavmesh(randomPoint))
                     return randomPoint;
             }
 
@@ -32,8 +34,7 @@ namespace Lis.Battle.Arena
 
         public Vector3 GetRandomPosition()
         {
-            // TODO: todo
-            return Vector3.zero;
+            return GetRandomPositionWithinRange(Vector3.zero, _arena.Size);
         }
 
         public Vector3 GetRandomPositionInRange(Vector3 center, float range)
@@ -46,7 +47,7 @@ namespace Lis.Battle.Arena
                 Vector2 r = Random.insideUnitCircle * range;
                 Vector3 randomPoint = center + new Vector3(r.x, 0, r.y);
                 randomPoint.y = 0;
-                if (IsPositionOnActiveTile(randomPoint))
+                if (IsPositionOnNavmesh(randomPoint))
                     return randomPoint;
             }
 
@@ -54,9 +55,9 @@ namespace Lis.Battle.Arena
             return Vector3.zero;
         }
 
-        bool IsPositionOnActiveTile(Vector3 pos)
+        bool IsPositionOnNavmesh(Vector3 pos)
         {
-            return false;
+            return NavMesh.SamplePosition(pos, out _, 0.3f, NavMesh.AllAreas);
         }
     }
 }

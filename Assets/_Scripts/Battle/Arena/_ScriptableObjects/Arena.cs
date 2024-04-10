@@ -8,6 +8,8 @@ namespace Lis.Battle.Arena
     public class Arena : BaseScriptableObject
     {
         public GameObject Prefab;
+        [Tooltip("How big sphere can fit the area")]
+        public int Size;
         public Vector3 PlayerSpawnPoint;
         public Vector3 EnemySpawnPoint;
         public int EnemyPoints;
