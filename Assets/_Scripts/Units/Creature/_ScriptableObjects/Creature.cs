@@ -10,9 +10,6 @@ namespace Lis.Units.Creature
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
     public class Creature : UnitFight
     {
-        public const int DeathPenaltyBase = 30;
-        public const int DeathPenaltyPerLevel = 5;
-
         [Header("Creature")] public int UpgradeTier;
 
         [FormerlySerializedAs("CreatureAbility")]
@@ -20,8 +17,6 @@ namespace Lis.Units.Creature
 
         public GameObject Projectile;
         public GameObject HitPrefab;
-
-        float _baseCatchingPower;
 
         public override void InitializeBattle(int team)
         {
@@ -36,8 +31,6 @@ namespace Lis.Units.Creature
             for (int i = 0; i < globalUpgradeBoard.GetUpgradeByName("Creature Level").GetValue(); i++)
                 LevelUp();
 
-            _baseCatchingPower = globalUpgradeBoard.GetUpgradeByName("Catching Power").GetValue() * 0.01f;
-
             if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
         }
 
@@ -46,24 +39,6 @@ namespace Lis.Units.Creature
             return Level.Value >= Ability.UnlockLevel;
         }
 
-        public float CalculateChanceToCatch(Hero.Hero hero)
-        {
-            float chance = _baseCatchingPower;
-            // missing health %, *0.5f make it "less" important
-            float missingHealthPercent = (1 - CurrentHealth.Value / MaxHealth.GetValue()) * 0.5f;
-            chance += missingHealthPercent;
-            // difference in level between creature and hero
-            int levelDifference = hero.Level.Value - Level.Value;
-            chance += 0.1f * levelDifference;
-            return chance;
-        }
-
-        public void Caught(Hero.Hero hero)
-        {
-            Team = 0;
-            CurrentHealth.SetValue(MaxHealth.GetValue());
-            hero.AddToTroops(this);
-        }
 
         public event Action OnDeath;
 

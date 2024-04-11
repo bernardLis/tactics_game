@@ -1,22 +1,21 @@
-using System;
 using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units.Hero;
+using Lis.Units.Creature;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Battle.Fight
 {
     public class Fight : BaseScriptableObject
     {
-        public int CurrentDifficulty;
+        [HideInInspector] public List<Creature> OpponentArmy = new();
 
-        public void CreateFight()
+        public void Initialize(int points)
         {
-            // CurrentDifficulty = Mathf.FloorToInt(EnemyWaves.Count / 5);
-            //
-            // int points = 10 + EnemyWaves.Count * 2;
-            // points = Mathf.Clamp(points, 2, 300);
-
+            // TODO: for now
+            List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.AllCreatures);
+            for (int i = 0; i < points; i++)
+                OpponentArmy.Add(Instantiate(availableCreatures[Random.Range(0, availableCreatures.Count)]));
         }
         /*
          *         public void CreateWave(int waveIndex, int points, int minionLevel, int threatLevel)

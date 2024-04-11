@@ -64,7 +64,7 @@ namespace Lis.Core
         AbilityTooltipElementStyles,
 
         EntityInfoElementStyles,
-        LevelUpScreenStyles,
+        RewardScreenStyles,
         RewardElementStyles,
 
         UnitIconStyles,

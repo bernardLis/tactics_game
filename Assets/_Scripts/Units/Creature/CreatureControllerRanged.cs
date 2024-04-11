@@ -29,6 +29,8 @@ namespace Lis.Units.Creature
 
             if (Creature.Projectile == null) return;
             _projectilePoolManager.Initialize(Creature.Projectile);
+
+            if (team == 1) InitializeHostileCreature();
         }
 
         public override void InitializeHostileCreature()

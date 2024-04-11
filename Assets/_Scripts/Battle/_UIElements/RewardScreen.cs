@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -12,9 +12,9 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Battle
 {
-    public class LevelUpScreen : FullScreenElement
+    public class RewardScreen : FullScreenElement
     {
-        const string _ussClassName = "level-up-screen__";
+        const string _ussClassName = "reward-screen__";
         const string _ussMain = _ussClassName + "main";
         const string _ussLevelUpLabel = _ussClassName + "level-up-label";
         const string _ussFallingElement = _ussClassName + "falling-element";
@@ -39,11 +39,11 @@ namespace Lis.Battle
 
         public event Action OnRewardSelected;
 
-        public LevelUpScreen()
+        public RewardScreen()
         {
             _audioManager = GameManager.GetComponent<AudioManager>();
             StyleSheet ss = GameManager.GetComponent<AddressableManager>()
-                .GetStyleSheetByName(StyleSheetType.LevelUpScreenStyles);
+                .GetStyleSheetByName(StyleSheetType.RewardScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             _numberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
@@ -232,20 +232,21 @@ namespace Lis.Battle
             for (int i = 0; i < _numberOfRewards; i++)
             {
                 // try giving player ability or stat
-                float v = Random.value;
-                RewardElement card = v > 0.5f ? CreateRewardCardAbility() : CreateRewardTablet();
-
-                if (card == null && v > 0.5f) card = CreateRewardTablet();
-                if (card == null && v <= 0.5f) card = CreateRewardCardAbility();
+                RewardElement el = ChooseRewardElement();
 
                 // if it is not possible give them gold
-                card ??= CreateRewardCardGold();
-
-                _allRewardElements.Add(card);
+                el ??= CreateRewardCardGold();
+                _allRewardElements.Add(el);
             }
         }
 
-        RewardElement CreateRewardTablet()
+        protected virtual RewardElement ChooseRewardElement()
+        {
+            // meant to be overwritten
+            return null;
+        }
+
+        protected RewardElement CreateRewardTablet()
         {
             RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
             if (!reward.CreateRandom(_heroManager.Hero, _allRewardElements)) return null;
@@ -254,7 +255,7 @@ namespace Lis.Battle
             return element;
         }
 
-        RewardElement CreateRewardCardAbility()
+        protected RewardElement CreateRewardCardAbility()
         {
             RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
             if (!reward.CreateRandom(_heroManager.Hero, _allRewardElements)) return null;
@@ -269,6 +270,18 @@ namespace Lis.Battle
             reward.CreateRandom(_heroManager.Hero, _allRewardElements);
             reward.OnRewardSelected += RewardSelected;
             RewardElementGold element = new(reward);
+            return element;
+        }
+
+        protected RewardElement CreateRewardCardCreature()
+        {
+            RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
+            reward.CreateRandom(_heroManager.Hero, _allRewardElements);
+            reward.OnRewardSelected += RewardSelected;
+
+            RewardElementCreature element = new(reward);
+            _allRewardElements.Add(element);
+            _rewardContainer.Add(element);
             return element;
         }
 

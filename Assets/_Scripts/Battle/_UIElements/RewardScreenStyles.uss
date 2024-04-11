@@ -1,4 +1,4 @@
-.level-up-screen__main {
+.reward-screen__main {
     align-items: center;
     align-self: center;
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&guid=b764c73bf47635548a80bafe4627b037&type=3#long_shadow');
@@ -11,7 +11,7 @@
     padding-left: 2%;
 }
 
-.level-up-screen__level-up-label {
+.reward-screen__reward-label {
     font-size: 22px;
     top: 20%;
     -unity-font-style: bold;
@@ -21,17 +21,17 @@
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
 
-.level-up-screen__falling-element {
+.reward-screen__falling-element {
     position: absolute;
     top: 0;
     width: 50px;
     height: 50px;
 }
 
-.level-up-screen__header {
+.reward-screen__header {
 }
 
-.level-up-screen__reward-container {
+.reward-screen__reward-container {
     flex-direction: row;
     flex-grow: 1;
     justify-content: center;

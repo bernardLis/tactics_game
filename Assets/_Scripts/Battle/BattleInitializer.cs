@@ -41,12 +41,9 @@ namespace Lis.Battle
             heroManager.Initialize(_gameManager.CurrentBattle.SelectedHero);
 
             yield return new WaitForSeconds(0.5f);
-
             GetComponent<GrabManager>().Initialize();
-
-            yield return new WaitForSeconds(0.1f);
             GetComponent<TooltipManager>().Initialize();
-            GetComponent<FightManager>().Initialize();
+            GetComponent<FightManager>().Initialize(_gameManager.CurrentBattle);
             GetComponent<BreakableVaseManager>().Initialize();
             GetComponent<PickupManager>().Initialize();
             GetComponent<RangedOpponentManager>().Initialize();
@@ -57,6 +54,7 @@ namespace Lis.Battle
             // HERE: testing
             // _loadingScreen.Hide();
             // _audioManager.UnmuteAll();
+            GetComponent<FightManager>().StartFight();
         }
     }
 }

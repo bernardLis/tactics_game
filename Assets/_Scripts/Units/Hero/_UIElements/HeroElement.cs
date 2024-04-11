@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units.Creature;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
@@ -24,8 +23,6 @@ namespace Lis.Units.Hero
         const string _ussTabletContainer = _ussClassName + "tablet-container";
         const string _ussSlot = _ussClassName + "slot";
 
-        readonly GameManager _gameManager;
-
         readonly Hero _hero;
 
         VisualElement _topContainer;
@@ -44,8 +41,8 @@ namespace Lis.Units.Hero
 
         public HeroElement(Hero hero, bool isAdvanced = false)
         {
-            _gameManager = GameManager.Instance;
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            GameManager gameManager = GameManager.Instance;
+            StyleSheet ss = gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.HeroElementStyles);
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussCommonTextPrimary);
@@ -63,8 +60,6 @@ namespace Lis.Units.Hero
             _isAdvancedView = isAdvanced;
 
             HandleButtonGuide();
-            HandleResources();
-            HandleTeam();
             HandleAbilities();
             HandleExpBar();
 
@@ -121,62 +116,6 @@ namespace Lis.Units.Hero
             _buttonGuideContainer.Add(containerB);
         }
 
-        void HandleResources()
-        {
-            AddFriendBallCountElement();
-            AddTroopsCountElement();
-        }
-
-        void AddFriendBallCountElement()
-        {
-            VisualElement container = new();
-            container.style.flexDirection = FlexDirection.Row;
-
-            Label icon = new();
-            icon.style.backgroundImage = new(_gameManager.GameDatabase.FriendBallIcon);
-            icon.style.width = 25;
-            icon.style.height = 25;
-
-            Label friendBallCountLabel = new($"{_hero.NumberOfFriendBalls}");
-            friendBallCountLabel.AddToClassList(_ussCommonTextPrimary);
-            _hero.OnFriendBallCountChanged +=
-                () => friendBallCountLabel.text = $"{_hero.NumberOfFriendBalls}";
-
-            container.Add(icon);
-            container.Add(friendBallCountLabel);
-            _resourcesContainer.Add(container);
-        }
-
-        void AddTroopsCountElement()
-        {
-            _troopsCounter = new("");
-            _resourcesContainer.Add(_troopsCounter);
-            _hero.OnTroopMemberAdded += (_) => UpdateTroopsCountElement();
-            _hero.TroopsLimit.OnValueChanged += (_) => UpdateTroopsCountElement();
-
-            UpdateTroopsCountElement();
-        }
-
-        void UpdateTroopsCountElement()
-        {
-            _troopsCounter.UpdateCountContainer($"{_hero.Troops.Count}/{_hero.TroopsLimit.Value}",
-                Color.white);
-        }
-
-        void HandleTeam()
-        {
-            foreach (Creature.Creature c in _hero.Troops)
-            {
-                CreatureIcon icon = new(c);
-                _teamContainer.Add(icon);
-            }
-
-            _hero.OnTroopMemberAdded += (c) =>
-            {
-                CreatureIcon icon = new(c);
-                _teamContainer.Add(icon);
-            };
-        }
 
         void HandleAbilities()
         {

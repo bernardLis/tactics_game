@@ -1,10 +1,9 @@
 using Lis.Core.Utilities;
 using Lis.Units.Hero.Ability;
-using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Units.Hero.Rewards
 {
     public class RewardElementAbility : RewardElement
     {

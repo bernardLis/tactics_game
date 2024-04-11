@@ -47,7 +47,7 @@ namespace Lis.Battle.Fight
             be.InitializeUnit(boss, 1);
 
             _bossController = be as BossController;
-            _fightManager.AddOpponentUnit(_bossController);
+            _fightManager.AddEnemyUnit(_bossController);
 
             yield return null;
         }

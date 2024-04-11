@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Lis.Battle.Fight;
+using Lis.Battle.Pickup.Exp_Stones;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,20 +19,15 @@ namespace Lis.Battle.Pickup
         [SerializeField] Horseshoe _horseshoe;
         [SerializeField] Bag _bag;
         [SerializeField] Skull _skull;
-        [SerializeField] FriendBall _friendBall;
 
         [FormerlySerializedAs("ExpOrbs")] [SerializeField]
         List<ExperienceStone> _expOrbs = new();
 
-
-        Fight.Fight _currentFight;
         public event Action<Pickup> OnPickupCollected;
 
         public void Initialize()
         {
             CreatePool(_pickupControllerPrefab.gameObject);
-
-            _currentFight = GetComponent<FightManager>().CurrentFight;
         }
 
         public void SpawnExpStone(Vector3 position)
@@ -48,7 +44,7 @@ namespace Lis.Battle.Pickup
             int v = Random.Range(0, 101);
             List<ExperienceStone> possibleOrbs = new();
             foreach (ExperienceStone orb in _expOrbs)
-                if (v <= orb.OrbChance && _currentFight.CurrentDifficulty >= orb.MinDifficulty)
+                if (v <= orb.OrbChance && 1 >= orb.MinDifficulty) // TODO: fight difficulty to spawn better orbs later
                     possibleOrbs.Add(orb);
 
             // return the exp orb with the lowest chance
@@ -85,8 +81,6 @@ namespace Lis.Battle.Pickup
                 p = Instantiate(_bag);
             else if (random == 3)
                 p = Instantiate(_skull);
-            else if (random == 4)
-                p = Instantiate(_friendBall);
 
             PickupController pickupController = GetObjectFromPool();
             pickupController.Initialize(p, position);
@@ -112,14 +106,6 @@ namespace Lis.Battle.Pickup
             foreach (PickupController p in GetActiveObjects())
                 if (p.Pickup is ExperienceStone)
                     p.GetToHero();
-        }
-
-        public PickupController GetFriendBall(Vector3 pos)
-        {
-            PickupController pickupController = GetObjectFromPool();
-            pickupController.Initialize(Instantiate(_friendBall), pos);
-            pickupController.OnCollected += PickupCollected;
-            return pickupController;
         }
     }
 }

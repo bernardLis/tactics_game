@@ -36,7 +36,6 @@ namespace Lis.Battle
         {
             SelectedHero = Instantiate(GameManager.Instance.UnitDatabase.GetRandomHero());
             SelectedHero.InitializeHero();
-
         }
     }
 }

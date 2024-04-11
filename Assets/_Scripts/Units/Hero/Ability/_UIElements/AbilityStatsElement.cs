@@ -1,8 +1,7 @@
-using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Units.Hero.Ability
 {
     public class AbilityStatsElement : VisualElement
     {

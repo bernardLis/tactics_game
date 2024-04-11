@@ -1,8 +1,7 @@
 using Lis.Core;
-using Lis.Units.Hero.Rewards;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Units.Hero.Rewards
 {
     public class RewardElement : ElementWithSound
     {

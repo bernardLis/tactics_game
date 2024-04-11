@@ -1,5 +1,6 @@
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
+using Lis.Battle.Pickup.Exp_Stones;
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
@@ -33,7 +34,7 @@ namespace Lis.Battle
 
         void TrackKills()
         {
-            _fightManager.OnOpponentUnitDeath += (be) =>
+            _fightManager.OnEnemyUnitDeath += (be) =>
             {
                 if (be is CreatureController) _stats.CreaturesKilled++;
                 else if (be is BossController) _stats.BossKilled(be.Unit as Boss);
@@ -66,9 +67,6 @@ namespace Lis.Battle
                         break;
                     case Skull _:
                         _stats.SkullsCollected++;
-                        break;
-                    case FriendBall _:
-                        _stats.FriendBallsCollected++;
                         break;
                     case ExperienceStone stone:
                         AssignOrb(stone);

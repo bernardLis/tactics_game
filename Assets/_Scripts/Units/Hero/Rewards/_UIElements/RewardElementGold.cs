@@ -1,10 +1,6 @@
-
-
-
 using Lis.Core;
-using Lis.Units.Hero.Rewards;
 
-namespace Lis
+namespace Lis.Units.Hero.Rewards
 {
     public class RewardElementGold : RewardElement
     {

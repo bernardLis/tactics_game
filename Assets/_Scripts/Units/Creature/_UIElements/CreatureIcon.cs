@@ -23,28 +23,6 @@ namespace Lis.Units.Creature
 
             Frame.style.width = 50;
             Frame.style.height = 50;
-
-            if (creature.Team != 0) return;
-            creature.OnDeath += OnCreatureDeath;
-        }
-
-        void OnCreatureDeath()
-        {
-            int time = Creature.DeathPenaltyBase +
-                       Creature.DeathPenaltyPerLevel * Unit.Level.Value;
-            _overlayTimer = new(time, time, false, "");
-            _overlayTimer.SetTimerFontSize(14);
-            Add(_overlayTimer);
-            _overlayTimer.OnTimerFinished += RemoveOverlayTimer;
-        }
-
-        void RemoveOverlayTimer()
-        {
-            if (_overlayTimer != null)
-            {
-                _overlayTimer.RemoveFromHierarchy();
-                _overlayTimer = null;
-            }
         }
     }
 }

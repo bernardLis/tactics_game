@@ -4,14 +4,12 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
 {
-    using Ability;
-
     public class RewardAbility : Reward
     {
         public bool IsUpgrade { get; private set; }
         public int Level { get; private set; }
 
-        public Ability Ability { get; private set; }
+        public Ability.Ability Ability { get; private set; }
 
         public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
         {
@@ -21,7 +19,7 @@ namespace Lis.Units.Hero.Rewards
             if (Ability == null) return false;
             Ability.Level = 0;
 
-            foreach (Ability heroAbility in Hero.GetAllAbilities())
+            foreach (Ability.Ability heroAbility in Hero.GetAllAbilities())
             {
                 if (heroAbility.Id == Ability.Id)
                 {
@@ -36,21 +34,21 @@ namespace Lis.Units.Hero.Rewards
             return true;
         }
 
-        Ability GetValidAbility(List<RewardElement> otherRewardCards)
+        Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)
         {
-            List<Ability> validAbilities = new();
-            foreach (Ability a in GameManager.UnitDatabase.GetAllBasicAbilities())
+            List<Ability.Ability> validAbilities = new();
+            foreach (Ability.Ability a in GameManager.UnitDatabase.GetAllBasicAbilities())
                 validAbilities.Add(Instantiate(a));
 
             if (Hero.Abilities.Count >= 4) // HERE: ability limit
             {
                 validAbilities = new();
-                foreach (Ability a in Hero.Abilities)
+                foreach (Ability.Ability a in Hero.Abilities)
                     validAbilities.Add(Instantiate(a));
             }
 
             // advanced abilities
-            foreach (Ability a in Hero.AdvancedAbilities)
+            foreach (Ability.Ability a in Hero.AdvancedAbilities)
             {
                 if (a.IsMaxLevel()) continue;
                 validAbilities.Add(Instantiate(a));
@@ -67,7 +65,7 @@ namespace Lis.Units.Hero.Rewards
             // remove abilities that are max level
             for (int i = validAbilities.Count - 1; i >= 0; i--)
             {
-                Ability a = Hero.GetAbilityById(validAbilities[i].Id);
+                Ability.Ability a = Hero.GetAbilityById(validAbilities[i].Id);
                 if (a == null) continue;
                 if (!a.IsMaxLevel()) continue;
                 validAbilities.Remove(validAbilities[i]);
@@ -85,7 +83,7 @@ namespace Lis.Units.Hero.Rewards
             base.GetReward();
             if (IsUpgrade)
             {
-                foreach (Ability heroAbility in Hero.GetAllAbilities())
+                foreach (Ability.Ability heroAbility in Hero.GetAllAbilities())
                     if (heroAbility.Id == Ability.Id)
                         heroAbility.LevelUp();
                 return;

@@ -61,6 +61,11 @@ namespace Lis.Units.Creature
             UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
         }
 
+        public void SetOpponentList(ref List<UnitController> list)
+        {
+            _opponentList = list;
+        }
+
         public virtual void InitializeHostileCreature()
         {
             // TODO:
@@ -261,22 +266,12 @@ namespace Lis.Units.Creature
                 .OnComplete(DeactivateSelf);
         }
 
-        IEnumerator Respawn()
+        void Respawn()
         {
             Animator.Rebind();
             Animator.Update(0f);
             Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
 
-            _respawnEffect.SetActive(false);
-            yield return new WaitForSeconds(Creature.DeathPenaltyBase +
-                                            Creature.DeathPenaltyPerLevel * Creature.Level.Value);
-            Transform t = transform;
-            t.position = HeroController.transform.position +
-                         new Vector3(Random.Range(-2, 2), 2, Random.Range(-2, 2));
-
-            AudioManager.PlaySfx(_respawnSound, t.position);
-            _respawnEffect.SetActive(true);
-            yield return new WaitForSeconds(1.5f);
             transform.DOMoveY(1, 0.3f);
             Gfx.transform.DOScale(1, 0.3f)
                 .OnComplete(EnableSelf);

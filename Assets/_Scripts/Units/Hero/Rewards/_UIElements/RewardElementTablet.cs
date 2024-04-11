@@ -1,11 +1,10 @@
 using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Units.Hero.Rewards;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Units.Hero.Rewards
 {
     public class RewardElementTablet : RewardElement
     {

@@ -426,12 +426,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameDatabase: {fileID: 11400000, guid: c90bc274bf47aab4f85f3d491695be9f, type: 2}
-  EntityDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
+  UnitDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   UpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}
   GameStats: {fileID: 11400000, guid: f7a08929f862d8a4da5b4a9818a21518, type: 2}
-  BattleNumber: 0
-  CurrentBattle: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
-  SelectedHero: {fileID: 11400000, guid: e16c817be6393fe48ada0d8cfd635545, type: 2}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

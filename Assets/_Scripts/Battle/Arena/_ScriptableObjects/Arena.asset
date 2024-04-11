@@ -15,8 +15,10 @@ MonoBehaviour:
   Id: fd39c0fd-c64f-498e-b18e-3013c8dcf603
   Prefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   Size: 50
-  PlayerSpawnPoint: {x: 20, y: 0, z: -3.5}
-  EnemySpawnPoint: {x: -20, y: 0, z: -3.5}
+  PlayerSpawnPoint: {x: -20, y: 0, z: -3.5}
+  EnemySpawnPoint: {x: 20, y: 0, z: -3.5}
   EnemyPoints: 5
   EnemyPointsGrowth: 5
-  Boss: {fileID: 11400000, guid: 26019ca15dd8ed9478affdbe9af0bd51, type: 2}
+  Boss: {fileID: 0}
+  Fights:
+  - {fileID: 0}

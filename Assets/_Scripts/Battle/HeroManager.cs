@@ -26,7 +26,7 @@ namespace Lis.Battle
         [HideInInspector] public HeroController HeroController;
         public Hero Hero { get; private set; }
 
-        LevelUpScreen _levelUpScreen;
+        LevelUpRewardScreen _levelUpRewardScreen;
         [SerializeField] Sound _levelUpSound;
 
         public int RewardRerollsAvailable;
@@ -62,7 +62,7 @@ namespace Lis.Battle
             HeroController = heroGameObject.GetComponentInChildren<HeroController>();
             HeroController.InitializeGameObject();
             HeroFollowCamera.Follow = heroGameObject.transform;
-            _fightManager.PlayerUnits.Add(HeroController);
+            _fightManager.AddPlayerUnit(HeroController);
 
             _placeholderAudioListener.enabled = false;
 
@@ -75,14 +75,14 @@ namespace Lis.Battle
 
         void OnHeroLevelUp()
         {
-            _levelUpScreen = new();
+            _levelUpRewardScreen = new();
             _audioManager.PlayUI(_levelUpSound);
-            _levelUpScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
+            _levelUpRewardScreen.OnHide += () => Hero.AddExp(Hero.LeftoverExp);
         }
 
         void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
         {
-            if (_levelUpScreen != null) _levelUpScreen.Hide();
+            if (_levelUpRewardScreen != null) _levelUpRewardScreen.Hide();
             Hero.AddAbility(tabletAdvanced.Ability);
             TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
         }

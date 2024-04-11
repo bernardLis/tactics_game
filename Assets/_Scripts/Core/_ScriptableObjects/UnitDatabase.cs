@@ -68,6 +68,10 @@ namespace Lis.Core
 
         public List<Creature> AllCreatures = new();
 
+        public Creature GetRandomCreature()
+        {
+            return AllCreatures[Random.Range(0, AllCreatures.Count)];
+        }
 
         [Header("Bosses")]
         [SerializeField] Boss[] _bosses;

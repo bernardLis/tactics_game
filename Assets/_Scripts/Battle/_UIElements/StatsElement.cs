@@ -186,7 +186,7 @@ namespace Lis.Battle
 
             Dictionary<Sprite, int> creatureKillCount = new();
 
-            foreach (Unit e in _fightManager.KilledOpponentUnits)
+            foreach (Unit e in _fightManager.KilledEnemyUnits)
             {
                 // if (e is not Creature) continue;
                 if (creatureKillCount.ContainsKey(e.Icon))

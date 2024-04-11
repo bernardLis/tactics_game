@@ -5,9 +5,12 @@ using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero
 {
+    using Creature;
+
     [CreateAssetMenu(menuName = "ScriptableObject/Hero/Hero")]
     public class Hero : UnitMovement
     {
@@ -32,61 +35,31 @@ namespace Lis.Units.Hero
                 t.Initialize(this);
 
             Abilities = new();
+
+            AddRandomArmy(); // TODO: for now
         }
 
-        public override void InitializeBattle(int team)
-        {
-            base.InitializeBattle(team);
-            UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
+        [HideInInspector] public List<Creature> Army = new();
 
-            NumberOfFriendBalls = globalUpgradeBoard.GetUpgradeByName("Starting Friend Balls").GetValue();
-            TroopsLimit = CreateInstance<IntVariable>();
-            TroopsLimit.SetValue(2 + globalUpgradeBoard.GetUpgradeByName("Starting Troops Limit").GetValue());
+        public void AddArmy(Creature armyUnit)
+        {
+            Army.Add(armyUnit);
+        }
+
+        void AddRandomArmy()
+        {
+            List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.AllCreatures);
+            for (int i = 0; i < 3; i++)
+            {
+                Creature instance = Instantiate(availableCreatures[Random.Range(0, availableCreatures.Count)]);
+                instance.InitializeBattle(0);
+                Army.Add(instance);
+            }
         }
 
         protected override void CreateStats()
         {
-            // Hero handles it through CreateBaseStats() instead 
-        }
-
-        /* FRIEND BALLS */
-        public int NumberOfFriendBalls;
-        public event Action OnFriendBallCountChanged;
-
-        public bool HasFriendBalls()
-        {
-            return NumberOfFriendBalls > 0;
-        }
-
-        public void UseFriendBall()
-        {
-            if (!HasFriendBalls()) return;
-            NumberOfFriendBalls--;
-            OnFriendBallCountChanged?.Invoke();
-        }
-
-        public void AddFriendBalls(int amount)
-        {
-            NumberOfFriendBalls += amount;
-            OnFriendBallCountChanged?.Invoke();
-        }
-
-        /* TROOPS */
-        public IntVariable TroopsLimit;
-        public List<Creature.Creature> Troops = new();
-
-        public event Action<Creature.Creature> OnTroopMemberAdded;
-
-        public bool CanAddToTroops()
-        {
-            return Troops.Count < TroopsLimit.Value;
-        }
-
-        public void AddToTroops(Creature.Creature creature)
-        {
-            if (!CanAddToTroops()) return;
-            Troops.Add(creature);
-            OnTroopMemberAdded?.Invoke(creature);
+            // Hero handles it through CreateBaseStats() instead
         }
 
         /* LEVELING */
@@ -117,7 +90,7 @@ namespace Lis.Units.Hero
         [Header("Tablets")] public List<Tablet> Tablets = new();
         public TabletAdvanced AdvancedTablet;
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
-        public Dictionary<NatureName, Tablet> TabletsByElement = new();
+        readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
 
         void CreateTablets()
         {
@@ -133,11 +106,11 @@ namespace Lis.Units.Hero
 
         public Tablet GetTabletByElement(NatureName natureName)
         {
-            if (TabletsByElement.Count < Tablets.Count)
+            if (_tabletsByElement.Count < Tablets.Count)
                 foreach (Tablet t in Tablets)
-                    TabletsByElement.Add(t.Nature.NatureName, t);
+                    _tabletsByElement.Add(t.Nature.NatureName, t);
 
-            return !TabletsByElement.ContainsKey(natureName) ? null : TabletsByElement[natureName];
+            return !_tabletsByElement.ContainsKey(natureName) ? null : _tabletsByElement[natureName];
         }
 
         void CheckAdvancedTablets(Tablet tablet)
@@ -164,7 +137,7 @@ namespace Lis.Units.Hero
             AdvancedTablet = Instantiate(original);
             AdvancedTablet.Initialize(this);
 
-            TabletsByElement.Add(AdvancedTablet.Nature.NatureName, AdvancedTablet);
+            _tabletsByElement.Add(AdvancedTablet.Nature.NatureName, AdvancedTablet);
 
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }

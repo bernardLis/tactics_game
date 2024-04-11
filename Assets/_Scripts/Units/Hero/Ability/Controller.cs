@@ -86,7 +86,7 @@ namespace Lis.Units.Hero.Ability
         protected Vector3 GetRandomEnemyDirection()
         {
             Vector3 rand;
-            if (FightManager.OpponentUnits.Count == 0)
+            if (FightManager.EnemyUnits.Count == 0)
             {
                 rand = Random.insideUnitCircle;
                 rand = new(rand.x, 0, rand.y);
