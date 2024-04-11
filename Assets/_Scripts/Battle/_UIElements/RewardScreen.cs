@@ -174,56 +174,10 @@ namespace Lis.Battle
             Add(new HeroElement(_heroManager.Hero, true));
         }
 
-        void RunCardShow()
-        {
-            if (_rerollButton != null)
-            {
-                _rerollButton.SetEnabled(false);
-                schedule.Execute(() => _rerollButton.SetEnabled(true)).StartingIn(_numberOfRewards * 200);
-            }
-
-            for (int i = 0; i < _numberOfRewards; i++)
-            {
-                RewardElement card = _allRewardElements[i];
-                _rewardContainer.Add(card);
-
-                card.style.position = Position.Absolute;
-                card.style.left = Screen.width;
-                card.style.width = _rewardElementWidth;
-                card.style.height = _rewardElementHeight;
-
-                _audioManager.PlayUIDelayed("Paper", 0.2f + i * 0.3f);
-                float endLeft = _leftPositions[i];
-                DOTween.To(x => card.style.left = x, Screen.width, endLeft, 0.5f)
-                    .SetEase(Ease.InFlash)
-                    .SetDelay(i * 0.2f)
-                    .SetUpdate(true);
-            }
-        }
-
-        void RerollReward()
-        {
-            if (_heroManager.RewardRerollsAvailable <= 0)
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Root, _rerollButton, "Not More Rerolls!", Color.red);
-                return;
-            }
-
-            _heroManager.RewardRerollsAvailable--;
-            _rerollsLeft.text = $"Rerolls left: {_heroManager.RewardRerollsAvailable}";
-            _audioManager.PlayUI("Dice Roll");
-
-            PopulateRewards();
-
-            if (_heroManager.RewardRerollsAvailable <= 0)
-                _rerollButton.SetEnabled(false);
-        }
-
         void PopulateRewards()
         {
             _rewardContainer.Clear();
             CreateRewardCards();
-            RunCardShow();
         }
 
         void CreateRewardCards()
@@ -231,11 +185,17 @@ namespace Lis.Battle
             _allRewardElements.Clear();
             for (int i = 0; i < _numberOfRewards; i++)
             {
-                // try giving player ability or stat
                 RewardElement el = ChooseRewardElement();
+                el ??= CreateRewardCardGold(); // backup
 
-                // if it is not possible give them gold
-                el ??= CreateRewardCardGold();
+                el.style.position = Position.Absolute;
+                float endLeft = _leftPositions[i];
+                el.style.left = endLeft;
+
+                el.style.width = _rewardElementWidth;
+                el.style.height = _rewardElementHeight;
+
+                _rewardContainer.Add(el);
                 _allRewardElements.Add(el);
             }
         }
@@ -303,6 +263,24 @@ namespace Lis.Battle
             OnRewardSelected?.Invoke();
 
             AddContinueButton();
+        }
+
+        void RerollReward()
+        {
+            if (_heroManager.RewardRerollsAvailable <= 0)
+            {
+                Helpers.DisplayTextOnElement(BattleManager.Root, _rerollButton, "Not More Rerolls!", Color.red);
+                return;
+            }
+
+            _heroManager.RewardRerollsAvailable--;
+            _rerollsLeft.text = $"Rerolls left: {_heroManager.RewardRerollsAvailable}";
+            _audioManager.PlayUI("Dice Roll");
+
+            PopulateRewards();
+
+            if (_heroManager.RewardRerollsAvailable <= 0)
+                _rerollButton.SetEnabled(false);
         }
     }
 }
