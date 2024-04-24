@@ -8,13 +8,31 @@ namespace Lis.Battle.Arena
     {
         GameObject _arenaObject;
         Arena _arena;
+        ArenaController _arenaController;
 
         public void Initialize(Battle battle)
         {
             _arena = battle.CurrentArena;
             _arenaObject = Instantiate(_arena.Prefab, Vector3.zero, Quaternion.identity);
+            _arenaController = _arenaObject.GetComponent<ArenaController>();
         }
 
+        public Vector3 GetRandomPositionInPlayerLockerRoom()
+        {
+            return _arenaController.GetRandomPositionInPlayerLockerRoom();
+        }
+
+        public Vector3 GetRandomPositionInEnemyLockerRoom()
+        {
+            return _arenaController.GetRandomPositionInEnemyLockerRoom();
+        }
+
+        public Vector3 GetRandomPositionInArena()
+        {
+            return _arenaController.GetRandomPositionInArena();
+        }
+
+        // TODO: need to make sure it is within arena bounds
         public Vector3 GetRandomPositionWithinRange(Vector3 center, float range)
         {
             int tries = 0;

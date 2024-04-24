@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Battle;
+using Lis.Battle.Arena;
+using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -24,7 +26,9 @@ namespace Lis.Units
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
         GrabManager _grabManager;
-        protected PickupManager PickupManager;
+        PickupManager _pickupManager;
+        FightManager _fightManager;
+        ArenaManager _arenaManager;
 
         public List<string> UnitLog = new();
 
@@ -83,7 +87,9 @@ namespace Lis.Units
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             _grabManager = GrabManager.Instance;
-            PickupManager = BattleManager.GetComponent<PickupManager>();
+            _pickupManager = BattleManager.GetComponent<PickupManager>();
+            _fightManager = BattleManager.GetComponent<FightManager>();
+            _arenaManager = BattleManager.GetComponent<ArenaManager>();
 
             HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
@@ -135,6 +141,9 @@ namespace Lis.Units
 
             HeroController = BattleManager.GetComponent<HeroManager>().HeroController;
 
+            _fightManager.OnFightStarted += RunUnit;
+            _fightManager.OnFightEnded += GoBackToLocker;
+
             if (Unit is not UnitMovement em) return;
             if (UnitPathingController != null)
                 UnitPathingController.InitializeUnit(em);
@@ -155,12 +164,27 @@ namespace Lis.Units
             _levelUpEffect.SetActive(false);
         }
 
+        void GoBackToLocker()
+        {
+            if (IsDead) return;
+            if (Team == 1) return;
+            UnitPathingController.SetStoppingDistance(0);
+            StartCoroutine(
+                UnitPathingController.PathToPosition(_arenaManager.GetRandomPositionInPlayerLockerRoom()));
+        }
+
         public virtual void RunUnit()
         {
             AddToLog("Run unit is called");
             if (IsDead) return;
 
             StopUnit();
+
+            if (!_fightManager.IsFightActive)
+            {
+                GoBackToLocker();
+                return;
+            }
 
             CurrentMainCoroutine = RunUnitCoroutine();
             StartCoroutine(CurrentMainCoroutine);
@@ -317,7 +341,7 @@ namespace Lis.Units
         void ResolveLoot()
         {
             if (Team == 0) return;
-            PickupManager.SpawnExpStone(transform.position);
+            _pickupManager.SpawnExpStone(transform.position);
         }
 
         public IEnumerator GetPoisoned(CreatureController attacker)

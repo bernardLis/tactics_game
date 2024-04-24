@@ -33,6 +33,7 @@ namespace Lis.Units
         {
             _agent.speed = em.Speed.GetValue();
             em.Speed.OnValueChanged += (i) => _agent.speed = i;
+            EnableAgent();
         }
 
         public void EnableAgent()

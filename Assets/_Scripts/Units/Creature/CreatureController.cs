@@ -266,7 +266,7 @@ namespace Lis.Units.Creature
                 .OnComplete(DeactivateSelf);
         }
 
-        void Respawn()
+        public void Respawn()
         {
             Animator.Rebind();
             Animator.Update(0f);
@@ -275,9 +275,6 @@ namespace Lis.Units.Creature
             transform.DOMoveY(1, 0.3f);
             Gfx.transform.DOScale(1, 0.3f)
                 .OnComplete(EnableSelf);
-
-            if (_abilityController != null)
-                _abilityController.StartAbilityCooldownCoroutine();
         }
 
         void EnableSelf()

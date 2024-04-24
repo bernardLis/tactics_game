@@ -40,10 +40,12 @@ namespace Lis.Units.Hero
         }
 
         [HideInInspector] public List<Creature> Army = new();
+        public event Action<Creature> OnArmyAdded;
 
         public void AddArmy(Creature armyUnit)
         {
             Army.Add(armyUnit);
+            OnArmyAdded?.Invoke(armyUnit);
         }
 
         void AddRandomArmy()

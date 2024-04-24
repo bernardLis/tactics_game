@@ -32,7 +32,7 @@ namespace Lis.Battle
         public int RewardRerollsAvailable;
 
         // HERE: testing
-        readonly bool _turnOffAbility = false;
+        readonly bool _turnOffAbility = true;
 
         public void Initialize(Hero hero)
         {

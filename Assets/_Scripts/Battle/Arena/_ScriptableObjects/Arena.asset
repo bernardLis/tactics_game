@@ -17,8 +17,9 @@ MonoBehaviour:
   Size: 50
   PlayerSpawnPoint: {x: -20, y: 0, z: -3.5}
   EnemySpawnPoint: {x: 20, y: 0, z: -3.5}
-  EnemyPoints: 5
-  EnemyPointsGrowth: 5
+  EnemyPoints: 1
+  EnemyPointsGrowth: 3
   Boss: {fileID: 0}
   Fights:
+  - {fileID: 0}
   - {fileID: 0}

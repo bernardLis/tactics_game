@@ -16,8 +16,6 @@ namespace Lis.Battle.Arena
         [Tooltip("How big sphere can fit the area")]
         public int Size;
 
-        public Vector3 PlayerSpawnPoint;
-        public Vector3 EnemySpawnPoint;
         public int EnemyPoints;
         public int EnemyPointsGrowth;
 
