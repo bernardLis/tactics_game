@@ -50,11 +50,6 @@ namespace Lis.Battle.Arena
             return Vector3.zero;
         }
 
-        public Vector3 GetRandomPosition()
-        {
-            return GetRandomPositionWithinRange(Vector3.zero, _arena.Size);
-        }
-
         public Vector3 GetRandomPositionInRange(Vector3 center, float range)
         {
             int tries = 0;

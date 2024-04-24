@@ -15,7 +15,7 @@ namespace Lis.Units.Creature
 
         ProjectilePoolManager _projectilePoolManager;
 
-        protected RangedOpponentManager RangedOpponentManager;
+        RangedOpponentManager _rangedOpponentManager;
 
         public override void InitializeGameObject()
         {
@@ -33,10 +33,10 @@ namespace Lis.Units.Creature
             if (team == 1) InitializeHostileCreature();
         }
 
-        public override void InitializeHostileCreature()
+        protected override void InitializeHostileCreature()
         {
             base.InitializeHostileCreature();
-            RangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
+            _rangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
         }
 
         protected override IEnumerator PathToOpponent()
@@ -123,12 +123,9 @@ namespace Lis.Units.Creature
         {
             yield return base.Attack();
 
-            ProjectileController projectileController;
-            if (Team == 0)
-                projectileController = _projectilePoolManager.GetObjectFromPool();
-            else
-                projectileController = RangedOpponentManager.GetProjectileFromPool(Unit.Nature.NatureName);
-
+            ProjectileController projectileController = Team == 0
+                ? _projectilePoolManager.GetObjectFromPool()
+                : _rangedOpponentManager.GetProjectileFromPool(Unit.Nature.NatureName);
             projectileController.Initialize(Team);
             projectileController.transform.position = ProjectileSpawnPoint.transform.position;
             if (Opponent == null) yield break;

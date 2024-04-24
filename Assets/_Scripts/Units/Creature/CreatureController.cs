@@ -7,7 +7,6 @@ using Lis.Core;
 using Lis.Units.Creature.Ability;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Lis.Units.Creature
 {
@@ -22,7 +21,7 @@ namespace Lis.Units.Creature
 
         List<UnitController> _opponentList = new();
 
-        public UnitController Opponent { get; protected set; }
+        public UnitController Opponent { get; private set; }
 
         float _currentAttackCooldown;
         static readonly int AnimAttack = Animator.StringToHash("Attack");
@@ -66,7 +65,7 @@ namespace Lis.Units.Creature
             _opponentList = list;
         }
 
-        public virtual void InitializeHostileCreature()
+        protected virtual void InitializeHostileCreature()
         {
             // TODO:
         }
@@ -86,18 +85,7 @@ namespace Lis.Units.Creature
             }
         }
 
-        void OpponentWasAdded(UnitController _)
-        {
-            if (this == null) return;
-            RunUnit();
-            UnsubscribeFromEvents();
-        }
-
-        void UnsubscribeFromEvents()
-        {
-        }
-
-        protected IEnumerator ManagePathing()
+        IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
                 ChooseNewTarget();
@@ -111,7 +99,7 @@ namespace Lis.Units.Creature
             yield return CurrentSecondaryCoroutine;
         }
 
-        protected IEnumerator ManageAttackCoroutine()
+        IEnumerator ManageAttackCoroutine()
         {
             if (CurrentSecondaryCoroutine != null)
                 StopCoroutine(CurrentSecondaryCoroutine);
@@ -176,9 +164,9 @@ namespace Lis.Units.Creature
 
             // +0.5 wiggle room
             Vector3 delta = Opponent.transform.position - transform.position;
-            float distanceSqr = delta.sqrMagnitude;
-            float attackRangeSqr = (Creature.AttackRange.GetValue() + 0.5f) * (Creature.AttackRange.GetValue() + 0.5f);
-            return distanceSqr <= attackRangeSqr;
+            float distanceSqrt = delta.sqrMagnitude;
+            float attackRangeSqrt = (Creature.AttackRange.GetValue() + 0.5f) * (Creature.AttackRange.GetValue() + 0.5f);
+            return distanceSqrt <= attackRangeSqrt;
         }
 
         void ChooseNewTarget()
@@ -252,18 +240,16 @@ namespace Lis.Units.Creature
             _abilityController.Initialize(this);
         }
 
-        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             yield return base.DieCoroutine(attacker, hasLoot);
+            StopUnit();
+            UnitPathingController.DisableAgent();
+
             Creature.Die();
-            UnsubscribeFromEvents();
             ResetOpponent(null, null);
 
             Animator.SetTrigger(AnimDie);
-
-            transform.DOMoveY(-1, 10f)
-                .SetDelay(3f)
-                .OnComplete(DeactivateSelf);
         }
 
         public void Respawn()
@@ -272,8 +258,7 @@ namespace Lis.Units.Creature
             Animator.Update(0f);
             Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
 
-            transform.DOMoveY(1, 0.3f);
-            Gfx.transform.DOScale(1, 0.3f)
+            transform.DOMoveY(1, 0.3f)
                 .OnComplete(EnableSelf);
         }
 
@@ -291,26 +276,12 @@ namespace Lis.Units.Creature
                 _abilityController.StartAbilityCooldownCoroutine();
         }
 
-        void DeactivateSelf()
-        {
-            StopUnit();
-            StopAllCoroutines();
-
-            Collider.enabled = false;
-            UnitPathingController.DisableAgent();
-
-            transform.DOKill();
-            gameObject.SetActive(false);
-        }
-
 #if UNITY_EDITOR
         [ContextMenu("Level up")]
         public void LevelUp()
         {
             Creature.LevelUp();
         }
-
-
 #endif
     }
 }

@@ -50,7 +50,7 @@ namespace Lis.Battle.Pickup
 
                 for (int i = 0; i < _vasesPerSpawn; i++)
                 {
-                    Vector3 pos = _arenaManager.GetRandomPosition();
+                    Vector3 pos = _arenaManager.GetRandomPositionInArena();
                     SpawnVase(pos);
                     yield return new WaitForSeconds(0.15f);
                 }

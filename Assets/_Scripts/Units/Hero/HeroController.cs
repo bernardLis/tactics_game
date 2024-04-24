@@ -67,7 +67,7 @@ namespace Lis.Units.Hero
             yield return null;
         }
 
-        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             _movementController.enabled = false;
             BattleManager.LoseBattle();

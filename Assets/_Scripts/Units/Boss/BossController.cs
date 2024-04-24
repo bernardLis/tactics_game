@@ -198,7 +198,7 @@ namespace Lis.Units.Boss
             CurrentStunDuration.SetValue(0);
         }
 
-        public override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             StopUnit();
             BattleManager.WinBattle();

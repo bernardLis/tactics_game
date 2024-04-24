@@ -67,7 +67,7 @@ namespace Lis.Units
 
         MMF_Player _feelPlayer;
 
-        protected IEnumerator CurrentMainCoroutine;
+        IEnumerator _currentMainCoroutine;
         protected IEnumerator CurrentSecondaryCoroutine;
 
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
@@ -75,7 +75,7 @@ namespace Lis.Units
         protected Color HealthColor;
         Color _shieldColor;
 
-        protected HeroController HeroController;
+        HeroController _heroController;
 
         public event Action OnShieldBroken;
         public event Action<int> OnDamageTaken;
@@ -139,7 +139,7 @@ namespace Lis.Units
                        + "_" + Helpers.GetRandomNumber(4);
             name = BattleId;
 
-            HeroController = BattleManager.GetComponent<HeroManager>().HeroController;
+            _heroController = BattleManager.GetComponent<HeroManager>().HeroController;
 
             _fightManager.OnFightStarted += RunUnit;
             _fightManager.OnFightEnded += GoBackToLocker;
@@ -168,7 +168,7 @@ namespace Lis.Units
         {
             if (IsDead) return;
             if (Team == 1) return;
-            UnitPathingController.SetStoppingDistance(0);
+            UnitPathingController.SetStoppingDistance(1);
             StartCoroutine(
                 UnitPathingController.PathToPosition(_arenaManager.GetRandomPositionInPlayerLockerRoom()));
         }
@@ -186,16 +186,16 @@ namespace Lis.Units
                 return;
             }
 
-            CurrentMainCoroutine = RunUnitCoroutine();
-            StartCoroutine(CurrentMainCoroutine);
+            _currentMainCoroutine = RunUnitCoroutine();
+            StartCoroutine(_currentMainCoroutine);
         }
 
         public virtual void StopUnit()
         {
             AddToLog("Stop unit is called");
 
-            if (CurrentMainCoroutine != null)
-                StopCoroutine(CurrentMainCoroutine);
+            if (_currentMainCoroutine != null)
+                StopCoroutine(_currentMainCoroutine);
             if (CurrentSecondaryCoroutine != null)
                 StopCoroutine(CurrentSecondaryCoroutine);
 
@@ -314,7 +314,7 @@ namespace Lis.Units
             OnShieldBroken?.Invoke();
         }
 
-        public void Die(UnitController attacker = null)
+        protected void Die(UnitController attacker = null)
         {
             AddToLog("Unit dies.");
             IsDead = true;
@@ -322,7 +322,7 @@ namespace Lis.Units
                 StartCoroutine(DieCoroutine(attacker: attacker));
         }
 
-        public virtual IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected virtual IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
             if (IsDeathCoroutineStarted) yield break;
             IsDeathCoroutineStarted = true;
@@ -424,7 +424,7 @@ namespace Lis.Units
 
         protected Vector3 GetPositionCloseToHero()
         {
-            Vector3 pos = HeroController.transform.position
+            Vector3 pos = _heroController.transform.position
                           + Vector3.right * Random.Range(-10f, 10f)
                           + Vector3.forward * Random.Range(-10f, 10f);
             if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))

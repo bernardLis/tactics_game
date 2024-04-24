@@ -14,9 +14,6 @@ namespace Lis.Units.Hero
         const string _ussClassName = "hero-element__";
         const string _ussMain = _ussClassName + "main";
 
-        const string _ussBIcon = _ussClassName + "b-icon";
-        const string _ussQIcon = _ussClassName + "q-icon";
-
         const string _ussTeamContainer = _ussClassName + "team-container";
         const string _ussInfoContainer = _ussClassName + "info-container";
         const string _ussStatContainer = _ussClassName + "stat-container";
@@ -27,7 +24,6 @@ namespace Lis.Units.Hero
 
         VisualElement _topContainer;
         VisualElement _teamContainer;
-        VisualElement _buttonGuideContainer;
 
         VisualElement _resourcesContainer;
         TroopsCountElement _troopsCounter;
@@ -59,7 +55,6 @@ namespace Lis.Units.Hero
 
             _isAdvancedView = isAdvanced;
 
-            HandleButtonGuide();
             HandleAbilities();
             HandleExpBar();
 
@@ -82,40 +77,12 @@ namespace Lis.Units.Hero
 
             _resourcesContainer = new();
             _teamContainer.Add(_resourcesContainer);
-
-            _buttonGuideContainer = new();
-            _topContainer.Add(_buttonGuideContainer);
         }
 
         void OnHeroLevelUp()
         {
             _levelLabel.text = $"Level {_hero.Level.Value}";
         }
-
-        void HandleButtonGuide()
-        {
-            if (_isAdvancedView) return;
-
-            VisualElement containerQ = new();
-            containerQ.style.flexDirection = FlexDirection.Row;
-            Label qIcon = new();
-            qIcon.AddToClassList(_ussQIcon);
-            Label qLabel = new("Throw Friend Ball");
-            containerQ.Add(qIcon);
-            containerQ.Add(qLabel);
-
-            VisualElement containerB = new();
-            containerB.style.flexDirection = FlexDirection.Row;
-            Label bIcon = new();
-            bIcon.AddToClassList(_ussBIcon);
-            Label bLabel = new("Recall Troops");
-            containerB.Add(bIcon);
-            containerB.Add(bLabel);
-
-            _buttonGuideContainer.Add(containerQ);
-            _buttonGuideContainer.Add(containerB);
-        }
-
 
         void HandleAbilities()
         {
