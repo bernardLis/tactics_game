@@ -142,7 +142,7 @@ namespace Lis.Units
             _heroController = BattleManager.GetComponent<HeroManager>().HeroController;
 
             _fightManager.OnFightStarted += RunUnit;
-            _fightManager.OnFightEnded += GoBackToLocker;
+            _fightManager.OnFightEnded += OnFightEnded;
 
             if (Unit is not UnitMovement em) return;
             if (UnitPathingController != null)
@@ -164,13 +164,20 @@ namespace Lis.Units
             _levelUpEffect.SetActive(false);
         }
 
-        void GoBackToLocker()
+
+        protected virtual void OnFightEnded()
+        {
+            GoBackToLocker();
+        }
+
+        protected void GoBackToLocker()
         {
             if (IsDead) return;
             if (Team == 1) return;
-            UnitPathingController.SetStoppingDistance(1);
+
+            UnitPathingController.SetStoppingDistance(0);
             StartCoroutine(
-                UnitPathingController.PathToPosition(_arenaManager.GetRandomPositionInPlayerLockerRoom()));
+                UnitPathingController.PathToPositionAndStop(_arenaManager.GetRandomPositionInPlayerLockerRoom()));
         }
 
         public virtual void RunUnit()
@@ -436,6 +443,14 @@ namespace Lis.Units
         {
             if (BattleManager == null) return;
             UnitLog.Add($"{BattleManager.GetTime()}: {s}.");
+        }
+
+        protected void DestroySelf()
+        {
+            StopAllCoroutines();
+            DOTween.Kill(transform);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
 
 #if UNITY_EDITOR

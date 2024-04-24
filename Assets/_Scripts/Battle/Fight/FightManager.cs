@@ -196,7 +196,7 @@ namespace Lis.Battle.Fight
         {
             _arena.CreateFight();
             StartCoroutine(SpawnEnemyUnits());
-            RespawnPlayerUnits();
+            //  RespawnPlayerUnits();
             // MoveHeroToSpawnPoint();
             OnFightEnded?.Invoke();
             IsFightActive = false;

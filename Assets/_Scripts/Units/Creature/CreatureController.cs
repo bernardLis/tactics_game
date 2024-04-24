@@ -70,6 +70,25 @@ namespace Lis.Units.Creature
             // TODO:
         }
 
+        protected override void OnFightEnded()
+        {
+            if (Team == 0 && IsDead)
+            {
+                transform.DOMoveY(0f, 5f)
+                    .OnComplete(DestroySelf);
+                return;
+            }
+
+            StartCoroutine(OnFightEndedCoroutine());
+        }
+
+        IEnumerator OnFightEndedCoroutine()
+        {
+            if (IsDead) yield return Respawn();
+            Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
+            GoBackToLocker();
+        }
+
         protected override IEnumerator RunUnitCoroutine()
         {
             while (true)
@@ -252,13 +271,12 @@ namespace Lis.Units.Creature
             Animator.SetTrigger(AnimDie);
         }
 
-        public void Respawn()
+        public IEnumerator Respawn()
         {
             Animator.Rebind();
             Animator.Update(0f);
-            Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
 
-            transform.DOMoveY(1, 0.3f)
+            yield return transform.DOMoveY(1, 0.3f)
                 .OnComplete(EnableSelf);
         }
 
