@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Lis.Battle.Arena;
+using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,9 +12,9 @@ namespace Lis.Battle.Pickup
 {
     public class BreakableVaseManager : PoolManager<BreakableVaseController>
     {
-        BattleManager _battleManager;
         InputManager _inputManager;
         ArenaManager _arenaManager;
+        FightManager _fightManager;
 
         [FormerlySerializedAs("_vasePrefab")] [SerializeField]
         BreakableVaseController _vaseControllerPrefab;
@@ -29,31 +30,27 @@ namespace Lis.Battle.Pickup
 
         public void Initialize()
         {
-            _battleManager = GetComponent<BattleManager>();
             _arenaManager = GetComponent<ArenaManager>();
             _inputManager = GetComponent<InputManager>();
+            _fightManager = GetComponent<FightManager>();
 
 #if UNITY_EDITOR
             _cam = Camera.main;
             _inputManager.OnLeftMouseClick += DebugSpawnVase;
 #endif
             CreatePool(_vaseControllerPrefab.gameObject);
-            StartCoroutine(SpawnVasesCoroutine());
+            _fightManager.OnFightStarted += () => StartCoroutine(SpawnVasesCoroutine());
         }
 
         IEnumerator SpawnVasesCoroutine()
         {
-            while (true)
-            {
-                if (this == null) yield break;
-                yield return new WaitForSeconds(Random.Range(10f, 20f)); // HERE: balance -> maybe longer
+            if (this == null) yield break;
 
-                for (int i = 0; i < _vasesPerSpawn; i++)
-                {
-                    Vector3 pos = _arenaManager.GetRandomPositionInArena();
-                    SpawnVase(pos);
-                    yield return new WaitForSeconds(0.15f);
-                }
+            for (int i = 0; i < _vasesPerSpawn; i++)
+            {
+                yield return new WaitForSeconds(Random.Range(1f, 4f));
+                Vector3 pos = _arenaManager.GetRandomPositionInArena();
+                SpawnVase(pos);
             }
         }
 
