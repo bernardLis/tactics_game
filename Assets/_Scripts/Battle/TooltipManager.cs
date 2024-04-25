@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units;
@@ -16,6 +17,7 @@ namespace Lis.Battle
         GameManager _gameManager;
         PlayerInput _playerInput;
         BattleManager _battleManager;
+        FightManager _fightManager;
 
         VisualElement _root;
         VisualElement _tooltipCardContainer;
@@ -42,6 +44,10 @@ namespace Lis.Battle
         {
             _battleManager = BattleManager.Instance;
             _battleManager.OnBattleFinalized += OnBattleFinalized;
+
+            _fightManager = GetComponent<FightManager>();
+            _fightManager.OnFightStarted += () => ShowGameInfo("Fight started!", 3f);
+            _fightManager.OnFightEnded += () => ShowGameInfo("Fight won!", 3f);
 
             _root = GetComponent<UIDocument>().rootVisualElement;
             _tooltipCardContainer = _root.Q<VisualElement>("tooltipCardContainer");

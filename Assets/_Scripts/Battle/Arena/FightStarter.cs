@@ -1,36 +1,44 @@
-using Lis.Battle;
-using Lis.Battle.Fight;
 using UnityEngine;
 
 namespace Lis
 {
-    public class FightStarter : MonoBehaviour, IInteractable
+    public class FightStarter : ArenaInteractable, IInteractable
     {
-        FightManager _fightManager;
+        public new string InteractionPrompt => "Press F To Start A Fight!";
 
-        void Start()
+        protected override void Start()
         {
-            _fightManager = BattleManager.Instance.GetComponent<FightManager>();
+            base.Start();
+            OnFightEnded();
         }
 
-        public string InteractionPrompt => "Start Fight";
-        public bool CanInteract() => true;
-        public void DisplayTooltip() => Debug.Log("Displaying tooltip");
-        public void HideTooltip() => Debug.Log("Hiding tooltip");
-
-        public bool Interact(Interactor interactor, out bool wasSuccess)
+        protected override void SetTooltipText()
         {
-            Debug.Log("Interacting with FightStarter");
-            if (_fightManager.IsFightActive)
+            TooltipText.text = InteractionPrompt;
+        }
+
+        protected override void OnFightEnded()
+        {
+            InteractionAvailableEffect.SetActive(true);
+            IsInteractionAvailable = true;
+        }
+
+        protected override void OnFightStarted()
+        {
+            InteractionAvailableEffect.SetActive(false);
+            HideTooltip();
+            IsInteractionAvailable = false;
+        }
+
+        public override bool Interact(Interactor interactor)
+        {
+            if (FightManager.IsFightActive)
             {
                 Debug.Log("Fight is already active");
-                wasSuccess = false;
                 return false;
             }
 
-            _fightManager.StartFight();
-
-            wasSuccess = true;
+            FightManager.StartFight();
             return true;
         }
     }

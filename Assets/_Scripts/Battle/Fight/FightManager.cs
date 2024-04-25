@@ -159,7 +159,6 @@ namespace Lis.Battle.Fight
         {
             yield return new WaitForSeconds(1f);
             StartCoroutine(SpawnEnemyUnits());
-            FightRewardScreen unused = new();
         }
 
         public List<UnitController> GetAllies(UnitController unitController)

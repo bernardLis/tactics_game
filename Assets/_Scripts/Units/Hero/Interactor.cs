@@ -39,8 +39,7 @@ namespace Lis
             foreach (IInteractable interactable in _interactables)
             {
                 if (!interactable.CanInteract()) continue;
-                interactable.Interact(this, out bool wasSuccess);
-                if (!wasSuccess) continue;
+                if (!interactable.Interact(this)) continue;
                 _interactables.Remove(interactable);
                 interactable.HideTooltip();
                 break;
