@@ -58,7 +58,7 @@ namespace Lis.Battle.Fight
             GetComponent<InputManager>().OnOneClicked += StartFight;
         }
 
-        void StartFight()
+        public void StartFight()
         {
             _fightCoroutine = StartFightCoroutine();
             StartCoroutine(_fightCoroutine);
