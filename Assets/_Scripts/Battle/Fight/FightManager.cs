@@ -54,8 +54,9 @@ namespace Lis.Battle.Fight
             StartCoroutine(SpawnAllPlayerUnits());
             StartCoroutine(SpawnEnemyUnits());
 
-            // TODO: for now
+            // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
+            GetComponent<InputManager>().OnTwoClicked += () => new FightRewardScreen();
         }
 
         public void StartFight()

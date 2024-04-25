@@ -11,7 +11,6 @@ namespace Lis.Units.Hero.Rewards
             RewardCreature rewardCreature = reward as RewardCreature;
             if (rewardCreature == null) return;
 
-
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             Add(container);
@@ -25,6 +24,7 @@ namespace Lis.Units.Hero.Rewards
             container.Add(nameLabel);
 
             CreatureIcon icon = new(rewardCreature.Creature);
+            icon.SetBigIcon();
             Add(icon);
         }
     }

@@ -186,14 +186,12 @@
     position: absolute;
     top: 25%;
     left: 25%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/38_lock.png?fileID=2800000&guid=09a2538c67ad7e845a379265f3957fe1&type=3#38_lock');
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Other/gray_38_lock.png?fileID=2800000&guid=2a7af23403b0bb448b689c801e36dbd3&type=3#gray_38_lock");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .common__lock-overlay-icon-unlocked {
-    width: 50%;
-    height: 50%;
-    background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/UI_icons/Colored/39_unlock.png?fileID=2800000&guid=345b005ffe8d5db47968d9c039e8b168&type=3#39_unlock');
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Other/gray_39_unlock.png?fileID=2800000&guid=52a6e2c70b301a64186909797c7eb447&type=3#gray_39_unlock");
 }
 
 .common__loading-screen {

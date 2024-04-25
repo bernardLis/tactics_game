@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
@@ -13,12 +12,10 @@ namespace Lis.Units
         const string _ussIconContainer = _ussClassName + "icon-container";
         const string _ussFrame = _ussClassName + "frame";
 
-        protected readonly Unit Unit;
+        readonly Unit _unit;
 
         protected readonly VisualElement IconContainer;
         protected readonly VisualElement Frame;
-
-        readonly bool _blockClick;
 
         readonly AnimationElement _animationElement;
         bool _isAnimationBlocked;
@@ -29,7 +26,7 @@ namespace Lis.Units
                 .GetStyleSheetByName(StyleSheetType.UnitIconStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            Unit = unit;
+            _unit = unit;
 
             AddToClassList(_ussMain);
 
@@ -48,24 +45,9 @@ namespace Lis.Units
             RegisterCallback<MouseEnterEvent>(OnMouseEnter);
             RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
 
-            _blockClick = blockClick;
             if (blockClick) return;
-            // MoveIcon();
             RegisterCallback<ClickEvent>(OnClick);
         }
-
-        // void MoveIcon()
-        // {
-        //     DOTween.To(x => transform.scale = x * Vector3.one, 1f, 1.1f, 1.5f)
-        //         .SetLoops(-1, LoopType.Yoyo)
-        //         .SetEase(Ease.InOutSine)
-        //         .SetTarget(transform);
-        //
-        //     DOTween.To(x => style.rotate = new Rotate(x), -5f, 5f, 1.5f)
-        //         .SetLoops(-1, LoopType.Yoyo)
-        //         .SetEase(Ease.InOutSine)
-        //         .SetTarget(transform);
-        // }
 
         public void PlayAnimationAlways()
         {
@@ -78,18 +60,12 @@ namespace Lis.Units
         {
             if (_isAnimationBlocked) return;
             _animationElement.PlayAnimation();
-
-            if (!_blockClick)
-                DOTween.Kill(transform);
         }
 
         protected void OnMouseLeave(MouseLeaveEvent evt)
         {
             if (_isAnimationBlocked) return;
             _animationElement.PauseAnimation();
-
-            // if (!_blockClick)
-            //     MoveIcon();
         }
 
         void OnClick(ClickEvent evt)
@@ -97,9 +73,9 @@ namespace Lis.Units
             evt.StopImmediatePropagation();
 
             UnitScreen card = null;
-            if (Unit is Creature.Creature creature)
+            if (_unit is Creature.Creature creature)
                 card = new CreatureScreen(creature);
-            if (Unit is Boss.Boss boss)
+            if (_unit is Boss.Boss boss)
                 card = new BossScreen(boss);
 
             card?.Initialize();

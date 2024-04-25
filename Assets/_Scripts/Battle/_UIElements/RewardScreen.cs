@@ -85,7 +85,7 @@ namespace Lis.Battle
             container.style.width = Length.Percent(80);
             container.style.height = Length.Percent(100);
 
-            Label label = new("Level Up!");
+            Label label = new("Fight Won!");
             label.AddToClassList(_ussLevelUpLabel);
             container.Add(label);
             DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
