@@ -1,4 +1,5 @@
 using Cinemachine;
+using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units.Hero;
@@ -58,7 +59,8 @@ namespace Lis.Battle
 
         void InitializeHeroGameObject(Hero hero)
         {
-            GameObject heroGameObject = Instantiate(hero.Prefab, Vector3.zero, Quaternion.identity);
+            Vector3 pos = GetComponent<ArenaManager>().GetRandomPositionInPlayerLockerRoom();
+            GameObject heroGameObject = Instantiate(hero.Prefab, pos, Quaternion.identity);
             HeroController = heroGameObject.GetComponentInChildren<HeroController>();
             HeroController.InitializeGameObject();
             HeroFollowCamera.Follow = heroGameObject.transform;

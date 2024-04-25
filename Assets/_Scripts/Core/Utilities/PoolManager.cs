@@ -7,7 +7,7 @@ namespace Lis.Core.Utilities
     public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour
     {
         GameObject _prefab;
-        List<T> _pool = new();
+        protected List<T> Pool = new();
         protected Transform PoolHolder;
 
         protected void CreatePool(GameObject prefab, int count = 200)
@@ -15,7 +15,7 @@ namespace Lis.Core.Utilities
             _prefab = prefab;
             PoolHolder = new GameObject(prefab.name + " Pool").transform;
 
-            _pool = new();
+            Pool = new();
             for (int i = 0; i < count; i++)
             {
                 InstantiateNewObject();
@@ -24,8 +24,32 @@ namespace Lis.Core.Utilities
 
         public T GetObjectFromPool()
         {
-            T obj = _pool.Find(o => !o.gameObject.activeSelf);
-            return obj != null ? obj : InstantiateNewObject();
+            return GetInactiveObject();
+        }
+
+        T GetInactiveObject()
+        {
+            // TODO: bad solution to avoid null reference exception
+            List<T> nullObjects = new();
+            T inactiveObject = null;
+            foreach (T o in Pool)
+            {
+                if (o == null)
+                {
+                    nullObjects.Add(o);
+                    continue;
+                }
+
+                if (o.gameObject.activeSelf) continue;
+                inactiveObject = o;
+                break;
+            }
+
+            foreach (T o in nullObjects)
+                Pool.Remove(o);
+
+            if (inactiveObject == null) inactiveObject = InstantiateNewObject();
+            return inactiveObject;
         }
 
         T InstantiateNewObject()
@@ -35,14 +59,14 @@ namespace Lis.Core.Utilities
                 unit.InitializeGameObject();
 
             p.gameObject.SetActive(false);
-            _pool.Add(p);
+            Pool.Add(p);
 
             return p;
         }
 
         protected List<T> GetActiveObjects()
         {
-            return _pool.FindAll(o => o.gameObject.activeSelf);
+            return Pool.FindAll(o => o.gameObject.activeSelf);
         }
     }
 }

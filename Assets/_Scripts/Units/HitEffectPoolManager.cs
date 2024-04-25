@@ -16,5 +16,14 @@ namespace Lis.Units
             PoolHolder.parent = transform;
             PoolHolder.localPosition = Vector3.zero;
         }
+
+        public void ResetPool()
+        {
+            foreach (var hitEffect in Pool)
+            {
+                if (hitEffect == null) continue;
+                hitEffect.transform.parent = PoolHolder.transform;
+            }
+        }
     }
 }

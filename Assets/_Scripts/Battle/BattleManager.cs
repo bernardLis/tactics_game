@@ -30,6 +30,8 @@ namespace Lis.Battle
 
         IEnumerator _timerCoroutine;
         int _battleTime;
+        Label _timerLabel;
+
 
         public event Action OnBattleInitialized;
         public event Action OnBattleFinalized;
@@ -53,6 +55,8 @@ namespace Lis.Battle
             _gameManager.SaveJsonData();
 
             Root.Q<VisualElement>("vfx").pickingMode = PickingMode.Ignore;
+
+            _timerLabel = Root.Q<Label>("timer");
         }
 
         public void Initialize()
@@ -61,6 +65,7 @@ namespace Lis.Battle
 
             _battleFinalized = false;
             _battleTime = 0;
+            ResumeTimer();
 
             OnBattleInitialized?.Invoke();
         }
@@ -110,6 +115,11 @@ namespace Lis.Battle
             {
                 if (this == null) yield break;
                 _battleTime++;
+                int minutes = Mathf.FloorToInt(_battleTime / 60f);
+                int seconds = Mathf.FloorToInt(_battleTime - minutes * 60);
+
+                _timerLabel.text = $"{minutes:00}:{seconds:00}";
+
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -118,7 +128,6 @@ namespace Lis.Battle
         {
             return _battleTime;
         }
-
 
         IEnumerator _endBattleCoroutine;
 

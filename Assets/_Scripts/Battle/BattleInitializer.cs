@@ -54,7 +54,6 @@ namespace Lis.Battle
             // HERE: testing
             // _loadingScreen.Hide();
             // _audioManager.UnmuteAll();
-            // GetComponent<FightManager>().StartFight();
         }
     }
 }

@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 80704560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.16250461, y: -0.412138, z: 22.714027}
+  m_LocalPosition: {x: -0.16250658, y: -0.41213894, z: 22.714025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -360,6 +360,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.6107097, y: 1.3208507, z: -65.47044}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &508511794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 508511795}
+  m_Layer: 0
+  m_Name: Opponent Army Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &508511795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508511794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.7864417, y: 0.41000003, z: -20.572742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -636,7 +667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1078788522}
   m_Layer: 0
-  m_Name: Entity Holder
+  m_Name: Player Army Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,7 +745,7 @@ Transform:
   m_GameObject: {fileID: 1106236924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.11497624, y: -0.41506577, z: 22.709846}
+  m_LocalPosition: {x: 0.11497799, y: -0.41506577, z: 22.709846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1082,7 +1113,7 @@ Transform:
   m_GameObject: {fileID: 1906427495}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42413387, y: -0.37718678, z: 22.763943}
+  m_LocalPosition: {x: -0.424136, y: -0.37718678, z: 22.763943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1791,6 +1822,22 @@ PrefabInstance:
       propertyPath: _rangedOpponentHolder
       value: 
       objectReference: {fileID: 1093471360}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: EntityHolder
+      value: 
+      objectReference: {fileID: 1078788522}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _opponentHolder
+      value: 
+      objectReference: {fileID: 508511795}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: PlayerArmyHolder
+      value: 
+      objectReference: {fileID: 1078788522}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _opponentArmyHolder
+      value: 
+      objectReference: {fileID: 508511795}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1809,6 +1856,7 @@ SceneRoots:
   - {fileID: 296518730}
   - {fileID: 1361948773}
   - {fileID: 1078788522}
+  - {fileID: 508511795}
   - {fileID: 843739632}
   - {fileID: 1093471360}
   - {fileID: 309431931}

@@ -119,9 +119,9 @@ namespace Lis.Units.Creature
         }
 
 
-        protected override IEnumerator Attack()
+        protected override IEnumerator AttackCoroutine()
         {
-            yield return base.Attack();
+            yield return base.AttackCoroutine();
 
             ProjectileController projectileController = Team == 0
                 ? _projectilePoolManager.GetObjectFromPool()

@@ -18,15 +18,21 @@ namespace Lis.Units.Creature
             _hitEffectPoolManager.Initialize(Creature.HitPrefab);
         }
 
+        protected override void OnFightEnded()
+        {
+            base.OnFightEnded();
+            _hitEffectPoolManager.ResetPool();
+        }
+
         protected override IEnumerator PathToOpponent()
         {
             yield return base.PathToOpponent();
             Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 
-        protected override IEnumerator Attack()
+        protected override IEnumerator AttackCoroutine()
         {
-            yield return base.Attack();
+            yield return base.AttackCoroutine();
             if (!IsOpponentInRange()) yield break;
 
             if (Opponent == null) yield break;

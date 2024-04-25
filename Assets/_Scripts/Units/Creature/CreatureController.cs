@@ -60,6 +60,15 @@ namespace Lis.Units.Creature
             UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
         }
 
+        protected override void EnableSelf()
+        {
+            base.EnableSelf();
+
+            if (_abilityController != null)
+                _abilityController.StartAbilityCooldownCoroutine();
+        }
+
+
         public void SetOpponentList(ref List<UnitController> list)
         {
             _opponentList = list;
@@ -72,7 +81,8 @@ namespace Lis.Units.Creature
 
         protected override void OnFightEnded()
         {
-            if (Team == 0 && IsDead)
+            if (this == null) return;
+            if (Team == 1 && IsDead)
             {
                 transform.DOMoveY(0f, 5f)
                     .OnComplete(DestroySelf);
@@ -84,7 +94,11 @@ namespace Lis.Units.Creature
 
         IEnumerator OnFightEndedCoroutine()
         {
+            StopUnit();
+
+            AddToLog("Fight ended!");
             if (IsDead) yield return Respawn();
+            AddToLog("After waiting for respawn");
             Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
             GoBackToLocker();
         }
@@ -95,12 +109,12 @@ namespace Lis.Units.Creature
             {
                 if (IsDead) yield break;
                 while (_opponentList.Count == 0)
-                {
                     yield return new WaitForSeconds(1f);
-                }
 
-                yield return ManagePathing();
-                yield return ManageAttackCoroutine();
+                CurrentSecondaryCoroutine = ManagePathing();
+                yield return CurrentSecondaryCoroutine;
+                CurrentSecondaryCoroutine = AttackCoroutine();
+                yield return CurrentSecondaryCoroutine;
             }
         }
 
@@ -111,19 +125,7 @@ namespace Lis.Units.Creature
             yield return new WaitForSeconds(0.1f);
 
             if (Opponent == null) yield break;
-
-            if (CurrentSecondaryCoroutine != null)
-                StopCoroutine(CurrentSecondaryCoroutine);
-            CurrentSecondaryCoroutine = PathToOpponent();
-            yield return CurrentSecondaryCoroutine;
-        }
-
-        IEnumerator ManageAttackCoroutine()
-        {
-            if (CurrentSecondaryCoroutine != null)
-                StopCoroutine(CurrentSecondaryCoroutine);
-            CurrentSecondaryCoroutine = Attack();
-            yield return CurrentSecondaryCoroutine;
+            yield return PathToOpponent();
         }
 
         protected virtual IEnumerator PathToOpponent()
@@ -144,7 +146,7 @@ namespace Lis.Units.Creature
             RunUnit();
         }
 
-        protected virtual IEnumerator Attack()
+        protected virtual IEnumerator AttackCoroutine()
         {
             while (!CanAttack()) yield return new WaitForSeconds(0.1f);
             if (!IsOpponentInRange()) yield break;
@@ -226,10 +228,12 @@ namespace Lis.Units.Creature
 
         void ResetOpponent(UnitController _, UnitController __)
         {
+            AddToLog("Resetting opponent");
             if (this == null) return;
             if (Opponent == null) return;
             Opponent.OnDeath -= ResetOpponent;
             Opponent = null;
+            if (!FightManager.IsFightActive) return;
             if (IsDead) return;
             RunUnit();
         }
@@ -271,28 +275,20 @@ namespace Lis.Units.Creature
             Animator.SetTrigger(AnimDie);
         }
 
-        public IEnumerator Respawn()
+        IEnumerator Respawn()
         {
+            AddToLog("Respawning...");
             Animator.Rebind();
             Animator.Update(0f);
 
             yield return transform.DOMoveY(1, 0.3f)
-                .OnComplete(EnableSelf);
+                .OnComplete(() =>
+                {
+                    EnableSelf();
+                    GoBackToLocker();
+                });
         }
 
-        void EnableSelf()
-        {
-            AddToLog("Unit enables itself");
-            Collider.enabled = true;
-            DeathEffect.SetActive(false);
-            IsDeathCoroutineStarted = false;
-            UnitPathingController.EnableAgent();
-            IsDead = false;
-            RunUnit();
-
-            if (_abilityController != null)
-                _abilityController.StartAbilityCooldownCoroutine();
-        }
 
 #if UNITY_EDITOR
         [ContextMenu("Level up")]

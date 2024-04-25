@@ -22,12 +22,12 @@ namespace Lis.Units
 {
     public class UnitController : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
-        protected GameManager GameManager; /**/
+        protected GameManager GameManager;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
+        protected FightManager FightManager;
         GrabManager _grabManager;
         PickupManager _pickupManager;
-        FightManager _fightManager;
         ArenaManager _arenaManager;
 
         public List<string> UnitLog = new();
@@ -62,8 +62,8 @@ namespace Lis.Units
         bool _isPoisoned;
         bool _isGrabbed;
 
-        public bool IsDead { get; protected set; }
-        protected bool IsDeathCoroutineStarted;
+        public bool IsDead { get; private set; }
+        bool _isDeathCoroutineStarted;
 
         MMF_Player _feelPlayer;
 
@@ -88,7 +88,7 @@ namespace Lis.Units
             BattleManager = BattleManager.Instance;
             _grabManager = GrabManager.Instance;
             _pickupManager = BattleManager.GetComponent<PickupManager>();
-            _fightManager = BattleManager.GetComponent<FightManager>();
+            FightManager = BattleManager.GetComponent<FightManager>();
             _arenaManager = BattleManager.GetComponent<ArenaManager>();
 
             HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
@@ -114,26 +114,13 @@ namespace Lis.Units
             if (_spawnSound != null)
                 AudioManager.PlaySfx(_spawnSound, transform.position);
 
-            DeathEffect.SetActive(false);
-            IsDead = false;
-            IsDeathCoroutineStarted = false;
-            Collider.enabled = true;
-            IsEngaged = false;
+            EnableSelf();
 
             Unit = unit;
             Team = team;
             unit.OnLevelUp += OnLevelUp;
-            if (team == 0)
-            {
-                gameObject.layer = 10;
-                Collider.excludeLayers = LayerMask.GetMask("Player");
-            }
 
-            if (team == 1)
-            {
-                gameObject.layer = 11;
-                Collider.includeLayers = LayerMask.GetMask("Player", "Ability");
-            }
+            ResolveCollisionLayers(team);
 
             BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
                        + "_" + Helpers.GetRandomNumber(4);
@@ -141,12 +128,36 @@ namespace Lis.Units
 
             _heroController = BattleManager.GetComponent<HeroManager>().HeroController;
 
-            _fightManager.OnFightStarted += RunUnit;
-            _fightManager.OnFightEnded += OnFightEnded;
+            FightManager.OnFightStarted += OnFightStarted;
+            FightManager.OnFightEnded += OnFightEnded;
 
             if (Unit is not UnitMovement em) return;
             if (UnitPathingController != null)
                 UnitPathingController.InitializeUnit(em);
+        }
+
+        protected virtual void EnableSelf()
+        {
+            AddToLog("Unit enables itself.");
+            Collider.enabled = true;
+            DeathEffect.SetActive(false);
+            _isDeathCoroutineStarted = false;
+            IsDead = false;
+        }
+
+        void ResolveCollisionLayers(int team)
+        {
+            switch (team)
+            {
+                case 0:
+                    gameObject.layer = 10;
+                    Collider.excludeLayers = LayerMask.GetMask("Player");
+                    break;
+                case 1:
+                    gameObject.layer = 11;
+                    Collider.includeLayers = LayerMask.GetMask("Player", "Ability");
+                    break;
+            }
         }
 
         void OnLevelUp()
@@ -164,34 +175,35 @@ namespace Lis.Units
             _levelUpEffect.SetActive(false);
         }
 
+        void OnFightStarted()
+        {
+            Debug.Log("On fight started is called.");
+            RunUnit();
+        }
 
         protected virtual void OnFightEnded()
         {
-            GoBackToLocker();
+            // meant to be overwritten
         }
 
         protected void GoBackToLocker()
         {
+            AddToLog($"is unit dead when go back to locker is called: {IsDead}");
             if (IsDead) return;
             if (Team == 1) return;
 
+            AddToLog("Going back to locker room.");
             UnitPathingController.SetStoppingDistance(0);
-            StartCoroutine(
-                UnitPathingController.PathToPositionAndStop(_arenaManager.GetRandomPositionInPlayerLockerRoom()));
+            _currentMainCoroutine =
+                UnitPathingController.PathToPositionAndStop(_arenaManager.GetRandomPositionInPlayerLockerRoom());
+            StartCoroutine(_currentMainCoroutine);
         }
 
         public virtual void RunUnit()
         {
-            AddToLog("Run unit is called");
+            AddToLog("Run unit is called.");
             if (IsDead) return;
-
             StopUnit();
-
-            if (!_fightManager.IsFightActive)
-            {
-                GoBackToLocker();
-                return;
-            }
 
             _currentMainCoroutine = RunUnitCoroutine();
             StartCoroutine(_currentMainCoroutine);
@@ -201,10 +213,10 @@ namespace Lis.Units
         {
             AddToLog("Stop unit is called");
 
-            if (_currentMainCoroutine != null)
-                StopCoroutine(_currentMainCoroutine);
             if (CurrentSecondaryCoroutine != null)
                 StopCoroutine(CurrentSecondaryCoroutine);
+            if (_currentMainCoroutine != null)
+                StopCoroutine(_currentMainCoroutine);
 
             UnitPathingController.DisableAgent();
         }
@@ -331,8 +343,8 @@ namespace Lis.Units
 
         protected virtual IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
         {
-            if (IsDeathCoroutineStarted) yield break;
-            IsDeathCoroutineStarted = true;
+            if (_isDeathCoroutineStarted) yield break;
+            _isDeathCoroutineStarted = true;
 
             if (_isGrabbed) GrabManager.Instance.CancelGrabbing();
             Collider.enabled = false;
@@ -447,6 +459,9 @@ namespace Lis.Units
 
         protected void DestroySelf()
         {
+            FightManager.OnFightStarted -= OnFightStarted;
+            FightManager.OnFightEnded -= OnFightEnded;
+
             StopAllCoroutines();
             DOTween.Kill(transform);
             gameObject.SetActive(false);

@@ -6,7 +6,6 @@ using Lis.Units;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -16,16 +15,13 @@ namespace Lis.Battle.Fight
     public class FightManager : MonoBehaviour
     {
         ArenaManager _arenaManager;
-        public Transform EntityHolder;
+        public Transform PlayerArmyHolder;
+        [SerializeField] Transform _opponentArmyHolder;
 
         Battle _battle;
         Arena _arena;
 
         [HideInInspector] public Fight CurrentFight;
-
-        Label _timerLabel;
-        VisualElement _debugInfoContainer;
-        Label _debugInfoLabel;
 
         HeroController _heroController;
 
@@ -44,7 +40,6 @@ namespace Lis.Battle.Fight
 
         public bool IsFightActive { get; private set; }
         IEnumerator _fightCoroutine;
-        int _fightTime;
 
         public void Initialize(Battle battle)
         {
@@ -54,10 +49,8 @@ namespace Lis.Battle.Fight
             _arenaManager = GetComponent<ArenaManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
             _heroController.Hero.OnArmyAdded += SpawnPlayerUnit;
-            MoveHeroToSpawnPoint();
 
-            SetupUi();
-            CreateFight();
+            CurrentFight = _arena.CreateFight();
             StartCoroutine(SpawnAllPlayerUnits());
             StartCoroutine(SpawnEnemyUnits());
 
@@ -65,57 +58,17 @@ namespace Lis.Battle.Fight
             GetComponent<InputManager>().OnOneClicked += StartFight;
         }
 
-        void MoveHeroToSpawnPoint()
-        {
-            _heroController.transform.position = _arenaManager.GetRandomPositionInPlayerLockerRoom();
-        }
-
-        void SetupUi()
-        {
-            VisualElement root = BattleManager.Instance.Root;
-            _timerLabel = root.Q<Label>("timer");
-
-            _debugInfoLabel = new Label();
-            _debugInfoContainer = root.Q<VisualElement>("fightDebugContainer");
-            _debugInfoContainer.Add(_debugInfoLabel);
-        }
-
-        void CreateFight()
-        {
-            CurrentFight = _arena.CreateFight();
-        }
-
-        public void StartFight()
+        void StartFight()
         {
             _fightCoroutine = StartFightCoroutine();
             StartCoroutine(_fightCoroutine);
-
-            StartCoroutine(TimerCoroutine());
         }
-
-        IEnumerator TimerCoroutine()
-        {
-            _fightTime = 0;
-            while (true)
-            {
-                if (this == null) yield break;
-
-                _fightTime++;
-                int minutes = Mathf.FloorToInt(_fightTime / 60f);
-                int seconds = Mathf.FloorToInt(_fightTime - minutes * 60);
-
-                _timerLabel.text = $"{minutes:00}:{seconds:00}";
-                yield return new WaitForSeconds(1f);
-            }
-        }
-
 
         IEnumerator StartFightCoroutine()
         {
             if (IsFightActive) yield break;
             IsFightActive = true;
 
-            UpdateDebugInfo();
             OnFightStarted?.Invoke();
         }
 
@@ -128,10 +81,10 @@ namespace Lis.Battle.Fight
             }
         }
 
-        public void SpawnPlayerUnit(Creature c)
+        void SpawnPlayerUnit(Creature c)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
-            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, EntityHolder);
+            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();
             unitController.InitializeGameObject();
             unitController.InitializeUnit(c, 0);
@@ -147,7 +100,7 @@ namespace Lis.Battle.Fight
             {
                 c.InitializeBattle(1);
                 Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
-                GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, EntityHolder);
+                GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
                 UnitController unitController = g.GetComponent<UnitController>();
                 unitController.InitializeGameObject();
                 unitController.InitializeUnit(c, 1);
@@ -161,7 +114,7 @@ namespace Lis.Battle.Fight
 
         public void AddPlayerUnit(UnitController b)
         {
-            b.transform.parent = EntityHolder;
+            b.transform.parent = PlayerArmyHolder;
             PlayerUnits.Add(b);
             b.OnDeath += PlayerUnitDies;
             if (b is CreatureController creature)
@@ -170,6 +123,7 @@ namespace Lis.Battle.Fight
 
         public void AddEnemyUnit(UnitController b)
         {
+            b.transform.parent = _opponentArmyHolder;
             EnemyUnits.Add(b);
             b.OnDeath += EnemyUnitDies;
             OnEnemyUnitAdded?.Invoke(b);
@@ -194,31 +148,18 @@ namespace Lis.Battle.Fight
 
         void EndFight()
         {
-            _arena.CreateFight();
-            StartCoroutine(SpawnEnemyUnits());
-            //  RespawnPlayerUnits();
-            // MoveHeroToSpawnPoint();
-            OnFightEnded?.Invoke();
+            CurrentFight = _arena.CreateFight();
             IsFightActive = false;
+            OnFightEnded?.Invoke();
 
-            // ClearUnits(); // TODO: for now
-
-            FightRewardScreen rewardScreen = new();
-
-
-            // rewardScreen.OnHide += StartFight;
+            StartCoroutine(EndFightCoroutine());
         }
 
-        void RespawnPlayerUnits()
+        IEnumerator EndFightCoroutine()
         {
-            foreach (UnitController c in KilledPlayerUnits)
-            {
-                if (c is not CreatureController) continue;
-                CreatureController cc = c as CreatureController;
-                cc.Respawn();
-            }
-
-            KilledPlayerUnits.Clear();
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(SpawnEnemyUnits());
+            FightRewardScreen unused = new();
         }
 
         public List<UnitController> GetAllies(UnitController unitController)
@@ -236,13 +177,6 @@ namespace Lis.Battle.Fight
             return EnemyUnits.Count == 0
                 ? Vector3.zero
                 : EnemyUnits[Random.Range(0, EnemyUnits.Count)].transform.position;
-        }
-
-        void UpdateDebugInfo()
-        {
-            // TODO: Update debug info
-            // _debugInfoLabel.text =
-            //     "Wave: " + wave.WaveIndex + " Points: " + wave.Points + " Level: " + wave.MinionLevel;
         }
     }
 }
