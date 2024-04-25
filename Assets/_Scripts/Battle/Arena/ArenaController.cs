@@ -12,6 +12,18 @@ namespace Lis.Battle.Arena
         {
         }
 
+        public bool IsPositionInPlayerLockerRoom(Vector3 pos)
+        {
+            pos.y = _playerLockerRoom.bounds.min.y; // ignoring y axis
+            return _playerLockerRoom.bounds.Contains(pos);
+        }
+
+        public bool IsPositionInArena(Vector3 pos)
+        {
+            pos.y = _arena.bounds.min.y; // ignoring y axis
+            return _arena.bounds.Contains(pos);
+        }
+
         public Vector3 GetRandomPositionInPlayerLockerRoom()
         {
             return RandomPointInBounds(_playerLockerRoom.bounds);

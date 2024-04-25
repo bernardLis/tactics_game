@@ -1,4 +1,6 @@
 using System.Collections;
+using Lis.Battle.Arena;
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
@@ -12,6 +14,8 @@ namespace Lis.Battle
         AudioManager _audioManager;
         CursorManager _cursorManager;
         PlayerInput _playerInput;
+
+        ArenaManager _arenaManager;
 
         Camera _cam;
         Mouse _mouse;
@@ -36,11 +40,16 @@ namespace Lis.Battle
             _cursorManager = CursorManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
 
-            _isGrabbingUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
+            _arenaManager = GetComponent<ArenaManager>();
+
+            _cam = Camera.main;
+            _mouse = Mouse.current;
+
+            _isGrabbingUnlocked = true; // _gameManager.UpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
             EnableGrabbing();
         }
 
-        public void EnableGrabbing()
+        void EnableGrabbing()
         {
             if (BattleManager.BlockBattleInput) return;
             if (this == null) return;
@@ -123,13 +132,32 @@ namespace Lis.Battle
                     yield return new WaitForSeconds(0.2f);
 
                 Vector3 pos = new(hit.point.x, _objectYPosition, hit.point.z);
+                if (!IsPositionValid(pos)) yield break;
                 _grabbedObject.transform.position = pos;
 
                 yield return new WaitForFixedUpdate();
             }
         }
 
-        public bool IsGrabbingAllowed()
+        bool IsPositionValid(Vector3 pos)
+        {
+            if (!FightManager.IsFightActive)
+            {
+                if (_arenaManager.IsPositionInPlayerLockerRoom(pos)) return true;
+                CancelGrabbing();
+                return false;
+            }
+
+            if (!_arenaManager.IsPositionInArena(pos))
+            {
+                CancelGrabbing();
+                return false;
+            }
+
+            return true;
+        }
+
+        bool IsGrabbingAllowed()
         {
             if (!_wasInitialized) return false;
             if (_grabbedObject != null) return false;
@@ -138,7 +166,7 @@ namespace Lis.Battle
             return true;
         }
 
-        public void OnPointerUp(InputAction.CallbackContext context)
+        void OnPointerUp(InputAction.CallbackContext context)
         {
             if (!_wasInitialized) return;
             if (this == null) return;

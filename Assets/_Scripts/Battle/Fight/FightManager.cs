@@ -38,7 +38,7 @@ namespace Lis.Battle.Fight
         public event Action OnFightStarted;
         public event Action OnFightEnded;
 
-        public bool IsFightActive { get; private set; }
+        public static bool IsFightActive { get; private set; }
         IEnumerator _fightCoroutine;
 
         public void Initialize(Battle battle)

@@ -409,6 +409,7 @@ namespace Lis.Units
         public virtual bool CanBeGrabbed()
         {
             if (IsDead) return false;
+            if (Team == 1) return false;
             return _grabManager != null;
         }
 
@@ -423,7 +424,8 @@ namespace Lis.Units
         {
             _isGrabbed = false;
             Animator.enabled = true;
-            RunUnit();
+            if (FightManager.IsFightActive) RunUnit();
+            else if (!_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
         }
 
         /* weird helpers */
