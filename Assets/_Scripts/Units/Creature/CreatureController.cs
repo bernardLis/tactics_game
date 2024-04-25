@@ -95,10 +95,8 @@ namespace Lis.Units.Creature
         IEnumerator OnFightEndedCoroutine()
         {
             StopUnit();
-
             AddToLog("Fight ended!");
             if (IsDead) yield return Respawn();
-            AddToLog("After waiting for respawn");
             Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
             GoBackToLocker();
         }
@@ -268,6 +266,7 @@ namespace Lis.Units.Creature
             yield return base.DieCoroutine(attacker, hasLoot);
             StopUnit();
             UnitPathingController.DisableAgent();
+            _respawnEffect.SetActive(false);
 
             Creature.Die();
             ResetOpponent(null, null);
@@ -280,13 +279,9 @@ namespace Lis.Units.Creature
             AddToLog("Respawning...");
             Animator.Rebind();
             Animator.Update(0f);
-
-            yield return transform.DOMoveY(1, 0.3f)
-                .OnComplete(() =>
-                {
-                    EnableSelf();
-                    GoBackToLocker();
-                });
+            _respawnEffect.SetActive(true);
+            EnableSelf();
+            yield return new WaitForSeconds(1);
         }
 
 

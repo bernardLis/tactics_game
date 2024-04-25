@@ -177,7 +177,6 @@ namespace Lis.Units
 
         void OnFightStarted()
         {
-            Debug.Log("On fight started is called.");
             RunUnit();
         }
 
@@ -188,7 +187,6 @@ namespace Lis.Units
 
         protected void GoBackToLocker()
         {
-            AddToLog($"is unit dead when go back to locker is called: {IsDead}");
             if (IsDead) return;
             if (Team == 1) return;
 
