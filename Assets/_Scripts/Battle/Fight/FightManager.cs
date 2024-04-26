@@ -56,7 +56,6 @@ namespace Lis.Battle.Fight
 
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
-            GetComponent<InputManager>().OnTwoClicked += () => new FightRewardScreen();
         }
 
         public void StartFight()

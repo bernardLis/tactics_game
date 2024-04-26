@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Lis.Battle.Arena;
 using Lis.Battle.Fight;
@@ -14,6 +15,8 @@ namespace Lis.Battle
         BattleManager _battleManager;
 
         LoadingScreen _loadingScreen;
+
+        public event Action OnBattleInitialized;
 
         void Start()
         {
@@ -50,6 +53,7 @@ namespace Lis.Battle
             GetComponent<BossManager>().Initialize();
             GetComponent<StatsTracker>().Initialize();
             yield return new WaitForSeconds(0.1f);
+            OnBattleInitialized?.Invoke();
 
             // HERE: testing
             // _loadingScreen.Hide();

@@ -203,6 +203,7 @@ Transform:
   - {fileID: 5719091477376206137}
   - {fileID: 2083268333550346832}
   - {fileID: 8438084224163972478}
+  - {fileID: 47094741430534147}
   m_Father: {fileID: 5103032281565103522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1200195058843056738
@@ -6106,6 +6107,68 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
+--- !u!1001 &2521678036358667539
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 544937427282488554}
+    m_Modifications:
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740240587804829958, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+      propertyPath: m_Name
+      value: Hero Leveler
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+--- !u!4 &47094741430534147 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2475181796096056592, guid: a2be1f03a6e3c4d4dad0f807212c1a71, type: 3}
+  m_PrefabInstance: {fileID: 2521678036358667539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4397386029592849832
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,11 +1,13 @@
 using Lis.Battle.Fight;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Battle.Arena
 {
     public class RewardCollector : ArenaInteractable, IInteractable
     {
         public new string InteractionPrompt => "Press F To Collect Reward!";
+
+        int _rewardsAvailable;
 
         protected override void SetTooltipText()
         {
@@ -16,6 +18,7 @@ namespace Lis
         {
             IsInteractionAvailable = true;
             InteractionAvailableEffect.SetActive(true);
+            _rewardsAvailable++;
         }
 
         public override bool Interact(Interactor interactor)
@@ -27,8 +30,12 @@ namespace Lis
             }
 
             FightRewardScreen unused = new();
-            InteractionAvailableEffect.SetActive(false);
-            IsInteractionAvailable = false;
+            _rewardsAvailable--;
+            if (_rewardsAvailable == 0)
+            {
+                InteractionAvailableEffect.SetActive(false);
+                IsInteractionAvailable = false;
+            }
             return true;
         }
     }

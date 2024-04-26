@@ -1,7 +1,7 @@
 using Lis.Battle.Fight;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Battle.Arena
 {
     public class FightStarter : ArenaInteractable, IInteractable
     {

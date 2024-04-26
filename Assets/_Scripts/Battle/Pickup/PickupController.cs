@@ -95,12 +95,7 @@ namespace Lis.Battle.Pickup
             float punchDuration = 0.5f;
             t.DOPunchScale(Vector3.one * 1.5f, punchDuration, 1);
 
-            Vector3 heroPosition = heroController.transform.position;
-            Vector3 jumpPos = new(
-                heroPosition.x,
-                heroPosition.y + 2f,
-                heroPosition.z
-            );
+            Vector3 jumpPos = transform.position + Vector3.up * 3;
             float jumpDuration = 0.6f;
 
             transform.DOScale(0, jumpDuration)

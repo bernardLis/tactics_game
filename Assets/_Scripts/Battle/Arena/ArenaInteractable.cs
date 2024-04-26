@@ -1,9 +1,8 @@
-using Lis.Battle;
 using Lis.Battle.Fight;
 using TMPro;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Battle.Arena
 {
     public class ArenaInteractable : MonoBehaviour, IInteractable
     {
@@ -43,8 +42,8 @@ namespace Lis
 
         public virtual void DisplayTooltip()
         {
-            if(CanInteract())
-            _tooltipCanvas.gameObject.SetActive(true);
+            if (CanInteract())
+                _tooltipCanvas.gameObject.SetActive(true);
         }
 
         public virtual void HideTooltip()

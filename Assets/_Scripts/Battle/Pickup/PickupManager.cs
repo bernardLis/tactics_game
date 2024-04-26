@@ -2,15 +2,13 @@ using System;
 using System.Collections.Generic;
 using Lis.Core.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Pickup
 {
     public class PickupManager : PoolManager<PickupController>
     {
-        [FormerlySerializedAs("_pickupPrefab")] [SerializeField]
-        PickupController _pickupControllerPrefab;
+        [SerializeField] PickupController _pickupControllerPrefab;
 
         [SerializeField] Coin _coin;
         [SerializeField] Hammer _hammer;
@@ -19,14 +17,21 @@ namespace Lis.Battle.Pickup
         [SerializeField] Skull _skull;
         [SerializeField] Dice _dice;
 
-        [FormerlySerializedAs("ExpOrbs")] [SerializeField]
-        List<ExperienceStone> _expOrbs = new();
+        [SerializeField] List<ExperienceStone> _expOrbs = new();
 
         public event Action<Pickup> OnPickupCollected;
 
         public void Initialize()
         {
             CreatePool(_pickupControllerPrefab.gameObject);
+            // HERE: testing
+            GetComponent<InputManager>().OnTwoClicked += SpawnBunchExpStones;
+        }
+
+        void SpawnBunchExpStones()
+        {
+            for (int i = 0; i < 50; i++)
+                SpawnExpStone(new(Random.Range(-10, 10), 10, Random.Range(-10, 10)));
         }
 
         public void SpawnExpStone(Vector3 position)
