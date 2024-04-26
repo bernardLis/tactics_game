@@ -19,23 +19,24 @@ namespace Lis.Battle
         const string _ussLevelUpLabel = _ussClassName + "level-up-label";
         const string _ussFallingElement = _ussClassName + "falling-element";
         const string _ussRewardContainer = _ussClassName + "reward-container";
+        const string _ussRerollContainer = _ussClassName + "reroll-container";
 
         readonly AudioManager _audioManager;
         readonly HeroManager _heroManager;
 
-        VisualElement _rewardContainer;
-        Label _title;
-        readonly List<float> _leftPositions = new();
-        int _rewardElementWidth;
-        int _rewardElementHeight;
+        protected VisualElement RewardContainer;
+        protected Label Title;
+        protected readonly List<float> LeftPositions = new();
+        protected int RewardElementWidth;
+        protected int RewardElementHeight;
 
-        readonly List<RewardElement> _allRewardElements = new();
+        protected readonly List<RewardElement> AllRewardElements = new();
 
         VisualElement _rerollContainer;
         Label _rerollsLeft;
         RerollButton _rerollButton;
 
-        readonly int _numberOfRewards;
+        protected readonly int NumberOfRewards;
 
         public event Action OnRewardSelected;
 
@@ -46,7 +47,7 @@ namespace Lis.Battle
                 .GetStyleSheetByName(StyleSheetType.RewardScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            _numberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
+            NumberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
             _heroManager = BattleManager.GetComponent<HeroManager>();
 
             Content.AddToClassList(_ussMain);
@@ -67,12 +68,12 @@ namespace Lis.Battle
 
         void AddTitle()
         {
-            _title = new("Choose a reward:");
-            _title.style.fontSize = 48;
-            _title.style.opacity = 0;
-            Content.Add(_title);
+            Title = new("Choose a reward:");
+            Title.style.fontSize = 48;
+            Title.style.opacity = 0;
+            Content.Add(Title);
 
-            DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f)
+            DOTween.To(x => Title.style.opacity = x, 0, 1, 0.5f)
                 .SetUpdate(true);
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
@@ -81,36 +82,36 @@ namespace Lis.Battle
 
         void AddRewardContainer()
         {
-            _rewardContainer = new();
-            _rewardContainer.AddToClassList(_ussRewardContainer);
-            Content.Add(_rewardContainer);
+            RewardContainer = new();
+            RewardContainer.AddToClassList(_ussRewardContainer);
+            Content.Add(RewardContainer);
 
             List<RewardElement> hiddenCards = new();
-            for (int i = 0; i < _numberOfRewards; i++)
+            for (int i = 0; i < NumberOfRewards; i++)
             {
                 RewardElement card = CreateRewardCardGold();
-                card.style.width = Length.Percent(100 / _numberOfRewards);
+                card.style.width = Length.Percent(100 / NumberOfRewards);
                 card.style.height = Length.Percent(100);
                 hiddenCards.Add(card);
                 card.style.visibility = Visibility.Hidden;
-                _rewardContainer.Add(card);
+                RewardContainer.Add(card);
             }
 
             // styles need a frame to resolve...
             schedule.Execute(() =>
             {
-                _rewardElementWidth = Mathf.RoundToInt(hiddenCards[0].layout.width);
-                _rewardElementHeight = Mathf.RoundToInt(hiddenCards[0].layout.height);
+                RewardElementWidth = Mathf.RoundToInt(hiddenCards[0].layout.width);
+                RewardElementHeight = Mathf.RoundToInt(hiddenCards[0].layout.height);
 
                 foreach (RewardElement el in hiddenCards)
-                    _leftPositions.Add(el.layout.x);
+                    LeftPositions.Add(el.layout.x);
             }).StartingIn(100);
         }
 
         void AddRerollButton()
         {
             _rerollContainer = new();
-            _rerollContainer.style.opacity = 0;
+            _rerollContainer.AddToClassList(_ussRerollContainer);
             Content.Add(_rerollContainer);
 
             if (_heroManager.RewardRerollsAvailable <= 0) return;
@@ -133,27 +134,27 @@ namespace Lis.Battle
 
         void PopulateRewards()
         {
-            _rewardContainer.Clear();
+            RewardContainer.Clear();
             CreateRewardCards();
         }
 
         protected virtual void CreateRewardCards()
         {
-            _allRewardElements.Clear();
-            for (int i = 0; i < _numberOfRewards; i++)
+            AllRewardElements.Clear();
+            for (int i = 0; i < NumberOfRewards; i++)
             {
                 RewardElement el = ChooseRewardElement();
                 el ??= CreateRewardCardGold(); // backup
 
                 el.style.position = Position.Absolute;
-                float endLeft = _leftPositions[i];
+                float endLeft = LeftPositions[i];
                 el.style.left = endLeft;
 
-                el.style.width = _rewardElementWidth;
-                el.style.height = _rewardElementHeight;
+                el.style.width = RewardElementWidth;
+                el.style.height = RewardElementHeight;
 
-                _rewardContainer.Add(el);
-                _allRewardElements.Add(el);
+                RewardContainer.Add(el);
+                AllRewardElements.Add(el);
             }
         }
 
@@ -167,7 +168,7 @@ namespace Lis.Battle
         protected RewardElement CreateRewardTablet()
         {
             RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
-            if (!reward.CreateRandom(_heroManager.Hero, _allRewardElements)) return null;
+            if (!reward.CreateRandom(_heroManager.Hero, AllRewardElements)) return null;
             reward.OnRewardSelected += RewardSelected;
             RewardElementTablet element = new(reward);
             return element;
@@ -176,7 +177,7 @@ namespace Lis.Battle
         protected RewardElement CreateRewardCardAbility()
         {
             RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-            if (!reward.CreateRandom(_heroManager.Hero, _allRewardElements)) return null;
+            if (!reward.CreateRandom(_heroManager.Hero, AllRewardElements)) return null;
             reward.OnRewardSelected += RewardSelected;
             RewardElementAbility element = new(reward);
             return element;
@@ -185,7 +186,7 @@ namespace Lis.Battle
         RewardElement CreateRewardCardGold()
         {
             RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-            reward.CreateRandom(_heroManager.Hero, _allRewardElements);
+            reward.CreateRandom(_heroManager.Hero, AllRewardElements);
             reward.OnRewardSelected += RewardSelected;
             RewardElementGold element = new(reward);
             return element;
@@ -194,12 +195,12 @@ namespace Lis.Battle
         protected RewardElement CreateRewardCardCreature()
         {
             RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
-            reward.CreateRandom(_heroManager.Hero, _allRewardElements);
+            reward.CreateRandom(_heroManager.Hero, AllRewardElements);
             reward.OnRewardSelected += RewardSelected;
 
             RewardElementCreature element = new(reward);
-            _allRewardElements.Add(element);
-            _rewardContainer.Add(element);
+            AllRewardElements.Add(element);
+            RewardContainer.Add(element);
             return element;
         }
 
@@ -211,7 +212,7 @@ namespace Lis.Battle
             DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f)
                 .SetUpdate(true);
 
-            foreach (RewardElement element in _allRewardElements)
+            foreach (RewardElement element in AllRewardElements)
             {
                 if (element.Reward != reward) element.DisableCard();
 

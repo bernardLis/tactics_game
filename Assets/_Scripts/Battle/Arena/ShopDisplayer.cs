@@ -7,6 +7,26 @@ namespace Lis.Battle.Arena
     {
         public new string InteractionPrompt => "Press F To Shop!";
 
+        protected override void Start()
+        {
+            base.Start();
+            OnFightEnded();
+        }
+
+        protected override void OnFightEnded()
+        {
+            InteractionAvailableEffect.SetActive(true);
+            IsInteractionAvailable = true;
+        }
+
+        protected override void OnFightStarted()
+        {
+            InteractionAvailableEffect.SetActive(false);
+            HideTooltip();
+            IsInteractionAvailable = false;
+        }
+
+
         protected override void SetTooltipText()
         {
             TooltipText.text = InteractionPrompt;
@@ -20,7 +40,8 @@ namespace Lis.Battle.Arena
                 return false;
             }
 
-            Debug.Log("Shopping!");
+            ShopScreen unused = new ShopScreen();
+            OnFightStarted();
             return true;
         }
     }

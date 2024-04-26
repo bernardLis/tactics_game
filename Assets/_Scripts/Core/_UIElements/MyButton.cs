@@ -7,7 +7,7 @@ namespace Lis.Core
     {
         const string _ussCommonButtonBasic = "common__button-basic";
 
-        protected GameManager _gameManager;
+        protected GameManager GameManager;
         readonly AudioManager _audioManager;
         readonly CursorManager _cursorManager;
 
@@ -15,17 +15,19 @@ namespace Lis.Core
 
 
         Action _currentCallback;
+
         public MyButton(string buttonText = null, string className = null, Action callback = null)
         {
-            _gameManager = GameManager.Instance;
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            GameManager = GameManager.Instance;
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
             _audioManager = AudioManager.Instance;
             _cursorManager = CursorManager.Instance;
 
-            _text = new Label(buttonText);
+            _text = new(buttonText);
             _text.style.whiteSpace = WhiteSpace.Normal;
             Add(_text);
             if (buttonText == "")
@@ -62,7 +64,10 @@ namespace Lis.Core
             clicked += newCallback;
         }
 
-        public void ClearCallbacks() { clickable = new Clickable(() => { }); }
+        public void ClearCallbacks()
+        {
+            clickable = new Clickable(() => { });
+        }
 
         public void SetText(string newText)
         {
@@ -107,6 +112,5 @@ namespace Lis.Core
 
             UnregisterCallback<MouseEnterEvent>(PreventInteraction);
         }
-
     }
 }

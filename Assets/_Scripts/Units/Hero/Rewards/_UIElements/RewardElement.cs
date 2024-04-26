@@ -29,6 +29,7 @@ namespace Lis.Units.Hero.Rewards
             RegisterCallback<MouseOverEvent>(OnMouseOver);
         }
 
+
         void OnClick(ClickEvent evt)
         {
             if (evt.button != 0) return;
@@ -51,6 +52,12 @@ namespace Lis.Units.Hero.Rewards
         public void DisableClicks()
         {
             UnregisterCallback<ClickEvent>(OnClick);
+        }
+
+        public void IsShop()
+        {
+            UnregisterCallback<ClickEvent>(OnClick);
+            UnregisterCallback<MouseOverEvent>(OnMouseOver);
         }
     }
 }

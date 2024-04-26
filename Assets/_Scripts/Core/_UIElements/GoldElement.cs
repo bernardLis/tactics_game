@@ -21,10 +21,12 @@ namespace Lis.Core
         {
             _gameManager = GameManager.Instance;
 
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            var commonStyles = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null)
                 styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.GoldElementStyles);
+            var ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.GoldElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -34,7 +36,7 @@ namespace Lis.Core
 
             _icon = new();
             _icon.AddToClassList(_ussIcon);
-            _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(amount));
+            _icon.style.backgroundImage = new(_gameManager.GameDatabase.GetCoinSprite(amount));
             Add(_icon);
 
             _text = new();
@@ -65,7 +67,8 @@ namespace Lis.Core
         protected override void NumberAnimation()
         {
             base.NumberAnimation();
-            _icon.style.backgroundImage = new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(_currentlyDisplayedAmount));
+            _icon.style.backgroundImage =
+                new StyleBackground(_gameManager.GameDatabase.GetCoinSprite(_currentlyDisplayedAmount));
         }
     }
 }

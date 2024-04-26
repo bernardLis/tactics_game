@@ -16,6 +16,13 @@ namespace Lis.Core
             rerollIcon.AddToClassList(_ussCommonRerollIcon);
             Add(rerollIcon);
 
+            Remove(_text);
+            style.paddingBottom = 0;
+            style.paddingTop = 0;
+            style.paddingLeft = 0;
+            style.paddingRight = 0;
+
+
             RegisterCallback<PointerEnterEvent>(evt => rerollIcon.AddToClassList(_ussCommonRerollIconHover));
             RegisterCallback<PointerLeaveEvent>(evt => rerollIcon.RemoveFromClassList(_ussCommonRerollIconHover));
         }
