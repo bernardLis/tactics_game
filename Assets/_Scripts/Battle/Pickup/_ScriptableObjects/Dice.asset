@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827be6e0cddcb17438a5b9d0b7bfeb7f, type: 3}
+  m_Name: Dice
+  m_EditorClassIdentifier: 
+  Id: 8b0a62d4-6c72-43c2-ad5e-4514aa8c4743
+  Icon: {fileID: 21300000, guid: a080dd8faab77c641afa819eb830fcff, type: 3}
+  Gfx: {fileID: 5843271147600389983, guid: 263966dacea30a74bbb86a23fa09814b, type: 3}
+  Color: {fileID: 11400000, guid: 6d98edb46be457e4c917385b99b9317a, type: 2}
+  CollectedText: +1 Reroll
+  CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
+  DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: 9bcc249c3b28fba4caf829c91f1b27c9, type: 2}

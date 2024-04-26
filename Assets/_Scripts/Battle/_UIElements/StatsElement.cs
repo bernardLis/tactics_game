@@ -84,7 +84,7 @@ namespace Lis.Battle
 
         void PopulateRightPanel()
         {
-            AddFriendBallsThrown();
+            AddRerollCount();
             // AddMinionsKilled();
             AddCreatureKills();
         }
@@ -131,13 +131,13 @@ namespace Lis.Battle
             container.Add(text);
         }
 
-        void AddFriendBallsThrown()
+        void AddRerollCount()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             _rightPanel.Add(container);
 
-            Label text = new($"Friend balls thrown: {_stats.FriendBallsThrown}");
+            Label text = new($"Rerolls Available: {_heroManager.RewardRerollsAvailable}");
             container.Add(text);
         }
 

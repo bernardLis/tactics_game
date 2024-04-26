@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using Lis.Battle.Pickup.Exp_Stones;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;

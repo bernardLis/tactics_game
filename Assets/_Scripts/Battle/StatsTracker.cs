@@ -1,6 +1,5 @@
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
-using Lis.Battle.Pickup.Exp_Stones;
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;

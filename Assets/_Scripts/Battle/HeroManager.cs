@@ -88,5 +88,10 @@ namespace Lis.Battle
             Hero.AddAbility(tabletAdvanced.Ability);
             TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);
         }
+
+        public void DiceCollected()
+        {
+            RewardRerollsAvailable++;
+        }
     }
 }

@@ -3,7 +3,6 @@ using DG.Tweening;
 using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
-using Lis.Battle.Pickup.Exp_Stones;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Creature;

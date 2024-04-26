@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Lis.Battle.Fight;
-using Lis.Battle.Pickup.Exp_Stones;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,6 +17,7 @@ namespace Lis.Battle.Pickup
         [SerializeField] Horseshoe _horseshoe;
         [SerializeField] Bag _bag;
         [SerializeField] Skull _skull;
+        [SerializeField] Dice _dice;
 
         [FormerlySerializedAs("ExpOrbs")] [SerializeField]
         List<ExperienceStone> _expOrbs = new();
@@ -69,7 +68,7 @@ namespace Lis.Battle.Pickup
             // ...
             // rest% chance of spawning coin
             int random = Random.Range(0, 100);
-            if (random > 26) return; // 50/50 there is a pickup
+            if (random > 26) return; // chance there is no pickup
 
             Pickup p = Instantiate(_coin);
 
@@ -81,6 +80,8 @@ namespace Lis.Battle.Pickup
                 p = Instantiate(_bag);
             else if (random == 3)
                 p = Instantiate(_skull);
+            else if (random == 4)
+                p = Instantiate(_dice);
 
             PickupController pickupController = GetObjectFromPool();
             pickupController.Initialize(p, position);
