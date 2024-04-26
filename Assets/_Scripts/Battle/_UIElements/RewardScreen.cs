@@ -51,75 +51,32 @@ namespace Lis.Battle
 
             Content.AddToClassList(_ussMain);
 
-            MakeItRain();
-            PlayLevelUpAnimation();
             AddElements();
             DisableNavigation();
         }
 
-        void MakeItRain()
-        {
-            List<Sprite> sprites = GameManager.UnitDatabase.CreatureIcons.ToList();
-            for (int i = 0; i < 100; i++)
-            {
-                VisualElement el = new();
-                el.style.left = Random.Range(0, Screen.width);
-                el.style.backgroundImage = new StyleBackground(sprites[Random.Range(0, sprites.Count)]);
-                el.AddToClassList(_ussFallingElement);
-                Add(el);
-                float time = Random.Range(1f, 4f);
-                DOTween.To(x => el.style.top = x, 0, Screen.height, time)
-                    .SetEase(Ease.InOutSine)
-                    .SetUpdate(true);
-                DOTween.To(x => el.style.opacity = x, 1, 0, time)
-                    .SetEase(Ease.InOutSine)
-                    .SetUpdate(true)
-                    .OnComplete(() => Remove(el));
-            }
-        }
-
-        void PlayLevelUpAnimation()
-        {
-            VisualElement container = new();
-            container.style.position = Position.Absolute;
-            container.style.width = Length.Percent(80);
-            container.style.height = Length.Percent(100);
-
-            Label label = new("Fight Won!");
-            label.AddToClassList(_ussLevelUpLabel);
-            container.Add(label);
-            DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
-
-            AnimationElement anim = new(GameManager.GameDatabase.LevelUpAnimationSprites,
-                50, false);
-            container.Add(anim);
-            anim.PlayAnimation();
-
-            Add(container);
-            anim.OnAnimationFinished += () =>
-            {
-                DOTween.To(x => container.style.opacity = x, 1, 0, 0.5f)
-                    .SetUpdate(true)
-                    .OnComplete(() => Remove(container));
-            };
-        }
 
         void AddElements()
+        {
+            AddTitle();
+            AddRewardContainer();
+            AddRerollButton();
+            AddHeroElement();
+            schedule.Execute(PopulateRewards).StartingIn(600);
+        }
+
+        void AddTitle()
         {
             _title = new("Choose a reward:");
             _title.style.fontSize = 48;
             _title.style.opacity = 0;
             Content.Add(_title);
+
             DOTween.To(x => _title.style.opacity = x, 0, 1, 0.5f)
                 .SetUpdate(true);
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
             Content.Add(spacer);
-
-            AddRewardContainer();
-            AddRerollButton();
-            AddHeroElement();
-            schedule.Execute(PopulateRewards).StartingIn(600);
         }
 
         void AddRewardContainer()
@@ -180,7 +137,7 @@ namespace Lis.Battle
             CreateRewardCards();
         }
 
-        void CreateRewardCards()
+        protected virtual void CreateRewardCards()
         {
             _allRewardElements.Clear();
             for (int i = 0; i < _numberOfRewards; i++)
@@ -206,6 +163,7 @@ namespace Lis.Battle
             return null;
         }
 
+        /* REWARDS */
         protected RewardElement CreateRewardTablet()
         {
             RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
@@ -245,7 +203,7 @@ namespace Lis.Battle
             return element;
         }
 
-        void RewardSelected(Reward reward)
+        protected virtual void RewardSelected(Reward reward)
         {
             _audioManager.PlayUI("Reward Chosen");
 
@@ -281,6 +239,54 @@ namespace Lis.Battle
 
             if (_heroManager.RewardRerollsAvailable <= 0)
                 _rerollButton.SetEnabled(false);
+        }
+
+        /* EFFECTS */
+        protected void MakeItRain()
+        {
+            List<Sprite> sprites = GameManager.UnitDatabase.CreatureIcons.ToList();
+            for (int i = 0; i < 100; i++)
+            {
+                VisualElement el = new();
+                el.style.left = Random.Range(0, Screen.width);
+                el.style.backgroundImage = new StyleBackground(sprites[Random.Range(0, sprites.Count)]);
+                el.AddToClassList(_ussFallingElement);
+                Add(el);
+                float time = Random.Range(1f, 4f);
+                DOTween.To(x => el.style.top = x, 0, Screen.height, time)
+                    .SetEase(Ease.InOutSine)
+                    .SetUpdate(true);
+                DOTween.To(x => el.style.opacity = x, 1, 0, time)
+                    .SetEase(Ease.InOutSine)
+                    .SetUpdate(true)
+                    .OnComplete(() => Remove(el));
+            }
+        }
+
+        protected void PlayLevelUpAnimation()
+        {
+            VisualElement container = new();
+            container.style.position = Position.Absolute;
+            container.style.width = Length.Percent(80);
+            container.style.height = Length.Percent(100);
+
+            Label label = new("Fight Won!");
+            label.AddToClassList(_ussLevelUpLabel);
+            container.Add(label);
+            DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
+
+            AnimationElement anim = new(GameManager.GameDatabase.LevelUpAnimationSprites,
+                50, false);
+            container.Add(anim);
+            anim.PlayAnimation();
+
+            Add(container);
+            anim.OnAnimationFinished += () =>
+            {
+                DOTween.To(x => container.style.opacity = x, 1, 0, 0.5f)
+                    .SetUpdate(true)
+                    .OnComplete(() => Remove(container));
+            };
         }
     }
 }

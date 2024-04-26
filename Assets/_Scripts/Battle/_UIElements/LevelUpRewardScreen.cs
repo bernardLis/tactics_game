@@ -6,6 +6,12 @@ namespace Lis.Battle
 {
     public class LevelUpRewardScreen : RewardScreen
     {
+        public LevelUpRewardScreen()
+        {
+            MakeItRain();
+            PlayLevelUpAnimation();
+        }
+
         protected override RewardElement ChooseRewardElement()
         {
             float v = Random.value;
