@@ -215,7 +215,6 @@ namespace Lis.Battle
             foreach (RewardElement element in AllRewardElements)
             {
                 if (element.Reward != reward) element.DisableCard();
-
                 element.DisableClicks();
             }
 

@@ -41,7 +41,7 @@ namespace Lis.Battle.Arena
             }
 
             ShopScreen unused = new ShopScreen();
-            OnFightStarted();
+            // HERE: testing  OnFightStarted();
             return true;
         }
     }

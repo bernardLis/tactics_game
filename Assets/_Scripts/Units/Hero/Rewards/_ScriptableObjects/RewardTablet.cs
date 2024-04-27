@@ -36,7 +36,13 @@ namespace Lis.Units.Hero.Rewards
             }
 
             Tablet = availableTablets[Random.Range(0, availableTablets.Count)];
+            SetPrice();
             return true;
+        }
+
+        protected override void SetPrice()
+        {
+            Price = Tablet.Price * (Tablet.Level.Value + 1);
         }
 
         bool CanUpgradeAdvancedTablet(List<RewardElement> otherRewardElements)

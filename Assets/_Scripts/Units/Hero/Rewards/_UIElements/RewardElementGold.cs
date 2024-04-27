@@ -7,8 +7,8 @@ namespace Lis.Units.Hero.Rewards
         public RewardElementGold(Reward reward) : base(reward)
         {
             RewardGold rewardGold = reward as RewardGold;
-            Add(new GoldElement(rewardGold.Gold));
-
+            ContentContainer.Add(new GoldElement(rewardGold.Gold));
         }
+
     }
 }

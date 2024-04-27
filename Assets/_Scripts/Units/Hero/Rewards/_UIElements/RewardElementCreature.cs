@@ -13,7 +13,7 @@ namespace Lis.Units.Hero.Rewards
 
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
-            Add(container);
+            ContentContainer.Add(container);
 
             Label count = new(rewardCreature.Count + "x");
             container.Add(count);
@@ -25,7 +25,7 @@ namespace Lis.Units.Hero.Rewards
 
             CreatureIcon icon = new(rewardCreature.Creature);
             icon.SetBigIcon();
-            Add(icon);
+            ContentContainer.Add(icon);
         }
     }
 }

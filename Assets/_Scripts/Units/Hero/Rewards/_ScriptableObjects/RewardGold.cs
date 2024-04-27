@@ -11,7 +11,13 @@ namespace Lis.Units.Hero.Rewards
         {
             base.CreateRandom(hero, otherRewardCards);
             Gold = Random.Range(100, 200);
+            SetPrice();
             return true;
+        }
+
+        protected override void SetPrice()
+        {
+            Price = Gold;
         }
 
         public override void GetReward()

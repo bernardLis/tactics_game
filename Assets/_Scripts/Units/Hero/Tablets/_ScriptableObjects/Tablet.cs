@@ -14,6 +14,7 @@ namespace Lis.Units.Hero.Tablets
 
         [HideInInspector] public IntVariable Level;
         public int MaxLevel = 7;
+        public int Price;
 
         public StatLevelUpValue PrimaryStat;
         public StatLevelUpValue SecondaryStat;

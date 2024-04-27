@@ -40,7 +40,8 @@ namespace Lis.Battle
                 RewardElement el = ChooseRewardElement();
                 el ??= ChooseRewardElement(); // backup
 
-                ShopItemElement shopItemElement = new(el);
+                bool isMystery = i == NumberOfRewards - 1;
+                ShopItemElement shopItemElement = new(el, isMystery);
 
                 shopItemElement.style.position = Position.Absolute;
                 float endLeft = LeftPositions[i];

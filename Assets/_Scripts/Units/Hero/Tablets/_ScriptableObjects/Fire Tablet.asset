@@ -15,9 +15,10 @@ MonoBehaviour:
   Id: 78e13e00-69cd-4e7e-8f0e-36084185ae3b
   Icon: {fileID: 21300000, guid: aff9835dcf2070847ade64b2d279d5fd, type: 3}
   Description: 
-  Element: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Level: {fileID: 0}
   MaxLevel: 2
+  Price: 100
   PrimaryStat:
     StatType: 0
     Value: 10

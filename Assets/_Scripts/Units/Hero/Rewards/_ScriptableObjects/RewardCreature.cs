@@ -20,8 +20,13 @@ namespace Lis.Units.Hero.Rewards
             Creature.InitializeBattle(0);
 
             Count = Random.Range(1, 4); // TODO: for now
-
+            SetPrice();
             return true;
+        }
+
+        protected override void SetPrice()
+        {
+            Price = Creature.Price * Count;
         }
 
         public override void GetReward()

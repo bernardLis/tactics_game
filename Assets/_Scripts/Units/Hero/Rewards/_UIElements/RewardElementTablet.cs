@@ -17,7 +17,7 @@ namespace Lis.Units.Hero.Rewards
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             container.style.alignItems = Align.Center;
-            Add(container);
+            ContentContainer.Add(container);
 
             NatureElement element = new(tablet.Nature);
             container.Add(element);
@@ -29,14 +29,14 @@ namespace Lis.Units.Hero.Rewards
             container.Add(txt);
 
             TabletElement tabletElement = new(tablet);
-            Add(tabletElement);
+            ContentContainer.Add(tabletElement);
             tabletElement.style.width = Length.Percent(50);
             tabletElement.style.height = Length.Percent(50);
 
             Label label = new(Helpers.ParseScriptableObjectName(tablet.name));
             label.style.whiteSpace = WhiteSpace.Normal;
             label.style.unityFontStyleAndWeight = FontStyle.Bold;
-            Add(label);
+            ContentContainer.Add(label);
         }
     }
 }

@@ -30,8 +30,14 @@ namespace Lis.Units.Hero.Rewards
             }
 
             Ability.InitializeBattle(hero);
+            SetPrice();
 
             return true;
+        }
+
+        protected override void SetPrice()
+        {
+            Price = Ability.Levels[Level].Price;
         }
 
         Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)

@@ -18,12 +18,11 @@ MonoBehaviour:
   Nature: {fileID: 11400000, guid: 393b855c90410ae438db257e109ffcbc, type: 2}
   Level: {fileID: 0}
   MaxLevel: 2
+  Price: 200
   PrimaryStat:
     StatType: 7
     Value: 0
   SecondaryStat:
     StatType: 7
     Value: 0
-  FirstNature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  SecondNature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Ability: {fileID: 11400000, guid: 8fb0356b40790974691df8c838dd2698, type: 2}

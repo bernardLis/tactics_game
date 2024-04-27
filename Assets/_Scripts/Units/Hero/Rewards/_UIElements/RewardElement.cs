@@ -1,4 +1,5 @@
 using Lis.Core;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Units.Hero.Rewards
@@ -9,9 +10,13 @@ namespace Lis.Units.Hero.Rewards
         const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
         const string _ussClassName = "reward-element__";
         const string _ussMain = _ussClassName + "main";
+        const string _ussContent = _ussClassName + "content";
         const string _ussDisabled = _ussClassName + "disabled";
 
         public readonly Reward Reward;
+
+        protected VisualElement ContentContainer;
+        Label _mysteryLabel;
 
         protected RewardElement(Reward reward)
         {
@@ -24,6 +29,10 @@ namespace Lis.Units.Hero.Rewards
             Reward = reward;
             AddToClassList(_ussMain);
             AddToClassList(_ussCommonTextPrimaryBlack);
+
+            ContentContainer = new();
+            ContentContainer.AddToClassList(_ussContent);
+            Add(ContentContainer);
 
             RegisterCallback<ClickEvent>(OnClick);
             RegisterCallback<MouseOverEvent>(OnMouseOver);
@@ -58,6 +67,24 @@ namespace Lis.Units.Hero.Rewards
         {
             UnregisterCallback<ClickEvent>(OnClick);
             UnregisterCallback<MouseOverEvent>(OnMouseOver);
+        }
+
+        public void SetMystery()
+        {
+            Reward.Price += Random.Range(-50, 50);
+            if (Reward.Price < 10) Reward.Price = 10;
+
+            ContentContainer.style.visibility = Visibility.Hidden;
+            _mysteryLabel = new("???");
+            _mysteryLabel.style.position = Position.Absolute;
+            _mysteryLabel.style.left = Length.Percent(50);
+            Add(_mysteryLabel);
+        }
+
+        public void RevealMystery()
+        {
+            _mysteryLabel?.RemoveFromHierarchy();
+            ContentContainer.style.visibility = Visibility.Visible;
         }
     }
 }

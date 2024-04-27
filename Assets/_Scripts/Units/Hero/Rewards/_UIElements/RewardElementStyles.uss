@@ -12,6 +12,15 @@
     flex-wrap: wrap;
 }
 
+.reward-element__content {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
 .reward-element__tablet-main {
     background-image: url('project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/icon_frame_bg_lg.png?fileID=2800000&guid=d6554613c7df320498738cc435f5cecf&type=3#icon_frame_bg_lg');
     min-width: 200px;
