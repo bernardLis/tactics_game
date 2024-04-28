@@ -10,16 +10,16 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-namespace Lis.Battle
+namespace Lis.Battle.Arena
 {
     public class RewardScreen : FullScreenElement
     {
-        const string _ussClassName = "reward-screen__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussLevelUpLabel = _ussClassName + "level-up-label";
-        const string _ussFallingElement = _ussClassName + "falling-element";
-        const string _ussRewardContainer = _ussClassName + "reward-container";
-        const string _ussRerollContainer = _ussClassName + "reroll-container";
+        protected const string USSClassName = "reward-screen__";
+        const string _ussMain = USSClassName + "main";
+        const string _ussLevelUpLabel = USSClassName + "level-up-label";
+        const string _ussFallingElement = USSClassName + "falling-element";
+        const string _ussRewardContainer = USSClassName + "reward-container";
+        const string _ussRerollContainer = USSClassName + "reroll-container";
 
         readonly AudioManager _audioManager;
         readonly HeroManager _heroManager;

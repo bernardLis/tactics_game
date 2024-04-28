@@ -29,6 +29,8 @@ namespace Lis.Battle.Arena
 
         public void StartInvestment()
         {
+            GameManager.Instance.ChangeGoldValue(-GoldToInvest);
+
             IsActive = true;
             FightManager fightManager = BattleManager.Instance.GetComponent<FightManager>();
             fightManager.OnFightEnded += OnFightEnded;

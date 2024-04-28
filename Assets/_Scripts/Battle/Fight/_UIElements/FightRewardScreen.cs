@@ -1,3 +1,4 @@
+using Lis.Battle.Arena;
 using Lis.Units.Hero.Rewards;
 
 namespace Lis.Battle.Fight

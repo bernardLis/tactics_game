@@ -202,3 +202,9 @@
     align-items: center;
     font-size: 64px;
 }
+
+.common__fight-icon {
+    width: 50px;
+    height: 50px;
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Other/spritesheet_48x48.png?fileID=-2021701207&guid=1a7355868c1b85d41a28f37011e26432&type=3#spritesheet_48x48_345");
+}

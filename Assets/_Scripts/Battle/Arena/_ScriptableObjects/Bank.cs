@@ -20,14 +20,18 @@ namespace Lis.Battle.Arena
             BattleManager.Instance.GetComponent<FightManager>().OnFightEnded += CreateInvestments;
         }
 
-        void CreateInvestments()
+        public void CreateInvestments()
         {
             AvailableInvestments.Clear();
             for (int i = 0; i < 3; i++)
             {
                 Investment investment = CreateInstance<Investment>();
                 investment.CreateRandom();
-                investment.OnStarted += () => ActiveInvestments.Add(investment);
+                investment.OnStarted += () =>
+                {
+                    AvailableInvestments.Remove(investment);
+                    ActiveInvestments.Add(investment);
+                };
                 investment.OnCollected += () => ActiveInvestments.Remove(investment);
                 AvailableInvestments.Add(investment);
             }

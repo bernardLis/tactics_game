@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Lis.Battle.Arena;
-using Lis.Core;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis.Battle
+namespace Lis.Battle.Arena
 {
     public class ShopScreen : RewardScreen
     {
@@ -72,7 +70,10 @@ namespace Lis.Battle
 
         void AddShopItems()
         {
-            for (int i = 0; i < AllRewardElements.Count; i++)
+            Debug.Log($"AddShopItems reward count: {AllRewardElements.Count}");
+            Debug.Log($"NumberOfRewards {NumberOfRewards}");
+            Debug.Log($"LeftPositions.Count {LeftPositions.Count}");
+            for (int i = 0; i < NumberOfRewards; i++)
             {
                 bool isMystery = i == NumberOfRewards - 1;
                 ShopItemElement shopItemElement = new(AllRewardElements[i], isMystery);

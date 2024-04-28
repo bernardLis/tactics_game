@@ -4,7 +4,7 @@ using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis.Battle
+namespace Lis.Battle.Arena
 {
     public class ShopItemElement : VisualElement
     {

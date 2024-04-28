@@ -1,8 +1,7 @@
-using Lis.Core;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 
-namespace Lis.Battle
+namespace Lis.Battle.Arena
 {
     public class LevelUpRewardScreen : RewardScreen
     {
