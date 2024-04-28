@@ -6,11 +6,14 @@ namespace Lis.Battle
 {
     public class LevelUpRewardScreen : RewardScreen
     {
-        public LevelUpRewardScreen()
+
+        public override void Initialize()
         {
+            base.Initialize();
             MakeItRain();
             PlayLevelUpAnimation();
         }
+
 
         protected override RewardElement ChooseRewardElement()
         {

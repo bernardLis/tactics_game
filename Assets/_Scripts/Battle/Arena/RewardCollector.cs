@@ -29,7 +29,8 @@ namespace Lis.Battle.Arena
                 return false;
             }
 
-            FightRewardScreen unused = new();
+            FightRewardScreen fightRewardScreen = new();
+            fightRewardScreen.Initialize();
             _rewardsAvailable--;
             if (_rewardsAvailable == 0)
             {

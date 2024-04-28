@@ -4,8 +4,9 @@ namespace Lis.Battle.Fight
 {
     public class FightRewardScreen : RewardScreen
     {
-        public FightRewardScreen()
+        public override void Initialize()
         {
+            base.Initialize();
             MakeItRain();
             PlayLevelUpAnimation();
         }

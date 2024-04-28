@@ -52,12 +52,10 @@ namespace Lis.Battle
 
             Content.AddToClassList(_ussMain);
 
-            AddElements();
             DisableNavigation();
         }
 
-
-        void AddElements()
+        public virtual void Initialize()
         {
             AddTitle();
             AddRewardContainer();

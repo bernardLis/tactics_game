@@ -18,3 +18,4 @@ MonoBehaviour:
   Arenas:
   - {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
   CurrentArena: {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
+  Shop: {fileID: 11400000, guid: 91d63af4d3ec4034d9e7bf5af5e4b840, type: 2}

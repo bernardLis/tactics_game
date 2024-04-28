@@ -8,10 +8,17 @@ namespace Lis.Battle
 {
     public class ShopScreen : RewardScreen
     {
-        readonly List<ShopItemElement> _allShopItemElements = new();
+        Shop _shop;
 
-        public ShopScreen()
+        public void InitializeShop(Shop shop)
         {
+            _shop = shop;
+            Initialize();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
             AddHeroGoldElement();
             ChangeTitle();
             AddContinueButton();
@@ -34,14 +41,54 @@ namespace Lis.Battle
 
         protected override void CreateRewardCards()
         {
-            _allShopItemElements.Clear();
+            AllRewardElements.Clear();
+
+            if (_shop.ShouldReset)
+                CreateNewRewardCards();
+            else
+                foreach (Reward r in _shop.GetRewards())
+                    ParseRewardCard(r);
+
+            AddShopItems();
+        }
+
+        void ParseRewardCard(Reward reward)
+        {
+            RewardElement el = null;
+            if (reward is RewardAbility abilityReward)
+                el = (RewardElementAbility)new(abilityReward);
+            if (reward is RewardTablet tabletReward)
+                el = (RewardElementTablet)new(tabletReward);
+            if (reward is RewardCreature creatureReward)
+                el = (RewardElementCreature)new(creatureReward);
+            if (reward is RewardGold goldReward)
+                el = (RewardElementGold)new(goldReward);
+
+            AllRewardElements.Add(el);
+        }
+
+        void CreateNewRewardCards()
+        {
             for (int i = 0; i < NumberOfRewards; i++)
             {
                 RewardElement el = ChooseRewardElement();
                 el ??= ChooseRewardElement(); // backup
+                AllRewardElements.Add(el);
+            }
 
+            List<Reward> rewards = new();
+            foreach (RewardElement el in AllRewardElements)
+                rewards.Add(el.Reward);
+            _shop.SetRewards(rewards);
+            _shop.ShouldReset = false;
+        }
+
+        void AddShopItems()
+        {
+            for (int i = 0; i < AllRewardElements.Count; i++)
+            {
                 bool isMystery = i == NumberOfRewards - 1;
-                ShopItemElement shopItemElement = new(el, isMystery);
+                ShopItemElement shopItemElement = new(AllRewardElements[i], isMystery);
 
                 shopItemElement.style.position = Position.Absolute;
                 float endLeft = LeftPositions[i];
@@ -51,8 +98,6 @@ namespace Lis.Battle
                 shopItemElement.style.height = RewardElementHeight;
 
                 RewardContainer.Add(shopItemElement);
-                AllRewardElements.Add(el);
-                _allShopItemElements.Add(shopItemElement);
             }
         }
 

@@ -5,11 +5,21 @@ namespace Lis.Battle.Arena
 {
     public class ShopDisplayer : ArenaInteractable, IInteractable
     {
+        BattleManager _battleManager;
         public new string InteractionPrompt => "Press F To Shop!";
+        Shop _shop;
 
         protected override void Start()
         {
             base.Start();
+
+            _battleManager = BattleManager.Instance;
+            _battleManager.GetComponent<BattleInitializer>().OnBattleInitialized += OnBattleInitialized;
+        }
+
+        void OnBattleInitialized()
+        {
+            _shop = _battleManager.Battle.Shop;
             OnFightEnded();
         }
 
@@ -17,6 +27,7 @@ namespace Lis.Battle.Arena
         {
             InteractionAvailableEffect.SetActive(true);
             IsInteractionAvailable = true;
+            _shop.ShouldReset = true;
         }
 
         protected override void OnFightStarted()
@@ -40,7 +51,8 @@ namespace Lis.Battle.Arena
                 return false;
             }
 
-            ShopScreen unused = new ShopScreen();
+            ShopScreen shopScreen = new ShopScreen();
+            shopScreen.InitializeShop(_shop);
             // HERE: testing  OnFightStarted();
             return true;
         }

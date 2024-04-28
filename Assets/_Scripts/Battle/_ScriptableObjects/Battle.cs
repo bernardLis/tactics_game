@@ -13,8 +13,9 @@ namespace Lis.Battle
         public Hero SelectedHero;
 
         public List<Arena.Arena> Arenas;
-
         public Arena.Arena CurrentArena;
+
+        public Shop Shop;
 
         public void Initialize(int level)
         {
