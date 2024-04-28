@@ -3,7 +3,7 @@ using Lis.Core;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 
-namespace Lis.Battle
+namespace Lis.Battle.Arena
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Shop")]
     public class Shop : BaseScriptableObject

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lis.Battle.Arena;
 using Lis.Core;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
@@ -18,25 +19,11 @@ namespace Lis.Battle
 
         public override void Initialize()
         {
+            Title = "Shop";
+
             base.Initialize();
             AddHeroGoldElement();
-            ChangeTitle();
             AddContinueButton();
-        }
-
-        void AddHeroGoldElement()
-        {
-            GoldElement goldElement = new(GameManager.Gold);
-            GameManager.OnGoldChanged += goldElement.ChangeAmount;
-            goldElement.style.position = Position.Absolute;
-            goldElement.style.left = Length.Percent(10);
-            goldElement.style.top = Length.Percent(3);
-            Content.Add(goldElement);
-        }
-
-        void ChangeTitle()
-        {
-            Title.text = "Shop";
         }
 
         protected override void CreateRewardCards()

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lis.Battle.Arena;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Lis.Battle
         public Arena.Arena CurrentArena;
 
         public Shop Shop;
+        public Bank Bank;
 
         public void Initialize(int level)
         {

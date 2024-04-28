@@ -89,5 +89,7 @@ namespace Lis.Core
 
         HeroSelectorInfoStyles,
         StatsScreenStyles,
+
+        InvestmentElementStyles,
     }
 }

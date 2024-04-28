@@ -25,7 +25,7 @@ namespace Lis.Battle
         readonly HeroManager _heroManager;
 
         protected VisualElement RewardContainer;
-        protected Label Title;
+        protected Label TitleLabel;
         protected readonly List<float> LeftPositions = new();
         protected int RewardElementWidth;
         protected int RewardElementHeight;
@@ -36,11 +36,13 @@ namespace Lis.Battle
         Label _rerollsLeft;
         RerollButton _rerollButton;
 
+        protected string Title;
+
         protected readonly int NumberOfRewards;
 
         public event Action OnRewardSelected;
 
-        public RewardScreen()
+        protected RewardScreen()
         {
             _audioManager = GameManager.GetComponent<AudioManager>();
             StyleSheet ss = GameManager.GetComponent<AddressableManager>()
@@ -64,19 +66,30 @@ namespace Lis.Battle
             schedule.Execute(PopulateRewards).StartingIn(600);
         }
 
-        void AddTitle()
+        protected void AddTitle()
         {
-            Title = new("Choose a reward:");
-            Title.style.fontSize = 48;
-            Title.style.opacity = 0;
-            Content.Add(Title);
+            TitleLabel = new(Title);
+            TitleLabel.style.fontSize = 48;
+            TitleLabel.style.opacity = 0;
+            Content.Add(TitleLabel);
 
-            DOTween.To(x => Title.style.opacity = x, 0, 1, 0.5f)
+            DOTween.To(x => TitleLabel.style.opacity = x, 0, 1, 0.5f)
                 .SetUpdate(true);
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
             Content.Add(spacer);
         }
+
+        protected void AddHeroGoldElement()
+        {
+            GoldElement goldElement = new(GameManager.Gold);
+            GameManager.OnGoldChanged += goldElement.ChangeAmount;
+            goldElement.style.position = Position.Absolute;
+            goldElement.style.left = Length.Percent(10);
+            goldElement.style.top = Length.Percent(3);
+            Content.Add(goldElement);
+        }
+
 
         void AddRewardContainer()
         {
@@ -106,7 +119,7 @@ namespace Lis.Battle
             }).StartingIn(100);
         }
 
-        void AddRerollButton()
+        protected void AddRerollButton()
         {
             _rerollContainer = new();
             _rerollContainer.AddToClassList(_ussRerollContainer);
@@ -125,7 +138,7 @@ namespace Lis.Battle
                 .SetUpdate(true);
         }
 
-        void AddHeroElement()
+        protected void AddHeroElement()
         {
             Add(new HeroElement(_heroManager.Hero, true));
         }
@@ -221,7 +234,7 @@ namespace Lis.Battle
             AddContinueButton();
         }
 
-        void RerollReward()
+        protected virtual void RerollReward()
         {
             if (_heroManager.RewardRerollsAvailable <= 0)
             {
