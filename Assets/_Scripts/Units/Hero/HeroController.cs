@@ -24,7 +24,6 @@ namespace Lis.Units.Hero
         {
             base.InitializeUnit(unit, 0);
             gameObject.layer = 8;
-            UnitPathingController.EnableAgent();
 
             Hero = (Hero)unit;
 
