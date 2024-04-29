@@ -16,7 +16,7 @@ namespace Lis.Battle.Arena
     {
         protected const string USSClassName = "reward-screen__";
         const string _ussMain = USSClassName + "main";
-        const string _ussLevelUpLabel = USSClassName + "level-up-label";
+        const string _ussLevelUpAnimationContainer = USSClassName + "level-up-animation-container";
         const string _ussFallingElement = USSClassName + "falling-element";
         const string _ussRewardContainer = USSClassName + "reward-container";
         const string _ussRerollContainer = USSClassName + "reroll-container";
@@ -25,7 +25,7 @@ namespace Lis.Battle.Arena
         readonly HeroManager _heroManager;
 
         protected VisualElement RewardContainer;
-        protected Label TitleLabel;
+        Label _titleLabel;
         protected readonly List<float> LeftPositions = new();
         protected int RewardElementWidth;
         protected int RewardElementHeight;
@@ -68,12 +68,12 @@ namespace Lis.Battle.Arena
 
         protected void AddTitle()
         {
-            TitleLabel = new(Title);
-            TitleLabel.style.fontSize = 48;
-            TitleLabel.style.opacity = 0;
-            Content.Add(TitleLabel);
+            _titleLabel = new(Title);
+            _titleLabel.style.fontSize = 48;
+            _titleLabel.style.opacity = 0;
+            Content.Add(_titleLabel);
 
-            DOTween.To(x => TitleLabel.style.opacity = x, 0, 1, 0.5f)
+            DOTween.To(x => _titleLabel.style.opacity = x, 0, 1, 0.5f)
                 .SetUpdate(true);
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
@@ -119,7 +119,7 @@ namespace Lis.Battle.Arena
             }).StartingIn(100);
         }
 
-        protected void AddRerollButton()
+        void AddRerollButton()
         {
             _rerollContainer = new();
             _rerollContainer.AddToClassList(_ussRerollContainer);
@@ -257,7 +257,7 @@ namespace Lis.Battle.Arena
             {
                 VisualElement el = new();
                 el.style.left = Random.Range(0, Screen.width);
-                el.style.backgroundImage = new StyleBackground(sprites[Random.Range(0, sprites.Count)]);
+                el.style.backgroundImage = new(sprites[Random.Range(0, sprites.Count)]);
                 el.AddToClassList(_ussFallingElement);
                 Add(el);
                 float time = Random.Range(1f, 4f);
@@ -274,12 +274,9 @@ namespace Lis.Battle.Arena
         protected void PlayLevelUpAnimation()
         {
             VisualElement container = new();
-            container.style.position = Position.Absolute;
-            container.style.width = Length.Percent(80);
-            container.style.height = Length.Percent(100);
+            container.AddToClassList(_ussLevelUpAnimationContainer);
 
             Label label = new("Fight Won!");
-            label.AddToClassList(_ussLevelUpLabel);
             container.Add(label);
             DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
 

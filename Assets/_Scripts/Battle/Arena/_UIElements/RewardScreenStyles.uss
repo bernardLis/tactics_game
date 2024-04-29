@@ -21,6 +21,13 @@
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
 
+.reward-screen__level-up-animation-container {
+    position: absolute;
+    width: 80%;
+    height: 100%;
+}
+
+
 .reward-screen__falling-element {
     position: absolute;
     top: 0;
@@ -46,13 +53,13 @@
     opacity: 0;
 }
 
-.reward-screen__investment-container{
+.reward-screen__investment-container {
     height: 100%;
     width: 50%;
     flex-wrap: wrap;
 }
 
-.reward-screen__investment-title{
+.reward-screen__investment-title {
     width: 100%;
     font-size: 30;
 }

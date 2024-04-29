@@ -31,25 +31,27 @@ namespace Lis.Battle.Arena
             if (_shop.ShouldReset)
                 CreateNewRewardCards();
             else
-                foreach (Reward r in _shop.GetRewards())
-                    ParseRewardCard(r);
+                ParseRewardCards(_shop.GetRewards());
 
             AddShopItems();
         }
 
-        void ParseRewardCard(Reward reward)
+        void ParseRewardCards(List<Reward> cards)
         {
-            RewardElement el = null;
-            if (reward is RewardAbility abilityReward)
-                el = (RewardElementAbility)new(abilityReward);
-            if (reward is RewardTablet tabletReward)
-                el = (RewardElementTablet)new(tabletReward);
-            if (reward is RewardCreature creatureReward)
-                el = (RewardElementCreature)new(creatureReward);
-            if (reward is RewardGold goldReward)
-                el = (RewardElementGold)new(goldReward);
+            foreach (Reward r in cards)
+            {
+                RewardElement el = null;
+                if (r is RewardAbility abilityReward)
+                    el = (RewardElementAbility)new(abilityReward);
+                if (r is RewardTablet tabletReward)
+                    el = (RewardElementTablet)new(tabletReward);
+                if (r is RewardCreature creatureReward)
+                    el = (RewardElementCreature)new(creatureReward);
+                if (r is RewardGold goldReward)
+                    el = (RewardElementGold)new(goldReward);
 
-            AllRewardElements.Add(el);
+                AllRewardElements.Add(el);
+            }
         }
 
         void CreateNewRewardCards()
