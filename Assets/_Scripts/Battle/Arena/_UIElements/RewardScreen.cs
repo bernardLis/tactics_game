@@ -208,10 +208,7 @@ namespace Lis.Battle.Arena
             RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
             reward.CreateRandom(_heroManager.Hero, AllRewardElements);
             reward.OnRewardSelected += RewardSelected;
-
             RewardElementCreature element = new(reward);
-            AllRewardElements.Add(element);
-            RewardContainer.Add(element);
             return element;
         }
 

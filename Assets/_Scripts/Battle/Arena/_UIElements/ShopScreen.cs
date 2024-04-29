@@ -57,7 +57,6 @@ namespace Lis.Battle.Arena
             for (int i = 0; i < NumberOfRewards; i++)
             {
                 RewardElement el = ChooseRewardElement();
-                el ??= ChooseRewardElement(); // backup
                 AllRewardElements.Add(el);
             }
 
@@ -70,9 +69,6 @@ namespace Lis.Battle.Arena
 
         void AddShopItems()
         {
-            Debug.Log($"AddShopItems reward count: {AllRewardElements.Count}");
-            Debug.Log($"NumberOfRewards {NumberOfRewards}");
-            Debug.Log($"LeftPositions.Count {LeftPositions.Count}");
             for (int i = 0; i < NumberOfRewards; i++)
             {
                 bool isMystery = i == NumberOfRewards - 1;
