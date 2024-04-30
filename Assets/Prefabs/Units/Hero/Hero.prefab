@@ -6446,12 +6446,10 @@ GameObject:
   - component: {fileID: 7737063000695249792}
   - component: {fileID: 7995347379091732844}
   - component: {fileID: 3179456574270993771}
-  - component: {fileID: 9054389935847488978}
   - component: {fileID: 7706662896519388562}
   - component: {fileID: 5602513971341044978}
   - component: {fileID: 5307087708510327211}
   - component: {fileID: 1953132942563509803}
-  - component: {fileID: 1010776720129138432}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Player
@@ -6535,28 +6533,6 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.92, z: 0}
---- !u!195 &9054389935847488978
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632361364057405493}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.5
-  m_BaseOffset: -0.1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &7706662896519388562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6813,18 +6789,6 @@ MonoBehaviour:
   _levelUpEffect: {fileID: 2581224419072762184}
   DeathEffect: {fileID: 2581224419072762184}
   IsShielded: 0
---- !u!114 &1010776720129138432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632361364057405493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28238866b5980194b9720a18b53fe920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5670492309254171287
 GameObject:
   m_ObjectHideFlags: 0

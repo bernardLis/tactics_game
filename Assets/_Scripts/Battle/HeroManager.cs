@@ -66,9 +66,7 @@ namespace Lis.Battle
             _fightManager.AddPlayerUnit(HeroController);
 
             _placeholderAudioListener.enabled = false;
-
             HeroController.InitializeUnit(hero, 0);
-            HeroController.GetComponent<NavMeshAgent>().enabled = true;
 
             _heroBattleElement = new(hero);
             _bottomPanel.Add(_heroBattleElement);
