@@ -42,7 +42,8 @@ namespace Lis.Battle.Arena
                 return false;
             }
 
-            LevelUpRewardScreen unused = new();
+            LevelUpRewardScreen levelUpScreen = new();
+            levelUpScreen.Initialize();
 
             _levelUpsAvailable--;
             if (_levelUpsAvailable == 0)
