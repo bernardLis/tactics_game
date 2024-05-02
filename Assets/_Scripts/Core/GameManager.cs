@@ -62,7 +62,8 @@ namespace Lis.Core
             UnitDatabase.Initialize();
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
-            CurrentBattle.Initialize(1);
+            CurrentBattle.Initialize(1); // necessary for testing
+
         }
 
         // using Unity.Services.Analytics;
@@ -101,6 +102,7 @@ namespace Lis.Core
 
         public void StartGame()
         {
+            CurrentBattle.Initialize(1);
             PlayerPrefs.SetInt(CurrentBattle.SelectedHero.Id, CurrentBattle.SelectedHero.TimesPicked + 1);
             LoadScene(Scenes.Battle);
         }

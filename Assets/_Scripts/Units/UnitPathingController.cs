@@ -36,9 +36,8 @@ namespace Lis.Units
             EnableAgent();
         }
 
-        public void EnableAgent()
+        void EnableAgent()
         {
-            Debug.Log("EnableAgent");
             _agent.enabled = true;
             _agent.isStopped = false;
         }

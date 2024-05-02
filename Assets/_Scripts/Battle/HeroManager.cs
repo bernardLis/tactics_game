@@ -5,7 +5,6 @@ using Lis.Core;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 namespace Lis.Battle

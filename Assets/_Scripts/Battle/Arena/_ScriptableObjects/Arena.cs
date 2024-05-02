@@ -7,7 +7,6 @@ namespace Lis.Battle.Arena
 {
     using Fight;
 
-
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Arena")]
     public class Arena : BaseScriptableObject
     {
