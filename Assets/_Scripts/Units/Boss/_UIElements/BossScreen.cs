@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace Lis.Units.Boss
 {
-    public class BossScreen : UnitMovementScreen
+    public class BossScreen : UnitScreen
     {
         readonly Boss _boss;
         public BossScreen(Boss boss) : base(boss)

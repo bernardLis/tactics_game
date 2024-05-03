@@ -51,6 +51,8 @@ namespace Lis.Units
             AddElement();
             AddOtherBasicInfo();
             AddStats();
+            AddBattleData();
+
 
             AddContinueButton();
         }
@@ -111,9 +113,17 @@ namespace Lis.Units
         {
             StatElement maxHealth = new(_unit.MaxHealth);
             StatElement armor = new(_unit.Armor);
+            StatElement speed = new(_unit.Speed);
+            StatElement power = new(_unit.Power);
+            StatElement attackRange = new(_unit.AttackRange);
+            StatElement attackCooldown = new(_unit.AttackCooldown);
 
             StatsContainer.Add(maxHealth);
             StatsContainer.Add(armor);
+            StatsContainer.Add(speed);
+            StatsContainer.Add(power);
+            StatsContainer.Add(attackRange);
+            StatsContainer.Add(attackCooldown);
         }
 
         protected virtual void AddOtherBasicInfo()
@@ -123,6 +133,17 @@ namespace Lis.Units
 
             Label price = new($"Price: {_unit.Price}");
             OtherContainer.Add(price);
+        }
+
+        void AddBattleData()
+        {
+            Label killCount = new($"Kill Count: {_unit.TotalKillCount}");
+            Label damageDealt = new($"Damage Dealt: {_unit.TotalDamageDealt}");
+            Label damageTaken = new($"Damage Taken: {_unit.TotalDamageTaken}");
+
+            OtherContainer.Add(killCount);
+            OtherContainer.Add(damageDealt);
+            OtherContainer.Add(damageTaken);
         }
     }
 }

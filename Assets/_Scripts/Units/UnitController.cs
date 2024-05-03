@@ -131,9 +131,8 @@ namespace Lis.Units
             FightManager.OnFightStarted += OnFightStarted;
             FightManager.OnFightEnded += OnFightEnded;
 
-            if (Unit is not UnitMovement em) return;
             if (UnitPathingController != null)
-                UnitPathingController.InitializeUnit(em);
+                UnitPathingController.InitializeUnit(Unit);
         }
 
         protected virtual void EnableSelf()
@@ -282,15 +281,14 @@ namespace Lis.Units
             if (BattleManager == null) yield break;
             AddToLog($"Unit gets attacked by {attacker.name}");
 
-            int damage = Unit.CalculateDamage(attacker.Unit as UnitFight);
+            int damage = Unit.CalculateDamage(attacker.Unit);
             if (specialDamage > 0) damage = specialDamage;
-            if (attacker.Unit is not UnitFight attackerFight) yield break;
-            attackerFight.AddDmgDealt(damage);
+            attacker.Unit.AddDmgDealt(damage);
 
-            BaseGetHit(damage, attackerFight.Nature.Color.Primary, attacker);
+            BaseGetHit(damage, attacker.Unit.Nature.Color.Primary, attacker);
 
             if (Unit.CurrentHealth.Value <= 0)
-                attackerFight.AddKill(Unit);
+                attacker.Unit.AddKill(Unit);
         }
 
         public virtual void BaseGetHit(int dmg, Color color, UnitController attacker = null)

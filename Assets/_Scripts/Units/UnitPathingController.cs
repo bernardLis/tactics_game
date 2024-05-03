@@ -29,10 +29,10 @@ namespace Lis.Units
         public void SetStoppingDistance(float distance) => _agent.stoppingDistance = distance;
         public void SetSpeed(float speed) => _agent.speed = speed;
 
-        public void InitializeUnit(UnitMovement em)
+        public void InitializeUnit(Unit unit)
         {
-            _agent.speed = em.Speed.GetValue();
-            em.Speed.OnValueChanged += (i) => _agent.speed = i;
+            _agent.speed = unit.Speed.GetValue();
+            unit.Speed.OnValueChanged += (i) => _agent.speed = i;
             EnableAgent();
         }
 

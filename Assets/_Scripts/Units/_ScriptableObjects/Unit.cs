@@ -2,7 +2,6 @@ using System;
 using Lis.Core;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Units
 {
@@ -12,11 +11,12 @@ namespace Lis.Units
         public Sprite Icon;
         public Sprite[] IconAnimation;
         public int Price;
-        [FormerlySerializedAs("Element")] public Nature Nature;
+        public Nature Nature;
         public GameObject Prefab;
 
-        [HideInInspector] public int OldDamageTaken;
         [HideInInspector] public int TotalDamageTaken;
+        [HideInInspector] public int TotalKillCount;
+        [HideInInspector] public int TotalDamageDealt;
 
         [HideInInspector] public int Team;
 
@@ -25,7 +25,6 @@ namespace Lis.Units
             Team = team;
 
             CreateStats();
-            OldDamageTaken = TotalDamageTaken;
 
             Level = Instantiate(Level);
 
@@ -44,20 +43,85 @@ namespace Lis.Units
             TotalDamageTaken += dmg;
         }
 
-        [Header("Stats")] public Stat Armor;
+        public void AddKill(Unit unit)
+        {
+            AddExp(unit.Price);
+            TotalKillCount++;
+        }
+
+        public void AddDmgDealt(int dmg)
+        {
+            TotalDamageDealt += dmg;
+        }
+
+
+        [Header("Stats")]
         public Stat MaxHealth;
+
         [HideInInspector] public FloatVariable CurrentHealth;
+
+        public Stat Armor;
+        public Stat Speed;
+        public Stat Power;
+        public Stat AttackRange;
+        public Stat AttackCooldown;
 
         protected virtual void CreateStats()
         {
+            HandleMaxHealth();
+            HandleArmor();
+            HandleSpeed();
+            HandlePower();
+            HandleAttackRange();
+            HandleAttackCooldown();
+        }
+
+        void HandleMaxHealth()
+        {
+            if (MaxHealth == null) return;
             MaxHealth = Instantiate(MaxHealth);
-            Armor = Instantiate(Armor);
-
             MaxHealth.Initialize();
-            Armor.Initialize();
-
             OnLevelUp += MaxHealth.LevelUp;
+        }
+
+        void HandleArmor()
+        {
+            if (Armor == null) return;
+            Armor = Instantiate(Armor);
+            Armor.Initialize();
             OnLevelUp += Armor.LevelUp;
+        }
+
+        void HandleSpeed()
+        {
+            if (Speed == null) return;
+            Speed = Instantiate(Speed);
+            Speed.Initialize();
+            OnLevelUp += Speed.LevelUp;
+        }
+
+        void HandlePower()
+        {
+            if (Power == null) return;
+            Power = Instantiate(Power);
+            Power.Initialize();
+            OnLevelUp += Power.LevelUp;
+        }
+
+        void HandleAttackRange()
+        {
+            if (AttackRange == null) return;
+            AttackRange = Instantiate(AttackRange);
+            AttackRange.Initialize();
+            OnLevelUp += AttackRange.LevelUp;
+        }
+
+        void HandleAttackCooldown()
+        {
+            if (AttackCooldown == null) return;
+            AttackCooldown = Instantiate(AttackCooldown);
+            AttackCooldown.Initialize();
+            OnLevelUp += AttackCooldown.LevelUp;
         }
 
         /* LEVEL */
@@ -67,7 +131,7 @@ namespace Lis.Units
         [HideInInspector] public float LeftoverExp;
         public event Action OnLevelUp;
 
-        public virtual int GetExpForNextLevel()
+        protected virtual int GetExpForNextLevel()
         {
             // meant to be overwritten
             return 100;
@@ -94,13 +158,10 @@ namespace Lis.Units
             OnLevelUp?.Invoke();
 
             CurrentHealth.SetValue(MaxHealth.GetValue());
-
-            // HERE: unit rework - probably need to scale stats with level - change base values
-            // but that would be different for creature and for hero
         }
 
         /* DAMAGE */
-        public virtual int CalculateDamage(UnitFight attacker)
+        public int CalculateDamage(Unit attacker)
         {
             float damage = attacker.Power.GetValue();
 
@@ -140,7 +201,7 @@ namespace Lis.Units
         }
 
         /* SERIALIZATION */
-        public UnitData SerializeSelf()
+        protected UnitData SerializeSelf()
         {
             // TODO: to be implemented
 

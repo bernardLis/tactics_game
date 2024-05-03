@@ -61,7 +61,7 @@ namespace Lis.Units.Hero
         public override IEnumerator GetHit(UnitController attacker, int specialDamage = 0)
         {
             UnitLog.Add($"{BattleManager.GetTime()}: Hero gets hit by {attacker.name}");
-            int damage = Unit.CalculateDamage(attacker.Unit as UnitFight);
+            int damage = Unit.CalculateDamage(attacker.Unit);
             BaseGetHit(damage, HealthColor);
             yield return null;
         }

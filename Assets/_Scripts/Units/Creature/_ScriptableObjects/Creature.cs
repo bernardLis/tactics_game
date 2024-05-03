@@ -3,16 +3,14 @@ using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Upgrades;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Units.Creature
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
-    public class Creature : UnitFight
+    public class Creature : Unit
     {
         [Header("Creature")] public int UpgradeTier;
 
-        [FormerlySerializedAs("CreatureAbility")]
         public Ability.Ability Ability;
 
         public GameObject Projectile;

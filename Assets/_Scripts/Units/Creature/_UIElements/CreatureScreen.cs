@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace Lis.Units.Creature
 {
-    public class CreatureScreen : UnitFightScreen
+    public class CreatureScreen : UnitScreen
     {
         public Creature Creature;
 

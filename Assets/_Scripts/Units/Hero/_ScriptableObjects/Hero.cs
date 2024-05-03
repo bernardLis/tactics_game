@@ -12,7 +12,7 @@ namespace Lis.Units.Hero
     using Creature;
 
     [CreateAssetMenu(menuName = "ScriptableObject/Hero/Hero")]
-    public class Hero : UnitMovement
+    public class Hero : Unit
     {
         GameManager _gameManager;
 
@@ -21,8 +21,9 @@ namespace Lis.Units.Hero
 
         public GameObject SelectorPrefab;
 
-        [Header("Stats")] public Stat Power;
+        [Header("Stats")]
         public Stat Pull;
+
         public Stat BonusExp;
 
         public void InitializeHero()
@@ -75,7 +76,7 @@ namespace Lis.Units.Hero
             base.AddExp(GetExpValue(gain));
         }
 
-        public override int GetExpForNextLevel()
+        protected override int GetExpForNextLevel()
         {
             // TODO: balance
             const float exponent = 2.5f;
@@ -112,7 +113,7 @@ namespace Lis.Units.Hero
                 foreach (Tablet t in Tablets)
                     _tabletsByElement.Add(t.Nature.NatureName, t);
 
-            return !_tabletsByElement.ContainsKey(natureName) ? null : _tabletsByElement[natureName];
+            return _tabletsByElement.GetValueOrDefault(natureName);
         }
 
         void CheckAdvancedTablets(Tablet tablet)
@@ -256,17 +257,7 @@ namespace Lis.Units.Hero
         /* SERIALIZATION */
         public new HeroData SerializeSelf()
         {
-            HeroData data = new()
-            {
-                UnitMovementData = base.SerializeSelf(),
-            };
-
-            List<AbilityData> abilityData = new();
-            foreach (Ability.Ability a in Abilities)
-                abilityData.Add(a.SerializeSelf());
-            data.AbilityData = abilityData;
-
-            return data;
+            return new();
         }
 
         public void LoadFromData(HeroData data)
@@ -277,7 +268,6 @@ namespace Lis.Units.Hero
             Id = data.Id;
 
             CreateBaseStats();
-            LoadFromData(data.UnitMovementData);
 
             CreateStats();
 
@@ -293,7 +283,6 @@ namespace Lis.Units.Hero
     [Serializable]
     public struct HeroData
     {
-        public UnitMovementData UnitMovementData;
         public string Id;
 
         public List<AbilityData> AbilityData;
