@@ -4,42 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Lis.Battle.Fight;
-using Lis.Core;
 using Lis.Units.Creature.Ability;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Units.Creature
 {
     public class CreatureController : UnitController
     {
-        [FormerlySerializedAs("_attackSound")] [SerializeField]
-        protected Sound AttackSound;
-
-        [SerializeField] Sound _respawnSound;
-
         public Creature Creature { get; private set; }
 
         List<UnitController> _opponentList = new();
-
-        public UnitController Opponent { get; private set; }
-
-        float _currentAttackCooldown;
-        static readonly int AnimAttack = Animator.StringToHash("Attack");
-        static readonly int AnimDie = Animator.StringToHash("Die");
 
         [SerializeField] GameObject _respawnEffect;
         Controller _abilityController;
 
         public event Action<int> OnDamageDealt;
-        public event Action OnAttackReady;
         public event Action OnStartedMoving;
-
-        protected virtual void Update()
-        {
-            if (_currentAttackCooldown >= 0)
-                _currentAttackCooldown -= Time.deltaTime;
-        }
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -109,7 +89,7 @@ namespace Lis.Units.Creature
 
                 CurrentSecondaryCoroutine = ManagePathing();
                 yield return CurrentSecondaryCoroutine;
-                CurrentSecondaryCoroutine = AttackCoroutine();
+                CurrentSecondaryCoroutine = UnitAttackController.AttackCoroutine();
                 yield return CurrentSecondaryCoroutine;
             }
         }
@@ -130,6 +110,7 @@ namespace Lis.Units.Creature
             OnStartedMoving?.Invoke();
             UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
             yield return UnitPathingController.PathToTarget(Opponent.transform);
+            Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 
         public override void GetEngaged(UnitController attacker)
@@ -140,50 +121,6 @@ namespace Lis.Units.Creature
             AddToLog($"Creature gets engaged by {attacker.name}");
             Opponent = attacker;
             RunUnit();
-        }
-
-        protected virtual IEnumerator AttackCoroutine()
-        {
-            while (!CanAttack()) yield return new WaitForSeconds(0.1f);
-            if (!IsOpponentInRange()) yield break;
-            OnAttackReady?.Invoke();
-
-            AddToLog($"Unit attacks {Opponent.name}");
-
-            _currentAttackCooldown = Creature.AttackCooldown.GetValue();
-
-            if (AttackSound != null) AudioManager.PlaySfx(AttackSound, transform.position);
-            yield return transform.DODynamicLookAt(Opponent.transform.position, 0.2f, AxisConstraint.Y);
-            Animator.SetTrigger(AnimAttack);
-
-            bool isAttack = false;
-            while (true)
-            {
-                if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack"))
-                    isAttack = true;
-                bool isAttackFinished = Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
-
-                if (isAttack && isAttackFinished) break;
-
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
-
-        bool CanAttack()
-        {
-            return _currentAttackCooldown <= 0;
-        }
-
-        public bool IsOpponentInRange()
-        {
-            if (Opponent == null) return false;
-            if (Opponent.IsDead) return false;
-
-            // +0.5 wiggle room
-            Vector3 delta = Opponent.transform.position - transform.position;
-            float distanceSqrt = delta.sqrMagnitude;
-            float attackRangeSqrt = (Creature.AttackRange.GetValue() + 0.5f) * (Creature.AttackRange.GetValue() + 0.5f);
-            return distanceSqrt <= attackRangeSqrt;
         }
 
         void ChooseNewTarget()
@@ -268,8 +205,6 @@ namespace Lis.Units.Creature
 
             Creature.Die();
             ResetOpponent(null, null);
-
-            Animator.SetTrigger(AnimDie);
         }
 
         IEnumerator Respawn()

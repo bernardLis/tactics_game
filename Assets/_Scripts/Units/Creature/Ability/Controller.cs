@@ -16,6 +16,8 @@ namespace Lis.Units.Creature.Ability
         protected FightManager FightManager;
 
         [HideInInspector] public CreatureController CreatureController;
+        protected UnitAttackController UnitAttackController;
+
         protected Creature Creature;
 
         protected Animator Animator;
@@ -54,7 +56,7 @@ namespace Lis.Units.Creature.Ability
                 OnCooldownEnd += ExecuteAbility;
 
             if (Ability.ExecuteOnAttack)
-                CreatureController.OnAttackReady += ExecuteAbility;
+                UnitAttackController.OnAttackReady += ExecuteAbility;
 
             if (Ability.ExecuteOnMove)
                 CreatureController.OnStartedMoving += ExecuteAbility;

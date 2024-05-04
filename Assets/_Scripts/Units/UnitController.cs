@@ -19,6 +19,8 @@ namespace Lis.Units
 {
     public class UnitController : MonoBehaviour
     {
+        static readonly int AnimDie = Animator.StringToHash("Die");
+
         protected GameManager GameManager;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
@@ -32,7 +34,6 @@ namespace Lis.Units
         [SerializeField] Sound _spawnSound;
 
         [SerializeField] Sound _levelUpSound;
-        [SerializeField] Sound _isRecalledSound;
 
         [SerializeField] protected Sound DeathSound;
         [SerializeField] protected Sound GetHitSound;
@@ -45,6 +46,7 @@ namespace Lis.Units
 
         UnitGrabController _unitGrabController;
         protected UnitPathingController UnitPathingController;
+        protected UnitAttackController UnitAttackController;
 
         protected ObjectShaders ObjectShaders;
         public Collider Collider { get; private set; }
@@ -54,6 +56,8 @@ namespace Lis.Units
         public Unit Unit { get; private set; }
         string BattleId { get; set; }
         public int Team { get; private set; }
+
+        public UnitController Opponent { get; protected set; }
 
         [HideInInspector] public bool IsShielded;
         protected bool IsEngaged;
@@ -89,6 +93,18 @@ namespace Lis.Units
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
 
             ObjectShaders = GetComponent<ObjectShaders>();
+            InitializeControllers();
+
+            Collider = GetComponent<Collider>();
+            Animator = GetComponentInChildren<Animator>();
+            Gfx = Animator.gameObject;
+            _feelPlayer = GetComponent<MMF_Player>();
+
+            AddToLog($"Game Object is initialized.");
+        }
+
+        void InitializeControllers()
+        {
             UnitPathingController = GetComponent<UnitPathingController>();
             if (UnitPathingController != null)
             {
@@ -104,12 +120,11 @@ namespace Lis.Units
                 _unitGrabController.OnReleased += OnReleased;
             }
 
-            Collider = GetComponent<Collider>();
-            Animator = GetComponentInChildren<Animator>();
-            Gfx = Animator.gameObject;
-            _feelPlayer = GetComponent<MMF_Player>();
-
-            AddToLog($"Game Object is initialized.");
+            UnitAttackController = GetComponent<UnitAttackController>();
+            if (UnitAttackController != null)
+            {
+                UnitAttackController.Initialize(this);
+            }
         }
 
         public virtual void InitializeUnit(Unit unit, int team)
@@ -219,6 +234,7 @@ namespace Lis.Units
                 StopCoroutine(_currentMainCoroutine);
 
             UnitPathingController.DisableAgent();
+            UnitAttackController.StopAllCoroutines();
         }
 
         protected virtual IEnumerator RunUnitCoroutine()
@@ -352,6 +368,8 @@ namespace Lis.Units
             DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
+
+            Animator.SetTrigger(AnimDie);
             OnDeath?.Invoke(this, attacker);
         }
 
@@ -420,7 +438,7 @@ namespace Lis.Units
         }
 
 
-        protected void AddToLog(string s)
+        public void AddToLog(string s)
         {
             if (BattleManager == null) return;
             UnitLog.Add($"{BattleManager.GetTime()}: {s}.");

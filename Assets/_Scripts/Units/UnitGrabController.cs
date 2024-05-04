@@ -40,12 +40,14 @@ namespace Lis.Units
 
         public void Grabbed()
         {
+            _unitController.AddToLog("Grabbed");
             _animator.enabled = false;
             OnGrabbed?.Invoke();
         }
 
         public void Released()
         {
+            _unitController.AddToLog("Released");
             _animator.enabled = true;
             OnReleased?.Invoke();
         }

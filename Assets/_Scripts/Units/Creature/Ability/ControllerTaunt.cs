@@ -11,9 +11,10 @@ namespace Lis.Units.Creature.Ability
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            if (!CreatureController.IsOpponentInRange()) yield break;
+            if (!UnitAttackController.IsOpponentInRange()) yield break;
 
-            yield return transform.DODynamicLookAt(CreatureController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
+            yield return transform.DODynamicLookAt(CreatureController.Opponent.transform.position, 0.2f,
+                AxisConstraint.Y);
             _effect.SetActive(true);
             Animator.SetTrigger(AnimAbility);
             AudioManager.PlaySfx(Ability.Sound, transform.position);
