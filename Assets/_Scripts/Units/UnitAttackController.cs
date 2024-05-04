@@ -15,17 +15,17 @@ namespace Lis.Units
 
         [SerializeField] Sound _attackSound;
 
-        UnitController _unitController;
+        protected UnitController UnitController;
         float _currentAttackCooldown;
 
         public event Action OnAttackReady;
 
-        public void Initialize(UnitController unitController)
+        public virtual void Initialize(UnitController unitController)
         {
             _audioManager = AudioManager.Instance;
             _animator = GetComponentInChildren<Animator>();
 
-            _unitController = unitController;
+            UnitController = unitController;
             _currentAttackCooldown = unitController.Unit.AttackCooldown.GetValue();
         }
 
@@ -40,17 +40,17 @@ namespace Lis.Units
             return _currentAttackCooldown <= 0;
         }
 
-        public IEnumerator AttackCoroutine()
+        protected IEnumerator BaseAttackCoroutine()
         {
             while (!CanAttack()) yield return new WaitForSeconds(0.1f);
             if (!IsOpponentInRange()) yield break;
             OnAttackReady?.Invoke();
 
-            _unitController.AddToLog($"Unit attacks {_unitController.Opponent.name}");
-            _currentAttackCooldown = _unitController.Unit.AttackCooldown.GetValue();
+            UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name}");
+            _currentAttackCooldown = UnitController.Unit.AttackCooldown.GetValue();
 
             if (_attackSound != null) _audioManager.PlaySfx(_attackSound, transform.position);
-            yield return transform.DODynamicLookAt(_unitController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
+            yield return transform.DODynamicLookAt(UnitController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
             _animator.SetTrigger(AnimAttack);
 
             bool isAttack = false;
@@ -64,20 +64,24 @@ namespace Lis.Units
 
                 yield return new WaitForSeconds(0.1f);
             }
+        }
 
-            yield return _unitController.Opponent.GetHit(_unitController);
+        public virtual IEnumerator AttackCoroutine()
+        {
+            yield return BaseAttackCoroutine();
+            yield return UnitController.Opponent.GetHit(UnitController);
         }
 
         public bool IsOpponentInRange()
         {
-            if (_unitController.Opponent == null) return false;
-            if (_unitController.Opponent.IsDead) return false;
+            if (UnitController.Opponent == null) return false;
+            if (UnitController.Opponent.IsDead) return false;
 
             // +0.5 wiggle room
-            Vector3 delta = _unitController.Opponent.transform.position - transform.position;
+            Vector3 delta = UnitController.Opponent.transform.position - transform.position;
             float distanceSqrt = delta.sqrMagnitude;
-            float attackRangeSqrt = (_unitController.Unit.AttackRange.GetValue() + 0.5f) *
-                                    (_unitController.Unit.AttackRange.GetValue() + 0.5f);
+            float attackRangeSqrt = (UnitController.Unit.AttackRange.GetValue() + 0.5f) *
+                                    (UnitController.Unit.AttackRange.GetValue() + 0.5f);
             return distanceSqrt <= attackRangeSqrt;
         }
     }

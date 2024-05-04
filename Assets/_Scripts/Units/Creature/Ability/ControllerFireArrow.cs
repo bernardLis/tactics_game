@@ -13,7 +13,8 @@ namespace Lis.Units.Creature.Ability
         public override void Initialize(CreatureController creatureController)
         {
             base.Initialize(creatureController);
-            _projectileController = Instantiate(_abilityProjectile, BattleManager.EntityHolder).GetComponent<ProjectileController>();
+            _projectileController = Instantiate(_abilityProjectile, BattleManager.EntityHolder)
+                .GetComponent<ProjectileController>();
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -26,11 +27,11 @@ namespace Lis.Units.Creature.Ability
             Vector3 oppPos = CreatureController.Opponent.transform.position;
             yield return transform.DODynamicLookAt(oppPos, 0.2f).WaitForCompletion();
 
-            CreatureControllerRanged bcr = (CreatureControllerRanged)CreatureController;
-            _projectileController.transform.position = bcr.ProjectileSpawnPoint.transform.position;
-            _projectileController.Initialize(bcr.Team);
+            UnitAttackControllerRanged c = (UnitAttackControllerRanged)UnitAttackController;
+            _projectileController.transform.position = c.ProjectileSpawnPoint.transform.position;
+            _projectileController.Initialize(CreatureController.Team);
             Vector3 dir = (oppPos - transform.position).normalized;
-            _projectileController.Shoot(bcr, dir);
+            _projectileController.Shoot(CreatureController, dir);
             yield return base.ExecuteAbilityCoroutine();
         }
     }

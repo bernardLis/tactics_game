@@ -10250,6 +10250,7 @@ PrefabInstance:
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 3607482803401989862, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 9105129278208794626, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    - {fileID: 1315725873551358111, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
@@ -10268,13 +10269,8 @@ PrefabInstance:
       addedObject: {fileID: 4136679000733734035}
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3876752215862190001}
+      addedObject: {fileID: 519811380565599619}
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
---- !u!1 &281026293816329216 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 750553306755760563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &676733176724701773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -10304,7 +10300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7774d53be4fb92145ab10ada7dca4f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3876752215862190001
+--- !u!114 &519811380565599619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10313,32 +10309,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 676733176724701773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1773d6b2204e7541bffda7f4360e360, type: 3}
+  m_Script: {fileID: 11500000, guid: 4083b5a1eef8425eb5e88b904be30b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitLog: []
-  _spawnSound: {fileID: 11400000, guid: 3bfce13ca501fc948b9986bb733ec170, type: 2}
-  _levelUpSound: {fileID: 0}
-  DeathSound: {fileID: 11400000, guid: 9c28a0715de0dea40a8e67621db5f037, type: 2}
-  GetHitSound: {fileID: 0}
-  _levelUpEffect: {fileID: 724913522891443046}
-  DeathEffect: {fileID: 9136927704223461392}
-  IsShielded: 0
-  _respawnEffect: {fileID: 281026293816329216}
-  ProjectileSpawnPoint: {fileID: 5768453582871689750}
---- !u!1 &724913522891443046 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 750553306755760563}
-  m_PrefabAsset: {fileID: 0}
+  _attackSound: {fileID: 0}
+  ProjectileSpawnPoint: {fileID: 5768453582871689752}
 --- !u!4 &6896063724478336779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 750553306755760563}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &9136927704223461392 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 750553306755760563}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7887557625663072542

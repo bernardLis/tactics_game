@@ -93,7 +93,6 @@ namespace Lis.Units
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
 
             ObjectShaders = GetComponent<ObjectShaders>();
-            InitializeControllers();
 
             Collider = GetComponent<Collider>();
             Animator = GetComponentInChildren<Animator>();
@@ -101,30 +100,6 @@ namespace Lis.Units
             _feelPlayer = GetComponent<MMF_Player>();
 
             AddToLog($"Game Object is initialized.");
-        }
-
-        void InitializeControllers()
-        {
-            UnitPathingController = GetComponent<UnitPathingController>();
-            if (UnitPathingController != null)
-            {
-                UnitPathingController.Initialize(new(20, 100));
-                UnitPathingController.SetStoppingDistance(Unit.AttackRange.GetValue());
-            }
-
-            _unitGrabController = GetComponent<UnitGrabController>();
-            if (_unitGrabController != null)
-            {
-                _unitGrabController.Initialize(this);
-                _unitGrabController.OnGrabbed += OnGrabbed;
-                _unitGrabController.OnReleased += OnReleased;
-            }
-
-            UnitAttackController = GetComponent<UnitAttackController>();
-            if (UnitAttackController != null)
-            {
-                UnitAttackController.Initialize(this);
-            }
         }
 
         public virtual void InitializeUnit(Unit unit, int team)
@@ -149,8 +124,29 @@ namespace Lis.Units
             _fightManager.OnFightStarted += OnFightStarted;
             _fightManager.OnFightEnded += OnFightEnded;
 
+            InitializeControllers();
+        }
+
+        void InitializeControllers()
+        {
+            UnitPathingController = GetComponent<UnitPathingController>();
             if (UnitPathingController != null)
+            {
+                UnitPathingController.Initialize(new(20, 100));
                 UnitPathingController.InitializeUnit(Unit);
+            }
+
+            _unitGrabController = GetComponent<UnitGrabController>();
+            if (_unitGrabController != null)
+            {
+                _unitGrabController.Initialize(this);
+                _unitGrabController.OnGrabbed += OnGrabbed;
+                _unitGrabController.OnReleased += OnReleased;
+            }
+
+            UnitAttackController = GetComponent<UnitAttackController>();
+            if (UnitAttackController != null)
+                UnitAttackController.Initialize(this);
         }
 
         protected virtual void EnableSelf()
