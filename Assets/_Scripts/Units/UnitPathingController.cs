@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units
 {
@@ -11,6 +13,8 @@ namespace Lis.Units
         Animator _animator;
 
         static readonly int AnimMove = Animator.StringToHash("Move");
+
+        public event Action OnStartedMoving;
 
         public void Initialize(Vector2Int avoidancePriorityRange)
         {
@@ -51,7 +55,7 @@ namespace Lis.Units
             _agent.avoidancePriority = 0;
         }
 
-        public IEnumerator PathToPosition(Vector3 position)
+        protected IEnumerator PathToPosition(Vector3 position)
         {
             _agent.enabled = true;
             // TODO: pitiful solution for making entities push each other
@@ -73,8 +77,10 @@ namespace Lis.Units
             DisableAgent();
         }
 
-        public IEnumerator PathToTarget(Transform t)
+        public virtual IEnumerator PathToTarget(Transform t, float attackRange = 0)
         {
+            OnStartedMoving?.Invoke();
+            SetStoppingDistance(attackRange);
             yield return PathToPosition(t.position);
             while (IsAgentOk() && _agent.remainingDistance >= _agent.stoppingDistance)
             {

@@ -10249,6 +10249,7 @@ PrefabInstance:
     - {fileID: 1109390869919694126, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 1288290802793613283, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 3607482803401989862, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    - {fileID: 9105129278208794626, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
@@ -10259,6 +10260,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3114136295768110108}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+      insertIndex: 7
+      addedObject: {fileID: 8580728022440258856}
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4136679000733734035}
@@ -10276,6 +10280,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 750553306755760563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8580728022440258856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676733176724701773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5509c90f5fe846c7b8f05577aea0b850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4136679000733734035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10302,12 +10318,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitLog: []
   _spawnSound: {fileID: 11400000, guid: 3bfce13ca501fc948b9986bb733ec170, type: 2}
+  _levelUpSound: {fileID: 0}
   DeathSound: {fileID: 11400000, guid: 9c28a0715de0dea40a8e67621db5f037, type: 2}
   GetHitSound: {fileID: 0}
   _levelUpEffect: {fileID: 724913522891443046}
-  _deathEffect: {fileID: 9136927704223461392}
+  DeathEffect: {fileID: 9136927704223461392}
   IsShielded: 0
-  AttackSound: {fileID: 0}
   _respawnEffect: {fileID: 281026293816329216}
   ProjectileSpawnPoint: {fileID: 5768453582871689750}
 --- !u!1 &724913522891443046 stripped

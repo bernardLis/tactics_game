@@ -19,7 +19,6 @@ namespace Lis.Units.Creature
         Controller _abilityController;
 
         public event Action<int> OnDamageDealt;
-        public event Action OnStartedMoving;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -104,12 +103,10 @@ namespace Lis.Units.Creature
             yield return PathToOpponent();
         }
 
-        protected virtual IEnumerator PathToOpponent()
+        IEnumerator PathToOpponent()
         {
             AddToLog($"Pathing to opponent {Opponent.name}");
-            OnStartedMoving?.Invoke();
-            UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
-            yield return UnitPathingController.PathToTarget(Opponent.transform);
+            yield return UnitPathingController.PathToTarget(Opponent.transform, Creature.AttackRange.GetValue());
             Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 

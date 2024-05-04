@@ -21,9 +21,9 @@ namespace Lis.Units.Creature.Ability
 
             _effectInstance.transform.position = transform.position;
             _effectInstance.SetActive(true);
-            CreatureControllerRanged bca = (CreatureControllerRanged)CreatureController;
-            Vector3 point = bca.ClosestPositionWithClearLos();
-            bca.transform.position = point;
+            UnitPathingControllerRanged c = (UnitPathingControllerRanged)UnitPathingController;
+            Vector3 point = c.ClosestPositionWithClearLos();
+            CreatureController.transform.position = point;
 
             Invoke(nameof(CleanUp), 2f);
             yield return base.ExecuteAbilityCoroutine();

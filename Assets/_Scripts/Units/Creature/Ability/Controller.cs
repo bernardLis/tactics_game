@@ -17,6 +17,7 @@ namespace Lis.Units.Creature.Ability
 
         [HideInInspector] public CreatureController CreatureController;
         protected UnitAttackController UnitAttackController;
+        protected UnitPathingController UnitPathingController;
 
         protected Creature Creature;
 
@@ -40,6 +41,8 @@ namespace Lis.Units.Creature.Ability
             FightManager = BattleManager.GetComponent<FightManager>();
 
             CreatureController = creatureController;
+            UnitAttackController = creatureController.GetComponent<UnitAttackController>();
+            UnitPathingController = creatureController.GetComponent<UnitPathingController>();
             Creature = creatureController.Creature;
 
             Animator = creatureController.GetComponentInChildren<Animator>();
@@ -59,7 +62,7 @@ namespace Lis.Units.Creature.Ability
                 UnitAttackController.OnAttackReady += ExecuteAbility;
 
             if (Ability.ExecuteOnMove)
-                CreatureController.OnStartedMoving += ExecuteAbility;
+                UnitPathingController.OnStartedMoving += ExecuteAbility;
 
             if (Ability.ExecuteOnDeath)
                 CreatureController.OnDeath += ExecuteAbilityOnDeath;
