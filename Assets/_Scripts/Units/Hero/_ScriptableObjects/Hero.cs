@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units.Hero.Ability;
-using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,8 +8,10 @@ using Random = UnityEngine.Random;
 namespace Lis.Units.Hero
 {
     using Creature;
+    using Ability;
+    using Tablets;
 
-    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Hero")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Units/Hero/Hero")]
     public class Hero : Unit
     {
         GameManager _gameManager;

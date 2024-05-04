@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lis.Units.Creature.Ability
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature/Ability")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Units/Creature/Ability")]
     public class Ability : BaseScriptableObject
     {
         public string Description;

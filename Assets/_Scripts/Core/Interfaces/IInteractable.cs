@@ -1,4 +1,6 @@
 
+using Lis.Units.Hero;
+
 namespace Lis
 {
     public interface IInteractable

@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero.Ability
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Hero/Ability")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Units/Hero/Ability")]
     public class Ability : BaseScriptableObject
     {
 #if UNITY_EDITOR

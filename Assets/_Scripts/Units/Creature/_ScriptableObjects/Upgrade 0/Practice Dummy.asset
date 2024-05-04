@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Practice Dummy
   m_EditorClassIdentifier: 
   Id: 4444-6aef-4f8f-a757-9d06b20d9a51
-  EntityName: 
+  UnitName: 
   Icon: {fileID: 21300000, guid: 4af239bb9dbc4ee44be0b0e3a05eb55f, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 1c53713cc8254014488cb38e3e3de052, type: 3}
@@ -82,33 +82,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9a29dda766e3d30418e8600983f26ad8, type: 3}
   - {fileID: 21300000, guid: f405493022c4f774cbb3124b212c6dbc, type: 3}
   Price: 30
-  Element: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 3043894129813568661, guid: 9a9f5ca8bff5b924fb9ec505bae1d3a8, type: 3}
-  OldDamageTaken: 0
   TotalDamageTaken: 0
+  TotalKillCount: 0
+  TotalDamageDealt: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: 376a6ceda5cbaf44690541bd62c53e18, type: 2}
   CurrentHealth: {fileID: 0}
   Armor: {fileID: 11400000, guid: 978fc52d962bc954fb44172e876c1e56, type: 2}
-  Level: {fileID: 11400000, guid: aa0322021db35e44b954a47817fe3e09, type: 2}
-  Experience: {fileID: 0}
-  ExpForNextLevel: {fileID: 0}
-  LeftoverExp: 0
-  ExpOrbs:
-  - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
-  - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
-  - {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
-  - {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
   Speed: {fileID: 11400000, guid: 474cc4bf43ab8f24fa6a2c78337b08d9, type: 2}
   Power: {fileID: 11400000, guid: 4b45102dcb7e83949b42c21c5f4c8b3e, type: 2}
   AttackRange: {fileID: 11400000, guid: 12c0dfa0708dc9d4caa6f6f813f60cc9, type: 2}
   AttackCooldown: {fileID: 11400000, guid: bd74b7601181ad2428806419def9c9a1, type: 2}
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
+  Level: {fileID: 11400000, guid: aa0322021db35e44b954a47817fe3e09, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
   UpgradeTier: 0
-  CreatureAbility: {fileID: 11400000, guid: 2a9160e333046f74a9b7a6e8050c5c71, type: 2}
+  Ability: {fileID: 11400000, guid: 2a9160e333046f74a9b7a6e8050c5c71, type: 2}
   Projectile: {fileID: 0}
   HitPrefab: {fileID: 8627602457309215403, guid: 67f429a00f0aac042b0244e9e1a59e5d, type: 3}
-  EvolvedCreature: {fileID: 11400000, guid: db8f082d533c77945aaeb61ac1332099, type: 2}

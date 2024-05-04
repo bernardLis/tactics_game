@@ -56,9 +56,6 @@ namespace Lis.Units.Creature
             OnDamageTaken -= Creature.AddDmgTaken;
             OnDamageDealt += Creature.AddDmgDealt;
             OnDamageTaken += Creature.AddDmgTaken;
-
-            UnitPathingController.SetAvoidancePriorityRange(new(0, 20));
-            UnitPathingController.SetStoppingDistance(Creature.AttackRange.GetValue());
         }
 
         protected override void EnableSelf()
@@ -237,10 +234,10 @@ namespace Lis.Units.Creature
             RunUnit();
         }
 
-        public override void Grabbed()
+        protected override void OnGrabbed()
         {
-            base.Grabbed();
-            Opponent = null;
+            base.OnGrabbed();
+            ResetOpponent(default, default);
         }
 
         public void DealtDamage(int dmg)
@@ -284,14 +281,5 @@ namespace Lis.Units.Creature
             EnableSelf();
             yield return new WaitForSeconds(1);
         }
-
-
-#if UNITY_EDITOR
-        [ContextMenu("Level up")]
-        public void LevelUp()
-        {
-            Creature.LevelUp();
-        }
-#endif
     }
 }

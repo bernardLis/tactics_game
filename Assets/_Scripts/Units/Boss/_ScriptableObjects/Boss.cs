@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lis.Units.Boss
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Boss")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Units/Boss")]
     public class Boss : Unit
     {
         [Header("Attacks")]

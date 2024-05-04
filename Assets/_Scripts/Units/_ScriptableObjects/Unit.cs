@@ -150,7 +150,7 @@ namespace Lis.Units
             LeftoverExp = 0;
         }
 
-        public virtual void LevelUp()
+        public void LevelUp()
         {
             Level.ApplyChange(1);
             Experience.SetValue(0);
@@ -164,12 +164,9 @@ namespace Lis.Units
         public int CalculateDamage(Unit attacker)
         {
             float damage = attacker.Power.GetValue();
-
             damage *= GetElementalDamageMultiplier(attacker.Nature);
-
             damage -= Armor.GetValue();
-            if (damage < 0)
-                damage = 0;
+            if (damage < 0) damage = 0;
 
             return Mathf.RoundToInt(damage);
         }
@@ -178,12 +175,8 @@ namespace Lis.Units
         {
             float damage = ability.GetPower();
             damage *= GetElementalDamageMultiplier(ability.Nature);
-
-            if (!ability.IsArmorPiercing)
-                damage -= Armor.GetValue();
-
-            if (damage < 0)
-                damage = 0;
+            if (!ability.IsArmorPiercing) damage -= Armor.GetValue();
+            if (damage < 0) damage = 0;
 
             return Mathf.RoundToInt(damage);
         }

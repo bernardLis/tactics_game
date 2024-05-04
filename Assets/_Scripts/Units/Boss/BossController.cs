@@ -67,11 +67,22 @@ namespace Lis.Units.Boss
             while (true)
             {
                 if (_isStunned) yield break;
-                yield return UnitPathingController.PathToPositionAndStop(GetPositionCloseToHero());
+                // yield return UnitPathingController.PathToPositionAndStop(GetPositionCloseToHero());
 
                 yield return new WaitForSeconds(Random.Range(5, 10));
             }
         }
+
+        // protected Vector3 GetPositionCloseToHero()
+        // {
+        //     Vector3 pos = HeroManager.transform.position
+        //                   + Vector3.right * Random.Range(-10f, 10f)
+        //                   + Vector3.forward * Random.Range(-10f, 10f);
+        //     if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
+        //         return GetPositionCloseToHero();
+        //     return pos;
+        // }
+
 
         /* ATTACKS */
         void InitializeAttacks()
@@ -212,11 +223,6 @@ namespace Lis.Units.Boss
         {
             // boss is never engaged
             // all the single bosses, all the single bosses...
-        }
-
-        public override bool CanBeGrabbed()
-        {
-            return false;
         }
     }
 }

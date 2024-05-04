@@ -3,7 +3,7 @@ using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Lis
+namespace Lis.Units.Hero
 {
     public class Interactor : MonoBehaviour
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Lis.Units.Creature
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Creature")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Units/Creature/Creature")]
     public class Creature : Unit
     {
         [Header("Creature")] public int UpgradeTier;

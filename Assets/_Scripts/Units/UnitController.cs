@@ -9,24 +9,20 @@ using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Creature;
-using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using MoreMountains.Feedbacks;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units
 {
-    public class UnitController : MonoBehaviour, IGrabbable, IPointerDownHandler
+    public class UnitController : MonoBehaviour
     {
         protected GameManager GameManager;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
-        protected FightManager FightManager;
-        GrabManager _grabManager;
+        FightManager _fightManager;
         PickupManager _pickupManager;
         ArenaManager _arenaManager;
 
@@ -47,8 +43,10 @@ namespace Lis.Units
         [FormerlySerializedAs("_deathEffect")] [SerializeField]
         protected GameObject DeathEffect;
 
-        protected ObjectShaders ObjectShaders;
+        UnitGrabController _unitGrabController;
         protected UnitPathingController UnitPathingController;
+
+        protected ObjectShaders ObjectShaders;
         public Collider Collider { get; private set; }
         protected GameObject Gfx;
         public Animator Animator { get; private set; }
@@ -60,7 +58,6 @@ namespace Lis.Units
         [HideInInspector] public bool IsShielded;
         protected bool IsEngaged;
         bool _isPoisoned;
-        bool _isGrabbed;
 
         public bool IsDead { get; private set; }
         bool _isDeathCoroutineStarted;
@@ -75,8 +72,6 @@ namespace Lis.Units
         protected Color HealthColor;
         Color _shieldColor;
 
-        HeroController _heroController;
-
         public event Action OnShieldBroken;
         public event Action<int> OnDamageTaken;
         public event Action<UnitController, UnitController> OnDeath;
@@ -86,9 +81,8 @@ namespace Lis.Units
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
-            _grabManager = GrabManager.Instance;
             _pickupManager = BattleManager.GetComponent<PickupManager>();
-            FightManager = BattleManager.GetComponent<FightManager>();
+            _fightManager = BattleManager.GetComponent<FightManager>();
             _arenaManager = BattleManager.GetComponent<ArenaManager>();
 
             HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
@@ -97,7 +91,18 @@ namespace Lis.Units
             ObjectShaders = GetComponent<ObjectShaders>();
             UnitPathingController = GetComponent<UnitPathingController>();
             if (UnitPathingController != null)
+            {
                 UnitPathingController.Initialize(new(20, 100));
+                UnitPathingController.SetStoppingDistance(Unit.AttackRange.GetValue());
+            }
+
+            _unitGrabController = GetComponent<UnitGrabController>();
+            if (_unitGrabController != null)
+            {
+                _unitGrabController.Initialize(this);
+                _unitGrabController.OnGrabbed += OnGrabbed;
+                _unitGrabController.OnReleased += OnReleased;
+            }
 
             Collider = GetComponent<Collider>();
             Animator = GetComponentInChildren<Animator>();
@@ -126,10 +131,8 @@ namespace Lis.Units
                        + "_" + Helpers.GetRandomNumber(4);
             name = BattleId;
 
-            _heroController = BattleManager.GetComponent<HeroManager>().HeroController;
-
-            FightManager.OnFightStarted += OnFightStarted;
-            FightManager.OnFightEnded += OnFightEnded;
+            _fightManager.OnFightStarted += OnFightStarted;
+            _fightManager.OnFightEnded += OnFightEnded;
 
             if (UnitPathingController != null)
                 UnitPathingController.InitializeUnit(Unit);
@@ -342,7 +345,6 @@ namespace Lis.Units
             if (_isDeathCoroutineStarted) yield break;
             _isDeathCoroutineStarted = true;
 
-            if (_isGrabbed) GrabManager.Instance.CancelGrabbing();
             Collider.enabled = false;
             DOTween.Kill(transform);
 
@@ -394,34 +396,13 @@ namespace Lis.Units
         }
 
         /* grab */
-        public void OnPointerDown(PointerEventData eventData)
+        protected virtual void OnGrabbed()
         {
-            if (eventData.button != PointerEventData.InputButton.Left) return;
-            if (_spawnSound != null)
-                AudioManager.PlaySfx(_spawnSound, transform.position);
-
-            if (!CanBeGrabbed()) return;
-            _grabManager.TryGrabbing(gameObject);
-        }
-
-        public virtual bool CanBeGrabbed()
-        {
-            if (IsDead) return false;
-            if (Team == 1) return false;
-            return _grabManager != null;
-        }
-
-        public virtual void Grabbed()
-        {
-            _isGrabbed = true;
-            Animator.enabled = false;
             StopUnit();
         }
 
-        public void Released()
+        void OnReleased()
         {
-            _isGrabbed = false;
-            Animator.enabled = true;
             if (FightManager.IsFightActive) RunUnit();
             else if (!_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
         }
@@ -439,16 +420,6 @@ namespace Lis.Units
         }
 
 
-        protected Vector3 GetPositionCloseToHero()
-        {
-            Vector3 pos = _heroController.transform.position
-                          + Vector3.right * Random.Range(-10f, 10f)
-                          + Vector3.forward * Random.Range(-10f, 10f);
-            if (!NavMesh.SamplePosition(pos, out NavMeshHit _, 1f, NavMesh.AllAreas))
-                return GetPositionCloseToHero();
-            return pos;
-        }
-
         protected void AddToLog(string s)
         {
             if (BattleManager == null) return;
@@ -457,8 +428,8 @@ namespace Lis.Units
 
         protected void DestroySelf()
         {
-            FightManager.OnFightStarted -= OnFightStarted;
-            FightManager.OnFightEnded -= OnFightEnded;
+            _fightManager.OnFightStarted -= OnFightStarted;
+            _fightManager.OnFightEnded -= OnFightEnded;
 
             StopAllCoroutines();
             DOTween.Kill(transform);
@@ -468,10 +439,11 @@ namespace Lis.Units
 
 #if UNITY_EDITOR
         [ContextMenu("Trigger Death")]
-        public void TriggerDeath()
-        {
-            Die();
-        }
+        public void TriggerDeath() => Die();
+
+        [ContextMenu("Level up")]
+        public void LevelUp() => Unit.LevelUp();
+
 #endif
     }
 }

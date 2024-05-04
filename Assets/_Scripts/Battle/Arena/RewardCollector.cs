@@ -1,4 +1,5 @@
 using Lis.Battle.Fight;
+using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis.Battle.Arena
