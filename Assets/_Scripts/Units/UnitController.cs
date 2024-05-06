@@ -30,9 +30,6 @@ namespace Lis.Units
 
         public List<string> UnitLog = new();
 
-        [Header("Sounds")]
-        [SerializeField] Sound _levelUpSound;
-
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
 
@@ -173,8 +170,8 @@ namespace Lis.Units
         {
             if (_levelUpEffect == null) return;
             _levelUpEffect.SetActive(true);
-            if (_levelUpSound != null)
-                AudioManager.PlaySfx(_levelUpSound, transform.position);
+            if (Unit.LevelUpSound != null)
+                AudioManager.PlaySfx(Unit.LevelUpSound, transform.position);
             StartCoroutine(DisableLevelUpEffect());
         }
 
