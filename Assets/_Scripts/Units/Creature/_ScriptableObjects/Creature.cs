@@ -14,7 +14,6 @@ namespace Lis.Units.Creature
         public Ability.Ability Ability;
 
         public GameObject Projectile;
-        public GameObject HitPrefab;
 
         public override void InitializeBattle(int team)
         {

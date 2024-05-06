@@ -44,7 +44,6 @@ namespace Lis.Units
         [FormerlySerializedAs("_deathEffect")] [SerializeField]
         protected GameObject DeathEffect;
 
-        UnitGrabController _unitGrabController;
         protected UnitPathingController UnitPathingController;
         protected UnitAttackController UnitAttackController;
 
@@ -78,6 +77,7 @@ namespace Lis.Units
 
         public event Action OnShieldBroken;
         public event Action<int> OnDamageTaken;
+        public event Action<NatureName> OnHit;
         public event Action<UnitController, UnitController> OnDeath;
 
         public virtual void InitializeGameObject()
@@ -136,17 +136,20 @@ namespace Lis.Units
                 UnitPathingController.InitializeUnit(Unit);
             }
 
-            _unitGrabController = GetComponent<UnitGrabController>();
-            if (_unitGrabController != null)
-            {
-                _unitGrabController.Initialize(this);
-                _unitGrabController.OnGrabbed += OnGrabbed;
-                _unitGrabController.OnReleased += OnReleased;
-            }
-
             UnitAttackController = GetComponent<UnitAttackController>();
             if (UnitAttackController != null)
                 UnitAttackController.Initialize(this);
+
+            if (TryGetComponent(out UnitGrabController grab))
+            {
+                grab.Initialize(this);
+                grab.OnGrabbed += OnGrabbed;
+                grab.OnReleased += OnReleased;
+            }
+
+
+            if (TryGetComponent(out UnitHitController hit))
+                hit.Initialize(this);
         }
 
         protected virtual void EnableSelf()
@@ -285,7 +288,7 @@ namespace Lis.Units
             int damage = Unit.CalculateDamage(ability);
             ability.AddDamageDealt(damage);
             BaseGetHit(damage, ability.Nature.Color.Secondary);
-
+            OnHit?.Invoke(ability.Nature.NatureName);
             if (Unit.CurrentHealth.Value <= 0)
                 ability.AddKill();
         }
@@ -301,7 +304,7 @@ namespace Lis.Units
             attacker.Unit.AddDmgDealt(damage);
 
             BaseGetHit(damage, attacker.Unit.Nature.Color.Primary, attacker);
-
+            OnHit?.Invoke(attacker.Unit.Nature.NatureName);
             if (Unit.CurrentHealth.Value <= 0)
                 attacker.Unit.AddKill(Unit);
         }
