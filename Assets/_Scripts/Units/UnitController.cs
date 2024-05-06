@@ -31,12 +31,7 @@ namespace Lis.Units
         public List<string> UnitLog = new();
 
         [Header("Sounds")]
-        [SerializeField] Sound _spawnSound;
-
         [SerializeField] Sound _levelUpSound;
-
-        [SerializeField] protected Sound DeathSound;
-        [SerializeField] protected Sound GetHitSound;
 
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
@@ -49,7 +44,6 @@ namespace Lis.Units
 
         protected ObjectShaders ObjectShaders;
         public Collider Collider { get; private set; }
-        protected GameObject Gfx;
         public Animator Animator { get; private set; }
 
         public Unit Unit { get; private set; }
@@ -96,7 +90,6 @@ namespace Lis.Units
 
             Collider = GetComponent<Collider>();
             Animator = GetComponentInChildren<Animator>();
-            Gfx = Animator.gameObject;
             _feelPlayer = GetComponent<MMF_Player>();
 
             AddToLog($"Game Object is initialized.");
@@ -106,8 +99,8 @@ namespace Lis.Units
         {
             AddToLog($"Unit is initialized, team: {team}");
 
-            if (_spawnSound != null)
-                AudioManager.PlaySfx(_spawnSound, transform.position);
+            if (unit.SpawnSound != null)
+                AudioManager.PlaySfx(unit.SpawnSound, transform.position);
 
             EnableSelf();
 
@@ -321,7 +314,7 @@ namespace Lis.Units
             AddToLog($"Unit takes damage {dmg}");
             StopUnit();
 
-            if (GetHitSound != null) AudioManager.PlaySfx(GetHitSound, transform.position);
+            if (Unit.HitSound != null) AudioManager.PlaySfx(Unit.HitSound, transform.position);
             else AudioManager.PlaySfx("Hit", transform.position);
 
             Animator.SetTrigger(AnimTakeDamage);
@@ -363,7 +356,7 @@ namespace Lis.Units
             Collider.enabled = false;
             DOTween.Kill(transform);
 
-            if (DeathSound != null) AudioManager.PlaySfx(DeathSound, transform.position);
+            if (Unit.DeathSound != null) AudioManager.PlaySfx(Unit.DeathSound, transform.position);
             DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();

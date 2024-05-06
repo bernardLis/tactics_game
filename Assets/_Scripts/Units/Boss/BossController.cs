@@ -132,8 +132,7 @@ namespace Lis.Units.Boss
 
             UnitLog.Add($"{BattleManager.GetTime()}: Unit takes damage {dmg}");
 
-            if (GetHitSound != null) AudioManager.PlaySfx(GetHitSound, transform.position);
-            else AudioManager.PlaySfx("Hit", transform.position);
+            AudioManager.PlaySfx("Hit", transform.position);
 
             DisplayFloatingText(dmg.ToString(), color);
 

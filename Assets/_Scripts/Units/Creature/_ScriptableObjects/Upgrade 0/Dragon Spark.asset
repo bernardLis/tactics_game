@@ -102,6 +102,10 @@ MonoBehaviour:
   Price: 30
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 8520861121768953658, guid: 22b85c0f7d7ad474a8cd8f9aa3be1bbd, type: 3}
+  SpawnSound: {fileID: 11400000, guid: 71b9d1e4e5e19cc47b94ad6358e2f017, type: 2}
+  DeathSound: {fileID: 11400000, guid: 352b4a037130855478d4e254d6459217, type: 2}
+  AttackSound: {fileID: 0}
+  HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   TotalDamageTaken: 0
   TotalKillCount: 0
   TotalDamageDealt: 0
@@ -120,4 +124,3 @@ MonoBehaviour:
   UpgradeTier: 0
   Ability: {fileID: 11400000, guid: 9ea8c0122ee9dbf42a836df1166f43e8, type: 2}
   Projectile: {fileID: 5028919531350398989, guid: a250f3ee435146848b6751d29e62b925, type: 3}
-  HitPrefab: {fileID: 0}

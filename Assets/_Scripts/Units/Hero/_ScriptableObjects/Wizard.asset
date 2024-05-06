@@ -19,25 +19,30 @@ MonoBehaviour:
   Price: 10
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 4007004905039648613, guid: a3caeda2f1595d84b92dc7007271839d, type: 3}
-  OldDamageTaken: 0
+  SpawnSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  AttackSound: {fileID: 0}
+  HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   TotalDamageTaken: 0
+  TotalKillCount: 0
+  TotalDamageDealt: 0
   Team: 0
-  Armor: {fileID: 11400000, guid: 9a2cb134e5bee27439239e8a82966013, type: 2}
   MaxHealth: {fileID: 11400000, guid: c5952252642d669449acb3988f8e89f5, type: 2}
   CurrentHealth: {fileID: 0}
+  Armor: {fileID: 11400000, guid: 9a2cb134e5bee27439239e8a82966013, type: 2}
+  Speed: {fileID: 11400000, guid: 96a3798e4027ae14982e92092dbb1510, type: 2}
+  Power: {fileID: 11400000, guid: ce2249eba10849147bfc33bbd3e21ec4, type: 2}
+  AttackRange: {fileID: 0}
+  AttackCooldown: {fileID: 0}
   Level: {fileID: 0}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  Speed: {fileID: 11400000, guid: 96a3798e4027ae14982e92092dbb1510, type: 2}
   TimesPicked: 3
   SelectorPrefab: {fileID: 3132514255091843268, guid: 5b468937a5144d84fa3239352cf5cb6a, type: 3}
-  Power: {fileID: 11400000, guid: ce2249eba10849147bfc33bbd3e21ec4, type: 2}
   Pull: {fileID: 11400000, guid: d1e908a74f47a2e408a112e6f519b316, type: 2}
   BonusExp: {fileID: 11400000, guid: 32b57f372a554d84d824bcc221873450, type: 2}
-  NumberOfFriendBalls: 666
-  TroopsLimit: {fileID: 0}
-  Troops: []
+  Army: []
   Tablets: []
   AdvancedTablet: {fileID: 0}
   StartingAbility: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}

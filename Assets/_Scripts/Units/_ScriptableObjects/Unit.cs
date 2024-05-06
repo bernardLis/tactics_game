@@ -14,6 +14,12 @@ namespace Lis.Units
         public Nature Nature;
         public GameObject Prefab;
 
+        [Header("Sounds")]
+        public Sound SpawnSound;
+        public Sound DeathSound;
+        public Sound AttackSound;
+        public Sound HitSound;
+
         [HideInInspector] public int TotalDamageTaken;
         [HideInInspector] public int TotalKillCount;
         [HideInInspector] public int TotalDamageDealt;

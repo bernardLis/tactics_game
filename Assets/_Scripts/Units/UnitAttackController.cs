@@ -13,8 +13,6 @@ namespace Lis.Units
         AudioManager _audioManager;
         Animator _animator;
 
-        [SerializeField] Sound _attackSound;
-
         protected UnitController UnitController;
         float _currentAttackCooldown;
 
@@ -49,7 +47,8 @@ namespace Lis.Units
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name}");
             _currentAttackCooldown = UnitController.Unit.AttackCooldown.GetValue();
 
-            if (_attackSound != null) _audioManager.PlaySfx(_attackSound, transform.position);
+            if (UnitController.Unit.AttackSound != null)
+                _audioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
             yield return transform.DODynamicLookAt(UnitController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
             _animator.SetTrigger(AnimAttack);
 

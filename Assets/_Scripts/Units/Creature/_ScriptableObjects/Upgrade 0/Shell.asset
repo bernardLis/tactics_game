@@ -126,25 +126,25 @@ MonoBehaviour:
   Price: 30
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Prefab: {fileID: 8170272153511133696, guid: 03390cca012cb1f4d9bd947406c66b8a, type: 3}
-  OldDamageTaken: 0
+  SpawnSound: {fileID: 11400000, guid: 735481989549ac2498a9f2cc095a601e, type: 2}
+  DeathSound: {fileID: 11400000, guid: 100f40b8616cefa41867ba5b4b487323, type: 2}
+  AttackSound: {fileID: 11400000, guid: 9dceb739ef3ddb94ba3ff9dc538e0395, type: 2}
+  HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   TotalDamageTaken: 0
+  TotalKillCount: 0
+  TotalDamageDealt: 0
   Team: 0
-  Armor: {fileID: 11400000, guid: 978fc52d962bc954fb44172e876c1e56, type: 2}
   MaxHealth: {fileID: 11400000, guid: 376a6ceda5cbaf44690541bd62c53e18, type: 2}
   CurrentHealth: {fileID: 0}
-  Level: {fileID: 11400000, guid: aa0322021db35e44b954a47817fe3e09, type: 2}
-  Experience: {fileID: 0}
-  ExpForNextLevel: {fileID: 0}
-  LeftoverExp: 0
+  Armor: {fileID: 11400000, guid: 978fc52d962bc954fb44172e876c1e56, type: 2}
   Speed: {fileID: 11400000, guid: 474cc4bf43ab8f24fa6a2c78337b08d9, type: 2}
   Power: {fileID: 11400000, guid: 4b45102dcb7e83949b42c21c5f4c8b3e, type: 2}
   AttackRange: {fileID: 11400000, guid: 4d300405d90b22a489b78356046e2716, type: 2}
   AttackCooldown: {fileID: 11400000, guid: bd74b7601181ad2428806419def9c9a1, type: 2}
-  OldKillCount: 0
-  TotalKillCount: 0
-  OldDamageDealt: 0
-  TotalDamageDealt: 0
+  Level: {fileID: 11400000, guid: aa0322021db35e44b954a47817fe3e09, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
   UpgradeTier: 0
   Ability: {fileID: 11400000, guid: 0c70ca398fbbe78448c8eeaec2d562a7, type: 2}
   Projectile: {fileID: 0}
-  HitPrefab: {fileID: 2048183971171318672, guid: 8e20ede2f4ef4794a9fa2caad04a5ef3, type: 3}

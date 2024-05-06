@@ -21,7 +21,7 @@ namespace Lis.Units.Hero
 
         public GameObject SelectorPrefab;
 
-        [Header("Stats")]
+        [Header("Hero Stats")]
         public Stat Pull;
 
         public Stat BonusExp;
@@ -90,8 +90,8 @@ namespace Lis.Units.Hero
             return expRequired;
         }
 
-        [Header("Tablets")] public List<Tablet> Tablets = new();
-        public TabletAdvanced AdvancedTablet;
+        [Header("Tablets")] [HideInInspector] public List<Tablet> Tablets = new();
+        [HideInInspector] public TabletAdvanced AdvancedTablet;
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
         readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
 
