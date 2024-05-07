@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b1b1438e0d4478ae46898f03fb6fc4, type: 3}
-  m_Name: Bud Attack
+  m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
+  m_Name: Dragon Spark Attack
   m_EditorClassIdentifier: 
-  Id: ea9a0911-c72b-4a9a-a200-9a72fbc12ebf
-  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Id: 18b66e70-0cfb-48bd-a2f6-39066962db29
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Damage: 10
   Range: 20
   Cooldown: 5
   IsArmorPiercing: 0
   DamageDealt: 0
-  ProjectilePrefab: {fileID: 5802316041734254259, guid: 0a05600f2739b604a9c00ac998f4aa66, type: 3}
+  AttackControllerPrefab: {fileID: 5478135584809546934, guid: f0f2777a0c2785640b84dabd47752299, type: 3}
+  AttackController: {fileID: 0}

@@ -8,16 +8,18 @@ namespace Lis.Units.Projectile
     {
         Vector3 _dir;
 
+        Ability _ability;
+
         public void Fire(Ability ability)
         {
-            Ability = ability;
+            _ability = ability;
             EnableProjectile();
             StartCoroutine(FireCoroutine());
         }
 
         IEnumerator FireCoroutine()
         {
-            float endTime = UnityEngine.Time.time + Ability.GetDuration();
+            float endTime = UnityEngine.Time.time + _ability.GetDuration();
             while (UnityEngine.Time.time < endTime)
             {
                 // choose a random direction but keep y = 0

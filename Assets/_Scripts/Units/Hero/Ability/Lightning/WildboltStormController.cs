@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Core;
 using Lis.Units.Projectile;
 using UnityEngine;
 
@@ -58,7 +57,7 @@ namespace Lis.Units.Hero.Ability
             instance.SetActive(true);
 
             WildboltProjectileController projectile = instance.GetComponent<WildboltProjectileController>();
-            projectile.Initialize(0);
+            projectile.Initialize(0, Ability.GetCurrentLevel());
             _wildboltPool.Add(projectile);
             return projectile;
         }

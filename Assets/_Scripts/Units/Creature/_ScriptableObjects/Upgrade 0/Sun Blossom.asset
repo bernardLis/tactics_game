@@ -91,7 +91,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  - {fileID: 11400000, guid: 8c0ebfdbf0a9ce34b91617b0b2f1e0c3, type: 2}
   CurrentAttack: {fileID: 0}
   UpgradeTier: 0
   Ability: {fileID: 11400000, guid: b1df72a6126a6724fbf3881acabb5e4e, type: 2}

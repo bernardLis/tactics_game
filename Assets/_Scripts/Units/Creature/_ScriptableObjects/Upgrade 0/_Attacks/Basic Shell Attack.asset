@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
-  m_Name: Basic Fire Attack
+  m_Name: Basic Shell Attack
   m_EditorClassIdentifier: 
-  Id: 9344b0ae-4681-46cb-93cb-bc7e9e041ff6
-  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Id: 4761687f-d8e8-40d9-9c03-f744aefbbc5b
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Damage: 10
-  Range: 1.5
+  Range: 1
   Cooldown: 3
   IsArmorPiercing: 0
   DamageDealt: 0
+  AttackControllerPrefab: {fileID: 4051881534947057373, guid: d0b0569d97c9017489215d55dd5360be, type: 3}
+  AttackController: {fileID: 0}

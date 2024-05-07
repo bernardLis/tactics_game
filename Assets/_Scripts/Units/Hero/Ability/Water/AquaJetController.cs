@@ -44,7 +44,7 @@ namespace Lis.Units.Hero.Ability
             instance.SetActive(true);
 
             HomingProjectileController homingProjectileController = instance.GetComponent<HomingProjectileController>();
-            homingProjectileController.Initialize(0);
+            homingProjectileController.Initialize(0, Ability.GetCurrentLevel());
             _projectilePool.Add(homingProjectileController);
             return homingProjectileController;
         }

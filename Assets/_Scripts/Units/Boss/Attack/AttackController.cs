@@ -2,14 +2,13 @@ using System.Collections;
 using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Core;
+using Lis.Units.Attack;
 using Lis.Units.Hero;
 using Lis.Units.Projectile;
 using UnityEngine;
 
-namespace Lis.Units.Boss.Attack
+namespace Lis.Units.Boss
 {
-    using Units.Attack;
-
     public class AttackController : MonoBehaviour
     {
         protected BattleManager BattleManager;
@@ -50,7 +49,7 @@ namespace Lis.Units.Boss.Attack
             spawnPos.y = 0.5f;
 
             p.transform.position = spawnPos;
-            p.Initialize(1);
+            p.Initialize(1, Attack);
             p.Shoot(dir, Attack.ProjectileDuration);
         }
     }

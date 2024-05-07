@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Lis.Units.Boss.Attack
+namespace Lis.Units.Boss
 {
     public class AttackControllerSpiral : AttackController
     {

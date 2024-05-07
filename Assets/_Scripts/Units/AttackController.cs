@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Lis.Units
 {
-    public class UnitAttackController : MonoBehaviour
+    public class AttackController : MonoBehaviour
     {
         static readonly int AnimAttack = Animator.StringToHash("Attack");
 
@@ -16,15 +16,19 @@ namespace Lis.Units
         protected UnitController UnitController;
         float _currentAttackCooldown;
 
+        protected Attack.Attack Attack;
+
         public event Action OnAttackReady;
 
-        public virtual void Initialize(UnitController unitController)
+        public virtual void Initialize(UnitController unitController, Attack.Attack attack)
         {
             _audioManager = AudioManager.Instance;
-            _animator = GetComponentInChildren<Animator>();
+            _animator = unitController.GetComponentInChildren<Animator>();
+
+            Attack = attack;
 
             UnitController = unitController;
-            _currentAttackCooldown = unitController.Unit.CurrentAttack.Cooldown;
+            _currentAttackCooldown = Attack.Cooldown;
         }
 
         void Update()
@@ -45,7 +49,7 @@ namespace Lis.Units
             OnAttackReady?.Invoke();
 
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name}");
-            _currentAttackCooldown = UnitController.Unit.CurrentAttack.Cooldown;
+            _currentAttackCooldown = Attack.Cooldown;
 
             if (UnitController.Unit.AttackSound != null)
                 _audioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
@@ -68,7 +72,7 @@ namespace Lis.Units
         public virtual IEnumerator AttackCoroutine()
         {
             yield return BaseAttackCoroutine();
-            yield return UnitController.Opponent.GetHit(UnitController.Unit.CurrentAttack);
+            yield return UnitController.Opponent.GetHit(Attack);
         }
 
         public bool IsOpponentInRange()
@@ -79,8 +83,8 @@ namespace Lis.Units
             // +0.5 wiggle room
             Vector3 delta = UnitController.Opponent.transform.position - transform.position;
             float distanceSqrt = delta.sqrMagnitude;
-            float attackRangeSqrt = (UnitController.Unit.CurrentAttack.Range + 0.5f) *
-                                    (UnitController.Unit.CurrentAttack.Range + 0.5f);
+            float attackRangeSqrt = (Attack.Range + 0.5f) *
+                                    (Attack.Range + 0.5f);
             return distanceSqrt <= attackRangeSqrt;
         }
     }

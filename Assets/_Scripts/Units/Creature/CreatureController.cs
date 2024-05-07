@@ -73,10 +73,10 @@ namespace Lis.Units.Creature
                 while (_opponentList.Count == 0)
                     yield return new WaitForSeconds(1f);
 
-                Unit.ChooseAttack();
+                AttackController = Unit.ChooseAttack();
                 CurrentSecondaryCoroutine = ManagePathing();
                 yield return CurrentSecondaryCoroutine;
-                CurrentSecondaryCoroutine = UnitAttackController.AttackCoroutine();
+                CurrentSecondaryCoroutine = AttackController.AttackCoroutine();
                 yield return CurrentSecondaryCoroutine;
             }
         }

@@ -1,5 +1,4 @@
 using Lis.Units.Boss;
-using Lis.Units.Boss.Attack;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,14 +25,12 @@ namespace Lis.Units.Attack
         [FormerlySerializedAs("BossAttackManagerPrefab")] [Header("Battle GameObjects")]
         public GameObject Prefab;
 
-        [HideInInspector] public AttackController AttackController;
-
         public bool UseElementalProjectile;
 
         public void Initialize(BossController bb)
         {
-            AttackController = Instantiate(Prefab, bb.transform).GetComponent<AttackController>();
-            AttackController.Initialize(this, bb);
+            // AttackController = Instantiate(Prefab, bb.transform).GetComponent<Boss.AttackController>();
+            // AttackController.Initialize(this, bb);
         }
     }
 }

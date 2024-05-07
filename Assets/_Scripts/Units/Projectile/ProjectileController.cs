@@ -4,8 +4,6 @@ using DG.Tweening;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Units.Creature;
-using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,8 +27,7 @@ namespace Lis.Units.Projectile
         SphereCollider _collider;
 
         protected int Team;
-        protected UnitController Shooter;
-        protected Ability Ability;
+        protected Attack.Attack Attack;
 
         protected float Time;
         protected Vector3 Direction;
@@ -39,9 +36,11 @@ namespace Lis.Units.Projectile
 
         public event Action OnExplode;
 
-        public virtual void Initialize(int team)
+        public virtual void Initialize(int team, Attack.Attack attack)
         {
             Team = team;
+            Attack = attack;
+
             _audioManager = AudioManager.Instance;
             _collider = GetComponent<SphereCollider>();
 
@@ -51,23 +50,7 @@ namespace Lis.Units.Projectile
                 _collider.excludeLayers = LayerMask.GetMask("Team 1");
         }
 
-        public void Shoot(Ability ability, Vector3 dir)
-        {
-            Ability = ability;
-            Time = Ability.GetDuration();
-            BaseShoot(dir);
-        }
-
-        public void Shoot(UnitController shooter, Vector3 dir)
-        {
-            Shooter = shooter;
-            CreatureController bc = shooter as CreatureController;
-            if (bc == null) return;
-            // HERE:  Time = bc.Creature.AttackRange.GetValue() / Speed; // TODO: idk if this will work for range
-            BaseShoot(dir);
-        }
-
-        void BaseShoot(Vector3 dir)
+        public void Shoot(Vector3 dir)
         {
             Transform t = transform;
             Vector3 scale = t.localScale;
@@ -112,8 +95,7 @@ namespace Lis.Units.Projectile
 
         protected virtual void HitTarget(UnitController target)
         {
-            // HERE:   if (Shooter != null) StartCoroutine(target.GetHit(Shooter));
-            // HERE:   if (Ability != null) StartCoroutine(target.GetHit(Ability));
+            StartCoroutine(target.GetHit(Attack));
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -127,12 +109,12 @@ namespace Lis.Units.Projectile
                 return;
             }
 
-            if (collision.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (collision.gameObject.TryGetComponent(out UnitController unitController))
             {
-                if (!IsTargetValid(battleEntity)) return;
+                if (!IsTargetValid(unitController)) return;
 
                 HitConnected();
-                HitTarget(battleEntity);
+                HitTarget(unitController);
                 return;
             }
 

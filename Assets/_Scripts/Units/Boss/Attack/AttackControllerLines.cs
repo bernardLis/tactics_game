@@ -2,7 +2,7 @@ using System.Collections;
 using Lis.Core.Utilities;
 using UnityEngine;
 
-namespace Lis.Units.Boss.Attack
+namespace Lis.Units.Boss
 {
     public class AttackControllerLines : AttackController
     {

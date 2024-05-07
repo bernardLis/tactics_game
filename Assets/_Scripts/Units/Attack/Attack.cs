@@ -14,16 +14,20 @@ namespace Lis.Units.Attack
 
         [HideInInspector] public int DamageDealt;
 
-        Unit _unit;
+        public AttackController AttackControllerPrefab;
+        [HideInInspector] public AttackController AttackController;
+        UnitController _unitController;
 
-        public void InitializeAttack(Unit unit)
+        public void InitializeAttack(UnitController unitController)
         {
-            _unit = unit;
+            _unitController = unitController;
+            AttackController = Instantiate(AttackControllerPrefab, unitController.transform);
+            AttackController.Initialize(unitController, this);
         }
 
         public float GetDamage()
         {
-            return Damage + _unit.Power.GetValue();
+            return Damage + _unitController.Unit.Power.GetValue();
         }
 
         public void AddDamageDealt(int dmg)
@@ -33,7 +37,7 @@ namespace Lis.Units.Attack
 
         public void AddKill(Unit killedUnit)
         {
-            _unit.AddKill(killedUnit);
+            _unitController.Unit.AddKill(killedUnit);
         }
     }
 }

@@ -13,10 +13,10 @@ namespace Lis.Units.Projectile
             {
                 if (c.TryGetComponent(out UnitController entity))
                 {
-                    if (entity.Team == Shooter.Team) continue; // splash damage is player friendly
+                    if (entity.Team == Team) continue; // splash damage is player friendly
                     if (entity.IsDead) continue;
 
-                    StartCoroutine(entity.GetHit(Shooter.Unit.CurrentAttack)); // HERE:
+                    StartCoroutine(entity.GetHit(Attack));
                 }
             }
 

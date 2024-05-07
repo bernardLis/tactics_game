@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b1b1438e0d4478ae46898f03fb6fc4, type: 3}
+  m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
   m_Name: Bomb Attack
   m_EditorClassIdentifier: 
   Id: 8e5c75de-b30c-4eee-8182-d4de906f194f
@@ -19,4 +19,5 @@ MonoBehaviour:
   Cooldown: 5
   IsArmorPiercing: 0
   DamageDealt: 0
-  ProjectilePrefab: {fileID: 6865323931963210094, guid: 354092d45107a954296b58ca5e078f96, type: 3}
+  AttackControllerPrefab: {fileID: 6040174831473838507, guid: 6faa94b2983156b4eafd435cd16aad96, type: 3}
+  AttackController: {fileID: 0}

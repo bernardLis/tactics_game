@@ -140,7 +140,7 @@ namespace Lis.Units
 
         /* ATTACKS */
         [SerializeField] Attack.Attack[] _attacksOriginal;
-        readonly List<Attack.Attack> _attacks = new();
+        public List<Attack.Attack> Attacks = new();
         [HideInInspector] public Attack.Attack CurrentAttack;
 
         void InstantiateAttacks()
@@ -148,20 +148,20 @@ namespace Lis.Units
             foreach (Attack.Attack a in _attacksOriginal)
             {
                 Attack.Attack attack = Instantiate(a);
-                attack.InitializeAttack(this);
-                _attacks.Add(attack);
+                Attacks.Add(attack);
             }
         }
 
-        public void ChooseAttack()
+        public AttackController ChooseAttack()
         {
-            CurrentAttack = _attacks[Random.Range(0, _attacks.Count)];
+            CurrentAttack = Attacks[Random.Range(0, Attacks.Count)];
+            return CurrentAttack.AttackController;
         }
 
         public int GetDamageDealt()
         {
             int damageDealt = 0;
-            foreach (Attack.Attack a in _attacks)
+            foreach (Attack.Attack a in Attacks)
                 damageDealt += a.DamageDealt;
 
             return damageDealt;

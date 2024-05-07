@@ -14,7 +14,7 @@ namespace Lis.Units
             if (_isInitialized) return;
             _isInitialized = true;
 
-            CreatePool(prefab, 15);
+            CreatePool(prefab, 5);
             PoolHolder.parent = BattleManager.Instance.ProjectilePoolHolder;
             PoolHolder.localPosition = Vector3.zero;
         }

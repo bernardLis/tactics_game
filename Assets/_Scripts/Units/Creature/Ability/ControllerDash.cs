@@ -32,7 +32,7 @@ namespace Lis.Units.Creature.Ability
             Vector3 targetPosition = transformPosition + normal * 10f;
 
             // if opp is in range, jump behind him not *10f
-            if (UnitAttackController.IsOpponentInRange())
+            if (AttackController.IsOpponentInRange())
             {
                 targetPosition = transform.position + normal * (Creature.Ability.Attack.Range * 2);
                 StartCoroutine(CreatureController.Opponent.GetHit(Creature.Ability.Attack));

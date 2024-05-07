@@ -11,7 +11,7 @@ namespace Lis.Units.Creature.Ability
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-            if (!UnitAttackController.IsOpponentInRange()) yield break;
+            if (!AttackController.IsOpponentInRange()) yield break;
 
             yield return transform.DODynamicLookAt(CreatureController.Opponent.transform.position, 0.2f,
                 AxisConstraint.Y);

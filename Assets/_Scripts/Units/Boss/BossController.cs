@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units.Boss
 {
-    using Attack;
     using Units.Attack;
 
 
@@ -95,7 +94,7 @@ namespace Lis.Units.Boss
             foreach (Units.Attack.Attack original in boss.Attacks)
             {
                 Units.Attack.Attack attack = Instantiate(original);
-                attack.InitializeAttack(this.Unit);
+                // attack.InitializeAttack(this.Unit);
                 _attacks.Add(attack);
             }
         }

@@ -35,7 +35,7 @@ namespace Lis.Units
         protected GameObject DeathEffect;
 
         protected UnitPathingController UnitPathingController;
-        protected UnitAttackController UnitAttackController;
+        protected AttackController AttackController;
 
         protected ObjectShaders ObjectShaders;
         public Collider Collider { get; private set; }
@@ -61,7 +61,7 @@ namespace Lis.Units
 
         static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
 
-        protected Color HealthColor;
+        Color _healthColor;
         Color _shieldColor;
 
         public event Action OnShieldBroken;
@@ -77,7 +77,7 @@ namespace Lis.Units
             _fightManager = BattleManager.GetComponent<FightManager>();
             _arenaManager = BattleManager.GetComponent<ArenaManager>();
 
-            HealthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
+            _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
 
             ObjectShaders = GetComponent<ObjectShaders>();
@@ -112,6 +112,7 @@ namespace Lis.Units
             _fightManager.OnFightEnded += OnFightEnded;
 
             InitializeControllers();
+            InitializeAttacks();
         }
 
         void InitializeControllers()
@@ -123,10 +124,6 @@ namespace Lis.Units
                 UnitPathingController.InitializeUnit(Unit);
             }
 
-            UnitAttackController = GetComponent<UnitAttackController>();
-            if (UnitAttackController != null)
-                UnitAttackController.Initialize(this);
-
             if (TryGetComponent(out UnitGrabController grab))
             {
                 grab.Initialize(this);
@@ -136,6 +133,12 @@ namespace Lis.Units
 
             if (TryGetComponent(out UnitHitController hit))
                 hit.Initialize(this);
+        }
+
+        void InitializeAttacks()
+        {
+            foreach (Attack.Attack attack in Unit.Attacks)
+                attack.InitializeAttack(this);
         }
 
         protected virtual void EnableSelf()
@@ -219,7 +222,7 @@ namespace Lis.Units
                 StopCoroutine(_currentMainCoroutine);
 
             UnitPathingController.DisableAgent();
-            UnitAttackController.StopAllCoroutines();
+            if (AttackController != null) AttackController.StopAllCoroutines();
         }
 
         protected virtual IEnumerator RunUnitCoroutine()
@@ -262,7 +265,7 @@ namespace Lis.Units
                 Unit.MaxHealth.GetValue() - Unit.CurrentHealth.Value));
             Unit.CurrentHealth.ApplyChange(v);
 
-            DisplayFloatingText("+" + v, HealthColor);
+            DisplayFloatingText("+" + v, _healthColor);
         }
 
         public IEnumerator GetHit(Attack.Attack attack)
