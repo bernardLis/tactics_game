@@ -20,7 +20,7 @@ namespace Lis.Units.Creature.Ability
             _effect.transform.parent = CreatureController.Opponent.transform;
             _effect.transform.localPosition = Vector3.one;
             _effect.SetActive(true);
-            StartCoroutine(CreatureController.Opponent.GetPoisoned(CreatureController));
+            StartCoroutine(CreatureController.Opponent.GetHit(Creature.Ability.Attack));
 
             Invoke(nameof(CleanUp), 2f);
             yield return base.ExecuteAbilityCoroutine();

@@ -38,7 +38,7 @@ namespace Lis.Units
             _tooltipManager.HideEntityInfo();
         }
 
-        void OnDeath(UnitController a, UnitController b)
+        void OnDeath(UnitController a, Attack.Attack b)
         {
             if (_tooltipManager.CurrentEntityInfo == _unitController)
                 _tooltipManager.HideEntityInfo();

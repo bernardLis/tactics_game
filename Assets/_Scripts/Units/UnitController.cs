@@ -8,8 +8,6 @@ using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Units.Creature;
-using Lis.Units.Hero.Ability;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -67,9 +65,8 @@ namespace Lis.Units
         Color _shieldColor;
 
         public event Action OnShieldBroken;
-        public event Action<int> OnDamageTaken;
-        public event Action<NatureName> OnHit;
-        public event Action<UnitController, UnitController> OnDeath;
+        public event Action<Attack.Attack> OnHit;
+        public event Action<UnitController, Attack.Attack> OnDeath;
 
         public virtual void InitializeGameObject()
         {
@@ -136,7 +133,6 @@ namespace Lis.Units
                 grab.OnGrabbed += OnGrabbed;
                 grab.OnReleased += OnReleased;
             }
-
 
             if (TryGetComponent(out UnitHitController hit))
                 hit.Initialize(this);
@@ -269,62 +265,37 @@ namespace Lis.Units
             DisplayFloatingText("+" + v, HealthColor);
         }
 
-        public IEnumerator GetHit(Ability ability)
+        public IEnumerator GetHit(Attack.Attack attack)
         {
             if (IsDead) yield break;
             if (BattleManager == null) yield break;
-            AddToLog($"Unit gets attacked by {ability.name}");
 
-            int damage = Unit.CalculateDamage(ability);
-            ability.AddDamageDealt(damage);
-            BaseGetHit(damage, ability.Nature.Color.Secondary);
-            OnHit?.Invoke(ability.Nature.NatureName);
-            if (Unit.CurrentHealth.Value <= 0)
-                ability.AddKill();
-        }
+            AddToLog($"Unit gets attacked by {attack.name}");
 
-        public virtual IEnumerator GetHit(UnitController attacker, int specialDamage = 0)
-        {
-            if (IsDead) yield break;
-            if (BattleManager == null) yield break;
-            AddToLog($"Unit gets attacked by {attacker.name}");
-
-            int damage = Unit.CalculateDamage(attacker.Unit);
-            if (specialDamage > 0) damage = specialDamage;
-            attacker.Unit.AddDmgDealt(damage);
-
-            BaseGetHit(damage, attacker.Unit.Nature.Color.Primary, attacker);
-            OnHit?.Invoke(attacker.Unit.Nature.NatureName);
-            if (Unit.CurrentHealth.Value <= 0)
-                attacker.Unit.AddKill(Unit);
-        }
-
-        public virtual void BaseGetHit(int dmg, Color color, UnitController attacker = null)
-        {
             if (IsShielded)
             {
-                AddToLog($"{dmg} damage is shielded");
+                AddToLog($"Attack is shielded");
                 BreakShield();
-                return;
+                yield break;
             }
 
-            AddToLog($"Unit takes damage {dmg}");
+            int damage = Unit.CalculateDamage(attack);
+            attack.AddDamageDealt(damage);
+            AddToLog($"Unit takes damage {damage}");
             StopUnit();
 
             if (Unit.HitSound != null) AudioManager.PlaySfx(Unit.HitSound, transform.position);
             else AudioManager.PlaySfx("Hit", transform.position);
-
             Animator.SetTrigger(AnimTakeDamage);
-            DisplayFloatingText(dmg.ToString(), color);
+            DisplayFloatingText(damage.ToString(), attack.Nature.Color.Primary);
 
-            OnDamageTaken?.Invoke(dmg);
-
-            if (Unit == null) return;
-            Unit.CurrentHealth.ApplyChange(-dmg);
+            OnHit?.Invoke(attack);
+            if (Unit == null) yield break;
+            Unit.CurrentHealth.ApplyChange(-damage);
             if (Unit.CurrentHealth.Value <= 0)
             {
-                Die(attacker);
-                return;
+                Die(attack);
+                yield break;
             }
 
             RunUnit();
@@ -337,15 +308,16 @@ namespace Lis.Units
             OnShieldBroken?.Invoke();
         }
 
-        protected void Die(UnitController attacker = null)
+        void Die(Attack.Attack attack = null)
         {
             AddToLog("Unit dies.");
             IsDead = true;
+            if (attack != null) attack.AddKill(Unit);
             if (gameObject.activeInHierarchy)
-                StartCoroutine(DieCoroutine(attacker: attacker));
+                StartCoroutine(DieCoroutine(attack: attack));
         }
 
-        protected virtual IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected virtual IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
             if (_isDeathCoroutineStarted) yield break;
             _isDeathCoroutineStarted = true;
@@ -359,47 +331,13 @@ namespace Lis.Units
             if (hasLoot) ResolveLoot();
 
             Animator.SetTrigger(AnimDie);
-            OnDeath?.Invoke(this, attacker);
+            OnDeath?.Invoke(this, attack);
         }
 
         void ResolveLoot()
         {
             if (Team == 0) return;
             _pickupManager.SpawnExpStone(transform.position);
-        }
-
-        public IEnumerator GetPoisoned(CreatureController attacker)
-        {
-            if (_isPoisoned) yield break;
-            if (IsDead) yield break;
-            AddToLog($"Unit gets poisoned by {attacker.name}.");
-
-            _isPoisoned = true;
-            DisplayFloatingText("Poisoned", Color.green);
-
-            // TODO: for now hardcoded
-            int totalDamage = 20;
-            int damageTick = 5;
-
-            while (totalDamage > 0)
-            {
-                if (IsDead) break;
-
-                // poison can't kill
-                if (Unit.CurrentHealth.Value > damageTick)
-                {
-                    DisplayFloatingText(damageTick.ToString(), Color.green);
-                    attacker.DealtDamage(damageTick);
-                    OnDamageTaken?.Invoke(damageTick);
-                    Unit.CurrentHealth.ApplyChange(-damageTick);
-                }
-
-                totalDamage -= damageTick;
-
-                yield return new WaitForSeconds(1f);
-            }
-
-            _isPoisoned = false;
         }
 
         /* grab */
@@ -450,7 +388,6 @@ namespace Lis.Units
 
         [ContextMenu("Level up")]
         public void LevelUp() => Unit.LevelUp();
-
 #endif
     }
 }

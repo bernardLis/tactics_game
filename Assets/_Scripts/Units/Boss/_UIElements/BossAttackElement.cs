@@ -6,8 +6,8 @@ namespace Lis.Units.Boss
 {
     public class BossAttackElement : ElementWithTooltip
     {
-        readonly Attack.Attack _attack;
-        public BossAttackElement(Attack.Attack attack)
+        readonly Units.Attack.AttackBoss _attack;
+        public BossAttackElement(Units.Attack.AttackBoss attack)
         {
             _attack = attack;
 

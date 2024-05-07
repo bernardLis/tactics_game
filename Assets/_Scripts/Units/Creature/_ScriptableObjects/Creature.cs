@@ -13,8 +13,6 @@ namespace Lis.Units.Creature
 
         public Ability.Ability Ability;
 
-        public GameObject Projectile;
-
         public override void InitializeBattle(int team)
         {
             base.InitializeBattle(team);
@@ -29,6 +27,8 @@ namespace Lis.Units.Creature
                 LevelUp();
 
             if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
+
+            Ability = Instantiate(Ability);
         }
 
         public bool IsAbilityUnlocked()
@@ -36,6 +36,11 @@ namespace Lis.Units.Creature
             return Level.Value >= Ability.UnlockLevel;
         }
 
+        public override void AddKill(Unit unit)
+        {
+            base.AddKill(unit);
+            AddExp(unit.Price);
+        }
 
         public event Action OnDeath;
 
@@ -55,8 +60,6 @@ namespace Lis.Units.Creature
                 Level = Level.Value,
 
                 KillCount = TotalKillCount,
-                DamageDealt = TotalDamageDealt,
-                DamageTaken = TotalDamageTaken
             };
 
             return data;
@@ -70,8 +73,6 @@ namespace Lis.Units.Creature
             Level.SetValue(data.Level);
 
             TotalKillCount = data.KillCount;
-            TotalDamageDealt = data.DamageDealt;
-            TotalDamageTaken = data.DamageTaken;
         }
     }
 

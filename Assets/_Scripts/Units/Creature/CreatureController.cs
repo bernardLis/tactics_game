@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +17,6 @@ namespace Lis.Units.Creature
         [SerializeField] GameObject _respawnEffect;
         Controller _abilityController;
 
-        public event Action<int> OnDamageDealt;
-
         public override void InitializeUnit(Unit unit, int team)
         {
             base.InitializeUnit(unit, team);
@@ -30,11 +27,6 @@ namespace Lis.Units.Creature
             Creature = (Creature)unit;
             Creature.OnLevelUp -= OnLevelUp; // just in case I initialize it twice :))))
             Creature.OnLevelUp += OnLevelUp;
-
-            OnDamageDealt -= Creature.AddDmgDealt;
-            OnDamageTaken -= Creature.AddDmgTaken;
-            OnDamageDealt += Creature.AddDmgDealt;
-            OnDamageTaken += Creature.AddDmgTaken;
         }
 
         protected override void EnableSelf()
@@ -49,11 +41,6 @@ namespace Lis.Units.Creature
         public void SetOpponentList(ref List<UnitController> list)
         {
             _opponentList = list;
-        }
-
-        protected virtual void InitializeHostileCreature()
-        {
-            // TODO:
         }
 
         protected override void OnFightEnded()
@@ -86,6 +73,7 @@ namespace Lis.Units.Creature
                 while (_opponentList.Count == 0)
                     yield return new WaitForSeconds(1f);
 
+                Unit.ChooseAttack();
                 CurrentSecondaryCoroutine = ManagePathing();
                 yield return CurrentSecondaryCoroutine;
                 CurrentSecondaryCoroutine = UnitAttackController.AttackCoroutine();
@@ -106,7 +94,8 @@ namespace Lis.Units.Creature
         IEnumerator PathToOpponent()
         {
             AddToLog($"Pathing to opponent {Opponent.name}");
-            yield return UnitPathingController.PathToTarget(Opponent.transform, Creature.AttackRange.GetValue());
+            yield return UnitPathingController.PathToTarget(Opponent.transform,
+                Creature.CurrentAttack.Range);
             Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 
@@ -156,7 +145,7 @@ namespace Lis.Units.Creature
             Opponent.OnDeath += ResetOpponent;
         }
 
-        void ResetOpponent(UnitController _, UnitController __)
+        void ResetOpponent(UnitController _, Attack.Attack __)
         {
             AddToLog("Resetting opponent");
             if (this == null) return;
@@ -174,11 +163,6 @@ namespace Lis.Units.Creature
             ResetOpponent(default, default);
         }
 
-        public void DealtDamage(int dmg)
-        {
-            OnDamageDealt?.Invoke(dmg);
-        }
-
         void OnLevelUp()
         {
             DisplayFloatingText("Level Up!", Color.white);
@@ -193,9 +177,9 @@ namespace Lis.Units.Creature
             _abilityController.Initialize(this);
         }
 
-        protected override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
-            yield return base.DieCoroutine(attacker, hasLoot);
+            yield return base.DieCoroutine(attack, hasLoot);
             StopUnit();
             UnitPathingController.DisableAgent();
             _respawnEffect.SetActive(false);

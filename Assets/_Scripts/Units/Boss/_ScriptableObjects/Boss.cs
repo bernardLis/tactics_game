@@ -8,6 +8,6 @@ namespace Lis.Units.Boss
     public class Boss : Unit
     {
         [Header("Attacks")]
-        public List<Attack.Attack> Attacks = new();
+        public List<Units.Attack.Attack> Attacks = new();
     }
 }

@@ -46,7 +46,7 @@ namespace Lis.Units.Hero.Ability
                 if (c.TryGetComponent(out UnitController entity))
                 {
                     if (entity.Team == 0) continue; // TODO: hardcoded team number
-                    StartCoroutine(entity.GetHit(Ability));
+                    StartCoroutine(entity.GetHit(Ability.GetCurrentLevel()));
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace Lis.Units.Hero.Ability
                     rot.z = 75;
                     transform.DORotate(rot, 0.1f)
                         .OnComplete(() => transform.DORotate(originalRot, 0.1f));
-                    StartCoroutine(entity.GetHit(Ability));
+                    StartCoroutine(entity.GetHit(Ability.GetCurrentLevel()));
                 }
 
                 yield return new WaitForSeconds(0.7f);

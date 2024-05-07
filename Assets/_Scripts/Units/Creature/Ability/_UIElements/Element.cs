@@ -38,7 +38,7 @@ namespace Lis.Units.Creature.Ability
 
             if (currentCooldown > 0)
             {
-                _timer.UpdateTimerValues(currentCooldown, _ability.Cooldown);
+                _timer.UpdateTimerValues(currentCooldown, _ability.Attack.Cooldown);
                 _timer.style.display = DisplayStyle.Flex;
             }
         }
@@ -77,7 +77,7 @@ namespace Lis.Units.Creature.Ability
 
         void OnAbilityUsed()
         {
-            _timer.UpdateTimerValues(_ability.Cooldown, _ability.Cooldown);
+            _timer.UpdateTimerValues(_ability.Attack.Cooldown, _ability.Attack.Cooldown);
             _timer.style.display = DisplayStyle.Flex;
             _timer.Resume();
         }

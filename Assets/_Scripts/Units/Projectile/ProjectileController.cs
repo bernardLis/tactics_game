@@ -63,7 +63,7 @@ namespace Lis.Units.Projectile
             Shooter = shooter;
             CreatureController bc = shooter as CreatureController;
             if (bc == null) return;
-            Time = bc.Creature.AttackRange.GetValue() / Speed; // TODO: idk if this will work for range
+            // HERE:  Time = bc.Creature.AttackRange.GetValue() / Speed; // TODO: idk if this will work for range
             BaseShoot(dir);
         }
 
@@ -112,8 +112,8 @@ namespace Lis.Units.Projectile
 
         protected virtual void HitTarget(UnitController target)
         {
-            if (Shooter != null) StartCoroutine(target.GetHit(Shooter));
-            if (Ability != null) StartCoroutine(target.GetHit(Ability));
+            // HERE:   if (Shooter != null) StartCoroutine(target.GetHit(Shooter));
+            // HERE:   if (Ability != null) StartCoroutine(target.GetHit(Ability));
         }
 
         protected virtual void OnCollisionEnter(Collision collision)

@@ -61,7 +61,7 @@ namespace Lis.Units.Hero.Ability
             {
                 List<UnitController> currentEntities = new(_entitiesInCollider);
                 foreach (UnitController entity in currentEntities)
-                    StartCoroutine(entity.GetHit(Ability));
+                    StartCoroutine(entity.GetHit(Ability.GetCurrentLevel()));
                 yield return new WaitForSeconds(0.5f);
             }
         }

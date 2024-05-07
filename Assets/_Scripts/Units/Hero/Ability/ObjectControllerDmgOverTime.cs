@@ -22,7 +22,7 @@ namespace Lis.Units.Hero.Ability
             {
                 List<UnitController> currentEntities = new(UnitsInCollider);
                 foreach (UnitController entity in currentEntities)
-                    StartCoroutine(entity.GetHit(Ability));
+                    StartCoroutine(entity.GetHit(Ability.GetCurrentLevel()));
                 yield return new WaitForSeconds(interval);
             }
         }
@@ -57,7 +57,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        void RemoveEntityFromList(UnitController entity, UnitController ignored)
+        void RemoveEntityFromList(UnitController entity, Attack.Attack _)
         {
             entity.OnDeath -= RemoveEntityFromList;
             if (UnitsInCollider.Contains(entity))

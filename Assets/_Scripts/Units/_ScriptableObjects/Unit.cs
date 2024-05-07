@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units.Hero.Ability;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units
 {
@@ -16,14 +17,13 @@ namespace Lis.Units
 
         [Header("Sounds")]
         public Sound SpawnSound;
+
         public Sound DeathSound;
         public Sound AttackSound;
         public Sound HitSound;
         public Sound LevelUpSound;
 
-        [HideInInspector] public int TotalDamageTaken;
         [HideInInspector] public int TotalKillCount;
-        [HideInInspector] public int TotalDamageDealt;
 
         [HideInInspector] public int Team;
 
@@ -43,24 +43,15 @@ namespace Lis.Units
 
             CurrentHealth = CreateInstance<FloatVariable>();
             CurrentHealth.SetValue(MaxHealth.GetValue());
+
+            InstantiateAttacks();
+            ChooseAttack();
         }
 
-        public void AddDmgTaken(int dmg)
+        public virtual void AddKill(Unit unit)
         {
-            TotalDamageTaken += dmg;
-        }
-
-        public void AddKill(Unit unit)
-        {
-            AddExp(unit.Price);
             TotalKillCount++;
         }
-
-        public void AddDmgDealt(int dmg)
-        {
-            TotalDamageDealt += dmg;
-        }
-
 
         [Header("Stats")]
         public Stat MaxHealth;
@@ -70,8 +61,6 @@ namespace Lis.Units
         public Stat Armor;
         public Stat Speed;
         public Stat Power;
-        public Stat AttackRange;
-        public Stat AttackCooldown;
 
         protected virtual void CreateStats()
         {
@@ -79,8 +68,6 @@ namespace Lis.Units
             HandleArmor();
             HandleSpeed();
             HandlePower();
-            HandleAttackRange();
-            HandleAttackCooldown();
         }
 
         void HandleMaxHealth()
@@ -113,22 +100,6 @@ namespace Lis.Units
             Power = Instantiate(Power);
             Power.Initialize();
             OnLevelUp += Power.LevelUp;
-        }
-
-        void HandleAttackRange()
-        {
-            if (AttackRange == null) return;
-            AttackRange = Instantiate(AttackRange);
-            AttackRange.Initialize();
-            OnLevelUp += AttackRange.LevelUp;
-        }
-
-        void HandleAttackCooldown()
-        {
-            if (AttackCooldown == null) return;
-            AttackCooldown = Instantiate(AttackCooldown);
-            AttackCooldown.Initialize();
-            OnLevelUp += AttackCooldown.LevelUp;
         }
 
         /* LEVEL */
@@ -167,27 +138,44 @@ namespace Lis.Units
             CurrentHealth.SetValue(MaxHealth.GetValue());
         }
 
+        /* ATTACKS */
+        [SerializeField] Attack.Attack[] _attacksOriginal;
+        readonly List<Attack.Attack> _attacks = new();
+        [HideInInspector] public Attack.Attack CurrentAttack;
+
+        void InstantiateAttacks()
+        {
+            foreach (Attack.Attack a in _attacksOriginal)
+            {
+                Attack.Attack attack = Instantiate(a);
+                attack.InitializeAttack(this);
+                _attacks.Add(attack);
+            }
+        }
+
+        public void ChooseAttack()
+        {
+            CurrentAttack = _attacks[Random.Range(0, _attacks.Count)];
+        }
+
+        public int GetDamageDealt()
+        {
+            int damageDealt = 0;
+            foreach (Attack.Attack a in _attacks)
+                damageDealt += a.DamageDealt;
+
+            return damageDealt;
+        }
+
         /* DAMAGE */
-        public int CalculateDamage(Unit attacker)
+        public int CalculateDamage(Attack.Attack attack)
         {
-            float damage = attacker.Power.GetValue();
-            damage *= GetElementalDamageMultiplier(attacker.Nature);
-            damage -= Armor.GetValue();
-            if (damage < 0) damage = 0;
-
-            return Mathf.RoundToInt(damage);
+            float dmg = attack.GetDamage();
+            dmg *= GetElementalDamageMultiplier(attack.Nature);
+            if (!attack.IsArmorPiercing) dmg -= Armor.GetValue();
+            if (dmg < 0) dmg = 0;
+            return Mathf.RoundToInt(dmg);
         }
-
-        public int CalculateDamage(Ability ability)
-        {
-            float damage = ability.GetPower();
-            damage *= GetElementalDamageMultiplier(ability.Nature);
-            if (!ability.IsArmorPiercing) damage -= Armor.GetValue();
-            if (damage < 0) damage = 0;
-
-            return Mathf.RoundToInt(damage);
-        }
-
 
         float GetElementalDamageMultiplier(Nature attackerNature)
         {

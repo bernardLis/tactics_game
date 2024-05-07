@@ -37,7 +37,7 @@ namespace Lis.Units.Hero
                 OpponentsInRange.Remove(be);
         }
 
-        void RemoveOpponentOnDeath(UnitController be, UnitController killer)
+        void RemoveOpponentOnDeath(UnitController be, Attack.Attack attack)
         {
             be.OnDeath -= RemoveOpponentOnDeath;
             RemoveOpponent(be);

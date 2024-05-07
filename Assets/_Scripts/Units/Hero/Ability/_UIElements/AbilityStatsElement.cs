@@ -15,7 +15,7 @@ namespace Lis.Units.Hero.Ability
             VisualElement container = new();
             Add(container);
 
-            Label totalDamage = new($"Total damage: {ability.DamageDealt}");
+            Label totalDamage = new($"Total damage: {ability.GetTotalDamageDealt()}");
             container.Add(totalDamage);
 
             Label dpsSinceActive = new($"DPS: {Mathf.RoundToInt(ability.GetDpsSinceActive())}");

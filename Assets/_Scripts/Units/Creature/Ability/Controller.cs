@@ -79,7 +79,7 @@ namespace Lis.Units.Creature.Ability
 
         IEnumerator AbilityCooldownCoroutine()
         {
-            _currentAbilityCooldown = Ability.Cooldown;
+            _currentAbilityCooldown = Ability.Attack.Cooldown;
             while (_currentAbilityCooldown > 0)
             {
                 _currentAbilityCooldown -= 1;
@@ -89,7 +89,7 @@ namespace Lis.Units.Creature.Ability
             OnCooldownEnd?.Invoke();
         }
 
-        void ExecuteAbilityOnDeath(UnitController _, UnitController __)
+        void ExecuteAbilityOnDeath(UnitController _, Attack.Attack __)
         {
             StartCoroutine(ExecuteAbilityCoroutine());
         }

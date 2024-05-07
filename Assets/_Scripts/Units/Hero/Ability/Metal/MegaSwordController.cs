@@ -65,7 +65,7 @@ namespace Lis.Units.Hero.Ability
             if (collision.gameObject.TryGetComponent(out UnitController battleEntity))
             {
                 if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                StartCoroutine(battleEntity.GetHit(Ability));
+                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
             }
         }
     }

@@ -17,10 +17,7 @@ namespace Lis.Units.Creature.Ability
             AudioManager.PlaySfx(Ability.Sound, transform.position);
 
             foreach (UnitController be in GetOpponentsInRadius(_radius))
-            {
-                StartCoroutine(be.GetHit(CreatureController,
-                    Mathf.FloorToInt(Creature.Power.GetValue() * 2)));
-            }
+                StartCoroutine(be.GetHit(Creature.Ability.Attack));
 
             Invoke(nameof(CleanUp), 2f);
             yield return base.ExecuteAbilityCoroutine();

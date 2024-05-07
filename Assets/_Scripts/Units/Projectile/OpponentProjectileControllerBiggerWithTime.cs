@@ -6,11 +6,11 @@ namespace Lis.Units.Projectile
 {
     public class OpponentProjectileControllerBiggerWithTime : OpponentProjectileController
     {
-        public override void Shoot(UnitController entity, Vector3 dir, float time, int power)
+        public override void Shoot(Vector3 dir, float time)
         {
             transform.localScale = Vector3.one * 0.5f;
 
-            base.Shoot(entity, dir, time, power);
+            base.Shoot(dir, time);
 
             float scale = 1;
             float scaleMultiplier = 3;

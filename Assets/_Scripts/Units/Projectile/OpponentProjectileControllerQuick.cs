@@ -6,9 +6,9 @@ namespace Lis.Units.Projectile
 {
     public class OpponentProjectileControllerQuick : OpponentProjectileController
     {
-        public override void Shoot(UnitController entity, Vector3 dir, float time, int power)
+        public override void Shoot(Vector3 dir, float time)
         {
-            base.Shoot(entity, dir, time, power);
+            base.Shoot(dir, time);
             StartCoroutine(SpeedChange());
         }
 
@@ -19,6 +19,5 @@ namespace Lis.Units.Projectile
             yield return new WaitForSeconds(1f);
             Speed = 15;
         }
-
     }
 }

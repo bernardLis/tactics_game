@@ -1,19 +1,14 @@
-
 using UnityEngine;
 
 namespace Lis.Units.Projectile
 {
     public class OpponentProjectileController : ProjectileController
     {
-        UnitController _unitController;
-        int _power;
+        [SerializeField] Attack.Attack _attack;
 
-
-        public virtual void Shoot(UnitController shooter, Vector3 dir, float time, int power)
+        public virtual void Shoot(Vector3 dir, float time)
         {
-            _unitController = shooter;
             Time = time;
-            _power = power;
             Direction = dir;
 
             EnableProjectile();
@@ -22,7 +17,7 @@ namespace Lis.Units.Projectile
 
         protected override void HitTarget(UnitController target)
         {
-            target.BaseGetHit(_power, Color.black);
+            StartCoroutine(target.GetHit(_attack));
             HitConnected();
         }
     }

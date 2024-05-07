@@ -8,17 +8,19 @@ using UnityEngine;
 
 namespace Lis.Units.Boss.Attack
 {
+    using Units.Attack;
+
     public class AttackController : MonoBehaviour
     {
         protected BattleManager BattleManager;
         RangedOpponentManager _rangedOpponentManager;
 
-        protected Attack Attack;
+        protected AttackBoss Attack;
         BossController _bossController;
 
         protected HeroController HeroController;
 
-        public void Initialize(Attack attack, BossController bossController)
+        public void Initialize(AttackBoss attack, BossController bossController)
         {
             Attack = attack;
             _bossController = bossController;
@@ -49,7 +51,7 @@ namespace Lis.Units.Boss.Attack
 
             p.transform.position = spawnPos;
             p.Initialize(1);
-            p.Shoot(_bossController, dir, Attack.ProjectileDuration, Attack.ProjectilePower);
+            p.Shoot(dir, Attack.ProjectileDuration);
         }
     }
 }

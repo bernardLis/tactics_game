@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lis.Battle;
 using Lis.Core;
+using Lis.Units.Attack;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace Lis.Units.Hero.Ability
         public Sprite Icon;
         public int Level;
 
-        public List<Level> Levels;
+        public List<AttackHeroAbility> Levels;
         public bool IsArmorPiercing;
 
         [FormerlySerializedAs("Element")] public Nature Nature;
@@ -47,7 +48,6 @@ namespace Lis.Units.Hero.Ability
         float _scaleMultiplier = 1f;
 
         public int BattleTimeActivated;
-        public int DamageDealt;
 
         Hero _hero;
 
@@ -65,14 +65,22 @@ namespace Lis.Units.Hero.Ability
             BattleTimeActivated = Mathf.FloorToInt(BattleManager.Instance.GetTime());
         }
 
-        public void AddDamageDealt(int dmg)
+        public float GetTotalDamageDealt()
         {
-            DamageDealt += dmg;
+            int dmg = 0;
+            foreach (Attack.Attack a in Levels)
+                dmg += a.DamageDealt;
+            return dmg;
         }
 
         public float GetDpsSinceActive()
         {
-            return DamageDealt / (BattleManager.Instance.GetTime() - BattleTimeActivated);
+            return GetTotalDamageDealt() / (BattleManager.Instance.GetTime() - BattleTimeActivated);
+        }
+
+        public Attack.Attack GetCurrentLevel()
+        {
+            return Levels[Level];
         }
 
         public void StartCooldown()
@@ -87,7 +95,7 @@ namespace Lis.Units.Hero.Ability
 
         public int GetPower(int abilityLevel)
         {
-            float pow = Levels[abilityLevel].Power;
+            float pow = Levels[abilityLevel].Damage;
             if (_hero == null) return Mathf.FloorToInt(pow);
             pow += _hero.Power.GetValue(); // hero power
             Tablet t = _hero.GetTabletByElement(Nature.NatureName);

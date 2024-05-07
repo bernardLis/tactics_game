@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lis.Units;
+using Lis.Units.Attack;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -129,14 +130,14 @@ namespace Lis.Battle.Fight
             OnEnemyUnitAdded?.Invoke(b);
         }
 
-        void PlayerUnitDies(UnitController be, UnitController killer)
+        void PlayerUnitDies(UnitController be, Attack attack)
         {
             KilledPlayerUnits.Add(be);
             PlayerUnits.Remove(be);
             OnPlayerUnitDeath?.Invoke(be);
         }
 
-        void EnemyUnitDies(UnitController be, UnitController killer)
+        void EnemyUnitDies(UnitController be, Attack attack)
         {
             KilledEnemyUnits.Add(be.Unit);
             EnemyUnits.Remove(be);

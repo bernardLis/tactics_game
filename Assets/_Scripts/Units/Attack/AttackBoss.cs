@@ -1,11 +1,12 @@
-using Lis.Core;
+using Lis.Units.Boss;
+using Lis.Units.Boss.Attack;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Lis.Units.Boss.Attack
+namespace Lis.Units.Attack
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Boss/Attack")]
-    public class Attack : BaseScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Attacks/Attack Boss")]
+    public class AttackBoss : Attack
     {
         public Sprite Icon;
         public string Description;

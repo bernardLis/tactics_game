@@ -24,7 +24,7 @@ namespace Lis.Units
             _animator = GetComponentInChildren<Animator>();
 
             UnitController = unitController;
-            _currentAttackCooldown = unitController.Unit.AttackCooldown.GetValue();
+            _currentAttackCooldown = unitController.Unit.CurrentAttack.Cooldown;
         }
 
         void Update()
@@ -45,7 +45,7 @@ namespace Lis.Units
             OnAttackReady?.Invoke();
 
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name}");
-            _currentAttackCooldown = UnitController.Unit.AttackCooldown.GetValue();
+            _currentAttackCooldown = UnitController.Unit.CurrentAttack.Cooldown;
 
             if (UnitController.Unit.AttackSound != null)
                 _audioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
@@ -68,7 +68,7 @@ namespace Lis.Units
         public virtual IEnumerator AttackCoroutine()
         {
             yield return BaseAttackCoroutine();
-            yield return UnitController.Opponent.GetHit(UnitController);
+            yield return UnitController.Opponent.GetHit(UnitController.Unit.CurrentAttack);
         }
 
         public bool IsOpponentInRange()
@@ -79,8 +79,8 @@ namespace Lis.Units
             // +0.5 wiggle room
             Vector3 delta = UnitController.Opponent.transform.position - transform.position;
             float distanceSqrt = delta.sqrMagnitude;
-            float attackRangeSqrt = (UnitController.Unit.AttackRange.GetValue() + 0.5f) *
-                                    (UnitController.Unit.AttackRange.GetValue() + 0.5f);
+            float attackRangeSqrt = (UnitController.Unit.CurrentAttack.Range + 0.5f) *
+                                    (UnitController.Unit.CurrentAttack.Range + 0.5f);
             return distanceSqrt <= attackRangeSqrt;
         }
     }

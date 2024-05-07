@@ -23,22 +23,22 @@ MonoBehaviour:
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
   HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
-  TotalDamageTaken: 0
+  LevelUpSound: {fileID: 0}
   TotalKillCount: 0
-  TotalDamageDealt: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: 5c6f17419fea37c458b755b85a7e3e24, type: 2}
   CurrentHealth: {fileID: 0}
   Armor: {fileID: 11400000, guid: ecd49a1b093dd6a4c8f74c9d30937c15, type: 2}
   Speed: {fileID: 11400000, guid: f0e6de126b34376449a7f98ba3e15f75, type: 2}
   Power: {fileID: 11400000, guid: ae27119d42a79af4894bea3a66b361f8, type: 2}
-  AttackRange: {fileID: 0}
-  AttackCooldown: {fileID: 0}
   Level: {fileID: 0}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
-  TimesPicked: 19
+  _attacksOriginal:
+  - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  CurrentAttack: {fileID: 0}
+  TimesPicked: 0
   SelectorPrefab: {fileID: 3132514255091843268, guid: 4b2950c20462e61488191b844ca017fa, type: 3}
   Pull: {fileID: 11400000, guid: 9e4a27dc8f7c4084292d8bb0a608bd43, type: 2}
   BonusExp: {fileID: 11400000, guid: 126124eb1b0e2d04c98ecfece32de864, type: 2}

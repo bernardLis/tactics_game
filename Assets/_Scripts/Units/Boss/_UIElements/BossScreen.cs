@@ -1,4 +1,4 @@
-
+using Lis.Units.Attack;
 using UnityEngine.UIElements;
 
 namespace Lis.Units.Boss
@@ -6,6 +6,7 @@ namespace Lis.Units.Boss
     public class BossScreen : UnitScreen
     {
         readonly Boss _boss;
+
         public BossScreen(Boss boss) : base(boss)
         {
             _boss = boss;
@@ -33,10 +34,9 @@ namespace Lis.Units.Boss
 
             foreach (var attack in _boss.Attacks)
             {
-                BossAttackElement attackElement = new(attack);
+                BossAttackElement attackElement = new((AttackBoss)attack);
                 container.Add(attackElement);
             }
         }
-
     }
 }

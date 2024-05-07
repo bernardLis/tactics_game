@@ -15,11 +15,11 @@ namespace Lis.Units
             unitController.OnHit += ShowHitEffect;
         }
 
-        void ShowHitEffect(NatureName natureName)
+        void ShowHitEffect(Attack.Attack attack)
         {
             foreach (HitEffectNature hitEffectNature in _hitEffectNatures)
             {
-                if (hitEffectNature.NatureName != natureName) continue;
+                if (hitEffectNature.NatureName != attack.Nature.NatureName) continue;
                 if (hitEffectNature.EffectGameObject.activeSelf) continue;
                 StartCoroutine(ShowHitEffect(hitEffectNature.EffectGameObject));
                 break;

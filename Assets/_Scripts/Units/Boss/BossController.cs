@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units.Boss
 {
+    using Attack;
+    using Units.Attack;
+
+
     public class BossController : UnitController
     {
         [Header("Boss")]
@@ -17,7 +21,7 @@ namespace Lis.Units.Boss
         [SerializeField] Sound _stunDuration;
         AudioSource _stunAudioSource;
 
-        [Header("Attacks")] readonly List<Attack.Attack> _attacks = new();
+        [Header("Attacks")] readonly List<Units.Attack.Attack> _attacks = new();
         IEnumerator _attackCoroutine;
 
         Color _stunColor;
@@ -57,7 +61,7 @@ namespace Lis.Units.Boss
 
             InitializeAttacks();
             RunUnit();
-            StartAttackCoroutine();
+            // StartAttackCoroutine();
         }
 
         protected override IEnumerator RunUnitCoroutine()
@@ -88,44 +92,44 @@ namespace Lis.Units.Boss
         void InitializeAttacks()
         {
             Boss boss = (Boss)Unit;
-            foreach (Attack.Attack original in boss.Attacks)
+            foreach (Units.Attack.Attack original in boss.Attacks)
             {
-                Attack.Attack attack = Instantiate(original);
-                attack.Initialize(this);
+                Units.Attack.Attack attack = Instantiate(original);
+                attack.InitializeAttack(this.Unit);
                 _attacks.Add(attack);
             }
         }
 
-        void StartAttackCoroutine()
-        {
-            _attackCoroutine = AttackCoroutine();
-            StartCoroutine(_attackCoroutine);
-        }
+        // void StartAttackCoroutine()
+        // {
+        //     _attackCoroutine = AttackCoroutine();
+        //     StartCoroutine(_attackCoroutine);
+        // }
 
-        IEnumerator AttackCoroutine()
-        {
-            while (true)
-            {
-                foreach (Attack.Attack t in _attacks)
-                {
-                    if (_isStunned) yield break;
-                    yield return AttackCooldownCoroutine(t);
-                    yield return t.AttackController.Execute();
-                }
-            }
-        }
+        // IEnumerator AttackCoroutine()
+        // {
+        //     while (true)
+        //     {
+        //         foreach (Units.Attack.Attack t in _attacks)
+        //         {
+        //             if (_isStunned) yield break;
+        //             yield return AttackCooldownCoroutine(t);
+        //             yield return t.AttackController.Execute();
+        //         }
+        //     }
+        // }
+        //
+        // IEnumerator AttackCooldownCoroutine(Attack.Attack attack)
+        // {
+        //     for (int i = 0; i < attack.CooldownSeconds; i++)
+        //     {
+        //         while (_isStunned) yield return new WaitForSeconds(1f);
+        //         yield return new WaitForSeconds(1f);
+        //     }
+        // }
 
-        IEnumerator AttackCooldownCoroutine(Attack.Attack attack)
-        {
-            for (int i = 0; i < attack.CooldownSeconds; i++)
-            {
-                while (_isStunned) yield return new WaitForSeconds(1f);
-                yield return new WaitForSeconds(1f);
-            }
-        }
 
-
-        /* GET HIT */
+        /* GET HIT
         public override void BaseGetHit(int dmg, Color color, UnitController attacker = null)
         {
             if (_isStunned) dmg *= 2;
@@ -146,6 +150,7 @@ namespace Lis.Units.Boss
 
             HandleStun(d);
         }
+        */
 
         void HandleStun(int dmg)
         {
@@ -208,7 +213,7 @@ namespace Lis.Units.Boss
             CurrentStunDuration.SetValue(0);
         }
 
-        protected override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(Units.Attack.Attack attack = null, bool hasLoot = true)
         {
             StopUnit();
             BattleManager.WinBattle();

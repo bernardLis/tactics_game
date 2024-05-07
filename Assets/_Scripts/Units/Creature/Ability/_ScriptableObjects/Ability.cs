@@ -10,8 +10,9 @@ namespace Lis.Units.Creature.Ability
         public string Description;
 
         public Sprite Icon;
-        public int Cooldown;
         public Sound Sound;
+
+        public Attack.Attack Attack;
 
         public int UnlockLevel;
 

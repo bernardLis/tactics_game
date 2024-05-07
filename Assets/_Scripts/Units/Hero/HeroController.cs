@@ -58,15 +58,7 @@ namespace Lis.Units.Hero
             abilityPrefab.GetComponent<Ability.Controller>().Initialize(ability);
         }
 
-        public override IEnumerator GetHit(UnitController attacker, int specialDamage = 0)
-        {
-            UnitLog.Add($"{BattleManager.GetTime()}: Hero gets hit by {attacker.name}");
-            int damage = Unit.CalculateDamage(attacker.Unit);
-            BaseGetHit(damage, HealthColor);
-            yield return null;
-        }
-
-        protected override IEnumerator DieCoroutine(UnitController attacker = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
             _movementController.enabled = false;
             BattleManager.LoseBattle();
@@ -85,12 +77,6 @@ namespace Lis.Units.Hero
 
         public override void GetEngaged(UnitController attacker)
         {
-        }
-
-        [ContextMenu("Get Hit")]
-        public void GetHitContextMenu()
-        {
-            BaseGetHit(5, default);
         }
 
         [ContextMenu("Add Advanced Tablet")]

@@ -103,21 +103,20 @@ MonoBehaviour:
   DeathSound: {fileID: 11400000, guid: 119581ae922d8b347adf77cb51fbb4cb, type: 2}
   AttackSound: {fileID: 0}
   HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
-  TotalDamageTaken: 0
+  LevelUpSound: {fileID: 0}
   TotalKillCount: 0
-  TotalDamageDealt: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: 376a6ceda5cbaf44690541bd62c53e18, type: 2}
   CurrentHealth: {fileID: 0}
   Armor: {fileID: 11400000, guid: 978fc52d962bc954fb44172e876c1e56, type: 2}
   Speed: {fileID: 11400000, guid: 474cc4bf43ab8f24fa6a2c78337b08d9, type: 2}
   Power: {fileID: 11400000, guid: 4b45102dcb7e83949b42c21c5f4c8b3e, type: 2}
-  AttackRange: {fileID: 11400000, guid: af52f8a8302503c448888030647df263, type: 2}
-  AttackCooldown: {fileID: 11400000, guid: bd74b7601181ad2428806419def9c9a1, type: 2}
   Level: {fileID: 11400000, guid: aa0322021db35e44b954a47817fe3e09, type: 2}
   Experience: {fileID: 0}
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
+  _attacksOriginal:
+  - {fileID: 11400000, guid: f3d040ffcdb6fc34aaecdc59f82af05c, type: 2}
+  CurrentAttack: {fileID: 0}
   UpgradeTier: 0
   Ability: {fileID: 11400000, guid: b98ddcdbf8212594f916e06f7b6d0b19, type: 2}
-  Projectile: {fileID: 5802316041734254259, guid: 0a05600f2739b604a9c00ac998f4aa66, type: 3}
