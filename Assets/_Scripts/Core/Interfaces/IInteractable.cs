@@ -1,7 +1,7 @@
 
 using Lis.Units.Hero;
 
-namespace Lis
+namespace Lis.Core
 {
     public interface IInteractable
     {

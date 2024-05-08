@@ -4,7 +4,7 @@ using DG.Tweening;
 using Lis.Core;
 using UnityEngine;
 
-namespace Lis.Units
+namespace Lis.Units.Attack
 {
     public class AttackController : MonoBehaviour
     {
@@ -16,11 +16,11 @@ namespace Lis.Units
         protected UnitController UnitController;
         float _currentAttackCooldown;
 
-        protected Attack.Attack Attack;
+        protected Attack Attack;
 
         public event Action OnAttackReady;
 
-        public virtual void Initialize(UnitController unitController, Attack.Attack attack)
+        public virtual void Initialize(UnitController unitController, Attack attack)
         {
             _audioManager = AudioManager.Instance;
             _animator = unitController.GetComponentInChildren<Animator>();
@@ -53,7 +53,8 @@ namespace Lis.Units
 
             if (UnitController.Unit.AttackSound != null)
                 _audioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
-            yield return transform.DODynamicLookAt(UnitController.Opponent.transform.position, 0.2f, AxisConstraint.Y);
+            yield return transform.DODynamicLookAt(UnitController.Opponent.transform.position,
+                0.2f, AxisConstraint.Y);
             _animator.SetTrigger(AnimAttack);
 
             bool isAttack = false;
@@ -61,7 +62,8 @@ namespace Lis.Units
             {
                 if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack"))
                     isAttack = true;
-                bool isAttackFinished = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
+                bool isAttackFinished =
+                    _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
 
                 if (isAttack && isAttackFinished) break;
 

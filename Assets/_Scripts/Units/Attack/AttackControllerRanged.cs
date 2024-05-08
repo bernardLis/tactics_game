@@ -2,14 +2,14 @@
 using Lis.Units.Projectile;
 using UnityEngine;
 
-namespace Lis.Units
+namespace Lis.Units.Attack
 {
     public class AttackControllerRanged : AttackController
     {
         [SerializeField] GameObject _projectilePrefab;
         ProjectilePoolManager _projectilePoolManager;
 
-        public override void Initialize(UnitController unitController, Attack.Attack attack)
+        public override void Initialize(UnitController unitController, Attack attack)
         {
             base.Initialize(unitController, attack);
             _projectilePoolManager = GetComponent<ProjectilePoolManager>();
@@ -29,7 +29,7 @@ namespace Lis.Units
             if (UnitController.Opponent == null) yield break;
             Vector3 dir = (UnitController.Opponent.transform.position - transform.position).normalized;
             dir.y = 0;
-            projectileController.Shoot(dir);
+            projectileController.Shoot(dir, 5);
         }
     }
 }

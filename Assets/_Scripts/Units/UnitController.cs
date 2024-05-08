@@ -8,6 +8,7 @@ using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units.Attack;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Serialization;

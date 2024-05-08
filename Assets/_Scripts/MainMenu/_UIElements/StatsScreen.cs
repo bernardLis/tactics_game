@@ -6,7 +6,7 @@ using Lis.Units.Hero.Tablets;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.MainMenu._UIElements
 {
     public class StatsScreen : FullScreenElement
     {

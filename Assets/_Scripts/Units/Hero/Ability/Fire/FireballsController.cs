@@ -28,7 +28,7 @@ namespace Lis.Units.Hero.Ability
                 Transform t = projectileController.transform;
                 t.localScale = Vector3.one * Ability.GetScale();
                 t.position = transform.position + projectileVariance * i;
-                projectileController.Shoot(dir + projectileVariance * i);
+                projectileController.Shoot(dir + projectileVariance * i, 5);
             }
         }
 

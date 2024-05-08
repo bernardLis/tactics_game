@@ -5,6 +5,7 @@ using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
+using Lis.Units.Attack;
 using UnityEngine;
 
 namespace Lis.Units.Creature.Ability

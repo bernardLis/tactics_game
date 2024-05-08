@@ -29,7 +29,7 @@ namespace Lis.Units.Projectile
         protected int Team;
         protected Attack.Attack Attack;
 
-        protected float Time;
+        float _time;
         protected Vector3 Direction;
 
         protected bool IsHitConnected;
@@ -50,8 +50,10 @@ namespace Lis.Units.Projectile
                 _collider.excludeLayers = LayerMask.GetMask("Team 1");
         }
 
-        public void Shoot(Vector3 dir)
+        public virtual void Shoot(Vector3 dir, float time)
         {
+            _time = time;
+
             Transform t = transform;
             Vector3 scale = t.localScale;
             float targetScale = scale.x;
@@ -76,17 +78,17 @@ namespace Lis.Units.Projectile
                 _audioManager.PlaySfx(_shootSound, transform.position);
         }
 
-        protected IEnumerator ShootInDirectionCoroutine(Vector3 dir)
+        IEnumerator ShootInDirectionCoroutine(Vector3 dir)
         {
             Direction = dir;
             Direction.Normalize();
             Direction.y = 0;
 
             float t = 0;
-            while (t <= Time)
+            while (t <= _time)
             {
-                transform.position += Direction * (Speed * UnityEngine.Time.fixedDeltaTime);
-                t += UnityEngine.Time.fixedDeltaTime;
+                transform.position += Direction * (Speed * Time.fixedDeltaTime);
+                t += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
 

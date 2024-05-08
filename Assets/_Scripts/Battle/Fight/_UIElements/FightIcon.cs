@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Lis.Core;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Battle.Fight
 {
     public class FightIcon : ElementWithTooltip
     {
