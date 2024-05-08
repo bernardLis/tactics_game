@@ -18,16 +18,12 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 544b5b62b9d91b2409bde5e162f4f1ea, type: 3}
   Level: 0
   Levels:
-  - {fileID: 11400000, guid: 87377564040496448bb35dbf36b430b7, type: 2}
-  - {fileID: 11400000, guid: 82205076786cbbf4b8ed766d6701aef0, type: 2}
-  - {fileID: 11400000, guid: 18c23bebb70d61241af715a109512a1a, type: 2}
-  - {fileID: 11400000, guid: b2f189f748cdfc249906cff9a1fa99b3, type: 2}
-  - {fileID: 11400000, guid: 6dff2dc13cfe9764782725acfefa3317, type: 2}
-  IsArmorPiercing: 0
+  - {fileID: 11400000, guid: 52b5401208592914eae4ca26907c982a, type: 2}
+  - {fileID: 11400000, guid: ad0083677c5804640bb48ad96509d00b, type: 2}
+  - {fileID: 11400000, guid: 87e783e6e32ba494d8eec6ebdb2bc583, type: 2}
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   KillCount: 228
   IsAdvanced: 0
   AbilityManagerPrefab: {fileID: 1356729713075176178, guid: 01d130741b03ab341946762dbaedae09, type: 3}
   ExecuteSound: {fileID: 11400000, guid: 2282d3513647db244a81180978d4109d, type: 2}
   BattleTimeActivated: 76
-  DamageDealt: 0

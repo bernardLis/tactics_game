@@ -71,7 +71,7 @@ namespace Lis.Units.Hero.Ability
             Add(_duration);
 
             if (isUpgrade) HandleUpgrade();
-            if (!ability.IsArmorPiercing) return;
+            if (!ability.GetCurrentLevel().IsArmorPiercing) return;
 
             Label armorPiercing = new("Armor Piercing");
             armorPiercing.AddToClassList(_ussCommonTextSecondary);

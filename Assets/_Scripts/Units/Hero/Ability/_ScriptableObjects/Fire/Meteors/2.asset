@@ -9,13 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62df120f5241fe447afccb5c311b8b22, type: 3}
+  m_Script: {fileID: 11500000, guid: 92b51db309bbe84428f4559ba77ad315, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  Id: 08fe5652-6537-4974-abce-c474d837ba69
-  Power: 40
+  Id: a0dc6fe9-d874-496b-8a2d-9be08798a72b
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Damage: 20
+  Range: 0
   Cooldown: 9
-  Scale: 6
+  IsArmorPiercing: 0
+  DamageDealt: 0
+  AttackControllerPrefab: {fileID: 0}
+  AttackController: {fileID: 0}
+  Scale: 4
   Amount: 1
   Duration: 3.5
   Price: 100

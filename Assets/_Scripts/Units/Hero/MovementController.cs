@@ -29,7 +29,7 @@ namespace Lis.Units.Hero
         CharacterController _controller;
         Transform _gfx;
 
-        Vector3 _movementDirection;
+        Vector3 _inputDirection;
         bool _disableUpdate;
 
         // player
@@ -104,10 +104,11 @@ namespace Lis.Units.Hero
             ZoomCameraSmoothly();
 
             // keeping player grounded
-            Transform t = transform;
-            Vector3 position = t.position;
-            position = new(position.x, -0.035f, position.z);
-            t.position = position;
+            // HERE:
+            // Transform t = transform;
+            // Vector3 position = t.position;
+            // position = new(position.x, -0.035f, position.z);
+            // t.position = position;
         }
 
         void AssignAnimationIDs()
@@ -181,14 +182,14 @@ namespace Lis.Units.Hero
             Vector3 inputValue = context.ReadValue<Vector2>();
             inputValue = inputValue.normalized;
 
-            _movementDirection = new Vector3(inputValue.x, 0, inputValue.y);
+            _inputDirection = new Vector3(inputValue.x, 0, inputValue.y);
         }
 
         void ResetMovementVector(InputAction.CallbackContext context)
         {
-            _movementDirection = Vector3.zero;
+            _inputDirection = Vector3.zero;
 
-            // recenter transform, idk if it is a good idea but it's here just in case... xD
+            // recenter transform, is it a good idea? It's here just in case... xD
             if (_animator == null) return;
             _animator.transform.DOKill();
             _animator.transform.DOLocalMove(Vector3.zero, 1f);
@@ -201,7 +202,8 @@ namespace Lis.Units.Hero
 
         void Move()
         {
-            if (!IsGrounded()) return;
+            // if (!IsGrounded()) return;
+
 
             float targetSpeed = MoveSpeed;
             if (_isSprinting) targetSpeed *= 1.5f;
@@ -212,7 +214,7 @@ namespace Lis.Units.Hero
                 velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = _movementDirection.magnitude;
+            float inputMagnitude = _inputDirection.magnitude;
             _speed = targetSpeed;
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
@@ -222,17 +224,19 @@ namespace Lis.Units.Hero
                 _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
             }
 
-            Vector3 inputDirection = _movementDirection.normalized;
+            Vector3 moveDir = _inputDirection.normalized;
+            moveDir.y = 0f;
 
-            // move
-            Vector3 targetDirection = inputDirection;
-            targetDirection.y = -0.01f;
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime));
+            // TODO: then gravity only works when character is moving :))))
+            if (!IsGrounded())
+                moveDir.y -= 9.81f * Time.deltaTime;
+
+            _controller.Move(moveDir.normalized * (_speed * Time.deltaTime));
         }
 
         bool IsGrounded()
         {
-            return transform.position.y < 0.1f;
+            return transform.position.y < 0.04f;
         }
 
         void SetAnimationBlend()
@@ -240,7 +244,7 @@ namespace Lis.Units.Hero
             _animationBlend = Mathf.Lerp(_animationBlend, _speed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            Vector3 inputDirection = _movementDirection.normalized;
+            Vector3 inputDirection = _inputDirection.normalized;
             Transform t = _gfx.transform;
             Vector3 forward = t.forward;
             Vector3 right = t.right;

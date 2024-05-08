@@ -25,7 +25,6 @@ namespace Lis.Units.Hero.Ability
         public int Level;
 
         public List<AttackHeroAbility> Levels;
-        public bool IsArmorPiercing;
 
         [FormerlySerializedAs("Element")] public Nature Nature;
         [HideInInspector] public int KillCount;
@@ -63,7 +62,10 @@ namespace Lis.Units.Hero.Ability
             _scaleMultiplier = 1 + scaleUpgrade * 0.01f;
 
             BattleTimeActivated = Mathf.FloorToInt(BattleManager.Instance.GetTime());
+
+            Levels.ForEach(l => l.InitializeAttack(hero));
         }
+
 
         public float GetTotalDamageDealt()
         {

@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 6972023457666767759}
   - component: {fileID: 4216671290113528546}
   - component: {fileID: 7039306041668463446}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TempleWall_B (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1735,7 +1735,7 @@ GameObject:
   - component: {fileID: 6428905043331548303}
   - component: {fileID: 3419419893565863722}
   - component: {fileID: 693135193133595741}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TempleWall_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2278,7 +2278,7 @@ GameObject:
   - component: {fileID: 1162284215078686924}
   - component: {fileID: 6400306839686896913}
   - component: {fileID: 804894800963549015}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TempleWall_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2654,7 +2654,7 @@ GameObject:
   - component: {fileID: 3801519025765530821}
   - component: {fileID: 8876023926263621965}
   - component: {fileID: 8006313823933497266}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Spawnable Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2717,7 +2717,7 @@ GameObject:
   - component: {fileID: 5774988736978202743}
   - component: {fileID: 5774988736978202736}
   - component: {fileID: 4174743871607398981}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TempleArcPillar_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9002,7 +9002,7 @@ GameObject:
   - component: {fileID: 194045924381042509}
   - component: {fileID: 5817798425040944141}
   - component: {fileID: 8809398589351192349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TempleWall_B (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9485,7 +9485,7 @@ GameObject:
   - component: {fileID: 8950985180222222438}
   - component: {fileID: 478075642027522110}
   - component: {fileID: 8273257683381605035}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Spawnable Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9722,7 +9722,7 @@ GameObject:
   - component: {fileID: 4240988041031602626}
   - component: {fileID: 4123435531518650715}
   - component: {fileID: 4394515481530004112}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Spawnable Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10383,7 +10383,7 @@ GameObject:
   - component: {fileID: 4269657160028287702}
   - component: {fileID: 2711000313941531232}
   - component: {fileID: 3998336517676827419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TempleArcPillar_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10688,6 +10688,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TemplePillar_A (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 479200424430232422, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 479200424430232442, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.49
@@ -10812,6 +10816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TemplePillar_A (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 479200424430232422, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 479200424430232442, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.13
@@ -10874,6 +10882,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TempleCircle_A
       objectReference: {fileID: 0}
+    - target: {fileID: 4871709356803489779, guid: bea5de77ab0b75e4a8d56a921e7ce630, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6113872440185868540, guid: bea5de77ab0b75e4a8d56a921e7ce630, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10916,7 +10928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8212380035645469209, guid: bea5de77ab0b75e4a8d56a921e7ce630, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11134,6 +11146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TemplePillar_A
       objectReference: {fileID: 0}
+    - target: {fileID: 479200424430232422, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 479200424430232442, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.13
@@ -11195,6 +11211,10 @@ PrefabInstance:
     - target: {fileID: 479200424430232422, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
       propertyPath: m_Name
       value: TemplePillar_A (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 479200424430232422, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 479200424430232442, guid: 4d1fa22d899e1ca46b2276ffda0f9c19, type: 3}
       propertyPath: m_LocalPosition.x
