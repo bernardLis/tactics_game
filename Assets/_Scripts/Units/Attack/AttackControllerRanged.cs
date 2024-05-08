@@ -18,7 +18,11 @@ namespace Lis.Units.Attack
 
         public override IEnumerator AttackCoroutine()
         {
-            yield return BaseAttackCoroutine();
+            if (!IsOpponentInRange()) yield break;
+
+            BaseAttack();
+            yield return BasicAttackCoroutine();
+
             ProjectileController projectileController = _projectilePoolManager.GetObjectFromPool();
             projectileController.Initialize(UnitController.Team, Attack);
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Units.Creature.Ability;
 using UnityEngine;
 
 namespace Lis.Units.Creature
@@ -10,7 +9,6 @@ namespace Lis.Units.Creature
         public Creature Creature { get; private set; }
 
         [SerializeField] GameObject _respawnEffect;
-        Controller _abilityController;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -21,14 +19,6 @@ namespace Lis.Units.Creature
             Creature = (Creature)unit;
             Creature.OnLevelUp -= OnLevelUp; // just in case I initialize it twice :))))
             Creature.OnLevelUp += OnLevelUp;
-        }
-
-        protected override void EnableSelf()
-        {
-            base.EnableSelf();
-
-            if (_abilityController != null)
-                _abilityController.StartAbilityCooldownCoroutine();
         }
 
         protected override void OnFightEnded()
@@ -58,13 +48,10 @@ namespace Lis.Units.Creature
             DisplayFloatingText("Level Up!", Color.white);
             Creature.CurrentHealth.SetValue(Mathf.FloorToInt(Creature.MaxHealth.GetValue()));
 
-            if (Creature.Ability is null ||
-                Creature.Level.Value != Creature.Ability.UnlockLevel) return;
-            Creature.Ability.Unlock();
+            if (Creature.SpecialAttack is null || Creature.Level.Value != 6) return;
             DisplayFloatingText("Ability Unlocked!", Color.white);
-            _abilityController = Instantiate(Creature.Ability.Prefab, transform)
-                .GetComponent<Controller>();
-            _abilityController.Initialize(this);
+            Creature.SpecialAttack.InitializeAttack(this);
+            Creature.AddAttack(Creature.SpecialAttack);
         }
 
         protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)

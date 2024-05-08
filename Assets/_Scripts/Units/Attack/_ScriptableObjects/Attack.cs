@@ -6,12 +6,16 @@ namespace Lis.Units.Attack
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Attacks/Attack")]
     public class Attack : BaseScriptableObject
     {
+        public Sprite Icon;
+        public string Description;
+
         public Nature Nature;
         public float Damage;
         public float Range;
         public float Cooldown;
         public bool IsArmorPiercing;
 
+        public Sound Sound;
         [HideInInspector] public int DamageDealt;
 
         public AttackController AttackControllerPrefab;

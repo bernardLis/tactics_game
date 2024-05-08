@@ -7,9 +7,6 @@ namespace Lis.Units.Attack
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Attacks/Attack Boss")]
     public class AttackBoss : Attack
     {
-        public Sprite Icon;
-        public string Description;
-
         [Header("Attack Params")]
         public int CooldownSeconds = 5;
 

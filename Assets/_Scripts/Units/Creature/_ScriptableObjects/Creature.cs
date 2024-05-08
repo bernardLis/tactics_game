@@ -11,7 +11,7 @@ namespace Lis.Units.Creature
     {
         [Header("Creature")] public int UpgradeTier;
 
-        public Ability.Ability Ability;
+        public Attack.Attack SpecialAttack;
 
         public override void InitializeBattle(int team)
         {
@@ -28,12 +28,12 @@ namespace Lis.Units.Creature
 
             if (UnitName.Length == 0) UnitName = Helpers.ParseScriptableObjectName(name);
 
-            Ability = Instantiate(Ability);
+            SpecialAttack = Instantiate(SpecialAttack);
         }
 
         public bool IsAbilityUnlocked()
         {
-            return Level.Value >= Ability.UnlockLevel;
+            return Level.Value >= 6;
         }
 
         public override void AddKill(Unit unit)

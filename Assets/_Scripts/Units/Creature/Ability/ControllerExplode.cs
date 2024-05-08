@@ -15,9 +15,9 @@ namespace Lis.Units.Creature.Ability
 
             _effect.SetActive(true);
             foreach (UnitController be in GetOpponentsInRadius(_explosionRadius))
-                StartCoroutine(be.GetHit(Creature.Ability.Attack));
+                //  StartCoroutine(be.GetHit(Creature.Ability.Attack));
 
-            Invoke(nameof(CleanUp), 2f);
+                Invoke(nameof(CleanUp), 2f);
             yield return base.ExecuteAbilityCoroutine();
         }
 

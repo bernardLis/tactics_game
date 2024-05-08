@@ -16,8 +16,6 @@ namespace Lis.Units.Creature.Ability
                 yield break;
             }
 
-            CreatureController.UnitLog.Add(
-                $"{BattleManager.GetTime()}: Unit uses ability {Creature.Ability.name}");
 
             CreatureController.StopUnit();
 
@@ -34,8 +32,8 @@ namespace Lis.Units.Creature.Ability
             // if opp is in range, jump behind him not *10f
             if (AttackController.IsOpponentInRange())
             {
-                targetPosition = transform.position + normal * (Creature.Ability.Attack.Range * 2);
-                StartCoroutine(CreatureController.Opponent.GetHit(Creature.Ability.Attack));
+                // targetPosition = transform.position + normal * (Creature.Ability.Attack.Range * 2);
+                // StartCoroutine(CreatureController.Opponent.GetHit(Creature.Ability.Attack));
             }
 
             Collider.enabled = false;

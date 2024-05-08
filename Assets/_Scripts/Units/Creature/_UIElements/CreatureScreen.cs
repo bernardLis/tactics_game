@@ -1,16 +1,15 @@
-using Lis.Units.Creature.Ability;
 using UnityEngine.UIElements;
 
 namespace Lis.Units.Creature
 {
     public class CreatureScreen : UnitScreen
     {
-        public Creature Creature;
+        readonly Creature _creature;
 
         public CreatureScreen(Creature creature)
             : base(creature)
         {
-            Creature = creature;
+            _creature = creature;
         }
 
         public override void Initialize()
@@ -24,14 +23,14 @@ namespace Lis.Units.Creature
         protected override void AddOtherBasicInfo()
         {
             base.AddOtherBasicInfo();
-            Label upgradeTier = new($"Tier: {Creature.UpgradeTier}");
+            Label upgradeTier = new($"Tier: {_creature.UpgradeTier}");
             OtherContainer.Add(upgradeTier);
         }
 
         void AddAbility()
         {
-            if (Creature.Ability == null) return;
-            OtherContainer.Insert(0, new Element(Creature.Ability, isLocked: !Creature.IsAbilityUnlocked()));
+            if (_creature.SpecialAttack == null) return;
+            // HERE: attack element OtherContainer.Insert(0, new Element(Creature.Ability, isLocked: !Creature.IsAbilityUnlocked()));
         }
     }
 }

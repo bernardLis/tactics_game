@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
+using Lis.Battle.Pickup;
 using Lis.Core;
 using UnityEngine;
 
@@ -9,9 +11,10 @@ namespace Lis.Units.Attack
     public class AttackController : MonoBehaviour
     {
         static readonly int AnimAttack = Animator.StringToHash("Attack");
+        protected static readonly int AnimSpecialAttack = Animator.StringToHash("Special Attack");
 
-        AudioManager _audioManager;
-        Animator _animator;
+        protected AudioManager AudioManager;
+        protected Animator Animator;
 
         protected UnitController UnitController;
 
@@ -21,35 +24,37 @@ namespace Lis.Units.Attack
 
         public virtual void Initialize(UnitController unitController, Attack attack)
         {
-            _audioManager = AudioManager.Instance;
-            _animator = unitController.GetComponentInChildren<Animator>();
+            AudioManager = AudioManager.Instance;
+            Animator = unitController.GetComponentInChildren<Animator>();
 
             Attack = attack;
 
             UnitController = unitController;
         }
 
-        protected IEnumerator BaseAttackCoroutine()
+        protected void BaseAttack()
         {
-            if (!IsOpponentInRange()) yield break;
             OnAttackReady?.Invoke();
 
-            UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name}");
+            UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name} with {Attack.name}");
             StartCoroutine(UnitController.StartAttackCooldown(Attack.Cooldown));
+        }
 
+        protected IEnumerator BasicAttackCoroutine()
+        {
             if (UnitController.Unit.AttackSound != null)
-                _audioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
+                AudioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
             yield return transform.DODynamicLookAt(UnitController.Opponent.transform.position,
                 0.2f, AxisConstraint.Y);
-            _animator.SetTrigger(AnimAttack);
+            Animator.SetTrigger(AnimAttack);
 
             bool isAttack = false;
             while (true)
             {
-                if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack"))
+                if (Animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Attack"))
                     isAttack = true;
                 bool isAttackFinished =
-                    _animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
+                    Animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0.7f;
 
                 if (isAttack && isAttackFinished) break;
 
@@ -59,7 +64,11 @@ namespace Lis.Units.Attack
 
         public virtual IEnumerator AttackCoroutine()
         {
-            yield return BaseAttackCoroutine();
+            if (!IsOpponentInRange()) yield break;
+
+            BaseAttack();
+            yield return BasicAttackCoroutine();
+
             yield return UnitController.Opponent.GetHit(Attack);
         }
 
@@ -74,6 +83,29 @@ namespace Lis.Units.Attack
             float attackRangeSqrt = (Attack.Range + 0.5f) *
                                     (Attack.Range + 0.5f);
             return distanceSqrt <= attackRangeSqrt;
+        }
+
+        protected List<UnitController> GetOpponentsInRadius(float radius)
+        {
+            List<UnitController> opponents = new List<UnitController>();
+            Collider[] colliders = new Collider[25];
+            Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
+            foreach (Collider c in colliders)
+            {
+                if (c == null) continue;
+                if (c.TryGetComponent(out BreakableVaseController bbv))
+                {
+                    bbv.TriggerBreak();
+                    continue;
+                }
+
+                if (!c.TryGetComponent(out UnitController entity)) continue;
+                if (entity.Team == UnitController.Unit.Team) continue;
+                if (entity.IsDead) continue;
+                opponents.Add(entity);
+            }
+
+            return opponents;
         }
     }
 }

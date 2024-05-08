@@ -153,6 +153,11 @@ namespace Lis.Units
             }
         }
 
+        public void AddAttack(Attack.Attack attack)
+        {
+            Attacks.Add(attack);
+        }
+
         public AttackController ChooseAttack()
         {
             CurrentAttack = Attacks[Random.Range(0, Attacks.Count)];

@@ -12,6 +12,8 @@ namespace Lis.Units.Creature.Ability
 {
     public class Controller : MonoBehaviour
     {
+        protected static readonly int AnimAbility = Animator.StringToHash("Special Attack");
+
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
         protected FightManager FightManager;
@@ -29,7 +31,6 @@ namespace Lis.Units.Creature.Ability
 
         float _currentAbilityCooldown;
 
-        protected readonly int AnimAbility = Animator.StringToHash("Creature Ability");
         bool _isInitialized;
 
         IEnumerator _abilityCooldownCoroutine;
@@ -49,7 +50,7 @@ namespace Lis.Units.Creature.Ability
             Animator = creatureController.GetComponentInChildren<Animator>();
             Collider = creatureController.GetComponent<Collider>();
 
-            Ability = Creature.Ability;
+            //Ability = Creature.Ability;
             ResolveAbilityExecution();
             StartAbilityCooldownCoroutine();
         }
@@ -104,7 +105,7 @@ namespace Lis.Units.Creature.Ability
         protected virtual IEnumerator ExecuteAbilityCoroutine()
         {
             // meant to be overwritten, and it goes at the end of ability
-            Creature.Ability.Used();
+          //  Creature.Ability.Used();
             CreatureController.RunUnit();
             StartAbilityCooldownCoroutine();
             yield return null;

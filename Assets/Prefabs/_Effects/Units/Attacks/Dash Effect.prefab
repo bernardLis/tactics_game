@@ -9821,7 +9821,7 @@ GameObject:
   - component: {fileID: 6709353819073990564}
   - component: {fileID: 2771537324608308559}
   m_Layer: 0
-  m_Name: Wolf Pup Dash Effect
+  m_Name: Dash Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

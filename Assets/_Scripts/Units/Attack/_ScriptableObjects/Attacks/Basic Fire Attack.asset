@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Basic Fire Attack
   m_EditorClassIdentifier: 
   Id: 9ddf51bb-6c94-4953-88ba-8326581238e0
+  Icon: {fileID: 21300000, guid: c35b7c83d3ac24d4e8de7c8641919a16, type: 3}
+  Description: 
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Damage: 10
   Range: 1.5
   Cooldown: 3
   IsArmorPiercing: 0
+  Sound: {fileID: 0}
   DamageDealt: 0
   AttackControllerPrefab: {fileID: 4051881534947057373, guid: d0b0569d97c9017489215d55dd5360be, type: 3}
   AttackController: {fileID: 0}
