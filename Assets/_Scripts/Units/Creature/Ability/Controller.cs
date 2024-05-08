@@ -103,7 +103,7 @@ namespace Lis.Units.Creature.Ability
 
         protected virtual IEnumerator ExecuteAbilityCoroutine()
         {
-            // meant to be overwritten and it goes at the end of ability
+            // meant to be overwritten, and it goes at the end of ability
             Creature.Ability.Used();
             CreatureController.RunUnit();
             StartAbilityCooldownCoroutine();

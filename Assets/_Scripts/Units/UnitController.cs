@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Lis.Battle;
 using Lis.Battle.Arena;
@@ -11,7 +12,6 @@ using Lis.Core.Utilities;
 using Lis.Units.Attack;
 using MoreMountains.Feedbacks;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units
@@ -19,6 +19,7 @@ namespace Lis.Units
     public class UnitController : MonoBehaviour
     {
         static readonly int AnimDie = Animator.StringToHash("Die");
+        static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
 
         protected GameManager GameManager;
         protected AudioManager AudioManager;
@@ -32,25 +33,24 @@ namespace Lis.Units
         [Header("Effects")]
         [SerializeField] GameObject _levelUpEffect;
 
-        [FormerlySerializedAs("_deathEffect")] [SerializeField]
-        protected GameObject DeathEffect;
+        [SerializeField] protected GameObject DeathEffect;
 
         protected UnitPathingController UnitPathingController;
-        protected AttackController AttackController;
+        AttackController _attackController;
 
         protected ObjectShaders ObjectShaders;
         public Collider Collider { get; private set; }
         public Animator Animator { get; private set; }
 
         public Unit Unit { get; private set; }
-        string BattleId { get; set; }
         public int Team { get; private set; }
 
-        public UnitController Opponent { get; protected set; }
+        List<UnitController> _opponentList = new();
+        public UnitController Opponent { get; private set; }
 
+        bool _isAttackReady;
         [HideInInspector] public bool IsShielded;
-        protected bool IsEngaged;
-        bool _isPoisoned;
+        bool _isEngaged;
 
         public bool IsDead { get; private set; }
         bool _isDeathCoroutineStarted;
@@ -58,9 +58,7 @@ namespace Lis.Units
         MMF_Player _feelPlayer;
 
         IEnumerator _currentMainCoroutine;
-        protected IEnumerator CurrentSecondaryCoroutine;
-
-        static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
+        IEnumerator _currentSecondaryCoroutine;
 
         Color _healthColor;
         Color _shieldColor;
@@ -82,7 +80,6 @@ namespace Lis.Units
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
 
             ObjectShaders = GetComponent<ObjectShaders>();
-
             Collider = GetComponent<Collider>();
             Animator = GetComponentInChildren<Animator>();
             _feelPlayer = GetComponent<MMF_Player>();
@@ -97,21 +94,18 @@ namespace Lis.Units
             if (unit.SpawnSound != null)
                 AudioManager.PlaySfx(unit.SpawnSound, transform.position);
 
-            EnableSelf();
-
+            Opponent = null;
             Unit = unit;
             Team = team;
             unit.OnLevelUp += OnLevelUp;
-
-            ResolveCollisionLayers(team);
-
-            BattleId = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
-                       + "_" + Helpers.GetRandomNumber(4);
-            name = BattleId;
+            name = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
+                   + "_" + Helpers.GetRandomNumber(4);
 
             _fightManager.OnFightStarted += OnFightStarted;
             _fightManager.OnFightEnded += OnFightEnded;
 
+            EnableSelf();
+            ResolveCollisionLayers(team);
             InitializeControllers();
             InitializeAttacks();
         }
@@ -149,6 +143,12 @@ namespace Lis.Units
             DeathEffect.SetActive(false);
             _isDeathCoroutineStarted = false;
             IsDead = false;
+            _isAttackReady = true;
+        }
+
+        public void SetOpponentList(ref List<UnitController> list)
+        {
+            _opponentList = list;
         }
 
         void ResolveCollisionLayers(int team)
@@ -166,23 +166,9 @@ namespace Lis.Units
             }
         }
 
-        void OnLevelUp()
-        {
-            if (_levelUpEffect == null) return;
-            _levelUpEffect.SetActive(true);
-            if (Unit.LevelUpSound != null)
-                AudioManager.PlaySfx(Unit.LevelUpSound, transform.position);
-            StartCoroutine(DisableLevelUpEffect());
-        }
-
-        IEnumerator DisableLevelUpEffect()
-        {
-            yield return new WaitForSeconds(2f);
-            _levelUpEffect.SetActive(false);
-        }
-
         void OnFightStarted()
         {
+            _isAttackReady = true;
             RunUnit();
         }
 
@@ -217,42 +203,126 @@ namespace Lis.Units
         {
             AddToLog("Stop unit is called");
 
-            if (CurrentSecondaryCoroutine != null)
-                StopCoroutine(CurrentSecondaryCoroutine);
+            if (_currentSecondaryCoroutine != null)
+                StopCoroutine(_currentSecondaryCoroutine);
             if (_currentMainCoroutine != null)
                 StopCoroutine(_currentMainCoroutine);
 
             UnitPathingController.DisableAgent();
-            if (AttackController != null) AttackController.StopAllCoroutines();
         }
 
         protected virtual IEnumerator RunUnitCoroutine()
         {
-            // meant to be overwritten
-            yield return null;
+            while (true)
+            {
+                if (IsDead) yield break;
+                while (_opponentList.Count == 0)
+                    yield return new WaitForSeconds(1f);
+
+                _attackController = Unit.ChooseAttack();
+                _currentSecondaryCoroutine = ManagePathing();
+                yield return _currentSecondaryCoroutine;
+                while (!_isAttackReady) yield return _currentSecondaryCoroutine; // attack cooldown
+                _currentSecondaryCoroutine = _attackController.AttackCoroutine();
+                yield return _currentSecondaryCoroutine;
+            }
         }
 
+        IEnumerator ManagePathing()
+        {
+            if (Opponent == null || Opponent.IsDead)
+                ChooseNewTarget();
+            yield return new WaitForSeconds(0.1f);
+
+            if (Opponent == null) yield break;
+            yield return PathToOpponent();
+        }
+
+        IEnumerator PathToOpponent()
+        {
+            AddToLog($"Pathing to opponent {Opponent.name}");
+            yield return UnitPathingController.PathToTarget(Opponent.transform,
+                Unit.CurrentAttack.Range);
+            Opponent.GetEngaged(this); // otherwise, creature can't catch up
+        }
+
+        void ChooseNewTarget()
+        {
+            if (_opponentList.Count == 0)
+            {
+                Opponent = null;
+                return;
+            }
+
+            Dictionary<UnitController, float> sqrtDistances = new();
+            foreach (UnitController be in _opponentList)
+            {
+                if (be.IsDead) continue;
+                if (sqrtDistances.ContainsKey(be)) continue;
+                Vector3 delta = be.transform.position - transform.position;
+                float distance = delta.sqrMagnitude;
+                sqrtDistances.Add(be, distance);
+            }
+
+            if (sqrtDistances.Count == 0)
+            {
+                Opponent = null;
+                return;
+            }
+
+            UnitController closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
+            AddToLog($"Choosing {closest.name} as new target");
+
+            SetOpponent(closest);
+        }
+
+        void SetOpponent(UnitController opponent)
+        {
+            Opponent = opponent;
+            Opponent.OnDeath += ResetOpponent;
+        }
+
+        void ResetOpponent(UnitController _, Attack.Attack __)
+        {
+            AddToLog("Resetting opponent");
+            if (this == null) return;
+            if (Opponent == null) return;
+            Opponent.OnDeath -= ResetOpponent;
+            Opponent = null;
+            if (!FightManager.IsFightActive) return;
+            if (IsDead) return;
+            RunUnit();
+        }
 
         public virtual void GetEngaged(UnitController attacker)
         {
             if (IsDead) return;
-            if (IsEngaged) return;
-            IsEngaged = true;
+            if (_isEngaged) return;
+            _isEngaged = true;
 
             AddToLog($"Unit gets engaged by {attacker.name}");
-            StopUnit();
-            StartCoroutine(UnitPathingController.PathToTarget(attacker.transform));
+            Opponent = attacker;
+            RunUnit();
             Invoke(nameof(Disengage), Random.Range(2f, 4f));
         }
 
         public void Disengage()
         {
             if (IsDead) return;
-            IsEngaged = false;
+            _isEngaged = false;
             AddToLog("Unit disengages");
-            RunUnit();
         }
 
+        public IEnumerator StartAttackCooldown(float duration)
+        {
+            AddToLog($"Attack cooldown started: {duration}");
+            _isAttackReady = false;
+            yield return new WaitForSeconds(duration);
+            AddToLog($"Attack cooldown ended");
+            _isAttackReady = true;
+        }
+
+        /* HEALTH AND DEATH */
         public bool HasFullHealth()
         {
             return Unit.CurrentHealth.Value >= Unit.MaxHealth.GetValue();
@@ -278,7 +348,6 @@ namespace Lis.Units
 
             if (IsShielded)
             {
-                AddToLog($"Attack is shielded");
                 BreakShield();
                 yield break;
             }
@@ -302,11 +371,13 @@ namespace Lis.Units
                 yield break;
             }
 
+            yield return new WaitForSeconds(0.2f);
             RunUnit();
         }
 
         void BreakShield()
         {
+            AddToLog("Attack is shielded");
             DisplayFloatingText("Shield broken", _shieldColor);
             IsShielded = false;
             OnShieldBroken?.Invoke();
@@ -326,6 +397,8 @@ namespace Lis.Units
             if (_isDeathCoroutineStarted) yield break;
             _isDeathCoroutineStarted = true;
 
+            ResetOpponent(null, null);
+
             Collider.enabled = false;
             DOTween.Kill(transform);
 
@@ -344,9 +417,26 @@ namespace Lis.Units
             _pickupManager.SpawnExpStone(transform.position);
         }
 
-        /* grab */
-        protected virtual void OnGrabbed()
+        /* LEVEL UP */
+        void OnLevelUp()
         {
+            if (_levelUpEffect == null) return;
+            _levelUpEffect.SetActive(true);
+            if (Unit.LevelUpSound != null)
+                AudioManager.PlaySfx(Unit.LevelUpSound, transform.position);
+            StartCoroutine(DisableLevelUpEffect());
+        }
+
+        IEnumerator DisableLevelUpEffect()
+        {
+            yield return new WaitForSeconds(2f);
+            _levelUpEffect.SetActive(false);
+        }
+
+        /* GRAB */
+        void OnGrabbed()
+        {
+            ResetOpponent(default, default);
             StopUnit();
         }
 
@@ -356,7 +446,7 @@ namespace Lis.Units
             else if (!_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
         }
 
-        /* weird helpers */
+        /* WEIRD HELPERS */
         public void DisplayFloatingText(string text, Color color)
         {
             if (_feelPlayer == null) return;

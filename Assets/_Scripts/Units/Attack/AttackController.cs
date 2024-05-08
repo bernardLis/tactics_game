@@ -14,7 +14,6 @@ namespace Lis.Units.Attack
         Animator _animator;
 
         protected UnitController UnitController;
-        float _currentAttackCooldown;
 
         protected Attack Attack;
 
@@ -28,28 +27,15 @@ namespace Lis.Units.Attack
             Attack = attack;
 
             UnitController = unitController;
-            _currentAttackCooldown = Attack.Cooldown;
-        }
-
-        void Update()
-        {
-            if (_currentAttackCooldown >= 0)
-                _currentAttackCooldown -= Time.deltaTime;
-        }
-
-        bool CanAttack()
-        {
-            return _currentAttackCooldown <= 0;
         }
 
         protected IEnumerator BaseAttackCoroutine()
         {
-            while (!CanAttack()) yield return new WaitForSeconds(0.1f);
             if (!IsOpponentInRange()) yield break;
             OnAttackReady?.Invoke();
 
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name}");
-            _currentAttackCooldown = Attack.Cooldown;
+            StartCoroutine(UnitController.StartAttackCooldown(Attack.Cooldown));
 
             if (UnitController.Unit.AttackSound != null)
                 _audioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
