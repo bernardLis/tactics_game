@@ -19,6 +19,7 @@ namespace Lis.Units.Attack
         protected UnitController UnitController;
 
         protected Attack Attack;
+        public float CurrentCooldown { get; private set; }
 
         public event Action OnAttackReady;
 
@@ -37,7 +38,18 @@ namespace Lis.Units.Attack
             OnAttackReady?.Invoke();
 
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name} with {Attack.name}");
-            StartCoroutine(UnitController.StartAttackCooldown(Attack.Cooldown));
+            StartCoroutine(UnitController.GlobalAttackCooldownCoroutine(Attack.GlobalCooldown));
+            StartCoroutine(AttackCooldownCoroutine(Attack.Cooldown));
+        }
+
+        IEnumerator AttackCooldownCoroutine(float cooldown)
+        {
+            CurrentCooldown = cooldown;
+            while (CurrentCooldown > 0)
+            {
+                CurrentCooldown -= 1;
+                yield return new WaitForSeconds(1f);
+            }
         }
 
         protected IEnumerator BasicAttackCoroutine()
@@ -64,6 +76,7 @@ namespace Lis.Units.Attack
 
         public virtual IEnumerator AttackCoroutine()
         {
+            while (CurrentCooldown > 0) yield return new WaitForSeconds(0.1f);
             if (!IsOpponentInRange()) yield break;
 
             BaseAttack();

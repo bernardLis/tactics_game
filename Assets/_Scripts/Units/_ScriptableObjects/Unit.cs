@@ -160,7 +160,17 @@ namespace Lis.Units
 
         public AttackController ChooseAttack()
         {
+            float lowestCooldown = Mathf.Infinity;
             CurrentAttack = Attacks[Random.Range(0, Attacks.Count)];
+
+            foreach (Attack.Attack a in Attacks)
+            {
+                if (a.AttackController == null) continue;
+                if (!(a.AttackController.CurrentCooldown < lowestCooldown)) continue;
+                CurrentAttack = a;
+                lowestCooldown = a.AttackController.CurrentCooldown;
+            }
+
             return CurrentAttack.AttackController;
         }
 

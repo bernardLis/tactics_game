@@ -313,7 +313,7 @@ namespace Lis.Units
             AddToLog("Unit disengages");
         }
 
-        public IEnumerator StartAttackCooldown(float duration)
+        public IEnumerator GlobalAttackCooldownCoroutine(float duration)
         {
             AddToLog($"Attack cooldown started: {duration}");
             _isAttackReady = false;

@@ -13,6 +13,7 @@ namespace Lis.Units.Attack
         public float Damage;
         public float Range;
         public float Cooldown;
+        public float GlobalCooldown = 3;
         public bool IsArmorPiercing;
 
         public Sound Sound;
