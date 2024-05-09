@@ -6,6 +6,7 @@ namespace Lis.Units.Creature.Ability
 {
     public class TooltipElement : VisualElement
     {
+        /*
         const string _ussClassName = "creature-ability-tooltip-element__";
         const string _ussMain = _ussClassName + "main";
 
@@ -29,5 +30,6 @@ namespace Lis.Units.Creature.Ability
             Label cooldown = new($"Cooldown: {ability.Attack.Cooldown}");
             Add(cooldown);
         }
+        */
     }
 }

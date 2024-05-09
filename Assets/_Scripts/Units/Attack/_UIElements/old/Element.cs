@@ -5,6 +5,7 @@ namespace Lis.Units.Creature.Ability
 {
     public class Element : ElementWithTooltip
     {
+        /*
         const string _ussClassName = "creature-ability__";
         const string _ussMain = _ussClassName + "main";
         const string _ussTimerLabelWrapper = _ussClassName + "timer-label-wrapper";
@@ -88,5 +89,6 @@ namespace Lis.Units.Creature.Ability
             _tooltip = new(this, tt);
             base.DisplayTooltip();
         }
+        */
     }
 }
