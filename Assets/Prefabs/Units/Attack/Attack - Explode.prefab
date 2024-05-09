@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5175111459290607694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4744337976659073630}
+  - component: {fileID: 1995237707141386919}
+  m_Layer: 0
+  m_Name: Attack - Explode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4744337976659073630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175111459290607694}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 156909376750651997}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1995237707141386919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175111459290607694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8dd35c1d004d78aea4ba56c61c4072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effect: {fileID: 4050101610391680411}
+--- !u!1001 &4930576928405722975
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4744337976659073630}
+    m_Modifications:
+    - target: {fileID: 2579306744607385919, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081367549811745677, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700726405669435171, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881705599805493642, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959969058946425540, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_Name
+      value: Bomb Explosion Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959969058946425540, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+--- !u!4 &156909376750651997 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5062496407210597634, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+  m_PrefabInstance: {fileID: 4930576928405722975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4050101610391680411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8959969058946425540, guid: 3af036f5ab62be94995075b88d054e2d, type: 3}
+  m_PrefabInstance: {fileID: 4930576928405722975}
+  m_PrefabAsset: {fileID: 0}
