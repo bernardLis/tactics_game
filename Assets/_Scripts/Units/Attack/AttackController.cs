@@ -19,7 +19,7 @@ namespace Lis.Units.Attack
         protected UnitController UnitController;
 
         protected Attack Attack;
-        public float CurrentCooldown { get; private set; }
+        public float CurrentCooldown; //{ get; private set; }
 
         public event Action OnAttackReady;
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
+  m_Name: Attack - Teleport
+  m_EditorClassIdentifier: 
+  Id: f0f36764-a032-4ae3-a0a9-bda89684c29b
+  Icon: {fileID: 21300000, guid: 4ff622af4a7edb6448293619d3ab1227, type: 3}
+  Description: Teleport to random location.
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Damage: 0
+  Range: 20
+  Cooldown: 10
+  GlobalCooldown: 3
+  IsArmorPiercing: 0
+  Sound: {fileID: 11400000, guid: 15938c58f62062547b8f31f9727d8b2e, type: 2}
+  DamageDealt: 0
+  AttackControllerPrefab: {fileID: 6540011165426071615, guid: 2bbe5655644a7cb4396b8ebda752edbf, type: 3}
+  AttackController: {fileID: 0}

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class ArenaController : MonoBehaviour
+    public class ArenaController : Singleton<ArenaController>
     {
         [SerializeField] BoxCollider _playerLockerRoom;
         [SerializeField] BoxCollider _enemyLockerRoom;
@@ -39,6 +39,5 @@ namespace Lis.Battle.Arena
         {
             return Helpers.RandomPointInBounds(_arena.bounds);
         }
-
     }
 }
