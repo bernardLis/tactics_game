@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Attack;
 using Lis.Units.Creature;
@@ -13,7 +14,7 @@ namespace Lis.Battle.Fight
 {
     using Arena;
 
-    public class FightManager : MonoBehaviour
+    public class FightManager : Singleton<FightManager>
     {
         ArenaManager _arenaManager;
         public Transform PlayerArmyHolder;
