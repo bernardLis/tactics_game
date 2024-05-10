@@ -38,7 +38,7 @@ namespace Lis.Units.Attack
 
         void CleanUp()
         {
-            _effect.SetActive(false);
+            _effectInstance.SetActive(false);
         }
     }
 }

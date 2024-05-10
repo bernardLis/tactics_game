@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Creature;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Battle.Fight
 {
@@ -13,7 +12,7 @@ namespace Lis.Battle.Fight
         public void Initialize(int points)
         {
             // TODO: for now
-            List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.AllCreatures);
+            List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.GetAllOpponentCreatures());
             for (int i = 0; i < points; i++)
                 OpponentArmy.Add(Instantiate(availableCreatures[Random.Range(0, availableCreatures.Count)]));
         }

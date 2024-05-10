@@ -73,6 +73,18 @@ namespace Lis.Core
             return AllCreatures[Random.Range(0, AllCreatures.Count)];
         }
 
+        [SerializeField] Creature[] _opponentCreatures;
+
+        public List<Creature> GetAllOpponentCreatures()
+        {
+            return _opponentCreatures.ToList();
+        }
+
+        public Creature GetRandomOpponentCreature()
+        {
+            return _opponentCreatures[Random.Range(0, _opponentCreatures.Length)];
+        }
+
         [Header("Bosses")]
         [SerializeField] Boss[] _bosses;
 

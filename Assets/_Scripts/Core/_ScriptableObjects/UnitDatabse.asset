@@ -41,24 +41,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51d449ec56cd39441bc83d68df80e76a, type: 2}
   - {fileID: 11400000, guid: 8fe53c0b8106ccf4d945c217454f8e51, type: 2}
   - {fileID: 11400000, guid: 82581fd11790a5e4780ddec88389f1c1, type: 2}
-  _minions:
-  - {fileID: 11400000, guid: b4c369bcfb9310647b8d01ac2154f6d7, type: 2}
-  - {fileID: 11400000, guid: 99a32d6248d733245abb33d583536238, type: 2}
-  - {fileID: 11400000, guid: d9a2d4e900a04bd4e94b9f98d3a6410b, type: 2}
-  - {fileID: 11400000, guid: 5ae52d4bcd4159741868477ee611f2e1, type: 2}
-  - {fileID: 11400000, guid: 3f1a9d56e34581240837483cab2d6309, type: 2}
-  - {fileID: 11400000, guid: 19d73b0d5374c034a828990a8945cc0e, type: 2}
-  - {fileID: 11400000, guid: 77aba2ec170b40e43ad5db872a9e20f8, type: 2}
-  - {fileID: 11400000, guid: 41b59ce1f96fdce4b81b3a4d50091a7e, type: 2}
-  - {fileID: 11400000, guid: a9c2594af98ac7b439783420f9e2aa58, type: 2}
-  - {fileID: 11400000, guid: fde5d86bec884d849aa64a6b2b9e9e95, type: 2}
-  - {fileID: 11400000, guid: 3a5ebf124e10b2e42afe80786bebf4c2, type: 2}
-  - {fileID: 11400000, guid: 86a104b0cd72bc8418d9a81c3e13527d, type: 2}
-  _rangedOpponents:
-  - {fileID: 11400000, guid: c5e9c531855d9174e91f455c8602501e, type: 2}
-  - {fileID: 11400000, guid: 8f82cc9d1358da94ba77172df976a033, type: 2}
-  - {fileID: 11400000, guid: aad73a6a58d996e49ac3b0d6840cbf10, type: 2}
-  - {fileID: 11400000, guid: 27f47900057df5040b9d68f946100613, type: 2}
   CreatureIcons:
   - {fileID: 21300000, guid: f8897e4662a47cd468c4c7d4a3ccd308, type: 3}
   - {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
@@ -81,6 +63,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea9a6cb39bb19824fbcc05882cb9875c, type: 2}
   - {fileID: 11400000, guid: 2f7c4681ced9e6e48a3699ca6a57eaf0, type: 2}
   - {fileID: 11400000, guid: cc74083f4a4a651448bc45414b1e8794, type: 2}
+  - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
+  - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
+  - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}
+  - {fileID: 11400000, guid: 0294cc135a61e2040b4039edc6f3b450, type: 2}
+  - {fileID: 11400000, guid: d9e85b1ddd1d28443bcfb6c6c1b94de8, type: 2}
+  - {fileID: 11400000, guid: c0a39b98fd49f9748adfd0b4b03d9049, type: 2}
+  _opponentCreatures:
+  - {fileID: 11400000, guid: 21cd308546fe1db48b8a3edea36403ff, type: 2}
+  - {fileID: 11400000, guid: 67dc4a6d61ac5bc4b871654fc0284edf, type: 2}
+  - {fileID: 11400000, guid: 1ea33f02f29915a4abee844667b4c72d, type: 2}
   - {fileID: 11400000, guid: e77d3b2c434791a4c994367646977aa2, type: 2}
   - {fileID: 11400000, guid: 0785920289b70294784c3832a59a6f7f, type: 2}
   - {fileID: 11400000, guid: f2d19c3bea1ea46498a361404ab955e0, type: 2}

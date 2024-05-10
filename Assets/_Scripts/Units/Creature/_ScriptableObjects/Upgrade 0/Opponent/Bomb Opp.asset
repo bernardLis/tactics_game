@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
-  m_Name: Bomb
+  m_Name: Bomb Opp
   m_EditorClassIdentifier: 
   Id: 1111-6aef-4f8f-a757-9d06b20d9a51
   UnitName: 
@@ -108,7 +108,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: 8bc56f2e7cf74ba4aa9e3daf0a3a9c8c, type: 2}
+  - {fileID: 11400000, guid: a84e171c3b8646c46b59cbb3a6163f9e, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
   UpgradeTier: 0

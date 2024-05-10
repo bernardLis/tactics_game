@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2abafa1c9fc3b6e4b8ba3dae4f5961fa, type: 3}
-  m_Name: Dragon Spark
+  m_Name: Dragon Spark Opp
   m_EditorClassIdentifier: 
   Id: 3333-6aef-4f8f-a757-9d06b20d9a51
   UnitName: 
@@ -119,7 +119,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: 8fb066ab2dba62741bd57c15d5f5915f, type: 2}
+  - {fileID: 11400000, guid: 6f4658ba7b866cc4c89da41071bafed0, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
   UpgradeTier: 0

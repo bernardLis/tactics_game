@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -19,9 +18,8 @@ namespace Lis.Units.Attack
         protected UnitController UnitController;
 
         protected Attack Attack;
-        public float CurrentCooldown; //{ get; private set; }
-
-        public event Action OnAttackReady;
+        public float CurrentCooldown { get; private set; }
+        IEnumerator _attackCooldownCoroutine;
 
         public virtual void Initialize(UnitController unitController, Attack attack)
         {
@@ -35,11 +33,11 @@ namespace Lis.Units.Attack
 
         protected void BaseAttack()
         {
-            OnAttackReady?.Invoke();
-
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name} with {Attack.name}");
             StartCoroutine(UnitController.GlobalAttackCooldownCoroutine(Attack.GlobalCooldown));
-            StartCoroutine(AttackCooldownCoroutine(Attack.Cooldown));
+            if (_attackCooldownCoroutine != null) StopCoroutine(_attackCooldownCoroutine);
+            _attackCooldownCoroutine = AttackCooldownCoroutine(Attack.Cooldown);
+            StartCoroutine(_attackCooldownCoroutine);
         }
 
         IEnumerator AttackCooldownCoroutine(float cooldown)
@@ -56,7 +54,7 @@ namespace Lis.Units.Attack
         {
             if (UnitController.Unit.AttackSound != null)
                 AudioManager.PlaySfx(UnitController.Unit.AttackSound, transform.position);
-            yield return transform.DODynamicLookAt(UnitController.Opponent.transform.position,
+            yield return UnitController.transform.DODynamicLookAt(UnitController.Opponent.transform.position,
                 0.2f, AxisConstraint.Y);
             Animator.SetTrigger(AnimAttack);
 
@@ -85,7 +83,7 @@ namespace Lis.Units.Attack
             yield return UnitController.Opponent.GetHit(Attack);
         }
 
-        public bool IsOpponentInRange()
+        protected bool IsOpponentInRange()
         {
             if (UnitController.Opponent == null) return false;
             if (UnitController.Opponent.IsDead) return false;

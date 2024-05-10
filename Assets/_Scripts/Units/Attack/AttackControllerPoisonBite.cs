@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Lis.Units.Attack
@@ -13,6 +14,8 @@ namespace Lis.Units.Attack
             if (!IsOpponentInRange()) yield break;
             BaseAttack();
 
+            yield return UnitController.transform.DODynamicLookAt(UnitController.Opponent.transform.position,
+                0.2f, AxisConstraint.Y);
             _effect.transform.position = UnitController.Opponent.transform.position;
             _effect.SetActive(true);
 
