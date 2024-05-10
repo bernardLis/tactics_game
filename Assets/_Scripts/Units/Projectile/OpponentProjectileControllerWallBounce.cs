@@ -17,13 +17,13 @@ namespace Lis.Units.Projectile
             }
 
             if (IsHitConnected) return;
-            if (collision.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (collision.gameObject.TryGetComponent(out UnitController unitController))
             {
-                if (!IsTargetValid(battleEntity)) return;
+                if (!IsTargetValid(unitController)) return;
 
                 IsHitConnected = true;
-                StopAllCoroutines();
-                HitTarget(battleEntity);
+                HitTarget(unitController);
+                HitConnected();
             }
 
             if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))

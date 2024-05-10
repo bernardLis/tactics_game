@@ -47,7 +47,7 @@ namespace Lis.Units.Creature
             DisplayFloatingText("Level Up!", Color.white);
             _creature.CurrentHealth.SetValue(Mathf.FloorToInt(_creature.MaxHealth.GetValue()));
 
-            if (_creature.SpecialAttack is null || _creature.Level.Value != 2) return;
+            if (_creature.SpecialAttack is null || _creature.Level.Value != 4) return;
             AddToLog("Unlocking special attack");
             DisplayFloatingText("Special Attack Unlocked!", Color.white);
             _creature.SpecialAttack.InitializeAttack(this);
