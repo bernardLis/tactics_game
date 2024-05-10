@@ -9,7 +9,6 @@ namespace Lis.Units.Hero
         public Hero Hero { get; private set; }
 
         MovementController _movementController;
-        HealthBarDisplayer _healthBarDisplayer;
 
         private static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
@@ -17,7 +16,6 @@ namespace Lis.Units.Hero
         {
             base.InitializeGameObject();
             _movementController = GetComponent<MovementController>();
-            _healthBarDisplayer = GetComponentInChildren<HealthBarDisplayer>();
         }
 
         public override void InitializeUnit(Unit unit, int team)
@@ -30,7 +28,7 @@ namespace Lis.Units.Hero
             _movementController.SetMoveSpeed(Hero.Speed.GetValue());
             Hero.Speed.OnValueChanged += _movementController.SetMoveSpeed;
 
-            _healthBarDisplayer.Initialize(Hero);
+            GetComponentInChildren<HealthBarDisplayer>().Initialize(Hero);
 
             Animator.enabled = true;
             Animator.SetBool(AnimGrounded, true);

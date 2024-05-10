@@ -13,6 +13,7 @@ namespace Lis.Units.Hero
 
         public void Initialize(Hero hero)
         {
+            Debug.Log("HealthBarDisplayer.Initialize");
             _healthBarSlider = GetComponent<Slider>();
             _fill.color = GameManager.Instance.GameDatabase.GetColorByName("Health").Primary;
 
