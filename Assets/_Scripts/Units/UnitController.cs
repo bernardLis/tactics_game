@@ -97,6 +97,7 @@ namespace Lis.Units
             Opponent = null;
             Unit = unit;
             Team = team;
+            unit.OnLevelUp -= OnLevelUp;
             unit.OnLevelUp += OnLevelUp;
             name = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
                    + "_" + Helpers.GetRandomNumber(4);
@@ -189,7 +190,7 @@ namespace Lis.Units
             StartCoroutine(_currentMainCoroutine);
         }
 
-        public virtual void RunUnit()
+        protected virtual void RunUnit()
         {
             AddToLog("Run unit is called.");
             if (IsDead) return;
@@ -199,7 +200,7 @@ namespace Lis.Units
             StartCoroutine(_currentMainCoroutine);
         }
 
-        public virtual void StopUnit()
+        protected virtual void StopUnit()
         {
             AddToLog("Stop unit is called");
 
@@ -418,10 +419,11 @@ namespace Lis.Units
         }
 
         /* LEVEL UP */
-        void OnLevelUp()
+        protected virtual void OnLevelUp()
         {
-            if (_levelUpEffect == null) return;
-            _levelUpEffect.SetActive(true);
+            AddToLog("Level up!");
+            if (_levelUpEffect != null)
+                _levelUpEffect.SetActive(true);
             if (Unit.LevelUpSound != null)
                 AudioManager.PlaySfx(Unit.LevelUpSound, transform.position);
             StartCoroutine(DisableLevelUpEffect());

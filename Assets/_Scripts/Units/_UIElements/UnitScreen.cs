@@ -1,5 +1,6 @@
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units.Attack;
 using UnityEngine.UIElements;
 
 namespace Lis.Units
@@ -52,6 +53,7 @@ namespace Lis.Units
             AddOtherBasicInfo();
             AddStats();
             AddBattleData();
+            AddAttacks();
 
 
             AddContinueButton();
@@ -138,6 +140,18 @@ namespace Lis.Units
 
             OtherContainer.Add(killCount);
             OtherContainer.Add(damageDealt);
+        }
+
+        void AddAttacks()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            OtherContainer.Add(container);
+            foreach (Attack.Attack a in _unit.Attacks)
+            {
+                AttackElement ae = new(a);
+                container.Add(ae);
+            }
         }
     }
 }

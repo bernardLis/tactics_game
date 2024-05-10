@@ -2,6 +2,7 @@ using Cinemachine;
 using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
+using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.UIElements;
 
 namespace Lis.Battle
 {
-    public class HeroManager : MonoBehaviour
+    public class HeroManager : Singleton<HeroManager>
     {
         GameManager _gameManager;
         AudioManager _audioManager;

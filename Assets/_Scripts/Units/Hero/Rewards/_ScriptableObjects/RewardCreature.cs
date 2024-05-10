@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Lis.Battle.Fight;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
@@ -9,14 +7,15 @@ namespace Lis.Units.Hero.Rewards
 
     public class RewardCreature : Reward
     {
+        Creature _original;
         public Creature Creature;
         public int Count;
 
         public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
         {
             base.CreateRandom(hero, otherRewardCards);
-
-            Creature = Instantiate(GameManager.UnitDatabase.GetRandomCreature());
+            _original = GameManager.UnitDatabase.GetRandomCreature();
+            Creature = Instantiate(_original);
             Creature.InitializeBattle(0);
 
             Count = Random.Range(1, 4); // TODO: for now
@@ -33,7 +32,11 @@ namespace Lis.Units.Hero.Rewards
         {
             base.GetReward();
             for (int i = 0; i < Count; i++)
-                Hero.AddArmy(Creature);
+            {
+                Creature instance = Instantiate(_original);
+                instance.InitializeBattle(0);
+                Hero.AddArmy(Instantiate(instance));
+            }
         }
     }
 }

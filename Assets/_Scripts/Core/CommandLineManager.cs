@@ -4,10 +4,7 @@ using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
-using Lis.Units;
 using Lis.Units.Creature;
-using Lis.Units.Hero;
-using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -18,13 +15,14 @@ namespace Lis.Core
     {
         GameManager _gameManager;
         PlayerInput _playerInput;
+        UnitDatabase _unitDatabase;
 
         VisualElement _commandLineContainer;
         TextField _commandTextField;
         Button _submitCommandButton;
 
         ScrollView _logContainer;
-        static string myLog = "";
+        static string _myLog = "";
 
         bool _isOpen;
 
@@ -35,6 +33,8 @@ namespace Lis.Core
         {
             _gameManager = GetComponent<GameManager>();
             _playerInput = GetComponent<PlayerInput>();
+
+            _unitDatabase = _gameManager.UnitDatabase;
 
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -107,20 +107,20 @@ namespace Lis.Core
         /* BUTTONS */
         VisualElement _buttonContainer;
         Foldout _otherFoldout;
-        [SerializeField] List<Creature> _allCreatures = new();
-        [SerializeField] GameObject _chestPrefab;
-        [SerializeField] ExperienceStone[] _expOrbs;
 
         void AddButtons()
         {
             _buttonContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("commandButtonsContainer");
 
+            _otherFoldout = new Foldout()
+            {
+                text = "Other",
+                value = false
+            };
+            _buttonContainer.Add(_otherFoldout);
+
             AddCreatureButtons();
-            AddMinionButtons();
-
-            AddSpawnChestButton();
             AddExpOrbButton();
-
             AddClearButton();
         }
 
@@ -135,51 +135,55 @@ namespace Lis.Core
 
             List<string> choices = new()
             {
-                "Random",
                 "-----"
             };
-            choices.AddRange(_allCreatures.ConvertAll(x => x.name));
+            choices.AddRange(_unitDatabase.AllCreatures.ConvertAll(x => x.name));
             var dropDownLeft = new DropdownField("Team 0", choices, 0);
-            var dropDownRight = new DropdownField("Team 1", choices, 0);
             creatureFoldout.Add(dropDownLeft);
+
+            List<string> oppChoices = new()
+            {
+                "-----"
+            };
+            oppChoices.AddRange(_unitDatabase.GetAllOpponentCreatures().ConvertAll(x => x.name));
+            var dropDownRight = new DropdownField("Team 1", oppChoices, 0);
             creatureFoldout.Add(dropDownRight);
 
             Button b = new() { text = "Spawn" };
             b.clickable.clicked += () =>
             {
-                if (dropDownLeft.value == "Random")
-                    AddRandomCreature(0);
-                if (dropDownRight.value == "Random")
-                    AddRandomCreature(1);
-
                 // try to get creature from string name
-                Creature cLeft = _allCreatures.Find(x => x.name == dropDownLeft.value);
+                Creature cLeft = _unitDatabase.AllCreatures.Find(x => x.name == dropDownLeft.value);
                 if (cLeft != null)
                 {
                     Creature instance = Instantiate(cLeft);
-                    AddCreature(instance, 0, Vector3.zero);
+                    FightManager.Instance.SpawnPlayerUnit(instance);
                 }
 
-                Creature cRight = _allCreatures.Find(x => x.name == dropDownRight.value);
+                Creature cRight = _unitDatabase.GetAllOpponentCreatures()
+                    .Find(x => x.name == dropDownRight.value);
                 if (cRight != null)
                 {
                     Creature instance = Instantiate(cRight);
-                    AddCreature(instance, 1, Vector3.zero);
+                    FightManager.Instance.SpawnEnemyUnit(instance);
                 }
             };
             creatureFoldout.Add(b);
 
             Button levelUpButton = new() { text = "Level Up" };
-            levelUpButton.clickable.clicked += () => { };
+            levelUpButton.clickable.clicked += () =>
+            {
+                HeroManager.Instance.Hero.Army.ForEach(x => x.LevelUp());
+            };
             creatureFoldout.Add(levelUpButton);
 
             Button spawnAllFriendly = new() { text = "Spawn All Friendly" };
             spawnAllFriendly.clickable.clicked += () =>
             {
-                foreach (Creature c in _allCreatures)
+                foreach (Creature c in _unitDatabase.AllCreatures)
                 {
                     Creature instance = Instantiate(c);
-                    AddCreature(instance, 0, GetMousePosition());
+                    FightManager.Instance.SpawnPlayerUnit(instance);
                 }
             };
             creatureFoldout.Add(spawnAllFriendly);
@@ -187,96 +191,26 @@ namespace Lis.Core
             Button spawnAllHostile = new() { text = "Spawn All Hostile" };
             spawnAllHostile.clickable.clicked += () =>
             {
-                foreach (Creature c in _allCreatures)
+                foreach (Creature c in _unitDatabase.GetAllOpponentCreatures())
                 {
                     Creature instance = Instantiate(c);
-                    AddCreature(instance, 1, GetMousePosition());
+                    FightManager.Instance.SpawnEnemyUnit(instance);
                 }
             };
             creatureFoldout.Add(spawnAllHostile);
         }
 
-        void AddCreature(Creature c, int team, Vector3 pos)
-        {
-            c.InitializeBattle(team);
-            UnitController be = SpawnEntity(c, team, pos);
-
-            CreatureController bc = (CreatureController)be;
-            // bc.DebugInitialize(team);
-        }
-
-        void AddRandomCreature(int team)
-        {
-            Creature c = Instantiate(_allCreatures[Random.Range(0, _allCreatures.Count)]);
-            c.InitializeBattle(team);
-            UnitController be = SpawnEntity(c, team, Vector3.zero);
-        }
-
-        void AddMinionButtons()
-        {
-            BattleManager battleManager = BattleManager.Instance;
-
-            Foldout minionFoldout = new()
-            {
-                text = "Minions",
-                value = false
-            };
-            _buttonContainer.Add(minionFoldout);
-
-            VisualElement container = new();
-            container.style.flexDirection = FlexDirection.Row;
-            TextField input = new() { value = "1" };
-            Button bMinions = new() { text = "Spawn Minions" };
-            bMinions.clickable.clicked += () =>
-            {
-                if (!int.TryParse(input.value, out int count)) return;
-            };
-            container.Add(input);
-            container.Add(bMinions);
-            minionFoldout.Add(container);
-        }
-
-
-        UnitController SpawnEntity(Unit unit, int team, Vector3 spawnPos)
-        {
-            Vector3 pos = spawnPos + new Vector3(Random.Range(-2f, 2f), 1f, Random.Range(-2f, 2f));
-            GameObject instance = Instantiate(unit.Prefab, pos, transform.localRotation);
-            UnitController be = instance.GetComponent<UnitController>();
-            be.InitializeGameObject();
-            be.InitializeUnit(unit, team);
-            return be;
-        }
 
         void AddClearButton()
         {
-            BattleManager battleManager = BattleManager.Instance;
-
             Button clearButton = new() { text = "Clear" };
-            clearButton.clickable.clicked += () =>
-            {
-            };
+            clearButton.clickable.clicked += Clear;
             _buttonContainer.Add(clearButton);
         }
 
         void Clear()
         {
-        }
-
-        void AddSpawnChestButton()
-        {
-            _otherFoldout = new()
-            {
-                text = "Other",
-                value = false
-            };
-            _buttonContainer.Add(_otherFoldout);
-
-            Button spawnChestButton = new() { text = "Spawn Chest" };
-            spawnChestButton.clickable.clicked += () =>
-            {
-                GameObject instance = Instantiate(_chestPrefab, Vector3.zero, Quaternion.identity);
-            };
-            _otherFoldout.Add(spawnChestButton);
+            Debug.Log("Not implemented.");
         }
 
         void AddExpOrbButton()
@@ -288,8 +222,6 @@ namespace Lis.Core
             };
             _otherFoldout.Add(spawnExpOrbButton);
         }
-
-
 
         /* COMMANDS */
         void SubmitCommand()
@@ -311,8 +243,6 @@ namespace Lis.Core
 
         void KillAllPlayerCreatures()
         {
-            BattleManager battleManager = BattleManager.Instance;
-            if (battleManager == null) return;
         }
 
         void DoTweenSeeAllTweens()
@@ -323,30 +253,16 @@ namespace Lis.Core
             }
         }
 
-        public void Log(string logString, string stackTrace, LogType type)
+        void Log(string logString, string stackTrace, LogType type)
         {
             if (_logContainer == null) return;
             _logContainer.Add(new Label(logString));
 
-            myLog = logString + "\n" + myLog;
-            if (myLog.Length > 5000)
-                myLog = myLog.Substring(0, 4000);
+            _myLog = logString + "\n" + _myLog;
+            if (_myLog.Length > 5000)
+                _myLog = _myLog.Substring(0, 4000);
 
-            FileManager.WriteToFile("log", myLog);
-        }
-
-        Camera _cam;
-
-        Vector3 GetMousePosition()
-        {
-            Mouse mouse = Mouse.current;
-            Vector3 mousePosition = mouse.position.ReadValue();
-            if (_cam == null) _cam = Camera.main;
-            if (_cam == null) return Vector3.zero;
-            Ray ray = _cam.ScreenPointToRay(mousePosition);
-            if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
-                return Vector3.zero;
-            return hit.point;
+            FileManager.WriteToFile("log", _myLog);
         }
     }
 }

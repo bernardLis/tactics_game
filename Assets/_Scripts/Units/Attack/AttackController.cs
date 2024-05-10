@@ -80,6 +80,7 @@ namespace Lis.Units.Attack
             BaseAttack();
             yield return BasicAttackCoroutine();
 
+            if (UnitController.Opponent == null) yield break;
             yield return UnitController.Opponent.GetHit(Attack);
         }
 

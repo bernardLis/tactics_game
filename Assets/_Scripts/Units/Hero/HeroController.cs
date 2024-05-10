@@ -67,11 +67,11 @@ namespace Lis.Units.Hero
         }
 
         /* OVERRIDES */
-        public override void RunUnit()
+        protected override void RunUnit()
         {
         }
 
-        public override void StopUnit()
+        protected override void StopUnit()
         {
         }
 

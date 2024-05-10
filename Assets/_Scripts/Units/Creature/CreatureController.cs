@@ -6,7 +6,7 @@ namespace Lis.Units.Creature
 {
     public class CreatureController : UnitController
     {
-        public Creature Creature { get; private set; }
+        Creature _creature;
 
         [SerializeField] GameObject _respawnEffect;
 
@@ -16,9 +16,7 @@ namespace Lis.Units.Creature
 
             if (team == 0) ObjectShaders.LitShader();
 
-            Creature = (Creature)unit;
-            Creature.OnLevelUp -= OnLevelUp; // just in case I initialize it twice :))))
-            Creature.OnLevelUp += OnLevelUp;
+            _creature = (Creature)unit;
         }
 
         protected override void OnFightEnded()
@@ -39,19 +37,21 @@ namespace Lis.Units.Creature
             StopUnit();
             AddToLog("Fight ended!");
             if (IsDead) yield return Respawn();
-            Creature.CurrentHealth.SetValue(Creature.MaxHealth.GetValue());
+            _creature.CurrentHealth.SetValue(_creature.MaxHealth.GetValue());
             GoBackToLocker();
         }
 
-        void OnLevelUp()
+        protected override void OnLevelUp()
         {
+            base.OnLevelUp();
             DisplayFloatingText("Level Up!", Color.white);
-            Creature.CurrentHealth.SetValue(Mathf.FloorToInt(Creature.MaxHealth.GetValue()));
+            _creature.CurrentHealth.SetValue(Mathf.FloorToInt(_creature.MaxHealth.GetValue()));
 
-            if (Creature.SpecialAttack is null || Creature.Level.Value != 6) return;
-            DisplayFloatingText("Ability Unlocked!", Color.white);
-            Creature.SpecialAttack.InitializeAttack(this);
-            Creature.AddAttack(Creature.SpecialAttack);
+            if (_creature.SpecialAttack is null || _creature.Level.Value != 2) return;
+            AddToLog("Unlocking special attack");
+            DisplayFloatingText("Special Attack Unlocked!", Color.white);
+            _creature.SpecialAttack.InitializeAttack(this);
+            _creature.AddAttack(_creature.SpecialAttack);
         }
 
         protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
@@ -61,7 +61,7 @@ namespace Lis.Units.Creature
             UnitPathingController.DisableAgent();
             _respawnEffect.SetActive(false);
 
-            Creature.Die();
+            _creature.Die();
         }
 
         IEnumerator Respawn()
@@ -73,5 +73,10 @@ namespace Lis.Units.Creature
             EnableSelf();
             yield return new WaitForSeconds(1);
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Respawn")]
+        public void DebugRespawn() => StartCoroutine(Respawn());
+#endif
     }
 }

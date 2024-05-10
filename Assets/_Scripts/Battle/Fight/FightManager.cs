@@ -83,16 +83,14 @@ namespace Lis.Battle.Fight
             }
         }
 
-        void SpawnPlayerUnit(Creature c)
+        public void SpawnPlayerUnit(Creature c)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
             GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();
             unitController.InitializeGameObject();
             unitController.InitializeUnit(c, 0);
-            CreatureController cc = unitController as CreatureController;
-            if (cc == null) return;
-            cc.SetOpponentList(ref EnemyUnits);
+            unitController.SetOpponentList(ref EnemyUnits);
             AddPlayerUnit(unitController);
         }
 
@@ -100,19 +98,23 @@ namespace Lis.Battle.Fight
         {
             foreach (Creature c in _arena.Fights.Last().OpponentArmy)
             {
-                c.InitializeBattle(1);
-                Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
-                GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
-                UnitController unitController = g.GetComponent<UnitController>();
-                unitController.InitializeGameObject();
-                unitController.InitializeUnit(c, 1);
-                CreatureController cc = unitController as CreatureController;
-                if (cc == null) continue;
-                cc.SetOpponentList(ref PlayerUnits);
-                AddEnemyUnit(unitController);
+                SpawnEnemyUnit(c);
                 yield return new WaitForSeconds(0.1f);
             }
         }
+
+        public void SpawnEnemyUnit(Creature c)
+        {
+            c.InitializeBattle(1);
+            Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
+            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
+            UnitController unitController = g.GetComponent<UnitController>();
+            unitController.InitializeGameObject();
+            unitController.InitializeUnit(c, 1);
+            unitController.SetOpponentList(ref PlayerUnits);
+            AddEnemyUnit(unitController);
+        }
+
 
         public void AddPlayerUnit(UnitController b)
         {
