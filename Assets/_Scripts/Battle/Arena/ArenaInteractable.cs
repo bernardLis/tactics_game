@@ -18,7 +18,7 @@ namespace Lis.Battle.Arena
 
         protected virtual void Start()
         {
-            FightManager = BattleManager.Instance.GetComponent<FightManager>();
+            FightManager = FightManager.Instance;
             FightManager.OnFightEnded += OnFightEnded;
             FightManager.OnFightStarted += OnFightStarted;
 

@@ -12,13 +12,13 @@ namespace Lis.Units.Hero.Ability
         const string _ussClassName = "ability-tooltip-element__";
         const string _ussMain = _ussClassName + "main";
 
-        Ability _ability;
+        readonly Ability _ability;
 
-        Label _power;
-        Label _cooldown;
-        Label _scale;
-        Label _amount;
-        Label _duration;
+        readonly Label _power;
+        readonly Label _cooldown;
+        readonly Label _scale;
+        readonly Label _amount;
+        readonly Label _duration;
 
         public AbilityTooltipElement(Ability ability, bool isUpgrade = false)
         {

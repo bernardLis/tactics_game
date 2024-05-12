@@ -55,7 +55,6 @@ namespace Lis.Units.Hero.Ability
             border.AddToClassList(_ussBorder);
             Add(border);
 
-
             if (showLevel) AddLevelUpDots();
         }
 

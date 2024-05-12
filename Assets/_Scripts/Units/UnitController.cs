@@ -137,7 +137,7 @@ namespace Lis.Units
                 attack.InitializeAttack(this);
         }
 
-        protected virtual void EnableSelf()
+        protected void EnableSelf()
         {
             AddToLog("Unit enables itself.");
             Collider.enabled = true;
@@ -145,6 +145,8 @@ namespace Lis.Units
             _isDeathCoroutineStarted = false;
             IsDead = false;
             _isAttackReady = true;
+
+            transform.DODynamicLookAt(Vector3.zero, 0.2f, AxisConstraint.Y);
         }
 
         public void SetOpponentList(ref List<UnitController> list)

@@ -97,16 +97,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a3c548c6ec4a61e4c84e77f45df08bd9
-    m_Address: EntityAbilityStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c446088f6798ec240a9e067ccd097b3b
-    m_Address: EntityAbilityTooltipStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2bc0f58d0e54039498a8e2f58e009d0e
     m_Address: StoreyUpgradeStyles
     m_ReadOnly: 0
@@ -179,6 +169,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a4aecaf72db847f59de2bb326a926ed5
     m_Address: Assets/_Scripts/Battle/_UIElements/InvestmentElementStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b62c2aa25d704c1f9fa161ec866d3ab7
+    m_Address: Assets/_Scripts/Units/Attack/_UIElements/AttackElementStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

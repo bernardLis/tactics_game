@@ -41,7 +41,6 @@ namespace Lis.Battle
             HandleNameLabel();
             HandleLevelLabel();
             HandleHealthBar();
-            HandleAttacks();
         }
 
         void HandleUnitIcon()
@@ -79,12 +78,6 @@ namespace Lis.Battle
 
             _healthBar = new(c, "health", currentFloatVar: _unit.CurrentHealth, totalStat: _unit.MaxHealth);
             _topRightContainer.Add(_healthBar);
-        }
-
-        void HandleAttacks()
-        {
-            foreach (Attack a in _unit.Attacks)
-                _topRightContainer.Add(new AttackElement(a));
         }
     }
 }

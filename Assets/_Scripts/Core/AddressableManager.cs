@@ -32,16 +32,14 @@ namespace Lis.Core
                     continue;
                 }
 
-                reference.LoadAssetAsync<StyleSheet>().Completed += (sheet) =>
-                {
-                    _styleSheets.Add((StyleSheet)sheet.Result);
-                };
+                reference.LoadAssetAsync<StyleSheet>().Completed +=
+                    (sheet) => { _styleSheets.Add(sheet.Result); };
             }
         }
 
-        public StyleSheet GetStyleSheetByName(StyleSheetType name)
+        public StyleSheet GetStyleSheetByName(StyleSheetType n)
         {
-            return _styleSheets.FirstOrDefault(x => x.name == name.ToString());
+            return _styleSheets.FirstOrDefault(x => x.name == n.ToString());
         }
     }
 
@@ -60,7 +58,6 @@ namespace Lis.Core
         StatElementStyles,
         NatureElementStyles,
         AbilityElementStyles,
-        AbilityIconStyles,
         AbilityTooltipElementStyles,
 
         EntityInfoElementStyles,
@@ -71,18 +68,13 @@ namespace Lis.Core
         UnitCardStyles,
         UnitScreenStyles,
 
-        CreatureAbilityStyles,
-        CreatureAbilityTooltipStyles,
-
         UpgradeStyles,
         UpgradeScreenStyles,
 
-        TurretIconStyles,
         StatsBattleElementStyles,
         TextPrintingStyles,
         HeroElementStyles,
         TooltipCardStyles,
-        BuildingCardStyles,
         TabletElementStyles,
         TabletTooltipElementStyles,
         TabletAdvancedScreenStyles,
@@ -91,5 +83,6 @@ namespace Lis.Core
         StatsScreenStyles,
 
         InvestmentElementStyles,
+        AttackElementStyles,
     }
 }

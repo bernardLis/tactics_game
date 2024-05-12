@@ -15,19 +15,19 @@ namespace Lis.Units
         const string _ussStatsContainer = _ussClassName + "stats-container";
         const string _ussOtherContainer = _ussClassName + "other-container";
 
-        Unit _unit;
+        readonly Unit _unit;
 
         protected readonly ScrollView MainCardContainer;
 
         VisualElement _nameContainer;
 
         VisualElement _basicInfoContainer;
-        protected VisualElement StatsContainer;
+        VisualElement _statsContainer;
         protected VisualElement OtherContainer;
 
         protected UnitIcon UnitIcon;
 
-        public UnitScreen(Unit unit)
+        protected UnitScreen(Unit unit)
         {
             StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.UnitScreenStyles);
@@ -62,11 +62,11 @@ namespace Lis.Units
         void CreateContainers()
         {
             _basicInfoContainer = new();
-            StatsContainer = new();
+            _statsContainer = new();
             OtherContainer = new();
 
             _basicInfoContainer.AddToClassList(_ussInfoContainer);
-            StatsContainer.AddToClassList(_ussStatsContainer);
+            _statsContainer.AddToClassList(_ussStatsContainer);
             OtherContainer.AddToClassList(_ussOtherContainer);
 
             MainCardContainer.Add(_basicInfoContainer);
@@ -75,7 +75,7 @@ namespace Lis.Units
             spacer.AddToClassList(USSCommonHorizontalSpacer);
             MainCardContainer.Add(spacer);
 
-            MainCardContainer.Add(StatsContainer);
+            MainCardContainer.Add(_statsContainer);
 
             VisualElement spacer1 = new();
             spacer1.AddToClassList(USSCommonHorizontalSpacer);
@@ -111,17 +111,17 @@ namespace Lis.Units
             _basicInfoContainer.Add(e);
         }
 
-        protected void AddStats()
+        void AddStats()
         {
             StatElement maxHealth = new(_unit.MaxHealth);
             StatElement armor = new(_unit.Armor);
             StatElement speed = new(_unit.Speed);
             StatElement power = new(_unit.Power);
 
-            StatsContainer.Add(maxHealth);
-            StatsContainer.Add(armor);
-            StatsContainer.Add(speed);
-            StatsContainer.Add(power);
+            _statsContainer.Add(maxHealth);
+            _statsContainer.Add(armor);
+            _statsContainer.Add(speed);
+            _statsContainer.Add(power);
         }
 
         protected virtual void AddOtherBasicInfo()
@@ -144,6 +144,10 @@ namespace Lis.Units
 
         void AddAttacks()
         {
+            VisualElement spacer = new();
+            spacer.AddToClassList(USSCommonHorizontalSpacer);
+            OtherContainer.Add(spacer);
+
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
             OtherContainer.Add(container);
