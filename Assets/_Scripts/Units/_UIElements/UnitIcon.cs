@@ -33,7 +33,10 @@ namespace Lis.Units
             IconContainer = new();
             IconContainer.AddToClassList(_ussIconContainer);
 
-            _animationElement = new(unit.IconAnimation, 50, true);
+            if (unit.IconAnimation.Length > 0)
+                _animationElement = new(unit.IconAnimation, 50, true);
+            else
+                _animationElement = new(new[] { unit.Icon }, 50, true);
             IconContainer.Add(_animationElement);
 
             Frame = new();
@@ -72,13 +75,15 @@ namespace Lis.Units
         {
             evt.StopImmediatePropagation();
 
-            UnitScreen card = null;
+            UnitScreen screen = null;
             if (_unit is Creature.Creature creature)
-                card = new CreatureScreen(creature);
-            if (_unit is Boss.Boss boss)
-                card = new BossScreen(boss);
+                screen = new CreatureScreen(creature);
+            else if (_unit is Boss.Boss boss)
+                screen = new BossScreen(boss);
+            else
+                screen = new(_unit);
 
-            card?.Initialize();
+            screen?.Initialize();
         }
     }
 }

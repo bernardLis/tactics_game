@@ -27,7 +27,7 @@ namespace Lis.Units
 
         protected UnitIcon UnitIcon;
 
-        protected UnitScreen(Unit unit)
+        public UnitScreen(Unit unit)
         {
             StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.UnitScreenStyles);

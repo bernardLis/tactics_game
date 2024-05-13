@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units
 {
+    [CreateAssetMenu(menuName = "ScriptableObject/Units/Unit")]
+
     public class Unit : BaseScriptableObject
     {
         [Header("Unit")] public string UnitName;

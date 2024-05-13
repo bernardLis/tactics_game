@@ -14,8 +14,6 @@ namespace Lis.Units
 
         static readonly int AnimMove = Animator.StringToHash("Move");
 
-        public event Action OnStartedMoving;
-
         public void Initialize(Vector2Int avoidancePriorityRange)
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -25,7 +23,6 @@ namespace Lis.Units
 
         public void SetAnimator(Animator animator)
         {
-            // TODO: for minions, but dunno if this is the correct way to do this
             _animator = animator;
         }
 
@@ -79,7 +76,6 @@ namespace Lis.Units
 
         public virtual IEnumerator PathToTarget(Transform t, float attackRange = 0)
         {
-            OnStartedMoving?.Invoke();
             SetStoppingDistance(attackRange);
             yield return PathToPosition(t.position);
             while (IsAgentOk() && _agent.remainingDistance >= _agent.stoppingDistance)

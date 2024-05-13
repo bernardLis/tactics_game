@@ -76,20 +76,20 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnAllPlayerUnits()
         {
-            foreach (Creature c in _heroController.Hero.Army)
+            foreach (Unit u in _heroController.Hero.Army)
             {
-                SpawnPlayerUnit(c);
+                SpawnPlayerUnit(u);
                 yield return new WaitForSeconds(0.1f);
             }
         }
 
-        public void SpawnPlayerUnit(Creature c)
+        public void SpawnPlayerUnit(Unit u)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
-            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
+            GameObject g = Instantiate(u.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();
             unitController.InitializeGameObject();
-            unitController.InitializeUnit(c, 0);
+            unitController.InitializeUnit(u, 0);
             unitController.SetOpponentList(ref EnemyUnits);
             AddPlayerUnit(unitController);
         }

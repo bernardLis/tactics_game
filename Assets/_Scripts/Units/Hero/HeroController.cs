@@ -77,6 +77,11 @@ namespace Lis.Units.Hero
         {
         }
 
+        protected override IEnumerator OnFightEndedCoroutine()
+        {
+            yield return null;
+        }
+
         [ContextMenu("Add Advanced Tablet")]
         public void AddAdvancedTablet()
         {

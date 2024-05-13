@@ -19,26 +19,10 @@ namespace Lis.Units.Creature
             _creature = (Creature)unit;
         }
 
-        protected override void OnFightEnded()
+        protected override IEnumerator OnFightEndedCoroutine()
         {
-            if (this == null) return;
-            if (Team == 1 && IsDead)
-            {
-                transform.DOMoveY(0f, 5f)
-                    .OnComplete(DestroySelf);
-                return;
-            }
-
-            StartCoroutine(OnFightEndedCoroutine());
-        }
-
-        IEnumerator OnFightEndedCoroutine()
-        {
-            StopUnit();
-            AddToLog("Fight ended!");
             if (IsDead) yield return Respawn();
-            _creature.CurrentHealth.SetValue(_creature.MaxHealth.GetValue());
-            GoBackToLocker();
+            yield return base.OnFightEndedCoroutine();
         }
 
         protected override void OnLevelUp()

@@ -4,7 +4,9 @@ using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
+using Lis.Units;
 using Lis.Units.Creature;
+using Lis.Units.Hero;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -119,9 +121,28 @@ namespace Lis.Core
             };
             _buttonContainer.Add(_otherFoldout);
 
+            AddPawnButtons();
             AddCreatureButtons();
             AddExpOrbButton();
-            AddClearButton();
+            AddKillPlayerArmyButton();
+            AddKillAllOpponentsButton();
+        }
+
+        void AddPawnButtons()
+        {
+            Foldout foldout = new()
+            {
+                text = "Pawns",
+                value = false
+            };
+            _buttonContainer.Add(foldout);
+
+            Button b = new() { text = "Add Random Pawn To Army" };
+            b.clickable.clicked += () =>
+            {
+                HeroManager.Instance.Hero.AddArmy(Instantiate(_unitDatabase.GetRandomPawn()));
+            };
+            foldout.Add(b);
         }
 
         void AddCreatureButtons()
@@ -171,10 +192,7 @@ namespace Lis.Core
             creatureFoldout.Add(b);
 
             Button levelUpButton = new() { text = "Level Up" };
-            levelUpButton.clickable.clicked += () =>
-            {
-                HeroManager.Instance.Hero.Army.ForEach(x => x.LevelUp());
-            };
+            levelUpButton.clickable.clicked += () => { HeroManager.Instance.Hero.Army.ForEach(x => x.LevelUp()); };
             creatureFoldout.Add(levelUpButton);
 
             Button spawnAllFriendly = new() { text = "Spawn All Friendly" };
@@ -200,18 +218,37 @@ namespace Lis.Core
             creatureFoldout.Add(spawnAllHostile);
         }
 
-
-        void AddClearButton()
+        void AddKillPlayerArmyButton()
         {
-            Button clearButton = new() { text = "Clear" };
-            clearButton.clickable.clicked += Clear;
-            _buttonContainer.Add(clearButton);
+            Button b = new() { text = "Kill Player Army" };
+            b.clickable.clicked += () =>
+            {
+                List<UnitController> playerUnits = new(FightManager.Instance.PlayerUnits);
+
+                foreach (UnitController uc in playerUnits)
+                {
+                    if (uc is HeroController)
+                        continue;
+                    uc.Die();
+                }
+            };
+            _buttonContainer.Add(b);
         }
 
-        void Clear()
+
+        void AddKillAllOpponentsButton()
         {
-            Debug.Log("Not implemented.");
+            Button b = new() { text = "Kill All Opponents" };
+            b.clickable.clicked += () =>
+            {
+                List<UnitController> enemyUnits = new(FightManager.Instance.EnemyUnits);
+
+                foreach (UnitController uc in enemyUnits)
+                    uc.Die();
+            };
+            _buttonContainer.Add(b);
         }
+
 
         void AddExpOrbButton()
         {
@@ -235,14 +272,8 @@ namespace Lis.Core
                 _gameManager.ChangeGoldValue(10000);
             if (_commandTextField.text.ToLower() == "takegold")
                 _gameManager.ChangeGoldValue(-5000);
-            if (_commandTextField.text.ToLower() == "killbill")
-                KillAllPlayerCreatures();
             if (_commandTextField.text.ToLower() == "tween")
                 DoTweenSeeAllTweens();
-        }
-
-        void KillAllPlayerCreatures()
-        {
         }
 
         void DoTweenSeeAllTweens()

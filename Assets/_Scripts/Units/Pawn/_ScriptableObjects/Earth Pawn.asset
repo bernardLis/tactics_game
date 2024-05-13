@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afe1cc61974bf445ad4a39e8c36ddba, type: 3}
+  m_Name: Earth Pawn
+  m_EditorClassIdentifier: 
+  Id: d6b48c1a-cbf9-45c6-a20c-06fa1caa9369
+  UnitName: Earth Pawn
+  Icon: {fileID: 21300000, guid: e4b7d7295abb3e14f93b34ece3636abc, type: 3}
+  IconAnimation: []
+  Price: 0
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Prefab: {fileID: 5715125434178922530, guid: 7b6ba5ece65643748b8b3ffcce2843d7, type: 3}
+  SpawnSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  AttackSound: {fileID: 0}
+  HitSound: {fileID: 0}
+  LevelUpSound: {fileID: 0}
+  TotalKillCount: 0
+  Team: 0
+  MaxHealth: {fileID: 11400000, guid: 80043ad3f530220419eb3a509bf3cfde, type: 2}
+  CurrentHealth: {fileID: 0}
+  Armor: {fileID: 11400000, guid: 0670cadebd59b284d9f9e263583be741, type: 2}
+  Speed: {fileID: 11400000, guid: ea9113e68678bf84da57ea56d9102954, type: 2}
+  Power: {fileID: 11400000, guid: fb79cfa01bfc45e4e8b51f946efaab7a, type: 2}
+  Level: {fileID: 11400000, guid: 15cd392607e68014082d6d8fecf362e4, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  _attacksOriginal:
+  - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  Attacks: []
+  CurrentAttack: {fileID: 0}
+  Upgrades:
+  - {fileID: 11400000, guid: 942e0a4dd39205f4ab75824ff88fc9be, type: 2}
+  - {fileID: 11400000, guid: 4375f64b505c0b842b9c141b9a2cef5b, type: 2}
+  - {fileID: 11400000, guid: e05525d35d518614d88e9e356b692ca4, type: 2}
+  CurrentUpgrade: 0

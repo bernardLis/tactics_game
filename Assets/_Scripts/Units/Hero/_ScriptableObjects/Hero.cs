@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Upgrades;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero
 {
-    using Creature;
     using Ability;
     using Tablets;
 
@@ -40,10 +38,10 @@ namespace Lis.Units.Hero
             AddRandomArmy(); // TODO: for now
         }
 
-        [HideInInspector] public List<Creature> Army = new();
-        public event Action<Creature> OnArmyAdded;
+        [HideInInspector] public List<Unit> Army = new();
+        public event Action<Unit> OnArmyAdded;
 
-        public void AddArmy(Creature armyUnit)
+        public void AddArmy(Unit armyUnit)
         {
             Army.Add(armyUnit);
             OnArmyAdded?.Invoke(armyUnit);
@@ -51,6 +49,14 @@ namespace Lis.Units.Hero
 
         void AddRandomArmy()
         {
+            for (int i = 0; i < 3; i++)
+            {
+                Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomPawn());
+                instance.InitializeBattle(0);
+                Army.Add(instance);
+            }
+
+            /*
             List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.AllCreatures);
             for (int i = 0; i < 3; i++)
             {
@@ -58,6 +64,7 @@ namespace Lis.Units.Hero
                 instance.InitializeBattle(0);
                 Army.Add(instance);
             }
+            */
         }
 
         protected override void CreateStats()

@@ -53,12 +53,15 @@ namespace Lis.Core
 
         public void PlayAnimation()
         {
+            if (_animationSprites.Length <= 1) return;
+
             _animationScheduler = schedule.Execute(Animate).Every(_delay);
         }
 
         public void PauseAnimation()
         {
-            _animationScheduler.Pause();
+            if (_animationScheduler != null)
+                _animationScheduler.Pause();
         }
 
         public void ResumeAnimation()
@@ -68,8 +71,6 @@ namespace Lis.Core
 
         void Animate()
         {
-            if (_animationSprites.Length <= 1) return;
-
             if (_animationSpriteIndex == _animationSprites.Length)
             {
                 if (!_isLoop)

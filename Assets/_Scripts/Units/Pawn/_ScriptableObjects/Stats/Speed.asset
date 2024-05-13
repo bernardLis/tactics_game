@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc3d76b8063c97e4c94a908f2c9adc97, type: 3}
-  m_Name: Attack Range Ranged
+  m_Name: Speed
   m_EditorClassIdentifier: 
-  Id: 24672f03-30d5-4468-8428-fda2c35035e4
-  StatType: 4
+  Id: ff5e235d-f5de-4fba-9367-53795925b11f
+  StatType: 3
   Icon: {fileID: 0}
   Description: 
-  BaseValue: 15
+  BaseValue: 3
   BonusValue: 0
   IsDecreasingPerLevel: 0
   GrowthPerLevelRange: {x: 0, y: 0}

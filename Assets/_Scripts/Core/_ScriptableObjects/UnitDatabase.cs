@@ -5,6 +5,7 @@ using Lis.Units.Creature;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
+using Lis.Units.Pawn;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -63,6 +64,15 @@ namespace Lis.Core
             return null;
         }
 
+        [Header("Pawns")]
+        [SerializeField] Pawn[] _allPawns;
+
+        public Pawn GetRandomPawn()
+        {
+            return _allPawns[Random.Range(0, _allPawns.Length)];
+        }
+
+
         [Header("Creatures")]
         public Sprite[] CreatureIcons;
 
@@ -84,6 +94,7 @@ namespace Lis.Core
         {
             return _opponentCreatures[Random.Range(0, _opponentCreatures.Length)];
         }
+
 
         [Header("Bosses")]
         [SerializeField] Boss[] _bosses;

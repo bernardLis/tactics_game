@@ -31,6 +31,11 @@ namespace Lis.Units.Attack
             UnitController = unitController;
         }
 
+        public void SetAnimator(Animator animator)
+        {
+            Animator = animator;
+        }
+
         protected void BaseAttack()
         {
             UnitController.AddToLog($"Unit attacks {UnitController.Opponent.name} with {Attack.name}");

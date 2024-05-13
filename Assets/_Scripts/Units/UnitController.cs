@@ -40,7 +40,7 @@ namespace Lis.Units
 
         protected ObjectShaders ObjectShaders;
         public Collider Collider { get; private set; }
-        public Animator Animator { get; private set; }
+        public Animator Animator { get; protected set; }
 
         public Unit Unit { get; private set; }
         public int Team { get; private set; }
@@ -175,12 +175,29 @@ namespace Lis.Units
             RunUnit();
         }
 
-        protected virtual void OnFightEnded()
+        void OnFightEnded()
         {
-            // meant to be overwritten
+            if (this == null) return;
+            if (Team == 1 && IsDead)
+            {
+                transform.DOMoveY(0f, 5f)
+                    .OnComplete(DestroySelf);
+                return;
+            }
+
+            StartCoroutine(OnFightEndedCoroutine());
         }
 
-        protected void GoBackToLocker()
+        protected virtual IEnumerator OnFightEndedCoroutine()
+        {
+            StopUnit();
+            AddToLog("Fight ended!");
+            if (IsDead) yield break;
+            Unit.CurrentHealth.SetValue(Unit.MaxHealth.GetValue());
+            GoBackToLocker();
+        }
+
+        void GoBackToLocker()
         {
             if (IsDead) return;
             if (Team == 1) return;
@@ -386,7 +403,7 @@ namespace Lis.Units
             OnShieldBroken?.Invoke();
         }
 
-        void Die(Attack.Attack attack = null)
+        public void Die(Attack.Attack attack = null)
         {
             AddToLog("Unit dies.");
             IsDead = true;

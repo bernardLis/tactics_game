@@ -18,8 +18,8 @@ MonoBehaviour:
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Damage: 0
   Range: 20
-  Cooldown: 10
   GlobalCooldown: 3
+  Cooldown: 15
   IsArmorPiercing: 0
   Sound: {fileID: 11400000, guid: 15938c58f62062547b8f31f9727d8b2e, type: 2}
   DamageDealt: 0
