@@ -67,6 +67,93 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8016595995016151199, guid: 713795e424fa9a443bc34d1e2e06d7d9, type: 3}
   m_PrefabInstance: {fileID: 434260890483790517}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &440974582530535747
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1839637004561687908}
+    m_Modifications:
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615872023002155012, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_Name
+      value: Pawn Earth Upgrade Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615872023002155012, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+--- !u!1 &5472222995083458887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5615872023002155012, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+  m_PrefabInstance: {fileID: 440974582530535747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5655388450821544671 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5216665761541909404, guid: 8bff04fff3d5dfc4aa5ae2a55bb2ab15, type: 3}
+  m_PrefabInstance: {fileID: 440974582530535747}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2725312742568469527
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -258,13 +345,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7647153340259344760, guid: e3d137f027180294b90518473ea3c490, type: 3}
+      propertyPath: _upgradeEffect
+      value: 
+      objectReference: {fileID: 5472222995083458887}
+    - target: {fileID: 7647153340259344760, guid: e3d137f027180294b90518473ea3c490, type: 3}
       propertyPath: _upgradeOneBody
       value: 
-      objectReference: {fileID: 7585863252700058154}
+      objectReference: {fileID: 5373614683140023432}
     - target: {fileID: 7647153340259344760, guid: e3d137f027180294b90518473ea3c490, type: 3}
       propertyPath: _upgradeTwoBody
       value: 
-      objectReference: {fileID: 5373614683140023432}
+      objectReference: {fileID: 6753846045692041451}
+    - target: {fileID: 7647153340259344760, guid: e3d137f027180294b90518473ea3c490, type: 3}
+      propertyPath: _upgradeZeroBody
+      value: 
+      objectReference: {fileID: 7585863252700058154}
     - target: {fileID: 7647153340259344760, guid: e3d137f027180294b90518473ea3c490, type: 3}
       propertyPath: _upgradeThreeBody
       value: 
@@ -286,6 +381,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2759156592709430333, guid: e3d137f027180294b90518473ea3c490, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7812471786284038944}
+    - targetCorrespondingSourceObject: {fileID: 2759156592709430333, guid: e3d137f027180294b90518473ea3c490, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5655388450821544671}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3d137f027180294b90518473ea3c490, type: 3}
 --- !u!4 &1839637004561687908 stripped

@@ -10,7 +10,7 @@ namespace Lis.Battle.Arena
     {
         const string _ussCommonButton = "common__button";
 
-        readonly MyButton _purchaseButton;
+        readonly PurchaseButton _purchaseButton;
         readonly RewardElement _rewardElement;
 
         readonly int _price;
@@ -31,15 +31,9 @@ namespace Lis.Battle.Arena
             rewardElement.IsShop();
             Add(rewardElement);
 
-            _purchaseButton = new("", _ussCommonButton, Purchase);
+            _purchaseButton = new("", _ussCommonButton, Purchase, _price);
             _purchaseButton.style.position = Position.Absolute;
             _purchaseButton.style.bottom = Length.Percent(0);
-            _purchaseButton.style.width = 100;
-            _purchaseButton.style.minHeight = 60;
-            _purchaseButton.style.paddingLeft = 12;
-
-            GoldElement goldElement = new(_price);
-            _purchaseButton.Add(goldElement);
 
             rewardElement.Add(_purchaseButton);
         }

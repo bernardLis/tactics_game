@@ -26,7 +26,12 @@ namespace Lis.Units.Pawn
             CurrentUpgrade++;
             SetUnitBasics();
 
-            // TODO: increase stats
+            // TODO: balance
+            MaxHealth.SetBaseValue(MaxHealth.BaseValue * 1.1f);
+            CurrentHealth.SetValue(CurrentHealth.Value * 1.1f);
+            Armor.SetBaseValue(Armor.BaseValue * 1.1f);
+            Speed.SetBaseValue(Speed.BaseValue * 1.1f);
+            Power.SetBaseValue(Power.BaseValue * 1.1f);
 
             OnUpgraded?.Invoke();
         }

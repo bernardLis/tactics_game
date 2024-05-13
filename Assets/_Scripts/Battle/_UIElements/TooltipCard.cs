@@ -18,22 +18,24 @@ namespace Lis.Battle
         const string _ussTopLeftContainer = _ussClassName + "top-left-container";
         const string _ussTopMiddleContainer = _ussClassName + "top-middle-container";
 
-        protected const string _ussName = _ussClassName + "name";
+        protected const string USSName = _ussClassName + "name";
 
-        protected VisualElement _topContainer;
-        protected VisualElement _middleContainer;
-        protected VisualElement _bottomContainer;
+        protected GameManager GameManager;
 
-        protected VisualElement _topLeftContainer;
-        protected VisualElement _topRightContainer;
+        VisualElement _topContainer;
+        VisualElement _middleContainer;
+        protected VisualElement BottomContainer;
 
-        protected GameManager _gameManager;
+        protected VisualElement TopLeftContainer;
+        protected VisualElement TopRightContainer;
+
 
         protected void Initialize()
         {
-            _gameManager = GameManager.Instance;
+            GameManager = GameManager.Instance;
 
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TooltipCardStyles);
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.TooltipCardStyles);
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussMain);
             AddToClassList(_ussCommonTextPrimary);
@@ -46,20 +48,20 @@ namespace Lis.Battle
             _topContainer.AddToClassList(_ussTopContainer);
             _middleContainer = new();
             _middleContainer.AddToClassList(_ussMiddleContainer);
-            _bottomContainer = new();
-            _bottomContainer.AddToClassList(_ussBottomContainer);
+            BottomContainer = new();
+            BottomContainer.AddToClassList(_ussBottomContainer);
 
             Add(_topContainer);
             Add(_middleContainer);
-            Add(_bottomContainer);
+            Add(BottomContainer);
 
-            _topLeftContainer = new();
-            _topLeftContainer.AddToClassList(_ussTopLeftContainer);
-            _topRightContainer = new();
-            _topRightContainer.AddToClassList(_ussTopMiddleContainer);
+            TopLeftContainer = new();
+            TopLeftContainer.AddToClassList(_ussTopLeftContainer);
+            TopRightContainer = new();
+            TopRightContainer.AddToClassList(_ussTopMiddleContainer);
 
-            _topContainer.Add(_topLeftContainer);
-            _topContainer.Add(_topRightContainer);
+            _topContainer.Add(TopLeftContainer);
+            _topContainer.Add(TopRightContainer);
         }
     }
 }

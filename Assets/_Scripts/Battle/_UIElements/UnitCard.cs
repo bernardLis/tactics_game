@@ -24,7 +24,7 @@ namespace Lis.Battle
         {
             Initialize();
 
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.UnitCardStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -34,8 +34,11 @@ namespace Lis.Battle
             PopulateCard();
         }
 
-        void PopulateCard()
+        protected void PopulateCard()
         {
+            TopLeftContainer.Clear();
+            TopRightContainer.Clear();
+
             HandleUnitIcon();
             HandleNature();
             HandleNameLabel();
@@ -46,38 +49,38 @@ namespace Lis.Battle
         void HandleUnitIcon()
         {
             _unitIcon = new(_unit);
-            _topLeftContainer.Add(_unitIcon);
+            TopLeftContainer.Add(_unitIcon);
         }
 
         void HandleNature()
         {
             _natureElement = new(_unit.Nature);
             _natureElement.AddToClassList(_ussElement);
-            _topLeftContainer.Add(_natureElement);
+            TopLeftContainer.Add(_natureElement);
         }
 
         void HandleNameLabel()
         {
             _nameLabel = new(_unit.UnitName);
-            _nameLabel.AddToClassList(_ussName);
-            _topRightContainer.Add(_nameLabel);
+            _nameLabel.AddToClassList(USSName);
+            TopRightContainer.Add(_nameLabel);
         }
 
         void HandleLevelLabel()
         {
             _levelLabel = new();
             _levelLabel.text = $"Level {_unit.Level.Value}";
-            _topRightContainer.Add(_levelLabel);
+            TopRightContainer.Add(_levelLabel);
 
             _unit.Level.OnValueChanged += (i) => { _levelLabel.text = $"Level {i}"; };
         }
 
         void HandleHealthBar()
         {
-            Color c = _gameManager.GameDatabase.GetColorByName("Health").Primary;
+            Color c = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
             _healthBar = new(c, "health", currentFloatVar: _unit.CurrentHealth, totalStat: _unit.MaxHealth);
-            _topRightContainer.Add(_healthBar);
+            TopRightContainer.Add(_healthBar);
         }
     }
 }

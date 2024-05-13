@@ -1,4 +1,5 @@
 using Lis.Battle;
+using Lis.Units.Pawn;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -22,6 +23,9 @@ namespace Lis.Units
         {
             if (!CanDisplayTooltip()) return;
             VisualElement el = new UnitCard(_unitController.Unit);
+
+            if (_unitController.Unit is Pawn.Pawn pawn)
+                el = new PawnCard(pawn);
 
             _tooltipManager.ShowTooltip(el, gameObject);
         }
