@@ -21,6 +21,13 @@ namespace Lis.Units.Pawn
             SetUnitBasics();
         }
 
+        public override void LevelUp()
+        {
+            if (Level.Value == GetCurrentUpgrade().LevelLimit) return;
+            Level.ApplyChange(1);
+            InvokeLevelUp();
+        }
+
         public void Upgrade()
         {
             CurrentUpgrade++;

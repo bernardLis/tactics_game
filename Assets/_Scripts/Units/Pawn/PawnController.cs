@@ -37,6 +37,15 @@ namespace Lis.Units.Pawn
             yield return base.RunUnitCoroutine();
         }
 
+        protected override IEnumerator OnFightEndedCoroutine()
+        {
+            StopUnit();
+            AddToLog("Fight ended!");
+            if (IsDead) yield break;
+            GoBackToLocker();
+            _pawn.LevelUp();
+        }
+
         void OnPawnUpgraded()
         {
             // TODO: this is so imperfect

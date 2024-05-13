@@ -16,3 +16,4 @@ MonoBehaviour:
   Name: Paladin
   Icon: {fileID: 21300000, guid: d5da1ff2d3f98d247b58c71e05e306e6, type: 3}
   Price: 20
+  LevelLimit: 8

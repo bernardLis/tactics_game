@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 namespace Lis.Units
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Unit")]
-
     public class Unit : BaseScriptableObject
     {
         [Header("Unit")] public string UnitName;
@@ -131,14 +130,18 @@ namespace Lis.Units
             LeftoverExp = 0;
         }
 
-        public void LevelUp()
+        public virtual void LevelUp()
         {
             Level.ApplyChange(1);
             Experience.SetValue(0);
             ExpForNextLevel.SetValue(GetExpForNextLevel());
-            OnLevelUp?.Invoke();
-
+            InvokeLevelUp();
             CurrentHealth.SetValue(MaxHealth.GetValue());
+        }
+
+        protected void InvokeLevelUp()
+        {
+            OnLevelUp?.Invoke();
         }
 
         /* ATTACKS */

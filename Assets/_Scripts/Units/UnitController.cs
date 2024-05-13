@@ -197,7 +197,7 @@ namespace Lis.Units
             GoBackToLocker();
         }
 
-        void GoBackToLocker()
+        protected void GoBackToLocker()
         {
             if (IsDead) return;
             if (Team == 1) return;

@@ -9,5 +9,6 @@ namespace Lis.Units.Pawn
         public string Name;
         public Sprite Icon;
         public int Price;
+        public int LevelLimit;
     }
 }
