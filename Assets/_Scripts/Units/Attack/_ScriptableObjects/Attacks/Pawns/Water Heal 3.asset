@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
-  m_Name: Attack - Bolt
+  m_Name: Water Heal 3
   m_EditorClassIdentifier: 
-  Id: 56cd9190-b63c-46e4-b699-8e32e3233b15
-  Icon: {fileID: 21300000, guid: 918e8d69c5824af4fa43a4977899bbe3, type: 3}
-  Description: Projectile Attack
-  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Damage: 20
-  Range: 20
+  Id: f97d424f-bab3-455f-8e7a-9da73e2a9e05
+  Icon: {fileID: 21300000, guid: b84da4ff84ece594dae5c5a1facb8215, type: 3}
+  Description: Heal
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Damage: 30
+  Range: 5
   GlobalCooldown: 3
-  Cooldown: 5
+  Cooldown: 10
   IsArmorPiercing: 0
   Sound: {fileID: 0}
   DamageDealt: 0
-  AttackControllerPrefab: {fileID: 6981792123790459291, guid: 93b82cacc52a5b640a1f27c84849228b, type: 3}
+  AttackControllerPrefab: {fileID: 4223909127413546356, guid: 91adfa38082fdfa4bb307801648e7dfc, type: 3}
   AttackController: {fileID: 0}

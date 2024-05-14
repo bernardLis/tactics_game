@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
-  m_Name: Attack - Teleport
+  m_Name: Taunt
   m_EditorClassIdentifier: 
   Id: f0f36764-a032-4ae3-a0a9-bda89684c29b
-  Icon: {fileID: 21300000, guid: 4ff622af4a7edb6448293619d3ab1227, type: 3}
-  Description: Teleport to random location.
+  Icon: {fileID: 21300000, guid: 8382d768c53d8a344ba77c1c0ff8ae18, type: 3}
+  Description: Taunt opponents around you.
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  Damage: 0
-  Range: 20
+  Damage: 5
+  Range: 1
+  Cooldown: 10
   GlobalCooldown: 3
-  Cooldown: 15
   IsArmorPiercing: 0
-  Sound: {fileID: 11400000, guid: 15938c58f62062547b8f31f9727d8b2e, type: 2}
+  Sound: {fileID: 11400000, guid: 613472c95e3f23541b0e299f7387d803, type: 2}
   DamageDealt: 0
-  AttackControllerPrefab: {fileID: 6540011165426071615, guid: 2bbe5655644a7cb4396b8ebda752edbf, type: 3}
+  AttackControllerPrefab: {fileID: 4937510191300113895, guid: 6dcf39255d8016a4b92fb6d25ba6be6f, type: 3}
   AttackController: {fileID: 0}

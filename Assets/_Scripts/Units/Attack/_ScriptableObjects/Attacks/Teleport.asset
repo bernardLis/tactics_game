@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
-  m_Name: Attack - Explode
+  m_Name: Teleport
   m_EditorClassIdentifier: 
   Id: f0f36764-a032-4ae3-a0a9-bda89684c29b
-  Icon: {fileID: 21300000, guid: 3b59f301b05e88f46b839053d453aac4, type: 3}
-  Description: Explode dealing splash damage.
-  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Damage: 10
-  Range: 1
-  Cooldown: 10
+  Icon: {fileID: 21300000, guid: 4ff622af4a7edb6448293619d3ab1227, type: 3}
+  Description: Teleport to random location.
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Damage: 0
+  Range: 20
   GlobalCooldown: 3
+  Cooldown: 15
   IsArmorPiercing: 0
-  Sound: {fileID: 11400000, guid: 9c28a0715de0dea40a8e67621db5f037, type: 2}
+  Sound: {fileID: 11400000, guid: 15938c58f62062547b8f31f9727d8b2e, type: 2}
   DamageDealt: 0
-  AttackControllerPrefab: {fileID: 1995237707141386919, guid: dd21eb2418db78247999f4e675edb921, type: 3}
+  AttackControllerPrefab: {fileID: 6540011165426071615, guid: 2bbe5655644a7cb4396b8ebda752edbf, type: 3}
   AttackController: {fileID: 0}

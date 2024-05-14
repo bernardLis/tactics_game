@@ -55,7 +55,6 @@ namespace Lis.Units
             AddBattleData();
             AddAttacks();
 
-
             AddContinueButton();
         }
 

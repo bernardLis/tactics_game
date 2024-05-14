@@ -19,3 +19,4 @@ MonoBehaviour:
   LevelLimit: 12
   Attacks:
   - {fileID: 11400000, guid: f17cccd98c99c194d8a8e238f317432f, type: 2}
+  Mission: {fileID: 11400000, guid: 60bd7f642cb13994494d9e4bbc072969, type: 2}

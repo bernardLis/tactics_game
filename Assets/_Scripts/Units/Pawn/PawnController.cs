@@ -42,8 +42,16 @@ namespace Lis.Units.Pawn
             StopUnit();
             AddToLog("Fight ended!");
             if (IsDead) yield break;
-            GoBackToLocker();
+
             _pawn.LevelUp();
+
+            if (_pawn.CurrentMission.IsCompleted)
+            {
+                _pawn.Upgrade();
+                yield break;
+            }
+
+            GoBackToLocker();
         }
 
         void OnPawnUpgraded()
@@ -54,6 +62,8 @@ namespace Lis.Units.Pawn
 
         IEnumerator UpgradeCoroutine()
         {
+            StopUnit();
+
             AddToLog("Upgrading...");
             _isUpgrading = true;
             _upgradeEffect.SetActive(true);
@@ -77,6 +87,8 @@ namespace Lis.Units.Pawn
             yield return new WaitForSeconds(3f);
             _isUpgrading = false;
             _upgradeEffect.SetActive(false);
+
+            GoBackToLocker();
         }
 
         void ActivateBody(GameObject body)

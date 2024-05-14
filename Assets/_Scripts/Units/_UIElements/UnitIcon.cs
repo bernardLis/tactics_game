@@ -1,6 +1,7 @@
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
+using Lis.Units.Pawn;
 using UnityEngine.UIElements;
 
 namespace Lis.Units
@@ -80,6 +81,8 @@ namespace Lis.Units
                 screen = new CreatureScreen(creature);
             else if (_unit is Boss.Boss boss)
                 screen = new BossScreen(boss);
+            else if (_unit is Pawn.Pawn pawn)
+                screen = new PawnScreen(pawn);
             else
                 screen = new(_unit);
 

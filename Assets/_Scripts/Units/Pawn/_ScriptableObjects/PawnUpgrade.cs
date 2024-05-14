@@ -14,5 +14,6 @@ namespace Lis.Units.Pawn
         public int Price;
         public int LevelLimit;
         public List<Attack> Attacks = new();
+        public PawnMission Mission;
     }
 }

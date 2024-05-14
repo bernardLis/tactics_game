@@ -204,9 +204,11 @@ namespace Lis.Units
         {
             if (IsDead) return;
             if (Team == 1) return;
+            if (_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) return;
 
             AddToLog("Going back to locker room.");
             UnitPathingController.SetStoppingDistance(0);
+
             _currentMainCoroutine =
                 UnitPathingController.PathToPositionAndStop(_arenaManager.GetRandomPositionInPlayerLockerRoom());
             StartCoroutine(_currentMainCoroutine);

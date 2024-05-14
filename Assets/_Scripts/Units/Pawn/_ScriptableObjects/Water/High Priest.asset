@@ -18,4 +18,6 @@ MonoBehaviour:
   Price: 20
   LevelLimit: 8
   Attacks:
+  - {fileID: 11400000, guid: 97ab8e27cc33e8a48a295e22fec48447, type: 2}
   - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
+  Mission: {fileID: 11400000, guid: 617335612b7a138468085c31d190d329, type: 2}

@@ -1,4 +1,6 @@
+using System;
 using Lis.Core;
+using Unity.Plastic.Newtonsoft.Json.Serialization;
 using UnityEngine;
 
 namespace Lis.Units.Attack
@@ -18,6 +20,7 @@ namespace Lis.Units.Attack
 
         public Sound Sound;
         [HideInInspector] public int DamageDealt;
+        public event Action<int> OnDamageDealt;
 
         public AttackController AttackControllerPrefab;
         [HideInInspector] public AttackController AttackController;
@@ -45,6 +48,7 @@ namespace Lis.Units.Attack
         public void AddDamageDealt(int dmg)
         {
             DamageDealt += dmg;
+            OnDamageDealt?.Invoke(dmg);
         }
 
         public void AddKill(Unit killedUnit)

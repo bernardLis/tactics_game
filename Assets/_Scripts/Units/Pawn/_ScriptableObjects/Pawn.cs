@@ -11,6 +11,7 @@ namespace Lis.Units.Pawn
         public PawnUpgrade[] Upgrades;
 
         public int CurrentUpgrade;
+        public PawnMission CurrentMission;
 
         public event Action OnUpgraded;
 
@@ -19,6 +20,7 @@ namespace Lis.Units.Pawn
             base.InitializeBattle(team);
             CurrentUpgrade = 0;
 
+            InitializePawnMission();
             SetUnitBasics();
             SetPawnAttacks();
         }
@@ -33,6 +35,8 @@ namespace Lis.Units.Pawn
         public void Upgrade()
         {
             CurrentUpgrade++;
+
+            InitializePawnMission();
             SetUnitBasics();
 
             // TODO: balance
@@ -45,6 +49,12 @@ namespace Lis.Units.Pawn
             SetPawnAttacks();
 
             OnUpgraded?.Invoke();
+        }
+
+        void InitializePawnMission()
+        {
+            CurrentMission = Instantiate(Upgrades[CurrentUpgrade].Mission);
+            CurrentMission.Initialize(this);
         }
 
         void SetPawnAttacks()

@@ -25,6 +25,11 @@ namespace Lis.Units
         public Sound HitSound;
         public Sound LevelUpSound;
 
+
+        public int DamageTaken;
+        public event Action<int> OnDamageTaken;
+
+        public event Action OnKilled;
         [HideInInspector] public int TotalKillCount;
 
         [HideInInspector] public int Team;
@@ -53,6 +58,7 @@ namespace Lis.Units
         public virtual void AddKill(Unit unit)
         {
             TotalKillCount++;
+            OnKilled?.Invoke();
         }
 
         [Header("Stats")]
@@ -204,7 +210,12 @@ namespace Lis.Units
             dmg *= GetElementalDamageMultiplier(attack.Nature);
             if (!attack.IsArmorPiercing) dmg -= Armor.GetValue();
             if (dmg < 0) dmg = 0;
-            return Mathf.RoundToInt(dmg);
+
+            int dmgInt = Mathf.RoundToInt(dmg);
+            DamageTaken += dmgInt;
+            OnDamageTaken?.Invoke(dmgInt);
+
+            return dmgInt;
         }
 
         float GetElementalDamageMultiplier(Nature attackerNature)

@@ -42,7 +42,7 @@ namespace Lis.Units.Attack
                 yield break;
 
             Animator.SetTrigger(AnimSpecialAttack);
-            AudioManager.PlaySfx(Attack.Sound, transform.position);
+            if (Attack.Sound != null) AudioManager.PlaySfx(Attack.Sound, transform.position);
             _healEffect.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);
