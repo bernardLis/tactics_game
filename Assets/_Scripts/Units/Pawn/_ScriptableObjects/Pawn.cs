@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -19,6 +20,7 @@ namespace Lis.Units.Pawn
             CurrentUpgrade = 0;
 
             SetUnitBasics();
+            SetPawnAttacks();
         }
 
         public override void LevelUp()
@@ -40,7 +42,21 @@ namespace Lis.Units.Pawn
             Speed.SetBaseValue(Speed.BaseValue * 1.1f);
             Power.SetBaseValue(Power.BaseValue * 1.1f);
 
+            SetPawnAttacks();
+
             OnUpgraded?.Invoke();
+        }
+
+        void SetPawnAttacks()
+        {
+            List<Attack.Attack> copy = new(Attacks);
+            foreach (Attack.Attack a in copy)
+                RemoveAttack(a);
+
+            foreach (Attack.Attack attack in GetCurrentUpgrade().Attacks)
+                AddAttack(Instantiate(attack));
+
+            ChooseAttack();
         }
 
         void SetUnitBasics()

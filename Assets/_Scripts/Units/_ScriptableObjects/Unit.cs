@@ -148,6 +148,8 @@ namespace Lis.Units
         [SerializeField] Attack.Attack[] _attacksOriginal;
         public List<Attack.Attack> Attacks = new();
         [HideInInspector] public Attack.Attack CurrentAttack;
+        public event Action<Attack.Attack> OnAttackAdded;
+        public event Action<Attack.Attack> OnAttackRemoved;
 
         void InstantiateAttacks()
         {
@@ -161,6 +163,13 @@ namespace Lis.Units
         public void AddAttack(Attack.Attack attack)
         {
             Attacks.Add(attack);
+            OnAttackAdded?.Invoke(attack);
+        }
+
+        public void RemoveAttack(Attack.Attack attack)
+        {
+            Attacks.Remove(attack);
+            OnAttackRemoved?.Invoke(attack);
         }
 
         public AttackController ChooseAttack()

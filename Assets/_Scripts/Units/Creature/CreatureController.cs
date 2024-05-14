@@ -34,7 +34,6 @@ namespace Lis.Units.Creature
             if (_creature.SpecialAttack is null || _creature.Level.Value != 4) return;
             AddToLog("Unlocking special attack");
             DisplayFloatingText("Special Attack Unlocked!", Color.white);
-            _creature.SpecialAttack.InitializeAttack(this);
             _creature.AddAttack(_creature.SpecialAttack);
         }
 

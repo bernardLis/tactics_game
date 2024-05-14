@@ -17,3 +17,5 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 7dba353ecd2723d4ebc98fb83857e4ce, type: 3}
   Price: 30
   LevelLimit: 12
+  Attacks:
+  - {fileID: 11400000, guid: f17cccd98c99c194d8a8e238f317432f, type: 2}

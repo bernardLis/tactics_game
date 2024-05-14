@@ -135,6 +135,9 @@ namespace Lis.Units
         {
             foreach (Attack.Attack attack in Unit.Attacks)
                 attack.InitializeAttack(this);
+
+            Unit.OnAttackAdded += attack => attack.InitializeAttack(this);
+            Unit.OnAttackRemoved += attack => Destroy(attack.AttackController.gameObject);
         }
 
         protected void EnableSelf()

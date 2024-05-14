@@ -7,6 +7,7 @@ using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
+using Lis.Units.Pawn;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -140,7 +141,9 @@ namespace Lis.Core
             Button b = new() { text = "Add Random Pawn To Army" };
             b.clickable.clicked += () =>
             {
-                HeroManager.Instance.Hero.AddArmy(Instantiate(_unitDatabase.GetRandomPawn()));
+                Pawn p = Instantiate(_unitDatabase.GetRandomPawn());
+                p.InitializeBattle(0);
+                HeroManager.Instance.Hero.AddArmy(p);
             };
             foldout.Add(b);
         }
