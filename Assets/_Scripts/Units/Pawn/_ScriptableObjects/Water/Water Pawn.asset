@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8afe1cc61974bf445ad4a39e8c36ddba, type: 3}
-  m_Name: Fire Pawn
+  m_Name: Water Pawn
   m_EditorClassIdentifier: 
-  Id: dea64cd2-2d7c-4f29-9817-6af17eca6a94
-  UnitName: Fire Pawn
-  Icon: {fileID: 21300000, guid: 95e548d678eb00349b7d2ab22a5b61aa, type: 3}
+  Id: cd06c114-6741-43a9-9b5d-06be80174815
+  UnitName: Water Pawn
+  Icon: {fileID: 21300000, guid: e2a06ab7ac099494c9a348d04bb6ca44, type: 3}
   IconAnimation: []
   Price: 0
-  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  Prefab: {fileID: 950285025367464429, guid: 2da9839304b6c394db2957954f4a4d26, type: 3}
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Prefab: {fileID: 3199639809289442479, guid: c20c7378a959eba4f9fcf34e6a249374, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -36,11 +36,11 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
+  - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
   Upgrades:
-  - {fileID: 11400000, guid: d2422575a4674a746aa4f321dbe99158, type: 2}
-  - {fileID: 11400000, guid: 70bc24e2910a30c47b9252a3b7800906, type: 2}
-  - {fileID: 11400000, guid: 6091e7fa4ac2fd243a1d9f4668f57ab5, type: 2}
+  - {fileID: 11400000, guid: d9e5cd21682c1244ba4725afcc5f38fc, type: 2}
+  - {fileID: 11400000, guid: f744492513e8f5b4ba13df6f0348c515, type: 2}
+  - {fileID: 11400000, guid: bd2b442e918a877488bd6f0156c99044, type: 2}
   CurrentUpgrade: 0

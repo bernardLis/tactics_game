@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3277e0230654259a25516ed2f4b7366, type: 3}
+  m_Name: Scout
+  m_EditorClassIdentifier: 
+  Id: f9a671c0-4878-4e04-b6cc-e84d07e39f4c
+  Name: Scout
+  Icon: {fileID: 21300000, guid: d1f040b6d0963ab43a9fc750f0b8acf1, type: 3}
+  Price: 10
+  LevelLimit: 4

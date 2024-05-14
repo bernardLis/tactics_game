@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3277e0230654259a25516ed2f4b7366, type: 3}
+  m_Name: Crossbowman
+  m_EditorClassIdentifier: 
+  Id: 183c5e4e-459d-4b2c-ad72-1c27e2614e5a
+  Name: Crossbowman
+  Icon: {fileID: 21300000, guid: 7dba353ecd2723d4ebc98fb83857e4ce, type: 3}
+  Price: 30
+  LevelLimit: 12

@@ -44,6 +44,8 @@ MonoBehaviour:
   _allPawns:
   - {fileID: 11400000, guid: cb3ed6f7370106b418eb1b5c9b561aec, type: 2}
   - {fileID: 11400000, guid: 64521d118c9ac304e92e02e34cb63a25, type: 2}
+  - {fileID: 11400000, guid: 0820c3431d0b18f4dac3f04bddcdb383, type: 2}
+  - {fileID: 11400000, guid: 29e49c76852bc424b8e8b8cbf9217f81, type: 2}
   CreatureIcons:
   - {fileID: 21300000, guid: f8897e4662a47cd468c4c7d4a3ccd308, type: 3}
   - {fileID: 21300000, guid: 90cdf75d02a28f44aa6032ce16292dee, type: 3}
