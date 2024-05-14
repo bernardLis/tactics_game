@@ -3,20 +3,20 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
 {
-    using Creature;
+    using Pawn;
 
-    public class RewardCreature : Reward
+    public class RewardPawn : Reward
     {
-        Creature _original;
-        public Creature Creature;
+        Pawn _original;
+        public Pawn Pawn;
         public int Count;
 
         public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
         {
             base.CreateRandom(hero, otherRewardCards);
-            _original = GameManager.UnitDatabase.GetRandomCreature();
-            Creature = Instantiate(_original);
-            Creature.InitializeBattle(0);
+            _original = GameManager.UnitDatabase.GetRandomPawn();
+            Pawn = Instantiate(_original);
+            Pawn.InitializeBattle(0);
 
             Count = Random.Range(1, 4); // TODO: balance
             SetPrice();
@@ -25,7 +25,7 @@ namespace Lis.Units.Hero.Rewards
 
         protected override void SetPrice()
         {
-            Price = Creature.Price * Count;
+            Price = Pawn.GetCurrentUpgrade().Price * Count;
         }
 
         public override void GetReward()
@@ -33,7 +33,7 @@ namespace Lis.Units.Hero.Rewards
             base.GetReward();
             for (int i = 0; i < Count; i++)
             {
-                Creature instance = Instantiate(_original);
+                Pawn instance = Instantiate(_original);
                 instance.InitializeBattle(0);
                 Hero.AddArmy(Instantiate(instance));
             }

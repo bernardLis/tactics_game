@@ -21,8 +21,8 @@ namespace Lis.Battle.Arena
         const string _ussRewardContainer = USSClassName + "reward-container";
         const string _ussRerollContainer = USSClassName + "reroll-container";
 
-        readonly AudioManager _audioManager;
-        readonly HeroManager _heroManager;
+        protected readonly AudioManager AudioManager;
+        protected readonly HeroManager HeroManager;
 
         protected VisualElement RewardContainer;
         Label _titleLabel;
@@ -33,8 +33,8 @@ namespace Lis.Battle.Arena
         protected readonly List<RewardElement> AllRewardElements = new();
 
         VisualElement _rerollContainer;
-        Label _rerollsLeft;
-        RerollButton _rerollButton;
+        protected Label RerollsLeft;
+        protected RerollButton RerollButton;
 
         protected string Title;
 
@@ -44,13 +44,13 @@ namespace Lis.Battle.Arena
 
         protected RewardScreen()
         {
-            _audioManager = GameManager.GetComponent<AudioManager>();
+            AudioManager = GameManager.GetComponent<AudioManager>();
             StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.RewardScreenStyles);
             if (ss != null) styleSheets.Add(ss);
 
             NumberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
-            _heroManager = BattleManager.GetComponent<HeroManager>();
+            HeroManager = BattleManager.GetComponent<HeroManager>();
 
             Content.AddToClassList(_ussMain);
 
@@ -125,13 +125,13 @@ namespace Lis.Battle.Arena
             _rerollContainer.AddToClassList(_ussRerollContainer);
             Content.Add(_rerollContainer);
 
-            if (_heroManager.RewardRerollsAvailable <= 0) return;
+            if (HeroManager.RewardRerollsAvailable <= 0) return;
 
-            _rerollButton = new(callback: RerollReward);
-            _rerollContainer.Add(_rerollButton);
+            RerollButton = new(callback: RerollReward);
+            _rerollContainer.Add(RerollButton);
 
-            _rerollsLeft = new($"Rerolls left: {_heroManager.RewardRerollsAvailable}");
-            _rerollContainer.Add(_rerollsLeft);
+            RerollsLeft = new($"Rerolls left: {HeroManager.RewardRerollsAvailable}");
+            _rerollContainer.Add(RerollsLeft);
 
             DOTween.To(x => _rerollContainer.style.opacity = x, 0, 1, 0.5f)
                 .SetDelay(1f)
@@ -140,7 +140,7 @@ namespace Lis.Battle.Arena
 
         protected void AddHeroElement()
         {
-            Add(new HeroElement(_heroManager.Hero, true));
+            Add(new HeroElement(HeroManager.Hero, true));
         }
 
         void PopulateRewards()
@@ -179,7 +179,7 @@ namespace Lis.Battle.Arena
         protected RewardElement CreateRewardTablet()
         {
             RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
-            if (!reward.CreateRandom(_heroManager.Hero, AllRewardElements)) return null;
+            if (!reward.CreateRandom(HeroManager.Hero, AllRewardElements)) return null;
             reward.OnRewardSelected += RewardSelected;
             RewardElementTablet element = new(reward);
             return element;
@@ -188,7 +188,7 @@ namespace Lis.Battle.Arena
         protected RewardElement CreateRewardCardAbility()
         {
             RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-            if (!reward.CreateRandom(_heroManager.Hero, AllRewardElements)) return null;
+            if (!reward.CreateRandom(HeroManager.Hero, AllRewardElements)) return null;
             reward.OnRewardSelected += RewardSelected;
             RewardElementAbility element = new(reward);
             return element;
@@ -197,7 +197,7 @@ namespace Lis.Battle.Arena
         RewardElement CreateRewardCardGold()
         {
             RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-            reward.CreateRandom(_heroManager.Hero, AllRewardElements);
+            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
             reward.OnRewardSelected += RewardSelected;
             RewardElementGold element = new(reward);
             return element;
@@ -206,15 +206,25 @@ namespace Lis.Battle.Arena
         protected RewardElement CreateRewardCardCreature()
         {
             RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
-            reward.CreateRandom(_heroManager.Hero, AllRewardElements);
+            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
             reward.OnRewardSelected += RewardSelected;
             RewardElementCreature element = new(reward);
             return element;
         }
 
+        protected RewardElement CreateRewardCardPawn()
+        {
+            RewardPawn reward = ScriptableObject.CreateInstance<RewardPawn>();
+            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
+            reward.OnRewardSelected += RewardSelected;
+            RewardElementPawn element = new(reward);
+            return element;
+        }
+
+
         protected virtual void RewardSelected(Reward reward)
         {
-            _audioManager.PlayUI("Reward Chosen");
+            AudioManager.PlayUI("Reward Chosen");
 
             _rerollContainer.style.display = DisplayStyle.None;
             DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f)
@@ -233,20 +243,20 @@ namespace Lis.Battle.Arena
 
         protected virtual void RerollReward()
         {
-            if (_heroManager.RewardRerollsAvailable <= 0)
+            if (HeroManager.RewardRerollsAvailable <= 0)
             {
-                Helpers.DisplayTextOnElement(BattleManager.Root, _rerollButton, "Not More Rerolls!", Color.red);
+                Helpers.DisplayTextOnElement(BattleManager.Root, RerollButton, "Not More Rerolls!", Color.red);
                 return;
             }
 
-            _heroManager.RewardRerollsAvailable--;
-            _rerollsLeft.text = $"Rerolls left: {_heroManager.RewardRerollsAvailable}";
-            _audioManager.PlayUI("Dice Roll");
+            HeroManager.RewardRerollsAvailable--;
+            RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
+            AudioManager.PlayUI("Dice Roll");
 
             PopulateRewards();
 
-            if (_heroManager.RewardRerollsAvailable <= 0)
-                _rerollButton.SetEnabled(false);
+            if (HeroManager.RewardRerollsAvailable <= 0)
+                RerollButton.SetEnabled(false);
         }
 
         /* EFFECTS */

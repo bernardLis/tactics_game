@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3277e0230654259a25516ed2f4b7366, type: 3}
-  m_Name: Earth 0
+  m_Name: Swordman
   m_EditorClassIdentifier: 
-  Id: f31daf62-4644-423e-9afc-de4115b8974f
-  Name: Spearman
-  Icon: {fileID: 21300000, guid: b732869e5689f3044b1ade9f8f455f6b, type: 3}
+  Id: 2df42ec2-0086-4eaf-a89f-3051b8741354
+  Name: Swordman
+  Icon: {fileID: 21300000, guid: 7928e30fd6424d84cb3c9e92ef1e8979, type: 3}
   Price: 10
   LevelLimit: 4

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3277e0230654259a25516ed2f4b7366, type: 3}
-  m_Name: Earth 1
+  m_Name: Commander
   m_EditorClassIdentifier: 
-  Id: d576e5e4-8c7e-4b22-bd51-c1e7430c64d2
-  Name: Paladin
-  Icon: {fileID: 21300000, guid: d5da1ff2d3f98d247b58c71e05e306e6, type: 3}
-  Price: 20
-  LevelLimit: 8
+  Id: 4d83ed86-30b2-4a80-be1c-3ecedd6e791d
+  Name: Commander
+  Icon: {fileID: 21300000, guid: 24022767154f5c84c8f2520ecc7c2885, type: 3}
+  Price: 30
+  LevelLimit: 12

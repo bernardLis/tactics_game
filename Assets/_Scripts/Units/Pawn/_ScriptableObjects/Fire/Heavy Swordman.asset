@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3277e0230654259a25516ed2f4b7366, type: 3}
-  m_Name: Earth 2
+  m_Name: Heavy Swordman
   m_EditorClassIdentifier: 
-  Id: 4d83ed86-30b2-4a80-be1c-3ecedd6e791d
-  Name: Commander
-  Icon: {fileID: 21300000, guid: 24022767154f5c84c8f2520ecc7c2885, type: 3}
-  Price: 30
-  LevelLimit: 12
+  Id: fe7b6c47-bef0-4d92-b6d7-b5e9f79e0c72
+  Name: Heavy Swordman
+  Icon: {fileID: 21300000, guid: fee4ce4b0a4f98046b4972210370d00b, type: 3}
+  Price: 20
+  LevelLimit: 8

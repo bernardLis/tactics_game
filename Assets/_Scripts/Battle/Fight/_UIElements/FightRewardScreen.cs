@@ -1,5 +1,6 @@
 using Lis.Battle.Arena;
 using Lis.Units.Hero.Rewards;
+using UnityEngine;
 
 namespace Lis.Battle.Fight
 {
@@ -14,6 +15,8 @@ namespace Lis.Battle.Fight
 
         protected override RewardElement ChooseRewardElement()
         {
+            int v = Random.Range(0, 2);
+            if (v == 1) return CreateRewardCardPawn();
             return CreateRewardCardCreature();
         }
     }

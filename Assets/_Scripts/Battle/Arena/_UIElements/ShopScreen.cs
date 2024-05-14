@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lis.Core.Utilities;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -24,9 +25,30 @@ namespace Lis.Battle.Arena
             AddContinueButton();
         }
 
+        protected override void RerollReward()
+        {
+            if (HeroManager.RewardRerollsAvailable <= 0)
+            {
+                Helpers.DisplayTextOnElement(BattleManager.Root, RerollButton, "Not More Rerolls!", Color.red);
+                return;
+            }
+
+            HeroManager.RewardRerollsAvailable--;
+            RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
+            AudioManager.PlayUI("Dice Roll");
+
+            _shop.ShouldReset = true;
+            CreateRewardCards();
+
+            if (HeroManager.RewardRerollsAvailable <= 0)
+                RerollButton.SetEnabled(false);
+        }
+
+
         protected override void CreateRewardCards()
         {
             AllRewardElements.Clear();
+            RewardContainer.Clear();
 
             if (_shop.ShouldReset)
                 CreateNewRewardCards();
@@ -47,6 +69,8 @@ namespace Lis.Battle.Arena
                     el = (RewardElementTablet)new(tabletReward);
                 if (r is RewardCreature creatureReward)
                     el = (RewardElementCreature)new(creatureReward);
+                if (r is RewardPawn pawnReward)
+                    el = (RewardElementPawn)new(pawnReward);
                 if (r is RewardGold goldReward)
                     el = (RewardElementGold)new(goldReward);
 
@@ -89,9 +113,10 @@ namespace Lis.Battle.Arena
 
         protected override RewardElement ChooseRewardElement()
         {
-            int v = Random.Range(0, 3);
+            int v = Random.Range(0, 4);
             if (v == 0) return CreateRewardCardAbility();
             if (v == 1) return CreateRewardTablet();
+            if (v == 2) return CreateRewardCardPawn();
             return CreateRewardCardCreature();
         }
 
