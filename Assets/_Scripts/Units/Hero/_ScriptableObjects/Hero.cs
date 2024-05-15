@@ -8,6 +8,7 @@ namespace Lis.Units.Hero
 {
     using Ability;
     using Tablets;
+    using Peasant;
 
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Hero/Hero")]
     public class Hero : Unit
@@ -39,12 +40,12 @@ namespace Lis.Units.Hero
         }
 
         [HideInInspector] public List<Unit> Army = new();
-        public event Action<Unit> OnArmyAdded;
 
         public void AddArmy(Unit armyUnit)
         {
             Army.Add(armyUnit);
-            OnArmyAdded?.Invoke(armyUnit);
+            if (armyUnit is Peasant peasant)
+                peasant.OnUpgraded += (_) => Army.Remove(peasant);
         }
 
         void AddRandomArmy()
@@ -54,7 +55,7 @@ namespace Lis.Units.Hero
                 Unit instance = Instantiate(GameManager.Instance.UnitDatabase.Peasant);
                 //Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomPawn());
                 instance.InitializeBattle(0);
-                Army.Add(instance);
+                AddArmy(instance);
             }
 
             /*

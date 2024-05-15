@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lis.Battle.Fight;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
@@ -36,6 +37,7 @@ namespace Lis.Units.Hero.Rewards
                 Pawn instance = Instantiate(_original);
                 instance.InitializeBattle(0);
                 Hero.AddArmy(Instantiate(instance));
+                FightManager.Instance.SpawnPlayerUnit(instance);
             }
         }
     }

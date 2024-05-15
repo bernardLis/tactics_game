@@ -8,7 +8,6 @@ using Lis.Units.Attack;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -51,7 +50,6 @@ namespace Lis.Battle.Fight
 
             _arenaManager = GetComponent<ArenaManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
-            _heroController.Hero.OnArmyAdded += (u) => SpawnPlayerUnit(u);
 
             CurrentFight = _arena.CreateFight();
             StartCoroutine(SpawnAllPlayerUnits());
