@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Bank")]
-    public class Bank : BaseScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Bank")]
+    public class Bank : Building
     {
         public List<Investment> AvailableInvestments = new();
         public List<Investment> ActiveInvestments = new();

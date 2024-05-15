@@ -12,13 +12,19 @@ namespace Lis.Battle.Arena
         GameManager _gameManager;
         HeroManager _heroManager;
 
+        [SerializeField] Building _building;
+
         public new string InteractionPrompt => "Press F To Interact!";
 
         protected override void Start()
         {
             base.Start();
+            _building = Instantiate(_building);
             _gameManager = GameManager.Instance;
             _heroManager = HeroManager.Instance;
+
+            InteractionAvailableEffect.SetActive(true);
+            IsInteractionAvailable = true;
         }
 
         protected override void SetTooltipText()
@@ -35,7 +41,7 @@ namespace Lis.Battle.Arena
 
         IEnumerator SpawnPeasantsCoroutine()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < _building.Level + 1; i++)
             {
                 Unit u = Instantiate(_gameManager.UnitDatabase.Peasant);
                 u.InitializeBattle(0);
@@ -57,11 +63,13 @@ namespace Lis.Battle.Arena
         {
             if (FightManager.IsFightActive)
             {
-                Debug.Log("Fight is already active");
+                Debug.Log("Fight is active");
                 return false;
             }
 
-            FightManager.StartFight();
+            PeasantHouseScreen screen = new();
+            screen.InitializeBuilding(_building);
+
             return true;
         }
     }

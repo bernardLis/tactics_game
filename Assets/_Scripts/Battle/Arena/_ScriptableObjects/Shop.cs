@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Shop")]
-    public class Shop : BaseScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Shop")]
+    public class Shop : Building
     {
         public bool ShouldReset;
         readonly List<Reward> _rewards = new();

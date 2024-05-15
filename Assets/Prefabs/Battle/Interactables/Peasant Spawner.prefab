@@ -357,6 +357,7 @@ MonoBehaviour:
   _tooltipCanvas: {fileID: 1418242137032412159}
   TooltipText: {fileID: 105940815561589112}
   InteractionAvailableEffect: {fileID: 3801285788922398722}
+  _building: {fileID: 11400000, guid: a5d43a180b0a0ad479d402ffd923084f, type: 2}
 --- !u!4 &8404689474223300163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1513237373731214694, guid: aea1d639b695b174682a7398202ab95d, type: 3}

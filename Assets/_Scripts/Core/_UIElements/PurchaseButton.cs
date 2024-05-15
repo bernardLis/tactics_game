@@ -23,5 +23,10 @@ namespace Lis.Core
         {
             _goldElement.ChangeAmount(amount);
         }
+
+        public void RemovePrice()
+        {
+            _goldElement.RemoveFromHierarchy();
+        }
     }
 }
