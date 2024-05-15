@@ -19964,8 +19964,9 @@ GameObject:
   - component: {fileID: 2357622740998939694}
   - component: {fileID: 5279386807793789579}
   - component: {fileID: 1291815076158462576}
+  - component: {fileID: -4194431186281825495}
   m_Layer: 0
-  m_Name: Corruption Node Explosion
+  m_Name: Peasant Upgrade Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25049,3 +25050,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-4194431186281825495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434650332122939407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6885420d5b2fb418168348166edc8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changeStartColor: {fileID: 6853047793599743164}
+  _changeGradientColor:
+  - {fileID: 5279386807793789579}
+  - {fileID: 1013245125325668073}
+  - {fileID: 4731108140758202718}
+  - {fileID: 5823501660507518452}

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.UIElements;
 
 namespace Lis.Core
 {
@@ -12,6 +13,7 @@ namespace Lis.Core
             style.width = 100;
             style.minHeight = 60;
             style.paddingLeft = 12;
+            style.alignItems = Align.Center;
 
             _goldElement = new(price);
             Add(_goldElement);

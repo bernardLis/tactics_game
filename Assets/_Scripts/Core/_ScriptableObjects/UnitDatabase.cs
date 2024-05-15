@@ -6,6 +6,7 @@ using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using Lis.Units.Pawn;
+using Lis.Units.Peasant;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -64,6 +65,9 @@ namespace Lis.Core
             return null;
         }
 
+        [Header("Peasant")]
+        public Peasant Peasant;
+
         [Header("Pawns")]
         [SerializeField] Pawn[] _allPawns;
 
@@ -72,6 +76,10 @@ namespace Lis.Core
             return _allPawns[Random.Range(0, _allPawns.Length)];
         }
 
+        public Pawn GetPawnByNature(Nature n)
+        {
+            return _allPawns.FirstOrDefault(x => x.Nature == n);
+        }
 
         [Header("Creatures")]
         public Sprite[] CreatureIcons;
@@ -124,7 +132,7 @@ namespace Lis.Core
         [Header("Natures")] [SerializeField]
         Nature[] _natures;
 
-        Nature GetNatureByName(NatureName str)
+        public Nature GetNatureByName(NatureName str)
         {
             return _natures.FirstOrDefault(x => x.NatureName == str);
         }

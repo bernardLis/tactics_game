@@ -51,7 +51,8 @@ namespace Lis.Units.Hero
         {
             for (int i = 0; i < 3; i++)
             {
-                Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomPawn());
+                Unit instance = Instantiate(GameManager.Instance.UnitDatabase.Peasant);
+                //Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomPawn());
                 instance.InitializeBattle(0);
                 Army.Add(instance);
             }

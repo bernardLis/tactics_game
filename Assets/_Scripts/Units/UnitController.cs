@@ -52,7 +52,7 @@ namespace Lis.Units
         [HideInInspector] public bool IsShielded;
         bool _isEngaged;
 
-        public bool IsDead { get; private set; }
+        public bool IsDead { get; protected set; }
         bool _isDeathCoroutineStarted;
 
         MMF_Player _feelPlayer;
@@ -434,6 +434,11 @@ namespace Lis.Units
 
             Animator.SetTrigger(AnimDie);
             OnDeath?.Invoke(this, attack);
+        }
+
+        protected void InvokeDeathEvent()
+        {
+            OnDeath?.Invoke(this, null);
         }
 
         void ResolveLoot()

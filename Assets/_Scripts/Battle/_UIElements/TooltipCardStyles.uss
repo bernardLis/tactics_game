@@ -25,7 +25,8 @@
 .tooltip-card__bottom-container {
     flex-direction: row;
     justify-content: center;
-    width: 100%;
+    width: 300px;
+    flex-wrap: wrap;
 }
 
 .tooltip-card__top-left-container {

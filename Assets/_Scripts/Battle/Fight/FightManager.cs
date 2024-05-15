@@ -50,7 +50,7 @@ namespace Lis.Battle.Fight
 
             _arenaManager = GetComponent<ArenaManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
-            _heroController.Hero.OnArmyAdded += SpawnPlayerUnit;
+            _heroController.Hero.OnArmyAdded += (u) => SpawnPlayerUnit(u);
 
             CurrentFight = _arena.CreateFight();
             StartCoroutine(SpawnAllPlayerUnits());
@@ -83,9 +83,9 @@ namespace Lis.Battle.Fight
             }
         }
 
-        public void SpawnPlayerUnit(Unit u)
+        public void SpawnPlayerUnit(Unit u, Vector3 pos = default)
         {
-            Vector3 pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
+            if (pos == default) pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
             GameObject g = Instantiate(u.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();
             unitController.InitializeGameObject();

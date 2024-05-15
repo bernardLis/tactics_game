@@ -26,7 +26,7 @@ namespace Lis.Units
         public Sound LevelUpSound;
 
 
-        public int DamageTaken;
+        [HideInInspector] public int DamageTaken;
         public event Action<int> OnDamageTaken;
 
         public event Action OnKilled;
@@ -151,8 +151,10 @@ namespace Lis.Units
         }
 
         /* ATTACKS */
+        [Header("Attacks")]
         [SerializeField] Attack.Attack[] _attacksOriginal;
-        public List<Attack.Attack> Attacks = new();
+
+        [HideInInspector] public List<Attack.Attack> Attacks = new();
         [HideInInspector] public Attack.Attack CurrentAttack;
         public event Action<Attack.Attack> OnAttackAdded;
         public event Action<Attack.Attack> OnAttackRemoved;

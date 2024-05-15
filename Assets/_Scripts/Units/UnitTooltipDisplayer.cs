@@ -1,5 +1,6 @@
 using Lis.Battle;
 using Lis.Units.Pawn;
+using Lis.Units.Peasant;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -26,6 +27,8 @@ namespace Lis.Units
 
             if (_unitController.Unit is Pawn.Pawn pawn)
                 el = new PawnCard(pawn);
+            if (_unitController.Unit is Peasant.Peasant peasant)
+                el = new PeasantCard(peasant);
 
             _tooltipManager.ShowTooltip(el, gameObject);
         }

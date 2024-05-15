@@ -3,6 +3,7 @@ using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
@@ -50,6 +51,17 @@ namespace Lis.Battle
 
             RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
                 .Value;
+
+            // TODO: move this to peasant building
+            _fightManager.OnFightEnded += () =>
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Unit u = Instantiate(GameManager.Instance.UnitDatabase.Peasant);
+                    u.InitializeBattle(0);
+                    Hero.AddArmy(u);
+                }
+            };
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
             if (hero.StartingAbility == null || _turnOffAbility) return;
