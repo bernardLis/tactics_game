@@ -7,8 +7,6 @@ namespace Lis.Battle.Arena
 {
     public class PeasantHouseScreen : FullScreenElement
     {
-        const string _ussCommonButton = "common__button";
-
         Building _building;
 
         Label _levelLabel;
@@ -31,7 +29,7 @@ namespace Lis.Battle.Arena
 
         void AddUpgradeButton()
         {
-            _upgradeButton = new("", _ussCommonButton, Upgrade, (_building.Level + 1) * 200);
+            _upgradeButton = new("", USSCommonButton, Upgrade, (_building.Level + 1) * 200);
             Content.Add(_upgradeButton);
         }
 

@@ -8,6 +8,7 @@ using Lis.Units.Attack;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
