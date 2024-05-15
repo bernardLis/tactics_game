@@ -83,7 +83,7 @@ namespace Lis.Battle.Fight
             }
         }
 
-        public void SpawnPlayerUnit(Unit u, Vector3 pos = default)
+        public UnitController SpawnPlayerUnit(Unit u, Vector3 pos = default)
         {
             if (pos == default) pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
             GameObject g = Instantiate(u.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
@@ -92,6 +92,8 @@ namespace Lis.Battle.Fight
             unitController.InitializeUnit(u, 0);
             unitController.SetOpponentList(ref EnemyUnits);
             AddPlayerUnit(unitController);
+
+            return unitController;
         }
 
         IEnumerator SpawnEnemyUnits()

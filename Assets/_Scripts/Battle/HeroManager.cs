@@ -52,17 +52,6 @@ namespace Lis.Battle
             RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
                 .Value;
 
-            // TODO: move this to peasant building
-            _fightManager.OnFightEnded += () =>
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    Unit u = Instantiate(GameManager.Instance.UnitDatabase.Peasant);
-                    u.InitializeBattle(0);
-                    Hero.AddArmy(u);
-                }
-            };
-
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
             if (hero.StartingAbility == null || _turnOffAbility) return;
             Hero.AddAbility(hero.StartingAbility);
