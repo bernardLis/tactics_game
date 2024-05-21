@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
   m_Name: Stump
   m_EditorClassIdentifier: 
   Id: a0ddeefd-9cb5-401c-89a0-e35638e2466b
@@ -41,3 +41,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

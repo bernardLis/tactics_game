@@ -29,6 +29,7 @@ namespace Lis.Units
 
         public void Initialize()
         {
+            BonusValue = 0;
             if (Icon == null)
                 Icon = GameManager.Instance.UnitDatabase.GetStatIconByType(StatType);
             if (string.IsNullOrEmpty(Description))

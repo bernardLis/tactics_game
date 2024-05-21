@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Skeleton Bird
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Bee
   m_EditorClassIdentifier: 
-  Id: dc8e2901-8cdb-4006-958f-91863b1a4dc8
-  UnitName: Skeleton Bird
-  Icon: {fileID: 21300000, guid: ae74e5f9c82506d4f958145591d3b698, type: 3}
+  Id: c3e4f761-cb5d-4955-88f7-9dd3736a0f32
+  UnitName: Bee
+  Icon: {fileID: 21300000, guid: f769958a9834dcd45863b93cbdbcbed6, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: ae74e5f9c82506d4f958145591d3b698, type: 3}
+  - {fileID: 21300000, guid: f769958a9834dcd45863b93cbdbcbed6, type: 3}
   Price: 20
-  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: e2c7cc798d56d6d428c1f5f0ec5ca57c, type: 3}
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Prefab: {fileID: 1922741896846065164, guid: d16d0340dbaa25d49a66f3176c172962, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -38,6 +38,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: a84e171c3b8646c46b59cbb3a6163f9e, type: 2}
+  - {fileID: 11400000, guid: 4e97d2b926b52f0479492e5cacb1a525, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

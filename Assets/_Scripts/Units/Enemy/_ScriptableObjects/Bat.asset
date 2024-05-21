@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Zombie
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Bat
   m_EditorClassIdentifier: 
-  Id: 9d86cd16-b731-4869-84cd-b4fec232e64d
-  UnitName: Zombie
-  Icon: {fileID: 21300000, guid: 35bd19d8997cf22418265e1912bb631c, type: 3}
+  Id: c31842d3-b398-46f4-ac99-b36f03ac8852
+  UnitName: Bat
+  Icon: {fileID: 21300000, guid: 2bfbedada4fe5ed4d82a1737a1a995ba, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 35bd19d8997cf22418265e1912bb631c, type: 3}
+  - {fileID: 21300000, guid: 2bfbedada4fe5ed4d82a1737a1a995ba, type: 3}
   Price: 20
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: 72936e97969518644b2dbfee34c24044, type: 3}
+  Prefab: {fileID: 1922741896846065164, guid: 9621311f07dd2f847b15f316190ec4f9, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -41,3 +41,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

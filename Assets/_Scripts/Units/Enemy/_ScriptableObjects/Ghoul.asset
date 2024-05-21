@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Reaper
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Ghoul
   m_EditorClassIdentifier: 
-  Id: a7fdc9ba-7bb4-4d44-9e96-4537df33c05a
-  UnitName: Reaper
-  Icon: {fileID: 21300000, guid: 1a4dd688b022736449841eb989734a44, type: 3}
+  Id: 142d608d-58a6-4bc3-a554-65c466944a1e
+  UnitName: Ghoul
+  Icon: {fileID: 21300000, guid: 69fd3bfdae25bc640aaa0e95e9af0ac8, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 1a4dd688b022736449841eb989734a44, type: 3}
+  - {fileID: 21300000, guid: 69fd3bfdae25bc640aaa0e95e9af0ac8, type: 3}
   Price: 20
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: 261e0a904c58f3143851f09cf52ad84b, type: 3}
+  Prefab: {fileID: 1922741896846065164, guid: 6ba79521539d70c4d8ad2d48cdc60a69, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -41,3 +41,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

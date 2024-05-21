@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -76,7 +75,12 @@ namespace Lis.Units
 
         public virtual IEnumerator PathToTarget(Transform t, float attackRange = 0)
         {
-            SetStoppingDistance(attackRange);
+            float dist = attackRange;
+            // dist += _agent.radius;
+            // if (t.TryGetComponent(out NavMeshAgent navMeshAgent))
+            //     dist += navMeshAgent.radius;
+            SetStoppingDistance(dist);
+
             yield return PathToPosition(t.position);
             while (IsAgentOk() && _agent.remainingDistance >= _agent.stoppingDistance)
             {

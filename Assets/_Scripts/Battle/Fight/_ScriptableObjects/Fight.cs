@@ -1,21 +1,25 @@
 using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units;
-using Lis.Units.Creature;
+using Lis.Units.Enemy;
 using UnityEngine;
 
 namespace Lis.Battle.Fight
 {
     public class Fight : BaseScriptableObject
     {
-        [HideInInspector] public List<Unit> OpponentArmy = new();
+        [HideInInspector] public List<Enemy> OpponentArmy = new();
 
         public void Initialize(int points)
         {
             // TODO: for now
-            List<Unit> availableEnemies = new(GameManager.Instance.UnitDatabase.GetAllEnemies());
+            List<Enemy> availableEnemies = new(GameManager.Instance.UnitDatabase.GetAllEnemies());
+
             for (int i = 0; i < points; i++)
-                OpponentArmy.Add(Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)]));
+            {
+                Enemy enemy = Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)]);
+                if (i % 2 == 0) enemy.SetMiniBoss();
+                OpponentArmy.Add(enemy);
+            }
         }
         /*
          *         public void CreateWave(int waveIndex, int points, int minionLevel, int threatLevel)

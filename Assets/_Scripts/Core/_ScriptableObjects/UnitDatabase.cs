@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Lis.Units;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
+using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
@@ -105,9 +105,9 @@ namespace Lis.Core
         }
 
         [Header("Enemies")]
-        [SerializeField] Unit[] _enemies;
+        [SerializeField] Enemy[] _enemies;
 
-        public List<Unit> GetAllEnemies()
+        public List<Enemy> GetAllEnemies()
         {
             return _enemies.ToList();
         }

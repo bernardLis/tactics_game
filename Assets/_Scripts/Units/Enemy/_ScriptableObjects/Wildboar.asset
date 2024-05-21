@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Golem
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Wildboar
   m_EditorClassIdentifier: 
-  Id: 91d89cc2-3eac-40bc-8ec9-e4d4ca874ca7
-  UnitName: Golem
-  Icon: {fileID: 21300000, guid: 3c7ea63cdf18aaa428e4a5bd448dd9e7, type: 3}
+  Id: 8e624039-9c00-4207-a08b-3a33b35ddd9d
+  UnitName: Wildboar
+  Icon: {fileID: 21300000, guid: ebec023d4a23afd48914a62b5ce6965b, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 3c7ea63cdf18aaa428e4a5bd448dd9e7, type: 3}
+  - {fileID: 21300000, guid: ebec023d4a23afd48914a62b5ce6965b, type: 3}
   Price: 20
-  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: 5e1e5c4a8cc2efa47b467b5760d6b079, type: 3}
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Prefab: {fileID: 1922741896846065164, guid: e3607eedc18517b4d9bd265f2d79a141, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -38,6 +38,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

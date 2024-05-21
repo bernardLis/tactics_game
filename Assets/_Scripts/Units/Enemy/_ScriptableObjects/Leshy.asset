@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Werewolf
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Leshy
   m_EditorClassIdentifier: 
-  Id: 95d1e33a-0246-4779-9da5-a2b45ae9478d
-  UnitName: Werewolf
-  Icon: {fileID: 21300000, guid: 381095081a6abe84fb2d4ca69daff2fc, type: 3}
+  Id: ad138ff4-a148-4d42-ba72-97403f012b2f
+  UnitName: Leshy
+  Icon: {fileID: 21300000, guid: c991d968276ce8244bc3264134a480f0, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 381095081a6abe84fb2d4ca69daff2fc, type: 3}
+  - {fileID: 21300000, guid: c991d968276ce8244bc3264134a480f0, type: 3}
   Price: 20
-  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: e385d9bbe85892c4f9bc66f626f292fd, type: 3}
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  Prefab: {fileID: 1922741896846065164, guid: 2a9c470420a05d749a5c908e9bbf07ea, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -38,6 +38,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
+  - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

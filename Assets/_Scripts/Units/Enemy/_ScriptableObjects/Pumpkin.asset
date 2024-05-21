@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Ghost
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Pumpkin
   m_EditorClassIdentifier: 
-  Id: 37979f43-6afe-437e-9852-bf328b5fb625
-  UnitName: Ghost
-  Icon: {fileID: 21300000, guid: 62296a3bc73e16d4da88bf31f929923a, type: 3}
-  IconAnimation: []
+  Id: 1af17b39-933b-49ba-957f-6f0ae4f35d55
+  UnitName: Pumpkin
+  Icon: {fileID: 21300000, guid: 0aa608224c68e654aba6a5c0ee35664a, type: 3}
+  IconAnimation:
+  - {fileID: 21300000, guid: 0aa608224c68e654aba6a5c0ee35664a, type: 3}
   Price: 20
-  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: 6a67ed0e8dd669a48bb4ce3de8e61867, type: 3}
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Prefab: {fileID: 1922741896846065164, guid: 939e61f08d9e5854ea5ca5e197e3fddf, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -37,6 +38,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: f1c570a18c6b63441a0b386bd541b373, type: 2}
+  - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

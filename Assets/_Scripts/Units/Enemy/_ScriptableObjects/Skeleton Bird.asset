@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
-  m_Name: Spider
+  m_Script: {fileID: 11500000, guid: 581a50e9c4b26da40a034e2a45cab473, type: 3}
+  m_Name: Skeleton Bird
   m_EditorClassIdentifier: 
-  Id: 4bda326a-9e6d-46a8-afb3-17413c285878
-  UnitName: Spider
-  Icon: {fileID: 21300000, guid: 1fa0fb846105c8d498ab372a8df4e9ab, type: 3}
+  Id: dc8e2901-8cdb-4006-958f-91863b1a4dc8
+  UnitName: Skeleton Bird
+  Icon: {fileID: 21300000, guid: ae74e5f9c82506d4f958145591d3b698, type: 3}
   IconAnimation:
-  - {fileID: 21300000, guid: 1fa0fb846105c8d498ab372a8df4e9ab, type: 3}
+  - {fileID: 21300000, guid: ae74e5f9c82506d4f958145591d3b698, type: 3}
   Price: 20
-  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  Prefab: {fileID: 1922741896846065164, guid: 26bde3e919f673e4fbc9a663091486af, type: 3}
+  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  Prefab: {fileID: 1922741896846065164, guid: e2c7cc798d56d6d428c1f5f0ec5ca57c, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
@@ -38,6 +38,7 @@ MonoBehaviour:
   ExpForNextLevel: {fileID: 0}
   LeftoverExp: 0
   _attacksOriginal:
-  - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  - {fileID: 11400000, guid: a84e171c3b8646c46b59cbb3a6163f9e, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  IsMiniBoss: 0

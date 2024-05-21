@@ -97,8 +97,8 @@ namespace Lis.Units.Attack
             // +0.5 wiggle room
             Vector3 delta = UnitController.Opponent.transform.position - transform.position;
             float distanceSqrt = delta.sqrMagnitude;
-            float attackRangeSqrt = (Attack.Range + 0.5f) *
-                                    (Attack.Range + 0.5f);
+            float attackRangeSqrt = (Attack.Range + 1.5f) *
+                                    (Attack.Range + 1.5f);
             return distanceSqrt <= attackRangeSqrt;
         }
 
