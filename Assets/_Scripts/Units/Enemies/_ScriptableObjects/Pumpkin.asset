@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0eef8c4fd35e3a49a3027283c529f6c, type: 3}
+  m_Name: Pumpkin
+  m_EditorClassIdentifier: 
+  Id: 1af17b39-933b-49ba-957f-6f0ae4f35d55
+  UnitName: Pumpkin
+  Icon: {fileID: 21300000, guid: 0aa608224c68e654aba6a5c0ee35664a, type: 3}
+  IconAnimation:
+  - {fileID: 21300000, guid: 0aa608224c68e654aba6a5c0ee35664a, type: 3}
+  Price: 20
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Prefab: {fileID: 1922741896846065164, guid: 939e61f08d9e5854ea5ca5e197e3fddf, type: 3}
+  SpawnSound: {fileID: 0}
+  DeathSound: {fileID: 0}
+  AttackSound: {fileID: 0}
+  HitSound: {fileID: 0}
+  LevelUpSound: {fileID: 0}
+  DamageTaken: 0
+  TotalKillCount: 0
+  Team: 0
+  MaxHealth: {fileID: 11400000, guid: 915c561e7dca43a47b8f8ed0ece3ccc7, type: 2}
+  CurrentHealth: {fileID: 0}
+  Armor: {fileID: 11400000, guid: 1129c91bf505128428ef788c779b7415, type: 2}
+  Speed: {fileID: 11400000, guid: e2fe3d00573aab4479836a29d391d866, type: 2}
+  Power: {fileID: 11400000, guid: d2d8b94e10c536e49b1cf06c91898700, type: 2}
+  Level: {fileID: 11400000, guid: bd9a0ea7b34c06440ad8e298ea7dddd4, type: 2}
+  Experience: {fileID: 0}
+  ExpForNextLevel: {fileID: 0}
+  LeftoverExp: 0
+  _attacksOriginal:
+  - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
+  Attacks: []
+  CurrentAttack: {fileID: 0}

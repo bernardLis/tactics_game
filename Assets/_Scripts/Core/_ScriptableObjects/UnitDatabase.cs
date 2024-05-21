@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Lis.Units;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
@@ -101,6 +102,14 @@ namespace Lis.Core
         public Creature GetRandomOpponentCreature()
         {
             return _opponentCreatures[Random.Range(0, _opponentCreatures.Length)];
+        }
+
+        [Header("Enemies")]
+        [SerializeField] Unit[] _enemies;
+
+        public List<Unit> GetAllEnemies()
+        {
+            return _enemies.ToList();
         }
 
 

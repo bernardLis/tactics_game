@@ -97,14 +97,14 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnEnemyUnits()
         {
-            foreach (Creature c in _arena.Fights.Last().OpponentArmy)
+            foreach (Unit c in _arena.Fights.Last().OpponentArmy)
             {
                 SpawnEnemyUnit(c);
                 yield return new WaitForSeconds(0.1f);
             }
         }
 
-        public void SpawnEnemyUnit(Creature c)
+        public void SpawnEnemyUnit(Unit c)
         {
             c.InitializeBattle(1);
             Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();

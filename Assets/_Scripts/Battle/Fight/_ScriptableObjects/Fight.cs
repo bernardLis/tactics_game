@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units;
 using Lis.Units.Creature;
 using UnityEngine;
 
@@ -7,14 +8,14 @@ namespace Lis.Battle.Fight
 {
     public class Fight : BaseScriptableObject
     {
-        [HideInInspector] public List<Creature> OpponentArmy = new();
+        [HideInInspector] public List<Unit> OpponentArmy = new();
 
         public void Initialize(int points)
         {
             // TODO: for now
-            List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.GetAllOpponentCreatures());
+            List<Unit> availableEnemies = new(GameManager.Instance.UnitDatabase.GetAllEnemies());
             for (int i = 0; i < points; i++)
-                OpponentArmy.Add(Instantiate(availableCreatures[Random.Range(0, availableCreatures.Count)]));
+                OpponentArmy.Add(Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)]));
         }
         /*
          *         public void CreateWave(int waveIndex, int points, int minionLevel, int threatLevel)

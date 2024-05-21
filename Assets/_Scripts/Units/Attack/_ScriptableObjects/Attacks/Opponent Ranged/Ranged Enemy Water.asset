@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81ac905ab9bd3a479352b79175e34d3, type: 3}
+  m_Name: Ranged Enemy Water
+  m_EditorClassIdentifier: 
+  Id: 99f8395d-8947-4996-8353-9eb58daf5b82
+  Icon: {fileID: 21300000, guid: 9eab21c67aa77244696a946bd00802b0, type: 3}
+  Description: Just a projectile.
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Damage: 10
+  Range: 20
+  Cooldown: 15
+  GlobalCooldown: 3
+  IsArmorPiercing: 0
+  Sound: {fileID: 0}
+  DamageDealt: 0
+  AttackControllerPrefab: {fileID: 9133679670937393327, guid: b3c90fb16bca2e848afb8b3513403677, type: 3}
+  AttackController: {fileID: 0}

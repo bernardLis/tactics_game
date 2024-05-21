@@ -46,15 +46,26 @@ namespace Lis.Battle
             _battleManager.OnBattleFinalized += OnBattleFinalized;
 
             _fightManager = GetComponent<FightManager>();
-            _fightManager.OnFightStarted += () => ShowGameInfo("Fight started!", 3f);
-            _fightManager.OnFightEnded += () => ShowGameInfo("Fight won!", 3f);
-
+            _fightManager.OnFightStarted += OnFightStarted;
+            _fightManager.OnFightEnded += OnFightEnded;
             _root = GetComponent<UIDocument>().rootVisualElement;
             _tooltipCardContainer = _root.Q<VisualElement>("tooltipCardContainer");
             _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
             _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
 
             SetUpEntityInfo();
+        }
+
+        void OnFightStarted()
+        {
+            ShowGameInfo("Fight started!", 3f);
+            if (CurrentTooltipDisplayer == null) return;
+            HideTooltip();
+        }
+
+        void OnFightEnded()
+        {
+            ShowGameInfo("Fight won!", 3f);
         }
 
         /* INPUT */
@@ -147,7 +158,7 @@ namespace Lis.Battle
             Invoke(nameof(HideGameInfo), duration);
         }
 
-        public void ShowGameInfo(string text)
+        void ShowGameInfo(string text)
         {
             if (_gameInfoContainer == null) return;
             _gameInfoContainer.Clear();

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lis.Battle;
+using Lis.Battle.Fight;
 using Lis.Core;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Lis.Units.Peasant
 {
@@ -17,6 +16,7 @@ namespace Lis.Units.Peasant
         {
             _unitDatabase = GameManager.Instance.UnitDatabase;
             _peasant = peasant;
+            if (FightManager.IsFightActive) return;
             AddUpgradeButtons();
         }
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hatchet Bird
+  m_Controller: {fileID: 9100000, guid: 4ff1f17465438493daaeed8275d7457c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 51062ada04f807546ad5ef71d086c350, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 57e38a770f4a6c84494c67324bf1bde4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 64e5269d28d9e964490cdfc3b9016b4d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 79f3b370950d1c543911e4d36ad2486a, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e00d26e5b274a5a41a265828660a52f2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eecc3b37130cebe4e86eb570eb4d7af4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: f7db4c89a6559fc4d8b3c1ecef823cf2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 171afbaa3b01e774aa5366e0fdc2e8e1, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: d026a8cd97efa054e8693879ce65b18f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 79daa27810b3ec944a6f5f58b8f04fbb, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 0bf4d133d44908849bfa7f0108491be3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6b08db01124a8634bb6848bc018a3204, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e4fbf2d8b31f53c478518aec3b25c2ac, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9dfde6a8c8565dd4bb9499059ef127af, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 138d9acb393282d48bd0194a188bf046, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 79f3b370950d1c543911e4d36ad2486a, type: 3}

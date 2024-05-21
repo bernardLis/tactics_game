@@ -11,6 +11,7 @@ using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Attack;
 using MoreMountains.Feedbacks;
+using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -184,6 +185,7 @@ namespace Lis.Units
             if (Team == 1 && IsDead)
             {
                 transform.DOMoveY(0f, 5f)
+                    .SetDelay(1f)
                     .OnComplete(DestroySelf);
                 return;
             }
@@ -508,10 +510,10 @@ namespace Lis.Units
         }
 
 #if UNITY_EDITOR
-        [ContextMenu("Trigger Death")]
+        [Button]
         public void TriggerDeath() => Die();
 
-        [ContextMenu("Level up")]
+        [Button]
         public void LevelUp() => Unit.LevelUp();
 #endif
     }
