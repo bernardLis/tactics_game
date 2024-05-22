@@ -1,17 +1,4 @@
 .unit-screen__content {
-    width: 100%;
-    height: 100%;
-    background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&guid=b764c73bf47635548a80bafe4627b037&type=3#long_shadow");
-    align-items: center;
-    justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    -unity-slice-left: 240;
-    -unity-slice-top: 240;
-    -unity-slice-right: 240;
-    -unity-slice-bottom: 240;
 }
 
 .unit-screen__info-container {
@@ -64,4 +51,21 @@
     -unity-font-style: bold;
     font-size: 22px;
     margin-top: 20px;
+}
+
+
+/* HERO */
+
+.unit-screen__row-container {
+    width: 100%;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.unit-screen__slot {
+    width: 10px;
+    height: 10px;
+    margin: 50px;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
 }

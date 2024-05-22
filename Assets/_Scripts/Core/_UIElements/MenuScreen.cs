@@ -1,7 +1,6 @@
 using System;
 using Lis.Battle;
 using Lis.Core.Utilities;
-using Lis.Units.Hero;
 using UnityEngine.UIElements;
 
 namespace Lis.Core
@@ -29,12 +28,6 @@ namespace Lis.Core
             _container.Add(new HorizontalSpacerElement());
 
             AddMenuButtons();
-
-            BattleManager = BattleManager.Instance;
-            if (BattleManager == null) return;
-            HeroController hc = BattleManager.GetComponent<HeroManager>().HeroController;
-            if (hc == null) return;
-            Add(new HeroElement(hc.Hero, true));
         }
 
         void AddMenuButtons()

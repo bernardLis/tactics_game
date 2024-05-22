@@ -1,6 +1,6 @@
 .reward-element__main {
     width: 200px;
-    height: 300px;
+    height: 200px;
     opacity: 0.9;
     justify-content: center;
     align-items: center;

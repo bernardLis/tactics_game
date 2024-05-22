@@ -1,4 +1,3 @@
-using Lis.Battle;
 using Lis.Core;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
@@ -26,7 +25,6 @@ namespace Lis.Units.Hero.Tablets
             AddElements();
             Content.Add(new HorizontalSpacerElement());
             AddAbility();
-            Add(new HeroElement(BattleManager.GetComponent<HeroManager>().Hero, true));
 
             DisableNavigation();
         }

@@ -4,7 +4,6 @@ using System.Linq;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Units.Hero;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -62,7 +61,6 @@ namespace Lis.Battle.Arena
             AddTitle();
             AddRewardContainer();
             AddRerollButton();
-            AddHeroElement();
             schedule.Execute(PopulateRewards).StartingIn(600);
         }
 
@@ -78,16 +76,6 @@ namespace Lis.Battle.Arena
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
             Content.Add(spacer);
-        }
-
-        protected void AddHeroGoldElement()
-        {
-            GoldElement goldElement = new(GameManager.Gold);
-            GameManager.OnGoldChanged += goldElement.ChangeAmount;
-            goldElement.style.position = Position.Absolute;
-            goldElement.style.left = Length.Percent(10);
-            goldElement.style.top = Length.Percent(3);
-            Content.Add(goldElement);
         }
 
 
@@ -136,11 +124,6 @@ namespace Lis.Battle.Arena
             DOTween.To(x => _rerollContainer.style.opacity = x, 0, 1, 0.5f)
                 .SetDelay(1f)
                 .SetUpdate(true);
-        }
-
-        protected void AddHeroElement()
-        {
-            Add(new HeroElement(HeroManager.Hero, true));
         }
 
         void PopulateRewards()

@@ -21,14 +21,12 @@ namespace Lis.Core
         {
             _gameManager = GameManager.Instance;
 
-            var commonStyles = _gameManager.GetComponent<AddressableManager>()
+            StyleSheet commonStyles = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.CommonStyles);
-            if (commonStyles != null)
-                styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>()
+            if (commonStyles != null) styleSheets.Add(commonStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.GoldElementStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            if (ss != null) styleSheets.Add(ss);
 
             Amount = 0;
 

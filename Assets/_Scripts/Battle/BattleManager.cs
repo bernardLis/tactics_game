@@ -32,7 +32,6 @@ namespace Lis.Battle
         int _battleTime;
         Label _timerLabel;
 
-
         public event Action OnBattleInitialized;
         public event Action OnBattleFinalized;
 
@@ -59,6 +58,7 @@ namespace Lis.Battle
             _timerLabel = Root.Q<Label>("timer");
         }
 
+
         public void Initialize()
         {
             Battle = _gameManager.CurrentBattle;
@@ -67,8 +67,10 @@ namespace Lis.Battle
             _battleTime = 0;
             ResumeTimer();
 
+
             OnBattleInitialized?.Invoke();
         }
+
 
         public void PauseGame()
         {

@@ -2,6 +2,8 @@
 using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Core;
+using Lis.Core.Utilities;
+using UnityEngine;
 
 namespace Lis.Units.Peasant
 {
@@ -14,7 +16,7 @@ namespace Lis.Units.Peasant
 
         public PeasantCard(Peasant peasant) : base(peasant)
         {
-            _unitDatabase = GameManager.Instance.UnitDatabase;
+            _unitDatabase = GameManager.UnitDatabase;
             _peasant = peasant;
             if (FightManager.IsFightActive) return;
             if (_peasant.CurrentHealth.Value <= 0) return;
@@ -32,6 +34,7 @@ namespace Lis.Units.Peasant
 
             foreach (Nature n in natures)
             {
+                // HERE: balance price
                 PurchaseButton b = new("", _ussCommonButton, () => Upgrade(n), 100);
                 b.Add(new NatureElement(n));
                 BottomContainer.Add(b);
@@ -40,6 +43,13 @@ namespace Lis.Units.Peasant
 
         void Upgrade(Nature n)
         {
+            if (GameManager.Gold < 100)
+            {
+                Helpers.DisplayTextOnElement(BattleManager.Instance.Root, this, "Not enough gold", Color.red);
+                return;
+            }
+
+            GameManager.ChangeGoldValue(-100);
             _peasant.Upgrade(n);
         }
     }

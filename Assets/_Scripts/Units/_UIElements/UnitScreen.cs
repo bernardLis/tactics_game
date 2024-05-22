@@ -9,11 +9,11 @@ namespace Lis.Units
     {
         const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "unit-screen__";
-        const string _ussContent = _ussClassName + "content";
-        const string _ussInfoContainer = _ussClassName + "info-container";
-        const string _ussStatsContainer = _ussClassName + "stats-container";
-        const string _ussOtherContainer = _ussClassName + "other-container";
+        protected const string USSClassName = "unit-screen__";
+        const string _ussContent = USSClassName + "content";
+        const string _ussInfoContainer = USSClassName + "info-container";
+        const string _ussStatsContainer = USSClassName + "stats-container";
+        const string _ussOtherContainer = USSClassName + "other-container";
 
         readonly Unit _unit;
 
@@ -22,7 +22,7 @@ namespace Lis.Units
         VisualElement _nameContainer;
 
         VisualElement _basicInfoContainer;
-        VisualElement _statsContainer;
+        protected VisualElement StatsContainer;
         protected VisualElement OtherContainer;
 
         protected UnitIcon UnitIcon;
@@ -51,7 +51,7 @@ namespace Lis.Units
             AddLevel();
             AddElement();
             AddOtherBasicInfo();
-            AddStats();
+            HandleStats();
             AddBattleData();
             AddAttacks();
 
@@ -61,11 +61,11 @@ namespace Lis.Units
         void CreateContainers()
         {
             _basicInfoContainer = new();
-            _statsContainer = new();
+            StatsContainer = new();
             OtherContainer = new();
 
             _basicInfoContainer.AddToClassList(_ussInfoContainer);
-            _statsContainer.AddToClassList(_ussStatsContainer);
+            StatsContainer.AddToClassList(_ussStatsContainer);
             OtherContainer.AddToClassList(_ussOtherContainer);
 
             MainCardContainer.Add(_basicInfoContainer);
@@ -74,7 +74,7 @@ namespace Lis.Units
             spacer.AddToClassList(USSCommonHorizontalSpacer);
             MainCardContainer.Add(spacer);
 
-            MainCardContainer.Add(_statsContainer);
+            MainCardContainer.Add(StatsContainer);
 
             VisualElement spacer1 = new();
             spacer1.AddToClassList(USSCommonHorizontalSpacer);
@@ -110,17 +110,17 @@ namespace Lis.Units
             _basicInfoContainer.Add(e);
         }
 
-        void AddStats()
+        protected virtual void HandleStats()
         {
             StatElement maxHealth = new(_unit.MaxHealth);
             StatElement armor = new(_unit.Armor);
             StatElement speed = new(_unit.Speed);
             StatElement power = new(_unit.Power);
 
-            _statsContainer.Add(maxHealth);
-            _statsContainer.Add(armor);
-            _statsContainer.Add(speed);
-            _statsContainer.Add(power);
+            StatsContainer.Add(maxHealth);
+            StatsContainer.Add(armor);
+            StatsContainer.Add(speed);
+            StatsContainer.Add(power);
         }
 
         protected virtual void AddOtherBasicInfo()
@@ -132,7 +132,7 @@ namespace Lis.Units
             OtherContainer.Add(price);
         }
 
-        void AddBattleData()
+        protected virtual void AddBattleData()
         {
             Label killCount = new($"Kill Count: {_unit.TotalKillCount}");
             Label damageDealt = new($"Damage Dealt: {_unit.GetDamageDealt()}");
@@ -141,7 +141,7 @@ namespace Lis.Units
             OtherContainer.Add(damageDealt);
         }
 
-        void AddAttacks()
+        protected virtual void AddAttacks()
         {
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);

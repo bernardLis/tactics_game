@@ -20,8 +20,6 @@ namespace Lis.Battle.Arena
 
             Title = "Bank";
             AddTitle();
-            AddHeroElement();
-            AddHeroGoldElement();
 
             _investmentContainer = new();
             _investmentContainer.style.width = Length.Percent(100);

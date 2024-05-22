@@ -1,5 +1,7 @@
 .hero-element__main {
+    position: absolute;
     width: 100%;
+    bottom: 0;
 }
 
 .hero-element__button-guide-container {
@@ -33,41 +35,9 @@
     min-height: 50px;
 }
 
-.hero-element__team-container {
-    margin-left: 12px;
-    padding-bottom: 12px;
-    align-self: flex-start;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    opacity: 0.8;
-    min-width: 50px;
-    min-height: 50px;
-}
-
 .hero-element__info-container {
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
 }
 
-.hero-element__stat-container {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-element__tablet-container {
-    flex-direction: row;
-    position: absolute;
-    width: 100%;
-    justify-content: center;
-}
-
-.hero-element__slot {
-    width: 10px;
-    height: 10px;
-    margin: 50px;
-    border-radius: 20px;
-    background-color: rgb(255, 255, 255);
-}

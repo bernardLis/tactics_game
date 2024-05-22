@@ -3,7 +3,6 @@ using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Units;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
@@ -18,8 +17,7 @@ namespace Lis.Battle
         FightManager _fightManager;
 
         VisualElement _root;
-        VisualElement _bottomPanel;
-        HeroElement _heroBattleElement;
+        HeroElement _heroElement;
 
         public CinemachineVirtualCamera HeroFollowCamera;
 
@@ -40,7 +38,6 @@ namespace Lis.Battle
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
             _root = GetComponent<UIDocument>().rootVisualElement;
-            _bottomPanel = _root.Q<VisualElement>("bottomPanel");
             _fightManager = GetComponent<FightManager>();
 
             Hero = hero;
@@ -48,6 +45,7 @@ namespace Lis.Battle
             hero.OnLevelUp += OnHeroLevelUp;
 
             InitializeHeroGameObject(hero);
+            AddGoldElement();
 
             RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
                 .Value;
@@ -56,6 +54,18 @@ namespace Lis.Battle
             if (hero.StartingAbility == null || _turnOffAbility) return;
             Hero.AddAbility(hero.StartingAbility);
         }
+
+        void AddGoldElement()
+        {
+            GoldElement goldElement = new(_gameManager.Gold);
+            _gameManager.OnGoldChanged += goldElement.ChangeAmount;
+            _root.Add(goldElement);
+            goldElement.style.position = Position.Absolute;
+            goldElement.style.right = 0;
+            goldElement.style.top = 0;
+            goldElement.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+        }
+
 
         void InitializeHeroGameObject(Hero hero)
         {
@@ -69,8 +79,8 @@ namespace Lis.Battle
             _placeholderAudioListener.enabled = false;
             HeroController.InitializeUnit(hero, 0);
 
-            _heroBattleElement = new(hero);
-            _bottomPanel.Add(_heroBattleElement);
+            _heroElement = new(hero);
+            _root.Add(_heroElement);
         }
 
         void OnHeroLevelUp()

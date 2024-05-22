@@ -51,7 +51,7 @@ namespace Lis.Units
             if (_tooltipManager.CurrentEntityInfo == _unitController)
                 _tooltipManager.HideEntityInfo();
 
-            if (_tooltipManager.CurrentTooltipDisplayer == _unitController.gameObject)
+            if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
                 _tooltipManager.HideTooltip();
         }
 

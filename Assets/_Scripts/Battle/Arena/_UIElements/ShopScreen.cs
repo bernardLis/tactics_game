@@ -21,7 +21,6 @@ namespace Lis.Battle.Arena
             Title = "Shop";
 
             base.Initialize();
-            AddHeroGoldElement();
             AddContinueButton();
         }
 

@@ -1,4 +1,5 @@
 .menu__container {
+    /*
     width: 100%;
     height: 100%;
     padding: 50px 50px 30px;
@@ -6,6 +7,8 @@
     align-items: center;
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&guid=b764c73bf47635548a80bafe4627b037&type=3#long_shadow");
     -unity-background-scale-mode: stretch-to-fill;
+    */
+     
 }
 
 .menu__button-container {
