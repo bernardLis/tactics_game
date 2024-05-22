@@ -15,9 +15,10 @@ namespace Lis.Units
 
         void Start()
         {
-            _unitController = GetComponent<UnitController>();
+            _unitController = GetComponentInParent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
             _unitController.OnDeath += OnDeath;
+            _unitController.Unit.OnRevival += OnRevival;
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -54,12 +55,16 @@ namespace Lis.Units
                 _tooltipManager.HideTooltip();
         }
 
+        void OnRevival()
+        {
+            _tooltipManager.HideTooltip();
+        }
+
         bool CanDisplayTooltip()
         {
             if (_tooltipManager == null) return false;
             if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;
             if (_unitController == null) return false;
-            if (_unitController.IsDead) return false;
 
             return true;
         }

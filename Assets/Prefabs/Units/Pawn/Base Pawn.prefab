@@ -66,6 +66,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8405514708836561315, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
   m_PrefabInstance: {fileID: 8328074246870688389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5009538828176942893 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3897362324449461672, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 8328074246870688389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8114921499125064059 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -86,10 +91,12 @@ MonoBehaviour:
   UnitLog: []
   _levelUpEffect: {fileID: 8356053234140325968}
   DeathEffect: {fileID: 519357000346784550}
+  _reviveEffect: {fileID: 5009538828176942893}
   IsShielded: 0
+  _upgradeZeroBody: {fileID: 0}
   _upgradeOneBody: {fileID: 0}
   _upgradeTwoBody: {fileID: 0}
-  _upgradeThreeBody: {fileID: 0}
+  _upgradeEffect: {fileID: 0}
 --- !u!1 &8356053234140325968 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}

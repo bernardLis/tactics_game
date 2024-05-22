@@ -36,6 +36,9 @@ namespace Lis.Units
 
         [SerializeField] protected GameObject DeathEffect;
 
+        [SerializeField] GameObject _reviveEffect;
+
+
         protected UnitPathingController UnitPathingController;
         AttackController _attackController;
 
@@ -100,6 +103,8 @@ namespace Lis.Units
             Team = team;
             unit.OnLevelUp -= OnLevelUp;
             unit.OnLevelUp += OnLevelUp;
+            unit.OnRevival -= Revive;
+            unit.OnRevival += Revive;
             name = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
                    + "_" + Helpers.GetRandomNumber(4);
 
@@ -141,7 +146,7 @@ namespace Lis.Units
             Unit.OnAttackRemoved += attack => Destroy(attack.AttackController.gameObject);
         }
 
-        protected void EnableSelf()
+        void EnableSelf()
         {
             AddToLog("Unit enables itself.");
             Collider.enabled = true;
@@ -424,6 +429,8 @@ namespace Lis.Units
             if (_isDeathCoroutineStarted) yield break;
             _isDeathCoroutineStarted = true;
 
+            _reviveEffect.SetActive(false);
+
             ResetOpponent(null, null);
 
             Collider.enabled = false;
@@ -447,6 +454,15 @@ namespace Lis.Units
         {
             if (Team == 0) return;
             _pickupManager.SpawnExpStone(transform.position);
+        }
+
+        void Revive()
+        {
+            AddToLog("Reviving...");
+            Animator.Rebind();
+            Animator.Update(0f);
+            _reviveEffect.SetActive(true);
+            EnableSelf();
         }
 
         /* LEVEL UP */
@@ -511,10 +527,18 @@ namespace Lis.Units
 
 #if UNITY_EDITOR
         [Button]
-        public void TriggerDeath() => Die();
+        public void TriggerDeath()
+        {
+            Unit.CurrentHealth.SetValue(0);
+            Die();
+        }
 
         [Button]
         public void LevelUp() => Unit.LevelUp();
+
+        [Button]
+        public void DebugRespawn() => Revive();
+
 #endif
     }
 }

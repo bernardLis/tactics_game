@@ -231,6 +231,15 @@ namespace Lis.Units
             return elementalDamageBonus;
         }
 
+
+        public event Action OnRevival;
+
+        public void Revive()
+        {
+            CurrentHealth.SetValue(MaxHealth.GetValue());
+            OnRevival?.Invoke();
+        }
+
         /* SERIALIZATION */
         protected UnitData SerializeSelf()
         {

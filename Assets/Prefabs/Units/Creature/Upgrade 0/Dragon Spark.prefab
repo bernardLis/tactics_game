@@ -1639,6 +1639,7 @@ PrefabInstance:
     - {fileID: 1315725873551358111, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8595717126202757458, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+    - {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6186042814436019896, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
       insertIndex: -1
@@ -1703,5 +1704,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4083b5a1eef8425eb5e88b904be30b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSound: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 5437763698017804335}
+  _projectilePrefab: {fileID: 0}

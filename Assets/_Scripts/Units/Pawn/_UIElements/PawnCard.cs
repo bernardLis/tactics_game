@@ -23,6 +23,7 @@ namespace Lis.Units.Pawn
             _fightManager = FightManager.Instance;
             if (FightManager.IsFightActive) return;
             if (_pawn.GetNextUpgrade() == null) return;
+            if (_pawn.CurrentHealth.Value <= 0) return;
             _upgradeButton = new("", _ussCommonButton, Upgrade, pawn.GetNextUpgrade().Price);
             BottomContainer.Add(_upgradeButton);
             _fightManager.OnFightStarted += () => _upgradeButton.RemoveFromHierarchy();

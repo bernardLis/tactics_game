@@ -13,7 +13,6 @@ namespace Lis.Core
 
         protected Label _text;
 
-
         Action _currentCallback;
 
         public MyButton(string buttonText = null, string className = null, Action callback = null)
@@ -21,14 +20,14 @@ namespace Lis.Core
             GameManager = GameManager.Instance;
             StyleSheet ss = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.CommonStyles);
-            if (ss != null)
-                styleSheets.Add(ss);
+            if (ss != null) styleSheets.Add(ss);
 
             _audioManager = AudioManager.Instance;
             _cursorManager = CursorManager.Instance;
 
             _text = new(buttonText);
             _text.style.whiteSpace = WhiteSpace.Normal;
+            _text.style.fontSize = 24;
             Add(_text);
             if (buttonText == "")
                 _text.style.display = DisplayStyle.None;

@@ -17,6 +17,7 @@ namespace Lis.Units.Peasant
             _unitDatabase = GameManager.Instance.UnitDatabase;
             _peasant = peasant;
             if (FightManager.IsFightActive) return;
+            if (_peasant.CurrentHealth.Value <= 0) return;
             AddUpgradeButtons();
         }
 

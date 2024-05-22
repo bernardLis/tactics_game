@@ -80,6 +80,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7688735376032373098}
   m_SourcePrefab: {fileID: 100100000, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+--- !u!1 &783113831951723602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3897362324449461672, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
+  m_PrefabInstance: {fileID: 4379780887103957498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4372417722430923567 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 28685449354431189, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -105,6 +110,7 @@ MonoBehaviour:
   UnitLog: []
   _levelUpEffect: {fileID: 4372417722430923567}
   DeathEffect: {fileID: 5219241599101720665}
+  _reviveEffect: {fileID: 783113831951723602}
   IsShielded: 0
   _miniBossEffect: {fileID: 1265681733165304454}
 --- !u!1 &5219241599101720665 stripped

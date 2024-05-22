@@ -14712,7 +14712,7 @@ GameObject:
   - component: {fileID: 4296901692167427300}
   - component: {fileID: 5591986190124094010}
   m_Layer: 0
-  m_Name: Creature Death Effect
+  m_Name: Effectth Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

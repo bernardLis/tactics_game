@@ -1,6 +1,6 @@
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units;
-using Lis.Units.Attack;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +8,8 @@ namespace Lis.Battle
 {
     public class UnitCard : TooltipCard
     {
+        const string _ussCommonButton = "common__button";
+
         const string _ussClassName = "unit-card__";
         const string _ussMain = _ussClassName + "main";
         const string _ussElement = _ussClassName + "element";
@@ -44,6 +46,7 @@ namespace Lis.Battle
             HandleNameLabel();
             HandleLevelLabel();
             HandleHealthBar();
+            HandleDeath();
         }
 
         void HandleUnitIcon()
@@ -81,6 +84,28 @@ namespace Lis.Battle
 
             _healthBar = new(c, "health", currentFloatVar: _unit.CurrentHealth, totalStat: _unit.MaxHealth);
             TopRightContainer.Add(_healthBar);
+        }
+
+        void HandleDeath()
+        {
+            if (_unit.Team != 0) return;
+            if (_unit.CurrentHealth.Value > 0) return;
+
+            // HERE: balance price
+            PurchaseButton b = new("Revive", _ussCommonButton, Revive, 100);
+            BottomContainer.Add(b);
+
+            if (FightManager.IsFightActive)
+            {
+                b.SetEnabled(false);
+                FightManager.Instance.OnFightEnded += () => b.SetEnabled(true);
+            }
+
+        }
+
+        void Revive()
+        {
+            _unit.Revive();
         }
     }
 }

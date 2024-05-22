@@ -453,7 +453,8 @@ PrefabInstance:
     - {fileID: 3607482803401989862, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 9105129278208794626, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     - {fileID: 1315725873551358111, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 688179574862480819, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 220321774683407358, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
@@ -507,10 +508,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4083b5a1eef8425eb5e88b904be30b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSound: {fileID: 0}
-  ProjectileSpawnPoint: {fileID: 6183135292455645900}
---- !u!1 &6183135292455645900 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 198974094460937677, guid: c7b127fc3c90be14abd789938936ef10, type: 3}
-  m_PrefabInstance: {fileID: 6272402861689575169}
-  m_PrefabAsset: {fileID: 0}
+  _projectilePrefab: {fileID: 0}
