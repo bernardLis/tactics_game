@@ -118,5 +118,6 @@ namespace Lis.Units.Hero
                 _hero.OnTabletAdvancedAdded -= AdvancedTabletAdded;
             }
         }
+
     }
 }

@@ -139,11 +139,13 @@
 .common__full-screen-main {
     position: absolute;
     align-self: center;
-    top: 2%;
+    top: 4%;
     width: 90%;
-    height: 90%;
+    height: 92%;
     justify-content: flex-start;
     align-items: center;
+    border-width: 4px;
+    border-color: var(--color-highlight-dark);
 }
 
 .common__full-screen-content {
@@ -211,4 +213,16 @@
     width: 50px;
     height: 50px;
     background-image: url("project://database/Assets/Art/Core/_Sprites/Other/spritesheet_48x48.png?fileID=-2021701207&guid=1a7355868c1b85d41a28f37011e26432&type=3#spritesheet_48x48_345");
+}
+
+.common__hero-button {
+    width: 50px;
+    height: 50px;
+    background-image: url("project://database/Assets/Art/UI/26_hero.png?fileID=2800000&guid=2a2c3410ed2d41f4b9bd80deebdce129&type=3#26_hero");
+}
+
+.common__army-button {
+    width: 50px;
+    height: 50px;
+    background-image: url("project://database/Assets/Art/UI/01_armory.png?fileID=2800000&guid=9851a1079676afc4da3cf54637a24706&type=3#01_armory");
 }

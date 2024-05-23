@@ -43,16 +43,6 @@ namespace Lis.Units.Hero
 
             HandleAbilities();
             HandleExpBar();
-
-            RegisterCallback<PointerUpEvent>(ShowHeroScreen);
-        }
-
-        void ShowHeroScreen(PointerUpEvent evt)
-        {
-            if (evt.button != (int)MouseButton.LeftMouse) return;
-
-            HeroScreen heroScreen = new(_hero);
-            heroScreen.Initialize();
         }
 
         void OnHeroLevelUp()

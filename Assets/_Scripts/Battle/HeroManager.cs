@@ -48,7 +48,7 @@ namespace Lis.Battle
             hero.OnLevelUp += OnHeroLevelUp;
 
             InitializeHeroGameObject(hero);
-            AddGoldElement();
+            AddHeroUI();
 
             RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
                 .Value;
@@ -60,15 +60,33 @@ namespace Lis.Battle
             Hero.AddAbility(hero.StartingAbility);
         }
 
-        void AddGoldElement()
+        void AddHeroUI()
         {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            container.style.position = Position.Absolute;
+            container.style.alignItems = Align.Center;
+            container.style.right = 0;
+            container.style.top = 0;
+            container.style.backgroundColor = new(new Color(0, 0, 0, 0.5f));
+            _root.Add(container);
+
             GoldElement goldElement = new(_gameManager.Gold);
             _gameManager.OnGoldChanged += goldElement.ChangeAmount;
-            _root.Add(goldElement);
-            goldElement.style.position = Position.Absolute;
-            goldElement.style.right = 0;
-            goldElement.style.top = 0;
-            goldElement.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.5f));
+            container.Add(goldElement);
+
+            MyButton viewHeroButton = new("", "common__hero-button", () =>
+            {
+                HeroScreen heroScreen = new(Hero);
+                heroScreen.Initialize();
+            });
+            container.Add(viewHeroButton);
+
+            MyButton viewArmyButton = new("", "common__army-button", () =>
+            {
+                ArmyScreen ass = new();
+            });
+            container.Add(viewArmyButton);
         }
 
 

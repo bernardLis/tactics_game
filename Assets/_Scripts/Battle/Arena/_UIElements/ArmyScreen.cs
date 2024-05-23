@@ -24,7 +24,6 @@ namespace Lis.Battle.Arena
             _mainContainer.style.justifyContent = Justify.SpaceAround;
             Content.Add(_mainContainer);
 
-
             AddPlayerContainer();
             AddEnemyContainer();
 
