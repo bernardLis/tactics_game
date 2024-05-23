@@ -52,6 +52,7 @@ namespace Lis.Battle
             GetComponent<RangedOpponentManager>().Initialize();
             GetComponent<BossManager>().Initialize();
             GetComponent<StatsTracker>().Initialize();
+            GetComponent<BattleUIManager>().Initialize();
             yield return new WaitForSeconds(0.1f);
             OnBattleInitialized?.Invoke();
 

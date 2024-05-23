@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 3416259486287488999}
   - component: {fileID: 7571233738056364626}
   - component: {fileID: 1381006878476443658}
+  - component: {fileID: 8890709654437821764}
   - component: {fileID: 1813988017654575525}
   m_Layer: 0
   m_Name: Battle Manager
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerArmyHolder: {fileID: 0}
   _opponentArmyHolder: {fileID: 0}
+  LastFight: {fileID: 0}
   CurrentFight: {fileID: 0}
   PlayerUnits: []
   EnemyUnits: []
@@ -256,6 +258,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38f1e4ea0013c944c90913321f7f31e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8890709654437821764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1017db116ff345e7ae2de922d09928f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!81 &1813988017654575525
