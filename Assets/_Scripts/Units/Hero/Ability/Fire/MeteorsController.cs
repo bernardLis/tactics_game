@@ -5,9 +5,9 @@ namespace Lis.Units.Hero.Ability
 {
     public class MeteorsController : Controller
     {
-        public override void Initialize(Ability ability, bool startAbility)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             transform.localPosition = new Vector3(-0.5f, 1f, 0f);
         }
 
@@ -17,9 +17,9 @@ namespace Lis.Units.Hero.Ability
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
                 // random position within circle radius
-                Vector3 pos = ArenaManager.GetRandomPositionWithinRange(transform.position, Random.Range(10, 20));
+                Vector3 pos = ArenaManager.GetRandomPositionInArena();
                 MeteorsObjectController meteorObjectController = GetInactiveAbilityObject() as MeteorsObjectController;
-                meteorObjectController.Execute(pos, Quaternion.identity);
+                if (meteorObjectController != null) meteorObjectController.Execute(pos, Quaternion.identity);
             }
         }
     }

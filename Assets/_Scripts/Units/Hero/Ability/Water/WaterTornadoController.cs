@@ -5,9 +5,9 @@ namespace Lis.Units.Hero.Ability
 {
     public class WaterTornadoController : Controller
     {
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             transform.localPosition = new(0.5f, 1f, 0f);
         }
 

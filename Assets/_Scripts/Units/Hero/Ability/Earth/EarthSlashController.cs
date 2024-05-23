@@ -5,9 +5,9 @@ namespace Lis.Units.Hero.Ability
 {
     public class EarthSlashController : Controller
     {
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             AbilityObjectParent = transform;
 
             transform.localPosition = new(0f, 0f, 1f); // it is where the effect spawns...

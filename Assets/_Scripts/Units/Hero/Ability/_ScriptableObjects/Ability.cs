@@ -40,9 +40,6 @@ namespace Lis.Units.Hero.Ability
         public event Action OnCooldownStarted;
         public event Action OnLevelUp;
 
-        public event Action OnStart;
-        public event Action OnStop;
-
         float _cooldownMultiplier = 1f;
         float _scaleMultiplier = 1f;
 
@@ -168,16 +165,6 @@ namespace Lis.Units.Hero.Ability
         {
             if (Level > 0)
                 Level--;
-        }
-
-        public void StartAbility()
-        {
-            OnStart?.Invoke();
-        }
-
-        public void StopAbility()
-        {
-            OnStop?.Invoke();
         }
 
         public void LoadFromData(AbilityData data)

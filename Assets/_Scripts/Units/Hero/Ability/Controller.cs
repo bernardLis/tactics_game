@@ -31,7 +31,7 @@ namespace Lis.Units.Hero.Ability
         IEnumerator _runAbilityCoroutine;
         IEnumerator _fireAbilityCoroutine;
 
-        public virtual void Initialize(Ability ability, bool startAbility = true)
+        public virtual void Initialize(Ability ability)
         {
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
@@ -46,10 +46,8 @@ namespace Lis.Units.Hero.Ability
 
             Ability = ability;
 
-            Ability.OnStart += StartAbility;
-            Ability.OnStop += StopAbility;
-
-            if (startAbility) StartAbility();
+            FightManager.OnFightEnded += StopAbility;
+            FightManager.OnFightStarted += StartAbility;
         }
 
         void StartAbility()

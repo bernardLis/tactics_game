@@ -5,10 +5,10 @@ namespace Lis.Units.Hero.Ability
 {
     public class WindTornadoController : Controller
     {
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
-            transform.localPosition = new Vector3(0.5f, 1f, 0.5f);
+            base.Initialize(ability);
+            transform.localPosition = new (0.5f, 1f, 0.5f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()

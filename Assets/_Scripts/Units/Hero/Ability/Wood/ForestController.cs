@@ -10,10 +10,10 @@ namespace Lis.Units.Hero.Ability
 
         readonly float _radius = 12f;
 
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
-            transform.localPosition = new Vector3(0, 0f, 0f);
+            base.Initialize(ability);
+            transform.localPosition = new (0, 0f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()

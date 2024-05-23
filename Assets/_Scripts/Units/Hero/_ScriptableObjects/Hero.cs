@@ -174,12 +174,6 @@ namespace Lis.Units.Hero
             OnAbilityAdded?.Invoke(instance);
         }
 
-        public void StopAllAbilities()
-        {
-            foreach (Ability.Ability a in Abilities)
-                a.StopAbility();
-        }
-
         public Ability.Ability GetAbilityById(string id)
         {
             foreach (Ability.Ability a in Abilities)

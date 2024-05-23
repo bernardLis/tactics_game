@@ -12,9 +12,9 @@ namespace Lis.Units.Hero.Ability
         [SerializeField] GameObject _wildboltPrefab;
         readonly List<WildboltProjectileController> _wildboltPool = new();
 
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             transform.localPosition = new(0, 0.5f, 0f);
         }
 

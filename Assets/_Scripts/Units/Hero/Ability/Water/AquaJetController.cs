@@ -10,9 +10,9 @@ namespace Lis.Units.Hero.Ability
         [SerializeField] GameObject _projectilePrefab;
         readonly List<HomingProjectileController> _projectilePool = new();
 
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             transform.localPosition = new Vector3(0.5f, 1f, 0f);
         }
 

@@ -5,9 +5,9 @@ namespace Lis.Units.Hero.Ability
 {
     public class IceSpiralController : Controller
     {
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             transform.localPosition = Vector3.zero;
         }
 

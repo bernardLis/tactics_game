@@ -13,9 +13,9 @@ namespace Lis.Units.Hero.Ability
 
         List<UnitController> _entitiesInCollider = new();
 
-        public override void Initialize(Ability ability, bool startAbility = true)
+        public override void Initialize(Ability ability)
         {
-            base.Initialize(ability, startAbility);
+            base.Initialize(ability);
             Ability.OnLevelUp += OnAbilityLevelUp;
 
             transform.localScale = Vector3.one * Ability.GetScale();
