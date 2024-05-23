@@ -1,3 +1,4 @@
+using System.Collections;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -6,8 +7,6 @@ namespace Lis.Battle.Arena
 {
     public class HeroLeveler : ArenaInteractable, IInteractable
     {
-        BattleManager _battleManager;
-
         public new string InteractionPrompt => "Press F To Level Up!";
 
         int _levelUpsAvailable;
@@ -16,14 +15,12 @@ namespace Lis.Battle.Arena
         {
             base.Start();
             IsInteractionAvailable = false;
-
-            _battleManager = BattleManager.Instance;
-            _battleManager.GetComponent<BattleInitializer>().OnBattleInitialized += Initialize;
+            HeroManager.Instance.OnHeroInitialized += OnHeroInitialized;
         }
 
-        void Initialize()
+        void OnHeroInitialized(Hero hero)
         {
-            _battleManager.GetComponent<HeroManager>().Hero.OnLevelUp += () =>
+            hero.OnLevelUp += () =>
             {
                 _levelUpsAvailable++;
                 InteractionAvailableEffect.SetActive(true);

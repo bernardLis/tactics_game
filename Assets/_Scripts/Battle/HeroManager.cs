@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using Lis.Battle.Arena;
 using Lis.Battle.Fight;
@@ -33,6 +34,8 @@ namespace Lis.Battle
         // HERE: testing
         readonly bool _turnOffAbility = true;
 
+        public event Action<Hero> OnHeroInitialized;
+
         public void Initialize(Hero hero)
         {
             _gameManager = GameManager.Instance;
@@ -49,6 +52,8 @@ namespace Lis.Battle
 
             RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
                 .Value;
+
+            OnHeroInitialized?.Invoke(hero);
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
             if (hero.StartingAbility == null || _turnOffAbility) return;

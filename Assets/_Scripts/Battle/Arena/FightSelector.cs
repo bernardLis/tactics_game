@@ -5,15 +5,14 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class ShopDisplayer : ArenaInteractable, IInteractable
+    public class FightSelector : ArenaInteractable, IInteractable
     {
-        public new string InteractionPrompt => "Press F To Shop!";
-        Shop _shop;
+        public new string InteractionPrompt => "Press F To Select A Fight!";
 
         protected override void OnBattleInitialized()
         {
+            Debug.Log("FightSelector initialized!");
             base.OnBattleInitialized();
-            _shop = BattleManager.Battle.Shop;
             OnFightEnded();
         }
 
@@ -21,7 +20,6 @@ namespace Lis.Battle.Arena
         {
             InteractionAvailableEffect.SetActive(true);
             IsInteractionAvailable = true;
-            _shop.ShouldReset = true;
         }
 
         protected override void OnFightStarted()
@@ -30,7 +28,6 @@ namespace Lis.Battle.Arena
             HideTooltip();
             IsInteractionAvailable = false;
         }
-
 
         protected override void SetTooltipText()
         {
@@ -41,13 +38,12 @@ namespace Lis.Battle.Arena
         {
             if (FightManager.IsFightActive)
             {
-                Debug.Log("Fight instead of shopping!");
+                Debug.Log("Fight is active!");
                 return false;
             }
 
-            ShopScreen shopScreen = new ShopScreen();
-            shopScreen.InitializeShop(_shop);
-            // HERE: testing  OnFightStarted();
+            FightSelectScreen fss = new();
+            fss.Initialize();
             return true;
         }
     }

@@ -1,0 +1,7 @@
+.fight-option__main {
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-width: 3px;
+    border-color: var(--color-highlight-light);
+}

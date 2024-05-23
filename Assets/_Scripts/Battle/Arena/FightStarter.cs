@@ -9,10 +9,16 @@ namespace Lis.Battle.Arena
     {
         public new string InteractionPrompt => "Press F To Start A Fight!";
 
-        protected override void Start()
+
+        protected override void OnBattleInitialized()
         {
-            base.Start();
-            OnFightEnded();
+            base.OnBattleInitialized();
+            FightManager.Instance.OnInitialized += OnFightManagerInitialized;
+        }
+
+        void OnFightManagerInitialized()
+        {
+            FightManager.CurrentFight.OnOptionChosen += OnFightOptionChosen;
         }
 
         protected override void SetTooltipText()
@@ -20,10 +26,17 @@ namespace Lis.Battle.Arena
             TooltipText.text = InteractionPrompt;
         }
 
-        protected override void OnFightEnded()
+        void OnFightOptionChosen(FightOption _)
         {
             InteractionAvailableEffect.SetActive(true);
             IsInteractionAvailable = true;
+        }
+
+        protected override void OnFightEnded()
+        {
+            base.OnFightEnded();
+            FightManager.LastFight.OnOptionChosen -= OnFightOptionChosen;
+            FightManager.CurrentFight.OnOptionChosen += OnFightOptionChosen;
         }
 
         protected override void OnFightStarted()

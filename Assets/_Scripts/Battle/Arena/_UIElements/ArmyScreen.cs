@@ -70,7 +70,8 @@ namespace Lis.Battle.Arena
 
         void AddEnemyArmyIcons()
         {
-            foreach (Unit u in _fightManager.CurrentFight.OpponentArmy)
+            if (_fightManager.CurrentFight.ChosenOption == null) return;
+            foreach (Unit u in _fightManager.CurrentFight.ChosenOption.Army)
             {
                 UnitIcon icon = new(u);
                 _enemyArmyScrollView.Add(icon);
@@ -88,7 +89,8 @@ namespace Lis.Battle.Arena
 
         void AddEnemyArmyCards()
         {
-            foreach (Unit u in _fightManager.CurrentFight.OpponentArmy)
+            if (_fightManager.CurrentFight.ChosenOption == null) return;
+            foreach (Unit u in _fightManager.CurrentFight.ChosenOption.Army)
             {
                 UnitCard card = new(u);
                 _enemyArmyScrollView.Add(card);

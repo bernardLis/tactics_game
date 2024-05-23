@@ -3,6 +3,7 @@ using Lis.Core;
 using Lis.Units;
 using Lis.Units.Boss;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Lis.Battle.Fight
 {
@@ -33,7 +34,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnBossCoroutine()
         {
-            _battleManager.GetComponent<TooltipManager>().ShowGameInfo("Boss is Spawned!", 2f);
+            _battleManager.GetComponent<TooltipManager>().ShowGameInfo(new Label("Boss is Spawned!"), 2f);
 
             _audioManager.PlaySfx(_bossSpawnSound, _heroManager.transform.position);
             Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);

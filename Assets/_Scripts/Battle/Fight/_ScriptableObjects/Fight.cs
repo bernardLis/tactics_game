@@ -1,25 +1,57 @@
+using System;
 using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units.Enemy;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
 {
     public class Fight : BaseScriptableObject
     {
-        [HideInInspector] public List<Enemy> OpponentArmy = new();
+        [HideInInspector] public List<FightOption> Options = new();
+        public FightOption ChosenOption;
+        public bool WasRandom;
+
+        public event Action<FightOption> OnOptionChosen;
 
         public void Initialize(int points)
         {
-            // TODO: for now
-            List<Enemy> availableEnemies = new(GameManager.Instance.UnitDatabase.GetAllEnemies());
-
-            for (int i = 0; i < points; i++)
+            Options.Clear();
+            int optionCount = 3;
+            for (int i = 0; i < optionCount; i++)
             {
-                Enemy enemy = Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)]);
-                if (i % 2 == 0) enemy.SetMiniBoss();
-                OpponentArmy.Add(enemy);
+                FightOption option = CreateInstance<FightOption>();
+                option.CreateOption(points);
+                option.OnChosen += ChooseOption;
+                Options.Add(option);
             }
+        }
+
+        public void ChooseRandomOption()
+        {
+            WasRandom = true;
+            int index = Random.Range(0, Options.Count);
+            FightOption o = Options[index];
+            o.Choose();
+        }
+
+        void ChooseOption(FightOption option)
+        {
+            ChosenOption = option;
+            OnOptionChosen?.Invoke(option);
+        }
+
+        public int GetGoldReward()
+        {
+            int gold = ChosenOption.GoldReward;
+            if (WasRandom) gold += 10; //HERE: balance
+
+            return gold;
+        }
+
+        public void GiveReward()
+        {
+            GameManager.Instance.ChangeGoldValue(GetGoldReward());
         }
         /*
          *         public void CreateWave(int waveIndex, int points, int minionLevel, int threatLevel)

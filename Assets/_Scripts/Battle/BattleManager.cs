@@ -67,7 +67,6 @@ namespace Lis.Battle
             _battleTime = 0;
             ResumeTimer();
 
-
             OnBattleInitialized?.Invoke();
         }
 

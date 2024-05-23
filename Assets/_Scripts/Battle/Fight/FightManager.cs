@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Attack;
@@ -23,6 +22,7 @@ namespace Lis.Battle.Fight
         Battle _battle;
         Arena _arena;
 
+        [HideInInspector] public Fight LastFight;
         [HideInInspector] public Fight CurrentFight;
 
         HeroController _heroController;
@@ -43,6 +43,7 @@ namespace Lis.Battle.Fight
         public static bool IsFightActive { get; private set; }
         IEnumerator _fightCoroutine;
 
+        public event Action OnInitialized;
         public void Initialize(Battle battle)
         {
             _battle = battle;
@@ -52,15 +53,19 @@ namespace Lis.Battle.Fight
             _heroController = GetComponent<HeroManager>().HeroController;
 
             CurrentFight = _arena.CreateFight();
+            CurrentFight.OnOptionChosen += SpawnEnemyArmy;
+
             StartCoroutine(SpawnAllPlayerUnits());
-            StartCoroutine(SpawnEnemyUnits());
 
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
+            OnInitialized?.Invoke();
         }
 
         public void StartFight()
         {
+            if (CurrentFight.ChosenOption == null) return;
+
             _fightCoroutine = StartFightCoroutine();
             StartCoroutine(_fightCoroutine);
         }
@@ -95,9 +100,15 @@ namespace Lis.Battle.Fight
             return unitController;
         }
 
-        IEnumerator SpawnEnemyUnits()
+        void SpawnEnemyArmy(FightOption option)
         {
-            foreach (Unit c in _arena.Fights.Last().OpponentArmy)
+            CurrentFight.OnOptionChosen -= SpawnEnemyArmy;
+            StartCoroutine(SpawnEnemyUnits(option.Army));
+        }
+
+        IEnumerator SpawnEnemyUnits(List<Unit> army)
+        {
+            foreach (Unit c in army)
             {
                 SpawnEnemyUnit(c);
                 yield return new WaitForSeconds(0.1f);
@@ -153,17 +164,14 @@ namespace Lis.Battle.Fight
 
         void EndFight()
         {
+            CurrentFight.GiveReward();
+            LastFight = CurrentFight;
+
             CurrentFight = _arena.CreateFight();
+            CurrentFight.OnOptionChosen += SpawnEnemyArmy;
+
             IsFightActive = false;
             OnFightEnded?.Invoke();
-
-            StartCoroutine(EndFightCoroutine());
-        }
-
-        IEnumerator EndFightCoroutine()
-        {
-            yield return new WaitForSeconds(1f);
-            StartCoroutine(SpawnEnemyUnits());
         }
 
         public List<UnitController> GetAllies(UnitController unitController)

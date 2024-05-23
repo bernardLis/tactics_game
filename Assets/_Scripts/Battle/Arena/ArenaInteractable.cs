@@ -8,6 +8,7 @@ namespace Lis.Battle.Arena
 {
     public class ArenaInteractable : MonoBehaviour, IInteractable
     {
+        protected BattleManager BattleManager;
         protected FightManager FightManager;
 
         [SerializeField] Canvas _tooltipCanvas;
@@ -22,7 +23,15 @@ namespace Lis.Battle.Arena
             FightManager.OnFightEnded += OnFightEnded;
             FightManager.OnFightStarted += OnFightStarted;
 
+            BattleManager = BattleManager.Instance;
+            BattleManager.OnBattleInitialized += OnBattleInitialized;
+            if (BattleManager.IsTimerOn) OnBattleInitialized();
+
             SetTooltipText();
+        }
+
+        protected virtual void OnBattleInitialized()
+        {
         }
 
         protected virtual void OnFightEnded()

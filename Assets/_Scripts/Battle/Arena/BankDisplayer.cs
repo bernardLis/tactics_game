@@ -7,21 +7,13 @@ namespace Lis.Battle.Arena
 {
     public class BankDisplayer : ArenaInteractable, IInteractable
     {
-        BattleManager _battleManager;
         public new string InteractionPrompt => "Press F To Access Bank!";
         Bank _bank;
 
-        protected override void Start()
+        protected override void OnBattleInitialized()
         {
-            base.Start();
-
-            _battleManager = BattleManager.Instance;
-            _battleManager.GetComponent<BattleInitializer>().OnBattleInitialized += OnBattleInitialized;
-        }
-
-        void OnBattleInitialized()
-        {
-            _bank = _battleManager.Battle.Bank;
+            base.OnBattleInitialized();
+            _bank = BattleManager.Battle.Bank;
             _bank.Initialize();
             OnFightEnded();
         }

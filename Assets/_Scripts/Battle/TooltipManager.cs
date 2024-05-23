@@ -58,14 +58,18 @@ namespace Lis.Battle
 
         void OnFightStarted()
         {
-            ShowGameInfo("Fight started!", 3f);
+            ShowGameInfo(new Label("Fight started!"), 3f);
             if (CurrentTooltipDisplayer == null) return;
             HideTooltip();
         }
 
         void OnFightEnded()
         {
-            ShowGameInfo("Fight won!", 3f);
+            VisualElement el = new();
+            el.style.alignItems = Align.Center;
+            el.Add(new Label("Fight won!"));
+            el.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
+            ShowGameInfo(el, 3f);
         }
 
         /* INPUT */
@@ -152,18 +156,17 @@ namespace Lis.Battle
             _isBossHealthBarShown = true;
         }
 
-        public void ShowGameInfo(string text, float duration)
+        public void ShowGameInfo(VisualElement el, float duration)
         {
-            ShowGameInfo(text);
+            ShowGameInfo(el);
             Invoke(nameof(HideGameInfo), duration);
         }
 
-        void ShowGameInfo(string text)
+        void ShowGameInfo(VisualElement el)
         {
             if (_gameInfoContainer == null) return;
             _gameInfoContainer.Clear();
-            Label txt = new(text);
-            _gameInfoContainer.Add(txt);
+            _gameInfoContainer.Add(el);
 
             _gameInfoContainer.style.display = DisplayStyle.Flex;
             _gameInfoContainer.style.opacity = 0;
