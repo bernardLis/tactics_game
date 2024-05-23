@@ -7,9 +7,9 @@ namespace Lis.Battle.Arena
 {
     public class FightSelectScreen : FullScreenElement
     {
-        FightManager _fightManager;
+        readonly FightManager _fightManager;
 
-        List<FightOptionElement> _fightOptionElements = new();
+        readonly List<FightOptionElement> _fightOptionElements = new();
         MyButton _chooseRandomButton;
 
         public FightSelectScreen()

@@ -117,7 +117,6 @@ namespace Lis.Battle.Fight
 
         public void SpawnEnemyUnit(Unit c)
         {
-            c.InitializeBattle(1);
             Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
             GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();

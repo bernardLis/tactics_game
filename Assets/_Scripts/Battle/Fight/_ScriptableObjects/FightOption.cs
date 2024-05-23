@@ -24,6 +24,7 @@ namespace Lis.Battle.Fight
             for (int i = 0; i < points; i++)
             {
                 Unit u = Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)]);
+                u.InitializeBattle(1);
                 if (u is Enemy e && Random.value < 0.05f) e.SetMiniBoss();
                 Army.Add(u);
             }

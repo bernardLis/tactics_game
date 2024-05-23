@@ -164,6 +164,7 @@ namespace Lis.Units
             foreach (Attack.Attack a in _attacksOriginal)
             {
                 Attack.Attack attack = Instantiate(a);
+                attack.InitializeAttack(this);
                 Attacks.Add(attack);
             }
         }
