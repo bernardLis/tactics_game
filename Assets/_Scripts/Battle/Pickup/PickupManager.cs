@@ -16,6 +16,7 @@ namespace Lis.Battle.Pickup
         [SerializeField] Bag _bag;
         [SerializeField] Skull _skull;
         [SerializeField] Dice _dice;
+        [SerializeField] Mushroom _mushroom;
 
         [SerializeField] List<ExperienceStone> _expOrbs = new();
 
@@ -75,7 +76,7 @@ namespace Lis.Battle.Pickup
             int random = Random.Range(0, 100);
             if (random > 26) return; // chance there is no pickup
 
-            Pickup p = Instantiate(_coin);
+            Pickup p = Instantiate(_mushroom); //Instantiate(_coin);
 
             if (random == 0)
                 p = Instantiate(_hammer);
@@ -83,10 +84,12 @@ namespace Lis.Battle.Pickup
                 p = Instantiate(_horseshoe);
             else if (random == 2)
                 p = Instantiate(_bag);
-            else if (random == 3)
-                p = Instantiate(_skull);
+            // else if (random == 3)
+            //     p = Instantiate(_skull);
             else if (random == 4)
                 p = Instantiate(_dice);
+            else if (random == 5)
+                p = Instantiate(_mushroom);
 
             PickupController pickupController = GetObjectFromPool();
             pickupController.Initialize(p, position);

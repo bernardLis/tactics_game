@@ -25,6 +25,8 @@ namespace Lis.Units.Hero
 
             Hero = (Hero)unit;
 
+            Hero.OnLevelUp += () => DisplayFloatingText("Level Up!", Color.yellow);
+
             _movementController.SetMoveSpeed(Hero.Speed.GetValue());
             Hero.Speed.OnValueChanged += _movementController.SetMoveSpeed;
 

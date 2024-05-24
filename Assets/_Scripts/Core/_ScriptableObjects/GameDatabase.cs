@@ -10,13 +10,6 @@ namespace Lis.Core
     {
         [Header("Battle")] public Battle.Battle SampleBattle;
 
-        [Header("Pickups")] public QuestablePickup[] QuestablePickups;
-
-        public QuestablePickup GetRandomQuestablePickup()
-        {
-            return QuestablePickups[Random.Range(0, QuestablePickups.Length)];
-        }
-
         [Header("Shaders")] public Shader LitShader;
         public Shader ParticlesUnlitShader;
         public Shader DissolveShader;
@@ -96,12 +89,5 @@ namespace Lis.Core
         public StatType StatType;
         public Sprite Sprite;
         public string Description;
-    }
-
-    [System.Serializable]
-    public struct QuestablePickup
-    {
-        public Pickup Pickup;
-        public Vector2Int AmountRange;
     }
 }
