@@ -53,6 +53,9 @@ namespace Lis.Units
 
             if (_tooltipManager.CurrentTooltipDisplayer == gameObject)
                 _tooltipManager.HideTooltip();
+
+            if (_unitController.Team == 1)
+                GetComponent<BoxCollider>().enabled = false;
         }
 
         void OnRevival()

@@ -35,9 +35,7 @@ namespace Lis.Units
         [SerializeField] GameObject _levelUpEffect;
 
         [SerializeField] protected GameObject DeathEffect;
-
         [SerializeField] GameObject _reviveEffect;
-
 
         protected UnitPathingController UnitPathingController;
         AttackController _attackController;
@@ -463,6 +461,7 @@ namespace Lis.Units
             Animator.Update(0f);
             _reviveEffect.SetActive(true);
             EnableSelf();
+            GoBackToLocker();
         }
 
         /* LEVEL UP */
