@@ -385,7 +385,7 @@ namespace Lis.Units
             int damage = Unit.CalculateDamage(attack);
             attack.AddDamageDealt(damage);
             AddToLog($"Unit takes damage {damage}");
-            //StopUnit();
+            //StopUnit(); <- this stun locks the unit
 
             if (Unit.HitSound != null) AudioManager.PlaySfx(Unit.HitSound, transform.position);
             else AudioManager.PlaySfx("Hit", transform.position);
@@ -396,13 +396,10 @@ namespace Lis.Units
             if (Unit == null) yield break;
             Unit.CurrentHealth.ApplyChange(-damage);
             if (Unit.CurrentHealth.Value <= 0)
-            {
                 Die(attack);
-                yield break;
-            }
 
-            yield return new WaitForSeconds(0.2f);
-            RunUnit();
+            // yield return new WaitForSeconds(0.2f);
+            // RunUnit();
         }
 
         void BreakShield()
