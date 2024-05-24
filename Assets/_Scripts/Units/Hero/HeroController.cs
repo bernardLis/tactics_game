@@ -79,6 +79,7 @@ namespace Lis.Units.Hero
 
         protected override IEnumerator OnFightEndedCoroutine()
         {
+            GetHealed(100);
             yield return null;
         }
 

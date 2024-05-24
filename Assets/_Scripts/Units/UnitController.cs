@@ -385,7 +385,7 @@ namespace Lis.Units
             int damage = Unit.CalculateDamage(attack);
             attack.AddDamageDealt(damage);
             AddToLog($"Unit takes damage {damage}");
-            StopUnit();
+            //StopUnit();
 
             if (Unit.HitSound != null) AudioManager.PlaySfx(Unit.HitSound, transform.position);
             else AudioManager.PlaySfx("Hit", transform.position);
@@ -426,6 +426,8 @@ namespace Lis.Units
         {
             if (_isDeathCoroutineStarted) yield break;
             _isDeathCoroutineStarted = true;
+
+            StopUnit();
 
             _reviveEffect.SetActive(false);
 

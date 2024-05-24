@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Battle;
 using Lis.Battle.Fight;
-using Lis.Units.Attack;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 
@@ -42,7 +41,7 @@ namespace Lis.Units.Projectile
             _rb.angularVelocity = Vector3.zero;
             EnableProjectile();
 
-            _endTime = UnityEngine.Time.time + _ability.GetDuration();
+            _endTime = Time.time + _ability.GetDuration();
 
             _homingCoroutine = HomingCoroutine();
             StartCoroutine(_homingCoroutine);
@@ -50,7 +49,7 @@ namespace Lis.Units.Projectile
 
         IEnumerator HomingCoroutine()
         {
-            if (_endTime < UnityEngine.Time.time) yield break;
+            if (_endTime < Time.time) yield break;
             StartCoroutine(BreakHomingCoroutine());
             yield return GoForward(0.5f);
 

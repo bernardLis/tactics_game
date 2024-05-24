@@ -6446,7 +6446,6 @@ GameObject:
   - component: {fileID: 7737063000695249792}
   - component: {fileID: 7995347379091732844}
   - component: {fileID: 7706662896519388562}
-  - component: {fileID: 5602513971341044978}
   - component: {fileID: 5307087708510327211}
   - component: {fileID: 1953132942563509803}
   m_Layer: 8
@@ -6713,23 +6712,6 @@ MonoBehaviour:
         PositionMode: 2
         TargetTransform: {fileID: 0}
         Direction: {x: 0, y: 0, z: 0}
---- !u!114 &5602513971341044978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632361364057405493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 3072
-  canPush: 1
-  strength: 5
 --- !u!114 &5307087708510327211
 MonoBehaviour:
   m_ObjectHideFlags: 0
