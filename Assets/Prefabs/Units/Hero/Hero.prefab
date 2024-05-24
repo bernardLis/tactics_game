@@ -6445,7 +6445,6 @@ GameObject:
   - component: {fileID: 8272579967263195434}
   - component: {fileID: 7737063000695249792}
   - component: {fileID: 7995347379091732844}
-  - component: {fileID: 3179456574270993771}
   - component: {fileID: 7706662896519388562}
   - component: {fileID: 5602513971341044978}
   - component: {fileID: 5307087708510327211}
@@ -6497,7 +6496,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 5120
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -6510,29 +6509,6 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
---- !u!136 &3179456574270993771
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5632361364057405493}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 5120
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 1.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!114 &7706662896519388562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6783,6 +6759,7 @@ MonoBehaviour:
   UnitLog: []
   _levelUpEffect: {fileID: 2581224419072762184}
   DeathEffect: {fileID: 2581224419072762184}
+  _reviveEffect: {fileID: 0}
   IsShielded: 0
 --- !u!1 &5670492309254171287
 GameObject:

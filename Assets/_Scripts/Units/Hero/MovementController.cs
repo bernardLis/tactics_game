@@ -52,6 +52,10 @@ namespace Lis.Units.Hero
         // HERE: testing
         bool _isSprinting;
 
+        Vector3 _playerVelocity;
+        bool _groundedPlayer;
+        float _gravityValue = -9.81f;
+
         void Start()
         {
             _cam = Camera.main;
@@ -96,19 +100,51 @@ namespace Lis.Units.Hero
             Move();
         }
 
+        void Move()
+        {
+            float targetSpeed = MoveSpeed;
+            if (_isSprinting) targetSpeed *= 1.5f;
+
+            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
+            Vector3 velocity = _controller.velocity;
+            float currentHorizontalSpeed = new Vector3(velocity.x, 0.0f,
+                velocity.z).magnitude;
+
+            float speedOffset = 0.1f;
+            float inputMagnitude = _inputDirection.magnitude;
+            _speed = targetSpeed;
+            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
+                currentHorizontalSpeed > targetSpeed + speedOffset)
+            {
+                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
+                    Time.deltaTime * SpeedChangeRate);
+                _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
+            }
+
+            Vector3 moveDir = _inputDirection.normalized;
+            moveDir.y = 0f;
+
+            _groundedPlayer = IsGrounded();
+            if (_groundedPlayer && _playerVelocity.y < 0)
+                _playerVelocity.y = 0f;
+            if (!_groundedPlayer)
+                _playerVelocity.y += _gravityValue * Time.deltaTime;
+            moveDir.y = _playerVelocity.y;
+            _controller.Move(moveDir * (_speed * Time.deltaTime));
+        }
+
+        bool IsGrounded()
+        {
+            return transform.position.y < 0.02f;
+        }
+
+
         void LateUpdate()
         {
             if (_disableUpdate) return;
 
             RotateTowardsMouse();
             ZoomCameraSmoothly();
-
-            // keeping player grounded
-            // HERE:
-            // Transform t = transform;
-            // Vector3 position = t.position;
-            // position = new(position.x, -0.035f, position.z);
-            // t.position = position;
         }
 
         void AssignAnimationIDs()
@@ -182,7 +218,7 @@ namespace Lis.Units.Hero
             Vector3 inputValue = context.ReadValue<Vector2>();
             inputValue = inputValue.normalized;
 
-            _inputDirection = new Vector3(inputValue.x, 0, inputValue.y);
+            _inputDirection = new(inputValue.x, 0, inputValue.y);
         }
 
         void ResetMovementVector(InputAction.CallbackContext context)
@@ -200,44 +236,6 @@ namespace Lis.Units.Hero
             MoveSpeed = speed;
         }
 
-        void Move()
-        {
-            // if (!IsGrounded()) return;
-
-
-            float targetSpeed = MoveSpeed;
-            if (_isSprinting) targetSpeed *= 1.5f;
-
-            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-            Vector3 velocity = _controller.velocity;
-            float currentHorizontalSpeed = new Vector3(velocity.x, 0.0f,
-                velocity.z).magnitude;
-
-            float speedOffset = 0.1f;
-            float inputMagnitude = _inputDirection.magnitude;
-            _speed = targetSpeed;
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * SpeedChangeRate);
-                _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
-            }
-
-            Vector3 moveDir = _inputDirection.normalized;
-            moveDir.y = 0f;
-
-            // TODO: then gravity only works when character is moving :))))
-            if (!IsGrounded())
-                moveDir.y -= 9.81f * Time.deltaTime;
-
-            _controller.Move(moveDir.normalized * (_speed * Time.deltaTime));
-        }
-
-        bool IsGrounded()
-        {
-            return transform.position.y < 0.04f;
-        }
 
         void SetAnimationBlend()
         {
