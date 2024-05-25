@@ -17,8 +17,6 @@ namespace Lis.Battle.Arena
         public void InitializeBank(Bank bank)
         {
             _bank = bank;
-
-            Title = "Bank";
             AddTitle();
 
             _investmentContainer = new();
@@ -36,6 +34,7 @@ namespace Lis.Battle.Arena
 
             AddAvailableInvestments();
             AddActiveInvestments();
+            SetTitle("Bank");
 
             AddContinueButton();
         }
@@ -67,6 +66,5 @@ namespace Lis.Battle.Arena
                 i.OnCollected += () => _activeInvestmentContainer.Remove(investmentElement);
             }
         }
-
     }
 }

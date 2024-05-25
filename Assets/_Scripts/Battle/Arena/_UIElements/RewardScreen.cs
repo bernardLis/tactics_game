@@ -35,8 +35,6 @@ namespace Lis.Battle.Arena
         protected Label RerollsLeft;
         protected RerollButton RerollButton;
 
-        protected string Title;
-
         protected readonly int NumberOfRewards;
 
         public event Action OnRewardSelected;
@@ -66,7 +64,7 @@ namespace Lis.Battle.Arena
 
         protected void AddTitle()
         {
-            _titleLabel = new(Title);
+            _titleLabel = new("");
             _titleLabel.style.fontSize = 48;
             _titleLabel.style.opacity = 0;
             Content.Add(_titleLabel);
@@ -76,6 +74,11 @@ namespace Lis.Battle.Arena
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
             Content.Add(spacer);
+        }
+
+        protected void SetTitle(string txt)
+        {
+            _titleLabel.text = txt;
         }
 
 

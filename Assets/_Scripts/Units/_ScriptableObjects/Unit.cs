@@ -186,15 +186,17 @@ namespace Lis.Units
             float lowestCooldown = Mathf.Infinity;
             CurrentAttack = Attacks[Random.Range(0, Attacks.Count)];
 
+            // HERE: broken
             foreach (Attack.Attack a in Attacks)
             {
+                if (a == null) continue;
                 if (a.AttackController == null) continue;
                 if (!(a.AttackController.CurrentCooldown < lowestCooldown)) continue;
                 CurrentAttack = a;
                 lowestCooldown = a.AttackController.CurrentCooldown;
             }
 
-            return CurrentAttack.AttackController;
+            return CurrentAttack == null ? null : CurrentAttack.AttackController;
         }
 
         public int GetDamageDealt()

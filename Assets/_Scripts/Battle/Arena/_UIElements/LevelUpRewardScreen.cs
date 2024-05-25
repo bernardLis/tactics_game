@@ -10,6 +10,7 @@ namespace Lis.Battle.Arena
             base.Initialize();
             MakeItRain();
             PlayLevelUpAnimation();
+            SetTitle("Choose A Reward:");
         }
 
         protected override RewardElement ChooseRewardElement()

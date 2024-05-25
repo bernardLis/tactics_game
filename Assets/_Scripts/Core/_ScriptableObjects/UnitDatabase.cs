@@ -72,10 +72,16 @@ namespace Lis.Core
         [Header("Pawns")]
         [SerializeField] Pawn[] _allPawns;
 
+        public List<Pawn> GetAllPawns()
+        {
+            return _allPawns.ToList();
+        }
+
         public Pawn GetRandomPawn()
         {
             return _allPawns[Random.Range(0, _allPawns.Length)];
         }
+
 
         public Pawn GetPawnByNature(Nature n)
         {

@@ -42,6 +42,7 @@ namespace Lis.Units.Attack
 
         public float GetDamage()
         {
+            if (_unit == null) return 0;
             return Damage + _unit.Power.GetValue();
         }
 

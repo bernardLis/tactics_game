@@ -10,8 +10,8 @@ namespace Lis.Units.Pawn
         [Header("Pawn")]
         public PawnUpgrade[] Upgrades;
 
-        public int CurrentUpgrade;
-        public PawnMission CurrentMission;
+        [HideInInspector] public int CurrentUpgrade;
+        [HideInInspector] public PawnMission CurrentMission;
 
         public event Action OnUpgraded;
 

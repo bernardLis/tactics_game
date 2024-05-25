@@ -18,10 +18,10 @@ namespace Lis.Battle.Arena
 
         public override void Initialize()
         {
-            Title = "Shop";
-
             base.Initialize();
             AddContinueButton();
+            SetTitle("Shop");
+
         }
 
         protected override void RerollReward()

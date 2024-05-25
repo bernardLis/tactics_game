@@ -12,7 +12,10 @@ namespace Lis.Units.Pawn
         {
             base.Initialize(pawn);
             foreach (Attack.Attack a in pawn.Attacks)
+            {
+                if (a == null) continue;
                 a.OnDamageDealt += OnDamageDealt;
+            }
         }
 
         void OnDamageDealt(int dmg)

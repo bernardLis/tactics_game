@@ -11,6 +11,7 @@ namespace Lis.Battle.Fight
             base.Initialize();
             MakeItRain();
             PlayLevelUpAnimation();
+            SetTitle("Choose A Reward:");
         }
 
         protected override RewardElement ChooseRewardElement()

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8afe1cc61974bf445ad4a39e8c36ddba, type: 3}
   m_Name: Fire Pawn
   m_EditorClassIdentifier: 
-  Id: dea64cd2-2d7c-4f29-9817-6af17eca6a94
-  UnitName: Fire Pawn
-  Icon: {fileID: 21300000, guid: 95e548d678eb00349b7d2ab22a5b61aa, type: 3}
+  Id: e16c68a8-f00d-4efd-955f-fb65282d38ff
+  UnitName: Swordman
+  Icon: {fileID: 21300000, guid: 7928e30fd6424d84cb3c9e92ef1e8979, type: 3}
   IconAnimation: []
-  Price: 0
+  Price: 10
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 950285025367464429, guid: 2da9839304b6c394db2957954f4a4d26, type: 3}
   SpawnSound: {fileID: 0}
@@ -24,6 +24,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  DamageTaken: 0
   TotalKillCount: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: 80043ad3f530220419eb3a509bf3cfde, type: 2}
@@ -37,10 +38,12 @@ MonoBehaviour:
   LeftoverExp: 0
   _attacksOriginal:
   - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
-  Attacks: []
+  Attacks:
+  - {fileID: 0}
   CurrentAttack: {fileID: 0}
   Upgrades:
   - {fileID: 11400000, guid: d2422575a4674a746aa4f321dbe99158, type: 2}
   - {fileID: 11400000, guid: 70bc24e2910a30c47b9252a3b7800906, type: 2}
   - {fileID: 11400000, guid: 6091e7fa4ac2fd243a1d9f4668f57ab5, type: 2}
   CurrentUpgrade: 0
+  CurrentMission: {fileID: 0}

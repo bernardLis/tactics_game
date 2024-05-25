@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8afe1cc61974bf445ad4a39e8c36ddba, type: 3}
   m_Name: Water Pawn
   m_EditorClassIdentifier: 
-  Id: cd06c114-6741-43a9-9b5d-06be80174815
+  Id: d2926a9d-6cbc-41dd-8f34-8c764b963347
   UnitName: Water Pawn
   Icon: {fileID: 21300000, guid: e2a06ab7ac099494c9a348d04bb6ca44, type: 3}
   IconAnimation: []
@@ -24,6 +24,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  DamageTaken: 0
   TotalKillCount: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: 80043ad3f530220419eb3a509bf3cfde, type: 2}
@@ -44,3 +45,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f744492513e8f5b4ba13df6f0348c515, type: 2}
   - {fileID: 11400000, guid: bd2b442e918a877488bd6f0156c99044, type: 2}
   CurrentUpgrade: 0
+  CurrentMission: {fileID: 0}
