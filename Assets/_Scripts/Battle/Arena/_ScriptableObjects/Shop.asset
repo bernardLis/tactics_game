@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Shop
   m_EditorClassIdentifier: 
   Id: 81d65d8a-b802-4f04-90b6-6611fdc3046f
+  IsUnlocked: 0
+  UnlockCost: 567
+  Level: 0
+  MaxLevel: 0
   ShouldReset: 0

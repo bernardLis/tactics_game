@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385c3cffac41b544daa2b5d0b0a0bf4c, type: 3}
-  m_Name: Bank
+  m_Script: {fileID: 11500000, guid: a51b230923b286548958e4313b54f767, type: 3}
+  m_Name: Fight Selector
   m_EditorClassIdentifier: 
-  Id: 7658cf14-7597-4b07-86c2-0000b670d7b8
-  IsUnlocked: 0
-  UnlockCost: 456
+  Id: 07fd09fb-5c2c-4144-82a5-2edd65bca5f2
+  IsUnlocked: 1
+  UnlockCost: 0
   Level: 0
   MaxLevel: 0
-  AvailableInvestments: []
-  ActiveInvestments: []

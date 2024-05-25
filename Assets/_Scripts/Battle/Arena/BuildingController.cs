@@ -6,10 +6,16 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class ArenaInteractable : MonoBehaviour, IInteractable
+    public class BuildingController : MonoBehaviour, IInteractable
     {
         protected BattleManager BattleManager;
         protected FightManager FightManager;
+        BuildingUnlocker _buildingUnlocker;
+
+        protected Building Building;
+
+        [SerializeField] GameObject _unlockedGfx;
+        [SerializeField] GameObject _unlockedEffect;
 
         [SerializeField] Canvas _tooltipCanvas;
         [SerializeField] protected TMP_Text TooltipText;
@@ -40,6 +46,35 @@ namespace Lis.Battle.Arena
 
         protected virtual void OnFightStarted()
         {
+        }
+
+        protected virtual void Initialize()
+        {
+            _unlockedGfx.SetActive(Building.IsUnlocked);
+
+            _buildingUnlocker = GetComponentInChildren<BuildingUnlocker>();
+            if (_buildingUnlocker == null) return;
+            Building.OnUnlocked += Unlock;
+            _buildingUnlocker.Initialize(Building);
+        }
+
+        protected virtual void AllowInteraction()
+        {
+            InteractionAvailableEffect.SetActive(true);
+            IsInteractionAvailable = true;
+        }
+
+        protected virtual void ForbidInteraction()
+        {
+            InteractionAvailableEffect.SetActive(false);
+            HideTooltip();
+            IsInteractionAvailable = false;
+        }
+
+        protected virtual void Unlock()
+        {
+            _unlockedEffect.SetActive(true);
+            _unlockedGfx.SetActive(true);
         }
 
         protected virtual void SetTooltipText()

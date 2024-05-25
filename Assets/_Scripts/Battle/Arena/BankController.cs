@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class BankDisplayer : ArenaInteractable, IInteractable
+    public class BankController : BuildingController, IInteractable
     {
         public new string InteractionPrompt => "Press F To Access Bank!";
         Bank _bank;
@@ -13,24 +13,23 @@ namespace Lis.Battle.Arena
         protected override void OnBattleInitialized()
         {
             base.OnBattleInitialized();
-            _bank = BattleManager.Battle.Bank;
-            _bank.Initialize();
+            Building = BattleManager.Battle.Bank;
+            _bank = (Bank)Building;
             OnFightEnded();
+            Initialize();
         }
 
         protected override void OnFightEnded()
         {
-            InteractionAvailableEffect.SetActive(true);
-            IsInteractionAvailable = true;
+            if (!_bank.IsUnlocked) return;
+            AllowInteraction();
         }
 
         protected override void OnFightStarted()
         {
-            InteractionAvailableEffect.SetActive(false);
-            HideTooltip();
-            IsInteractionAvailable = false;
+            if (!_bank.IsUnlocked) return;
+            ForbidInteraction();
         }
-
 
         protected override void SetTooltipText()
         {

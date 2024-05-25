@@ -5,32 +5,33 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class ShopDisplayer : ArenaInteractable, IInteractable
+    public class ShopController : BuildingController, IInteractable
     {
         public new string InteractionPrompt => "Press F To Shop!";
+
         Shop _shop;
 
         protected override void OnBattleInitialized()
         {
             base.OnBattleInitialized();
-            _shop = BattleManager.Battle.Shop;
+            Building = BattleManager.Battle.Shop;
+            _shop = (Shop)Building;
             OnFightEnded();
+            Initialize();
         }
 
         protected override void OnFightEnded()
         {
-            InteractionAvailableEffect.SetActive(true);
-            IsInteractionAvailable = true;
+            if (!_shop.IsUnlocked) return;
+            AllowInteraction();
             _shop.ShouldReset = true;
         }
 
         protected override void OnFightStarted()
         {
-            InteractionAvailableEffect.SetActive(false);
-            HideTooltip();
-            IsInteractionAvailable = false;
+            if (!_shop.IsUnlocked) return;
+            ForbidInteraction();
         }
-
 
         protected override void SetTooltipText()
         {
@@ -47,7 +48,6 @@ namespace Lis.Battle.Arena
 
             ShopScreen shopScreen = new ShopScreen();
             shopScreen.InitializeShop(_shop);
-            // HERE: testing  OnFightStarted();
             return true;
         }
     }

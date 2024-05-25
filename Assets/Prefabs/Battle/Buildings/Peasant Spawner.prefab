@@ -337,6 +337,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6152916120629576487, guid: aea1d639b695b174682a7398202ab95d, type: 3}
   m_PrefabInstance: {fileID: 7035587801333844773}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4068750953898841624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6472929110812220733, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 7035587801333844773}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5913288924313399690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3725414938989099695, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 7035587801333844773}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5919576395272263931 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3712622550177469406, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -354,10 +364,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51f0563857f49d1bfa3d4412e4492c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unlockedGfx: {fileID: 6565141605758029607}
+  _unlockedEffect: {fileID: 5913288924313399690}
+  _lockedGfx: {fileID: 4068750953898841624}
   _tooltipCanvas: {fileID: 1418242137032412159}
   TooltipText: {fileID: 105940815561589112}
   InteractionAvailableEffect: {fileID: 3801285788922398722}
-  _building: {fileID: 11400000, guid: a5d43a180b0a0ad479d402ffd923084f, type: 2}
+--- !u!1 &6565141605758029607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4233238883490006018, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 7035587801333844773}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8404689474223300163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1513237373731214694, guid: aea1d639b695b174682a7398202ab95d, type: 3}

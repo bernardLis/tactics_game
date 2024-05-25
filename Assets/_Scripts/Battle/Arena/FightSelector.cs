@@ -5,28 +5,26 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class FightSelector : ArenaInteractable, IInteractable
+    public class FightSelector : BuildingController, IInteractable
     {
         public new string InteractionPrompt => "Press F To Select A Fight!";
 
         protected override void OnBattleInitialized()
         {
-            Debug.Log("FightSelector initialized!");
             base.OnBattleInitialized();
+            Building = BattleManager.Battle.FightSelector;
             OnFightEnded();
+            Initialize();
         }
 
         protected override void OnFightEnded()
         {
-            InteractionAvailableEffect.SetActive(true);
-            IsInteractionAvailable = true;
+            AllowInteraction();
         }
 
         protected override void OnFightStarted()
         {
-            InteractionAvailableEffect.SetActive(false);
-            HideTooltip();
-            IsInteractionAvailable = false;
+            ForbidInteraction();
         }
 
         protected override void SetTooltipText()

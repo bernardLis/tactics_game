@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class FightStarter : ArenaInteractable, IInteractable
+    public class FightStarter : BuildingController, IInteractable
     {
         public new string InteractionPrompt => "Press F To Start A Fight!";
 
@@ -13,7 +13,9 @@ namespace Lis.Battle.Arena
         protected override void OnBattleInitialized()
         {
             base.OnBattleInitialized();
+            Building = BattleManager.Battle.FightStarter;
             FightManager.Instance.OnInitialized += OnFightManagerInitialized;
+            Initialize();
         }
 
         void OnFightManagerInitialized()
@@ -28,8 +30,7 @@ namespace Lis.Battle.Arena
 
         void OnFightOptionChosen(FightOption _)
         {
-            InteractionAvailableEffect.SetActive(true);
-            IsInteractionAvailable = true;
+            AllowInteraction();
         }
 
         protected override void OnFightEnded()
@@ -41,9 +42,7 @@ namespace Lis.Battle.Arena
 
         protected override void OnFightStarted()
         {
-            InteractionAvailableEffect.SetActive(false);
-            HideTooltip();
-            IsInteractionAvailable = false;
+            ForbidInteraction();
         }
 
         public override bool Interact(Interactor interactor)

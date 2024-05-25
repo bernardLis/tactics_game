@@ -5,11 +5,19 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class RewardCollector : ArenaInteractable, IInteractable
+    public class RewardCollector : BuildingController, IInteractable
     {
         public new string InteractionPrompt => "Press F To Collect Reward!";
 
         int _rewardsAvailable;
+
+        protected override void OnBattleInitialized()
+        {
+            base.OnBattleInitialized();
+            _rewardsAvailable = 0;
+            Building = BattleManager.Battle.RewardCollector;
+            Initialize();
+        }
 
         protected override void SetTooltipText()
         {
@@ -18,8 +26,8 @@ namespace Lis.Battle.Arena
 
         protected override void OnFightEnded()
         {
-            IsInteractionAvailable = true;
-            InteractionAvailableEffect.SetActive(true);
+            if (!Building.IsUnlocked) return;
+            AllowInteraction();
             _rewardsAvailable++;
         }
 
@@ -35,10 +43,7 @@ namespace Lis.Battle.Arena
             fightRewardScreen.Initialize();
             _rewardsAvailable--;
             if (_rewardsAvailable == 0)
-            {
-                InteractionAvailableEffect.SetActive(false);
-                IsInteractionAvailable = false;
-            }
+                ForbidInteraction();
             return true;
         }
     }

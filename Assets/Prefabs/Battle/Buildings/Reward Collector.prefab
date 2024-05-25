@@ -308,6 +308,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2743815250838835747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6472929110812220733, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 9207481713778954014}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5006023115528473372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4233238883490006018, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 9207481713778954014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5495070355743431872 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3712622550177469406, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -325,9 +335,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e624fdf6cbc55634ab9ad09a6de50d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unlockedGfx: {fileID: 5006023115528473372}
+  _unlockedEffect: {fileID: 5509273382775158193}
+  _lockedGfx: {fileID: 2743815250838835747}
   _tooltipCanvas: {fileID: 993744879877001156}
   TooltipText: {fileID: 2241814727080789315}
   InteractionAvailableEffect: {fileID: 1246960757338803896}
+--- !u!1 &5509273382775158193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3725414938989099695, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 9207481713778954014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7694279611461081720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1513237373731214694, guid: aea1d639b695b174682a7398202ab95d, type: 3}

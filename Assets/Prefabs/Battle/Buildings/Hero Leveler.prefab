@@ -102,7 +102,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4957545396366725712, guid: aea1d639b695b174682a7398202ab95d, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6472929110812220733, guid: aea1d639b695b174682a7398202ab95d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1513237373731214694, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       insertIndex: -1
@@ -137,9 +138,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97b27d1f38438549a1189df3ca83864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unlockedGfx: {fileID: 3404110626162949850}
+  _unlockedEffect: {fileID: 2752260019305627767}
+  _lockedGfx: {fileID: 2752260019305627767}
   _tooltipCanvas: {fileID: 7462287149006961154}
   TooltipText: {fileID: 8455971786700943493}
   InteractionAvailableEffect: {fileID: 3842610145670464303}
+--- !u!1 &2752260019305627767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3725414938989099695, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 1549986772196801240}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3404110626162949850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4233238883490006018, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 1549986772196801240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!223 &7462287149006961154 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 8218495795182010586, guid: aea1d639b695b174682a7398202ab95d, type: 3}

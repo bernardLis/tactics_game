@@ -5,27 +5,32 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class HeroLeveler : ArenaInteractable, IInteractable
+    public class HeroLeveler : BuildingController, IInteractable
     {
         public new string InteractionPrompt => "Press F To Level Up!";
 
         int _levelUpsAvailable;
 
-        protected override void Start()
+        protected override void OnBattleInitialized()
         {
-            base.Start();
+            base.OnBattleInitialized();
+            _levelUpsAvailable = 0;
+            Building = BattleManager.Battle.HeroLeveler;
+
             IsInteractionAvailable = false;
             HeroManager.Instance.OnHeroInitialized += OnHeroInitialized;
+            Initialize();
         }
 
         void OnHeroInitialized(Hero hero)
         {
-            hero.OnLevelUp += () =>
-            {
-                _levelUpsAvailable++;
-                InteractionAvailableEffect.SetActive(true);
-                IsInteractionAvailable = true;
-            };
+            hero.OnLevelUp += AllowInteraction;
+        }
+
+        protected override void AllowInteraction()
+        {
+            base.AllowInteraction();
+            _levelUpsAvailable++;
         }
 
         protected override void SetTooltipText()
@@ -46,10 +51,7 @@ namespace Lis.Battle.Arena
 
             _levelUpsAvailable--;
             if (_levelUpsAvailable == 0)
-            {
-                InteractionAvailableEffect.SetActive(false);
-                IsInteractionAvailable = false;
-            }
+                ForbidInteraction();
 
             return true;
         }

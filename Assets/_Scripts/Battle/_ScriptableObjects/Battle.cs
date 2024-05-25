@@ -16,8 +16,13 @@ namespace Lis.Battle
         public List<Arena.Arena> Arenas;
         public Arena.Arena CurrentArena;
 
-        public Shop Shop;
         public Bank Bank;
+        public Building FightSelector;
+        public Building FightStarter;
+        public Building HeroLeveler;
+        public Building PeasantSpawner;
+        public Building RewardCollector;
+        public Shop Shop;
 
         public void Initialize(int level)
         {
@@ -28,6 +33,7 @@ namespace Lis.Battle
 
             SetCurrentArena();
             SetRandomHero();
+            InstantiateBuildings();
         }
 
         void SetCurrentArena()
@@ -39,6 +45,19 @@ namespace Lis.Battle
         {
             SelectedHero = Instantiate(GameManager.Instance.UnitDatabase.GetRandomHero());
             SelectedHero.InitializeHero();
+        }
+
+        void InstantiateBuildings()
+        {
+            Bank = Instantiate(Bank);
+            Bank.Initialize();
+
+            FightSelector = Instantiate(FightSelector);
+            FightStarter = Instantiate(FightStarter);
+            HeroLeveler = Instantiate(HeroLeveler);
+            PeasantSpawner = Instantiate(PeasantSpawner);
+            RewardCollector = Instantiate(RewardCollector);
+            Shop = Instantiate(Shop);
         }
     }
 }

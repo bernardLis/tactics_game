@@ -7,24 +7,20 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class PeasantSpawner : ArenaInteractable, IInteractable
+    public class PeasantSpawner : BuildingController, IInteractable
     {
         GameManager _gameManager;
         HeroManager _heroManager;
-
-        [SerializeField] Building _building;
 
         public new string InteractionPrompt => "Press F To Interact!";
 
         protected override void Start()
         {
             base.Start();
-            _building = Instantiate(_building);
             _gameManager = GameManager.Instance;
             _heroManager = HeroManager.Instance;
-
-            InteractionAvailableEffect.SetActive(true);
-            IsInteractionAvailable = true;
+            Building = BattleManager.Battle.PeasantSpawner;
+            Initialize();
         }
 
         protected override void SetTooltipText()
@@ -34,14 +30,14 @@ namespace Lis.Battle.Arena
 
         protected override void OnFightEnded()
         {
-            InteractionAvailableEffect.SetActive(true);
-            IsInteractionAvailable = true;
+            if (!Building.IsUnlocked) return;
+            AllowInteraction();
             StartCoroutine(SpawnPeasantsCoroutine());
         }
 
         IEnumerator SpawnPeasantsCoroutine()
         {
-            for (int i = 0; i < _building.Level + 1; i++)
+            for (int i = 0; i < Building.Level + 1; i++)
             {
                 Unit u = Instantiate(_gameManager.UnitDatabase.Peasant);
                 u.InitializeBattle(0);
@@ -54,9 +50,8 @@ namespace Lis.Battle.Arena
 
         protected override void OnFightStarted()
         {
-            InteractionAvailableEffect.SetActive(false);
-            HideTooltip();
-            IsInteractionAvailable = false;
+            if (!Building.IsUnlocked) return;
+            ForbidInteraction();
         }
 
         public override bool Interact(Interactor interactor)
@@ -68,7 +63,7 @@ namespace Lis.Battle.Arena
             }
 
             PeasantHouseScreen screen = new();
-            screen.InitializeBuilding(_building);
+            screen.InitializeBuilding(Building);
 
             return true;
         }

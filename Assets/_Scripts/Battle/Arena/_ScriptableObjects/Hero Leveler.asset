@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a51b230923b286548958e4313b54f767, type: 3}
-  m_Name: Peasant House
+  m_Name: Hero Leveler
   m_EditorClassIdentifier: 
-  Id: 1c166405-260f-4be3-9631-4a17965a32ba
+  Id: 78fcedfe-5407-4e55-8f06-dc862ffcfc3b
+  IsUnlocked: 1
+  UnlockCost: 0
   Level: 0
-  MaxLevel: 3
+  MaxLevel: 0
