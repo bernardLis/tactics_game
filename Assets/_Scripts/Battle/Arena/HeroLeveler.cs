@@ -1,4 +1,3 @@
-using System.Collections;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -30,6 +29,7 @@ namespace Lis.Battle.Arena
         protected override void AllowInteraction()
         {
             base.AllowInteraction();
+            if (HeroManager.Instance.Hero.Level.Value == 2) Unlock();
             _levelUpsAvailable++;
         }
 

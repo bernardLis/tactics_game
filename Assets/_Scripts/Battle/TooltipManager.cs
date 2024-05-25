@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Battle.Fight;
 using Lis.Core;
@@ -38,7 +38,7 @@ namespace Lis.Battle
 
         bool _isBossHealthBarShown;
 
-        public event Action OnTooltipHidden;
+        readonly Queue<VisualElement> _gameInfoQueue = new();
 
         public void Initialize()
         {
@@ -54,11 +54,12 @@ namespace Lis.Battle
             _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
 
             SetUpEntityInfo();
+            StartCoroutine(ShowGameInfoCoroutine());
         }
 
         void OnFightStarted()
         {
-            ShowGameInfo(new Label("Fight started!"), 3f);
+            DisplayGameInfo(new Label("Fight started!"));
             if (CurrentTooltipDisplayer == null) return;
             HideTooltip();
         }
@@ -69,7 +70,7 @@ namespace Lis.Battle
             el.style.alignItems = Align.Center;
             el.Add(new Label("Fight won!"));
             el.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
-            ShowGameInfo(el, 3f);
+            DisplayGameInfo(el);
         }
 
         /* INPUT */
@@ -156,10 +157,24 @@ namespace Lis.Battle
             _isBossHealthBarShown = true;
         }
 
-        public void ShowGameInfo(VisualElement el, float duration)
+        public void DisplayGameInfo(VisualElement el)
         {
-            ShowGameInfo(el);
-            Invoke(nameof(HideGameInfo), duration);
+            _gameInfoQueue.Enqueue(el);
+        }
+
+        IEnumerator ShowGameInfoCoroutine()
+        {
+            while (this != null)
+            {
+                while (_gameInfoQueue.Count > 0)
+                {
+                    ShowGameInfo(_gameInfoQueue.Dequeue());
+                    yield return new WaitForSeconds(3);
+                    HideGameInfo();
+                }
+
+                yield return new WaitForSeconds(1);
+            }
         }
 
         void ShowGameInfo(VisualElement el)
@@ -175,7 +190,7 @@ namespace Lis.Battle
                 .SetEase(Ease.InOutSine);
         }
 
-        public void HideGameInfo()
+        void HideGameInfo()
         {
             if (_gameInfoContainer == null) return;
             DOTween.To(x => _gameInfoContainer.style.opacity = x, 1, 0, 0.5f)
@@ -187,6 +202,7 @@ namespace Lis.Battle
                     _gameInfoContainer.Clear();
                 });
         }
+
 
         /* TOOLTIP CARD */
         public void ShowTooltip(VisualElement el, GameObject go)
@@ -226,8 +242,6 @@ namespace Lis.Battle
                     if (_currentTooltip == null) return;
                     _currentTooltip.RemoveFromHierarchy();
                     _currentTooltip = null;
-
-                    OnTooltipHidden?.Invoke();
                 });
         }
     }

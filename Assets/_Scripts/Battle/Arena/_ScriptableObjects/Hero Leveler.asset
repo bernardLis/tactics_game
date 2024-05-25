@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero Leveler
   m_EditorClassIdentifier: 
   Id: 78fcedfe-5407-4e55-8f06-dc862ffcfc3b
-  IsUnlocked: 1
+  IsUnlocked: 0
   UnlockCost: 0
   Level: 0
   MaxLevel: 0

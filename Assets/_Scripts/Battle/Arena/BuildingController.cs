@@ -1,8 +1,10 @@
 using Lis.Battle.Fight;
 using Lis.Core;
+using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Lis.Battle.Arena
 {
@@ -10,6 +12,7 @@ namespace Lis.Battle.Arena
     {
         protected BattleManager BattleManager;
         protected FightManager FightManager;
+        TooltipManager _tooltipManager;
         BuildingUnlocker _buildingUnlocker;
 
         protected Building Building;
@@ -33,6 +36,8 @@ namespace Lis.Battle.Arena
             BattleManager.OnBattleInitialized += OnBattleInitialized;
             if (BattleManager.IsTimerOn) OnBattleInitialized();
 
+            _tooltipManager = TooltipManager.Instance;
+
             SetTooltipText();
         }
 
@@ -48,7 +53,7 @@ namespace Lis.Battle.Arena
         {
         }
 
-        protected virtual void Initialize()
+        protected void Initialize()
         {
             _unlockedGfx.SetActive(Building.IsUnlocked);
 
@@ -64,15 +69,17 @@ namespace Lis.Battle.Arena
             IsInteractionAvailable = true;
         }
 
-        protected virtual void ForbidInteraction()
+        protected void ForbidInteraction()
         {
             InteractionAvailableEffect.SetActive(false);
             HideTooltip();
             IsInteractionAvailable = false;
         }
 
-        protected virtual void Unlock()
+        protected void Unlock()
         {
+            _tooltipManager.DisplayGameInfo(
+                new Label($" {Helpers.ParseScriptableObjectName(Building.name)} unlocked!"));
             _unlockedEffect.SetActive(true);
             _unlockedGfx.SetActive(true);
         }

@@ -10950,9 +10950,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 343825585912270847}
     m_Modifications:
+    - target: {fileID: 5125402925369658374, guid: c78efca07255818498916609d2f31ed2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5919576395272263931, guid: c78efca07255818498916609d2f31ed2, type: 3}
       propertyPath: m_Name
       value: Peasant Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022489288792035027, guid: c78efca07255818498916609d2f31ed2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 6230828693310860525, guid: c78efca07255818498916609d2f31ed2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10960,7 +10968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6230828693310860525, guid: c78efca07255818498916609d2f31ed2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6230828693310860525, guid: c78efca07255818498916609d2f31ed2, type: 3}
       propertyPath: m_LocalPosition.z

@@ -34,7 +34,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator SpawnBossCoroutine()
         {
-            _battleManager.GetComponent<TooltipManager>().ShowGameInfo(new Label("Boss is Spawned!"), 2f);
+            _battleManager.GetComponent<TooltipManager>().DisplayGameInfo(new Label("Boss is Spawned!"));
 
             _audioManager.PlaySfx(_bossSpawnSound, _heroManager.transform.position);
             Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);

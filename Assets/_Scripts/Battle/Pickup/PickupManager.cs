@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,6 +9,8 @@ namespace Lis.Battle.Pickup
 {
     public class PickupManager : PoolManager<PickupController>
     {
+        FightManager _fightManager;
+
         [SerializeField] PickupController _pickupControllerPrefab;
 
         [SerializeField] Coin _coin;
@@ -25,9 +28,23 @@ namespace Lis.Battle.Pickup
         public void Initialize()
         {
             CreatePool(_pickupControllerPrefab.gameObject);
+
+            _fightManager = FightManager.Instance;
+            _fightManager.OnFightEnded += OnFightEnded;
             // HERE: testing
             GetComponent<InputManager>().OnTwoClicked += SpawnBunchExpStones;
         }
+
+        bool _firstFight;
+
+        void OnFightEnded()
+        {
+            if (_firstFight) return;
+            _firstFight = true;
+
+            SpawnPickup(Instantiate(_mushroom), new(-23, 0, 0));
+        }
+
 
         void SpawnBunchExpStones()
         {
@@ -91,9 +108,13 @@ namespace Lis.Battle.Pickup
             else if (random == 5)
                 p = Instantiate(_mushroom);
 
-            PickupController pickupController = GetObjectFromPool();
-            pickupController.Initialize(p, position);
+            SpawnPickup(p, position);
+        }
 
+        void SpawnPickup(Pickup p, Vector3 pos)
+        {
+            PickupController pickupController = GetObjectFromPool();
+            pickupController.Initialize(p, pos);
             pickupController.OnCollected += PickupCollected;
         }
 
