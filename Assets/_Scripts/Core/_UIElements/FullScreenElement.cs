@@ -12,16 +12,20 @@ namespace Lis.Core
         protected const string USSCommonButton = "common__button";
         protected const string USSCommonHorizontalSpacer = "common__horizontal-spacer";
         const string _ussCommonFullScreenMain = "common__full-screen-main";
+        const string _ussCommonFullScreenTitle = "common__full-screen-title";
         const string _ussCommonFullScreenContent = "common__full-screen-content";
+        const string _ussCommonFullScreenUtilityContainer = "common__full-screen-utility-container";
 
         protected GameManager GameManager;
-        protected BattleManager BattleManager;
+        readonly protected BattleManager BattleManager;
 
         public event Action OnHide;
 
         VisualElement _root;
 
+        readonly Label _titleLabel;
         protected readonly VisualElement Content;
+        protected readonly VisualElement UtilityContainer;
         protected ContinueButton ContinueButton;
 
         bool _isNavigationDisabled;
@@ -43,9 +47,21 @@ namespace Lis.Core
             AddToClassList(_ussCommonFullScreenMain);
             AddToClassList(_ussCommonTextPrimary);
 
+            _titleLabel = new("");
+            _titleLabel.AddToClassList(_ussCommonFullScreenTitle);
+            Add(_titleLabel);
+
+            VisualElement spacer = new();
+            spacer.AddToClassList(USSCommonHorizontalSpacer);
+            Add(spacer);
+
             Content = new();
             Content.AddToClassList(_ussCommonFullScreenContent);
             Add(Content);
+
+            UtilityContainer = new();
+            UtilityContainer.AddToClassList(_ussCommonFullScreenUtilityContainer);
+            Add(UtilityContainer);
 
             focusable = true;
             Focus();
@@ -56,12 +72,20 @@ namespace Lis.Core
                 .OnComplete(EnableNavigation);
         }
 
+
         void ResolveRoot()
         {
             _root = GameManager.Root;
             if (BattleManager != null) _root = BattleManager.Root;
 
             _root.Add(this);
+        }
+
+        protected void SetTitle(string txt)
+        {
+            _titleLabel.text = txt;
+            DOTween.To(x => _titleLabel.style.opacity = x, 0, 1, 0.5f)
+                .SetUpdate(true);
         }
 
         void EnableNavigation()
@@ -82,7 +106,6 @@ namespace Lis.Core
             if (_isNavigationDisabled) return;
             if (evt.button != 1) return; // only right mouse click
 
-
             Hide();
         }
 
@@ -97,7 +120,7 @@ namespace Lis.Core
         protected void AddContinueButton()
         {
             ContinueButton = new(callback: Hide);
-            Content.Add(ContinueButton);
+            UtilityContainer.Add(ContinueButton);
         }
 
         public void Hide()

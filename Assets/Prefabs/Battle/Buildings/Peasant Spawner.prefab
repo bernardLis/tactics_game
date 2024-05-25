@@ -264,6 +264,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Peasant Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 3725414938989099695, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4024868396709029832, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -304,6 +308,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4957545396366725712, guid: aea1d639b695b174682a7398202ab95d, type: 3}
     m_RemovedGameObjects: []
@@ -337,11 +361,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6152916120629576487, guid: aea1d639b695b174682a7398202ab95d, type: 3}
   m_PrefabInstance: {fileID: 7035587801333844773}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4068750953898841624 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6472929110812220733, guid: aea1d639b695b174682a7398202ab95d, type: 3}
-  m_PrefabInstance: {fileID: 7035587801333844773}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5913288924313399690 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3725414938989099695, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -366,7 +385,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 6565141605758029607}
   _unlockedEffect: {fileID: 5913288924313399690}
-  _lockedGfx: {fileID: 4068750953898841624}
   _tooltipCanvas: {fileID: 1418242137032412159}
   TooltipText: {fileID: 105940815561589112}
   InteractionAvailableEffect: {fileID: 3801285788922398722}

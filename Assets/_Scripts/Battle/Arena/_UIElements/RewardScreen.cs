@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Lis.Core;
@@ -37,8 +36,6 @@ namespace Lis.Battle.Arena
 
         protected readonly int NumberOfRewards;
 
-        public event Action OnRewardSelected;
-
         protected RewardScreen()
         {
             AudioManager = GameManager.GetComponent<AudioManager>();
@@ -56,31 +53,10 @@ namespace Lis.Battle.Arena
 
         public virtual void Initialize()
         {
-            AddTitle();
             AddRewardContainer();
             AddRerollButton();
             schedule.Execute(PopulateRewards).StartingIn(600);
         }
-
-        protected void AddTitle()
-        {
-            _titleLabel = new("");
-            _titleLabel.style.fontSize = 48;
-            _titleLabel.style.opacity = 0;
-            Content.Add(_titleLabel);
-
-            DOTween.To(x => _titleLabel.style.opacity = x, 0, 1, 0.5f)
-                .SetUpdate(true);
-            VisualElement spacer = new();
-            spacer.AddToClassList(USSCommonHorizontalSpacer);
-            Content.Add(spacer);
-        }
-
-        protected void SetTitle(string txt)
-        {
-            _titleLabel.text = txt;
-        }
-
 
         void AddRewardContainer()
         {
@@ -114,7 +90,7 @@ namespace Lis.Battle.Arena
         {
             _rerollContainer = new();
             _rerollContainer.AddToClassList(_ussRerollContainer);
-            Content.Add(_rerollContainer);
+            UtilityContainer.Add(_rerollContainer);
 
             if (HeroManager.RewardRerollsAvailable <= 0) return;
 
@@ -221,8 +197,6 @@ namespace Lis.Battle.Arena
                 if (element.Reward != reward) element.DisableCard();
                 element.DisableClicks();
             }
-
-            OnRewardSelected?.Invoke();
 
             AddContinueButton();
         }

@@ -42,6 +42,7 @@ namespace Lis.Battle.Arena
                 option.OnChosen += (_) => DisableOptions();
             }
 
+            SetTitle("Choose next fight:");
             AddRandomButton();
             AddContinueButton();
         }
@@ -50,7 +51,7 @@ namespace Lis.Battle.Arena
         {
             if (_fightManager.CurrentFight.ChosenOption != null) return;
             _chooseRandomButton = new("Choose Random +10gold", USSCommonButton, ChooseRandom);
-            Content.Add(_chooseRandomButton);
+            UtilityContainer.Add(_chooseRandomButton);
         }
 
         void ChooseRandom()

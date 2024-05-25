@@ -28,7 +28,9 @@ namespace Lis.Core
             _container.Add(new HorizontalSpacerElement());
 
             AddMenuButtons();
+            SetTitle("Menu");
         }
+
 
         void AddMenuButtons()
         {

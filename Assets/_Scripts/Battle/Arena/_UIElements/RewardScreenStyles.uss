@@ -37,9 +37,6 @@
 }
 
 .reward-screen__reroll-container {
-    position: absolute;
-    left: 10%;
-    bottom: 3%;
     opacity: 0;
 }
 

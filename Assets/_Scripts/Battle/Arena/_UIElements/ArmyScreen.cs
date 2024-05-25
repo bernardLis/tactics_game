@@ -24,6 +24,8 @@ namespace Lis.Battle.Arena
             _mainContainer.style.justifyContent = Justify.SpaceAround;
             Content.Add(_mainContainer);
 
+            SetTitle("Army Screen");
+
             AddPlayerContainer();
             AddEnemyContainer();
 
@@ -101,7 +103,7 @@ namespace Lis.Battle.Arena
         void AddChangeViewButton()
         {
             MyButton changeViewButton = new("Change View", USSCommonButton, ChangeView);
-            Content.Add(changeViewButton);
+            UtilityContainer.Add(changeViewButton);
         }
 
         void ChangeView()

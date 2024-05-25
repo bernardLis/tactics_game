@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero Leveler
       objectReference: {fileID: 0}
+    - target: {fileID: 3725414938989099695, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3918982685751938637, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -96,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8559239065040732711, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 2.51
@@ -140,7 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 3404110626162949850}
   _unlockedEffect: {fileID: 2752260019305627767}
-  _lockedGfx: {fileID: 2752260019305627767}
   _tooltipCanvas: {fileID: 7462287149006961154}
   TooltipText: {fileID: 8455971786700943493}
   InteractionAvailableEffect: {fileID: 3842610145670464303}

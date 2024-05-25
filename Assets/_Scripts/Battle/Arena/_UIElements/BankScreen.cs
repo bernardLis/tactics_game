@@ -17,7 +17,6 @@ namespace Lis.Battle.Arena
         public void InitializeBank(Bank bank)
         {
             _bank = bank;
-            AddTitle();
 
             _investmentContainer = new();
             _investmentContainer.style.width = Length.Percent(100);

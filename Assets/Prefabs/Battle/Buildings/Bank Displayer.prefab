@@ -170,6 +170,34 @@ PrefabInstance:
       propertyPath: m_text
       value: Press f to access bakn!
       objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586914136215233513, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8559239065040732711, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 5.36
@@ -186,11 +214,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -3179252409251934175}
   m_SourcePrefab: {fileID: 100100000, guid: aea1d639b695b174682a7398202ab95d, type: 3}
---- !u!1 &1361506593860042469 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6472929110812220733, guid: aea1d639b695b174682a7398202ab95d, type: 3}
-  m_PrefabInstance: {fileID: 5418250037213684696}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2185073953707974911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6152916120629576487, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -246,7 +269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 8182479661936502746}
   _unlockedEffect: {fileID: 8683547655080417655}
-  _lockedGfx: {fileID: 1361506593860042469}
   _tooltipCanvas: {fileID: 4124325094963274498}
   TooltipText: {fileID: 3164465914306275717}
   InteractionAvailableEffect: {fileID: 2185073953707974911}

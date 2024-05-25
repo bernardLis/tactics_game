@@ -21,7 +21,6 @@ namespace Lis.Battle.Arena
             base.Initialize();
             AddContinueButton();
             SetTitle("Shop");
-
         }
 
         protected override void RerollReward()

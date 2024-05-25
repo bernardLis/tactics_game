@@ -19,8 +19,6 @@ namespace Lis.Units
 
         protected readonly ScrollView MainCardContainer;
 
-        VisualElement _nameContainer;
-
         VisualElement _basicInfoContainer;
         protected VisualElement StatsContainer;
         protected VisualElement OtherContainer;
@@ -85,11 +83,8 @@ namespace Lis.Units
 
         void AddName()
         {
-            _nameContainer = new();
-            Label n = new(_unit.UnitName);
-            n.style.fontSize = 34;
-            _nameContainer.Add(n);
-            _basicInfoContainer.Add(_nameContainer);
+            if (_unit.UnitName.Length == 0) _unit.UnitName = Helpers.ParseScriptableObjectName(_unit.name);
+            SetTitle(_unit.UnitName);
         }
 
         void AddIcon()
