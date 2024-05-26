@@ -22,6 +22,6 @@ MonoBehaviour:
   FightSelector: {fileID: 11400000, guid: 441e7505d0da38f468b83685811c255a, type: 2}
   FightStarter: {fileID: 11400000, guid: 39559594aaf189643986cd765c294b1e, type: 2}
   HeroLeveler: {fileID: 11400000, guid: 3900470b25f99104e970c6a45da90f32, type: 2}
-  PeasantSpawner: {fileID: 11400000, guid: a5d43a180b0a0ad479d402ffd923084f, type: 2}
+  Barracks: {fileID: 11400000, guid: 988ef55f295ded14c9b378829cdae112, type: 2}
   RewardCollector: {fileID: 11400000, guid: 2ed12a2632c03aa43ae6abfc25df13e9, type: 2}
   Shop: {fileID: 11400000, guid: 91d63af4d3ec4034d9e7bf5af5e4b840, type: 2}

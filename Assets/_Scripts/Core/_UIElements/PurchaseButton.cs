@@ -5,7 +5,7 @@ namespace Lis.Core
 {
     public class PurchaseButton : MyButton
     {
-        readonly GoldElement _goldElement;
+        protected readonly GoldElement GoldElement;
 
         public PurchaseButton(string text, string ussClassName, Action onClick, int price) : base(text, ussClassName,
             onClick)
@@ -15,18 +15,18 @@ namespace Lis.Core
             style.paddingLeft = 12;
             style.alignItems = Align.Center;
 
-            _goldElement = new(price);
-            Add(_goldElement);
+            GoldElement = new(price);
+            Add(GoldElement);
         }
 
         public void ChangePrice(int amount)
         {
-            _goldElement.ChangeAmount(amount);
+            GoldElement.ChangeAmount(amount);
         }
 
         public void RemovePrice()
         {
-            _goldElement.RemoveFromHierarchy();
+            GoldElement.RemoveFromHierarchy();
         }
     }
 }

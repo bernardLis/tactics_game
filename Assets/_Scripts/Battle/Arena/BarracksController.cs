@@ -7,10 +7,12 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    public class PeasantSpawner : BuildingController, IInteractable
+    public class BarracksController : BuildingController, IInteractable
     {
         GameManager _gameManager;
         HeroManager _heroManager;
+
+        Barracks _barracks;
 
         public new string InteractionPrompt => "Press F To Interact!";
 
@@ -19,7 +21,10 @@ namespace Lis.Battle.Arena
             base.Start();
             _gameManager = GameManager.Instance;
             _heroManager = HeroManager.Instance;
-            Building = BattleManager.Battle.PeasantSpawner;
+
+            _barracks = BattleManager.Battle.Barracks;
+            Building = _barracks;
+
             Initialize();
         }
 
@@ -62,8 +67,8 @@ namespace Lis.Battle.Arena
                 return false;
             }
 
-            PeasantHouseScreen screen = new();
-            screen.InitializeBuilding(Building);
+            BarracksScreen screen = new();
+            screen.InitializeBuilding(_barracks);
 
             return true;
         }

@@ -15,6 +15,11 @@ namespace Lis
 
         public event Action OnUnlocked;
 
+        public virtual void Initialize()
+        {
+
+        }
+
         public void Upgrade()
         {
             if (Level < MaxLevel)

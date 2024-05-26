@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Lis.Battle.Fight;
-using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Battle.Arena
@@ -11,8 +10,9 @@ namespace Lis.Battle.Arena
         public List<Investment> AvailableInvestments = new();
         public List<Investment> ActiveInvestments = new();
 
-        public void Initialize()
+        public override void Initialize()
         {
+            base.Initialize();
             AvailableInvestments = new();
             ActiveInvestments = new();
             CreateInvestments();

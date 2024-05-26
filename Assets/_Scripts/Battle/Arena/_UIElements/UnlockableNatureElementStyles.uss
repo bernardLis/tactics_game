@@ -1,0 +1,10 @@
+.unlockable-nature-element__main {
+    justify-content: center;
+    align-items: center;
+    border-width: 3px;
+    border-color: var(--color-highlight-light);
+    margin-left: 12px;
+    margin-right: 12px;
+    padding: 12px;
+}
+

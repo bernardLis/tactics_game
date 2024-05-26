@@ -25,14 +25,22 @@ namespace Lis.Units.Peasant
 
         void AddUpgradeButtons()
         {
+            // HERE:
+            /*
             Nature earth = _unitDatabase.GetNatureByName(NatureName.Earth);
             Nature fire = _unitDatabase.GetNatureByName(NatureName.Fire);
             Nature water = _unitDatabase.GetNatureByName(NatureName.Water);
             Nature wind = _unitDatabase.GetNatureByName(NatureName.Wind);
+*/
+            //List<Nature> natures = new List<Nature> { earth, fire, water, wind };
 
-            List<Nature> natures = new List<Nature> { earth, fire, water, wind };
+            List<Nature> availableNatures = new();
+            BattleManager.Instance.Battle.Barracks.UnlockableNatures.ForEach(un =>
+            {
+                if (un.IsUnlocked) availableNatures.Add(un.Nature);
+            });
 
-            foreach (Nature n in natures)
+            foreach (Nature n in availableNatures)
             {
                 // HERE: balance price
                 PurchaseButton b = new("", _ussCommonButton, () => Upgrade(n), 100);

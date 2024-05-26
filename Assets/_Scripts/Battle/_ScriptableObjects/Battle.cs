@@ -20,7 +20,7 @@ namespace Lis.Battle
         public Building FightSelector;
         public Building FightStarter;
         public Building HeroLeveler;
-        public Building PeasantSpawner;
+        public Barracks Barracks;
         public Building RewardCollector;
         public Shop Shop;
 
@@ -53,11 +53,22 @@ namespace Lis.Battle
             Bank.Initialize();
 
             FightSelector = Instantiate(FightSelector);
+            FightSelector.Initialize();
+
             FightStarter = Instantiate(FightStarter);
+            FightStarter.Initialize();
+
             HeroLeveler = Instantiate(HeroLeveler);
-            PeasantSpawner = Instantiate(PeasantSpawner);
+            HeroLeveler.Initialize();
+
+            Barracks = Instantiate(Barracks);
+            Barracks.Initialize();
+
             RewardCollector = Instantiate(RewardCollector);
+            RewardCollector.Initialize();
+
             Shop = Instantiate(Shop);
+            Shop.Initialize();
         }
     }
 }

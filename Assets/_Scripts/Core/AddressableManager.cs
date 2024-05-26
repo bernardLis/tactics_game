@@ -85,5 +85,6 @@ namespace Lis.Core
         InvestmentElementStyles,
         AttackElementStyles,
         FightOptionElementStyles,
+        UnlockableNatureElementStyles,
     }
 }
