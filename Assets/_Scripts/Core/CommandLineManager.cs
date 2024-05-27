@@ -7,6 +7,7 @@ using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
+using Lis.Units.Hero.Ability;
 using Lis.Units.Pawn;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -50,7 +51,8 @@ namespace Lis.Core
 
             _fpsLabel = root.Q<Label>("fpsLabel");
 
-            AddButtons();
+            if (BattleManager.Instance == null) return;
+            BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += AddButtons;
         }
 
         void Update()
@@ -125,6 +127,7 @@ namespace Lis.Core
             AddPawnButtons();
             AddCreatureButtons();
             AddExpOrbButton();
+            AddHeroButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
         }
@@ -261,6 +264,62 @@ namespace Lis.Core
                 BattleManager.Instance.GetComponent<PickupManager>().SpawnExpStone(Vector3.zero);
             };
             _otherFoldout.Add(spawnExpOrbButton);
+        }
+
+        void AddHeroButtons()
+        {
+            // list of abilities
+            Foldout heroFoldout = new()
+            {
+                text = "Hero",
+                value = false
+            };
+            _buttonContainer.Add(heroFoldout);
+
+            List<string> choices = new()
+            {
+                "-----"
+            };
+            choices.AddRange(_unitDatabase.GetAllAbilities().ConvertAll(x => x.name));
+            var abilityDropDown = new DropdownField("Abilities", choices, 0);
+            heroFoldout.Add(abilityDropDown);
+
+            Button b = new() { text = "Add Ability" };
+            b.clickable.clicked += () =>
+            {
+                Ability a = _unitDatabase.GetAllAbilities().Find(x => x.name == abilityDropDown.value);
+                if (a != null)
+                {
+                    Ability instance = Instantiate(a);
+                    HeroManager.Instance.Hero.AddAbility(instance);
+                }
+            };
+            heroFoldout.Add(b);
+
+            // remove all abilities from hero
+            Button removeAbilitiesButton = new() { text = "Remove All Abilities" };
+            removeAbilitiesButton.clickable.clicked += () =>
+            {
+                foreach (Ability a in HeroManager.Instance.Hero.GetAllAbilities())
+                    HeroManager.Instance.Hero.RemoveAbility(a);
+            };
+            heroFoldout.Add(removeAbilitiesButton);
+            // level up all abilities
+            Button levelUpAbilitiesButton = new() { text = "Level Up All Abilities" };
+            levelUpAbilitiesButton.clickable.clicked += () =>
+            {
+                foreach (Ability a in HeroManager.Instance.Hero.GetAllAbilities())
+                    a.LevelUp();
+            };
+            heroFoldout.Add(levelUpAbilitiesButton);
+            // start abilities
+            Button startAbilitiesButton = new() { text = "Start All Abilities" };
+            startAbilitiesButton.clickable.clicked += () => { HeroManager.Instance.HeroController.StartAllAbilities(); };
+            heroFoldout.Add(startAbilitiesButton);
+            // stop abilities
+            Button stopAbilitiesButton = new() { text = "Stop All Abilities" };
+            stopAbilitiesButton.clickable.clicked += () => { HeroManager.Instance.HeroController.StopAllAbilities(); };
+            heroFoldout.Add(stopAbilitiesButton);
         }
 
         /* COMMANDS */

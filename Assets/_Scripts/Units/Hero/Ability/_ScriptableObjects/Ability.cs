@@ -63,7 +63,6 @@ namespace Lis.Units.Hero.Ability
             Levels.ForEach(l => l.InitializeAttack(hero));
         }
 
-
         public float GetTotalDamageDealt()
         {
             int dmg = 0;

@@ -160,6 +160,7 @@ namespace Lis.Units.Hero
         public List<Ability.Ability> Abilities = new();
         public List<Ability.Ability> AdvancedAbilities = new();
         public event Action<Ability.Ability> OnAbilityAdded;
+        public event Action<Ability.Ability> OnAbilityRemoved;
 
         public void AddAbility(Ability.Ability ability)
         {
@@ -188,6 +189,15 @@ namespace Lis.Units.Hero
             allAbilities.AddRange(Abilities);
             allAbilities.AddRange(AdvancedAbilities);
             return allAbilities;
+        }
+
+        public void RemoveAbility(Ability.Ability a)
+        {
+            if (a.IsAdvanced)
+                AdvancedAbilities.Remove(a);
+            else
+                Abilities.Remove(a);
+            OnAbilityRemoved?.Invoke(a);
         }
 
         void CreateBaseStats()

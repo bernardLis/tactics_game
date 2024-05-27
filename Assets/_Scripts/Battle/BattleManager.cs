@@ -32,7 +32,6 @@ namespace Lis.Battle
         int _battleTime;
         Label _timerLabel;
 
-        public event Action OnBattleInitialized;
         public event Action OnBattleFinalized;
 
         public event Action OnGamePaused;
@@ -66,8 +65,6 @@ namespace Lis.Battle
             _battleFinalized = false;
             _battleTime = 0;
             ResumeTimer();
-
-            OnBattleInitialized?.Invoke();
         }
 
 

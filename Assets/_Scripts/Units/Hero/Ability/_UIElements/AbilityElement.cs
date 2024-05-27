@@ -21,7 +21,7 @@ namespace Lis.Units.Hero.Ability
 
         readonly VisualElement _icon;
 
-        readonly Ability _ability;
+        public readonly Ability Ability;
 
         OverlayTimerElement _cooldownTimer;
 
@@ -35,8 +35,8 @@ namespace Lis.Units.Hero.Ability
 
             _audioManager = AudioManager.Instance;
 
-            _ability = ability;
-            _ability.OnCooldownStarted += StartCooldown;
+            Ability = ability;
+            Ability.OnCooldownStarted += StartCooldown;
 
             _isUpgrade = isUpgrade;
 
@@ -66,7 +66,7 @@ namespace Lis.Units.Hero.Ability
             dotContainer.style.top = Length.Percent(15);
             Add(dotContainer);
             List<VisualElement> dots = new();
-            for (int i = 0; i < _ability.Levels.Count; i++)
+            for (int i = 0; i < Ability.Levels.Count; i++)
             {
                 VisualElement dot = new();
                 dot.AddToClassList(_ussLevelDotEmpty);
@@ -74,12 +74,12 @@ namespace Lis.Units.Hero.Ability
                 dotContainer.Add(dot);
             }
 
-            for (int i = 0; i < _ability.Level + 1; i++)
+            for (int i = 0; i < Ability.Level + 1; i++)
                 dots[i].AddToClassList(_ussLevelDotFull);
 
-            _ability.OnLevelUp += () =>
+            Ability.OnLevelUp += () =>
             {
-                for (int i = 0; i < _ability.Level + 1; i++)
+                for (int i = 0; i < Ability.Level + 1; i++)
                     dots[i].AddToClassList(_ussLevelDotFull);
             };
         }
@@ -92,7 +92,7 @@ namespace Lis.Units.Hero.Ability
 
             if (_cooldownTimer != null) RemoveCooldownTimer();
 
-            _cooldownTimer = new OverlayTimerElement(_ability.GetCooldown() - 0.5f, _ability.GetCooldown(), false, "");
+            _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown() - 0.5f, Ability.GetCooldown(), false, "");
             _cooldownTimer.style.width = Length.Percent(90);
             _cooldownTimer.style.height = Length.Percent(90);
 
@@ -121,7 +121,7 @@ namespace Lis.Units.Hero.Ability
 
         protected override void DisplayTooltip()
         {
-            AbilityTooltipElement tt = new(_ability, _isUpgrade);
+            AbilityTooltipElement tt = new(Ability, _isUpgrade);
             _tooltip = new(this, tt);
             base.DisplayTooltip();
         }

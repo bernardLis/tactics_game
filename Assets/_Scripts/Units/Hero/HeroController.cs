@@ -1,5 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units.Hero.Ability;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Lis.Units.Hero
@@ -11,6 +14,8 @@ namespace Lis.Units.Hero
         MovementController _movementController;
 
         private static readonly int AnimGrounded = Animator.StringToHash("Grounded");
+
+        List<Controller> _abilityControllers = new();
 
         public override void InitializeGameObject()
         {
@@ -41,6 +46,7 @@ namespace Lis.Units.Hero
         void HandleAbilities()
         {
             Hero.OnAbilityAdded += AddAbility;
+            Hero.OnAbilityRemoved += RemoveAbility;
 
             foreach (Ability.Ability a in Hero.Abilities)
                 AddAbility(a);
@@ -55,8 +61,20 @@ namespace Lis.Units.Hero
         {
             UnitLog.Add($"{BattleManager.GetTime()}: Hero adds an ability {ability.name}");
             GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab, transform);
-            abilityPrefab.GetComponent<Ability.Controller>().Initialize(ability);
+            Controller abilityController = abilityPrefab.GetComponent<Controller>();
+            abilityController.Initialize(ability);
+            _abilityControllers.Add(abilityPrefab.GetComponent<Controller>());
         }
+
+        void RemoveAbility(Ability.Ability ability)
+        {
+            UnitLog.Add($"{BattleManager.GetTime()}: Hero removes an ability {ability.name}");
+            Controller abilityController = _abilityControllers.Find(a => a.Ability == ability);
+            abilityController.StopAbility();
+            _abilityControllers.Remove(abilityController);
+            Destroy(abilityController.gameObject);
+        }
+
 
         protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
@@ -85,7 +103,22 @@ namespace Lis.Units.Hero
             yield return null;
         }
 
-        [ContextMenu("Add Advanced Tablet")]
+        [Button("Stop All Abilities")]
+        public void StopAllAbilities()
+        {
+            foreach (Controller abilityController in _abilityControllers)
+                abilityController.StopAbility();
+        }
+
+        [Button("Start All Abilities")]
+        public void StartAllAbilities()
+        {
+            foreach (Controller abilityController in _abilityControllers)
+                abilityController.StartAbility();
+        }
+
+
+        [Button("Add Advanced Tablet")]
         public void AddAdvancedTablet()
         {
             Hero.AddAdvancedTablet(

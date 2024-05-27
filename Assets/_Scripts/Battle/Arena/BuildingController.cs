@@ -33,7 +33,7 @@ namespace Lis.Battle.Arena
             FightManager.OnFightStarted += OnFightStarted;
 
             BattleManager = BattleManager.Instance;
-            BattleManager.OnBattleInitialized += OnBattleInitialized;
+            BattleManager.GetComponent<BattleInitializer>().OnBattleInitialized += OnBattleInitialized;
             if (BattleManager.IsTimerOn) OnBattleInitialized();
 
             _tooltipManager = TooltipManager.Instance;

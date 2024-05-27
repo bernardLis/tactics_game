@@ -14,8 +14,8 @@ namespace Lis.Units.Hero.Ability
     {
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
-        protected HeroManager HeroManager;
-        protected FightManager FightManager;
+        HeroManager _heroManager;
+        FightManager _fightManager;
         protected ArenaManager ArenaManager;
 
         protected Transform AbilityObjectParent;
@@ -27,7 +27,7 @@ namespace Lis.Units.Hero.Ability
 
         protected HeroController HeroController;
         protected OpponentTracker OpponentTracker;
-        protected Ability Ability;
+        public Ability Ability;
         IEnumerator _runAbilityCoroutine;
         IEnumerator _fireAbilityCoroutine;
 
@@ -36,27 +36,27 @@ namespace Lis.Units.Hero.Ability
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             ArenaManager = BattleManager.GetComponent<ArenaManager>();
-            HeroManager = BattleManager.GetComponent<HeroManager>();
-            FightManager = BattleManager.GetComponent<FightManager>();
+            _heroManager = BattleManager.GetComponent<HeroManager>();
+            _fightManager = BattleManager.GetComponent<FightManager>();
 
             AbilityObjectParent = BattleManager.AbilityHolder;
 
-            HeroController = HeroManager.HeroController;
+            HeroController = _heroManager.HeroController;
             OpponentTracker = HeroController.GetComponentInChildren<OpponentTracker>();
 
             Ability = ability;
 
-            FightManager.OnFightEnded += StopAbility;
-            FightManager.OnFightStarted += StartAbility;
+            _fightManager.OnFightEnded += StopAbility;
+            _fightManager.OnFightStarted += StartAbility;
         }
 
-        void StartAbility()
+        public void StartAbility()
         {
             _runAbilityCoroutine = RunAbilityCoroutine();
             StartCoroutine(_runAbilityCoroutine);
         }
 
-        void StopAbility()
+        public void StopAbility()
         {
             StopCoroutine(_runAbilityCoroutine);
         }
@@ -84,14 +84,14 @@ namespace Lis.Units.Hero.Ability
         protected Vector3 GetRandomEnemyDirection()
         {
             Vector3 rand;
-            if (FightManager.EnemyUnits.Count == 0)
+            if (_fightManager.EnemyUnits.Count == 0)
             {
                 rand = Random.insideUnitCircle;
                 rand = new(rand.x, 0, rand.y);
                 return rand.normalized;
             }
 
-            rand = FightManager.GetRandomEnemyPosition() - transform.position;
+            rand = _fightManager.GetRandomEnemyPosition() - transform.position;
             rand.y = 0;
             return rand.normalized;
         }

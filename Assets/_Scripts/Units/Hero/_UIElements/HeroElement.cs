@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace Lis.Units.Hero
         readonly VisualElement _heroInfoContainer;
         ResourceBarElement _expBar;
         Label _levelLabel;
+
+        List<AbilityElement> _abilityIconsElements = new();
 
         VisualElement _advancedViewContainer;
 
@@ -60,13 +63,22 @@ namespace Lis.Units.Hero
             foreach (Ability.Ability ability in _hero.GetAllAbilities())
             {
                 AbilityElement icon = new(ability, true);
+                _abilityIconsElements.Add(icon);
                 container.Add(icon);
             }
 
             _hero.OnAbilityAdded += (a) =>
             {
                 AbilityElement icon = new(a, true);
+                _abilityIconsElements.Add(icon);
                 container.Add(icon);
+            };
+
+            _hero.OnAbilityRemoved += (a) =>
+            {
+                AbilityElement icon = _abilityIconsElements.Find(e => e.Ability == a);
+                _abilityIconsElements.Remove(icon);
+                icon.RemoveFromHierarchy();
             };
         }
 
