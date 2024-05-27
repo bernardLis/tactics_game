@@ -3,5 +3,5 @@
     align-items: center;
     padding: 10px;
     border-width: 3px;
-    border-color: var(--color-highlight-light);
+    border-color: var(--color-highlight);
 }

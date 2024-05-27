@@ -5,6 +5,7 @@ using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Lis.Battle
 {
@@ -15,6 +16,8 @@ namespace Lis.Battle
         BattleManager _battleManager;
 
         LoadingScreen _loadingScreen;
+
+        [SerializeField] ThemeStyleSheet[] _themeStyleSheets;
 
         public event Action OnBattleInitialized;
 
@@ -43,6 +46,8 @@ namespace Lis.Battle
             heroManager.enabled = true;
             heroManager.Initialize(_gameManager.CurrentBattle.SelectedHero);
 
+            SetThemeStyleSheet();
+
             yield return new WaitForSeconds(0.5f);
             GetComponent<GrabManager>().Initialize();
             GetComponent<TooltipManager>().Initialize();
@@ -60,5 +65,19 @@ namespace Lis.Battle
             // _loadingScreen.Hide();
             // _audioManager.UnmuteAll();
         }
+
+        void SetThemeStyleSheet()
+        {
+            foreach (ThemeStyleSheet themeStyleSheet in _themeStyleSheets)
+                if (themeStyleSheet.Nature == _gameManager.CurrentBattle.SelectedHero.Nature)
+                    GetComponent<UIDocument>().rootVisualElement.styleSheets.Add(themeStyleSheet.StyleSheet);
+        }
+    }
+
+    [Serializable]
+    struct ThemeStyleSheet
+    {
+        public Nature Nature;
+        public StyleSheet StyleSheet;
     }
 }

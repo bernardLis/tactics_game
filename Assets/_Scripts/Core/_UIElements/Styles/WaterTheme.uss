@@ -1,0 +1,3 @@
+:root {
+    --color-highlight: rgb(143, 211 ,255);
+}
