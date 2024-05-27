@@ -1,3 +1,4 @@
 :root {
     --color-highlight: rgb(251, 185, 84);
+    --color-highlight-secondary: rgb(76, 60, 36);
 }

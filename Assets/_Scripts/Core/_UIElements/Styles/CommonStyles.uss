@@ -90,7 +90,9 @@
     font-size: 36px;
     justify-content: center;
     margin: 12px;
-    background-color: var(--color-highlight-gold);
+    background-color: var(--color-highlight);
+
+    /* background-color: var(--color-highlight-gold); */
     width: 300px;
     min-height: 90px;
     -unity-font-style: normal;
@@ -102,7 +104,7 @@
 }
 
 .common__button:hover {
-    background-color: var(--color-highlight-light2);
+    background-color: var(--color-highlight-secondary);
     scale: 1.05 1.05;
 }
 
@@ -149,7 +151,7 @@
 }
 
 .common__full-screen-title {
-    font-size: 48;
+    font-size: 48px;
     opacity: 0;
 }
 

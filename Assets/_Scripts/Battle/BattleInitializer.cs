@@ -25,6 +25,7 @@ namespace Lis.Battle
         {
             _gameManager = GameManager.Instance;
             _battleManager = BattleManager.Instance;
+
             // HERE: testing
             // _audioManager = AudioManager.Instance;
             // _audioManager.MuteAllButMusic();
@@ -45,7 +46,6 @@ namespace Lis.Battle
             HeroManager heroManager = GetComponent<HeroManager>();
             heroManager.enabled = true;
             heroManager.Initialize(_gameManager.CurrentBattle.SelectedHero);
-
             SetThemeStyleSheet();
 
             yield return new WaitForSeconds(0.5f);
@@ -59,6 +59,8 @@ namespace Lis.Battle
             GetComponent<StatsTracker>().Initialize();
             GetComponent<BattleUIManager>().Initialize();
             yield return new WaitForSeconds(0.1f);
+
+
             OnBattleInitialized?.Invoke();
 
             // HERE: testing
@@ -68,9 +70,18 @@ namespace Lis.Battle
 
         void SetThemeStyleSheet()
         {
+            VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             foreach (ThemeStyleSheet themeStyleSheet in _themeStyleSheets)
+            {
                 if (themeStyleSheet.Nature == _gameManager.CurrentBattle.SelectedHero.Nature)
-                    GetComponent<UIDocument>().rootVisualElement.styleSheets.Add(themeStyleSheet.StyleSheet);
+                {
+                    root.styleSheets.Add(themeStyleSheet.StyleSheet);
+                    continue;
+                }
+
+                if (root.styleSheets.Contains(themeStyleSheet.StyleSheet))
+                    root.styleSheets.Remove(themeStyleSheet.StyleSheet);
+            }
         }
     }
 
