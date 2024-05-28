@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lis.Core.Utilities;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -36,8 +37,11 @@ namespace Lis.Core
             _container.AddToClassList(_ussMain);
             Content.Add(_container);
 
+            SetTitle("Settings");
+
             AddSoundOptions();
             AddGraphicsOptions();
+            AddDataCollectionOptions();
 
             if (SceneManager.GetActiveScene().name == Scenes.MainMenu)
                 AddClearSaveButton();
@@ -233,6 +237,45 @@ namespace Lis.Core
             label.AddToClassList(_ussCommonTextPrimary);
             container.Add(label);
             return container;
+        }
+
+        void AddDataCollectionOptions()
+        {
+            VisualElement container = CreateContainer("Allow Anonymous Gameplay Data Collection");
+            _container.Add(container);
+
+            Toggle dataCollectionToggle = new();
+            dataCollectionToggle.value = PlayerPrefs.GetInt("isDataCollectionAllowed", 1) != 0;
+            container.Add(dataCollectionToggle);
+            SetDataCollection(PlayerPrefs.GetInt("isDataCollectionAllowed", 1) != 0);
+            dataCollectionToggle.RegisterValueChangedCallback(AllowDataCollectionClick);
+
+            MyButton testEventButton = new("Test", USSCommonButton, SendTestEvent);
+            container.Add(testEventButton);
+        }
+
+        void SendTestEvent()
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+                { "myWonderfulParameter", "test event baby!!" },
+            };
+
+            AnalyticsService.Instance.CustomData("myTestEvent", parameters);
+        }
+
+        void AllowDataCollectionClick(ChangeEvent<bool> evt)
+        {
+            PlayerPrefs.SetInt("isDataCollectionAllowed", (evt.newValue ? 1 : 0));
+            SetDataCollection(evt.newValue);
+        }
+
+        void SetDataCollection(bool allowDataCollection)
+        {
+            if (allowDataCollection)
+                AnalyticsService.Instance.StartDataCollection();
+            else
+                AnalyticsService.Instance.StopDataCollection();
         }
 
         void AddClearSaveButton()

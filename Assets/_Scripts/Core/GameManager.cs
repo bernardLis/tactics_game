@@ -4,20 +4,20 @@ using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Upgrades;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using Unity.Services.Analytics;
+using Unity.Services.Core;
 
 namespace Lis.Core
 {
+    using Battle;
+
     public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
         LevelLoader _levelLoader;
 
         public GameDatabase GameDatabase;
-
-        [FormerlySerializedAs("EntityDatabase")]
         public UnitDatabase UnitDatabase;
-
         public UpgradeBoard UpgradeBoard;
         public Stats GameStats;
 
@@ -26,7 +26,7 @@ namespace Lis.Core
 
         public int Gold { get; private set; }
 
-        public Battle.Battle CurrentBattle { get; private set; }
+        public Battle CurrentBattle { get; private set; }
 
         public VisualElement Root { get; private set; }
         public readonly List<FullScreenElement> OpenFullScreens = new();
@@ -41,7 +41,7 @@ namespace Lis.Core
         {
             base.Awake();
             Debug.Log($"Game manager Awake");
-            // Services();
+            RunServices();
         }
 
         void Start()
@@ -63,32 +63,26 @@ namespace Lis.Core
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
             CurrentBattle.Initialize(1); // necessary for testing
-
         }
 
-        // using Unity.Services.Analytics;
-        // using Unity.Services.Core;
-        // async void Services()
-        // {
-        //     await UnityServices.InitializeAsync();
-        //     // TODO: analytics - need opt in flow
-        //     AnalyticsService.Instance.StartDataCollection();
-        //
-        //     HandleCustomEvent();
-        // }
-        //
-        // void HandleCustomEvent()
-        // {
-        //     Dictionary<string, object> parameters = new Dictionary<string, object>()
-        //     {
-        //         { "fabulousString", "hello there" },
-        //         { "sparklingInt", 1337 },
-        //         { "spectacularFloat", 0.451f },
-        //         { "peculiarBool", true },
-        //     };
-        //
-        //     AnalyticsService.Instance.CustomData("gameStart", parameters);
-        // }
+        async void RunServices()
+        {
+            await UnityServices.InitializeAsync();
+            // TODO: analytics - need opt in flow
+            AnalyticsService.Instance.StartDataCollection();
+
+            HandleCustomEvent();
+        }
+
+        void HandleCustomEvent()
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>()
+            {
+                { "myWonderfulParameter", "hello there" },
+            };
+
+            AnalyticsService.Instance.CustomData("myGameStart", parameters);
+        }
 
         public void SetHero(Hero hero)
         {

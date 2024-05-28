@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Lis.Battle.Pickup;
 using UnityEngine;
 using UnityEngine.Serialization;
 
