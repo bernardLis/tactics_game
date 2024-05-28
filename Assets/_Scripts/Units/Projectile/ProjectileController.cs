@@ -108,7 +108,8 @@ namespace Lis.Units.Projectile
             if (IsHitConnected) return;
 
             if (collision.gameObject.layer == Tags.UnpassableLayer ||
-                collision.gameObject.layer == Tags.BattleInteractableLayer)
+                collision.gameObject.layer == Tags.BattleInteractableLayer ||
+                collision.gameObject.layer == Tags.BattleFloorLayer)
             {
                 CollideWithUnpassable(collision);
                 return;

@@ -20,15 +20,25 @@ namespace Lis.Units.Hero.Ability
         {
             yield return base.ExecuteAbilityCoroutine();
             Vector3 dir = GetRandomEnemyDirection();
-            Vector3 projectileVariance = new(0.2f, 0, 0.2f);
+            int numberOfLines = 50;
+            //            Vector3 dir = transform.position - _target.transform.position;
+
+            //
+            //rotatedLine = rotatedLine.normalized * _attackRange;
+
+            // Vector3 projectileVariance = new(0.2f, 0, 0.2f);
             int half = Mathf.FloorToInt(Ability.GetAmount() * 0.5f); // TODO: only "works" for odd numbers
             for (int i = -half; i <= half; i++)
             {
                 ProjectileController projectileController = GetInactiveFireball();
                 Transform t = projectileController.transform;
                 t.localScale = Vector3.one * Ability.GetScale();
-                t.position = transform.position + projectileVariance * i;
-                projectileController.Shoot(dir + projectileVariance * i, 5);
+                Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
+                Vector3 direction = rotatedLine.normalized;
+                // t.position = transform.position + projectileVariance * i;
+                // projectileController.Shoot(dir + projectileVariance * i, 5);
+                t.position = transform.position + direction;
+                projectileController.Shoot(direction, 5);
             }
         }
 

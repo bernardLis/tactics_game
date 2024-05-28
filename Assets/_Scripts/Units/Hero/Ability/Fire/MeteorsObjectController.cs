@@ -14,7 +14,7 @@ namespace Lis.Units.Hero.Ability
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {
-            pos.y = 0;
+            pos.y = 0.1f;
             base.Execute(pos, Quaternion.identity);
         }
 

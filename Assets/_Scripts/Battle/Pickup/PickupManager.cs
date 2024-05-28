@@ -93,7 +93,7 @@ namespace Lis.Battle.Pickup
             int random = Random.Range(0, 100);
             if (random > 26) return; // chance there is no pickup
 
-            Pickup p = Instantiate(_mushroom); //Instantiate(_coin);
+            Pickup p = Instantiate(_coin);
 
             if (random == 0)
                 p = Instantiate(_hammer);
