@@ -63,7 +63,7 @@ namespace Lis.Units.Projectile
                 Transform t = transform;
                 Vector3 forward = t.forward;
                 _rb.velocity = forward * Speed;
-                Vector3 direction = _target.transform.position - t.position;
+                Vector3 direction = _target.Collider.bounds.center - t.position;
                 direction.Normalize();
 
                 Vector3 amountToRotate = Vector3.Cross(direction, forward)

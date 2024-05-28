@@ -17,7 +17,7 @@ namespace Lis.Units.Hero.Ability
 
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-                Vector3 pos = transform.position + new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20));
+                Vector3 pos = ArenaManager.GetRandomPositionInArena();
                 if (OpponentTracker.OpponentsInRange.Count > 0)
                     pos = OpponentTracker.GetRandomOpponentPosition();
                 WaterTornadoObjectController tornadoObjectController =
