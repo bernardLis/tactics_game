@@ -11,7 +11,7 @@ namespace Lis.Units.Hero.Ability
             EarthSpikeObjectController spikeObjectController = GetInactiveAbilityObject() as EarthSpikeObjectController;
             if (spikeObjectController == null) yield break;
             Transform t = HeroController.Animator.transform;
-            spikeObjectController.Execute(t.position + t.forward * 3, t.rotation);
+            spikeObjectController.Execute(t.position + t.forward * 0.5f, t.rotation);
         }
     }
 }

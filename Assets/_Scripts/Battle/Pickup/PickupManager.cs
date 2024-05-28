@@ -46,7 +46,7 @@ namespace Lis.Battle.Pickup
         }
 
 
-        void SpawnBunchExpStones()
+        public void SpawnBunchExpStones()
         {
             for (int i = 0; i < 50; i++)
                 SpawnExpStone(new(Random.Range(-10, 10), 10, Random.Range(-10, 10)));

@@ -52,13 +52,14 @@ namespace Lis.Units.Hero.Ability
 
         public void StartAbility()
         {
+            StopAbility();
             _runAbilityCoroutine = RunAbilityCoroutine();
             StartCoroutine(_runAbilityCoroutine);
         }
 
         public void StopAbility()
         {
-            StopCoroutine(_runAbilityCoroutine);
+            if (_runAbilityCoroutine != null) StopCoroutine(_runAbilityCoroutine);
         }
 
         IEnumerator RunAbilityCoroutine()

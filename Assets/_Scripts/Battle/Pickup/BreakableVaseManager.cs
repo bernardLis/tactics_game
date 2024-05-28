@@ -39,7 +39,12 @@ namespace Lis.Battle.Pickup
             _inputManager.OnLeftMouseClick += DebugSpawnVase;
 #endif
             CreatePool(_vaseControllerPrefab.gameObject);
-            _fightManager.OnFightStarted += () => StartCoroutine(SpawnVasesCoroutine());
+            _fightManager.OnFightStarted += SpawnVases;
+        }
+
+        public void SpawnVases()
+        {
+            StartCoroutine(SpawnVasesCoroutine());
         }
 
         IEnumerator SpawnVasesCoroutine()

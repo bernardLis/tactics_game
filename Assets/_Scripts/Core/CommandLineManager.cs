@@ -126,7 +126,7 @@ namespace Lis.Core
 
             AddPawnButtons();
             AddCreatureButtons();
-            AddExpOrbButton();
+            AddOtherButtons();
             AddHeroButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
@@ -256,14 +256,21 @@ namespace Lis.Core
         }
 
 
-        void AddExpOrbButton()
+        void AddOtherButtons()
         {
             Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
             spawnExpOrbButton.clickable.clicked += () =>
             {
-                BattleManager.Instance.GetComponent<PickupManager>().SpawnExpStone(Vector3.zero);
+                BattleManager.Instance.GetComponent<PickupManager>().SpawnBunchExpStones();
             };
             _otherFoldout.Add(spawnExpOrbButton);
+
+            Button spawnVasesButton = new() { text = "Spawn Vases" };
+            spawnVasesButton.clickable.clicked += () =>
+            {
+                BattleManager.Instance.GetComponent<BreakableVaseManager>().SpawnVases();
+            };
+            _otherFoldout.Add(spawnVasesButton);
         }
 
         void AddHeroButtons()
@@ -314,7 +321,10 @@ namespace Lis.Core
             heroFoldout.Add(levelUpAbilitiesButton);
             // start abilities
             Button startAbilitiesButton = new() { text = "Start All Abilities" };
-            startAbilitiesButton.clickable.clicked += () => { HeroManager.Instance.HeroController.StartAllAbilities(); };
+            startAbilitiesButton.clickable.clicked += () =>
+            {
+                HeroManager.Instance.HeroController.StartAllAbilities();
+            };
             heroFoldout.Add(startAbilitiesButton);
             // stop abilities
             Button stopAbilitiesButton = new() { text = "Stop All Abilities" };

@@ -10,7 +10,7 @@ namespace Lis.Units.Hero.Ability
             base.Initialize(ability);
             AbilityObjectParent = transform;
 
-            transform.localPosition = new(0f, 0f, 1f); // it is where the effect spawns...
+            transform.localPosition = new(0f, 0f, 0f); // it is where the effect spawns...
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -18,7 +18,6 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
             for (int i = 0; i < Ability.GetAmount(); i++)
             {
-
                 EarthSlashObjectController s = GetInactiveAbilityObject() as EarthSlashObjectController;
                 if (s != null) s.Execute(GetSlashPosition(i), GetSlashRotation(i));
             }
@@ -27,9 +26,9 @@ namespace Lis.Units.Hero.Ability
         Vector3 GetSlashPosition(int i)
         {
             if (i == 0)
-                return Vector3.up * 0.5f + Vector3.forward;
+                return Vector3.up * 0.5f + Vector3.forward * Ability.GetScale();
             if (i == 1)
-                return Vector3.up * 0.5f + Vector3.forward * -1;
+                return Vector3.up * 0.5f + Vector3.forward * -1 * Ability.GetScale();
 
             return transform.position;
         }
