@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: 0
   m_EditorClassIdentifier: 
   Id: 81bf44c6-ea9a-4761-9233-0378ddebf47f
+  Icon: {fileID: 0}
+  Description: 
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Damage: 10
   Range: 0
+  GlobalCooldown: 3
   Cooldown: 6
   IsArmorPiercing: 0
-  DamageDealt: 0
+  Sound: {fileID: 0}
+  DamageDealt: 5500
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
   Scale: 0.7
-  Amount: 3
+  Amount: 1
   Duration: 4
   Price: 100

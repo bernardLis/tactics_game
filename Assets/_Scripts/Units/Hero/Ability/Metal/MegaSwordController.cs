@@ -16,7 +16,6 @@ namespace Lis.Units.Hero.Ability
         Vector3 _positionOffset;
         float _angle;
 
-        HeroController _heroController;
 
         public override void Initialize(Ability ability)
         {
@@ -46,7 +45,7 @@ namespace Lis.Units.Hero.Ability
                     _elevationOffset,
                     Mathf.Sin(_angle) * _circleRadius
                 );
-                transform.position = _heroController.transform.position + _positionOffset;
+                transform.position = HeroController.transform.position + _positionOffset;
 
                 Vector3 lookRotation = Quaternion.LookRotation(_positionOffset).eulerAngles;
                 lookRotation.x = 0;
