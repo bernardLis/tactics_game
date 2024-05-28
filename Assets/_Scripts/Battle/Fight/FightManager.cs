@@ -44,6 +44,7 @@ namespace Lis.Battle.Fight
         IEnumerator _fightCoroutine;
 
         public event Action OnInitialized;
+
         public void Initialize(Battle battle)
         {
             _battle = battle;
@@ -115,7 +116,7 @@ namespace Lis.Battle.Fight
             }
         }
 
-        public void SpawnEnemyUnit(Unit c)
+        public UnitController SpawnEnemyUnit(Unit c)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
             GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
@@ -124,6 +125,8 @@ namespace Lis.Battle.Fight
             unitController.InitializeUnit(c, 1);
             unitController.SetOpponentList(ref PlayerUnits);
             AddEnemyUnit(unitController);
+
+            return unitController;
         }
 
 

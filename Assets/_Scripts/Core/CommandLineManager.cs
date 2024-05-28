@@ -6,6 +6,7 @@ using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Creature;
+using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Pawn;
@@ -128,6 +129,7 @@ namespace Lis.Core
             AddCreatureButtons();
             AddOtherButtons();
             AddHeroButtons();
+            AddEnemyButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
         }
@@ -330,6 +332,64 @@ namespace Lis.Core
             Button stopAbilitiesButton = new() { text = "Stop All Abilities" };
             stopAbilitiesButton.clickable.clicked += () => { HeroManager.Instance.HeroController.StopAllAbilities(); };
             heroFoldout.Add(stopAbilitiesButton);
+        }
+
+        void AddEnemyButtons()
+        {
+            Foldout enemyFoldout = new()
+            {
+                text = "Enemies",
+                value = false
+            };
+            _buttonContainer.Add(enemyFoldout);
+
+            List<string> choices = new()
+            {
+                "-----"
+            };
+            choices.AddRange(_unitDatabase.GetAllEnemies().ConvertAll(x => x.name));
+            var enemyDropDown = new DropdownField("Enemies", choices, 0);
+            enemyFoldout.Add(enemyDropDown);
+
+            Button b = new() { text = "Spawn Enemy" };
+            b.clickable.clicked += () =>
+            {
+                Enemy e = _unitDatabase.GetAllEnemies().Find(x => x.name == enemyDropDown.value);
+                if (e != null)
+                {
+                    SpawnEnemy(e);
+                }
+            };
+            enemyFoldout.Add(b);
+
+            Button spawnFive = new() { text = "Spawn 5 Enemies" };
+            spawnFive.clickable.clicked += () =>
+            {
+                Enemy e = _unitDatabase.GetAllEnemies().Find(x => x.name == enemyDropDown.value);
+                if (e != null)
+                {
+                    for (int i = 0; i < 5; i++)
+                        SpawnEnemy(e);
+                }
+            };
+            enemyFoldout.Add(spawnFive);
+
+            Button spawnAllEnemiesButton = new() { text = "Spawn All Enemies" };
+            spawnAllEnemiesButton.clickable.clicked += () =>
+            {
+                foreach (Enemy e in _unitDatabase.GetAllEnemies())
+                {
+                    SpawnEnemy(e);
+                }
+            };
+        }
+
+        void SpawnEnemy(Enemy e)
+        {
+            Enemy instance = Instantiate(e);
+            instance.InitializeBattle(1);
+            UnitController c = FightManager.Instance.SpawnEnemyUnit(instance);
+            c.OnFightStarted();
         }
 
         /* COMMANDS */

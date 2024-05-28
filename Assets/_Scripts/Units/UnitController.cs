@@ -176,7 +176,7 @@ namespace Lis.Units
             }
         }
 
-        void OnFightStarted()
+        public void OnFightStarted()
         {
             _isAttackReady = true;
             RunUnit();
