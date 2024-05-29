@@ -31,7 +31,6 @@ namespace Lis.Core
             SetTitle("Menu");
         }
 
-
         void AddMenuButtons()
         {
             VisualElement buttonContainer = new();

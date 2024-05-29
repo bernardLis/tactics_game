@@ -42,3 +42,4 @@ MonoBehaviour:
   Attacks: []
   CurrentAttack: {fileID: 0}
   IsMiniBoss: 0
+  ScarinessRank: 8

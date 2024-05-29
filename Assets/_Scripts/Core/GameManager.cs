@@ -69,12 +69,14 @@ namespace Lis.Core
         {
             await UnityServices.InitializeAsync();
             // TODO: analytics - need opt in flow
-            AnalyticsService.Instance.StartDataCollection();
+            // HERE: turn on data collection
+            // if (PlayerPrefs.GetInt("isDataCollectionAllowed", 1) != 0)
+            //     AnalyticsService.Instance.StartDataCollection();
 
-            HandleCustomEvent();
+            SendTestEvent();
         }
 
-        void HandleCustomEvent()
+        void SendTestEvent()
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>()
             {

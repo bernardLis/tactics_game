@@ -7,6 +7,8 @@ namespace Lis.Units.Enemy
         [Header("Enemy")]
         [HideInInspector] public bool IsMiniBoss;
 
+        public int ScarinessRank;
+
         public void SetMiniBoss()
         {
             IsMiniBoss = true;

@@ -18,6 +18,7 @@ namespace Lis.Units
             _unitController = GetComponentInParent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
             _unitController.OnDeath += OnDeath;
+            if (_unitController.Unit == null) return;
             _unitController.Unit.OnRevival += OnRevival;
         }
 

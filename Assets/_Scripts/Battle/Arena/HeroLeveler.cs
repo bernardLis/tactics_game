@@ -29,7 +29,12 @@ namespace Lis.Battle.Arena
         protected override void AllowInteraction()
         {
             base.AllowInteraction();
-            if (HeroManager.Instance.Hero.Level.Value == 2) Unlock();
+            if (HeroManager.Instance.Hero.Level.Value == 2)
+            {
+                Building.IsUnlocked = true;
+                Unlock();
+            }
+
             _levelUpsAvailable++;
         }
 

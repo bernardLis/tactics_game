@@ -15,6 +15,9 @@ namespace Lis.Battle.Fight
 
     public class FightManager : Singleton<FightManager>
     {
+        public static bool IsFightActive { get; private set; }
+        public static int FightNumber { get; private set; }
+
         ArenaManager _arenaManager;
         public Transform PlayerArmyHolder;
         [SerializeField] Transform _opponentArmyHolder;
@@ -40,7 +43,6 @@ namespace Lis.Battle.Fight
         public event Action OnFightStarted;
         public event Action OnFightEnded;
 
-        public static bool IsFightActive { get; private set; }
         IEnumerator _fightCoroutine;
 
         public event Action OnInitialized;
@@ -58,6 +60,7 @@ namespace Lis.Battle.Fight
 
             StartCoroutine(SpawnAllPlayerUnits());
 
+            FightNumber = 0;
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
             OnInitialized?.Invoke();
@@ -67,6 +70,7 @@ namespace Lis.Battle.Fight
         {
             if (CurrentFight.ChosenOption == null) return;
 
+            FightNumber++;
             _fightCoroutine = StartFightCoroutine();
             StartCoroutine(_fightCoroutine);
         }

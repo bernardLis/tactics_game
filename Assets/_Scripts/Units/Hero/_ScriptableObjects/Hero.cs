@@ -35,8 +35,6 @@ namespace Lis.Units.Hero
                 t.Initialize(this);
 
             Abilities = new();
-
-            AddRandomArmy(); // TODO: for now
         }
 
         [HideInInspector] public List<Unit> Army = new();
@@ -46,27 +44,6 @@ namespace Lis.Units.Hero
             Army.Add(armyUnit);
             if (armyUnit is Peasant peasant)
                 peasant.OnUpgraded += (_) => Army.Remove(peasant);
-        }
-
-        void AddRandomArmy()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                Unit instance = Instantiate(GameManager.Instance.UnitDatabase.Peasant);
-                //Unit instance = Instantiate(GameManager.Instance.UnitDatabase.GetRandomPawn());
-                instance.InitializeBattle(0);
-                AddArmy(instance);
-            }
-
-            /*
-            List<Creature> availableCreatures = new(GameManager.Instance.UnitDatabase.AllCreatures);
-            for (int i = 0; i < 3; i++)
-            {
-                Creature instance = Instantiate(availableCreatures[Random.Range(0, availableCreatures.Count)]);
-                instance.InitializeBattle(0);
-                Army.Add(instance);
-            }
-            */
         }
 
         protected override void CreateStats()
