@@ -16,7 +16,7 @@ MonoBehaviour:
   UnitName: Ghost
   Icon: {fileID: 21300000, guid: 62296a3bc73e16d4da88bf31f929923a, type: 3}
   IconAnimation: []
-  Price: 20
+  Price: 400
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 6a67ed0e8dd669a48bb4ce3de8e61867, type: 3}
   SpawnSound: {fileID: 0}

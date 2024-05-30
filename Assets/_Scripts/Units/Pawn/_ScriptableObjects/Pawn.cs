@@ -22,6 +22,16 @@ namespace Lis.Units.Pawn
 
             InitializePawnMission();
             SetUnitBasics();
+            SetPawnStats();
+            SetPawnAttacks();
+        }
+
+        public void SetUpgrade(int upgrade)
+        {
+            CurrentUpgrade = upgrade;
+            InitializePawnMission();
+            SetUnitBasics();
+            SetPawnStats();
             SetPawnAttacks();
         }
 
@@ -34,6 +44,7 @@ namespace Lis.Units.Pawn
 
         public void Upgrade()
         {
+            if (CurrentUpgrade >= Upgrades.Length - 1) return;
             CurrentUpgrade++;
 
             InitializePawnMission();
@@ -47,6 +58,8 @@ namespace Lis.Units.Pawn
 
         void InitializePawnMission()
         {
+            if (CurrentUpgrade >= Upgrades.Length) return;
+
             CurrentMission = Instantiate(Upgrades[CurrentUpgrade].Mission);
             CurrentMission.Initialize(this);
         }

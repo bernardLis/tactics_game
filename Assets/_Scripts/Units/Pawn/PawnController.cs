@@ -23,10 +23,7 @@ namespace Lis.Units.Pawn
             base.InitializeUnit(unit, team);
             _pawn = (Pawn)unit;
 
-            _upgradeZeroBody.SetActive(true);
-            _upgradeOneBody.SetActive(false);
-            _upgradeTwoBody.SetActive(false);
-            HandleAnimatorChange(_upgradeZeroBody.GetComponent<Animator>());
+            HandleUpgrade();
 
             _pawn.OnUpgraded += OnPawnUpgraded;
         }
@@ -71,24 +68,45 @@ namespace Lis.Units.Pawn
             yield return Animator.transform.DOLocalMoveY(2, 1f).WaitForCompletion();
             yield return new WaitForSeconds(0.5f);
 
-            if (_pawn.CurrentUpgrade == 1)
-            {
-                _upgradeZeroBody.SetActive(false);
-                ActivateBody(_upgradeOneBody);
-                HandleAnimatorChange(_upgradeOneBody.GetComponent<Animator>());
-            }
-            else if (_pawn.CurrentUpgrade == 2)
-            {
-                _upgradeOneBody.SetActive(false);
-                ActivateBody(_upgradeTwoBody);
-                HandleAnimatorChange(_upgradeTwoBody.GetComponent<Animator>());
-            }
+            HandleUpgrade(true);
 
             yield return new WaitForSeconds(3f);
             _isUpgrading = false;
             _upgradeEffect.SetActive(false);
 
             GoBackToLocker();
+        }
+
+        void HandleUpgrade(bool animate = false)
+        {
+            if (_pawn.CurrentUpgrade == 0)
+            {
+                _upgradeZeroBody.SetActive(true);
+                _upgradeOneBody.SetActive(false);
+                _upgradeTwoBody.SetActive(false);
+
+                if (animate) ActivateBody(_upgradeZeroBody);
+                HandleAnimatorChange(_upgradeZeroBody.GetComponent<Animator>());
+            }
+
+            if (_pawn.CurrentUpgrade == 1)
+            {
+                _upgradeZeroBody.SetActive(false);
+                _upgradeOneBody.SetActive(true);
+                _upgradeTwoBody.SetActive(false);
+
+                if (animate) ActivateBody(_upgradeOneBody);
+                HandleAnimatorChange(_upgradeOneBody.GetComponent<Animator>());
+            }
+            else if (_pawn.CurrentUpgrade == 2)
+            {
+                _upgradeZeroBody.SetActive(false);
+                _upgradeOneBody.SetActive(false);
+                _upgradeTwoBody.SetActive(true);
+
+                if (animate) ActivateBody(_upgradeTwoBody);
+                HandleAnimatorChange(_upgradeTwoBody.GetComponent<Animator>());
+            }
         }
 
         void ActivateBody(GameObject body)

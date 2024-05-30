@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Lis.Battle;
-using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Units;
-using Lis.Units.Enemy;
-using Lis.Units.Peasant;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,10 +18,13 @@ namespace Lis
         FightManager _fightManager;
         BreakableVaseManager _breakableVaseManager;
 
-        [SerializeField] Peasant _peasant;
-        [SerializeField] List<Enemy> _enemies = new();
+        public int TotalFights;
+        public int FightsWon;
+        public int FightsLost;
 
-        public List<string> Log = new();
+        public List<TestFight> Tests = new();
+
+        float _currentFightStartTime;
 
         void Start()
         {
@@ -48,7 +49,7 @@ namespace Lis
         {
             yield return new WaitForSeconds(3f);
             ClearArmies();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             StartCoroutine(StartRandomTest());
         }
 
@@ -68,44 +69,49 @@ namespace Lis
 
         IEnumerator StartRandomTest()
         {
-            _tooltipManager.DisplayGameInfo(new Label("Setting up new test..."));
+            TotalFights++;
 
-            // add random amount of peasants to player army
-            int peasantsCount = Random.Range(1, 10);
-            for (int i = 0; i < peasantsCount; i++)
-            {
-                Peasant peasant = Instantiate(_peasant);
-                peasant.InitializeBattle(0);
-                _fightManager.SpawnPlayerUnit(peasant);
-            }
+            int points = Random.Range(100, 10000);
+            TestFight test = ScriptableObject.CreateInstance<TestFight>();
+            test.CreateTestFight(points);
+            Tests.Add(test);
+            yield return new WaitForSeconds(1f);
 
-            // add random amount of enemies to enemy army
-            int enemiesCount = Random.Range(1, 10);
-            for (int i = 0; i < enemiesCount; i++)
-            {
-                Enemy enemy = Instantiate(_enemies[Random.Range(0, _enemies.Count)]);
-                enemy.InitializeBattle(1);
-                _fightManager.SpawnEnemyUnit(enemy);
-            }
+            foreach (Unit u in test.PlayerArmy)
+                _fightManager.SpawnPlayerUnit(u);
+            foreach (Unit u in test.EnemyArmy)
+                _fightManager.SpawnEnemyUnit(u);
 
-            Log.Add($"{_battleManager.GetTime()}: Test started: {peasantsCount} peasants vs {enemiesCount} enemies");
+            yield return new WaitForSeconds(1f);
 
-            yield return new WaitForSeconds(2f);
+            _currentFightStartTime = _battleManager.GetTime();
             _fightManager.DebugStartFight();
         }
 
+
         void OnFightEnded()
         {
-            string result = _fightManager.PlayerUnits.Count == 0 ? "Player lost, " : "Player won, ";
-            string armyLeft = "army left: ";
-            // it'd be better to aggregate units by type
-            foreach (UnitController uc in _fightManager.PlayerUnits)
-                armyLeft += uc.Unit.name + ", ";
+            TestFight test = Tests.Last();
+            test.FightDuration = (int)(_battleManager.GetTime() - _currentFightStartTime);
+            bool pw = _fightManager.PlayerUnits.Count > 0;
+            test.PlayerWon = pw;
 
-            foreach (UnitController uc in _fightManager.EnemyUnits)
-                armyLeft += uc.Unit.name + ", ";
+            List<Unit> survivors = new();
+            if (pw)
+            {
+                FightsWon++;
+                foreach (UnitController uc in _fightManager.PlayerUnits)
+                    survivors.Add(Instantiate(uc.Unit));
+            }
+            else
+            {
+                FightsLost++;
+                foreach (UnitController uc in _fightManager.EnemyUnits)
+                    survivors.Add(Instantiate(uc.Unit));
+            }
 
-            Log.Add(_battleManager.GetTime() + ": " + result + armyLeft);
+            test.SetSurvivors(survivors);
+
 
             StartCoroutine(StartNewTestCoroutine());
         }

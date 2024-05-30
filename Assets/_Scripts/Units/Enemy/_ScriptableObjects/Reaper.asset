@@ -17,7 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1a4dd688b022736449841eb989734a44, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 1a4dd688b022736449841eb989734a44, type: 3}
-  Price: 20
+  Price: 1000
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 261e0a904c58f3143851f09cf52ad84b, type: 3}
   SpawnSound: {fileID: 0}

@@ -25,19 +25,15 @@ namespace Editor
                 if (enemyName.Length == 0)
                     continue;
 
-                // get the enemy stats
-                int enemyMaxHealth = Convert.ToInt32(dict["Health"]);
-                int enemyArmor = Convert.ToInt32(dict["Armor"]);
-                float enemySpeed = float.Parse(dict["Speed"], System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-                int enemyPower = Convert.ToInt32(dict["Power"]);
-                // get the enemy object
                 string enemyPath = "Assets/_Scripts/Units/Enemy/_ScriptableObjects/" + enemyName + ".asset";
                 Enemy enemy = AssetDatabase.LoadAssetAtPath<Enemy>(enemyPath);
                 // set the enemy stats
-                enemy.EnemyMaxHealth = enemyMaxHealth;
-                enemy.EnemyArmor = enemyArmor;
-                enemy.EnemySpeed = enemySpeed;
-                enemy.EnemyPower = enemyPower;
+                enemy.Price = Convert.ToInt32(dict["Price"]);
+
+                enemy.EnemyMaxHealth = Convert.ToInt32(dict["Health"]);
+                enemy.EnemyArmor = Convert.ToInt32(dict["Armor"]);
+                enemy.EnemySpeed = float.Parse(dict["Speed"], System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+                enemy.EnemyPower = Convert.ToInt32(dict["Power"]);
 
                 Debug.Log("Setting stats to: " + enemy.name);
 
