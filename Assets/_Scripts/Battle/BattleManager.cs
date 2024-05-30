@@ -57,7 +57,6 @@ namespace Lis.Battle
             _timerLabel = Root.Q<Label>("timer");
         }
 
-
         public void Initialize()
         {
             Battle = _gameManager.CurrentBattle;
@@ -66,7 +65,6 @@ namespace Lis.Battle
             _battleTime = 0;
             ResumeTimer();
         }
-
 
         public void PauseGame()
         {

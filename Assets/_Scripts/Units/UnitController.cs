@@ -178,6 +178,15 @@ namespace Lis.Units
 
         public void OnFightStarted()
         {
+            if (this == null) return;
+            if (Team == 0 && IsDead)
+            {
+                transform.DOMoveY(0f, 5f)
+                    .SetDelay(1f)
+                    .OnComplete(DestroySelf);
+                return;
+            }
+
             _isAttackReady = true;
             RunUnit();
         }

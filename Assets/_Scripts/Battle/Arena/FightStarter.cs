@@ -36,8 +36,10 @@ namespace Lis.Battle.Arena
         protected override void OnFightEnded()
         {
             base.OnFightEnded();
-            FightManager.LastFight.OnOptionChosen -= OnFightOptionChosen;
-            FightManager.CurrentFight.OnOptionChosen += OnFightOptionChosen;
+            if (FightManager.LastFight != null)
+                FightManager.LastFight.OnOptionChosen -= OnFightOptionChosen;
+            if (FightManager.CurrentFight != null)
+                FightManager.CurrentFight.OnOptionChosen += OnFightOptionChosen;
         }
 
         protected override void OnFightStarted()

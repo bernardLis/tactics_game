@@ -4,12 +4,13 @@ using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
+using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Battle
 {
-    public class BattleInitializer : MonoBehaviour
+    public class BattleInitializer : Singleton<BattleInitializer>
     {
         // AudioManager _audioManager;
         GameManager _gameManager;

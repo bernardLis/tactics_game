@@ -43,6 +43,7 @@ namespace Lis.Battle.Fight
 
         public int GetGoldReward()
         {
+            if (ChosenOption == null) return 0;
             int gold = ChosenOption.GoldReward;
             if (WasRandom) gold += 10; //HERE: balance
 

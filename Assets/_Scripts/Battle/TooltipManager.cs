@@ -69,7 +69,8 @@ namespace Lis.Battle
             VisualElement el = new();
             el.style.alignItems = Align.Center;
             el.Add(new Label("Fight won!"));
-            el.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
+            if (_fightManager.LastFight != null)
+                el.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
             DisplayGameInfo(el);
         }
 

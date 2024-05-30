@@ -47,6 +47,11 @@ namespace Lis.Battle.Pickup
             StartCoroutine(SpawnVasesCoroutine());
         }
 
+        public void DisableVaseSpawning()
+        {
+            _fightManager.OnFightStarted -= SpawnVases;
+        }
+
         IEnumerator SpawnVasesCoroutine()
         {
             if (this == null) yield break;

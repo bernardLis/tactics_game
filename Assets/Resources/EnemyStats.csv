@@ -1,0 +1,23 @@
+Name,Nature,Is Ranged,Scariness,Price,Health,Armor,Power,Speed,Attacks
+Bat,Fire,FALSE,2,200,20,0,25,2.5,Basic Fire Attack
+Bee,Earth,TRUE,2,200,50,10,15,2.5,Ranged Enemy Earth
+Eagle,Wind,FALSE,5,500,100,0,30,3.5,Basic Wind Attack
+Ghost,Wind,FALSE,4,400,80,0,25,3,Basic Wind Attack
+Ghoul,Fire,FALSE,6,600,150,0,40,4,Basic Fire Attack
+Goatman,Water,FALSE,7,700,300,0,45,4.5,Basic Water Attack
+Golem,Earth,FALSE,7,700,300,40,60,4.5,Basic Earth Attack
+Hatchet Bird,Water,FALSE,6,600,200,0,40,4,Basic Water Attack
+Leshy,Earth,FALSE,9,900,600,80,50,4,Basic Earth Attack
+Mummy,Earth,FALSE,8,800,400,60,60,5,Basic Earth Attack
+Mushroom,Fire,FALSE,0,10,10,0,2,2,Basic Fire Attack
+Plant,Water,TRUE,3,300,50,0,20,3,Ranged Enemy Water
+Pumpkin,Water,FALSE,5,500,150,0,35,3.5,Basic Water Attack
+Rat,Water,TRUE,4,400,80,0,25,3,Ranged Enemy Water
+Reaper,Fire,FALSE,9,1000,300,0,100,5.5,Basic Fire Attack
+Skeleton,Wind,FALSE,4,400,100,0,30,3,Basic Wind Attack
+Skeleton Bird,Wind,TRUE,8,800,400,0,60,5,Ranged Enemy Wind
+Spider,Earth,FALSE,3,300,80,20,20,3,Basic Earth Attack
+Stump,Earth,FALSE,1,100,30,5,10,2.5,Basic Earth Attack
+Werewolf,Water,FALSE,6,600,200,0,45,4,Basic Water Attack
+Wildboar,Fire,FALSE,0,50,20,0,10,2,Basic Fire Attack
+Zombie,Fire,TRUE,5,500,150,0,35,3.5,Basic Fire Attack

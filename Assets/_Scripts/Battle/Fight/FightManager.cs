@@ -75,6 +75,12 @@ namespace Lis.Battle.Fight
             StartCoroutine(_fightCoroutine);
         }
 
+        public void DebugStartFight()
+        {
+            _fightCoroutine = StartFightCoroutine();
+            StartCoroutine(_fightCoroutine);
+        }
+
         IEnumerator StartFightCoroutine()
         {
             if (IsFightActive) yield break;
@@ -156,6 +162,9 @@ namespace Lis.Battle.Fight
             KilledPlayerUnits.Add(be);
             PlayerUnits.Remove(be);
             OnPlayerUnitDeath?.Invoke(be);
+
+            if (IsFightActive && PlayerUnits.Count == 0)
+                DebugEndFight(); // HERE: testing
         }
 
         void EnemyUnitDies(UnitController be, Attack attack)
@@ -166,6 +175,12 @@ namespace Lis.Battle.Fight
 
             if (IsFightActive && EnemyUnits.Count == 0)
                 EndFight();
+        }
+
+        void DebugEndFight()
+        {
+            IsFightActive = false;
+            OnFightEnded?.Invoke();
         }
 
         void EndFight()
