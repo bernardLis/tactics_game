@@ -15,8 +15,12 @@ MonoBehaviour:
   Id: fe7b6c47-bef0-4d92-b6d7-b5e9f79e0c72
   Name: Heavy Swordman
   Icon: {fileID: 21300000, guid: fee4ce4b0a4f98046b4972210370d00b, type: 3}
-  Price: 20
+  Price: 400
   LevelLimit: 8
   Attacks:
   - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
   Mission: {fileID: 11400000, guid: 148d2b69b1ac21e4191942c68555ca4d, type: 2}
+  BaseHealth: 200
+  BaseArmor: 0
+  BaseSpeed: 3
+  BasePower: 70

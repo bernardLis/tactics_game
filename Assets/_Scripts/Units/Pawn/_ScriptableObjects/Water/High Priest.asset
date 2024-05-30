@@ -15,9 +15,13 @@ MonoBehaviour:
   Id: fe7b6c47-bef0-4d92-b6d7-b5e9f79e0c72
   Name: High Priest
   Icon: {fileID: 21300000, guid: 95a2d4fa1fba2234682802786d8395ef, type: 3}
-  Price: 20
+  Price: 400
   LevelLimit: 8
   Attacks:
   - {fileID: 11400000, guid: 97ab8e27cc33e8a48a295e22fec48447, type: 2}
   - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
   Mission: {fileID: 11400000, guid: 617335612b7a138468085c31d190d329, type: 2}
+  BaseHealth: 400
+  BaseArmor: 0
+  BaseSpeed: 3
+  BasePower: 50

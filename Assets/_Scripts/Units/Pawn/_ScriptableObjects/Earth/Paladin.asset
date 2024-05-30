@@ -15,8 +15,12 @@ MonoBehaviour:
   Id: d576e5e4-8c7e-4b22-bd51-c1e7430c64d2
   Name: Paladin
   Icon: {fileID: 21300000, guid: d5da1ff2d3f98d247b58c71e05e306e6, type: 3}
-  Price: 20
+  Price: 400
   LevelLimit: 8
   Attacks:
   - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
   Mission: {fileID: 11400000, guid: 1b250a5c33aa5d745bc4106048f5bef2, type: 2}
+  BaseHealth: 300
+  BaseArmor: 20
+  BaseSpeed: 3
+  BasePower: 50

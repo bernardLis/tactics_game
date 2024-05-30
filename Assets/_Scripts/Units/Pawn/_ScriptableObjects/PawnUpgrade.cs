@@ -15,5 +15,10 @@ namespace Lis.Units.Pawn
         public int LevelLimit;
         public List<Attack> Attacks = new();
         public PawnMission Mission;
+
+        public int BaseHealth;
+        public int BaseArmor;
+        public float BaseSpeed;
+        public int BasePower;
     }
 }

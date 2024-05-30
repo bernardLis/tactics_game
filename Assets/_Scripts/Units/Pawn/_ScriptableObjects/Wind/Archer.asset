@@ -15,8 +15,12 @@ MonoBehaviour:
   Id: 20fd3884-27bc-459e-afef-9d62513217a9
   Name: Archer
   Icon: {fileID: 21300000, guid: e8f814512e2fc1740935309d8f057417, type: 3}
-  Price: 20
+  Price: 400
   LevelLimit: 8
   Attacks:
   - {fileID: 11400000, guid: b5aa0c61cbe71524e9e439d533f9f70b, type: 2}
   Mission: {fileID: 11400000, guid: 60bd7f642cb13994494d9e4bbc072969, type: 2}
+  BaseHealth: 300
+  BaseArmor: 0
+  BaseSpeed: 3
+  BasePower: 50

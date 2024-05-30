@@ -42,8 +42,8 @@ namespace Lis.Units
 
             if (IsDecreasingPerLevel) growth *= -1;
 
-            BaseValue += growth;
-            BaseValue = Mathf.Clamp(BaseValue, MinMaxValue.x, MinMaxValue.y);
+            BonusValue += growth;
+            BonusValue = Mathf.Clamp(BonusValue, MinMaxValue.x, MinMaxValue.y);
 
             OnValueChanged?.Invoke(GetValue());
         }

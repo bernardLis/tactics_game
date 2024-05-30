@@ -15,8 +15,12 @@ MonoBehaviour:
   Id: f31daf62-4644-423e-9afc-de4115b8974f
   Name: Spearman
   Icon: {fileID: 21300000, guid: b732869e5689f3044b1ade9f8f455f6b, type: 3}
-  Price: 10
+  Price: 200
   LevelLimit: 4
   Attacks:
   - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
   Mission: {fileID: 11400000, guid: 1b250a5c33aa5d745bc4106048f5bef2, type: 2}
+  BaseHealth: 200
+  BaseArmor: 10
+  BaseSpeed: 2.5
+  BasePower: 35

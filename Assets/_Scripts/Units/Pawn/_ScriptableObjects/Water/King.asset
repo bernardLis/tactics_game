@@ -15,9 +15,13 @@ MonoBehaviour:
   Id: 36b1ac1c-a3ab-44d2-8fed-189923501e06
   Name: King
   Icon: {fileID: 21300000, guid: de1c14b255a51774687aa379cf2ebb71, type: 3}
-  Price: 30
+  Price: 800
   LevelLimit: 12
   Attacks:
   - {fileID: 11400000, guid: 2eaa1908962bcad41a84768e1ed8dd73, type: 2}
   - {fileID: 11400000, guid: eedb481eb32420846912b886ee654b17, type: 2}
   Mission: {fileID: 11400000, guid: 617335612b7a138468085c31d190d329, type: 2}
+  BaseHealth: 500
+  BaseArmor: 0
+  BaseSpeed: 3.5
+  BasePower: 70

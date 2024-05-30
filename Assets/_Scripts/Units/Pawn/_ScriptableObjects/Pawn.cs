@@ -38,13 +38,7 @@ namespace Lis.Units.Pawn
 
             InitializePawnMission();
             SetUnitBasics();
-
-            // TODO: balance
-            MaxHealth.SetBaseValue(MaxHealth.BaseValue * 1.1f);
-            CurrentHealth.SetValue(CurrentHealth.Value * 1.1f);
-            Armor.SetBaseValue(Armor.BaseValue * 1.1f);
-            Speed.SetBaseValue(Speed.BaseValue * 1.1f);
-            Power.SetBaseValue(Power.BaseValue * 1.1f);
+            SetPawnStats();
 
             SetPawnAttacks();
 
@@ -55,6 +49,15 @@ namespace Lis.Units.Pawn
         {
             CurrentMission = Instantiate(Upgrades[CurrentUpgrade].Mission);
             CurrentMission.Initialize(this);
+        }
+
+        void SetPawnStats()
+        {
+            MaxHealth.SetBaseValue(Upgrades[CurrentUpgrade].BaseHealth);
+            CurrentHealth.SetValue(MaxHealth.GetValue());
+            Armor.SetBaseValue(Upgrades[CurrentUpgrade].BaseArmor);
+            Speed.SetBaseValue(Upgrades[CurrentUpgrade].BaseSpeed);
+            Power.SetBaseValue(Upgrades[CurrentUpgrade].BasePower);
         }
 
         void SetPawnAttacks()
