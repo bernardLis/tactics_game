@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using UnityEngine.UIElements;
@@ -12,13 +12,16 @@ namespace Lis.Battle.Fight
         const string _ussClassName = "fight-option__";
         const string _ussMain = _ussClassName + "main";
 
+        GameManager _gameManager;
+
         readonly MyButton _chooseButton;
 
         readonly FightOption _option;
 
         public FightOptionElement(FightOption option)
         {
-            StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
+            _gameManager = GameManager.Instance;
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.FightOptionElementStyles);
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussMain);
@@ -33,14 +36,38 @@ namespace Lis.Battle.Fight
 
             ScrollView scrollView = new();
             Add(scrollView);
-            foreach (Unit u in option.Army)
-            {
-                UnitIcon icon = new(u);
-                scrollView.Add(icon);
-            }
+            List<VisualElement> aggregated = new(AggregateEnemies(option.Army));
+            foreach (VisualElement el in aggregated)
+                scrollView.Add(el);
 
             _chooseButton = new("Choose", _ussCommonButton, ChooseOption);
             Add(_chooseButton);
+        }
+
+        List<VisualElement> AggregateEnemies(List<Unit> army)
+        {
+            Dictionary<string, int> unitCountDict = new();
+
+            foreach (Unit e in army)
+                if (!unitCountDict.TryAdd(e.Id, 1))
+                    unitCountDict[e.Id]++;
+
+            List<VisualElement> result = new();
+            foreach (KeyValuePair<string, int> item in unitCountDict)
+            {
+                VisualElement container = new();
+                container.style.flexDirection = FlexDirection.Row;
+                result.Add(container);
+
+                Label count = new(item.Value + "x");
+                container.Add(count);
+
+                Unit unit = _gameManager.UnitDatabase.GetUnitById(item.Key);
+                UnitIcon icon = new(unit);
+                container.Add(icon);
+            }
+
+            return result;
         }
 
         void ChooseOption()

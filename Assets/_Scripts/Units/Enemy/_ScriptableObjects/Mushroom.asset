@@ -46,4 +46,4 @@ MonoBehaviour:
   EnemyMaxHealth: 10
   EnemyArmor: 0
   EnemySpeed: 2
-  EnemyPower: 2
+  EnemyPower: 4

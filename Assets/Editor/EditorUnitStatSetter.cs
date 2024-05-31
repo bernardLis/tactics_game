@@ -29,6 +29,7 @@ namespace Editor
                 Enemy enemy = AssetDatabase.LoadAssetAtPath<Enemy>(enemyPath);
                 // set the enemy stats
                 enemy.Price = Convert.ToInt32(dict["Price"]);
+                enemy.IsRanged = Convert.ToBoolean(dict["IsRanged"]);
 
                 enemy.EnemyMaxHealth = Convert.ToInt32(dict["Health"]);
                 enemy.EnemyArmor = Convert.ToInt32(dict["Armor"]);

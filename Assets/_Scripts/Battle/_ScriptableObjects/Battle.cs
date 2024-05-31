@@ -24,12 +24,12 @@ namespace Lis.Battle
         public Building RewardCollector;
         public Shop Shop;
 
-        public void Initialize(int level)
+        public void Initialize()
         {
             Stats = CreateInstance<Stats>();
 
             foreach (Arena.Arena arena in Arenas)
-                arena.Initialize(level);
+                arena.Initialize();
 
             SetCurrentArena();
             SetRandomHero();

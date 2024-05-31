@@ -62,7 +62,7 @@ namespace Lis.Core
             UnitDatabase.Initialize();
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
-            CurrentBattle.Initialize(1); // necessary for testing
+            CurrentBattle.Initialize(); // necessary for testing
         }
 
         async void RunServices()
@@ -98,7 +98,7 @@ namespace Lis.Core
 
         public void StartGame()
         {
-            CurrentBattle.Initialize(1);
+            CurrentBattle.Initialize();
             PlayerPrefs.SetInt(CurrentBattle.SelectedHero.Id, CurrentBattle.SelectedHero.TimesPicked + 1);
             LoadScene(Scenes.Battle);
         }

@@ -14,14 +14,16 @@ namespace Lis.Battle.Fight
 
         public event Action<FightOption> OnOptionChosen;
 
-        public void Initialize(int points)
+        public void Initialize(int points, int fightNumber)
         {
             Options.Clear();
             int optionCount = 3;
+            Debug.Log($"points {points} fightNumber {fightNumber}");
+
             for (int i = 0; i < optionCount; i++)
             {
                 FightOption option = CreateInstance<FightOption>();
-                option.CreateOption(points);
+                option.CreateOption(points, fightNumber);
                 option.OnChosen += ChooseOption;
                 Options.Add(option);
             }

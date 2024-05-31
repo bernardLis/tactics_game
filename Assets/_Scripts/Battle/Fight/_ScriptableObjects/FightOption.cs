@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Enemy;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -15,18 +16,35 @@ namespace Lis.Battle.Fight
         public bool IsChosen;
         public event Action<FightOption> OnChosen;
 
-        public void CreateOption(int points)
-        {
-            // HERE: balance
-            List<Unit> availableEnemies = new(GameManager.Instance.UnitDatabase.GetAllEnemies());
-            GoldReward = points * Random.Range(8, 12);
+        UnitDatabase _unitDatabase;
 
-            for (int i = 0; i < points; i++)
+        public void CreateOption(int points, int fightNumber)
+        {
+            _unitDatabase = GameManager.Instance.UnitDatabase;
+
+            GoldReward = (fightNumber + 1) * Random.Range(8, 12);
+            List<Enemy> availableEnemies = new(_unitDatabase.GetAllEnemies());
+            if (fightNumber == 0)
             {
-                Unit u = Instantiate(availableEnemies[Random.Range(0, availableEnemies.Count)]);
-                u.InitializeBattle(1);
-                if (u is Enemy e && Random.value < 0.05f) e.SetMiniBoss();
-                Army.Add(u);
+                availableEnemies.Clear();
+                Debug.Log($"{_unitDatabase.GetEnemyByName("Mushroom")}");
+                availableEnemies.Add(_unitDatabase.GetEnemyByName("Mushroom"));
+                Debug.Log($"Mushroom added {availableEnemies.Count}");
+            }
+
+            int pointsLeft = points;
+            int tries = 0;
+            while (pointsLeft > 0)
+            {
+                Enemy enemy = availableEnemies[Random.Range(0, availableEnemies.Count)];
+                tries++;
+                if (tries > 100) break;
+                if (enemy.Price > pointsLeft) continue;
+
+                pointsLeft -= enemy.Price;
+                Enemy newEnemy = Instantiate(enemy);
+                newEnemy.InitializeBattle(1);
+                Army.Add(newEnemy);
             }
         }
 

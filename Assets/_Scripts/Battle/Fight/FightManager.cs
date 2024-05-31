@@ -55,7 +55,7 @@ namespace Lis.Battle.Fight
             _arenaManager = GetComponent<ArenaManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
 
-            CurrentFight = _arena.CreateFight();
+            CurrentFight = _arena.CreateFight(CountHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
 
             StartCoroutine(SpawnAllPlayerUnits());
@@ -64,6 +64,16 @@ namespace Lis.Battle.Fight
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
             OnInitialized?.Invoke();
+        }
+
+        int CountHeroPoints()
+        {
+            int points = 0;
+            foreach (Unit u in _heroController.Hero.Army)
+                points += u.Price;
+            // TODO: price hero abilities & tablets
+
+            return points;
         }
 
         public void StartFight()
@@ -188,7 +198,7 @@ namespace Lis.Battle.Fight
             CurrentFight.GiveReward();
             LastFight = CurrentFight;
 
-            CurrentFight = _arena.CreateFight();
+            CurrentFight = _arena.CreateFight(CountHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
 
             IsFightActive = false;

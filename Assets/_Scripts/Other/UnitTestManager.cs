@@ -38,6 +38,7 @@ namespace Lis
         void OnBattleInitialized()
         {
             _tooltipManager.DisplayGameInfo(new Label("Unit tests engaged..."));
+            Time.timeScale = 5f;
             _breakableVaseManager.DisableVaseSpawning();
 
             _fightManager.OnFightEnded += OnFightEnded;

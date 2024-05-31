@@ -12,13 +12,12 @@ namespace Lis.Battle.Arena
     {
         public GameObject Prefab;
 
-        public int EnemyPoints;
-        public int EnemyPointsGrowth;
+        public int EnemyPointsGrowth = 200;
 
         [HideInInspector] public Boss Boss;
         [HideInInspector] public List<Fight> Fights = new();
 
-        public void Initialize(int level)
+        public void Initialize()
         {
             Boss = Instantiate(GameManager.Instance.UnitDatabase.GetRandomBoss());
             Boss.InitializeBattle(1);
@@ -26,11 +25,11 @@ namespace Lis.Battle.Arena
             Fights = new();
         }
 
-        public Fight CreateFight()
+        public Fight CreateFight(int heroPoints)
         {
-            int points = EnemyPoints + EnemyPointsGrowth * Fights.Count;
+            int points = heroPoints + EnemyPointsGrowth * (1 + Fights.Count);
             Fight fight = CreateInstance<Fight>();
-            fight.Initialize(points);
+            fight.Initialize(points, Fights.Count);
             Fights.Add(fight);
 
             return fight;

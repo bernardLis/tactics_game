@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Lis.Units;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
 using Lis.Units.Enemy;
@@ -118,6 +119,25 @@ namespace Lis.Core
             return _enemies.ToList();
         }
 
+        public List<Enemy> GetAllRangedEnemies()
+        {
+            return _enemies.Where(x => x.IsRanged).ToList();
+        }
+
+        public Enemy GetEnemyByName(string n)
+        {
+            return _enemies.FirstOrDefault(x => x.name == n);
+        }
+
+        public Unit GetUnitById(string id)
+        {
+            List<Unit> units = new(_enemies.ToList());
+            units.AddRange(AllCreatures);
+            units.AddRange(_allPawns);
+            units.Add(Peasant);
+
+            return units.FirstOrDefault(x => x.Id == id);
+        }
 
         [Header("Bosses")]
         [SerializeField] Boss[] _bosses;

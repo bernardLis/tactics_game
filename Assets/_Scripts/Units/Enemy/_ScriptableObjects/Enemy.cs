@@ -10,6 +10,8 @@ namespace Lis.Units.Enemy
         [Header("Enemy")]
         public int ScarinessRank;
 
+        public bool IsRanged;
+
         public void SetMiniBoss()
         {
             IsMiniBoss = true;
