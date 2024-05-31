@@ -7,6 +7,7 @@ using Lis.Units.Attack;
 using Lis.Units.Creature;
 using Lis.Units.Hero;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -19,6 +20,7 @@ namespace Lis.Battle.Fight
         public static int FightNumber { get; private set; }
 
         ArenaManager _arenaManager;
+        TooltipManager _tooltipManager;
         public Transform PlayerArmyHolder;
         [SerializeField] Transform _opponentArmyHolder;
 
@@ -55,25 +57,30 @@ namespace Lis.Battle.Fight
             _arenaManager = GetComponent<ArenaManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
 
-            CurrentFight = _arena.CreateFight(CountHeroPoints());
-            CurrentFight.OnOptionChosen += SpawnEnemyArmy;
-
             StartCoroutine(SpawnAllPlayerUnits());
 
             FightNumber = 0;
+
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
             OnInitialized?.Invoke();
+
+            StartCoroutine(StartGame());
         }
 
-        int CountHeroPoints()
+        IEnumerator StartGame()
         {
-            int points = 0;
-            foreach (Unit u in _heroController.Hero.Army)
-                points += u.Price;
-            // TODO: price hero abilities & tablets
+            CurrentFight = _arena.CreateFight(CountHeroPoints());
+            CurrentFight.OnOptionChosen += SpawnEnemyArmy;
+            CurrentFight.ChooseRandomOption();
 
-            return points;
+            for (int i = 0; i < 3; i++)
+            {
+                _tooltipManager.DisplayGameInfo(new Label((3 - i).ToString()));
+                yield return new WaitForSeconds(1f);
+            }
+
+            StartFight();
         }
 
         public void StartFight()
@@ -220,6 +227,16 @@ namespace Lis.Battle.Fight
             return EnemyUnits.Count == 0
                 ? Vector3.zero
                 : EnemyUnits[Random.Range(0, EnemyUnits.Count)].transform.position;
+        }
+
+        int CountHeroPoints()
+        {
+            int points = 0;
+            foreach (Unit u in _heroController.Hero.Army)
+                points += u.Price;
+            // TODO: price hero abilities & tablets
+
+            return points;
         }
     }
 }

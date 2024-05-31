@@ -12,7 +12,7 @@ namespace Lis.Battle.Fight
         const string _ussClassName = "fight-option__";
         const string _ussMain = _ussClassName + "main";
 
-        GameManager _gameManager;
+        readonly GameManager _gameManager;
 
         readonly MyButton _chooseButton;
 

@@ -26,10 +26,8 @@ namespace Lis.Battle.Fight
             List<Enemy> availableEnemies = new(_unitDatabase.GetAllEnemies());
             if (fightNumber == 0)
             {
-                availableEnemies.Clear();
-                Debug.Log($"{_unitDatabase.GetEnemyByName("Mushroom")}");
-                availableEnemies.Add(_unitDatabase.GetEnemyByName("Mushroom"));
-                Debug.Log($"Mushroom added {availableEnemies.Count}");
+                CreateFirstFight();
+                return;
             }
 
             int pointsLeft = points;
@@ -45,6 +43,20 @@ namespace Lis.Battle.Fight
                 Enemy newEnemy = Instantiate(enemy);
                 newEnemy.InitializeBattle(1);
                 Army.Add(newEnemy);
+            }
+        }
+
+        void CreateFirstFight()
+        {
+            int val = Random.Range(0, 2);
+            if (val == 0)
+            {
+                Army.Add(_unitDatabase.GetEnemyByName("Boar"));
+                Army.Add(_unitDatabase.GetEnemyByName("Boar"));
+            }
+            else
+            {
+                Army.Add(_unitDatabase.GetEnemyByName("Stump"));
             }
         }
 

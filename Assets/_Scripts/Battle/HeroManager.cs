@@ -61,7 +61,7 @@ namespace Lis.Battle
 
         void InitializeHeroGameObject(Hero hero)
         {
-            Vector3 pos = GetComponent<ArenaManager>().GetRandomPositionInPlayerLockerRoom();
+            Vector3 pos = Vector3.zero; //GetComponent<ArenaManager>().GetRandomPositionInPlayerLockerRoom();
             GameObject heroGameObject = Instantiate(hero.Prefab, pos, Quaternion.identity);
             HeroController = heroGameObject.GetComponentInChildren<HeroController>();
             HeroController.InitializeGameObject();
@@ -70,7 +70,6 @@ namespace Lis.Battle
 
             _placeholderAudioListener.enabled = false;
             HeroController.InitializeUnit(hero, 0);
-
         }
 
         void OnHeroLevelUp()

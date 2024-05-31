@@ -169,8 +169,14 @@ namespace Lis.Battle
             {
                 while (_gameInfoQueue.Count > 0)
                 {
+                    int waitTime = 3;
+                    VisualElement el = _gameInfoQueue.Peek();
+                    if (el is Label label)
+                        if (label.text.Length < 3)
+                            waitTime = 1;
+
                     ShowGameInfo(_gameInfoQueue.Dequeue());
-                    yield return new WaitForSeconds(3);
+                    yield return new WaitForSeconds(waitTime);
                     HideGameInfo();
                 }
 
