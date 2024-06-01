@@ -56,6 +56,7 @@ namespace Lis.Battle.Fight
 
             _arenaManager = GetComponent<ArenaManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
+            _tooltipManager = GetComponent<TooltipManager>();
 
             StartCoroutine(SpawnAllPlayerUnits());
 
@@ -146,7 +147,7 @@ namespace Lis.Battle.Fight
         public UnitController SpawnEnemyUnit(Unit c)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
-            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
+            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, _opponentArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();
             unitController.InitializeGameObject();
             unitController.InitializeUnit(c, 1);

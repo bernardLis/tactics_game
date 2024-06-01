@@ -14,13 +14,7 @@ namespace Lis.Battle.Arena
         {
             base.OnBattleInitialized();
             Building = BattleManager.Battle.FightStarter;
-            FightManager.Instance.OnInitialized += OnFightManagerInitialized;
             Initialize();
-        }
-
-        void OnFightManagerInitialized()
-        {
-            FightManager.CurrentFight.OnOptionChosen += OnFightOptionChosen;
         }
 
         protected override void SetTooltipText()
@@ -36,6 +30,8 @@ namespace Lis.Battle.Arena
         protected override void OnFightEnded()
         {
             base.OnFightEnded();
+            if (FightManager.FightNumber == 1) Building.Unlock();
+            if (!Building.IsUnlocked) return;
             if (FightManager.LastFight != null)
                 FightManager.LastFight.OnOptionChosen -= OnFightOptionChosen;
             if (FightManager.CurrentFight != null)

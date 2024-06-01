@@ -40,9 +40,7 @@ namespace Lis.Battle.Fight
                 if (enemy.Price > pointsLeft) continue;
 
                 pointsLeft -= enemy.Price;
-                Enemy newEnemy = Instantiate(enemy);
-                newEnemy.InitializeBattle(1);
-                Army.Add(newEnemy);
+                AddEnemyToArmy(enemy);
             }
         }
 
@@ -51,13 +49,20 @@ namespace Lis.Battle.Fight
             int val = Random.Range(0, 2);
             if (val == 0)
             {
-                Army.Add(_unitDatabase.GetEnemyByName("Boar"));
-                Army.Add(_unitDatabase.GetEnemyByName("Boar"));
+                AddEnemyToArmy(_unitDatabase.GetEnemyByName("Wildboar"));
+                AddEnemyToArmy(_unitDatabase.GetEnemyByName("Wildboar"));
             }
             else
             {
-                Army.Add(_unitDatabase.GetEnemyByName("Stump"));
+                AddEnemyToArmy(_unitDatabase.GetEnemyByName("Stump"));
             }
+        }
+
+        void AddEnemyToArmy(Enemy enemy)
+        {
+            Enemy newEnemy = Instantiate(enemy);
+            newEnemy.InitializeBattle(1);
+            Army.Add(newEnemy);
         }
 
         public void Choose()

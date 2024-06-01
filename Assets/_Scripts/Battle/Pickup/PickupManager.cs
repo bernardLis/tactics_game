@@ -35,12 +35,10 @@ namespace Lis.Battle.Pickup
             GetComponent<InputManager>().OnTwoClicked += SpawnBunchExpStones;
         }
 
-        bool _firstFight;
 
         void OnFightEnded()
         {
-            if (_firstFight) return;
-            _firstFight = true;
+            if (FightManager.FightNumber != 2) return;
 
             SpawnPickup(Instantiate(_mushroom), new(-23, 0, 0));
         }

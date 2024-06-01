@@ -13,13 +13,14 @@ namespace Lis.Battle.Arena
         {
             base.OnBattleInitialized();
             Building = BattleManager.Battle.FightSelector;
-            OnFightEnded();
             Initialize();
         }
 
         protected override void OnFightEnded()
         {
-            AllowInteraction();
+            base.OnFightEnded();
+            if (Building.IsUnlocked)
+                AllowInteraction();
         }
 
         protected override void OnFightStarted()

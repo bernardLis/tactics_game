@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fight Starter
   m_EditorClassIdentifier: 
   Id: 2e1eb03f-dea2-4e02-a780-9f76cf46d33e
-  IsUnlocked: 1
+  IsUnlocked: 0
   UnlockCost: 0
   Level: 0
   MaxLevel: 0

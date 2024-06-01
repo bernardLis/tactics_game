@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fight Selector
   m_EditorClassIdentifier: 
   Id: 07fd09fb-5c2c-4144-82a5-2edd65bca5f2
-  IsUnlocked: 1
+  IsUnlocked: 0
   UnlockCost: 0
   Level: 0
   MaxLevel: 0

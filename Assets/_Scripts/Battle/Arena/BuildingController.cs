@@ -58,8 +58,8 @@ namespace Lis.Battle.Arena
             _unlockedGfx.SetActive(Building.IsUnlocked);
 
             _buildingUnlocker = GetComponentInChildren<BuildingUnlocker>();
-            if (_buildingUnlocker == null) return;
             Building.OnUnlocked += Unlock;
+            if (_buildingUnlocker == null) return;
             _buildingUnlocker.Initialize(Building);
         }
 
