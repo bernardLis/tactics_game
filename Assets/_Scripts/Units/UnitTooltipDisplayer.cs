@@ -12,11 +12,14 @@ namespace Lis.Units
     {
         UnitController _unitController;
         TooltipManager _tooltipManager;
+        UnitCardFactory _unitCardFactory;
 
         void Start()
         {
             _unitController = GetComponentInParent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
+            _unitCardFactory = UnitCardFactory.Instance;
+
             _unitController.OnDeath += OnDeath;
             if (_unitController.Unit == null) return;
             _unitController.Unit.OnRevival += OnRevival;
@@ -25,14 +28,8 @@ namespace Lis.Units
         public void OnPointerDown(PointerEventData eventData)
         {
             if (!CanDisplayTooltip()) return;
-            VisualElement el = new UnitCard(_unitController.Unit);
 
-            if (_unitController.Unit is Pawn.Pawn pawn)
-                el = new PawnCard(pawn);
-            if (_unitController.Unit is Peasant.Peasant peasant)
-                el = new PeasantCard(peasant);
-
-            _tooltipManager.ShowTooltip(el, gameObject);
+            _tooltipManager.ShowTooltip(_unitCardFactory.CreateUnitCard(_unitController.Unit), gameObject);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

@@ -9,6 +9,7 @@ namespace Lis.Battle.Arena
     {
         readonly HeroManager _heroManager;
         readonly FightManager _fightManager;
+        readonly UnitCardFactory _unitCardFactory;
 
         readonly VisualElement _mainContainer;
         ScrollView _playerArmyScrollView;
@@ -18,6 +19,7 @@ namespace Lis.Battle.Arena
         {
             _heroManager = HeroManager.Instance;
             _fightManager = FightManager.Instance;
+            _unitCardFactory = UnitCardFactory.Instance;
 
             _mainContainer = new();
             _mainContainer.style.flexDirection = FlexDirection.Row;
@@ -82,20 +84,14 @@ namespace Lis.Battle.Arena
         void AddPlayerArmyCards()
         {
             foreach (Unit u in _heroManager.Hero.Army)
-            {
-                UnitCard card = new(u);
-                _playerArmyScrollView.Add(card);
-            }
+                _playerArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
         }
 
         void AddEnemyArmyCards()
         {
             if (_fightManager.CurrentFight.ChosenOption == null) return;
             foreach (Unit u in _fightManager.CurrentFight.ChosenOption.Army)
-            {
-                UnitCard card = new(u);
-                _enemyArmyScrollView.Add(card);
-            }
+                _enemyArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
         }
 
         bool _isCardView;

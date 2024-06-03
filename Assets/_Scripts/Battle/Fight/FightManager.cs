@@ -210,7 +210,18 @@ namespace Lis.Battle.Fight
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
 
             IsFightActive = false;
+
             OnFightEnded?.Invoke();
+
+            if (FightNumber == 1) HandleFirstFightEnd();
+
+        }
+
+        void HandleFirstFightEnd()
+        {
+            Debug.Log("First fight ended");
+            CurrentFight.ChooseRandomOption();
+            _tooltipManager.DisplayGameInfo(new Label("Interact with fight starter to start the next fight."));
         }
 
         public List<UnitController> GetAllies(UnitController unitController)

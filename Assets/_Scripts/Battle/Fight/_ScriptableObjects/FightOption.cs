@@ -30,6 +30,13 @@ namespace Lis.Battle.Fight
                 return;
             }
 
+            if (fightNumber == 1)
+            {
+                CreateSecondFight();
+                return;
+            }
+
+
             int pointsLeft = points;
             int tries = 0;
             while (pointsLeft > 0)
@@ -55,6 +62,14 @@ namespace Lis.Battle.Fight
             else
             {
                 AddEnemyToArmy(_unitDatabase.GetEnemyByName("Stump"));
+            }
+        }
+
+        void CreateSecondFight()
+        {
+            for (int i = 0; i < Random.Range(15, 20); i++)
+            {
+                AddEnemyToArmy(_unitDatabase.GetEnemyByName("Mushroom"));
             }
         }
 

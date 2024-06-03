@@ -17,7 +17,7 @@ namespace Lis.Battle
         UnitIcon _unitIcon;
         NatureElement _natureElement;
         Label _nameLabel;
-        Label _levelLabel;
+        protected Label LevelLabel;
         ResourceBarElement _healthBar;
 
         readonly Unit _unit;
@@ -69,13 +69,13 @@ namespace Lis.Battle
             TopRightContainer.Add(_nameLabel);
         }
 
-        void HandleLevelLabel()
+        protected virtual void HandleLevelLabel()
         {
-            _levelLabel = new();
-            _levelLabel.text = $"Level {_unit.Level.Value}";
-            TopRightContainer.Add(_levelLabel);
+            LevelLabel = new();
+            LevelLabel.text = $"Level {_unit.Level.Value}";
+            TopRightContainer.Add(LevelLabel);
 
-            _unit.Level.OnValueChanged += (i) => { _levelLabel.text = $"Level {i}"; };
+            _unit.Level.OnValueChanged += (i) => { LevelLabel.text = $"Level {i}"; };
         }
 
         void HandleHealthBar()
@@ -100,7 +100,6 @@ namespace Lis.Battle
                 b.SetEnabled(false);
                 FightManager.Instance.OnFightEnded += () => b.SetEnabled(true);
             }
-
         }
 
         void Revive()
