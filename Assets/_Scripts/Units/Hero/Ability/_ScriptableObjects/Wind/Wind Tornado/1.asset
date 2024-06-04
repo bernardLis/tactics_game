@@ -25,7 +25,7 @@ MonoBehaviour:
   DamageDealt: 0
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
-  Scale: 1
-  Amount: 1
+  Amount: 2
   Duration: 3
-  Price: 100
+  Scale: 1
+  Price: 200

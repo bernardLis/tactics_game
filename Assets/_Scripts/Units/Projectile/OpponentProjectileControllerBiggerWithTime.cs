@@ -13,9 +13,9 @@ namespace Lis.Units.Projectile
             base.Shoot(dir, time);
 
             float scale = 1;
-            float scaleMultiplier = 3;
+            float scaleMultiplier = 2;
             Transform t = transform;
-            t.DOScale(scale * 3, time).SetEase(Ease.InOutSine);
+            t.DOScale(scale * 2, time).SetEase(Ease.InOutSine);
             float currentY = t.position.y;
             transform.DOMoveY(currentY + scaleMultiplier * 0.25f, time).SetEase(Ease.InOutSine);
         }

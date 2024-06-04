@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92b51db309bbe84428f4559ba77ad315, type: 3}
-  m_Name: 3
+  m_Name: 2
   m_EditorClassIdentifier: 
   Id: 094887a4-2042-42d0-b61d-6371d97065c7
   Icon: {fileID: 0}
@@ -28,4 +28,4 @@ MonoBehaviour:
   Amount: 2
   Duration: 0.5
   Scale: 1.1
-  Price: 100
+  Price: 300
