@@ -100,6 +100,8 @@ namespace Lis.Units.Hero
         protected override IEnumerator OnFightEndedCoroutine()
         {
             GetHealed(100);
+            Hero.Speed.ApplyBonusValueChange(3);
+
             yield return null;
         }
 

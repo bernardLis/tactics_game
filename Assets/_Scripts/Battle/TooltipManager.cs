@@ -70,7 +70,16 @@ namespace Lis.Battle
             el.style.alignItems = Align.Center;
             el.Add(new Label("Fight won!"));
             if (_fightManager.LastFight != null)
-                el.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
+            {
+                VisualElement container = new();
+                container.style.flexDirection = FlexDirection.Row;
+                Label l = new("Reward: ");
+                l.AddToClassList("common__text-primary");
+                container.Add(l);
+                container.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
+                el.Add(container);
+            }
+
             DisplayGameInfo(el);
         }
 

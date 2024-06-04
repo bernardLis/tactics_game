@@ -40,6 +40,8 @@ namespace Lis.Core
         protected override void Awake()
         {
             base.Awake();
+            Root = GetComponent<UIDocument>().rootVisualElement;
+
             Debug.Log($"Game manager Awake");
             RunServices();
         }
@@ -48,7 +50,6 @@ namespace Lis.Core
         {
             Debug.Log($"Game manager Start");
             _levelLoader = GetComponent<LevelLoader>();
-            Root = GetComponent<UIDocument>().rootVisualElement;
             Helpers.SetUpHelpers(Root);
 
             // HERE: testing
@@ -130,7 +131,7 @@ namespace Lis.Core
             Debug.Log($"Creating new save file...");
             _seed = Environment.TickCount;
 
-            Gold = 2137;
+            Gold = 0;
 
             UpgradeBoard.Reset();
 
@@ -197,7 +198,7 @@ namespace Lis.Core
         {
             _seed = Environment.TickCount;
 
-            Gold = 2137;
+            Gold = 0;
             UpgradeBoard.Reset();
             GameStats.Reset();
 

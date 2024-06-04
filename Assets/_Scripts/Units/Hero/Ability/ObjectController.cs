@@ -58,5 +58,10 @@ namespace Lis.Units.Hero.Ability
         {
             yield return null;
         }
+
+        public virtual void DisableSelf()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

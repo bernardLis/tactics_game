@@ -45,7 +45,7 @@ namespace Lis.Battle.Arena
 
         IEnumerator SpawnPeasantsCoroutine()
         {
-            for (int i = 0; i < Building.Level + 1; i++)
+            for (int i = 0; i < Building.Level + 2; i++)
             {
                 Unit u = Instantiate(_gameManager.UnitDatabase.Peasant);
                 u.InitializeBattle(0);

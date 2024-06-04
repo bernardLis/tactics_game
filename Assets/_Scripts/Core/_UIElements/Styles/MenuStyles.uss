@@ -8,7 +8,7 @@
     background-image: url("project://database/Assets/Plugins/Medival%20Kingdom%20Package/White_gold_Skin/UI_elements_W/long_shadow.png?fileID=2800000&guid=b764c73bf47635548a80bafe4627b037&type=3#long_shadow");
     -unity-background-scale-mode: stretch-to-fill;
     */
-     
+
 }
 
 .menu__button-container {
@@ -17,4 +17,8 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
+}
+
+.menu__game-title {
+    color: var(--color-highlight);
 }

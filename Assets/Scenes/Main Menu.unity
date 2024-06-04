@@ -175,6 +175,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198694612590584674, guid: bb147685fd85c0642833a173065b34b0, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198694612590584674, guid: bb147685fd85c0642833a173065b34b0, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198694612590584674, guid: bb147685fd85c0642833a173065b34b0, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198694612590584674, guid: bb147685fd85c0642833a173065b34b0, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198694612590584674, guid: bb147685fd85c0642833a173065b34b0, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199236948285740040, guid: bb147685fd85c0642833a173065b34b0, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -260,6 +280,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2129434779}
   m_SourcePrefab: {fileID: 100100000, guid: 29ac89d3539538f4f9672e2f90968fd9, type: 3}
+--- !u!198 &825470051 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198694612590584674, guid: bb147685fd85c0642833a173065b34b0, type: 3}
+  m_PrefabInstance: {fileID: 277600969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1057526966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -308,6 +333,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3799089354964362122, guid: bfe971f31439d1141ba6768b30519df0, type: 3}
+      propertyPath: _particleSystem
+      value: 
+      objectReference: {fileID: 825470051}
     - target: {fileID: 3799089354964362125, guid: bfe971f31439d1141ba6768b30519df0, type: 3}
       propertyPath: m_Name
       value: Main Menu

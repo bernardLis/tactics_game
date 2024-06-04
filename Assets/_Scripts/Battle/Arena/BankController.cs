@@ -15,6 +15,7 @@ namespace Lis.Battle.Arena
             base.OnBattleInitialized();
             Building = BattleManager.Battle.Bank;
             _bank = (Bank)Building;
+            _bank.InitializeBattle();
             OnFightEnded();
             Initialize();
         }

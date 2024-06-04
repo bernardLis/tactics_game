@@ -16,11 +16,14 @@ namespace Lis.Battle.Arena
             AvailableInvestments = new();
             ActiveInvestments = new();
             CreateInvestments();
+        }
 
+        public void InitializeBattle()
+        {
             BattleManager.Instance.GetComponent<FightManager>().OnFightEnded += CreateInvestments;
         }
 
-        public void CreateInvestments()
+        void CreateInvestments()
         {
             AvailableInvestments.Clear();
             for (int i = 0; i < 3; i++)

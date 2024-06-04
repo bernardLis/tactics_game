@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.MainMenu._UIElements;
 using Lis.Upgrades;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace Lis.MainMenu
 {
@@ -14,6 +16,8 @@ namespace Lis.MainMenu
 
         [SerializeField] Sound _mainMenuTheme;
         [SerializeField] GameObject _gameManagerPrefab;
+        [SerializeField] StyleSheet[] _themeStyleSheets;
+        [SerializeField] ParticleSystem _particleSystem;
 
         GameManager _gameManager;
         UpgradeManager _globalUpgradeManager;
@@ -23,6 +27,7 @@ namespace Lis.MainMenu
         MyButton _statsButton;
         MyButton _settingsButton;
         MyButton _quitButton;
+
 
         protected override void Awake()
         {
@@ -35,7 +40,28 @@ namespace Lis.MainMenu
             _globalUpgradeManager = GetComponent<UpgradeManager>();
 
             Root = GetComponent<UIDocument>().rootVisualElement;
+            SetThemeStyleSheet();
         }
+
+        void SetThemeStyleSheet()
+        {
+            StyleSheet chosen = _themeStyleSheets[Random.Range(0, _themeStyleSheets.Length)];
+            Root.styleSheets.Add(chosen);
+            _gameManager.Root.styleSheets.Add(chosen);
+            StartCoroutine(SetParticleSystemColorCoroutine());
+        }
+
+        IEnumerator SetParticleSystemColorCoroutine()
+        {
+            yield return new WaitForSeconds(1f);
+            Color c = Root.Q<Label>("gameTitle").resolvedStyle.color;
+            Debug.Log(c);
+
+            // set particle system start color as the main color of the theme
+            ParticleSystem.MainModule main = _particleSystem.main;
+            main.startColor = c;
+        }
+
 
         void Start()
         {

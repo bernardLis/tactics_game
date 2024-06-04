@@ -47,7 +47,7 @@ namespace Lis.Units.Hero.Ability
             Ability = ability;
 
             _fightManager.OnFightEnded += StopAbility;
-            _fightManager.OnFightStarted += StartAbility;
+            // _fightManager.OnFightStarted += StartAbility;
         }
 
         public void StartAbility()
@@ -119,7 +119,7 @@ namespace Lis.Units.Hero.Ability
         void DisableAllAbilityObjects()
         {
             foreach (ObjectController p in _abilityObjectPool)
-                p.gameObject.SetActive(false);
+                p.DisableSelf();
         }
     }
 }

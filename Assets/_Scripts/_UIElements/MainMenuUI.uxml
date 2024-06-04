@@ -7,6 +7,6 @@
         <ui:VisualElement name="menuContainer" style="justify-content: center; align-items: flex-start; display: flex; height: 100%; padding-bottom: 50px; padding-left: 50px; min-width: 300px; flex-grow: 1; flex-shrink: 0;">
             <ui:VisualElement name="buttonContainer" style="flex-grow: 1; width: 100%; position: absolute; right: auto; bottom: 24%;" />
         </ui:VisualElement>
-        <ui:Label tabindex="-1" text="Yet Another Survivor" parse-escape-sequences="true" display-tooltip-when-elided="true" class="common__text-primary" style="position: absolute; font-size: 64px; -unity-font-style: bold; align-self: center; align-items: center; width: 100%; top: 12%; color: rgb(249, 194, 43); justify-content: flex-start;" />
+        <ui:Label tabindex="-1" text="Last Of The Wilds" parse-escape-sequences="true" display-tooltip-when-elided="true" name="gameTitle" class="common__text-primary menu__game-title" style="position: absolute; font-size: 64px; -unity-font-style: bold; align-self: center; align-items: center; width: 100%; top: 12%; justify-content: flex-start;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -81,6 +81,7 @@ namespace Lis.Battle.Fight
                 yield return new WaitForSeconds(1f);
             }
 
+            _heroController.StartAllAbilities();
             StartFight();
         }
 
@@ -218,7 +219,6 @@ namespace Lis.Battle.Fight
 
         void ChooseRandomFightOption()
         {
-            Debug.Log("First fight ended");
             CurrentFight.ChooseRandomOption();
             _tooltipManager.DisplayGameInfo(new Label("Interact with fight starter to start the next fight."));
         }

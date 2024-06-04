@@ -30,7 +30,6 @@ namespace Lis.Battle.Arena
         protected override void OnFightEnded()
         {
             base.OnFightEnded();
-            Debug.Log("Fight ended in fight starter");
             if (FightManager.FightNumber == 1) Building.Unlock();
             if (!Building.IsUnlocked) return;
             if (FightManager.LastFight != null)

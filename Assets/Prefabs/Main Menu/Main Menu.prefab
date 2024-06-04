@@ -64,6 +64,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuTheme: {fileID: 11400000, guid: 49faba998a98440478414b155befacd4, type: 2}
   _gameManagerPrefab: {fileID: 2154333484900981485, guid: 4a636bf8f79f5b64aae947e91c16ea03, type: 3}
+  _themeStyleSheets:
+  - {fileID: 7433441132597879392, guid: 1afaad5a03ee4113ae63777f62371bc1, type: 3}
+  - {fileID: 7433441132597879392, guid: d1571dd51fd344dd86dd958cac9a1a5a, type: 3}
+  - {fileID: 7433441132597879392, guid: ae889aa63ab74749aad33121135df2d2, type: 3}
+  - {fileID: 7433441132597879392, guid: 8b1720c336464932b8be1312ec65c838, type: 3}
 --- !u!114 &4607431334784036316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,4 +81,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb0d25d087b05a4481d52625991766c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _globalUpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}

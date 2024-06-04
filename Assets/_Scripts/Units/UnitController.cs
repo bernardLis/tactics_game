@@ -176,7 +176,7 @@ namespace Lis.Units
             }
         }
 
-        public void OnFightStarted()
+        public virtual void OnFightStarted()
         {
             if (this == null) return;
             if (Team == 0 && IsDead)
