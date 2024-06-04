@@ -16,7 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Description: 
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  Damage: 10
+  Damage: 15
   Range: 0
   GlobalCooldown: 3
   Cooldown: 6
@@ -25,7 +25,7 @@ MonoBehaviour:
   DamageDealt: 60
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
-  Scale: 1.5
+  Scale: 1
   Amount: 1
   Duration: 5
   Price: 100

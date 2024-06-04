@@ -18,7 +18,9 @@ namespace Lis.Battle.Arena
 
         protected override void OnFightEnded()
         {
-            base.OnFightEnded();
+            if (FightManager.FightNumber == 4)
+                Building.Unlock();
+
             if (Building.IsUnlocked)
                 AllowInteraction();
         }

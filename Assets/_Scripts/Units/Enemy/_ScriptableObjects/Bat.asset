@@ -17,7 +17,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 2bfbedada4fe5ed4d82a1737a1a995ba, type: 3}
   IconAnimation:
   - {fileID: 21300000, guid: 2bfbedada4fe5ed4d82a1737a1a995ba, type: 3}
-  Price: 200
+  Price: 100
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 9621311f07dd2f847b15f316190ec4f9, type: 3}
   SpawnSound: {fileID: 0}
@@ -43,7 +43,8 @@ MonoBehaviour:
   CurrentAttack: {fileID: 0}
   IsMiniBoss: 0
   ScarinessRank: 2
+  IsRanged: 0
   EnemyMaxHealth: 40
   EnemyArmor: 0
   EnemySpeed: 2.5
-  EnemyPower: 50
+  EnemyPower: 25

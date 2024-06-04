@@ -54,7 +54,7 @@ namespace Lis.Units.Hero
 
         Vector3 _playerVelocity;
         bool _groundedPlayer;
-        float _gravityValue = -9.81f;
+        readonly float _gravityValue = -9.81f;
 
         void Start()
         {

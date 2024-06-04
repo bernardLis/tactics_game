@@ -76,7 +76,7 @@ namespace Lis.Units.Hero.Ability
             return GetTotalDamageDealt() / (BattleManager.Instance.GetTime() - BattleTimeActivated);
         }
 
-        public Attack.Attack GetCurrentLevel()
+        public AttackHeroAbility GetCurrentLevel()
         {
             return Levels[Level];
         }
@@ -140,6 +140,11 @@ namespace Lis.Units.Hero.Ability
         public float GetDuration(int abilityLevel)
         {
             return Levels[abilityLevel].Duration;
+        }
+
+        public int GetPrice(int abilityLevel)
+        {
+            return Levels[abilityLevel].Price;
         }
 
         public bool IsMaxLevel()

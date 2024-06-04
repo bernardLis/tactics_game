@@ -15,12 +15,12 @@ MonoBehaviour:
   Id: 183c5e4e-459d-4b2c-ad72-1c27e2614e5a
   Name: Crossbowman
   Icon: {fileID: 21300000, guid: 7dba353ecd2723d4ebc98fb83857e4ce, type: 3}
-  Price: 800
+  Price: 600
   LevelLimit: 12
   Attacks:
   - {fileID: 11400000, guid: f17cccd98c99c194d8a8e238f317432f, type: 2}
   Mission: {fileID: 11400000, guid: 60bd7f642cb13994494d9e4bbc072969, type: 2}
   BaseHealth: 400
   BaseArmor: 0
-  BaseSpeed: 3.5
-  BasePower: 70
+  BaseSpeed: 5
+  BasePower: 80

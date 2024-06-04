@@ -24,6 +24,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   LevelUpSound: {fileID: 0}
+  DamageTaken: 0
   TotalKillCount: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: c5952252642d669449acb3988f8e89f5, type: 2}
@@ -37,6 +38,7 @@ MonoBehaviour:
   LeftoverExp: 0
   _attacksOriginal:
   - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  Attacks: []
   CurrentAttack: {fileID: 0}
   TimesPicked: 1
   SelectorPrefab: {fileID: 3132514255091843268, guid: 5b468937a5144d84fa3239352cf5cb6a, type: 3}
@@ -45,6 +47,6 @@ MonoBehaviour:
   Army: []
   Tablets: []
   AdvancedTablet: {fileID: 0}
-  StartingAbility: {fileID: 11400000, guid: 3a675762d1e70be42a906ff162b9080f, type: 2}
+  StartingAbility: {fileID: 11400000, guid: 56413573da894c24a898fbdbab912922, type: 2}
   Abilities: []
   AdvancedAbilities: []

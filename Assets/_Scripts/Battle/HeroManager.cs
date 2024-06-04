@@ -1,13 +1,11 @@
 using System;
 using Cinemachine;
-using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Lis.Battle
 {
@@ -17,7 +15,6 @@ namespace Lis.Battle
         AudioManager _audioManager;
         FightManager _fightManager;
 
-        VisualElement _root;
         HeroElement _heroElement;
 
         public CinemachineVirtualCamera HeroFollowCamera;
@@ -32,7 +29,7 @@ namespace Lis.Battle
         public int RewardRerollsAvailable;
 
         // HERE: testing
-        readonly bool _turnOffAbility = true;
+        readonly bool _turnOffAbility = false;
 
         public event Action<Hero> OnHeroInitialized;
 
@@ -40,7 +37,6 @@ namespace Lis.Battle
         {
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
-            _root = GetComponent<UIDocument>().rootVisualElement;
             _fightManager = GetComponent<FightManager>();
 
             Hero = hero;

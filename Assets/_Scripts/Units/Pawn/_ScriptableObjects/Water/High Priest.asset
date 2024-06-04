@@ -24,4 +24,4 @@ MonoBehaviour:
   BaseHealth: 400
   BaseArmor: 0
   BaseSpeed: 3
-  BasePower: 50
+  BasePower: 40

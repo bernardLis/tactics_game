@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 2df42ec2-0086-4eaf-a89f-3051b8741354
   Name: Priest
   Icon: {fileID: 21300000, guid: 746d74f8ab15bbb42a058c9edec697de, type: 3}
-  Price: 200
+  Price: 300
   LevelLimit: 4
   Attacks:
   - {fileID: 11400000, guid: f4da7f69fcacf12479959e272b0a927f, type: 2}
@@ -24,4 +24,4 @@ MonoBehaviour:
   BaseHealth: 300
   BaseArmor: 0
   BaseSpeed: 2.5
-  BasePower: 35
+  BasePower: 30

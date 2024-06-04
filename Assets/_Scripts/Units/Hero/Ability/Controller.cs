@@ -59,6 +59,7 @@ namespace Lis.Units.Hero.Ability
 
         public void StopAbility()
         {
+            DisableAllAbilityObjects();
             if (_runAbilityCoroutine != null) StopCoroutine(_runAbilityCoroutine);
         }
 
@@ -113,6 +114,12 @@ namespace Lis.Units.Hero.Ability
                 if (!p.gameObject.activeSelf)
                     return p;
             return InitializeAbilityObject();
+        }
+
+        void DisableAllAbilityObjects()
+        {
+            foreach (ObjectController p in _abilityObjectPool)
+                p.gameObject.SetActive(false);
         }
     }
 }

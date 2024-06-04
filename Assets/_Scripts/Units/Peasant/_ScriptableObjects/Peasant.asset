@@ -16,7 +16,7 @@ MonoBehaviour:
   UnitName: Peasant
   Icon: {fileID: 21300000, guid: 772021f7479baeb419a98908bded2a23, type: 3}
   IconAnimation: []
-  Price: 5
+  Price: 200
   Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
   Prefab: {fileID: 4359403204668760406, guid: 0e9dca8254ea23d49886dcde9916798b, type: 3}
   SpawnSound: {fileID: 0}

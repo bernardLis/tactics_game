@@ -12,8 +12,6 @@ namespace Lis.Battle.Arena
     {
         public GameObject Prefab;
 
-        public int EnemyPointsGrowth = 200;
-
         [HideInInspector] public Boss Boss;
         [HideInInspector] public List<Fight> Fights = new();
 
@@ -27,7 +25,14 @@ namespace Lis.Battle.Arena
 
         public Fight CreateFight(int heroPoints)
         {
-            int points = heroPoints + EnemyPointsGrowth * (1 + Fights.Count);
+            // TODO: balance
+            const float exponent = 2.5f;
+            const float multiplier = 2f;
+
+            int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Fights.Count, exponent));
+            result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
+            int points = result + heroPoints;
+
             Fight fight = CreateInstance<Fight>();
             fight.Initialize(points, Fights.Count);
             Fights.Add(fight);

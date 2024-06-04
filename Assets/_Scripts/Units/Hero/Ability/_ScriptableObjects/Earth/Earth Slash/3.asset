@@ -18,14 +18,14 @@ MonoBehaviour:
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Damage: 30
   Range: 0
-  GlobalCooldown: 3
-  Cooldown: 3
+  GlobalCooldown: 2.5
+  Cooldown: 2.5
   IsArmorPiercing: 1
   Sound: {fileID: 0}
   DamageDealt: 0
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
-  Scale: 0.7
   Amount: 2
   Duration: 0.5
+  Scale: 1.1
   Price: 100

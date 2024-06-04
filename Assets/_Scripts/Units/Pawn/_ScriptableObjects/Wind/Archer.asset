@@ -22,5 +22,5 @@ MonoBehaviour:
   Mission: {fileID: 11400000, guid: 60bd7f642cb13994494d9e4bbc072969, type: 2}
   BaseHealth: 300
   BaseArmor: 0
-  BaseSpeed: 3
-  BasePower: 50
+  BaseSpeed: 4
+  BasePower: 60

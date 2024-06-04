@@ -16,7 +16,7 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Description: 
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  Damage: 50
+  Damage: 40
   Range: 0
   GlobalCooldown: 3
   Cooldown: 4

@@ -6,10 +6,11 @@ namespace Lis.Units.Attack
     public class AttackHeroAbility : Attack
     {
         [Header("Ability")]
-        public float Scale;
-
         public int Amount;
         public float Duration;
+
+        public float Scale;
+
         public int Price;
     }
 }

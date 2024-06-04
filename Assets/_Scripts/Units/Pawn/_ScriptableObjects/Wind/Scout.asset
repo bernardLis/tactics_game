@@ -15,12 +15,12 @@ MonoBehaviour:
   Id: f9a671c0-4878-4e04-b6cc-e84d07e39f4c
   Name: Scout
   Icon: {fileID: 21300000, guid: d1f040b6d0963ab43a9fc750f0b8acf1, type: 3}
-  Price: 200
+  Price: 300
   LevelLimit: 4
   Attacks:
   - {fileID: 11400000, guid: b5aa0c61cbe71524e9e439d533f9f70b, type: 2}
   Mission: {fileID: 11400000, guid: 60bd7f642cb13994494d9e4bbc072969, type: 2}
   BaseHealth: 200
   BaseArmor: 0
-  BaseSpeed: 2.5
-  BasePower: 35
+  BaseSpeed: 3
+  BasePower: 45

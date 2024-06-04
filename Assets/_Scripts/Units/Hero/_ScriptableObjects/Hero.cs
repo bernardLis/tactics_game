@@ -183,6 +183,7 @@ namespace Lis.Units.Hero
             Level.SetValue(1);
 
             MaxHealth = Instantiate(MaxHealth);
+            OnLevelUp += MaxHealth.LevelUp;
             MaxHealth.Initialize();
 
             Armor = Instantiate(Armor);
@@ -242,6 +243,17 @@ namespace Lis.Units.Hero
                 default:
                     return null;
             }
+        }
+
+        public int GetHeroPoints()
+        {
+            int points = Level.Value * 100;
+            foreach (Unit u in Army)
+                points += u.Price;
+            foreach (Ability.Ability a in Abilities)
+                points += a.GetCurrentLevel().Price;
+            // TODO: price hero tablets
+            return points;
         }
 
         /* SERIALIZATION */

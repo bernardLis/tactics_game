@@ -37,7 +37,7 @@ namespace Lis.Units
                 out _, 1 << Tags.UnpassableLayer);
         }
 
-        public Vector3 ClosestPositionWithClearLos()
+        Vector3 ClosestPositionWithClearLos()
         {
             Vector3 dir = transform.position - _target.transform.position;
             Dictionary<Vector3, float> distances = new();

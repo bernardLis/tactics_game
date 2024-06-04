@@ -1,0 +1,29 @@
+Name,Element,Level,Armor piercing,Damage,Cooldown,Amount,Duration,Scale,Price,Changes,Comment,Pool,"If you only add levels to this, how long can you survive?"
+Earth Slash,Earth,0,TRUE,10,3,2,0.5,0.7,100,Scale,,Yes,5min
+Earth Slash,,1,TRUE,20,2.8,2,0.5,0.9,200,,,,
+Earth Slash,,2,TRUE,30,2.5,2,0.5,1.1,300,,,,
+Earth Spike,Earth,0,FALSE,10,5,1,2.5,0.5,100,Duration,,,7min
+Earth Spike,,1,FALSE,15,5,1,2.5,0.75,200,,,,
+Earth Spike,,2,FALSE,20,5,1,2.5,1,300,,,,
+Fire Balls,Fire,0,FALSE,30,3,1,10,1,100,Amount,,,5 min
+Fire Balls,,1,FALSE,30,3,3,10,1,200,,,,
+Fire Balls,,2,FALSE,30,3,5,10,1,300,,,,
+Meteors,Fire,0,FALSE,40,9,1,3.5,4,100,Scale,,,4 min but it is ok
+Meteors,,1,FALSE,50,9,1,3.5,4,200,,,,
+Meteors,,2,FALSE,60,9,1,3.5,4,300,,,,
+Aqua Jet,Water,0,TRUE,15,4,1,10,1,100,Amount,,,4 min ok
+Aqua Jet,,1,TRUE,20,4,2,10,1,200,,,,
+Aqua Jet,,2,TRUE,40,4,3,10,1,300,,,,
+Water Tornado,Water,0,FALSE,10,6,1,4,0.7,100,Duration,,,4 min ok
+Water Tornado,,1,FALSE,20,6,2,4,0.7,200,,,,
+Water Tornado,,2,FALSE,30,6,3,4,0.7,300,,,,
+Breeze,Wind,0,FALSE,15,6,1,5,1,100,Duration,Cooldown can't be shorter than duration,,
+Breeze,,1,FALSE,20,6,1,5,1.2,200,,,,
+Breeze,,2,FALSE,30,6,1,5,1.5,300,,,,
+Wind Tornado,Wind,0,FALSE,10,8,1,3,1,100,Amount,,,
+Wind Tornado,,1,FALSE,20,8,2,3,1,200,,,,
+Wind Tornado,,2,FALSE,30,8,3,3,1,300,,,,
+Ice Spiral,Ice,0,TRUE,30,4,1,2,1,1000,Duration,,,
+Wildbolt Storm,Lightning,0,TRUE,60,10,20,10,1,1000,Amount,,,
+Mega Sword,Metal,0,TRUE,30,0,1,1,3,1000,Scale,,,
+Forest,Wood,0,TRUE,45,15,15,10,1,1000,Amount,,,

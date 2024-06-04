@@ -71,7 +71,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator StartGame()
         {
-            CurrentFight = _arena.CreateFight(CountHeroPoints());
+            CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
             CurrentFight.ChooseRandomOption();
 
@@ -206,18 +206,17 @@ namespace Lis.Battle.Fight
             CurrentFight.GiveReward();
             LastFight = CurrentFight;
 
-            CurrentFight = _arena.CreateFight(CountHeroPoints());
+            CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
 
             IsFightActive = false;
 
             OnFightEnded?.Invoke();
 
-            if (FightNumber == 1) HandleFirstFightEnd();
-
+            if (FightNumber < 4) ChooseRandomFightOption();
         }
 
-        void HandleFirstFightEnd()
+        void ChooseRandomFightOption()
         {
             Debug.Log("First fight ended");
             CurrentFight.ChooseRandomOption();
@@ -239,16 +238,6 @@ namespace Lis.Battle.Fight
             return EnemyUnits.Count == 0
                 ? Vector3.zero
                 : EnemyUnits[Random.Range(0, EnemyUnits.Count)].transform.position;
-        }
-
-        int CountHeroPoints()
-        {
-            int points = 0;
-            foreach (Unit u in _heroController.Hero.Army)
-                points += u.Price;
-            // TODO: price hero abilities & tablets
-
-            return points;
         }
     }
 }

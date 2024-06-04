@@ -43,7 +43,8 @@ MonoBehaviour:
   CurrentAttack: {fileID: 0}
   IsMiniBoss: 0
   ScarinessRank: 8
-  EnemyMaxHealth: 800
-  EnemyArmor: 60
+  IsRanged: 0
+  EnemyMaxHealth: 600
+  EnemyArmor: 30
   EnemySpeed: 5
-  EnemyPower: 120
+  EnemyPower: 80

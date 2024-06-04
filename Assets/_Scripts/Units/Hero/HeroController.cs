@@ -15,7 +15,7 @@ namespace Lis.Units.Hero
 
         private static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
-        List<Controller> _abilityControllers = new();
+        readonly List<Controller> _abilityControllers = new();
 
         public override void InitializeGameObject()
         {

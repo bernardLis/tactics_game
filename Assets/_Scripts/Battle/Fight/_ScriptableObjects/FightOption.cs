@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Enemy;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -36,6 +35,8 @@ namespace Lis.Battle.Fight
                 return;
             }
 
+            // limits enemies scariness to fight number
+            availableEnemies.RemoveAll(e => e.ScarinessRank > fightNumber);
 
             int pointsLeft = points;
             int tries = 0;
@@ -67,7 +68,7 @@ namespace Lis.Battle.Fight
 
         void CreateSecondFight()
         {
-            for (int i = 0; i < Random.Range(15, 20); i++)
+            for (int i = 0; i < Random.Range(5, 10); i++)
             {
                 AddEnemyToArmy(_unitDatabase.GetEnemyByName("Mushroom"));
             }
