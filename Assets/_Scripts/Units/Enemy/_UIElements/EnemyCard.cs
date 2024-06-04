@@ -1,20 +1,24 @@
-﻿using Lis.Units;
-using Lis.Units.Enemy;
+﻿using Lis.Battle;
+using UnityEngine;
 
-namespace Lis.Battle
+namespace Lis.Units.Enemy
 {
     public class EnemyCard : UnitCard
     {
-        readonly Enemy _enemy;
+        Enemy _enemy;
 
         public EnemyCard(Unit unit) : base(unit)
         {
-            _enemy = (Enemy)unit;
+            Debug.Log("EnemyCard ctor");
         }
 
         protected override void HandleLevelLabel()
         {
             base.HandleLevelLabel();
+            _enemy = (Enemy)Unit;
+
+            Debug.Log("EnemyCard HandleLevelLabel");
+
             LevelLabel.text = $"Scariness rank: {_enemy.ScarinessRank}";
         }
     }

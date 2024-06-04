@@ -20,7 +20,7 @@ namespace Lis.Battle
         protected Label LevelLabel;
         ResourceBarElement _healthBar;
 
-        readonly Unit _unit;
+        protected readonly Unit Unit;
 
         public UnitCard(Unit unit)
         {
@@ -30,7 +30,7 @@ namespace Lis.Battle
                 .GetStyleSheetByName(StyleSheetType.UnitCardStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            _unit = unit;
+            Unit = unit;
 
             AddToClassList(_ussMain);
             PopulateCard();
@@ -51,20 +51,20 @@ namespace Lis.Battle
 
         void HandleUnitIcon()
         {
-            _unitIcon = new(_unit);
+            _unitIcon = new(Unit);
             TopLeftContainer.Add(_unitIcon);
         }
 
         void HandleNature()
         {
-            _natureElement = new(_unit.Nature);
+            _natureElement = new(Unit.Nature);
             _natureElement.AddToClassList(_ussElement);
             TopLeftContainer.Add(_natureElement);
         }
 
         void HandleNameLabel()
         {
-            _nameLabel = new(_unit.UnitName);
+            _nameLabel = new(Unit.UnitName);
             _nameLabel.AddToClassList(USSName);
             TopRightContainer.Add(_nameLabel);
         }
@@ -72,24 +72,24 @@ namespace Lis.Battle
         protected virtual void HandleLevelLabel()
         {
             LevelLabel = new();
-            LevelLabel.text = $"Level {_unit.Level.Value}";
+            LevelLabel.text = $"Level {Unit.Level.Value}";
             TopRightContainer.Add(LevelLabel);
 
-            _unit.Level.OnValueChanged += (i) => { LevelLabel.text = $"Level {i}"; };
+            Unit.Level.OnValueChanged += (i) => { LevelLabel.text = $"Level {i}"; };
         }
 
         void HandleHealthBar()
         {
             Color c = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
-            _healthBar = new(c, "health", currentFloatVar: _unit.CurrentHealth, totalStat: _unit.MaxHealth);
+            _healthBar = new(c, "health", currentFloatVar: Unit.CurrentHealth, totalStat: Unit.MaxHealth);
             TopRightContainer.Add(_healthBar);
         }
 
         void HandleDeath()
         {
-            if (_unit.Team != 0) return;
-            if (_unit.CurrentHealth.Value > 0) return;
+            if (Unit.Team != 0) return;
+            if (Unit.CurrentHealth.Value > 0) return;
 
             // HERE: balance price
             PurchaseButton b = new("Revive", _ussCommonButton, Revive, 100);
@@ -104,7 +104,7 @@ namespace Lis.Battle
 
         void Revive()
         {
-            _unit.Revive();
+            Unit.Revive();
         }
     }
 }

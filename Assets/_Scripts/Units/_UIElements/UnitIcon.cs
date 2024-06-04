@@ -1,3 +1,4 @@
+using Lis.Battle;
 using Lis.Core;
 using Lis.Units.Boss;
 using Lis.Units.Creature;
@@ -75,17 +76,7 @@ namespace Lis.Units
         void OnClick(ClickEvent evt)
         {
             evt.StopImmediatePropagation();
-
-            UnitScreen screen = null;
-            if (_unit is Creature.Creature creature)
-                screen = new CreatureScreen(creature);
-            else if (_unit is Boss.Boss boss)
-                screen = new BossScreen(boss);
-            else if (_unit is Pawn.Pawn pawn)
-                screen = new PawnScreen(pawn);
-            else
-                screen = new(_unit);
-
+            UnitScreen screen = UnitScreenFactory.Instance.CreateUnitScreen(_unit);
             screen?.Initialize();
         }
     }

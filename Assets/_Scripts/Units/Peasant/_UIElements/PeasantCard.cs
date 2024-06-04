@@ -10,13 +10,11 @@ namespace Lis.Units.Peasant
     public class PeasantCard : UnitCard
     {
         const string _ussCommonButton = "common__button";
-        readonly UnitDatabase _unitDatabase;
 
         readonly Peasant _peasant;
 
         public PeasantCard(Peasant peasant) : base(peasant)
         {
-            _unitDatabase = GameManager.UnitDatabase;
             _peasant = peasant;
             if (FightManager.IsFightActive) return;
             if (_peasant.CurrentHealth.Value <= 0) return;
@@ -25,15 +23,6 @@ namespace Lis.Units.Peasant
 
         void AddUpgradeButtons()
         {
-            // HERE:
-            /*
-            Nature earth = _unitDatabase.GetNatureByName(NatureName.Earth);
-            Nature fire = _unitDatabase.GetNatureByName(NatureName.Fire);
-            Nature water = _unitDatabase.GetNatureByName(NatureName.Water);
-            Nature wind = _unitDatabase.GetNatureByName(NatureName.Wind);
-*/
-            //List<Nature> natures = new List<Nature> { earth, fire, water, wind };
-
             List<Nature> availableNatures = new();
             BattleManager.Instance.Battle.Barracks.UnlockableNatures.ForEach(un =>
             {
