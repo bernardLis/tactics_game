@@ -17,5 +17,15 @@ namespace Lis.Battle.Arena
                 unlockableNature.IsUnlocked = false;
             }
         }
+
+        public int GetPeasantsPerFight()
+        {
+            return Level + 2;
+        }
+
+        public int GetUpgradePrice()
+        {
+            return (Level + 1) * 200;
+        }
     }
 }

@@ -91,8 +91,6 @@
     justify-content: center;
     margin: 12px;
     background-color: var(--color-highlight);
-
-    /* background-color: var(--color-highlight-gold); */
     width: 300px;
     min-height: 90px;
     -unity-font-style: normal;
@@ -119,15 +117,17 @@
 
 .common__horizontal-spacer {
     height: 50px;
-    width: 100%;
+    width: 600px;
     background-image: url("project://database/Assets/Art/UI/Settings_inscription_2.png?fileID=2800000&guid=4223cbf07d586c04f8e868b29dfee05f&type=3#Settings_inscription_2");
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .common__vertical-spacer {
-    height: 100%;
-    width: 20px;
+    height: 50px;
+    width: 100%;
+    background-image: url("project://database/Assets/Art/UI/Settings_inscription_2.png?fileID=2800000&guid=4223cbf07d586c04f8e868b29dfee05f&type=3#Settings_inscription_2");
     -unity-background-scale-mode: scale-to-fit;
+    rotate: 90deg;
 }
 
 .vfx {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Battle;
+using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
@@ -273,6 +274,14 @@ namespace Lis.Core
                 BattleManager.Instance.GetComponent<BreakableVaseManager>().SpawnVases();
             };
             _otherFoldout.Add(spawnVasesButton);
+
+            Button showBarracksScreen = new() { text = "Show Barracks Screen" };
+            showBarracksScreen.clickable.clicked += () =>
+            {
+                BarracksScreen bs = new();
+                bs.InitializeBuilding(BattleManager.Instance.Battle.Barracks);
+            };
+            _otherFoldout.Add(showBarracksScreen);
         }
 
         void AddHeroButtons()

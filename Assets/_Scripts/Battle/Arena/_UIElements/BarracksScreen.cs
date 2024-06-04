@@ -12,19 +12,22 @@ namespace Lis.Battle.Arena
         Barracks _barracks;
 
         Label _levelLabel;
+        Label _peasantsLabel;
         PurchaseButton _upgradeButton;
         PurchaseButton _buyPeasantButton;
 
         VisualElement _naturesContainer;
 
+        VisualElement _topContainer;
+        VisualElement _bottomContainer;
+
         public void InitializeBuilding(Barracks b)
         {
             _barracks = b;
             SetTitle("Barracks");
+            CreateContainers();
 
-            _levelLabel = new($"Level: {_barracks.Level + 1}, spawns {_barracks.Level + 1} peasants per fight.");
-            Content.Add(_levelLabel);
-
+            AddDescription();
             if (_barracks.Level <= _barracks.MaxLevel) AddUpgradeButton();
 
             AddBuyPeasantButton();
@@ -33,26 +36,66 @@ namespace Lis.Battle.Arena
             AddContinueButton();
         }
 
+
+        void CreateContainers()
+        {
+            _topContainer = new();
+            _topContainer.style.flexDirection = FlexDirection.Row;
+            _topContainer.style.flexGrow = 1;
+            Content.Add(_topContainer);
+
+            Content.Add(new HorizontalSpacerElement());
+
+            _bottomContainer = new();
+            _bottomContainer.style.flexDirection = FlexDirection.Row;
+            _bottomContainer.style.flexGrow = 1;
+
+            Content.Add(_bottomContainer);
+        }
+
+        void AddDescription()
+        {
+            VisualElement container = new();
+            _topContainer.Add(container);
+
+            _levelLabel = new($"Level: {_barracks.Level + 1}");
+            _peasantsLabel = new($"Spawns {_barracks.GetPeasantsPerFight()} peasants per fight.");
+            SetDescriptionText();
+            container.Add(_levelLabel);
+            container.Add(_peasantsLabel);
+        }
+
+        void SetDescriptionText()
+        {
+            _levelLabel.text = $"Level: {_barracks.Level + 1}";
+            _peasantsLabel.text = $"Spawns {_barracks.GetPeasantsPerFight()} peasants per fight.";
+        }
+
         void AddUpgradeButton()
         {
-            _upgradeButton = new("", USSCommonButton, Upgrade, (_barracks.Level + 1) * 200);
-            Content.Add(_upgradeButton);
+            VisualElement container = new();
+            _topContainer.Add(container);
+
+            container.Add(new Label("Upgrade: "));
+
+            _upgradeButton = new("", USSCommonButton, Upgrade, _barracks.GetUpgradePrice());
+            container.Add(_upgradeButton);
         }
 
         void Upgrade()
         {
-            if (GameManager.Gold < _barracks.Level * 200)
+            if (GameManager.Gold < _barracks.GetUpgradePrice())
             {
                 Helpers.DisplayTextOnElement(BattleManager.Root, _upgradeButton, "Not enough gold!", Color.red);
                 return;
             }
 
             _barracks.Upgrade();
-            _levelLabel.text = $"Level: {_barracks.Level + 2}, spawns {_barracks.Level + 2} peasants per fight.";
+            SetDescriptionText();
 
             if (_barracks.Level <= _barracks.MaxLevel)
             {
-                _upgradeButton.ChangePrice((_barracks.Level + 1) * 200);
+                _upgradeButton.ChangePrice(_barracks.GetUpgradePrice());
                 return;
             }
 
@@ -63,8 +106,13 @@ namespace Lis.Battle.Arena
 
         void AddBuyPeasantButton()
         {
-            _buyPeasantButton = new("Buy Peasant", USSCommonButton, BuyPeasant, 100);
-            Content.Add(_buyPeasantButton);
+            VisualElement container = new();
+            _topContainer.Add(container);
+
+            container.Add(new Label("Buy Peasant: "));
+
+            _buyPeasantButton = new("", USSCommonButton, BuyPeasant, 100);
+            container.Add(_buyPeasantButton);
         }
 
         void BuyPeasant()
@@ -85,15 +133,10 @@ namespace Lis.Battle.Arena
 
         void AddUnlockNaturesButtons()
         {
-            Content.Add(new Label("Unlock to upgrade Peasants: "));
-            _naturesContainer = new();
-            _naturesContainer.style.flexDirection = FlexDirection.Row;
-            Content.Add(_naturesContainer);
-
             foreach (UnlockableNature n in _barracks.UnlockableNatures)
             {
                 UnlockableNatureElement b = new(n);
-                _naturesContainer.Add(b);
+                _bottomContainer.Add(b);
             }
         }
     }
