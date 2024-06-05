@@ -2674,7 +2674,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 43, y: 1, z: 47}
+  m_LocalScale: {x: 49, y: 1, z: 47}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 982266612229736899}
@@ -10627,11 +10627,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4106220555491074462, guid: e5ef9087db727ae49b65899898c7cacd, type: 3}
       propertyPath: m_Name
-      value: Hero Ability Enabler
+      value: Hero Arena Door
       objectReference: {fileID: 0}
     - target: {fileID: 6521096407035768493, guid: e5ef9087db727ae49b65899898c7cacd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7699986
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 6521096407035768493, guid: e5ef9087db727ae49b65899898c7cacd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10994,6 +10994,10 @@ PrefabInstance:
     - target: {fileID: 8212380035645469209, guid: bea5de77ab0b75e4a8d56a921e7ce630, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8212380035645469209, guid: bea5de77ab0b75e4a8d56a921e7ce630, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 8192
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

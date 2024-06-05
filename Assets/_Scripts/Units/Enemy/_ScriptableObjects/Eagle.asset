@@ -39,6 +39,7 @@ MonoBehaviour:
   LeftoverExp: 0
   _attacksOriginal:
   - {fileID: 11400000, guid: f1c570a18c6b63441a0b386bd541b373, type: 2}
+  - {fileID: 11400000, guid: e46305d125dc7cb4fb54a5c8ab387fc2, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
   IsMiniBoss: 0

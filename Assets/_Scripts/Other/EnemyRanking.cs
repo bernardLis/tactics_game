@@ -10,6 +10,7 @@ namespace Lis
         Camera _cam;
         [SerializeField] Canvas _canvasPrefab;
         [SerializeField] List<Enemy> _enemies = new();
+        [SerializeField] GameObject _enemySpecialAttackPrefab;
 
         void Start()
         {
@@ -26,6 +27,12 @@ namespace Lis
                 Vector3 pos = new(2 + i * 5, 0, 0);
                 GameObject enemyObj = Instantiate(_enemies[i].Prefab, pos, Quaternion.identity);
                 enemyObj.transform.DOLookAt(_cam.transform.position, 0.5f, AxisConstraint.Y);
+
+                EnemySpecialAttackPlayer
+                    enm = Instantiate(_enemySpecialAttackPrefab, enemyObj.transform).GetComponent<
+                        EnemySpecialAttackPlayer>();
+                enm.Initialize();
+
                 Canvas canvas = Instantiate(_canvasPrefab, pos, Quaternion.Euler(new Vector3(0, 30, 0)));
                 canvas.GetComponent<EnemyRankingCanvas>().Initialize(_enemies[i], pos + Vector3.up);
             }

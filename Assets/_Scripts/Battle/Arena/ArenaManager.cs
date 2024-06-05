@@ -1,10 +1,11 @@
+using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Arena
 {
-    public class ArenaManager : MonoBehaviour
+    public class ArenaManager : Singleton<ArenaManager>
     {
         GameObject _arenaObject;
         Arena _arena;

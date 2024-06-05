@@ -18,7 +18,7 @@ MonoBehaviour:
   IconAnimation:
   - {fileID: 21300000, guid: 0aa608224c68e654aba6a5c0ee35664a, type: 3}
   Price: 450
-  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 939e61f08d9e5854ea5ca5e197e3fddf, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
@@ -45,6 +45,6 @@ MonoBehaviour:
   ScarinessRank: 5
   IsRanged: 0
   EnemyMaxHealth: 300
-  EnemyArmor: 0
+  EnemyArmor: 15
   EnemySpeed: 3.5
-  EnemyPower: 70
+  EnemyPower: 50

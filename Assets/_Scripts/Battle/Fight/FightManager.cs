@@ -47,7 +47,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator _fightCoroutine;
 
-        public event Action OnInitialized;
+        public bool IsTesting;
 
         public void Initialize(Battle battle)
         {
@@ -64,7 +64,6 @@ namespace Lis.Battle.Fight
 
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
-            OnInitialized?.Invoke();
 
             StartCoroutine(StartGame());
         }
@@ -158,7 +157,6 @@ namespace Lis.Battle.Fight
             return unitController;
         }
 
-
         public void AddPlayerUnit(UnitController b)
         {
             b.transform.parent = PlayerArmyHolder;
@@ -219,6 +217,8 @@ namespace Lis.Battle.Fight
 
         void ChooseRandomFightOption()
         {
+            if (IsTesting) return;
+
             CurrentFight.ChooseRandomOption();
             _tooltipManager.DisplayGameInfo(new Label("Interact with fight starter to start the next fight."));
         }

@@ -38,11 +38,12 @@ namespace Lis
         void OnBattleInitialized()
         {
             _tooltipManager.DisplayGameInfo(new Label("Unit tests engaged..."));
-            Time.timeScale = 5f;
+            Time.timeScale = 3f;
             _breakableVaseManager.DisableVaseSpawning();
 
             _fightManager.OnFightEnded += OnFightEnded;
             _fightManager.PlayerUnits.Clear(); // removing hero
+            _fightManager.IsTesting = true;
             StartCoroutine(StartNewTestCoroutine());
         }
 
@@ -50,7 +51,7 @@ namespace Lis
         {
             yield return new WaitForSeconds(3f);
             ClearArmies();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             StartCoroutine(StartRandomTest());
         }
 
@@ -92,6 +93,7 @@ namespace Lis
 
         void OnFightEnded()
         {
+            if (Tests.Count == 0) return;
             TestFight test = Tests.Last();
             test.FightDuration = (int)(_battleManager.GetTime() - _currentFightStartTime);
             bool pw = _fightManager.PlayerUnits.Count > 0;
@@ -112,7 +114,6 @@ namespace Lis
             }
 
             test.SetSurvivors(survivors);
-
 
             StartCoroutine(StartNewTestCoroutine());
         }
