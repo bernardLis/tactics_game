@@ -78,10 +78,11 @@ namespace Lis.Units.Hero
 
         protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
-            _movementController.enabled = false;
-            BattleManager.LoseBattle();
+            yield return base.DieCoroutine(attack, hasLoot);
+            _movementController.DisableMovement();
 
-            yield return null;
+            yield return new WaitForSeconds(5f);
+            BattleManager.LoseBattle();
         }
 
         /* OVERRIDES */

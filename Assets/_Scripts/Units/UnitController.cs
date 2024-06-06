@@ -435,7 +435,7 @@ namespace Lis.Units
 
             StopUnit();
 
-            _reviveEffect.SetActive(false);
+            if (_reviveEffect != null) _reviveEffect.SetActive(false);
 
             ResetOpponent(null, null);
 
@@ -443,7 +443,7 @@ namespace Lis.Units
             DOTween.Kill(transform);
 
             if (Unit.DeathSound != null) AudioManager.PlaySfx(Unit.DeathSound, transform.position);
-            DeathEffect.SetActive(true);
+            if (DeathEffect != null) DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
 
