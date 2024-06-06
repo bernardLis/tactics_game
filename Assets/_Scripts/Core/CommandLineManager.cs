@@ -131,6 +131,7 @@ namespace Lis.Core
             AddOtherButtons();
             AddHeroButtons();
             AddEnemyButtons();
+            AddPickupButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
         }
@@ -391,6 +392,27 @@ namespace Lis.Core
                     SpawnEnemy(e);
                 }
             };
+        }
+
+        void AddPickupButtons()
+        {
+            Foldout pickupFoldout = new()
+            {
+                text = "Pickups",
+                value = false
+            };
+            _buttonContainer.Add(pickupFoldout);
+
+            foreach (Pickup p in _gameManager.GameDatabase.GetAllPickups())
+            {
+                Button b = new() { text = $"Spawn {p.name}" };
+                b.clickable.clicked += () =>
+                {
+                    Pickup instance = Instantiate(p);
+                    BattleManager.Instance.GetComponent<PickupManager>().SpawnPickup(instance, Vector3.zero);
+                };
+                pickupFoldout.Add(b);
+            }
         }
 
         void SpawnEnemy(Enemy e)

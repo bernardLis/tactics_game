@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Lis.Battle.Pickup;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -25,10 +26,22 @@ namespace Lis.Core
             return _colors.FirstOrDefault(c => c.name == n);
         }
 
+        [Header("Pickups")]
+        [SerializeField]
+        private Pickup[] _pickups;
+
+        public Pickup GetPickupByName(string n)
+        {
+            return _pickups.FirstOrDefault(p => p.name == n);
+        }
+
+        public List<Pickup> GetAllPickups()
+        {
+            return _pickups.ToList();
+        }
+
         [Header("Icons")]
         public Sprite VaseIcon;
-
-        public Sprite FriendBallIcon;
 
         public Sprite[] LevelUpAnimationSprites;
         public Sprite[] TroopsElementAnimationSprites;

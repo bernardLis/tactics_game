@@ -37,7 +37,7 @@ namespace Lis.Units.Hero.Rewards
 
         protected override void SetPrice()
         {
-            Price = Ability.Levels[Level].Price;
+            Price = Ability.Levels[Ability.Level].Price;
         }
 
         Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)

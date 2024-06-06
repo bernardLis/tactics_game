@@ -14,25 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
   SampleBattle: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
-  QuestablePickups:
-  - Pickup: {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
-    AmountRange: {x: 50, y: 90}
-  - Pickup: {fileID: 11400000, guid: 961a23dfd093d5b47adfe74b873fbc54, type: 2}
-    AmountRange: {x: 30, y: 50}
-  - Pickup: {fileID: 11400000, guid: 48fd0378ea7b20248a3de122146fccb2, type: 2}
-    AmountRange: {x: 10, y: 30}
-  - Pickup: {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
-    AmountRange: {x: 9, y: 15}
-  - Pickup: {fileID: 11400000, guid: e4968ff107bfff3428c3f9674cbc81a3, type: 2}
-    AmountRange: {x: 50, y: 100}
-  - Pickup: {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
-    AmountRange: {x: 2, y: 5}
-  - Pickup: {fileID: 11400000, guid: 73d49afde470c06499a6d8fb027d7551, type: 2}
-    AmountRange: {x: 2, y: 5}
-  - Pickup: {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
-    AmountRange: {x: 2, y: 5}
-  - Pickup: {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
-    AmountRange: {x: 2, y: 5}
   LitShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   ParticlesUnlitShader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4, type: 3}
@@ -54,8 +35,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69bb3a54926a73d48a303232663ce2a9, type: 2}
   - {fileID: 11400000, guid: edac0f08ee9df8f44a0be73bea4c9721, type: 2}
   - {fileID: 11400000, guid: b2954c32997816242aaff6f3471fdec1, type: 2}
+  _pickups:
+  - {fileID: 11400000, guid: 447ad5905bd5f5a4ab939a6c3a0ea69b, type: 2}
+  - {fileID: 11400000, guid: e4968ff107bfff3428c3f9674cbc81a3, type: 2}
+  - {fileID: 11400000, guid: 304dfcfbf512b2a468bac675a65df089, type: 2}
+  - {fileID: 11400000, guid: 73d49afde470c06499a6d8fb027d7551, type: 2}
+  - {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
+  - {fileID: 11400000, guid: 5da4b4e336bd9904b989c88a28bd7c1f, type: 2}
+  - {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
   VaseIcon: {fileID: 21300000, guid: e47c789fa5d00f340b4d6840069bb264, type: 3}
-  FriendBallIcon: {fileID: 21300000, guid: bf55c32f120645b48b4f011180e3d57b, type: 3}
   LevelUpAnimationSprites:
   - {fileID: 1314029660, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}
   - {fileID: -1217882384, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}

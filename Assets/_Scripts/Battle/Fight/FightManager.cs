@@ -47,6 +47,7 @@ namespace Lis.Battle.Fight
 
         IEnumerator _fightCoroutine;
 
+        Label _fightInfoLabel;
         public bool IsTesting;
 
         public void Initialize(Battle battle)
@@ -61,6 +62,10 @@ namespace Lis.Battle.Fight
             StartCoroutine(SpawnAllPlayerUnits());
 
             FightNumber = 0;
+
+            _fightInfoLabel = new();
+            BattleManager.Instance.Root.Q<VisualElement>("fightInfo").Add(_fightInfoLabel);
+            UpdateFightInfoText();
 
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
@@ -88,7 +93,6 @@ namespace Lis.Battle.Fight
         {
             if (CurrentFight.ChosenOption == null) return;
 
-            FightNumber++;
             _fightCoroutine = StartFightCoroutine();
             StartCoroutine(_fightCoroutine);
         }
@@ -202,11 +206,14 @@ namespace Lis.Battle.Fight
 
         void EndFight()
         {
+            FightNumber++;
+
             CurrentFight.GiveReward();
             LastFight = CurrentFight;
 
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
+            UpdateFightInfoText();
 
             IsFightActive = false;
 
@@ -238,6 +245,11 @@ namespace Lis.Battle.Fight
             return EnemyUnits.Count == 0
                 ? Vector3.zero
                 : EnemyUnits[Random.Range(0, EnemyUnits.Count)].transform.position;
+        }
+
+        void UpdateFightInfoText()
+        {
+            _fightInfoLabel.text = $"Fight {FightNumber} | Hero Points: {_heroController.Hero.GetHeroPoints()}";
         }
     }
 }

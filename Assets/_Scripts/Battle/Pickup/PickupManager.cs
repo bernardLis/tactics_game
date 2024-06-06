@@ -88,8 +88,8 @@ namespace Lis.Battle.Pickup
 
         public void SpawnPickup(Vector3 position)
         {
-            // 2% chance of spawning hammer
-            // 2% chance of spawning horseshoe
+            // 1% chance of spawning hammer
+            // 1% chance of spawning horseshoe
             // ...
             // rest% chance of spawning coin
             int random = Random.Range(0, 100);
@@ -113,7 +113,7 @@ namespace Lis.Battle.Pickup
             SpawnPickup(p, position);
         }
 
-        void SpawnPickup(Pickup p, Vector3 pos)
+        public void SpawnPickup(Pickup p, Vector3 pos)
         {
             PickupController pickupController = GetObjectFromPool();
             pickupController.Initialize(p, pos);
