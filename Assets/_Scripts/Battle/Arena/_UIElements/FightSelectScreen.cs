@@ -50,7 +50,7 @@ namespace Lis.Battle.Arena
         void AddRandomButton()
         {
             if (_fightManager.CurrentFight.ChosenOption != null) return;
-            _chooseRandomButton = new("Choose Random +10gold", USSCommonButton, ChooseRandom);
+            _chooseRandomButton = new($"Random +{FightManager.FightNumber * 10} gold", USSCommonButton, ChooseRandom);
             UtilityContainer.Add(_chooseRandomButton);
         }
 

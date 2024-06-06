@@ -33,13 +33,11 @@ namespace Lis
 
         void OnTriggerExit(Collider other)
         {
-            Debug.Log("on trigger exit");
             // if hero leaves, fight is active and hero is in the arena - make collider not trigger (hero can't come back)
             if (FightManager.IsFightActive == false) return;
             if (other.TryGetComponent(out HeroController heroController))
                 if (_arenaManager.IsPositionInArena(heroController.transform.position))
                 {
-                    Debug.Log("hero in arena");
                     heroController.StartAllAbilities();
                     heroController.Hero.Speed.ApplyBonusValueChange(-3);
                     _collider.isTrigger = false;

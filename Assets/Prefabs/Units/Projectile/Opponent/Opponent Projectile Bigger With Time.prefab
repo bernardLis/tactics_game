@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4078504078351200485
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 970454286739006270}
+    m_Modifications:
+    - target: {fileID: 854279752192223488, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_Name
+      value: Earth Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+--- !u!4 &5904459750437897224 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7595631957685023981, guid: 648bc6d097c77ad47a3892c7b18cb6a2, type: 3}
+  m_PrefabInstance: {fileID: 4078504078351200485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4155805588102007498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,8 +193,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -7985646470356588355, guid: f191a133bb2ba6840839372daa331f90, type: 3}
     - {fileID: 4406359926971608115, guid: f191a133bb2ba6840839372daa331f90, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2783723097876691588, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3808879947614923252, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5904459750437897224}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3598480509978026446, guid: f191a133bb2ba6840839372daa331f90, type: 3}
       insertIndex: -1
@@ -160,6 +226,11 @@ MonoBehaviour:
   Gfx: {fileID: 5664480323348088273}
   Explosion: {fileID: 9082832557383751629}
   Speed: 4
+--- !u!4 &970454286739006270 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3808879947614923252, guid: f191a133bb2ba6840839372daa331f90, type: 3}
+  m_PrefabInstance: {fileID: 4155805588102007498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5664480323348088273 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8588406263794962203, guid: f191a133bb2ba6840839372daa331f90, type: 3}

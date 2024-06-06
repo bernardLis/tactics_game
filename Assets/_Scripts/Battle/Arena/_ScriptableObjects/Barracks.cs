@@ -20,7 +20,7 @@ namespace Lis.Battle.Arena
 
         public int GetPeasantsPerFight()
         {
-            return Level + 2;
+            return Level + 3;
         }
 
         public int GetUpgradePrice()

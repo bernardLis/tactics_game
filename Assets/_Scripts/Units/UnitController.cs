@@ -210,7 +210,7 @@ namespace Lis.Units
             StopUnit();
             AddToLog("Fight ended!");
             if (IsDead) yield break;
-            Unit.CurrentHealth.SetValue(Unit.MaxHealth.GetValue());
+            GetHealed(100);
             GoBackToLocker();
         }
 

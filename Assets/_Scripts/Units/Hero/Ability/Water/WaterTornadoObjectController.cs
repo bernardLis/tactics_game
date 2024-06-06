@@ -60,6 +60,18 @@ namespace Lis.Units.Hero.Ability
             transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
         }
 
+        public override void DisableSelf()
+        {
+            if (AudioSource != null)
+            {
+                AudioSource.Stop();
+                AudioSource.transform.parent = AudioManager.transform;
+                AudioSource = null;
+            }
+
+            base.DisableSelf();
+        }
+
         protected override void UnpassableHit()
         {
             _dir *= -1;

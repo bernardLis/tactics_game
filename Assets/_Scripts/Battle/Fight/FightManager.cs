@@ -180,7 +180,7 @@ namespace Lis.Battle.Fight
             PlayerUnits.Remove(be);
             OnPlayerUnitDeath?.Invoke(be);
 
-            if (IsFightActive && PlayerUnits.Count == 0)
+            if (IsTesting && IsFightActive && PlayerUnits.Count == 0)
                 DebugEndFight(); // HERE: testing
         }
 

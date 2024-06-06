@@ -12,7 +12,7 @@ namespace Lis.Battle.Pickup
 
         public override void Initialize()
         {
-            Amount = Random.Range(2, 8) * (FightManager.FightNumber + 1);
+            Amount = Random.Range(5, 8) * (FightManager.FightNumber + 1);
             Amount += Mathf.RoundToInt(Amount
                                        * GameManager.Instance.UpgradeBoard.GetUpgradeByName("Gold Bonus").GetValue()
                                        * 0.01f);
