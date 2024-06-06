@@ -22,7 +22,7 @@ MonoBehaviour:
   Cooldown: 3
   IsArmorPiercing: 1
   Sound: {fileID: 0}
-  DamageDealt: 35
+  DamageDealt: 110
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
   Amount: 2

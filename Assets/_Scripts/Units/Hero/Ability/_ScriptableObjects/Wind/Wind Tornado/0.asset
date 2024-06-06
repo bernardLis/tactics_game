@@ -20,9 +20,9 @@ MonoBehaviour:
   Range: 0
   GlobalCooldown: 3
   Cooldown: 8
-  IsArmorPiercing: 0
+  IsArmorPiercing: 1
   Sound: {fileID: 0}
-  DamageDealt: 0
+  DamageDealt: 683
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
   Amount: 1

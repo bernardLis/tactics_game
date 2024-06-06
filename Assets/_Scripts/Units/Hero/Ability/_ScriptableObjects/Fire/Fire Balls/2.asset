@@ -16,11 +16,11 @@ MonoBehaviour:
   Icon: {fileID: 0}
   Description: 
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
-  Damage: 30
+  Damage: 50
   Range: 0
   GlobalCooldown: 3
-  Cooldown: 3
-  IsArmorPiercing: 0
+  Cooldown: 5
+  IsArmorPiercing: 1
   Sound: {fileID: 0}
   DamageDealt: 0
   AttackControllerPrefab: {fileID: 0}

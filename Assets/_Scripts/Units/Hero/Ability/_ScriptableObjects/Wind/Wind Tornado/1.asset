@@ -19,13 +19,13 @@ MonoBehaviour:
   Damage: 20
   Range: 0
   GlobalCooldown: 3
-  Cooldown: 8
-  IsArmorPiercing: 0
+  Cooldown: 6
+  IsArmorPiercing: 1
   Sound: {fileID: 0}
-  DamageDealt: 0
+  DamageDealt: 116
   AttackControllerPrefab: {fileID: 0}
   AttackController: {fileID: 0}
-  Amount: 2
+  Amount: 1
   Duration: 3
   Scale: 1
   Price: 200

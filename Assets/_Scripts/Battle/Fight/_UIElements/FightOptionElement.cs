@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Battle.Fight
@@ -63,7 +64,9 @@ namespace Lis.Battle.Fight
                 container.Add(count);
 
                 Unit unit = _gameManager.UnitDatabase.GetUnitById(item.Key);
-                UnitIcon icon = new(unit);
+                Unit instance = ScriptableObject.Instantiate(unit);
+                instance.InitializeBattle(1);
+                UnitIcon icon = new(instance);
                 container.Add(icon);
             }
 

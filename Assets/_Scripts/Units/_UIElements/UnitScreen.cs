@@ -1,6 +1,7 @@
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Attack;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Units
@@ -120,6 +121,11 @@ namespace Lis.Units
 
         protected virtual void AddOtherBasicInfo()
         {
+            Debug.Log("UnitScreen.AddOtherBasicInfo()");
+            Debug.Log($"Unit {Unit}");
+            Debug.Log($"Unit.Experience {Unit.Experience}");
+            Debug.Log($"Unit.ExpForNextLevel {Unit.ExpForNextLevel}");
+
             Label exp = new($"Exp: {Unit.Experience.Value}/{Unit.ExpForNextLevel.Value}");
             OtherContainer.Add(exp);
 
