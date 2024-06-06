@@ -10,7 +10,6 @@ using Lis.Units.Creature;
 using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
-using Lis.Units.Pawn;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -134,25 +133,32 @@ namespace Lis.Core
             AddPickupButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
+            AddTimeScaleButtons();
         }
 
         void AddPawnButtons()
         {
             Foldout foldout = new()
             {
-                text = "Pawns",
+                text = "Player Units",
                 value = false
             };
             _buttonContainer.Add(foldout);
+            List<Unit> allUnits = new(_unitDatabase.GetAllPawns());
+            allUnits.Add(_unitDatabase.Peasant);
 
-            Button b = new() { text = "Add Random Pawn To Army" };
-            b.clickable.clicked += () =>
+            foreach (Unit u in allUnits)
             {
-                Pawn p = Instantiate(_unitDatabase.GetRandomPawn());
-                p.InitializeBattle(0);
-                HeroManager.Instance.Hero.AddArmy(p);
-            };
-            foldout.Add(b);
+                Button b = new() { text = $"Spawn {u.name}" };
+                b.clickable.clicked += () =>
+                {
+                    Unit p = Instantiate(u);
+                    p.InitializeBattle(0);
+                    HeroManager.Instance.Hero.AddArmy(p);
+                    FightManager.Instance.SpawnPlayerUnit(p);
+                };
+                foldout.Add(b);
+            }
         }
 
         void AddCreatureButtons()
@@ -412,6 +418,21 @@ namespace Lis.Core
                     BattleManager.Instance.GetComponent<PickupManager>().SpawnPickup(instance, Vector3.zero);
                 };
                 pickupFoldout.Add(b);
+            }
+        }
+
+        void AddTimeScaleButtons()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            _buttonContainer.Add(container);
+
+            for (int i = 0; i < 5; i++)
+            {
+                Button b = new() { text = $"{i + 1}x" };
+                int j = i;
+                b.clickable.clicked += () => { Time.timeScale = j + 1; };
+                container.Add(b);
             }
         }
 

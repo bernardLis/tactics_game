@@ -18,6 +18,7 @@ namespace Lis.Battle.Pickup
         [SerializeField] Transform _gfx;
 
         SphereCollider _sphereCollider;
+        Rigidbody _rigidbody;
         HeroController _heroController;
         Hero _hero;
 
@@ -36,6 +37,7 @@ namespace Lis.Battle.Pickup
             _hero = _heroController.Hero;
 
             _sphereCollider = GetComponent<SphereCollider>();
+            _rigidbody = GetComponent<Rigidbody>();
 
             _hero.Pull.OnValueChanged += SetPickUpRadius;
         }
@@ -49,8 +51,14 @@ namespace Lis.Battle.Pickup
             Pickup.Initialize();
 
             Transform t = transform;
-            position.y = 0;
+            if (Pickup is not ExperienceStone)
+            {
+                _rigidbody.isKinematic = true;
+                position.y = 0;
+            }
+
             t.position = position;
+            t.rotation = Quaternion.identity;
             gameObject.SetActive(true);
 
             Instantiate(pickup.Gfx, _gfx);
@@ -63,11 +71,16 @@ namespace Lis.Battle.Pickup
             SetPickUpRadius(_hero.Pull.GetValue());
             _sphereCollider.enabled = true;
 
-            if (Pickup is ExperienceStone) return;
-            t.DORotate(new(0, 360, 0), 15f, RotateMode.FastBeyond360)
+            if (Pickup is ExperienceStone)
+            {
+                _rigidbody.isKinematic = false;
+                return;
+            }
+
+            _gfx.DORotate(new(0, 360, 0), 15f, RotateMode.FastBeyond360)
                 .SetLoops(-1).SetEase(Ease.InOutSine);
 
-            t.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
+            _gfx.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
         }
 
         void OnTriggerEnter(Collider col)

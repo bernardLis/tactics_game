@@ -83,7 +83,6 @@ namespace Lis.Core
             return _allPawns[Random.Range(0, _allPawns.Length)];
         }
 
-
         public Pawn GetPawnByNature(Nature n)
         {
             return _allPawns.FirstOrDefault(x => x.Nature == n);
