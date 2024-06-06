@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Lis.Battle.Fight;
 using Lis.Core.Utilities;
+using Lis.Units;
+using Lis.Units.Enemy;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -47,24 +49,26 @@ namespace Lis.Battle.Pickup
         public void SpawnBunchExpStones()
         {
             for (int i = 0; i < 50; i++)
-                SpawnExpStone(new(Random.Range(-10, 10), 10, Random.Range(-10, 10)));
+                SpawnExpStone(default, new(Random.Range(-10, 10), 10, Random.Range(-10, 10)));
         }
 
-        public void SpawnExpStone(Vector3 position)
+        public void SpawnExpStone(Unit unit, Vector3 position)
         {
-            ExperienceStone stone = ChooseExpStone();
+            int scarinessRank = 0;
+            if (unit is Enemy enemy) scarinessRank = enemy.ScarinessRank;
+            ExperienceStone stone = ChooseExpStone(scarinessRank);
             if (stone == null) return;
             PickupController pickupController = GetObjectFromPool();
             pickupController.Initialize(stone, position);
             pickupController.OnCollected += PickupCollected;
         }
 
-        ExperienceStone ChooseExpStone()
+        ExperienceStone ChooseExpStone(int rank)
         {
             int v = Random.Range(0, 101);
             List<ExperienceStone> possibleOrbs = new();
             foreach (ExperienceStone orb in _expOrbs)
-                if (v <= orb.OrbChance && 1 >= orb.MinDifficulty) // TODO: fight difficulty to spawn better orbs later
+                if (v <= orb.OrbChance && rank >= orb.MinScariness)
                     possibleOrbs.Add(orb);
 
             // return the exp orb with the lowest chance
@@ -103,7 +107,7 @@ namespace Lis.Battle.Pickup
             //     p = Instantiate(_skull);
             else if (random == 4)
                 p = Instantiate(_dice);
-            else if (random == 5)
+            else if (random == 5 && FightManager.FightNumber > 3)
                 p = Instantiate(_mushroom);
 
             SpawnPickup(p, position);

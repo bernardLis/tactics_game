@@ -29,7 +29,6 @@ namespace Lis
         {
             _collider.isTrigger = true;
             _effect.SetActive(false);
-
         }
 
         void OnTriggerExit(Collider other)

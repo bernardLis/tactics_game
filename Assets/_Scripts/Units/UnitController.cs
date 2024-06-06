@@ -459,7 +459,7 @@ namespace Lis.Units
         void ResolveLoot()
         {
             if (Team == 0) return;
-            _pickupManager.SpawnExpStone(transform.position);
+            _pickupManager.SpawnExpStone(Unit, transform.position);
         }
 
         void Revive()
