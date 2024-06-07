@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Battle.Arena
@@ -26,6 +27,11 @@ namespace Lis.Battle.Arena
         public int GetUpgradePrice()
         {
             return (Level + 1) * 200;
+        }
+
+        public BarracksNatureUpgrade GetNatureUpgrade(Nature nature)
+        {
+            return UnlockableNatures.Find(natureUpgrade => natureUpgrade.Nature == nature);
         }
     }
 }

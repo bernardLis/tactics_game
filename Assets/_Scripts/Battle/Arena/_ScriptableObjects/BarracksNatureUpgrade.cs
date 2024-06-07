@@ -13,6 +13,8 @@ namespace Lis.Battle.Arena
         public int CurrentLevel;
         public string Description;
 
+        public event Action<Nature, int> OnUpgrade;
+
         public int GetUpgradePrice()
         {
             return Levels[CurrentLevel + 1].Price;
@@ -21,6 +23,7 @@ namespace Lis.Battle.Arena
         public void Upgrade()
         {
             CurrentLevel++;
+            OnUpgrade?.Invoke(Nature, CurrentLevel);
         }
 
         public bool IsMaxLevel()

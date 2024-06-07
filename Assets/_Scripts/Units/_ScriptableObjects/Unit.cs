@@ -25,7 +25,6 @@ namespace Lis.Units
         public Sound HitSound;
         public Sound LevelUpSound;
 
-
         [HideInInspector] public int DamageTaken;
         public event Action<int> OnDamageTaken;
 

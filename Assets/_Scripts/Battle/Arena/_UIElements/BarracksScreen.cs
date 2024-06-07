@@ -10,6 +10,7 @@ namespace Lis.Battle.Arena
     public class BarracksScreen : FullScreenElement
     {
         Barracks _barracks;
+        BarracksController _barracksController;
 
         Label _levelLabel;
         Label _peasantsLabel;
@@ -21,9 +22,11 @@ namespace Lis.Battle.Arena
         VisualElement _topContainer;
         VisualElement _bottomContainer;
 
-        public void InitializeBuilding(Barracks b)
+        public void InitializeBuilding(Barracks b, BarracksController bc)
         {
             _barracks = b;
+            _barracksController = bc;
+
             SetTitle("Barracks");
             CreateContainers();
 
@@ -124,11 +127,7 @@ namespace Lis.Battle.Arena
             }
 
             GameManager.ChangeGoldValue(-100);
-            Unit u = ScriptableObject.Instantiate(GameManager.UnitDatabase.Peasant);
-            u.InitializeBattle(0);
-            HeroManager.Instance.Hero.Army.Add(u); // without update to spawn at position
-            UnitController uc = FightManager.Instance.SpawnPlayerUnit(u, transform.position);
-            uc.GoBackToLocker();
+            _barracksController.SpawnPeasant();
         }
 
         void AddUnlockNaturesButtons()

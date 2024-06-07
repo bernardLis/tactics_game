@@ -3,6 +3,7 @@ using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
+using Lis.Units.Pawn;
 using UnityEngine;
 
 namespace Lis.Battle.Arena
@@ -25,6 +26,9 @@ namespace Lis.Battle.Arena
             _barracks = BattleManager.Battle.Barracks;
             Building = _barracks;
 
+            foreach (BarracksNatureUpgrade bnu in _barracks.UnlockableNatures)
+                bnu.OnUpgrade += SpawnPawn;
+
             Initialize();
         }
 
@@ -40,21 +44,50 @@ namespace Lis.Battle.Arena
 
             if (!Building.IsUnlocked) return;
             AllowInteraction();
-            StartCoroutine(SpawnPeasantsCoroutine());
+            StartCoroutine(SpawnFightEndArmy());
         }
 
-        IEnumerator SpawnPeasantsCoroutine()
+        IEnumerator SpawnFightEndArmy()
         {
             for (int i = 0; i < _barracks.GetPeasantsPerFight(); i++)
             {
-                Unit u = Instantiate(_gameManager.UnitDatabase.Peasant);
-                u.InitializeBattle(0);
-                _heroManager.Hero.Army.Add(u); // without update to spawn at position
-                UnitController uc = FightManager.SpawnPlayerUnit(u, transform.position);
-                uc.GoBackToLocker();
+                SpawnPeasant();
                 yield return new WaitForSeconds(1);
             }
+
+            // for every upgrade in barracks unlockable natures spawn a pawn with correct nature and level
+            foreach (BarracksNatureUpgrade natureUpgrade in _barracks.UnlockableNatures)
+            {
+                if (natureUpgrade.CurrentLevel == 0) continue;
+                for (int i = 1; i <= natureUpgrade.CurrentLevel; i++)
+                {
+                    SpawnPawn(natureUpgrade.Nature, i);
+                    yield return new WaitForSeconds(1);
+                }
+            }
         }
+
+        public void SpawnPeasant()
+        {
+            Unit u = Instantiate(_gameManager.UnitDatabase.Peasant);
+            u.InitializeBattle(0);
+            _heroManager.Hero.AddArmy(u);
+            UnitController uc = FightManager.SpawnPlayerUnit(u, transform.position);
+            uc.GoBackToLocker();
+        }
+
+        void SpawnPawn(Nature n, int upgrade)
+        {
+            upgrade--; // coz pawn upgrade start from 0 and building at level 0 is locked
+
+            Pawn p = Instantiate(_gameManager.UnitDatabase.GetPawnByNature(n));
+            p.InitializeBattle(0);
+            p.SetUpgrade(upgrade);
+            _heroManager.Hero.AddArmy(p);
+            UnitController uc = FightManager.SpawnPlayerUnit(p, transform.position);
+            uc.GoBackToLocker();
+        }
+
 
         protected override void OnFightStarted()
         {
@@ -71,7 +104,7 @@ namespace Lis.Battle.Arena
             }
 
             BarracksScreen screen = new();
-            screen.InitializeBuilding(_barracks);
+            screen.InitializeBuilding(_barracks, this);
 
             return true;
         }

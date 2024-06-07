@@ -18,7 +18,6 @@ namespace Lis.Battle.Fight
         {
             Options.Clear();
             int optionCount = 3;
-            Debug.Log($"points {points} fightNumber {fightNumber}");
 
             for (int i = 0; i < optionCount; i++)
             {

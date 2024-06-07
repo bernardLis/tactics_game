@@ -282,13 +282,9 @@ namespace Lis.Core
             };
             _otherFoldout.Add(spawnVasesButton);
 
-            Button showBarracksScreen = new() { text = "Show Barracks Screen" };
-            showBarracksScreen.clickable.clicked += () =>
-            {
-                BarracksScreen bs = new();
-                bs.InitializeBuilding(BattleManager.Instance.Battle.Barracks);
-            };
-            _otherFoldout.Add(showBarracksScreen);
+            Button unlockBarracks = new() { text = "Unlock Barracks" };
+            unlockBarracks.clickable.clicked += () => { BattleManager.Instance.Battle.Barracks.Unlock(); };
+            _otherFoldout.Add(unlockBarracks);
         }
 
         void AddHeroButtons()
