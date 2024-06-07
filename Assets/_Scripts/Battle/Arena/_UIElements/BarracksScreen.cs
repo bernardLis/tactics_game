@@ -133,9 +133,9 @@ namespace Lis.Battle.Arena
 
         void AddUnlockNaturesButtons()
         {
-            foreach (UnlockableNature n in _barracks.UnlockableNatures)
+            foreach (BarracksNatureUpgrade n in _barracks.UnlockableNatures)
             {
-                UnlockableNatureElement b = new(n);
+                BarracksNatureUpgradeElement b = new(n);
                 _bottomContainer.Add(b);
             }
         }

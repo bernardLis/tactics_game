@@ -10,10 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41659c8916154ce88ecf56dc1df42720, type: 3}
-  m_Name: Earth
+  m_Name: Fire
   m_EditorClassIdentifier: 
-  Id: d7e771f0-5d09-437b-aea3-250c0a9e7930
-  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
-  IsUnlocked: 0
-  Price: 100
-  Description: Peasants can become tough bois.
+  Id: 1be31d10-df7a-4124-b938-fdfbb3d2b994
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  Levels:
+  - Level: 0
+    Price: 0
+  - Level: 1
+    Price: 500
+  - Level: 2
+    Price: 1000
+  - Level: 3
+    Price: 2000
+  CurrentLevel: 0
+  Description: Peasants can become strong boizzz!

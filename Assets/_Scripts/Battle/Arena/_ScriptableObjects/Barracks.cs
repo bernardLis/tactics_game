@@ -6,15 +6,15 @@ namespace Lis.Battle.Arena
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Barracks")]
     public class Barracks : Building
     {
-        public List<UnlockableNature> UnlockableNatures;
+        public List<BarracksNatureUpgrade> UnlockableNatures;
 
         public override void Initialize()
         {
             base.Initialize();
-            foreach (UnlockableNature unlockableNature in UnlockableNatures)
+            foreach (BarracksNatureUpgrade unlockableNature in UnlockableNatures)
             {
                 // HERE: save & load
-                unlockableNature.IsUnlocked = false;
+                unlockableNature.CurrentLevel = 0;
             }
         }
 

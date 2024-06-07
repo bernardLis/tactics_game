@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: c377b9e8-5497-4276-bb9c-9db1cd8f0954
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
-  IsUnlocked: 0
-  Price: 100
+  Levels:
+  - Level: 0
+    Price: 0
+  - Level: 1
+    Price: 500
+  - Level: 2
+    Price: 1000
+  - Level: 3
+    Price: 2000
+  CurrentLevel: 0
   Description: Shooty bois here.

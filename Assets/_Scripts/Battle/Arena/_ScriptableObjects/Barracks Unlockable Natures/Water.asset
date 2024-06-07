@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2cc6ecbd-dc5e-4650-970d-85826d738eb3
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
-  IsUnlocked: 0
-  Price: 100
+  Levels:
+  - Level: 0
+    Price: 0
+  - Level: 1
+    Price: 500
+  - Level: 2
+    Price: 1000
+  - Level: 3
+    Price: 2000
+  CurrentLevel: 0
   Description: If you need healers, that's what you should pick.

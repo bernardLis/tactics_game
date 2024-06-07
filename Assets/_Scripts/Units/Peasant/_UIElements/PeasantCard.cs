@@ -26,7 +26,7 @@ namespace Lis.Units.Peasant
             List<Nature> availableNatures = new();
             BattleManager.Instance.Battle.Barracks.UnlockableNatures.ForEach(un =>
             {
-                if (un.IsUnlocked) availableNatures.Add(un.Nature);
+                if (un.CurrentLevel > 0) availableNatures.Add(un.Nature);
             });
 
             foreach (Nature n in availableNatures)
