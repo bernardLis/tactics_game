@@ -247,11 +247,18 @@ namespace Lis.Units.Hero
 
         public int GetHeroPoints()
         {
-            int points = Level.Value * 100;
+            int points = Level.Value * 100; // TODO: balance, idk if levels are that valuable
             foreach (Unit u in Army)
+            {
+                if (u.CurrentHealth.Value <= 0) continue;
                 points += u.Price;
+            }
+
             foreach (Ability.Ability a in Abilities)
                 points += a.GetCurrentLevel().Price;
+
+            points += GameManager.Instance.Gold;
+
             // TODO: price hero tablets
             return points;
         }
