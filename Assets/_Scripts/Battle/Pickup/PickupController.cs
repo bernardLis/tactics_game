@@ -61,6 +61,9 @@ namespace Lis.Battle.Pickup
             t.rotation = Quaternion.identity;
             gameObject.SetActive(true);
 
+            _gfx.localPosition = Vector3.zero;
+            _gfx.localRotation = Quaternion.identity;
+
             Instantiate(pickup.Gfx, _gfx);
 
             t.localScale = Vector3.zero;
@@ -104,6 +107,7 @@ namespace Lis.Battle.Pickup
 
             _sphereCollider.enabled = false;
             Transform t = transform;
+            _gfx.DOKill();
             t.DOKill();
 
             Pickup.HandleHeroBonuses(heroController.Hero);
