@@ -80,7 +80,6 @@ namespace Lis.Core
 
         public event Action<int> OnGoldChanged;
 
-        public event Action<string> OnLevelLoaded;
         public event Action OnNewSaveFileCreation;
         public event Action OnClearSaveData;
 
@@ -117,6 +116,7 @@ namespace Lis.Core
 
         public void StartGame()
         {
+            Gold = 0;
             CurrentBattle.Initialize();
             PlayerPrefs.SetInt(CurrentBattle.SelectedHero.Id, CurrentBattle.SelectedHero.TimesPicked + 1);
             LoadScene(Scenes.Battle);
@@ -137,7 +137,6 @@ namespace Lis.Core
             OpenFullScreens.Clear();
             Time.timeScale = 1f;
             _levelLoader.LoadLevel(level);
-            OnLevelLoaded?.Invoke(level);
         }
 
         /*************

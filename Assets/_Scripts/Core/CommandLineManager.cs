@@ -11,6 +11,7 @@ using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Lis.Core
@@ -55,7 +56,17 @@ namespace Lis.Core
 
             _fpsLabel = root.Q<Label>("fpsLabel");
 
+            TryAddingButtons(default, default);
+            SceneManager.sceneLoaded += TryAddingButtons;
+        }
+
+        private bool _buttonsAdded;
+
+        void TryAddingButtons(Scene scene, LoadSceneMode mode)
+        {
             if (BattleManager.Instance == null) return;
+            if (_buttonsAdded) return;
+            _buttonsAdded = true;
             BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += AddButtons;
         }
 

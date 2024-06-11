@@ -60,6 +60,7 @@ namespace Lis.Battle.Fight
 
             StartCoroutine(SpawnAllPlayerUnits());
 
+            IsFightActive = false;
             FightNumber = 0;
 
             _fightInfoLabel = new();

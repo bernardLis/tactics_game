@@ -16,7 +16,7 @@ namespace Lis.Battle
 
         private BattleManager _battleManager;
 
-        // AudioManager _audioManager;
+        private AudioManager _audioManager;
         private GameManager _gameManager;
 
         private LoadingScreen _loadingScreen;
@@ -27,12 +27,12 @@ namespace Lis.Battle
             _battleManager = BattleManager.Instance;
 
             // HERE: testing
-            // _audioManager = AudioManager.Instance;
-            // _audioManager.MuteAllButMusic();
+            _audioManager = AudioManager.Instance;
+            _audioManager.MuteAllButMusic();
 
-            // _loadingScreen = new();
+            _loadingScreen = new();
             _battleManager.Initialize();
-            // _battleManager.ResumeGame();
+            _battleManager.ResumeGame();
 
             StartCoroutine(DelayedStart());
         }
@@ -62,12 +62,11 @@ namespace Lis.Battle
             GetComponent<BattleUIManager>().Initialize();
             yield return new WaitForSeconds(0.1f);
 
-
             OnBattleInitialized?.Invoke();
 
-            // HERE: testing
-            // _loadingScreen.Hide();
-            // _audioManager.UnmuteAll();
+            // HERE: not testing
+            _loadingScreen.Hide();
+            _audioManager.UnmuteAll();
         }
 
         private void SetThemeStyleSheet()

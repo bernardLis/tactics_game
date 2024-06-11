@@ -17,6 +17,7 @@ namespace Lis
 
         public virtual void Initialize()
         {
+            IsUnlocked = false;
         }
 
         public void Upgrade()

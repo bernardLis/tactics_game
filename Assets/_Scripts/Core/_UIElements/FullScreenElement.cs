@@ -123,7 +123,7 @@ namespace Lis.Core
             UtilityContainer.Add(ContinueButton);
         }
 
-        protected void Hide()
+        public void Hide()
         {
             VisualElement tt = _root.Q<VisualElement>("tooltipContainer");
             if (tt != null) tt.style.display = DisplayStyle.None;

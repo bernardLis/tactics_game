@@ -32,7 +32,7 @@ namespace Lis.Battle
                 arena.Initialize();
 
             SetCurrentArena();
-            SetRandomHero();
+            //    SetRandomHero(); // HERE: not testing
             InstantiateBuildings();
         }
 
@@ -57,6 +57,7 @@ namespace Lis.Battle
 
             FightStarter = Instantiate(FightStarter);
             FightStarter.Initialize();
+            FightStarter.IsUnlocked = true;
 
             HeroLeveler = Instantiate(HeroLeveler);
             HeroLeveler.Initialize();
