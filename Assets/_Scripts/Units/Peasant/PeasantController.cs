@@ -39,7 +39,8 @@ namespace Lis.Units.Peasant
             Animator.gameObject.SetActive(false);
 
             HeroManager.Instance.Hero.Army.Add(p); // without update to spawn at position
-            FightManager.Instance.SpawnPlayerUnit(p, transform.position);
+            UnitController c = FightManager.SpawnPlayerUnit(p, transform.position);
+            c.GoBackToLocker();
 
             yield return new WaitForSeconds(2f);
             DestroySelf();

@@ -25,7 +25,7 @@ namespace Lis.Units
         protected GameManager GameManager;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
-        FightManager _fightManager;
+        protected FightManager FightManager;
         PickupManager _pickupManager;
         ArenaManager _arenaManager;
 
@@ -75,7 +75,7 @@ namespace Lis.Units
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             _pickupManager = BattleManager.GetComponent<PickupManager>();
-            _fightManager = BattleManager.GetComponent<FightManager>();
+            FightManager = BattleManager.GetComponent<FightManager>();
             _arenaManager = BattleManager.GetComponent<ArenaManager>();
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
@@ -106,8 +106,8 @@ namespace Lis.Units
             name = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
                    + "_" + Helpers.GetRandomNumber(4);
 
-            _fightManager.OnFightStarted += OnFightStarted;
-            _fightManager.OnFightEnded += OnFightEnded;
+            FightManager.OnFightStarted += OnFightStarted;
+            FightManager.OnFightEnded += OnFightEnded;
 
             EnableSelf();
             ResolveCollisionLayers(team);
@@ -523,8 +523,8 @@ namespace Lis.Units
 
         protected void DestroySelf()
         {
-            _fightManager.OnFightStarted -= OnFightStarted;
-            _fightManager.OnFightEnded -= OnFightEnded;
+            FightManager.OnFightStarted -= OnFightStarted;
+            FightManager.OnFightEnded -= OnFightEnded;
 
             StopAllCoroutines();
             DOTween.Kill(transform);

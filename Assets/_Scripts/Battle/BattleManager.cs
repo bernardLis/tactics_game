@@ -66,9 +66,13 @@ namespace Lis.Battle
             ResumeTimer();
         }
 
+        float _lastTimeScale = 1f;
+
         public void PauseGame()
         {
             Debug.Log($"Pausing the game...");
+            if (Time.timeScale != 0)
+                _lastTimeScale = Time.timeScale;
             Time.timeScale = 0f;
             PauseTimer();
             BlockBattleInput = true;
@@ -79,7 +83,7 @@ namespace Lis.Battle
         public void ResumeGame()
         {
             Debug.Log($"Resuming the game...");
-            Time.timeScale = 1f;
+            Time.timeScale = _lastTimeScale;
             ResumeTimer();
             BlockBattleInput = false;
 
