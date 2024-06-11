@@ -15,8 +15,6 @@ namespace Lis.Units.Creature
         public override void Initialize()
         {
             base.Initialize();
-            UnitIcon.PlayAnimationAlways();
-
             AddAbility();
         }
 

@@ -10,9 +10,6 @@ namespace Lis.Units.Creature
         // used only in troops element for now, maybe should have different name?
         public CreatureIcon(Creature creature, bool blockClick = false) : base(creature, blockClick)
         {
-            UnregisterCallback<MouseEnterEvent>(OnMouseEnter);
-            UnregisterCallback<MouseLeaveEvent>(OnMouseLeave);
-
             style.width = 50;
             style.height = 50;
 

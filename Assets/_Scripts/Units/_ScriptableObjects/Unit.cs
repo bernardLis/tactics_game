@@ -12,7 +12,6 @@ namespace Lis.Units
     {
         [Header("Unit")] public string UnitName;
         public Sprite Icon;
-        public Sprite[] IconAnimation;
         public int Price;
         public Nature Nature;
         public GameObject Prefab;

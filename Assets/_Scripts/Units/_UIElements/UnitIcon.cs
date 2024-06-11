@@ -11,8 +11,6 @@ namespace Lis.Units
         const string _ussIconContainer = _ussClassName + "icon-container";
         const string _ussFrame = _ussClassName + "frame";
 
-        readonly AnimationElement _animationElement;
-
         readonly Unit _unit;
         protected readonly VisualElement Frame;
 
@@ -32,11 +30,9 @@ namespace Lis.Units
             IconContainer = new();
             IconContainer.AddToClassList(_ussIconContainer);
 
-            if (unit.IconAnimation.Length > 0)
-                _animationElement = new(unit.IconAnimation, 50, true);
-            else
-                _animationElement = new(new[] { unit.Icon }, 50, true);
-            IconContainer.Add(_animationElement);
+            VisualElement icon = new();
+            icon.style.backgroundImage = new(unit.Icon);
+            IconContainer.Add(icon);
 
             Frame = new();
             Frame.AddToClassList(_ussFrame);
@@ -44,30 +40,8 @@ namespace Lis.Units
             Add(IconContainer);
             Add(Frame);
 
-            RegisterCallback<MouseEnterEvent>(OnMouseEnter);
-            RegisterCallback<MouseLeaveEvent>(OnMouseLeave);
-
             if (blockClick) return;
             RegisterCallback<ClickEvent>(OnClick);
-        }
-
-        public void PlayAnimationAlways()
-        {
-            _animationElement.PlayAnimation();
-            UnregisterCallback<MouseEnterEvent>(OnMouseEnter);
-            UnregisterCallback<MouseLeaveEvent>(OnMouseLeave);
-        }
-
-        protected void OnMouseEnter(MouseEnterEvent evt)
-        {
-            if (_isAnimationBlocked) return;
-            _animationElement.PlayAnimation();
-        }
-
-        protected void OnMouseLeave(MouseLeaveEvent evt)
-        {
-            if (_isAnimationBlocked) return;
-            _animationElement.PauseAnimation();
         }
 
         void OnClick(ClickEvent evt)
