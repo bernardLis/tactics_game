@@ -1,5 +1,6 @@
 using Lis.Core;
 using Lis.Core.Utilities;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Units.Hero.Tablets
@@ -13,11 +14,15 @@ namespace Lis.Units.Hero.Tablets
 
         readonly Tablet _tablet;
 
+        VisualElement _effectContainer;
+
         public TabletTooltipElement(Tablet tablet)
         {
-            var commonStyles = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            var commonStyles = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null) styleSheets.Add(commonStyles);
-            var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TabletTooltipElementStyles);
+            var ss = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.TabletTooltipElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
             AddToClassList(_ussMain);
@@ -26,6 +31,12 @@ namespace Lis.Units.Hero.Tablets
             _tablet = tablet;
 
             AddBasicInformation();
+
+            _effectContainer = new();
+            _effectContainer.style.flexDirection = FlexDirection.Row;
+            _effectContainer.style.justifyContent = Justify.Center;
+            Add(_effectContainer);
+
             AddCurrentEffect();
             AddNextEffect();
         }
@@ -50,41 +61,52 @@ namespace Lis.Units.Hero.Tablets
 
         void AddCurrentEffect()
         {
+            VisualElement container = new();
+
             Label title = new("Current Effect");
-            Add(title);
+            container.Add(title);
 
             Label bonusDmg = new($"{_tablet.Nature.NatureName} damage +{_tablet.Level.Value * 10}%");
-            Add(bonusDmg);
+            container.Add(bonusDmg);
 
-            Label bonusPrimaryStat = new($"{_tablet.PrimaryStat.StatType} +{_tablet.Level.Value * _tablet.PrimaryStat.Value}");
-            Add(bonusPrimaryStat);
+            Label bonusPrimaryStat =
+                new($"{_tablet.PrimaryStat.StatType} +{_tablet.Level.Value * _tablet.PrimaryStat.Value}");
+            container.Add(bonusPrimaryStat);
 
             if (_tablet.SecondaryStat.StatType != StatType.None)
             {
-                Label bonusSecondaryStat = new($"{_tablet.SecondaryStat.StatType} +{_tablet.Level.Value * _tablet.SecondaryStat.Value}");
-                Add(bonusSecondaryStat);
+                Label bonusSecondaryStat =
+                    new($"{_tablet.SecondaryStat.StatType} +{_tablet.Level.Value * _tablet.SecondaryStat.Value}");
+                container.Add(bonusSecondaryStat);
             }
 
-            Add(new HorizontalSpacerElement());
+            _effectContainer.Add(container);
         }
 
         void AddNextEffect()
         {
+            VisualElement container = new();
+            container.style.borderLeftWidth = 3;
+            container.style.borderLeftColor = Color.white;
+
             Label title = new("Next Effect");
-            Add(title);
+            container.Add(title);
 
             Label bonusDmg = new($"{_tablet.Nature.NatureName} damage +{(_tablet.Level.Value + 1) * 10}%");
-            Add(bonusDmg);
+            container.Add(bonusDmg);
 
-            Label bonusPrimaryStat = new($"{_tablet.PrimaryStat.StatType} +{(_tablet.Level.Value + 1) * _tablet.PrimaryStat.Value}");
-            Add(bonusPrimaryStat);
+            Label bonusPrimaryStat =
+                new($"{_tablet.PrimaryStat.StatType} +{(_tablet.Level.Value + 1) * _tablet.PrimaryStat.Value}");
+            container.Add(bonusPrimaryStat);
 
             if (_tablet.SecondaryStat.StatType != StatType.None)
             {
-                Label bonusSecondaryStat = new($"{_tablet.SecondaryStat.StatType} +{(_tablet.Level.Value + 1) * _tablet.SecondaryStat.Value}");
-                Add(bonusSecondaryStat);
+                Label bonusSecondaryStat =
+                    new($"{_tablet.SecondaryStat.StatType} +{(_tablet.Level.Value + 1) * _tablet.SecondaryStat.Value}");
+                container.Add(bonusSecondaryStat);
             }
 
+            _effectContainer.Add(container);
         }
     }
 }
