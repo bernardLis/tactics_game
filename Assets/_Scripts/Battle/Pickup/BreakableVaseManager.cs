@@ -12,21 +12,20 @@ namespace Lis.Battle.Pickup
 {
     public class BreakableVaseManager : PoolManager<BreakableVaseController>
     {
-        InputManager _inputManager;
-        ArenaManager _arenaManager;
-        FightManager _fightManager;
+        private const int _vasesPerSpawn = 5;
 
         [FormerlySerializedAs("_vasePrefab")] [SerializeField]
-        BreakableVaseController _vaseControllerPrefab;
+        private BreakableVaseController _vaseControllerPrefab;
 
-        const int _vasesPerSpawn = 5;
+        [SerializeField] private bool _debugSpawnVase;
+        private ArenaManager _arenaManager;
 
-        [SerializeField] bool _debugSpawnVase;
+        private Camera _cam;
+        private FightManager _fightManager;
+        private InputManager _inputManager;
+        private Mouse _mouse;
 
         public event Action<BreakableVaseController> OnVaseBroken;
-
-        Camera _cam;
-        Mouse _mouse;
 
         public void Initialize()
         {
@@ -52,7 +51,7 @@ namespace Lis.Battle.Pickup
             _fightManager.OnFightStarted -= SpawnVases;
         }
 
-        IEnumerator SpawnVasesCoroutine()
+        private IEnumerator SpawnVasesCoroutine()
         {
             if (this == null) yield break;
 
@@ -65,14 +64,14 @@ namespace Lis.Battle.Pickup
             }
         }
 
-        void SpawnVase(Vector3 position)
+        private void SpawnVase(Vector3 position)
         {
             BreakableVaseController vaseController = GetObjectFromPool();
             vaseController.Initialize(position);
             vaseController.OnBroken += VaseBroken;
         }
 
-        void VaseBroken(BreakableVaseController vaseController)
+        private void VaseBroken(BreakableVaseController vaseController)
         {
             OnVaseBroken?.Invoke(vaseController);
             vaseController.OnBroken -= VaseBroken;
@@ -85,7 +84,7 @@ namespace Lis.Battle.Pickup
                     vase.TriggerBreak();
         }
 
-        void DebugSpawnVase()
+        private void DebugSpawnVase()
         {
             if (!_debugSpawnVase) return;
 

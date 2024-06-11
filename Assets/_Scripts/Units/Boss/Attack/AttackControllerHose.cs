@@ -6,12 +6,11 @@ namespace Lis.Units.Boss
 {
     public class AttackControllerHose : AttackController
     {
-
         public override IEnumerator Execute()
         {
             int total = Random.Range(Attack.TotalShotCount.x, Attack.TotalShotCount.y);
             float waitTime = Attack.TotalAttackDuration / total;
-        
+
             for (int i = 0; i < total; i++)
             {
                 Vector3 spawnPos = transform.position;

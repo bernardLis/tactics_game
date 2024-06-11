@@ -1,3 +1,4 @@
+using System;
 using Lis.Units.Hero;
 using Lis.Upgrades;
 using UnityEngine;
@@ -6,18 +7,18 @@ namespace Lis.Core.Utilities
 {
     // https://www.youtube.com/watch?v=uD7y4T4PVk0\
 // C:\Users\blis\AppData\LocalLow\DefaultCompany\Tactics Bu
-    [System.Serializable]
+    [Serializable]
     public class SaveData
     {
         // global data
         public int Seed;
         public int Gold;
 
-        public HeroData PlayerHero = new();
+        public HeroData PlayerHero;
 
-        public UpgradeBoardData GlobalUpgradeBoard = new();
+        public UpgradeBoardData GlobalUpgradeBoard;
 
-        public GameStats GameStats = new();
+        public GameStats GameStats;
 
         public string ToJson()
         {

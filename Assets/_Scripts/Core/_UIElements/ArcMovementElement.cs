@@ -6,15 +6,14 @@ namespace Lis.Core
 {
     public class ArcMovementElement : VisualElement
     {
-        IVisualElementScheduledItem _arcMovement;
+        private IVisualElementScheduledItem _arcMovement;
+        private Vector3 _endPosition;
 
-        Vector3 _startPosition;
-        Vector3 _endPosition;
+        private float _percent;
 
-        float _percent;
+        private Vector3 _startPosition;
         public bool IsMoving;
 
-        public event Action OnArcMovementFinished;
         public ArcMovementElement(VisualElement child, Vector3 startPosition, Vector3 endPosition)
         {
             usageHints = UsageHints.DynamicTransform;
@@ -22,6 +21,8 @@ namespace Lis.Core
 
             if (child != null) InitializeMovement(child, startPosition, endPosition);
         }
+
+        public event Action OnArcMovementFinished;
 
         public void InitializeMovement(VisualElement child, Vector3 startPosition, Vector3 endPosition)
         {
@@ -40,7 +41,7 @@ namespace Lis.Core
             _arcMovement = schedule.Execute(ArcMovement).Every(25);
         }
 
-        void ArcMovement()
+        private void ArcMovement()
         {
             if (_percent >= 1)
                 ArcMovementFinished();
@@ -49,7 +50,7 @@ namespace Lis.Core
             float newX = _startPosition.x + (_endPosition.x - _startPosition.x) * 0.5f;
             float newY = _startPosition.y - 200f;
 
-            Vector3 p1 = new Vector3(newX, newY);
+            Vector3 p1 = new(newX, newY);
             Vector3 p2 = _endPosition;
 
             // https://www.reddit.com/r/Unity3D/comments/5pyi43/custom_dotween_easetypeeasefunction_based_on_four/
@@ -62,7 +63,7 @@ namespace Lis.Core
             _percent += 0.025f;
         }
 
-        void ArcMovementFinished()
+        private void ArcMovementFinished()
         {
             schedule.Execute(() => IsMoving = false).StartingIn(1000);
             _arcMovement.Pause();

@@ -8,19 +8,19 @@ namespace Lis.Battle
 {
     public class UnitCard : TooltipCard
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
-        const string _ussClassName = "unit-card__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussElement = _ussClassName + "element";
-
-        UnitIcon _unitIcon;
-        NatureElement _natureElement;
-        Label _nameLabel;
-        protected Label LevelLabel;
-        ResourceBarElement _healthBar;
+        private const string _ussClassName = "unit-card__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussElement = _ussClassName + "element";
 
         protected readonly Unit Unit;
+        private ResourceBarElement _healthBar;
+        private Label _nameLabel;
+        private NatureElement _natureElement;
+
+        private UnitIcon _unitIcon;
+        protected Label LevelLabel;
 
         public UnitCard(Unit unit)
         {
@@ -49,20 +49,20 @@ namespace Lis.Battle
             HandleDeath();
         }
 
-        void HandleUnitIcon()
+        private void HandleUnitIcon()
         {
             _unitIcon = new(Unit);
             TopLeftContainer.Add(_unitIcon);
         }
 
-        void HandleNature()
+        private void HandleNature()
         {
             _natureElement = new(Unit.Nature);
             _natureElement.AddToClassList(_ussElement);
             TopLeftContainer.Add(_natureElement);
         }
 
-        void HandleNameLabel()
+        private void HandleNameLabel()
         {
             _nameLabel = new(Unit.UnitName);
             _nameLabel.AddToClassList(USSName);
@@ -75,18 +75,18 @@ namespace Lis.Battle
             LevelLabel.text = $"Level {Unit.Level.Value}";
             TopRightContainer.Add(LevelLabel);
 
-            Unit.Level.OnValueChanged += (i) => { LevelLabel.text = $"Level {i}"; };
+            Unit.Level.OnValueChanged += i => { LevelLabel.text = $"Level {i}"; };
         }
 
-        void HandleHealthBar()
+        private void HandleHealthBar()
         {
             Color c = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
-            _healthBar = new(c, "health", currentFloatVar: Unit.CurrentHealth, totalStat: Unit.MaxHealth);
+            _healthBar = new(c, "health", Unit.CurrentHealth, totalStat: Unit.MaxHealth);
             TopRightContainer.Add(_healthBar);
         }
 
-        void HandleDeath()
+        private void HandleDeath()
         {
             if (Unit.Team != 0) return;
             if (Unit.CurrentHealth.Value > 0) return;
@@ -102,7 +102,7 @@ namespace Lis.Battle
             }
         }
 
-        void Revive()
+        private void Revive()
         {
             Unit.Revive();
         }

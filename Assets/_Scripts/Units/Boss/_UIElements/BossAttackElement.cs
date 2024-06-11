@@ -1,12 +1,14 @@
 using Lis.Core;
+using Lis.Units.Attack;
 using UnityEngine.UIElements;
 
 namespace Lis.Units.Boss
 {
     public class BossAttackElement : ElementWithTooltip
     {
-        readonly Units.Attack.AttackBoss _attack;
-        public BossAttackElement(Units.Attack.AttackBoss attack)
+        private readonly AttackBoss _attack;
+
+        public BossAttackElement(AttackBoss attack)
         {
             _attack = attack;
 
@@ -17,10 +19,9 @@ namespace Lis.Units.Boss
 
         protected override void DisplayTooltip()
         {
-            var tooltip = new Label(_attack.name);
+            Label tooltip = new Label(_attack.name);
             _tooltip = new(this, tooltip);
             base.DisplayTooltip();
         }
-
     }
 }

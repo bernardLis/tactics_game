@@ -71,71 +71,61 @@ namespace Lis.Core
         public void AbilityUnlocked(Ability a)
         {
             foreach (MyObjectData data in AbilitiesUnlocked)
-            {
                 if (data.Id == a.Id)
                 {
                     data.SetCount(data.Count + 1);
                     return;
                 }
-            }
 
-            AbilitiesUnlocked.Add(new MyObjectData { Id = a.Id, Count = 1 });
+            AbilitiesUnlocked.Add(new() { Id = a.Id, Count = 1 });
         }
 
         public void CreatureCaptured(Creature c)
         {
             foreach (MyObjectData data in CreaturesCaptured)
-            {
                 if (data.Id == c.Id)
                 {
                     data.SetCount(data.Count + 1);
                     return;
                 }
-            }
 
-            CreaturesCaptured.Add(new MyObjectData { Id = c.Id, Count = 1 });
+            CreaturesCaptured.Add(new() { Id = c.Id, Count = 1 });
         }
 
         public void TabletCollected(Tablet t)
         {
             foreach (MyObjectData data in TabletsCollected)
-            {
                 if (data.Id == t.Id)
                 {
                     data.SetCount(data.Count + 1);
                     return;
                 }
-            }
 
-            TabletsCollected.Add(new MyObjectData { Id = t.Id, Count = 1 });
+            TabletsCollected.Add(new() { Id = t.Id, Count = 1 });
         }
 
         public void AdvancedTabletCollected(TabletAdvanced t)
         {
             foreach (MyObjectData data in AdvancedTabletsCollected)
-            {
                 if (data.Id == t.Id)
                 {
                     data.SetCount(data.Count + 1);
                     return;
                 }
-            }
 
-            AdvancedTabletsCollected.Add(new MyObjectData { Id = t.Id, Count = 1 });
+            AdvancedTabletsCollected.Add(new() { Id = t.Id, Count = 1 });
         }
 
         public void BossKilled(Boss b)
         {
             foreach (MyObjectData data in BossesKilled)
-            {
                 if (data.Id == b.Id)
                 {
                     data.SetCount(data.Count + 1);
                     return;
                 }
-            }
 
-            BossesKilled.Add(new MyObjectData { Id = b.Id, Count = 1 });
+            BossesKilled.Add(new() { Id = b.Id, Count = 1 });
         }
 
         public void AddStats(Stats newStats)
@@ -168,20 +158,18 @@ namespace Lis.Core
             MergeTwoObjectLists(BossesKilled, newStats.BossesKilled);
         }
 
-        void MergeTwoObjectLists(List<MyObjectData> originalList, List<MyObjectData> newLis)
+        private void MergeTwoObjectLists(List<MyObjectData> originalList, List<MyObjectData> newLis)
         {
             foreach (MyObjectData b in newLis)
             {
                 bool found = false;
                 foreach (MyObjectData a in originalList)
-                {
                     if (a.Id == b.Id)
                     {
                         a.SetCount(a.Count + b.Count);
                         found = true;
                         break;
                     }
-                }
 
                 if (!found)
                     originalList.Add(b);

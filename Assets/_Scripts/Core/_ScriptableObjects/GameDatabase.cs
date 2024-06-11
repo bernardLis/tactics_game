@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lis.Battle.Pickup;
@@ -19,16 +20,26 @@ namespace Lis.Core
         public List<Shader> KeepShadersMaterials = new();
 
         [Header("Colors")]
-        [SerializeField] ColorVariable[] _colors;
+        [SerializeField]
+        private ColorVariable[] _colors;
+
+        [Header("Pickups")]
+        [SerializeField]
+        private Pickup[] _pickups;
+
+        [Header("Icons")]
+        public Sprite VaseIcon;
+
+        public Sprite[] LevelUpAnimationSprites;
+        public Sprite[] TroopsElementAnimationSprites;
+
+        [FormerlySerializedAs("CoinSprites")] [SerializeField]
+        private Sprite[] _coinSprites;
 
         public ColorVariable GetColorByName(string n)
         {
             return _colors.FirstOrDefault(c => c.name == n);
         }
-
-        [Header("Pickups")]
-        [SerializeField]
-        private Pickup[] _pickups;
 
         public Pickup GetPickupByName(string n)
         {
@@ -39,15 +50,6 @@ namespace Lis.Core
         {
             return _pickups.ToList();
         }
-
-        [Header("Icons")]
-        public Sprite VaseIcon;
-
-        public Sprite[] LevelUpAnimationSprites;
-        public Sprite[] TroopsElementAnimationSprites;
-
-        [FormerlySerializedAs("CoinSprites")] [SerializeField]
-        Sprite[] _coinSprites;
 
         public Sprite GetCoinSprite(int amount)
         {
@@ -95,7 +97,7 @@ namespace Lis.Core
         Neutral
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct StatBasics
     {
         public StatType StatType;

@@ -7,6 +7,5 @@ namespace Lis.Upgrades
     {
         public float ProductionDelay;
         public int ProductionLimit;
-
     }
 }

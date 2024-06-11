@@ -11,25 +11,24 @@ namespace Lis.Battle
 {
     public class HeroManager : Singleton<HeroManager>
     {
-        GameManager _gameManager;
-        AudioManager _audioManager;
-        FightManager _fightManager;
-
-        HeroElement _heroElement;
-
         public CinemachineVirtualCamera HeroFollowCamera;
 
-        [SerializeField] AudioListener _placeholderAudioListener;
+        [SerializeField] private AudioListener _placeholderAudioListener;
 
         [HideInInspector] public HeroController HeroController;
-        public Hero Hero { get; private set; }
 
-        [SerializeField] Sound _levelUpSound;
+        [SerializeField] private Sound _levelUpSound;
 
         public int RewardRerollsAvailable;
 
         // HERE: testing
-        readonly bool _turnOffAbility = false;
+        private readonly bool _turnOffAbility = false;
+        private AudioManager _audioManager;
+        private FightManager _fightManager;
+        private GameManager _gameManager;
+
+        private HeroElement _heroElement;
+        public Hero Hero { get; private set; }
 
         public event Action<Hero> OnHeroInitialized;
 
@@ -55,7 +54,7 @@ namespace Lis.Battle
             Hero.AddAbility(hero.StartingAbility);
         }
 
-        void InitializeHeroGameObject(Hero hero)
+        private void InitializeHeroGameObject(Hero hero)
         {
             Vector3 pos = Vector3.zero; //GetComponent<ArenaManager>().GetRandomPositionInPlayerLockerRoom();
             GameObject heroGameObject = Instantiate(hero.Prefab, pos, Quaternion.identity);
@@ -68,12 +67,12 @@ namespace Lis.Battle
             HeroController.InitializeUnit(hero, 0);
         }
 
-        void OnHeroLevelUp()
+        private void OnHeroLevelUp()
         {
             _audioManager.PlayUI(_levelUpSound);
         }
 
-        void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
+        private void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
         {
             Hero.AddAbility(tabletAdvanced.Ability);
             TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);

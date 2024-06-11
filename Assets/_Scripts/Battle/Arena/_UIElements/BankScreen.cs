@@ -4,15 +4,15 @@ namespace Lis.Battle.Arena
 {
     public class BankScreen : RewardScreen
     {
-        const string _ussInvestmentContainer = USSClassName + "investment-container";
-        const string _ussInvestmentTitle = USSClassName + "investment-title";
+        private const string _ussInvestmentContainer = USSClassName + "investment-container";
+        private const string _ussInvestmentTitle = USSClassName + "investment-title";
+        private VisualElement _activeInvestmentContainer;
 
-        Bank _bank;
+        private VisualElement _availableInvestmentContainer;
 
-        VisualElement _availableInvestmentContainer;
-        VisualElement _activeInvestmentContainer;
+        private Bank _bank;
 
-        VisualElement _investmentContainer;
+        private VisualElement _investmentContainer;
 
         public void InitializeBank(Bank bank)
         {
@@ -38,7 +38,7 @@ namespace Lis.Battle.Arena
             AddContinueButton();
         }
 
-        void AddAvailableInvestments()
+        private void AddAvailableInvestments()
         {
             Label title = new("Available Investments");
             title.AddToClassList(_ussInvestmentTitle);
@@ -52,7 +52,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        void AddActiveInvestments()
+        private void AddActiveInvestments()
         {
             Label title = new("Active Investments");
             title.AddToClassList(_ussInvestmentTitle);

@@ -8,8 +8,6 @@ namespace Lis.Upgrades
     [CreateAssetMenu(menuName = "ScriptableObject/Upgrades/Upgrade")]
     public class Upgrade : BaseScriptableObject
     {
-        GameManager _gameManager;
-
         public Sprite Icon;
         public string Description;
         public UpgradeType Type;
@@ -21,7 +19,8 @@ namespace Lis.Upgrades
 
         public bool PermanentlyUnlocked;
 
-        UpgradeBoard _board;
+        private UpgradeBoard _board;
+        private GameManager _gameManager;
 
         public event Action OnLevelChanged;
 
@@ -40,7 +39,7 @@ namespace Lis.Upgrades
             if (PermanentlyUnlocked) CurrentLevel = 0;
         }
 
-        void PurchaseAll()
+        private void PurchaseAll()
         {
             while (!IsMaxLevel())
                 Purchased();
@@ -80,7 +79,7 @@ namespace Lis.Upgrades
             return val;
         }
 
-        void Refund()
+        private void Refund()
         {
             int val = 0;
             for (int i = 0; i < Levels.Count; i++)
@@ -125,6 +124,6 @@ namespace Lis.Upgrades
         Creature,
         Boss,
         Ability,
-        Troops,
+        Troops
     }
 }

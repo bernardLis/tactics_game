@@ -10,37 +10,39 @@ namespace Lis.MainMenu._UIElements
 {
     public class StatsScreen : FullScreenElement
     {
-        const string _commonTextPrimary = "common__text-primary";
-        const string _commonOddBackground = "common__odd-background";
-        const string _commonEvenBackground = "common__even-background";
+        private const string _commonTextPrimary = "common__text-primary";
+        private const string _commonOddBackground = "common__odd-background";
+        private const string _commonEvenBackground = "common__even-background";
 
-        const string _ussClassName = "stats-screen__";
-        const string _ussStatContainer = _ussClassName + "stat-container";
-        const string _ussIcon = _ussClassName + "icon";
-        const string _ussIconUndiscovered = _ussClassName + "icon-undiscovered";
+        private const string _ussClassName = "stats-screen__";
+        private const string _ussStatContainer = _ussClassName + "stat-container";
+        private const string _ussIcon = _ussClassName + "icon";
+        private const string _ussIconUndiscovered = _ussClassName + "icon-undiscovered";
 
-        const string _ussMinionsKilledIcon = _ussClassName + "minions-killed-icon";
-        const string _ussCreaturesKilledIcon = _ussClassName + "creatures-killed-icon";
-        const string _ussTilesUnlockedIcon = _ussClassName + "tiles-unlocked-icon";
+        private const string _ussMinionsKilledIcon = _ussClassName + "minions-killed-icon";
+        private const string _ussCreaturesKilledIcon = _ussClassName + "creatures-killed-icon";
+        private const string _ussTilesUnlockedIcon = _ussClassName + "tiles-unlocked-icon";
 
-        const string _ussVasesBrokenIcon = _ussClassName + "vases-broken-icon";
-        const string _ussCoinsCollectedIcon = _ussClassName + "coins-collected-icon";
-        const string _ussHammersCollectedIcon = _ussClassName + "hammers-collected-icon";
-        const string _ussHorseshoesCollectedIcon = _ussClassName + "horseshoes-collected-icon";
-        const string _ussBagsCollectedIcon = _ussClassName + "bags-collected-icon";
-        const string _ussSkullsCollectedIcon = _ussClassName + "skulls-collected-icon";
-        const string _ussFriendBallsCollectedIcon = _ussClassName + "friend-balls-collected-icon";
+        private const string _ussVasesBrokenIcon = _ussClassName + "vases-broken-icon";
+        private const string _ussCoinsCollectedIcon = _ussClassName + "coins-collected-icon";
+        private const string _ussHammersCollectedIcon = _ussClassName + "hammers-collected-icon";
+        private const string _ussHorseshoesCollectedIcon = _ussClassName + "horseshoes-collected-icon";
+        private const string _ussBagsCollectedIcon = _ussClassName + "bags-collected-icon";
+        private const string _ussSkullsCollectedIcon = _ussClassName + "skulls-collected-icon";
+        private const string _ussFriendBallsCollectedIcon = _ussClassName + "friend-balls-collected-icon";
 
-        const string _ussCommonExpStonesCollectedIcon = _ussClassName + "common-exp-stones-collected-icon";
-        const string _ussUncommonExpStonesCollectedIcon = _ussClassName + "uncommon-exp-stones-collected-icon";
-        const string _ussRareExpStonesCollectedIcon = _ussClassName + "rare-exp-stones-collected-icon";
-        const string _ussEpicExpStonesCollectedIcon = _ussClassName + "epic-exp-stones-collected-icon";
+        private const string _ussCommonExpStonesCollectedIcon = _ussClassName + "common-exp-stones-collected-icon";
+        private const string _ussUncommonExpStonesCollectedIcon = _ussClassName + "uncommon-exp-stones-collected-icon";
+        private const string _ussRareExpStonesCollectedIcon = _ussClassName + "rare-exp-stones-collected-icon";
+        private const string _ussEpicExpStonesCollectedIcon = _ussClassName + "epic-exp-stones-collected-icon";
 
-        const string _ussFriendBallsThrownIcon = _ussClassName + "friend-balls-thrown-icon";
+        private const string _ussFriendBallsThrownIcon = _ussClassName + "friend-balls-thrown-icon";
+        private readonly IVisualElementScheduledItem _scrollScheduler;
+        private readonly ScrollView _scrollView;
 
-        readonly Stats _stats;
-        readonly ScrollView _scrollView;
-        readonly IVisualElementScheduledItem _scrollScheduler;
+        private readonly Stats _stats;
+
+        private bool _isEven;
 
         public StatsScreen(Stats stats)
         {
@@ -77,7 +79,7 @@ namespace Lis.MainMenu._UIElements
             AddContinueButton();
         }
 
-        void AddBasicStats()
+        private void AddBasicStats()
         {
             AddStat("Minions Killed", _stats.MinionsKilled, _ussMinionsKilledIcon);
             AddStat("Creatures Killed", _stats.CreaturesKilled, _ussCreaturesKilledIcon);
@@ -85,7 +87,7 @@ namespace Lis.MainMenu._UIElements
             _scrollView.Add(new HorizontalSpacerElement());
         }
 
-        void AddPickupStats()
+        private void AddPickupStats()
         {
             AddStat("Vases Broken", _stats.VasesBroken, _ussVasesBrokenIcon);
             AddStat("Coins Collected", _stats.CoinsCollected, _ussCoinsCollectedIcon);
@@ -97,17 +99,17 @@ namespace Lis.MainMenu._UIElements
             _scrollView.Add(new HorizontalSpacerElement());
         }
 
-        void AddExpStoneStats()
+        private void AddExpStoneStats()
         {
             AddStat("Common Exp Stones Collected", _stats.CommonExpStonesCollected, _ussCommonExpStonesCollectedIcon);
-            AddStat("Uncommon Exp Stones Collected", _stats.UncommonExpStonesCollected, _ussUncommonExpStonesCollectedIcon);
+            AddStat("Uncommon Exp Stones Collected", _stats.UncommonExpStonesCollected,
+                _ussUncommonExpStonesCollectedIcon);
             AddStat("Rare Exp Stones Collected", _stats.RareExpStonesCollected, _ussRareExpStonesCollectedIcon);
             AddStat("Epic Exp Stones Collected", _stats.EpicExpStonesCollected, _ussEpicExpStonesCollectedIcon);
             _scrollView.Add(new HorizontalSpacerElement());
         }
 
-        bool _isEven;
-        void AddStat(string text, int value, string iconClass, Texture2D iconSprite = null)
+        private void AddStat(string text, int value, string iconClass, Texture2D iconSprite = null)
         {
             VisualElement container = new();
             container.AddToClassList(_ussStatContainer);
@@ -130,7 +132,7 @@ namespace Lis.MainMenu._UIElements
             _scrollView.Add(container);
         }
 
-        void AddCreaturesCaptured()
+        private void AddCreaturesCaptured()
         {
             foreach (Creature creature in GameManager.UnitDatabase.AllCreatures)
             {
@@ -141,7 +143,7 @@ namespace Lis.MainMenu._UIElements
             }
         }
 
-        void AddCollectedTablets()
+        private void AddCollectedTablets()
         {
             foreach (Tablet tablet in GameManager.UnitDatabase.HeroTablets)
             {
@@ -152,7 +154,7 @@ namespace Lis.MainMenu._UIElements
             }
         }
 
-        void AddCollectedAdvancedTablets()
+        private void AddCollectedAdvancedTablets()
         {
             foreach (TabletAdvanced tablet in GameManager.UnitDatabase.GetAllAdvancedTablets())
             {
@@ -163,7 +165,7 @@ namespace Lis.MainMenu._UIElements
             }
         }
 
-        void AddAbilitiesUnlocked()
+        private void AddAbilitiesUnlocked()
         {
             foreach (Ability ability in GameManager.UnitDatabase.GetAllAbilities())
             {
@@ -174,7 +176,7 @@ namespace Lis.MainMenu._UIElements
             }
         }
 
-        void AddBossesKilled()
+        private void AddBossesKilled()
         {
             foreach (Boss boss in GameManager.UnitDatabase.GetAllBosses())
             {

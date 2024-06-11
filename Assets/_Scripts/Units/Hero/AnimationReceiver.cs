@@ -5,17 +5,19 @@ namespace Lis.Units.Hero
 {
     public class AnimationReceiver : MonoBehaviour
     {
-        AudioManager _audioManager;
         [Header("Audio")]
-        [SerializeField] Sound _footstepSound;
-        [SerializeField] Sound _landSound;
+        [SerializeField]
+        private Sound _footstepSound;
 
-        void Start()
+        [SerializeField] private Sound _landSound;
+        private AudioManager _audioManager;
+
+        private void Start()
         {
             _audioManager = AudioManager.Instance;
         }
 
-        void OnFootstep(AnimationEvent animationEvent)
+        private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
                 if (_footstepSound != null)
@@ -23,7 +25,7 @@ namespace Lis.Units.Hero
         }
 
         // not used coz no jumps
-        void OnLand(AnimationEvent animationEvent)
+        private void OnLand(AnimationEvent animationEvent)
         {
             if (_landSound != null)
                 _audioManager.PlaySfx(_landSound, transform.position);

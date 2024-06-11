@@ -9,14 +9,14 @@ namespace Lis.Battle.Fight
 {
     public class BossManager : MonoBehaviour
     {
-        AudioManager _audioManager;
-        BattleManager _battleManager;
-        HeroManager _heroManager;
-        FightManager _fightManager;
+        [SerializeField] private Sound _bossSpawnSound;
+        [SerializeField] private GameObject _bossSpawnEffectPrefab;
+        private AudioManager _audioManager;
+        private BattleManager _battleManager;
 
-        BossController _bossController;
-        [SerializeField] Sound _bossSpawnSound;
-        [SerializeField] GameObject _bossSpawnEffectPrefab;
+        private BossController _bossController;
+        private FightManager _fightManager;
+        private HeroManager _heroManager;
 
 
         public void Initialize()
@@ -32,7 +32,7 @@ namespace Lis.Battle.Fight
             StartCoroutine(SpawnBossCoroutine());
         }
 
-        IEnumerator SpawnBossCoroutine()
+        private IEnumerator SpawnBossCoroutine()
         {
             _battleManager.GetComponent<TooltipManager>().DisplayGameInfo(new Label("Boss is Spawned!"));
 

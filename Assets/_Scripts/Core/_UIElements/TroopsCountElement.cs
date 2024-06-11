@@ -5,19 +5,19 @@ namespace Lis.Core
 {
     public class TroopsCountElement : ElementWithTooltip
     {
-        readonly GameManager _gameManager;
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
-        readonly VisualElement _animationContainer;
-        readonly VisualElement _countContainer;
+        private readonly VisualElement _animationContainer;
+        private readonly VisualElement _countContainer;
 
-        readonly int _fontSize;
-
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private readonly int _fontSize;
+        private readonly GameManager _gameManager;
 
         public TroopsCountElement(string text, int fontSize = 0)
         {
             _gameManager = GameManager.Instance;
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            StyleSheet commonStyles = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null)
                 styleSheets.Add(commonStyles);
 
@@ -31,8 +31,8 @@ namespace Lis.Core
             _animationContainer.style.width = 30;
             _animationContainer.style.height = 30;
 
-            Sprite[] animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
-            AnimationElement el = new AnimationElement(animationSprites, 100, true);
+            var animationSprites = _gameManager.GameDatabase.TroopsElementAnimationSprites;
+            AnimationElement el = new(animationSprites, 100, true);
             el.PlayAnimation();
             _animationContainer.Add(el);
             Add(_animationContainer);
@@ -53,7 +53,7 @@ namespace Lis.Core
             l.style.marginLeft = 10;
             l.style.marginBottom = 0;
             l.style.paddingBottom = 0;
-        
+
             if (_fontSize != 0)
                 l.style.fontSize = _fontSize;
         }

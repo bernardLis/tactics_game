@@ -4,41 +4,40 @@ namespace Lis.Core.Utilities
     {
         public static string Player
         {
-            get { return "Player"; }
+            get => "Player";
             private set { }
         }
 
         public static int PlayerLayer
         {
-            get { return 8; }
+            get => 8;
             private set { }
         }
 
 
         public static int BattleFloorLayer
         {
-            get { return 6; }
+            get => 6;
             private set { }
         }
 
         public static int UnpassableLayer
         {
-            get { return 3; }
+            get => 3;
             private set { }
         }
 
         public static int BattleInteractableLayer
         {
-            get { return 9; }
+            get => 9;
             private set { }
         }
 
 
         public static int UIVFXLayer
         {
-            get { return 7; }
+            get => 7;
             private set { }
         }
-
     }
 }

@@ -7,11 +7,16 @@ namespace Lis.Units.Hero.Ability
 {
     public class ObjectController : MonoBehaviour
     {
-        protected BattleManager BattleManager;
-        protected AudioManager AudioManager;
         protected Ability Ability;
+        protected AudioManager AudioManager;
 
         protected AudioSource AudioSource;
+        protected BattleManager BattleManager;
+
+        private void OnDestroy()
+        {
+            Ability.OnLevelUp -= OnAbilityLevelUp;
+        }
 
         public virtual void Initialize(Ability ability)
         {
@@ -42,8 +47,6 @@ namespace Lis.Units.Hero.Ability
         {
             // override
         }
-
-        void OnDestroy() => Ability.OnLevelUp -= OnAbilityLevelUp;
 
         public virtual void Execute(Vector3 pos, Quaternion rot)
         {

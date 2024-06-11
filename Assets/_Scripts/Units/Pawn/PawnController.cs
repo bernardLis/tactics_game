@@ -7,16 +7,17 @@ namespace Lis.Units.Pawn
     public class PawnController : UnitController
     {
         [Header("Pawn")] // TODO: this is so imperfect
-        [SerializeField] GameObject _upgradeZeroBody;
+        [SerializeField]
+        private GameObject _upgradeZeroBody;
 
-        [SerializeField] GameObject _upgradeOneBody;
-        [SerializeField] GameObject _upgradeTwoBody;
+        [SerializeField] private GameObject _upgradeOneBody;
+        [SerializeField] private GameObject _upgradeTwoBody;
 
-        [SerializeField] GameObject _upgradeEffect;
+        [SerializeField] private GameObject _upgradeEffect;
 
-        Pawn _pawn;
+        private bool _isUpgrading;
 
-        bool _isUpgrading;
+        private Pawn _pawn;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -52,13 +53,13 @@ namespace Lis.Units.Pawn
             GoBackToLocker();
         }
 
-        void OnPawnUpgraded()
+        private void OnPawnUpgraded()
         {
             // TODO: this is so imperfect
             StartCoroutine(UpgradeCoroutine());
         }
 
-        IEnumerator UpgradeCoroutine()
+        private IEnumerator UpgradeCoroutine()
         {
             StopUnit();
 
@@ -78,7 +79,7 @@ namespace Lis.Units.Pawn
             GoBackToLocker();
         }
 
-        void HandleUpgrade(bool animate = false)
+        private void HandleUpgrade(bool animate = false)
         {
             if (_pawn.CurrentUpgrade == 0)
             {
@@ -110,7 +111,7 @@ namespace Lis.Units.Pawn
             }
         }
 
-        void ActivateBody(GameObject body)
+        private void ActivateBody(GameObject body)
         {
             body.transform.localPosition += Vector3.up * 2;
             body.SetActive(true);
@@ -118,7 +119,7 @@ namespace Lis.Units.Pawn
             body.transform.DORotate(new(0, 360, 0), 1.5f, RotateMode.LocalAxisAdd);
         }
 
-        void HandleAnimatorChange(Animator animator)
+        private void HandleAnimatorChange(Animator animator)
         {
             Animator = animator;
             UnitPathingController.SetAnimator(animator);

@@ -10,6 +10,31 @@ namespace Lis.Units.Hero.Ability
     {
         protected readonly List<UnitController> UnitsInCollider = new();
 
+        private void OnTriggerEnter(Collider col)
+        {
+            if (col.gameObject.layer == Tags.UnpassableLayer)
+                UnpassableHit();
+
+            if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
+                bbv.TriggerBreak();
+
+            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                battleEntity.OnDeath += RemoveEntityFromList;
+                UnitsInCollider.Add(battleEntity);
+            }
+        }
+
+        private void OnTriggerExit(Collider col)
+        {
+            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                RemoveEntityFromList(battleEntity, null);
+            }
+        }
+
         public override void Execute(Vector3 pos, Quaternion q)
         {
             UnitsInCollider.Clear();
@@ -27,37 +52,12 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        void OnTriggerEnter(Collider col)
-        {
-            if (col.gameObject.layer == Tags.UnpassableLayer)
-                UnpassableHit();
-
-            if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
-                bbv.TriggerBreak();
-
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                battleEntity.OnDeath += RemoveEntityFromList;
-                UnitsInCollider.Add(battleEntity);
-            }
-        }
-
         protected virtual void UnpassableHit()
         {
             // meant to be overridden
         }
 
-        void OnTriggerExit(Collider col)
-        {
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                RemoveEntityFromList(battleEntity, null);
-            }
-        }
-
-        void RemoveEntityFromList(UnitController entity, Attack.Attack _)
+        private void RemoveEntityFromList(UnitController entity, Attack.Attack _)
         {
             entity.OnDeath -= RemoveEntityFromList;
             if (UnitsInCollider.Contains(entity))

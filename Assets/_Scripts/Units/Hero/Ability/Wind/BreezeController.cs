@@ -8,10 +8,32 @@ namespace Lis.Units.Hero.Ability
 {
     public class BreezeController : Controller
     {
-        [SerializeField] GameObject _gfx;
-        [SerializeField] Collider _col;
+        [SerializeField] private GameObject _gfx;
+        [SerializeField] private Collider _col;
 
-        List<UnitController> _entitiesInCollider = new();
+        private List<UnitController> _entitiesInCollider = new();
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out BreakableVaseController bbv))
+                bbv.TriggerBreak();
+
+            if (other.gameObject.TryGetComponent(out UnitController battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                _entitiesInCollider.Add(battleEntity);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out UnitController battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                if (_entitiesInCollider.Contains(battleEntity))
+                    _entitiesInCollider.Remove(battleEntity);
+            }
+        }
 
         public override void Initialize(Ability ability)
         {
@@ -21,7 +43,7 @@ namespace Lis.Units.Hero.Ability
             transform.localScale = Vector3.one * Ability.GetScale();
         }
 
-        void OnAbilityLevelUp()
+        private void OnAbilityLevelUp()
         {
             transform.localScale = Vector3.one * Ability.GetScale();
         }
@@ -36,7 +58,7 @@ namespace Lis.Units.Hero.Ability
             if (duration < cooldown) duration = cooldown - 0.3f;
 
             ParticleSystem ps = _gfx.GetComponent<ParticleSystem>();
-            var psMain = ps.main;
+            ParticleSystem.MainModule psMain = ps.main;
             psMain.duration = duration;
             psMain.startLifetime = duration;
             yield return new WaitForSeconds(0.1f);
@@ -54,7 +76,7 @@ namespace Lis.Units.Hero.Ability
             _gfx.SetActive(false);
         }
 
-        IEnumerator DealDamage(float duration)
+        private IEnumerator DealDamage(float duration)
         {
             float endTime = Time.time + duration;
             while (Time.time < endTime)
@@ -63,28 +85,6 @@ namespace Lis.Units.Hero.Ability
                 foreach (UnitController entity in currentEntities)
                     StartCoroutine(entity.GetHit(Ability.GetCurrentLevel()));
                 yield return new WaitForSeconds(0.5f);
-            }
-        }
-
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.TryGetComponent(out BreakableVaseController bbv))
-                bbv.TriggerBreak();
-
-            if (other.gameObject.TryGetComponent(out UnitController battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                _entitiesInCollider.Add(battleEntity);
-            }
-        }
-
-        void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.TryGetComponent(out UnitController battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                if (_entitiesInCollider.Contains(battleEntity))
-                    _entitiesInCollider.Remove(battleEntity);
             }
         }
     }

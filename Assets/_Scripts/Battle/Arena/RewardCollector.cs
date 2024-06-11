@@ -7,9 +7,24 @@ namespace Lis.Battle.Arena
 {
     public class RewardCollector : BuildingController, IInteractable
     {
+        private int _rewardsAvailable;
         public new string InteractionPrompt => "Press F To Collect Reward!";
 
-        int _rewardsAvailable;
+        public override bool Interact(Interactor interactor)
+        {
+            if (!IsInteractionAvailable)
+            {
+                Debug.Log("No reward to collect");
+                return false;
+            }
+
+            FightRewardScreen fightRewardScreen = new();
+            fightRewardScreen.Initialize();
+            _rewardsAvailable--;
+            if (_rewardsAvailable == 0)
+                ForbidInteraction();
+            return true;
+        }
 
         protected override void OnBattleInitialized()
         {
@@ -29,22 +44,6 @@ namespace Lis.Battle.Arena
             if (!Building.IsUnlocked) return;
             AllowInteraction();
             _rewardsAvailable++;
-        }
-
-        public override bool Interact(Interactor interactor)
-        {
-            if (!IsInteractionAvailable)
-            {
-                Debug.Log("No reward to collect");
-                return false;
-            }
-
-            FightRewardScreen fightRewardScreen = new();
-            fightRewardScreen.Initialize();
-            _rewardsAvailable--;
-            if (_rewardsAvailable == 0)
-                ForbidInteraction();
-            return true;
         }
     }
 }

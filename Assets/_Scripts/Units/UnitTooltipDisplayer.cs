@@ -1,20 +1,17 @@
 using Lis.Battle;
-using Lis.Units.Pawn;
-using Lis.Units.Peasant;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 namespace Lis.Units
 {
     public class UnitTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler,
         IPointerExitHandler
     {
-        UnitController _unitController;
-        TooltipManager _tooltipManager;
-        UnitCardFactory _unitCardFactory;
+        private TooltipManager _tooltipManager;
+        private UnitCardFactory _unitCardFactory;
+        private UnitController _unitController;
 
-        void Start()
+        private void Start()
         {
             _unitController = GetComponentInParent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
@@ -44,7 +41,7 @@ namespace Lis.Units
             _tooltipManager.HideEntityInfo();
         }
 
-        void OnDeath(UnitController a, Attack.Attack b)
+        private void OnDeath(UnitController a, Attack.Attack b)
         {
             if (this == null) return;
             if (_tooltipManager.CurrentEntityInfo == _unitController)
@@ -57,12 +54,12 @@ namespace Lis.Units
                 GetComponent<BoxCollider>().enabled = false;
         }
 
-        void OnRevival()
+        private void OnRevival()
         {
             _tooltipManager.HideTooltip();
         }
 
-        bool CanDisplayTooltip()
+        private bool CanDisplayTooltip()
         {
             if (_tooltipManager == null) return false;
             if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;

@@ -5,15 +5,13 @@ using UnityEngine;
 
 namespace Lis.Battle.Arena
 {
-    using Fight;
-
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Arena")]
     public class Arena : BaseScriptableObject
     {
         public GameObject Prefab;
 
         [HideInInspector] public Boss Boss;
-        [HideInInspector] public List<Fight> Fights = new();
+        [HideInInspector] public List<Fight.Fight> Fights = new();
 
         public void Initialize()
         {
@@ -23,7 +21,7 @@ namespace Lis.Battle.Arena
             Fights = new();
         }
 
-        public Fight CreateFight(int heroPoints)
+        public Fight.Fight CreateFight(int heroPoints)
         {
             // TODO: balance
             const float exponent = 2.5f;
@@ -33,7 +31,7 @@ namespace Lis.Battle.Arena
             result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
             int points = result + heroPoints;
 
-            Fight fight = CreateInstance<Fight>();
+            Fight.Fight fight = CreateInstance<Fight.Fight>();
             fight.Initialize(points, Fights.Count);
             Fights.Add(fight);
 

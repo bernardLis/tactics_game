@@ -45,7 +45,7 @@ namespace Lis.Units.Hero.Rewards
             Price = Tablet.Price * (Tablet.Level.Value + 1);
         }
 
-        bool CanUpgradeAdvancedTablet(List<RewardElement> otherRewardElements)
+        private bool CanUpgradeAdvancedTablet(List<RewardElement> otherRewardElements)
         {
             if (Hero.AdvancedTablet == null) return false;
             if (Hero.AdvancedTablet.IsMaxLevel()) return false;

@@ -7,8 +7,20 @@ namespace Lis.Units.Hero.Ability
 {
     public class EarthSlashObjectController : ObjectController
     {
-        [SerializeField] GameObject _effect;
-        [SerializeField] GameObject _col;
+        [SerializeField] private GameObject _effect;
+        [SerializeField] private GameObject _col;
+
+        private void OnTriggerEnter(Collider col)
+        {
+            if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
+                bbv.TriggerBreak();
+
+            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
+            }
+        }
 
         public override void Initialize(Ability ability)
         {
@@ -34,18 +46,6 @@ namespace Lis.Units.Hero.Ability
             yield return new WaitForSeconds(1f);
             _effect.SetActive(false);
             gameObject.SetActive(false);
-        }
-
-        void OnTriggerEnter(Collider col)
-        {
-            if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
-                bbv.TriggerBreak();
-
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
-            }
         }
     }
 }

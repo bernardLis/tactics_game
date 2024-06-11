@@ -8,7 +8,7 @@ namespace Lis.Units.Hero.Ability
         public override void Initialize(Ability ability)
         {
             base.Initialize(ability);
-            transform.localPosition = new Vector3(-0.5f, 1f, 0f);
+            transform.localPosition = new(-0.5f, 1f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()

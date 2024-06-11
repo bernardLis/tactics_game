@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Lis.Core
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Core/Sound")]
-    [System.Serializable]
+    [Serializable]
     public class Sound : BaseScriptableObject
     {
         public AudioClip[] Clips;

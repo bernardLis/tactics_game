@@ -5,7 +5,6 @@ namespace Lis.Units.Boss
 {
     public class AttackControllerSpiral : AttackController
     {
-
         public override IEnumerator Execute()
         {
             int total = Random.Range(Attack.TotalShotCount.x, Attack.TotalShotCount.y);
@@ -18,6 +17,7 @@ namespace Lis.Units.Boss
                     Vector3 dir = Quaternion.Euler(0, i * Attack.Spread + j * 90, 0) * Vector3.forward;
                     SpawnProjectile(dir);
                 }
+
                 yield return new WaitForSeconds(waitTime);
             }
         }

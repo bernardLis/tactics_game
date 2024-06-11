@@ -9,10 +9,13 @@ namespace Lis.Core.Utilities
 {
     public static class Helpers
     {
+        /* UI toolkit */
+        private const string _ussCommonTextPrimary = "common__text-primary";
+        private static List<ArcMovementElement> _arcMovementElements = new();
 
         public static Vector3 RandomPointInBounds(Bounds bounds)
         {
-            return new Vector3(
+            return new(
                 Random.Range(bounds.min.x, bounds.max.x),
                 Random.Range(bounds.min.y, bounds.max.y),
                 Random.Range(bounds.min.z, bounds.max.z)
@@ -21,7 +24,7 @@ namespace Lis.Core.Utilities
 
         public static Gradient GetGradient(Color color)
         {
-            Gradient gradient = new Gradient();
+            Gradient gradient = new();
             GradientColorKey[] colorKey;
             GradientAlphaKey[] alphaKey;
 
@@ -48,7 +51,7 @@ namespace Lis.Core.Utilities
         {
             text = text.Replace("(Clone)", "");
             // https://stackoverflow.com/questions/3216085/split-a-pascalcase-string-into-separate-words
-            Regex r = new Regex(
+            Regex r = new(
                 @"(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])|(?<=[A-Za-z])(?=[^A-Za-z])"
             );
 
@@ -126,10 +129,6 @@ namespace Lis.Core.Utilities
             Debug.LogError($"Couldn't parse color: {hex}");
             return Color.black;
         }
-
-        /* UI toolkit */
-        const string _ussCommonTextPrimary = "common__text-primary";
-        static List<ArcMovementElement> _arcMovementElements = new();
 
         public static void SetUpHelpers(VisualElement root)
         {

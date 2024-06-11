@@ -7,25 +7,25 @@ namespace Lis.Units.Hero.Ability
 {
     public class AbilityElement : ElementWithTooltip
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussCommonButtonBasic = "common__button-basic";
+        private const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonButtonBasic = "common__button-basic";
 
-        const string _ussClassName = "ability-element__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussIcon = _ussClassName + "icon";
-        const string _ussBorder = _ussClassName + "border";
-        const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
-        const string _ussLevelDotFull = _ussClassName + "level-dot-full";
+        private const string _ussClassName = "ability-element__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussIcon = _ussClassName + "icon";
+        private const string _ussBorder = _ussClassName + "border";
+        private const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
+        private const string _ussLevelDotFull = _ussClassName + "level-dot-full";
 
-        readonly AudioManager _audioManager;
+        private readonly AudioManager _audioManager;
 
-        readonly VisualElement _icon;
+        private readonly VisualElement _icon;
 
         public readonly Ability Ability;
 
-        OverlayTimerElement _cooldownTimer;
+        private OverlayTimerElement _cooldownTimer;
 
-        bool _isUpgrade;
+        private readonly bool _isUpgrade;
 
         public AbilityElement(Ability ability, bool showLevel = false, int size = 100, bool isUpgrade = false)
         {
@@ -58,7 +58,7 @@ namespace Lis.Units.Hero.Ability
             if (showLevel) AddLevelUpDots();
         }
 
-        void AddLevelUpDots()
+        private void AddLevelUpDots()
         {
             VisualElement dotContainer = new();
             dotContainer.style.flexDirection = FlexDirection.Row;
@@ -85,14 +85,14 @@ namespace Lis.Units.Hero.Ability
         }
 
 
-        void StartCooldown()
+        private void StartCooldown()
         {
             _icon.style.opacity = 0.5f;
             transform.scale = Vector3.one * 0.9f;
 
             if (_cooldownTimer != null) RemoveCooldownTimer();
 
-            _cooldownTimer = new OverlayTimerElement(Ability.GetCooldown() - 0.5f, Ability.GetCooldown(), false, "");
+            _cooldownTimer = new(Ability.GetCooldown() - 0.5f, Ability.GetCooldown(), false, "");
             _cooldownTimer.style.width = Length.Percent(90);
             _cooldownTimer.style.height = Length.Percent(90);
 
@@ -100,7 +100,7 @@ namespace Lis.Units.Hero.Ability
             _cooldownTimer.OnTimerFinished += OnCooldownFinished;
         }
 
-        void OnCooldownFinished()
+        private void OnCooldownFinished()
         {
             _audioManager.PlayUI("Ability Available");
             _icon.style.opacity = 1f;
@@ -109,7 +109,7 @@ namespace Lis.Units.Hero.Ability
             RemoveCooldownTimer();
         }
 
-        void RemoveCooldownTimer()
+        private void RemoveCooldownTimer()
         {
             if (_cooldownTimer != null)
             {

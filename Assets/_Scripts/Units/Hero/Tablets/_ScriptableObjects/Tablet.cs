@@ -19,7 +19,7 @@ namespace Lis.Units.Hero.Tablets
         public StatLevelUpValue PrimaryStat;
         public StatLevelUpValue SecondaryStat;
 
-        Hero _hero;
+        private Hero _hero;
 
         public event Action<Tablet> OnLevelUp;
 

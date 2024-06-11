@@ -10,10 +10,11 @@ namespace Lis.Core
         [Multiline]
         public string DeveloperDescription = "";
 #endif
+        [field: SerializeField] public int Value { get; private set; }
+        public int PreviousValue { get; private set; }
 
         public event Action<int> OnValueChanged;
-        public int PreviousValue { get; private set; }
-        [field: SerializeField] public int Value { get; private set; }
+
         public void SetValue(int newValue)
         {
             PreviousValue = Value;

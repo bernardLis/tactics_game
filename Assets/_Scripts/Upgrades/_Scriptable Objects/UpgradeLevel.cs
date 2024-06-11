@@ -9,6 +9,5 @@ namespace Lis.Upgrades
         public int Cost;
         public int Value;
         public string Description;
-
     }
 }

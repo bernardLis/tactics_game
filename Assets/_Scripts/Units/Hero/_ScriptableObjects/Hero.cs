@@ -1,20 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units.Hero.Ability;
+using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
 
 namespace Lis.Units.Hero
 {
-    using Ability;
-    using Tablets;
-    using Peasant;
-
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Hero/Hero")]
     public class Hero : Unit
     {
-        GameManager _gameManager;
-
         [Header("Selector")]
         public int TimesPicked;
 
@@ -24,6 +20,19 @@ namespace Lis.Units.Hero
         public Stat Pull;
 
         public Stat BonusExp;
+
+        [HideInInspector] public List<Unit> Army = new();
+
+        [Header("Tablets")] [HideInInspector] public List<Tablet> Tablets = new();
+        [HideInInspector] public TabletAdvanced AdvancedTablet;
+
+        [Header("Abilities")]
+        public Ability.Ability StartingAbility;
+
+        public List<Ability.Ability> Abilities = new();
+        public List<Ability.Ability> AdvancedAbilities = new();
+        private readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
+        private GameManager _gameManager;
 
         public void InitializeHero()
         {
@@ -37,13 +46,11 @@ namespace Lis.Units.Hero
             Abilities = new();
         }
 
-        [HideInInspector] public List<Unit> Army = new();
-
         public void AddArmy(Unit armyUnit)
         {
             Army.Add(armyUnit);
-            if (armyUnit is Peasant peasant)
-                peasant.OnUpgraded += (_) => Army.Remove(peasant);
+            if (armyUnit is Peasant.Peasant peasant)
+                peasant.OnUpgraded += _ => Army.Remove(peasant);
         }
 
         protected override void CreateStats()
@@ -52,7 +59,7 @@ namespace Lis.Units.Hero
         }
 
         /* LEVELING */
-        int GetExpValue(float gain)
+        private int GetExpValue(float gain)
         {
             return Mathf.CeilToInt(gain);
         }
@@ -76,12 +83,9 @@ namespace Lis.Units.Hero
             return expRequired;
         }
 
-        [Header("Tablets")] [HideInInspector] public List<Tablet> Tablets = new();
-        [HideInInspector] public TabletAdvanced AdvancedTablet;
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
-        readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
 
-        void CreateTablets()
+        private void CreateTablets()
         {
             if (Tablets.Count > 0) return; // safety check
             foreach (Tablet original in _gameManager.UnitDatabase.HeroTablets)
@@ -102,14 +106,13 @@ namespace Lis.Units.Hero
             return _tabletsByElement.GetValueOrDefault(natureName);
         }
 
-        void CheckAdvancedTablets(Tablet tablet)
+        private void CheckAdvancedTablets(Tablet tablet)
         {
             if (AdvancedTablet != null) return; // only one advanced tablet
             if (!tablet.IsMaxLevel()) return;
 
             Nature first = tablet.Nature;
             foreach (Tablet t in Tablets)
-            {
                 if (t.IsMaxLevel() && t != tablet)
                 {
                     TabletAdvanced adv = _gameManager.UnitDatabase.GetAdvancedTabletByNatureNames(first.NatureName,
@@ -118,7 +121,6 @@ namespace Lis.Units.Hero
                     AddAdvancedTablet(adv);
                     return;
                 }
-            }
         }
 
         public void AddAdvancedTablet(TabletAdvanced original)
@@ -131,11 +133,6 @@ namespace Lis.Units.Hero
             OnTabletAdvancedAdded?.Invoke(AdvancedTablet);
         }
 
-        [Header("Abilities")]
-        public Ability.Ability StartingAbility;
-
-        public List<Ability.Ability> Abilities = new();
-        public List<Ability.Ability> AdvancedAbilities = new();
         public event Action<Ability.Ability> OnAbilityAdded;
         public event Action<Ability.Ability> OnAbilityRemoved;
 
@@ -177,7 +174,7 @@ namespace Lis.Units.Hero
             OnAbilityRemoved?.Invoke(a);
         }
 
-        void CreateBaseStats()
+        private void CreateBaseStats()
         {
             Level = CreateInstance<IntVariable>();
             Level.SetValue(1);

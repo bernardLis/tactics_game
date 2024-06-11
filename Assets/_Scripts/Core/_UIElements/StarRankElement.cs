@@ -6,25 +6,25 @@ namespace Lis.Core
 {
     public class StarRankElement : ElementWithTooltip
     {
-        readonly List<VisualElement> _stars = new();
-        readonly int _maxRank;
+        private const string _ussClassName = "star-rank-element__";
+        private const string _ussStar = _ussClassName + "star";
+        private const string _ussStarGold = _ussClassName + "star-gold";
+        private const string _ussStarGray = _ussClassName + "star-gray";
+
+        private const string _ussEffect = _ussClassName + "effect";
+        private readonly int _maxRank;
+        private readonly List<VisualElement> _stars = new();
+        private readonly VisualElement _tooltipElement;
+
+        private int _currentStarIndex;
+
+        private IVisualElementScheduledItem _rankUpdateScheduler;
         public int Rank;
-        readonly VisualElement _tooltipElement;
-
-        const string _ussClassName = "star-rank-element__";
-        const string _ussStar = _ussClassName + "star";
-        const string _ussStarGold = _ussClassName + "star-gold";
-        const string _ussStarGray = _ussClassName + "star-gray";
-
-        const string _ussEffect = _ussClassName + "effect";
-
-        int _currentStarIndex;
-
-        IVisualElementScheduledItem _rankUpdateScheduler;
 
         public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null, int maxRank = 5)
         {
-            var ss = GameManager.Instance.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.StarRankElementStyles);
+            StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.StarRankElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -42,6 +42,7 @@ namespace Lis.Core
                 Add(star);
                 _stars.Add(star);
             }
+
             SetRank(rank);
 
             if (tooltip != null)
@@ -55,6 +56,7 @@ namespace Lis.Core
                 _rankUpdateScheduler.Pause();
                 _currentStarIndex = 0;
             }
+
             _rankUpdateScheduler = schedule.Execute(UpdateStar).Every(100);
 
             if (rank < 0)
@@ -64,7 +66,7 @@ namespace Lis.Core
             Rank = rank;
         }
 
-        void UpdateStar()
+        private void UpdateStar()
         {
             VisualElement star = _stars[_currentStarIndex];
             star.AddToClassList(_ussStarGray);
@@ -87,7 +89,7 @@ namespace Lis.Core
             }
         }
 
-        void ResetRankUpdate()
+        private void ResetRankUpdate()
         {
             _stars[_stars.Count - 1].RemoveFromClassList(_ussEffect);
             _currentStarIndex = 0;
@@ -101,13 +103,12 @@ namespace Lis.Core
             }
             else
             {
-                Label l = new Label("Rank tooltip missing.");
+                Label l = new("Rank tooltip missing.");
                 l.style.whiteSpace = WhiteSpace.Normal;
                 _tooltip = new(this, l);
             }
 
             base.DisplayTooltip();
         }
-
     }
 }

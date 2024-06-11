@@ -10,10 +10,10 @@ namespace Lis.Core
         [Multiline]
         public string DeveloperDescription = "";
 #endif
-
-        public event Action<float> OnValueChanged;
         public float Value;
         public float PreviousValue { get; private set; }
+
+        public event Action<float> OnValueChanged;
 
         public void SetValue(float value)
         {
@@ -21,18 +21,21 @@ namespace Lis.Core
             Value = value;
             OnValueChanged?.Invoke(Value);
         }
+
         public void SetValue(FloatVariable value)
         {
             PreviousValue = Value;
             Value = value.Value;
             OnValueChanged?.Invoke(Value);
         }
+
         public void ApplyChange(float amount)
         {
             PreviousValue = Value;
             Value += amount;
             OnValueChanged?.Invoke(Value);
         }
+
         public void ApplyChange(FloatVariable amount)
         {
             PreviousValue = Value;

@@ -4,12 +4,12 @@ namespace Lis.Core
 {
     public class NatureElement : ElementWithTooltip
     {
-        const string _ussClassName = "nature-element__";
-        const string _ussIcon = _ussClassName + "icon";
+        private const string _ussClassName = "nature-element__";
+        private const string _ussIcon = _ussClassName + "icon";
 
-        readonly Nature _nature;
+        private readonly Label _icon;
 
-        readonly Label _icon;
+        private readonly Nature _nature;
 
         public NatureElement(Nature nature, int size = 0)
         {
@@ -39,8 +39,8 @@ namespace Lis.Core
             container.Add(new Label(_nature.Description));
             if (_nature.StrongAgainst != null && _nature.WeakAgainst != null)
             {
-                container.Add(new Label("Strong against: " + _nature.StrongAgainst.NatureName.ToString()));
-                container.Add(new Label("Weak against: " + _nature.WeakAgainst.NatureName.ToString()));
+                container.Add(new Label("Strong against: " + _nature.StrongAgainst.NatureName));
+                container.Add(new Label("Weak against: " + _nature.WeakAgainst.NatureName));
             }
 
             _tooltip = new(this, container);

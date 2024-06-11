@@ -8,19 +8,19 @@ namespace Lis.Battle.Fight
 {
     public class RangedOpponentManager : MonoBehaviour
     {
-        [SerializeField] Transform _rangedOpponentHolder;
+        [SerializeField] private Transform _rangedOpponentHolder;
 
-        [SerializeField] GameObject _projectilePrefab;
-        [SerializeField] GameObject _projectileBiggerWithTimePrefab;
-        [SerializeField] GameObject _projectileQuickPrefab;
-        [SerializeField] GameObject _projectileWallBouncePrefab;
+        [SerializeField] private GameObject _projectilePrefab;
+        [SerializeField] private GameObject _projectileBiggerWithTimePrefab;
+        [SerializeField] private GameObject _projectileQuickPrefab;
+        [SerializeField] private GameObject _projectileWallBouncePrefab;
 
-        [SerializeField] GameObject _rangedOpponentPrefab;
+        [SerializeField] private GameObject _rangedOpponentPrefab;
 
-        readonly List<GameObject> _projectilePool = new();
-        readonly List<GameObject> _projectilePoolBiggerWithTime = new();
-        readonly List<GameObject> _projectilePoolQuick = new();
-        readonly List<GameObject> _projectilePoolWallBounce = new();
+        private readonly List<GameObject> _projectilePool = new();
+        private readonly List<GameObject> _projectilePoolBiggerWithTime = new();
+        private readonly List<GameObject> _projectilePoolQuick = new();
+        private readonly List<GameObject> _projectilePoolWallBounce = new();
 
         public void Initialize()
         {
@@ -30,7 +30,7 @@ namespace Lis.Battle.Fight
             CreateNewPool(_projectileWallBouncePrefab, _projectilePoolWallBounce);
         }
 
-        void CreateNewPool(GameObject prefab, List<GameObject> pool)
+        private void CreateNewPool(GameObject prefab, List<GameObject> pool)
         {
             for (int i = 0; i < 25; i++)
             {
@@ -42,7 +42,7 @@ namespace Lis.Battle.Fight
             }
         }
 
-        GameObject GetFromPool(List<GameObject> pool)
+        private GameObject GetFromPool(List<GameObject> pool)
         {
             for (int i = 0; i < pool.Count; i++)
             {

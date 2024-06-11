@@ -1,21 +1,19 @@
 ﻿using Lis.Core;
-using Lis.Core.Utilities;
 using Lis.Units.Hero.Rewards;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Battle.Arena
 {
     public class ShopItemElement : VisualElement
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
+        private readonly bool _isMystery;
 
-        readonly PurchaseButton _purchaseButton;
-        readonly RewardElement _rewardElement;
+        private readonly int _price;
 
-        readonly int _price;
-        readonly bool _isMystery;
-        Label _mysteryElement;
+        private readonly PurchaseButton _purchaseButton;
+        private readonly RewardElement _rewardElement;
+        private Label _mysteryElement;
 
         public ShopItemElement(RewardElement rewardElement, bool isMystery)
         {
@@ -38,7 +36,7 @@ namespace Lis.Battle.Arena
             rewardElement.Add(_purchaseButton);
         }
 
-        void Purchase()
+        private void Purchase()
         {
             _purchaseButton.SetEnabled(false);
             if (_isMystery) _rewardElement.RevealMystery();

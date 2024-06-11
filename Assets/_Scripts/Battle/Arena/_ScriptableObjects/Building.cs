@@ -17,7 +17,6 @@ namespace Lis
 
         public virtual void Initialize()
         {
-
         }
 
         public void Upgrade()

@@ -18,6 +18,7 @@ namespace Lis.Battle.Arena
 
         public event Action OnStarted;
         public event Action OnCollected;
+
         public void CreateRandom()
         {
             GoldToInvest = Random.Range(100, 200);
@@ -38,7 +39,7 @@ namespace Lis.Battle.Arena
             OnStarted?.Invoke();
         }
 
-        void OnFightEnded()
+        private void OnFightEnded()
         {
             FightsRemaining--;
         }

@@ -5,16 +5,16 @@ namespace Lis.Battle.Audience
 {
     public class StandManager : MonoBehaviour
     {
-        [SerializeField] GameObject _memberPrefab;
-        BoxCollider _spawnCollider;
+        [SerializeField] private GameObject _memberPrefab;
+        private BoxCollider _spawnCollider;
 
-        void Start()
+        private void Start()
         {
             _spawnCollider = GetComponentInChildren<BoxCollider>();
             PopulateAudience();
         }
 
-        void PopulateAudience()
+        private void PopulateAudience()
         {
             for (int i = 0; i < Random.Range(5, 10); i++)
             {

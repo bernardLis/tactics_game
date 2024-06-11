@@ -12,6 +12,5 @@ namespace Lis.Units.Hero.Ability
         public int Amount;
         public float Duration;
         public int Price;
-
     }
 }

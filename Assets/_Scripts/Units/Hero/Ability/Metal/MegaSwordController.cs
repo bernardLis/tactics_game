@@ -7,14 +7,26 @@ namespace Lis.Units.Hero.Ability
 {
     public class MegaSwordController : Controller
     {
-        bool _isActive;
+        private readonly float _elevationOffset = 0.5f;
 
-        readonly float _rotationSpeed = 2;
-        float _circleRadius = 3;
-        readonly float _elevationOffset = 0.5f;
+        private readonly float _rotationSpeed = 2;
+        private float _angle;
+        private float _circleRadius = 3;
+        private bool _isActive;
 
-        Vector3 _positionOffset;
-        float _angle;
+        private Vector3 _positionOffset;
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
+                bbv.TriggerBreak();
+
+            if (collision.gameObject.TryGetComponent(out UnitController battleEntity))
+            {
+                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
+                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
+            }
+        }
 
 
         public override void Initialize(Ability ability)
@@ -26,7 +38,7 @@ namespace Lis.Units.Hero.Ability
             ScaleAbility();
         }
 
-        void ScaleAbility()
+        private void ScaleAbility()
         {
             transform.DOScale(Vector3.one * Ability.GetScale(), 0.5f).SetEase(Ease.InOutSine);
             _circleRadius = 3 + Ability.GetScale();
@@ -53,18 +65,6 @@ namespace Lis.Units.Hero.Ability
 
                 _angle += Time.fixedDeltaTime * _rotationSpeed;
                 yield return new WaitForFixedUpdate();
-            }
-        }
-
-        void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
-                bbv.TriggerBreak();
-
-            if (collision.gameObject.TryGetComponent(out UnitController battleEntity))
-            {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
             }
         }
     }

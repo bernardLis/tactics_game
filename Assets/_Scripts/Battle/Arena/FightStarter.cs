@@ -9,6 +9,18 @@ namespace Lis.Battle.Arena
     {
         public new string InteractionPrompt => "Press F To Start A Fight!";
 
+        public override bool Interact(Interactor interactor)
+        {
+            if (FightManager.IsFightActive)
+            {
+                Debug.Log("Fight is already active");
+                return false;
+            }
+
+            FightManager.StartFight();
+            return true;
+        }
+
 
         protected override void OnBattleInitialized()
         {
@@ -22,7 +34,7 @@ namespace Lis.Battle.Arena
             TooltipText.text = InteractionPrompt;
         }
 
-        void OnFightOptionChosen(FightOption _)
+        private void OnFightOptionChosen(FightOption _)
         {
             AllowInteraction();
         }
@@ -41,18 +53,6 @@ namespace Lis.Battle.Arena
         protected override void OnFightStarted()
         {
             ForbidInteraction();
-        }
-
-        public override bool Interact(Interactor interactor)
-        {
-            if (FightManager.IsFightActive)
-            {
-                Debug.Log("Fight is already active");
-                return false;
-            }
-
-            FightManager.StartFight();
-            return true;
         }
     }
 }

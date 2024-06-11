@@ -5,7 +5,7 @@ namespace Lis
 {
     public class EnemySpecialAttackPlayer : MonoBehaviour
     {
-        Animator _anim;
+        private Animator _anim;
 
         public void Initialize()
         {
@@ -13,12 +13,12 @@ namespace Lis
             Invoke(nameof(StartCor), 3f);
         }
 
-        void StartCor()
+        private void StartCor()
         {
             StartCoroutine(PlaySpecialAttackAnimationCoroutine());
         }
 
-        IEnumerator PlaySpecialAttackAnimationCoroutine()
+        private IEnumerator PlaySpecialAttackAnimationCoroutine()
         {
             while (true)
             {

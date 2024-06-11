@@ -7,10 +7,9 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerHeal : AttackController
     {
-        FightManager _fightManager;
-
-        [SerializeField] GameObject _healEffect;
-        [SerializeField] GameObject _healedEffect;
+        [SerializeField] private GameObject _healEffect;
+        [SerializeField] private GameObject _healedEffect;
+        private FightManager _fightManager;
 
         public override void Initialize(UnitController unitController, Attack attack)
         {
@@ -61,7 +60,7 @@ namespace Lis.Units.Attack
             Invoke(nameof(CleanUp), 3f);
         }
 
-        void CleanUp()
+        private void CleanUp()
         {
             _healEffect.SetActive(false);
 

@@ -11,20 +11,17 @@ namespace Lis.Battle.Pickup
 {
     public class PickupController : MonoBehaviour
     {
-        AudioManager _audioManager;
-        BattleManager _battleManager;
-        MMF_Player _feelPlayer;
-
-        [SerializeField] Transform _gfx;
-
-        SphereCollider _sphereCollider;
-        Rigidbody _rigidbody;
-        HeroController _heroController;
-        Hero _hero;
+        [SerializeField] private Transform _gfx;
 
         public Pickup Pickup;
+        private AudioManager _audioManager;
+        private BattleManager _battleManager;
+        private MMF_Player _feelPlayer;
+        private Hero _hero;
+        private HeroController _heroController;
+        private Rigidbody _rigidbody;
 
-        public event Action<PickupController> OnCollected;
+        private SphereCollider _sphereCollider;
 
         public void Awake()
         {
@@ -41,6 +38,20 @@ namespace Lis.Battle.Pickup
 
             _hero.Pull.OnValueChanged += SetPickUpRadius;
         }
+
+        private void OnDestroy()
+        {
+            _hero.Pull.OnValueChanged -= SetPickUpRadius;
+        }
+
+        private void OnTriggerEnter(Collider col)
+        {
+            if (!col.TryGetComponent(out HeroController hero)) return;
+
+            PickUp(hero);
+        }
+
+        public event Action<PickupController> OnCollected;
 
         public void Initialize(Pickup pickup, Vector3 position)
         {
@@ -86,7 +97,7 @@ namespace Lis.Battle.Pickup
             _gfx.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
         }
 
-        void Fall()
+        private void Fall()
         {
             Vector3 position = transform.position;
             position.y = 0;
@@ -94,14 +105,7 @@ namespace Lis.Battle.Pickup
                 .SetEase(Ease.OutBounce);
         }
 
-        void OnTriggerEnter(Collider col)
-        {
-            if (!col.TryGetComponent(out HeroController hero)) return;
-
-            PickUp(hero);
-        }
-
-        void PickUp(HeroController heroController)
+        private void PickUp(HeroController heroController)
         {
             if (Pickup == null) return;
 
@@ -137,12 +141,7 @@ namespace Lis.Battle.Pickup
             OnCollected?.Invoke(this);
         }
 
-        void OnDestroy()
-        {
-            _hero.Pull.OnValueChanged -= SetPickUpRadius;
-        }
-
-        void SetPickUpRadius(float i)
+        private void SetPickUpRadius(float i)
         {
             _sphereCollider.radius = i;
         }
@@ -155,7 +154,7 @@ namespace Lis.Battle.Pickup
                 .OnComplete(() => { PickUp(_heroController); });
         }
 
-        void DisplayText(string text, Color color)
+        private void DisplayText(string text, Color color)
         {
             MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
             floatingText.Value = text;

@@ -1,12 +1,11 @@
 ﻿using Lis.Core;
 using UnityEngine.UIElements;
 
-
 namespace Lis.Units.Pawn
 {
     public class PawnScreen : UnitScreen
     {
-        readonly Pawn _pawn;
+        private readonly Pawn _pawn;
 
         public PawnScreen(Pawn pawn)
             : base(pawn)
@@ -21,11 +20,11 @@ namespace Lis.Units.Pawn
             AddPawnMission();
         }
 
-        void AddPawnMission()
+        private void AddPawnMission()
         {
             OtherContainer.Add(new HorizontalSpacerElement());
 
-            OtherContainer.Add(new Label($"Mission to upgrade:"));
+            OtherContainer.Add(new Label("Mission to upgrade:"));
 
             if (_pawn.CurrentMission is PawnMissionKill kill)
                 OtherContainer.Add(new Label($"Kills: {kill.Kills} / {kill.KillsToMake}"));

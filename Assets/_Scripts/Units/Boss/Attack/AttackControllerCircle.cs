@@ -6,7 +6,6 @@ namespace Lis.Units.Boss
 {
     public class AttackControllerCircle : AttackController
     {
-
         public override IEnumerator Execute()
         {
             int total = Random.Range(Attack.TotalShotCount.x, Attack.TotalShotCount.y);
@@ -19,6 +18,7 @@ namespace Lis.Units.Boss
                 Vector3 dir = (pos - spawnPos).normalized;
                 SpawnProjectile(dir);
             }
+
             yield return null;
         }
     }

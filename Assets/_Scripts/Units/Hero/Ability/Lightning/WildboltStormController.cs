@@ -7,10 +7,10 @@ namespace Lis.Units.Hero.Ability
 {
     public class WildboltStormController : Controller
     {
-        [SerializeField] GameObject _effect;
+        [SerializeField] private GameObject _effect;
 
-        [SerializeField] GameObject _wildboltPrefab;
-        readonly List<WildboltProjectileController> _wildboltPool = new();
+        [SerializeField] private GameObject _wildboltPrefab;
+        private readonly List<WildboltProjectileController> _wildboltPool = new();
 
         public override void Initialize(Ability ability)
         {
@@ -21,7 +21,6 @@ namespace Lis.Units.Hero.Ability
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
-
             yield return base.ExecuteAbilityCoroutine();
 
             if (Ability.ExecuteSound != null)
@@ -50,7 +49,7 @@ namespace Lis.Units.Hero.Ability
             _effect.SetActive(false);
         }
 
-        WildboltProjectileController InitializeProjectile()
+        private WildboltProjectileController InitializeProjectile()
         {
             GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity,
                 BattleManager.AbilityHolder);
@@ -62,7 +61,7 @@ namespace Lis.Units.Hero.Ability
             return projectile;
         }
 
-        WildboltProjectileController GetInactiveProjectile()
+        private WildboltProjectileController GetInactiveProjectile()
         {
             foreach (WildboltProjectileController p in _wildboltPool)
                 if (!p.gameObject.activeSelf)

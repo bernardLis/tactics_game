@@ -13,10 +13,8 @@ namespace Lis.Battle.Arena
         {
             base.Initialize();
             foreach (BarracksNatureUpgrade unlockableNature in UnlockableNatures)
-            {
                 // HERE: save & load
                 unlockableNature.CurrentLevel = 0;
-            }
         }
 
         public void ActivateUpgradeToken()

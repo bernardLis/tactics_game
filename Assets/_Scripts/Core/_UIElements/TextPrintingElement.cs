@@ -8,34 +8,35 @@ namespace Lis.Core
 {
     public class TextPrintingElement : VisualElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "text-printing__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "text-printing__";
+        private const string _ussMain = _ussClassName + "main";
+        private readonly float _durationMs;
 
-        readonly GameManager _gameManager;
+        private readonly GameManager _gameManager;
 
-        readonly Label _textLabel;
+        private readonly Label _textLabel;
 
-        readonly string _textToPrint;
-        readonly float _durationMs;
+        private readonly string _textToPrint;
 
-        int _currentLetterIndex = 0;
+        private int _currentLetterIndex;
+        private int _currentSentenceIndex;
 
-        List<string> _sentencesToPrint = new();
-        int _currentSentenceIndex = 0;
+        private List<string> _sentencesToPrint = new();
 
-        IVisualElementScheduledItem _textPrintingScheduler;
+        private IVisualElementScheduledItem _textPrintingScheduler;
 
-        public event Action OnFinishedPrinting;
         public TextPrintingElement(string text, float durationSeconds)
         {
             _gameManager = GameManager.Instance;
 
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            StyleSheet commonStyles = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null)
                 styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.TextPrintingStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.TextPrintingStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -50,6 +51,8 @@ namespace Lis.Core
             _textToPrint = text;
         }
 
+        public event Action OnFinishedPrinting;
+
         public void PrintSentences()
         {
             _sentencesToPrint = new();
@@ -60,7 +63,7 @@ namespace Lis.Core
             _textPrintingScheduler = schedule.Execute(AddSentence).Every(sentenceDelay);
         }
 
-        void AddSentence()
+        private void AddSentence()
         {
             _textLabel.text = _sentencesToPrint[_currentSentenceIndex];
             _currentSentenceIndex++;
@@ -69,7 +72,6 @@ namespace Lis.Core
             {
                 _textPrintingScheduler.Pause();
                 OnFinishedPrinting?.Invoke();
-                return;
             }
         }
 
@@ -79,7 +81,7 @@ namespace Lis.Core
             _textPrintingScheduler = schedule.Execute(AddLetter).Every(letterDelay);
         }
 
-        void AddLetter()
+        private void AddLetter()
         {
             if (_currentLetterIndex >= _textToPrint.Length)
             {
@@ -91,6 +93,5 @@ namespace Lis.Core
             _textLabel.text += _textToPrint[_currentLetterIndex];
             _currentLetterIndex++;
         }
-
     }
 }

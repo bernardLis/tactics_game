@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -11,29 +12,29 @@ namespace Lis.Core
     public class AddressableManager : MonoBehaviour
     {
         [FormerlySerializedAs("StyleSheetReferences")] [SerializeField]
-        List<AssetReference> _styleSheetReferences = new();
+        private List<AssetReference> _styleSheetReferences = new();
 
-        readonly List<StyleSheet> _styleSheets = new();
+        private readonly List<StyleSheet> _styleSheets = new();
 
-        void Start()
+        private void Start()
         {
             // https://www.youtube.com/watch?v=0USXRC9f4Iw
             Addressables.InitializeAsync().Completed += AddressableManager_Completed;
         }
 
-        void AddressableManager_Completed(
-            AsyncOperationHandle<UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator> obj)
+        private void AddressableManager_Completed(
+            AsyncOperationHandle<IResourceLocator> obj)
         {
             foreach (AssetReference reference in _styleSheetReferences)
             {
                 if (reference == null)
                 {
-                    Debug.LogWarning($"Missing addressable reference.");
+                    Debug.LogWarning("Missing addressable reference.");
                     continue;
                 }
 
                 reference.LoadAssetAsync<StyleSheet>().Completed +=
-                    (sheet) => { _styleSheets.Add(sheet.Result); };
+                    sheet => { _styleSheets.Add(sheet.Result); };
             }
         }
 
@@ -85,6 +86,6 @@ namespace Lis.Core
         InvestmentElementStyles,
         AttackElementStyles,
         FightOptionElementStyles,
-        BarracksNatureUpgradeElementStyles,
+        BarracksNatureUpgradeElementStyles
     }
 }

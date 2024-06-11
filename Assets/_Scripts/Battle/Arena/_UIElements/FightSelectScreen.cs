@@ -7,10 +7,10 @@ namespace Lis.Battle.Arena
 {
     public class FightSelectScreen : FullScreenElement
     {
-        readonly FightManager _fightManager;
+        private readonly FightManager _fightManager;
 
-        readonly List<FightOptionElement> _fightOptionElements = new();
-        MyButton _chooseRandomButton;
+        private readonly List<FightOptionElement> _fightOptionElements = new();
+        private MyButton _chooseRandomButton;
 
         public FightSelectScreen()
         {
@@ -39,7 +39,7 @@ namespace Lis.Battle.Arena
                     continue;
                 }
 
-                option.OnChosen += (_) => DisableOptions();
+                option.OnChosen += _ => DisableOptions();
             }
 
             SetTitle("Choose next fight:");
@@ -47,25 +47,22 @@ namespace Lis.Battle.Arena
             AddContinueButton();
         }
 
-        void AddRandomButton()
+        private void AddRandomButton()
         {
             if (_fightManager.CurrentFight.ChosenOption != null) return;
             _chooseRandomButton = new($"Random +{FightManager.FightNumber * 10} gold", USSCommonButton, ChooseRandom);
             UtilityContainer.Add(_chooseRandomButton);
         }
 
-        void ChooseRandom()
+        private void ChooseRandom()
         {
             _fightManager.CurrentFight.ChooseRandomOption();
         }
 
-        void DisableOptions()
+        private void DisableOptions()
         {
             _chooseRandomButton.SetEnabled(false);
-            foreach (FightOptionElement el in _fightOptionElements)
-            {
-                el.DisableSelf();
-            }
+            foreach (FightOptionElement el in _fightOptionElements) el.DisableSelf();
         }
     }
 }

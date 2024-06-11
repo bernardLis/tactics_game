@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Lis.Core;
-using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Pawn;
 using UnityEngine;
@@ -10,19 +9,19 @@ namespace Lis.Battle.Arena
 {
     public class BarracksNatureUpgradeElement : VisualElement
     {
-        const string _ussCommonButton = "common__button";
-        const string _ussClassName = "barracks-nature-upgrade-element__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussPawnLocked = _ussClassName + "pawn-locked";
-        const string _ussPawnUnlocked = _ussClassName + "pawn-unlocked";
+        private const string _ussCommonButton = "common__button";
+        private const string _ussClassName = "barracks-nature-upgrade-element__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussPawnLocked = _ussClassName + "pawn-locked";
+        private const string _ussPawnUnlocked = _ussClassName + "pawn-unlocked";
 
-        readonly GameManager _gameManager;
+        private readonly BarracksNatureUpgrade _barracksNatureUpgrade;
 
-        readonly BarracksNatureUpgrade _barracksNatureUpgrade;
+        private readonly GameManager _gameManager;
 
-        readonly Label _levelLabel;
-        readonly List<UnitIcon> _pawnIcons = new();
-        readonly PurchaseButton _purchaseButton;
+        private readonly Label _levelLabel;
+        private readonly List<UnitIcon> _pawnIcons = new();
+        private readonly PurchaseButton _purchaseButton;
 
         public BarracksNatureUpgradeElement(BarracksNatureUpgrade n)
         {
@@ -49,7 +48,7 @@ namespace Lis.Battle.Arena
             Add(_purchaseButton);
         }
 
-        void AddPawnElements()
+        private void AddPawnElements()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -58,7 +57,7 @@ namespace Lis.Battle.Arena
             Pawn p = _gameManager.UnitDatabase.GetPawnByNature(_barracksNatureUpgrade.Nature);
             for (int i = 0; i < p.Upgrades.Length; i++)
             {
-                Pawn newPawn = ScriptableObject.Instantiate(p);
+                Pawn newPawn = Object.Instantiate(p);
                 newPawn.InitializeBattle(1);
                 for (int j = 0; j < i; j++)
                     newPawn.Upgrade();
@@ -68,7 +67,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        void Unlock()
+        private void Unlock()
         {
             _barracksNatureUpgrade.Upgrade();
             UpdateLevelLabel();
@@ -76,15 +75,14 @@ namespace Lis.Battle.Arena
             UpdatePurchaseButton();
         }
 
-        void UpdateLevelLabel()
+        private void UpdateLevelLabel()
         {
             _levelLabel.text = $"Level: {_barracksNatureUpgrade.CurrentLevel}";
         }
 
-        void UpdatePawnIconStyles()
+        private void UpdatePawnIconStyles()
         {
             for (int i = 0; i < _pawnIcons.Count; i++)
-            {
                 if (i < _barracksNatureUpgrade.CurrentLevel)
                 {
                     _pawnIcons[i].RemoveFromClassList(_ussPawnLocked);
@@ -95,7 +93,6 @@ namespace Lis.Battle.Arena
                     _pawnIcons[i].RemoveFromClassList(_ussPawnUnlocked);
                     _pawnIcons[i].AddToClassList(_ussPawnLocked);
                 }
-            }
         }
 
         public void UpdatePurchaseButton()

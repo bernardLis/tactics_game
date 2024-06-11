@@ -6,12 +6,12 @@ namespace Lis.Core
 {
     public class CursorManager : Singleton<CursorManager>
     {
-        [SerializeField] MyCursor[] _cursors;
-        [SerializeField] MyCursor _defaultCursor;
+        [SerializeField] private MyCursor[] _cursors;
+        [SerializeField] private MyCursor _defaultCursor;
 
-        bool _isCustomCursorActive;
+        private bool _isCustomCursorActive;
 
-        void Start()
+        private void Start()
         {
             SetCursor(_defaultCursor);
         }
@@ -36,6 +36,5 @@ namespace Lis.Core
         {
             Cursor.SetCursor(cursor.Texture, Vector2.zero, CursorMode.Auto);
         }
-
     }
 }

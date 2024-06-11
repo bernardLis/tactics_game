@@ -8,16 +8,16 @@ namespace Lis.Battle.Fight
 {
     public class FightOptionElement : VisualElement
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
-        const string _ussClassName = "fight-option__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "fight-option__";
+        private const string _ussMain = _ussClassName + "main";
 
-        readonly GameManager _gameManager;
+        private readonly MyButton _chooseButton;
 
-        readonly MyButton _chooseButton;
+        private readonly GameManager _gameManager;
 
-        readonly FightOption _option;
+        private readonly FightOption _option;
 
         public FightOptionElement(FightOption option)
         {
@@ -45,7 +45,7 @@ namespace Lis.Battle.Fight
             Add(_chooseButton);
         }
 
-        List<VisualElement> AggregateEnemies(List<Unit> army)
+        private List<VisualElement> AggregateEnemies(List<Unit> army)
         {
             Dictionary<string, int> unitCountDict = new();
 
@@ -54,7 +54,7 @@ namespace Lis.Battle.Fight
                     unitCountDict[e.Id]++;
 
             List<VisualElement> result = new();
-            foreach (KeyValuePair<string, int> item in unitCountDict)
+            foreach (var item in unitCountDict)
             {
                 VisualElement container = new();
                 container.style.flexDirection = FlexDirection.Row;
@@ -64,7 +64,7 @@ namespace Lis.Battle.Fight
                 container.Add(count);
 
                 Unit unit = _gameManager.UnitDatabase.GetUnitById(item.Key);
-                Unit instance = ScriptableObject.Instantiate(unit);
+                Unit instance = Object.Instantiate(unit);
                 instance.InitializeBattle(1);
                 UnitIcon icon = new(instance);
                 container.Add(icon);
@@ -73,7 +73,7 @@ namespace Lis.Battle.Fight
             return result;
         }
 
-        void ChooseOption()
+        private void ChooseOption()
         {
             _option.Choose();
         }

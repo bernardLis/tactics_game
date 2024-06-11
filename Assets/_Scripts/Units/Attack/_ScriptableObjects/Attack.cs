@@ -19,12 +19,12 @@ namespace Lis.Units.Attack
 
         public Sound Sound;
         [HideInInspector] public int DamageDealt;
-        public event Action<int> OnDamageDealt;
 
         public AttackController AttackControllerPrefab;
         [HideInInspector] public AttackController AttackController;
-        UnitController _unitController;
-        Unit _unit;
+        private Unit _unit;
+        private UnitController _unitController;
+        public event Action<int> OnDamageDealt;
 
         public void InitializeAttack(UnitController unitController)
         {

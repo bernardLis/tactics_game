@@ -11,26 +11,26 @@ namespace Lis.Battle
 {
     public class StatsElement : VisualElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "stats-battle-element__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussPanel = _ussClassName + "panel";
+        private const string _ussClassName = "stats-battle-element__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussPanel = _ussClassName + "panel";
 
-        const string _ussCreatureContainer = _ussClassName + "creature-container";
-        const string _ussCreatureLabel = _ussClassName + "creature-label";
-        const string _ussCreatureIcon = _ussClassName + "creature-icon";
+        private const string _ussCreatureContainer = _ussClassName + "creature-container";
+        private const string _ussCreatureLabel = _ussClassName + "creature-label";
+        private const string _ussCreatureIcon = _ussClassName + "creature-icon";
+        private readonly BattleManager _battleManager;
+        private readonly FightManager _fightManager;
 
-        readonly GameManager _gameManager;
-        readonly BattleManager _battleManager;
-        readonly HeroManager _heroManager;
-        readonly FightManager _fightManager;
+        private readonly GameManager _gameManager;
+        private readonly HeroManager _heroManager;
 
-        readonly VisualElement _leftPanel;
-        readonly VisualElement _middlePanel;
-        readonly VisualElement _rightPanel;
+        private readonly VisualElement _leftPanel;
+        private readonly VisualElement _middlePanel;
+        private readonly VisualElement _rightPanel;
 
-        readonly Stats _stats;
+        private readonly Stats _stats;
 
         public StatsElement()
         {
@@ -69,12 +69,12 @@ namespace Lis.Battle
             PopulateRightPanel();
         }
 
-        void PopulateLeftPanel()
+        private void PopulateLeftPanel()
         {
             AddAbilityStats();
         }
 
-        void PopulateMiddlePanel()
+        private void PopulateMiddlePanel()
         {
             _middlePanel.Add(new PickupStatsElement(_stats));
             AddTotalGold();
@@ -82,20 +82,20 @@ namespace Lis.Battle
             AddTilesUnlocked();
         }
 
-        void PopulateRightPanel()
+        private void PopulateRightPanel()
         {
             AddRerollCount();
             // AddMinionsKilled();
             AddCreatureKills();
         }
 
-        void AddAbilityStats()
+        private void AddAbilityStats()
         {
             foreach (Ability a in _heroManager.Hero.GetAllAbilities())
                 _leftPanel.Add(new AbilityStatsElement(a));
         }
 
-        void AddTotalGold()
+        private void AddTotalGold()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -108,7 +108,7 @@ namespace Lis.Battle
             _middlePanel.Add(container);
         }
 
-        void AddTimeSurvived()
+        private void AddTimeSurvived()
         {
             VisualElement container = new();
             _middlePanel.Add(container);
@@ -122,7 +122,7 @@ namespace Lis.Battle
             container.Add(text);
         }
 
-        void AddTilesUnlocked()
+        private void AddTilesUnlocked()
         {
             VisualElement container = new();
             _middlePanel.Add(container);
@@ -131,7 +131,7 @@ namespace Lis.Battle
             container.Add(text);
         }
 
-        void AddRerollCount()
+        private void AddRerollCount()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -169,7 +169,7 @@ namespace Lis.Battle
         //     container.Add(minionCount);
         // }
 
-        void AddCreatureKills()
+        private void AddCreatureKills()
         {
             VisualElement container = new();
             container.AddToClassList(_ussCreatureContainer);
@@ -187,15 +187,13 @@ namespace Lis.Battle
             Dictionary<Sprite, int> creatureKillCount = new();
 
             foreach (Unit e in _fightManager.KilledEnemyUnits)
-            {
                 // if (e is not Creature) continue;
                 if (creatureKillCount.ContainsKey(e.Icon))
                     creatureKillCount[e.Icon]++;
                 else
                     creatureKillCount.Add(e.Icon, 1);
-            }
 
-            foreach (KeyValuePair<Sprite, int> entry in creatureKillCount)
+            foreach (var entry in creatureKillCount)
             {
                 VisualElement c = new();
                 c.style.flexDirection = FlexDirection.Row;
@@ -205,7 +203,7 @@ namespace Lis.Battle
 
                 VisualElement icon = new();
                 icon.AddToClassList(_ussCreatureIcon);
-                icon.style.backgroundImage = new StyleBackground(entry.Key);
+                icon.style.backgroundImage = new(entry.Key);
                 c.Add(icon);
             }
         }

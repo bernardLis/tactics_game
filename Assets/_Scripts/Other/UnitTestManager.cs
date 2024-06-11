@@ -13,20 +13,19 @@ namespace Lis
 {
     public class UnitTestManager : MonoBehaviour
     {
-        BattleManager _battleManager;
-        TooltipManager _tooltipManager;
-        FightManager _fightManager;
-        BreakableVaseManager _breakableVaseManager;
-
         public int TotalFights;
         public int FightsWon;
         public int FightsLost;
 
         public List<TestFight> Tests = new();
+        private BattleManager _battleManager;
+        private BreakableVaseManager _breakableVaseManager;
 
-        float _currentFightStartTime;
+        private float _currentFightStartTime;
+        private FightManager _fightManager;
+        private TooltipManager _tooltipManager;
 
-        void Start()
+        private void Start()
         {
             _battleManager = BattleManager.Instance;
             _tooltipManager = TooltipManager.Instance;
@@ -35,7 +34,7 @@ namespace Lis
             BattleInitializer.Instance.OnBattleInitialized += OnBattleInitialized;
         }
 
-        void OnBattleInitialized()
+        private void OnBattleInitialized()
         {
             _tooltipManager.DisplayGameInfo(new Label("Unit tests engaged..."));
             Time.timeScale = 3f;
@@ -47,7 +46,7 @@ namespace Lis
             StartCoroutine(StartNewTestCoroutine());
         }
 
-        IEnumerator StartNewTestCoroutine()
+        private IEnumerator StartNewTestCoroutine()
         {
             yield return new WaitForSeconds(3f);
             ClearArmies();
@@ -55,7 +54,7 @@ namespace Lis
             StartCoroutine(StartRandomTest());
         }
 
-        void ClearArmies()
+        private void ClearArmies()
         {
             _tooltipManager.DisplayGameInfo(new Label("Clearing armies..."));
 
@@ -69,7 +68,7 @@ namespace Lis
             _fightManager.EnemyUnits.Clear();
         }
 
-        IEnumerator StartRandomTest()
+        private IEnumerator StartRandomTest()
         {
             TotalFights++;
 
@@ -91,7 +90,7 @@ namespace Lis
         }
 
 
-        void OnFightEnded()
+        private void OnFightEnded()
         {
             if (Tests.Count == 0) return;
             TestFight test = Tests.Last();

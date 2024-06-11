@@ -6,9 +6,8 @@ namespace Lis.Units.Projectile
 {
     public class WildboltProjectileController : ProjectileController
     {
-        Vector3 _dir;
-
-        Ability _ability;
+        private Ability _ability;
+        private Vector3 _dir;
 
         public void Fire(Ability ability)
         {
@@ -17,10 +16,10 @@ namespace Lis.Units.Projectile
             StartCoroutine(FireCoroutine());
         }
 
-        IEnumerator FireCoroutine()
+        private IEnumerator FireCoroutine()
         {
-            float endTime = UnityEngine.Time.time + _ability.GetDuration();
-            while (UnityEngine.Time.time < endTime)
+            float endTime = Time.time + _ability.GetDuration();
+            while (Time.time < endTime)
             {
                 // choose a random direction but keep y = 0
                 _dir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized;
@@ -33,13 +32,13 @@ namespace Lis.Units.Projectile
             yield return Explode(transform.position);
         }
 
-        IEnumerator GoForward(float timeInSeconds)
+        private IEnumerator GoForward(float timeInSeconds)
         {
             float t = 0;
             while (t <= timeInSeconds)
             {
-                transform.position += Speed * UnityEngine.Time.fixedDeltaTime * _dir;
-                t += UnityEngine.Time.fixedDeltaTime;
+                transform.position += Speed * Time.fixedDeltaTime * _dir;
+                t += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
         }

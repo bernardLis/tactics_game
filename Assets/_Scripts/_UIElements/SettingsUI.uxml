@@ -1,11 +1,17 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
-    <ui:VisualElement name="settingsContainer" style="width: 100%; height: 100%; background-color: rgb(106, 60, 60); display: flex;">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/UIStyles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles"/>
+    <ui:VisualElement name="settingsContainer"
+                      style="width: 100%; height: 100%; background-color: rgb(106, 60, 60); display: flex;">
         <ui:VisualElement name="volumeContainer" style="width: 50%;">
-            <ui:SliderInt label="Volume:" value="50" high-value="100" name="volumeSlider" show-input-field="true" class="textPrimary" style="width: 400px; align-items: auto; justify-content: flex-start; flex-wrap: wrap-reverse; flex-direction: column;" />
+            <ui:SliderInt label="Volume:" value="50" high-value="100" name="volumeSlider" show-input-field="true"
+                          class="textPrimary"
+                          style="width: 400px; align-items: auto; justify-content: flex-start; flex-wrap: wrap-reverse; flex-direction: column;"/>
         </ui:VisualElement>
-        <ui:Toggle label="Full screen" name="fullScreenToggle" class="textPrimary" />
-        <ui:RadioButtonGroup label="Resolution:" value="-1" name="resolutionRadioGroup" choices="960x540,1280x720,1920x1080" class="textPrimary" style="flex-direction: column;" />
-        <ui:Button text="Back" display-tooltip-when-elided="true" name="settingsBackButton" />
+        <ui:Toggle label="Full screen" name="fullScreenToggle" class="textPrimary"/>
+        <ui:RadioButtonGroup label="Resolution:" value="-1" name="resolutionRadioGroup"
+                             choices="960x540,1280x720,1920x1080" class="textPrimary" style="flex-direction: column;"/>
+        <ui:Button text="Back" display-tooltip-when-elided="true" name="settingsBackButton"/>
     </ui:VisualElement>
 </ui:UXML>

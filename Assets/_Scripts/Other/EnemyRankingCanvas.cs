@@ -7,9 +7,9 @@ namespace Lis
 {
     public class EnemyRankingCanvas : MonoBehaviour
     {
-        [SerializeField] TMP_Text _name;
-        [SerializeField] TMP_Text _scariness;
-        [SerializeField] Image _nature;
+        [SerializeField] private TMP_Text _name;
+        [SerializeField] private TMP_Text _scariness;
+        [SerializeField] private Image _nature;
 
         public void Initialize(Enemy e, Vector3 pos)
         {

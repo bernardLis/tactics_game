@@ -6,16 +6,14 @@ namespace Lis.Core
 {
     public class AnimationElement : VisualElement
     {
-        Sprite[] _animationSprites;
-        bool _isLoop;
-        readonly int _delay;
-        int _animationSpriteIndex = 0;
+        private readonly int _delay;
 
-        IVisualElementScheduledItem _animationScheduler;
+        private IVisualElementScheduledItem _animationScheduler;
+        private int _animationSpriteIndex;
+        private Sprite[] _animationSprites;
 
-        bool _isFinished;
-
-        public event Action OnAnimationFinished;
+        private bool _isFinished;
+        private bool _isLoop;
 
         public AnimationElement(Sprite[] animationSprites, int delayBetweenSprites, bool isLoop, bool noStyles = false)
         {
@@ -30,15 +28,17 @@ namespace Lis.Core
             _delay = delayBetweenSprites;
             _isLoop = isLoop;
 
-            style.backgroundImage = new StyleBackground(_animationSprites[0]);
+            style.backgroundImage = new(_animationSprites[0]);
             style.backgroundSize = new BackgroundSize(BackgroundSizeType.Contain);
         }
+
+        public event Action OnAnimationFinished;
 
         public void SwapAnimationSprites(Sprite[] animationSprites)
         {
             _animationSprites = animationSprites;
             _animationSpriteIndex = 0;
-            style.backgroundImage = new StyleBackground(_animationSprites[0]);
+            style.backgroundImage = new(_animationSprites[0]);
         }
 
         public void SetLoop(bool isLoop)
@@ -69,7 +69,7 @@ namespace Lis.Core
             _animationScheduler.Resume();
         }
 
-        void Animate()
+        private void Animate()
         {
             if (_animationSpriteIndex == _animationSprites.Length)
             {
@@ -82,11 +82,11 @@ namespace Lis.Core
                 _animationSpriteIndex = 0;
             }
 
-            style.backgroundImage = new StyleBackground(_animationSprites[_animationSpriteIndex]);
+            style.backgroundImage = new(_animationSprites[_animationSpriteIndex]);
             _animationSpriteIndex++;
         }
 
-        void FinishAnimation()
+        private void FinishAnimation()
         {
             PauseAnimation();
             OnAnimationFinished?.Invoke();

@@ -6,7 +6,7 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerDash : AttackController
     {
-        [SerializeField] GameObject _effect;
+        [SerializeField] private GameObject _effect;
 
         public override IEnumerator AttackCoroutine()
         {
@@ -41,7 +41,7 @@ namespace Lis.Units.Attack
             Invoke(nameof(CleanUp), 2f);
         }
 
-        void CleanUp()
+        private void CleanUp()
         {
             _effect.SetActive(false);
         }

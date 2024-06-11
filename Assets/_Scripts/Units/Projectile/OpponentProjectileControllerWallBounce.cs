@@ -33,7 +33,7 @@ namespace Lis.Units.Projectile
             }
         }
 
-        void Bounce(Vector3 normal)
+        private void Bounce(Vector3 normal)
         {
             Direction = Vector3.Reflect(Direction, normal);
             Direction.y = 0;

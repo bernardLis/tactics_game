@@ -9,21 +9,21 @@ namespace Lis.Core
 {
     public class SettingsScreen : FullScreenElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussCommonEvenBackground = "common__even-background";
-        const string _ussCommonOddBackground = "common__odd-background";
+        private const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonEvenBackground = "common__even-background";
+        private const string _ussCommonOddBackground = "common__odd-background";
 
-        const string _ussClassName = "settings-screen__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussUiContainer = _ussClassName + "ui-container";
-        const string _ussTitle = _ussClassName + "title";
-        const string _ussVolumeSlider = _ussClassName + "volume-slider";
+        private const string _ussClassName = "settings-screen__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussUiContainer = _ussClassName + "ui-container";
+        private const string _ussTitle = _ussClassName + "title";
+        private const string _ussVolumeSlider = _ussClassName + "volume-slider";
 
-        readonly AudioManager _audioManger;
+        private readonly AudioManager _audioManger;
 
-        readonly VisualElement _container;
+        private readonly VisualElement _container;
 
-        Toggle _fullScreenToggle;
+        private Toggle _fullScreenToggle;
 
         public SettingsScreen()
         {
@@ -49,7 +49,7 @@ namespace Lis.Core
             AddContinueButton();
         }
 
-        void AddSoundOptions()
+        private void AddSoundOptions()
         {
             VisualElement soundContainer = new();
             soundContainer.AddToClassList(_ussCommonEvenBackground);
@@ -63,7 +63,7 @@ namespace Lis.Core
             AddVolumeSliders(soundContainer);
         }
 
-        void AddGraphicsOptions()
+        private void AddGraphicsOptions()
         {
             VisualElement graphicsContainer = new();
             graphicsContainer.AddToClassList(_ussCommonOddBackground);
@@ -79,7 +79,7 @@ namespace Lis.Core
             AddRadioResolutionGroup(graphicsContainer);
         }
 
-        void AddVolumeSliders(VisualElement p)
+        private void AddVolumeSliders(VisualElement p)
         {
             Slider master = AddVolumeSlider("Master", p);
             master.AddToClassList(_ussVolumeSlider);
@@ -112,7 +112,7 @@ namespace Lis.Core
             ui.RegisterValueChangedCallback(UIVolumeChange);
         }
 
-        Slider AddVolumeSlider(string n, VisualElement p)
+        private Slider AddVolumeSlider(string n, VisualElement p)
         {
             //https://forum.unity.com/threads/changing-audio-mixer-group-volume-with-ui-slider.297884/
             VisualElement container = CreateContainer(n);
@@ -130,66 +130,66 @@ namespace Lis.Core
             return volumeSlider;
         }
 
-        void MasterVolumeChange(ChangeEvent<float> evt)
+        private void MasterVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("MasterVolume", evt.newValue);
             PlayerPrefs.Save();
             _audioManger.SetMasterVolume(evt.newValue);
         }
 
-        void MusicVolumeChange(ChangeEvent<float> evt)
+        private void MusicVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("MusicVolume", evt.newValue);
             PlayerPrefs.Save();
             _audioManger.SetMusicVolume(evt.newValue);
         }
 
-        void AmbienceVolumeChange(ChangeEvent<float> evt)
+        private void AmbienceVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("AmbienceVolume", evt.newValue);
             PlayerPrefs.Save();
             _audioManger.SetAmbienceVolume(evt.newValue);
         }
 
-        void DialogueVolumeChange(ChangeEvent<float> evt)
+        private void DialogueVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("DialogueVolume", evt.newValue);
             PlayerPrefs.Save();
             _audioManger.SetDialogueVolume(evt.newValue);
         }
 
-        void SfxVolumeChange(ChangeEvent<float> evt)
+        private void SfxVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
             PlayerPrefs.Save();
             _audioManger.SetSfxVolume(evt.newValue);
         }
 
-        void UIVolumeChange(ChangeEvent<float> evt)
+        private void UIVolumeChange(ChangeEvent<float> evt)
         {
             PlayerPrefs.SetFloat("SFXVolume", evt.newValue);
             PlayerPrefs.Save();
             _audioManger.SetUIVolume(evt.newValue);
         }
 
-        void AddFullScreenToggle(VisualElement p)
+        private void AddFullScreenToggle(VisualElement p)
         {
             VisualElement container = CreateContainer("Full Screen");
             p.Add(container);
 
-            _fullScreenToggle = new Toggle();
+            _fullScreenToggle = new();
             container.Add(_fullScreenToggle);
             SetFullScreen(PlayerPrefs.GetInt("fullScreen", 1) != 0);
             _fullScreenToggle.RegisterValueChangedCallback(FullScreenToggleClick);
         }
 
-        void FullScreenToggleClick(ChangeEvent<bool> evt)
+        private void FullScreenToggleClick(ChangeEvent<bool> evt)
         {
-            PlayerPrefs.SetInt("fullScreen", (evt.newValue ? 1 : 0));
+            PlayerPrefs.SetInt("fullScreen", evt.newValue ? 1 : 0);
             SetFullScreen(evt.newValue);
         }
 
-        void SetFullScreen(bool isFullScreen)
+        private void SetFullScreen(bool isFullScreen)
         {
             _fullScreenToggle.value = isFullScreen;
             if (isFullScreen)
@@ -198,7 +198,7 @@ namespace Lis.Core
                 Screen.fullScreen = false;
         }
 
-        void AddRadioResolutionGroup(VisualElement p)
+        private void AddRadioResolutionGroup(VisualElement p)
         {
             List<string> supportedResolutions = new();
             foreach (Resolution res in Screen.resolutions)
@@ -215,21 +215,21 @@ namespace Lis.Core
             dropdown.RegisterValueChangedCallback(SetResolution);
         }
 
-        void SetResolution(ChangeEvent<string> evt)
+        private void SetResolution(ChangeEvent<string> evt)
         {
             string[] split = evt.newValue.Split(" x ");
             int width = int.Parse(split[0]);
             string[] split1 = split[1].Split(" @ ");
             int height = int.Parse(split1[0]);
             int hz = int.Parse(split1[1].Split(".")[0]);
-            FullScreenMode fullScreenMode = (PlayerPrefs.GetInt("fullScreen", 1) != 0)
+            FullScreenMode fullScreenMode = PlayerPrefs.GetInt("fullScreen", 1) != 0
                 ? FullScreenMode.ExclusiveFullScreen
                 : FullScreenMode.Windowed;
             RefreshRate rr = new() { numerator = (uint)hz, denominator = 1 };
             Screen.SetResolution(width, height, fullScreenMode, rr);
         }
 
-        VisualElement CreateContainer(string labelText)
+        private VisualElement CreateContainer(string labelText)
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -239,7 +239,7 @@ namespace Lis.Core
             return container;
         }
 
-        void AddDataCollectionOptions()
+        private void AddDataCollectionOptions()
         {
             VisualElement container = CreateContainer("Allow Anonymous Gameplay Data Collection");
             _container.Add(container);
@@ -254,23 +254,23 @@ namespace Lis.Core
             container.Add(testEventButton);
         }
 
-        void SendTestEvent()
+        private void SendTestEvent()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>()
+            var parameters = new Dictionary<string, object>
             {
-                { "myWonderfulParameter", "test event baby!!" },
+                { "myWonderfulParameter", "test event baby!!" }
             };
 
             AnalyticsService.Instance.CustomData("myTestEvent", parameters);
         }
 
-        void AllowDataCollectionClick(ChangeEvent<bool> evt)
+        private void AllowDataCollectionClick(ChangeEvent<bool> evt)
         {
-            PlayerPrefs.SetInt("isDataCollectionAllowed", (evt.newValue ? 1 : 0));
+            PlayerPrefs.SetInt("isDataCollectionAllowed", evt.newValue ? 1 : 0);
             SetDataCollection(evt.newValue);
         }
 
-        void SetDataCollection(bool allowDataCollection)
+        private void SetDataCollection(bool allowDataCollection)
         {
             if (allowDataCollection)
                 AnalyticsService.Instance.StartDataCollection();
@@ -278,7 +278,7 @@ namespace Lis.Core
                 AnalyticsService.Instance.StopDataCollection();
         }
 
-        void AddClearSaveButton()
+        private void AddClearSaveButton()
         {
             ConfirmPopUp popUp = new();
             MyButton button = new("Clear Save Data", USSCommonButton,
@@ -286,7 +286,7 @@ namespace Lis.Core
             _container.Add(button);
         }
 
-        void ClearSaveData()
+        private void ClearSaveData()
         {
             GameManager.ClearSaveData();
         }

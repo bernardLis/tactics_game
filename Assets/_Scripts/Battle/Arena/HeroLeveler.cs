@@ -6,9 +6,26 @@ namespace Lis.Battle.Arena
 {
     public class HeroLeveler : BuildingController, IInteractable
     {
+        private int _levelUpsAvailable;
         public new string InteractionPrompt => "Press F To Level Up!";
 
-        int _levelUpsAvailable;
+        public override bool Interact(Interactor interactor)
+        {
+            if (!IsInteractionAvailable)
+            {
+                Debug.Log("No level up available!");
+                return false;
+            }
+
+            LevelUpRewardScreen levelUpScreen = new();
+            levelUpScreen.Initialize();
+
+            _levelUpsAvailable--;
+            if (_levelUpsAvailable == 0)
+                ForbidInteraction();
+
+            return true;
+        }
 
         protected override void OnBattleInitialized()
         {
@@ -21,7 +38,7 @@ namespace Lis.Battle.Arena
             Initialize();
         }
 
-        void OnHeroInitialized(Hero hero)
+        private void OnHeroInitialized(Hero hero)
         {
             hero.OnLevelUp += AllowInteraction;
         }
@@ -41,24 +58,6 @@ namespace Lis.Battle.Arena
         protected override void SetTooltipText()
         {
             TooltipText.text = InteractionPrompt;
-        }
-
-        public override bool Interact(Interactor interactor)
-        {
-            if (!IsInteractionAvailable)
-            {
-                Debug.Log("No level up available!");
-                return false;
-            }
-
-            LevelUpRewardScreen levelUpScreen = new();
-            levelUpScreen.Initialize();
-
-            _levelUpsAvailable--;
-            if (_levelUpsAvailable == 0)
-                ForbidInteraction();
-
-            return true;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Lis.Core
 {
     public class ContinueButton : MyButton
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
         public ContinueButton(string buttonText = "Continue", string className = _ussCommonButton,
             Action callback = null)

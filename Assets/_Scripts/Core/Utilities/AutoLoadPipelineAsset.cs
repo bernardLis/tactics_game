@@ -9,15 +9,16 @@ namespace Lis.Core.Utilities
     {
         [SerializeField]
         private UniversalRenderPipelineAsset m_PipelineAsset;
-        private RenderPipelineAsset m_PreviousPipelineAsset;
-        private bool m_overrodeQualitySettings;
 
-        void OnEnable()
+        private bool m_overrodeQualitySettings;
+        private RenderPipelineAsset m_PreviousPipelineAsset;
+
+        private void OnEnable()
         {
             UpdatePipeline();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             ResetPipeline();
         }
@@ -46,14 +47,9 @@ namespace Lis.Core.Utilities
             if (m_PreviousPipelineAsset)
             {
                 if (m_overrodeQualitySettings)
-                {
                     QualitySettings.renderPipeline = m_PreviousPipelineAsset;
-                }
                 else
-                {
                     GraphicsSettings.renderPipelineAsset = m_PreviousPipelineAsset;
-                }
-
             }
         }
     }

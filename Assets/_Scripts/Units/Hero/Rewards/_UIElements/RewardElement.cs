@@ -6,17 +6,17 @@ namespace Lis.Units.Hero.Rewards
 {
     public class RewardElement : ElementWithSound
     {
-        readonly GameManager _gameManager;
-        const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
-        const string _ussClassName = "reward-element__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussContent = _ussClassName + "content";
-        const string _ussDisabled = _ussClassName + "disabled";
+        private const string _ussCommonTextPrimaryBlack = "common__text-primary-black";
+        private const string _ussClassName = "reward-element__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussContent = _ussClassName + "content";
+        private const string _ussDisabled = _ussClassName + "disabled";
+        private readonly GameManager _gameManager;
 
         public readonly Reward Reward;
+        private Label _mysteryLabel;
 
         protected VisualElement ContentContainer;
-        Label _mysteryLabel;
 
         protected RewardElement(Reward reward)
         {
@@ -39,7 +39,7 @@ namespace Lis.Units.Hero.Rewards
         }
 
 
-        void OnClick(ClickEvent evt)
+        private void OnClick(ClickEvent evt)
         {
             if (evt.button != 0) return;
 
@@ -47,7 +47,7 @@ namespace Lis.Units.Hero.Rewards
             Reward.GetReward();
         }
 
-        void OnMouseOver(MouseOverEvent evt)
+        private void OnMouseOver(MouseOverEvent evt)
         {
             BringToFront();
         }

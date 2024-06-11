@@ -6,11 +6,11 @@ namespace Lis.Core
 {
     public class ChangingValueElement : ElementWithTooltip
     {
-        public int Amount;
+        protected IVisualElementScheduledItem _amountChangeScheduler;
+        protected int _currentlyDisplayedAmount;
 
         protected Label _text;
-        protected int _currentlyDisplayedAmount;
-        protected IVisualElementScheduledItem _amountChangeScheduler;
+        public int Amount;
 
         public event Action OnAnimationFinished;
 
@@ -60,7 +60,5 @@ namespace Lis.Core
 
             OnAnimationFinished?.Invoke();
         }
-
-
     }
 }

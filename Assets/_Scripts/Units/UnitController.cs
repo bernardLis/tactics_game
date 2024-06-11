@@ -19,51 +19,52 @@ namespace Lis.Units
 {
     public class UnitController : MonoBehaviour
     {
-        static readonly int AnimDie = Animator.StringToHash("Die");
-        static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
-
-        protected GameManager GameManager;
-        protected AudioManager AudioManager;
-        protected BattleManager BattleManager;
-        protected FightManager FightManager;
-        PickupManager _pickupManager;
-        ArenaManager _arenaManager;
+        private static readonly int AnimDie = Animator.StringToHash("Die");
+        private static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
 
         public List<string> UnitLog = new();
 
         [Header("Effects")]
-        [SerializeField] GameObject _levelUpEffect;
+        [SerializeField]
+        private GameObject _levelUpEffect;
 
         [SerializeField] protected GameObject DeathEffect;
-        [SerializeField] GameObject _reviveEffect;
+        [SerializeField] private GameObject _reviveEffect;
+        [HideInInspector] public bool IsShielded;
+        private ArenaManager _arenaManager;
+        private AttackController _attackController;
 
-        protected UnitPathingController UnitPathingController;
-        AttackController _attackController;
+        private IEnumerator _currentMainCoroutine;
+        private IEnumerator _currentSecondaryCoroutine;
+
+        private MMF_Player _feelPlayer;
+
+        private Color _healthColor;
+
+        private bool _isAttackReady;
+        private bool _isDeathCoroutineStarted;
+        private bool _isEngaged;
+
+        private List<UnitController> _opponentList = new();
+        private PickupManager _pickupManager;
+        private Color _shieldColor;
+        protected AudioManager AudioManager;
+        protected BattleManager BattleManager;
+        protected FightManager FightManager;
+
+        protected GameManager GameManager;
 
         protected ObjectShaders ObjectShaders;
+
+        protected UnitPathingController UnitPathingController;
         public Collider Collider { get; private set; }
         public Animator Animator { get; protected set; }
 
         public Unit Unit { get; private set; }
         public int Team { get; private set; }
-
-        List<UnitController> _opponentList = new();
         public UnitController Opponent { get; private set; }
 
-        bool _isAttackReady;
-        [HideInInspector] public bool IsShielded;
-        bool _isEngaged;
-
         public bool IsDead { get; protected set; }
-        bool _isDeathCoroutineStarted;
-
-        MMF_Player _feelPlayer;
-
-        IEnumerator _currentMainCoroutine;
-        IEnumerator _currentSecondaryCoroutine;
-
-        Color _healthColor;
-        Color _shieldColor;
 
         public event Action OnShieldBroken;
         public event Action<Attack.Attack> OnHit;
@@ -86,7 +87,7 @@ namespace Lis.Units
             Animator = GetComponentInChildren<Animator>();
             _feelPlayer = GetComponent<MMF_Player>();
 
-            AddToLog($"Game Object is initialized.");
+            AddToLog("Game Object is initialized.");
         }
 
         public virtual void InitializeUnit(Unit unit, int team)
@@ -115,7 +116,7 @@ namespace Lis.Units
             InitializeAttacks();
         }
 
-        void InitializeControllers()
+        private void InitializeControllers()
         {
             UnitPathingController = GetComponent<UnitPathingController>();
             if (UnitPathingController != null)
@@ -135,7 +136,7 @@ namespace Lis.Units
                 hit.Initialize(this);
         }
 
-        void InitializeAttacks()
+        private void InitializeAttacks()
         {
             foreach (Attack.Attack attack in Unit.Attacks)
                 attack.InitializeAttack(this);
@@ -144,7 +145,7 @@ namespace Lis.Units
             Unit.OnAttackRemoved += attack => Destroy(attack.AttackController.gameObject);
         }
 
-        void EnableSelf()
+        private void EnableSelf()
         {
             AddToLog("Unit enables itself.");
             Collider.enabled = true;
@@ -161,7 +162,7 @@ namespace Lis.Units
             _opponentList = list;
         }
 
-        void ResolveCollisionLayers(int team)
+        private void ResolveCollisionLayers(int team)
         {
             switch (team)
             {
@@ -191,7 +192,7 @@ namespace Lis.Units
             RunUnit();
         }
 
-        void OnFightEnded()
+        private void OnFightEnded()
         {
             if (this == null) return;
             if (Team == 1 && IsDead)
@@ -267,7 +268,7 @@ namespace Lis.Units
             }
         }
 
-        IEnumerator ManagePathing()
+        private IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
                 ChooseNewTarget();
@@ -277,7 +278,7 @@ namespace Lis.Units
             yield return PathToOpponent();
         }
 
-        IEnumerator PathToOpponent()
+        private IEnumerator PathToOpponent()
         {
             AddToLog($"Pathing to opponent {Opponent.name}");
             yield return UnitPathingController.PathToTarget(Opponent.transform,
@@ -285,7 +286,7 @@ namespace Lis.Units
             Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 
-        void ChooseNewTarget()
+        private void ChooseNewTarget()
         {
             if (_opponentList.Count == 0)
             {
@@ -315,13 +316,13 @@ namespace Lis.Units
             SetOpponent(closest);
         }
 
-        void SetOpponent(UnitController opponent)
+        private void SetOpponent(UnitController opponent)
         {
             Opponent = opponent;
             Opponent.OnDeath += ResetOpponent;
         }
 
-        void ResetOpponent(UnitController _, Attack.Attack __)
+        private void ResetOpponent(UnitController _, Attack.Attack __)
         {
             AddToLog("Resetting opponent");
             if (this == null) return;
@@ -357,7 +358,7 @@ namespace Lis.Units
             AddToLog($"Attack cooldown started: {duration}");
             _isAttackReady = false;
             yield return new WaitForSeconds(duration);
-            AddToLog($"Attack cooldown ended");
+            AddToLog("Attack cooldown ended");
             _isAttackReady = true;
         }
 
@@ -411,7 +412,7 @@ namespace Lis.Units
             // RunUnit();
         }
 
-        void BreakShield()
+        private void BreakShield()
         {
             AddToLog("Attack is shielded");
             DisplayFloatingText("Shield broken", _shieldColor);
@@ -425,7 +426,7 @@ namespace Lis.Units
             IsDead = true;
             if (attack != null) attack.AddKill(Unit);
             if (gameObject.activeInHierarchy)
-                StartCoroutine(DieCoroutine(attack: attack));
+                StartCoroutine(DieCoroutine(attack));
         }
 
         protected virtual IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
@@ -456,13 +457,13 @@ namespace Lis.Units
             OnDeath?.Invoke(this, null);
         }
 
-        void ResolveLoot()
+        private void ResolveLoot()
         {
             if (Team == 0) return;
             _pickupManager.SpawnExpStone(Unit, transform.position);
         }
 
-        void Revive()
+        private void Revive()
         {
             AddToLog("Reviving...");
             Animator.Rebind();
@@ -483,20 +484,20 @@ namespace Lis.Units
             StartCoroutine(DisableLevelUpEffect());
         }
 
-        IEnumerator DisableLevelUpEffect()
+        private IEnumerator DisableLevelUpEffect()
         {
             yield return new WaitForSeconds(2f);
             _levelUpEffect.SetActive(false);
         }
 
         /* GRAB */
-        void OnGrabbed()
+        private void OnGrabbed()
         {
             ResetOpponent(default, default);
             StopUnit();
         }
 
-        void OnReleased()
+        private void OnReleased()
         {
             if (FightManager.IsFightActive) RunUnit();
             else if (!_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
@@ -541,10 +542,16 @@ namespace Lis.Units
         }
 
         [Button]
-        public void LevelUp() => Unit.LevelUp();
+        public void LevelUp()
+        {
+            Unit.LevelUp();
+        }
 
         [Button]
-        public void DebugRespawn() => Revive();
+        public void DebugRespawn()
+        {
+            Revive();
+        }
 
 #endif
     }

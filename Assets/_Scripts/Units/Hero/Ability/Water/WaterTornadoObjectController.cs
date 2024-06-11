@@ -1,16 +1,15 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
 {
     public class WaterTornadoObjectController : ObjectControllerDmgOverTime
     {
-        [SerializeField] ParticleSystem[] _psDurationChange;
+        [SerializeField] private ParticleSystem[] _psDurationChange;
 
-        readonly float _speed = 2f;
-        Vector3 _dir;
+        private readonly float _speed = 2f;
+        private Vector3 _dir;
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {
@@ -19,7 +18,7 @@ namespace Lis.Units.Hero.Ability
 
             foreach (ParticleSystem ps in _psDurationChange)
             {
-                var main = ps.main;
+                ParticleSystem.MainModule main = ps.main;
                 main.startLifetime = Ability.GetDuration();
             }
 

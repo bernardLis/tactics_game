@@ -15,9 +15,9 @@ namespace Lis.Units.Pawn
         [HideInInspector] public int CurrentUpgrade;
         [HideInInspector] public PawnMission CurrentMission;
 
-        public event Action OnUpgraded;
+        private BarracksNatureUpgrade _barracksNatureUpgrade;
 
-        BarracksNatureUpgrade _barracksNatureUpgrade;
+        public event Action OnUpgraded;
 
         public override void InitializeBattle(int team)
         {
@@ -62,7 +62,7 @@ namespace Lis.Units.Pawn
             OnUpgraded?.Invoke();
         }
 
-        void InitializePawnMission()
+        private void InitializePawnMission()
         {
             if (CurrentUpgrade >= Upgrades.Length) return;
 
@@ -70,7 +70,7 @@ namespace Lis.Units.Pawn
             CurrentMission.Initialize(this);
         }
 
-        void SetPawnStats()
+        private void SetPawnStats()
         {
             MaxHealth.SetBaseValue(Upgrades[CurrentUpgrade].BaseHealth);
             CurrentHealth.SetValue(MaxHealth.GetValue());
@@ -79,7 +79,7 @@ namespace Lis.Units.Pawn
             Power.SetBaseValue(Upgrades[CurrentUpgrade].BasePower);
         }
 
-        void SetPawnAttacks()
+        private void SetPawnAttacks()
         {
             List<Attack.Attack> copy = new(Attacks);
             foreach (Attack.Attack a in copy)
@@ -91,7 +91,7 @@ namespace Lis.Units.Pawn
             ChooseAttack();
         }
 
-        void SetUnitBasics()
+        private void SetUnitBasics()
         {
             UnitName = Upgrades[CurrentUpgrade].Name;
             Icon = Upgrades[CurrentUpgrade].Icon;

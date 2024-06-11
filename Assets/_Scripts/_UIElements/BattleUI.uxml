@@ -1,21 +1,29 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/Hero/Tablets/_UIElements/TabletElementStyles.uss?fileID=7433441132597879392&amp;guid=887804fd4f2a09c4c9b851bd59c00844&amp;type=3#TabletElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/Hero/Rewards/_UIElements/RewardElementStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Battle/Arena/_UIElements/RewardScreenStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#RewardScreenStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/Hero/Ability/_UIElements/AbilityElementStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/Hero/_UIElements/HeroElementStyles.uss?fileID=7433441132597879392&amp;guid=8f45396fe25429f42bf53e3c09280bb3&amp;type=3#HeroElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Battle/_UIElements/FinishedBattleStyles.uss?fileID=7433441132597879392&amp;guid=fc6b8e71b22b0d54fb6719bf94998476&amp;type=3#FinishedBattleStyles" />
-    <Style src="project://database/Assets/_Scripts/Units/_UIElements/UnitCardStyles.uss?fileID=7433441132597879392&amp;guid=2c5d53665b9fb84498cbab8dbbbe1aa7&amp;type=3#UnitCardStyles" />
-    <Style src="project://database/Assets/_Scripts/Battle/_UIElements/TooltipCardStyles.uss?fileID=7433441132597879392&amp;guid=7b6b9302b282d604bb6b1bc7d2284bb8&amp;type=3#TooltipCardStyles" />
-    <Style src="project://database/Assets/_Scripts/Battle/Arena/_UIElements/InvestmentElementStyles.uss?fileID=7433441132597879392&amp;guid=a4aecaf72db847f59de2bb326a926ed5&amp;type=3#InvestmentElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/EarthTheme.uss?fileID=7433441132597879392&amp;guid=8b1720c336464932b8be1312ec65c838&amp;type=3#EarthTheme" />
-    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/WaterTheme.uss?fileID=7433441132597879392&amp;guid=d1571dd51fd344dd86dd958cac9a1a5a&amp;type=3#WaterTheme" />
-    <ui:VisualElement name="fightInfo" class="common__text-primary" style="flex-grow: 1; position: absolute; align-items: center; align-self: center; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;);" />
-    <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="timer" class="common__text-primary" style="display: flex; width: 50px; -unity-text-align: upper-center; position: absolute; top: 3%; right: auto; align-self: center; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;);" />
-    <ui:VisualElement name="entityInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-self: center; top: 7%;" />
-    <ui:VisualElement name="gameInfoContainer" class="common__text-primary" style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; align-self: center; top: 15%; font-size: 28px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; display: none; -unity-font-style: bold; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;);" />
-    <ui:VisualElement name="tooltipCardContainer" style="flex-grow: 1; position: absolute; right: auto; bottom: 50%; visibility: hidden; background-image: none; background-color: rgb(105, 79, 98);" />
-    <ui:VisualElement name="tooltipContainer" style="position: absolute; bottom: auto;" />
-    <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx" style="width: 100%; height: 100%; top: 0; left: 10px; display: none;" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles"/>
+    <Style src="project://database/Assets/_Scripts/Units/Hero/Tablets/_UIElements/TabletElementStyles.uss?fileID=7433441132597879392&amp;guid=887804fd4f2a09c4c9b851bd59c00844&amp;type=3#TabletElementStyles"/>
+    <Style src="project://database/Assets/_Scripts/Units/Hero/Rewards/_UIElements/RewardElementStyles.uss?fileID=7433441132597879392&amp;guid=29783fdbff911524d91b668919352943&amp;type=3#RewardElementStyles"/>
+    <Style src="project://database/Assets/_Scripts/Battle/Arena/_UIElements/RewardScreenStyles.uss?fileID=7433441132597879392&amp;guid=0f0864f07de5a724691f003342cc8aa1&amp;type=3#RewardScreenStyles"/>
+    <Style src="project://database/Assets/_Scripts/Units/Hero/Ability/_UIElements/AbilityElementStyles.uss?fileID=7433441132597879392&amp;guid=1dcb0d843bcae2d4cb844a89c93bd82d&amp;type=3#AbilityElementStyles"/>
+    <Style src="project://database/Assets/_Scripts/Units/Hero/_UIElements/HeroElementStyles.uss?fileID=7433441132597879392&amp;guid=8f45396fe25429f42bf53e3c09280bb3&amp;type=3#HeroElementStyles"/>
+    <Style src="project://database/Assets/_Scripts/Battle/_UIElements/FinishedBattleStyles.uss?fileID=7433441132597879392&amp;guid=fc6b8e71b22b0d54fb6719bf94998476&amp;type=3#FinishedBattleStyles"/>
+    <Style src="project://database/Assets/_Scripts/Units/_UIElements/UnitCardStyles.uss?fileID=7433441132597879392&amp;guid=2c5d53665b9fb84498cbab8dbbbe1aa7&amp;type=3#UnitCardStyles"/>
+    <Style src="project://database/Assets/_Scripts/Battle/_UIElements/TooltipCardStyles.uss?fileID=7433441132597879392&amp;guid=7b6b9302b282d604bb6b1bc7d2284bb8&amp;type=3#TooltipCardStyles"/>
+    <Style src="project://database/Assets/_Scripts/Battle/Arena/_UIElements/InvestmentElementStyles.uss?fileID=7433441132597879392&amp;guid=a4aecaf72db847f59de2bb326a926ed5&amp;type=3#InvestmentElementStyles"/>
+    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/EarthTheme.uss?fileID=7433441132597879392&amp;guid=8b1720c336464932b8be1312ec65c838&amp;type=3#EarthTheme"/>
+    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/WaterTheme.uss?fileID=7433441132597879392&amp;guid=d1571dd51fd344dd86dd958cac9a1a5a&amp;type=3#WaterTheme"/>
+    <ui:VisualElement name="fightInfo" class="common__text-primary"
+                      style="flex-grow: 1; position: absolute; align-items: center; align-self: center; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;);"/>
+    <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="timer" class="common__text-primary"
+              style="display: flex; width: 50px; -unity-text-align: upper-center; position: absolute; top: 3%; right: auto; align-self: center; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;);"/>
+    <ui:VisualElement name="entityInfoContainer"
+                      style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; align-self: center; top: 7%;"/>
+    <ui:VisualElement name="gameInfoContainer" class="common__text-primary"
+                      style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; align-self: center; top: 15%; font-size: 28px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; display: none; -unity-font-style: bold; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;);"/>
+    <ui:VisualElement name="tooltipCardContainer"
+                      style="flex-grow: 1; position: absolute; right: auto; bottom: 50%; visibility: hidden; background-image: none; background-color: rgb(105, 79, 98);"/>
+    <ui:VisualElement name="tooltipContainer" style="position: absolute; bottom: auto;"/>
+    <ui:VisualElement name="vfx" focusable="true" picking-mode="Ignore" class="vfx"
+                      style="width: 100%; height: 100%; top: 0; left: 10px; display: none;"/>
 </ui:UXML>

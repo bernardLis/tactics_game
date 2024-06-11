@@ -1,20 +1,18 @@
 ﻿using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Core;
-using Lis.Core.Utilities;
-using UnityEngine;
 
 namespace Lis.Units.Pawn
 {
     public class PawnCard : UnitCard
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
-        readonly FightManager _fightManager;
+        private readonly FightManager _fightManager;
 
-        readonly PurchaseButton _upgradeButton;
+        private readonly Pawn _pawn;
 
-        readonly Pawn _pawn;
+        private readonly PurchaseButton _upgradeButton;
 
         public PawnCard(Pawn pawn) : base(pawn)
         {
@@ -29,7 +27,7 @@ namespace Lis.Units.Pawn
             _fightManager.OnFightStarted += () => _upgradeButton.RemoveFromHierarchy();
         }
 
-        void Upgrade()
+        private void Upgrade()
         {
             _pawn.Upgrade();
             PopulateCard();

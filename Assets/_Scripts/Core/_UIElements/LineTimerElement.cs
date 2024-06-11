@@ -5,25 +5,24 @@ namespace Lis.Core
 {
     public class LineTimerElement : TimerElement
     {
-        const string _ussLineMain = UssClassName + "line-main";
-        const string _ussLineWrapper = UssClassName + "line-wrapper";
-        const string _ussLine = UssClassName + "line";
+        private const string _ussLineMain = UssClassName + "line-main";
+        private const string _ussLineWrapper = UssClassName + "line-wrapper";
+        private const string _ussLine = UssClassName + "line";
 
-        readonly VisualElement _wrapper;
+        private readonly VisualElement _line;
 
-        readonly VisualElement _line;
+        private readonly VisualElement _wrapper;
 
         public LineTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
             : base(timeLeft, totalTime, isLooping, text)
         {
-
             AddToClassList(_ussLineMain);
 
             _line = new();
             Add(_line);
             _line.AddToClassList(_ussLine);
 
-            float w = (float)TicksLeft / (float)TotalTicks * 100;
+            float w = TicksLeft / (float)TotalTicks * 100;
             _line.style.width = Length.Percent(w);
 
             _wrapper = new();
@@ -59,12 +58,10 @@ namespace Lis.Core
         {
             base.UpdateTimer();
 
-            float w = (float)TicksLeft / (float)TotalTicks * 100;
+            float w = TicksLeft / (float)TotalTicks * 100;
 
             w = Mathf.Clamp(w, 0, 100);
             _line.style.width = Length.Percent(w);
         }
-
     }
 }
-

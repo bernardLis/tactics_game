@@ -4,13 +4,11 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
 {
-    using Pawn;
-
     public class RewardPawn : Reward
     {
-        Pawn _original;
-        public Pawn Pawn;
+        public Pawn.Pawn Pawn;
         public int Count;
+        private Pawn.Pawn _original;
 
         public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
         {
@@ -24,18 +22,18 @@ namespace Lis.Units.Hero.Rewards
             return true;
         }
 
-        Pawn ChoosePawn(List<RewardElement> otherRewardCards)
+        private Pawn.Pawn ChoosePawn(List<RewardElement> otherRewardCards)
         {
             // make sure no duplicate pawns in the rewards
-            List<Pawn> pawns = new(GameManager.UnitDatabase.GetAllPawns());
-            List<Pawn> pawnsToRemove = new();
+            List<Pawn.Pawn> pawns = new(GameManager.UnitDatabase.GetAllPawns());
+            List<Pawn.Pawn> pawnsToRemove = new();
             foreach (RewardElement el in otherRewardCards)
                 if (el.Reward is RewardPawn rewardPawn)
-                    foreach (Pawn p in pawns)
+                    foreach (Pawn.Pawn p in pawns)
                         if (p.Id == rewardPawn.Pawn.Id)
                             pawnsToRemove.Add(p);
 
-            foreach (Pawn p in pawnsToRemove)
+            foreach (Pawn.Pawn p in pawnsToRemove)
                 pawns.Remove(p);
 
             return pawns[Random.Range(0, pawns.Count)];
@@ -51,7 +49,7 @@ namespace Lis.Units.Hero.Rewards
             base.GetReward();
             for (int i = 0; i < Count; i++)
             {
-                Pawn instance = Instantiate(_original);
+                Pawn.Pawn instance = Instantiate(_original);
                 instance.InitializeBattle(0);
                 Hero.AddArmy(Instantiate(instance));
                 FightManager.Instance.SpawnPlayerUnit(instance);

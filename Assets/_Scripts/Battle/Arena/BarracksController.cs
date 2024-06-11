@@ -10,12 +10,9 @@ namespace Lis.Battle.Arena
 {
     public class BarracksController : BuildingController, IInteractable
     {
-        GameManager _gameManager;
-        HeroManager _heroManager;
-
-        Barracks _barracks;
-
-        public new string InteractionPrompt => "Press F To Interact!";
+        private Barracks _barracks;
+        private GameManager _gameManager;
+        private HeroManager _heroManager;
 
         protected override void Start()
         {
@@ -30,6 +27,22 @@ namespace Lis.Battle.Arena
                 bnu.OnUpgrade += SpawnPawn;
 
             Initialize();
+        }
+
+        public new string InteractionPrompt => "Press F To Interact!";
+
+        public override bool Interact(Interactor interactor)
+        {
+            if (FightManager.IsFightActive)
+            {
+                Debug.Log("Fight is active");
+                return false;
+            }
+
+            BarracksScreen screen = new();
+            screen.InitializeBuilding(_barracks, this);
+
+            return true;
         }
 
         protected override void SetTooltipText()
@@ -47,7 +60,7 @@ namespace Lis.Battle.Arena
             StartCoroutine(SpawnFightEndArmy());
         }
 
-        IEnumerator SpawnFightEndArmy()
+        private IEnumerator SpawnFightEndArmy()
         {
             for (int i = 0; i < _barracks.GetPeasantsPerFight(); i++)
             {
@@ -76,7 +89,7 @@ namespace Lis.Battle.Arena
             uc.GoBackToLocker();
         }
 
-        void SpawnPawn(Nature n, int upgrade)
+        private void SpawnPawn(Nature n, int upgrade)
         {
             upgrade--; // coz pawn upgrade start from 0 and building at level 0 is locked
 
@@ -93,20 +106,6 @@ namespace Lis.Battle.Arena
         {
             if (!Building.IsUnlocked) return;
             ForbidInteraction();
-        }
-
-        public override bool Interact(Interactor interactor)
-        {
-            if (FightManager.IsFightActive)
-            {
-                Debug.Log("Fight is active");
-                return false;
-            }
-
-            BarracksScreen screen = new();
-            screen.InitializeBuilding(_barracks, this);
-
-            return true;
         }
     }
 }

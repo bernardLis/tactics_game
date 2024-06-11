@@ -7,6 +7,7 @@ namespace Lis.Units.Attack
     {
         [Header("Ability")]
         public int Amount;
+
         public float Duration;
 
         public float Scale;

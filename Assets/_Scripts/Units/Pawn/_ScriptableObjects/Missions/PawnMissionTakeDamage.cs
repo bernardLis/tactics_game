@@ -1,4 +1,3 @@
-using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -15,7 +14,7 @@ namespace Lis.Units.Pawn
             pawn.OnDamageTaken += OnDamageTaken;
         }
 
-        void OnDamageTaken(int dmg)
+        private void OnDamageTaken(int dmg)
         {
             DamageTaken += dmg;
             if (DamageTaken >= DamageToTake)

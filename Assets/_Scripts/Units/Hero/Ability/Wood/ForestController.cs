@@ -6,14 +6,22 @@ namespace Lis.Units.Hero.Ability
 {
     public class ForestController : Controller
     {
-        [SerializeField] GameObject _effect;
+        [SerializeField] private GameObject _effect;
 
-        readonly float _radius = 12f;
+        private readonly float _radius = 12f;
+
+#if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            Handles.DrawWireDisc(transform.position, Vector3.up, _radius, 1f);
+        }
+#endif
 
         public override void Initialize(Ability ability)
         {
             base.Initialize(ability);
-            transform.localPosition = new (0, 0f, 0f);
+            transform.localPosition = new(0, 0f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -37,13 +45,5 @@ namespace Lis.Units.Hero.Ability
             yield return new WaitForSeconds(3f);
             _effect.SetActive(false);
         }
-
-#if UNITY_EDITOR
-
-        void OnDrawGizmos()
-        {
-            Handles.DrawWireDisc(transform.position, Vector3.up, _radius, 1f);
-        }
-#endif
     }
 }

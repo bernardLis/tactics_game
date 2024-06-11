@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero
 {
@@ -8,15 +9,21 @@ namespace Lis.Units.Hero
     {
         public List<UnitController> OpponentsInRange = new();
 
-        public event Action<UnitController> OnOpponentAdded;
-
-        void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out UnitController entity))
                 AddOpponent(entity);
         }
 
-        void AddOpponent(UnitController entity)
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out UnitController entity))
+                RemoveOpponent(entity);
+        }
+
+        public event Action<UnitController> OnOpponentAdded;
+
+        private void AddOpponent(UnitController entity)
         {
             if (OpponentsInRange.Contains(entity)) return;
             entity.OnDeath += RemoveOpponentOnDeath;
@@ -25,19 +32,13 @@ namespace Lis.Units.Hero
             OnOpponentAdded?.Invoke(entity);
         }
 
-        void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.TryGetComponent(out UnitController entity))
-                RemoveOpponent(entity);
-        }
-
         public void RemoveOpponent(UnitController be)
         {
             if (OpponentsInRange.Contains(be))
                 OpponentsInRange.Remove(be);
         }
 
-        void RemoveOpponentOnDeath(UnitController be, Attack.Attack attack)
+        private void RemoveOpponentOnDeath(UnitController be, Attack.Attack attack)
         {
             be.OnDeath -= RemoveOpponentOnDeath;
             RemoveOpponent(be);
@@ -47,7 +48,7 @@ namespace Lis.Units.Hero
         {
             return OpponentsInRange.Count == 0
                 ? Vector3.zero
-                : OpponentsInRange[UnityEngine.Random.Range(0, OpponentsInRange.Count)].transform.position;
+                : OpponentsInRange[Random.Range(0, OpponentsInRange.Count)].transform.position;
         }
     }
 }

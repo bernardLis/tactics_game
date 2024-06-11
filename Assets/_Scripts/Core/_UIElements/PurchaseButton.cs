@@ -8,7 +8,7 @@ namespace Lis.Core
 {
     public class PurchaseButton : MyButton
     {
-        readonly GoldElement _goldElement;
+        private readonly GoldElement _goldElement;
 
         public PurchaseButton(string text, string ussClassName, Action onClick, int price) : base(text,
             ussClassName,
@@ -26,7 +26,7 @@ namespace Lis.Core
             clicked += ClickClick;
         }
 
-        void ClickClick()
+        private void ClickClick()
         {
             if (GameManager.Gold < _goldElement.Amount)
             {

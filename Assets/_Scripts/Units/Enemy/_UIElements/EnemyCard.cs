@@ -1,11 +1,10 @@
 ﻿using Lis.Battle;
-using UnityEngine;
 
 namespace Lis.Units.Enemy
 {
     public class EnemyCard : UnitCard
     {
-        Enemy _enemy;
+        private Enemy _enemy;
 
         public EnemyCard(Unit unit) : base(unit)
         {

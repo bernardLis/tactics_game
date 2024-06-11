@@ -13,28 +13,28 @@ namespace Lis.Battle.Arena
     public class RewardScreen : FullScreenElement
     {
         protected const string USSClassName = "reward-screen__";
-        const string _ussMain = USSClassName + "main";
-        const string _ussLevelUpAnimationContainer = USSClassName + "level-up-animation-container";
-        const string _ussFallingElement = USSClassName + "falling-element";
-        const string _ussRewardContainer = USSClassName + "reward-container";
-        const string _ussRerollContainer = USSClassName + "reroll-container";
-
-        protected readonly AudioManager AudioManager;
-        protected readonly HeroManager HeroManager;
-
-        protected VisualElement RewardContainer;
-        Label _titleLabel;
-        protected readonly List<float> LeftPositions = new();
-        protected int RewardElementWidth;
-        protected int RewardElementHeight;
+        private const string _ussMain = USSClassName + "main";
+        private const string _ussLevelUpAnimationContainer = USSClassName + "level-up-animation-container";
+        private const string _ussFallingElement = USSClassName + "falling-element";
+        private const string _ussRewardContainer = USSClassName + "reward-container";
+        private const string _ussRerollContainer = USSClassName + "reroll-container";
 
         protected readonly List<RewardElement> AllRewardElements = new();
 
-        VisualElement _rerollContainer;
-        protected Label RerollsLeft;
-        protected RerollButton RerollButton;
+        protected readonly AudioManager AudioManager;
+        protected readonly HeroManager HeroManager;
+        protected readonly List<float> LeftPositions = new();
 
         protected readonly int NumberOfRewards;
+
+        private VisualElement _rerollContainer;
+        private Label _titleLabel;
+        protected RerollButton RerollButton;
+        protected Label RerollsLeft;
+
+        protected VisualElement RewardContainer;
+        protected int RewardElementHeight;
+        protected int RewardElementWidth;
 
         protected RewardScreen()
         {
@@ -58,7 +58,7 @@ namespace Lis.Battle.Arena
             schedule.Execute(PopulateRewards).StartingIn(600);
         }
 
-        void AddRewardContainer()
+        private void AddRewardContainer()
         {
             RewardContainer = new();
             RewardContainer.AddToClassList(_ussRewardContainer);
@@ -86,7 +86,7 @@ namespace Lis.Battle.Arena
             }).StartingIn(100);
         }
 
-        void AddRerollButton()
+        private void AddRerollButton()
         {
             _rerollContainer = new();
             _rerollContainer.AddToClassList(_ussRerollContainer);
@@ -105,7 +105,7 @@ namespace Lis.Battle.Arena
                 .SetUpdate(true);
         }
 
-        void PopulateRewards()
+        private void PopulateRewards()
         {
             RewardContainer.Clear();
             CreateRewardCards();
@@ -156,7 +156,7 @@ namespace Lis.Battle.Arena
             return element;
         }
 
-        RewardElement CreateRewardCardGold()
+        private RewardElement CreateRewardCardGold()
         {
             RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
             reward.CreateRandom(HeroManager.Hero, AllRewardElements);
@@ -222,7 +222,7 @@ namespace Lis.Battle.Arena
         /* EFFECTS */
         protected void MakeItRain()
         {
-            List<Sprite> sprites = GameManager.UnitDatabase.CreatureIcons.ToList();
+            var sprites = GameManager.UnitDatabase.CreatureIcons.ToList();
             for (int i = 0; i < 100; i++)
             {
                 VisualElement el = new();

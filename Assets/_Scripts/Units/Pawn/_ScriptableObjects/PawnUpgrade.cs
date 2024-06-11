@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Lis.Units.Pawn
 {
-    using Attack;
-
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Pawn/Pawn Upgrade")]
     public class PawnUpgrade : BaseScriptableObject
     {
@@ -13,7 +11,7 @@ namespace Lis.Units.Pawn
         public Sprite Icon;
         public int Price;
         public int LevelLimit;
-        public List<Attack> Attacks = new();
+        public List<Attack.Attack> Attacks = new();
         public PawnMission Mission;
 
         public int BaseHealth;

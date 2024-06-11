@@ -1,10 +1,15 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MenuStyles.uss?fileID=7433441132597879392&amp;guid=5e55454fed2ddfb4f90604f7fee33a32&amp;type=3#MenuStyles" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles"/>
+    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/MenuStyles.uss?fileID=7433441132597879392&amp;guid=5e55454fed2ddfb4f90604f7fee33a32&amp;type=3#MenuStyles"/>
     <ui:VisualElement name="menuContainer" class="menuScreen">
-        <ui:Button text="Continue" display-tooltip-when-elided="true" name="continueButton" class="common__menu-button" />
-        <ui:Button text="Settings" display-tooltip-when-elided="true" name="settingsButton" class="common__menu-button" />
-        <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="mainMenuButton" class="common__menu-button" />
-        <ui:Button text="Quit" display-tooltip-when-elided="true" name="quitButton" class="common__menu-button" />
+        <ui:Button text="Continue" display-tooltip-when-elided="true" name="continueButton"
+                   class="common__menu-button"/>
+        <ui:Button text="Settings" display-tooltip-when-elided="true" name="settingsButton"
+                   class="common__menu-button"/>
+        <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="mainMenuButton"
+                   class="common__menu-button"/>
+        <ui:Button text="Quit" display-tooltip-when-elided="true" name="quitButton" class="common__menu-button"/>
     </ui:VisualElement>
 </ui:UXML>

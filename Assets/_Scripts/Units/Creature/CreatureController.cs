@@ -5,7 +5,7 @@ namespace Lis.Units.Creature
 {
     public class CreatureController : UnitController
     {
-        Creature _creature;
+        private Creature _creature;
 
 
         public override void InitializeUnit(Unit unit, int team)

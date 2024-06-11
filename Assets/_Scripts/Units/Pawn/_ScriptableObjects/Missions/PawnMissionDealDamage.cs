@@ -18,7 +18,7 @@ namespace Lis.Units.Pawn
             }
         }
 
-        void OnDamageDealt(int dmg)
+        private void OnDamageDealt(int dmg)
         {
             DamageDealt += dmg;
             if (DamageDealt >= DamageToDeal)

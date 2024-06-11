@@ -8,7 +8,7 @@ namespace Lis.Units.Hero.Ability
         public override void Initialize(Ability ability)
         {
             base.Initialize(ability);
-            transform.localPosition = new (0.5f, 1f, 0.5f);
+            transform.localPosition = new(0.5f, 1f, 0.5f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
@@ -22,7 +22,8 @@ namespace Lis.Units.Hero.Ability
                 Quaternion look = Quaternion.LookRotation(GetRandomEnemyDirection(),
                     Vector3.up);
 
-                WindTornadoObjectController tornadoObjectController = GetInactiveAbilityObject() as WindTornadoObjectController;
+                WindTornadoObjectController tornadoObjectController =
+                    GetInactiveAbilityObject() as WindTornadoObjectController;
                 if (tornadoObjectController != null) tornadoObjectController.Execute(pos, look);
                 yield return new WaitForSeconds(0.2f);
             }

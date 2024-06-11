@@ -12,6 +12,11 @@ namespace Lis.Units.Enemy
 
         public bool IsRanged;
 
+        public int EnemyMaxHealth;
+        public int EnemyArmor;
+        public float EnemySpeed;
+        public int EnemyPower;
+
         public void SetMiniBoss()
         {
             IsMiniBoss = true;
@@ -30,11 +35,6 @@ namespace Lis.Units.Enemy
             Armor.BonusValue = Armor.BaseValue;
             Speed.BonusValue = 1;
         }
-
-        public int EnemyMaxHealth;
-        public int EnemyArmor;
-        public float EnemySpeed;
-        public int EnemyPower;
 
         protected override void CreateStats()
         {

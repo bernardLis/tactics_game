@@ -6,8 +6,8 @@ namespace Lis.Battle
 {
     public class WonBattleScreen : FinishedBattleScreen
     {
-        const string _ussClassName = "finished-battle-screen__";
-        const string _ussMain = _ussClassName + "won-main";
+        private const string _ussClassName = "finished-battle-screen__";
+        private const string _ussMain = _ussClassName + "won-main";
 
         public WonBattleScreen()
         {
@@ -21,17 +21,17 @@ namespace Lis.Battle
             SubTitle.style.fontSize = 24;
         }
 
-        void AddButtons()
+        private void AddButtons()
         {
             VisualElement container = new();
             container.style.alignItems = Align.Center;
             MainContainer.Add(container);
 
-            MyButton noAdvantage = new("Back To Main Menu", USSCommonButton, callback: QuitButton);
+            MyButton noAdvantage = new("Back To Main Menu", USSCommonButton, QuitButton);
             container.Add(noAdvantage);
         }
 
-        void QuitButton()
+        private void QuitButton()
         {
             GameManager.LoadScene(Scenes.MainMenu);
         }

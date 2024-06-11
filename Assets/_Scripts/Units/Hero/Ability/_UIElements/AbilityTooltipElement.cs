@@ -6,19 +6,19 @@ namespace Lis.Units.Hero.Ability
 {
     public class AbilityTooltipElement : VisualElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussCommonTextSecondary = "common__text-secondary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextSecondary = "common__text-secondary";
 
-        const string _ussClassName = "ability-tooltip-element__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "ability-tooltip-element__";
+        private const string _ussMain = _ussClassName + "main";
 
-        readonly Ability _ability;
+        private readonly Ability _ability;
+        private readonly Label _amount;
+        private readonly Label _cooldown;
+        private readonly Label _duration;
 
-        readonly Label _power;
-        readonly Label _cooldown;
-        readonly Label _scale;
-        readonly Label _amount;
-        readonly Label _duration;
+        private readonly Label _power;
+        private readonly Label _scale;
 
         public AbilityTooltipElement(Ability ability, bool isUpgrade = false)
         {
@@ -78,7 +78,7 @@ namespace Lis.Units.Hero.Ability
             Add(armorPiercing);
         }
 
-        void HandleUpgrade()
+        private void HandleUpgrade()
         {
             if (_ability.Level == _ability.Levels.Count - 1) return;
             HandlePower();
@@ -88,31 +88,31 @@ namespace Lis.Units.Hero.Ability
             HandleDuration();
         }
 
-        void HandlePower()
+        private void HandlePower()
         {
             if (_ability.GetPower(_ability.Level) == _ability.GetPower(_ability.Level - 1)) return;
             _power.text = $"Power: {_ability.GetPower(_ability.Level - 1)} -> {_ability.GetPower()}";
         }
 
-        void HandleCooldown()
+        private void HandleCooldown()
         {
             if (_ability.GetCooldown(_ability.Level) == _ability.GetCooldown(_ability.Level - 1)) return;
             _cooldown.text = $"Cooldown: {_ability.GetCooldown(_ability.Level - 1)} -> {_ability.GetCooldown()}";
         }
 
-        void HandleScale()
+        private void HandleScale()
         {
             if (_ability.GetScale(_ability.Level) == _ability.GetScale(_ability.Level - 1)) return;
             _scale.text = $"Scale: {_ability.GetScale(_ability.Level - 1)} -> {_ability.GetScale()}";
         }
 
-        void HandleAmount()
+        private void HandleAmount()
         {
             if (_ability.GetAmount(_ability.Level) == _ability.GetAmount(_ability.Level - 1)) return;
             _amount.text = $"Amount: {_ability.GetAmount(_ability.Level - 1)} -> {_ability.GetAmount()}";
         }
 
-        void HandleDuration()
+        private void HandleDuration()
         {
             if (_ability.GetDuration(_ability.Level) == _ability.GetDuration(_ability.Level - 1)) return;
             _duration.text = $"Duration: {_ability.GetDuration(_ability.Level - 1)} -> {_ability.GetDuration()}";

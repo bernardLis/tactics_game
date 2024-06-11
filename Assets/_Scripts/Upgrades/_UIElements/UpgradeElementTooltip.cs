@@ -5,7 +5,7 @@ namespace Lis.Upgrades
 {
     public class UpgradeElementTooltip : VisualElement
     {
-        readonly Upgrade _upgrade;
+        private readonly Upgrade _upgrade;
 
         public UpgradeElementTooltip(Upgrade upgrade)
         {
@@ -15,7 +15,7 @@ namespace Lis.Upgrades
             HandleTooltip();
         }
 
-        void HandleTooltip()
+        private void HandleTooltip()
         {
             Clear();
             if (_upgrade.Type == UpgradeType.Building)
@@ -27,7 +27,7 @@ namespace Lis.Upgrades
             CreateTooltip();
         }
 
-        void CreateTooltip()
+        private void CreateTooltip()
         {
             Add(new Label(_upgrade.Description));
             Add(new HorizontalSpacerElement());
@@ -45,17 +45,18 @@ namespace Lis.Upgrades
                 Add(new Label("Max level reached"));
             else
                 Add(new Label(_upgrade.GetNextLevel().Description));
-
         }
 
-        void CreateBuildingTooltip()
+        private void CreateBuildingTooltip()
         {
             Add(new Label(_upgrade.name));
             Add(new HorizontalSpacerElement());
 
             Add(new Label("Current:"));
             if (_upgrade.CurrentLevel == -1)
+            {
                 Add(new Label("Not unlocked"));
+            }
             else
             {
                 UpgradeLevelLair level = (UpgradeLevelLair)_upgrade.GetCurrentLevel();
@@ -67,7 +68,9 @@ namespace Lis.Upgrades
 
             Add(new Label("Next:"));
             if (_upgrade.IsMaxLevel())
+            {
                 Add(new Label("Max level reached"));
+            }
             else
             {
                 UpgradeLevelLair level = (UpgradeLevelLair)_upgrade.GetNextLevel();

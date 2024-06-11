@@ -5,28 +5,29 @@ namespace Lis.Core
 {
     public class ConfirmPopUp : VisualElement
     {
+        private const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonButton = "common__button";
 
-        const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussCommonButton = "common__button";
+        private const string _ussClassName = "confirm-popup__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussText = _ussClassName + "text";
+        private const string _ussButtonContainer = _ussClassName + "button-container";
+        private MyButton _cancelButton;
 
-        const string _ussClassName = "confirm-popup__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussText = _ussClassName + "text";
-        const string _ussButtonContainer = _ussClassName + "button-container";
+        private MyButton _confirmButton;
 
-        GameManager _gameManager;
-        VisualElement _root;
-
-        MyButton _confirmButton;
-        MyButton _cancelButton;
+        private GameManager _gameManager;
+        private VisualElement _root;
 
         public void Initialize(VisualElement root, Action callback, string displayText = null)
         {
             _gameManager = GameManager.Instance;
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            StyleSheet commonStyles = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null)
                 styleSheets.Add(commonStyles);
-            var ss = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.ConfirmPopupStyles);
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.ConfirmPopupStyles);
             if (ss != null)
                 styleSheets.Add(ss);
 
@@ -37,28 +38,28 @@ namespace Lis.Core
             if (displayText == null)
                 displayText = "Are you sure?";
 
-            Label confirm = new Label(displayText);
+            Label confirm = new(displayText);
             confirm.AddToClassList(_ussText);
             confirm.AddToClassList(_ussCommonTextPrimary);
             Add(confirm);
             AddButtons(callback);
         }
 
-        void AddButtons(Action callback)
+        private void AddButtons(Action callback)
         {
-            VisualElement container = new VisualElement();
+            VisualElement container = new();
             container.AddToClassList(_ussButtonContainer);
             Add(container);
 
-            _confirmButton = new MyButton("Yaasss Queen", _ussCommonButton, callback);
+            _confirmButton = new("Yaasss Queen", _ussCommonButton, callback);
             container.Add(_confirmButton);
             _confirmButton.clickable.clicked += Hide;
 
-            VisualElement spacer = new VisualElement();
+            VisualElement spacer = new();
             spacer.style.width = 50;
             container.Add(spacer);
 
-            _cancelButton = new MyButton("Cancel!@!", _ussCommonButton, Hide);
+            _cancelButton = new("Cancel!@!", _ussCommonButton, Hide);
             container.Add(_cancelButton);
         }
 
@@ -67,11 +68,10 @@ namespace Lis.Core
             _cancelButton.style.display = DisplayStyle.None;
         }
 
-        void Hide()
+        private void Hide()
         {
-            this.SetEnabled(false);
+            SetEnabled(false);
             _root.Remove(this);
         }
     }
 }
-

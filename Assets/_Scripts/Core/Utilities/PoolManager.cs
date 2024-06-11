@@ -6,7 +6,7 @@ namespace Lis.Core.Utilities
 {
     public abstract class PoolManager<T> : MonoBehaviour where T : MonoBehaviour
     {
-        GameObject _prefab;
+        private GameObject _prefab;
         protected List<T> Pool = new();
         protected Transform PoolHolder;
 
@@ -16,10 +16,7 @@ namespace Lis.Core.Utilities
             PoolHolder = new GameObject(prefab.name + " Pool").transform;
 
             Pool = new();
-            for (int i = 0; i < count; i++)
-            {
-                InstantiateNewObject();
-            }
+            for (int i = 0; i < count; i++) InstantiateNewObject();
         }
 
         public T GetObjectFromPool()
@@ -27,7 +24,7 @@ namespace Lis.Core.Utilities
             return GetInactiveObject();
         }
 
-        T GetInactiveObject()
+        private T GetInactiveObject()
         {
             // TODO: bad solution to avoid null reference exception
             List<T> nullObjects = new();
@@ -52,7 +49,7 @@ namespace Lis.Core.Utilities
             return inactiveObject;
         }
 
-        T InstantiateNewObject()
+        private T InstantiateNewObject()
         {
             T p = Instantiate(_prefab, PoolHolder).GetComponent<T>();
             if (p.TryGetComponent(out UnitController unit))

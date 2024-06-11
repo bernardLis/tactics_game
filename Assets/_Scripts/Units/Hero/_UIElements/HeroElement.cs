@@ -8,25 +8,25 @@ namespace Lis.Units.Hero
 {
     public class HeroElement : VisualElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "hero-element__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "hero-element__";
+        private const string _ussMain = _ussClassName + "main";
 
-        const string _ussInfoContainer = _ussClassName + "info-container";
+        private const string _ussInfoContainer = _ussClassName + "info-container";
 
-        readonly Hero _hero;
+        private readonly Hero _hero;
 
-        VisualElement _resourcesContainer;
-        TroopsCountElement _troopsCounter;
+        private readonly VisualElement _heroInfoContainer;
 
-        readonly VisualElement _heroInfoContainer;
-        ResourceBarElement _expBar;
-        Label _levelLabel;
+        private readonly List<AbilityElement> _abilityIconsElements = new();
 
-        List<AbilityElement> _abilityIconsElements = new();
+        private VisualElement _advancedViewContainer;
+        private ResourceBarElement _expBar;
+        private Label _levelLabel;
 
-        VisualElement _advancedViewContainer;
+        private VisualElement _resourcesContainer;
+        private TroopsCountElement _troopsCounter;
 
         public HeroElement(Hero hero)
         {
@@ -48,12 +48,12 @@ namespace Lis.Units.Hero
             HandleExpBar();
         }
 
-        void OnHeroLevelUp()
+        private void OnHeroLevelUp()
         {
             _levelLabel.text = $"Level {_hero.Level.Value}";
         }
 
-        void HandleAbilities()
+        private void HandleAbilities()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -67,14 +67,14 @@ namespace Lis.Units.Hero
                 container.Add(icon);
             }
 
-            _hero.OnAbilityAdded += (a) =>
+            _hero.OnAbilityAdded += a =>
             {
                 AbilityElement icon = new(a, true);
                 _abilityIconsElements.Add(icon);
                 container.Add(icon);
             };
 
-            _hero.OnAbilityRemoved += (a) =>
+            _hero.OnAbilityRemoved += a =>
             {
                 AbilityElement icon = _abilityIconsElements.Find(e => e.Ability == a);
                 _abilityIconsElements.Remove(icon);
@@ -82,7 +82,7 @@ namespace Lis.Units.Hero
             };
         }
 
-        void HandleExpBar()
+        private void HandleExpBar()
         {
             Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Primary;
             _expBar = new(c, "Experience", _hero.Experience, _hero.ExpForNextLevel);

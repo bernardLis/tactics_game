@@ -7,15 +7,15 @@ namespace Lis.Battle
 {
     public class EntityInfoElement : VisualElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "unit-info__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "unit-info__";
+        private const string _ussMain = _ussClassName + "main";
+        private readonly ResourceBarElement _bar;
+
+        private readonly Label _name;
 
         protected readonly GameManager GameManager;
-
-        readonly Label _name;
-        readonly ResourceBarElement _bar;
 
         public EntityInfoElement(UnitController _)
         {

@@ -9,17 +9,17 @@ namespace Lis.Units.Attack
 {
     public class AttackController : MonoBehaviour
     {
-        static readonly int AnimAttack = Animator.StringToHash("Attack");
+        private static readonly int AnimAttack = Animator.StringToHash("Attack");
         protected static readonly int AnimSpecialAttack = Animator.StringToHash("Special Attack");
-
-        protected AudioManager AudioManager;
+        private IEnumerator _attackCooldownCoroutine;
         protected Animator Animator;
 
-        protected UnitController UnitController;
-
         protected Attack Attack;
+
+        protected AudioManager AudioManager;
+
+        protected UnitController UnitController;
         public float CurrentCooldown { get; private set; }
-        IEnumerator _attackCooldownCoroutine;
 
         public virtual void Initialize(UnitController unitController, Attack attack)
         {
@@ -45,7 +45,7 @@ namespace Lis.Units.Attack
             StartCoroutine(_attackCooldownCoroutine);
         }
 
-        IEnumerator AttackCooldownCoroutine(float cooldown)
+        private IEnumerator AttackCooldownCoroutine(float cooldown)
         {
             CurrentCooldown = cooldown;
             while (CurrentCooldown > 0)
@@ -104,8 +104,8 @@ namespace Lis.Units.Attack
 
         protected List<UnitController> GetOpponentsInRadius(float radius)
         {
-            List<UnitController> opponents = new List<UnitController>();
-            Collider[] colliders = new Collider[25];
+            var opponents = new List<UnitController>();
+            var colliders = new Collider[25];
             Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
             foreach (Collider c in colliders)
             {

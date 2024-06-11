@@ -8,10 +8,21 @@ namespace Lis.Upgrades
     [CreateAssetMenu(menuName = "ScriptableObject/Upgrades/Upgrade Board")]
     public class UpgradeBoard : BaseScriptableObject
     {
-        [SerializeField] List<Upgrade> _upgradeOriginals = new();
+        [SerializeField] private List<Upgrade> _upgradeOriginals = new();
         public List<Upgrade> Upgrades = new();
 
-        Dictionary<string, Upgrade> _upgradeDictionary = new();
+        private Dictionary<string, Upgrade> _upgradeDictionary = new();
+
+        public void Reset()
+        {
+            Upgrades = new();
+            foreach (Upgrade original in _upgradeOriginals)
+            {
+                Upgrade instance = Instantiate(original);
+                instance.name = original.name;
+                Upgrades.Add(instance);
+            }
+        }
 
         public event Action OnRefundAll;
         public event Action OnUnlockAll;
@@ -59,17 +70,6 @@ namespace Lis.Upgrades
         public void UnlockAll()
         {
             OnUnlockAll?.Invoke();
-        }
-
-        public void Reset()
-        {
-            Upgrades = new();
-            foreach (Upgrade original in _upgradeOriginals)
-            {
-                Upgrade instance = Instantiate(original);
-                instance.name = original.name;
-                Upgrades.Add(instance);
-            }
         }
 
         public UpgradeBoardData SerializeSelf()

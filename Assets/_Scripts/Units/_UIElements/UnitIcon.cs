@@ -1,26 +1,23 @@
 using Lis.Battle;
 using Lis.Core;
-using Lis.Units.Boss;
-using Lis.Units.Creature;
-using Lis.Units.Pawn;
 using UnityEngine.UIElements;
 
 namespace Lis.Units
 {
     public class UnitIcon : ElementWithTooltip
     {
-        const string _ussClassName = "unit-icon__";
-        const string _ussMain = _ussClassName + "main";
-        const string _ussIconContainer = _ussClassName + "icon-container";
-        const string _ussFrame = _ussClassName + "frame";
+        private const string _ussClassName = "unit-icon__";
+        private const string _ussMain = _ussClassName + "main";
+        private const string _ussIconContainer = _ussClassName + "icon-container";
+        private const string _ussFrame = _ussClassName + "frame";
 
-        readonly Unit _unit;
+        private readonly AnimationElement _animationElement;
 
-        protected readonly VisualElement IconContainer;
+        private readonly Unit _unit;
         protected readonly VisualElement Frame;
 
-        readonly AnimationElement _animationElement;
-        bool _isAnimationBlocked;
+        protected readonly VisualElement IconContainer;
+        private bool _isAnimationBlocked;
 
         public UnitIcon(Unit unit, bool blockClick = false)
         {
@@ -73,7 +70,7 @@ namespace Lis.Units
             _animationElement.PauseAnimation();
         }
 
-        void OnClick(ClickEvent evt)
+        private void OnClick(ClickEvent evt)
         {
             evt.StopImmediatePropagation();
             UnitScreen screen = UnitScreenFactory.Instance.CreateUnitScreen(_unit);

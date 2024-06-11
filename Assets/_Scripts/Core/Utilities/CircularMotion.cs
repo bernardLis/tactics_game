@@ -4,16 +4,16 @@ namespace Lis.Core.Utilities
 {
     public class CircularMotion : MonoBehaviour
     {
-        public float StartAngle = 0;
+        public float StartAngle;
         public float RotationSpeed = 0.1f;
         public float CircleRadius = 800;
-        public float ElevationOffset = 0;
+        public float ElevationOffset;
 
-        Vector3 _positionOffset;
+        [SerializeField] private float _angle;
 
-        [SerializeField] float _angle;
+        private Vector3 _positionOffset;
 
-        void Start()
+        private void Start()
         {
             _angle = StartAngle;
         }

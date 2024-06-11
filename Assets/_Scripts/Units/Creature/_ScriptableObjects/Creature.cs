@@ -49,7 +49,7 @@ namespace Lis.Units.Creature
             OnDeath?.Invoke();
         }
 
-        new public CreatureData SerializeSelf()
+        public new CreatureData SerializeSelf()
         {
             // TODO: needs to be implemented
             CreatureData data = new()
@@ -59,7 +59,7 @@ namespace Lis.Units.Creature
                 Name = UnitName,
                 Level = Level.Value,
 
-                KillCount = TotalKillCount,
+                KillCount = TotalKillCount
             };
 
             return data;

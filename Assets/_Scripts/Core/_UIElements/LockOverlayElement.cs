@@ -5,22 +5,23 @@ namespace Lis.Core
 {
     public class LockOverlayElement : ElementWithTooltip
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
-        const string _ussMain = "common__lock-overlay-main";
-        const string _ussLockIcon = "common__lock-overlay-icon";
-        const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
+        private const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussMain = "common__lock-overlay-main";
+        private const string _ussLockIcon = "common__lock-overlay-icon";
+        private const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
+        private readonly AudioManager _audioManager;
 
-        readonly GameManager _gameManager;
-        readonly AudioManager _audioManager;
+        private readonly GameManager _gameManager;
 
-        readonly VisualElement _localTooltip;
-        readonly Label _lockIcon;
+        private readonly VisualElement _localTooltip;
+        private readonly Label _lockIcon;
 
         public LockOverlayElement(VisualElement tooltip)
         {
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
-            var commonStyles = _gameManager.GetComponent<AddressableManager>().GetStyleSheetByName(StyleSheetType.CommonStyles);
+            StyleSheet commonStyles = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null) styleSheets.Add(commonStyles);
             AddToClassList(_ussCommonTextPrimary);
             AddToClassList(_ussMain);
@@ -34,7 +35,7 @@ namespace Lis.Core
             RegisterCallback<PointerEnterEvent>(ShakeIcon);
         }
 
-        void ShakeIcon(PointerEnterEvent evt)
+        private void ShakeIcon(PointerEnterEvent evt)
         {
             _audioManager.PlayUI("Lock OnHover");
             DOTween.Shake(() => _lockIcon.transform.position, x => _lockIcon.transform.position = x,

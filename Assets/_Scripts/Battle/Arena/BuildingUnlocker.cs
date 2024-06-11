@@ -8,17 +8,9 @@ namespace Lis.Battle.Arena
 {
     public class BuildingUnlocker : MonoBehaviour, IInteractable
     {
-        Building _building;
-        [SerializeField] Canvas _tooltipCanvas;
+        [SerializeField] private Canvas _tooltipCanvas;
         [SerializeField] protected TMP_Text TooltipText;
-
-        public void Initialize(Building building)
-        {
-            if (building.IsUnlocked) gameObject.SetActive(false);
-            _building = building;
-            TooltipText.text =
-                $"Press F to Unlock {Helpers.ParseScriptableObjectName(building.name)} for {building.UnlockCost}";
-        }
+        private Building _building;
 
         public string InteractionPrompt => "Press F To Unlock Building";
 
@@ -47,6 +39,14 @@ namespace Lis.Battle.Arena
             _building.Unlock();
             gameObject.SetActive(false);
             return true;
+        }
+
+        public void Initialize(Building building)
+        {
+            if (building.IsUnlocked) gameObject.SetActive(false);
+            _building = building;
+            TooltipText.text =
+                $"Press F to Unlock {Helpers.ParseScriptableObjectName(building.name)} for {building.UnlockCost}";
         }
     }
 }

@@ -8,21 +8,21 @@ namespace Lis.Units
 {
     public class UnitScreen : FullScreenElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
         protected const string USSClassName = "unit-screen__";
-        const string _ussContent = USSClassName + "content";
-        const string _ussInfoContainer = USSClassName + "info-container";
-        const string _ussStatsContainer = USSClassName + "stats-container";
-        const string _ussOtherContainer = USSClassName + "other-container";
-
-        protected readonly Unit Unit;
+        private const string _ussContent = USSClassName + "content";
+        private const string _ussInfoContainer = USSClassName + "info-container";
+        private const string _ussStatsContainer = USSClassName + "stats-container";
+        private const string _ussOtherContainer = USSClassName + "other-container";
 
         protected readonly ScrollView MainCardContainer;
 
+        protected readonly Unit Unit;
+
         protected VisualElement BasicInfoContainer;
-        protected VisualElement StatsContainer;
         protected VisualElement OtherContainer;
+        protected VisualElement StatsContainer;
 
         protected UnitIcon UnitIcon;
 
@@ -57,7 +57,7 @@ namespace Lis.Units
             AddContinueButton();
         }
 
-        void CreateContainers()
+        private void CreateContainers()
         {
             BasicInfoContainer = new();
             StatsContainer = new();
@@ -82,13 +82,13 @@ namespace Lis.Units
             MainCardContainer.Add(OtherContainer);
         }
 
-        void AddName()
+        private void AddName()
         {
             if (Unit.UnitName.Length == 0) Unit.UnitName = Helpers.ParseScriptableObjectName(Unit.name);
             SetTitle(Unit.UnitName);
         }
 
-        void AddIcon()
+        private void AddIcon()
         {
             UnitIcon = new(Unit, true);
             BasicInfoContainer.Add(UnitIcon);
@@ -100,7 +100,7 @@ namespace Lis.Units
             BasicInfoContainer.Add(l);
         }
 
-        void AddElement()
+        private void AddElement()
         {
             NatureElement e = new(Unit.Nature);
             BasicInfoContainer.Add(e);

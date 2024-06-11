@@ -12,22 +12,21 @@ namespace Lis.MainMenu
 {
     public class MainMenu : Singleton<MainMenu>
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
-        [SerializeField] Sound _mainMenuTheme;
-        [SerializeField] GameObject _gameManagerPrefab;
-        [SerializeField] StyleSheet[] _themeStyleSheets;
-        [SerializeField] ParticleSystem _particleSystem;
+        [SerializeField] private Sound _mainMenuTheme;
+        [SerializeField] private GameObject _gameManagerPrefab;
+        [SerializeField] private StyleSheet[] _themeStyleSheets;
+        [SerializeField] private ParticleSystem _particleSystem;
 
-        GameManager _gameManager;
-        UpgradeManager _globalUpgradeManager;
+        private GameManager _gameManager;
+        private UpgradeManager _globalUpgradeManager;
+        private MyButton _playButton;
+        private MyButton _quitButton;
 
-        VisualElement _root;
-        MyButton _playButton;
-        MyButton _statsButton;
-        MyButton _settingsButton;
-        MyButton _quitButton;
-
+        private VisualElement _root;
+        private MyButton _settingsButton;
+        private MyButton _statsButton;
 
         protected override void Awake()
         {
@@ -43,26 +42,8 @@ namespace Lis.MainMenu
             SetThemeStyleSheet();
         }
 
-        void SetThemeStyleSheet()
-        {
-            StyleSheet chosen = _themeStyleSheets[Random.Range(0, _themeStyleSheets.Length)];
-            _root.styleSheets.Add(chosen);
-            _gameManager.Root.styleSheets.Add(chosen);
-            StartCoroutine(SetParticleSystemColorCoroutine());
-        }
 
-        IEnumerator SetParticleSystemColorCoroutine()
-        {
-            yield return new WaitForSeconds(1f);
-            Color c = _root.Q<Label>("gameTitle").resolvedStyle.color;
-
-            // set particle system start color as the main color of the theme
-            ParticleSystem.MainModule main = _particleSystem.main;
-            main.startColor = c;
-        }
-
-
-        void Start()
+        private void Start()
         {
             //    _playButton = new("Play", _ussCommonButton, ShowGlobalUpgradesMenu);
             _playButton = new("Play", _ussCommonButton,
@@ -81,30 +62,48 @@ namespace Lis.MainMenu
             AudioManager.Instance.PlayMusic(_mainMenuTheme);
         }
 
-        void ShowGlobalUpgradesMenu()
+        private void SetThemeStyleSheet()
+        {
+            StyleSheet chosen = _themeStyleSheets[Random.Range(0, _themeStyleSheets.Length)];
+            _root.styleSheets.Add(chosen);
+            _gameManager.Root.styleSheets.Add(chosen);
+            StartCoroutine(SetParticleSystemColorCoroutine());
+        }
+
+        private IEnumerator SetParticleSystemColorCoroutine()
+        {
+            yield return new WaitForSeconds(1f);
+            Color c = _root.Q<Label>("gameTitle").resolvedStyle.color;
+
+            // set particle system start color as the main color of the theme
+            ParticleSystem.MainModule main = _particleSystem.main;
+            main.startColor = c;
+        }
+
+        private void ShowGlobalUpgradesMenu()
         {
             _globalUpgradeManager.ShowUpgradeMenu();
         }
 
-        void ShowStatsScreen()
+        private void ShowStatsScreen()
         {
             StatsScreen statsScreen = new(_gameManager.GameStats);
             if (statsScreen == null) throw new ArgumentNullException(nameof(statsScreen));
         }
 
-        void Settings()
+        private void Settings()
         {
             SettingsScreen settingsScreen = new();
             if (settingsScreen == null) throw new ArgumentNullException(nameof(settingsScreen));
         }
 
-        void ConfirmQuit()
+        private void ConfirmQuit()
         {
             ConfirmPopUp pop = new();
             pop.Initialize(_root, Quit);
         }
 
-        void Quit()
+        private void Quit()
         {
             Application.Quit();
         }

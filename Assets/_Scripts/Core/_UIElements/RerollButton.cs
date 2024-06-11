@@ -5,9 +5,9 @@ namespace Lis.Core
 {
     public class RerollButton : MyButton
     {
-        const string _ussCommonRerollButton = "common__reroll-button";
-        const string _ussCommonRerollIcon = "common__reroll-icon";
-        const string _ussCommonRerollIconHover = "common__reroll-icon-hover";
+        private const string _ussCommonRerollButton = "common__reroll-button";
+        private const string _ussCommonRerollIcon = "common__reroll-icon";
+        private const string _ussCommonRerollIconHover = "common__reroll-icon-hover";
 
         public RerollButton(string buttonText = null, string className = _ussCommonRerollButton, Action callback = null)
             : base(buttonText, className, callback)

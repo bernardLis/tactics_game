@@ -26,12 +26,35 @@ namespace Lis.Units
         public Sound LevelUpSound;
 
         [HideInInspector] public int DamageTaken;
-        public event Action<int> OnDamageTaken;
-
-        public event Action OnKilled;
         [HideInInspector] public int TotalKillCount;
 
         [HideInInspector] public int Team;
+
+        [Header("Stats")]
+        public Stat MaxHealth;
+
+        [HideInInspector] public FloatVariable CurrentHealth;
+
+        public Stat Armor;
+        public Stat Speed;
+        public Stat Power;
+
+        /* LEVEL */
+        [Header("Level")] public IntVariable Level;
+        [HideInInspector] public FloatVariable Experience;
+        [HideInInspector] public FloatVariable ExpForNextLevel;
+        [HideInInspector] public float LeftoverExp;
+
+        /* ATTACKS */
+        [Header("Attacks")]
+        [SerializeField]
+        private Attack.Attack[] _attacksOriginal;
+
+        [HideInInspector] public List<Attack.Attack> Attacks = new();
+        [HideInInspector] public Attack.Attack CurrentAttack;
+        public event Action<int> OnDamageTaken;
+
+        public event Action OnKilled;
 
         public virtual void InitializeBattle(int team)
         {
@@ -60,15 +83,6 @@ namespace Lis.Units
             OnKilled?.Invoke();
         }
 
-        [Header("Stats")]
-        public Stat MaxHealth;
-
-        [HideInInspector] public FloatVariable CurrentHealth;
-
-        public Stat Armor;
-        public Stat Speed;
-        public Stat Power;
-
         protected virtual void CreateStats()
         {
             HandleMaxHealth();
@@ -77,7 +91,7 @@ namespace Lis.Units
             HandlePower();
         }
 
-        void HandleMaxHealth()
+        private void HandleMaxHealth()
         {
             if (MaxHealth == null) return;
             MaxHealth = Instantiate(MaxHealth);
@@ -85,7 +99,7 @@ namespace Lis.Units
             OnLevelUp += MaxHealth.LevelUp;
         }
 
-        void HandleArmor()
+        private void HandleArmor()
         {
             if (Armor == null) return;
             Armor = Instantiate(Armor);
@@ -93,7 +107,7 @@ namespace Lis.Units
             OnLevelUp += Armor.LevelUp;
         }
 
-        void HandleSpeed()
+        private void HandleSpeed()
         {
             if (Speed == null) return;
             Speed = Instantiate(Speed);
@@ -101,7 +115,7 @@ namespace Lis.Units
             OnLevelUp += Speed.LevelUp;
         }
 
-        void HandlePower()
+        private void HandlePower()
         {
             if (Power == null) return;
             Power = Instantiate(Power);
@@ -109,11 +123,6 @@ namespace Lis.Units
             OnLevelUp += Power.LevelUp;
         }
 
-        /* LEVEL */
-        [Header("Level")] public IntVariable Level;
-        [HideInInspector] public FloatVariable Experience;
-        [HideInInspector] public FloatVariable ExpForNextLevel;
-        [HideInInspector] public float LeftoverExp;
         public event Action OnLevelUp;
 
         protected virtual int GetExpForNextLevel()
@@ -149,16 +158,10 @@ namespace Lis.Units
             OnLevelUp?.Invoke();
         }
 
-        /* ATTACKS */
-        [Header("Attacks")]
-        [SerializeField] Attack.Attack[] _attacksOriginal;
-
-        [HideInInspector] public List<Attack.Attack> Attacks = new();
-        [HideInInspector] public Attack.Attack CurrentAttack;
         public event Action<Attack.Attack> OnAttackAdded;
         public event Action<Attack.Attack> OnAttackRemoved;
 
-        void InstantiateAttacks()
+        private void InstantiateAttacks()
         {
             foreach (Attack.Attack a in _attacksOriginal)
             {
@@ -222,7 +225,7 @@ namespace Lis.Units
             return dmgInt;
         }
 
-        float GetElementalDamageMultiplier(Nature attackerNature)
+        private float GetElementalDamageMultiplier(Nature attackerNature)
         {
             float elementalDamageBonus = 1f;
             if (Nature.StrongAgainst == attackerNature)
@@ -247,7 +250,7 @@ namespace Lis.Units
         {
             // TODO: to be implemented
 
-            return new UnitData();
+            return new();
         }
 
         public void LoadFromData(UnitData data)

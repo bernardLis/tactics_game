@@ -7,21 +7,21 @@ namespace Lis.Units.Hero.Tablets
 {
     public class TabletTooltipElement : VisualElement
     {
-        const string _ussCommonTextPrimary = "common__text-primary";
+        private const string _ussCommonTextPrimary = "common__text-primary";
 
-        const string _ussClassName = "tablet-tooltip-element__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "tablet-tooltip-element__";
+        private const string _ussMain = _ussClassName + "main";
 
-        readonly Tablet _tablet;
+        private readonly VisualElement _effectContainer;
 
-        readonly VisualElement _effectContainer;
+        private readonly Tablet _tablet;
 
         public TabletTooltipElement(Tablet tablet)
         {
-            var commonStyles = GameManager.Instance.GetComponent<AddressableManager>()
+            StyleSheet commonStyles = GameManager.Instance.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.CommonStyles);
             if (commonStyles != null) styleSheets.Add(commonStyles);
-            var ss = GameManager.Instance.GetComponent<AddressableManager>()
+            StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.TabletTooltipElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
@@ -41,7 +41,7 @@ namespace Lis.Units.Hero.Tablets
             AddNextEffect();
         }
 
-        void AddBasicInformation()
+        private void AddBasicInformation()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -59,7 +59,7 @@ namespace Lis.Units.Hero.Tablets
             Add(new HorizontalSpacerElement());
         }
 
-        void AddCurrentEffect()
+        private void AddCurrentEffect()
         {
             VisualElement container = new();
 
@@ -83,7 +83,7 @@ namespace Lis.Units.Hero.Tablets
             _effectContainer.Add(container);
         }
 
-        void AddNextEffect()
+        private void AddNextEffect()
         {
             VisualElement container = new();
             container.style.borderLeftWidth = 3;

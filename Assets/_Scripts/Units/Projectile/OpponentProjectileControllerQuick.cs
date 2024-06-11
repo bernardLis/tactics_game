@@ -12,7 +12,7 @@ namespace Lis.Units.Projectile
             StartCoroutine(SpeedChange());
         }
 
-        IEnumerator SpeedChange()
+        private IEnumerator SpeedChange()
         {
             Speed = 4;
             yield return DOTween.To(x => Speed = x, Speed, 0, 2f).SetEase(Ease.Linear).WaitForCompletion();

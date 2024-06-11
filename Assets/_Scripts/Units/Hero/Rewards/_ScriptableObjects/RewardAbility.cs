@@ -20,14 +20,12 @@ namespace Lis.Units.Hero.Rewards
             Ability.Level = 0;
 
             foreach (Ability.Ability heroAbility in Hero.GetAllAbilities())
-            {
                 if (heroAbility.Id == Ability.Id)
                 {
                     IsUpgrade = true;
                     Level = heroAbility.Level + 2;
                     Ability.Level = heroAbility.Level + 1;
                 }
-            }
 
             Ability.InitializeBattle(hero);
             SetPrice();
@@ -40,7 +38,7 @@ namespace Lis.Units.Hero.Rewards
             Price = Ability.Levels[Ability.Level].Price;
         }
 
-        Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)
+        private Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)
         {
             List<Ability.Ability> validAbilities = new();
             foreach (Ability.Ability a in GameManager.UnitDatabase.GetAllBasicAbilities())

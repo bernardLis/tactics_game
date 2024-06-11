@@ -11,7 +11,7 @@ namespace Lis.Core.Utilities
     {
         public static bool CreateFile(string fileName)
         {
-            var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
             try
             {
                 File.WriteAllText(fullPath, "");
@@ -26,7 +26,7 @@ namespace Lis.Core.Utilities
 
         public static bool FileExists(string fileName)
         {
-            var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
             return File.Exists(fullPath);
         }
 
@@ -38,7 +38,7 @@ namespace Lis.Core.Utilities
             if (!FileExists(fileName))
                 CreateFile(fileName);
 
-            var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
             try
             {
                 File.WriteAllText(fullPath, fileContents);
@@ -53,7 +53,7 @@ namespace Lis.Core.Utilities
 
         public static bool LoadFromFile(string fileName, out string result)
         {
-            var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
 
             try
             {
@@ -70,7 +70,7 @@ namespace Lis.Core.Utilities
 
         public static bool DeleteFile(string fileName)
         {
-            var fullPath = Path.Combine(Application.persistentDataPath, fileName);
+            string fullPath = Path.Combine(Application.persistentDataPath, fileName);
             try
             {
                 File.Delete(fullPath);

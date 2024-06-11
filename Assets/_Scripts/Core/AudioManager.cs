@@ -13,24 +13,24 @@ namespace Lis.Core
     {
         public List<Sound> Sounds = new();
 
-        [SerializeField] AudioMixer _mixer;
-        AudioMixerGroup _musicMixerGroup;
-        AudioMixerGroup _ambienceMixerGroup;
-        AudioMixerGroup _dialogueMixerGroup;
-        AudioMixerGroup _sfxMixerGroup;
-        AudioMixerGroup _uiMixerGroup;
+        [SerializeField] private AudioMixer _mixer;
+        private AudioSource _ambienceAudioSource;
+        private AudioMixerGroup _ambienceMixerGroup;
+        private int _currentMusicClipIndex;
 
-        AudioSource _musicAudioSource;
-        AudioSource _ambienceAudioSource;
-        AudioSource _dialogueAudioSource;
-        List<AudioSource> _sfxAudioSources = new();
-        List<AudioSource> _uiAudioSources = new();
+        private Sound _currentMusicSound;
+        private AudioSource _dialogueAudioSource;
+        private AudioMixerGroup _dialogueMixerGroup;
 
-        IEnumerator _xFadeMusicCoroutine;
-        IEnumerator _xFadeAmbienceCoroutine;
+        private AudioSource _musicAudioSource;
+        private AudioMixerGroup _musicMixerGroup;
+        private List<AudioSource> _sfxAudioSources = new();
+        private AudioMixerGroup _sfxMixerGroup;
+        private List<AudioSource> _uiAudioSources = new();
+        private AudioMixerGroup _uiMixerGroup;
+        private IEnumerator _xFadeAmbienceCoroutine;
 
-        Sound _currentMusicSound;
-        int _currentMusicClipIndex;
+        private IEnumerator _xFadeMusicCoroutine;
 
         protected override void Awake()
         {
@@ -40,7 +40,7 @@ namespace Lis.Core
             SetPlayerPrefVolume();
         }
 
-        void GetMixerGroups()
+        private void GetMixerGroups()
         {
             _musicMixerGroup = _mixer.FindMatchingGroups("Music")[0];
             _ambienceMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
@@ -49,7 +49,7 @@ namespace Lis.Core
             _uiMixerGroup = _mixer.FindMatchingGroups("UI")[0];
         }
 
-        void PopulateAudioSources()
+        private void PopulateAudioSources()
         {
             GameObject musicGameObject = new("Music");
             musicGameObject.transform.parent = transform;
@@ -80,7 +80,7 @@ namespace Lis.Core
                 CreateUiAudioSource();
         }
 
-        AudioSource CreateSfxAudioSource()
+        private AudioSource CreateSfxAudioSource()
         {
             GameObject sfxGameObject = new("SFX" + _sfxAudioSources.Count);
             sfxGameObject.transform.parent = transform;
@@ -95,7 +95,7 @@ namespace Lis.Core
             return a;
         }
 
-        AudioSource CreateUiAudioSource()
+        private AudioSource CreateUiAudioSource()
         {
             GameObject uiGameObject = new("UI" + _uiAudioSources.Count);
             uiGameObject.transform.parent = transform;
@@ -123,14 +123,12 @@ namespace Lis.Core
             StartCoroutine(PlayMusicCoroutine());
         }
 
-        IEnumerator PlayMusicCoroutine()
+        private IEnumerator PlayMusicCoroutine()
         {
             if (_musicAudioSource.isPlaying)
-            {
                 yield return _musicAudioSource.DOFade(0, 5)
                     .SetUpdate(true)
                     .WaitForCompletion();
-            }
 
             _musicAudioSource.volume = 0;
             _musicAudioSource.clip = _currentMusicSound.Clips[_currentMusicClipIndex];
@@ -153,7 +151,7 @@ namespace Lis.Core
         // I just don't know how to use one coroutine schema for both...
         public void PlayAmbience(Sound sound)
         {
-            Debug.LogError($"not implemented");
+            Debug.LogError("not implemented");
             if (sound != null) return;
             Debug.LogError("no ambience to play");
         }
@@ -177,7 +175,7 @@ namespace Lis.Core
             StartCoroutine(PlaySfxDelayedCoroutine(soundName, pos, delay));
         }
 
-        IEnumerator PlaySfxDelayedCoroutine(string soundName, Vector3 pos, float delay)
+        private IEnumerator PlaySfxDelayedCoroutine(string soundName, Vector3 pos, float delay)
         {
             yield return new WaitForSeconds(delay);
             PlaySfx(soundName, pos);
@@ -234,7 +232,7 @@ namespace Lis.Core
             StartCoroutine(PlayUIDelayedCoroutine(soundName, delay));
         }
 
-        IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
+        private IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
         {
             yield return new WaitForSecondsRealtime(delay);
             PlayUI(soundName);
@@ -272,7 +270,7 @@ namespace Lis.Core
         }
 
         /* volume setters */
-        void SetPlayerPrefVolume()
+        private void SetPlayerPrefVolume()
         {
             SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 1));
             SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 1));

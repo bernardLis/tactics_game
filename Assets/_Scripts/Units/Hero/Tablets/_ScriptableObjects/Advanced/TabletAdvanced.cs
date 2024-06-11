@@ -3,13 +3,11 @@ using UnityEngine;
 
 namespace Lis.Units.Hero.Tablets
 {
-    using Ability;
-
     [CreateAssetMenu(menuName = "ScriptableObject/Hero/Tablet Advanced")]
     public class TabletAdvanced : Tablet
     {
         [Header("Advanced Tablet")]
-        public Ability Ability;
+        public Ability.Ability Ability;
 
         public bool IsMadeOfNatures(Nature firstNature, Nature secondNature)
         {

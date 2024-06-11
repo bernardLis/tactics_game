@@ -5,31 +5,36 @@ namespace Lis.Core
 {
     public abstract class ElementWithTooltip : VisualElement
     {
-        protected VisualElement _tooltipContainer;
+        private readonly string tooltipTweenId = "tooltipTweenId";
+
+        private bool _blockTooltip;
+        private bool _isPointerDown;
+        private bool _isPointerOn;
+        private bool _isTooltipDisplayed;
+        private TooltipElement _setTooltipElement;
         protected TooltipElement _tooltip;
-        TooltipElement _setTooltipElement;
+        protected VisualElement _tooltipContainer;
 
-        bool _blockTooltip;
-        bool _isPointerOn;
-        bool _isPointerDown;
-        bool _isTooltipDisplayed;
+        private IVisualElementScheduledItem _tooltipDisplayScheduler;
 
-        readonly string tooltipTweenId = "tooltipTweenId";
-
-        IVisualElementScheduledItem _tooltipDisplayScheduler;
-
-        public ElementWithTooltip() { RegisterTooltipCallbacks(); }
+        public ElementWithTooltip()
+        {
+            RegisterTooltipCallbacks();
+        }
 
         protected void RegisterTooltipCallbacks()
         {
-            RegisterCallback<PointerDownEvent>((evt) => OnPointerDown());
-            RegisterCallback<PointerUpEvent>((evt) => OnPointerUp());
+            RegisterCallback<PointerDownEvent>(evt => OnPointerDown());
+            RegisterCallback<PointerUpEvent>(evt => OnPointerUp());
 
-            RegisterCallback<MouseEnterEvent>((evt) => DisplayTooltip());
-            RegisterCallback<MouseLeaveEvent>((evt) => OnMouseLeave());
+            RegisterCallback<MouseEnterEvent>(evt => DisplayTooltip());
+            RegisterCallback<MouseLeaveEvent>(evt => OnMouseLeave());
         }
 
-        public void SetTooltip(TooltipElement tooltip) { _setTooltipElement = tooltip; }
+        public void SetTooltip(TooltipElement tooltip)
+        {
+            _setTooltipElement = tooltip;
+        }
 
         public void BlockTooltip()
         {
@@ -37,8 +42,15 @@ namespace Lis.Core
             HideTooltip();
         }
 
-        void OnPointerDown() { _isPointerDown = true; }
-        void OnPointerUp() { _isPointerDown = false; }
+        private void OnPointerDown()
+        {
+            _isPointerDown = true;
+        }
+
+        private void OnPointerUp()
+        {
+            _isPointerDown = false;
+        }
 
         protected virtual void DisplayTooltip()
         {
@@ -53,12 +65,12 @@ namespace Lis.Core
             _tooltipDisplayScheduler = schedule.Execute(ShowTooltip).StartingIn(500);
         }
 
-        void ShowTooltip()
+        private void ShowTooltip()
         {
             if (!CanDisplayTooltip()) return;
 
             _isTooltipDisplayed = true;
-            var root = panel.visualTree;
+            VisualElement root = panel.visualTree;
 
             _tooltipContainer = root.Q<VisualElement>("tooltipContainer");
             if (_tooltipContainer == null) return;
@@ -75,7 +87,7 @@ namespace Lis.Core
                 .SetId(tooltipTweenId);
         }
 
-        bool CanDisplayTooltip()
+        private bool CanDisplayTooltip()
         {
             if (!_isPointerOn) return false;
             if (_blockTooltip) return false;

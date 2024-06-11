@@ -9,6 +9,5 @@ namespace Lis.Units.Hero.Rewards
             RewardGold rewardGold = reward as RewardGold;
             ContentContainer.Add(new GoldElement(rewardGold.Gold));
         }
-
     }
 }

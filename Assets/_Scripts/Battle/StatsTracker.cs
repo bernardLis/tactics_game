@@ -10,10 +10,10 @@ namespace Lis.Battle
 {
     public class StatsTracker : MonoBehaviour
     {
-        BattleManager _battleManager;
-        FightManager _fightManager;
-        HeroManager _heroManager;
-        Stats _stats;
+        private BattleManager _battleManager;
+        private FightManager _fightManager;
+        private HeroManager _heroManager;
+        private Stats _stats;
 
         public void Initialize()
         {
@@ -31,22 +31,22 @@ namespace Lis.Battle
             TrackAdvancedTabletsCollected();
         }
 
-        void TrackKills()
+        private void TrackKills()
         {
-            _fightManager.OnEnemyUnitDeath += (be) =>
+            _fightManager.OnEnemyUnitDeath += be =>
             {
                 if (be is CreatureController) _stats.CreaturesKilled++;
                 else if (be is BossController) _stats.BossKilled(be.Unit as Boss);
             };
         }
 
-        void TracksVases()
+        private void TracksVases()
         {
             GetComponent<BreakableVaseManager>().OnVaseBroken += _ => _stats.VasesBroken++;
         }
 
 
-        void TracksPickups()
+        private void TracksPickups()
         {
             GetComponent<PickupManager>().OnPickupCollected += pickup =>
             {
@@ -74,7 +74,7 @@ namespace Lis.Battle
             };
         }
 
-        void AssignOrb(ExperienceStone stone)
+        private void AssignOrb(ExperienceStone stone)
         {
             // meh solution
             if (stone.name == "Common Experience Stone")
@@ -87,20 +87,17 @@ namespace Lis.Battle
                 _stats.EpicExpStonesCollected++;
         }
 
-        void TrackAbilitiesUnlocked()
+        private void TrackAbilitiesUnlocked()
         {
             _heroManager.Hero.OnAbilityAdded += ability => _stats.AbilityUnlocked(ability);
         }
 
-        void TrackTabletsCollected()
+        private void TrackTabletsCollected()
         {
-            foreach (Tablet t in _heroManager.Hero.Tablets)
-            {
-                t.OnLevelUp += tablet => _stats.TabletCollected(tablet);
-            }
+            foreach (Tablet t in _heroManager.Hero.Tablets) t.OnLevelUp += tablet => _stats.TabletCollected(tablet);
         }
 
-        void TrackAdvancedTabletsCollected()
+        private void TrackAdvancedTabletsCollected()
         {
             _heroManager.Hero.OnTabletAdvancedAdded += t => _stats.AdvancedTabletCollected(t);
         }

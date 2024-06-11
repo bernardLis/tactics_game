@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Lis.Core
 {
@@ -11,8 +10,8 @@ namespace Lis.Core
 
         public string Value
         {
-            get { return value; }
-            set { this.value = value; }
+            get => value;
+            set => this.value = value;
         }
     }
 }

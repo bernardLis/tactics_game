@@ -12,12 +12,10 @@ namespace Lis.Units.Projectile
 {
     public class ProjectileController : MonoBehaviour
     {
-        AudioManager _audioManager;
-
         [FormerlySerializedAs("_explosionSound")] [SerializeField]
         protected Sound ExplosionSound;
 
-        [SerializeField] Sound _shootSound;
+        [SerializeField] private Sound _shootSound;
 
         [SerializeField] protected GameObject Gfx;
         [SerializeField] protected GameObject Explosion;
@@ -25,15 +23,45 @@ namespace Lis.Units.Projectile
         [FormerlySerializedAs("_speed")] [SerializeField]
         protected float Speed;
 
-        SphereCollider _collider;
+        private AudioManager _audioManager;
 
-        protected int Team;
+        private SphereCollider _collider;
+
+        private float _time;
         protected Attack.Attack Attack;
-
-        float _time;
         protected Vector3 Direction;
 
         protected bool IsHitConnected;
+
+        protected int Team;
+
+        protected virtual void OnCollisionEnter(Collision collision)
+        {
+            if (IsHitConnected) return;
+
+            if (collision.gameObject.layer == Tags.UnpassableLayer ||
+                collision.gameObject.layer == Tags.BattleInteractableLayer ||
+                collision.gameObject.layer == Tags.BattleFloorLayer)
+            {
+                CollideWithUnpassable(collision);
+                return;
+            }
+
+            if (collision.gameObject.TryGetComponent(out UnitController unitController))
+            {
+                if (!IsTargetValid(unitController)) return;
+
+                HitConnected();
+                HitTarget(unitController);
+                return;
+            }
+
+            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
+            {
+                HitConnected();
+                bbv.TriggerBreak();
+            }
+        }
 
         public event Action OnExplode;
 
@@ -81,7 +109,7 @@ namespace Lis.Units.Projectile
                 _audioManager.PlaySfx(_shootSound, transform.position);
         }
 
-        IEnumerator ShootInDirectionCoroutine(Vector3 dir)
+        private IEnumerator ShootInDirectionCoroutine(Vector3 dir)
         {
             Direction = dir;
             Direction.Normalize();
@@ -101,34 +129,6 @@ namespace Lis.Units.Projectile
         protected virtual void HitTarget(UnitController target)
         {
             StartCoroutine(target.GetHit(Attack));
-        }
-
-        protected virtual void OnCollisionEnter(Collision collision)
-        {
-            if (IsHitConnected) return;
-
-            if (collision.gameObject.layer == Tags.UnpassableLayer ||
-                collision.gameObject.layer == Tags.BattleInteractableLayer ||
-                collision.gameObject.layer == Tags.BattleFloorLayer)
-            {
-                CollideWithUnpassable(collision);
-                return;
-            }
-
-            if (collision.gameObject.TryGetComponent(out UnitController unitController))
-            {
-                if (!IsTargetValid(unitController)) return;
-
-                HitConnected();
-                HitTarget(unitController);
-                return;
-            }
-
-            if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
-            {
-                HitConnected();
-                bbv.TriggerBreak();
-            }
         }
 
         protected virtual void CollideWithUnpassable(Collision collision)

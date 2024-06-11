@@ -5,9 +5,9 @@ namespace Lis.Battle.Arena
 {
     public class ArenaController : Singleton<ArenaController>
     {
-        [SerializeField] BoxCollider _playerLockerRoom;
-        [SerializeField] BoxCollider _enemyLockerRoom;
-        [SerializeField] BoxCollider _arena;
+        [SerializeField] private BoxCollider _playerLockerRoom;
+        [SerializeField] private BoxCollider _enemyLockerRoom;
+        [SerializeField] private BoxCollider _arena;
 
         public void Initialize()
         {

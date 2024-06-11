@@ -8,7 +8,6 @@
 }
 
 
-
 .upgrade-screen__upgrade-container {
     flex-direction: row;
     border-top-width: 20px;

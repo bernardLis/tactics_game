@@ -36,7 +36,7 @@ namespace Lis.Battle.Fight
             o.Choose();
         }
 
-        void ChooseOption(FightOption option)
+        private void ChooseOption(FightOption option)
         {
             ChosenOption = option;
             OnOptionChosen?.Invoke(option);
@@ -46,7 +46,7 @@ namespace Lis.Battle.Fight
         {
             if (ChosenOption == null) return 0;
             int gold = ChosenOption.GoldReward;
-            if (WasRandom) gold += (10 * FightManager.FightNumber - 1); //HERE: balance
+            if (WasRandom) gold += 10 * FightManager.FightNumber - 1; //HERE: balance
 
             return gold;
         }

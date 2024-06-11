@@ -17,22 +17,57 @@ namespace Lis.Core
 {
     public class UnitDatabase : ScriptableObject
     {
+        [Header("Hero")]
+        public Hero[] Heroes;
+
+        [SerializeField] private Ability[] _abilities;
+        [SerializeField] private Ability[] _advancedAbilities;
+
+
+        public Tablet[] HeroTablets;
+        [SerializeField] private TabletAdvanced[] _heroTabletsAdvanced;
+
+        [Header("Peasant")]
+        public Peasant Peasant;
+
+        [Header("Pawns")]
+        [SerializeField]
+        private Pawn[] _allPawns;
+
+        [Header("Creatures")]
+        public Sprite[] CreatureIcons;
+
+        public List<Creature> AllCreatures = new();
+
+        [SerializeField] private Creature[] _opponentCreatures;
+
+        [Header("Enemies")]
+        [SerializeField]
+        private Enemy[] _enemies;
+
+        [Header("Bosses")]
+        [SerializeField]
+        private Boss[] _bosses;
+
+
+        [FormerlySerializedAs("StatBasics")] [Header("Stats")] [SerializeField]
+        private StatBasics[] _statBasics;
+
+
+        [Header("Natures")] [SerializeField] private Nature[] _natures;
+
+        [SerializeField] private NatureAdvanced[] _advancedNatures;
+
         public void Initialize()
         {
             foreach (Hero h in Heroes)
                 h.TimesPicked = PlayerPrefs.GetInt(h.Id, 0);
         }
 
-        [Header("Hero")]
-        public Hero[] Heroes;
-
         public Hero GetRandomHero()
         {
             return Heroes[Random.Range(0, Heroes.Length)];
         }
-
-        [SerializeField] Ability[] _abilities;
-        [SerializeField] Ability[] _advancedAbilities;
 
 
         public List<Ability> GetAllBasicAbilities()
@@ -50,10 +85,6 @@ namespace Lis.Core
             return _abilities.FirstOrDefault(x => x.Id == id);
         }
 
-
-        public Tablet[] HeroTablets;
-        [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
-
         public List<TabletAdvanced> GetAllAdvancedTablets()
         {
             return _heroTabletsAdvanced.ToList();
@@ -66,12 +97,6 @@ namespace Lis.Core
                     return t;
             return null;
         }
-
-        [Header("Peasant")]
-        public Peasant Peasant;
-
-        [Header("Pawns")]
-        [SerializeField] Pawn[] _allPawns;
 
         public List<Pawn> GetAllPawns()
         {
@@ -88,17 +113,10 @@ namespace Lis.Core
             return _allPawns.FirstOrDefault(x => x.Nature == n);
         }
 
-        [Header("Creatures")]
-        public Sprite[] CreatureIcons;
-
-        public List<Creature> AllCreatures = new();
-
         public Creature GetRandomCreature()
         {
             return AllCreatures[Random.Range(0, AllCreatures.Count)];
         }
-
-        [SerializeField] Creature[] _opponentCreatures;
 
         public List<Creature> GetAllOpponentCreatures()
         {
@@ -109,9 +127,6 @@ namespace Lis.Core
         {
             return _opponentCreatures[Random.Range(0, _opponentCreatures.Length)];
         }
-
-        [Header("Enemies")]
-        [SerializeField] Enemy[] _enemies;
 
         public List<Enemy> GetAllEnemies()
         {
@@ -138,19 +153,15 @@ namespace Lis.Core
             return units.FirstOrDefault(x => x.Id == id);
         }
 
-        [Header("Bosses")]
-        [SerializeField] Boss[] _bosses;
-
         public List<Boss> GetAllBosses()
         {
             return _bosses.ToList();
         }
 
-        public Boss GetRandomBoss() => _bosses[Random.Range(0, _bosses.Length)];
-
-
-        [FormerlySerializedAs("StatBasics")] [Header("Stats")] [SerializeField]
-        StatBasics[] _statBasics;
+        public Boss GetRandomBoss()
+        {
+            return _bosses[Random.Range(0, _bosses.Length)];
+        }
 
         public Sprite GetStatIconByType(StatType type)
         {
@@ -162,16 +173,10 @@ namespace Lis.Core
             return _statBasics.FirstOrDefault(x => x.StatType == type).Description;
         }
 
-
-        [Header("Natures")] [SerializeField]
-        Nature[] _natures;
-
         public Nature GetNatureByName(NatureName str)
         {
             return _natures.FirstOrDefault(x => x.NatureName == str);
         }
-
-        [SerializeField] NatureAdvanced[] _advancedNatures;
 
         public NatureAdvanced GetRandomAdvancedNature()
         {

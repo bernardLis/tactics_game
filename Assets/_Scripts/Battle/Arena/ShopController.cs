@@ -7,9 +7,21 @@ namespace Lis.Battle.Arena
 {
     public class ShopController : BuildingController, IInteractable
     {
+        private Shop _shop;
         public new string InteractionPrompt => "Press F To Shop!";
 
-        Shop _shop;
+        public override bool Interact(Interactor interactor)
+        {
+            if (FightManager.IsFightActive)
+            {
+                Debug.Log("Fight instead of shopping!");
+                return false;
+            }
+
+            ShopScreen shopScreen = new();
+            shopScreen.InitializeShop(_shop);
+            return true;
+        }
 
         protected override void OnBattleInitialized()
         {
@@ -36,19 +48,6 @@ namespace Lis.Battle.Arena
         protected override void SetTooltipText()
         {
             TooltipText.text = InteractionPrompt;
-        }
-
-        public override bool Interact(Interactor interactor)
-        {
-            if (FightManager.IsFightActive)
-            {
-                Debug.Log("Fight instead of shopping!");
-                return false;
-            }
-
-            ShopScreen shopScreen = new ShopScreen();
-            shopScreen.InitializeShop(_shop);
-            return true;
         }
     }
 }

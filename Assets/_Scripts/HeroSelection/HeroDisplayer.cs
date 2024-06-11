@@ -5,14 +5,14 @@ namespace Lis.HeroSelection
 {
     public class HeroDisplayer : MonoBehaviour
     {
-        [SerializeField] GameObject _aura;
-        [SerializeField] GameObject _effect;
-        [SerializeField] GameObject _gfx;
-
-        [SerializeField] float _gfxShowDelay = 0.5f;
-
-        Animator _animator;
         private static readonly int AnimGrounded = Animator.StringToHash("Grounded");
+        [SerializeField] private GameObject _aura;
+        [SerializeField] private GameObject _effect;
+        [SerializeField] private GameObject _gfx;
+
+        [SerializeField] private float _gfxShowDelay = 0.5f;
+
+        private Animator _animator;
 
         public void Initialize()
         {
@@ -27,7 +27,7 @@ namespace Lis.HeroSelection
             StartCoroutine(ShowCoroutine());
         }
 
-        IEnumerator ShowCoroutine()
+        private IEnumerator ShowCoroutine()
         {
             _effect.SetActive(true);
             yield return new WaitForSeconds(_gfxShowDelay);
@@ -46,7 +46,7 @@ namespace Lis.HeroSelection
             StartCoroutine(HideCoroutine());
         }
 
-        IEnumerator HideCoroutine()
+        private IEnumerator HideCoroutine()
         {
             yield return new WaitForSeconds(2f);
             _effect.SetActive(false);

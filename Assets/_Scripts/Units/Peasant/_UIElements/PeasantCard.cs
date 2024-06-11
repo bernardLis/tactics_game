@@ -2,16 +2,14 @@
 using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Core;
-using Lis.Core.Utilities;
-using UnityEngine;
 
 namespace Lis.Units.Peasant
 {
     public class PeasantCard : UnitCard
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
-        readonly Peasant _peasant;
+        private readonly Peasant _peasant;
 
         public PeasantCard(Peasant peasant) : base(peasant)
         {
@@ -21,7 +19,7 @@ namespace Lis.Units.Peasant
             AddUpgradeButtons();
         }
 
-        void AddUpgradeButtons()
+        private void AddUpgradeButtons()
         {
             List<Nature> availableNatures = new();
             BattleManager.Instance.Battle.Barracks.UnlockableNatures.ForEach(un =>
@@ -38,7 +36,7 @@ namespace Lis.Units.Peasant
             }
         }
 
-        void Upgrade(Nature n)
+        private void Upgrade(Nature n)
         {
             _peasant.Upgrade(n);
         }

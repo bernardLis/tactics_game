@@ -1,4 +1,3 @@
-
 using Lis.Units.Hero;
 
 namespace Lis.Core

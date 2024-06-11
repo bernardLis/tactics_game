@@ -8,10 +8,42 @@ namespace Lis.Battle
 {
     public class InputManager : MonoBehaviour
     {
-        GameManager _gameManager;
-        PlayerInput _playerInput;
+        private GameManager _gameManager;
 
-        MenuScreen _menuScreen;
+        private MenuScreen _menuScreen;
+        private PlayerInput _playerInput;
+
+        private void Start()
+        {
+            _gameManager = GameManager.Instance;
+            _playerInput = _gameManager.GetComponent<PlayerInput>();
+        }
+
+        /* INPUT */
+        private void OnEnable()
+        {
+            if (_gameManager == null)
+                _gameManager = GameManager.Instance;
+
+            _playerInput = _gameManager.GetComponent<PlayerInput>();
+            _playerInput.SwitchCurrentActionMap("Battle");
+            UnsubscribeInputActions();
+            SubscribeInputActions();
+        }
+
+        private void OnDisable()
+        {
+            if (_playerInput == null) return;
+
+            UnsubscribeInputActions();
+        }
+
+        private void OnDestroy()
+        {
+            if (_playerInput == null) return;
+
+            UnsubscribeInputActions();
+        }
 
         public event Action OnLeftMouseClick;
         public event Action OnRightMouseClick;
@@ -24,39 +56,7 @@ namespace Lis.Battle
         public event Action OnSpaceClicked;
         public event Action OnEnterClicked;
 
-        void Start()
-        {
-            _gameManager = GameManager.Instance;
-            _playerInput = _gameManager.GetComponent<PlayerInput>();
-        }
-
-        /* INPUT */
-        void OnEnable()
-        {
-            if (_gameManager == null)
-                _gameManager = GameManager.Instance;
-
-            _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _playerInput.SwitchCurrentActionMap("Battle");
-            UnsubscribeInputActions();
-            SubscribeInputActions();
-        }
-
-        void OnDisable()
-        {
-            if (_playerInput == null) return;
-
-            UnsubscribeInputActions();
-        }
-
-        void OnDestroy()
-        {
-            if (_playerInput == null) return;
-
-            UnsubscribeInputActions();
-        }
-
-        void SubscribeInputActions()
+        private void SubscribeInputActions()
         {
             _playerInput.actions["ToggleMenu"].performed += OpenMenu;
 #if UNITY_EDITOR
@@ -78,7 +78,7 @@ namespace Lis.Battle
 #endif
         }
 
-        void UnsubscribeInputActions()
+        private void UnsubscribeInputActions()
         {
             _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
 #if UNITY_EDITOR
@@ -102,30 +102,60 @@ namespace Lis.Battle
         }
 
         /* DEBUG inputs */
-        void LeftMouseClicked(InputAction.CallbackContext ctx) => OnLeftMouseClick?.Invoke();
-        void RightMouseClicked(InputAction.CallbackContext ctx) => OnRightMouseClick?.Invoke();
-        void SpaceClicked(InputAction.CallbackContext ctx) => OnSpaceClicked?.Invoke();
-        void EnterClicked(InputAction.CallbackContext ctx) => OnEnterClicked?.Invoke();
+        private void LeftMouseClicked(InputAction.CallbackContext ctx)
+        {
+            OnLeftMouseClick?.Invoke();
+        }
 
-        void OneClicked(InputAction.CallbackContext ctx) => OnOneClicked?.Invoke();
-        void TwoClicked(InputAction.CallbackContext ctx) => OnTwoClicked?.Invoke();
-        void ThreeClicked(InputAction.CallbackContext ctx) => OnThreeClicked?.Invoke();
-        void FourClicked(InputAction.CallbackContext ctx) => OnFourClicked?.Invoke();
+        private void RightMouseClicked(InputAction.CallbackContext ctx)
+        {
+            OnRightMouseClick?.Invoke();
+        }
 
-        void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
+        private void SpaceClicked(InputAction.CallbackContext ctx)
+        {
+            OnSpaceClicked?.Invoke();
+        }
+
+        private void EnterClicked(InputAction.CallbackContext ctx)
+        {
+            OnEnterClicked?.Invoke();
+        }
+
+        private void OneClicked(InputAction.CallbackContext ctx)
+        {
+            OnOneClicked?.Invoke();
+        }
+
+        private void TwoClicked(InputAction.CallbackContext ctx)
+        {
+            OnTwoClicked?.Invoke();
+        }
+
+        private void ThreeClicked(InputAction.CallbackContext ctx)
+        {
+            OnThreeClicked?.Invoke();
+        }
+
+        private void FourClicked(InputAction.CallbackContext ctx)
+        {
+            OnFourClicked?.Invoke();
+        }
+
+        private void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
         {
         }
 
-        void DebugSpawnTile(InputAction.CallbackContext ctx)
+        private void DebugSpawnTile(InputAction.CallbackContext ctx)
         {
         }
 
-        void DebugSpawnBoss(InputAction.CallbackContext ctx)
+        private void DebugSpawnBoss(InputAction.CallbackContext ctx)
         {
             BattleManager.Instance.GetComponent<BossManager>().SpawnBoss();
         }
 
-        void DebugKillHero(InputAction.CallbackContext ctx)
+        private void DebugKillHero(InputAction.CallbackContext ctx)
         {
         }
 
@@ -134,11 +164,11 @@ namespace Lis.Battle
             if (_gameManager.OpenFullScreens.Count > 0) return;
             if (_menuScreen != null) return;
 
-            _menuScreen = new MenuScreen();
+            _menuScreen = new();
             _menuScreen.OnHide += MenuScreenClosed;
         }
 
-        void MenuScreenClosed()
+        private void MenuScreenClosed()
         {
             _menuScreen = null;
         }

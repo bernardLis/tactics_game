@@ -8,21 +8,21 @@ namespace Lis.Battle.Arena
 {
     public class InvestmentElement : VisualElement
     {
-        const string _ussCommonButton = "common__button";
+        private const string _ussCommonButton = "common__button";
 
-        const string _ussClassName = "investment-element__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "investment-element__";
+        private const string _ussMain = _ussClassName + "main";
+
+        private readonly Investment _investment;
+
+        private MyButton _collectButton;
+
+        private VisualElement _firstLineContainer;
+        private MyButton _investButton;
 
 
-        VisualElement _leftContainer;
-        VisualElement _rightContainer;
-
-        readonly Investment _investment;
-
-        VisualElement _firstLineContainer;
-
-        MyButton _collectButton;
-        MyButton _investButton;
+        private readonly VisualElement _leftContainer;
+        private readonly VisualElement _rightContainer;
 
         public InvestmentElement(Investment investment)
         {
@@ -45,7 +45,7 @@ namespace Lis.Battle.Arena
             else HandleAvailableInvestment();
         }
 
-        void AddFirstLine()
+        private void AddFirstLine()
         {
             if (_investment.IsActive) return;
 
@@ -56,13 +56,13 @@ namespace Lis.Battle.Arena
             _firstLineContainer.style.fontSize = 24;
             _leftContainer.Add(_firstLineContainer);
 
-            _firstLineContainer.Add(new Label($"Invest "));
+            _firstLineContainer.Add(new Label("Invest "));
             _firstLineContainer.Add(new GoldElement(_investment.GoldToInvest));
             _firstLineContainer.Add(new Label($"for {_investment.FightCount}"));
             _firstLineContainer.Add(new FightIcon());
         }
 
-        void AddSecondLine()
+        private void AddSecondLine()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -70,12 +70,12 @@ namespace Lis.Battle.Arena
             container.style.alignItems = Align.Center;
             _leftContainer.Add(container);
 
-            container.Add(new Label($"Collect "));
+            container.Add(new Label("Collect "));
             container.Add(new GoldElement(_investment.GoldToReturn));
             container.Add(new Label($"(Interest: {Mathf.RoundToInt(_investment.Interest * 100)}%)"));
         }
 
-        void HandleActiveInvestment()
+        private void HandleActiveInvestment()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -95,14 +95,14 @@ namespace Lis.Battle.Arena
             _collectButton.SetEnabled(false);
         }
 
-        void Collect()
+        private void Collect()
         {
             _investment.Collect();
             _collectButton.SetEnabled(false);
             _collectButton.SetText("Collected!");
         }
 
-        void HandleAvailableInvestment()
+        private void HandleAvailableInvestment()
         {
             _investButton = new("Invest", _ussCommonButton, Invest);
             _investButton.style.width = 140;
@@ -110,7 +110,7 @@ namespace Lis.Battle.Arena
             _rightContainer.Add(_investButton);
         }
 
-        void Invest()
+        private void Invest()
         {
             if (GameManager.Instance.Gold < _investment.GoldToInvest)
             {

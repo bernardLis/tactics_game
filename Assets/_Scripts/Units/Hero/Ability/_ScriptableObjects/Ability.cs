@@ -37,15 +37,15 @@ namespace Lis.Units.Hero.Ability
         [Header("Sounds")]
         public Sound ExecuteSound;
 
-        public event Action OnCooldownStarted;
-        public event Action OnLevelUp;
-
-        float _cooldownMultiplier = 1f;
-        float _scaleMultiplier = 1f;
-
         public int BattleTimeActivated;
 
-        Hero _hero;
+        private float _cooldownMultiplier = 1f;
+
+        private Hero _hero;
+        private float _scaleMultiplier = 1f;
+
+        public event Action OnCooldownStarted;
+        public event Action OnLevelUp;
 
         public void InitializeBattle(Hero hero)
         {

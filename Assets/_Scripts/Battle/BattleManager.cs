@@ -11,31 +11,30 @@ namespace Lis.Battle
     {
         public static bool BlockBattleInput;
 
-        GameManager _gameManager;
-        AudioManager _audioManager;
-
-        [SerializeField] Sound _battleLost;
-        [SerializeField] Sound _battleWon;
+        [SerializeField] private Sound _battleLost;
+        [SerializeField] private Sound _battleWon;
 
         public Battle Battle;
-
-        public VisualElement Root { get; private set; }
 
         public Transform EntityHolder;
         public Transform AbilityHolder;
         public Transform ProjectilePoolHolder;
+        private AudioManager _audioManager;
+        private bool _battleFinalized;
+        private int _battleTime;
+
+        private IEnumerator _endBattleCoroutine;
+
+        private GameManager _gameManager;
+
+        private float _lastTimeScale = 1f;
+
+        private IEnumerator _timerCoroutine;
+        private Label _timerLabel;
+
+        public VisualElement Root { get; private set; }
 
         public bool IsTimerOn { get; private set; }
-        bool _battleFinalized;
-
-        IEnumerator _timerCoroutine;
-        int _battleTime;
-        Label _timerLabel;
-
-        public event Action OnBattleFinalized;
-
-        public event Action OnGamePaused;
-        public event Action OnGameResumed;
 
         protected override void Awake()
         {
@@ -44,7 +43,7 @@ namespace Lis.Battle
             Root = GetComponent<UIDocument>().rootVisualElement;
         }
 
-        void Start()
+        private void Start()
         {
             // HERE: render texture issue unity must resolve
             // VFXCameraManager.Instance.gameObject.SetActive(false);
@@ -57,6 +56,11 @@ namespace Lis.Battle
             _timerLabel = Root.Q<Label>("timer");
         }
 
+        public event Action OnBattleFinalized;
+
+        public event Action OnGamePaused;
+        public event Action OnGameResumed;
+
         public void Initialize()
         {
             Battle = _gameManager.CurrentBattle;
@@ -66,11 +70,9 @@ namespace Lis.Battle
             ResumeTimer();
         }
 
-        float _lastTimeScale = 1f;
-
         public void PauseGame()
         {
-            Debug.Log($"Pausing the game...");
+            Debug.Log("Pausing the game...");
             if (Time.timeScale != 0)
                 _lastTimeScale = Time.timeScale;
             Time.timeScale = 0f;
@@ -82,7 +84,7 @@ namespace Lis.Battle
 
         public void ResumeGame()
         {
-            Debug.Log($"Resuming the game...");
+            Debug.Log("Resuming the game...");
             Time.timeScale = _lastTimeScale;
             ResumeTimer();
             BlockBattleInput = false;
@@ -90,7 +92,7 @@ namespace Lis.Battle
             OnGameResumed?.Invoke();
         }
 
-        void PauseTimer()
+        private void PauseTimer()
         {
             if (this == null) return;
 
@@ -99,7 +101,7 @@ namespace Lis.Battle
                 StopCoroutine(_timerCoroutine);
         }
 
-        void ResumeTimer()
+        private void ResumeTimer()
         {
             IsTimerOn = true;
             if (_timerCoroutine != null)
@@ -109,7 +111,7 @@ namespace Lis.Battle
             StartCoroutine(_timerCoroutine);
         }
 
-        IEnumerator UpdateTimer()
+        private IEnumerator UpdateTimer()
         {
             while (true)
             {
@@ -128,8 +130,6 @@ namespace Lis.Battle
         {
             return _battleTime;
         }
-
-        IEnumerator _endBattleCoroutine;
 
         public void LoseBattle()
         {
@@ -151,21 +151,21 @@ namespace Lis.Battle
             // TODO: skull collected
         }
 
-        IEnumerator BattleLost()
+        private IEnumerator BattleLost()
         {
             _audioManager.PlayUI(_battleLost);
             LostBattleScreen lostScreen = new();
             yield return FinalizeBattle();
         }
 
-        IEnumerator BattleWon()
+        private IEnumerator BattleWon()
         {
             _audioManager.PlayUI(_battleWon);
             WonBattleScreen wonScreen = new();
             yield return FinalizeBattle();
         }
 
-        IEnumerator FinalizeBattle()
+        private IEnumerator FinalizeBattle()
         {
             // if entities die "at the same time" it triggers twice
             if (_battleFinalized) yield break;

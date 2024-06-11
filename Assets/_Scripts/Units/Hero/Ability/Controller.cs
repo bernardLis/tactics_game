@@ -12,24 +12,24 @@ namespace Lis.Units.Hero.Ability
 {
     public class Controller : MonoBehaviour
     {
-        protected AudioManager AudioManager;
-        protected BattleManager BattleManager;
-        HeroManager _heroManager;
-        FightManager _fightManager;
-        protected ArenaManager ArenaManager;
-
-        protected Transform AbilityObjectParent;
-
         [FormerlySerializedAs("_abilityObjectPrefab")] [SerializeField]
         protected GameObject AbilityObjectPrefab;
 
-        readonly List<ObjectController> _abilityObjectPool = new();
+        public Ability Ability;
+
+        private readonly List<ObjectController> _abilityObjectPool = new();
+        private FightManager _fightManager;
+        private IEnumerator _fireAbilityCoroutine;
+        private HeroManager _heroManager;
+        private IEnumerator _runAbilityCoroutine;
+
+        protected Transform AbilityObjectParent;
+        protected ArenaManager ArenaManager;
+        protected AudioManager AudioManager;
+        protected BattleManager BattleManager;
 
         protected HeroController HeroController;
         protected OpponentTracker OpponentTracker;
-        public Ability Ability;
-        IEnumerator _runAbilityCoroutine;
-        IEnumerator _fireAbilityCoroutine;
 
         public virtual void Initialize(Ability ability)
         {
@@ -63,7 +63,7 @@ namespace Lis.Units.Hero.Ability
             if (_runAbilityCoroutine != null) StopCoroutine(_runAbilityCoroutine);
         }
 
-        IEnumerator RunAbilityCoroutine()
+        private IEnumerator RunAbilityCoroutine()
         {
             yield return new WaitForSeconds(0.1f); // time to initialize button
             while (true)
@@ -98,7 +98,7 @@ namespace Lis.Units.Hero.Ability
             return rand.normalized;
         }
 
-        ObjectController InitializeAbilityObject()
+        private ObjectController InitializeAbilityObject()
         {
             GameObject instance = Instantiate(AbilityObjectPrefab, Vector3.zero,
                 Quaternion.identity, AbilityObjectParent);
@@ -116,7 +116,7 @@ namespace Lis.Units.Hero.Ability
             return InitializeAbilityObject();
         }
 
-        void DisableAllAbilityObjects()
+        private void DisableAllAbilityObjects()
         {
             foreach (ObjectController p in _abilityObjectPool)
                 p.DisableSelf();

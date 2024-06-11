@@ -3,52 +3,43 @@ using System.Collections.Generic;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Upgrades;
-using UnityEngine;
-using UnityEngine.UIElements;
 using Unity.Services.Analytics;
 using Unity.Services.Core;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Lis.Core
 {
-    using Battle;
-
     public class GameManager : PersistentSingleton<GameManager>, ISavable
     {
-        LevelLoader _levelLoader;
-
         public GameDatabase GameDatabase;
         public UnitDatabase UnitDatabase;
         public UpgradeBoard UpgradeBoard;
         public Stats GameStats;
+        public readonly List<FullScreenElement> OpenFullScreens = new();
+        private LevelLoader _levelLoader;
 
         // global data
-        int _seed;
+        private int _seed;
 
         public int Gold { get; private set; }
 
-        public Battle CurrentBattle { get; private set; }
+        public Battle.Battle CurrentBattle { get; private set; }
 
         public VisualElement Root { get; private set; }
-        public readonly List<FullScreenElement> OpenFullScreens = new();
-
-        public event Action<int> OnGoldChanged;
-
-        public event Action<string> OnLevelLoaded;
-        public event Action OnNewSaveFileCreation;
-        public event Action OnClearSaveData;
 
         protected override void Awake()
         {
             base.Awake();
             Root = GetComponent<UIDocument>().rootVisualElement;
 
-            Debug.Log($"Game manager Awake");
+            Debug.Log("Game manager Awake");
             RunServices();
         }
 
-        void Start()
+        private void Start()
         {
-            Debug.Log($"Game manager Start");
+            Debug.Log("Game manager Start");
             _levelLoader = GetComponent<LevelLoader>();
             Helpers.SetUpHelpers(Root);
 
@@ -66,7 +57,34 @@ namespace Lis.Core
             CurrentBattle.Initialize(); // necessary for testing
         }
 
-        async void RunServices()
+        public void PopulateSaveData(SaveData saveData)
+        {
+            // global data
+            saveData.Seed = _seed;
+
+            saveData.Gold = Gold;
+            saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
+            saveData.GameStats = GameStats.SerializeSelf();
+        }
+
+        public void LoadFromSaveData(SaveData saveData)
+        {
+            Debug.Log("Loading from save data");
+            // global data
+            _seed = saveData.Seed;
+
+            Gold = saveData.Gold;
+            UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
+            GameStats.LoadFromData(saveData.GameStats);
+        }
+
+        public event Action<int> OnGoldChanged;
+
+        public event Action<string> OnLevelLoaded;
+        public event Action OnNewSaveFileCreation;
+        public event Action OnClearSaveData;
+
+        private async void RunServices()
         {
             await UnityServices.InitializeAsync();
             // TODO: analytics - need opt in flow
@@ -77,11 +95,11 @@ namespace Lis.Core
             SendTestEvent();
         }
 
-        void SendTestEvent()
+        private void SendTestEvent()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>()
+            var parameters = new Dictionary<string, object>
             {
-                { "myWonderfulParameter", "hello there" },
+                { "myWonderfulParameter", "hello there" }
             };
 
             AnalyticsService.Instance.CustomData("myGameStart", parameters);
@@ -126,9 +144,9 @@ namespace Lis.Core
          * Saving and Loading
          * https://www.youtube.com/watch?v=uD7y4T4PVk0
          */
-        void CreateNewSaveFile()
+        private void CreateNewSaveFile()
         {
-            Debug.Log($"Creating new save file...");
+            Debug.Log("Creating new save file...");
             _seed = Environment.TickCount;
 
             Gold = 0;
@@ -146,52 +164,31 @@ namespace Lis.Core
             SaveJsonData();
         }
 
-        void LoadFromSaveFile()
+        private void LoadFromSaveFile()
         {
             LoadJsonData(PlayerPrefs.GetString("saveName"));
         }
 
         public void SaveJsonData()
         {
-            SaveData sd = new SaveData();
+            SaveData sd = new();
             PopulateSaveData(sd);
             FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson());
             // if (FileManager.WriteToFile(PlayerPrefs.GetString("saveName"), sd.ToJson()))
             //     Debug.Log("Save successful");
         }
 
-        public void PopulateSaveData(SaveData saveData)
+        private void LoadJsonData(string fileName)
         {
-            // global data
-            saveData.Seed = _seed;
-
-            saveData.Gold = Gold;
-            saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
-            saveData.GameStats = GameStats.SerializeSelf();
-        }
-
-        void LoadJsonData(string fileName)
-        {
-            if (FileManager.LoadFromFile(fileName, out var json))
+            if (FileManager.LoadFromFile(fileName, out string json))
             {
-                SaveData sd = new SaveData();
+                SaveData sd = new();
                 sd.LoadFromJson(json);
                 LoadFromSaveData(sd);
                 return;
             }
 
             CreateNewSaveFile();
-        }
-
-        public void LoadFromSaveData(SaveData saveData)
-        {
-            Debug.Log($"Loading from save data");
-            // global data
-            _seed = saveData.Seed;
-
-            Gold = saveData.Gold;
-            UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
-            GameStats.LoadFromData(saveData.GameStats);
         }
 
         public void ClearSaveData()

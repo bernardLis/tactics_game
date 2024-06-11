@@ -10,22 +10,21 @@ namespace Lis.Battle.Pickup
 {
     public class RewardChestController : MonoBehaviour
     {
-        GameManager _gameManager;
-        AudioManager _audioManager;
-        TooltipManager _tooltipManager;
-        MMF_Player _feelPlayer;
+        [SerializeField] private Sound _spawnSound;
+        [SerializeField] private Sound _openSound;
+        [SerializeField] private Sound _closeSound;
 
-        [SerializeField] Sound _spawnSound;
-        [SerializeField] Sound _openSound;
-        [SerializeField] Sound _closeSound;
+        [SerializeField] private GameObject _lid;
+        [SerializeField] private GameObject _glowEffect;
+        [SerializeField] private GameObject _beamEffect;
+        private AudioManager _audioManager;
+        private MMF_Player _feelPlayer;
+        private GameManager _gameManager;
 
-        [SerializeField] GameObject _lid;
-        [SerializeField] GameObject _glowEffect;
-        [SerializeField] GameObject _beamEffect;
+        private bool _isOpened;
+        private TooltipManager _tooltipManager;
 
-        bool _isOpened;
-
-        void Start()
+        private void Start()
         {
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
@@ -36,7 +35,7 @@ namespace Lis.Battle.Pickup
         }
 
 
-        void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter(Collider collider)
         {
             if (!collider.TryGetComponent(out HeroController hero)) return;
             if (_isOpened) return;
@@ -44,7 +43,7 @@ namespace Lis.Battle.Pickup
             StartCoroutine(Open());
         }
 
-        IEnumerator Open()
+        private IEnumerator Open()
         {
             if (_isOpened) yield break;
             _isOpened = true;
@@ -55,7 +54,7 @@ namespace Lis.Battle.Pickup
             transform.DOShakeScale(0.5f, 0.2f);
 
             yield return new WaitForSeconds(0.5f);
-            _lid.transform.DOLocalRotate(new Vector3(-45, 0, 0), 1f)
+            _lid.transform.DOLocalRotate(new(-45, 0, 0), 1f)
                 .SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);
 
@@ -71,14 +70,14 @@ namespace Lis.Battle.Pickup
                 .OnComplete(() => _beamEffect.SetActive(false));
             yield return new WaitForSeconds(0.5f);
             _audioManager.PlaySfx(_closeSound, transform.position);
-            _lid.transform.DOLocalRotate(new Vector3(0, 0, 0), 1f)
+            _lid.transform.DOLocalRotate(new(0, 0, 0), 1f)
                 .SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);
 
             transform.DOScale(0, 1f).OnComplete(() => Destroy(gameObject));
         }
 
-        void DisplayText(string text, Color color)
+        private void DisplayText(string text, Color color)
         {
             MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
             floatingText.Value = text;
@@ -87,6 +86,5 @@ namespace Lis.Battle.Pickup
             Vector3 pos = transform.position + new Vector3(0, transform.localScale.y * 0.8f, 0);
             _feelPlayer.PlayFeedbacks(pos);
         }
-
     }
 }

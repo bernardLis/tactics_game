@@ -5,10 +5,10 @@ namespace Lis.Core.Utilities
 {
     public class Test : MonoBehaviour
     {
-        VisualElement _root;
-        Button _rankElementTests;
+        private Button _rankElementTests;
+        private VisualElement _root;
 
-        void Awake()
+        private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -16,18 +16,18 @@ namespace Lis.Core.Utilities
             _rankElementTests.clickable.clicked += AddRankElementTest;
         }
 
-        void AddRankElementTest()
+        private void AddRankElementTest()
         {
             VisualElement container = new();
-            StarRankElement starRankElement = new StarRankElement(0, 1);
+            StarRankElement starRankElement = new(0);
             container.Add(starRankElement);
             MyButton addRank = new("add rank", null, () => starRankElement.SetRank(starRankElement.Rank + 1));
-            MyButton subtractRank = new("subtract rank ", null, () => starRankElement.SetRank(starRankElement.Rank - 1));
+            MyButton subtractRank =
+                new("subtract rank ", null, () => starRankElement.SetRank(starRankElement.Rank - 1));
             container.Add(addRank);
             container.Add(subtractRank);
 
             _root.Add(container);
         }
-
     }
 }

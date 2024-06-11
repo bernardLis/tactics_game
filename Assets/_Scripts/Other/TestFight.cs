@@ -20,7 +20,7 @@ namespace Lis
 
         public List<Unit> Survivors;
 
-        UnitDatabase _unitDatabase;
+        private UnitDatabase _unitDatabase;
 
         public void CreateTestFight(int points)
         {
@@ -31,10 +31,10 @@ namespace Lis
             CreateEnemyArmy(points);
         }
 
-        void CreatePlayerArmy(int points)
+        private void CreatePlayerArmy(int points)
         {
             Peasant peasant = _unitDatabase.Peasant;
-            List<Pawn> pawns = _unitDatabase.GetAllPawns();
+            var pawns = _unitDatabase.GetAllPawns();
 
             int pointsLeft = points;
             int tries = 0;
@@ -69,9 +69,9 @@ namespace Lis
             }
         }
 
-        void CreateEnemyArmy(int points)
+        private void CreateEnemyArmy(int points)
         {
-            List<Enemy> enemies = _unitDatabase.GetAllEnemies();
+            var enemies = _unitDatabase.GetAllEnemies();
             int pointsLeft = points;
             int tries = 0;
             while (pointsLeft > 0)

@@ -9,10 +9,10 @@ namespace Lis.Units.Hero
 {
     public class HeroScreen : UnitScreen
     {
-        const string _ussRowContainer = USSClassName + "row-container";
-        const string _ussSlot = USSClassName + "slot";
+        private const string _ussRowContainer = USSClassName + "row-container";
+        private const string _ussSlot = USSClassName + "slot";
 
-        readonly Hero _hero;
+        private readonly Hero _hero;
 
         public HeroScreen(Hero hero) : base(hero)
         {
@@ -66,7 +66,7 @@ namespace Lis.Units.Hero
             if (_hero.AdvancedTablet == null)
                 slots[^1].style.backgroundColor = Color.yellow;
 
-            _hero.OnAbilityAdded += (a) =>
+            _hero.OnAbilityAdded += a =>
             {
                 if (slots.Count > 0)
                 {
@@ -82,7 +82,7 @@ namespace Lis.Units.Hero
             };
         }
 
-        void HandleTablets()
+        private void HandleTablets()
         {
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
@@ -118,6 +118,5 @@ namespace Lis.Units.Hero
                 _hero.OnTabletAdvancedAdded -= AdvancedTabletAdded;
             }
         }
-
     }
 }

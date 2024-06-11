@@ -16,7 +16,7 @@ namespace Lis.Units.Boss
                                               0,
                                               Random.Range(-Attack.Spread, Attack.Spread));
                 heroPosAdjusted.y = 1f;
-                Vector3 transformPosNorm = new Vector3(transform.position.x, 1f, transform.position.z);
+                Vector3 transformPosNorm = new(transform.position.x, 1f, transform.position.z);
                 Vector3 dir = heroPosAdjusted - transformPosNorm;
                 dir = dir.normalized;
                 SpawnProjectile(dir);

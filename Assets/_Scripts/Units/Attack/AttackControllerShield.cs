@@ -6,8 +6,8 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerShield : AttackController
     {
-        [SerializeField] GameObject _effect;
-        Color _shieldedColor;
+        [SerializeField] private GameObject _effect;
+        private Color _shieldedColor;
 
         public override void Initialize(UnitController unitController, Attack attack)
         {
@@ -32,7 +32,7 @@ namespace Lis.Units.Attack
             UnitController.IsShielded = true;
         }
 
-        void BreakShield()
+        private void BreakShield()
         {
             _effect.SetActive(false);
         }

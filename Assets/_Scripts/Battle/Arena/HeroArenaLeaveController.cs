@@ -8,11 +8,11 @@ namespace Lis
 {
     public class HeroArenaLeaveController : MonoBehaviour
     {
-        ArenaManager _arenaManager;
-        BoxCollider _collider;
-        [SerializeField] GameObject _effect;
+        [SerializeField] private GameObject _effect;
+        private ArenaManager _arenaManager;
+        private BoxCollider _collider;
 
-        void Start()
+        private void Start()
         {
             BattleInitializer.Instance.OnBattleInitialized += OnBattleInitialized;
             _collider = GetComponent<BoxCollider>();
@@ -20,18 +20,7 @@ namespace Lis
             _arenaManager = ArenaManager.Instance;
         }
 
-        void OnBattleInitialized()
-        {
-            FightManager.Instance.OnFightEnded += OnFightEnded;
-        }
-
-        void OnFightEnded()
-        {
-            _collider.isTrigger = true;
-            _effect.SetActive(false);
-        }
-
-        void OnTriggerExit(Collider other)
+        private void OnTriggerExit(Collider other)
         {
             // if hero leaves, fight is active and hero is in the arena - make collider not trigger (hero can't come back)
             if (FightManager.IsFightActive == false) return;
@@ -43,6 +32,17 @@ namespace Lis
                     _collider.isTrigger = false;
                     _effect.SetActive(true);
                 }
+        }
+
+        private void OnBattleInitialized()
+        {
+            FightManager.Instance.OnFightEnded += OnFightEnded;
+        }
+
+        private void OnFightEnded()
+        {
+            _collider.isTrigger = true;
+            _effect.SetActive(false);
         }
     }
 }

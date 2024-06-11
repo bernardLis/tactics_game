@@ -6,10 +6,9 @@ namespace Lis.Units.Hero.Rewards
 {
     public class Reward : BaseScriptableObject
     {
+        public int Price;
         protected GameManager GameManager;
         protected Hero Hero;
-
-        public int Price;
 
         public event Action<Reward> OnRewardSelected;
 

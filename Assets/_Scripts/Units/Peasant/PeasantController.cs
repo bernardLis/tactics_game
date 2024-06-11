@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Lis.Battle;
-using Lis.Battle.Fight;
 using Lis.Core;
 using UnityEngine;
 
@@ -8,8 +7,8 @@ namespace Lis.Units.Peasant
 {
     public class PeasantController : UnitController
     {
-        [SerializeField] PeasantUpgradeEffectController _upgradeEffect;
-        Peasant _peasant;
+        [SerializeField] private PeasantUpgradeEffectController _upgradeEffect;
+        private Peasant _peasant;
 
 
         public override void InitializeUnit(Unit unit, int team)
@@ -20,14 +19,14 @@ namespace Lis.Units.Peasant
             _peasant.OnUpgraded += OnPeasantUpgraded;
         }
 
-        void OnPeasantUpgraded(Nature nature)
+        private void OnPeasantUpgraded(Nature nature)
         {
             IsDead = true;
             InvokeDeathEvent();
             StartCoroutine(PeasantUpgradeCoroutine(nature));
         }
 
-        IEnumerator PeasantUpgradeCoroutine(Nature nature)
+        private IEnumerator PeasantUpgradeCoroutine(Nature nature)
         {
             Pawn.Pawn p = Instantiate(GameManager.UnitDatabase.GetPawnByNature(nature));
             p.InitializeBattle(0);

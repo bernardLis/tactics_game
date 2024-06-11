@@ -5,13 +5,13 @@ namespace Lis.Battle
 {
     public class FinishedBattleScreen : FullScreenElement
     {
-        const string _ussClassName = "finished-battle-screen__";
-        const string _ussMain = _ussClassName + "main";
-        protected AudioManager AudioManager;
+        private const string _ussClassName = "finished-battle-screen__";
+        private const string _ussMain = _ussClassName + "main";
 
         protected readonly VisualElement MainContainer;
-        protected readonly Label Title;
         protected readonly Label SubTitle;
+        protected readonly Label Title;
+        protected AudioManager AudioManager;
 
         protected FinishedBattleScreen()
         {

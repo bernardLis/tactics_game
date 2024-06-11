@@ -5,7 +5,7 @@ namespace Lis.Units.Enemy
 {
     public class EnemyScreen : UnitScreen
     {
-        Enemy _enemy;
+        private Enemy _enemy;
 
         public EnemyScreen(Unit unit) : base(unit)
         {

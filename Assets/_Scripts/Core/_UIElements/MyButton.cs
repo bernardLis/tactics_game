@@ -5,15 +5,15 @@ namespace Lis.Core
 {
     public class MyButton : Button
     {
-        const string _ussCommonButtonBasic = "common__button-basic";
-
-        protected readonly GameManager GameManager;
-        readonly AudioManager _audioManager;
-        readonly CursorManager _cursorManager;
-
-        protected readonly Label Text;
+        private const string _ussCommonButtonBasic = "common__button-basic";
+        private readonly AudioManager _audioManager;
+        private readonly CursorManager _cursorManager;
 
         protected readonly Action CurrentCallback;
+
+        protected readonly GameManager GameManager;
+
+        protected readonly Label Text;
 
         public MyButton(string buttonText = null, string className = null, Action callback = null)
         {
@@ -51,9 +51,9 @@ namespace Lis.Core
             RegisterCallback<PointerUpEvent>(OnPointerUp);
         }
 
-        void OnPointerUp(PointerUpEvent evt)
+        private void OnPointerUp(PointerUpEvent evt)
         {
-            this.Blur();
+            Blur();
             _cursorManager.ClearCursor();
         }
 
@@ -63,7 +63,7 @@ namespace Lis.Core
             Text.style.display = DisplayStyle.Flex;
         }
 
-        void OnPointerEnter(PointerEnterEvent evt)
+        private void OnPointerEnter(PointerEnterEvent evt)
         {
             if (!enabledSelf)
                 return;
@@ -73,18 +73,18 @@ namespace Lis.Core
                 _cursorManager.SetCursorByName("Hover");
         }
 
-        void OnPointerLeave(PointerLeaveEvent evt)
+        private void OnPointerLeave(PointerLeaveEvent evt)
         {
             _cursorManager.ClearCursor();
         }
 
-        void PreventInteraction(MouseEnterEvent evt)
+        private void PreventInteraction(MouseEnterEvent evt)
         {
             evt.PreventDefault();
             evt.StopImmediatePropagation();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             UnregisterCallback<PointerEnterEvent>(OnPointerEnter);
             UnregisterCallback<PointerLeaveEvent>(OnPointerLeave);
@@ -93,7 +93,7 @@ namespace Lis.Core
             RegisterCallback<MouseEnterEvent>(PreventInteraction);
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             RegisterCallback<PointerEnterEvent>(OnPointerEnter);
             RegisterCallback<PointerLeaveEvent>(OnPointerLeave);

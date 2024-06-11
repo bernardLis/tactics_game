@@ -8,29 +8,27 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Units.Boss
 {
-    using Units.Attack;
-
-
     public class BossController : UnitController
     {
         [Header("Boss")]
-        [SerializeField] GameObject _stunEffect;
+        [SerializeField]
+        private GameObject _stunEffect;
 
-        [SerializeField] Sound _stunStart;
-        [SerializeField] Sound _stunDuration;
-        AudioSource _stunAudioSource;
-
-        [Header("Attacks")] readonly List<Units.Attack.Attack> _attacks = new();
-        IEnumerator _attackCoroutine;
-
-        Color _stunColor;
-        bool _isStunUnlocked;
-        bool _isStunned;
+        [SerializeField] private Sound _stunStart;
+        [SerializeField] private Sound _stunDuration;
         [HideInInspector] public FloatVariable TotalDamageToStun;
         [HideInInspector] public FloatVariable CurrentDamageToStun;
 
         [HideInInspector] public FloatVariable TotalStunDuration;
         [HideInInspector] public FloatVariable CurrentStunDuration;
+
+        [Header("Attacks")] private readonly List<Attack.Attack> _attacks = new();
+        private IEnumerator _attackCoroutine;
+        private bool _isStunned;
+        private bool _isStunUnlocked;
+        private AudioSource _stunAudioSource;
+
+        private Color _stunColor;
 
         public event Action OnStunStarted;
         public event Action OnStunFinished;
@@ -88,12 +86,12 @@ namespace Lis.Units.Boss
 
 
         /* ATTACKS */
-        void InitializeAttacks()
+        private void InitializeAttacks()
         {
             Boss boss = (Boss)Unit;
-            foreach (Units.Attack.Attack original in boss.Attacks)
+            foreach (Attack.Attack original in boss.Attacks)
             {
-                Units.Attack.Attack attack = Instantiate(original);
+                Attack.Attack attack = Instantiate(original);
                 // attack.InitializeAttack(this.Unit);
                 _attacks.Add(attack);
             }
@@ -151,7 +149,7 @@ namespace Lis.Units.Boss
         }
         */
 
-        void HandleStun(int dmg)
+        private void HandleStun(int dmg)
         {
             if (!_isStunUnlocked) return;
             if (_isStunned) return;
@@ -164,7 +162,7 @@ namespace Lis.Units.Boss
         }
 
 
-        IEnumerator StunCoroutine()
+        private IEnumerator StunCoroutine()
         {
             OnStunStarted?.Invoke();
             Vector3 pos = transform.position;
@@ -199,7 +197,7 @@ namespace Lis.Units.Boss
         }
 
         /* HELPERS */
-        void SetUpVariables()
+        private void SetUpVariables()
         {
             TotalDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
             TotalDamageToStun.SetValue(666); //HERE: 666
@@ -212,7 +210,7 @@ namespace Lis.Units.Boss
             CurrentStunDuration.SetValue(0);
         }
 
-        protected override IEnumerator DieCoroutine(Units.Attack.Attack attack = null, bool hasLoot = true)
+        protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
             StopUnit();
             BattleManager.WinBattle();

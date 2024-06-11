@@ -7,18 +7,18 @@ namespace Lis
 {
     public class EnemyRanking : MonoBehaviour
     {
-        Camera _cam;
-        [SerializeField] Canvas _canvasPrefab;
-        [SerializeField] List<Enemy> _enemies = new();
-        [SerializeField] GameObject _enemySpecialAttackPrefab;
+        [SerializeField] private Canvas _canvasPrefab;
+        [SerializeField] private List<Enemy> _enemies = new();
+        [SerializeField] private GameObject _enemySpecialAttackPrefab;
+        private Camera _cam;
 
-        void Start()
+        private void Start()
         {
             _cam = Camera.main;
             PlaceEnemies();
         }
 
-        void PlaceEnemies()
+        private void PlaceEnemies()
         {
             _enemies.Sort((e1, e2) => e2.ScarinessRank.CompareTo(e1.ScarinessRank));
             _enemies.Reverse();
@@ -33,7 +33,7 @@ namespace Lis
                         EnemySpecialAttackPlayer>();
                 enm.Initialize();
 
-                Canvas canvas = Instantiate(_canvasPrefab, pos, Quaternion.Euler(new Vector3(0, 30, 0)));
+                Canvas canvas = Instantiate(_canvasPrefab, pos, Quaternion.Euler(new(0, 30, 0)));
                 canvas.GetComponent<EnemyRankingCanvas>().Initialize(_enemies[i], pos + Vector3.up);
             }
         }

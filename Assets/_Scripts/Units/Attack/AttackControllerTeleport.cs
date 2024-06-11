@@ -7,10 +7,9 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerTeleport : AttackController
     {
-        ArenaController _arenaController;
-
-        [SerializeField] GameObject _effect;
-        GameObject _effectInstance;
+        [SerializeField] private GameObject _effect;
+        private ArenaController _arenaController;
+        private GameObject _effectInstance;
 
         public override void Initialize(UnitController unitController, Attack attack)
         {
@@ -36,7 +35,7 @@ namespace Lis.Units.Attack
             Invoke(nameof(CleanUp), 3f);
         }
 
-        void CleanUp()
+        private void CleanUp()
         {
             _effectInstance.SetActive(false);
         }

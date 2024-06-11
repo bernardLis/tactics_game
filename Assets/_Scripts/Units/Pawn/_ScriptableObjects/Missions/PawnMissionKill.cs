@@ -1,4 +1,3 @@
-using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -15,7 +14,7 @@ namespace Lis.Units.Pawn
             pawn.OnKilled += OnKilled;
         }
 
-        void OnKilled()
+        private void OnKilled()
         {
             Kills++;
             if (Kills >= KillsToMake)

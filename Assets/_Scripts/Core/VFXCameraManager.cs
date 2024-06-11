@@ -8,7 +8,7 @@ namespace Lis.Core
         protected override void Awake()
         {
             base.Awake();
-        
+
             Camera cam = GetComponent<Camera>();
             RenderTexture texture = cam.targetTexture;
             texture.Release();

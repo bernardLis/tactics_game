@@ -6,8 +6,8 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerRanged : AttackController
     {
-        [SerializeField] GameObject _projectilePrefab;
-        ProjectilePoolManager _projectilePoolManager;
+        [SerializeField] private GameObject _projectilePrefab;
+        private ProjectilePoolManager _projectilePoolManager;
 
         public override void Initialize(UnitController unitController, Attack attack)
         {

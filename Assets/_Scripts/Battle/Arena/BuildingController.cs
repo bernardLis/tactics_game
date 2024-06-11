@@ -1,3 +1,4 @@
+using System;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -10,19 +11,18 @@ namespace Lis.Battle.Arena
 {
     public class BuildingController : MonoBehaviour, IInteractable
     {
-        protected BattleManager BattleManager;
-        protected FightManager FightManager;
-        TooltipManager _tooltipManager;
-        BuildingUnlocker _buildingUnlocker;
+        [SerializeField] private GameObject _unlockedGfx;
+        [SerializeField] private GameObject _unlockedEffect;
 
-        protected Building Building;
-
-        [SerializeField] GameObject _unlockedGfx;
-        [SerializeField] GameObject _unlockedEffect;
-
-        [SerializeField] Canvas _tooltipCanvas;
+        [SerializeField] private Canvas _tooltipCanvas;
         [SerializeField] protected TMP_Text TooltipText;
         [SerializeField] protected GameObject InteractionAvailableEffect;
+        private BuildingUnlocker _buildingUnlocker;
+        private TooltipManager _tooltipManager;
+        protected BattleManager BattleManager;
+
+        protected Building Building;
+        protected FightManager FightManager;
 
         protected bool IsInteractionAvailable;
 
@@ -39,6 +39,29 @@ namespace Lis.Battle.Arena
             _tooltipManager = TooltipManager.Instance;
 
             SetTooltipText();
+        }
+
+        public string InteractionPrompt => "Press F To Something";
+
+        public virtual bool CanInteract()
+        {
+            return IsInteractionAvailable;
+        }
+
+        public virtual void DisplayTooltip()
+        {
+            if (CanInteract())
+                _tooltipCanvas.gameObject.SetActive(true);
+        }
+
+        public virtual void HideTooltip()
+        {
+            _tooltipCanvas.gameObject.SetActive(false);
+        }
+
+        public virtual bool Interact(Interactor interactor)
+        {
+            throw new NotImplementedException();
         }
 
         protected virtual void OnBattleInitialized()
@@ -87,26 +110,6 @@ namespace Lis.Battle.Arena
         protected virtual void SetTooltipText()
         {
             TooltipText.text = InteractionPrompt;
-        }
-
-        public string InteractionPrompt => "Press F To Something";
-
-        public virtual bool CanInteract() => IsInteractionAvailable;
-
-        public virtual void DisplayTooltip()
-        {
-            if (CanInteract())
-                _tooltipCanvas.gameObject.SetActive(true);
-        }
-
-        public virtual void HideTooltip()
-        {
-            _tooltipCanvas.gameObject.SetActive(false);
-        }
-
-        public virtual bool Interact(Interactor interactor)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

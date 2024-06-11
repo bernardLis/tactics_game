@@ -6,16 +6,16 @@ namespace Lis.Units.Hero.Ability
 {
     public class IceSpiralObjectController : ObjectControllerDmgOverTime
     {
-        [SerializeField] GameObject _gfx;
-        [SerializeField] Collider _col;
+        [SerializeField] private GameObject _gfx;
+        [SerializeField] private Collider _col;
 
-        [SerializeField] ParticleSystem _iceSpikes;
-        [SerializeField] ParticleSystem _snow;
-        [SerializeField] ParticleSystem[] _delayedEffects; // -1f of duration
-        [SerializeField] ParticleSystem _iceExplosion; // -0.2f of duration
+        [SerializeField] private ParticleSystem _iceSpikes;
+        [SerializeField] private ParticleSystem _snow;
+        [SerializeField] private ParticleSystem[] _delayedEffects; // -1f of duration
+        [SerializeField] private ParticleSystem _iceExplosion; // -0.2f of duration
 
-        [SerializeField] Sound _startSound;
-        [SerializeField] Sound _explodeSound;
+        [SerializeField] private Sound _startSound;
+        [SerializeField] private Sound _explodeSound;
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {
@@ -43,21 +43,21 @@ namespace Lis.Units.Hero.Ability
             gameObject.SetActive(false);
         }
 
-        void SetDurations()
+        private void SetDurations()
         {
-            var iceSpikesMain = _iceSpikes.main;
+            ParticleSystem.MainModule iceSpikesMain = _iceSpikes.main;
             iceSpikesMain.startLifetime = Ability.GetDuration();
 
-            var snowMain = _snow.main;
+            ParticleSystem.MainModule snowMain = _snow.main;
             snowMain.startLifetime = Ability.GetDuration();
 
             foreach (ParticleSystem ps in _delayedEffects)
             {
-                var psMain = ps.main;
+                ParticleSystem.MainModule psMain = ps.main;
                 psMain.startDelay = Ability.GetDuration() - 1f;
             }
 
-            var iceExplosionMain = _iceExplosion.main;
+            ParticleSystem.MainModule iceExplosionMain = _iceExplosion.main;
             iceExplosionMain.startDelay = Ability.GetDuration() - 0.1f;
         }
     }

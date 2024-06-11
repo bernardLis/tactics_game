@@ -5,7 +5,6 @@ namespace Lis.Units.Boss
 {
     public class AttackControllerRandom : AttackController
     {
-
         public override IEnumerator Execute()
         {
             int total = Random.Range(Attack.TotalShotCount.x, Attack.TotalShotCount.y);

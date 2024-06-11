@@ -5,7 +5,7 @@ namespace Lis.Units.Boss
 {
     public class BossScreen : UnitScreen
     {
-        readonly Boss _boss;
+        private readonly Boss _boss;
 
         public BossScreen(Boss boss) : base(boss)
         {
@@ -18,7 +18,7 @@ namespace Lis.Units.Boss
             AddBossAttacks();
         }
 
-        void AddBossAttacks()
+        private void AddBossAttacks()
         {
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);
@@ -32,7 +32,7 @@ namespace Lis.Units.Boss
 
             MainCardContainer.Add(container);
 
-            foreach (var attack in _boss.Attacks)
+            foreach (Attack.Attack attack in _boss.Attacks)
             {
                 BossAttackElement attackElement = new((AttackBoss)attack);
                 container.Add(attackElement);

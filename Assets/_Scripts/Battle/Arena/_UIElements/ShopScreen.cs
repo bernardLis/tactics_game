@@ -8,7 +8,7 @@ namespace Lis.Battle.Arena
 {
     public class ShopScreen : RewardScreen
     {
-        Shop _shop;
+        private Shop _shop;
 
         public void InitializeShop(Shop shop)
         {
@@ -56,7 +56,7 @@ namespace Lis.Battle.Arena
             AddShopItems();
         }
 
-        void ParseRewardCards(List<Reward> cards)
+        private void ParseRewardCards(List<Reward> cards)
         {
             foreach (Reward r in cards)
             {
@@ -76,7 +76,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        void CreateNewRewardCards()
+        private void CreateNewRewardCards()
         {
             for (int i = 0; i < NumberOfRewards; i++)
             {
@@ -91,7 +91,7 @@ namespace Lis.Battle.Arena
             _shop.ShouldReset = false;
         }
 
-        void AddShopItems()
+        private void AddShopItems()
         {
             for (int i = 0; i < NumberOfRewards; i++)
             {

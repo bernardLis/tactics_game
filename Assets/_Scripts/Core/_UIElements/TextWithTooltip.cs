@@ -5,21 +5,30 @@ namespace Lis.Core
 {
     public class TextWithTooltip : ElementWithTooltip
     {
-        readonly string _tooltipText;
-        readonly Label _text;
+        private readonly Label _text;
+        private readonly string _tooltipText;
 
-        public TextWithTooltip(string text, string tooltipText) : base()
+        public TextWithTooltip(string text, string tooltipText)
         {
             _tooltipText = tooltipText;
-            _text = new Label(text);
+            _text = new(text);
             Add(_text);
         }
 
-        public void UpdateText(string newText) { _text.text = newText; }
+        public void UpdateText(string newText)
+        {
+            _text.text = newText;
+        }
 
-        public void UpdateFontSize(int newSize) { _text.style.fontSize = newSize; }
+        public void UpdateFontSize(int newSize)
+        {
+            _text.style.fontSize = newSize;
+        }
 
-        public void UpdateTextColor(Color c) { _text.style.color = c; }
+        public void UpdateTextColor(Color c)
+        {
+            _text.style.color = c;
+        }
 
         protected override void DisplayTooltip()
         {
@@ -28,6 +37,5 @@ namespace Lis.Core
             _tooltip = new(this, t);
             base.DisplayTooltip();
         }
-
     }
 }

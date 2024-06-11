@@ -7,8 +7,21 @@ namespace Lis.Battle.Arena
 {
     public class BankController : BuildingController, IInteractable
     {
+        private Bank _bank;
         public new string InteractionPrompt => "Press F To Access Bank!";
-        Bank _bank;
+
+        public override bool Interact(Interactor interactor)
+        {
+            if (FightManager.IsFightActive)
+            {
+                Debug.Log("Fight instead of shopping!");
+                return false;
+            }
+
+            BankScreen bankScreen = new();
+            bankScreen.InitializeBank(_bank);
+            return true;
+        }
 
         protected override void OnBattleInitialized()
         {
@@ -35,19 +48,6 @@ namespace Lis.Battle.Arena
         protected override void SetTooltipText()
         {
             TooltipText.text = InteractionPrompt;
-        }
-
-        public override bool Interact(Interactor interactor)
-        {
-            if (FightManager.IsFightActive)
-            {
-                Debug.Log("Fight instead of shopping!");
-                return false;
-            }
-
-            BankScreen bankScreen = new BankScreen();
-            bankScreen.InitializeBank(_bank);
-            return true;
         }
     }
 }

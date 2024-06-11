@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Lis.Core;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace Lis.Battle.Arena
     public class Shop : Building
     {
         public bool ShouldReset;
-        readonly List<Reward> _rewards = new();
+        private readonly List<Reward> _rewards = new();
 
         public void SetRewards(List<Reward> newRewards)
         {

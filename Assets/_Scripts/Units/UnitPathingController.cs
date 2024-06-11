@@ -7,11 +7,10 @@ namespace Lis.Units
 {
     public class UnitPathingController : MonoBehaviour
     {
-        NavMeshAgent _agent;
-        Vector2Int _avoidancePriorityRange;
-        Animator _animator;
-
-        static readonly int AnimMove = Animator.StringToHash("Move");
+        private static readonly int AnimMove = Animator.StringToHash("Move");
+        private NavMeshAgent _agent;
+        private Animator _animator;
+        private Vector2Int _avoidancePriorityRange;
 
         public void Initialize(Vector2Int avoidancePriorityRange)
         {
@@ -25,18 +24,29 @@ namespace Lis.Units
             _animator = animator;
         }
 
-        public void SetAvoidancePriorityRange(Vector2Int range) => _avoidancePriorityRange = range;
-        public void SetStoppingDistance(float distance) => _agent.stoppingDistance = distance;
-        public void SetSpeed(float speed) => _agent.speed = speed;
+        public void SetAvoidancePriorityRange(Vector2Int range)
+        {
+            _avoidancePriorityRange = range;
+        }
+
+        public void SetStoppingDistance(float distance)
+        {
+            _agent.stoppingDistance = distance;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            _agent.speed = speed;
+        }
 
         public void InitializeUnit(Unit unit)
         {
             _agent.speed = unit.Speed.GetValue();
-            unit.Speed.OnValueChanged += (i) => _agent.speed = i;
+            unit.Speed.OnValueChanged += i => _agent.speed = i;
             EnableAgent();
         }
 
-        void EnableAgent()
+        private void EnableAgent()
         {
             _agent.enabled = true;
             _agent.isStopped = false;
@@ -92,7 +102,7 @@ namespace Lis.Units
             DisableAgent();
         }
 
-        bool IsAgentOk()
+        private bool IsAgentOk()
         {
             if (!_agent.isOnNavMesh) return false;
             if (!_agent.isActiveAndEnabled) return false;

@@ -7,11 +7,11 @@ namespace Lis.Units.Hero.Tablets
 {
     public class TabletAdvancedScreen : FullScreenElement
     {
-        const string _ussClassName = "tablet-advanced-screen__";
-        const string _ussMain = _ussClassName + "main";
+        private const string _ussClassName = "tablet-advanced-screen__";
+        private const string _ussMain = _ussClassName + "main";
 
-        readonly TabletAdvanced _tabletAdvanced;
-        AbilityElement _abilityElement;
+        private readonly TabletAdvanced _tabletAdvanced;
+        private AbilityElement _abilityElement;
 
         public TabletAdvancedScreen(TabletAdvanced tabletAdvanced)
         {
@@ -29,7 +29,7 @@ namespace Lis.Units.Hero.Tablets
             DisableNavigation();
         }
 
-        void AddElements()
+        private void AddElements()
         {
             Label title = new("Element Combo Unlocked!");
             title.style.fontSize = 34;
@@ -38,7 +38,7 @@ namespace Lis.Units.Hero.Tablets
             Content.Add(new NatureComboElement((NatureAdvanced)_tabletAdvanced.Nature));
         }
 
-        void AddAbility()
+        private void AddAbility()
         {
             Label title = new("You Gain A New Ability:");
             title.style.fontSize = 34;
@@ -49,7 +49,7 @@ namespace Lis.Units.Hero.Tablets
             container.style.flexGrow = 1;
             Content.Add(container);
 
-            Ability.Ability a = ScriptableObject.Instantiate(_tabletAdvanced.Ability);
+            Ability.Ability a = Object.Instantiate(_tabletAdvanced.Ability);
             _abilityElement = new(a, false, 200);
 
             container.Add(_abilityElement);

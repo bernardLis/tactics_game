@@ -5,7 +5,6 @@ namespace Lis.Units.Boss
 {
     public class AttackControllerLine : AttackController
     {
-
         public override IEnumerator Execute()
         {
             int total = Random.Range(Attack.TotalShotCount.x, Attack.TotalShotCount.y);
@@ -24,8 +23,10 @@ namespace Lis.Units.Boss
                     SpawnProjectile(dir);
                     yield return new WaitForSeconds(0.2f);
                 }
+
                 yield return new WaitForSeconds(waitTime);
             }
+
             yield return null;
         }
     }

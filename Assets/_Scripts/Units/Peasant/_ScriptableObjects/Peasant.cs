@@ -8,6 +8,7 @@ namespace Lis.Units.Peasant
     public class Peasant : Unit
     {
         public event Action<Nature> OnUpgraded;
+
         public void Upgrade(Nature nature)
         {
             OnUpgraded?.Invoke(nature);

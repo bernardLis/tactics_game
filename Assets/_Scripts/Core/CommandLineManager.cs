@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Battle;
-using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
@@ -18,23 +17,27 @@ namespace Lis.Core
 {
     public class CommandLineManager : MonoBehaviour
     {
-        GameManager _gameManager;
-        PlayerInput _playerInput;
-        UnitDatabase _unitDatabase;
+        private static string _myLog = "";
 
-        VisualElement _commandLineContainer;
-        TextField _commandTextField;
-        Button _submitCommandButton;
+        /* BUTTONS */
+        private VisualElement _buttonContainer;
 
-        ScrollView _logContainer;
-        static string _myLog = "";
+        private VisualElement _commandLineContainer;
+        private TextField _commandTextField;
+        private float _deltaTime;
 
-        bool _isOpen;
+        private Label _fpsLabel;
+        private GameManager _gameManager;
 
-        Label _fpsLabel;
-        float _deltaTime;
+        private bool _isOpen;
 
-        void Start()
+        private ScrollView _logContainer;
+        private Foldout _otherFoldout;
+        private PlayerInput _playerInput;
+        private Button _submitCommandButton;
+        private UnitDatabase _unitDatabase;
+
+        private void Start()
         {
             _gameManager = GetComponent<GameManager>();
             _playerInput = GetComponent<PlayerInput>();
@@ -56,7 +59,7 @@ namespace Lis.Core
             BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += AddButtons;
         }
 
-        void Update()
+        private void Update()
         {
             _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
             float fps = 1.0f / _deltaTime;
@@ -64,7 +67,7 @@ namespace Lis.Core
         }
 
         /* INPUT */
-        void OnEnable()
+        private void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -75,7 +78,7 @@ namespace Lis.Core
             Application.logMessageReceived += Log;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (_playerInput == null)
                 return;
@@ -84,17 +87,17 @@ namespace Lis.Core
             Application.logMessageReceived -= Log;
         }
 
-        void SubscribeInputActions()
+        private void SubscribeInputActions()
         {
             _playerInput.actions["ToggleCommandLine"].performed += ToggleCommandLine;
         }
 
-        void UnsubscribeInputActions()
+        private void UnsubscribeInputActions()
         {
             _playerInput.actions["ToggleCommandLine"].performed -= ToggleCommandLine;
         }
 
-        void ToggleCommandLine(InputAction.CallbackContext ctx)
+        private void ToggleCommandLine(InputAction.CallbackContext ctx)
         {
             if (_isOpen)
             {
@@ -110,15 +113,11 @@ namespace Lis.Core
             _isOpen = !_isOpen;
         }
 
-        /* BUTTONS */
-        VisualElement _buttonContainer;
-        Foldout _otherFoldout;
-
-        void AddButtons()
+        private void AddButtons()
         {
             _buttonContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("commandButtonsContainer");
 
-            _otherFoldout = new Foldout()
+            _otherFoldout = new()
             {
                 text = "Other",
                 value = false
@@ -137,7 +136,7 @@ namespace Lis.Core
             AddTimeScaleButtons();
         }
 
-        void AddPawnButtons()
+        private void AddPawnButtons()
         {
             Foldout foldout = new()
             {
@@ -162,7 +161,7 @@ namespace Lis.Core
             }
         }
 
-        void AddCreatureButtons()
+        private void AddCreatureButtons()
         {
             Foldout creatureFoldout = new()
             {
@@ -176,7 +175,7 @@ namespace Lis.Core
                 "-----"
             };
             choices.AddRange(_unitDatabase.AllCreatures.ConvertAll(x => x.name));
-            var dropDownLeft = new DropdownField("Team 0", choices, 0);
+            DropdownField dropDownLeft = new DropdownField("Team 0", choices, 0);
             creatureFoldout.Add(dropDownLeft);
 
             List<string> oppChoices = new()
@@ -184,7 +183,7 @@ namespace Lis.Core
                 "-----"
             };
             oppChoices.AddRange(_unitDatabase.GetAllOpponentCreatures().ConvertAll(x => x.name));
-            var dropDownRight = new DropdownField("Team 1", oppChoices, 0);
+            DropdownField dropDownRight = new DropdownField("Team 1", oppChoices, 0);
             creatureFoldout.Add(dropDownRight);
 
             Button b = new() { text = "Spawn" };
@@ -235,7 +234,7 @@ namespace Lis.Core
             creatureFoldout.Add(spawnAllHostile);
         }
 
-        void AddKillPlayerArmyButton()
+        private void AddKillPlayerArmyButton()
         {
             Button b = new() { text = "Kill Player Army" };
             b.clickable.clicked += () =>
@@ -253,7 +252,7 @@ namespace Lis.Core
         }
 
 
-        void AddKillAllOpponentsButton()
+        private void AddKillAllOpponentsButton()
         {
             Button b = new() { text = "Kill All Opponents" };
             b.clickable.clicked += () =>
@@ -267,7 +266,7 @@ namespace Lis.Core
         }
 
 
-        void AddOtherButtons()
+        private void AddOtherButtons()
         {
             Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
             spawnExpOrbButton.clickable.clicked += () =>
@@ -288,7 +287,7 @@ namespace Lis.Core
             _otherFoldout.Add(unlockBarracks);
         }
 
-        void AddHeroButtons()
+        private void AddHeroButtons()
         {
             // list of abilities
             Foldout heroFoldout = new()
@@ -303,7 +302,7 @@ namespace Lis.Core
                 "-----"
             };
             choices.AddRange(_unitDatabase.GetAllAbilities().ConvertAll(x => x.name));
-            var abilityDropDown = new DropdownField("Abilities", choices, 0);
+            DropdownField abilityDropDown = new DropdownField("Abilities", choices, 0);
             heroFoldout.Add(abilityDropDown);
 
             Button b = new() { text = "Add Ability" };
@@ -347,7 +346,7 @@ namespace Lis.Core
             heroFoldout.Add(stopAbilitiesButton);
         }
 
-        void AddEnemyButtons()
+        private void AddEnemyButtons()
         {
             Foldout enemyFoldout = new()
             {
@@ -361,17 +360,14 @@ namespace Lis.Core
                 "-----"
             };
             choices.AddRange(_unitDatabase.GetAllEnemies().ConvertAll(x => x.name));
-            var enemyDropDown = new DropdownField("Enemies", choices, 0);
+            DropdownField enemyDropDown = new DropdownField("Enemies", choices, 0);
             enemyFoldout.Add(enemyDropDown);
 
             Button b = new() { text = "Spawn Enemy" };
             b.clickable.clicked += () =>
             {
                 Enemy e = _unitDatabase.GetAllEnemies().Find(x => x.name == enemyDropDown.value);
-                if (e != null)
-                {
-                    SpawnEnemy(e);
-                }
+                if (e != null) SpawnEnemy(e);
             };
             enemyFoldout.Add(b);
 
@@ -380,24 +376,19 @@ namespace Lis.Core
             {
                 Enemy e = _unitDatabase.GetAllEnemies().Find(x => x.name == enemyDropDown.value);
                 if (e != null)
-                {
                     for (int i = 0; i < 5; i++)
                         SpawnEnemy(e);
-                }
             };
             enemyFoldout.Add(spawnFive);
 
             Button spawnAllEnemiesButton = new() { text = "Spawn All Enemies" };
             spawnAllEnemiesButton.clickable.clicked += () =>
             {
-                foreach (Enemy e in _unitDatabase.GetAllEnemies())
-                {
-                    SpawnEnemy(e);
-                }
+                foreach (Enemy e in _unitDatabase.GetAllEnemies()) SpawnEnemy(e);
             };
         }
 
-        void AddPickupButtons()
+        private void AddPickupButtons()
         {
             Foldout pickupFoldout = new()
             {
@@ -418,14 +409,14 @@ namespace Lis.Core
             }
         }
 
-        void AddGoldButton()
+        private void AddGoldButton()
         {
             Button goldButton = new() { text = "Add 10k gold" };
             goldButton.clickable.clicked += () => { _gameManager.ChangeGoldValue(10000); };
             _buttonContainer.Add(goldButton);
         }
 
-        void AddTimeScaleButtons()
+        private void AddTimeScaleButtons()
         {
             VisualElement c = new();
             c.Add(new Label("Game speed: "));
@@ -444,7 +435,7 @@ namespace Lis.Core
             }
         }
 
-        void SpawnEnemy(Enemy e)
+        private void SpawnEnemy(Enemy e)
         {
             Enemy instance = Instantiate(e);
             instance.InitializeBattle(1);
@@ -453,7 +444,7 @@ namespace Lis.Core
         }
 
         /* COMMANDS */
-        void SubmitCommand()
+        private void SubmitCommand()
         {
             if (_commandTextField.text.ToLower() == "quit")
                 Application.Quit();
@@ -468,15 +459,13 @@ namespace Lis.Core
                 DoTweenSeeAllTweens();
         }
 
-        void DoTweenSeeAllTweens()
+        private void DoTweenSeeAllTweens()
         {
             foreach (Tween tween in DOTween.PlayingTweens())
-            {
                 Debug.Log($"{tween} is tweening | tween target: {tween.target}");
-            }
         }
 
-        void Log(string logString, string stackTrace, LogType type)
+        private void Log(string logString, string stackTrace, LogType type)
         {
             if (_logContainer == null) return;
             _logContainer.Add(new Label(logString));

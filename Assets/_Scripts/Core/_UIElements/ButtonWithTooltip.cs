@@ -5,12 +5,12 @@ namespace Lis.Core
 {
     public class ButtonWithTooltip : ElementWithTooltip
     {
-        readonly string _tooltipText;
+        private readonly string _tooltipText;
 
-        public ButtonWithTooltip(string className, string tooltipText, Action callback) : base()
+        public ButtonWithTooltip(string className, string tooltipText, Action callback)
         {
             _tooltipText = tooltipText;
-            MyButton button = new MyButton(null, className, callback);
+            MyButton button = new(null, className, callback);
             Add(button);
         }
 
@@ -19,6 +19,5 @@ namespace Lis.Core
             _tooltip = new(this, new Label(_tooltipText));
             base.DisplayTooltip();
         }
-
     }
 }

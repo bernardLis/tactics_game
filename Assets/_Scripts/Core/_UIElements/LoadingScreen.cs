@@ -5,9 +5,11 @@ namespace Lis.Core
 {
     public class LoadingScreen : FullScreenElement
     {
-        const string _ussCommonLoadingScreen = "common__loading-screen";
+        private const string _ussCommonLoadingScreen = "common__loading-screen";
 
-        readonly Label _dotsLabel;
+        private readonly Label _dotsLabel;
+
+        private int _dots;
 
         public LoadingScreen()
         {
@@ -35,9 +37,7 @@ namespace Lis.Core
             OnHide += () => loadingDots.Pause();
         }
 
-        int _dots;
-
-        void AddDots()
+        private void AddDots()
         {
             _dots++;
             if (_dots > 3) _dots = 0;
