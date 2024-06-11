@@ -9,10 +9,10 @@ namespace Lis.Units.Hero
 {
     public class HeroScreen : UnitScreen
     {
-        private const string _ussRowContainer = USSClassName + "row-container";
-        private const string _ussSlot = USSClassName + "slot";
+        const string _ussRowContainer = USSClassName + "row-container";
+        const string _ussSlot = USSClassName + "slot";
 
-        private readonly Hero _hero;
+        readonly Hero _hero;
 
         public HeroScreen(Hero hero) : base(hero)
         {
@@ -82,7 +82,7 @@ namespace Lis.Units.Hero
             };
         }
 
-        private void HandleTablets()
+        void HandleTablets()
         {
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);

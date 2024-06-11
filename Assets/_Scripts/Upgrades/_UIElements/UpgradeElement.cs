@@ -9,33 +9,33 @@ namespace Lis.Upgrades
 {
     public class UpgradeElement : ElementWithTooltip
     {
-        private const string _ussCommonButtonBasic = "common__button-basic";
-        private const string _ussClassName = "upgrade__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussFullyUnlocked = _ussClassName + "fully-unlocked";
+        const string _ussCommonButtonBasic = "common__button-basic";
+        const string _ussClassName = "upgrade__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussFullyUnlocked = _ussClassName + "fully-unlocked";
 
-        private const string _ussTitle = _ussClassName + "title";
-        private const string _ussIcon = _ussClassName + "icon";
-        private const string _ussStar = _ussClassName + "star";
-        private const string _ussStarPurchased = _ussClassName + "star-purchased";
-        private const string _ussFill = _ussClassName + "fill";
-        private readonly AudioManager _audioManager;
+        const string _ussTitle = _ussClassName + "title";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussStar = _ussClassName + "star";
+        const string _ussStarPurchased = _ussClassName + "star-purchased";
+        const string _ussFill = _ussClassName + "fill";
+        readonly AudioManager _audioManager;
 
-        private readonly GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        private readonly List<VisualElement> _stars = new();
+        readonly List<VisualElement> _stars = new();
 
-        private readonly string _tweenId = "fill";
+        readonly string _tweenId = "fill";
 
-        private readonly Upgrade _upgrade;
-        private VisualElement _fill;
-        private GoldElement _price;
+        readonly Upgrade _upgrade;
+        VisualElement _fill;
+        GoldElement _price;
 
-        private IVisualElementScheduledItem _purchaseScheduler;
+        IVisualElementScheduledItem _purchaseScheduler;
 
-        private AudioSource _swooshAudioSource;
+        AudioSource _swooshAudioSource;
 
-        private Label _title;
+        Label _title;
 
         public UpgradeElement(Upgrade upgrade)
         {
@@ -65,7 +65,7 @@ namespace Lis.Upgrades
             RegisterCallback<PointerUpEvent>(OnPointerUp);
         }
 
-        private void OnUpgradeLevelChanged()
+        void OnUpgradeLevelChanged()
         {
             UpdateStars();
             UpdatePrice();
@@ -74,12 +74,12 @@ namespace Lis.Upgrades
             else RemoveFromClassList(_ussFullyUnlocked);
         }
 
-        private void OnPointerEnter(PointerEnterEvent evt)
+        void OnPointerEnter(PointerEnterEvent evt)
         {
             _audioManager.PlayUI("UI Click");
         }
 
-        private void OnPointerDown(PointerDownEvent evt)
+        void OnPointerDown(PointerDownEvent evt)
         {
             if (_upgrade.IsMaxLevel())
             {
@@ -104,7 +104,7 @@ namespace Lis.Upgrades
                 .SetId(_tweenId);
         }
 
-        private void OnPointerUp(PointerUpEvent evt)
+        void OnPointerUp(PointerUpEvent evt)
         {
             if (_purchaseScheduler != null) _purchaseScheduler.Pause();
             if (_swooshAudioSource != null)
@@ -120,7 +120,7 @@ namespace Lis.Upgrades
                 .SetId(_tweenId);
         }
 
-        private void AddStars()
+        void AddStars()
         {
             VisualElement starsContainer = new();
             starsContainer.style.flexDirection = FlexDirection.Row;
@@ -137,7 +137,7 @@ namespace Lis.Upgrades
             UpdateStars();
         }
 
-        private void UpdateStars()
+        void UpdateStars()
         {
             for (int i = 0; i < _stars.Count; i++)
             {
@@ -147,7 +147,7 @@ namespace Lis.Upgrades
             }
         }
 
-        private void AddIcon()
+        void AddIcon()
         {
             Label icon = new();
             icon.AddToClassList(_ussIcon);
@@ -155,21 +155,21 @@ namespace Lis.Upgrades
             Add(icon);
         }
 
-        private void AddTitle()
+        void AddTitle()
         {
             _title = new(Helpers.ParseScriptableObjectName(_upgrade.name));
             _title.AddToClassList(_ussTitle);
             Add(_title);
         }
 
-        private void AddPrice()
+        void AddPrice()
         {
             if (_upgrade.IsMaxLevel()) return;
             _price = new(_upgrade.GetNextLevel().Cost);
             Add(_price);
         }
 
-        private void UpdatePrice()
+        void UpdatePrice()
         {
             if (_upgrade.GetNextLevel() != null)
             {
@@ -188,14 +188,14 @@ namespace Lis.Upgrades
             _price = null;
         }
 
-        private void AddFill()
+        void AddFill()
         {
             _fill = new();
             _fill.AddToClassList(_ussFill);
             Add(_fill);
         }
 
-        private void Purchase()
+        void Purchase()
         {
             if (_upgrade.IsMaxLevel()) return;
 

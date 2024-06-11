@@ -5,8 +5,8 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerWhirlwind : AttackController
     {
-        [SerializeField] private GameObject _effect;
-        private readonly float _radius = 5f;
+        [SerializeField] GameObject _effect;
+        readonly float _radius = 5f;
 
         public override IEnumerator AttackCoroutine()
         {
@@ -22,7 +22,7 @@ namespace Lis.Units.Attack
             Invoke(nameof(CleanUp), 2f);
         }
 
-        private void CleanUp()
+        void CleanUp()
         {
             _effect.SetActive(false);
         }

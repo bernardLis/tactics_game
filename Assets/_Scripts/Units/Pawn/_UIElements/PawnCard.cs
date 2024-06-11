@@ -6,13 +6,13 @@ namespace Lis.Units.Pawn
 {
     public class PawnCard : UnitCard
     {
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonButton = "common__button";
 
-        private readonly FightManager _fightManager;
+        readonly FightManager _fightManager;
 
-        private readonly Pawn _pawn;
+        readonly Pawn _pawn;
 
-        private readonly PurchaseButton _upgradeButton;
+        readonly PurchaseButton _upgradeButton;
 
         public PawnCard(Pawn pawn) : base(pawn)
         {
@@ -27,7 +27,7 @@ namespace Lis.Units.Pawn
             _fightManager.OnFightStarted += () => _upgradeButton.RemoveFromHierarchy();
         }
 
-        private void Upgrade()
+        void Upgrade()
         {
             _pawn.Upgrade();
             PopulateCard();

@@ -11,17 +11,17 @@ namespace Lis.Battle.Pickup
 {
     public class PickupController : MonoBehaviour
     {
-        [SerializeField] private Transform _gfx;
+        [SerializeField] Transform _gfx;
 
         public Pickup Pickup;
-        private AudioManager _audioManager;
-        private BattleManager _battleManager;
-        private MMF_Player _feelPlayer;
-        private Hero _hero;
-        private HeroController _heroController;
-        private Rigidbody _rigidbody;
+        AudioManager _audioManager;
+        BattleManager _battleManager;
+        MMF_Player _feelPlayer;
+        Hero _hero;
+        HeroController _heroController;
+        Rigidbody _rigidbody;
 
-        private SphereCollider _sphereCollider;
+        SphereCollider _sphereCollider;
 
         public void Awake()
         {
@@ -39,12 +39,12 @@ namespace Lis.Battle.Pickup
             _hero.Pull.OnValueChanged += SetPickUpRadius;
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             _hero.Pull.OnValueChanged -= SetPickUpRadius;
         }
 
-        private void OnTriggerEnter(Collider col)
+        void OnTriggerEnter(Collider col)
         {
             if (!col.TryGetComponent(out HeroController hero)) return;
 
@@ -97,7 +97,7 @@ namespace Lis.Battle.Pickup
             _gfx.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
         }
 
-        private void Fall()
+        void Fall()
         {
             Vector3 position = transform.position;
             position.y = 0;
@@ -105,7 +105,7 @@ namespace Lis.Battle.Pickup
                 .SetEase(Ease.OutBounce);
         }
 
-        private void PickUp(HeroController heroController)
+        void PickUp(HeroController heroController)
         {
             if (Pickup == null) return;
 
@@ -141,7 +141,7 @@ namespace Lis.Battle.Pickup
             OnCollected?.Invoke(this);
         }
 
-        private void SetPickUpRadius(float i)
+        void SetPickUpRadius(float i)
         {
             _sphereCollider.radius = i;
         }
@@ -154,7 +154,7 @@ namespace Lis.Battle.Pickup
                 .OnComplete(() => { PickUp(_heroController); });
         }
 
-        private void DisplayText(string text, Color color)
+        void DisplayText(string text, Color color)
         {
             MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
             floatingText.Value = text;

@@ -10,8 +10,8 @@ namespace Lis.Core.Utilities
     public static class Helpers
     {
         /* UI toolkit */
-        private const string _ussCommonTextPrimary = "common__text-primary";
-        private static List<ArcMovementElement> _arcMovementElements = new();
+        const string _ussCommonTextPrimary = "common__text-primary";
+        static List<ArcMovementElement> _arcMovementElements = new();
 
         public static Vector3 RandomPointInBounds(Bounds bounds)
         {

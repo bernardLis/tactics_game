@@ -7,7 +7,7 @@ namespace Lis.Battle.Arena
 {
     public class ShopController : BuildingController, IInteractable
     {
-        private Shop _shop;
+        Shop _shop;
         public new string InteractionPrompt => "Press F To Shop!";
 
         public override bool Interact(Interactor interactor)

@@ -6,12 +6,12 @@ namespace Lis.Core
 {
     public class CursorManager : Singleton<CursorManager>
     {
-        [SerializeField] private MyCursor[] _cursors;
-        [SerializeField] private MyCursor _defaultCursor;
+        [SerializeField] MyCursor[] _cursors;
+        [SerializeField] MyCursor _defaultCursor;
 
-        private bool _isCustomCursorActive;
+        bool _isCustomCursorActive;
 
-        private void Start()
+        void Start()
         {
             SetCursor(_defaultCursor);
         }

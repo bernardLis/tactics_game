@@ -23,7 +23,7 @@ namespace Lis.Battle.Arena
             BattleManager.Instance.GetComponent<FightManager>().OnFightEnded += CreateInvestments;
         }
 
-        private void CreateInvestments()
+        void CreateInvestments()
         {
             AvailableInvestments.Clear();
             for (int i = 0; i < 3; i++)

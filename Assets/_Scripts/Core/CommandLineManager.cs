@@ -18,27 +18,29 @@ namespace Lis.Core
 {
     public class CommandLineManager : MonoBehaviour
     {
-        private static string _myLog = "";
+        static string _myLog = "";
 
         /* BUTTONS */
-        private VisualElement _buttonContainer;
+        VisualElement _buttonContainer;
 
-        private VisualElement _commandLineContainer;
-        private TextField _commandTextField;
-        private float _deltaTime;
+        bool _buttonsAdded;
 
-        private Label _fpsLabel;
-        private GameManager _gameManager;
+        VisualElement _commandLineContainer;
+        TextField _commandTextField;
+        float _deltaTime;
 
-        private bool _isOpen;
+        Label _fpsLabel;
+        GameManager _gameManager;
 
-        private ScrollView _logContainer;
-        private Foldout _otherFoldout;
-        private PlayerInput _playerInput;
-        private Button _submitCommandButton;
-        private UnitDatabase _unitDatabase;
+        bool _isOpen;
 
-        private void Start()
+        ScrollView _logContainer;
+        Foldout _otherFoldout;
+        PlayerInput _playerInput;
+        Button _submitCommandButton;
+        UnitDatabase _unitDatabase;
+
+        void Start()
         {
             _gameManager = GetComponent<GameManager>();
             _playerInput = GetComponent<PlayerInput>();
@@ -60,17 +62,7 @@ namespace Lis.Core
             SceneManager.sceneLoaded += TryAddingButtons;
         }
 
-        private bool _buttonsAdded;
-
-        void TryAddingButtons(Scene scene, LoadSceneMode mode)
-        {
-            if (BattleManager.Instance == null) return;
-            if (_buttonsAdded) return;
-            _buttonsAdded = true;
-            BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += AddButtons;
-        }
-
-        private void Update()
+        void Update()
         {
             _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
             float fps = 1.0f / _deltaTime;
@@ -78,7 +70,7 @@ namespace Lis.Core
         }
 
         /* INPUT */
-        private void OnEnable()
+        void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -89,7 +81,7 @@ namespace Lis.Core
             Application.logMessageReceived += Log;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (_playerInput == null)
                 return;
@@ -98,17 +90,25 @@ namespace Lis.Core
             Application.logMessageReceived -= Log;
         }
 
-        private void SubscribeInputActions()
+        void TryAddingButtons(Scene scene, LoadSceneMode mode)
+        {
+            if (BattleManager.Instance == null) return;
+            if (_buttonsAdded) return;
+            _buttonsAdded = true;
+            BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += AddButtons;
+        }
+
+        void SubscribeInputActions()
         {
             _playerInput.actions["ToggleCommandLine"].performed += ToggleCommandLine;
         }
 
-        private void UnsubscribeInputActions()
+        void UnsubscribeInputActions()
         {
             _playerInput.actions["ToggleCommandLine"].performed -= ToggleCommandLine;
         }
 
-        private void ToggleCommandLine(InputAction.CallbackContext ctx)
+        void ToggleCommandLine(InputAction.CallbackContext ctx)
         {
             if (_isOpen)
             {
@@ -124,7 +124,7 @@ namespace Lis.Core
             _isOpen = !_isOpen;
         }
 
-        private void AddButtons()
+        void AddButtons()
         {
             _buttonContainer = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("commandButtonsContainer");
 
@@ -147,7 +147,7 @@ namespace Lis.Core
             AddTimeScaleButtons();
         }
 
-        private void AddPawnButtons()
+        void AddPawnButtons()
         {
             Foldout foldout = new()
             {
@@ -172,7 +172,7 @@ namespace Lis.Core
             }
         }
 
-        private void AddCreatureButtons()
+        void AddCreatureButtons()
         {
             Foldout creatureFoldout = new()
             {
@@ -186,7 +186,7 @@ namespace Lis.Core
                 "-----"
             };
             choices.AddRange(_unitDatabase.AllCreatures.ConvertAll(x => x.name));
-            DropdownField dropDownLeft = new DropdownField("Team 0", choices, 0);
+            DropdownField dropDownLeft = new("Team 0", choices, 0);
             creatureFoldout.Add(dropDownLeft);
 
             List<string> oppChoices = new()
@@ -194,7 +194,7 @@ namespace Lis.Core
                 "-----"
             };
             oppChoices.AddRange(_unitDatabase.GetAllOpponentCreatures().ConvertAll(x => x.name));
-            DropdownField dropDownRight = new DropdownField("Team 1", oppChoices, 0);
+            DropdownField dropDownRight = new("Team 1", oppChoices, 0);
             creatureFoldout.Add(dropDownRight);
 
             Button b = new() { text = "Spawn" };
@@ -245,7 +245,7 @@ namespace Lis.Core
             creatureFoldout.Add(spawnAllHostile);
         }
 
-        private void AddKillPlayerArmyButton()
+        void AddKillPlayerArmyButton()
         {
             Button b = new() { text = "Kill Player Army" };
             b.clickable.clicked += () =>
@@ -263,7 +263,7 @@ namespace Lis.Core
         }
 
 
-        private void AddKillAllOpponentsButton()
+        void AddKillAllOpponentsButton()
         {
             Button b = new() { text = "Kill All Opponents" };
             b.clickable.clicked += () =>
@@ -277,7 +277,7 @@ namespace Lis.Core
         }
 
 
-        private void AddOtherButtons()
+        void AddOtherButtons()
         {
             Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
             spawnExpOrbButton.clickable.clicked += () =>
@@ -298,7 +298,7 @@ namespace Lis.Core
             _otherFoldout.Add(unlockBarracks);
         }
 
-        private void AddHeroButtons()
+        void AddHeroButtons()
         {
             // list of abilities
             Foldout heroFoldout = new()
@@ -313,7 +313,7 @@ namespace Lis.Core
                 "-----"
             };
             choices.AddRange(_unitDatabase.GetAllAbilities().ConvertAll(x => x.name));
-            DropdownField abilityDropDown = new DropdownField("Abilities", choices, 0);
+            DropdownField abilityDropDown = new("Abilities", choices, 0);
             heroFoldout.Add(abilityDropDown);
 
             Button b = new() { text = "Add Ability" };
@@ -357,7 +357,7 @@ namespace Lis.Core
             heroFoldout.Add(stopAbilitiesButton);
         }
 
-        private void AddEnemyButtons()
+        void AddEnemyButtons()
         {
             Foldout enemyFoldout = new()
             {
@@ -371,7 +371,7 @@ namespace Lis.Core
                 "-----"
             };
             choices.AddRange(_unitDatabase.GetAllEnemies().ConvertAll(x => x.name));
-            DropdownField enemyDropDown = new DropdownField("Enemies", choices, 0);
+            DropdownField enemyDropDown = new("Enemies", choices, 0);
             enemyFoldout.Add(enemyDropDown);
 
             Button b = new() { text = "Spawn Enemy" };
@@ -399,7 +399,7 @@ namespace Lis.Core
             };
         }
 
-        private void AddPickupButtons()
+        void AddPickupButtons()
         {
             Foldout pickupFoldout = new()
             {
@@ -420,14 +420,14 @@ namespace Lis.Core
             }
         }
 
-        private void AddGoldButton()
+        void AddGoldButton()
         {
             Button goldButton = new() { text = "Add 10k gold" };
             goldButton.clickable.clicked += () => { _gameManager.ChangeGoldValue(10000); };
             _buttonContainer.Add(goldButton);
         }
 
-        private void AddTimeScaleButtons()
+        void AddTimeScaleButtons()
         {
             VisualElement c = new();
             c.Add(new Label("Game speed: "));
@@ -446,7 +446,7 @@ namespace Lis.Core
             }
         }
 
-        private void SpawnEnemy(Enemy e)
+        void SpawnEnemy(Enemy e)
         {
             Enemy instance = Instantiate(e);
             instance.InitializeBattle(1);
@@ -455,7 +455,7 @@ namespace Lis.Core
         }
 
         /* COMMANDS */
-        private void SubmitCommand()
+        void SubmitCommand()
         {
             if (_commandTextField.text.ToLower() == "quit")
                 Application.Quit();
@@ -470,13 +470,13 @@ namespace Lis.Core
                 DoTweenSeeAllTweens();
         }
 
-        private void DoTweenSeeAllTweens()
+        void DoTweenSeeAllTweens()
         {
             foreach (Tween tween in DOTween.PlayingTweens())
                 Debug.Log($"{tween} is tweening | tween target: {tween.target}");
         }
 
-        private void Log(string logString, string stackTrace, LogType type)
+        void Log(string logString, string stackTrace, LogType type)
         {
             if (_logContainer == null) return;
             _logContainer.Add(new Label(logString));

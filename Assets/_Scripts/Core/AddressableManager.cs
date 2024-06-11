@@ -12,17 +12,17 @@ namespace Lis.Core
     public class AddressableManager : MonoBehaviour
     {
         [FormerlySerializedAs("StyleSheetReferences")] [SerializeField]
-        private List<AssetReference> _styleSheetReferences = new();
+        List<AssetReference> _styleSheetReferences = new();
 
-        private readonly List<StyleSheet> _styleSheets = new();
+        readonly List<StyleSheet> _styleSheets = new();
 
-        private void Start()
+        void Start()
         {
             // https://www.youtube.com/watch?v=0USXRC9f4Iw
             Addressables.InitializeAsync().Completed += AddressableManager_Completed;
         }
 
-        private void AddressableManager_Completed(
+        void AddressableManager_Completed(
             AsyncOperationHandle<IResourceLocator> obj)
         {
             foreach (AssetReference reference in _styleSheetReferences)

@@ -17,46 +17,46 @@ namespace Lis.Units.Hero
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
-        private readonly float _gravityValue = -9.81f;
-        private readonly float _zoomMax = 60f;
-        private readonly float _zoomMin = 20f;
+        readonly float _gravityValue = -9.81f;
+        readonly float _zoomMax = 60f;
+        readonly float _zoomMin = 20f;
 
         // camera zoom
-        private readonly float _zoomSpeed = 0.05f;
-        private float _animationBlend;
+        readonly float _zoomSpeed = 0.05f;
+        float _animationBlend;
 
-        private Animator _animator;
+        Animator _animator;
 
         // animation IDs
-        private int _animVelocityX;
-        private int _animVelocityZ;
-        private BattleManager _battleManager;
-        private Camera _cam;
-        private CinemachineVirtualCamera _cinemachineVirtualCamera;
-        private CharacterController _controller;
-        private bool _disableUpdate;
+        int _animVelocityX;
+        int _animVelocityZ;
+        BattleManager _battleManager;
+        Camera _cam;
+        CinemachineVirtualCamera _cinemachineVirtualCamera;
+        CharacterController _controller;
+        bool _disableUpdate;
 
-        private GameManager _gameManager;
-        private Transform _gfx;
-        private bool _groundedPlayer;
+        GameManager _gameManager;
+        Transform _gfx;
+        bool _groundedPlayer;
 
-        private Vector3 _inputDirection;
+        Vector3 _inputDirection;
 
         // HERE: testing
-        private bool _isSprinting;
+        bool _isSprinting;
 
         // player
-        private bool _isSprintUnlocked;
-        private Mouse _mouse;
-        private PlayerInput _playerInput;
+        bool _isSprintUnlocked;
+        Mouse _mouse;
+        PlayerInput _playerInput;
 
-        private Vector3 _playerVelocity;
-        private float _rotationVelocity;
-        private float _speed;
-        private float _targetRotation;
-        private float _targetZoom;
+        Vector3 _playerVelocity;
+        float _rotationVelocity;
+        float _speed;
+        float _targetRotation;
+        float _targetZoom;
 
-        private void Start()
+        void Start()
         {
             _cam = Camera.main;
             _mouse = Mouse.current;
@@ -78,7 +78,7 @@ namespace Lis.Units.Hero
             _isSprintUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
         }
 
-        private void Update()
+        void Update()
         {
             if (_disableUpdate) return;
             SetAnimationBlend();
@@ -86,7 +86,7 @@ namespace Lis.Units.Hero
         }
 
 
-        private void LateUpdate()
+        void LateUpdate()
         {
             if (_disableUpdate) return;
 
@@ -95,7 +95,7 @@ namespace Lis.Units.Hero
         }
 
         /* INPUT */
-        private void OnEnable()
+        void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -106,21 +106,21 @@ namespace Lis.Units.Hero
             SubscribeInputActions();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private IEnumerator DelayedStart(float delay)
+        IEnumerator DelayedStart(float delay)
         {
             yield return new WaitForSeconds(delay);
             _disableUpdate = false;
@@ -138,7 +138,7 @@ namespace Lis.Units.Hero
             _disableUpdate = false;
         }
 
-        private void Move()
+        void Move()
         {
             float targetSpeed = MoveSpeed;
             if (_isSprinting) targetSpeed *= 1.5f;
@@ -171,18 +171,18 @@ namespace Lis.Units.Hero
             _controller.Move(moveDir * (_speed * Time.deltaTime));
         }
 
-        private bool IsGrounded()
+        bool IsGrounded()
         {
             return transform.position.y < 0.02f;
         }
 
-        private void AssignAnimationIDs()
+        void AssignAnimationIDs()
         {
             _animVelocityX = Animator.StringToHash("VelocityX");
             _animVelocityZ = Animator.StringToHash("VelocityZ");
         }
 
-        private void SubscribeInputActions()
+        void SubscribeInputActions()
         {
             _playerInput.actions["Shift"].performed += SetSprinting;
             _playerInput.actions["Shift"].canceled += ResetSprinting;
@@ -193,7 +193,7 @@ namespace Lis.Units.Hero
             _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
         }
 
-        private void UnsubscribeInputActions()
+        void UnsubscribeInputActions()
         {
             _playerInput.actions["Shift"].performed -= SetSprinting;
             _playerInput.actions["Shift"].canceled -= ResetSprinting;
@@ -204,19 +204,19 @@ namespace Lis.Units.Hero
             _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
         }
 
-        private void SetSprinting(InputAction.CallbackContext ctx)
+        void SetSprinting(InputAction.CallbackContext ctx)
         {
             if (!_isSprintUnlocked) return;
             _isSprinting = true;
         }
 
-        private void ResetSprinting(InputAction.CallbackContext ctx)
+        void ResetSprinting(InputAction.CallbackContext ctx)
         {
             _isSprinting = false;
         }
 
         /* MOVE */
-        private void GetMovementVector(InputAction.CallbackContext context)
+        void GetMovementVector(InputAction.CallbackContext context)
         {
             Vector3 inputValue = context.ReadValue<Vector2>();
             inputValue = inputValue.normalized;
@@ -224,7 +224,7 @@ namespace Lis.Units.Hero
             _inputDirection = new(inputValue.x, 0, inputValue.y);
         }
 
-        private void ResetMovementVector(InputAction.CallbackContext context)
+        void ResetMovementVector(InputAction.CallbackContext context)
         {
             _inputDirection = Vector3.zero;
 
@@ -240,7 +240,7 @@ namespace Lis.Units.Hero
         }
 
 
-        private void SetAnimationBlend()
+        void SetAnimationBlend()
         {
             _animationBlend = Mathf.Lerp(_animationBlend, _speed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
@@ -258,7 +258,7 @@ namespace Lis.Units.Hero
             _animator.SetFloat(_animVelocityX, rightDot * blend * _animationBlend);
         }
 
-        private void RotateTowardsMouse()
+        void RotateTowardsMouse()
         {
             Vector3 mousePosition = _mouse.position.ReadValue();
             Ray ray = _cam.ScreenPointToRay(mousePosition);
@@ -273,7 +273,7 @@ namespace Lis.Units.Hero
             _gfx.rotation = Quaternion.Euler(new(0, lookRotation.eulerAngles.y, 0));
         }
 
-        private void ZoomCamera(InputAction.CallbackContext ctx)
+        void ZoomCamera(InputAction.CallbackContext ctx)
         {
             // check if mouse is over UI
             if (!_battleManager.IsTimerOn) return;
@@ -284,7 +284,7 @@ namespace Lis.Units.Hero
             _targetZoom = Mathf.Clamp(newValue, _zoomMin, _zoomMax);
         }
 
-        private void ZoomCameraSmoothly()
+        void ZoomCameraSmoothly()
         {
             float newValue = Mathf.Lerp(_cinemachineVirtualCamera.m_Lens.FieldOfView, _targetZoom,
                 Time.deltaTime * 5);

@@ -5,7 +5,7 @@ namespace Lis.Upgrades
 {
     public class UpgradeElementTooltip : VisualElement
     {
-        private readonly Upgrade _upgrade;
+        readonly Upgrade _upgrade;
 
         public UpgradeElementTooltip(Upgrade upgrade)
         {
@@ -15,7 +15,7 @@ namespace Lis.Upgrades
             HandleTooltip();
         }
 
-        private void HandleTooltip()
+        void HandleTooltip()
         {
             Clear();
             if (_upgrade.Type == UpgradeType.Building)
@@ -27,7 +27,7 @@ namespace Lis.Upgrades
             CreateTooltip();
         }
 
-        private void CreateTooltip()
+        void CreateTooltip()
         {
             Add(new Label(_upgrade.Description));
             Add(new HorizontalSpacerElement());
@@ -47,7 +47,7 @@ namespace Lis.Upgrades
                 Add(new Label(_upgrade.GetNextLevel().Description));
         }
 
-        private void CreateBuildingTooltip()
+        void CreateBuildingTooltip()
         {
             Add(new Label(_upgrade.name));
             Add(new HorizontalSpacerElement());

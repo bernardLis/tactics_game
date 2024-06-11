@@ -13,21 +13,21 @@ namespace Lis.Battle
     {
         public CinemachineVirtualCamera HeroFollowCamera;
 
-        [SerializeField] private AudioListener _placeholderAudioListener;
+        [SerializeField] AudioListener _placeholderAudioListener;
 
         [HideInInspector] public HeroController HeroController;
 
-        [SerializeField] private Sound _levelUpSound;
+        [SerializeField] Sound _levelUpSound;
 
         public int RewardRerollsAvailable;
 
         // HERE: testing
-        private readonly bool _turnOffAbility = false;
-        private AudioManager _audioManager;
-        private FightManager _fightManager;
-        private GameManager _gameManager;
+        readonly bool _turnOffAbility = false;
+        AudioManager _audioManager;
+        FightManager _fightManager;
+        GameManager _gameManager;
 
-        private HeroElement _heroElement;
+        HeroElement _heroElement;
         public Hero Hero { get; private set; }
 
         public event Action<Hero> OnHeroInitialized;
@@ -54,7 +54,7 @@ namespace Lis.Battle
             Hero.AddAbility(hero.StartingAbility);
         }
 
-        private void InitializeHeroGameObject(Hero hero)
+        void InitializeHeroGameObject(Hero hero)
         {
             Vector3 pos = Vector3.zero; //GetComponent<ArenaManager>().GetRandomPositionInPlayerLockerRoom();
             GameObject heroGameObject = Instantiate(hero.Prefab, pos, Quaternion.identity);
@@ -67,12 +67,12 @@ namespace Lis.Battle
             HeroController.InitializeUnit(hero, 0);
         }
 
-        private void OnHeroLevelUp()
+        void OnHeroLevelUp()
         {
             _audioManager.PlayUI(_levelUpSound);
         }
 
-        private void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
+        void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)
         {
             Hero.AddAbility(tabletAdvanced.Ability);
             TabletAdvancedScreen tabletAdvancedScreen = new(tabletAdvanced);

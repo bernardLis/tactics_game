@@ -6,12 +6,12 @@ namespace Lis.Units.Hero
 {
     public class HealthBarDisplayer : MonoBehaviour
     {
-        [SerializeField] private Image _fill;
-        private Slider _healthBarSlider;
+        [SerializeField] Image _fill;
+        Slider _healthBarSlider;
 
-        private Hero _hero;
+        Hero _hero;
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             _hero.MaxHealth.OnValueChanged -= UpdateHealthBar;
             _hero.CurrentHealth.OnValueChanged -= UpdateHealthBar;
@@ -29,7 +29,7 @@ namespace Lis.Units.Hero
             UpdateHealthBar(default);
         }
 
-        private void UpdateHealthBar(float _)
+        void UpdateHealthBar(float _)
         {
             float newValue = _hero.CurrentHealth.Value / _hero.MaxHealth.GetValue();
             newValue = Mathf.Clamp(newValue, 0, 1);

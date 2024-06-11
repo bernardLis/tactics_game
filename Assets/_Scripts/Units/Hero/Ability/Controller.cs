@@ -17,11 +17,11 @@ namespace Lis.Units.Hero.Ability
 
         public Ability Ability;
 
-        private readonly List<ObjectController> _abilityObjectPool = new();
-        private FightManager _fightManager;
-        private IEnumerator _fireAbilityCoroutine;
-        private HeroManager _heroManager;
-        private IEnumerator _runAbilityCoroutine;
+        readonly List<ObjectController> _abilityObjectPool = new();
+        FightManager _fightManager;
+        IEnumerator _fireAbilityCoroutine;
+        HeroManager _heroManager;
+        IEnumerator _runAbilityCoroutine;
 
         protected Transform AbilityObjectParent;
         protected ArenaManager ArenaManager;
@@ -63,7 +63,7 @@ namespace Lis.Units.Hero.Ability
             if (_runAbilityCoroutine != null) StopCoroutine(_runAbilityCoroutine);
         }
 
-        private IEnumerator RunAbilityCoroutine()
+        IEnumerator RunAbilityCoroutine()
         {
             yield return new WaitForSeconds(0.1f); // time to initialize button
             while (true)
@@ -98,7 +98,7 @@ namespace Lis.Units.Hero.Ability
             return rand.normalized;
         }
 
-        private ObjectController InitializeAbilityObject()
+        ObjectController InitializeAbilityObject()
         {
             GameObject instance = Instantiate(AbilityObjectPrefab, Vector3.zero,
                 Quaternion.identity, AbilityObjectParent);
@@ -116,7 +116,7 @@ namespace Lis.Units.Hero.Ability
             return InitializeAbilityObject();
         }
 
-        private void DisableAllAbilityObjects()
+        void DisableAllAbilityObjects()
         {
             foreach (ObjectController p in _abilityObjectPool)
                 p.DisableSelf();

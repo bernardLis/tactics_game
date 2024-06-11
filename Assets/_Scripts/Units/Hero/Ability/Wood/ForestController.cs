@@ -6,13 +6,13 @@ namespace Lis.Units.Hero.Ability
 {
     public class ForestController : Controller
     {
-        [SerializeField] private GameObject _effect;
+        [SerializeField] GameObject _effect;
 
-        private readonly float _radius = 12f;
+        readonly float _radius = 12f;
 
 #if UNITY_EDITOR
 
-        private void OnDrawGizmos()
+        void OnDrawGizmos()
         {
             Handles.DrawWireDisc(transform.position, Vector3.up, _radius, 1f);
         }

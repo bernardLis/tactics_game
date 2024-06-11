@@ -8,7 +8,7 @@ namespace Lis.Units.Hero.Rewards
     {
         public Creature.Creature Creature;
         public int Count;
-        private Creature.Creature _original;
+        Creature.Creature _original;
 
         public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
         {
@@ -22,7 +22,7 @@ namespace Lis.Units.Hero.Rewards
             return true;
         }
 
-        private Creature.Creature ChooseCreature(List<RewardElement> otherRewardCards)
+        Creature.Creature ChooseCreature(List<RewardElement> otherRewardCards)
         {
             // make sure no duplicate creatures in the rewards
             List<Creature.Creature> creatures = new(GameManager.UnitDatabase.AllCreatures);

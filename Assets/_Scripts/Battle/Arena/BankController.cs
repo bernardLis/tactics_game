@@ -7,7 +7,7 @@ namespace Lis.Battle.Arena
 {
     public class BankController : BuildingController, IInteractable
     {
-        private Bank _bank;
+        Bank _bank;
         public new string InteractionPrompt => "Press F To Access Bank!";
 
         public override bool Interact(Interactor interactor)

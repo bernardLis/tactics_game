@@ -6,14 +6,14 @@ namespace Lis.Battle.Arena
 {
     public class ShopItemElement : VisualElement
     {
-        private const string _ussCommonButton = "common__button";
-        private readonly bool _isMystery;
+        const string _ussCommonButton = "common__button";
+        readonly bool _isMystery;
 
-        private readonly int _price;
+        readonly int _price;
 
-        private readonly PurchaseButton _purchaseButton;
-        private readonly RewardElement _rewardElement;
-        private Label _mysteryElement;
+        readonly PurchaseButton _purchaseButton;
+        readonly RewardElement _rewardElement;
+        Label _mysteryElement;
 
         public ShopItemElement(RewardElement rewardElement, bool isMystery)
         {
@@ -36,7 +36,7 @@ namespace Lis.Battle.Arena
             rewardElement.Add(_purchaseButton);
         }
 
-        private void Purchase()
+        void Purchase()
         {
             _purchaseButton.SetEnabled(false);
             if (_isMystery) _rewardElement.RevealMystery();

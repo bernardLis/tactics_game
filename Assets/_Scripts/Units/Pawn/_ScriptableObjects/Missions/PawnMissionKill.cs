@@ -14,7 +14,7 @@ namespace Lis.Units.Pawn
             pawn.OnKilled += OnKilled;
         }
 
-        private void OnKilled()
+        void OnKilled()
         {
             Kills++;
             if (Kills >= KillsToMake)

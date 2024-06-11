@@ -6,18 +6,18 @@ namespace Lis.Battle.Arena
 {
     public class BarracksScreen : FullScreenElement
     {
-        private readonly List<BarracksNatureUpgradeElement> _natureElements = new();
-        private Barracks _barracks;
-        private BarracksController _barracksController;
-        private VisualElement _bottomContainer;
-        private PurchaseButton _buyPeasantButton;
+        readonly List<BarracksNatureUpgradeElement> _natureElements = new();
+        Barracks _barracks;
+        BarracksController _barracksController;
+        VisualElement _bottomContainer;
+        PurchaseButton _buyPeasantButton;
 
-        private Label _levelLabel;
+        Label _levelLabel;
 
-        private VisualElement _naturesContainer;
-        private Label _peasantsLabel;
+        VisualElement _naturesContainer;
+        Label _peasantsLabel;
 
-        private VisualElement _topContainer;
+        VisualElement _topContainer;
 
 
         public void InitializeBuilding(Barracks b, BarracksController bc)
@@ -37,7 +37,7 @@ namespace Lis.Battle.Arena
         }
 
 
-        private void CreateContainers()
+        void CreateContainers()
         {
             _topContainer = new();
             _topContainer.style.flexDirection = FlexDirection.Row;
@@ -53,7 +53,7 @@ namespace Lis.Battle.Arena
             Content.Add(_bottomContainer);
         }
 
-        private void AddDescription()
+        void AddDescription()
         {
             VisualElement container = new();
             _topContainer.Add(container);
@@ -65,13 +65,13 @@ namespace Lis.Battle.Arena
             container.Add(_peasantsLabel);
         }
 
-        private void SetDescriptionText()
+        void SetDescriptionText()
         {
             _levelLabel.text = $"Level: {_barracks.Level + 1}";
             _peasantsLabel.text = $"Spawns {_barracks.GetPeasantsPerFight()} peasants per fight.";
         }
 
-        private void AddBuyPeasantButton()
+        void AddBuyPeasantButton()
         {
             VisualElement container = new();
             _topContainer.Add(container);
@@ -82,12 +82,12 @@ namespace Lis.Battle.Arena
             container.Add(_buyPeasantButton);
         }
 
-        private void BuyPeasant()
+        void BuyPeasant()
         {
             _barracksController.SpawnPeasant();
         }
 
-        private void AddUnlockNaturesButtons()
+        void AddUnlockNaturesButtons()
         {
             foreach (BarracksNatureUpgrade n in _barracks.UnlockableNatures)
             {
@@ -98,7 +98,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        private void UpdateUnlockNaturesButtons()
+        void UpdateUnlockNaturesButtons()
         {
             _barracks.DisableUpgradeToken();
             foreach (BarracksNatureUpgradeElement b in _natureElements)

@@ -8,16 +8,16 @@ namespace Lis.Units.Pawn
     {
         [Header("Pawn")] // TODO: this is so imperfect
         [SerializeField]
-        private GameObject _upgradeZeroBody;
+        GameObject _upgradeZeroBody;
 
-        [SerializeField] private GameObject _upgradeOneBody;
-        [SerializeField] private GameObject _upgradeTwoBody;
+        [SerializeField] GameObject _upgradeOneBody;
+        [SerializeField] GameObject _upgradeTwoBody;
 
-        [SerializeField] private GameObject _upgradeEffect;
+        [SerializeField] GameObject _upgradeEffect;
 
-        private bool _isUpgrading;
+        bool _isUpgrading;
 
-        private Pawn _pawn;
+        Pawn _pawn;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -53,13 +53,13 @@ namespace Lis.Units.Pawn
             GoBackToLocker();
         }
 
-        private void OnPawnUpgraded()
+        void OnPawnUpgraded()
         {
             // TODO: this is so imperfect
             StartCoroutine(UpgradeCoroutine());
         }
 
-        private IEnumerator UpgradeCoroutine()
+        IEnumerator UpgradeCoroutine()
         {
             StopUnit();
 
@@ -79,7 +79,7 @@ namespace Lis.Units.Pawn
             GoBackToLocker();
         }
 
-        private void HandleUpgrade(bool animate = false)
+        void HandleUpgrade(bool animate = false)
         {
             if (_pawn.CurrentUpgrade == 0)
             {
@@ -111,7 +111,7 @@ namespace Lis.Units.Pawn
             }
         }
 
-        private void ActivateBody(GameObject body)
+        void ActivateBody(GameObject body)
         {
             body.transform.localPosition += Vector3.up * 2;
             body.SetActive(true);
@@ -119,7 +119,7 @@ namespace Lis.Units.Pawn
             body.transform.DORotate(new(0, 360, 0), 1.5f, RotateMode.LocalAxisAdd);
         }
 
-        private void HandleAnimatorChange(Animator animator)
+        void HandleAnimatorChange(Animator animator)
         {
             Animator = animator;
             UnitPathingController.SetAnimator(animator);

@@ -8,9 +8,9 @@ namespace Lis.Battle.Arena
 {
     public class BuildingUnlocker : MonoBehaviour, IInteractable
     {
-        [SerializeField] private Canvas _tooltipCanvas;
+        [SerializeField] Canvas _tooltipCanvas;
         [SerializeField] protected TMP_Text TooltipText;
-        private Building _building;
+        Building _building;
 
         public string InteractionPrompt => "Press F To Unlock Building";
 

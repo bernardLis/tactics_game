@@ -34,7 +34,7 @@ namespace Lis.Battle.Arena
             TooltipText.text = InteractionPrompt;
         }
 
-        private void OnFightOptionChosen(FightOption _)
+        void OnFightOptionChosen(FightOption _)
         {
             AllowInteraction();
         }

@@ -14,33 +14,33 @@ namespace Lis.Battle
 {
     public class TooltipManager : Singleton<TooltipManager>
     {
-        private readonly Queue<VisualElement> _gameInfoQueue = new();
+        readonly Queue<VisualElement> _gameInfoQueue = new();
 
-        private readonly string _gameInfoTweenID = "_gameInfoContainer";
-        private BattleManager _battleManager;
+        readonly string _gameInfoTweenID = "_gameInfoContainer";
+        BattleManager _battleManager;
 
-        private VisualElement _currentTooltip;
-        private VisualElement _entityInfoContainer; // shows mouse hover info 
-        private EntityInfoElement _entityInfoElement;
-        private FightManager _fightManager;
+        VisualElement _currentTooltip;
+        VisualElement _entityInfoContainer; // shows mouse hover info 
+        EntityInfoElement _entityInfoElement;
+        FightManager _fightManager;
 
-        private VisualElement _gameInfoContainer;
-        private GameManager _gameManager;
+        VisualElement _gameInfoContainer;
+        GameManager _gameManager;
 
-        private bool _isBossHealthBarShown;
-        private PlayerInput _playerInput;
+        bool _isBossHealthBarShown;
+        PlayerInput _playerInput;
 
-        private VisualElement _root;
+        VisualElement _root;
 
 
-        private ResourceBarElement _tileSecureBar;
-        private VisualElement _tooltipCardContainer;
+        ResourceBarElement _tileSecureBar;
+        VisualElement _tooltipCardContainer;
         public GameObject CurrentTooltipDisplayer { get; private set; }
 
         public UnitController CurrentEntityInfo { get; private set; }
 
         /* INPUT */
-        private void OnEnable()
+        void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -51,14 +51,14 @@ namespace Lis.Battle
             SubscribeInputActions();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (_playerInput == null) return;
 
@@ -82,14 +82,14 @@ namespace Lis.Battle
             StartCoroutine(ShowGameInfoCoroutine());
         }
 
-        private void OnFightStarted()
+        void OnFightStarted()
         {
             DisplayGameInfo(new Label("Fight started!"));
             if (CurrentTooltipDisplayer == null) return;
             HideTooltip();
         }
 
-        private void OnFightEnded()
+        void OnFightEnded()
         {
             VisualElement el = new();
             el.style.alignItems = Align.Center;
@@ -108,29 +108,29 @@ namespace Lis.Battle
             DisplayGameInfo(el);
         }
 
-        private void SubscribeInputActions()
+        void SubscribeInputActions()
         {
             _playerInput.actions["RightMouseClick"].performed += RightMouseClick;
         }
 
-        private void UnsubscribeInputActions()
+        void UnsubscribeInputActions()
         {
             _playerInput.actions["RightMouseClick"].performed -= RightMouseClick;
         }
 
-        private void RightMouseClick(InputAction.CallbackContext ctx)
+        void RightMouseClick(InputAction.CallbackContext ctx)
         {
             if (CurrentTooltipDisplayer == null) return;
             HideTooltip();
         }
 
-        private void OnBattleFinalized()
+        void OnBattleFinalized()
         {
             HideEntityInfo();
             HideTooltip();
         }
 
-        private void SetUpEntityInfo()
+        void SetUpEntityInfo()
         {
             _entityInfoElement = new(default); // placeholder unit
             _entityInfoElement.style.display = DisplayStyle.None;
@@ -171,7 +171,7 @@ namespace Lis.Battle
             _gameInfoQueue.Enqueue(el);
         }
 
-        private IEnumerator ShowGameInfoCoroutine()
+        IEnumerator ShowGameInfoCoroutine()
         {
             while (this != null)
             {
@@ -192,7 +192,7 @@ namespace Lis.Battle
             }
         }
 
-        private void ShowGameInfo(VisualElement el)
+        void ShowGameInfo(VisualElement el)
         {
             if (_gameInfoContainer == null) return;
             _gameInfoContainer.Clear();
@@ -205,7 +205,7 @@ namespace Lis.Battle
                 .SetEase(Ease.InOutSine);
         }
 
-        private void HideGameInfo()
+        void HideGameInfo()
         {
             if (_gameInfoContainer == null) return;
             DOTween.To(x => _gameInfoContainer.style.opacity = x, 1, 0, 0.5f)
@@ -232,7 +232,7 @@ namespace Lis.Battle
             StartCoroutine(ShowTooltipCoroutine(tooltipAnimation));
         }
 
-        private IEnumerator ShowTooltipCoroutine(bool isAnimated)
+        IEnumerator ShowTooltipCoroutine(bool isAnimated)
         {
             yield return new WaitForSeconds(0.1f);
             _tooltipCardContainer.Add(_currentTooltip);

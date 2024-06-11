@@ -7,17 +7,17 @@ namespace Lis.Units.Hero
     {
         [Header("Audio")]
         [SerializeField]
-        private Sound _footstepSound;
+        Sound _footstepSound;
 
-        [SerializeField] private Sound _landSound;
-        private AudioManager _audioManager;
+        [SerializeField] Sound _landSound;
+        AudioManager _audioManager;
 
-        private void Start()
+        void Start()
         {
             _audioManager = AudioManager.Instance;
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
+        void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
                 if (_footstepSound != null)
@@ -25,7 +25,7 @@ namespace Lis.Units.Hero
         }
 
         // not used coz no jumps
-        private void OnLand(AnimationEvent animationEvent)
+        void OnLand(AnimationEvent animationEvent)
         {
             if (_landSound != null)
                 _audioManager.PlaySfx(_landSound, transform.position);

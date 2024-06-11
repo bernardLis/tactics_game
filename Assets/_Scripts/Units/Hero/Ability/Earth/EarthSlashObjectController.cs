@@ -7,10 +7,10 @@ namespace Lis.Units.Hero.Ability
 {
     public class EarthSlashObjectController : ObjectController
     {
-        [SerializeField] private GameObject _effect;
-        [SerializeField] private GameObject _col;
+        [SerializeField] GameObject _effect;
+        [SerializeField] GameObject _col;
 
-        private void OnTriggerEnter(Collider col)
+        void OnTriggerEnter(Collider col)
         {
             if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();

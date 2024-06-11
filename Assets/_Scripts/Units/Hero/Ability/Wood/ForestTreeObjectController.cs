@@ -8,10 +8,10 @@ namespace Lis.Units.Hero.Ability
 {
     public class ForestTreeObjectController : ObjectControllerDmgOverTime
     {
-        [SerializeField] private GameObject[] _treeGFX;
-        [SerializeField] private GameObject _effect;
+        [SerializeField] GameObject[] _treeGFX;
+        [SerializeField] GameObject _effect;
 
-        [SerializeField] private Sound _smackSound;
+        [SerializeField] Sound _smackSound;
 
         public override void Initialize(Ability ability)
         {
@@ -32,7 +32,7 @@ namespace Lis.Units.Hero.Ability
             DamageOnInception();
         }
 
-        private void DamageOnInception()
+        void DamageOnInception()
         {
             var colliders = Physics.OverlapSphere(transform.position, 1.5f);
             foreach (Collider c in colliders)
@@ -83,7 +83,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        private void Disable()
+        void Disable()
         {
             foreach (GameObject g in _treeGFX)
                 g.SetActive(false);

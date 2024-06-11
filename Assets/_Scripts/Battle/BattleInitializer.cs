@@ -12,16 +12,16 @@ namespace Lis.Battle
 {
     public class BattleInitializer : Singleton<BattleInitializer>
     {
-        [SerializeField] private ThemeStyleSheet[] _themeStyleSheets;
+        [SerializeField] ThemeStyleSheet[] _themeStyleSheets;
 
-        private BattleManager _battleManager;
+        AudioManager _audioManager;
 
-        private AudioManager _audioManager;
-        private GameManager _gameManager;
+        BattleManager _battleManager;
+        GameManager _gameManager;
 
-        private LoadingScreen _loadingScreen;
+        LoadingScreen _loadingScreen;
 
-        private void Start()
+        void Start()
         {
             _gameManager = GameManager.Instance;
             _battleManager = BattleManager.Instance;
@@ -39,7 +39,7 @@ namespace Lis.Battle
 
         public event Action OnBattleInitialized;
 
-        private IEnumerator DelayedStart()
+        IEnumerator DelayedStart()
         {
             yield return new WaitForSeconds(0.5f);
             GetComponent<ArenaManager>().Initialize(_gameManager.CurrentBattle);
@@ -69,7 +69,7 @@ namespace Lis.Battle
             _audioManager.UnmuteAll();
         }
 
-        private void SetThemeStyleSheet()
+        void SetThemeStyleSheet()
         {
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             foreach (ThemeStyleSheet themeStyleSheet in _themeStyleSheets)

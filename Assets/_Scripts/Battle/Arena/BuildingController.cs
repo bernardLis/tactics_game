@@ -11,14 +11,14 @@ namespace Lis.Battle.Arena
 {
     public class BuildingController : MonoBehaviour, IInteractable
     {
-        [SerializeField] private GameObject _unlockedGfx;
-        [SerializeField] private GameObject _unlockedEffect;
+        [SerializeField] GameObject _unlockedGfx;
+        [SerializeField] GameObject _unlockedEffect;
 
-        [SerializeField] private Canvas _tooltipCanvas;
+        [SerializeField] Canvas _tooltipCanvas;
         [SerializeField] protected TMP_Text TooltipText;
         [SerializeField] protected GameObject InteractionAvailableEffect;
-        private BuildingUnlocker _buildingUnlocker;
-        private TooltipManager _tooltipManager;
+        BuildingUnlocker _buildingUnlocker;
+        TooltipManager _tooltipManager;
         protected BattleManager BattleManager;
 
         protected Building Building;

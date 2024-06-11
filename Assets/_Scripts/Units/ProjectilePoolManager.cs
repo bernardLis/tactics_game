@@ -7,7 +7,7 @@ namespace Lis.Units
 {
     public class ProjectilePoolManager : PoolManager<ProjectileController>
     {
-        private bool _isInitialized;
+        bool _isInitialized;
 
         public void Initialize(GameObject prefab)
         {

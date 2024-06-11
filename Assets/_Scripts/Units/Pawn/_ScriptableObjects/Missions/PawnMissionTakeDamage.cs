@@ -14,7 +14,7 @@ namespace Lis.Units.Pawn
             pawn.OnDamageTaken += OnDamageTaken;
         }
 
-        private void OnDamageTaken(int dmg)
+        void OnDamageTaken(int dmg)
         {
             DamageTaken += dmg;
             if (DamageTaken >= DamageToTake)

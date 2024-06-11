@@ -7,22 +7,22 @@ namespace Lis.Core
 {
     public class TimerElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
         protected const string UssClassName = "timer-element__";
 
-        private const string _ussLabelWrapper = UssClassName + "label-wrapper";
-        private const string _ussLabel = UssClassName + "label";
-        private const string _ussSecondsLeftLabel = UssClassName + "seconds-left-label";
-        private readonly BattleManager _battleManager;
+        const string _ussLabelWrapper = UssClassName + "label-wrapper";
+        const string _ussLabel = UssClassName + "label";
+        const string _ussSecondsLeftLabel = UssClassName + "seconds-left-label";
+        readonly BattleManager _battleManager;
 
-        private readonly GameManager _gameManager;
-        private readonly bool _isLooping;
-        private readonly string _text;
+        readonly GameManager _gameManager;
+        readonly bool _isLooping;
+        readonly string _text;
 
-        private readonly IVisualElementScheduledItem _timer;
-        private Label _label;
-        private Label _secondsLeftLabel;
+        readonly IVisualElementScheduledItem _timer;
+        Label _label;
+        Label _secondsLeftLabel;
 
         protected VisualElement LabelWrapper;
         protected int TicksLeft;
@@ -97,7 +97,7 @@ namespace Lis.Core
             _secondsLeftLabel.style.fontSize = size;
         }
 
-        private void Pause()
+        void Pause()
         {
             _timer.Pause();
         }
@@ -124,13 +124,13 @@ namespace Lis.Core
             }
         }
 
-        private void FinishLoop()
+        void FinishLoop()
         {
             TicksLeft = TotalTicks;
             OnLoopFinished?.Invoke();
         }
 
-        private void FinishTimer()
+        void FinishTimer()
         {
             _timer.Pause();
             OnTimerFinished?.Invoke();

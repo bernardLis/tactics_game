@@ -5,8 +5,8 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerExplode : AttackController
     {
-        [SerializeField] private GameObject _effect;
-        private readonly float _explosionRadius = 5f;
+        [SerializeField] GameObject _effect;
+        readonly float _explosionRadius = 5f;
 
         public override IEnumerator AttackCoroutine()
         {
@@ -30,7 +30,7 @@ namespace Lis.Units.Attack
             Invoke(nameof(CleanUp), 2f);
         }
 
-        private void CleanUp()
+        void CleanUp()
         {
             _effect.SetActive(false);
         }

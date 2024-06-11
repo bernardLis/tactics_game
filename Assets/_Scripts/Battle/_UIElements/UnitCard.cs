@@ -8,18 +8,18 @@ namespace Lis.Battle
 {
     public class UnitCard : TooltipCard
     {
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonButton = "common__button";
 
-        private const string _ussClassName = "unit-card__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussElement = _ussClassName + "element";
+        const string _ussClassName = "unit-card__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussElement = _ussClassName + "element";
 
         protected readonly Unit Unit;
-        private ResourceBarElement _healthBar;
-        private Label _nameLabel;
-        private NatureElement _natureElement;
+        ResourceBarElement _healthBar;
+        Label _nameLabel;
+        NatureElement _natureElement;
 
-        private UnitIcon _unitIcon;
+        UnitIcon _unitIcon;
         protected Label LevelLabel;
 
         public UnitCard(Unit unit)
@@ -49,20 +49,20 @@ namespace Lis.Battle
             HandleDeath();
         }
 
-        private void HandleUnitIcon()
+        void HandleUnitIcon()
         {
             _unitIcon = new(Unit);
             TopLeftContainer.Add(_unitIcon);
         }
 
-        private void HandleNature()
+        void HandleNature()
         {
             _natureElement = new(Unit.Nature);
             _natureElement.AddToClassList(_ussElement);
             TopLeftContainer.Add(_natureElement);
         }
 
-        private void HandleNameLabel()
+        void HandleNameLabel()
         {
             _nameLabel = new(Unit.UnitName);
             _nameLabel.AddToClassList(USSName);
@@ -78,7 +78,7 @@ namespace Lis.Battle
             Unit.Level.OnValueChanged += i => { LevelLabel.text = $"Level {i}"; };
         }
 
-        private void HandleHealthBar()
+        void HandleHealthBar()
         {
             Color c = GameManager.GameDatabase.GetColorByName("Health").Primary;
 
@@ -86,7 +86,7 @@ namespace Lis.Battle
             TopRightContainer.Add(_healthBar);
         }
 
-        private void HandleDeath()
+        void HandleDeath()
         {
             if (Unit.Team != 0) return;
             if (Unit.CurrentHealth.Value > 0) return;
@@ -102,7 +102,7 @@ namespace Lis.Battle
             }
         }
 
-        private void Revive()
+        void Revive()
         {
             Unit.Revive();
         }

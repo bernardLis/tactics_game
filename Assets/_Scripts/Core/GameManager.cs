@@ -17,10 +17,10 @@ namespace Lis.Core
         public UpgradeBoard UpgradeBoard;
         public Stats GameStats;
         public readonly List<FullScreenElement> OpenFullScreens = new();
-        private LevelLoader _levelLoader;
+        LevelLoader _levelLoader;
 
         // global data
-        private int _seed;
+        int _seed;
 
         public int Gold { get; private set; }
 
@@ -37,7 +37,7 @@ namespace Lis.Core
             RunServices();
         }
 
-        private void Start()
+        void Start()
         {
             Debug.Log("Game manager Start");
             _levelLoader = GetComponent<LevelLoader>();
@@ -83,7 +83,7 @@ namespace Lis.Core
         public event Action OnNewSaveFileCreation;
         public event Action OnClearSaveData;
 
-        private async void RunServices()
+        async void RunServices()
         {
             await UnityServices.InitializeAsync();
             // TODO: analytics - need opt in flow
@@ -94,7 +94,7 @@ namespace Lis.Core
             SendTestEvent();
         }
 
-        private void SendTestEvent()
+        void SendTestEvent()
         {
             var parameters = new Dictionary<string, object>
             {
@@ -143,7 +143,7 @@ namespace Lis.Core
          * Saving and Loading
          * https://www.youtube.com/watch?v=uD7y4T4PVk0
          */
-        private void CreateNewSaveFile()
+        void CreateNewSaveFile()
         {
             Debug.Log("Creating new save file...");
             _seed = Environment.TickCount;
@@ -163,7 +163,7 @@ namespace Lis.Core
             SaveJsonData();
         }
 
-        private void LoadFromSaveFile()
+        void LoadFromSaveFile()
         {
             LoadJsonData(PlayerPrefs.GetString("saveName"));
         }
@@ -177,7 +177,7 @@ namespace Lis.Core
             //     Debug.Log("Save successful");
         }
 
-        private void LoadJsonData(string fileName)
+        void LoadJsonData(string fileName)
         {
             if (FileManager.LoadFromFile(fileName, out string json))
             {

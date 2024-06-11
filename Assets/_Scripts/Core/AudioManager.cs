@@ -13,24 +13,24 @@ namespace Lis.Core
     {
         public List<Sound> Sounds = new();
 
-        [SerializeField] private AudioMixer _mixer;
-        private AudioSource _ambienceAudioSource;
-        private AudioMixerGroup _ambienceMixerGroup;
-        private int _currentMusicClipIndex;
+        [SerializeField] AudioMixer _mixer;
+        AudioSource _ambienceAudioSource;
+        AudioMixerGroup _ambienceMixerGroup;
+        int _currentMusicClipIndex;
 
-        private Sound _currentMusicSound;
-        private AudioSource _dialogueAudioSource;
-        private AudioMixerGroup _dialogueMixerGroup;
+        Sound _currentMusicSound;
+        AudioSource _dialogueAudioSource;
+        AudioMixerGroup _dialogueMixerGroup;
 
-        private AudioSource _musicAudioSource;
-        private AudioMixerGroup _musicMixerGroup;
-        private List<AudioSource> _sfxAudioSources = new();
-        private AudioMixerGroup _sfxMixerGroup;
-        private List<AudioSource> _uiAudioSources = new();
-        private AudioMixerGroup _uiMixerGroup;
-        private IEnumerator _xFadeAmbienceCoroutine;
+        AudioSource _musicAudioSource;
+        AudioMixerGroup _musicMixerGroup;
+        List<AudioSource> _sfxAudioSources = new();
+        AudioMixerGroup _sfxMixerGroup;
+        List<AudioSource> _uiAudioSources = new();
+        AudioMixerGroup _uiMixerGroup;
+        IEnumerator _xFadeAmbienceCoroutine;
 
-        private IEnumerator _xFadeMusicCoroutine;
+        IEnumerator _xFadeMusicCoroutine;
 
         protected override void Awake()
         {
@@ -40,7 +40,7 @@ namespace Lis.Core
             SetPlayerPrefVolume();
         }
 
-        private void GetMixerGroups()
+        void GetMixerGroups()
         {
             _musicMixerGroup = _mixer.FindMatchingGroups("Music")[0];
             _ambienceMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
@@ -49,7 +49,7 @@ namespace Lis.Core
             _uiMixerGroup = _mixer.FindMatchingGroups("UI")[0];
         }
 
-        private void PopulateAudioSources()
+        void PopulateAudioSources()
         {
             GameObject musicGameObject = new("Music");
             musicGameObject.transform.parent = transform;
@@ -80,7 +80,7 @@ namespace Lis.Core
                 CreateUiAudioSource();
         }
 
-        private AudioSource CreateSfxAudioSource()
+        AudioSource CreateSfxAudioSource()
         {
             GameObject sfxGameObject = new("SFX" + _sfxAudioSources.Count);
             sfxGameObject.transform.parent = transform;
@@ -95,7 +95,7 @@ namespace Lis.Core
             return a;
         }
 
-        private AudioSource CreateUiAudioSource()
+        AudioSource CreateUiAudioSource()
         {
             GameObject uiGameObject = new("UI" + _uiAudioSources.Count);
             uiGameObject.transform.parent = transform;
@@ -123,7 +123,7 @@ namespace Lis.Core
             StartCoroutine(PlayMusicCoroutine());
         }
 
-        private IEnumerator PlayMusicCoroutine()
+        IEnumerator PlayMusicCoroutine()
         {
             if (_musicAudioSource.isPlaying)
                 yield return _musicAudioSource.DOFade(0, 5)
@@ -175,7 +175,7 @@ namespace Lis.Core
             StartCoroutine(PlaySfxDelayedCoroutine(soundName, pos, delay));
         }
 
-        private IEnumerator PlaySfxDelayedCoroutine(string soundName, Vector3 pos, float delay)
+        IEnumerator PlaySfxDelayedCoroutine(string soundName, Vector3 pos, float delay)
         {
             yield return new WaitForSeconds(delay);
             PlaySfx(soundName, pos);
@@ -232,7 +232,7 @@ namespace Lis.Core
             StartCoroutine(PlayUIDelayedCoroutine(soundName, delay));
         }
 
-        private IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
+        IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
         {
             yield return new WaitForSecondsRealtime(delay);
             PlayUI(soundName);
@@ -270,7 +270,7 @@ namespace Lis.Core
         }
 
         /* volume setters */
-        private void SetPlayerPrefVolume()
+        void SetPlayerPrefVolume()
         {
             SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 1));
             SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 1));

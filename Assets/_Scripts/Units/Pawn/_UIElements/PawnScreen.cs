@@ -5,7 +5,7 @@ namespace Lis.Units.Pawn
 {
     public class PawnScreen : UnitScreen
     {
-        private readonly Pawn _pawn;
+        readonly Pawn _pawn;
 
         public PawnScreen(Pawn pawn)
             : base(pawn)
@@ -20,7 +20,7 @@ namespace Lis.Units.Pawn
             AddPawnMission();
         }
 
-        private void AddPawnMission()
+        void AddPawnMission()
         {
             OtherContainer.Add(new HorizontalSpacerElement());
 

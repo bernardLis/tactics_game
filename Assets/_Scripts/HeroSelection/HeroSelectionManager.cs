@@ -10,25 +10,25 @@ namespace Lis.HeroSelection
 {
     public class HeroSelectionManager : MonoBehaviour
     {
-        private const string _ussCommonButton = "common__button";
-        private const string _ussMainMenuArrowButton = "hero-selection__arrow-button";
+        const string _ussCommonButton = "common__button";
+        const string _ussMainMenuArrowButton = "hero-selection__arrow-button";
 
-        [SerializeField] private StyleSheet[] _themeStyleSheets;
+        [SerializeField] StyleSheet[] _themeStyleSheets;
 
-        [SerializeField] private Sound _music;
-        private readonly List<Hero> _heroInstances = new();
-        private readonly List<HeroDisplayer> _heroPrefabs = new();
-        private MyButton _backButton;
-        private int _currentIndex;
+        [SerializeField] Sound _music;
+        readonly List<Hero> _heroInstances = new();
+        readonly List<HeroDisplayer> _heroPrefabs = new();
+        MyButton _backButton;
+        int _currentIndex;
 
-        private GameManager _gameManager;
+        GameManager _gameManager;
 
-        private VisualElement _heroInfoContainer;
-        private MyButton _nextButton;
-        private MyButton _playButton;
-        private MyButton _previousButton;
+        VisualElement _heroInfoContainer;
+        MyButton _nextButton;
+        MyButton _playButton;
+        MyButton _previousButton;
 
-        private void Start()
+        void Start()
         {
             _gameManager = GameManager.Instance;
             AudioManager.Instance.PlayMusic(_music);
@@ -39,7 +39,7 @@ namespace Lis.HeroSelection
             ShowHero(_currentIndex);
         }
 
-        private void InstantiateHeroes()
+        void InstantiateHeroes()
         {
             foreach (Hero hero in _gameManager.UnitDatabase.Heroes)
             {
@@ -55,7 +55,7 @@ namespace Lis.HeroSelection
             }
         }
 
-        private void SetUpUI()
+        void SetUpUI()
         {
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
@@ -79,7 +79,7 @@ namespace Lis.HeroSelection
             backButtonContainer.Add(_backButton);
         }
 
-        private void ShowNextHero()
+        void ShowNextHero()
         {
             _heroPrefabs[_currentIndex].Hide();
             _currentIndex++;
@@ -88,7 +88,7 @@ namespace Lis.HeroSelection
             ShowHero(_currentIndex);
         }
 
-        private void ShowPreviousHero()
+        void ShowPreviousHero()
         {
             _heroPrefabs[_currentIndex].Hide();
             _currentIndex--;
@@ -97,7 +97,7 @@ namespace Lis.HeroSelection
             ShowHero(_currentIndex);
         }
 
-        private void ShowHero(int index)
+        void ShowHero(int index)
         {
             _previousButton.SetEnabled(false);
             _nextButton.SetEnabled(false);
@@ -111,7 +111,7 @@ namespace Lis.HeroSelection
             Invoke(nameof(EnableArrows), 0.5f);
         }
 
-        private void SetButtonColors(Nature n)
+        void SetButtonColors(Nature n)
         {
             Color c = n.Color.Primary;
             if (n.NatureName == NatureName.Earth) c = n.Color.Secondary;
@@ -121,18 +121,18 @@ namespace Lis.HeroSelection
             _backButton.style.backgroundColor = c;
         }
 
-        private void EnableArrows()
+        void EnableArrows()
         {
             _previousButton.SetEnabled(true);
             _nextButton.SetEnabled(true);
         }
 
-        private void Play()
+        void Play()
         {
             _gameManager.StartGame();
         }
 
-        private void Back()
+        void Back()
         {
             _gameManager.LoadScene(Scenes.MainMenu);
         }

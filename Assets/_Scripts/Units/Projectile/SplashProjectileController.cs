@@ -4,7 +4,7 @@ namespace Lis.Units.Projectile
 {
     public class SplashProjectileController : ProjectileController
     {
-        [SerializeField] private float _splashRadius = 3f;
+        [SerializeField] float _splashRadius = 3f;
 
         protected override void HitTarget(UnitController target)
         {

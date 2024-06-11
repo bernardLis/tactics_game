@@ -4,7 +4,7 @@ namespace Lis.Core
 {
     public class VerticalSpacerElement : VisualElement
     {
-        private const string _ussCommonSpacer = "common__vertical-spacer";
+        const string _ussCommonSpacer = "common__vertical-spacer";
 
         public VerticalSpacerElement()
         {

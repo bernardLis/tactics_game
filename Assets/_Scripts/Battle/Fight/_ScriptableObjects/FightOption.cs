@@ -14,7 +14,7 @@ namespace Lis.Battle.Fight
 
         public bool IsChosen;
 
-        private UnitDatabase _unitDatabase;
+        UnitDatabase _unitDatabase;
         public event Action<FightOption> OnChosen;
 
         public void CreateOption(int points, int fightNumber)
@@ -52,7 +52,7 @@ namespace Lis.Battle.Fight
             }
         }
 
-        private void CreateFirstFight()
+        void CreateFirstFight()
         {
             int val = Random.Range(0, 2);
             if (val == 0)
@@ -66,12 +66,12 @@ namespace Lis.Battle.Fight
             }
         }
 
-        private void CreateSecondFight()
+        void CreateSecondFight()
         {
             for (int i = 0; i < Random.Range(5, 10); i++) AddEnemyToArmy(_unitDatabase.GetEnemyByName("Mushroom"));
         }
 
-        private void AddEnemyToArmy(Enemy enemy)
+        void AddEnemyToArmy(Enemy enemy)
         {
             Enemy newEnemy = Instantiate(enemy);
             newEnemy.InitializeBattle(1);

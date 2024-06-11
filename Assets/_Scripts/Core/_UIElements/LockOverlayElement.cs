@@ -5,16 +5,16 @@ namespace Lis.Core
 {
     public class LockOverlayElement : ElementWithTooltip
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
-        private const string _ussMain = "common__lock-overlay-main";
-        private const string _ussLockIcon = "common__lock-overlay-icon";
-        private const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
-        private readonly AudioManager _audioManager;
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussMain = "common__lock-overlay-main";
+        const string _ussLockIcon = "common__lock-overlay-icon";
+        const string _ussLockIconUnlocked = "common__lock-overlay-icon-unlocked";
+        readonly AudioManager _audioManager;
 
-        private readonly GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        private readonly VisualElement _localTooltip;
-        private readonly Label _lockIcon;
+        readonly VisualElement _localTooltip;
+        readonly Label _lockIcon;
 
         public LockOverlayElement(VisualElement tooltip)
         {
@@ -35,7 +35,7 @@ namespace Lis.Core
             RegisterCallback<PointerEnterEvent>(ShakeIcon);
         }
 
-        private void ShakeIcon(PointerEnterEvent evt)
+        void ShakeIcon(PointerEnterEvent evt)
         {
             _audioManager.PlayUI("Lock OnHover");
             DOTween.Shake(() => _lockIcon.transform.position, x => _lockIcon.transform.position = x,

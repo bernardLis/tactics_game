@@ -36,7 +36,7 @@ namespace Lis.Battle.Fight
             o.Choose();
         }
 
-        private void ChooseOption(FightOption option)
+        void ChooseOption(FightOption option)
         {
             ChosenOption = option;
             OnOptionChosen?.Invoke(option);

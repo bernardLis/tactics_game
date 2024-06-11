@@ -12,21 +12,21 @@ namespace Lis.MainMenu
 {
     public class MainMenu : Singleton<MainMenu>
     {
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonButton = "common__button";
 
-        [SerializeField] private Sound _mainMenuTheme;
-        [SerializeField] private GameObject _gameManagerPrefab;
-        [SerializeField] private StyleSheet[] _themeStyleSheets;
-        [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] Sound _mainMenuTheme;
+        [SerializeField] GameObject _gameManagerPrefab;
+        [SerializeField] StyleSheet[] _themeStyleSheets;
+        [SerializeField] ParticleSystem _particleSystem;
 
-        private GameManager _gameManager;
-        private UpgradeManager _globalUpgradeManager;
-        private MyButton _playButton;
-        private MyButton _quitButton;
+        GameManager _gameManager;
+        UpgradeManager _globalUpgradeManager;
+        MyButton _playButton;
+        MyButton _quitButton;
 
-        private VisualElement _root;
-        private MyButton _settingsButton;
-        private MyButton _statsButton;
+        VisualElement _root;
+        MyButton _settingsButton;
+        MyButton _statsButton;
 
         protected override void Awake()
         {
@@ -43,7 +43,7 @@ namespace Lis.MainMenu
         }
 
 
-        private void Start()
+        void Start()
         {
             //    _playButton = new("Play", _ussCommonButton, ShowGlobalUpgradesMenu);
             _playButton = new("Play", _ussCommonButton,
@@ -62,7 +62,7 @@ namespace Lis.MainMenu
             AudioManager.Instance.PlayMusic(_mainMenuTheme);
         }
 
-        private void SetThemeStyleSheet()
+        void SetThemeStyleSheet()
         {
             StyleSheet chosen = _themeStyleSheets[Random.Range(0, _themeStyleSheets.Length)];
             _root.styleSheets.Add(chosen);
@@ -70,7 +70,7 @@ namespace Lis.MainMenu
             StartCoroutine(SetParticleSystemColorCoroutine());
         }
 
-        private IEnumerator SetParticleSystemColorCoroutine()
+        IEnumerator SetParticleSystemColorCoroutine()
         {
             yield return new WaitForSeconds(1f);
             Color c = _root.Q<Label>("gameTitle").resolvedStyle.color;
@@ -80,30 +80,30 @@ namespace Lis.MainMenu
             main.startColor = c;
         }
 
-        private void ShowGlobalUpgradesMenu()
+        void ShowGlobalUpgradesMenu()
         {
             _globalUpgradeManager.ShowUpgradeMenu();
         }
 
-        private void ShowStatsScreen()
+        void ShowStatsScreen()
         {
             StatsScreen statsScreen = new(_gameManager.GameStats);
             if (statsScreen == null) throw new ArgumentNullException(nameof(statsScreen));
         }
 
-        private void Settings()
+        void Settings()
         {
             SettingsScreen settingsScreen = new();
             if (settingsScreen == null) throw new ArgumentNullException(nameof(settingsScreen));
         }
 
-        private void ConfirmQuit()
+        void ConfirmQuit()
         {
             ConfirmPopUp pop = new();
             pop.Initialize(_root, Quit);
         }
 
-        private void Quit()
+        void Quit()
         {
             Application.Quit();
         }

@@ -8,18 +8,18 @@ namespace Lis.Battle.Pickup
 {
     public class BreakableVaseController : MonoBehaviour
     {
-        [SerializeField] private GameObject _breakParticles;
-        [SerializeField] private Transform _originalVase;
-        [SerializeField] private Sound _breakSound;
-        private AudioManager _audioManager;
+        [SerializeField] GameObject _breakParticles;
+        [SerializeField] Transform _originalVase;
+        [SerializeField] Sound _breakSound;
+        AudioManager _audioManager;
 
-        private Collider _collider;
+        Collider _collider;
 
-        private bool _isBroken;
-        private PickupManager _pickupManager;
-        private Rigidbody _rigidbody;
+        bool _isBroken;
+        PickupManager _pickupManager;
+        Rigidbody _rigidbody;
 
-        private void Awake()
+        void Awake()
         {
             _audioManager = AudioManager.Instance;
             _pickupManager = BattleManager.Instance.GetComponent<PickupManager>();
@@ -28,7 +28,7 @@ namespace Lis.Battle.Pickup
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        private void OnMouseDown()
+        void OnMouseDown()
         {
             TriggerBreak();
         }
@@ -58,7 +58,7 @@ namespace Lis.Battle.Pickup
             StartCoroutine(BreakObject());
         }
 
-        private IEnumerator BreakObject()
+        IEnumerator BreakObject()
         {
             if (_isBroken) yield break;
             _isBroken = true;

@@ -158,7 +158,7 @@ namespace Lis.Core
             MergeTwoObjectLists(BossesKilled, newStats.BossesKilled);
         }
 
-        private void MergeTwoObjectLists(List<MyObjectData> originalList, List<MyObjectData> newLis)
+        void MergeTwoObjectLists(List<MyObjectData> originalList, List<MyObjectData> newLis)
         {
             foreach (MyObjectData b in newLis)
             {

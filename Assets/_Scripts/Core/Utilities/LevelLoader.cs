@@ -7,10 +7,10 @@ namespace Lis.Core.Utilities
 {
     public class LevelLoader : MonoBehaviour
     {
-        private VisualElement _crossfade;
-        private VisualElement _root;
+        VisualElement _crossfade;
+        VisualElement _root;
 
-        private void Start()
+        void Start()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
             _crossfade = _root.Q<VisualElement>("crossfade");
@@ -27,7 +27,7 @@ namespace Lis.Core.Utilities
                 .OnComplete(() => FadeIn(newScene));
         }
 
-        private void FadeIn(string newScene)
+        void FadeIn(string newScene)
         {
             SceneManager.LoadScene(newScene);
 
@@ -38,7 +38,7 @@ namespace Lis.Core.Utilities
                 .OnComplete(HideCrossfade);
         }
 
-        private void HideCrossfade()
+        void HideCrossfade()
         {
             _crossfade.style.display = DisplayStyle.None;
         }

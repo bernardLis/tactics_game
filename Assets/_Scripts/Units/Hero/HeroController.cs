@@ -9,14 +9,14 @@ namespace Lis.Units.Hero
 {
     public class HeroController : UnitController
     {
-        private static readonly int AnimGrounded = Animator.StringToHash("Grounded");
+        static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
-        private readonly List<Controller> _abilityControllers = new();
+        readonly List<Controller> _abilityControllers = new();
 
-        private MovementController _movementController;
+        MovementController _movementController;
         public Hero Hero { get; private set; }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             Hero.OnAbilityAdded -= AddAbility;
         }
@@ -47,7 +47,7 @@ namespace Lis.Units.Hero
             HandleAbilities();
         }
 
-        private void HandleAbilities()
+        void HandleAbilities()
         {
             Hero.OnAbilityAdded += AddAbility;
             Hero.OnAbilityRemoved += RemoveAbility;
@@ -56,7 +56,7 @@ namespace Lis.Units.Hero
                 AddAbility(a);
         }
 
-        private void AddAbility(Ability.Ability ability)
+        void AddAbility(Ability.Ability ability)
         {
             UnitLog.Add($"{BattleManager.GetTime()}: Hero adds an ability {ability.name}");
             GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab, transform);
@@ -65,7 +65,7 @@ namespace Lis.Units.Hero
             _abilityControllers.Add(abilityPrefab.GetComponent<Controller>());
         }
 
-        private void RemoveAbility(Ability.Ability ability)
+        void RemoveAbility(Ability.Ability ability)
         {
             UnitLog.Add($"{BattleManager.GetTime()}: Hero removes an ability {ability.name}");
             Controller abilityController = _abilityControllers.Find(a => a.Ability == ability);

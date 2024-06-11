@@ -10,27 +10,27 @@ namespace Lis.Battle
 {
     public class GrabManager : Singleton<GrabManager>
     {
-        private ArenaManager _arenaManager;
-        private AudioManager _audioManager;
+        ArenaManager _arenaManager;
+        AudioManager _audioManager;
 
-        private Camera _cam;
-        private CursorManager _cursorManager;
-        private GameManager _gameManager;
+        Camera _cam;
+        CursorManager _cursorManager;
+        GameManager _gameManager;
 
-        private GameObject _grabbedObject;
-        private bool _isGrabbingEnabled;
+        GameObject _grabbedObject;
+        bool _isGrabbingEnabled;
 
-        private bool _isGrabbingUnlocked;
-        private Mouse _mouse;
-        private float _objectYPosition;
-        private PlayerInput _playerInput;
+        bool _isGrabbingUnlocked;
+        Mouse _mouse;
+        float _objectYPosition;
+        PlayerInput _playerInput;
 
-        private bool _pointerDown;
+        bool _pointerDown;
 
-        private bool _wasInitialized;
+        bool _wasInitialized;
 
         /* INPUT */
-        private void OnEnable()
+        void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -41,14 +41,14 @@ namespace Lis.Battle
             SubscribeInputActions();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (_playerInput == null) return;
 
@@ -74,7 +74,7 @@ namespace Lis.Battle
             EnableGrabbing();
         }
 
-        private void EnableGrabbing()
+        void EnableGrabbing()
         {
             if (BattleManager.BlockBattleInput) return;
             if (this == null) return;
@@ -83,12 +83,12 @@ namespace Lis.Battle
             _isGrabbingEnabled = true;
         }
 
-        private void SubscribeInputActions()
+        void SubscribeInputActions()
         {
             _playerInput.actions["LeftMouseClick"].canceled += OnPointerUp;
         }
 
-        private void UnsubscribeInputActions()
+        void UnsubscribeInputActions()
         {
             _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
         }
@@ -103,7 +103,7 @@ namespace Lis.Battle
             StartCoroutine(GrabCoroutine(obj, yPosition));
         }
 
-        private IEnumerator GrabCoroutine(GameObject obj, float yPosition = 0f)
+        IEnumerator GrabCoroutine(GameObject obj, float yPosition = 0f)
         {
             yield return new WaitForSeconds(0.5f);
             if (!_pointerDown) yield break;
@@ -121,7 +121,7 @@ namespace Lis.Battle
             StartCoroutine(UpdateGrabbedObjectPosition());
         }
 
-        private IEnumerator UpdateGrabbedObjectPosition()
+        IEnumerator UpdateGrabbedObjectPosition()
         {
             while (_grabbedObject != null)
             {
@@ -138,7 +138,7 @@ namespace Lis.Battle
             }
         }
 
-        private bool IsPositionValid(Vector3 pos)
+        bool IsPositionValid(Vector3 pos)
         {
             if (!FightManager.IsFightActive)
             {
@@ -156,7 +156,7 @@ namespace Lis.Battle
             return true;
         }
 
-        private bool IsGrabbingAllowed()
+        bool IsGrabbingAllowed()
         {
             if (!_wasInitialized) return false;
             if (_grabbedObject != null) return false;
@@ -165,7 +165,7 @@ namespace Lis.Battle
             return true;
         }
 
-        private void OnPointerUp(InputAction.CallbackContext context)
+        void OnPointerUp(InputAction.CallbackContext context)
         {
             if (!_wasInitialized) return;
             if (this == null) return;

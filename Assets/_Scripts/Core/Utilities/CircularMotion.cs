@@ -9,16 +9,16 @@ namespace Lis.Core.Utilities
         public float CircleRadius = 800;
         public float ElevationOffset;
 
-        [SerializeField] private float _angle;
+        [SerializeField] float _angle;
 
-        private Vector3 _positionOffset;
+        Vector3 _positionOffset;
 
-        private void Start()
+        void Start()
         {
             _angle = StartAngle;
         }
 
-        private void LateUpdate()
+        void LateUpdate()
         {
             _positionOffset.Set(
                 Mathf.Cos(_angle) * CircleRadius,

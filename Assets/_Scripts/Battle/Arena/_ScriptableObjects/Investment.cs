@@ -39,7 +39,7 @@ namespace Lis.Battle.Arena
             OnStarted?.Invoke();
         }
 
-        private void OnFightEnded()
+        void OnFightEnded()
         {
             FightsRemaining--;
         }

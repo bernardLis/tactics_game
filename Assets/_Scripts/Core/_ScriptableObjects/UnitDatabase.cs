@@ -20,43 +20,43 @@ namespace Lis.Core
         [Header("Hero")]
         public Hero[] Heroes;
 
-        [SerializeField] private Ability[] _abilities;
-        [SerializeField] private Ability[] _advancedAbilities;
+        [SerializeField] Ability[] _abilities;
+        [SerializeField] Ability[] _advancedAbilities;
 
 
         public Tablet[] HeroTablets;
-        [SerializeField] private TabletAdvanced[] _heroTabletsAdvanced;
+        [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
 
         [Header("Peasant")]
         public Peasant Peasant;
 
         [Header("Pawns")]
         [SerializeField]
-        private Pawn[] _allPawns;
+        Pawn[] _allPawns;
 
         [Header("Creatures")]
         public Sprite[] CreatureIcons;
 
         public List<Creature> AllCreatures = new();
 
-        [SerializeField] private Creature[] _opponentCreatures;
+        [SerializeField] Creature[] _opponentCreatures;
 
         [Header("Enemies")]
         [SerializeField]
-        private Enemy[] _enemies;
+        Enemy[] _enemies;
 
         [Header("Bosses")]
         [SerializeField]
-        private Boss[] _bosses;
+        Boss[] _bosses;
 
 
         [FormerlySerializedAs("StatBasics")] [Header("Stats")] [SerializeField]
-        private StatBasics[] _statBasics;
+        StatBasics[] _statBasics;
 
 
-        [Header("Natures")] [SerializeField] private Nature[] _natures;
+        [Header("Natures")] [SerializeField] Nature[] _natures;
 
-        [SerializeField] private NatureAdvanced[] _advancedNatures;
+        [SerializeField] NatureAdvanced[] _advancedNatures;
 
         public void Initialize()
         {

@@ -6,8 +6,8 @@ namespace Lis.Units.Projectile
 {
     public class WildboltProjectileController : ProjectileController
     {
-        private Ability _ability;
-        private Vector3 _dir;
+        Ability _ability;
+        Vector3 _dir;
 
         public void Fire(Ability ability)
         {
@@ -16,7 +16,7 @@ namespace Lis.Units.Projectile
             StartCoroutine(FireCoroutine());
         }
 
-        private IEnumerator FireCoroutine()
+        IEnumerator FireCoroutine()
         {
             float endTime = Time.time + _ability.GetDuration();
             while (Time.time < endTime)
@@ -32,7 +32,7 @@ namespace Lis.Units.Projectile
             yield return Explode(transform.position);
         }
 
-        private IEnumerator GoForward(float timeInSeconds)
+        IEnumerator GoForward(float timeInSeconds)
         {
             float t = 0;
             while (t <= timeInSeconds)

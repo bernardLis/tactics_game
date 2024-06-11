@@ -10,9 +10,9 @@ namespace Lis.Battle.Arena
 {
     public class BarracksController : BuildingController, IInteractable
     {
-        private Barracks _barracks;
-        private GameManager _gameManager;
-        private HeroManager _heroManager;
+        Barracks _barracks;
+        GameManager _gameManager;
+        HeroManager _heroManager;
 
         protected override void Start()
         {
@@ -60,7 +60,7 @@ namespace Lis.Battle.Arena
             StartCoroutine(SpawnFightEndArmy());
         }
 
-        private IEnumerator SpawnFightEndArmy()
+        IEnumerator SpawnFightEndArmy()
         {
             for (int i = 0; i < _barracks.GetPeasantsPerFight(); i++)
             {
@@ -89,7 +89,7 @@ namespace Lis.Battle.Arena
             uc.GoBackToLocker();
         }
 
-        private void SpawnPawn(Nature n, int upgrade)
+        void SpawnPawn(Nature n, int upgrade)
         {
             upgrade--; // coz pawn upgrade start from 0 and building at level 0 is locked
 

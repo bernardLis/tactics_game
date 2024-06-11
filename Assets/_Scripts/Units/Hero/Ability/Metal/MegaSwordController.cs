@@ -7,16 +7,16 @@ namespace Lis.Units.Hero.Ability
 {
     public class MegaSwordController : Controller
     {
-        private readonly float _elevationOffset = 0.5f;
+        readonly float _elevationOffset = 0.5f;
 
-        private readonly float _rotationSpeed = 2;
-        private float _angle;
-        private float _circleRadius = 3;
-        private bool _isActive;
+        readonly float _rotationSpeed = 2;
+        float _angle;
+        float _circleRadius = 3;
+        bool _isActive;
 
-        private Vector3 _positionOffset;
+        Vector3 _positionOffset;
 
-        private void OnCollisionEnter(Collision collision)
+        void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
@@ -38,7 +38,7 @@ namespace Lis.Units.Hero.Ability
             ScaleAbility();
         }
 
-        private void ScaleAbility()
+        void ScaleAbility()
         {
             transform.DOScale(Vector3.one * Ability.GetScale(), 0.5f).SetEase(Ease.InOutSine);
             _circleRadius = 3 + Ability.GetScale();

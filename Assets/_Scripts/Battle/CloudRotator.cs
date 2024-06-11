@@ -5,7 +5,7 @@ namespace Lis.Battle
 {
     public class CloudRotator : MonoBehaviour
     {
-        private void Start()
+        void Start()
         {
             transform.DORotate(new(0, 360, 0), 240f, RotateMode.FastBeyond360)
                 .SetLoops(-1);

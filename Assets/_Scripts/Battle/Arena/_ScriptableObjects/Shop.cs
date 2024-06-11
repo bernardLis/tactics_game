@@ -8,7 +8,7 @@ namespace Lis.Battle.Arena
     public class Shop : Building
     {
         public bool ShouldReset;
-        private readonly List<Reward> _rewards = new();
+        readonly List<Reward> _rewards = new();
 
         public void SetRewards(List<Reward> newRewards)
         {

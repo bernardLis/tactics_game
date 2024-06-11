@@ -5,9 +5,9 @@ namespace Lis.Core
 {
     public class MyButton : Button
     {
-        private const string _ussCommonButtonBasic = "common__button-basic";
-        private readonly AudioManager _audioManager;
-        private readonly CursorManager _cursorManager;
+        const string _ussCommonButtonBasic = "common__button-basic";
+        readonly AudioManager _audioManager;
+        readonly CursorManager _cursorManager;
 
         protected readonly Action CurrentCallback;
 
@@ -51,7 +51,7 @@ namespace Lis.Core
             RegisterCallback<PointerUpEvent>(OnPointerUp);
         }
 
-        private void OnPointerUp(PointerUpEvent evt)
+        void OnPointerUp(PointerUpEvent evt)
         {
             Blur();
             _cursorManager.ClearCursor();
@@ -63,7 +63,7 @@ namespace Lis.Core
             Text.style.display = DisplayStyle.Flex;
         }
 
-        private void OnPointerEnter(PointerEnterEvent evt)
+        void OnPointerEnter(PointerEnterEvent evt)
         {
             if (!enabledSelf)
                 return;
@@ -73,18 +73,18 @@ namespace Lis.Core
                 _cursorManager.SetCursorByName("Hover");
         }
 
-        private void OnPointerLeave(PointerLeaveEvent evt)
+        void OnPointerLeave(PointerLeaveEvent evt)
         {
             _cursorManager.ClearCursor();
         }
 
-        private void PreventInteraction(MouseEnterEvent evt)
+        void PreventInteraction(MouseEnterEvent evt)
         {
             evt.PreventDefault();
             evt.StopImmediatePropagation();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             UnregisterCallback<PointerEnterEvent>(OnPointerEnter);
             UnregisterCallback<PointerLeaveEvent>(OnPointerLeave);
@@ -93,7 +93,7 @@ namespace Lis.Core
             RegisterCallback<MouseEnterEvent>(PreventInteraction);
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             RegisterCallback<PointerEnterEvent>(OnPointerEnter);
             RegisterCallback<PointerLeaveEvent>(OnPointerLeave);

@@ -6,11 +6,11 @@ namespace Lis.Units.Attack
 {
     public class AttackTooltipElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
-        private const string _ussCommonTextSecondary = "common__text-secondary";
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextSecondary = "common__text-secondary";
 
-        private const string _ussClassName = "attack-element__";
-        private const string _ussMain = _ussClassName + "tooltip-main";
+        const string _ussClassName = "attack-element__";
+        const string _ussMain = _ussClassName + "tooltip-main";
 
         public AttackTooltipElement(Attack attack)
         {

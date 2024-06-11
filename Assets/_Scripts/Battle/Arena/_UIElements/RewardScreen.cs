@@ -13,11 +13,11 @@ namespace Lis.Battle.Arena
     public class RewardScreen : FullScreenElement
     {
         protected const string USSClassName = "reward-screen__";
-        private const string _ussMain = USSClassName + "main";
-        private const string _ussLevelUpAnimationContainer = USSClassName + "level-up-animation-container";
-        private const string _ussFallingElement = USSClassName + "falling-element";
-        private const string _ussRewardContainer = USSClassName + "reward-container";
-        private const string _ussRerollContainer = USSClassName + "reroll-container";
+        const string _ussMain = USSClassName + "main";
+        const string _ussLevelUpAnimationContainer = USSClassName + "level-up-animation-container";
+        const string _ussFallingElement = USSClassName + "falling-element";
+        const string _ussRewardContainer = USSClassName + "reward-container";
+        const string _ussRerollContainer = USSClassName + "reroll-container";
 
         protected readonly List<RewardElement> AllRewardElements = new();
 
@@ -27,8 +27,8 @@ namespace Lis.Battle.Arena
 
         protected readonly int NumberOfRewards;
 
-        private VisualElement _rerollContainer;
-        private Label _titleLabel;
+        VisualElement _rerollContainer;
+        Label _titleLabel;
         protected RerollButton RerollButton;
         protected Label RerollsLeft;
 
@@ -58,7 +58,7 @@ namespace Lis.Battle.Arena
             schedule.Execute(PopulateRewards).StartingIn(600);
         }
 
-        private void AddRewardContainer()
+        void AddRewardContainer()
         {
             RewardContainer = new();
             RewardContainer.AddToClassList(_ussRewardContainer);
@@ -86,7 +86,7 @@ namespace Lis.Battle.Arena
             }).StartingIn(100);
         }
 
-        private void AddRerollButton()
+        void AddRerollButton()
         {
             _rerollContainer = new();
             _rerollContainer.AddToClassList(_ussRerollContainer);
@@ -105,7 +105,7 @@ namespace Lis.Battle.Arena
                 .SetUpdate(true);
         }
 
-        private void PopulateRewards()
+        void PopulateRewards()
         {
             RewardContainer.Clear();
             CreateRewardCards();
@@ -156,7 +156,7 @@ namespace Lis.Battle.Arena
             return element;
         }
 
-        private RewardElement CreateRewardCardGold()
+        RewardElement CreateRewardCardGold()
         {
             RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
             reward.CreateRandom(HeroManager.Hero, AllRewardElements);

@@ -5,8 +5,8 @@ namespace Lis.Core
 {
     public class TextWithTooltip : ElementWithTooltip
     {
-        private readonly Label _text;
-        private readonly string _tooltipText;
+        readonly Label _text;
+        readonly string _tooltipText;
 
         public TextWithTooltip(string text, string tooltipText)
         {

@@ -8,24 +8,24 @@ namespace Lis.Core
 {
     public class TextPrintingElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private const string _ussClassName = "text-printing__";
-        private const string _ussMain = _ussClassName + "main";
-        private readonly float _durationMs;
+        const string _ussClassName = "text-printing__";
+        const string _ussMain = _ussClassName + "main";
+        readonly float _durationMs;
 
-        private readonly GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        private readonly Label _textLabel;
+        readonly Label _textLabel;
 
-        private readonly string _textToPrint;
+        readonly string _textToPrint;
 
-        private int _currentLetterIndex;
-        private int _currentSentenceIndex;
+        int _currentLetterIndex;
+        int _currentSentenceIndex;
 
-        private List<string> _sentencesToPrint = new();
+        List<string> _sentencesToPrint = new();
 
-        private IVisualElementScheduledItem _textPrintingScheduler;
+        IVisualElementScheduledItem _textPrintingScheduler;
 
         public TextPrintingElement(string text, float durationSeconds)
         {
@@ -63,7 +63,7 @@ namespace Lis.Core
             _textPrintingScheduler = schedule.Execute(AddSentence).Every(sentenceDelay);
         }
 
-        private void AddSentence()
+        void AddSentence()
         {
             _textLabel.text = _sentencesToPrint[_currentSentenceIndex];
             _currentSentenceIndex++;
@@ -81,7 +81,7 @@ namespace Lis.Core
             _textPrintingScheduler = schedule.Execute(AddLetter).Every(letterDelay);
         }
 
-        private void AddLetter()
+        void AddLetter()
         {
             if (_currentLetterIndex >= _textToPrint.Length)
             {

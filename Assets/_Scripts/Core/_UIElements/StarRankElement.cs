@@ -6,19 +6,19 @@ namespace Lis.Core
 {
     public class StarRankElement : ElementWithTooltip
     {
-        private const string _ussClassName = "star-rank-element__";
-        private const string _ussStar = _ussClassName + "star";
-        private const string _ussStarGold = _ussClassName + "star-gold";
-        private const string _ussStarGray = _ussClassName + "star-gray";
+        const string _ussClassName = "star-rank-element__";
+        const string _ussStar = _ussClassName + "star";
+        const string _ussStarGold = _ussClassName + "star-gold";
+        const string _ussStarGray = _ussClassName + "star-gray";
 
-        private const string _ussEffect = _ussClassName + "effect";
-        private readonly int _maxRank;
-        private readonly List<VisualElement> _stars = new();
-        private readonly VisualElement _tooltipElement;
+        const string _ussEffect = _ussClassName + "effect";
+        readonly int _maxRank;
+        readonly List<VisualElement> _stars = new();
+        readonly VisualElement _tooltipElement;
 
-        private int _currentStarIndex;
+        int _currentStarIndex;
 
-        private IVisualElementScheduledItem _rankUpdateScheduler;
+        IVisualElementScheduledItem _rankUpdateScheduler;
         public int Rank;
 
         public StarRankElement(int rank, float scale = 1f, VisualElement tooltip = null, int maxRank = 5)
@@ -66,7 +66,7 @@ namespace Lis.Core
             Rank = rank;
         }
 
-        private void UpdateStar()
+        void UpdateStar()
         {
             VisualElement star = _stars[_currentStarIndex];
             star.AddToClassList(_ussStarGray);
@@ -89,7 +89,7 @@ namespace Lis.Core
             }
         }
 
-        private void ResetRankUpdate()
+        void ResetRankUpdate()
         {
             _stars[_stars.Count - 1].RemoveFromClassList(_ussEffect);
             _currentStarIndex = 0;

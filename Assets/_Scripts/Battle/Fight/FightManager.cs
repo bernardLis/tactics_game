@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle.Arena;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Attack;
@@ -13,10 +12,12 @@ using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
 {
+    using Arena;
+
     public class FightManager : Singleton<FightManager>
     {
         public Transform PlayerArmyHolder;
-        [SerializeField] private Transform _opponentArmyHolder;
+        [SerializeField] Transform _opponentArmyHolder;
 
         [HideInInspector] public Fight LastFight;
         [HideInInspector] public Fight CurrentFight;
@@ -27,18 +28,18 @@ namespace Lis.Battle.Fight
         public List<UnitController> KilledPlayerUnits = new();
         public List<Unit> KilledEnemyUnits = new();
         public bool IsTesting;
-        private Arena.Arena _arena;
+        Arena _arena;
 
-        private ArenaManager _arenaManager;
+        ArenaManager _arenaManager;
 
-        private Battle _battle;
+        Battle _battle;
 
-        private IEnumerator _fightCoroutine;
+        IEnumerator _fightCoroutine;
 
-        private Label _fightInfoLabel;
+        Label _fightInfoLabel;
 
-        private HeroController _heroController;
-        private TooltipManager _tooltipManager;
+        HeroController _heroController;
+        TooltipManager _tooltipManager;
         public static bool IsFightActive { get; private set; }
         public static int FightNumber { get; private set; }
 
@@ -73,7 +74,7 @@ namespace Lis.Battle.Fight
             StartCoroutine(StartGame());
         }
 
-        private IEnumerator StartGame()
+        IEnumerator StartGame()
         {
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
@@ -103,7 +104,7 @@ namespace Lis.Battle.Fight
             StartCoroutine(_fightCoroutine);
         }
 
-        private IEnumerator StartFightCoroutine()
+        IEnumerator StartFightCoroutine()
         {
             if (IsFightActive) yield break;
             IsFightActive = true;
@@ -111,7 +112,7 @@ namespace Lis.Battle.Fight
             OnFightStarted?.Invoke();
         }
 
-        private IEnumerator SpawnAllPlayerUnits()
+        IEnumerator SpawnAllPlayerUnits()
         {
             foreach (Unit u in _heroController.Hero.Army)
             {
@@ -133,13 +134,13 @@ namespace Lis.Battle.Fight
             return unitController;
         }
 
-        private void SpawnEnemyArmy(FightOption option)
+        void SpawnEnemyArmy(FightOption option)
         {
             CurrentFight.OnOptionChosen -= SpawnEnemyArmy;
             StartCoroutine(SpawnEnemyUnits(option.Army));
         }
 
-        private IEnumerator SpawnEnemyUnits(List<Unit> army)
+        IEnumerator SpawnEnemyUnits(List<Unit> army)
         {
             foreach (Unit c in army)
             {
@@ -178,7 +179,7 @@ namespace Lis.Battle.Fight
             OnEnemyUnitAdded?.Invoke(b);
         }
 
-        private void PlayerUnitDies(UnitController be, Attack attack)
+        void PlayerUnitDies(UnitController be, Attack attack)
         {
             KilledPlayerUnits.Add(be);
             PlayerUnits.Remove(be);
@@ -188,7 +189,7 @@ namespace Lis.Battle.Fight
                 DebugEndFight(); // HERE: testing
         }
 
-        private void EnemyUnitDies(UnitController be, Attack attack)
+        void EnemyUnitDies(UnitController be, Attack attack)
         {
             KilledEnemyUnits.Add(be.Unit);
             EnemyUnits.Remove(be);
@@ -198,13 +199,13 @@ namespace Lis.Battle.Fight
                 EndFight();
         }
 
-        private void DebugEndFight()
+        void DebugEndFight()
         {
             IsFightActive = false;
             OnFightEnded?.Invoke();
         }
 
-        private void EndFight()
+        void EndFight()
         {
             FightNumber++;
 
@@ -222,7 +223,7 @@ namespace Lis.Battle.Fight
             if (!_battle.FightSelector.IsUnlocked) ChooseRandomFightOption();
         }
 
-        private void ChooseRandomFightOption()
+        void ChooseRandomFightOption()
         {
             if (IsTesting) return;
 
@@ -247,7 +248,7 @@ namespace Lis.Battle.Fight
                 : EnemyUnits[Random.Range(0, EnemyUnits.Count)].transform.position;
         }
 
-        private void UpdateFightInfoText()
+        void UpdateFightInfoText()
         {
             _fightInfoLabel.text = $"Fight {FightNumber} | Hero Points: {_heroController.Hero.GetHeroPoints()}";
         }

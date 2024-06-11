@@ -8,13 +8,13 @@ namespace Lis.HeroSelection._UIElements
 {
     public class HeroInfoElement : VisualElement
     {
-        private const string _ussClassName = "hero-selector-info__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussNameContainer = _ussClassName + "name-container";
+        const string _ussClassName = "hero-selector-info__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussNameContainer = _ussClassName + "name-container";
 
-        private const string _ussNameLabel = _ussClassName + "name";
+        const string _ussNameLabel = _ussClassName + "name";
 
-        private readonly Hero _hero;
+        readonly Hero _hero;
 
         public HeroInfoElement(Hero hero)
         {
@@ -33,7 +33,7 @@ namespace Lis.HeroSelection._UIElements
             Add(new Label($"Times picked: {hero.TimesPicked}"));
         }
 
-        private void AddNameAndElement()
+        void AddNameAndElement()
         {
             Label nameLabel = new($"{_hero.UnitName}");
             nameLabel.AddToClassList(_ussNameLabel);
@@ -44,7 +44,7 @@ namespace Lis.HeroSelection._UIElements
             Add(new NatureElement(_hero.Nature));
         }
 
-        private void AddStatsContainer()
+        void AddStatsContainer()
         {
             VisualElement statContainer = new();
             statContainer.style.flexDirection = FlexDirection.Row;

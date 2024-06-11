@@ -5,13 +5,13 @@ namespace Lis.Core
 {
     public class TroopsCountElement : ElementWithTooltip
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private readonly VisualElement _animationContainer;
-        private readonly VisualElement _countContainer;
+        readonly VisualElement _animationContainer;
+        readonly VisualElement _countContainer;
 
-        private readonly int _fontSize;
-        private readonly GameManager _gameManager;
+        readonly int _fontSize;
+        readonly GameManager _gameManager;
 
         public TroopsCountElement(string text, int fontSize = 0)
         {

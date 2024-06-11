@@ -7,11 +7,11 @@ namespace Lis.Core
 {
     public class MenuScreen : FullScreenElement
     {
-        private const string _ussClassName = "menu__";
-        private const string _ussContainer = _ussClassName + "container";
-        private const string _ussButtonContainer = _ussClassName + "button-container";
+        const string _ussClassName = "menu__";
+        const string _ussContainer = _ussClassName + "container";
+        const string _ussButtonContainer = _ussClassName + "button-container";
 
-        private readonly VisualElement _container;
+        readonly VisualElement _container;
 
         public MenuScreen()
         {
@@ -31,7 +31,7 @@ namespace Lis.Core
             SetTitle("Menu");
         }
 
-        private void AddMenuButtons()
+        void AddMenuButtons()
         {
             VisualElement buttonContainer = new();
             buttonContainer.AddToClassList(_ussButtonContainer);
@@ -46,13 +46,13 @@ namespace Lis.Core
             buttonContainer.Add(mainMenuButton);
         }
 
-        private void ShowSettingsScreen()
+        void ShowSettingsScreen()
         {
             SettingsScreen settingsScreen = new();
             if (settingsScreen == null) throw new ArgumentNullException(nameof(settingsScreen));
         }
 
-        private void GoToMainMenu()
+        void GoToMainMenu()
         {
             GameManager.GameStats.AddStats(BattleManager.Battle.Stats);
             GameManager.LoadScene(Scenes.MainMenu);

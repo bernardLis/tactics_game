@@ -8,7 +8,7 @@ namespace Lis.Units.Hero.Rewards
     {
         public Pawn.Pawn Pawn;
         public int Count;
-        private Pawn.Pawn _original;
+        Pawn.Pawn _original;
 
         public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
         {
@@ -22,7 +22,7 @@ namespace Lis.Units.Hero.Rewards
             return true;
         }
 
-        private Pawn.Pawn ChoosePawn(List<RewardElement> otherRewardCards)
+        Pawn.Pawn ChoosePawn(List<RewardElement> otherRewardCards)
         {
             // make sure no duplicate pawns in the rewards
             List<Pawn.Pawn> pawns = new(GameManager.UnitDatabase.GetAllPawns());

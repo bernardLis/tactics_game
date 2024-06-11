@@ -7,7 +7,7 @@ namespace Lis.Battle.Arena
 {
     public class RewardCollector : BuildingController, IInteractable
     {
-        private int _rewardsAvailable;
+        int _rewardsAvailable;
         public new string InteractionPrompt => "Press F To Collect Reward!";
 
         public override bool Interact(Interactor interactor)

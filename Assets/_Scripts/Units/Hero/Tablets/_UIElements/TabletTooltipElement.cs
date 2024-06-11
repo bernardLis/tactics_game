@@ -7,14 +7,14 @@ namespace Lis.Units.Hero.Tablets
 {
     public class TabletTooltipElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private const string _ussClassName = "tablet-tooltip-element__";
-        private const string _ussMain = _ussClassName + "main";
+        const string _ussClassName = "tablet-tooltip-element__";
+        const string _ussMain = _ussClassName + "main";
 
-        private readonly VisualElement _effectContainer;
+        readonly VisualElement _effectContainer;
 
-        private readonly Tablet _tablet;
+        readonly Tablet _tablet;
 
         public TabletTooltipElement(Tablet tablet)
         {
@@ -41,7 +41,7 @@ namespace Lis.Units.Hero.Tablets
             AddNextEffect();
         }
 
-        private void AddBasicInformation()
+        void AddBasicInformation()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -59,7 +59,7 @@ namespace Lis.Units.Hero.Tablets
             Add(new HorizontalSpacerElement());
         }
 
-        private void AddCurrentEffect()
+        void AddCurrentEffect()
         {
             VisualElement container = new();
 
@@ -83,7 +83,7 @@ namespace Lis.Units.Hero.Tablets
             _effectContainer.Add(container);
         }
 
-        private void AddNextEffect()
+        void AddNextEffect()
         {
             VisualElement container = new();
             container.style.borderLeftWidth = 3;

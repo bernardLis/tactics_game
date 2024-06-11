@@ -7,8 +7,8 @@ namespace Lis.Units.Hero.Ability
 {
     public class AquaJetController : Controller
     {
-        [SerializeField] private GameObject _projectilePrefab;
-        private readonly List<HomingProjectileController> _projectilePool = new();
+        [SerializeField] GameObject _projectilePrefab;
+        readonly List<HomingProjectileController> _projectilePool = new();
 
         public override void Initialize(Ability ability)
         {
@@ -37,7 +37,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        private HomingProjectileController InitializeProjectile()
+        HomingProjectileController InitializeProjectile()
         {
             GameObject instance = Instantiate(_projectilePrefab, Vector3.zero, Quaternion.identity,
                 BattleManager.AbilityHolder);
@@ -49,7 +49,7 @@ namespace Lis.Units.Hero.Ability
             return homingProjectileController;
         }
 
-        private HomingProjectileController GetInactiveProjectile()
+        HomingProjectileController GetInactiveProjectile()
         {
             foreach (HomingProjectileController p in _projectilePool)
                 if (!p.gameObject.activeSelf)

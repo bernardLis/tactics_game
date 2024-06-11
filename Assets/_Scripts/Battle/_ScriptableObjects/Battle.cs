@@ -36,18 +36,18 @@ namespace Lis.Battle
             InstantiateBuildings();
         }
 
-        private void SetCurrentArena()
+        void SetCurrentArena()
         {
             CurrentArena = Arenas[0];
         }
 
-        private void SetRandomHero()
+        void SetRandomHero()
         {
             SelectedHero = Instantiate(GameManager.Instance.UnitDatabase.GetRandomHero());
             SelectedHero.InitializeHero();
         }
 
-        private void InstantiateBuildings()
+        void InstantiateBuildings()
         {
             Bank = Instantiate(Bank);
             Bank.Initialize();

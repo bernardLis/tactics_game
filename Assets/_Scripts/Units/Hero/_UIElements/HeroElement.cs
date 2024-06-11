@@ -8,25 +8,25 @@ namespace Lis.Units.Hero
 {
     public class HeroElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private const string _ussClassName = "hero-element__";
-        private const string _ussMain = _ussClassName + "main";
+        const string _ussClassName = "hero-element__";
+        const string _ussMain = _ussClassName + "main";
 
-        private const string _ussInfoContainer = _ussClassName + "info-container";
+        const string _ussInfoContainer = _ussClassName + "info-container";
 
-        private readonly Hero _hero;
+        readonly List<AbilityElement> _abilityIconsElements = new();
 
-        private readonly VisualElement _heroInfoContainer;
+        readonly Hero _hero;
 
-        private readonly List<AbilityElement> _abilityIconsElements = new();
+        readonly VisualElement _heroInfoContainer;
 
-        private VisualElement _advancedViewContainer;
-        private ResourceBarElement _expBar;
-        private Label _levelLabel;
+        VisualElement _advancedViewContainer;
+        ResourceBarElement _expBar;
+        Label _levelLabel;
 
-        private VisualElement _resourcesContainer;
-        private TroopsCountElement _troopsCounter;
+        VisualElement _resourcesContainer;
+        TroopsCountElement _troopsCounter;
 
         public HeroElement(Hero hero)
         {
@@ -48,12 +48,12 @@ namespace Lis.Units.Hero
             HandleExpBar();
         }
 
-        private void OnHeroLevelUp()
+        void OnHeroLevelUp()
         {
             _levelLabel.text = $"Level {_hero.Level.Value}";
         }
 
-        private void HandleAbilities()
+        void HandleAbilities()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -82,7 +82,7 @@ namespace Lis.Units.Hero
             };
         }
 
-        private void HandleExpBar()
+        void HandleExpBar()
         {
             Color c = GameManager.Instance.GameDatabase.GetColorByName("Experience").Primary;
             _expBar = new(c, "Experience", _hero.Experience, _hero.ExpForNextLevel);

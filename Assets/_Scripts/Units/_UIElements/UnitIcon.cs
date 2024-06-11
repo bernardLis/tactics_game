@@ -6,18 +6,18 @@ namespace Lis.Units
 {
     public class UnitIcon : ElementWithTooltip
     {
-        private const string _ussClassName = "unit-icon__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussIconContainer = _ussClassName + "icon-container";
-        private const string _ussFrame = _ussClassName + "frame";
+        const string _ussClassName = "unit-icon__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussIconContainer = _ussClassName + "icon-container";
+        const string _ussFrame = _ussClassName + "frame";
 
-        private readonly AnimationElement _animationElement;
+        readonly AnimationElement _animationElement;
 
-        private readonly Unit _unit;
+        readonly Unit _unit;
         protected readonly VisualElement Frame;
 
         protected readonly VisualElement IconContainer;
-        private bool _isAnimationBlocked;
+        bool _isAnimationBlocked;
 
         public UnitIcon(Unit unit, bool blockClick = false)
         {
@@ -70,7 +70,7 @@ namespace Lis.Units
             _animationElement.PauseAnimation();
         }
 
-        private void OnClick(ClickEvent evt)
+        void OnClick(ClickEvent evt)
         {
             evt.StopImmediatePropagation();
             UnitScreen screen = UnitScreenFactory.Instance.CreateUnitScreen(_unit);

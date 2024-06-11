@@ -7,18 +7,18 @@ namespace Lis
 {
     public class EnemyRanking : MonoBehaviour
     {
-        [SerializeField] private Canvas _canvasPrefab;
-        [SerializeField] private List<Enemy> _enemies = new();
-        [SerializeField] private GameObject _enemySpecialAttackPrefab;
-        private Camera _cam;
+        [SerializeField] Canvas _canvasPrefab;
+        [SerializeField] List<Enemy> _enemies = new();
+        [SerializeField] GameObject _enemySpecialAttackPrefab;
+        Camera _cam;
 
-        private void Start()
+        void Start()
         {
             _cam = Camera.main;
             PlaceEnemies();
         }
 
-        private void PlaceEnemies()
+        void PlaceEnemies()
         {
             _enemies.Sort((e1, e2) => e2.ScarinessRank.CompareTo(e1.ScarinessRank));
             _enemies.Reverse();

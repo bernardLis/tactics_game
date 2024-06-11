@@ -10,10 +10,10 @@ namespace Lis.Battle
 {
     public class StatsTracker : MonoBehaviour
     {
-        private BattleManager _battleManager;
-        private FightManager _fightManager;
-        private HeroManager _heroManager;
-        private Stats _stats;
+        BattleManager _battleManager;
+        FightManager _fightManager;
+        HeroManager _heroManager;
+        Stats _stats;
 
         public void Initialize()
         {
@@ -31,7 +31,7 @@ namespace Lis.Battle
             TrackAdvancedTabletsCollected();
         }
 
-        private void TrackKills()
+        void TrackKills()
         {
             _fightManager.OnEnemyUnitDeath += be =>
             {
@@ -40,13 +40,13 @@ namespace Lis.Battle
             };
         }
 
-        private void TracksVases()
+        void TracksVases()
         {
             GetComponent<BreakableVaseManager>().OnVaseBroken += _ => _stats.VasesBroken++;
         }
 
 
-        private void TracksPickups()
+        void TracksPickups()
         {
             GetComponent<PickupManager>().OnPickupCollected += pickup =>
             {
@@ -74,7 +74,7 @@ namespace Lis.Battle
             };
         }
 
-        private void AssignOrb(ExperienceStone stone)
+        void AssignOrb(ExperienceStone stone)
         {
             // meh solution
             if (stone.name == "Common Experience Stone")
@@ -87,17 +87,17 @@ namespace Lis.Battle
                 _stats.EpicExpStonesCollected++;
         }
 
-        private void TrackAbilitiesUnlocked()
+        void TrackAbilitiesUnlocked()
         {
             _heroManager.Hero.OnAbilityAdded += ability => _stats.AbilityUnlocked(ability);
         }
 
-        private void TrackTabletsCollected()
+        void TrackTabletsCollected()
         {
             foreach (Tablet t in _heroManager.Hero.Tablets) t.OnLevelUp += tablet => _stats.TabletCollected(tablet);
         }
 
-        private void TrackAdvancedTabletsCollected()
+        void TrackAdvancedTabletsCollected()
         {
             _heroManager.Hero.OnTabletAdvancedAdded += t => _stats.AdvancedTabletCollected(t);
         }

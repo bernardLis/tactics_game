@@ -8,11 +8,11 @@ namespace Lis.Units.Hero.Ability
     public class MeteorsObjectController : ObjectControllerDmgOverTime
     {
         [SerializeField]
-        private GameObject _circle; // start lifetime determines how long the circle will be growing (4 seconds now)
+        GameObject _circle; // start lifetime determines how long the circle will be growing (4 seconds now)
 
-        [SerializeField] private GameObject _meteor;
+        [SerializeField] GameObject _meteor;
 
-        private readonly List<AudioSource> _audioSources = new();
+        readonly List<AudioSource> _audioSources = new();
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {
@@ -46,7 +46,7 @@ namespace Lis.Units.Hero.Ability
                 });
         }
 
-        private IEnumerator PlaySound()
+        IEnumerator PlaySound()
         {
             if (Ability.ExecuteSound == null) yield break;
             for (int i = 0; i < 5; i++)
@@ -71,7 +71,7 @@ namespace Lis.Units.Hero.Ability
                 ass.UnPause();
         }
 
-        private void StopSound()
+        void StopSound()
         {
             foreach (AudioSource ass in _audioSources)
             {
@@ -82,7 +82,7 @@ namespace Lis.Units.Hero.Ability
             _audioSources.Clear();
         }
 
-        private void ManageCircles()
+        void ManageCircles()
         {
             _circle.SetActive(true);
 
@@ -94,7 +94,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        private void ManageMeteors()
+        void ManageMeteors()
         {
             ParticleSystem ps = _meteor.GetComponent<ParticleSystem>();
             ps.Simulate(0.0f, true, true);

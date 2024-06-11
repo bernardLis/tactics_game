@@ -12,18 +12,18 @@ namespace Lis.Battle.Pickup
 {
     public class BreakableVaseManager : PoolManager<BreakableVaseController>
     {
-        private const int _vasesPerSpawn = 5;
+        const int _vasesPerSpawn = 5;
 
         [FormerlySerializedAs("_vasePrefab")] [SerializeField]
-        private BreakableVaseController _vaseControllerPrefab;
+        BreakableVaseController _vaseControllerPrefab;
 
-        [SerializeField] private bool _debugSpawnVase;
-        private ArenaManager _arenaManager;
+        [SerializeField] bool _debugSpawnVase;
+        ArenaManager _arenaManager;
 
-        private Camera _cam;
-        private FightManager _fightManager;
-        private InputManager _inputManager;
-        private Mouse _mouse;
+        Camera _cam;
+        FightManager _fightManager;
+        InputManager _inputManager;
+        Mouse _mouse;
 
         public event Action<BreakableVaseController> OnVaseBroken;
 
@@ -51,7 +51,7 @@ namespace Lis.Battle.Pickup
             _fightManager.OnFightStarted -= SpawnVases;
         }
 
-        private IEnumerator SpawnVasesCoroutine()
+        IEnumerator SpawnVasesCoroutine()
         {
             if (this == null) yield break;
 
@@ -64,14 +64,14 @@ namespace Lis.Battle.Pickup
             }
         }
 
-        private void SpawnVase(Vector3 position)
+        void SpawnVase(Vector3 position)
         {
             BreakableVaseController vaseController = GetObjectFromPool();
             vaseController.Initialize(position);
             vaseController.OnBroken += VaseBroken;
         }
 
-        private void VaseBroken(BreakableVaseController vaseController)
+        void VaseBroken(BreakableVaseController vaseController)
         {
             OnVaseBroken?.Invoke(vaseController);
             vaseController.OnBroken -= VaseBroken;
@@ -84,7 +84,7 @@ namespace Lis.Battle.Pickup
                     vase.TriggerBreak();
         }
 
-        private void DebugSpawnVase()
+        void DebugSpawnVase()
         {
             if (!_debugSpawnVase) return;
 

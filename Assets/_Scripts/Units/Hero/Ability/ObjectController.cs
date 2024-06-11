@@ -13,7 +13,7 @@ namespace Lis.Units.Hero.Ability
         protected AudioSource AudioSource;
         protected BattleManager BattleManager;
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             Ability.OnLevelUp -= OnAbilityLevelUp;
         }

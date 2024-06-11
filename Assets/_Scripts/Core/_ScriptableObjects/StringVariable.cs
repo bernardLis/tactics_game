@@ -5,8 +5,7 @@ namespace Lis.Core
     [CreateAssetMenu]
     public class StringVariable : ScriptableObject
     {
-        [SerializeField]
-        private string value = "";
+        [SerializeField] string value = "";
 
         public string Value
         {

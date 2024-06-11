@@ -5,7 +5,7 @@ namespace Lis.Battle.Pickup
 {
     public class PickupStatsElement : ElementWithTooltip
     {
-        private readonly Stats _stats;
+        readonly Stats _stats;
 
         public PickupStatsElement(Stats stats)
         {
@@ -34,7 +34,7 @@ namespace Lis.Battle.Pickup
             base.DisplayTooltip();
         }
 
-        private void CreateTooltip(VisualElement container)
+        void CreateTooltip(VisualElement container)
         {
             Label title = new();
             title.text = "Pickups collected: ";

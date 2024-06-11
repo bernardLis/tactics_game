@@ -9,9 +9,9 @@ namespace Lis.Units.Attack
 {
     public class AttackController : MonoBehaviour
     {
-        private static readonly int AnimAttack = Animator.StringToHash("Attack");
+        static readonly int AnimAttack = Animator.StringToHash("Attack");
         protected static readonly int AnimSpecialAttack = Animator.StringToHash("Special Attack");
-        private IEnumerator _attackCooldownCoroutine;
+        IEnumerator _attackCooldownCoroutine;
         protected Animator Animator;
 
         protected Attack Attack;
@@ -45,7 +45,7 @@ namespace Lis.Units.Attack
             StartCoroutine(_attackCooldownCoroutine);
         }
 
-        private IEnumerator AttackCooldownCoroutine(float cooldown)
+        IEnumerator AttackCooldownCoroutine(float cooldown)
         {
             CurrentCooldown = cooldown;
             while (CurrentCooldown > 0)

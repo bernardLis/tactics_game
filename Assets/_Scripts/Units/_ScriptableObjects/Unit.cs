@@ -48,7 +48,7 @@ namespace Lis.Units
         /* ATTACKS */
         [Header("Attacks")]
         [SerializeField]
-        private Attack.Attack[] _attacksOriginal;
+        Attack.Attack[] _attacksOriginal;
 
         [HideInInspector] public List<Attack.Attack> Attacks = new();
         [HideInInspector] public Attack.Attack CurrentAttack;
@@ -91,7 +91,7 @@ namespace Lis.Units
             HandlePower();
         }
 
-        private void HandleMaxHealth()
+        void HandleMaxHealth()
         {
             if (MaxHealth == null) return;
             MaxHealth = Instantiate(MaxHealth);
@@ -99,7 +99,7 @@ namespace Lis.Units
             OnLevelUp += MaxHealth.LevelUp;
         }
 
-        private void HandleArmor()
+        void HandleArmor()
         {
             if (Armor == null) return;
             Armor = Instantiate(Armor);
@@ -107,7 +107,7 @@ namespace Lis.Units
             OnLevelUp += Armor.LevelUp;
         }
 
-        private void HandleSpeed()
+        void HandleSpeed()
         {
             if (Speed == null) return;
             Speed = Instantiate(Speed);
@@ -115,7 +115,7 @@ namespace Lis.Units
             OnLevelUp += Speed.LevelUp;
         }
 
-        private void HandlePower()
+        void HandlePower()
         {
             if (Power == null) return;
             Power = Instantiate(Power);
@@ -161,7 +161,7 @@ namespace Lis.Units
         public event Action<Attack.Attack> OnAttackAdded;
         public event Action<Attack.Attack> OnAttackRemoved;
 
-        private void InstantiateAttacks()
+        void InstantiateAttacks()
         {
             foreach (Attack.Attack a in _attacksOriginal)
             {
@@ -225,7 +225,7 @@ namespace Lis.Units
             return dmgInt;
         }
 
-        private float GetElementalDamageMultiplier(Nature attackerNature)
+        float GetElementalDamageMultiplier(Nature attackerNature)
         {
             float elementalDamageBonus = 1f;
             if (Nature.StrongAgainst == attackerNature)

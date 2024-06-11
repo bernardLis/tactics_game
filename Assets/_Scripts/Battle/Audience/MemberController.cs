@@ -11,7 +11,7 @@ namespace Lis.Battle.Audience
             StartCoroutine(JumpCoroutine());
         }
 
-        private IEnumerator JumpCoroutine()
+        IEnumerator JumpCoroutine()
         {
             while (true)
             {

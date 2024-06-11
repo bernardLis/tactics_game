@@ -6,10 +6,10 @@ namespace Lis.Units.Hero.Ability
 {
     public class WaterTornadoObjectController : ObjectControllerDmgOverTime
     {
-        [SerializeField] private ParticleSystem[] _psDurationChange;
+        [SerializeField] ParticleSystem[] _psDurationChange;
 
-        private readonly float _speed = 2f;
-        private Vector3 _dir;
+        readonly float _speed = 2f;
+        Vector3 _dir;
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {

@@ -8,12 +8,12 @@ namespace Lis.Units.Hero.Ability
 {
     public class WindTornadoObjectController : ObjectController
     {
-        private readonly float _originalSpeed = 7f;
-        private float _currentSpeed = 7f;
+        readonly float _originalSpeed = 7f;
+        float _currentSpeed = 7f;
 
-        private bool _isUnpassableCollisionActive;
+        bool _isUnpassableCollisionActive;
 
-        private void OnTriggerEnter(Collider col)
+        void OnTriggerEnter(Collider col)
         {
             if (col.gameObject.layer == Tags.UnpassableLayer && _isUnpassableCollisionActive)
                 _currentSpeed = 0;

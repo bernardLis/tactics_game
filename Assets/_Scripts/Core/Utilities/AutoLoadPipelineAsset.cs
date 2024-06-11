@@ -7,23 +7,22 @@ namespace Lis.Core.Utilities
     [ExecuteAlways]
     public class AutoLoadPipelineAsset : MonoBehaviour
     {
-        [SerializeField]
-        private UniversalRenderPipelineAsset m_PipelineAsset;
+        [SerializeField] UniversalRenderPipelineAsset m_PipelineAsset;
 
-        private bool m_overrodeQualitySettings;
-        private RenderPipelineAsset m_PreviousPipelineAsset;
+        bool m_overrodeQualitySettings;
+        RenderPipelineAsset m_PreviousPipelineAsset;
 
-        private void OnEnable()
+        void OnEnable()
         {
             UpdatePipeline();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             ResetPipeline();
         }
 
-        private void UpdatePipeline()
+        void UpdatePipeline()
         {
             if (m_PipelineAsset)
             {
@@ -42,7 +41,7 @@ namespace Lis.Core.Utilities
             }
         }
 
-        private void ResetPipeline()
+        void ResetPipeline()
         {
             if (m_PreviousPipelineAsset)
             {

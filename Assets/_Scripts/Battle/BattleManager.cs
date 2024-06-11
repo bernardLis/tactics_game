@@ -11,26 +11,26 @@ namespace Lis.Battle
     {
         public static bool BlockBattleInput;
 
-        [SerializeField] private Sound _battleLost;
-        [SerializeField] private Sound _battleWon;
+        [SerializeField] Sound _battleLost;
+        [SerializeField] Sound _battleWon;
 
         public Battle Battle;
 
         public Transform EntityHolder;
         public Transform AbilityHolder;
         public Transform ProjectilePoolHolder;
-        private AudioManager _audioManager;
-        private bool _battleFinalized;
-        private int _battleTime;
+        AudioManager _audioManager;
+        bool _battleFinalized;
+        int _battleTime;
 
-        private IEnumerator _endBattleCoroutine;
+        IEnumerator _endBattleCoroutine;
 
-        private GameManager _gameManager;
+        GameManager _gameManager;
 
-        private float _lastTimeScale = 1f;
+        float _lastTimeScale = 1f;
 
-        private IEnumerator _timerCoroutine;
-        private Label _timerLabel;
+        IEnumerator _timerCoroutine;
+        Label _timerLabel;
 
         public VisualElement Root { get; private set; }
 
@@ -43,7 +43,7 @@ namespace Lis.Battle
             Root = GetComponent<UIDocument>().rootVisualElement;
         }
 
-        private void Start()
+        void Start()
         {
             // HERE: render texture issue unity must resolve
             // VFXCameraManager.Instance.gameObject.SetActive(false);
@@ -92,7 +92,7 @@ namespace Lis.Battle
             OnGameResumed?.Invoke();
         }
 
-        private void PauseTimer()
+        void PauseTimer()
         {
             if (this == null) return;
 
@@ -101,7 +101,7 @@ namespace Lis.Battle
                 StopCoroutine(_timerCoroutine);
         }
 
-        private void ResumeTimer()
+        void ResumeTimer()
         {
             IsTimerOn = true;
             if (_timerCoroutine != null)
@@ -111,7 +111,7 @@ namespace Lis.Battle
             StartCoroutine(_timerCoroutine);
         }
 
-        private IEnumerator UpdateTimer()
+        IEnumerator UpdateTimer()
         {
             while (true)
             {
@@ -151,21 +151,21 @@ namespace Lis.Battle
             // TODO: skull collected
         }
 
-        private IEnumerator BattleLost()
+        IEnumerator BattleLost()
         {
             _audioManager.PlayUI(_battleLost);
             LostBattleScreen lostScreen = new();
             yield return FinalizeBattle();
         }
 
-        private IEnumerator BattleWon()
+        IEnumerator BattleWon()
         {
             _audioManager.PlayUI(_battleWon);
             WonBattleScreen wonScreen = new();
             yield return FinalizeBattle();
         }
 
-        private IEnumerator FinalizeBattle()
+        IEnumerator FinalizeBattle()
         {
             // if entities die "at the same time" it triggers twice
             if (_battleFinalized) yield break;

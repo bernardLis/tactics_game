@@ -31,8 +31,8 @@ namespace Lis.Units.Hero
 
         public List<Ability.Ability> Abilities = new();
         public List<Ability.Ability> AdvancedAbilities = new();
-        private readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
-        private GameManager _gameManager;
+        readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
+        GameManager _gameManager;
 
         public void InitializeHero()
         {
@@ -59,7 +59,7 @@ namespace Lis.Units.Hero
         }
 
         /* LEVELING */
-        private int GetExpValue(float gain)
+        int GetExpValue(float gain)
         {
             return Mathf.CeilToInt(gain);
         }
@@ -85,7 +85,7 @@ namespace Lis.Units.Hero
 
         public event Action<TabletAdvanced> OnTabletAdvancedAdded;
 
-        private void CreateTablets()
+        void CreateTablets()
         {
             if (Tablets.Count > 0) return; // safety check
             foreach (Tablet original in _gameManager.UnitDatabase.HeroTablets)
@@ -106,7 +106,7 @@ namespace Lis.Units.Hero
             return _tabletsByElement.GetValueOrDefault(natureName);
         }
 
-        private void CheckAdvancedTablets(Tablet tablet)
+        void CheckAdvancedTablets(Tablet tablet)
         {
             if (AdvancedTablet != null) return; // only one advanced tablet
             if (!tablet.IsMaxLevel()) return;
@@ -174,7 +174,7 @@ namespace Lis.Units.Hero
             OnAbilityRemoved?.Invoke(a);
         }
 
-        private void CreateBaseStats()
+        void CreateBaseStats()
         {
             Level = CreateInstance<IntVariable>();
             Level.SetValue(1);

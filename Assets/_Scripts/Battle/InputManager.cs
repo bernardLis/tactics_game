@@ -8,19 +8,19 @@ namespace Lis.Battle
 {
     public class InputManager : MonoBehaviour
     {
-        private GameManager _gameManager;
+        GameManager _gameManager;
 
-        private MenuScreen _menuScreen;
-        private PlayerInput _playerInput;
+        MenuScreen _menuScreen;
+        PlayerInput _playerInput;
 
-        private void Start()
+        void Start()
         {
             _gameManager = GameManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
         }
 
         /* INPUT */
-        private void OnEnable()
+        void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -31,14 +31,14 @@ namespace Lis.Battle
             SubscribeInputActions();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (_playerInput == null) return;
 
@@ -56,7 +56,7 @@ namespace Lis.Battle
         public event Action OnSpaceClicked;
         public event Action OnEnterClicked;
 
-        private void SubscribeInputActions()
+        void SubscribeInputActions()
         {
             _playerInput.actions["ToggleMenu"].performed += OpenMenu;
 #if UNITY_EDITOR
@@ -78,7 +78,7 @@ namespace Lis.Battle
 #endif
         }
 
-        private void UnsubscribeInputActions()
+        void UnsubscribeInputActions()
         {
             _playerInput.actions["ToggleMenu"].performed -= OpenMenu;
 #if UNITY_EDITOR
@@ -102,60 +102,60 @@ namespace Lis.Battle
         }
 
         /* DEBUG inputs */
-        private void LeftMouseClicked(InputAction.CallbackContext ctx)
+        void LeftMouseClicked(InputAction.CallbackContext ctx)
         {
             OnLeftMouseClick?.Invoke();
         }
 
-        private void RightMouseClicked(InputAction.CallbackContext ctx)
+        void RightMouseClicked(InputAction.CallbackContext ctx)
         {
             OnRightMouseClick?.Invoke();
         }
 
-        private void SpaceClicked(InputAction.CallbackContext ctx)
+        void SpaceClicked(InputAction.CallbackContext ctx)
         {
             OnSpaceClicked?.Invoke();
         }
 
-        private void EnterClicked(InputAction.CallbackContext ctx)
+        void EnterClicked(InputAction.CallbackContext ctx)
         {
             OnEnterClicked?.Invoke();
         }
 
-        private void OneClicked(InputAction.CallbackContext ctx)
+        void OneClicked(InputAction.CallbackContext ctx)
         {
             OnOneClicked?.Invoke();
         }
 
-        private void TwoClicked(InputAction.CallbackContext ctx)
+        void TwoClicked(InputAction.CallbackContext ctx)
         {
             OnTwoClicked?.Invoke();
         }
 
-        private void ThreeClicked(InputAction.CallbackContext ctx)
+        void ThreeClicked(InputAction.CallbackContext ctx)
         {
             OnThreeClicked?.Invoke();
         }
 
-        private void FourClicked(InputAction.CallbackContext ctx)
+        void FourClicked(InputAction.CallbackContext ctx)
         {
             OnFourClicked?.Invoke();
         }
 
-        private void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
+        void DebugSpawnMinionWave(InputAction.CallbackContext ctx)
         {
         }
 
-        private void DebugSpawnTile(InputAction.CallbackContext ctx)
+        void DebugSpawnTile(InputAction.CallbackContext ctx)
         {
         }
 
-        private void DebugSpawnBoss(InputAction.CallbackContext ctx)
+        void DebugSpawnBoss(InputAction.CallbackContext ctx)
         {
             BattleManager.Instance.GetComponent<BossManager>().SpawnBoss();
         }
 
-        private void DebugKillHero(InputAction.CallbackContext ctx)
+        void DebugKillHero(InputAction.CallbackContext ctx)
         {
         }
 
@@ -168,7 +168,7 @@ namespace Lis.Battle
             _menuScreen.OnHide += MenuScreenClosed;
         }
 
-        private void MenuScreenClosed()
+        void MenuScreenClosed()
         {
             _menuScreen = null;
         }

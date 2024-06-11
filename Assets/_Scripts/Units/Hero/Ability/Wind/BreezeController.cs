@@ -8,12 +8,12 @@ namespace Lis.Units.Hero.Ability
 {
     public class BreezeController : Controller
     {
-        [SerializeField] private GameObject _gfx;
-        [SerializeField] private Collider _col;
+        [SerializeField] GameObject _gfx;
+        [SerializeField] Collider _col;
 
-        private List<UnitController> _entitiesInCollider = new();
+        List<UnitController> _entitiesInCollider = new();
 
-        private void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
@@ -25,7 +25,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        void OnTriggerExit(Collider other)
         {
             if (other.gameObject.TryGetComponent(out UnitController battleEntity))
             {
@@ -43,7 +43,7 @@ namespace Lis.Units.Hero.Ability
             transform.localScale = Vector3.one * Ability.GetScale();
         }
 
-        private void OnAbilityLevelUp()
+        void OnAbilityLevelUp()
         {
             transform.localScale = Vector3.one * Ability.GetScale();
         }
@@ -76,7 +76,7 @@ namespace Lis.Units.Hero.Ability
             _gfx.SetActive(false);
         }
 
-        private IEnumerator DealDamage(float duration)
+        IEnumerator DealDamage(float duration)
         {
             float endTime = Time.time + duration;
             while (Time.time < endTime)

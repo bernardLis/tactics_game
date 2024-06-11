@@ -6,14 +6,14 @@ namespace Lis.Core
 {
     public class AnimationElement : VisualElement
     {
-        private readonly int _delay;
+        readonly int _delay;
 
-        private IVisualElementScheduledItem _animationScheduler;
-        private int _animationSpriteIndex;
-        private Sprite[] _animationSprites;
+        IVisualElementScheduledItem _animationScheduler;
+        int _animationSpriteIndex;
+        Sprite[] _animationSprites;
 
-        private bool _isFinished;
-        private bool _isLoop;
+        bool _isFinished;
+        bool _isLoop;
 
         public AnimationElement(Sprite[] animationSprites, int delayBetweenSprites, bool isLoop, bool noStyles = false)
         {
@@ -69,7 +69,7 @@ namespace Lis.Core
             _animationScheduler.Resume();
         }
 
-        private void Animate()
+        void Animate()
         {
             if (_animationSpriteIndex == _animationSprites.Length)
             {
@@ -86,7 +86,7 @@ namespace Lis.Core
             _animationSpriteIndex++;
         }
 
-        private void FinishAnimation()
+        void FinishAnimation()
         {
             PauseAnimation();
             OnAnimationFinished?.Invoke();

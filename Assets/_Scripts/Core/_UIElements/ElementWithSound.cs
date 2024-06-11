@@ -4,7 +4,7 @@ namespace Lis.Core
 {
     public class ElementWithSound : VisualElement
     {
-        private readonly AudioManager _audioManager;
+        readonly AudioManager _audioManager;
 
         protected ElementWithSound()
         {
@@ -12,7 +12,7 @@ namespace Lis.Core
             RegisterCallback<PointerEnterEvent>(PlayClick);
         }
 
-        private void PlayClick(PointerEnterEvent evt)
+        void PlayClick(PointerEnterEvent evt)
         {
             _audioManager.PlayUI("UI Click");
         }

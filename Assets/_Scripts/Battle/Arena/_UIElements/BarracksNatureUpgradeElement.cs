@@ -9,19 +9,19 @@ namespace Lis.Battle.Arena
 {
     public class BarracksNatureUpgradeElement : VisualElement
     {
-        private const string _ussCommonButton = "common__button";
-        private const string _ussClassName = "barracks-nature-upgrade-element__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussPawnLocked = _ussClassName + "pawn-locked";
-        private const string _ussPawnUnlocked = _ussClassName + "pawn-unlocked";
+        const string _ussCommonButton = "common__button";
+        const string _ussClassName = "barracks-nature-upgrade-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussPawnLocked = _ussClassName + "pawn-locked";
+        const string _ussPawnUnlocked = _ussClassName + "pawn-unlocked";
 
-        private readonly BarracksNatureUpgrade _barracksNatureUpgrade;
+        readonly BarracksNatureUpgrade _barracksNatureUpgrade;
 
-        private readonly GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        private readonly Label _levelLabel;
-        private readonly List<UnitIcon> _pawnIcons = new();
-        private readonly PurchaseButton _purchaseButton;
+        readonly Label _levelLabel;
+        readonly List<UnitIcon> _pawnIcons = new();
+        readonly PurchaseButton _purchaseButton;
 
         public BarracksNatureUpgradeElement(BarracksNatureUpgrade n)
         {
@@ -48,7 +48,7 @@ namespace Lis.Battle.Arena
             Add(_purchaseButton);
         }
 
-        private void AddPawnElements()
+        void AddPawnElements()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -67,7 +67,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        private void Unlock()
+        void Unlock()
         {
             _barracksNatureUpgrade.Upgrade();
             UpdateLevelLabel();
@@ -75,12 +75,12 @@ namespace Lis.Battle.Arena
             UpdatePurchaseButton();
         }
 
-        private void UpdateLevelLabel()
+        void UpdateLevelLabel()
         {
             _levelLabel.text = $"Level: {_barracksNatureUpgrade.CurrentLevel}";
         }
 
-        private void UpdatePawnIconStyles()
+        void UpdatePawnIconStyles()
         {
             for (int i = 0; i < _pawnIcons.Count; i++)
                 if (i < _barracksNatureUpgrade.CurrentLevel)

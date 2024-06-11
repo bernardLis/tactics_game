@@ -7,28 +7,28 @@ namespace Lis.Core
 {
     public class ResourceBarElement : ElementWithTooltip
     {
-        private const string _ussCommonTextSecondary = "common__text-secondary";
+        const string _ussCommonTextSecondary = "common__text-secondary";
 
-        private const string _ussClassName = "resource-bar";
-        private const string _ussContainer = _ussClassName + "__container";
-        private const string _ussMain = _ussClassName + "__main";
-        private const string _ussMissing = _ussClassName + "__missing";
-        private const string _ussBarText = _ussClassName + "__bar-text";
-        private readonly Label _text;
+        const string _ussClassName = "resource-bar";
+        const string _ussContainer = _ussClassName + "__container";
+        const string _ussMain = _ussClassName + "__main";
+        const string _ussMissing = _ussClassName + "__missing";
+        const string _ussBarText = _ussClassName + "__bar-text";
+        readonly Label _text;
 
-        private readonly string _tooltipText;
+        readonly string _tooltipText;
 
-        private readonly int _valueChangeDelay;
+        readonly int _valueChangeDelay;
         public readonly VisualElement MissingBar;
 
         public readonly VisualElement ResourceBar;
 
-        private IVisualElementScheduledItem _animation;
-        private FloatVariable _current;
+        IVisualElementScheduledItem _animation;
+        FloatVariable _current;
 
-        private float _displayedAmount;
-        private FloatVariable _total;
-        private Stat _totalStat;
+        float _displayedAmount;
+        FloatVariable _total;
+        Stat _totalStat;
 
         public ResourceBarElement(Color color, string tooltipText,
             FloatVariable currentFloatVar,
@@ -64,14 +64,14 @@ namespace Lis.Core
 
         public event Action OnAnimationFinished;
 
-        private void UnsubscribeFromValueChanges(DetachFromPanelEvent evt)
+        void UnsubscribeFromValueChanges(DetachFromPanelEvent evt)
         {
             if (_current != null) _current.OnValueChanged -= OnValueChanged;
             if (_total != null) _total.OnValueChanged -= OnTotalChanged;
             if (_totalStat != null) _totalStat.OnValueChanged -= _total.SetValue;
         }
 
-        private void UpdateStyles(string container, string main, string missing, string text)
+        void UpdateStyles(string container, string main, string missing, string text)
         {
             AddToClassList(container);
             ResourceBar.AddToClassList(main);
@@ -104,12 +104,12 @@ namespace Lis.Core
             DisplayMissingAmount();
         }
 
-        private void OnTotalChanged(float _)
+        void OnTotalChanged(float _)
         {
             DisplayMissingAmount();
         }
 
-        private void DisplayMissingAmount()
+        void DisplayMissingAmount()
         {
             if (_total == null) return;
 
@@ -123,7 +123,7 @@ namespace Lis.Core
             SetText($"{Mathf.FloorToInt(_displayedAmount)}/{Mathf.FloorToInt(_total.Value)}");
         }
 
-        private void SetText(string newText)
+        void SetText(string newText)
         {
             _text.text = newText;
         }
@@ -137,7 +137,7 @@ namespace Lis.Core
             _current.OnValueChanged += OnValueChanged;
         }
 
-        private void OnValueChanged(float newValue)
+        void OnValueChanged(float newValue)
         {
             float change = Mathf.Abs(newValue - _current.PreviousValue);
 
@@ -158,7 +158,7 @@ namespace Lis.Core
                 _animation = schedule.Execute(HandleIncrease).Every(delay);
         }
 
-        private void HandleDecrease()
+        void HandleDecrease()
         {
             if (_current.Value >= _displayedAmount)
             {
@@ -171,7 +171,7 @@ namespace Lis.Core
             DisplayMissingAmount();
         }
 
-        private void HandleIncrease()
+        void HandleIncrease()
         {
             if (_current.Value <= _displayedAmount)
             {

@@ -7,9 +7,9 @@ namespace Lis.Units.Enemy
     {
         [Header("Enemy")]
         [SerializeField]
-        private GameObject _miniBossEffect;
+        GameObject _miniBossEffect;
 
-        private Enemy _enemy;
+        Enemy _enemy;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -20,7 +20,7 @@ namespace Lis.Units.Enemy
             HandleMiniBoss();
         }
 
-        private void HandleMiniBoss()
+        void HandleMiniBoss()
         {
             if (_enemy == null) return;
             if (!_enemy.IsMiniBoss) return;

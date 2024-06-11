@@ -8,10 +8,10 @@ namespace Lis.Battle
 {
     public class BattleUIManager : MonoBehaviour
     {
-        private VisualElement _root;
-        private MyButton _viewArmyButton;
+        VisualElement _root;
+        MyButton _viewArmyButton;
 
-        private MyButton _viewHeroButton;
+        MyButton _viewHeroButton;
 
         public void Initialize()
         {
@@ -22,7 +22,7 @@ namespace Lis.Battle
             AddHeroUI();
         }
 
-        private void AddHeroUI()
+        void AddHeroUI()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -44,7 +44,7 @@ namespace Lis.Battle
             container.Add(_viewArmyButton);
         }
 
-        private void ViewHero()
+        void ViewHero()
         {
             HeroScreen heroScreen = new(HeroManager.Instance.Hero);
             heroScreen.Initialize();
@@ -52,7 +52,7 @@ namespace Lis.Battle
             heroScreen.OnHide += () => _viewHeroButton.SetEnabled(true);
         }
 
-        private void ViewArmy()
+        void ViewArmy()
         {
             ArmyScreen ass = new();
             _viewArmyButton.SetEnabled(false);

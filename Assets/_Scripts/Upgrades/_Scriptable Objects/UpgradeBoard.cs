@@ -8,10 +8,10 @@ namespace Lis.Upgrades
     [CreateAssetMenu(menuName = "ScriptableObject/Upgrades/Upgrade Board")]
     public class UpgradeBoard : BaseScriptableObject
     {
-        [SerializeField] private List<Upgrade> _upgradeOriginals = new();
+        [SerializeField] List<Upgrade> _upgradeOriginals = new();
         public List<Upgrade> Upgrades = new();
 
-        private Dictionary<string, Upgrade> _upgradeDictionary = new();
+        Dictionary<string, Upgrade> _upgradeDictionary = new();
 
         public void Reset()
         {

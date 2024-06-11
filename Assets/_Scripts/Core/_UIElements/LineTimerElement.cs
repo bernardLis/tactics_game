@@ -5,13 +5,13 @@ namespace Lis.Core
 {
     public class LineTimerElement : TimerElement
     {
-        private const string _ussLineMain = UssClassName + "line-main";
-        private const string _ussLineWrapper = UssClassName + "line-wrapper";
-        private const string _ussLine = UssClassName + "line";
+        const string _ussLineMain = UssClassName + "line-main";
+        const string _ussLineWrapper = UssClassName + "line-wrapper";
+        const string _ussLine = UssClassName + "line";
 
-        private readonly VisualElement _line;
+        readonly VisualElement _line;
 
-        private readonly VisualElement _wrapper;
+        readonly VisualElement _wrapper;
 
         public LineTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
             : base(timeLeft, totalTime, isLooping, text)

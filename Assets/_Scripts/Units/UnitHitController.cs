@@ -8,14 +8,14 @@ namespace Lis.Units
 {
     public class UnitHitController : MonoBehaviour
     {
-        [SerializeField] private List<HitEffectNature> _hitEffectNatures;
+        [SerializeField] List<HitEffectNature> _hitEffectNatures;
 
         public void Initialize(UnitController unitController)
         {
             unitController.OnHit += ShowHitEffect;
         }
 
-        private void ShowHitEffect(Attack.Attack attack)
+        void ShowHitEffect(Attack.Attack attack)
         {
             foreach (HitEffectNature hitEffectNature in _hitEffectNatures)
             {
@@ -26,7 +26,7 @@ namespace Lis.Units
             }
         }
 
-        private static IEnumerator ShowHitEffect(GameObject effectGameObject)
+        static IEnumerator ShowHitEffect(GameObject effectGameObject)
         {
             effectGameObject.SetActive(true);
             yield return new WaitForSeconds(1f);

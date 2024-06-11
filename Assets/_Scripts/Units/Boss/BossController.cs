@@ -12,23 +12,23 @@ namespace Lis.Units.Boss
     {
         [Header("Boss")]
         [SerializeField]
-        private GameObject _stunEffect;
+        GameObject _stunEffect;
 
-        [SerializeField] private Sound _stunStart;
-        [SerializeField] private Sound _stunDuration;
+        [SerializeField] Sound _stunStart;
+        [SerializeField] Sound _stunDuration;
         [HideInInspector] public FloatVariable TotalDamageToStun;
         [HideInInspector] public FloatVariable CurrentDamageToStun;
 
         [HideInInspector] public FloatVariable TotalStunDuration;
         [HideInInspector] public FloatVariable CurrentStunDuration;
 
-        [Header("Attacks")] private readonly List<Attack.Attack> _attacks = new();
-        private IEnumerator _attackCoroutine;
-        private bool _isStunned;
-        private bool _isStunUnlocked;
-        private AudioSource _stunAudioSource;
+        [Header("Attacks")] readonly List<Attack.Attack> _attacks = new();
+        IEnumerator _attackCoroutine;
+        bool _isStunned;
+        bool _isStunUnlocked;
+        AudioSource _stunAudioSource;
 
-        private Color _stunColor;
+        Color _stunColor;
 
         public event Action OnStunStarted;
         public event Action OnStunFinished;
@@ -86,7 +86,7 @@ namespace Lis.Units.Boss
 
 
         /* ATTACKS */
-        private void InitializeAttacks()
+        void InitializeAttacks()
         {
             Boss boss = (Boss)Unit;
             foreach (Attack.Attack original in boss.Attacks)
@@ -149,7 +149,7 @@ namespace Lis.Units.Boss
         }
         */
 
-        private void HandleStun(int dmg)
+        void HandleStun(int dmg)
         {
             if (!_isStunUnlocked) return;
             if (_isStunned) return;
@@ -162,7 +162,7 @@ namespace Lis.Units.Boss
         }
 
 
-        private IEnumerator StunCoroutine()
+        IEnumerator StunCoroutine()
         {
             OnStunStarted?.Invoke();
             Vector3 pos = transform.position;
@@ -197,7 +197,7 @@ namespace Lis.Units.Boss
         }
 
         /* HELPERS */
-        private void SetUpVariables()
+        void SetUpVariables()
         {
             TotalDamageToStun = ScriptableObject.CreateInstance<FloatVariable>();
             TotalDamageToStun.SetValue(666); //HERE: 666

@@ -5,16 +5,16 @@ namespace Lis.Core
 {
     public class TooltipElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private const string _ussClassName = "tooltip-element";
-        private const string _ussMain = _ussClassName + "__main";
+        const string _ussClassName = "tooltip-element";
+        const string _ussMain = _ussClassName + "__main";
 
-        private readonly VisualElement _parentElement;
-        private readonly VisualElement _tooltipElement;
+        readonly VisualElement _parentElement;
+        readonly VisualElement _tooltipElement;
 
-        private readonly int offsetX = 20;
-        private readonly int offsetY = 30;
+        readonly int offsetX = 20;
+        readonly int offsetY = 30;
 
         public TooltipElement(VisualElement parent, VisualElement tooltipElement, bool disableTooltipStyle = false)
         {
@@ -62,7 +62,7 @@ namespace Lis.Core
         }
 
         //https://forum.unity.com/threads/how-to-get-the-actual-width-and-height-of-an-uielement.820266/
-        private void OnPostVisualCreation()
+        void OnPostVisualCreation()
         {
             // Make invisible so you don't see the size re-adjustment
             // (Non-visible objects still go through transforms in the layout engine)
@@ -70,13 +70,13 @@ namespace Lis.Core
             schedule.Execute(WaitOneFrame);
         }
 
-        private void WaitOneFrame(TimerState obj)
+        void WaitOneFrame(TimerState obj)
         {
             // Because waiting once wasn't working
             schedule.Execute(AutoSize);
         }
 
-        private void AutoSize(TimerState obj)
+        void AutoSize(TimerState obj)
         {
             // Do any measurements, size adjustments you need (NaNs not an issue now)
             MarkDirtyRepaint();

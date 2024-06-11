@@ -11,8 +11,8 @@ namespace Lis.Units.Boss
 {
     public class AttackController : MonoBehaviour
     {
-        private BossController _bossController;
-        private RangedOpponentManager _rangedOpponentManager;
+        BossController _bossController;
+        RangedOpponentManager _rangedOpponentManager;
 
         protected AttackBoss Attack;
         protected BattleManager BattleManager;

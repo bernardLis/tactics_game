@@ -7,10 +7,10 @@ namespace Lis.Units
 {
     public class UnitPathingController : MonoBehaviour
     {
-        private static readonly int AnimMove = Animator.StringToHash("Move");
-        private NavMeshAgent _agent;
-        private Animator _animator;
-        private Vector2Int _avoidancePriorityRange;
+        static readonly int AnimMove = Animator.StringToHash("Move");
+        NavMeshAgent _agent;
+        Animator _animator;
+        Vector2Int _avoidancePriorityRange;
 
         public void Initialize(Vector2Int avoidancePriorityRange)
         {
@@ -46,7 +46,7 @@ namespace Lis.Units
             EnableAgent();
         }
 
-        private void EnableAgent()
+        void EnableAgent()
         {
             _agent.enabled = true;
             _agent.isStopped = false;
@@ -102,7 +102,7 @@ namespace Lis.Units
             DisableAgent();
         }
 
-        private bool IsAgentOk()
+        bool IsAgentOk()
         {
             if (!_agent.isOnNavMesh) return false;
             if (!_agent.isActiveAndEnabled) return false;

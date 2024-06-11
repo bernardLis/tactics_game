@@ -38,7 +38,7 @@ namespace Lis.Units.Hero.Rewards
             Price = Ability.Levels[Ability.Level].Price;
         }
 
-        private Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)
+        Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)
         {
             List<Ability.Ability> validAbilities = new();
             foreach (Ability.Ability a in GameManager.UnitDatabase.GetAllBasicAbilities())

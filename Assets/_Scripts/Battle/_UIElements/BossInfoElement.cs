@@ -6,9 +6,9 @@ namespace Lis.Battle
 {
     public class BossInfoElement : EntityInfoElement
     {
-        private readonly BossController _bossController;
+        readonly BossController _bossController;
 
-        private readonly ResourceBarElement _stunBar;
+        readonly ResourceBarElement _stunBar;
 
         public BossInfoElement(BossController bs) : base(bs)
         {
@@ -37,13 +37,13 @@ namespace Lis.Battle
             UpdateEntityInfo(bs);
         }
 
-        private void OnStunStarted()
+        void OnStunStarted()
         {
             _stunBar.UpdateTrackedVariables(_bossController.CurrentStunDuration,
                 _bossController.TotalStunDuration);
         }
 
-        private void OnStunFinished()
+        void OnStunFinished()
         {
             _stunBar.UpdateTrackedVariables(_bossController.CurrentDamageToStun,
                 _bossController.TotalDamageToStun);

@@ -22,8 +22,8 @@ namespace Lis.Units.Attack
 
         public AttackController AttackControllerPrefab;
         [HideInInspector] public AttackController AttackController;
-        private Unit _unit;
-        private UnitController _unitController;
+        Unit _unit;
+        UnitController _unitController;
         public event Action<int> OnDamageDealt;
 
         public void InitializeAttack(UnitController unitController)

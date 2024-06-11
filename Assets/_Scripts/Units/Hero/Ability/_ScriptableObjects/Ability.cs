@@ -39,10 +39,10 @@ namespace Lis.Units.Hero.Ability
 
         public int BattleTimeActivated;
 
-        private float _cooldownMultiplier = 1f;
+        float _cooldownMultiplier = 1f;
 
-        private Hero _hero;
-        private float _scaleMultiplier = 1f;
+        Hero _hero;
+        float _scaleMultiplier = 1f;
 
         public event Action OnCooldownStarted;
         public event Action OnLevelUp;

@@ -15,7 +15,7 @@ namespace Lis.Units.Pawn
             FightManager.Instance.OnFightEnded += OnFightEnded;
         }
 
-        private void OnFightEnded()
+        void OnFightEnded()
         {
             FightsSurvived++;
             if (FightsSurvived >= FightsToSurvive)

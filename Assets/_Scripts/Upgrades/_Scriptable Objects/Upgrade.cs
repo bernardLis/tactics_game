@@ -19,8 +19,8 @@ namespace Lis.Upgrades
 
         public bool PermanentlyUnlocked;
 
-        private UpgradeBoard _board;
-        private GameManager _gameManager;
+        UpgradeBoard _board;
+        GameManager _gameManager;
 
         public event Action OnLevelChanged;
 
@@ -39,7 +39,7 @@ namespace Lis.Upgrades
             if (PermanentlyUnlocked) CurrentLevel = 0;
         }
 
-        private void PurchaseAll()
+        void PurchaseAll()
         {
             while (!IsMaxLevel())
                 Purchased();
@@ -79,7 +79,7 @@ namespace Lis.Upgrades
             return val;
         }
 
-        private void Refund()
+        void Refund()
         {
             int val = 0;
             for (int i = 0; i < Levels.Count; i++)

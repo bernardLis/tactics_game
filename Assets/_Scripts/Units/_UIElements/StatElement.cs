@@ -6,19 +6,19 @@ namespace Lis.Units
 {
     public class StatElement : ElementWithTooltip
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private const string _ussClassName = "stat-element__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussIcon = _ussClassName + "icon";
-        private const string _ussValue = _ussClassName + "value";
+        const string _ussClassName = "stat-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussValue = _ussClassName + "value";
 
-        private readonly Stat _stat;
+        readonly Stat _stat;
 
-        private Label _icon;
+        Label _icon;
 
-        private string _tooltipText;
-        private Label _value;
+        string _tooltipText;
+        Label _value;
 
         public StatElement(Stat stat)
         {
@@ -33,7 +33,7 @@ namespace Lis.Units
             _stat.OnValueChanged += UpdateValue;
         }
 
-        private void BaseStatVisual()
+        void BaseStatVisual()
         {
             _icon = new();
             _icon.AddToClassList(_ussIcon);
@@ -52,7 +52,7 @@ namespace Lis.Units
             _tooltipText = description;
         }
 
-        private void UpdateValue(float value)
+        void UpdateValue(float value)
         {
             _value.text = value == 0 ? "0" : value.ToString("#.#", CultureInfo.InvariantCulture);
         }

@@ -21,11 +21,11 @@ namespace Lis.Core
 
         [Header("Colors")]
         [SerializeField]
-        private ColorVariable[] _colors;
+        ColorVariable[] _colors;
 
         [Header("Pickups")]
         [SerializeField]
-        private Pickup[] _pickups;
+        Pickup[] _pickups;
 
         [Header("Icons")]
         public Sprite VaseIcon;
@@ -34,7 +34,7 @@ namespace Lis.Core
         public Sprite[] TroopsElementAnimationSprites;
 
         [FormerlySerializedAs("CoinSprites")] [SerializeField]
-        private Sprite[] _coinSprites;
+        Sprite[] _coinSprites;
 
         public ColorVariable GetColorByName(string n)
         {

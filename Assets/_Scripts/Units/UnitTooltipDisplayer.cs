@@ -7,11 +7,11 @@ namespace Lis.Units
     public class UnitTooltipDisplayer : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler,
         IPointerExitHandler
     {
-        private TooltipManager _tooltipManager;
-        private UnitCardFactory _unitCardFactory;
-        private UnitController _unitController;
+        TooltipManager _tooltipManager;
+        UnitCardFactory _unitCardFactory;
+        UnitController _unitController;
 
-        private void Start()
+        void Start()
         {
             _unitController = GetComponentInParent<UnitController>();
             _tooltipManager = TooltipManager.Instance;
@@ -41,7 +41,7 @@ namespace Lis.Units
             _tooltipManager.HideEntityInfo();
         }
 
-        private void OnDeath(UnitController a, Attack.Attack b)
+        void OnDeath(UnitController a, Attack.Attack b)
         {
             if (this == null) return;
             if (_tooltipManager.CurrentEntityInfo == _unitController)
@@ -54,12 +54,12 @@ namespace Lis.Units
                 GetComponent<BoxCollider>().enabled = false;
         }
 
-        private void OnRevival()
+        void OnRevival()
         {
             _tooltipManager.HideTooltip();
         }
 
-        private bool CanDisplayTooltip()
+        bool CanDisplayTooltip()
         {
             if (_tooltipManager == null) return false;
             if (_tooltipManager.CurrentTooltipDisplayer == gameObject) return false;

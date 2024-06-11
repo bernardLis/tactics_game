@@ -6,7 +6,7 @@ namespace Lis.Battle.Arena
 {
     public class HeroLeveler : BuildingController, IInteractable
     {
-        private int _levelUpsAvailable;
+        int _levelUpsAvailable;
         public new string InteractionPrompt => "Press F To Level Up!";
 
         public override bool Interact(Interactor interactor)
@@ -38,7 +38,7 @@ namespace Lis.Battle.Arena
             Initialize();
         }
 
-        private void OnHeroInitialized(Hero hero)
+        void OnHeroInitialized(Hero hero)
         {
             hero.OnLevelUp += AllowInteraction;
         }

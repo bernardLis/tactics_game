@@ -5,7 +5,7 @@ namespace Lis.Units.Boss
 {
     public class BossScreen : UnitScreen
     {
-        private readonly Boss _boss;
+        readonly Boss _boss;
 
         public BossScreen(Boss boss) : base(boss)
         {
@@ -18,7 +18,7 @@ namespace Lis.Units.Boss
             AddBossAttacks();
         }
 
-        private void AddBossAttacks()
+        void AddBossAttacks()
         {
             VisualElement spacer = new();
             spacer.AddToClassList(USSCommonHorizontalSpacer);

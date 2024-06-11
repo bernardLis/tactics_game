@@ -7,10 +7,10 @@ namespace Lis.Battle
 {
     public class IntroManager : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _introText;
-        [SerializeField] private Transform _effect;
+        [SerializeField] TMP_Text _introText;
+        [SerializeField] Transform _effect;
 
-        private readonly string _introString = "Time is the soul of this world";
+        readonly string _introString = "Time is the soul of this world";
 
         public void Initialize()
         {
@@ -18,7 +18,7 @@ namespace Lis.Battle
             StartCoroutine(DisplayIntroTextCoroutine());
         }
 
-        private IEnumerator DisplayIntroTextCoroutine()
+        IEnumerator DisplayIntroTextCoroutine()
         {
             yield return new WaitForSeconds(3f);
             _effect.DOScale(1.1f, 6f)

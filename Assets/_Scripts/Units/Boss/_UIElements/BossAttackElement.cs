@@ -6,7 +6,7 @@ namespace Lis.Units.Boss
 {
     public class BossAttackElement : ElementWithTooltip
     {
-        private readonly AttackBoss _attack;
+        readonly AttackBoss _attack;
 
         public BossAttackElement(AttackBoss attack)
         {
@@ -19,7 +19,7 @@ namespace Lis.Units.Boss
 
         protected override void DisplayTooltip()
         {
-            Label tooltip = new Label(_attack.name);
+            Label tooltip = new(_attack.name);
             _tooltip = new(this, tooltip);
             base.DisplayTooltip();
         }

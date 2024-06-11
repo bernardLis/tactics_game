@@ -7,9 +7,9 @@ namespace Lis.Battle.Arena
 {
     public class ArenaManager : Singleton<ArenaManager>
     {
-        private Arena _arena;
-        private ArenaController _arenaController;
-        private GameObject _arenaObject;
+        Arena _arena;
+        ArenaController _arenaController;
+        GameObject _arenaObject;
 
         public void Initialize(Battle battle)
         {
@@ -79,7 +79,7 @@ namespace Lis.Battle.Arena
             return Vector3.zero;
         }
 
-        private bool IsPositionOnNavmesh(Vector3 pos)
+        bool IsPositionOnNavmesh(Vector3 pos)
         {
             return NavMesh.SamplePosition(pos, out _, 0.3f, NavMesh.AllAreas);
         }

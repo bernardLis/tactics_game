@@ -7,10 +7,10 @@ namespace Lis.Units.Hero.Ability
     public class EarthSpikeObjectController : ObjectControllerDmgOverTime
     {
         [FormerlySerializedAs("_GFX")] [SerializeField]
-        private GameObject _gfx;
+        GameObject _gfx;
 
-        [SerializeField] private GameObject _col;
-        [SerializeField] private ParticleSystem _spikes;
+        [SerializeField] GameObject _col;
+        [SerializeField] ParticleSystem _spikes;
 
         public override void Initialize(Ability ability)
         {

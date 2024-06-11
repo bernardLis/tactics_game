@@ -5,7 +5,7 @@ namespace Lis.Units.Creature
 {
     public class CreatureIcon : UnitIcon
     {
-        private OverlayTimerElement _overlayTimer;
+        OverlayTimerElement _overlayTimer;
 
         // used only in troops element for now, maybe should have different name?
         public CreatureIcon(Creature creature, bool blockClick = false) : base(creature, blockClick)

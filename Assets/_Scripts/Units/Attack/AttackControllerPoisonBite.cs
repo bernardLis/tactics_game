@@ -6,7 +6,7 @@ namespace Lis.Units.Attack
 {
     public class AttackControllerPoisonBite : AttackController
     {
-        [SerializeField] private GameObject _effect;
+        [SerializeField] GameObject _effect;
 
         public override IEnumerator AttackCoroutine()
         {
@@ -23,7 +23,7 @@ namespace Lis.Units.Attack
             Invoke(nameof(CleanUp), 2f);
         }
 
-        private void CleanUp()
+        void CleanUp()
         {
             _effect.SetActive(false);
         }

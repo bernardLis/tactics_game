@@ -4,7 +4,7 @@ namespace Lis.Units.Creature
 {
     public class CreatureScreen : UnitScreen
     {
-        private readonly Creature _creature;
+        readonly Creature _creature;
 
         public CreatureScreen(Creature creature)
             : base(creature)
@@ -27,7 +27,7 @@ namespace Lis.Units.Creature
             OtherContainer.Add(upgradeTier);
         }
 
-        private void AddAbility()
+        void AddAbility()
         {
             if (_creature.SpecialAttack == null) return;
             // HERE: attack element OtherContainer.Insert(0, new Element(Creature.Ability, isLocked: !Creature.IsAbilityUnlocked()));

@@ -8,21 +8,21 @@ namespace Lis.Battle.Arena
 {
     public class InvestmentElement : VisualElement
     {
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonButton = "common__button";
 
-        private const string _ussClassName = "investment-element__";
-        private const string _ussMain = _ussClassName + "main";
+        const string _ussClassName = "investment-element__";
+        const string _ussMain = _ussClassName + "main";
 
-        private readonly Investment _investment;
-
-        private MyButton _collectButton;
-
-        private VisualElement _firstLineContainer;
-        private MyButton _investButton;
+        readonly Investment _investment;
 
 
-        private readonly VisualElement _leftContainer;
-        private readonly VisualElement _rightContainer;
+        readonly VisualElement _leftContainer;
+        readonly VisualElement _rightContainer;
+
+        MyButton _collectButton;
+
+        VisualElement _firstLineContainer;
+        MyButton _investButton;
 
         public InvestmentElement(Investment investment)
         {
@@ -45,7 +45,7 @@ namespace Lis.Battle.Arena
             else HandleAvailableInvestment();
         }
 
-        private void AddFirstLine()
+        void AddFirstLine()
         {
             if (_investment.IsActive) return;
 
@@ -62,7 +62,7 @@ namespace Lis.Battle.Arena
             _firstLineContainer.Add(new FightIcon());
         }
 
-        private void AddSecondLine()
+        void AddSecondLine()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -75,7 +75,7 @@ namespace Lis.Battle.Arena
             container.Add(new Label($"(Interest: {Mathf.RoundToInt(_investment.Interest * 100)}%)"));
         }
 
-        private void HandleActiveInvestment()
+        void HandleActiveInvestment()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -95,14 +95,14 @@ namespace Lis.Battle.Arena
             _collectButton.SetEnabled(false);
         }
 
-        private void Collect()
+        void Collect()
         {
             _investment.Collect();
             _collectButton.SetEnabled(false);
             _collectButton.SetText("Collected!");
         }
 
-        private void HandleAvailableInvestment()
+        void HandleAvailableInvestment()
         {
             _investButton = new("Invest", _ussCommonButton, Invest);
             _investButton.style.width = 140;
@@ -110,7 +110,7 @@ namespace Lis.Battle.Arena
             _rightContainer.Add(_investButton);
         }
 
-        private void Invest()
+        void Invest()
         {
             if (GameManager.Instance.Gold < _investment.GoldToInvest)
             {

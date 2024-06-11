@@ -5,19 +5,19 @@ namespace Lis.Core
 {
     public class ConfirmPopUp : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonButton = "common__button";
 
-        private const string _ussClassName = "confirm-popup__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussText = _ussClassName + "text";
-        private const string _ussButtonContainer = _ussClassName + "button-container";
-        private MyButton _cancelButton;
+        const string _ussClassName = "confirm-popup__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussText = _ussClassName + "text";
+        const string _ussButtonContainer = _ussClassName + "button-container";
+        MyButton _cancelButton;
 
-        private MyButton _confirmButton;
+        MyButton _confirmButton;
 
-        private GameManager _gameManager;
-        private VisualElement _root;
+        GameManager _gameManager;
+        VisualElement _root;
 
         public void Initialize(VisualElement root, Action callback, string displayText = null)
         {
@@ -45,7 +45,7 @@ namespace Lis.Core
             AddButtons(callback);
         }
 
-        private void AddButtons(Action callback)
+        void AddButtons(Action callback)
         {
             VisualElement container = new();
             container.AddToClassList(_ussButtonContainer);
@@ -68,7 +68,7 @@ namespace Lis.Core
             _cancelButton.style.display = DisplayStyle.None;
         }
 
-        private void Hide()
+        void Hide()
         {
             SetEnabled(false);
             _root.Remove(this);

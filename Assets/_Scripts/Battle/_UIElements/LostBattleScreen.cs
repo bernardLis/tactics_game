@@ -6,8 +6,8 @@ namespace Lis.Battle
 {
     public class LostBattleScreen : FinishedBattleScreen
     {
-        private const string _ussClassName = "finished-battle-screen__";
-        private const string _ussMain = _ussClassName + "lost-main";
+        const string _ussClassName = "finished-battle-screen__";
+        const string _ussMain = _ussClassName + "lost-main";
 
         public LostBattleScreen()
         {
@@ -17,7 +17,7 @@ namespace Lis.Battle
             Title.text = "Battle lost!";
         }
 
-        private void AddButtons()
+        void AddButtons()
         {
             VisualElement container = new();
             container.style.alignItems = Align.Center;
@@ -27,7 +27,7 @@ namespace Lis.Battle
             container.Add(noAdvantage);
         }
 
-        private void BackToMainMenu()
+        void BackToMainMenu()
         {
             GameManager.LoadScene(Scenes.MainMenu);
         }

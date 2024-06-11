@@ -11,19 +11,19 @@ namespace Lis.Battle.Pickup
 {
     public class PickupManager : PoolManager<PickupController>
     {
-        [SerializeField] private PickupController _pickupControllerPrefab;
+        [SerializeField] PickupController _pickupControllerPrefab;
 
-        [SerializeField] private Coin _coin;
-        [SerializeField] private Hammer _hammer;
-        [SerializeField] private Horseshoe _horseshoe;
-        [SerializeField] private Bag _bag;
-        [SerializeField] private Skull _skull;
-        [SerializeField] private Dice _dice;
-        [SerializeField] private Mushroom _mushroom;
-        [SerializeField] private BarracksToken _barracksToken;
+        [SerializeField] Coin _coin;
+        [SerializeField] Hammer _hammer;
+        [SerializeField] Horseshoe _horseshoe;
+        [SerializeField] Bag _bag;
+        [SerializeField] Skull _skull;
+        [SerializeField] Dice _dice;
+        [SerializeField] Mushroom _mushroom;
+        [SerializeField] BarracksToken _barracksToken;
 
-        [SerializeField] private List<ExperienceStone> _expOrbs = new();
-        private FightManager _fightManager;
+        [SerializeField] List<ExperienceStone> _expOrbs = new();
+        FightManager _fightManager;
 
         public event Action<Pickup> OnPickupCollected;
 
@@ -38,7 +38,7 @@ namespace Lis.Battle.Pickup
         }
 
 
-        private void OnFightEnded()
+        void OnFightEnded()
         {
             if (FightManager.FightNumber == 2)
                 SpawnPickup(Instantiate(_mushroom), new(-23, 0, 0));
@@ -67,7 +67,7 @@ namespace Lis.Battle.Pickup
             pickupController.OnCollected += PickupCollected;
         }
 
-        private ExperienceStone ChooseExpStone(int rank)
+        ExperienceStone ChooseExpStone(int rank)
         {
             int v = Random.Range(0, 101);
             List<ExperienceStone> possibleOrbs = new();
@@ -124,7 +124,7 @@ namespace Lis.Battle.Pickup
             pickupController.OnCollected += PickupCollected;
         }
 
-        private void PickupCollected(PickupController pickupController)
+        void PickupCollected(PickupController pickupController)
         {
             OnPickupCollected?.Invoke(pickupController.Pickup);
             pickupController.OnCollected -= PickupCollected;

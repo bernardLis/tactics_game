@@ -6,16 +6,16 @@ namespace Lis.Core
 {
     public class ObjectShaders : MonoBehaviour
     {
-        private Shader _dissolveShader;
-        private GameManager _gameManager;
-        private Shader _grayScaleShader;
+        Shader _dissolveShader;
+        GameManager _gameManager;
+        Shader _grayScaleShader;
 
-        private Shader _litShader;
-        private Shader _particlesUnlitShader;
-        private Shader _sepiaToneShader;
+        Shader _litShader;
+        Shader _particlesUnlitShader;
+        Shader _sepiaToneShader;
 
 
-        private void Start()
+        void Start()
         {
             _gameManager = GameManager.Instance;
         }
@@ -99,7 +99,7 @@ namespace Lis.Core
             }
         }
 
-        private void SetShader(Material originalMat)
+        void SetShader(Material originalMat)
         {
             Vector2 texScale = originalMat.mainTextureScale; // tiling
             Texture2D tex = originalMat.mainTexture as Texture2D;

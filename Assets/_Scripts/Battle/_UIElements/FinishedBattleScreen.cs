@@ -5,8 +5,8 @@ namespace Lis.Battle
 {
     public class FinishedBattleScreen : FullScreenElement
     {
-        private const string _ussClassName = "finished-battle-screen__";
-        private const string _ussMain = _ussClassName + "main";
+        const string _ussClassName = "finished-battle-screen__";
+        const string _ussMain = _ussClassName + "main";
 
         protected readonly VisualElement MainContainer;
         protected readonly Label SubTitle;

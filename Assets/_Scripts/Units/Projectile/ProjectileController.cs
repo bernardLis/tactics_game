@@ -15,7 +15,7 @@ namespace Lis.Units.Projectile
         [FormerlySerializedAs("_explosionSound")] [SerializeField]
         protected Sound ExplosionSound;
 
-        [SerializeField] private Sound _shootSound;
+        [SerializeField] Sound _shootSound;
 
         [SerializeField] protected GameObject Gfx;
         [SerializeField] protected GameObject Explosion;
@@ -23,11 +23,11 @@ namespace Lis.Units.Projectile
         [FormerlySerializedAs("_speed")] [SerializeField]
         protected float Speed;
 
-        private AudioManager _audioManager;
+        AudioManager _audioManager;
 
-        private SphereCollider _collider;
+        SphereCollider _collider;
 
-        private float _time;
+        float _time;
         protected Attack.Attack Attack;
         protected Vector3 Direction;
 
@@ -109,7 +109,7 @@ namespace Lis.Units.Projectile
                 _audioManager.PlaySfx(_shootSound, transform.position);
         }
 
-        private IEnumerator ShootInDirectionCoroutine(Vector3 dir)
+        IEnumerator ShootInDirectionCoroutine(Vector3 dir)
         {
             Direction = dir;
             Direction.Normalize();

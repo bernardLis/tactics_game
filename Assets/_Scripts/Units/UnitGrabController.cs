@@ -8,9 +8,9 @@ namespace Lis.Units
 {
     public class UnitGrabController : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
-        private Animator _animator;
-        private GrabManager _grabManager;
-        private UnitController _unitController;
+        Animator _animator;
+        GrabManager _grabManager;
+        UnitController _unitController;
 
 
         public bool CanBeGrabbed()

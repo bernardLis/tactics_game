@@ -4,12 +4,12 @@ namespace Lis.Core
 {
     public class NatureElement : ElementWithTooltip
     {
-        private const string _ussClassName = "nature-element__";
-        private const string _ussIcon = _ussClassName + "icon";
+        const string _ussClassName = "nature-element__";
+        const string _ussIcon = _ussClassName + "icon";
 
-        private readonly Label _icon;
+        readonly Label _icon;
 
-        private readonly Nature _nature;
+        readonly Nature _nature;
 
         public NatureElement(Nature nature, int size = 0)
         {

@@ -8,16 +8,16 @@ namespace Lis.Battle.Fight
 {
     public class FightOptionElement : VisualElement
     {
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonButton = "common__button";
 
-        private const string _ussClassName = "fight-option__";
-        private const string _ussMain = _ussClassName + "main";
+        const string _ussClassName = "fight-option__";
+        const string _ussMain = _ussClassName + "main";
 
-        private readonly MyButton _chooseButton;
+        readonly MyButton _chooseButton;
 
-        private readonly GameManager _gameManager;
+        readonly GameManager _gameManager;
 
-        private readonly FightOption _option;
+        readonly FightOption _option;
 
         public FightOptionElement(FightOption option)
         {
@@ -45,7 +45,7 @@ namespace Lis.Battle.Fight
             Add(_chooseButton);
         }
 
-        private List<VisualElement> AggregateEnemies(List<Unit> army)
+        List<VisualElement> AggregateEnemies(List<Unit> army)
         {
             Dictionary<string, int> unitCountDict = new();
 
@@ -73,7 +73,7 @@ namespace Lis.Battle.Fight
             return result;
         }
 
-        private void ChooseOption()
+        void ChooseOption()
         {
             _option.Choose();
         }

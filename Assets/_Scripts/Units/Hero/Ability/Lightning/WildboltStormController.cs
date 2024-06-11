@@ -7,10 +7,10 @@ namespace Lis.Units.Hero.Ability
 {
     public class WildboltStormController : Controller
     {
-        [SerializeField] private GameObject _effect;
+        [SerializeField] GameObject _effect;
 
-        [SerializeField] private GameObject _wildboltPrefab;
-        private readonly List<WildboltProjectileController> _wildboltPool = new();
+        [SerializeField] GameObject _wildboltPrefab;
+        readonly List<WildboltProjectileController> _wildboltPool = new();
 
         public override void Initialize(Ability ability)
         {
@@ -49,7 +49,7 @@ namespace Lis.Units.Hero.Ability
             _effect.SetActive(false);
         }
 
-        private WildboltProjectileController InitializeProjectile()
+        WildboltProjectileController InitializeProjectile()
         {
             GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity,
                 BattleManager.AbilityHolder);
@@ -61,7 +61,7 @@ namespace Lis.Units.Hero.Ability
             return projectile;
         }
 
-        private WildboltProjectileController GetInactiveProjectile()
+        WildboltProjectileController GetInactiveProjectile()
         {
             foreach (WildboltProjectileController p in _wildboltPool)
                 if (!p.gameObject.activeSelf)

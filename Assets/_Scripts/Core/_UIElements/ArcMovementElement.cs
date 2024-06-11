@@ -6,12 +6,12 @@ namespace Lis.Core
 {
     public class ArcMovementElement : VisualElement
     {
-        private IVisualElementScheduledItem _arcMovement;
-        private Vector3 _endPosition;
+        IVisualElementScheduledItem _arcMovement;
+        Vector3 _endPosition;
 
-        private float _percent;
+        float _percent;
 
-        private Vector3 _startPosition;
+        Vector3 _startPosition;
         public bool IsMoving;
 
         public ArcMovementElement(VisualElement child, Vector3 startPosition, Vector3 endPosition)
@@ -41,7 +41,7 @@ namespace Lis.Core
             _arcMovement = schedule.Execute(ArcMovement).Every(25);
         }
 
-        private void ArcMovement()
+        void ArcMovement()
         {
             if (_percent >= 1)
                 ArcMovementFinished();
@@ -63,7 +63,7 @@ namespace Lis.Core
             _percent += 0.025f;
         }
 
-        private void ArcMovementFinished()
+        void ArcMovementFinished()
         {
             schedule.Execute(() => IsMoving = false).StartingIn(1000);
             _arcMovement.Pause();

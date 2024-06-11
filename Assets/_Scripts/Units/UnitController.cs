@@ -19,35 +19,35 @@ namespace Lis.Units
 {
     public class UnitController : MonoBehaviour
     {
-        private static readonly int AnimDie = Animator.StringToHash("Die");
-        private static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
+        static readonly int AnimDie = Animator.StringToHash("Die");
+        static readonly int AnimTakeDamage = Animator.StringToHash("Take Damage");
 
         public List<string> UnitLog = new();
 
         [Header("Effects")]
         [SerializeField]
-        private GameObject _levelUpEffect;
+        GameObject _levelUpEffect;
 
         [SerializeField] protected GameObject DeathEffect;
-        [SerializeField] private GameObject _reviveEffect;
+        [SerializeField] GameObject _reviveEffect;
         [HideInInspector] public bool IsShielded;
-        private ArenaManager _arenaManager;
-        private AttackController _attackController;
+        ArenaManager _arenaManager;
+        AttackController _attackController;
 
-        private IEnumerator _currentMainCoroutine;
-        private IEnumerator _currentSecondaryCoroutine;
+        IEnumerator _currentMainCoroutine;
+        IEnumerator _currentSecondaryCoroutine;
 
-        private MMF_Player _feelPlayer;
+        MMF_Player _feelPlayer;
 
-        private Color _healthColor;
+        Color _healthColor;
 
-        private bool _isAttackReady;
-        private bool _isDeathCoroutineStarted;
-        private bool _isEngaged;
+        bool _isAttackReady;
+        bool _isDeathCoroutineStarted;
+        bool _isEngaged;
 
-        private List<UnitController> _opponentList = new();
-        private PickupManager _pickupManager;
-        private Color _shieldColor;
+        List<UnitController> _opponentList = new();
+        PickupManager _pickupManager;
+        Color _shieldColor;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
         protected FightManager FightManager;
@@ -116,7 +116,7 @@ namespace Lis.Units
             InitializeAttacks();
         }
 
-        private void InitializeControllers()
+        void InitializeControllers()
         {
             UnitPathingController = GetComponent<UnitPathingController>();
             if (UnitPathingController != null)
@@ -136,7 +136,7 @@ namespace Lis.Units
                 hit.Initialize(this);
         }
 
-        private void InitializeAttacks()
+        void InitializeAttacks()
         {
             foreach (Attack.Attack attack in Unit.Attacks)
                 attack.InitializeAttack(this);
@@ -145,7 +145,7 @@ namespace Lis.Units
             Unit.OnAttackRemoved += attack => Destroy(attack.AttackController.gameObject);
         }
 
-        private void EnableSelf()
+        void EnableSelf()
         {
             AddToLog("Unit enables itself.");
             Collider.enabled = true;
@@ -162,7 +162,7 @@ namespace Lis.Units
             _opponentList = list;
         }
 
-        private void ResolveCollisionLayers(int team)
+        void ResolveCollisionLayers(int team)
         {
             switch (team)
             {
@@ -192,7 +192,7 @@ namespace Lis.Units
             RunUnit();
         }
 
-        private void OnFightEnded()
+        void OnFightEnded()
         {
             if (this == null) return;
             if (Team == 1 && IsDead)
@@ -268,7 +268,7 @@ namespace Lis.Units
             }
         }
 
-        private IEnumerator ManagePathing()
+        IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
                 ChooseNewTarget();
@@ -278,7 +278,7 @@ namespace Lis.Units
             yield return PathToOpponent();
         }
 
-        private IEnumerator PathToOpponent()
+        IEnumerator PathToOpponent()
         {
             AddToLog($"Pathing to opponent {Opponent.name}");
             yield return UnitPathingController.PathToTarget(Opponent.transform,
@@ -286,7 +286,7 @@ namespace Lis.Units
             Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 
-        private void ChooseNewTarget()
+        void ChooseNewTarget()
         {
             if (_opponentList.Count == 0)
             {
@@ -316,13 +316,13 @@ namespace Lis.Units
             SetOpponent(closest);
         }
 
-        private void SetOpponent(UnitController opponent)
+        void SetOpponent(UnitController opponent)
         {
             Opponent = opponent;
             Opponent.OnDeath += ResetOpponent;
         }
 
-        private void ResetOpponent(UnitController _, Attack.Attack __)
+        void ResetOpponent(UnitController _, Attack.Attack __)
         {
             AddToLog("Resetting opponent");
             if (this == null) return;
@@ -412,7 +412,7 @@ namespace Lis.Units
             // RunUnit();
         }
 
-        private void BreakShield()
+        void BreakShield()
         {
             AddToLog("Attack is shielded");
             DisplayFloatingText("Shield broken", _shieldColor);
@@ -457,13 +457,13 @@ namespace Lis.Units
             OnDeath?.Invoke(this, null);
         }
 
-        private void ResolveLoot()
+        void ResolveLoot()
         {
             if (Team == 0) return;
             _pickupManager.SpawnExpStone(Unit, transform.position);
         }
 
-        private void Revive()
+        void Revive()
         {
             AddToLog("Reviving...");
             Animator.Rebind();
@@ -484,20 +484,20 @@ namespace Lis.Units
             StartCoroutine(DisableLevelUpEffect());
         }
 
-        private IEnumerator DisableLevelUpEffect()
+        IEnumerator DisableLevelUpEffect()
         {
             yield return new WaitForSeconds(2f);
             _levelUpEffect.SetActive(false);
         }
 
         /* GRAB */
-        private void OnGrabbed()
+        void OnGrabbed()
         {
             ResetOpponent(default, default);
             StopUnit();
         }
 
-        private void OnReleased()
+        void OnReleased()
         {
             if (FightManager.IsFightActive) RunUnit();
             else if (!_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();

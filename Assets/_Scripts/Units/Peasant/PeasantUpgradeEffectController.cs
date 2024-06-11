@@ -5,8 +5,8 @@ namespace Lis
 {
     public class PeasantUpgradeEffectController : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem _changeStartColor;
-        [SerializeField] private ParticleSystem[] _changeGradientColor;
+        [SerializeField] ParticleSystem _changeStartColor;
+        [SerializeField] ParticleSystem[] _changeGradientColor;
 
         public void Play(Nature n)
         {

@@ -5,13 +5,13 @@ namespace Lis.Units.Attack
 {
     public class AttackElement : ElementWithTooltip
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
-        private const string _ussCommonButtonBasic = "common__button-basic";
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonButtonBasic = "common__button-basic";
 
-        private const string _ussClassName = "attack-element__";
-        private const string _ussMain = _ussClassName + "main";
+        const string _ussClassName = "attack-element__";
+        const string _ussMain = _ussClassName + "main";
 
-        private readonly Attack _attack;
+        readonly Attack _attack;
 
         public AttackElement(Attack attack)
         {

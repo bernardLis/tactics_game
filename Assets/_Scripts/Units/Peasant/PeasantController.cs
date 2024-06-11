@@ -7,8 +7,8 @@ namespace Lis.Units.Peasant
 {
     public class PeasantController : UnitController
     {
-        [SerializeField] private PeasantUpgradeEffectController _upgradeEffect;
-        private Peasant _peasant;
+        [SerializeField] PeasantUpgradeEffectController _upgradeEffect;
+        Peasant _peasant;
 
 
         public override void InitializeUnit(Unit unit, int team)
@@ -19,14 +19,14 @@ namespace Lis.Units.Peasant
             _peasant.OnUpgraded += OnPeasantUpgraded;
         }
 
-        private void OnPeasantUpgraded(Nature nature)
+        void OnPeasantUpgraded(Nature nature)
         {
             IsDead = true;
             InvokeDeathEvent();
             StartCoroutine(PeasantUpgradeCoroutine(nature));
         }
 
-        private IEnumerator PeasantUpgradeCoroutine(Nature nature)
+        IEnumerator PeasantUpgradeCoroutine(Nature nature)
         {
             Pawn.Pawn p = Instantiate(GameManager.UnitDatabase.GetPawnByNature(nature));
             p.InitializeBattle(0);

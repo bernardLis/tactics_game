@@ -7,8 +7,8 @@ namespace Lis.Units.Hero.Ability
 {
     public class FireballsController : Controller
     {
-        [SerializeField] private GameObject _fireballPrefab;
-        private readonly List<ProjectileController> _fireballPool = new();
+        [SerializeField] GameObject _fireballPrefab;
+        readonly List<ProjectileController> _fireballPool = new();
 
         public override void Initialize(Ability ability)
         {
@@ -42,7 +42,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        private ProjectileController GetInactiveFireball()
+        ProjectileController GetInactiveFireball()
         {
             foreach (ProjectileController ball in _fireballPool)
                 if (!ball.gameObject.activeSelf)
@@ -50,7 +50,7 @@ namespace Lis.Units.Hero.Ability
             return InitializeFireball();
         }
 
-        private ProjectileController InitializeFireball()
+        ProjectileController InitializeFireball()
         {
             GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity,
                 BattleManager.AbilityHolder);

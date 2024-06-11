@@ -6,20 +6,20 @@ namespace Lis.Upgrades
 {
     public class UpgradeScreen : FullScreenElement
     {
-        private const string _commonOddBackground = "common__odd-background";
-        private const string _commonEvenBackground = "common__even-background";
-        private const string _ussCommonButton = "common__button";
+        const string _commonOddBackground = "common__odd-background";
+        const string _commonEvenBackground = "common__even-background";
+        const string _ussCommonButton = "common__button";
 
-        private const string _ussClassName = "upgrade-screen__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussHeaderContainer = _ussClassName + "header-container";
-        private const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
+        const string _ussClassName = "upgrade-screen__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussHeaderContainer = _ussClassName + "header-container";
+        const string _ussUpgradeContainer = _ussClassName + "upgrade-container";
 
-        private readonly UpgradeBoard _upgradeBoard;
+        readonly UpgradeBoard _upgradeBoard;
 
-        private readonly ScrollView _upgradeContainer;
+        readonly ScrollView _upgradeContainer;
 
-        private bool _isEven;
+        bool _isEven;
 
         public UpgradeScreen(UpgradeBoard upgradeBoard)
         {
@@ -47,7 +47,7 @@ namespace Lis.Upgrades
             AddNavigationButtons();
         }
 
-        private void AddHeader()
+        void AddHeader()
         {
             VisualElement container = new();
             container.AddToClassList(_ussHeaderContainer);
@@ -64,43 +64,43 @@ namespace Lis.Upgrades
             GameManager.OnGoldChanged += goldElement.ChangeAmount;
         }
 
-        private void CreateHeroUpgrades()
+        void CreateHeroUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Hero Upgrades");
             AddUpgradesByType(container, UpgradeType.Hero);
         }
 
-        private void CreateAbilityUpgrades()
+        void CreateAbilityUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Ability Upgrades");
             AddUpgradesByType(container, UpgradeType.Ability);
         }
 
-        private void CreateTeamUpgrades()
+        void CreateTeamUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Troops Upgrades");
             AddUpgradesByType(container, UpgradeType.Troops);
         }
 
-        private void CreateCreatureUpgrades()
+        void CreateCreatureUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Creature Upgrades");
             AddUpgradesByType(container, UpgradeType.Creature);
         }
 
-        private void CreateBossUpgrades()
+        void CreateBossUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Boss Upgrades");
             AddUpgradesByType(container, UpgradeType.Boss);
         }
 
-        private void CreateOtherUpgrades()
+        void CreateOtherUpgrades()
         {
             VisualElement container = CreateUpgradeContainer("Other Upgrades");
             AddUpgradesByType(container, UpgradeType.Other);
         }
 
-        private VisualElement CreateUpgradeContainer(string txt)
+        VisualElement CreateUpgradeContainer(string txt)
         {
             VisualElement container = new();
             container.AddToClassList(_ussUpgradeContainer);
@@ -122,7 +122,7 @@ namespace Lis.Upgrades
             return upgradeContainer;
         }
 
-        private void AddUpgradesByType(VisualElement c, UpgradeType t)
+        void AddUpgradesByType(VisualElement c, UpgradeType t)
         {
             var upgrades = _upgradeBoard.GetUpgradesByType(t);
             foreach (Upgrade upgrade in upgrades)
@@ -133,7 +133,7 @@ namespace Lis.Upgrades
             }
         }
 
-        private void AddNavigationButtons()
+        void AddNavigationButtons()
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
@@ -153,12 +153,12 @@ namespace Lis.Upgrades
             container.Add(playButton);
         }
 
-        private void RefundAll()
+        void RefundAll()
         {
             _upgradeBoard.RefundAll();
         }
 
-        private void Play()
+        void Play()
         {
             Hide();
             OnHide += () => GameManager.LoadScene(Scenes.HeroSelection);

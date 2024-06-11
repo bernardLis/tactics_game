@@ -18,14 +18,14 @@ namespace Lis
         public int FightsLost;
 
         public List<TestFight> Tests = new();
-        private BattleManager _battleManager;
-        private BreakableVaseManager _breakableVaseManager;
+        BattleManager _battleManager;
+        BreakableVaseManager _breakableVaseManager;
 
-        private float _currentFightStartTime;
-        private FightManager _fightManager;
-        private TooltipManager _tooltipManager;
+        float _currentFightStartTime;
+        FightManager _fightManager;
+        TooltipManager _tooltipManager;
 
-        private void Start()
+        void Start()
         {
             _battleManager = BattleManager.Instance;
             _tooltipManager = TooltipManager.Instance;
@@ -34,7 +34,7 @@ namespace Lis
             BattleInitializer.Instance.OnBattleInitialized += OnBattleInitialized;
         }
 
-        private void OnBattleInitialized()
+        void OnBattleInitialized()
         {
             _tooltipManager.DisplayGameInfo(new Label("Unit tests engaged..."));
             Time.timeScale = 3f;
@@ -46,7 +46,7 @@ namespace Lis
             StartCoroutine(StartNewTestCoroutine());
         }
 
-        private IEnumerator StartNewTestCoroutine()
+        IEnumerator StartNewTestCoroutine()
         {
             yield return new WaitForSeconds(3f);
             ClearArmies();
@@ -54,7 +54,7 @@ namespace Lis
             StartCoroutine(StartRandomTest());
         }
 
-        private void ClearArmies()
+        void ClearArmies()
         {
             _tooltipManager.DisplayGameInfo(new Label("Clearing armies..."));
 
@@ -68,7 +68,7 @@ namespace Lis
             _fightManager.EnemyUnits.Clear();
         }
 
-        private IEnumerator StartRandomTest()
+        IEnumerator StartRandomTest()
         {
             TotalFights++;
 
@@ -90,7 +90,7 @@ namespace Lis
         }
 
 
-        private void OnFightEnded()
+        void OnFightEnded()
         {
             if (Tests.Count == 0) return;
             TestFight test = Tests.Last();

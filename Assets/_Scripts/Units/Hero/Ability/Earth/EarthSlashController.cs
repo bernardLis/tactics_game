@@ -23,7 +23,7 @@ namespace Lis.Units.Hero.Ability
             }
         }
 
-        private Vector3 GetSlashPosition(int i)
+        Vector3 GetSlashPosition(int i)
         {
             if (i == 0)
                 return Vector3.up * 0.5f + Vector3.forward * Ability.GetScale();
@@ -33,7 +33,7 @@ namespace Lis.Units.Hero.Ability
             return transform.position;
         }
 
-        private Quaternion GetSlashRotation(int i)
+        Quaternion GetSlashRotation(int i)
         {
             if (i == 1)
                 return Quaternion.Euler(0f, 180f, 0f);

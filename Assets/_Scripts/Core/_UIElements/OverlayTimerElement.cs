@@ -4,10 +4,10 @@ namespace Lis.Core
 {
     public class OverlayTimerElement : TimerElement
     {
-        private const string _ussOverlayMain = UssClassName + "overlay-main";
-        private const string _ussOverlayMask = UssClassName + "overlay-mask";
+        const string _ussOverlayMain = UssClassName + "overlay-main";
+        const string _ussOverlayMask = UssClassName + "overlay-mask";
 
-        private readonly VisualElement _overlayMask;
+        readonly VisualElement _overlayMask;
 
         public OverlayTimerElement(float timeLeft, float totalTime, bool isLooping, string text)
             : base(timeLeft, totalTime, isLooping, text)

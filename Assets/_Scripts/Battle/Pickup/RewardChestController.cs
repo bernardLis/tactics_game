@@ -10,21 +10,21 @@ namespace Lis.Battle.Pickup
 {
     public class RewardChestController : MonoBehaviour
     {
-        [SerializeField] private Sound _spawnSound;
-        [SerializeField] private Sound _openSound;
-        [SerializeField] private Sound _closeSound;
+        [SerializeField] Sound _spawnSound;
+        [SerializeField] Sound _openSound;
+        [SerializeField] Sound _closeSound;
 
-        [SerializeField] private GameObject _lid;
-        [SerializeField] private GameObject _glowEffect;
-        [SerializeField] private GameObject _beamEffect;
-        private AudioManager _audioManager;
-        private MMF_Player _feelPlayer;
-        private GameManager _gameManager;
+        [SerializeField] GameObject _lid;
+        [SerializeField] GameObject _glowEffect;
+        [SerializeField] GameObject _beamEffect;
+        AudioManager _audioManager;
+        MMF_Player _feelPlayer;
+        GameManager _gameManager;
 
-        private bool _isOpened;
-        private TooltipManager _tooltipManager;
+        bool _isOpened;
+        TooltipManager _tooltipManager;
 
-        private void Start()
+        void Start()
         {
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
@@ -35,7 +35,7 @@ namespace Lis.Battle.Pickup
         }
 
 
-        private void OnTriggerEnter(Collider collider)
+        void OnTriggerEnter(Collider collider)
         {
             if (!collider.TryGetComponent(out HeroController hero)) return;
             if (_isOpened) return;
@@ -43,7 +43,7 @@ namespace Lis.Battle.Pickup
             StartCoroutine(Open());
         }
 
-        private IEnumerator Open()
+        IEnumerator Open()
         {
             if (_isOpened) yield break;
             _isOpened = true;
@@ -77,7 +77,7 @@ namespace Lis.Battle.Pickup
             transform.DOScale(0, 1f).OnComplete(() => Destroy(gameObject));
         }
 
-        private void DisplayText(string text, Color color)
+        void DisplayText(string text, Color color)
         {
             MMF_FloatingText floatingText = _feelPlayer.GetFeedbackOfType<MMF_FloatingText>();
             floatingText.Value = text;

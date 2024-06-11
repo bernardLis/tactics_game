@@ -5,17 +5,17 @@ namespace Lis.Core
 {
     public class GoldElement : ChangingValueElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
-        private const string _ussClassName = "gold-element__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussIcon = _ussClassName + "icon";
-        private const string _ussValue = _ussClassName + "value";
+        const string _ussClassName = "gold-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussValue = _ussClassName + "value";
 
-        private readonly GameManager _gameManager;
-        private readonly VisualElement _icon;
+        readonly GameManager _gameManager;
+        readonly VisualElement _icon;
 
-        private Tween _shakeTween;
+        Tween _shakeTween;
 
         public GoldElement(int amount)
         {

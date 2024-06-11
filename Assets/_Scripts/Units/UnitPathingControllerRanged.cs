@@ -7,8 +7,8 @@ namespace Lis.Units
 {
     public class UnitPathingControllerRanged : UnitPathingController
     {
-        private float _attackRange;
-        private Transform _target;
+        float _attackRange;
+        Transform _target;
 
         public override IEnumerator PathToTarget(Transform t, float attackRange = 0f)
         {
@@ -29,7 +29,7 @@ namespace Lis.Units
             yield return PathToTarget(t, attackRange);
         }
 
-        private bool HasTargetInSight()
+        bool HasTargetInSight()
         {
             if (_target == null) return false;
             //https://answers.unity.com/questions/1164722/raycast-ignore-layers-except.html
@@ -37,7 +37,7 @@ namespace Lis.Units
                 out _, 1 << Tags.UnpassableLayer);
         }
 
-        private Vector3 ClosestPositionWithClearLos()
+        Vector3 ClosestPositionWithClearLos()
         {
             Vector3 dir = transform.position - _target.transform.position;
             Dictionary<Vector3, float> distances = new();
@@ -75,7 +75,7 @@ namespace Lis.Units
         }
 
         // https://stackoverflow.com/questions/51905268/how-to-find-closest-point-on-line
-        private Vector3 FindNearestPointOnLine(Vector3 origin, Vector3 end, Vector3 point)
+        Vector3 FindNearestPointOnLine(Vector3 origin, Vector3 end, Vector3 point)
         {
             //Get heading
             Vector3 heading = end - origin;

@@ -6,16 +6,16 @@ namespace Lis.Units.Hero.Tablets
 {
     public class TabletElement : ElementWithTooltip
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
-        private const string _ussCommonButtonBasic = "common__button-basic";
+        const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonButtonBasic = "common__button-basic";
 
-        private const string _ussClassName = "tablet-element__";
-        private const string _ussMain = _ussClassName + "main";
-        private const string _ussDotContainer = _ussClassName + "dot-container";
-        private const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
-        private const string _ussLevelDotFull = _ussClassName + "level-dot-full";
+        const string _ussClassName = "tablet-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussDotContainer = _ussClassName + "dot-container";
+        const string _ussLevelDotEmpty = _ussClassName + "level-dot-empty";
+        const string _ussLevelDotFull = _ussClassName + "level-dot-full";
 
-        private readonly Tablet _tablet;
+        readonly Tablet _tablet;
 
         public TabletElement(Tablet tablet, bool showLevel = false)
         {
@@ -34,7 +34,7 @@ namespace Lis.Units.Hero.Tablets
             if (showLevel) AddLevelUpDots();
         }
 
-        private void AddLevelUpDots()
+        void AddLevelUpDots()
         {
             VisualElement dotContainer = new();
             dotContainer.AddToClassList(_ussDotContainer);

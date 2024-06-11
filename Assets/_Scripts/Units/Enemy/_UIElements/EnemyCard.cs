@@ -4,7 +4,7 @@ namespace Lis.Units.Enemy
 {
     public class EnemyCard : UnitCard
     {
-        private Enemy _enemy;
+        Enemy _enemy;
 
         public EnemyCard(Unit unit) : base(unit)
         {

@@ -9,19 +9,19 @@ namespace Lis.Units.Projectile
 {
     public class HomingProjectileController : ProjectileController
     {
-        [SerializeField] private float _rotateSpeed = 0.5f;
+        [SerializeField] float _rotateSpeed = 0.5f;
 
-        private Ability _ability;
-        private BattleManager _battleManager;
+        Ability _ability;
+        BattleManager _battleManager;
 
-        private float _endTime;
-        private FightManager _fightManager;
+        float _endTime;
+        FightManager _fightManager;
 
-        private IEnumerator _homingCoroutine;
+        IEnumerator _homingCoroutine;
 
-        private Rigidbody _rb;
+        Rigidbody _rb;
 
-        private UnitController _target;
+        UnitController _target;
 
         public override void Initialize(int team, Attack.Attack attack)
         {
@@ -46,7 +46,7 @@ namespace Lis.Units.Projectile
             StartCoroutine(_homingCoroutine);
         }
 
-        private IEnumerator HomingCoroutine()
+        IEnumerator HomingCoroutine()
         {
             if (_endTime < Time.time) yield break;
             StartCoroutine(BreakHomingCoroutine());
@@ -75,19 +75,19 @@ namespace Lis.Units.Projectile
             yield return HomingCoroutine();
         }
 
-        private IEnumerator BreakHomingCoroutine()
+        IEnumerator BreakHomingCoroutine()
         {
             yield return new WaitForSeconds(_ability.GetDuration());
             if (_homingCoroutine != null) HitConnected();
         }
 
-        private IEnumerator GoForward(float timeInSeconds)
+        IEnumerator GoForward(float timeInSeconds)
         {
             _rb.velocity = transform.forward * Speed;
             yield return new WaitForSeconds(timeInSeconds);
         }
 
-        private UnitController GetClosestEntity(List<UnitController> battleEntities)
+        UnitController GetClosestEntity(List<UnitController> battleEntities)
         {
             float minDistance = Mathf.Infinity;
             UnitController closestEntity = null;

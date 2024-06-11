@@ -5,17 +5,17 @@ namespace Lis.Core
 {
     public abstract class ElementWithTooltip : VisualElement
     {
-        private readonly string tooltipTweenId = "tooltipTweenId";
+        readonly string tooltipTweenId = "tooltipTweenId";
 
-        private bool _blockTooltip;
-        private bool _isPointerDown;
-        private bool _isPointerOn;
-        private bool _isTooltipDisplayed;
-        private TooltipElement _setTooltipElement;
+        bool _blockTooltip;
+        bool _isPointerDown;
+        bool _isPointerOn;
+        bool _isTooltipDisplayed;
+        TooltipElement _setTooltipElement;
         protected TooltipElement _tooltip;
         protected VisualElement _tooltipContainer;
 
-        private IVisualElementScheduledItem _tooltipDisplayScheduler;
+        IVisualElementScheduledItem _tooltipDisplayScheduler;
 
         public ElementWithTooltip()
         {
@@ -42,12 +42,12 @@ namespace Lis.Core
             HideTooltip();
         }
 
-        private void OnPointerDown()
+        void OnPointerDown()
         {
             _isPointerDown = true;
         }
 
-        private void OnPointerUp()
+        void OnPointerUp()
         {
             _isPointerDown = false;
         }
@@ -65,7 +65,7 @@ namespace Lis.Core
             _tooltipDisplayScheduler = schedule.Execute(ShowTooltip).StartingIn(500);
         }
 
-        private void ShowTooltip()
+        void ShowTooltip()
         {
             if (!CanDisplayTooltip()) return;
 
@@ -87,7 +87,7 @@ namespace Lis.Core
                 .SetId(tooltipTweenId);
         }
 
-        private bool CanDisplayTooltip()
+        bool CanDisplayTooltip()
         {
             if (!_isPointerOn) return false;
             if (_blockTooltip) return false;

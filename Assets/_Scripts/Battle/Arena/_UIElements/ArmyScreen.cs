@@ -7,15 +7,15 @@ namespace Lis.Battle.Arena
 {
     public class ArmyScreen : FullScreenElement
     {
-        private readonly FightManager _fightManager;
-        private readonly HeroManager _heroManager;
+        readonly FightManager _fightManager;
+        readonly HeroManager _heroManager;
 
-        private readonly VisualElement _mainContainer;
-        private readonly UnitCardFactory _unitCardFactory;
-        private ScrollView _enemyArmyScrollView;
+        readonly VisualElement _mainContainer;
+        readonly UnitCardFactory _unitCardFactory;
+        ScrollView _enemyArmyScrollView;
 
-        private bool _isCardView;
-        private ScrollView _playerArmyScrollView;
+        bool _isCardView;
+        ScrollView _playerArmyScrollView;
 
         public ArmyScreen()
         {
@@ -40,7 +40,7 @@ namespace Lis.Battle.Arena
             AddContinueButton();
         }
 
-        private void AddPlayerContainer()
+        void AddPlayerContainer()
         {
             VisualElement container = new();
             _mainContainer.Add(container);
@@ -52,7 +52,7 @@ namespace Lis.Battle.Arena
             container.Add(_playerArmyScrollView);
         }
 
-        private void AddEnemyContainer()
+        void AddEnemyContainer()
         {
             VisualElement container = new();
             _mainContainer.Add(container);
@@ -64,7 +64,7 @@ namespace Lis.Battle.Arena
             container.Add(_enemyArmyScrollView);
         }
 
-        private void AddPlayerArmyIcons()
+        void AddPlayerArmyIcons()
         {
             foreach (Unit u in _heroManager.Hero.Army)
             {
@@ -73,7 +73,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        private void AddEnemyArmyIcons()
+        void AddEnemyArmyIcons()
         {
             if (_fightManager.CurrentFight.ChosenOption == null) return;
             foreach (Unit u in _fightManager.CurrentFight.ChosenOption.Army)
@@ -83,26 +83,26 @@ namespace Lis.Battle.Arena
             }
         }
 
-        private void AddPlayerArmyCards()
+        void AddPlayerArmyCards()
         {
             foreach (Unit u in _heroManager.Hero.Army)
                 _playerArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
         }
 
-        private void AddEnemyArmyCards()
+        void AddEnemyArmyCards()
         {
             if (_fightManager.CurrentFight.ChosenOption == null) return;
             foreach (Unit u in _fightManager.CurrentFight.ChosenOption.Army)
                 _enemyArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
         }
 
-        private void AddChangeViewButton()
+        void AddChangeViewButton()
         {
             MyButton changeViewButton = new("Change View", USSCommonButton, ChangeView);
             UtilityContainer.Add(changeViewButton);
         }
 
-        private void ChangeView()
+        void ChangeView()
         {
             _playerArmyScrollView.Clear();
             _enemyArmyScrollView.Clear();

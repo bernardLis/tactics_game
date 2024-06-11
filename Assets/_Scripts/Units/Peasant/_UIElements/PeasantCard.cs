@@ -7,9 +7,9 @@ namespace Lis.Units.Peasant
 {
     public class PeasantCard : UnitCard
     {
-        private const string _ussCommonButton = "common__button";
+        const string _ussCommonButton = "common__button";
 
-        private readonly Peasant _peasant;
+        readonly Peasant _peasant;
 
         public PeasantCard(Peasant peasant) : base(peasant)
         {
@@ -19,7 +19,7 @@ namespace Lis.Units.Peasant
             AddUpgradeButtons();
         }
 
-        private void AddUpgradeButtons()
+        void AddUpgradeButtons()
         {
             List<Nature> availableNatures = new();
             BattleManager.Instance.Battle.Barracks.UnlockableNatures.ForEach(un =>
@@ -36,7 +36,7 @@ namespace Lis.Units.Peasant
             }
         }
 
-        private void Upgrade(Nature n)
+        void Upgrade(Nature n)
         {
             _peasant.Upgrade(n);
         }

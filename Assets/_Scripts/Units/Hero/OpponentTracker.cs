@@ -9,13 +9,13 @@ namespace Lis.Units.Hero
     {
         public List<UnitController> OpponentsInRange = new();
 
-        private void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out UnitController entity))
                 AddOpponent(entity);
         }
 
-        private void OnTriggerExit(Collider other)
+        void OnTriggerExit(Collider other)
         {
             if (other.gameObject.TryGetComponent(out UnitController entity))
                 RemoveOpponent(entity);
@@ -23,7 +23,7 @@ namespace Lis.Units.Hero
 
         public event Action<UnitController> OnOpponentAdded;
 
-        private void AddOpponent(UnitController entity)
+        void AddOpponent(UnitController entity)
         {
             if (OpponentsInRange.Contains(entity)) return;
             entity.OnDeath += RemoveOpponentOnDeath;
@@ -38,7 +38,7 @@ namespace Lis.Units.Hero
                 OpponentsInRange.Remove(be);
         }
 
-        private void RemoveOpponentOnDeath(UnitController be, Attack.Attack attack)
+        void RemoveOpponentOnDeath(UnitController be, Attack.Attack attack)
         {
             be.OnDeath -= RemoveOpponentOnDeath;
             RemoveOpponent(be);

@@ -5,7 +5,7 @@ namespace Lis.Core
 {
     public class ButtonWithTooltip : ElementWithTooltip
     {
-        private readonly string _tooltipText;
+        readonly string _tooltipText;
 
         public ButtonWithTooltip(string className, string tooltipText, Action callback)
         {

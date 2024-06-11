@@ -7,18 +7,18 @@ namespace Lis.Units.Hero
 {
     public class Interactor : MonoBehaviour
     {
-        private readonly List<IInteractable> _interactables = new();
-        private GameManager _gameManager;
-        private PlayerInput _playerInput;
+        readonly List<IInteractable> _interactables = new();
+        GameManager _gameManager;
+        PlayerInput _playerInput;
 
-        private void Start()
+        void Start()
         {
             _gameManager = GameManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
         }
 
         /* INPUT */
-        private void OnEnable()
+        void OnEnable()
         {
             if (_gameManager == null)
                 _gameManager = GameManager.Instance;
@@ -29,35 +29,35 @@ namespace Lis.Units.Hero
             SubscribeInputActions();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             if (_playerInput == null) return;
 
             UnsubscribeInputActions();
         }
 
-        private void OnTriggerEnter(Collider other)
+        void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out IInteractable interactable)) return;
             _interactables.Add(interactable);
             interactable.DisplayTooltip();
         }
 
-        private void OnTriggerExit(Collider other)
+        void OnTriggerExit(Collider other)
         {
             if (!other.TryGetComponent(out IInteractable interactable)) return;
             _interactables.Remove(interactable);
             interactable.HideTooltip();
         }
 
-        private void Interact(InputAction.CallbackContext context)
+        void Interact(InputAction.CallbackContext context)
         {
             // TODO: get closest interactable not first
             if (_interactables.Count == 0) return;
@@ -71,12 +71,12 @@ namespace Lis.Units.Hero
             }
         }
 
-        private void SubscribeInputActions()
+        void SubscribeInputActions()
         {
             _playerInput.actions["Interact"].performed += Interact;
         }
 
-        private void UnsubscribeInputActions()
+        void UnsubscribeInputActions()
         {
             _playerInput.actions["Interact"].performed -= Interact;
         }

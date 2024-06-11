@@ -8,13 +8,13 @@ namespace Lis.Units
 {
     public class UnitScreen : FullScreenElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
 
         protected const string USSClassName = "unit-screen__";
-        private const string _ussContent = USSClassName + "content";
-        private const string _ussInfoContainer = USSClassName + "info-container";
-        private const string _ussStatsContainer = USSClassName + "stats-container";
-        private const string _ussOtherContainer = USSClassName + "other-container";
+        const string _ussContent = USSClassName + "content";
+        const string _ussInfoContainer = USSClassName + "info-container";
+        const string _ussStatsContainer = USSClassName + "stats-container";
+        const string _ussOtherContainer = USSClassName + "other-container";
 
         protected readonly ScrollView MainCardContainer;
 
@@ -57,7 +57,7 @@ namespace Lis.Units
             AddContinueButton();
         }
 
-        private void CreateContainers()
+        void CreateContainers()
         {
             BasicInfoContainer = new();
             StatsContainer = new();
@@ -82,13 +82,13 @@ namespace Lis.Units
             MainCardContainer.Add(OtherContainer);
         }
 
-        private void AddName()
+        void AddName()
         {
             if (Unit.UnitName.Length == 0) Unit.UnitName = Helpers.ParseScriptableObjectName(Unit.name);
             SetTitle(Unit.UnitName);
         }
 
-        private void AddIcon()
+        void AddIcon()
         {
             UnitIcon = new(Unit, true);
             BasicInfoContainer.Add(UnitIcon);
@@ -100,7 +100,7 @@ namespace Lis.Units
             BasicInfoContainer.Add(l);
         }
 
-        private void AddElement()
+        void AddElement()
         {
             NatureElement e = new(Unit.Nature);
             BasicInfoContainer.Add(e);

@@ -8,22 +8,22 @@ namespace Lis.Core
 {
     public class FullScreenElement : VisualElement
     {
-        private const string _ussCommonTextPrimary = "common__text-primary";
+        const string _ussCommonTextPrimary = "common__text-primary";
         protected const string USSCommonButton = "common__button";
         protected const string USSCommonHorizontalSpacer = "common__horizontal-spacer";
-        private const string _ussCommonFullScreenMain = "common__full-screen-main";
-        private const string _ussCommonFullScreenTitle = "common__full-screen-title";
-        private const string _ussCommonFullScreenContent = "common__full-screen-content";
-        private const string _ussCommonFullScreenUtilityContainer = "common__full-screen-utility-container";
+        const string _ussCommonFullScreenMain = "common__full-screen-main";
+        const string _ussCommonFullScreenTitle = "common__full-screen-title";
+        const string _ussCommonFullScreenContent = "common__full-screen-content";
+        const string _ussCommonFullScreenUtilityContainer = "common__full-screen-utility-container";
 
-        private readonly Label _titleLabel;
+        readonly Label _titleLabel;
         protected readonly BattleManager BattleManager;
         protected readonly VisualElement Content;
         protected readonly VisualElement UtilityContainer;
 
-        private bool _isNavigationDisabled;
+        bool _isNavigationDisabled;
 
-        private VisualElement _root;
+        VisualElement _root;
         protected ContinueButton ContinueButton;
 
         protected GameManager GameManager;
@@ -73,7 +73,7 @@ namespace Lis.Core
         public event Action OnHide;
 
 
-        private void ResolveRoot()
+        void ResolveRoot()
         {
             _root = GameManager.Root;
             if (BattleManager != null) _root = BattleManager.Root;
@@ -88,7 +88,7 @@ namespace Lis.Core
                 .SetUpdate(true);
         }
 
-        private void EnableNavigation()
+        void EnableNavigation()
         {
             RegisterCallback<PointerDownEvent>(OnPointerDown);
             RegisterCallback<KeyDownEvent>(OnKeyDown); // TODO: full screen management vs menu opening and closing
@@ -101,7 +101,7 @@ namespace Lis.Core
             UnregisterCallback<KeyDownEvent>(OnKeyDown);
         }
 
-        private void OnPointerDown(PointerDownEvent evt)
+        void OnPointerDown(PointerDownEvent evt)
         {
             if (_isNavigationDisabled) return;
             if (evt.button != 1) return; // only right mouse click
@@ -109,7 +109,7 @@ namespace Lis.Core
             Hide();
         }
 
-        private void OnKeyDown(KeyDownEvent evt)
+        void OnKeyDown(KeyDownEvent evt)
         {
             if (_isNavigationDisabled) return;
             if (evt.keyCode != KeyCode.Escape) return;
