@@ -16,7 +16,7 @@ namespace Lis.Core
             rerollIcon.AddToClassList(_ussCommonRerollIcon);
             Add(rerollIcon);
 
-            Remove(_text);
+            Remove(Text);
             style.paddingBottom = 0;
             style.paddingTop = 0;
             style.paddingLeft = 0;

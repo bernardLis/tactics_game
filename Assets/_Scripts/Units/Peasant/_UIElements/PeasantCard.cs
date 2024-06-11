@@ -40,13 +40,6 @@ namespace Lis.Units.Peasant
 
         void Upgrade(Nature n)
         {
-            if (GameManager.Gold < 100)
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Instance.Root, this, "Not enough gold", Color.red);
-                return;
-            }
-
-            GameManager.ChangeGoldValue(-100);
             _peasant.Upgrade(n);
         }
     }

@@ -13,7 +13,6 @@ namespace Lis.Battle.Arena
 
         Label _levelLabel;
         Label _peasantsLabel;
-        PurchaseButton _upgradeButton;
         PurchaseButton _buyPeasantButton;
 
         VisualElement _naturesContainer;
@@ -33,7 +32,6 @@ namespace Lis.Battle.Arena
             CreateContainers();
 
             AddDescription();
-            if (_barracks.Level <= _barracks.MaxLevel) AddUpgradeButton();
 
             AddBuyPeasantButton();
             AddUnlockNaturesButtons();
@@ -76,39 +74,6 @@ namespace Lis.Battle.Arena
             _peasantsLabel.text = $"Spawns {_barracks.GetPeasantsPerFight()} peasants per fight.";
         }
 
-        void AddUpgradeButton()
-        {
-            VisualElement container = new();
-            _topContainer.Add(container);
-
-            container.Add(new Label("Upgrade: "));
-
-            _upgradeButton = new("", USSCommonButton, Upgrade, _barracks.GetUpgradePrice());
-            container.Add(_upgradeButton);
-        }
-
-        void Upgrade()
-        {
-            if (GameManager.Gold < _barracks.GetUpgradePrice())
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Root, _upgradeButton, "Not enough gold!", Color.red);
-                return;
-            }
-
-            _barracks.Upgrade();
-            SetDescriptionText();
-
-            if (_barracks.Level <= _barracks.MaxLevel)
-            {
-                _upgradeButton.ChangePrice(_barracks.GetUpgradePrice());
-                return;
-            }
-
-            _upgradeButton.SetEnabled(false);
-            _upgradeButton.text = "Max level";
-            _upgradeButton.RemovePrice();
-        }
-
         void AddBuyPeasantButton()
         {
             VisualElement container = new();
@@ -122,16 +87,8 @@ namespace Lis.Battle.Arena
 
         void BuyPeasant()
         {
-            if (GameManager.Gold < 100)
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Root, _buyPeasantButton, "Not enough gold!", Color.red);
-                return;
-            }
-
-            GameManager.ChangeGoldValue(-100);
             _barracksController.SpawnPeasant();
         }
-
 
         void AddUnlockNaturesButtons()
         {

@@ -31,14 +31,6 @@ namespace Lis.Units.Pawn
 
         void Upgrade()
         {
-            if (_pawn.GetNextUpgrade().Price > GameManager.Gold)
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Instance.Root, _upgradeButton, "Not enough gold!",
-                    Color.red);
-                return;
-            }
-
-            GameManager.ChangeGoldValue(-_pawn.GetCurrentUpgrade().Price);
             _pawn.Upgrade();
             PopulateCard();
             _upgradeButton.SetEnabled(false);

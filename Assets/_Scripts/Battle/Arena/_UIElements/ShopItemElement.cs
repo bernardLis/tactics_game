@@ -40,14 +40,6 @@ namespace Lis.Battle.Arena
 
         void Purchase()
         {
-            if (GameManager.Instance.Gold < _price)
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Instance.Root, _purchaseButton, "Not enough gold!",
-                    Color.red);
-                return;
-            }
-
-            GameManager.Instance.ChangeGoldValue(-_price);
             _purchaseButton.SetEnabled(false);
             if (_isMystery) _rewardElement.RevealMystery();
             _rewardElement.DisableCard();

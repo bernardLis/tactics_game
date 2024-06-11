@@ -70,13 +70,6 @@ namespace Lis.Battle.Arena
 
         void Unlock()
         {
-            if (_gameManager.Gold < _barracksNatureUpgrade.GetUpgradePrice())
-            {
-                Helpers.DisplayTextOnElement(BattleManager.Instance.Root, this, "Not enough gold", Color.red);
-                return;
-            }
-
-            _gameManager.ChangeGoldValue(-_barracksNatureUpgrade.GetUpgradePrice());
             _barracksNatureUpgrade.Upgrade();
             UpdateLevelLabel();
             UpdatePawnIconStyles();

@@ -7,13 +7,13 @@ namespace Lis.Core
     {
         const string _ussCommonButtonBasic = "common__button-basic";
 
-        protected GameManager GameManager;
+        protected readonly GameManager GameManager;
         readonly AudioManager _audioManager;
         readonly CursorManager _cursorManager;
 
-        protected Label _text;
+        protected readonly Label Text;
 
-        Action _currentCallback;
+        protected readonly Action CurrentCallback;
 
         public MyButton(string buttonText = null, string className = null, Action callback = null)
         {
@@ -25,12 +25,12 @@ namespace Lis.Core
             _audioManager = AudioManager.Instance;
             _cursorManager = CursorManager.Instance;
 
-            _text = new(buttonText);
-            _text.style.whiteSpace = WhiteSpace.Normal;
-            _text.style.fontSize = 24;
-            Add(_text);
+            Text = new(buttonText);
+            Text.style.whiteSpace = WhiteSpace.Normal;
+            Text.style.fontSize = 24;
+            Add(Text);
             if (buttonText == "")
-                _text.style.display = DisplayStyle.None;
+                Text.style.display = DisplayStyle.None;
 
             if (className != null)
             {
@@ -41,7 +41,7 @@ namespace Lis.Core
 
             if (callback != null)
             {
-                _currentCallback = callback;
+                CurrentCallback = callback;
                 clicked += callback;
             }
 
@@ -57,21 +57,10 @@ namespace Lis.Core
             _cursorManager.ClearCursor();
         }
 
-        public void ChangeCallback(Action newCallback)
-        {
-            clickable = new Clickable(() => { });
-            clicked += newCallback;
-        }
-
-        public void ClearCallbacks()
-        {
-            clickable = new Clickable(() => { });
-        }
-
         public void SetText(string newText)
         {
-            _text.text = newText;
-            _text.style.display = DisplayStyle.Flex;
+            Text.text = newText;
+            Text.style.display = DisplayStyle.Flex;
         }
 
         void OnPointerEnter(PointerEnterEvent evt)
