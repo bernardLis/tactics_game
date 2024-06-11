@@ -22,6 +22,7 @@ namespace Lis.Battle.Pickup
         [SerializeField] Skull _skull;
         [SerializeField] Dice _dice;
         [SerializeField] Mushroom _mushroom;
+        [SerializeField] BarracksToken _barracksToken;
 
         [SerializeField] List<ExperienceStone> _expOrbs = new();
 
@@ -40,9 +41,11 @@ namespace Lis.Battle.Pickup
 
         void OnFightEnded()
         {
-            if (FightManager.FightNumber != 2) return;
+            if (FightManager.FightNumber == 2)
+                SpawnPickup(Instantiate(_mushroom), new(-23, 0, 0));
 
-            SpawnPickup(Instantiate(_mushroom), new(-23, 0, 0));
+            if (FightManager.FightNumber == 4)
+                SpawnPickup(Instantiate(_barracksToken), new(-23, 0, 0));
         }
 
 
@@ -59,7 +62,9 @@ namespace Lis.Battle.Pickup
             ExperienceStone stone = ChooseExpStone(scarinessRank);
             if (stone == null) return;
             PickupController pickupController = GetObjectFromPool();
-            pickupController.Initialize(stone, position);
+            Vector3 pos = position;
+            pos.y = 5;
+            pickupController.Initialize(stone, pos);
             pickupController.OnCollected += PickupCollected;
         }
 

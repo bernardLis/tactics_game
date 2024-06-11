@@ -133,6 +133,7 @@ namespace Lis.Core
             AddPickupButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
+            AddGoldButton();
             AddTimeScaleButtons();
         }
 
@@ -417,11 +418,22 @@ namespace Lis.Core
             }
         }
 
+        void AddGoldButton()
+        {
+            Button goldButton = new() { text = "Add 10k gold" };
+            goldButton.clickable.clicked += () => { _gameManager.ChangeGoldValue(10000); };
+            _buttonContainer.Add(goldButton);
+        }
+
         void AddTimeScaleButtons()
         {
+            VisualElement c = new();
+            c.Add(new Label("Game speed: "));
+
             VisualElement container = new();
+            c.Add(container);
             container.style.flexDirection = FlexDirection.Row;
-            _buttonContainer.Add(container);
+            _buttonContainer.Add(c);
 
             for (int i = 0; i < 5; i++)
             {

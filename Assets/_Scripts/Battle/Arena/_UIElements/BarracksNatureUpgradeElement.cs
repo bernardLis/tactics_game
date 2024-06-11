@@ -21,9 +21,8 @@ namespace Lis.Battle.Arena
         readonly BarracksNatureUpgrade _barracksNatureUpgrade;
 
         readonly Label _levelLabel;
-        List<UnitIcon> _pawnIcons = new();
+        readonly List<UnitIcon> _pawnIcons = new();
         readonly PurchaseButton _purchaseButton;
-
 
         public BarracksNatureUpgradeElement(BarracksNatureUpgrade n)
         {
@@ -106,7 +105,7 @@ namespace Lis.Battle.Arena
             }
         }
 
-        void UpdatePurchaseButton()
+        public void UpdatePurchaseButton()
         {
             if (_barracksNatureUpgrade.IsMaxLevel())
                 _purchaseButton.RemoveFromHierarchy();

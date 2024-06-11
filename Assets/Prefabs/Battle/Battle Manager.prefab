@@ -177,6 +177,7 @@ MonoBehaviour:
   EnemyUnits: []
   KilledPlayerUnits: []
   KilledEnemyUnits: []
+  IsTesting: 0
 --- !u!114 &1803897707696964957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +238,7 @@ MonoBehaviour:
   _skull: {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
   _dice: {fileID: 11400000, guid: 304dfcfbf512b2a468bac675a65df089, type: 2}
   _mushroom: {fileID: 11400000, guid: 5da4b4e336bd9904b989c88a28bd7c1f, type: 2}
+  _barracksToken: {fileID: 11400000, guid: 465991286c04196459670af1c0873df3, type: 2}
   _expOrbs:
   - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
   - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}

@@ -13,15 +13,20 @@ namespace Lis.Battle.Arena
         public int CurrentLevel;
         public string Description;
 
+        public bool IsTokenActive;
+
         public event Action<Nature, int> OnUpgrade;
 
         public int GetUpgradePrice()
         {
+            if (IsTokenActive && CurrentLevel == 0) return 0;
+
             return Levels[CurrentLevel + 1].Price;
         }
 
         public void Upgrade()
         {
+            if (IsTokenActive) IsTokenActive = false;
             CurrentLevel++;
             OnUpgrade?.Invoke(Nature, CurrentLevel);
         }

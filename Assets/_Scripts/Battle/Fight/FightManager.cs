@@ -219,7 +219,7 @@ namespace Lis.Battle.Fight
 
             OnFightEnded?.Invoke();
 
-            if (FightNumber < 4) ChooseRandomFightOption();
+            if (!_battle.FightSelector.IsUnlocked) ChooseRandomFightOption();
         }
 
         void ChooseRandomFightOption()

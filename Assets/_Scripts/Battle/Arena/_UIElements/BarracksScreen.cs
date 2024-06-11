@@ -1,7 +1,6 @@
-﻿using Lis.Battle.Fight;
+﻿using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Units;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -21,6 +20,9 @@ namespace Lis.Battle.Arena
 
         VisualElement _topContainer;
         VisualElement _bottomContainer;
+
+        readonly List<BarracksNatureUpgradeElement> _natureElements = new();
+
 
         public void InitializeBuilding(Barracks b, BarracksController bc)
         {
@@ -130,13 +132,23 @@ namespace Lis.Battle.Arena
             _barracksController.SpawnPeasant();
         }
 
+
         void AddUnlockNaturesButtons()
         {
             foreach (BarracksNatureUpgrade n in _barracks.UnlockableNatures)
             {
+                n.OnUpgrade += (_, _) => UpdateUnlockNaturesButtons();
                 BarracksNatureUpgradeElement b = new(n);
+                _natureElements.Add(b);
                 _bottomContainer.Add(b);
             }
+        }
+
+        void UpdateUnlockNaturesButtons()
+        {
+            _barracks.DisableUpgradeToken();
+            foreach (BarracksNatureUpgradeElement b in _natureElements)
+                b.UpdatePurchaseButton();
         }
     }
 }

@@ -41,6 +41,7 @@ namespace Lis.Units.Pawn
             if (IsDead) yield break;
 
             _pawn.LevelUp();
+            GetHealed(100);
 
             if (_pawn.CurrentMission.IsCompleted)
             {

@@ -43,6 +43,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0282f3d7a8e02ce4ebfcaa4e6ee25f54, type: 2}
   - {fileID: 11400000, guid: 5da4b4e336bd9904b989c88a28bd7c1f, type: 2}
   - {fileID: 11400000, guid: 57578c3f34da1e746968f876e1b81144, type: 2}
+  - {fileID: 11400000, guid: 465991286c04196459670af1c0873df3, type: 2}
   VaseIcon: {fileID: 21300000, guid: e47c789fa5d00f340b4d6840069bb264, type: 3}
   LevelUpAnimationSprites:
   - {fileID: 1314029660, guid: 8a969380e83f01344ba77f992a35c2fd, type: 3}

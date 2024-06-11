@@ -19,6 +19,19 @@ namespace Lis.Battle.Arena
             }
         }
 
+        public void ActivateUpgradeToken()
+        {
+            foreach (BarracksNatureUpgrade bnu in UnlockableNatures)
+                bnu.IsTokenActive = true;
+        }
+
+        public void DisableUpgradeToken()
+        {
+            foreach (BarracksNatureUpgrade bnu in UnlockableNatures)
+                bnu.IsTokenActive = false;
+        }
+
+
         public int GetPeasantsPerFight()
         {
             return Level + 3;

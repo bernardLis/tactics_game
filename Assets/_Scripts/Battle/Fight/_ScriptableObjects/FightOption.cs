@@ -36,7 +36,7 @@ namespace Lis.Battle.Fight
             }
 
             // limits enemies scariness to fight number
-            availableEnemies.RemoveAll(e => e.ScarinessRank > fightNumber);
+            availableEnemies.RemoveAll(e => e.ScarinessRank > fightNumber - 1);
 
             int pointsLeft = points;
             int tries = 0;

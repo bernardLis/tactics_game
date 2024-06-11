@@ -18,7 +18,7 @@ namespace Lis.Battle.Arena
 
         protected override void OnFightEnded()
         {
-            if (FightManager.FightNumber == 4)
+            if (FightManager.FightNumber == 5)
                 Building.Unlock();
 
             if (Building.IsUnlocked)

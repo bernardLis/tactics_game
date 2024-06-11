@@ -73,7 +73,7 @@ namespace Lis.Battle.Pickup
 
             if (Pickup is ExperienceStone)
             {
-                _rigidbody.isKinematic = false;
+                Fall();
                 return;
             }
 
@@ -81,6 +81,14 @@ namespace Lis.Battle.Pickup
                 .SetLoops(-1).SetEase(Ease.InOutSine);
 
             _gfx.DOLocalMoveY(0.8f, 0.5f).SetEase(Ease.OutBack);
+        }
+
+        void Fall()
+        {
+            Vector3 position = transform.position;
+            position.y = 0;
+            transform.DOMove(position, 1f)
+                .SetEase(Ease.OutBounce);
         }
 
         void OnTriggerEnter(Collider col)

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1b7f43610d441695624fdc7c33f22e, type: 3}
+  m_Name: Barracks Token
+  m_EditorClassIdentifier: 
+  Id: 14722061-912b-44eb-a241-ac5b8d983918
+  Icon: {fileID: 21300000, guid: 9851a1079676afc4da3cf54637a24706, type: 3}
+  Gfx: {fileID: 4492326509157116451, guid: 28fab65e34fc0e748a6717a8c1d7b309, type: 3}
+  Color: {fileID: 11400000, guid: 1321707bde01303439ad2ff9fbd9c3b6, type: 2}
+  CollectedText: Barracks Upgrade For Free!
+  CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
+  DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: 26e1d3612f07d7e4180ea44512025007, type: 2}
