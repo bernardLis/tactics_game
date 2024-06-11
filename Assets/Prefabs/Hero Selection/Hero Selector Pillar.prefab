@@ -136,3 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c8f80016e7d9f4da2b83501aadf28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _themeStyleSheets:
+  - {fileID: 7433441132597879392, guid: 8b1720c336464932b8be1312ec65c838, type: 3}
+  - {fileID: 7433441132597879392, guid: ae889aa63ab74749aad33121135df2d2, type: 3}
+  - {fileID: 7433441132597879392, guid: d1571dd51fd344dd86dd958cac9a1a5a, type: 3}
+  - {fileID: 7433441132597879392, guid: 1afaad5a03ee4113ae63777f62371bc1, type: 3}
+  _music: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}

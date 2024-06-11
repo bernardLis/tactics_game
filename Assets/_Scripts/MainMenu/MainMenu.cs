@@ -22,7 +22,7 @@ namespace Lis.MainMenu
         GameManager _gameManager;
         UpgradeManager _globalUpgradeManager;
 
-        public VisualElement Root;
+        VisualElement _root;
         MyButton _playButton;
         MyButton _statsButton;
         MyButton _settingsButton;
@@ -39,14 +39,14 @@ namespace Lis.MainMenu
 
             _globalUpgradeManager = GetComponent<UpgradeManager>();
 
-            Root = GetComponent<UIDocument>().rootVisualElement;
+            _root = GetComponent<UIDocument>().rootVisualElement;
             SetThemeStyleSheet();
         }
 
         void SetThemeStyleSheet()
         {
             StyleSheet chosen = _themeStyleSheets[Random.Range(0, _themeStyleSheets.Length)];
-            Root.styleSheets.Add(chosen);
+            _root.styleSheets.Add(chosen);
             _gameManager.Root.styleSheets.Add(chosen);
             StartCoroutine(SetParticleSystemColorCoroutine());
         }
@@ -54,8 +54,7 @@ namespace Lis.MainMenu
         IEnumerator SetParticleSystemColorCoroutine()
         {
             yield return new WaitForSeconds(1f);
-            Color c = Root.Q<Label>("gameTitle").resolvedStyle.color;
-            Debug.Log(c);
+            Color c = _root.Q<Label>("gameTitle").resolvedStyle.color;
 
             // set particle system start color as the main color of the theme
             ParticleSystem.MainModule main = _particleSystem.main;
@@ -65,12 +64,15 @@ namespace Lis.MainMenu
 
         void Start()
         {
-            _playButton = new("Play", _ussCommonButton, ShowGlobalUpgradesMenu);
+            //    _playButton = new("Play", _ussCommonButton, ShowGlobalUpgradesMenu);
+            _playButton = new("Play", _ussCommonButton,
+                () => GameManager.Instance.LoadScene(Scenes.HeroSelection));
+
             _statsButton = new("Stats", _ussCommonButton, ShowStatsScreen);
             _settingsButton = new("Settings", _ussCommonButton, Settings);
             _quitButton = new("Quit", _ussCommonButton, ConfirmQuit);
 
-            VisualElement buttonContainer = Root.Q<VisualElement>("buttonContainer");
+            VisualElement buttonContainer = _root.Q<VisualElement>("buttonContainer");
             buttonContainer.Add(_playButton);
             buttonContainer.Add(_statsButton);
             buttonContainer.Add(_settingsButton);
@@ -99,7 +101,7 @@ namespace Lis.MainMenu
         void ConfirmQuit()
         {
             ConfirmPopUp pop = new();
-            pop.Initialize(Root, Quit);
+            pop.Initialize(_root, Quit);
         }
 
         void Quit()

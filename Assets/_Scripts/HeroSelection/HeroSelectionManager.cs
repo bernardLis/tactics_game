@@ -13,6 +13,8 @@ namespace Lis.HeroSelection
         const string _ussCommonButton = "common__button";
         const string _ussMainMenuArrowButton = "hero-selection__arrow-button";
 
+        [SerializeField] StyleSheet[] _themeStyleSheets;
+
         GameManager _gameManager;
 
         [SerializeField] Sound _music;
@@ -23,6 +25,8 @@ namespace Lis.HeroSelection
         VisualElement _heroInfoContainer;
         MyButton _previousButton;
         MyButton _nextButton;
+        MyButton _playButton;
+        MyButton _backButton;
 
         void Start()
         {
@@ -67,12 +71,12 @@ namespace Lis.HeroSelection
             arrowContainer.Add(_nextButton);
 
             VisualElement playButtonContainer = root.Q<VisualElement>("playButtonContainer");
-            MyButton playButton = new("Play", _ussCommonButton, Play);
-            playButtonContainer.Add(playButton);
+            _playButton = new("Play", _ussCommonButton, Play);
+            playButtonContainer.Add(_playButton);
 
             VisualElement backButtonContainer = root.Q<VisualElement>("backButtonContainer");
-            MyButton backButton = new("Back", _ussCommonButton, Back);
-            backButtonContainer.Add(backButton);
+            _backButton = new("Back", _ussCommonButton, Back);
+            backButtonContainer.Add(_backButton);
         }
 
         void ShowNextHero()
@@ -103,7 +107,18 @@ namespace Lis.HeroSelection
             _heroPrefabs[index].Show();
             _gameManager.SetHero(_heroInstances[index]);
 
+            SetButtonColors(_heroInstances[index].Nature);
             Invoke(nameof(EnableArrows), 0.5f);
+        }
+
+        void SetButtonColors(Nature n)
+        {
+            Color c = n.Color.Primary;
+            if (n.NatureName == NatureName.Earth) c = n.Color.Secondary;
+            _previousButton.style.backgroundColor = c;
+            _nextButton.style.backgroundColor = c;
+            _playButton.style.backgroundColor = c;
+            _backButton.style.backgroundColor = c;
         }
 
         void EnableArrows()

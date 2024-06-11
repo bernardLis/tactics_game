@@ -14,7 +14,7 @@ namespace Lis.Units.Hero.Tablets
 
         readonly Tablet _tablet;
 
-        VisualElement _effectContainer;
+        readonly VisualElement _effectContainer;
 
         public TabletTooltipElement(Tablet tablet)
         {
@@ -48,8 +48,8 @@ namespace Lis.Units.Hero.Tablets
             container.style.justifyContent = Justify.Center;
             Add(container);
 
-            Label name = new(Helpers.ParseScriptableObjectName(_tablet.name));
-            container.Add(name);
+            Label n = new(Helpers.ParseScriptableObjectName(_tablet.name));
+            container.Add(n);
             NatureElement element = new(_tablet.Nature);
             container.Add(element);
 

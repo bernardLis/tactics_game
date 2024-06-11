@@ -92,7 +92,7 @@ namespace Lis.Battle
             if (Unit.CurrentHealth.Value > 0) return;
 
             // HERE: balance price
-            PurchaseButton b = new("Revive", _ussCommonButton, Revive, 100);
+            PurchaseButton b = new("Revive", _ussCommonButton, Revive, 10);
             BottomContainer.Add(b);
 
             if (FightManager.IsFightActive)
