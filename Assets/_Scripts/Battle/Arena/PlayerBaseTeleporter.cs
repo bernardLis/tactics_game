@@ -1,7 +1,7 @@
 using Lis.Battle.Fight;
-using Lis.Units;
 using UnityEngine;
 using DG.Tweening;
+using Lis.Units.Hero;
 
 namespace Lis.Battle.Arena
 {
@@ -34,24 +34,19 @@ namespace Lis.Battle.Arena
 
         void EnableSelf()
         {
-            transform.DOScale(1, 0.5f)
+            _gfx.SetActive(true);
+
+            transform.DOScale(1, 2f)
                 .SetEase(Ease.InBack)
-                .OnComplete(() =>
-                {
-                    _gfx.SetActive(true);
-                    _collider.enabled = true;
-                });
+                .OnComplete(() => { _collider.enabled = true; });
         }
 
         void OnTriggerEnter(Collider other)
         {
             if (FightManager.IsFightActive) return;
 
-            if (other.TryGetComponent(out UnitController unit))
-            {
-                if (unit.Team != 0) return;
-                unit.TeleportToBase();
-            }
+            if (other.TryGetComponent(out HeroController hero))
+                hero.TeleportToBase();
         }
     }
 }

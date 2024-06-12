@@ -1,12 +1,14 @@
 using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Battle.Arena
 {
     public class ArenaController : Singleton<ArenaController>
     {
         [SerializeField] BoxCollider _playerLockerRoom;
+        [SerializeField] BoxCollider _playerBase;
         [SerializeField] BoxCollider _enemyLockerRoom;
         [SerializeField] BoxCollider _arena;
 
@@ -14,6 +16,12 @@ namespace Lis.Battle.Arena
         {
             pos.y = _playerLockerRoom.bounds.min.y; // ignoring y axis
             return _playerLockerRoom.bounds.Contains(pos);
+        }
+
+        public bool IsPositionInPlayerBase(Vector3 pos)
+        {
+            pos.y = _playerBase.bounds.min.y; // ignoring y axis
+            return _playerBase.bounds.Contains(pos);
         }
 
         public bool IsPositionInArena(Vector3 pos)

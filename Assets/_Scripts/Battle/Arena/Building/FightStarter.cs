@@ -19,7 +19,8 @@ namespace Lis.Battle.Arena.Building
             }
 
             foreach (UnitController uc in FightManager.Instance.PlayerUnits)
-                uc.TeleportToArena();
+                if (uc is PlayerUnitController puc)
+                    puc.TeleportToArena();
 
             FightManager.StartFight();
             return true;

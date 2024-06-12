@@ -86,7 +86,8 @@ namespace Lis.Battle.Arena.Building
             u.InitializeBattle(0);
             _heroManager.Hero.AddArmy(u);
             UnitController uc = FightManager.SpawnPlayerUnit(u, transform.position);
-            uc.GoBackToLocker();
+            if (uc is PlayerUnitController puc)
+                puc.GoToLocker();
         }
 
         void SpawnPawn(Nature n, int upgrade)
@@ -98,7 +99,8 @@ namespace Lis.Battle.Arena.Building
             p.SetUpgrade(upgrade);
             _heroManager.Hero.AddArmy(p);
             UnitController uc = FightManager.SpawnPlayerUnit(p, transform.position);
-            uc.GoBackToLocker();
+            if (uc is PlayerUnitController puc)
+                puc.GoToLocker();
         }
 
 

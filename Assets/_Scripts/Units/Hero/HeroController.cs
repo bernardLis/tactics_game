@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Lis.Core;
 using Lis.Units.Hero.Ability;
 using NaughtyAttributes;
@@ -7,8 +9,9 @@ using UnityEngine;
 
 namespace Lis.Units.Hero
 {
-    public class HeroController : UnitController
+    public class HeroController : PlayerUnitController
     {
+        [SerializeField] GameObject _teleportEffect;
         static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
         readonly List<Controller> _abilityControllers = new();
@@ -16,6 +19,7 @@ namespace Lis.Units.Hero
         MovementController _movementController;
         public Hero Hero { get; private set; }
 
+        public event Action OnTeleportedToBase;
         void OnDestroy()
         {
             Hero.OnAbilityAdded -= AddAbility;
@@ -104,10 +108,12 @@ namespace Lis.Units.Hero
 
         IEnumerator TeleportToBaseCoroutine()
         {
-            _movementController.enabled = false;
+            StartTeleport();
+            yield return new WaitForSeconds(1f);
             transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
             yield return new WaitForSeconds(1f);
-            _movementController.enabled = true;
+            EndTeleport();
+            OnTeleportedToBase?.Invoke();
         }
 
         public override void TeleportToArena()
@@ -117,18 +123,28 @@ namespace Lis.Units.Hero
 
         IEnumerator TeleportToArenaCoroutine()
         {
-            _movementController.enabled = false;
-            transform.position = ArenaManager.GetRandomPositionInArena();
+            StartTeleport();
             yield return new WaitForSeconds(1f);
-            _movementController.enabled = true;
+            transform.position = Vector3.zero;
+            yield return new WaitForSeconds(1f);
+            EndTeleport();
         }
 
-        protected override IEnumerator OnFightEndedCoroutine()
+        void StartTeleport()
         {
-            GetHealed(100);
-            Hero.Speed.ApplyBonusValueChange(3);
+            _movementController.DisableMovement();
+            _movementController.enabled = false;
+            _teleportEffect.transform.localScale = Vector3.zero;
+            _teleportEffect.SetActive(true);
+            _teleportEffect.transform.DOScale(1, 1f);
+        }
 
-            yield return null;
+        void EndTeleport()
+        {
+            _movementController.enabled = true;
+            _movementController.EnableMovement();
+            _teleportEffect.transform.DOScale(0, 1f)
+                .OnComplete(() => _teleportEffect.SetActive(false));
         }
 
         [Button("Stop All Abilities")]

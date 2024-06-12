@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Lis.Units.Enemy
@@ -16,8 +17,17 @@ namespace Lis.Units.Enemy
             base.InitializeUnit(unit, team);
             _enemy = unit as Enemy;
 
-
             HandleMiniBoss();
+        }
+
+        protected override void OnFightEnded()
+        {
+            if (this == null) return;
+            if (Team != 1 || !IsDead) return;
+
+            transform.DOMoveY(0f, 5f)
+                .SetDelay(1f)
+                .OnComplete(DestroySelf);
         }
 
         void HandleMiniBoss()

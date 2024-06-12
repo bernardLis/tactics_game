@@ -71,22 +71,15 @@ namespace Lis.Battle.Fight
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
 
-            StartCoroutine(StartGame());
+            StartGame();
         }
 
-        IEnumerator StartGame()
+        void StartGame()
         {
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
             CurrentFight.ChooseRandomOption();
 
-            for (int i = 0; i < 3; i++)
-            {
-                _tooltipManager.DisplayGameInfo(new Label((3 - i).ToString()));
-                yield return new WaitForSeconds(1f);
-            }
-
-            _heroController.StartAllAbilities();
             StartFight();
         }
 
@@ -108,6 +101,14 @@ namespace Lis.Battle.Fight
         {
             if (IsFightActive) yield break;
             IsFightActive = true;
+
+            for (int i = 0; i < 3; i++)
+            {
+                _tooltipManager.DisplayGameInfo(new Label((3 - i).ToString()));
+                yield return new WaitForSeconds(1f);
+            }
+
+            _heroController.StartAllAbilities();
 
             OnFightStarted?.Invoke();
         }

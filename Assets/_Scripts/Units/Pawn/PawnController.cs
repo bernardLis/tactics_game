@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lis.Units.Pawn
 {
-    public class PawnController : UnitController
+    public class PawnController : PlayerUnitController
     {
         [Header("Pawn")] // TODO: this is so imperfect
         [SerializeField]
@@ -29,28 +29,34 @@ namespace Lis.Units.Pawn
             _pawn.OnUpgraded += OnPawnUpgraded;
         }
 
+        public override void OnFightStarted()
+        {
+            if (this == null) return;
+            if (Team == 0 && IsDead)
+            {
+                transform.DOMoveY(0f, 5f)
+                    .SetDelay(1f)
+                    .OnComplete(DestroySelf);
+                return;
+            }
+
+            base.OnFightStarted();
+        }
+
+        protected override void OnFightEnded()
+        {
+            base.OnFightEnded();
+            if (IsDead) return;
+            _pawn.LevelUp();
+
+            if (_pawn.CurrentMission.IsCompleted)
+                _pawn.Upgrade();
+        }
+
         protected override IEnumerator RunUnitCoroutine()
         {
             while (_isUpgrading) yield return new WaitForSeconds(1f);
             yield return base.RunUnitCoroutine();
-        }
-
-        protected override IEnumerator OnFightEndedCoroutine()
-        {
-            StopUnit();
-            AddToLog("Fight ended!");
-            if (IsDead) yield break;
-
-            _pawn.LevelUp();
-            GetHealed(100);
-
-            if (_pawn.CurrentMission.IsCompleted)
-            {
-                _pawn.Upgrade();
-                yield break;
-            }
-
-            GoBackToLocker();
         }
 
         void OnPawnUpgraded()
@@ -76,7 +82,7 @@ namespace Lis.Units.Pawn
             _isUpgrading = false;
             _upgradeEffect.SetActive(false);
 
-            GoBackToLocker();
+            GoToLocker();
         }
 
         void HandleUpgrade(bool animate = false)

@@ -15,7 +15,7 @@ namespace Lis.Battle.Pickup
 
         Collider _collider;
 
-        bool _isBroken;
+        public bool IsBroken { get; private set; }
         PickupManager _pickupManager;
         Rigidbody _rigidbody;
 
@@ -43,7 +43,7 @@ namespace Lis.Battle.Pickup
             Transform t = transform;
             t.position = position;
             t.localScale = Vector3.zero;
-            _isBroken = false;
+            IsBroken = false;
             _collider.enabled = true;
             _rigidbody.isKinematic = false;
 
@@ -60,8 +60,8 @@ namespace Lis.Battle.Pickup
 
         IEnumerator BreakObject()
         {
-            if (_isBroken) yield break;
-            _isBroken = true;
+            if (IsBroken) yield break;
+            IsBroken = true;
 
             _audioManager.PlaySfx(_breakSound, transform.position);
 

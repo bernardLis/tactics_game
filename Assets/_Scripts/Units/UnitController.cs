@@ -29,12 +29,11 @@ namespace Lis.Units
         GameObject _levelUpEffect;
 
         [SerializeField] protected GameObject DeathEffect;
-        [SerializeField] GameObject _reviveEffect;
         [HideInInspector] public bool IsShielded;
         protected ArenaManager ArenaManager;
         AttackController _attackController;
 
-        IEnumerator _currentMainCoroutine;
+        protected IEnumerator CurrentMainCoroutine;
         IEnumerator _currentSecondaryCoroutine;
 
         MMF_Player _feelPlayer;
@@ -100,10 +99,7 @@ namespace Lis.Units
             Opponent = null;
             Unit = unit;
             Team = team;
-            unit.OnLevelUp -= OnLevelUp;
-            unit.OnLevelUp += OnLevelUp;
-            unit.OnRevival -= Revive;
-            unit.OnRevival += Revive;
+
             name = Team + "_" + Helpers.ParseScriptableObjectName(Unit.name)
                    + "_" + Helpers.GetRandomNumber(4);
 
@@ -116,20 +112,13 @@ namespace Lis.Units
             InitializeAttacks();
         }
 
-        void InitializeControllers()
+        protected virtual void InitializeControllers()
         {
             UnitPathingController = GetComponent<UnitPathingController>();
             if (UnitPathingController != null)
             {
                 UnitPathingController.Initialize(new(20, 100));
                 UnitPathingController.InitializeUnit(Unit);
-            }
-
-            if (TryGetComponent(out UnitGrabController grab))
-            {
-                grab.Initialize(this);
-                grab.OnGrabbed += OnGrabbed;
-                grab.OnReleased += OnReleased;
             }
 
             if (TryGetComponent(out UnitHitController hit))
@@ -145,7 +134,7 @@ namespace Lis.Units
             Unit.OnAttackRemoved += attack => Destroy(attack.AttackController.gameObject);
         }
 
-        void EnableSelf()
+        protected void EnableSelf()
         {
             AddToLog("Unit enables itself.");
             Collider.enabled = true;
@@ -180,73 +169,16 @@ namespace Lis.Units
         public virtual void OnFightStarted()
         {
             if (this == null) return;
-            if (Team == 0 && IsDead)
-            {
-                transform.DOMoveY(0f, 5f)
-                    .SetDelay(1f)
-                    .OnComplete(DestroySelf);
-                return;
-            }
-
             _isAttackReady = true;
             RunUnit();
         }
 
-        void OnFightEnded()
+        protected virtual void OnFightEnded()
         {
             if (this == null) return;
-            if (Team == 1 && IsDead)
-            {
-                transform.DOMoveY(0f, 5f)
-                    .SetDelay(1f)
-                    .OnComplete(DestroySelf);
-                return;
-            }
-
-            StartCoroutine(OnFightEndedCoroutine());
-        }
-
-        protected virtual IEnumerator OnFightEndedCoroutine()
-        {
             StopUnit();
             AddToLog("Fight ended!");
-            if (IsDead) yield break;
-            GetHealed(100);
-
-            UnitPathingController.SetStoppingDistance(0);
-            _currentMainCoroutine =
-                UnitPathingController.PathToPositionAndStop(Vector3.zero);
         }
-
-        // HERE: rename this
-        public void GoBackToLocker()
-        {
-            if (IsDead) return;
-            if (Team == 1) return;
-            if (ArenaManager.IsPositionInPlayerLockerRoom(transform.position)) return;
-
-            AddToLog("Going back to locker room.");
-            UnitPathingController.SetStoppingDistance(0);
-
-            _currentMainCoroutine =
-                UnitPathingController.PathToPositionAndStop(ArenaManager.GetRandomPositionInPlayerLockerRoom());
-
-            StartCoroutine(_currentMainCoroutine);
-        }
-
-        public virtual void TeleportToBase()
-        {
-            StopUnit();
-            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
-            _currentMainCoroutine =
-                UnitPathingController.PathToPositionAndStop(ArenaManager.GetRandomPositionInPlayerLockerRoom());
-        }
-
-        public virtual void TeleportToArena()
-        {
-            transform.position = ArenaManager.GetRandomPositionInArena();
-        }
-
 
         protected virtual void RunUnit()
         {
@@ -254,8 +186,8 @@ namespace Lis.Units
             if (IsDead) return;
             StopUnit();
 
-            _currentMainCoroutine = RunUnitCoroutine();
-            StartCoroutine(_currentMainCoroutine);
+            CurrentMainCoroutine = RunUnitCoroutine();
+            StartCoroutine(CurrentMainCoroutine);
         }
 
         protected virtual void StopUnit()
@@ -264,8 +196,8 @@ namespace Lis.Units
 
             if (_currentSecondaryCoroutine != null)
                 StopCoroutine(_currentSecondaryCoroutine);
-            if (_currentMainCoroutine != null)
-                StopCoroutine(_currentMainCoroutine);
+            if (CurrentMainCoroutine != null)
+                StopCoroutine(CurrentMainCoroutine);
 
             UnitPathingController.DisableAgent();
         }
@@ -341,7 +273,7 @@ namespace Lis.Units
             Opponent.OnDeath += ResetOpponent;
         }
 
-        void ResetOpponent(UnitController _, Attack.Attack __)
+        protected void ResetOpponent(UnitController _, Attack.Attack __)
         {
             AddToLog("Resetting opponent");
             if (this == null) return;
@@ -455,8 +387,6 @@ namespace Lis.Units
 
             StopUnit();
 
-            if (_reviveEffect != null) _reviveEffect.SetActive(false);
-
             ResetOpponent(null, null);
 
             Collider.enabled = false;
@@ -482,16 +412,6 @@ namespace Lis.Units
             _pickupManager.SpawnExpStone(Unit, transform.position);
         }
 
-        void Revive()
-        {
-            AddToLog("Reviving...");
-            Animator.Rebind();
-            Animator.Update(0f);
-            _reviveEffect.SetActive(true);
-            EnableSelf();
-            GoBackToLocker();
-        }
-
         /* LEVEL UP */
         protected virtual void OnLevelUp()
         {
@@ -507,19 +427,6 @@ namespace Lis.Units
         {
             yield return new WaitForSeconds(2f);
             _levelUpEffect.SetActive(false);
-        }
-
-        /* GRAB */
-        void OnGrabbed()
-        {
-            ResetOpponent(default, default);
-            StopUnit();
-        }
-
-        void OnReleased()
-        {
-            if (FightManager.IsFightActive) RunUnit();
-            else if (!ArenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
         }
 
         /* WEIRD HELPERS */
@@ -564,12 +471,6 @@ namespace Lis.Units
         public void LevelUp()
         {
             Unit.LevelUp();
-        }
-
-        [Button]
-        public void DebugRespawn()
-        {
-            Revive();
         }
 
 #endif

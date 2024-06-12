@@ -129,6 +129,7 @@ namespace Lis.Units.Hero
         public void DisableMovement()
         {
             _disableUpdate = true;
+            _inputDirection = Vector3.zero;
             _animator.SetFloat(_animVelocityZ, 0);
             _animator.SetFloat(_animVelocityX, 0);
         }

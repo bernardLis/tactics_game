@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core.Utilities;
@@ -82,6 +83,13 @@ namespace Lis.Battle.Pickup
             foreach (BreakableVaseController vase in GetActiveObjects())
                 if (vase.gameObject.activeSelf)
                     vase.TriggerBreak();
+        }
+
+        public BreakableVaseController GetRandomActiveVase()
+        {
+            List<BreakableVaseController> activeVases = GetActiveObjects();
+            if (activeVases.Count == 0) return null;
+            return activeVases[Random.Range(0, activeVases.Count)];
         }
 
         void DebugSpawnVase()

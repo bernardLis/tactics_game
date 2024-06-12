@@ -435,7 +435,6 @@ MonoBehaviour:
   UnitLog: []
   _levelUpEffect: {fileID: 28685449354431189}
   DeathEffect: {fileID: 8405514708836561315}
-  _reviveEffect: {fileID: 3897362324449461672}
   IsShielded: 0
 --- !u!114 &8654874679923579062
 MonoBehaviour:
@@ -1707,11 +1706,6 @@ PrefabInstance:
 --- !u!4 &1582089493863562349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 161572778031153892, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
-  m_PrefabInstance: {fileID: 1714380068407934601}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3897362324449461672 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2439972382333205281, guid: f4b1adc7782a0a746ba799ea122b38dc, type: 3}
   m_PrefabInstance: {fileID: 1714380068407934601}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3927514145170603791
