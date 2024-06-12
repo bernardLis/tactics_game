@@ -97,6 +97,32 @@ namespace Lis.Units.Hero
         {
         }
 
+        public override void TeleportToBase()
+        {
+            StartCoroutine(TeleportToBaseCoroutine());
+        }
+
+        IEnumerator TeleportToBaseCoroutine()
+        {
+            _movementController.enabled = false;
+            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
+            yield return new WaitForSeconds(1f);
+            _movementController.enabled = true;
+        }
+
+        public override void TeleportToArena()
+        {
+            StartCoroutine(TeleportToArenaCoroutine());
+        }
+
+        IEnumerator TeleportToArenaCoroutine()
+        {
+            _movementController.enabled = false;
+            transform.position = ArenaManager.GetRandomPositionInArena();
+            yield return new WaitForSeconds(1f);
+            _movementController.enabled = true;
+        }
+
         protected override IEnumerator OnFightEndedCoroutine()
         {
             GetHealed(100);

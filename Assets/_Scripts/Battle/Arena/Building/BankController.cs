@@ -3,43 +3,45 @@ using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
-    public class FightSelector : BuildingController, IInteractable
+    public class BankController : BuildingController, IInteractable
     {
-        public new string InteractionPrompt => "Press F To Select A Fight!";
+        Bank _bank;
+        public new string InteractionPrompt => "Press F To Access Bank!";
 
         public override bool Interact(Interactor interactor)
         {
             if (FightManager.IsFightActive)
             {
-                Debug.Log("Fight is active!");
+                Debug.Log("Fight instead of shopping!");
                 return false;
             }
 
-            FightSelectScreen fss = new();
-            fss.Initialize();
+            BankScreen bankScreen = new();
+            bankScreen.InitializeBank(_bank);
             return true;
         }
 
         protected override void OnBattleInitialized()
         {
             base.OnBattleInitialized();
-            Building = BattleManager.Battle.FightSelector;
+            Building = BattleManager.Battle.Bank;
+            _bank = (Bank)Building;
+            _bank.InitializeBattle();
+            OnFightEnded();
             Initialize();
         }
 
         protected override void OnFightEnded()
         {
-            if (FightManager.FightNumber == 5)
-                Building.Unlock();
-
-            if (Building.IsUnlocked)
-                AllowInteraction();
+            if (!_bank.IsUnlocked) return;
+            AllowInteraction();
         }
 
         protected override void OnFightStarted()
         {
+            if (!_bank.IsUnlocked) return;
             ForbidInteraction();
         }
 

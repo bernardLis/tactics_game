@@ -1,4 +1,5 @@
-﻿using Lis.Battle.Fight;
+﻿using Lis.Battle.Arena.Building;
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;

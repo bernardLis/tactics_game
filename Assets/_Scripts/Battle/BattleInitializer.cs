@@ -27,10 +27,10 @@ namespace Lis.Battle
             _battleManager = BattleManager.Instance;
 
             // HERE: testing
-            _audioManager = AudioManager.Instance;
-            _audioManager.MuteAllButMusic();
-
-            _loadingScreen = new();
+            // _audioManager = AudioManager.Instance;
+            // _audioManager.MuteAllButMusic();
+            //
+            // _loadingScreen = new();
             _battleManager.Initialize();
             _battleManager.ResumeGame();
 
@@ -65,8 +65,8 @@ namespace Lis.Battle
             OnBattleInitialized?.Invoke();
 
             // HERE: not testing
-            _loadingScreen.Hide();
-            _audioManager.UnmuteAll();
+            // _loadingScreen.Hide();
+            // _audioManager.UnmuteAll();
         }
 
         void SetThemeStyleSheet()

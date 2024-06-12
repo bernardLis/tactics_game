@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     public class BuildingController : MonoBehaviour, IInteractable
     {

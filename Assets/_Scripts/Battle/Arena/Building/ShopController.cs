@@ -3,12 +3,12 @@ using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
-    public class BankController : BuildingController, IInteractable
+    public class ShopController : BuildingController, IInteractable
     {
-        Bank _bank;
-        public new string InteractionPrompt => "Press F To Access Bank!";
+        Shop _shop;
+        public new string InteractionPrompt => "Press F To Shop!";
 
         public override bool Interact(Interactor interactor)
         {
@@ -18,30 +18,30 @@ namespace Lis.Battle.Arena
                 return false;
             }
 
-            BankScreen bankScreen = new();
-            bankScreen.InitializeBank(_bank);
+            ShopScreen shopScreen = new();
+            shopScreen.InitializeShop(_shop);
             return true;
         }
 
         protected override void OnBattleInitialized()
         {
             base.OnBattleInitialized();
-            Building = BattleManager.Battle.Bank;
-            _bank = (Bank)Building;
-            _bank.InitializeBattle();
+            Building = BattleManager.Battle.Shop;
+            _shop = (Shop)Building;
             OnFightEnded();
             Initialize();
         }
 
         protected override void OnFightEnded()
         {
-            if (!_bank.IsUnlocked) return;
+            if (!_shop.IsUnlocked) return;
             AllowInteraction();
+            _shop.ShouldReset = true;
         }
 
         protected override void OnFightStarted()
         {
-            if (!_bank.IsUnlocked) return;
+            if (!_shop.IsUnlocked) return;
             ForbidInteraction();
         }
 

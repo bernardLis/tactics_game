@@ -6,7 +6,7 @@ using Lis.Units.Hero;
 using Lis.Units.Pawn;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     public class BarracksController : BuildingController, IInteractable
     {

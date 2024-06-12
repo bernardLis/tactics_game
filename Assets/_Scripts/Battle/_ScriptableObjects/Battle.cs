@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lis.Battle.Arena;
+using Lis.Battle.Arena.Building;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -13,8 +14,8 @@ namespace Lis.Battle
 
         public Hero SelectedHero;
 
-        public List<Arena.Arena> Arenas;
-        public Arena.Arena CurrentArena;
+        public List<Arena.Building.Arena> Arenas;
+        public Arena.Building.Arena CurrentArena;
 
         public Bank Bank;
         public Building FightSelector;
@@ -28,11 +29,11 @@ namespace Lis.Battle
         {
             Stats = CreateInstance<Stats>();
 
-            foreach (Arena.Arena arena in Arenas)
+            foreach (Arena.Building.Arena arena in Arenas)
                 arena.Initialize();
 
             SetCurrentArena();
-            //    SetRandomHero(); // HERE: not testing
+            SetRandomHero();
             InstantiateBuildings();
         }
 

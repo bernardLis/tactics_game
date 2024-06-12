@@ -2,7 +2,7 @@
 using Lis.Battle.Fight;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Bank")]
     public class Bank : Building

@@ -2,7 +2,7 @@ using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     public class HeroLeveler : BuildingController, IInteractable
     {

@@ -2,7 +2,7 @@
 using Lis.Core;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Barracks")]
     public class Barracks : Building

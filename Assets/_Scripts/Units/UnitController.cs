@@ -31,7 +31,7 @@ namespace Lis.Units
         [SerializeField] protected GameObject DeathEffect;
         [SerializeField] GameObject _reviveEffect;
         [HideInInspector] public bool IsShielded;
-        ArenaManager _arenaManager;
+        protected ArenaManager ArenaManager;
         AttackController _attackController;
 
         IEnumerator _currentMainCoroutine;
@@ -77,7 +77,7 @@ namespace Lis.Units
             BattleManager = BattleManager.Instance;
             _pickupManager = BattleManager.GetComponent<PickupManager>();
             FightManager = BattleManager.GetComponent<FightManager>();
-            _arenaManager = BattleManager.GetComponent<ArenaManager>();
+            ArenaManager = BattleManager.GetComponent<ArenaManager>();
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
@@ -212,22 +212,41 @@ namespace Lis.Units
             AddToLog("Fight ended!");
             if (IsDead) yield break;
             GetHealed(100);
-            GoBackToLocker();
+
+            UnitPathingController.SetStoppingDistance(0);
+            _currentMainCoroutine =
+                UnitPathingController.PathToPositionAndStop(Vector3.zero);
         }
 
+        // HERE: rename this
         public void GoBackToLocker()
         {
             if (IsDead) return;
             if (Team == 1) return;
-            if (_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) return;
+            if (ArenaManager.IsPositionInPlayerLockerRoom(transform.position)) return;
 
             AddToLog("Going back to locker room.");
             UnitPathingController.SetStoppingDistance(0);
 
             _currentMainCoroutine =
-                UnitPathingController.PathToPositionAndStop(_arenaManager.GetRandomPositionInPlayerLockerRoom());
+                UnitPathingController.PathToPositionAndStop(ArenaManager.GetRandomPositionInPlayerLockerRoom());
+
             StartCoroutine(_currentMainCoroutine);
         }
+
+        public virtual void TeleportToBase()
+        {
+            StopUnit();
+            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
+            _currentMainCoroutine =
+                UnitPathingController.PathToPositionAndStop(ArenaManager.GetRandomPositionInPlayerLockerRoom());
+        }
+
+        public virtual void TeleportToArena()
+        {
+            transform.position = ArenaManager.GetRandomPositionInArena();
+        }
+
 
         protected virtual void RunUnit()
         {
@@ -500,7 +519,7 @@ namespace Lis.Units
         void OnReleased()
         {
             if (FightManager.IsFightActive) RunUnit();
-            else if (!_arenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
+            else if (!ArenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoBackToLocker();
         }
 
         /* WEIRD HELPERS */

@@ -28,7 +28,7 @@ namespace Lis.Battle.Fight
         public List<UnitController> KilledPlayerUnits = new();
         public List<Unit> KilledEnemyUnits = new();
         public bool IsTesting;
-        Arena _arena;
+        Arena.Building.Arena _arena;
 
         ArenaManager _arenaManager;
 

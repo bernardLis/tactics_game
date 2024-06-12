@@ -7,7 +7,7 @@ namespace Lis.Battle.Arena
 {
     public class ArenaManager : Singleton<ArenaManager>
     {
-        Arena _arena;
+        Building.Arena _arena;
         ArenaController _arenaController;
         GameObject _arenaObject;
 

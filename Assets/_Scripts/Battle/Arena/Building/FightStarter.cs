@@ -1,9 +1,10 @@
 using Lis.Battle.Fight;
 using Lis.Core;
+using Lis.Units;
 using Lis.Units.Hero;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     public class FightStarter : BuildingController, IInteractable
     {
@@ -16,6 +17,9 @@ namespace Lis.Battle.Arena
                 Debug.Log("Fight is already active");
                 return false;
             }
+
+            foreach (UnitController uc in FightManager.Instance.PlayerUnits)
+                uc.TeleportToArena();
 
             FightManager.StartFight();
             return true;

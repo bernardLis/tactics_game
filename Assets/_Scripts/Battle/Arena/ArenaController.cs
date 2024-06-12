@@ -1,3 +1,4 @@
+using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -8,10 +9,6 @@ namespace Lis.Battle.Arena
         [SerializeField] BoxCollider _playerLockerRoom;
         [SerializeField] BoxCollider _enemyLockerRoom;
         [SerializeField] BoxCollider _arena;
-
-        public void Initialize()
-        {
-        }
 
         public bool IsPositionInPlayerLockerRoom(Vector3 pos)
         {

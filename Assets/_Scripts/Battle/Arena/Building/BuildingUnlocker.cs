@@ -4,7 +4,7 @@ using Lis.Units.Hero;
 using TMPro;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     public class BuildingUnlocker : MonoBehaviour, IInteractable
     {

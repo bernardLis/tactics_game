@@ -1,10 +1,8 @@
-using Lis.Battle;
-using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Units.Hero;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Battle.Arena
 {
     public class HeroArenaLeaveController : MonoBehaviour
     {

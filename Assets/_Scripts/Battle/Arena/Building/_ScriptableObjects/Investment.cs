@@ -4,7 +4,7 @@ using Lis.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     public class Investment : BaseScriptableObject
     {

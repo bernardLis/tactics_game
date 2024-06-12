@@ -3,7 +3,7 @@ using Lis.Core;
 using Lis.Units.Boss;
 using UnityEngine;
 
-namespace Lis.Battle.Arena
+namespace Lis.Battle.Arena.Building
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Arena")]
     public class Arena : BaseScriptableObject
