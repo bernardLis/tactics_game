@@ -9,12 +9,10 @@ namespace Lis.Units
         const string _ussClassName = "unit-icon__";
         const string _ussMain = _ussClassName + "main";
         const string _ussIconContainer = _ussClassName + "icon-container";
-        const string _ussFrame = _ussClassName + "frame";
 
         readonly Unit _unit;
-        protected readonly VisualElement Frame;
 
-        protected readonly VisualElement IconContainer;
+        protected readonly VisualElement Icon;
         bool _isAnimationBlocked;
 
         public UnitIcon(Unit unit, bool blockClick = false)
@@ -27,18 +25,10 @@ namespace Lis.Units
 
             AddToClassList(_ussMain);
 
-            IconContainer = new();
-            IconContainer.AddToClassList(_ussIconContainer);
-
-            VisualElement icon = new();
-            icon.style.backgroundImage = new(unit.Icon);
-            IconContainer.Add(icon);
-
-            Frame = new();
-            Frame.AddToClassList(_ussFrame);
-
-            Add(IconContainer);
-            Add(Frame);
+            Icon = new();
+            Icon.AddToClassList(_ussIconContainer);
+            Icon.style.backgroundImage = new(unit.Icon);
+            Add(Icon);
 
             if (blockClick) return;
             RegisterCallback<ClickEvent>(OnClick);

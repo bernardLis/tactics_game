@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityObjectPrefab: {fileID: 0}
+  Ability: {fileID: 0}
   _projectilePrefab: {fileID: 1202834902249715763}
 --- !u!114 &4316762759719260232
 MonoBehaviour:

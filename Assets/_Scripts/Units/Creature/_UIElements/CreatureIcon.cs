@@ -1,5 +1,4 @@
 using Lis.Core;
-using UnityEngine.UIElements;
 
 namespace Lis.Units.Creature
 {
@@ -13,11 +12,8 @@ namespace Lis.Units.Creature
             style.width = 50;
             style.height = 50;
 
-            IconContainer.style.width = 45;
-            IconContainer.style.height = 45;
-
-            Frame.style.width = 50;
-            Frame.style.height = 50;
+            Icon.style.width = 45;
+            Icon.style.height = 45;
         }
 
         public void SetBigIcon()
@@ -25,11 +21,8 @@ namespace Lis.Units.Creature
             style.width = 150;
             style.height = 150;
 
-            IconContainer.style.width = 140;
-            IconContainer.style.height = 140;
-
-            Frame.style.width = 150;
-            Frame.style.height = 150;
+            Icon.style.width = 140;
+            Icon.style.height = 140;
         }
     }
 }

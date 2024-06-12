@@ -19686,6 +19686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityObjectPrefab: {fileID: 9075320074425139780}
+  Ability: {fileID: 0}
 --- !u!114 &7826206862149262455
 MonoBehaviour:
   m_ObjectHideFlags: 0

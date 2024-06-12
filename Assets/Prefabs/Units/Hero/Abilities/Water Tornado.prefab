@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityObjectPrefab: {fileID: 6143114611498272089}
+  Ability: {fileID: 0}
 --- !u!1 &1966743466714590426
 GameObject:
   m_ObjectHideFlags: 0
