@@ -29,20 +29,6 @@ namespace Lis.Units.Pawn
             _pawn.OnUpgraded += OnPawnUpgraded;
         }
 
-        public override void OnFightStarted()
-        {
-            if (this == null) return;
-            if (Team == 0 && IsDead)
-            {
-                transform.DOMoveY(0f, 5f)
-                    .SetDelay(1f)
-                    .OnComplete(DestroySelf);
-                return;
-            }
-
-            base.OnFightStarted();
-        }
-
         protected override void OnFightEnded()
         {
             base.OnFightEnded();
@@ -81,8 +67,6 @@ namespace Lis.Units.Pawn
             yield return new WaitForSeconds(3f);
             _isUpgrading = false;
             _upgradeEffect.SetActive(false);
-
-            GoToLocker();
         }
 
         void HandleUpgrade(bool animate = false)

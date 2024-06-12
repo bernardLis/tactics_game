@@ -22,6 +22,8 @@ namespace Lis.Battle
         UnitIcon _unitIcon;
         protected Label LevelLabel;
 
+        PurchaseButton _reviveButton;
+
         public UnitCard(Unit unit)
         {
             Initialize();
@@ -92,19 +94,20 @@ namespace Lis.Battle
             if (Unit.CurrentHealth.Value > 0) return;
 
             // HERE: balance price
-            PurchaseButton b = new("Revive", _ussCommonButton, Revive, 10);
-            BottomContainer.Add(b);
+            _reviveButton = new("Revive", _ussCommonButton, Revive, 10);
+            BottomContainer.Add(_reviveButton);
 
             if (FightManager.IsFightActive)
             {
-                b.SetEnabled(false);
-                FightManager.Instance.OnFightEnded += () => b.SetEnabled(true);
+                _reviveButton.SetEnabled(false);
+                FightManager.Instance.OnFightEnded += () => _reviveButton.SetEnabled(true);
             }
         }
 
         void Revive()
         {
             Unit.Revive();
+            _reviveButton.RemoveFromHierarchy();
         }
     }
 }

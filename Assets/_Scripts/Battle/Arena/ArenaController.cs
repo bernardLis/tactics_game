@@ -12,6 +12,8 @@ namespace Lis.Battle.Arena
         [SerializeField] BoxCollider _enemyLockerRoom;
         [SerializeField] BoxCollider _arena;
 
+        [SerializeField] Transform _rewardSpawnPoint;
+
         public bool IsPositionInPlayerLockerRoom(Vector3 pos)
         {
             pos.y = _playerLockerRoom.bounds.min.y; // ignoring y axis
@@ -43,6 +45,11 @@ namespace Lis.Battle.Arena
         public Vector3 GetRandomPositionInArena()
         {
             return Helpers.RandomPointInBounds(_arena.bounds);
+        }
+
+        public Vector3 GetRewardSpawnPoint()
+        {
+            return _rewardSpawnPoint.position;
         }
     }
 }

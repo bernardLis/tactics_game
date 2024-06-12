@@ -18,6 +18,11 @@ namespace Lis.Battle.Arena
             _arenaController = _arenaObject.GetComponent<ArenaController>();
         }
 
+        public Vector3 GetRewardSpawnPoint()
+        {
+            return _arenaController.GetRewardSpawnPoint();
+        }
+
         public bool IsPositionInPlayerBase(Vector3 pos)
         {
             if (_arenaController.IsPositionInPlayerLockerRoom(pos)) return true;

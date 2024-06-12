@@ -25,20 +25,6 @@ namespace Lis.Units.Peasant
             _peasant.OnUpgraded += OnPeasantUpgraded;
         }
 
-        public override void OnFightStarted()
-        {
-            if (this == null) return;
-            if (Team == 0 && IsDead)
-            {
-                transform.DOMoveY(0f, 5f)
-                    .SetDelay(1f)
-                    .OnComplete(DestroySelf);
-                return;
-            }
-
-            base.OnFightStarted();
-        }
-
         protected override void OnFightEnded()
         {
             base.OnFightEnded();

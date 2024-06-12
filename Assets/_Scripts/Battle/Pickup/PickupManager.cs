@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using Lis.Units;
@@ -24,6 +25,7 @@ namespace Lis.Battle.Pickup
 
         [SerializeField] List<ExperienceStone> _expOrbs = new();
         FightManager _fightManager;
+        ArenaManager _arenaManager;
 
         public event Action<Pickup> OnPickupCollected;
 
@@ -33,6 +35,7 @@ namespace Lis.Battle.Pickup
 
             _fightManager = FightManager.Instance;
             _fightManager.OnFightEnded += OnFightEnded;
+            _arenaManager = ArenaManager.Instance;
             // HERE: testing
             GetComponent<InputManager>().OnTwoClicked += SpawnBunchExpStones;
         }
@@ -41,10 +44,10 @@ namespace Lis.Battle.Pickup
         void OnFightEnded()
         {
             if (FightManager.FightNumber == 2)
-                SpawnPickup(Instantiate(_mushroom), new(-23, 0, 0));
+                SpawnPickup(Instantiate(_mushroom), _arenaManager.GetRewardSpawnPoint());
 
             if (FightManager.FightNumber == 4)
-                SpawnPickup(Instantiate(_barracksToken), new(-23, 0, 0));
+                SpawnPickup(Instantiate(_barracksToken), _arenaManager.GetRewardSpawnPoint());
         }
 
 

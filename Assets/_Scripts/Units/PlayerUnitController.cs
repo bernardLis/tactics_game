@@ -1,4 +1,5 @@
-﻿using Lis.Battle;
+﻿using DG.Tweening;
+using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Units.Hero;
 using NaughtyAttributes;
@@ -34,8 +35,24 @@ namespace Lis.Units
             _heroController.OnTeleportedToBase += TeleportToBase;
         }
 
+        public override void OnFightStarted()
+        {
+            if (this == null) return;
+            if (Team == 0 && IsDead)
+            {
+                transform.DOMoveY(0f, 5f)
+                    .SetDelay(1f)
+                    .OnComplete(DestroySelf);
+                return;
+            }
+
+            base.OnFightStarted();
+        }
+
+
         protected override void OnFightEnded()
         {
+            if (this == null) return;
             base.OnFightEnded();
             if (IsDead) return;
             GetHealed(100);
@@ -56,16 +73,19 @@ namespace Lis.Units
 
         public virtual void TeleportToBase()
         {
+            if (this == null) return;
+            if (IsDead) return;
             if (ArenaManager.IsPositionInPlayerBase(transform.position)) return;
 
-            AddToLog("Teleporting to Base");
             StopUnit();
-            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
+            AddToLog("Teleporting to Base");
+            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom() + Vector3.up;
             GoToLocker();
         }
 
         public virtual void TeleportToArena()
         {
+            StopUnit();
             AddToLog("Teleporting to Arena.");
             transform.position = new(Random.Range(-3, 3), 1, Random.Range(-3, 3));
         }
@@ -78,7 +98,7 @@ namespace Lis.Units
             Animator.Update(0f);
             _reviveEffect.SetActive(true);
             EnableSelf();
-            GoToLocker();
+            OnFightEnded();
         }
 
         /* GRAB */
