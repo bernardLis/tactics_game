@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 8890709654437821764}
   - component: {fileID: 1625653394208076934}
   - component: {fileID: 5545418216853162528}
+  - component: {fileID: 1934811644275285325}
   - component: {fileID: 1813988017654575525}
   m_Layer: 0
   m_Name: Battle Manager
@@ -310,6 +311,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fe84d0d2fa4fca80b39bede63328d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1934811644275285325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072123f6ad2d4b3f9628b2706ce7c6e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyPoolPrefab: {fileID: 1807384318734536117, guid: d2061577cbc7621418a470fc3ee61430, type: 3}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

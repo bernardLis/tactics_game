@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle;
 using UnityEngine;
 
 namespace Lis.Units.Enemy
@@ -11,6 +12,8 @@ namespace Lis.Units.Enemy
         GameObject _miniBossEffect;
 
         Enemy _enemy;
+
+        EnemyPool _pool;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -27,7 +30,17 @@ namespace Lis.Units.Enemy
 
             transform.DOMoveY(0f, 5f)
                 .SetDelay(1f)
-                .OnComplete(DestroySelf);
+                .OnComplete(ReturnToPool);
+        }
+
+        public void SetPool(EnemyPool pool)
+        {
+            _pool = pool;
+        }
+
+        void ReturnToPool()
+        {
+            if (_pool != null) _pool.Return(this);
         }
 
         void HandleMiniBoss()

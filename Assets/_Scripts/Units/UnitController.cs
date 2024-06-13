@@ -134,16 +134,21 @@ namespace Lis.Units
             Unit.OnAttackRemoved += attack => Destroy(attack.AttackController.gameObject);
         }
 
-        protected void EnableSelf()
+        public void EnableSelf()
         {
             AddToLog("Unit enables itself.");
+            FightManager.OnFightStarted -= OnFightStarted;
+            FightManager.OnFightEnded -= OnFightEnded;
+            FightManager.OnFightStarted += OnFightStarted;
+            FightManager.OnFightEnded += OnFightEnded;
+
             Collider.enabled = true;
             DeathEffect.SetActive(false);
             _isDeathCoroutineStarted = false;
             IsDead = false;
-            _isAttackReady = true;
 
-//            transform.DODynamicLookAt(Vector3.zero, 0.2f, AxisConstraint.Y);
+            Unit.ResetAttackCooldowns();
+            _isAttackReady = true;
         }
 
         public void SetOpponentList(ref List<UnitController> list)
@@ -449,7 +454,7 @@ namespace Lis.Units
             UnitLog.Add($"{BattleManager.GetTime()}: {s}.");
         }
 
-        protected void DestroySelf()
+        public void DisableSelf()
         {
             FightManager.OnFightStarted -= OnFightStarted;
             FightManager.OnFightEnded -= OnFightEnded;
@@ -457,6 +462,11 @@ namespace Lis.Units
             StopAllCoroutines();
             DOTween.Kill(transform);
             gameObject.SetActive(false);
+        }
+
+        protected void DestroySelf()
+        {
+            DisableSelf();
             Destroy(gameObject);
         }
 

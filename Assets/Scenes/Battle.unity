@@ -366,7 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 508511795}
   m_Layer: 0
-  m_Name: Opponent Army Holder
+  m_Name: Enemy Army Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1733,6 +1733,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1934811644275285325, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _enemyArmyHolder
+      value: 
+      objectReference: {fileID: 508511795}
     - target: {fileID: 5119385659013104313, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1798,9 +1802,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1093471360}
     - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: EnemyArmyHolder
+      value: 
+      objectReference: {fileID: 508511795}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: PlayerArmyHolder
       value: 
       objectReference: {fileID: 1078788522}
+    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: OpponentArmyHolder
+      value: 
+      objectReference: {fileID: 508511795}
     - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _opponentArmyHolder
       value: 

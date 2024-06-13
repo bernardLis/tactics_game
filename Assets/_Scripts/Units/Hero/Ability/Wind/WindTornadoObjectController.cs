@@ -21,10 +21,12 @@ namespace Lis.Units.Hero.Ability
             if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (col.gameObject.TryGetComponent(out UnitController unitController))
             {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
+                if (!unitController.isActiveAndEnabled) return;
+                if (unitController.Team == 0) return; // TODO: hardcoded team number
+                if (unitController.IsDead) return;
+                StartCoroutine(unitController.GetHit(Ability.GetCurrentLevel()));
             }
         }
 

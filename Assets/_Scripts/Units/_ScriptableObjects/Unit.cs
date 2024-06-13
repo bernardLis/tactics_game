@@ -177,7 +177,7 @@ namespace Lis.Units
             OnAttackAdded?.Invoke(attack);
         }
 
-        public void RemoveAttack(Attack.Attack attack)
+        protected void RemoveAttack(Attack.Attack attack)
         {
             Attacks.Remove(attack);
             OnAttackRemoved?.Invoke(attack);
@@ -188,7 +188,6 @@ namespace Lis.Units
             float lowestCooldown = Mathf.Infinity;
             CurrentAttack = Attacks[Random.Range(0, Attacks.Count)];
 
-            // HERE: broken
             foreach (Attack.Attack a in Attacks)
             {
                 if (a == null) continue;
@@ -199,6 +198,12 @@ namespace Lis.Units
             }
 
             return CurrentAttack == null ? null : CurrentAttack.AttackController;
+        }
+
+        public void ResetAttackCooldowns()
+        {
+            foreach (Attack.Attack a in Attacks)
+                a.ResetCooldown();
         }
 
         public int GetDamageDealt()

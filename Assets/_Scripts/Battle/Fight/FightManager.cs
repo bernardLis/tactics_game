@@ -17,7 +17,7 @@ namespace Lis.Battle.Fight
     public class FightManager : Singleton<FightManager>
     {
         public Transform PlayerArmyHolder;
-        [SerializeField] Transform _opponentArmyHolder;
+        public Transform EnemyArmyHolder;
 
         [HideInInspector] public Fight LastFight;
         [HideInInspector] public Fight CurrentFight;
@@ -31,6 +31,7 @@ namespace Lis.Battle.Fight
         Arena.Building.Arena _arena;
 
         ArenaManager _arenaManager;
+        EnemyPoolManager _enemyPoolManager;
 
         Battle _battle;
 
@@ -57,6 +58,7 @@ namespace Lis.Battle.Fight
             _arena = _battle.CurrentArena;
 
             _arenaManager = GetComponent<ArenaManager>();
+            _enemyPoolManager = GetComponent<EnemyPoolManager>();
             _heroController = GetComponent<HeroManager>().HeroController;
             _tooltipManager = GetComponent<TooltipManager>();
 
@@ -131,10 +133,12 @@ namespace Lis.Battle.Fight
             for (int i = 0; i < CurrentFight.ChosenOption.NumberOfWaves; i++)
             {
                 _tooltipManager.DisplayGameInfo(
-                    new Label($"Wave {_currentWaveIndex}/{CurrentFight.ChosenOption.NumberOfWaves}"));
+                    new Label($"Wave {_currentWaveIndex + 1}/{CurrentFight.ChosenOption.NumberOfWaves}"));
                 _currentWaveIndex++;
 
                 SpawnEnemyArmy(CurrentFight.ChosenOption);
+                if (_currentWaveIndex == CurrentFight.ChosenOption.NumberOfWaves) yield break;
+
                 yield return new WaitForSeconds(Random.Range(10, 15));
             }
         }
@@ -179,13 +183,18 @@ namespace Lis.Battle.Fight
         public UnitController SpawnEnemyUnit(Unit c)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
-            GameObject g = Instantiate(c.Prefab, pos, Quaternion.identity, _opponentArmyHolder);
-            UnitController unitController = g.GetComponent<UnitController>();
-            unitController.InitializeGameObject();
-            unitController.InitializeUnit(c, 1);
+            UnitController unitController = _enemyPoolManager.Get(c.Id);
+            if (unitController == null)
+            {
+                GameObject g = Instantiate(c.Prefab, EnemyArmyHolder);
+                unitController = g.GetComponent<UnitController>();
+                unitController.InitializeGameObject();
+                unitController.InitializeUnit(c, 1);
+            }
+
+            unitController.transform.position = pos;
             unitController.SetOpponentList(ref PlayerUnits);
             AddEnemyUnit(unitController);
-
             return unitController;
         }
 
@@ -200,7 +209,6 @@ namespace Lis.Battle.Fight
 
         public void AddEnemyUnit(UnitController b)
         {
-            b.transform.parent = _opponentArmyHolder;
             EnemyUnits.Add(b);
             b.OnDeath += EnemyUnitDies;
             OnEnemyUnitAdded?.Invoke(b);
@@ -216,15 +224,16 @@ namespace Lis.Battle.Fight
                 DebugEndFight(); // HERE: testing
         }
 
-        void EnemyUnitDies(UnitController be, Attack attack)
+        void EnemyUnitDies(UnitController uc, Attack attack)
         {
-            KilledEnemyUnits.Add(be.Unit);
-            EnemyUnits.Remove(be);
-            OnEnemyUnitDeath?.Invoke(be);
+            KilledEnemyUnits.Add(uc.Unit);
+            EnemyUnits.Remove(uc);
+            OnEnemyUnitDeath?.Invoke(uc);
 
+            if (!IsFightActive) return;
+            if (EnemyUnits.Count > 0) return;
             if (_currentWaveIndex != CurrentFight.ChosenOption.NumberOfWaves) return;
-            if (IsFightActive && EnemyUnits.Count == 0)
-                EndFight();
+            EndFight();
         }
 
         void DebugEndFight()
@@ -235,6 +244,8 @@ namespace Lis.Battle.Fight
 
         void EndFight()
         {
+            IsFightActive = false;
+
             FightNumber++;
 
             CurrentFight.GiveReward();
@@ -243,8 +254,6 @@ namespace Lis.Battle.Fight
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             _arenaManager.ChooseActiveEnemyLockerRooms(CurrentFight.ActiveLockerRoomCount);
             UpdateFightInfoText();
-
-            IsFightActive = false;
 
             OnFightEnded?.Invoke();
         }

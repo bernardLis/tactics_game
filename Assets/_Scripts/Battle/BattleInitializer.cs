@@ -53,6 +53,7 @@ namespace Lis.Battle
             yield return new WaitForSeconds(0.5f);
             GetComponent<GrabManager>().Initialize();
             GetComponent<TooltipManager>().Initialize();
+            GetComponent<EnemyPoolManager>().Initialize();
             GetComponent<FightManager>().Initialize(_gameManager.CurrentBattle);
             GetComponent<BreakableVaseManager>().Initialize();
             GetComponent<PickupManager>().Initialize();

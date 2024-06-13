@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Enemy;
-using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -25,7 +23,6 @@ namespace Lis.Battle.Fight
             _unitDatabase = GameManager.Instance.UnitDatabase;
 
             GoldReward = (fightNumber + 1) * Random.Range(8, 12);
-            List<Enemy> availableEnemies = new(_unitDatabase.GetAllEnemies());
             if (fightNumber == 0)
             {
                 CreateFirstFight();
@@ -40,9 +37,9 @@ namespace Lis.Battle.Fight
 
             NumberOfWaves = Random.Range(1, 4);
             points /= NumberOfWaves;
-            Debug.Log("Points: " + points + " Fight number: " + fightNumber + " Waves: " + NumberOfWaves);
 
             // limits enemies scariness to fight number
+            List<Enemy> availableEnemies = new(_unitDatabase.GetAllEnemies());
             availableEnemies.RemoveAll(e => e.ScarinessRank > fightNumber - 1);
 
             int pointsLeft = points;

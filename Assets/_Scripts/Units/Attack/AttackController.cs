@@ -31,6 +31,11 @@ namespace Lis.Units.Attack
             UnitController = unitController;
         }
 
+        public void ResetCooldown()
+        {
+            CurrentCooldown = 0;
+        }
+
         public void SetAnimator(Animator animator)
         {
             Animator = animator;

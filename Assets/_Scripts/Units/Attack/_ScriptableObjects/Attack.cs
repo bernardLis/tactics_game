@@ -39,6 +39,13 @@ namespace Lis.Units.Attack
             _unit = unit;
         }
 
+        public void ResetCooldown()
+        {
+            if (AttackController != null)
+                AttackController.ResetCooldown();
+        }
+
+
         public float GetDamage()
         {
             if (_unit == null) return 0;
