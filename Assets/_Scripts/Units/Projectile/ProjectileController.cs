@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -34,6 +33,7 @@ namespace Lis.Units.Projectile
         protected bool IsHitConnected;
 
         protected int Team;
+        public event Action OnExplode;
 
         protected virtual void OnCollisionEnter(Collision collision)
         {
@@ -63,7 +63,6 @@ namespace Lis.Units.Projectile
             }
         }
 
-        public event Action OnExplode;
 
         public virtual void Initialize(int team, Attack.Attack attack)
         {
@@ -71,8 +70,6 @@ namespace Lis.Units.Projectile
             Attack = attack;
 
             _audioManager = AudioManager.Instance;
-            FightManager.Instance.OnFightEnded -= HitConnected;
-            FightManager.Instance.OnFightEnded += HitConnected;
             _collider = GetComponent<SphereCollider>();
 
             if (team == 0)

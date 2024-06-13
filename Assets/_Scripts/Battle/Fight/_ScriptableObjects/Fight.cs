@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lis.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -11,6 +12,7 @@ namespace Lis.Battle.Fight
         [HideInInspector] public List<FightOption> Options = new();
         public FightOption ChosenOption;
         public bool WasRandom;
+        public int ActiveLockerRoomCount;
 
         public event Action<FightOption> OnOptionChosen;
 
@@ -26,6 +28,8 @@ namespace Lis.Battle.Fight
                 option.OnChosen += ChooseOption;
                 Options.Add(option);
             }
+
+            ActiveLockerRoomCount = Random.Range(2, 8);
         }
 
         public void ChooseRandomOption()

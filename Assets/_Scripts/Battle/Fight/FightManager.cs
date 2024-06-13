@@ -68,10 +68,21 @@ namespace Lis.Battle.Fight
             BattleManager.Instance.Root.Q<VisualElement>("fightInfo").Add(_fightInfoLabel);
             UpdateFightInfoText();
 
+            _heroController.OnTeleportedToBase += OnHeroTeleportedToBase;
+
             // HERE: testing
             GetComponent<InputManager>().OnOneClicked += StartFight;
 
             StartGame();
+        }
+
+        void OnHeroTeleportedToBase()
+        {
+            if (_battle.FightSelector.IsUnlocked) return;
+            if (IsTesting) return;
+
+            CurrentFight.ChooseRandomOption();
+            _tooltipManager.DisplayGameInfo(new Label("Interact with fight starter to start the next fight."));
         }
 
         void StartGame()
@@ -214,22 +225,14 @@ namespace Lis.Battle.Fight
 
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
             CurrentFight.OnOptionChosen += SpawnEnemyArmy;
+            _arenaManager.ChooseActiveEnemyLockerRooms(CurrentFight.ActiveLockerRoomCount);
             UpdateFightInfoText();
 
             IsFightActive = false;
 
             OnFightEnded?.Invoke();
-
-            if (!_battle.FightSelector.IsUnlocked) ChooseRandomFightOption();
         }
 
-        void ChooseRandomFightOption()
-        {
-            if (IsTesting) return;
-
-            CurrentFight.ChooseRandomOption();
-            _tooltipManager.DisplayGameInfo(new Label("Interact with fight starter to start the next fight."));
-        }
 
         public List<UnitController> GetAllies(UnitController unitController)
         {

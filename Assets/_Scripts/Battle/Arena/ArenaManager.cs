@@ -16,6 +16,12 @@ namespace Lis.Battle.Arena
             _arena = battle.CurrentArena;
             _arenaObject = Instantiate(_arena.Prefab, Vector3.zero, Quaternion.identity);
             _arenaController = _arenaObject.GetComponent<ArenaController>();
+            _arenaController.Initialize();
+        }
+
+        public void ChooseActiveEnemyLockerRooms(int count)
+        {
+            _arenaController.ChooseActiveEnemyLockerRooms(count);
         }
 
         public Vector3 GetRewardSpawnPoint()

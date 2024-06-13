@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Lis.Battle.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Battle.Arena
 {
@@ -9,10 +9,19 @@ namespace Lis.Battle.Arena
     {
         [SerializeField] BoxCollider _playerLockerRoom;
         [SerializeField] BoxCollider _playerBase;
-        [SerializeField] BoxCollider _enemyLockerRoom;
         [SerializeField] BoxCollider _arena;
 
         [SerializeField] Transform _rewardSpawnPoint;
+
+        [SerializeField] List<BoxCollider> _enemyLockerRooms;
+        readonly List<BoxCollider> _activeEnemyLockerRooms = new();
+
+
+        public void Initialize()
+        {
+            _activeEnemyLockerRooms.Clear();
+            ChooseActiveEnemyLockerRooms(1);
+        }
 
         public bool IsPositionInPlayerLockerRoom(Vector3 pos)
         {
@@ -37,9 +46,29 @@ namespace Lis.Battle.Arena
             return Helpers.RandomPointInBounds(_playerLockerRoom.bounds);
         }
 
+        public void ChooseActiveEnemyLockerRooms(int count)
+        {
+            _activeEnemyLockerRooms.Clear();
+
+            if (count >= _enemyLockerRooms.Count)
+            {
+                _activeEnemyLockerRooms.AddRange(_enemyLockerRooms);
+                return;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                BoxCollider lockerRoom = _enemyLockerRooms[Random.Range(0, _enemyLockerRooms.Count)];
+                while (_activeEnemyLockerRooms.Contains(lockerRoom))
+                    lockerRoom = _enemyLockerRooms[Random.Range(0, _enemyLockerRooms.Count)];
+                _activeEnemyLockerRooms.Add(_enemyLockerRooms[Random.Range(0, _enemyLockerRooms.Count)]);
+            }
+        }
+
         public Vector3 GetRandomPositionInEnemyLockerRoom()
         {
-            return Helpers.RandomPointInBounds(_enemyLockerRoom.bounds);
+            return Helpers.RandomPointInBounds(_activeEnemyLockerRooms[Random.Range(0, _activeEnemyLockerRooms.Count)]
+                .bounds);
         }
 
         public Vector3 GetRandomPositionInArena()
