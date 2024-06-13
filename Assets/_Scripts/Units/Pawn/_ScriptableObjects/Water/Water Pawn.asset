@@ -15,7 +15,6 @@ MonoBehaviour:
   Id: d2926a9d-6cbc-41dd-8f34-8c764b963347
   UnitName: Water Pawn
   Icon: {fileID: 21300000, guid: e2a06ab7ac099494c9a348d04bb6ca44, type: 3}
-  IconAnimation: []
   Price: 0
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Prefab: {fileID: 3199639809289442479, guid: c20c7378a959eba4f9fcf34e6a249374, type: 3}
@@ -24,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 11400000, guid: 278c052a2665ac8449a99b33d2f956ec, type: 2}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0

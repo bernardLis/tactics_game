@@ -5,6 +5,7 @@ using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero
 {
@@ -15,6 +16,11 @@ namespace Lis.Units.Hero
         public int TimesPicked;
 
         public GameObject SelectorPrefab;
+
+        [FormerlySerializedAs("TeleportStart")] [Header("Hero Sounds")]
+        public Sound TeleportStartSound;
+
+        [FormerlySerializedAs("TeleportEnd")] public Sound TeleportEndSound;
 
         [Header("Hero Stats")]
         public Stat Pull;

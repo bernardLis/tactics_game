@@ -23,6 +23,7 @@ namespace Lis.Units
         public Sound AttackSound;
         public Sound HitSound;
         public Sound LevelUpSound;
+        public Sound TeleportSound;
 
         [HideInInspector] public int DamageTaken;
         [HideInInspector] public int TotalKillCount;

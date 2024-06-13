@@ -9,7 +9,7 @@ namespace Lis.Units
 {
     public class PlayerUnitController : UnitController
     {
-        [SerializeField] GameObject _reviveEffect;
+        [SerializeField] protected GameObject TeleportEffect;
 
         HeroController _heroController;
 
@@ -77,7 +77,7 @@ namespace Lis.Units
             if (IsDead) return;
             if (ArenaManager.IsPositionInPlayerBase(transform.position)) return;
 
-            StopUnit();
+            BaseTeleport();
             AddToLog("Teleporting to Base");
             transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom() + Vector3.up;
             GoToLocker();
@@ -85,18 +85,30 @@ namespace Lis.Units
 
         public virtual void TeleportToArena()
         {
-            StopUnit();
+            BaseTeleport();
             AddToLog("Teleporting to Arena.");
             transform.position = new(Random.Range(-3, 3), 1, Random.Range(-3, 3));
         }
 
+        void BaseTeleport()
+        {
+            StopUnit();
+            if (TeleportEffect != null)
+            {
+                TeleportEffect.SetActive(false);
+                TeleportEffect.SetActive(true);
+            }
+
+            if (Unit.TeleportSound != null) AudioManager.PlaySfx(Unit.TeleportSound, transform);
+        }
+
         void Revive()
         {
-            _reviveEffect.SetActive(false);
+            TeleportEffect.SetActive(false);
             AddToLog("Reviving...");
             Animator.Rebind();
             Animator.Update(0f);
-            _reviveEffect.SetActive(true);
+            TeleportEffect.SetActive(true);
             EnableSelf();
             OnFightEnded();
         }

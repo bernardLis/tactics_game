@@ -15,7 +15,6 @@ MonoBehaviour:
   Id: d06786fb-ff2a-4be7-9850-699ed51554c2
   UnitName: Wizard
   Icon: {fileID: 21300000, guid: cf247cc0be3452e4c9460e8cb2eef5e6, type: 3}
-  IconAnimation: []
   Price: 10
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 4007004905039648613, guid: a3caeda2f1595d84b92dc7007271839d, type: 3}
@@ -24,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 11400000, guid: 278c052a2665ac8449a99b33d2f956ec, type: 2}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -42,6 +42,8 @@ MonoBehaviour:
   CurrentAttack: {fileID: 0}
   TimesPicked: 1
   SelectorPrefab: {fileID: 3132514255091843268, guid: 5b468937a5144d84fa3239352cf5cb6a, type: 3}
+  TeleportStart: {fileID: 11400000, guid: 0e491253d0f96f14abb095e61168e48f, type: 2}
+  TeleportEnd: {fileID: 11400000, guid: 2ae987439961b19479798be0093ed8cf, type: 2}
   Pull: {fileID: 11400000, guid: d1e908a74f47a2e408a112e6f519b316, type: 2}
   BonusExp: {fileID: 11400000, guid: 32b57f372a554d84d824bcc221873450, type: 2}
   Army: []

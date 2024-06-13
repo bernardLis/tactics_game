@@ -15,7 +15,6 @@ MonoBehaviour:
   Id: 8793a274-b952-45c8-a9cf-b6a9b6f0cd9a
   UnitName: Human Male
   Icon: {fileID: 21300000, guid: cf247cc0be3452e4c9460e8cb2eef5e6, type: 3}
-  IconAnimation: []
   Price: 10
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Prefab: {fileID: 3625945350642629027, guid: 91d6f74fb628bd34ca9729fb9fad0b5f, type: 3}
@@ -24,6 +23,8 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 11400000, guid: 3f2d8236c738f8e41a72dfa90c1fde7e, type: 2}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 11400000, guid: 278c052a2665ac8449a99b33d2f956ec, type: 2}
+  DamageTaken: 0
   TotalKillCount: 0
   Team: 0
   MaxHealth: {fileID: 11400000, guid: 45f277680a53b094e9ce1df98b685e03, type: 2}
@@ -37,9 +38,12 @@ MonoBehaviour:
   LeftoverExp: 0
   _attacksOriginal:
   - {fileID: 11400000, guid: dd55bc445e80ff44faf8453c3fd38ba0, type: 2}
+  Attacks: []
   CurrentAttack: {fileID: 0}
   TimesPicked: 0
   SelectorPrefab: {fileID: 3132514255091843268, guid: 33e427f3245cd8b48b941430cd724800, type: 3}
+  TeleportStart: {fileID: 11400000, guid: 0e491253d0f96f14abb095e61168e48f, type: 2}
+  TeleportEnd: {fileID: 11400000, guid: 2ae987439961b19479798be0093ed8cf, type: 2}
   Pull: {fileID: 11400000, guid: 51ed9e601d6b49e4eab3d17db4dc27a8, type: 2}
   BonusExp: {fileID: 11400000, guid: 160f80f80407da741be96d1bb0a7731c, type: 2}
   Army: []

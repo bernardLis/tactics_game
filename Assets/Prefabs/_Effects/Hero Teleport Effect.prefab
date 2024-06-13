@@ -34313,7 +34313,7 @@ GameObject:
   - component: {fileID: 3897564597579369167}
   - component: {fileID: 162211188830734343}
   m_Layer: 0
-  m_Name: Teleport Effect
+  m_Name: Hero Teleport Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

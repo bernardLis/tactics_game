@@ -11,7 +11,6 @@ namespace Lis.Units.Hero
 {
     public class HeroController : PlayerUnitController
     {
-        [SerializeField] GameObject _teleportEffect;
         static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
         readonly List<Controller> _abilityControllers = new();
@@ -20,6 +19,7 @@ namespace Lis.Units.Hero
         public Hero Hero { get; private set; }
 
         public event Action OnTeleportedToBase;
+
         void OnDestroy()
         {
             Hero.OnAbilityAdded -= AddAbility;
@@ -109,9 +109,9 @@ namespace Lis.Units.Hero
         IEnumerator TeleportToBaseCoroutine()
         {
             StartTeleport();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             EndTeleport();
             OnTeleportedToBase?.Invoke();
         }
@@ -124,27 +124,29 @@ namespace Lis.Units.Hero
         IEnumerator TeleportToArenaCoroutine()
         {
             StartTeleport();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             transform.position = Vector3.zero;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             EndTeleport();
         }
 
         void StartTeleport()
         {
+            if (Hero.TeleportStartSound != null) AudioManager.PlaySfx(Hero.TeleportStartSound, transform);
             _movementController.DisableMovement();
             _movementController.enabled = false;
-            _teleportEffect.transform.localScale = Vector3.zero;
-            _teleportEffect.SetActive(true);
-            _teleportEffect.transform.DOScale(1, 1f);
+            TeleportEffect.transform.localScale = Vector3.zero;
+            TeleportEffect.SetActive(true);
+            TeleportEffect.transform.DOScale(1, 1f);
         }
 
         void EndTeleport()
         {
+            if (Hero.TeleportStartSound != null) AudioManager.PlaySfx(Hero.TeleportEndSound, transform.position);
             _movementController.enabled = true;
             _movementController.EnableMovement();
-            _teleportEffect.transform.DOScale(0, 1f)
-                .OnComplete(() => _teleportEffect.SetActive(false));
+            TeleportEffect.transform.DOScale(0, 1f)
+                .OnComplete(() => TeleportEffect.SetActive(false));
         }
 
         [Button("Stop All Abilities")]

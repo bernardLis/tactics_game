@@ -6743,8 +6743,7 @@ MonoBehaviour:
   _levelUpEffect: {fileID: 2581224419072762184}
   DeathEffect: {fileID: 2581224419072762184}
   IsShielded: 0
-  _reviveEffect: {fileID: 0}
-  _teleportEffect: {fileID: 6830312329597766529}
+  TeleportEffect: {fileID: 6830312329597766529}
 --- !u!1 &5670492309254171287
 GameObject:
   m_ObjectHideFlags: 0

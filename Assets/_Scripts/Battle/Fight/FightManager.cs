@@ -109,7 +109,6 @@ namespace Lis.Battle.Fight
             }
 
             _heroController.StartAllAbilities();
-
             OnFightStarted?.Invoke();
         }
 

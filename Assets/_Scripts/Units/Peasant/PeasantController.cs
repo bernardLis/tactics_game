@@ -44,6 +44,7 @@ namespace Lis.Units.Peasant
                 yield return UnitPathingController.PathToPositionAndStop(vase.transform.position);
                 if (vase.IsBroken) continue;
                 Animator.SetTrigger(AnimAttack);
+                yield return new WaitForSeconds(0.5f);
                 vase.TriggerBreak();
             }
         }

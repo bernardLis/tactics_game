@@ -15,7 +15,6 @@ MonoBehaviour:
   Id: 1ebe09d5-3906-4d5e-826c-0fcb80a7ff86
   UnitName: Scout
   Icon: {fileID: 21300000, guid: d1f040b6d0963ab43a9fc750f0b8acf1, type: 3}
-  IconAnimation: []
   Price: 10
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 5718142934177852114, guid: 7b5b6a780dcf9194b9fbd9beb22a351c, type: 3}
@@ -24,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 11400000, guid: 278c052a2665ac8449a99b33d2f956ec, type: 2}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
