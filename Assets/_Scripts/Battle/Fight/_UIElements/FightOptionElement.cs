@@ -35,6 +35,10 @@ namespace Lis.Battle.Fight
             GoldElement goldElement = new(option.GoldReward);
             Add(goldElement);
 
+            Label waves = new($"Number of waves: {option.NumberOfWaves}");
+            Add(waves);
+
+
             ScrollView scrollView = new();
             Add(scrollView);
             List<VisualElement> aggregated = new(AggregateEnemies(option.ArmyPerWave));
@@ -45,16 +49,10 @@ namespace Lis.Battle.Fight
             Add(_chooseButton);
         }
 
-        List<VisualElement> AggregateEnemies(List<Unit> army)
+        List<VisualElement> AggregateEnemies(Dictionary<string, int> army)
         {
-            Dictionary<string, int> unitCountDict = new();
-
-            foreach (Unit e in army)
-                if (!unitCountDict.TryAdd(e.Id, 1))
-                    unitCountDict[e.Id]++;
-
             List<VisualElement> result = new();
-            foreach (var item in unitCountDict)
+            foreach (var item in army)
             {
                 VisualElement container = new();
                 container.style.flexDirection = FlexDirection.Row;

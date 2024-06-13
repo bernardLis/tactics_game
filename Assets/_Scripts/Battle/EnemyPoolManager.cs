@@ -15,11 +15,6 @@ namespace Lis.Battle
 
         public void Initialize()
         {
-            // so what I think I should do is create a pool for each enemy type
-            // and then when I need to spawn an enemy, I can just grab one from the proper pool
-            // and then when the enemy is defeated, I can return it to the pool
-            Debug.Log("Initializing enemy pools");
-
             foreach (Enemy enemy in GameManager.Instance.UnitDatabase.GetAllEnemies())
             {
                 EnemyPool pool = Instantiate(_enemyPoolPrefab, _enemyArmyHolder.transform).GetComponent<EnemyPool>();

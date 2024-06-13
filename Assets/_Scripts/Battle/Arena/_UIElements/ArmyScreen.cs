@@ -1,6 +1,8 @@
-﻿using Lis.Battle.Fight;
+﻿using System.Collections.Generic;
+using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Battle.Arena
@@ -76,12 +78,37 @@ namespace Lis.Battle.Arena
         void AddEnemyArmyIcons()
         {
             if (_fightManager.CurrentFight.ChosenOption == null) return;
-            foreach (Unit u in _fightManager.CurrentFight.ChosenOption.ArmyPerWave)
-            {
-                UnitIcon icon = new(u);
-                _enemyArmyScrollView.Add(icon);
-            }
+            _enemyArmyScrollView.Add(
+                new Label($"Number of waves: {_fightManager.CurrentFight.ChosenOption.NumberOfWaves}"));
+
+            List<VisualElement> aggregated =
+                new(AggregateEnemiesIcons(_fightManager.CurrentFight.ChosenOption.ArmyPerWave));
+            foreach (VisualElement el in aggregated)
+                _enemyArmyScrollView.Add(el);
         }
+
+        List<VisualElement> AggregateEnemiesIcons(Dictionary<string, int> army)
+        {
+            List<VisualElement> result = new();
+            foreach (var item in army)
+            {
+                VisualElement container = new();
+                container.style.flexDirection = FlexDirection.Row;
+                result.Add(container);
+
+                Label count = new(item.Value + "x");
+                container.Add(count);
+
+                Unit unit = GameManager.UnitDatabase.GetUnitById(item.Key);
+                Unit instance = ScriptableObject.Instantiate(unit);
+                instance.InitializeBattle(1);
+                UnitIcon icon = new(instance);
+                container.Add(icon);
+            }
+
+            return result;
+        }
+
 
         void AddPlayerArmyCards()
         {
@@ -92,9 +119,37 @@ namespace Lis.Battle.Arena
         void AddEnemyArmyCards()
         {
             if (_fightManager.CurrentFight.ChosenOption == null) return;
-            foreach (Unit u in _fightManager.CurrentFight.ChosenOption.ArmyPerWave)
-                _enemyArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
+            _enemyArmyScrollView.Add(
+                new Label($"Number of waves: {_fightManager.CurrentFight.ChosenOption.NumberOfWaves}"));
+
+            List<VisualElement> aggregated =
+                new(AggregateEnemiesCards(_fightManager.CurrentFight.ChosenOption.ArmyPerWave));
+            foreach (VisualElement el in aggregated)
+                _enemyArmyScrollView.Add(el);
         }
+
+        List<VisualElement> AggregateEnemiesCards(Dictionary<string, int> army)
+        {
+            List<VisualElement> result = new();
+            foreach (var item in army)
+            {
+                VisualElement container = new();
+                container.style.flexDirection = FlexDirection.Row;
+                result.Add(container);
+
+                Label count = new(item.Value + "x");
+                container.Add(count);
+
+                Unit unit = GameManager.UnitDatabase.GetUnitById(item.Key);
+                Unit instance = ScriptableObject.Instantiate(unit);
+                instance.InitializeBattle(1);
+                UnitCard card = new(instance);
+                container.Add(card);
+            }
+
+            return result;
+        }
+
 
         void AddChangeViewButton()
         {

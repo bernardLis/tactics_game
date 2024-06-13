@@ -9,7 +9,7 @@ namespace Lis.Battle.Fight
 {
     public class FightOption : BaseScriptableObject
     {
-        public List<Unit> ArmyPerWave = new();
+        public Dictionary<string, int> ArmyPerWave = new();
         public int NumberOfWaves;
         public int GoldReward;
 
@@ -79,9 +79,8 @@ namespace Lis.Battle.Fight
 
         void AddEnemyToArmy(Enemy enemy)
         {
-            Enemy newEnemy = Instantiate(enemy);
-            newEnemy.InitializeBattle(1);
-            ArmyPerWave.Add(newEnemy);
+            if (!ArmyPerWave.TryAdd(enemy.Id, 1))
+                ArmyPerWave[enemy.Id]++;
         }
 
         public void Choose()

@@ -81,7 +81,7 @@ namespace Lis
             foreach (Unit u in test.PlayerArmy)
                 _fightManager.SpawnPlayerUnit(u);
             foreach (Unit u in test.EnemyArmy)
-                _fightManager.SpawnEnemyUnit(u);
+                _fightManager.SpawnEnemyUnit(u.Id);
 
             yield return new WaitForSeconds(1f);
 

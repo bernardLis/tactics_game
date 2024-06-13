@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Lis.Battle;
 using Lis.Battle.Fight;
 using Lis.Units.Hero;
@@ -15,6 +16,8 @@ namespace Lis.Units
         HeroController _heroController;
 
         AudioSource _teleportSound;
+
+        public event Action OnRevived;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -121,6 +124,7 @@ namespace Lis.Units
             TeleportEffect.SetActive(true);
             EnableSelf();
             OnFightEnded();
+            OnRevived?.Invoke();
         }
 
         void OnDestroy()

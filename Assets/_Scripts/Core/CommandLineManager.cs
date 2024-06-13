@@ -5,7 +5,6 @@ using Lis.Battle.Fight;
 using Lis.Battle.Pickup;
 using Lis.Core.Utilities;
 using Lis.Units;
-using Lis.Units.Creature;
 using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
@@ -174,75 +173,75 @@ namespace Lis.Core
 
         void AddCreatureButtons()
         {
-            Foldout creatureFoldout = new()
-            {
-                text = "Creatures",
-                value = false
-            };
-            _buttonContainer.Add(creatureFoldout);
-
-            List<string> choices = new()
-            {
-                "-----"
-            };
-            choices.AddRange(_unitDatabase.AllCreatures.ConvertAll(x => x.name));
-            DropdownField dropDownLeft = new("Team 0", choices, 0);
-            creatureFoldout.Add(dropDownLeft);
-
-            List<string> oppChoices = new()
-            {
-                "-----"
-            };
-            oppChoices.AddRange(_unitDatabase.GetAllOpponentCreatures().ConvertAll(x => x.name));
-            DropdownField dropDownRight = new("Team 1", oppChoices, 0);
-            creatureFoldout.Add(dropDownRight);
-
-            Button b = new() { text = "Spawn" };
-            b.clickable.clicked += () =>
-            {
-                // try to get creature from string name
-                Creature cLeft = _unitDatabase.AllCreatures.Find(x => x.name == dropDownLeft.value);
-                if (cLeft != null)
-                {
-                    Creature instance = Instantiate(cLeft);
-                    FightManager.Instance.SpawnPlayerUnit(instance);
-                }
-
-                Creature cRight = _unitDatabase.GetAllOpponentCreatures()
-                    .Find(x => x.name == dropDownRight.value);
-                if (cRight != null)
-                {
-                    Creature instance = Instantiate(cRight);
-                    FightManager.Instance.SpawnEnemyUnit(instance);
-                }
-            };
-            creatureFoldout.Add(b);
-
-            Button levelUpButton = new() { text = "Level Up" };
-            levelUpButton.clickable.clicked += () => { HeroManager.Instance.Hero.Army.ForEach(x => x.LevelUp()); };
-            creatureFoldout.Add(levelUpButton);
-
-            Button spawnAllFriendly = new() { text = "Spawn All Friendly" };
-            spawnAllFriendly.clickable.clicked += () =>
-            {
-                foreach (Creature c in _unitDatabase.AllCreatures)
-                {
-                    Creature instance = Instantiate(c);
-                    FightManager.Instance.SpawnPlayerUnit(instance);
-                }
-            };
-            creatureFoldout.Add(spawnAllFriendly);
-
-            Button spawnAllHostile = new() { text = "Spawn All Hostile" };
-            spawnAllHostile.clickable.clicked += () =>
-            {
-                foreach (Creature c in _unitDatabase.GetAllOpponentCreatures())
-                {
-                    Creature instance = Instantiate(c);
-                    FightManager.Instance.SpawnEnemyUnit(instance);
-                }
-            };
-            creatureFoldout.Add(spawnAllHostile);
+            // Foldout creatureFoldout = new()
+            // {
+            //     text = "Creatures",
+            //     value = false
+            // };
+            // _buttonContainer.Add(creatureFoldout);
+            //
+            // List<string> choices = new()
+            // {
+            //     "-----"
+            // };
+            // choices.AddRange(_unitDatabase.AllCreatures.ConvertAll(x => x.name));
+            // DropdownField dropDownLeft = new("Team 0", choices, 0);
+            // creatureFoldout.Add(dropDownLeft);
+            //
+            // List<string> oppChoices = new()
+            // {
+            //     "-----"
+            // };
+            // oppChoices.AddRange(_unitDatabase.GetAllOpponentCreatures().ConvertAll(x => x.name));
+            // DropdownField dropDownRight = new("Team 1", oppChoices, 0);
+            // creatureFoldout.Add(dropDownRight);
+            //
+            // Button b = new() { text = "Spawn" };
+            // b.clickable.clicked += () =>
+            // {
+            //     // try to get creature from string name
+            //     Creature cLeft = _unitDatabase.AllCreatures.Find(x => x.name == dropDownLeft.value);
+            //     if (cLeft != null)
+            //     {
+            //         Creature instance = Instantiate(cLeft);
+            //         FightManager.Instance.SpawnPlayerUnit(instance);
+            //     }
+            //
+            //     Creature cRight = _unitDatabase.GetAllOpponentCreatures()
+            //         .Find(x => x.name == dropDownRight.value);
+            //     if (cRight != null)
+            //     {
+            //         Creature instance = Instantiate(cRight);
+            //         FightManager.Instance.SpawnEnemyUnit(instance);
+            //     }
+            // };
+            // creatureFoldout.Add(b);
+            //
+            // Button levelUpButton = new() { text = "Level Up" };
+            // levelUpButton.clickable.clicked += () => { HeroManager.Instance.Hero.Army.ForEach(x => x.LevelUp()); };
+            // creatureFoldout.Add(levelUpButton);
+            //
+            // Button spawnAllFriendly = new() { text = "Spawn All Friendly" };
+            // spawnAllFriendly.clickable.clicked += () =>
+            // {
+            //     foreach (Creature c in _unitDatabase.AllCreatures)
+            //     {
+            //         Creature instance = Instantiate(c);
+            //         FightManager.Instance.SpawnPlayerUnit(instance);
+            //     }
+            // };
+            // creatureFoldout.Add(spawnAllFriendly);
+            //
+            // Button spawnAllHostile = new() { text = "Spawn All Hostile" };
+            // spawnAllHostile.clickable.clicked += () =>
+            // {
+            //     foreach (Creature c in _unitDatabase.GetAllOpponentCreatures())
+            //     {
+            //         Creature instance = Instantiate(c);
+            //         FightManager.Instance.SpawnEnemyUnit(instance);
+            //     }
+            // };
+            // creatureFoldout.Add(spawnAllHostile);
         }
 
         void AddKillPlayerArmyButton()
@@ -448,9 +447,7 @@ namespace Lis.Core
 
         void SpawnEnemy(Enemy e)
         {
-            Enemy instance = Instantiate(e);
-            instance.InitializeBattle(1);
-            UnitController c = FightManager.Instance.SpawnEnemyUnit(instance);
+            UnitController c = FightManager.Instance.SpawnEnemyUnit(e.Id);
             c.OnFightStarted();
         }
 

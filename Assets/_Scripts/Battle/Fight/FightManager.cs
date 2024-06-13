@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Attack;
-using Lis.Units.Creature;
 using Lis.Units.Hero;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -45,9 +44,6 @@ namespace Lis.Battle.Fight
         public static int FightNumber { get; private set; }
         int _currentWaveIndex = 1;
 
-        public event Action<UnitController> OnPlayerUnitAdded;
-        public event Action<UnitController> OnPlayerUnitDeath;
-        public event Action<UnitController> OnEnemyUnitAdded;
         public event Action<UnitController> OnEnemyUnitDeath;
         public event Action OnFightStarted;
         public event Action OnFightEnded;
@@ -171,26 +167,22 @@ namespace Lis.Battle.Fight
             StartCoroutine(SpawnEnemyUnits(option.ArmyPerWave));
         }
 
-        IEnumerator SpawnEnemyUnits(List<Unit> army)
+        IEnumerator SpawnEnemyUnits(Dictionary<string, int> army)
         {
-            foreach (Unit c in army)
+            foreach (KeyValuePair<string, int> keyValue in army)
             {
-                SpawnEnemyUnit(c);
-                yield return new WaitForSeconds(0.1f);
+                for (int i = 0; i < keyValue.Value; i++)
+                {
+                    SpawnEnemyUnit(keyValue.Key);
+                    yield return new WaitForSeconds(0.1f);
+                }
             }
         }
 
-        public UnitController SpawnEnemyUnit(Unit c)
+        public UnitController SpawnEnemyUnit(string id)
         {
             Vector3 pos = _arenaManager.GetRandomPositionInEnemyLockerRoom();
-            UnitController unitController = _enemyPoolManager.Get(c.Id);
-            if (unitController == null)
-            {
-                GameObject g = Instantiate(c.Prefab, EnemyArmyHolder);
-                unitController = g.GetComponent<UnitController>();
-                unitController.InitializeGameObject();
-                unitController.InitializeUnit(c, 1);
-            }
+            UnitController unitController = _enemyPoolManager.Get(id);
 
             unitController.transform.position = pos;
             unitController.SetOpponentList(ref PlayerUnits);
@@ -198,27 +190,26 @@ namespace Lis.Battle.Fight
             return unitController;
         }
 
-        public void AddPlayerUnit(UnitController b)
+        public void AddPlayerUnit(UnitController uc)
         {
-            b.transform.parent = PlayerArmyHolder;
-            PlayerUnits.Add(b);
-            b.OnDeath += PlayerUnitDies;
-            if (b is CreatureController creature)
-                OnPlayerUnitAdded?.Invoke(creature);
+            uc.transform.parent = PlayerArmyHolder;
+            PlayerUnits.Add(uc);
+            uc.OnDeath += PlayerUnitDies;
+
+            if (uc is PlayerUnitController puc)
+                puc.OnRevived += () => PlayerUnits.Add(uc);
         }
 
         public void AddEnemyUnit(UnitController b)
         {
             EnemyUnits.Add(b);
             b.OnDeath += EnemyUnitDies;
-            OnEnemyUnitAdded?.Invoke(b);
         }
 
-        void PlayerUnitDies(UnitController be, Attack attack)
+        void PlayerUnitDies(UnitController uc, Attack attack)
         {
-            KilledPlayerUnits.Add(be);
-            PlayerUnits.Remove(be);
-            OnPlayerUnitDeath?.Invoke(be);
+            KilledPlayerUnits.Add(uc);
+            PlayerUnits.Remove(uc);
 
             if (IsTesting && IsFightActive && PlayerUnits.Count == 0)
                 DebugEndFight(); // HERE: testing
