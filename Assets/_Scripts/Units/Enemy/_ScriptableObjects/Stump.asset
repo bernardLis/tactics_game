@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: a0ddeefd-9cb5-401c-89a0-e35638e2466b
   UnitName: Stump
   Icon: {fileID: 21300000, guid: 9e8a1a5c2a8667c459233749a64b4432, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: 9e8a1a5c2a8667c459233749a64b4432, type: 3}
-  Price: 60
+  Price: 30
   Nature: {fileID: 11400000, guid: bc393ef136c0a924fb52f91254b25411, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 23bd771f434652a45b0c16ff5713fb66, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 1
   IsRanged: 0
-  EnemyMaxHealth: 30
-  EnemyArmor: 2
+  EnemyMaxHealth: 15
+  EnemyArmor: 1
   EnemySpeed: 2
-  EnemyPower: 10
+  EnemyPower: 5

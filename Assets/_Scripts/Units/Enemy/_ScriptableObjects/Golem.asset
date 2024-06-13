@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: 91d89cc2-3eac-40bc-8ec9-e4d4ca874ca7
   UnitName: Golem
   Icon: {fileID: 21300000, guid: 3c7ea63cdf18aaa428e4a5bd448dd9e7, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: 3c7ea63cdf18aaa428e4a5bd448dd9e7, type: 3}
-  Price: 750
+  Price: 375
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 5e1e5c4a8cc2efa47b467b5760d6b079, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -45,7 +44,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 7
   IsRanged: 0
-  EnemyMaxHealth: 500
-  EnemyArmor: 20
+  EnemyMaxHealth: 250
+  EnemyArmor: 10
   EnemySpeed: 4.5
-  EnemyPower: 80
+  EnemyPower: 40

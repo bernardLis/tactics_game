@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: 1fb59d12-2c15-40e8-97c4-97d0f6c56784
   UnitName: Mushroom
   Icon: {fileID: 21300000, guid: 8cf3045fe5e1a2e4ba2b398f26ad03ec, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: 8cf3045fe5e1a2e4ba2b398f26ad03ec, type: 3}
-  Price: 20
+  Price: 10
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: a51cb298950daab45bb8c8bf4bc10322, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 0
   IsRanged: 1
-  EnemyMaxHealth: 10
+  EnemyMaxHealth: 5
   EnemyArmor: 0
   EnemySpeed: 1.5
-  EnemyPower: 4
+  EnemyPower: 2

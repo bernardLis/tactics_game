@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: ad138ff4-a148-4d42-ba72-97403f012b2f
   UnitName: Leshy
   Icon: {fileID: 21300000, guid: c991d968276ce8244bc3264134a480f0, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: c991d968276ce8244bc3264134a480f0, type: 3}
-  Price: 900
+  Price: 450
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 2a9c470420a05d749a5c908e9bbf07ea, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 9
   IsRanged: 0
-  EnemyMaxHealth: 700
-  EnemyArmor: 40
+  EnemyMaxHealth: 350
+  EnemyArmor: 15
   EnemySpeed: 4
-  EnemyPower: 80
+  EnemyPower: 40

@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: a7fdc9ba-7bb4-4d44-9e96-4537df33c05a
   UnitName: Reaper
   Icon: {fileID: 21300000, guid: 1a4dd688b022736449841eb989734a44, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: 1a4dd688b022736449841eb989734a44, type: 3}
-  Price: 1000
+  Price: 500
   Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 261e0a904c58f3143851f09cf52ad84b, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -45,7 +44,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 9
   IsRanged: 0
-  EnemyMaxHealth: 600
+  EnemyMaxHealth: 300
   EnemyArmor: 0
   EnemySpeed: 5.5
-  EnemyPower: 200
+  EnemyPower: 100

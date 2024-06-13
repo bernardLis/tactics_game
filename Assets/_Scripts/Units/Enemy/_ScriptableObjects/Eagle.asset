@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: a9112d39-4dac-4388-9d2f-8b2e5f65f5f6
   UnitName: Eagle
   Icon: {fileID: 21300000, guid: ad94b3fe7ca6bb447b7756f3ca582a1c, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: ad94b3fe7ca6bb447b7756f3ca582a1c, type: 3}
-  Price: 400
+  Price: 200
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 056c5368b153dc44eaaeb4b65b28afdc, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -45,7 +44,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 5
   IsRanged: 0
-  EnemyMaxHealth: 200
+  EnemyMaxHealth: 110
   EnemyArmor: 0
-  EnemySpeed: 3.5
-  EnemyPower: 60
+  EnemySpeed: 5
+  EnemyPower: 40

@@ -143,12 +143,13 @@ namespace Lis.Units
             IsDead = false;
             _isAttackReady = true;
 
-            transform.DODynamicLookAt(Vector3.zero, 0.2f, AxisConstraint.Y);
+//            transform.DODynamicLookAt(Vector3.zero, 0.2f, AxisConstraint.Y);
         }
 
         public void SetOpponentList(ref List<UnitController> list)
         {
             _opponentList = list;
+            if (FightManager.IsFightActive) RunUnit();
         }
 
         void ResolveCollisionLayers(int team)

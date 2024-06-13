@@ -75,7 +75,7 @@ namespace Lis.Units.Hero
 
             AssignAnimationIDs();
 
-            _isSprintUnlocked = _gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
+            _isSprintUnlocked = true; //_gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
         }
 
         void Update()
@@ -84,8 +84,7 @@ namespace Lis.Units.Hero
             SetAnimationBlend();
             Move();
         }
-
-
+        
         void LateUpdate()
         {
             if (_disableUpdate) return;

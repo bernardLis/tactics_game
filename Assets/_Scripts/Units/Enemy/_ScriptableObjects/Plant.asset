@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: 169251a2-5043-4d61-944c-2ef8de35813b
   UnitName: Plant
   Icon: {fileID: 21300000, guid: 788e30251d6ba2442b50ac7a7d367fb4, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: 788e30251d6ba2442b50ac7a7d367fb4, type: 3}
-  Price: 200
+  Price: 100
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 956340c31a76412408fd41ad93e7d2ed, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 3
   IsRanged: 1
-  EnemyMaxHealth: 100
+  EnemyMaxHealth: 50
   EnemyArmor: 0
   EnemySpeed: 3
-  EnemyPower: 40
+  EnemyPower: 20

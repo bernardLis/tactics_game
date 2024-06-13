@@ -15,8 +15,7 @@ MonoBehaviour:
   Id: 37979f43-6afe-437e-9852-bf328b5fb625
   UnitName: Ghost
   Icon: {fileID: 21300000, guid: 62296a3bc73e16d4da88bf31f929923a, type: 3}
-  IconAnimation: []
-  Price: 300
+  Price: 150
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 6a67ed0e8dd669a48bb4ce3de8e61867, type: 3}
   SpawnSound: {fileID: 0}
@@ -24,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -43,8 +43,8 @@ MonoBehaviour:
   CurrentAttack: {fileID: 0}
   IsMiniBoss: 0
   ScarinessRank: 4
-  IsRanged: 0
-  EnemyMaxHealth: 190
+  IsRanged: 1
+  EnemyMaxHealth: 95
   EnemyArmor: 0
-  EnemySpeed: 5
-  EnemyPower: 50
+  EnemySpeed: 3.5
+  EnemyPower: 25

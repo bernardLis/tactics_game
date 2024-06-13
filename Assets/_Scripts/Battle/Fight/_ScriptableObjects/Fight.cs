@@ -29,7 +29,8 @@ namespace Lis.Battle.Fight
                 Options.Add(option);
             }
 
-            ActiveLockerRoomCount = Random.Range(2, 8);
+            int maxLockerRoomCount = Mathf.Clamp(fightNumber-1, 2, 99);
+            ActiveLockerRoomCount = Random.Range(1, maxLockerRoomCount);
         }
 
         public void ChooseRandomOption()

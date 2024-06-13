@@ -1,32 +1,31 @@
-Name,Nature,IsRanged,Scariness,Price,Stat points left,Health,Armor,Power,Speed,,Attacks
-Mushroom,Fire,TRUE,0,20,-1,10,0,4,1.5,,Basic Fire Attack
-Wildboar,Fire,FALSE,0,40,-4,20,0,10,2,,Basic Fire Attack
-Stump,Wood,FALSE,1,60,0,30,2,10,2,,Basic Earth Attack
-Bat,Fire,FALSE,2,100,5,40,0,25,2.5,,Basic Fire Attack
-Bee,Earth,TRUE,2,150,-10,80,5,30,2.5,,Ranged Enemy Earth
-Plant,Water,TRUE,3,200,14,100,0,40,3,,Ranged Enemy Water
-Spider,Earth,FALSE,3,250,4,130,10,40,3,,Basic Earth Attack
-Ghost,Wind,FALSE,4,300,0,190,0,50,5,,Basic Wind Attack
-Rat,Water,TRUE,4,350,84,160,0,50,3,,Ranged Enemy Water
-Skeleton,Wind,FALSE,4,350,24,200,0,60,3,,Basic Wind Attack
-Eagle,Wind,FALSE,5,400,73,200,0,60,3.5,,Basic Wind Attack
-Pumpkin,Water,FALSE,5,450,3,300,0,70,3.5,,Basic Water Attack
-Zombie,Fire,TRUE,5,500,53,300,0,70,3.5,,Basic Fire Attack
-Ghoul,Fire,FALSE,6,550,82,300,0,80,4,,Basic Fire Attack
-Hatchet Bird,Water,FALSE,6,600,32,400,0,80,4,,Basic Water Attack
-Werewolf,Water,FALSE,6,650,62,400,0,90,4,,Basic Water Attack
-Goatman,Water,FALSE,7,700,-69,600,0,80,4.5,,Basic Water Attack
-Golem,Earth,FALSE,7,750,21,500,20,80,4.5,,Basic Earth Attack
-Mummy,Earth,FALSE,8,800,-60,600,30,80,5,,Basic Earth Attack
-Skeleton Bird,Wind,TRUE,8,850,-2,600,0,120,6,,Ranged Enemy Wind
-Leshy,Earth,FALSE,9,900,-88,700,40,80,4,,Basic Earth Attack
-Reaper,Fire,FALSE,9,1000,-11,600,0,200,5.5,,Basic Fire Attack
-,,,,,,,,,,,
-,,,,,,,,,,,
-,,,,,,,,,,,
-,,,,,,what could be smart is having price be number of stats you can assign,,,,,
-,Earth,5,,health costs ,1,let's try this,health costs ,power costs,armor,,speed 
-,Fire,6,,armor,3,,1,2,4,,4
-,Water,6,,power costs,2,,price point,,,,
-,Wind,4,,speed ,2,,,,,,
-,,,,,,,nature gives 20% bonus to stat,,,,
+Name,Nature,IsRanged,Scariness,Price,Stat points left,Health,Armor,Power,Speed,,Basic Attack,Special Attack,
+Mushroom,Fire,TRUE,0,10,-2,5,0,2,1.5,,Basic Fire Attack,-,
+Wildboar,Fire,FALSE,0,20,-4,10,0,5,2,,Basic Fire Attack,-,
+Stump,Wood,FALSE,1,30,-2,15,1,5,2,,Basic Earth Attack,-,
+Bat,Fire,FALSE,2,50,1,20,0,12,2.5,,Basic Fire Attack,-,
+Bee,Earth,TRUE,2,75,-6,40,2,15,2.5,,Ranged Enemy Earth,-,
+Plant,Water,TRUE,3,100,4,50,0,20,3,,Ranged Enemy Water,-,
+Spider,Earth,FALSE,3,125,-1,65,5,20,3,,Basic Earth Attack,-,
+Ghost,Wind,TRUE,4,150,-2,95,0,25,3.5,,Ranged Enemy Wind,Teleport,
+Rat,Water,TRUE,4,175,-1,120,0,25,3,,Ranged Enemy Water,-,
+Skeleton,Wind,FALSE,4,175,9,100,0,30,3,,Basic Wind Attack,-,
+Eagle,Wind,FALSE,5,200,0,110,0,40,5,,Basic Wind Attack,x,
+Pumpkin,Earth,FALSE,5,225,-3,150,7,25,3.5,,Basic Water Attack,a,"Entangle - aoe around you, stop + damage"
+Zombie,Fire,TRUE,5,250,13,150,0,40,3.5,,Basic Fire Attack,x,
+Ghoul,Fire,FALSE,6,275,17,150,0,50,4,,Basic Fire Attack,x,
+Hatchet Bird,Water,FALSE,6,300,12,200,0,40,4,,Basic Water Attack,Heal,
+Werewolf,Water,FALSE,6,325,27,200,0,45,4,,Basic Water Attack,Dash,
+Goatman,Water,FALSE,7,350,1,260,0,40,4.5,,Basic Water Attack,x,
+Golem,Earth,FALSE,7,375,6,250,10,40,4.5,,Basic Earth Attack,a,Stomp - aoe bang that pushes away?
+Mummy,Earth,FALSE,8,400,-20,300,10,40,5,,Basic Earth Attack,x,Sandstorm
+Skeleton Bird,Wind,TRUE,8,425,-7,300,0,60,6,,Ranged Enemy Wind,x,
+Leshy,Earth,FALSE,9,450,-33,350,15,40,4,,Basic Earth Attack,x,
+Reaper,Fire,FALSE,9,500,-11,300,0,100,5.5,,Basic Fire Attack,Whirlwind,Rolling Fire or Fire Carpet
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+,Earth,6,,health costs ,1,,,,,,,,
+,Fire,6,,armor,3,,,,,,,,
+,Water,5,,power costs,2,,,,,,,,
+,Wind,4,,speed ,2,,,,,,,,

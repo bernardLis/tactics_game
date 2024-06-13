@@ -37,7 +37,7 @@ namespace Lis.Battle.Fight
 
             ScrollView scrollView = new();
             Add(scrollView);
-            List<VisualElement> aggregated = new(AggregateEnemies(option.Army));
+            List<VisualElement> aggregated = new(AggregateEnemies(option.ArmyPerWave));
             foreach (VisualElement el in aggregated)
                 scrollView.Add(el);
 

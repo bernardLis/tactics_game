@@ -42,6 +42,7 @@ namespace Lis.Battle.Fight
         TooltipManager _tooltipManager;
         public static bool IsFightActive { get; private set; }
         public static int FightNumber { get; private set; }
+        int _currentWaveIndex = 1;
 
         public event Action<UnitController> OnPlayerUnitAdded;
         public event Action<UnitController> OnPlayerUnitDeath;
@@ -108,6 +109,7 @@ namespace Lis.Battle.Fight
             StartCoroutine(_fightCoroutine);
         }
 
+
         IEnumerator StartFightCoroutine()
         {
             if (IsFightActive) yield break;
@@ -121,6 +123,14 @@ namespace Lis.Battle.Fight
 
             _heroController.StartAllAbilities();
             OnFightStarted?.Invoke();
+
+            for (int i = 1; i < CurrentFight.ChosenOption.NumberOfWaves; i++)
+            {
+                yield return new WaitForSeconds(Random.Range(5, 10));
+                _currentWaveIndex++;
+                SpawnEnemyArmy(CurrentFight.ChosenOption);
+                // start units
+            }
         }
 
         IEnumerator SpawnAllPlayerUnits()
@@ -148,7 +158,7 @@ namespace Lis.Battle.Fight
         void SpawnEnemyArmy(FightOption option)
         {
             CurrentFight.OnOptionChosen -= SpawnEnemyArmy;
-            StartCoroutine(SpawnEnemyUnits(option.Army));
+            StartCoroutine(SpawnEnemyUnits(option.ArmyPerWave));
         }
 
         IEnumerator SpawnEnemyUnits(List<Unit> army)
@@ -206,6 +216,7 @@ namespace Lis.Battle.Fight
             EnemyUnits.Remove(be);
             OnEnemyUnitDeath?.Invoke(be);
 
+            if (_currentWaveIndex != CurrentFight.ChosenOption.NumberOfWaves) return;
             if (IsFightActive && EnemyUnits.Count == 0)
                 EndFight();
         }

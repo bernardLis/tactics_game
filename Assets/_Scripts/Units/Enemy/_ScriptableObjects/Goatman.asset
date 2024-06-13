@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: ed97f616-e3cd-408f-b3e7-371c7d5b06aa
   UnitName: Goatman
   Icon: {fileID: 21300000, guid: b770cd8920d5b89498a6e8b820da56c8, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: b770cd8920d5b89498a6e8b820da56c8, type: 3}
-  Price: 700
+  Price: 350
   Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: 9dbb293541a557e49aa4fcb8d6aa813e, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 7
   IsRanged: 0
-  EnemyMaxHealth: 600
+  EnemyMaxHealth: 260
   EnemyArmor: 0
   EnemySpeed: 4.5
-  EnemyPower: 80
+  EnemyPower: 40

@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: dc8e2901-8cdb-4006-958f-91863b1a4dc8
   UnitName: Skeleton Bird
   Icon: {fileID: 21300000, guid: ae74e5f9c82506d4f958145591d3b698, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: ae74e5f9c82506d4f958145591d3b698, type: 3}
-  Price: 850
+  Price: 425
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: e2c7cc798d56d6d428c1f5f0ec5ca57c, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 8
   IsRanged: 1
-  EnemyMaxHealth: 600
+  EnemyMaxHealth: 300
   EnemyArmor: 0
   EnemySpeed: 6
-  EnemyPower: 120
+  EnemyPower: 60

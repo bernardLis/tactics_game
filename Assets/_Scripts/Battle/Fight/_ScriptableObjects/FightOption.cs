@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Enemy;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
 {
     public class FightOption : BaseScriptableObject
     {
-        public List<Unit> Army = new();
+        public List<Unit> ArmyPerWave = new();
+        public int NumberOfWaves;
         public int GoldReward;
 
         public bool IsChosen;
@@ -35,6 +37,9 @@ namespace Lis.Battle.Fight
                 return;
             }
 
+            NumberOfWaves = Random.Range(1, 4);
+            points /= NumberOfWaves;
+
             // limits enemies scariness to fight number
             availableEnemies.RemoveAll(e => e.ScarinessRank > fightNumber - 1);
 
@@ -54,6 +59,7 @@ namespace Lis.Battle.Fight
 
         void CreateFirstFight()
         {
+            NumberOfWaves = 1;
             int val = Random.Range(0, 2);
             if (val == 0)
             {
@@ -68,6 +74,7 @@ namespace Lis.Battle.Fight
 
         void CreateSecondFight()
         {
+            NumberOfWaves = 1;
             for (int i = 0; i < Random.Range(5, 10); i++) AddEnemyToArmy(_unitDatabase.GetEnemyByName("Mushroom"));
         }
 
@@ -75,7 +82,7 @@ namespace Lis.Battle.Fight
         {
             Enemy newEnemy = Instantiate(enemy);
             newEnemy.InitializeBattle(1);
-            Army.Add(newEnemy);
+            ArmyPerWave.Add(newEnemy);
         }
 
         public void Choose()

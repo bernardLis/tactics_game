@@ -15,9 +15,7 @@ MonoBehaviour:
   Id: c3e4f761-cb5d-4955-88f7-9dd3736a0f32
   UnitName: Bee
   Icon: {fileID: 21300000, guid: f769958a9834dcd45863b93cbdbcbed6, type: 3}
-  IconAnimation:
-  - {fileID: 21300000, guid: f769958a9834dcd45863b93cbdbcbed6, type: 3}
-  Price: 150
+  Price: 75
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 1922741896846065164, guid: d16d0340dbaa25d49a66f3176c172962, type: 3}
   SpawnSound: {fileID: 0}
@@ -25,6 +23,7 @@ MonoBehaviour:
   AttackSound: {fileID: 0}
   HitSound: {fileID: 0}
   LevelUpSound: {fileID: 0}
+  TeleportSound: {fileID: 0}
   DamageTaken: 0
   TotalKillCount: 0
   Team: 0
@@ -44,7 +43,7 @@ MonoBehaviour:
   IsMiniBoss: 0
   ScarinessRank: 2
   IsRanged: 1
-  EnemyMaxHealth: 80
-  EnemyArmor: 5
+  EnemyMaxHealth: 40
+  EnemyArmor: 2
   EnemySpeed: 2.5
-  EnemyPower: 30
+  EnemyPower: 15
