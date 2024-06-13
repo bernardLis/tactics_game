@@ -4,6 +4,7 @@ using Lis.Battle.Fight;
 using Lis.Units.Hero;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Units
 {
@@ -12,6 +13,8 @@ namespace Lis.Units
         [SerializeField] protected GameObject TeleportEffect;
 
         HeroController _heroController;
+
+        AudioSource _teleportSound;
 
         public override void InitializeUnit(Unit unit, int team)
         {
@@ -99,7 +102,14 @@ namespace Lis.Units
                 TeleportEffect.SetActive(true);
             }
 
-            if (Unit.TeleportSound != null) AudioManager.PlaySfx(Unit.TeleportSound, transform);
+            if (Unit.TeleportSound != null)
+                _teleportSound = AudioManager.PlaySfx(Unit.TeleportSound, transform);
+            Invoke(nameof(ReturnAudioSource), 1f);
+        }
+
+        void ReturnAudioSource()
+        {
+            if (_teleportSound != null) _teleportSound.transform.parent = AudioManager.transform;
         }
 
         void Revive()
@@ -111,6 +121,11 @@ namespace Lis.Units
             TeleportEffect.SetActive(true);
             EnableSelf();
             OnFightEnded();
+        }
+
+        void OnDestroy()
+        {
+            if (_teleportSound != null) _teleportSound.transform.parent = AudioManager.transform;
         }
 
         /* GRAB */

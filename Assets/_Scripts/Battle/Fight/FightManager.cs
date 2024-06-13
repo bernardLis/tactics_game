@@ -89,7 +89,6 @@ namespace Lis.Battle.Fight
         void StartGame()
         {
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
-            CurrentFight.OnOptionChosen += SpawnEnemyArmy;
             CurrentFight.ChooseRandomOption();
 
             StartFight();
@@ -109,7 +108,6 @@ namespace Lis.Battle.Fight
             StartCoroutine(_fightCoroutine);
         }
 
-
         IEnumerator StartFightCoroutine()
         {
             if (IsFightActive) yield break;
@@ -121,15 +119,23 @@ namespace Lis.Battle.Fight
                 yield return new WaitForSeconds(1f);
             }
 
+            _currentWaveIndex = 0;
+            StartCoroutine(SpawnEnemyWavesCoroutine());
+
             _heroController.StartAllAbilities();
             OnFightStarted?.Invoke();
+        }
 
-            for (int i = 1; i < CurrentFight.ChosenOption.NumberOfWaves; i++)
+        IEnumerator SpawnEnemyWavesCoroutine()
+        {
+            for (int i = 0; i < CurrentFight.ChosenOption.NumberOfWaves; i++)
             {
-                yield return new WaitForSeconds(Random.Range(5, 10));
+                _tooltipManager.DisplayGameInfo(
+                    new Label($"Wave {_currentWaveIndex}/{CurrentFight.ChosenOption.NumberOfWaves}"));
                 _currentWaveIndex++;
+
                 SpawnEnemyArmy(CurrentFight.ChosenOption);
-                // start units
+                yield return new WaitForSeconds(Random.Range(10, 15));
             }
         }
 
@@ -235,7 +241,6 @@ namespace Lis.Battle.Fight
             LastFight = CurrentFight;
 
             CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
-            CurrentFight.OnOptionChosen += SpawnEnemyArmy;
             _arenaManager.ChooseActiveEnemyLockerRooms(CurrentFight.ActiveLockerRoomCount);
             UpdateFightInfoText();
 

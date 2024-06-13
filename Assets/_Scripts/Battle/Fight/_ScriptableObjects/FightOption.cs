@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Enemy;
+using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -39,6 +40,7 @@ namespace Lis.Battle.Fight
 
             NumberOfWaves = Random.Range(1, 4);
             points /= NumberOfWaves;
+            Debug.Log("Points: " + points + " Fight number: " + fightNumber + " Waves: " + NumberOfWaves);
 
             // limits enemies scariness to fight number
             availableEnemies.RemoveAll(e => e.ScarinessRank > fightNumber - 1);

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Lis.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Lis.Battle.Fight
@@ -29,8 +28,9 @@ namespace Lis.Battle.Fight
                 Options.Add(option);
             }
 
-            int maxLockerRoomCount = Mathf.Clamp(fightNumber-1, 2, 99);
+            int maxLockerRoomCount = Mathf.Clamp(fightNumber - 1, 2, 99);
             ActiveLockerRoomCount = Random.Range(1, maxLockerRoomCount);
+            if (fightNumber == 2) ActiveLockerRoomCount = 2;
         }
 
         public void ChooseRandomOption()
