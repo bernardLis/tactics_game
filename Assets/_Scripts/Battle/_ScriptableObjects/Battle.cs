@@ -33,6 +33,7 @@ namespace Lis.Battle
                 arena.Initialize();
 
             SetCurrentArena();
+            // HERE: testing
             SetRandomHero();
             InstantiateBuildings();
         }

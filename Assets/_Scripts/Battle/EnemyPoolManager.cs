@@ -9,7 +9,7 @@ namespace Lis.Battle
     public class EnemyPoolManager : Singleton<EnemyPoolManager>
     {
         [SerializeField] GameObject _enemyPoolPrefab;
-        Dictionary<string, EnemyPool> _enemyPools = new();
+        readonly Dictionary<string, EnemyPool> _enemyPools = new();
 
         [SerializeField] Transform _enemyArmyHolder;
 

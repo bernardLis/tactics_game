@@ -29,10 +29,10 @@ namespace Lis.Battle
             // HERE: testing
             // _audioManager = AudioManager.Instance;
             // _audioManager.MuteAllButMusic();
-            //
+
             // _loadingScreen = new();
             _battleManager.Initialize();
-            _battleManager.ResumeGame();
+            // _battleManager.ResumeGame();
 
             StartCoroutine(DelayedStart());
         }
