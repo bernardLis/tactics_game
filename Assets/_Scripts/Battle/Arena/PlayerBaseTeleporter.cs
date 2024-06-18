@@ -1,15 +1,20 @@
 using Lis.Battle.Fight;
 using UnityEngine;
 using DG.Tweening;
+using Lis.Core;
 using Lis.Units.Hero;
 
 namespace Lis.Battle.Arena
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class PlayerBaseTeleporter : MonoBehaviour
+    public class PlayerBaseTeleporter : MonoBehaviour, IInteractable
     {
         [SerializeField] GameObject _gfx;
         SphereCollider _collider;
+
+        public string InteractionPrompt => "Press F To Teleport To Base!";
+
+        HeroController _heroController;
 
         void Start()
         {
@@ -19,6 +24,13 @@ namespace Lis.Battle.Arena
 
             FightManager.Instance.OnFightEnded += EnableSelf;
             FightManager.Instance.OnFightStarted += DisableSelf;
+
+            BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += OnBattleInitialized;
+        }
+
+        void OnBattleInitialized()
+        {
+            _heroController = HeroManager.Instance.HeroController;
         }
 
         void DisableSelf()
@@ -41,12 +53,28 @@ namespace Lis.Battle.Arena
                 .OnComplete(() => { _collider.enabled = true; });
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (FightManager.IsFightActive) return;
 
-            if (other.TryGetComponent(out HeroController hero))
-                hero.TeleportToBase();
+        public bool CanInteract()
+        {
+            if (FightManager.IsFightActive) return false;
+            return true;
+        }
+
+        public void DisplayTooltip()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void HideTooltip()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Interact(Interactor interactor)
+        {
+            Debug.Log("Teleporting to base");
+            _heroController.TeleportToBase();
+            return true;
         }
     }
 }

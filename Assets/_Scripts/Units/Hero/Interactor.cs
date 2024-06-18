@@ -46,6 +46,8 @@ namespace Lis.Units.Hero
         void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out IInteractable interactable)) return;
+            Debug.Log("Triggered");
+
             _interactables.Add(interactable);
             interactable.DisplayTooltip();
         }
