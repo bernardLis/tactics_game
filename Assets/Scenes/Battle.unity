@@ -1809,14 +1809,6 @@ PrefabInstance:
       propertyPath: PlayerArmyHolder
       value: 
       objectReference: {fileID: 1078788522}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: OpponentArmyHolder
-      value: 
-      objectReference: {fileID: 508511795}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _opponentArmyHolder
-      value: 
-      objectReference: {fileID: 508511795}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

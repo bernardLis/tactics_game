@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ea8e64626d07a4da96048e31b23fd0, type: 3}
+  m_Name: Health Pickup
+  m_EditorClassIdentifier: 
+  Id: 13b02bbe-1063-4b1b-b3e3-fcdf853590b6
+  Icon: {fileID: 21300000, guid: ad5973426f8de9745bd17b1d89d8d433, type: 3}
+  Gfx: {fileID: 5244141516534194716, guid: 511e0aa3762e2ad4f90e58efd53cb125, type: 3}
+  Color: {fileID: 11400000, guid: 2124c00715bc8564d9a70cc2ee4ba167, type: 2}
+  CollectedText: 
+  CollectEffect: {fileID: 3104068651246233235, guid: 1fc16b2029453124fa1170f57100983b, type: 3}
+  DropSound: {fileID: 11400000, guid: 0ca961c34eb361145aded138a1cf42b2, type: 2}
+  CollectSound: {fileID: 11400000, guid: 338e0dd97577e0e45b0c1cf5f590d01f, type: 2}

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerArmyHolder: {fileID: 0}
-  _opponentArmyHolder: {fileID: 0}
+  EnemyArmyHolder: {fileID: 0}
   LastFight: {fileID: 0}
   CurrentFight: {fileID: 0}
   PlayerUnits: []
@@ -240,6 +240,7 @@ MonoBehaviour:
   _dice: {fileID: 11400000, guid: 304dfcfbf512b2a468bac675a65df089, type: 2}
   _mushroom: {fileID: 11400000, guid: 5da4b4e336bd9904b989c88a28bd7c1f, type: 2}
   _barracksToken: {fileID: 11400000, guid: 465991286c04196459670af1c0873df3, type: 2}
+  _healthPickup: {fileID: 11400000, guid: 03426ae8af9a9f544b4316780ab53ce5, type: 2}
   _expOrbs:
   - {fileID: 11400000, guid: a8721cd8f1834d747baa58536e372fe8, type: 2}
   - {fileID: 11400000, guid: 5be82e0c2b0cd224cba2582dfcb2851c, type: 2}
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPoolPrefab: {fileID: 1807384318734536117, guid: d2061577cbc7621418a470fc3ee61430, type: 3}
+  _enemyArmyHolder: {fileID: 0}
 --- !u!81 &1813988017654575525
 AudioListener:
   m_ObjectHideFlags: 0

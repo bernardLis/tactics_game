@@ -22,6 +22,8 @@ namespace Lis.Battle.Pickup
         [SerializeField] Dice _dice;
         [SerializeField] Mushroom _mushroom;
         [SerializeField] BarracksToken _barracksToken;
+        [SerializeField] HealthPickup _healthPickup;
+
 
         [SerializeField] List<ExperienceStone> _expOrbs = new();
         FightManager _fightManager;
@@ -104,18 +106,21 @@ namespace Lis.Battle.Pickup
 
             Pickup p = Instantiate(_coin);
 
-            if (random == 0)
-                p = Instantiate(_hammer);
-            else if (random == 1)
-                p = Instantiate(_horseshoe);
-            else if (random == 2)
-                p = Instantiate(_bag);
+            // if (random == 0)
+            //     p = Instantiate(_hammer);
+            // else if (random == 1)
+            //     p = Instantiate(_horseshoe);
+            // else if (random == 2)
+            //     p = Instantiate(_bag);
             // else if (random == 3)
             //     p = Instantiate(_skull);
-            else if (random == 4)
+            if (random == 4)
                 p = Instantiate(_dice);
             else if (random == 5 && FightManager.FightNumber > 3)
                 p = Instantiate(_mushroom);
+            else if (random == 6 || random == 7)
+                p = Instantiate(_healthPickup);
+
 
             SpawnPickup(p, position);
         }
