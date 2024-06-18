@@ -8,7 +8,7 @@ namespace Lis.Battle.Arena.Building
     public class BankController : BuildingController, IInteractable
     {
         Bank _bank;
-        public new string InteractionPrompt => "Press F To Access Bank!";
+        public new string InteractionPrompt => "Access Bank";
 
         public override bool Interact(Interactor interactor)
         {
@@ -43,11 +43,6 @@ namespace Lis.Battle.Arena.Building
         {
             if (!_bank.IsUnlocked) return;
             ForbidInteraction();
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
     }
 }

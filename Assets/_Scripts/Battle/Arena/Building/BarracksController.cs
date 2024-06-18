@@ -29,7 +29,7 @@ namespace Lis.Battle.Arena.Building
             Initialize();
         }
 
-        public new string InteractionPrompt => "Press F To Interact!";
+        public new string InteractionPrompt => "Interact";
 
         public override bool Interact(Interactor interactor)
         {
@@ -43,11 +43,6 @@ namespace Lis.Battle.Arena.Building
             screen.InitializeBuilding(_barracks, this);
 
             return true;
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
 
         protected override void OnFightEnded()

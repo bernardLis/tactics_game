@@ -12,7 +12,7 @@ namespace Lis.Battle.Arena
         [SerializeField] GameObject _gfx;
         SphereCollider _collider;
 
-        public string InteractionPrompt => "Press F To Teleport To Base!";
+        public string InteractionPrompt => "Teleport To Base";
 
         HeroController _heroController;
 
@@ -56,23 +56,11 @@ namespace Lis.Battle.Arena
 
         public bool CanInteract()
         {
-            if (FightManager.IsFightActive) return false;
-            return true;
-        }
-
-        public void DisplayTooltip()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void HideTooltip()
-        {
-            throw new System.NotImplementedException();
+            return !FightManager.IsFightActive;
         }
 
         public bool Interact(Interactor interactor)
         {
-            Debug.Log("Teleporting to base");
             _heroController.TeleportToBase();
             return true;
         }

@@ -8,7 +8,7 @@ namespace Lis.Battle.Arena.Building
     public class RewardCollector : BuildingController, IInteractable
     {
         int _rewardsAvailable;
-        public new string InteractionPrompt => "Press F To Collect Reward!";
+        public new string InteractionPrompt => "Collect Reward";
 
         public override bool Interact(Interactor interactor)
         {
@@ -32,11 +32,6 @@ namespace Lis.Battle.Arena.Building
             _rewardsAvailable = 0;
             Building = BattleManager.Battle.RewardCollector;
             Initialize();
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
 
         protected override void OnFightEnded()

@@ -136,7 +136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -167, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8345267102741812185
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -38.46563, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -306,6 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4957545396366725712, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+    - {fileID: 2494043251138558828, guid: aea1d639b695b174682a7398202ab95d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6472929110812220733, guid: aea1d639b695b174682a7398202ab95d, type: 3}
     m_AddedGameObjects:
@@ -317,22 +318,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8431754241020054361}
   m_SourcePrefab: {fileID: 100100000, guid: aea1d639b695b174682a7398202ab95d, type: 3}
---- !u!114 &691308917171239621 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6979186650468371037, guid: aea1d639b695b174682a7398202ab95d, type: 3}
-  m_PrefabInstance: {fileID: 7584915561060888728}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!223 &1967790350995058754 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 8218495795182010586, guid: aea1d639b695b174682a7398202ab95d, type: 3}
-  m_PrefabInstance: {fileID: 7584915561060888728}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4332608082606257087 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6152916120629576487, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -362,9 +347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 6051840444027303066}
   _unlockedEffect: {fileID: 6552840409184012855}
-  _lockedGfx: {fileID: 6552840409184012855}
-  _tooltipCanvas: {fileID: 1967790350995058754}
-  TooltipText: {fileID: 691308917171239621}
   InteractionAvailableEffect: {fileID: 4332608082606257087}
 --- !u!1 &6552840409184012855 stripped
 GameObject:

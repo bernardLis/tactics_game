@@ -3,7 +3,6 @@ using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,10 +13,7 @@ namespace Lis.Battle.Arena.Building
         [SerializeField] GameObject _unlockedGfx;
         [SerializeField] GameObject _unlockedEffect;
 
-        [SerializeField] Canvas _tooltipCanvas;
-        [SerializeField] protected TMP_Text TooltipText;
         [SerializeField] protected GameObject InteractionAvailableEffect;
-        BuildingUnlocker _buildingUnlocker;
         TooltipManager _tooltipManager;
         protected BattleManager BattleManager;
 
@@ -32,31 +28,18 @@ namespace Lis.Battle.Arena.Building
             FightManager.OnFightEnded += OnFightEnded;
             FightManager.OnFightStarted += OnFightStarted;
 
+            _tooltipManager = TooltipManager.Instance;
+
             BattleManager = BattleManager.Instance;
             BattleManager.GetComponent<BattleInitializer>().OnBattleInitialized += OnBattleInitialized;
             if (BattleManager.IsTimerOn) OnBattleInitialized();
-
-            _tooltipManager = TooltipManager.Instance;
-
-            SetTooltipText();
         }
 
-        public string InteractionPrompt => "Press F To Something";
+        public string InteractionPrompt => "Something";
 
         public virtual bool CanInteract()
         {
             return IsInteractionAvailable;
-        }
-
-        public virtual void DisplayTooltip()
-        {
-            if (CanInteract())
-                _tooltipCanvas.gameObject.SetActive(true);
-        }
-
-        public virtual void HideTooltip()
-        {
-            _tooltipCanvas.gameObject.SetActive(false);
         }
 
         public virtual bool Interact(Interactor interactor)
@@ -80,10 +63,7 @@ namespace Lis.Battle.Arena.Building
         {
             _unlockedGfx.SetActive(Building.IsUnlocked);
 
-            _buildingUnlocker = GetComponentInChildren<BuildingUnlocker>();
             Building.OnUnlocked += Unlock;
-            if (_buildingUnlocker == null) return;
-            _buildingUnlocker.Initialize(Building);
         }
 
         protected virtual void AllowInteraction()
@@ -95,7 +75,6 @@ namespace Lis.Battle.Arena.Building
         protected void ForbidInteraction()
         {
             InteractionAvailableEffect.SetActive(false);
-            HideTooltip();
             IsInteractionAvailable = false;
         }
 
@@ -105,11 +84,6 @@ namespace Lis.Battle.Arena.Building
                 new Label($" {Helpers.ParseScriptableObjectName(Building.name)} unlocked!"));
             _unlockedEffect.SetActive(true);
             _unlockedGfx.SetActive(true);
-        }
-
-        protected virtual void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
     }
 }

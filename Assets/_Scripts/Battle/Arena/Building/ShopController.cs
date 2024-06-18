@@ -8,7 +8,7 @@ namespace Lis.Battle.Arena.Building
     public class ShopController : BuildingController, IInteractable
     {
         Shop _shop;
-        public new string InteractionPrompt => "Press F To Shop!";
+        public new string InteractionPrompt => "Shop";
 
         public override bool Interact(Interactor interactor)
         {
@@ -43,11 +43,6 @@ namespace Lis.Battle.Arena.Building
         {
             if (!_shop.IsUnlocked) return;
             ForbidInteraction();
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
     }
 }

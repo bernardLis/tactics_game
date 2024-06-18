@@ -8,7 +8,7 @@ namespace Lis.Battle.Arena.Building
 {
     public class FightStarter : BuildingController, IInteractable
     {
-        public new string InteractionPrompt => "Press F To Start A Fight!";
+        public new string InteractionPrompt => "Start Next Fight";
 
         public override bool Interact(Interactor interactor)
         {
@@ -32,11 +32,6 @@ namespace Lis.Battle.Arena.Building
             base.OnBattleInitialized();
             Building = BattleManager.Battle.FightStarter;
             Initialize();
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
 
         void OnFightOptionChosen(FightOption _)

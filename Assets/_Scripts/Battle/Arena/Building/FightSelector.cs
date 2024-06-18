@@ -7,7 +7,7 @@ namespace Lis.Battle.Arena.Building
 {
     public class FightSelector : BuildingController, IInteractable
     {
-        public new string InteractionPrompt => "Press F To Select A Fight!";
+        public new string InteractionPrompt => "Select A Fight";
 
         public override bool Interact(Interactor interactor)
         {
@@ -41,11 +41,6 @@ namespace Lis.Battle.Arena.Building
         protected override void OnFightStarted()
         {
             ForbidInteraction();
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
     }
 }

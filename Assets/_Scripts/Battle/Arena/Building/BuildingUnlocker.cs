@@ -12,7 +12,15 @@ namespace Lis.Battle.Arena.Building
         [SerializeField] protected TMP_Text TooltipText;
         Building _building;
 
-        public string InteractionPrompt => "Press F To Unlock Building";
+        public string InteractionPrompt => "Unlock Building";
+
+        public void Initialize(Building building)
+        {
+            if (building.IsUnlocked) gameObject.SetActive(false);
+            _building = building;
+            TooltipText.text =
+                $"Press F to Unlock {Helpers.ParseScriptableObjectName(building.name)} for {building.UnlockCost}";
+        }
 
         public bool CanInteract()
         {
@@ -39,14 +47,6 @@ namespace Lis.Battle.Arena.Building
             _building.Unlock();
             gameObject.SetActive(false);
             return true;
-        }
-
-        public void Initialize(Building building)
-        {
-            if (building.IsUnlocked) gameObject.SetActive(false);
-            _building = building;
-            TooltipText.text =
-                $"Press F to Unlock {Helpers.ParseScriptableObjectName(building.name)} for {building.UnlockCost}";
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Lis.Battle;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,11 +11,13 @@ namespace Lis.Units.Hero
         readonly List<IInteractable> _interactables = new();
         GameManager _gameManager;
         PlayerInput _playerInput;
+        TooltipManager _tooltipManager;
 
         void Start()
         {
             _gameManager = GameManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
+            _tooltipManager = TooltipManager.Instance;
         }
 
         /* INPUT */
@@ -46,17 +49,16 @@ namespace Lis.Units.Hero
         void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out IInteractable interactable)) return;
-            Debug.Log("Triggered");
-
+            if (!interactable.CanInteract()) return;
             _interactables.Add(interactable);
-            interactable.DisplayTooltip();
+            ShowInteractionPrompt(interactable);
         }
 
         void OnTriggerExit(Collider other)
         {
             if (!other.TryGetComponent(out IInteractable interactable)) return;
             _interactables.Remove(interactable);
-            interactable.HideTooltip();
+            HideInteractionPrompt();
         }
 
         void Interact(InputAction.CallbackContext context)
@@ -68,9 +70,20 @@ namespace Lis.Units.Hero
                 if (!interactable.CanInteract()) continue;
                 if (!interactable.Interact(this)) continue;
                 _interactables.Remove(interactable);
-                interactable.HideTooltip();
+
+                HideInteractionPrompt();
                 break;
             }
+        }
+
+        void ShowInteractionPrompt(IInteractable interactable)
+        {
+            _tooltipManager.ShowInteractionPrompt(interactable.InteractionPrompt);
+        }
+
+        void HideInteractionPrompt()
+        {
+            _tooltipManager.HideInteractionPrompt();
         }
 
         void SubscribeInputActions()

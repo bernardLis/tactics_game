@@ -7,7 +7,7 @@ namespace Lis.Battle.Arena.Building
     public class HeroLeveler : BuildingController, IInteractable
     {
         int _levelUpsAvailable;
-        public new string InteractionPrompt => "Press F To Level Up!";
+        public new string InteractionPrompt => "Level Up";
 
         public override bool Interact(Interactor interactor)
         {
@@ -53,11 +53,6 @@ namespace Lis.Battle.Arena.Building
             }
 
             _levelUpsAvailable++;
-        }
-
-        protected override void SetTooltipText()
-        {
-            TooltipText.text = InteractionPrompt;
         }
     }
 }
