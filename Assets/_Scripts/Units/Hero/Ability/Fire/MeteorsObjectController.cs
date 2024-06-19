@@ -28,7 +28,7 @@ namespace Lis.Units.Hero.Ability
             _meteor.transform.localScale = Vector3.one;
 
             ManageCircles();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(8f);
             ManageMeteors();
             StartCoroutine(PlaySound());
 
