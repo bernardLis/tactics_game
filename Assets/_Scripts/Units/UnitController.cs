@@ -45,7 +45,7 @@ namespace Lis.Units
         bool _isEngaged;
 
         List<UnitController> _opponentList = new();
-        PickupManager _pickupManager;
+        protected PickupManager PickupManager;
         Color _shieldColor;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
@@ -74,7 +74,7 @@ namespace Lis.Units
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
-            _pickupManager = BattleManager.GetComponent<PickupManager>();
+            PickupManager = BattleManager.GetComponent<PickupManager>();
             FightManager = BattleManager.GetComponent<FightManager>();
             ArenaManager = BattleManager.GetComponent<ArenaManager>();
 
@@ -415,7 +415,7 @@ namespace Lis.Units
         void ResolveLoot()
         {
             if (Team == 0) return;
-            _pickupManager.SpawnExpStone(Unit, transform.position);
+            PickupManager.SpawnExpStone(Unit, transform.position);
         }
 
         /* LEVEL UP */

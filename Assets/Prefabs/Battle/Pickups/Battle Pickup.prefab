@@ -533,3 +533,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gfx: {fileID: 3585991391464961019}
   Pickup: {fileID: 0}
+  IsCollected: 0

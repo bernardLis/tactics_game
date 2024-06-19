@@ -3,6 +3,7 @@ using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
+using Lis.Units.Pawn;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -23,6 +24,11 @@ namespace Lis.Battle.Pickup
 
         SphereCollider _sphereCollider;
 
+        public bool IsCollected;
+
+        Transform _originalParent;
+        bool _wasPickedUpByPawn;
+
         public void Awake()
         {
             _audioManager = AudioManager.Instance;
@@ -37,6 +43,8 @@ namespace Lis.Battle.Pickup
             _rigidbody = GetComponent<Rigidbody>();
 
             _hero.Pull.OnValueChanged += SetPickUpRadius;
+
+            _originalParent = transform.parent;
         }
 
         void OnDestroy()
@@ -60,6 +68,9 @@ namespace Lis.Battle.Pickup
 
             Pickup = pickup;
             Pickup.Initialize();
+
+            IsCollected = false;
+            _wasPickedUpByPawn = false;
 
             Transform t = transform;
             if (Pickup is not ExperienceStone)
@@ -91,6 +102,11 @@ namespace Lis.Battle.Pickup
                 return;
             }
 
+            SetGfxTweens();
+        }
+
+        void SetGfxTweens()
+        {
             _gfx.DORotate(new(0, 360, 0), 15f, RotateMode.FastBeyond360)
                 .SetLoops(-1).SetEase(Ease.InOutSine);
 
@@ -108,6 +124,8 @@ namespace Lis.Battle.Pickup
         void PickUp(HeroController heroController)
         {
             if (Pickup == null) return;
+
+            IsCollected = true;
 
             _sphereCollider.enabled = false;
             Transform t = transform;
@@ -152,6 +170,30 @@ namespace Lis.Battle.Pickup
 
             transform.DOMove(_heroController.transform.position + Vector3.up, Random.Range(0.5f, 2f))
                 .OnComplete(() => { PickUp(_heroController); });
+        }
+
+        public bool CanBePickedUpByPawn()
+        {
+            if (_wasPickedUpByPawn) return false;
+            if (!_sphereCollider.enabled) return false;
+
+            return true;
+        }
+
+        public void PawnPickup(PawnController pawnController)
+        {
+            _wasPickedUpByPawn = true;
+            transform.parent = pawnController.transform;
+            transform.localPosition = Vector3.up;
+            _gfx.DOKill();
+        }
+
+        public void PawnDrop()
+        {
+            _wasPickedUpByPawn = false;
+            transform.parent = _originalParent;
+            Fall();
+            SetGfxTweens();
         }
 
         void DisplayText(string text, Color color)

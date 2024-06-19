@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using DG.Tweening;
 using Lis.Battle;
 using Lis.Battle.Pickup;
 using Lis.Core;
@@ -29,6 +28,7 @@ namespace Lis.Units.Peasant
         {
             base.OnFightEnded();
             if (IsDead) return;
+            AddToLog("Breaking vases.");
             CurrentMainCoroutine = BreakVasesCoroutine();
             StartCoroutine(CurrentMainCoroutine);
         }

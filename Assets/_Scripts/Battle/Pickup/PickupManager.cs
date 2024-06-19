@@ -24,7 +24,6 @@ namespace Lis.Battle.Pickup
         [SerializeField] BarracksToken _barracksToken;
         [SerializeField] HealthPickup _healthPickup;
 
-
         [SerializeField] List<ExperienceStone> _expOrbs = new();
         FightManager _fightManager;
         ArenaManager _arenaManager;
@@ -150,6 +149,16 @@ namespace Lis.Battle.Pickup
             foreach (PickupController p in GetActiveObjects())
                 if (p.Pickup is ExperienceStone)
                     p.GetToHero();
+        }
+
+        public PickupController GetPawnCollectablePickup()
+        {
+            List<PickupController> avPickups = new();
+            foreach (PickupController p in GetActiveObjects())
+                if (p.Pickup is Coin or ExperienceStone)
+                    avPickups.Add(p);
+
+            return avPickups.Count > 0 ? avPickups[Random.Range(0, avPickups.Count)] : null;
         }
     }
 }

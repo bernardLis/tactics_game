@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Lis.Battle.Pickup;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -19,6 +20,9 @@ namespace Lis.Units.Pawn
 
         Pawn _pawn;
 
+        PickupController _pickedUpPickup;
+        IEnumerator _bringingToHeroCoroutine;
+
         public override void InitializeUnit(Unit unit, int team)
         {
             base.InitializeUnit(unit, team);
@@ -36,8 +40,14 @@ namespace Lis.Units.Pawn
             _pawn.LevelUp();
 
             if (_pawn.CurrentMission.IsCompleted)
+            {
                 _pawn.Upgrade();
+                return;
+            }
+
+            CollectPickups();
         }
+
 
         protected override IEnumerator RunUnitCoroutine()
         {
@@ -45,15 +55,22 @@ namespace Lis.Units.Pawn
             yield return base.RunUnitCoroutine();
         }
 
+        public override void TeleportToBase()
+        {
+            DropPickup();
+            base.TeleportToBase();
+        }
+
         void OnPawnUpgraded()
         {
-            // TODO: this is so imperfect
-            StartCoroutine(UpgradeCoroutine());
+            StopUnit();
+            CurrentMainCoroutine = UpgradeCoroutine();
+            StartCoroutine(CurrentMainCoroutine);
         }
 
         IEnumerator UpgradeCoroutine()
         {
-            StopUnit();
+            DropPickup();
 
             AddToLog("Upgrading...");
             _isUpgrading = true;
@@ -63,11 +80,54 @@ namespace Lis.Units.Pawn
             yield return new WaitForSeconds(0.5f);
 
             HandleUpgrade(true);
-
             yield return new WaitForSeconds(3f);
+
             _isUpgrading = false;
             _upgradeEffect.SetActive(false);
+            CollectPickups();
         }
+
+        void CollectPickups()
+        {
+            AddToLog("Collecting pickups...");
+            CurrentMainCoroutine = CollectPickupsCoroutine();
+            StartCoroutine(CurrentMainCoroutine);
+        }
+
+        IEnumerator CollectPickupsCoroutine()
+        {
+            while (true)
+            {
+                if (this == null) yield break;
+
+                yield return new WaitForSeconds(1f);
+                PickupController pickup = PickupManager.GetPawnCollectablePickup();
+                if (pickup == null)
+                {
+                    yield return new WaitForSeconds(2f);
+                    continue;
+                }
+
+                yield return UnitPathingController.PathToPositionAndStop(pickup.transform.position);
+                if (!pickup.CanBePickedUpByPawn()) continue;
+                pickup.PawnPickup(this);
+                _pickedUpPickup = pickup;
+
+                _bringingToHeroCoroutine = UnitPathingController.PathToTarget(HeroController.transform);
+                StartCoroutine(_bringingToHeroCoroutine);
+                while (_pickedUpPickup != null && !_pickedUpPickup.IsCollected)
+                    yield return new WaitForSeconds(0.1f);
+                DropPickup();
+            }
+        }
+
+        void DropPickup()
+        {
+            if (_pickedUpPickup == null) return;
+            StopCoroutine(_bringingToHeroCoroutine);
+            _pickedUpPickup.PawnDrop();
+        }
+
 
         void HandleUpgrade(bool animate = false)
         {

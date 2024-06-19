@@ -13,7 +13,7 @@ namespace Lis.Units
     {
         [SerializeField] protected GameObject TeleportEffect;
 
-        HeroController _heroController;
+        protected HeroController HeroController;
 
         AudioSource _teleportSound;
 
@@ -37,8 +37,8 @@ namespace Lis.Units
             grab.OnGrabbed += OnGrabbed;
             grab.OnReleased += OnReleased;
 
-            _heroController = HeroManager.Instance.HeroController;
-            _heroController.OnTeleportedToBase += TeleportToBase;
+            HeroController = HeroManager.Instance.HeroController;
+            HeroController.OnTeleportedToBase += TeleportToBase;
         }
 
         public override void OnFightStarted()
