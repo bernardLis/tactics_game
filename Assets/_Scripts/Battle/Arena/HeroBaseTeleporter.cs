@@ -7,7 +7,7 @@ using Lis.Units.Hero;
 namespace Lis.Battle.Arena
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class PlayerBaseTeleporter : MonoBehaviour, IInteractable
+    public class HeroBaseTeleporter : MonoBehaviour, IInteractable
     {
         [SerializeField] GameObject _gfx;
         SphereCollider _collider;
@@ -23,14 +23,13 @@ namespace Lis.Battle.Arena
             DisableSelf();
 
             FightManager.Instance.OnFightEnded += EnableSelf;
-            FightManager.Instance.OnFightStarted += DisableSelf;
-
             BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += OnBattleInitialized;
         }
 
         void OnBattleInitialized()
         {
             _heroController = HeroManager.Instance.HeroController;
+            _heroController.OnTeleportedToBase += DisableSelf;
         }
 
         void DisableSelf()
