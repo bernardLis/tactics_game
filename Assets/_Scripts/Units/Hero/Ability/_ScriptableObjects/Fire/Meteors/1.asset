@@ -19,7 +19,7 @@ MonoBehaviour:
   Damage: 50
   Range: 0
   GlobalCooldown: 3
-  Cooldown: 9
+  Cooldown: 11
   IsArmorPiercing: 0
   Sound: {fileID: 0}
   DamageDealt: 544

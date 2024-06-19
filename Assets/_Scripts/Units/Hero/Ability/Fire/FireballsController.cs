@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Units.Projectile;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Lis.Units.Hero.Ability
 {
     public class FireballsController : Controller
     {
+        Camera _cam;
+        Mouse _mouse;
         [SerializeField] GameObject _fireballPrefab;
         readonly List<ProjectileController> _fireballPool = new();
 
         public override void Initialize(Ability ability)
         {
             base.Initialize(ability);
+            _cam = Camera.main;
+            _mouse = Mouse.current;
             transform.localPosition = new(0f, 0.5f, 0f);
         }
 
@@ -20,13 +25,14 @@ namespace Lis.Units.Hero.Ability
         {
             yield return base.ExecuteAbilityCoroutine();
             Vector3 dir = GetRandomEnemyDirection();
+
+            // fly towards mouse if possible
+            Ray ray = _cam.ScreenPointToRay(_mouse.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                dir = (hit.point - transform.position).normalized;
+            dir.y = 0;
+
             int numberOfLines = 50;
-            //            Vector3 dir = transform.position - _target.transform.position;
-
-            //
-            //rotatedLine = rotatedLine.normalized * _attackRange;
-
-            // Vector3 projectileVariance = new(0.2f, 0, 0.2f);
             int half = Mathf.FloorToInt(Ability.GetAmount() * 0.5f); // TODO: only "works" for odd numbers
             for (int i = -half; i <= half; i++)
             {
@@ -35,8 +41,6 @@ namespace Lis.Units.Hero.Ability
                 t.localScale = Vector3.one * Ability.GetScale();
                 Vector3 rotatedLine = Quaternion.AngleAxis(360f * i / numberOfLines, Vector3.up) * dir;
                 Vector3 direction = rotatedLine.normalized;
-                // t.position = transform.position + projectileVariance * i;
-                // projectileController.Shoot(dir + projectileVariance * i, 5);
                 t.position = transform.position + direction;
                 projectileController.Shoot(direction, 5);
             }
