@@ -9,9 +9,9 @@ namespace Lis.Battle.Arena.Building
     {
         public List<BarracksNatureUpgrade> UnlockableNatures;
 
-        public override void Initialize()
+        public override void Initialize(Battle battle)
         {
-            base.Initialize();
+            base.Initialize(battle);
             foreach (BarracksNatureUpgrade unlockableNature in UnlockableNatures)
                 // HERE: save & load
                 unlockableNature.CurrentLevel = 0;

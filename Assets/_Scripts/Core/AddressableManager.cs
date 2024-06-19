@@ -86,6 +86,8 @@ namespace Lis.Core
         InvestmentElementStyles,
         AttackElementStyles,
         FightOptionElementStyles,
-        BarracksNatureUpgradeElementStyles
+        BarracksNatureUpgradeElementStyles,
+        UnlockableBuildingElementStyles,
+
     }
 }

@@ -78,7 +78,7 @@ namespace Lis.Battle.Arena.Building
             IsInteractionAvailable = false;
         }
 
-        protected void Unlock()
+        protected virtual void Unlock()
         {
             _tooltipManager.DisplayGameInfo(
                 new Label($" {Helpers.ParseScriptableObjectName(Building.name)} unlocked!"));

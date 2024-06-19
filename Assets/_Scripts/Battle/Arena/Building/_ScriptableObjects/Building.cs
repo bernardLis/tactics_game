@@ -7,6 +7,8 @@ namespace Lis.Battle.Arena.Building
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Building/Building")]
     public class Building : BaseScriptableObject
     {
+        public Sprite Icon;
+        
         public bool IsUnlocked;
         public int UnlockCost;
 
@@ -15,7 +17,7 @@ namespace Lis.Battle.Arena.Building
 
         public event Action OnUnlocked;
 
-        public virtual void Initialize()
+        public virtual void Initialize(Battle battle)
         {
             IsUnlocked = false;
         }

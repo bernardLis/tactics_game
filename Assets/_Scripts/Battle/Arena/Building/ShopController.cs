@@ -44,5 +44,11 @@ namespace Lis.Battle.Arena.Building
             if (!_shop.IsUnlocked) return;
             ForbidInteraction();
         }
+
+        protected override void Unlock()
+        {
+            base.Unlock();
+            OnFightEnded();
+        }
     }
 }

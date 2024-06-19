@@ -44,5 +44,11 @@ namespace Lis.Battle.Arena.Building
             if (!_bank.IsUnlocked) return;
             ForbidInteraction();
         }
+
+        protected override void Unlock()
+        {
+            base.Unlock();
+            OnFightEnded();
+        }
     }
 }

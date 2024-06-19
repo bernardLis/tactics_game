@@ -10,9 +10,9 @@ namespace Lis.Battle.Arena.Building
         public List<Investment> AvailableInvestments = new();
         public List<Investment> ActiveInvestments = new();
 
-        public override void Initialize()
+        public override void Initialize(Battle battle)
         {
-            base.Initialize();
+            base.Initialize(battle);
             AvailableInvestments = new();
             ActiveInvestments = new();
             CreateInvestments();

@@ -25,3 +25,4 @@ MonoBehaviour:
   Barracks: {fileID: 11400000, guid: 988ef55f295ded14c9b378829cdae112, type: 2}
   RewardCollector: {fileID: 11400000, guid: 2ed12a2632c03aa43ae6abfc25df13e9, type: 2}
   Shop: {fileID: 11400000, guid: 91d63af4d3ec4034d9e7bf5af5e4b840, type: 2}
+  Architect: {fileID: 11400000, guid: 9f34ecb1c93b36943ab7badfca3234cb, type: 2}

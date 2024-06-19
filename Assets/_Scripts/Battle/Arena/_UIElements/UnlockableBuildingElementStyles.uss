@@ -1,0 +1,14 @@
+.unlockable-building-element__main {
+    justify-content: center;
+    align-items: center;
+    border-width: 3px;
+    border-color: var(--color-highlight);
+    margin-left: 12px;
+    margin-right: 12px;
+    padding: 12px;
+}
+
+.unlockable-building-element__icon {
+    width: 100px;
+    height: 100px;
+}

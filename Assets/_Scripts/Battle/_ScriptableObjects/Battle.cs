@@ -24,6 +24,8 @@ namespace Lis.Battle
         public Barracks Barracks;
         public Building RewardCollector;
         public Shop Shop;
+        public Architect Architect;
+
 
         public void Initialize()
         {
@@ -52,26 +54,44 @@ namespace Lis.Battle
         void InstantiateBuildings()
         {
             Bank = Instantiate(Bank);
-            Bank.Initialize();
+            Bank.Initialize(this);
 
             FightSelector = Instantiate(FightSelector);
-            FightSelector.Initialize();
+            FightSelector.Initialize(this);
 
             FightStarter = Instantiate(FightStarter);
-            FightStarter.Initialize();
+            FightStarter.Initialize(this);
             FightStarter.IsUnlocked = true;
 
             HeroLeveler = Instantiate(HeroLeveler);
-            HeroLeveler.Initialize();
+            HeroLeveler.Initialize(this);
 
             Barracks = Instantiate(Barracks);
-            Barracks.Initialize();
+            Barracks.Initialize(this);
 
             RewardCollector = Instantiate(RewardCollector);
-            RewardCollector.Initialize();
+            RewardCollector.Initialize(this);
 
             Shop = Instantiate(Shop);
-            Shop.Initialize();
+            Shop.Initialize(this);
+
+            Architect = Instantiate(Architect);
+            Architect.Initialize(this);
+        }
+
+        public List<Building> GetAllBuildings()
+        {
+            return new List<Building>
+            {
+                Bank,
+                FightSelector,
+                FightStarter,
+                HeroLeveler,
+                Barracks,
+                RewardCollector,
+                Shop,
+                Architect
+            };
         }
     }
 }

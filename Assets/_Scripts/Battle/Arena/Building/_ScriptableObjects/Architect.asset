@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385c3cffac41b544daa2b5d0b0a0bf4c, type: 3}
-  m_Name: Bank
+  m_Script: {fileID: 11500000, guid: 64b1ae6c831e4de8a00a81ccbb9faf77, type: 3}
+  m_Name: Architect
   m_EditorClassIdentifier: 
-  Id: 7658cf14-7597-4b07-86c2-0000b670d7b8
-  Icon: {fileID: 21300000, guid: c35b7c83d3ac24d4e8de7c8641919a16, type: 3}
+  Id: 3ca8ed50-dacd-43d6-9267-fb67f4ff8ae9
   IsUnlocked: 0
-  UnlockCost: 456
+  UnlockCost: 0
   Level: 0
   MaxLevel: 0
-  AvailableInvestments: []
-  ActiveInvestments: []
