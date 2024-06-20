@@ -19,7 +19,7 @@ namespace Lis.Units.Hero.Ability
             {
                 Vector3 currentPosition = transform.position;
                 Vector3 pos = new(currentPosition.x, 0, currentPosition.z);
-                Quaternion look = Quaternion.LookRotation(GetRandomEnemyDirection(),
+                Quaternion look = Quaternion.LookRotation(GetPositionTowardsCursor(),
                     Vector3.up);
 
                 WindTornadoObjectController tornadoObjectController =

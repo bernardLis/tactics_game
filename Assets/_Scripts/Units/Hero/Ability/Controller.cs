@@ -5,6 +5,7 @@ using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -24,6 +25,9 @@ namespace Lis.Units.Hero.Ability
         IEnumerator _runAbilityCoroutine;
 
         protected Transform AbilityObjectParent;
+
+        Camera _cam;
+        Mouse _mouse;
         protected ArenaManager ArenaManager;
         protected AudioManager AudioManager;
         protected BattleManager BattleManager;
@@ -33,6 +37,9 @@ namespace Lis.Units.Hero.Ability
 
         public virtual void Initialize(Ability ability)
         {
+            _cam = Camera.main;
+            _mouse = Mouse.current;
+
             AudioManager = AudioManager.Instance;
             BattleManager = BattleManager.Instance;
             ArenaManager = BattleManager.GetComponent<ArenaManager>();
@@ -94,6 +101,16 @@ namespace Lis.Units.Hero.Ability
             rand = _fightManager.GetRandomEnemyPosition() - transform.position;
             rand.y = 0;
             return rand.normalized;
+        }
+
+        protected Vector3 GetPositionTowardsCursor()
+        {
+            Vector3 dir = Vector3.zero;
+            Ray ray = _cam.ScreenPointToRay(_mouse.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
+                dir = (hit.point - transform.position).normalized;
+            dir.y = 0;
+            return dir;
         }
 
         ObjectController InitializeAbilityObject()

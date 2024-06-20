@@ -11,7 +11,6 @@ namespace Lis
     {
         public LinkedListNode<SoundEmitter> Node { get; set; }
 
-        public Sound Sound { get; private set; }
         AudioManager _audioManager;
         AudioSource _audioSource;
         Coroutine _playCoroutine;
@@ -24,8 +23,6 @@ namespace Lis
 
         public void Initialize(Sound sound)
         {
-            Sound = sound;
-
             _audioSource.clip = sound.Clips[Random.Range(0, sound.Clips.Length)];
             _audioSource.volume = sound.Volume;
             _audioSource.pitch = sound.Pitch;

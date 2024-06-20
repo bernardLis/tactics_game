@@ -2,35 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Lis.Units.Projectile;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Lis.Units.Hero.Ability
 {
     public class FireballsController : Controller
     {
-        Camera _cam;
-        Mouse _mouse;
         [SerializeField] GameObject _fireballPrefab;
         readonly List<ProjectileController> _fireballPool = new();
 
         public override void Initialize(Ability ability)
         {
             base.Initialize(ability);
-            _cam = Camera.main;
-            _mouse = Mouse.current;
             transform.localPosition = new(0f, 0.5f, 0f);
         }
 
         protected override IEnumerator ExecuteAbilityCoroutine()
         {
             yield return base.ExecuteAbilityCoroutine();
-            Vector3 dir = GetRandomEnemyDirection();
-
-            // fly towards mouse if possible
-            Ray ray = _cam.ScreenPointToRay(_mouse.position.ReadValue());
-            if (Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
-                dir = (hit.point - transform.position).normalized;
-            dir.y = 0;
+            Vector3 dir = GetPositionTowardsCursor();
 
             int numberOfLines = 50;
             int half = Mathf.FloorToInt(Ability.GetAmount() * 0.5f); // TODO: only "works" for odd numbers
