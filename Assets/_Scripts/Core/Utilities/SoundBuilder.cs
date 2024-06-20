@@ -41,7 +41,8 @@ namespace Lis.Core.Utilities
             soundEmitter.Initialize(_sound);
             soundEmitter.gameObject.transform.position = _pos;
             if (_parent != null) soundEmitter.transform.parent = _parent;
-            if (_sound.IsFrequentSound) _audioManager.FrequentSoundEmittersQueue.Enqueue(soundEmitter);
+            if (_sound.IsFrequentSound)
+                soundEmitter.Node = _audioManager.FrequentSoundEmitters.AddLast(soundEmitter);
 
             soundEmitter.Play();
             return soundEmitter;

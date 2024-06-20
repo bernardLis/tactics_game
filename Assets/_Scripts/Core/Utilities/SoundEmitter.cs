@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Lis.Core;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace Lis
     [RequireComponent(typeof(AudioSource))]
     public class SoundEmitter : MonoBehaviour
     {
+        public LinkedListNode<SoundEmitter> Node { get; set; }
+
         public Sound Sound { get; private set; }
         AudioManager _audioManager;
         AudioSource _audioSource;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +25,12 @@ namespace Lis.Core
 
         IObjectPool<SoundEmitter> _soundEmitterPool;
         readonly List<SoundEmitter> _activeSoundEmitters = new();
-        public readonly Queue<SoundEmitter> FrequentSoundEmittersQueue = new();
+        public readonly LinkedList<SoundEmitter> FrequentSoundEmitters = new();
 
         readonly bool _collectionCheck = true;
         readonly int _defaultCapacity = 10;
         readonly int _maxPoolSize = 100;
-        readonly int _maxSoundInstances = 30;
+        readonly int _maxSoundInstances = 15;
 
         protected override void Awake()
         {
@@ -40,6 +39,113 @@ namespace Lis.Core
             InitializeSoundEmitterPool();
             SetPlayerPrefVolume();
         }
+
+
+        /* OTHER SOUNDS */
+
+        public SoundBuilder CreateSound()
+        {
+            return new(this);
+        }
+
+        public bool CanPlaySound(Sound s)
+        {
+            if (!s.IsFrequentSound) return true;
+
+            if (FrequentSoundEmitters.Count >= _maxSoundInstances)
+            {
+                try
+                {
+                    FrequentSoundEmitters.First.Value.Stop();
+                    return true;
+                }
+                catch
+                {
+                    Debug.Log("SoundEmitter is already released");
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
+
+        public SoundEmitter GetSoundEmitter()
+        {
+            return _soundEmitterPool.Get();
+        }
+
+        public void ReturnSoundEmitterToPool(SoundEmitter soundEmitter)
+        {
+            if (soundEmitter.gameObject.activeSelf)
+                _soundEmitterPool.Release(soundEmitter);
+        }
+
+
+        SoundEmitter CreateSoundEmitter()
+        {
+            SoundEmitter soundEmitter = Instantiate(_soundEmitterPrefab, transform);
+            soundEmitter.gameObject.SetActive(false);
+            return soundEmitter;
+        }
+
+        void OnTakeFromPool(SoundEmitter soundEmitter)
+        {
+            soundEmitter.gameObject.SetActive(true);
+            _activeSoundEmitters.Add(soundEmitter);
+        }
+
+        void OnReturnToPool(SoundEmitter soundEmitter)
+        {
+            if (soundEmitter.Node != null)
+            {
+                FrequentSoundEmitters.Remove(soundEmitter.Node);
+                soundEmitter.Node = null;
+            }
+
+            soundEmitter.transform.parent = transform;
+            soundEmitter.gameObject.SetActive(false);
+            _activeSoundEmitters.Remove(soundEmitter);
+        }
+
+        void OnPoolDestroy(SoundEmitter soundEmitter)
+        {
+            Destroy(soundEmitter.gameObject);
+        }
+
+        void InitializeSoundEmitterPool()
+        {
+            _soundEmitterPool = new ObjectPool<SoundEmitter>(
+                CreateSoundEmitter,
+                OnTakeFromPool,
+                OnReturnToPool,
+                OnPoolDestroy,
+                _collectionCheck,
+                _defaultCapacity,
+                _maxPoolSize);
+        }
+
+        // TODO: not the right way to do it
+        public void BattleSfxCleanup()
+        {
+            _soundEmitterPool.Clear();
+        }
+
+        public Sound GetSound(string n)
+        {
+            Sound s = Sounds.First(s => s.name == n);
+            if (s == null)
+                Debug.LogError($"No sound with name {n} in library");
+            return s;
+        }
+
+        public void StopAllSounds()
+        {
+            foreach (SoundEmitter soundEmitter in _activeSoundEmitters)
+                soundEmitter.Stop();
+        }
+
 
         /* MUSIC */
         void CreateMusicAudioSource()
@@ -96,91 +202,6 @@ namespace Lis.Core
             StartCoroutine(PlayMusicCoroutine());
         }
 
-        /* OTHER SOUNDS */
-
-        public SoundBuilder CreateSound()
-        {
-            return new(this);
-        }
-
-        public SoundEmitter GetSoundEmitter()
-        {
-            return _soundEmitterPool.Get();
-        }
-
-        public void ReturnSoundEmitterToPool(SoundEmitter soundEmitter)
-        {
-            if (soundEmitter.gameObject.activeSelf)
-                _soundEmitterPool.Release(soundEmitter);
-        }
-
-        public bool CanPlaySound(Sound s)
-        {
-            if (!s.IsFrequentSound) return true;
-
-            if (FrequentSoundEmittersQueue.Count >= _maxSoundInstances)
-            {
-                if (FrequentSoundEmittersQueue.TryDequeue(out var soundEmitter))
-                {
-                    soundEmitter.Stop();
-                    return true;
-                }
-                return false;
-            }
-
-            return true;
-        }
-
-        SoundEmitter CreateSoundEmitter()
-        {
-            SoundEmitter soundEmitter = Instantiate(_soundEmitterPrefab, transform);
-            soundEmitter.gameObject.SetActive(false);
-            return soundEmitter;
-        }
-
-        void OnTakeFromPool(SoundEmitter soundEmitter)
-        {
-            soundEmitter.gameObject.SetActive(true);
-            _activeSoundEmitters.Add(soundEmitter);
-        }
-
-        void OnReturnToPool(SoundEmitter soundEmitter)
-        {
-            soundEmitter.transform.parent = transform;
-            soundEmitter.gameObject.SetActive(false);
-            _activeSoundEmitters.Remove(soundEmitter);
-        }
-
-        void OnPoolDestroy(SoundEmitter soundEmitter)
-        {
-            Destroy(soundEmitter.gameObject);
-        }
-
-        void InitializeSoundEmitterPool()
-        {
-            _soundEmitterPool = new ObjectPool<SoundEmitter>(
-                CreateSoundEmitter,
-                OnTakeFromPool,
-                OnReturnToPool,
-                OnPoolDestroy,
-                _collectionCheck,
-                _defaultCapacity,
-                _maxPoolSize);
-        }
-
-        // TODO: not the right way to do it
-        public void BattleSfxCleanup()
-        {
-            _soundEmitterPool.Clear();
-        }
-
-        public Sound GetSound(string n)
-        {
-            Sound s = Sounds.First(s => s.name == n);
-            if (s == null)
-                Debug.LogError($"No sound with name {n} in library");
-            return s;
-        }
 
         /* VOLUME */
         void SetPlayerPrefVolume()
