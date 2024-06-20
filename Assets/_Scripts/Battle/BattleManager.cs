@@ -153,14 +153,14 @@ namespace Lis.Battle
 
         IEnumerator BattleLost()
         {
-            _audioManager.PlayUI(_battleLost);
+            _audioManager.PlaySound(_battleLost);
             LostBattleScreen lostScreen = new();
             yield return FinalizeBattle();
         }
 
         IEnumerator BattleWon()
         {
-            _audioManager.PlayUI(_battleWon);
+            _audioManager.PlaySound(_battleWon);
             WonBattleScreen wonScreen = new();
             yield return FinalizeBattle();
         }

@@ -10,7 +10,7 @@ namespace Lis.Units.Hero.Ability
         protected Ability Ability;
         protected AudioManager AudioManager;
 
-        protected AudioSource AudioSource;
+        protected SoundEmitter SoundEmitter;
         protected BattleManager BattleManager;
 
         void OnDestroy()
@@ -32,14 +32,14 @@ namespace Lis.Units.Hero.Ability
 
         protected virtual void OnGamePaused()
         {
-            if (AudioSource != null)
-                AudioSource.Pause();
+            if (SoundEmitter != null)
+                SoundEmitter.Pause();
         }
 
         protected virtual void OnGameResumed()
         {
-            if (AudioSource != null)
-                AudioSource.UnPause();
+            if (SoundEmitter != null)
+                SoundEmitter.Resume();
         }
 
 

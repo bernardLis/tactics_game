@@ -5,6 +5,7 @@ using DG.Tweening;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Pool;
 
 //https://www.youtube.com/watch?v=6OT43pvUyfY
 namespace Lis.Core
@@ -14,42 +15,34 @@ namespace Lis.Core
         public List<Sound> Sounds = new();
 
         [SerializeField] AudioMixer _mixer;
-        AudioSource _ambienceAudioSource;
-        AudioMixerGroup _ambienceMixerGroup;
+        [SerializeField] SoundEmitter _soundEmitterPrefab;
+
         int _currentMusicClipIndex;
-
         Sound _currentMusicSound;
-        AudioSource _dialogueAudioSource;
-        AudioMixerGroup _dialogueMixerGroup;
-
         AudioSource _musicAudioSource;
         AudioMixerGroup _musicMixerGroup;
-        List<AudioSource> _sfxAudioSources = new();
-        AudioMixerGroup _sfxMixerGroup;
-        List<AudioSource> _uiAudioSources = new();
-        AudioMixerGroup _uiMixerGroup;
-        IEnumerator _xFadeAmbienceCoroutine;
-
         IEnumerator _xFadeMusicCoroutine;
+
+        IObjectPool<SoundEmitter> _soundEmitterPool;
+        readonly List<SoundEmitter> _activeSfxSoundEmitters = new();
+
+        public readonly Dictionary<Sound, int> Counts = new();
+
+        readonly bool _collectionCheck = true;
+        readonly int _defaultCapacity = 10;
+        readonly int _maxPoolSize = 100;
+        readonly int _maxSoundInstances = 30;
 
         protected override void Awake()
         {
             base.Awake();
-            GetMixerGroups();
-            PopulateAudioSources();
+            CreateMusicAudioSource();
+            InitializeSoundEmitterPool();
             SetPlayerPrefVolume();
         }
 
-        void GetMixerGroups()
-        {
-            _musicMixerGroup = _mixer.FindMatchingGroups("Music")[0];
-            _ambienceMixerGroup = _mixer.FindMatchingGroups("Ambience")[0];
-            _dialogueMixerGroup = _mixer.FindMatchingGroups("Dialogue")[0];
-            _sfxMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
-            _uiMixerGroup = _mixer.FindMatchingGroups("UI")[0];
-        }
-
-        void PopulateAudioSources()
+        /* MUSIC */
+        void CreateMusicAudioSource()
         {
             GameObject musicGameObject = new("Music");
             musicGameObject.transform.parent = transform;
@@ -58,53 +51,7 @@ namespace Lis.Core
             _musicAudioSource.spatialBlend = 0;
             _musicAudioSource.rolloffMode = AudioRolloffMode.Custom;
             _musicAudioSource.maxDistance = 99999;
-            _musicAudioSource.outputAudioMixerGroup = _musicMixerGroup;
-
-            GameObject ambienceGameObject = new("Ambience");
-            ambienceGameObject.transform.parent = transform;
-            _ambienceAudioSource = ambienceGameObject.AddComponent<AudioSource>();
-            _ambienceAudioSource.loop = true;
-            _ambienceAudioSource.outputAudioMixerGroup = _ambienceMixerGroup;
-
-            GameObject dialogueGameObject = new("Dialogue");
-            dialogueGameObject.transform.parent = transform;
-            _dialogueAudioSource = dialogueGameObject.AddComponent<AudioSource>();
-            _dialogueAudioSource.outputAudioMixerGroup = _dialogueMixerGroup;
-
-            _sfxAudioSources = new();
-            for (int i = 0; i < 25; i++)
-                CreateSfxAudioSource();
-
-            _uiAudioSources = new();
-            for (int i = 0; i < 10; i++)
-                CreateUiAudioSource();
-        }
-
-        AudioSource CreateSfxAudioSource()
-        {
-            GameObject sfxGameObject = new("SFX" + _sfxAudioSources.Count);
-            sfxGameObject.transform.parent = transform;
-            AudioSource a = sfxGameObject.AddComponent<AudioSource>();
-            a.spatialBlend = 1;
-            a.rolloffMode = AudioRolloffMode.Custom;
-            a.maxDistance = 50;
-            a.outputAudioMixerGroup = _sfxMixerGroup;
-
-            _sfxAudioSources.Add(a);
-
-            return a;
-        }
-
-        AudioSource CreateUiAudioSource()
-        {
-            GameObject uiGameObject = new("UI" + _uiAudioSources.Count);
-            uiGameObject.transform.parent = transform;
-            AudioSource a = uiGameObject.AddComponent<AudioSource>();
-            a.outputAudioMixerGroup = _uiMixerGroup;
-
-            _uiAudioSources.Add(a);
-
-            return a;
+            _musicAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Music")[0];
         }
 
         public void PlayMusic(Sound sound)
@@ -125,6 +72,8 @@ namespace Lis.Core
 
         IEnumerator PlayMusicCoroutine()
         {
+            if (this == null) yield break;
+
             if (_musicAudioSource.isPlaying)
                 yield return _musicAudioSource.DOFade(0, 5)
                     .SetUpdate(true)
@@ -147,121 +96,113 @@ namespace Lis.Core
             StartCoroutine(PlayMusicCoroutine());
         }
 
-        // TODO: I never use ambience, but it should be handled similarly to music, 
-        // I just don't know how to use one coroutine schema for both...
-        public void PlayAmbience(Sound sound)
+        /* OTHER SOUNDS */
+
+        public SoundBuilder CreateSound()
         {
-            Debug.LogError("not implemented");
-            if (sound != null) return;
-            Debug.LogError("no ambience to play");
+            return new SoundBuilder(this);
         }
 
-        public AudioSource PlayDialogue(Sound sound)
+        public SoundEmitter GetSoundEmitter()
         {
-            _dialogueAudioSource.pitch = sound.Pitch;
-            _dialogueAudioSource.volume = sound.Volume;
-            sound.Play(_dialogueAudioSource);
-
-            return _dialogueAudioSource;
+            return _soundEmitterPool.Get();
         }
 
-        public void StopDialogue()
+        public void ReturnSoundEmitterToPool(SoundEmitter soundEmitter)
         {
-            _dialogueAudioSource.Stop();
+            _soundEmitterPool.Release(soundEmitter);
         }
 
-        public void PlaySfxDelayed(string soundName, Vector3 pos, float delay)
+        public bool CanPlaySound(Sound s)
         {
-            StartCoroutine(PlaySfxDelayedCoroutine(soundName, pos, delay));
+            if (!Counts.TryGetValue(s, out var count))
+                if (count >= _maxSoundInstances)
+                    return false;
+            return true;
         }
 
-        IEnumerator PlaySfxDelayedCoroutine(string soundName, Vector3 pos, float delay)
+        SoundEmitter CreateSoundEmitter()
         {
-            yield return new WaitForSeconds(delay);
-            PlaySfx(soundName, pos);
+            SoundEmitter soundEmitter = Instantiate(_soundEmitterPrefab, transform);
+            soundEmitter.gameObject.SetActive(false);
+            return soundEmitter;
         }
 
-        public AudioSource PlaySfx(string soundName, Vector3 pos)
+        void OnTakeFromPool(SoundEmitter soundEmitter)
         {
-            Sound sound = Sounds.First(s => s.name == soundName);
-            if (sound == null)
-            {
-                Debug.LogError($"No sound {soundName} in library");
-                return null;
-            }
-
-            return PlaySfx(sound, pos);
+            soundEmitter.gameObject.SetActive(true);
+            _activeSfxSoundEmitters.Add(soundEmitter);
         }
 
-        public AudioSource PlaySfx(Sound sound, Transform t, bool isLooping = false)
+        void OnReturnToPool(SoundEmitter soundEmitter)
         {
-            AudioSource a = PlaySfx(sound, t.position, isLooping);
+            if (Counts.TryGetValue(soundEmitter.Sound, out var count))
+                Counts[soundEmitter.Sound] = count - 1;
+
+            soundEmitter.gameObject.SetActive(false);
+            _activeSfxSoundEmitters.Remove(soundEmitter);
+        }
+
+        void OnPoolDestroy(SoundEmitter soundEmitter)
+        {
+            Destroy(soundEmitter.gameObject);
+        }
+
+
+        public void PlaySound(Sound sound)
+        {
+            PlaySound(sound, Vector3.zero);
+        }
+
+        public SoundEmitter PlaySound(string soundName)
+        {
+            Sound sound = GetSound(soundName);
+            return PlaySound(sound, Vector3.zero);
+        }
+
+        public void PlaySound(string soundName, Vector3 pos)
+        {
+            Sound sound = GetSound(soundName);
+            PlaySound(sound, pos);
+        }
+
+        public SoundEmitter PlaySound(Sound sound, Transform t)
+        {
+            SoundEmitter a = PlaySound(sound, t.position);
             a.transform.parent = t;
             return a;
         }
 
-        public AudioSource PlaySfx(Sound sound, Vector3 pos, bool isLooping = false)
+        public SoundEmitter PlaySound(Sound sound, Vector3 pos)
         {
-            AudioSource a = _sfxAudioSources.FirstOrDefault(s => s.isPlaying == false);
-            if (a == null) a = CreateSfxAudioSource();
-            if (a == null) return null;
-
-            a.gameObject.transform.position = pos; // it assumes that gameManager is at 0,0
-            a.loop = isLooping;
-            Sound instance = Instantiate(sound);
-            instance.Play(a);
-
+            SoundEmitter a = GetSoundEmitter();
+            a.gameObject.transform.position = pos;
+            a.Initialize(sound);
+            a.Play();
             return a;
         }
+
+
+        void InitializeSoundEmitterPool()
+        {
+            _soundEmitterPool = new ObjectPool<SoundEmitter>(
+                CreateSoundEmitter,
+                OnTakeFromPool,
+                OnReturnToPool,
+                OnPoolDestroy,
+                _collectionCheck,
+                _defaultCapacity,
+                _maxPoolSize);
+        }
+
 
         // TODO: not the right way to do it
         public void BattleSfxCleanup()
         {
-            foreach (AudioSource a in _sfxAudioSources)
-            {
-                if (a.transform.parent != transform)
-                    a.transform.parent = transform;
-                if (a.isPlaying)
-                    a.Stop();
-                a.clip = null;
-            }
+            _soundEmitterPool.Clear();
         }
 
-        public void PlayUIDelayed(string soundName, float delay)
-        {
-            StartCoroutine(PlayUIDelayedCoroutine(soundName, delay));
-        }
-
-        IEnumerator PlayUIDelayedCoroutine(string soundName, float delay)
-        {
-            yield return new WaitForSecondsRealtime(delay);
-            PlayUI(soundName);
-        }
-
-        public AudioSource PlayUI(string soundName)
-        {
-            Sound sound = Sounds.First(s => s.name == soundName);
-            if (sound == null)
-            {
-                Debug.LogError($"No sound {soundName} in library");
-                return null;
-            }
-
-            return PlayUI(sound);
-        }
-
-        public AudioSource PlayUI(Sound sound)
-        {
-            AudioSource a = _uiAudioSources.FirstOrDefault(s => s.isPlaying == false);
-            if (a == null) a = CreateUiAudioSource();
-
-            Sound instance = Instantiate(sound);
-            instance.Play(a);
-
-            return a;
-        }
-
-        public Sound GetSound(string n)
+        Sound GetSound(string n)
         {
             Sound s = Sounds.First(s => s.name == n);
             if (s == null)
@@ -269,7 +210,7 @@ namespace Lis.Core
             return s;
         }
 
-        /* volume setters */
+        /* VOLUME */
         void SetPlayerPrefVolume()
         {
             SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 1));

@@ -68,7 +68,7 @@ namespace Lis.Core
             if (!enabledSelf)
                 return;
             if (_audioManager != null)
-                _audioManager.PlayUI("UI Click");
+                _audioManager.PlaySound("UI Click");
             if (_cursorManager != null)
                 _cursorManager.SetCursorByName("Hover");
         }

@@ -12,7 +12,7 @@ namespace Lis.Units.Hero.Ability
 
         [SerializeField] GameObject _meteor;
 
-        readonly List<AudioSource> _audioSources = new();
+        readonly List<SoundEmitter> _audioSources = new();
 
         public override void Execute(Vector3 pos, Quaternion rot)
         {
@@ -51,7 +51,7 @@ namespace Lis.Units.Hero.Ability
             if (Ability.ExecuteSound == null) yield break;
             for (int i = 0; i < 5; i++)
             {
-                AudioSource ass = AudioManager.PlaySfx(Ability.ExecuteSound, transform.position, true);
+                SoundEmitter ass = AudioManager.PlaySound(Ability.ExecuteSound, transform.position);
                 _audioSources.Add(ass);
                 yield return new WaitForSeconds(Random.Range(0.1f, 0.2f));
             }
@@ -60,20 +60,20 @@ namespace Lis.Units.Hero.Ability
         protected override void OnGamePaused()
         {
             base.OnGamePaused();
-            foreach (AudioSource ass in _audioSources)
+            foreach (SoundEmitter ass in _audioSources)
                 ass.Pause();
         }
 
         protected override void OnGameResumed()
         {
             base.OnGameResumed();
-            foreach (AudioSource ass in _audioSources)
-                ass.UnPause();
+            foreach (SoundEmitter ass in _audioSources)
+                ass.Resume();
         }
 
         void StopSound()
         {
-            foreach (AudioSource ass in _audioSources)
+            foreach (SoundEmitter ass in _audioSources)
             {
                 if (ass == null) continue;
                 ass.Stop();

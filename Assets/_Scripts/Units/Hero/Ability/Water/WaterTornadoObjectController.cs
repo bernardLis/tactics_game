@@ -29,12 +29,12 @@ namespace Lis.Units.Hero.Ability
         {
             StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
             if (Ability.ExecuteSound != null)
-                AudioSource = AudioManager.PlaySfx(Ability.ExecuteSound, transform, true);
+                SoundEmitter = AudioManager.PlaySound(Ability.ExecuteSound, transform);
 
             BattleManager.OnGamePaused += () =>
             {
-                if (AudioSource != null)
-                    AudioSource.Pause();
+                if (SoundEmitter != null)
+                    SoundEmitter.Pause();
             };
 
             // I would like tornado to follow a circular path
@@ -49,11 +49,11 @@ namespace Lis.Units.Hero.Ability
                 yield return new WaitForFixedUpdate();
             }
 
-            if (AudioSource != null)
+            if (SoundEmitter != null)
             {
-                AudioSource.Stop();
-                AudioSource.transform.parent = AudioManager.transform;
-                AudioSource = null;
+                SoundEmitter.Stop();
+                SoundEmitter.transform.parent = AudioManager.transform;
+                SoundEmitter = null;
             }
 
             transform.DOScale(0, 0.5f).OnComplete(() => gameObject.SetActive(false));
@@ -61,11 +61,11 @@ namespace Lis.Units.Hero.Ability
 
         public override void DisableSelf()
         {
-            if (AudioSource != null)
+            if (SoundEmitter != null)
             {
-                AudioSource.Stop();
-                AudioSource.transform.parent = AudioManager.transform;
-                AudioSource = null;
+                SoundEmitter.Stop();
+                SoundEmitter.transform.parent = AudioManager.transform;
+                SoundEmitter = null;
             }
 
             base.DisableSelf();

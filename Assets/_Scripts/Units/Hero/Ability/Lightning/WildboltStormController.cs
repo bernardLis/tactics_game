@@ -24,7 +24,7 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
 
             if (Ability.ExecuteSound != null)
-                AudioManager.PlaySfx(Ability.ExecuteSound, transform.position);
+                AudioManager.PlaySound(Ability.ExecuteSound, transform.position);
 
             Transform t = transform;
             _effect.SetActive(true);

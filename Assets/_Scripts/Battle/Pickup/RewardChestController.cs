@@ -31,7 +31,7 @@ namespace Lis.Battle.Pickup
             _tooltipManager = TooltipManager.Instance;
             _feelPlayer = GetComponent<MMF_Player>();
 
-            _audioManager.PlaySfx(_spawnSound, transform.position);
+            _audioManager.PlaySound(_spawnSound, transform.position);
         }
 
 
@@ -48,7 +48,7 @@ namespace Lis.Battle.Pickup
             if (_isOpened) yield break;
             _isOpened = true;
 
-            _audioManager.PlaySfx(_openSound, transform.position);
+            _audioManager.PlaySound(_openSound, transform.position);
 
             transform.DOShakePosition(0.5f, 0.1f);
             transform.DOShakeScale(0.5f, 0.2f);
@@ -61,7 +61,7 @@ namespace Lis.Battle.Pickup
             _beamEffect.SetActive(true);
             int gold = Random.Range(500, 1000);
             DisplayText($"+{gold} Gold", _gameManager.GameDatabase.GetColorByName("Gold").Primary);
-            _audioManager.PlaySfx("Collect Gold", transform.position);
+            _audioManager.PlaySound("Collect Gold", transform.position);
 
             yield return new WaitForSeconds(2f);
             _glowEffect.transform.DOScale(0, 0.5f)
@@ -69,7 +69,7 @@ namespace Lis.Battle.Pickup
             _beamEffect.transform.DOScale(0, 0.5f)
                 .OnComplete(() => _beamEffect.SetActive(false));
             yield return new WaitForSeconds(0.5f);
-            _audioManager.PlaySfx(_closeSound, transform.position);
+            _audioManager.PlaySound(_closeSound, transform.position);
             _lid.transform.DOLocalRotate(new(0, 0, 0), 1f)
                 .SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);

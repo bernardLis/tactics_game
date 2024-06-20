@@ -17,6 +17,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8484601e34db9ba46933d27edb6f0b55, type: 3}
   Volume: 0.5
   Pitch: 0.99
-  isPitchRandomized: 0
+  IsPitchRandomized: 0
   PitchRange: {x: 0.9, y: 1.1}
-  Source: {fileID: 0}
+  Loop: 0
+  PlayOnAwake: 1
+  MaxDistance: 999999
+  MixerGroup: {fileID: 1987434780863322584, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}

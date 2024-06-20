@@ -34,7 +34,7 @@ namespace Lis.Battle.Arena
 
             HeroManager.RewardRerollsAvailable--;
             RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
-            AudioManager.PlayUI("Dice Roll");
+            AudioManager.PlaySound("Dice Roll");
 
             _shop.ShouldReset = true;
             CreateRewardCards();

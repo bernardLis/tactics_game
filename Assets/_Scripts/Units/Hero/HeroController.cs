@@ -133,7 +133,7 @@ namespace Lis.Units.Hero
 
         void StartTeleport()
         {
-            if (Hero.TeleportStartSound != null) AudioManager.PlaySfx(Hero.TeleportStartSound, transform);
+            if (Hero.TeleportStartSound != null) AudioManager.PlaySound(Hero.TeleportStartSound, transform);
             _movementController.DisableMovement();
             _movementController.enabled = false;
             TeleportEffect.transform.localScale = Vector3.zero;
@@ -143,7 +143,7 @@ namespace Lis.Units.Hero
 
         void EndTeleport()
         {
-            if (Hero.TeleportStartSound != null) AudioManager.PlaySfx(Hero.TeleportEndSound, transform.position);
+            if (Hero.TeleportStartSound != null) AudioManager.PlaySound(Hero.TeleportEndSound, transform.position);
             _movementController.enabled = true;
             _movementController.EnableMovement();
             TeleportEffect.transform.DOScale(0, 1f)

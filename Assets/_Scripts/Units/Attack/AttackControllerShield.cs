@@ -25,7 +25,7 @@ namespace Lis.Units.Attack
             if (UnitController.IsShielded || UnitController.IsDead) yield break;
 
             Animator.SetTrigger(AnimSpecialAttack);
-            AudioManager.PlaySfx(Attack.Sound, transform.position);
+            AudioManager.PlaySound(Attack.Sound, transform.position);
 
             UnitController.DisplayFloatingText("Shielded", _shieldedColor);
             _effect.SetActive(true);

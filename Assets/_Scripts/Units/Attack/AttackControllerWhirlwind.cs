@@ -14,7 +14,7 @@ namespace Lis.Units.Attack
             BaseAttack();
 
             Animator.SetTrigger(AnimSpecialAttack);
-            AudioManager.PlaySfx(Attack.Sound, transform.position);
+            AudioManager.PlaySound(Attack.Sound, transform.position);
             _effect.SetActive(true);
             foreach (UnitController be in GetOpponentsInRadius(_radius))
                 StartCoroutine(be.GetHit(Attack));

@@ -34,7 +34,7 @@ namespace Lis.Units.Attack
             UnitController.Collider.enabled = false;
             targetPosition.y = 1;
             Animator.SetTrigger(AnimSpecialAttack);
-            AudioManager.PlaySfx(Attack.Sound, transform.position);
+            AudioManager.PlaySound(Attack.Sound, transform.position);
             UnitController.transform.DOJump(targetPosition, 2f, 1, 0.3f)
                 .OnComplete(() => UnitController.Collider.enabled = true);
 

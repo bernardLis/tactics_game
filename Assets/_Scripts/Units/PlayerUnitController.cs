@@ -15,7 +15,7 @@ namespace Lis.Units
 
         protected HeroController HeroController;
 
-        AudioSource _teleportSound;
+        SoundEmitter _teleportSoundEmitter;
 
         public event Action OnRevived;
 
@@ -106,13 +106,13 @@ namespace Lis.Units
             }
 
             if (Unit.TeleportSound != null)
-                _teleportSound = AudioManager.PlaySfx(Unit.TeleportSound, transform);
+                _teleportSoundEmitter = AudioManager.PlaySound(Unit.TeleportSound, transform);
             Invoke(nameof(ReturnAudioSource), 1f);
         }
 
         void ReturnAudioSource()
         {
-            if (_teleportSound != null) _teleportSound.transform.parent = AudioManager.transform;
+            if (_teleportSoundEmitter != null) _teleportSoundEmitter.transform.parent = AudioManager.transform;
         }
 
         void Revive()
@@ -129,7 +129,7 @@ namespace Lis.Units
 
         void OnDestroy()
         {
-            if (_teleportSound != null) _teleportSound.transform.parent = AudioManager.transform;
+            if (_teleportSoundEmitter != null) _teleportSoundEmitter.transform.parent = AudioManager.transform;
         }
 
         /* GRAB */

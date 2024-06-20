@@ -63,7 +63,10 @@ namespace Lis.Battle.Pickup
             if (IsBroken) yield break;
             IsBroken = true;
 
-            _audioManager.PlaySfx(_breakSound, transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_breakSound)
+                .WithPosition(transform.position)
+                .Play();
 
             _collider.enabled = false;
             _rigidbody.isKinematic = true;

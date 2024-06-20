@@ -28,13 +28,13 @@ namespace Lis.Units.Hero.Ability
             _gfx.SetActive(true);
             _col.gameObject.SetActive(true);
             Vector3 pos = transform.position;
-            AudioManager.PlaySfx(_startSound, pos);
+            AudioManager.PlaySound(_startSound, pos);
 
             SetDurations();
             StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
 
             yield return new WaitForSeconds(Ability.GetDuration());
-            AudioManager.PlaySfx(_explodeSound, pos);
+            AudioManager.PlaySound(_explodeSound, pos);
             yield return new WaitForSeconds(0.5f);
             _col.gameObject.SetActive(false);
 

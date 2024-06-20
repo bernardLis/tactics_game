@@ -36,7 +36,11 @@ namespace Lis.Battle.Fight
         {
             _battleManager.GetComponent<TooltipManager>().DisplayGameInfo(new Label("Boss is Spawned!"));
 
-            _audioManager.PlaySfx(_bossSpawnSound, _heroManager.transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_bossSpawnSound)
+                .WithPosition(_heroManager.transform.position)
+                .Play();
+
             Destroy(Instantiate(_bossSpawnEffectPrefab), 4f);
 
             yield return new WaitForSeconds(1.5f);

@@ -43,7 +43,7 @@ namespace Lis.Units.Hero.Rewards
         {
             if (evt.button != 0) return;
 
-            _gameManager.GetComponent<AudioManager>().PlayUI("Bang");
+            _gameManager.GetComponent<AudioManager>().PlaySound("Bang");
             Reward.GetReward();
         }
 

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -17,22 +18,12 @@ namespace Lis.Core
         [Range(0.1f, 3f)]
         public float Pitch = 1f;
 
-        [FormerlySerializedAs("isPitchRandomized")]
         public bool IsPitchRandomized;
-
         public Vector2 PitchRange;
+        public bool Loop;
+        public bool PlayOnAwake = true;
+        public int MaxDistance = 50;
 
-        [HideInInspector] public AudioSource Source;
-
-        public void Play(AudioSource audioSource)
-        {
-            audioSource.volume = Volume;
-            audioSource.pitch = Pitch;
-            if (IsPitchRandomized)
-                audioSource.pitch = Random.Range(PitchRange.x, PitchRange.y);
-
-            audioSource.clip = Clips[Random.Range(0, Clips.Length)];
-            if (audioSource.isActiveAndEnabled) audioSource.Play();
-        }
+        public AudioMixerGroup MixerGroup;
     }
 }

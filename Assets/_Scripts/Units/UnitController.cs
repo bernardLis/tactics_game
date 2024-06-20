@@ -94,7 +94,7 @@ namespace Lis.Units
             AddToLog($"Unit is initialized, team: {team}");
 
             if (unit.SpawnSound != null)
-                AudioManager.PlaySfx(unit.SpawnSound, transform.position);
+                AudioManager.PlaySound(unit.SpawnSound, transform.position);
 
             Opponent = null;
             Unit = unit;
@@ -354,8 +354,8 @@ namespace Lis.Units
             AddToLog($"Unit takes damage {damage}");
             //StopUnit(); <- this stun locks the unit
 
-            if (Unit.HitSound != null) AudioManager.PlaySfx(Unit.HitSound, transform.position);
-            else AudioManager.PlaySfx("Hit", transform.position);
+            if (Unit.HitSound != null) AudioManager.PlaySound(Unit.HitSound, transform.position);
+            else AudioManager.PlaySound("Hit", transform.position);
             Animator.SetTrigger(AnimTakeDamage);
             DisplayFloatingText(damage.ToString(), attack.Nature.Color.Primary);
 
@@ -398,7 +398,7 @@ namespace Lis.Units
             Collider.enabled = false;
             DOTween.Kill(transform);
 
-            if (Unit.DeathSound != null) AudioManager.PlaySfx(Unit.DeathSound, transform.position);
+            if (Unit.DeathSound != null) AudioManager.PlaySound(Unit.DeathSound, transform.position);
             if (DeathEffect != null) DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
@@ -425,7 +425,7 @@ namespace Lis.Units
             if (_levelUpEffect != null)
                 _levelUpEffect.SetActive(true);
             if (Unit.LevelUpSound != null)
-                AudioManager.PlaySfx(Unit.LevelUpSound, transform.position);
+                AudioManager.PlaySound(Unit.LevelUpSound, transform.position);
             StartCoroutine(DisableLevelUpEffect());
         }
 

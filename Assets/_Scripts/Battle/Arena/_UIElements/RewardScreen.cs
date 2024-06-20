@@ -186,7 +186,7 @@ namespace Lis.Battle.Arena
 
         protected virtual void RewardSelected(Reward reward)
         {
-            AudioManager.PlayUI("Reward Chosen");
+            AudioManager.PlaySound("Reward Chosen");
 
             _rerollContainer.style.display = DisplayStyle.None;
             DOTween.To(x => _rerollContainer.style.opacity = x, 1, 0, 0.5f)
@@ -211,7 +211,7 @@ namespace Lis.Battle.Arena
 
             HeroManager.RewardRerollsAvailable--;
             RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
-            AudioManager.PlayUI("Dice Roll");
+            AudioManager.PlaySound("Dice Roll");
 
             PopulateRewards();
 

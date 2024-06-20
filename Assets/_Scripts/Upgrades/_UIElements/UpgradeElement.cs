@@ -33,7 +33,7 @@ namespace Lis.Upgrades
 
         IVisualElementScheduledItem _purchaseScheduler;
 
-        AudioSource _swooshAudioSource;
+        SoundEmitter _swooshAudioSource;
 
         Label _title;
 
@@ -76,7 +76,7 @@ namespace Lis.Upgrades
 
         void OnPointerEnter(PointerEnterEvent evt)
         {
-            _audioManager.PlayUI("UI Click");
+            _audioManager.PlaySound("UI Click");
         }
 
         void OnPointerDown(PointerDownEvent evt)
@@ -84,18 +84,18 @@ namespace Lis.Upgrades
             if (_upgrade.IsMaxLevel())
             {
                 Helpers.DisplayTextOnElement(parent, this, "Max Level", Color.red);
-                _audioManager.PlayUI("Upgrade - Max Level");
+                _audioManager.PlaySound("Upgrade - Max Level");
                 return;
             }
 
             if (_gameManager.Gold < _upgrade.GetNextLevel().Cost)
             {
                 Helpers.DisplayTextOnElement(parent, this, "$$$", Color.red);
-                _audioManager.PlayUI("Upgrade - Not Enough Gold");
+                _audioManager.PlaySound("Upgrade - Not Enough Gold");
                 return;
             }
 
-            _swooshAudioSource = _audioManager.PlayUI("Upgrade - Swoosh");
+            _swooshAudioSource = _audioManager.PlaySound("Upgrade - Swoosh");
 
             _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1000);
             DOTween.Kill(_tweenId);
@@ -208,7 +208,7 @@ namespace Lis.Upgrades
                 _swooshAudioSource = null;
             }
 
-            _audioManager.PlayUI("Upgrade - Bought");
+            _audioManager.PlaySound("Upgrade - Bought");
             DisplayTooltip();
 
             DOTween.To(x => _fill.style.opacity = x, _fill.style.opacity.value, 1, 0.1f)

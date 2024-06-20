@@ -30,7 +30,7 @@ namespace Lis.Units.Attack
             UnitController.transform.position = _arenaController.GetRandomPositionInArena();
 
             Animator.SetTrigger(AnimSpecialAttack);
-            AudioManager.PlaySfx(Attack.Sound, transform.position);
+            AudioManager.PlaySound(Attack.Sound, transform.position);
 
             Invoke(nameof(CleanUp), 3f);
         }

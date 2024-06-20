@@ -69,7 +69,7 @@ namespace Lis.Units.Hero.Ability
                     // rotate to face unit
                     transform.DOLookAt(entity.transform.position, 0.2f);
                     yield return new WaitForSeconds(0.2f);
-                    AudioManager.PlaySfx(_smackSound, t.position);
+                    AudioManager.PlaySound(_smackSound, t.position);
                     // punch rotation to 90 degrees forward
                     Vector3 originalRot = transform.eulerAngles;
                     Vector3 rot = t.eulerAngles;

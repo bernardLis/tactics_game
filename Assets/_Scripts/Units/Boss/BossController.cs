@@ -26,7 +26,7 @@ namespace Lis.Units.Boss
         IEnumerator _attackCoroutine;
         bool _isStunned;
         bool _isStunUnlocked;
-        AudioSource _stunAudioSource;
+        SoundEmitter _stunAudioSource;
 
         Color _stunColor;
 
@@ -133,7 +133,7 @@ namespace Lis.Units.Boss
 
             UnitLog.Add($"{BattleManager.GetTime()}: Unit takes damage {dmg}");
 
-            AudioManager.PlaySfx("Hit", transform.position);
+            AudioManager.PlaySound("Hit", transform.position);
 
             DisplayFloatingText(dmg.ToString(), color);
 
@@ -166,8 +166,8 @@ namespace Lis.Units.Boss
         {
             OnStunStarted?.Invoke();
             Vector3 pos = transform.position;
-            AudioManager.PlaySfx(_stunStart, pos);
-            _stunAudioSource = AudioManager.PlaySfx(_stunDuration, pos, true);
+            AudioManager.PlaySound(_stunStart, pos);
+            _stunAudioSource = AudioManager.PlaySound(_stunDuration, pos);
 
             DisplayFloatingText("Stunned", _stunColor);
             CurrentStunDuration.SetValue(TotalStunDuration.Value);
