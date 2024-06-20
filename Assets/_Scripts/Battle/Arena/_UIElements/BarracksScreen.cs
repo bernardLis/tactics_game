@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lis.Battle.Arena.Building;
 using Lis.Core;
+using Lis.Units;
 using UnityEngine.UIElements;
 
 namespace Lis.Battle.Arena
@@ -13,10 +14,9 @@ namespace Lis.Battle.Arena
         VisualElement _bottomContainer;
         PurchaseButton _buyPeasantButton;
 
-        Label _levelLabel;
 
         VisualElement _naturesContainer;
-        Label _peasantsLabel;
+        VisualElement _perFightArmyContainer;
 
         VisualElement _topContainer;
 
@@ -29,7 +29,7 @@ namespace Lis.Battle.Arena
             SetTitle("Barracks");
             CreateContainers();
 
-            AddDescription();
+            AddPerFightArmy();
 
             AddBuyPeasantButton();
             AddUnlockNaturesButtons();
@@ -45,6 +45,9 @@ namespace Lis.Battle.Arena
             _topContainer.style.flexGrow = 1;
             Content.Add(_topContainer);
 
+            _perFightArmyContainer = new();
+            _topContainer.Add(_perFightArmyContainer);
+
             Content.Add(new HorizontalSpacerElement());
 
             _bottomContainer = new();
@@ -54,22 +57,22 @@ namespace Lis.Battle.Arena
             Content.Add(_bottomContainer);
         }
 
-        void AddDescription()
+        void AddPerFightArmy()
         {
+            _perFightArmyContainer.Clear();
+
+            Label descriptionLabel = new("Every fight you get: ");
+            _perFightArmyContainer.Add(descriptionLabel);
+
             VisualElement container = new();
-            _topContainer.Add(container);
-
-            _levelLabel = new($"Level: {_barracks.Level + 1}");
-            _peasantsLabel = new($"Spawns {_barracks.GetPeasantsPerFight()} peasants per fight.");
-            SetDescriptionText();
-            container.Add(_levelLabel);
-            container.Add(_peasantsLabel);
-        }
-
-        void SetDescriptionText()
-        {
-            _levelLabel.text = $"Level: {_barracks.Level + 1}";
-            _peasantsLabel.text = $"Spawns {_barracks.GetPeasantsPerFight()} peasants per fight.";
+            container.style.flexDirection = FlexDirection.Row;
+            container.style.flexWrap = Wrap.Wrap;
+            _perFightArmyContainer.Add(container);
+            foreach (Unit u in _barracks.GetUnitsPerFight())
+            {
+                UnitIcon icon = new(u);
+                container.Add(icon);
+            }
         }
 
         void AddBuyPeasantButton()
@@ -92,18 +95,20 @@ namespace Lis.Battle.Arena
         {
             foreach (BarracksNatureUpgrade n in _barracks.UnlockableNatures)
             {
-                n.OnUpgrade += (_, _) => UpdateUnlockNaturesButtons();
+                n.OnUpgrade += (_, _) => OnNatureUpgraded();
                 BarracksNatureUpgradeElement b = new(n);
                 _natureElements.Add(b);
                 _bottomContainer.Add(b);
             }
         }
 
-        void UpdateUnlockNaturesButtons()
+        void OnNatureUpgraded()
         {
             _barracks.DisableUpgradeToken();
             foreach (BarracksNatureUpgradeElement b in _natureElements)
                 b.UpdatePurchaseButton();
+
+            AddPerFightArmy();
         }
     }
 }

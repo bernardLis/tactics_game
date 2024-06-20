@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Lis.Battle;
-using Lis.Battle.Arena;
 using Lis.Battle.Arena.Building;
 using UnityEngine;
 
@@ -35,6 +34,7 @@ namespace Lis.Units.Pawn
 
         public void SetUpgrade(int upgrade)
         {
+            Debug.Log("SetUpgrade: " + upgrade);
             CurrentUpgrade = upgrade;
             InitializePawnMission();
             SetUnitBasics();

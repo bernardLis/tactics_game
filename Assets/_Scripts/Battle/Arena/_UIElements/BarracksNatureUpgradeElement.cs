@@ -98,6 +98,7 @@ namespace Lis.Battle.Arena
 
         public void UpdatePurchaseButton()
         {
+            if (_purchaseButton == null) return;
             if (_barracksNatureUpgrade.IsMaxLevel())
                 _purchaseButton.RemoveFromHierarchy();
             else

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Wind Pawn
   m_EditorClassIdentifier: 
   Id: 1ebe09d5-3906-4d5e-826c-0fcb80a7ff86
-  UnitName: Scout
-  Icon: {fileID: 21300000, guid: d1f040b6d0963ab43a9fc750f0b8acf1, type: 3}
-  Price: 10
+  UnitName: Archer
+  Icon: {fileID: 21300000, guid: e8f814512e2fc1740935309d8f057417, type: 3}
+  Price: 400
   Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
   Prefab: {fileID: 5718142934177852114, guid: 7b5b6a780dcf9194b9fbd9beb22a351c, type: 3}
   SpawnSound: {fileID: 0}
@@ -45,5 +45,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c375fa41282947499c97563e655b8d4, type: 2}
   - {fileID: 11400000, guid: 8d5a6d624b0596c40a926683e8c9fc68, type: 2}
   - {fileID: 11400000, guid: 46f0181ce54865d41855e8586ecf8ae3, type: 2}
-  CurrentUpgrade: 0
+  CurrentUpgrade: 1
   CurrentMission: {fileID: 0}
