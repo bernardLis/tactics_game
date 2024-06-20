@@ -19,7 +19,8 @@ namespace Lis.Core
 
         int _currentMusicClipIndex;
         Sound _currentMusicSound;
-        AudioSource _musicAudioSource;
+        List<AudioSource> _musicAudioSources = new();
+        AudioSource _mainMusicAudioSource;
         AudioMixerGroup _musicMixerGroup;
         IEnumerator _xFadeMusicCoroutine;
 
@@ -150,14 +151,18 @@ namespace Lis.Core
         /* MUSIC */
         void CreateMusicAudioSource()
         {
-            GameObject musicGameObject = new("Music");
-            musicGameObject.transform.parent = transform;
-            _musicAudioSource = musicGameObject.AddComponent<AudioSource>();
-            _musicAudioSource.loop = true;
-            _musicAudioSource.spatialBlend = 0;
-            _musicAudioSource.rolloffMode = AudioRolloffMode.Custom;
-            _musicAudioSource.maxDistance = 99999;
-            _musicAudioSource.outputAudioMixerGroup = _mixer.FindMatchingGroups("Music")[0];
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject musicGameObject = new($"Music{i}");
+                musicGameObject.transform.parent = transform;
+                AudioSource mas = musicGameObject.AddComponent<AudioSource>();
+                mas.loop = false;
+                mas.spatialBlend = 0;
+                mas.rolloffMode = AudioRolloffMode.Custom;
+                mas.maxDistance = 99999;
+                mas.outputAudioMixerGroup = _mixer.FindMatchingGroups("Music")[0];
+                _musicAudioSources.Add(mas);
+            }
         }
 
         public void PlayMusic(Sound sound)
@@ -172,34 +177,44 @@ namespace Lis.Core
 
             _currentMusicSound = sound;
             _currentMusicClipIndex = 0;
-            _musicAudioSource.pitch = sound.Pitch;
-            StartCoroutine(PlayMusicCoroutine());
+            StartCoroutine(PlayMusicCoroutine(_currentMusicSound.Clips[_currentMusicClipIndex]));
         }
 
-        IEnumerator PlayMusicCoroutine()
+        bool IsMusicPlaying()
+        {
+            return _musicAudioSources.Any(mas => mas.isPlaying);
+        }
+
+        AudioSource GetFreeMusicAudioSource()
+        {
+            return _musicAudioSources.FirstOrDefault(mas => !mas.isPlaying);
+        }
+
+        IEnumerator PlayMusicCoroutine(AudioClip clip)
         {
             if (this == null) yield break;
 
-            if (_musicAudioSource.isPlaying)
-                yield return _musicAudioSource.DOFade(0, 5)
+            AudioSource previous = _mainMusicAudioSource;
+            previous.DOKill();
+            if (previous != null)
+                previous.DOFade(0, 5)
                     .SetUpdate(true)
-                    .WaitForCompletion();
+                    .OnComplete(() => previous.Stop());
 
-            _musicAudioSource.volume = 0;
-            _musicAudioSource.clip = _currentMusicSound.Clips[_currentMusicClipIndex];
-            _musicAudioSource.Play();
+            _mainMusicAudioSource = GetFreeMusicAudioSource();
+            _mainMusicAudioSource.clip = clip;
+            _mainMusicAudioSource.volume = 0;
+            _mainMusicAudioSource.Play();
+            _mainMusicAudioSource.DOFade(1, 5)
+                .SetUpdate(true);
 
-            yield return _musicAudioSource.DOFade(_currentMusicSound.Volume, 5)
-                .SetUpdate(true)
-                .WaitForCompletion();
-
-            yield return new WaitForSecondsRealtime(_musicAudioSource.clip.length - 10);
+            yield return new WaitForSecondsRealtime(clip.length - 10);
 
             _currentMusicClipIndex++;
             if (_currentMusicClipIndex >= _currentMusicSound.Clips.Length)
                 _currentMusicClipIndex = 0;
 
-            StartCoroutine(PlayMusicCoroutine());
+            StartCoroutine(PlayMusicCoroutine(_currentMusicSound.Clips[_currentMusicClipIndex]));
         }
 
 
