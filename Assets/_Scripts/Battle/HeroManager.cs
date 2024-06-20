@@ -69,7 +69,7 @@ namespace Lis.Battle
 
         void OnHeroLevelUp()
         {
-            _audioManager.PlaySound(_levelUpSound);
+            _audioManager.CreateSound().WithSound(_levelUpSound).Play();
         }
 
         void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)

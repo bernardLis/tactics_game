@@ -41,7 +41,13 @@ namespace Lis.Units.Attack
                 yield break;
 
             Animator.SetTrigger(AnimSpecialAttack);
-            if (Attack.Sound != null) AudioManager.PlaySound(Attack.Sound, transform.position);
+            if (Attack.Sound != null)
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Attack.Sound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
             _healEffect.SetActive(true);
 
             yield return new WaitForSeconds(0.5f);

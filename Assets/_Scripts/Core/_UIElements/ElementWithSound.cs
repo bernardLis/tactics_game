@@ -14,7 +14,7 @@ namespace Lis.Core
 
         void PlayClick(PointerEnterEvent evt)
         {
-            _audioManager.PlaySound("UI Click");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("UI Click")).Play();
         }
     }
 }

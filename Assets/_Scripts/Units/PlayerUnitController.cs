@@ -15,8 +15,6 @@ namespace Lis.Units
 
         protected HeroController HeroController;
 
-        SoundEmitter _teleportSoundEmitter;
-
         public event Action OnRevived;
 
         public override void InitializeUnit(Unit unit, int team)
@@ -106,13 +104,12 @@ namespace Lis.Units
             }
 
             if (Unit.TeleportSound != null)
-                _teleportSoundEmitter = AudioManager.PlaySound(Unit.TeleportSound, transform);
-            Invoke(nameof(ReturnAudioSource), 1f);
-        }
-
-        void ReturnAudioSource()
-        {
-            if (_teleportSoundEmitter != null) _teleportSoundEmitter.transform.parent = AudioManager.transform;
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Unit.TeleportSound)
+                    .WithParent(transform)
+                    .Play();
+            }
         }
 
         void Revive()
@@ -125,11 +122,6 @@ namespace Lis.Units
             EnableSelf();
             OnFightEnded();
             OnRevived?.Invoke();
-        }
-
-        void OnDestroy()
-        {
-            if (_teleportSoundEmitter != null) _teleportSoundEmitter.transform.parent = AudioManager.transform;
         }
 
         /* GRAB */

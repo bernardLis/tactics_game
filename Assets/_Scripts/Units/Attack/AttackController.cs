@@ -63,7 +63,13 @@ namespace Lis.Units.Attack
         protected IEnumerator BasicAttackCoroutine()
         {
             if (UnitController.Unit.AttackSound != null)
-                AudioManager.PlaySound(UnitController.Unit.AttackSound, transform.position);
+            {
+                AudioManager.CreateSound()
+                    .WithSound(UnitController.Unit.AttackSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
+
             yield return UnitController.transform.DODynamicLookAt(UnitController.Opponent.transform.position,
                 0.2f, AxisConstraint.Y);
             Animator.SetTrigger(AnimAttack);

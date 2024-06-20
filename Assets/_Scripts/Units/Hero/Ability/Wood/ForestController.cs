@@ -29,7 +29,12 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
             _effect.SetActive(true);
             if (Ability.ExecuteSound != null)
-                AudioManager.PlaySound(Ability.ExecuteSound, transform.position);
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Ability.ExecuteSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
 
             yield return new WaitForSeconds(1.5f);
 

@@ -166,8 +166,15 @@ namespace Lis.Units.Boss
         {
             OnStunStarted?.Invoke();
             Vector3 pos = transform.position;
-            AudioManager.PlaySound(_stunStart, pos);
-            _stunAudioSource = AudioManager.PlaySound(_stunDuration, pos);
+
+            AudioManager.CreateSound()
+                .WithSound(_stunStart)
+                .WithPosition(pos)
+                .Play();
+            _stunAudioSource = AudioManager.CreateSound()
+                .WithSound(_stunDuration)
+                .WithPosition(pos)
+                .Play();
 
             DisplayFloatingText("Stunned", _stunColor);
             CurrentStunDuration.SetValue(TotalStunDuration.Value);

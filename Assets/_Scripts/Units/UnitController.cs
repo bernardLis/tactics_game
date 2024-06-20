@@ -94,7 +94,10 @@ namespace Lis.Units
             AddToLog($"Unit is initialized, team: {team}");
 
             if (unit.SpawnSound != null)
-                AudioManager.PlaySound(unit.SpawnSound, transform.position);
+                AudioManager.CreateSound()
+                    .WithSound(unit.SpawnSound)
+                    .WithPosition(transform.position)
+                    .Play();
 
             Opponent = null;
             Unit = unit;
@@ -354,8 +357,21 @@ namespace Lis.Units
             AddToLog($"Unit takes damage {damage}");
             //StopUnit(); <- this stun locks the unit
 
-            if (Unit.HitSound != null) AudioManager.PlaySound(Unit.HitSound, transform.position);
-            else AudioManager.PlaySound("Hit", transform.position);
+            if (Unit.HitSound != null)
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Unit.HitSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
+            else
+            {
+                AudioManager.CreateSound()
+                    .WithSound(AudioManager.GetSound("Hit"))
+                    .WithPosition(transform.position)
+                    .Play();
+            }
+
             Animator.SetTrigger(AnimTakeDamage);
             DisplayFloatingText(damage.ToString(), attack.Nature.Color.Primary);
 
@@ -398,7 +414,13 @@ namespace Lis.Units
             Collider.enabled = false;
             DOTween.Kill(transform);
 
-            if (Unit.DeathSound != null) AudioManager.PlaySound(Unit.DeathSound, transform.position);
+            if (Unit.DeathSound != null)
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Unit.DeathSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
             if (DeathEffect != null) DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
@@ -425,7 +447,12 @@ namespace Lis.Units
             if (_levelUpEffect != null)
                 _levelUpEffect.SetActive(true);
             if (Unit.LevelUpSound != null)
-                AudioManager.PlaySound(Unit.LevelUpSound, transform.position);
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Unit.LevelUpSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
             StartCoroutine(DisableLevelUpEffect());
         }
 

@@ -29,7 +29,12 @@ namespace Lis.Units.Hero.Ability
         {
             StartCoroutine(DamageCoroutine(Time.time + Ability.GetDuration()));
             if (Ability.ExecuteSound != null)
-                SoundEmitter = AudioManager.PlaySound(Ability.ExecuteSound, transform);
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Ability.ExecuteSound)
+                    .WithParent(transform)
+                    .Play();
+            }
 
             BattleManager.OnGamePaused += () =>
             {

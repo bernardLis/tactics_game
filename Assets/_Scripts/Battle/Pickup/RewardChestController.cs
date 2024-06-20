@@ -31,7 +31,10 @@ namespace Lis.Battle.Pickup
             _tooltipManager = TooltipManager.Instance;
             _feelPlayer = GetComponent<MMF_Player>();
 
-            _audioManager.PlaySound(_spawnSound, transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_spawnSound)
+                .WithPosition(transform.position)
+                .Play();
         }
 
 
@@ -48,7 +51,10 @@ namespace Lis.Battle.Pickup
             if (_isOpened) yield break;
             _isOpened = true;
 
-            _audioManager.PlaySound(_openSound, transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_openSound)
+                .WithPosition(transform.position)
+                .Play();
 
             transform.DOShakePosition(0.5f, 0.1f);
             transform.DOShakeScale(0.5f, 0.2f);
@@ -61,7 +67,10 @@ namespace Lis.Battle.Pickup
             _beamEffect.SetActive(true);
             int gold = Random.Range(500, 1000);
             DisplayText($"+{gold} Gold", _gameManager.GameDatabase.GetColorByName("Gold").Primary);
-            _audioManager.PlaySound("Collect Gold", transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_audioManager.GetSound("Collect Gold"))
+                .WithPosition(transform.position)
+                .Play();
 
             yield return new WaitForSeconds(2f);
             _glowEffect.transform.DOScale(0, 0.5f)
@@ -69,7 +78,11 @@ namespace Lis.Battle.Pickup
             _beamEffect.transform.DOScale(0, 0.5f)
                 .OnComplete(() => _beamEffect.SetActive(false));
             yield return new WaitForSeconds(0.5f);
-            _audioManager.PlaySound(_closeSound, transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_closeSound)
+                .WithPosition(transform.position)
+                .Play();
+
             _lid.transform.DOLocalRotate(new(0, 0, 0), 1f)
                 .SetEase(Ease.OutBack);
             yield return new WaitForSeconds(0.5f);

@@ -91,7 +91,10 @@ namespace Lis.Battle.Pickup
             t.localScale = Vector3.zero;
             t.DOScale(1, 1f).SetEase(Ease.OutBack);
 
-            _audioManager.PlaySound(pickup.DropSound, t.position);
+            _audioManager.CreateSound()
+                .WithSound(pickup.DropSound)
+                .WithPosition(t.position)
+                .Play();
 
             SetPickUpRadius(_hero.Pull.GetValue());
             _sphereCollider.enabled = true;
@@ -136,7 +139,12 @@ namespace Lis.Battle.Pickup
             DisplayText(Pickup.GetCollectedText(), Pickup.Color.Primary);
 
             Vector3 position = t.position;
-            _audioManager.PlaySound(Pickup.CollectSound, position);
+
+            _audioManager.CreateSound()
+                .WithSound(Pickup.CollectSound)
+                .WithPosition(position)
+                .Play();
+
             // Destroy(Instantiate(Pickup.CollectEffect, position, Quaternion.identity), 1f);
 
             float punchDuration = 0.5f;

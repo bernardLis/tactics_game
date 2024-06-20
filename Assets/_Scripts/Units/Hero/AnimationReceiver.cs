@@ -21,14 +21,20 @@ namespace Lis.Units.Hero
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
                 if (_footstepSound != null)
-                    _audioManager.PlaySound(_footstepSound, transform.position);
+                    _audioManager.CreateSound()
+                        .WithSound(_footstepSound)
+                        .WithPosition(transform.position)
+                        .Play();
         }
 
         // not used coz no jumps
         void OnLand(AnimationEvent animationEvent)
         {
             if (_landSound != null)
-                _audioManager.PlaySound(_landSound, transform.position);
+                _audioManager.CreateSound()
+                    .WithSound(_landSound)
+                    .WithPosition(transform.position)
+                    .Play();
         }
     }
 }

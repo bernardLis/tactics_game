@@ -111,7 +111,11 @@ namespace Lis.Battle
             _objectYPosition = obj.transform.position.y;
             if (yPosition != 0f) _objectYPosition = yPosition;
 
-            _audioManager.PlaySound("Grab", obj.transform.position);
+            _audioManager.CreateSound()
+                .WithSound(_audioManager.GetSound("Grab"))
+                .WithPosition(obj.transform.position)
+                .Play();
+
             _cursorManager.SetCursorByName("Hold");
 
             _grabbedObject = obj;
@@ -175,8 +179,10 @@ namespace Lis.Battle
 
             if (_grabbedObject == null) return;
 
-            _audioManager.PlaySound("Grab", _grabbedObject.transform.position);
-
+            _audioManager.CreateSound()
+                .WithSound(_audioManager.GetSound("Grab"))
+                .WithPosition(_grabbedObject.transform.position)
+                .Play();
             if (_grabbedObject.TryGetComponent(out IGrabbable g))
                 g.Released();
             _grabbedObject = null;

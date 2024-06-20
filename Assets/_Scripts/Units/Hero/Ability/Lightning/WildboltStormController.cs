@@ -24,7 +24,12 @@ namespace Lis.Units.Hero.Ability
             yield return base.ExecuteAbilityCoroutine();
 
             if (Ability.ExecuteSound != null)
-                AudioManager.PlaySound(Ability.ExecuteSound, transform.position);
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Ability.ExecuteSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
 
             Transform t = transform;
             _effect.SetActive(true);

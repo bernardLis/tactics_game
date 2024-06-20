@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Lis.Core
 {
@@ -23,6 +21,8 @@ namespace Lis.Core
         public bool Loop;
         public bool PlayOnAwake = true;
         public int MaxDistance = 50;
+
+        public bool IsFrequentSound;
 
         public AudioMixerGroup MixerGroup;
     }

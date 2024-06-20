@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,8 @@ namespace Lis.Core
         IEnumerator _xFadeMusicCoroutine;
 
         IObjectPool<SoundEmitter> _soundEmitterPool;
-        readonly List<SoundEmitter> _activeSfxSoundEmitters = new();
-
-        public readonly Dictionary<Sound, int> Counts = new();
+        readonly List<SoundEmitter> _activeSoundEmitters = new();
+        public readonly Queue<SoundEmitter> FrequentSoundEmittersQueue = new();
 
         readonly bool _collectionCheck = true;
         readonly int _defaultCapacity = 10;
@@ -100,7 +100,7 @@ namespace Lis.Core
 
         public SoundBuilder CreateSound()
         {
-            return new SoundBuilder(this);
+            return new(this);
         }
 
         public SoundEmitter GetSoundEmitter()
@@ -110,14 +110,24 @@ namespace Lis.Core
 
         public void ReturnSoundEmitterToPool(SoundEmitter soundEmitter)
         {
-            _soundEmitterPool.Release(soundEmitter);
+            if (soundEmitter.gameObject.activeSelf)
+                _soundEmitterPool.Release(soundEmitter);
         }
 
         public bool CanPlaySound(Sound s)
         {
-            if (!Counts.TryGetValue(s, out var count))
-                if (count >= _maxSoundInstances)
-                    return false;
+            if (!s.IsFrequentSound) return true;
+
+            if (FrequentSoundEmittersQueue.Count >= _maxSoundInstances)
+            {
+                if (FrequentSoundEmittersQueue.TryDequeue(out var soundEmitter))
+                {
+                    soundEmitter.Stop();
+                    return true;
+                }
+                return false;
+            }
+
             return true;
         }
 
@@ -131,57 +141,20 @@ namespace Lis.Core
         void OnTakeFromPool(SoundEmitter soundEmitter)
         {
             soundEmitter.gameObject.SetActive(true);
-            _activeSfxSoundEmitters.Add(soundEmitter);
+            _activeSoundEmitters.Add(soundEmitter);
         }
 
         void OnReturnToPool(SoundEmitter soundEmitter)
         {
-            if (Counts.TryGetValue(soundEmitter.Sound, out var count))
-                Counts[soundEmitter.Sound] = count - 1;
-
+            soundEmitter.transform.parent = transform;
             soundEmitter.gameObject.SetActive(false);
-            _activeSfxSoundEmitters.Remove(soundEmitter);
+            _activeSoundEmitters.Remove(soundEmitter);
         }
 
         void OnPoolDestroy(SoundEmitter soundEmitter)
         {
             Destroy(soundEmitter.gameObject);
         }
-
-
-        public void PlaySound(Sound sound)
-        {
-            PlaySound(sound, Vector3.zero);
-        }
-
-        public SoundEmitter PlaySound(string soundName)
-        {
-            Sound sound = GetSound(soundName);
-            return PlaySound(sound, Vector3.zero);
-        }
-
-        public void PlaySound(string soundName, Vector3 pos)
-        {
-            Sound sound = GetSound(soundName);
-            PlaySound(sound, pos);
-        }
-
-        public SoundEmitter PlaySound(Sound sound, Transform t)
-        {
-            SoundEmitter a = PlaySound(sound, t.position);
-            a.transform.parent = t;
-            return a;
-        }
-
-        public SoundEmitter PlaySound(Sound sound, Vector3 pos)
-        {
-            SoundEmitter a = GetSoundEmitter();
-            a.gameObject.transform.position = pos;
-            a.Initialize(sound);
-            a.Play();
-            return a;
-        }
-
 
         void InitializeSoundEmitterPool()
         {
@@ -195,14 +168,13 @@ namespace Lis.Core
                 _maxPoolSize);
         }
 
-
         // TODO: not the right way to do it
         public void BattleSfxCleanup()
         {
             _soundEmitterPool.Clear();
         }
 
-        Sound GetSound(string n)
+        public Sound GetSound(string n)
         {
             Sound s = Sounds.First(s => s.name == n);
             if (s == null)

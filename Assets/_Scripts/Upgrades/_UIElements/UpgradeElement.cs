@@ -76,7 +76,7 @@ namespace Lis.Upgrades
 
         void OnPointerEnter(PointerEnterEvent evt)
         {
-            _audioManager.PlaySound("UI Click");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("UI Click")).Play();
         }
 
         void OnPointerDown(PointerDownEvent evt)
@@ -84,18 +84,18 @@ namespace Lis.Upgrades
             if (_upgrade.IsMaxLevel())
             {
                 Helpers.DisplayTextOnElement(parent, this, "Max Level", Color.red);
-                _audioManager.PlaySound("Upgrade - Max Level");
+                _audioManager.CreateSound().WithSound(_audioManager.GetSound("Upgrade - Max Level")).Play();
                 return;
             }
 
             if (_gameManager.Gold < _upgrade.GetNextLevel().Cost)
             {
                 Helpers.DisplayTextOnElement(parent, this, "$$$", Color.red);
-                _audioManager.PlaySound("Upgrade - Not Enough Gold");
+                _audioManager.CreateSound().WithSound(_audioManager.GetSound("Upgrade - Not Enough Gold")).Play();
                 return;
             }
 
-            _swooshAudioSource = _audioManager.PlaySound("Upgrade - Swoosh");
+            _swooshAudioSource = _audioManager.CreateSound().WithSound(_audioManager.GetSound("Upgrade - Swoosh")).Play();
 
             _purchaseScheduler = schedule.Execute(Purchase).StartingIn(1000);
             DOTween.Kill(_tweenId);
@@ -208,7 +208,7 @@ namespace Lis.Upgrades
                 _swooshAudioSource = null;
             }
 
-            _audioManager.PlaySound("Upgrade - Bought");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("Upgrade - Bought")).Play();
             DisplayTooltip();
 
             DOTween.To(x => _fill.style.opacity = x, _fill.style.opacity.value, 1, 0.1f)

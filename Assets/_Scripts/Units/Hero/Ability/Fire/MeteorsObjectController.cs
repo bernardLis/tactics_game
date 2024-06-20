@@ -51,7 +51,11 @@ namespace Lis.Units.Hero.Ability
             if (Ability.ExecuteSound == null) yield break;
             for (int i = 0; i < 5; i++)
             {
-                SoundEmitter ass = AudioManager.PlaySound(Ability.ExecuteSound, transform.position);
+                SoundEmitter ass = AudioManager.CreateSound()
+                    .WithSound(Ability.ExecuteSound)
+                    .WithPosition(transform.position)
+                    .Play();
+
                 _audioSources.Add(ass);
                 yield return new WaitForSeconds(Random.Range(0.1f, 0.2f));
             }

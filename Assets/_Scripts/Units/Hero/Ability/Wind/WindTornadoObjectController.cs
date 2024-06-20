@@ -45,7 +45,12 @@ namespace Lis.Units.Hero.Ability
             _isUnpassableCollisionActive = false;
 
             if (Ability.ExecuteSound != null)
-                SoundEmitter = AudioManager.PlaySound(Ability.ExecuteSound, transform);
+            {
+                SoundEmitter = AudioManager.CreateSound()
+                    .WithSound(Ability.ExecuteSound)
+                    .WithParent(transform)
+                    .Play();
+            }
 
             float elapsedTime = 0;
             while (elapsedTime < Ability.GetDuration())

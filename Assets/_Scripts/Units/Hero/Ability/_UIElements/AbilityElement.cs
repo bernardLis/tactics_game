@@ -102,7 +102,7 @@ namespace Lis.Units.Hero.Ability
 
         void OnCooldownFinished()
         {
-            _audioManager.PlaySound("Ability Available");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("Ability Available")).Play();
             _icon.style.opacity = 1f;
             transform.scale = Vector3.one;
 

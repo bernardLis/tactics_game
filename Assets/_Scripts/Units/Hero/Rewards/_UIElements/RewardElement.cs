@@ -12,6 +12,7 @@ namespace Lis.Units.Hero.Rewards
         const string _ussContent = _ussClassName + "content";
         const string _ussDisabled = _ussClassName + "disabled";
         readonly GameManager _gameManager;
+        readonly AudioManager _audioManager;
 
         public readonly Reward Reward;
         Label _mysteryLabel;
@@ -25,6 +26,8 @@ namespace Lis.Units.Hero.Rewards
                 .GetStyleSheetByName(StyleSheetType.RewardElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
+
+            _audioManager = AudioManager.Instance;
 
             Reward = reward;
             AddToClassList(_ussMain);
@@ -43,7 +46,7 @@ namespace Lis.Units.Hero.Rewards
         {
             if (evt.button != 0) return;
 
-            _gameManager.GetComponent<AudioManager>().PlaySound("Bang");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("Bang")).Play();
             Reward.GetReward();
         }
 

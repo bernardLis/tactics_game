@@ -37,14 +37,14 @@ namespace Lis.Core
 
         void ShakeIcon(PointerEnterEvent evt)
         {
-            _audioManager.PlaySound("Lock OnHover");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("Lock OnHover")).Play();
             DOTween.Shake(() => _lockIcon.transform.position, x => _lockIcon.transform.position = x,
                 0.5f, 10f).SetUpdate(true);
         }
 
         public void Unlock()
         {
-            _audioManager.PlaySound("Lock Unlock");
+            _audioManager.CreateSound().WithSound(_audioManager.GetSound("Lock Unlock")).Play();
 
             DOTween.Shake(
                     () => _lockIcon.transform.position, x => _lockIcon.transform.position = x, 1f, 10f)

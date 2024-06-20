@@ -103,7 +103,12 @@ namespace Lis.Units.Projectile
             Gfx.SetActive(true);
             Explosion.SetActive(false);
             if (_shootSound != null)
-                _audioManager.PlaySound(_shootSound, transform.position);
+            {
+                _audioManager.CreateSound()
+                    .WithSound(_shootSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
         }
 
         IEnumerator ShootInDirectionCoroutine(Vector3 dir)
@@ -153,7 +158,12 @@ namespace Lis.Units.Projectile
         {
             Gfx.SetActive(false);
             if (ExplosionSound != null)
-                _audioManager.PlaySound(ExplosionSound, position);
+            {
+                _audioManager.CreateSound()
+                    .WithSound(ExplosionSound)
+                    .WithPosition(position)
+                    .Play();
+            }
             Explosion.SetActive(true);
 
             yield return new WaitForSeconds(3f);

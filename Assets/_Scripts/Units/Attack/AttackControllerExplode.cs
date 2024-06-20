@@ -22,7 +22,11 @@ namespace Lis.Units.Attack
                 yield return new WaitForSeconds(1f);
             }
 
-            AudioManager.PlaySound(Attack.Sound, transform.position);
+            AudioManager.CreateSound()
+                .WithSound(Attack.Sound)
+                .WithPosition(transform.position)
+                .Play();
+
             _effect.SetActive(true);
             foreach (UnitController be in GetOpponentsInRadius(_explosionRadius))
                 StartCoroutine(be.GetHit(Attack));

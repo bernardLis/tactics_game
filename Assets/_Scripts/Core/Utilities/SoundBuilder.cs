@@ -33,21 +33,18 @@ namespace Lis.Core.Utilities
             return this;
         }
 
-        public void Play()
+        public SoundEmitter Play()
         {
-            if (!_audioManager.CanPlaySound(_sound)) return;
+            if (!_audioManager.CanPlaySound(_sound)) return null;
 
             SoundEmitter soundEmitter = _audioManager.GetSoundEmitter();
             soundEmitter.Initialize(_sound);
             soundEmitter.gameObject.transform.position = _pos;
             if (_parent != null) soundEmitter.transform.parent = _parent;
-
-            if (_audioManager.Counts.TryGetValue(_sound, out var count))
-                _audioManager.Counts[_sound] = count + 1;
-            else
-                _audioManager.Counts.Add(_sound, 1);
+            if (_sound.IsFrequentSound) _audioManager.FrequentSoundEmittersQueue.Enqueue(soundEmitter);
 
             soundEmitter.Play();
+            return soundEmitter;
         }
     }
 }

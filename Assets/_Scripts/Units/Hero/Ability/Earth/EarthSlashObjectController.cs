@@ -37,7 +37,13 @@ namespace Lis.Units.Hero.Ability
         {
             _effect.SetActive(true);
             _col.SetActive(true);
-            if (Ability.ExecuteSound != null) AudioManager.PlaySound(Ability.ExecuteSound, transform.position);
+            if (Ability.ExecuteSound != null)
+            {
+                AudioManager.CreateSound()
+                    .WithSound(Ability.ExecuteSound)
+                    .WithPosition(transform.position)
+                    .Play();
+            }
 
             Vector3 colliderRotation = new(90f, 0f, -45f);
             _col.transform.DOLocalRotate(colliderRotation, Ability.GetDuration() - 0.2f)
