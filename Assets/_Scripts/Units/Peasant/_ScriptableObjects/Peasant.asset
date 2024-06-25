@@ -40,3 +40,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa5cf23d4c6f2514aa326252d585e816, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  Targeting: 1

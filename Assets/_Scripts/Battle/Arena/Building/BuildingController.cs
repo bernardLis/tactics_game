@@ -80,6 +80,7 @@ namespace Lis.Battle.Arena.Building
 
         protected virtual void Unlock()
         {
+            if (this == null) return;
             _tooltipManager.DisplayGameInfo(
                 new Label($" {Helpers.ParseScriptableObjectName(Building.name)} unlocked!"));
             _unlockedEffect.SetActive(true);

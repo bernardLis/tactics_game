@@ -34,7 +34,6 @@ namespace Lis.Units.Pawn
 
         public void SetUpgrade(int upgrade)
         {
-            Debug.Log("SetUpgrade: " + upgrade);
             CurrentUpgrade = upgrade;
             InitializePawnMission();
             SetUnitBasics();

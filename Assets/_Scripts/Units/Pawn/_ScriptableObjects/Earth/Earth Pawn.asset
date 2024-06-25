@@ -41,6 +41,7 @@ MonoBehaviour:
   Attacks:
   - {fileID: 0}
   CurrentAttack: {fileID: 0}
+  Targeting: 2
   Upgrades:
   - {fileID: 11400000, guid: 942e0a4dd39205f4ab75824ff88fc9be, type: 2}
   - {fileID: 11400000, guid: 4375f64b505c0b842b9c141b9a2cef5b, type: 2}

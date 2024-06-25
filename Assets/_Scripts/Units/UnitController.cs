@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using Lis.Battle;
 using Lis.Battle.Arena;
@@ -56,6 +55,7 @@ namespace Lis.Units
         protected ObjectShaders ObjectShaders;
 
         protected UnitPathingController UnitPathingController;
+        protected UnitTargetSelector UnitTargetSelector;
         public Collider Collider { get; private set; }
         public Animator Animator { get; protected set; }
 
@@ -123,6 +123,10 @@ namespace Lis.Units
                 UnitPathingController.Initialize(new(20, 100));
                 UnitPathingController.InitializeUnit(Unit);
             }
+
+            UnitTargetSelector = GetComponent<UnitTargetSelector>();
+            if (UnitTargetSelector != null)
+                UnitTargetSelector.Initialize(Unit);
 
             if (TryGetComponent(out UnitHitController hit))
                 hit.Initialize(this);
@@ -231,7 +235,7 @@ namespace Lis.Units
         IEnumerator ManagePathing()
         {
             if (Opponent == null || Opponent.IsDead)
-                ChooseNewTarget();
+                SetOpponent(UnitTargetSelector.ChooseNewTarget(ref _opponentList));
             yield return new WaitForSeconds(0.1f);
 
             if (Opponent == null) yield break;
@@ -246,35 +250,6 @@ namespace Lis.Units
             Opponent.GetEngaged(this); // otherwise, creature can't catch up
         }
 
-        void ChooseNewTarget()
-        {
-            if (_opponentList.Count == 0)
-            {
-                Opponent = null;
-                return;
-            }
-
-            Dictionary<UnitController, float> sqrtDistances = new();
-            foreach (UnitController be in _opponentList)
-            {
-                if (be.IsDead) continue;
-                if (sqrtDistances.ContainsKey(be)) continue;
-                Vector3 delta = be.transform.position - transform.position;
-                float distance = delta.sqrMagnitude;
-                sqrtDistances.Add(be, distance);
-            }
-
-            if (sqrtDistances.Count == 0)
-            {
-                Opponent = null;
-                return;
-            }
-
-            UnitController closest = sqrtDistances.OrderBy(pair => pair.Value).First().Key;
-            AddToLog($"Choosing {closest.name} as new target");
-
-            SetOpponent(closest);
-        }
 
         void SetOpponent(UnitController opponent)
         {
@@ -421,6 +396,7 @@ namespace Lis.Units
                     .WithPosition(transform.position)
                     .Play();
             }
+
             if (DeathEffect != null) DeathEffect.SetActive(true);
 
             if (hasLoot) ResolveLoot();
@@ -453,6 +429,7 @@ namespace Lis.Units
                     .WithPosition(transform.position)
                     .Play();
             }
+
             StartCoroutine(DisableLevelUpEffect());
         }
 

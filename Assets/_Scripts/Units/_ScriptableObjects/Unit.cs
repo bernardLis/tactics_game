@@ -52,6 +52,12 @@ namespace Lis.Units
 
         [HideInInspector] public List<Attack.Attack> Attacks = new();
         [HideInInspector] public Attack.Attack CurrentAttack;
+
+        /* TARGETING */
+        [Header("Targeting")]
+        public TargetingType Targeting = TargetingType.Closest;
+
+
         public event Action<int> OnDamageTaken;
 
         public event Action OnKilled;

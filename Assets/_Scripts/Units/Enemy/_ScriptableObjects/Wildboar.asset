@@ -40,6 +40,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67533e95bac8d724bb35e0ddaa4bda61, type: 2}
   Attacks: []
   CurrentAttack: {fileID: 0}
+  Targeting: 1
   IsMiniBoss: 0
   ScarinessRank: 0
   IsRanged: 0

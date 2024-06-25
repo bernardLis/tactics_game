@@ -36,6 +36,11 @@ namespace Lis.Battle
 
         public bool IsTimerOn { get; private set; }
 
+        public event Action OnBattleFinalized;
+
+        public event Action OnGamePaused;
+        public event Action OnGameResumed;
+
         protected override void Awake()
         {
             base.Awake();
@@ -56,10 +61,6 @@ namespace Lis.Battle
             _timerLabel = Root.Q<Label>("timer");
         }
 
-        public event Action OnBattleFinalized;
-
-        public event Action OnGamePaused;
-        public event Action OnGameResumed;
 
         public void Initialize()
         {

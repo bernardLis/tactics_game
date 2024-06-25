@@ -97,6 +97,15 @@ namespace Lis.Core
         Neutral
     }
 
+    public enum TargetingType
+    {
+        Closest,
+        Random,
+        Strongest,
+        Weakest,
+    }
+
+
     [Serializable]
     public struct StatBasics
     {

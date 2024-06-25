@@ -1782,6 +1782,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1587620957}
     - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: Battle
+      value: 
+      objectReference: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
+    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: EntityHolder
       value: 
       objectReference: {fileID: 1078788522}
