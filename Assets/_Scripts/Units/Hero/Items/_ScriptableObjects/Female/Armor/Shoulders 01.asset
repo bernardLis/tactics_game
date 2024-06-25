@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Name: Shoulders 01
+  m_EditorClassIdentifier: 
+  Id: ea001fec-bd51-482a-a6f6-9b6c5dc5fd73
+  ItemType: 1
+  ArmorType: 1
+  ItemMeshRenderer: {fileID: 8487944445715930545, guid: 69fedaae09ba79b43a07c23e76a3bf4a, type: 3}
+  DisableHair: 0
+  DisableBeard: 0
+  DisableMustache: 0

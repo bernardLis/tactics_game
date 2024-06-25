@@ -1,11 +1,10 @@
-using Lis.Battle;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Enemy;
 using Lis.Units.Pawn;
 using Lis.Units.Peasant;
 
-namespace Lis
+namespace Lis.Battle
 {
     public class UnitCardFactory : Singleton<UnitCardFactory>
     {

@@ -1,11 +1,9 @@
-using Lis.Battle.Arena;
-using Lis.Battle.Arena.Building;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Battle.Arena.Building
 {
     public class ArchitectController : BuildingController, IInteractable
     {

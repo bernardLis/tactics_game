@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Name: Base Torso
+  m_EditorClassIdentifier: 
+  Id: 5fd353c0-3da2-4179-89d2-709b7db52c6b
+  ItemType: 2
+  ArmorType: 1
+  ItemMeshRenderer: {fileID: 5591602141190647618, guid: 2ebe527bdb12f4e46b92ea0c44a5bfcf, type: 3}
+  DisableHair: 0
+  DisableBeard: 0
+  DisableMustache: 0

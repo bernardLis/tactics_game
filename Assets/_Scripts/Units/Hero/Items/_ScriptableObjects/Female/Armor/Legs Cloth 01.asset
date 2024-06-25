@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Name: Legs Cloth 01
+  m_EditorClassIdentifier: 
+  Id: bb8d8524-a7b1-4486-ac74-0aa8a2ada4eb
+  ItemType: 4
+  ArmorType: 0
+  ItemMeshRenderer: {fileID: 6199597656731576743, guid: 7bd211912478ff14b9ef8739ef7487e1, type: 3}
+  DisableHair: 0
+  DisableBeard: 0
+  DisableMustache: 0

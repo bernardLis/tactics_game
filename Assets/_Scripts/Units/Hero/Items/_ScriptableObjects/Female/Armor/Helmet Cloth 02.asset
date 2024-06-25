@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Name: Helmet Cloth 02
+  m_EditorClassIdentifier: 
+  Id: a3386eb3-10e7-4185-89dc-a9e26a043d4b
+  ItemType: 0
+  ArmorType: 0
+  ItemMeshRenderer: {fileID: 9198353690559157605, guid: c3fef9d3aca44744480e7e7dd1b753ee, type: 3}
+  DisableHair: 1
+  DisableBeard: 0
+  DisableMustache: 0
