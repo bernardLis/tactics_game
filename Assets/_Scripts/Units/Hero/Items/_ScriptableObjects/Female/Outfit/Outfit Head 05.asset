@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
-  m_Name: Hair 00
+  m_Name: Outfit Head 05
   m_EditorClassIdentifier: 
-  Id: 017b4b4b-87af-4dbe-9971-3564341d5deb
-  ItemType: 5
-  ArmorType: 0
-  ItemMeshRenderer: {fileID: 0}
-  DisableHair: 0
+  Id: 224fade6-cb53-47a3-ade5-a9d4e69cd99c
+  ItemType: 0
+  ArmorType: 3
+  ItemMeshRenderer: {fileID: 4724038152895156699, guid: 665e66c56af5b4b48ab2d4756d8f7821, type: 3}
+  DisableHair: 1
   DisableBeard: 0
   DisableMustache: 0

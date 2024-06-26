@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Shoulders 01
   m_EditorClassIdentifier: 
-  Id: ea001fec-bd51-482a-a6f6-9b6c5dc5fd73
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 1
   ArmorType: 1
   ItemMeshRenderer: {fileID: 8487944445715930545, guid: 69fedaae09ba79b43a07c23e76a3bf4a, type: 3}

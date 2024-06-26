@@ -6,6 +6,7 @@ using Lis.Units.Creature;
 using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
+using Lis.Units.Hero.Items;
 using Lis.Units.Hero.Tablets;
 using Lis.Units.Pawn;
 using Lis.Units.Peasant;
@@ -26,6 +27,16 @@ namespace Lis.Core
 
         public Tablet[] HeroTablets;
         [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
+
+        [SerializeField] Item[] _allFemaleHeroOutfits;
+        public List<Item> GetAllFemaleHeroOutfits => _allFemaleHeroOutfits.ToList();
+
+        [SerializeField] Item[] _allFemaleHeroArmor;
+        public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
+
+        [SerializeField] Color[] _heroCustomizationColors;
+        public List<Color> GetAllHeroCustomizationColors() => _heroCustomizationColors.ToList();
+
 
         [Header("Peasant")]
         public Peasant Peasant;

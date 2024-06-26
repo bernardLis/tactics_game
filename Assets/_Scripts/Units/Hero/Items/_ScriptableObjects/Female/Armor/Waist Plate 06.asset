@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Waist Plate 06
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 3
   ArmorType: 2
   ItemMeshRenderer: {fileID: 7835826043401267497, guid: 05a76b7c8287549478616878ade1580d, type: 3}

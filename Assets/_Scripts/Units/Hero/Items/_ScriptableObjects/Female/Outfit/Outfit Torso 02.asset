@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Name: Outfit Torso 02
+  m_EditorClassIdentifier: 
+  Id: 52302f3f-02a6-4bbf-ab43-1c3ffa3d7ffd
+  ItemType: 2
+  ArmorType: 3
+  ItemMeshRenderer: {fileID: 7736346412349567105, guid: dc4b63a83d96c2e43ba0e53fb3a8fc43, type: 3}
+  DisableHair: 0
+  DisableBeard: 0
+  DisableMustache: 0

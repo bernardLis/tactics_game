@@ -9,8 +9,8 @@ public class CharacterBuilder : EditorWindow
 {
     string myName = "NewCharacter";
     bool groupEnabled;
-    bool myBool = true;
-    float myFloat = 1.23f;
+    // bool myBool = true;
+    // float myFloat = 1.23f;
     public GameObject selectedCharacter = null;
     private Inventory inventory;
     private ItemData items;

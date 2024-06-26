@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Helmet Cloth 06
   m_EditorClassIdentifier: 
-  Id: 2f991a3e-a1c1-4bd6-b8f5-c1ffb106eabe
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 0
   ArmorType: 0
   ItemMeshRenderer: {fileID: 1061062144016329338, guid: b6a769bb6e0ce8a44979df9ff51d6899, type: 3}

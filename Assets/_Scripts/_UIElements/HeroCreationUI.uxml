@@ -14,7 +14,12 @@
     <Style src="project://database/Assets/_Scripts/Units/Hero/_UIElements/HeroElementStyles.uss?fileID=7433441132597879392&amp;guid=8f45396fe25429f42bf53e3c09280bb3&amp;type=3#HeroElementStyles" />
     <Style src="project://database/Assets/_Scripts/Units/_UIElements/UnitIconStyles.uss?fileID=7433441132597879392&amp;guid=159d96b3129cc5c40bd59b4c9cfd5f30&amp;type=3#UnitIconStyles" />
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/EarthTheme.uss?fileID=7433441132597879392&amp;guid=8b1720c336464932b8be1312ec65c838&amp;type=3#EarthTheme" />
+    <Style src="project://database/Assets/_Scripts/HeroCreation/_UIElements/ItemSelectorContainerStyles.uss?fileID=7433441132597879392&amp;guid=823c7148025565d4aaabc0d0af03f082&amp;type=3#ItemSelectorContainerStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; background-color: rgba(155, 171, 178, 0.24); width: 40%; height: 90%; position: absolute; left: 5%; top: 5%;" />
+        <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; background-color: rgba(155, 171, 178, 0.24); width: 45%; height: 90%; position: absolute; left: 5%; top: 5%; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;">
+            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="customizationScrollView">
+                <ui:Label tabindex="-1" text="Character Customization" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 32px;" />
+            </ui:ScrollView>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

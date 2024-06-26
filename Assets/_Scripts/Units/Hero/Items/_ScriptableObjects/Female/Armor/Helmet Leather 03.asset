@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Helmet Leather 03
   m_EditorClassIdentifier: 
-  Id: 1d798413-faba-4987-a174-c5a27577f079
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 0
   ArmorType: 1
   ItemMeshRenderer: {fileID: 3874669945600134845, guid: 269a686096399df49af00c8c20f9d55c, type: 3}

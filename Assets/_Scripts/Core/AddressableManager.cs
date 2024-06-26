@@ -89,5 +89,7 @@ namespace Lis.Core
         BarracksNatureUpgradeElementStyles,
         UnlockableBuildingElementStyles,
 
+        ItemSelectorContainerStyles,
+
     }
 }

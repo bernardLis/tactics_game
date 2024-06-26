@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Helmet Plate 02
   m_EditorClassIdentifier: 
-  Id: d89396cf-938d-4bc4-9f40-da202c8d46bb
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 0
   ArmorType: 2
   ItemMeshRenderer: {fileID: 7897665926293691820, guid: e268abb10f73bab49a7421c968bbdbb4, type: 3}

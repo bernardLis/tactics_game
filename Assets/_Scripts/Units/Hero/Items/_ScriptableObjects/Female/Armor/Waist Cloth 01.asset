@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Waist Cloth 01
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 3
   ArmorType: 0
   ItemMeshRenderer: {fileID: 795250979932939911, guid: 31e7aecbd3b40b0418cbefd0a60d5271, type: 3}

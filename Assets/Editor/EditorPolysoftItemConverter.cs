@@ -19,6 +19,35 @@ namespace Editor
             ConvertFemaleUnderwear();
         }
 
+
+        [MenuItem("Utilities/Polysoft Female OutfitConverter")]
+        static void ConvertFemaleOutfit()
+        {
+            string itemPath = "Assets/_Scripts/Units/Hero/Items/_ScriptableObjects/Female/Outfit";
+            string path =
+                "Assets/Plugins/Models/Modular RPG Character Polyart/Modular Character Female/Items/Outfit";
+            string[] files = Directory.GetFiles(path, "*.asset", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                polysoft_Item polysoftItem = AssetDatabase.LoadAssetAtPath<polysoft_Item>(file);
+
+                // create a new item
+                Item newItem = ScriptableObject.CreateInstance<Item>();
+
+                newItem.ItemType = (ItemType)(int)polysoftItem.itemType;
+                newItem.ArmorType = (ArmorType)(int)polysoftItem.armorType;
+                newItem.DisableHair = polysoftItem.disableHair;
+                newItem.DisableBeard = polysoftItem.disableBeard;
+                newItem.DisableMustache = polysoftItem.disableMustache;
+
+                newItem.ItemMeshRenderer = polysoftItem.ItemMeshRenderer;
+                AssetDatabase.CreateAsset(newItem, itemPath + "/" + ParseName(polysoftItem.name) + ".asset");
+                EditorUtility.SetDirty(newItem);
+                AssetDatabase.SaveAssets();
+            }
+
+        }
+
         static void ConvertFemaleArmor()
         {
             string itemPath = "Assets/_Scripts/Units/Hero/Items/_ScriptableObjects/Female/Armor";

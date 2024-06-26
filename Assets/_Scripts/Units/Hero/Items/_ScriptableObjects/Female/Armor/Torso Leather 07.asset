@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Torso Leather 07
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 2
   ArmorType: 1
   ItemMeshRenderer: {fileID: 4353290405251342180, guid: 5f9cbfbd3b324ee449dd3704c624b052, type: 3}

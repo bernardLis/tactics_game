@@ -23,6 +23,7 @@ namespace Lis.Core
         [SerializeField]
         ColorVariable[] _colors;
 
+
         [Header("Pickups")]
         [SerializeField]
         Pickup[] _pickups;

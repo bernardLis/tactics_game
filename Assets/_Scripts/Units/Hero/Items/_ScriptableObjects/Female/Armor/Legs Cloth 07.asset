@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Legs Cloth 07
   m_EditorClassIdentifier: 
-  Id: 922fb351-fd92-412f-aeda-1fe1d6e1ddc7
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 4
   ArmorType: 0
   ItemMeshRenderer: {fileID: 7885895670154930723, guid: 7ee2d6d6afc163e4f85a08f4cd177dea, type: 3}

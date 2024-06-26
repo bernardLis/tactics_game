@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Legs Plate 07
   m_EditorClassIdentifier: 
-  Id: a790c7f5-301c-4205-b422-e16c120fc3a1
+  Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
   ItemType: 4
   ArmorType: 2
   ItemMeshRenderer: {fileID: 1739781768821440370, guid: d2fe8387986d4eb4bb1ccbf8684adedc, type: 3}
