@@ -21,9 +21,7 @@ namespace Lis.HeroCreation
         int _currentItemIndex;
         readonly Label _currentItemLabel;
 
-        VisualElement _middleContainer;
-
-        public ItemSelectorElement(ItemSetter itemSetter, ItemType itemType, List<Item> items, bool isOdd = false)
+        public ItemSelectorElement(ItemSetter itemSetter, ItemType itemType, List<Item> items)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.ItemSelectorElementStyles);
@@ -39,11 +37,8 @@ namespace Lis.HeroCreation
             MyButton nextButton = new(">", _ussCommonButtonArrow, NextItem);
             Add(previousButton);
 
-            _middleContainer = new();
-            _middleContainer.Add(new Label(_itemType.ToString()));
             _currentItemLabel = new(_items[_currentItemIndex].name);
-            _middleContainer.Add(_currentItemLabel);
-            Add(_middleContainer);
+            Add(_currentItemLabel);
 
             Add(nextButton);
         }

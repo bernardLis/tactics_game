@@ -11,6 +11,10 @@ namespace Lis.HeroCreation
         const string _ussCommonTextLarge = "common__text-large";
         const string _ussCommonTextVeryLarge = "common__text-very-large";
 
+        const string _ussClassName = "hero-creation__";
+        const string _ussSetterTitle = _ussClassName + "setter-title";
+        const string _ussSetterContainer = _ussClassName + "setter-container";
+
         [SerializeField] ItemSetter _itemSetter;
 
         readonly Dictionary<ItemType, List<Item>> _itemDictionary = new();
@@ -40,8 +44,11 @@ namespace Lis.HeroCreation
 
             SortItems();
             AddTitle();
-            AddItemSelectors();
-            AddColorSetters();
+
+            AddBodySetters();
+            AddHairSetters();
+            AddUnderwearSetters();
+            AddArmorSetters();
         }
 
         void SortItems()
@@ -59,101 +66,146 @@ namespace Lis.HeroCreation
             Label title = new("Hero Customization");
             title.AddToClassList(_ussCommonTextVeryLarge);
             _visualOptionContainer.Insert(0, title);
-
             _visualOptionContainer.Insert(1, new HorizontalSpacerElement());
         }
 
-        void AddItemSelectors()
+        void AddBodySetters()
         {
-            bool isOdd = false;
-            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
-            {
-                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value, isOdd);
-                _customizationScrollView.Add(itemSelectorElement);
-                isOdd = !isOdd;
-            }
-        }
+            VisualElement bodyContainer = new();
+            bodyContainer.AddToClassList(_ussSetterContainer);
+            _customizationScrollView.Add(bodyContainer);
 
-        void AddColorSetters()
-        {
-            _colorContainer = new();
-            _colorContainer.style.alignItems = Align.Center;
-            _customizationScrollView.Add(_colorContainer);
-
-            AddHairColorSetter();
-            AddBodyColorSetter();
-            AddUnderWearColorSetter();
-            AddArmorColorSetter();
-        }
-
-        void AddHairColorSetter()
-        {
-            VisualElement hairColorSetter = new();
-            _colorContainer.Add(hairColorSetter);
-            hairColorSetter.Add(new HorizontalSpacerElement());
-            Label title = new("Hair");
-            title.AddToClassList(_ussCommonTextLarge);
-            hairColorSetter.Add(title);
-
-
-            hairColorSetter.Add(new ColorSelectorElement("Main", _hair,
-                "_Color1", _allColors, _visualOptionContainer));
-            hairColorSetter.Add(new ColorSelectorElement("Detail", _hair,
-                "_Color2", _allColors, _visualOptionContainer));
-        }
-
-        void AddBodyColorSetter()
-        {
-            VisualElement bodyColorSetter = new();
-            _colorContainer.Add(bodyColorSetter);
-
-            bodyColorSetter.Add(new HorizontalSpacerElement());
             Label title = new("Body");
             title.AddToClassList(_ussCommonTextLarge);
+            title.AddToClassList(_ussSetterTitle);
+            bodyContainer.Add(title);
 
-            bodyColorSetter.Add(title);
+            AddBodyItems(bodyContainer);
+            AddBodyColor(bodyContainer);
+        }
 
-            bodyColorSetter.Add(new ColorSelectorElement("Skin", _body,
+        void AddHairSetters()
+        {
+            VisualElement hairContainer = new();
+            hairContainer.AddToClassList(_ussSetterContainer);
+            _customizationScrollView.Add(hairContainer);
+
+            Label title = new("Hair");
+            title.AddToClassList(_ussCommonTextLarge);
+            title.AddToClassList(_ussSetterTitle);
+            hairContainer.Add(title);
+
+            AddHairItems(hairContainer);
+            AddHairColor(hairContainer);
+        }
+
+        void AddUnderwearSetters()
+        {
+            VisualElement underwearContainer = new();
+            underwearContainer.AddToClassList(_ussSetterContainer);
+            _customizationScrollView.Add(underwearContainer);
+
+            Label title = new("Underwear");
+            title.AddToClassList(_ussCommonTextLarge);
+            title.AddToClassList(_ussSetterTitle);
+            underwearContainer.Add(title);
+
+            AddUnderwearItems(underwearContainer);
+            AddUnderWearColor(underwearContainer);
+        }
+
+        void AddArmorSetters()
+        {
+            VisualElement armorContainer = new();
+            armorContainer.AddToClassList(_ussSetterContainer);
+            _customizationScrollView.Add(armorContainer);
+
+            Label title = new("Armor");
+            title.AddToClassList(_ussCommonTextLarge);
+            title.AddToClassList(_ussSetterTitle);
+            armorContainer.Add(title);
+
+            AddArmorItems(armorContainer);
+            AddArmorColor(armorContainer);
+        }
+
+        void AddBodyItems(VisualElement parent)
+        {
+            // TODO: choose body type
+        }
+
+        void AddBodyColor(VisualElement parent)
+        {
+            parent.Add(new ColorSelectorElement("Skin", _body,
                 "_Color1", _allColors, _visualOptionContainer));
-            bodyColorSetter.Add(new ColorSelectorElement("Eye", _body,
+            parent.Add(new ColorSelectorElement("Eye", _body,
                 "_Color2", _allColors, _visualOptionContainer));
-            bodyColorSetter.Add(new ColorSelectorElement("Eyebrow", _body,
+            parent.Add(new ColorSelectorElement("Eyebrow", _body,
                 "_Color3", _allColors, _visualOptionContainer));
         }
 
-
-        void AddUnderWearColorSetter()
+        void AddHairItems(VisualElement parent)
         {
-            VisualElement underwearColorSetter = new();
-            _colorContainer.Add(underwearColorSetter);
+            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
+            {
+                Debug.Log(item.Key);
 
-            underwearColorSetter.Add(new HorizontalSpacerElement());
-            Label title = new("Underwear");
-            title.AddToClassList(_ussCommonTextLarge);
+                if (item.Key is not (ItemType.Hair or ItemType.Beard or ItemType.Mustache)) continue;
 
-            underwearColorSetter.Add(title);
+                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
+                parent.Add(itemSelectorElement);
+            }
+        }
 
-            underwearColorSetter.Add(new ColorSelectorElement("Main", _underwear,
+
+        void AddHairColor(VisualElement parent)
+        {
+            parent.Add(new ColorSelectorElement("Main", _hair,
                 "_Color1", _allColors, _visualOptionContainer));
-            underwearColorSetter.Add(new ColorSelectorElement("Detail", _underwear,
+            parent.Add(new ColorSelectorElement("Detail", _hair,
                 "_Color2", _allColors, _visualOptionContainer));
         }
 
-        void AddArmorColorSetter()
+        void AddUnderwearItems(VisualElement parent)
         {
-            VisualElement armorColorSetter = new();
-            _colorContainer.Add(armorColorSetter);
-            armorColorSetter.Add(new HorizontalSpacerElement());
-            Label title = new("Armor");
-            title.AddToClassList(_ussCommonTextLarge);
+            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
+            {
+                if (item.Key is not (ItemType.Underwear or ItemType.Brassiere)) continue;
 
-            armorColorSetter.Add(title);
+                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
+                parent.Add(itemSelectorElement);
+            }
+        }
 
-            armorColorSetter.Add(new ColorSelectorElement("Main", _armor,
+        void AddUnderWearColor(VisualElement parent)
+        {
+            parent.Add(new ColorSelectorElement("Main", _underwear,
                 "_Color1", _allColors, _visualOptionContainer));
-            armorColorSetter.Add(new ColorSelectorElement("Detail", _armor,
+            parent.Add(new ColorSelectorElement("Detail", _underwear,
                 "_Color2", _allColors, _visualOptionContainer));
-            armorColorSetter.Add(new ColorSelectorElement("Detail", _armor,
+        }
+
+
+        void AddArmorItems(VisualElement parent)
+        {
+            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
+            {
+                if (item.Key is not (ItemType.Helmet or
+                    ItemType.Shoulders or ItemType.Torso or ItemType.Waist
+                    or ItemType.Legs)) continue;
+
+                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
+                parent.Add(itemSelectorElement);
+            }
+        }
+
+        void AddArmorColor(VisualElement parent)
+        {
+            parent.Add(new ColorSelectorElement("Main", _armor,
+                "_Color1", _allColors, _visualOptionContainer));
+            parent.Add(new ColorSelectorElement("Detail", _armor,
+                "_Color2", _allColors, _visualOptionContainer));
+            parent.Add(new ColorSelectorElement("Detail", _armor,
                 "_Color3", _allColors, _visualOptionContainer));
         }
     }

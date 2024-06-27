@@ -1,0 +1,19 @@
+.hero-creation__main {
+}
+
+.hero-creation__setter-title {
+    -unity-font-style: bold;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 0;
+    border-bottom-width: 2px;
+    margin-bottom: 6px;
+}
+
+.hero-creation__setter-container {
+    align-items: center;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}

@@ -16,8 +16,9 @@
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/EarthTheme.uss?fileID=7433441132597879392&amp;guid=8b1720c336464932b8be1312ec65c838&amp;type=3#EarthTheme" />
     <Style src="project://database/Assets/_Scripts/HeroCreation/_UIElements/ItemSelectorElementStyles.uss?fileID=7433441132597879392&amp;guid=823c7148025565d4aaabc0d0af03f082&amp;type=3#ItemSelectorElementStyles" />
     <Style src="project://database/Assets/_Scripts/HeroCreation/_UIElements/ColorSelectorElementStyles.uss?fileID=7433441132597879392&amp;guid=4eeb26a07d9a4635a143281d63501511&amp;type=3#ColorSelectorElementStyles" />
+    <Style src="project://database/Assets/_Scripts/HeroCreation/_UIElements/HeroCreationStyles.uss?fileID=7433441132597879392&amp;guid=9431fdd1d86049f0951dd7ba8229d369&amp;type=3#HeroCreationStyles" />
     <ui:VisualElement name="main" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; background-color: rgba(155, 171, 178, 0.24); width: 45%; height: 90%; position: absolute; left: 5%; top: 5%; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;">
+        <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; width: 45%; height: 90%; position: absolute; left: 5%; top: 5%; padding-top: 32px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;); -unity-background-scale-mode: scale-and-crop;">
             <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="customizationScrollView" />
         </ui:VisualElement>
     </ui:VisualElement>
