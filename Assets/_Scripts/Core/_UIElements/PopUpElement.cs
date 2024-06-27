@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.UIElements;
 
 namespace Lis.Core
@@ -13,6 +14,8 @@ namespace Lis.Core
 
         readonly Label _titleLabel;
         readonly MyButton _continueButton;
+
+        public event Action OnHide;
 
         protected PopUpElement(VisualElement parent)
         {
@@ -42,6 +45,8 @@ namespace Lis.Core
 
         void Hide()
         {
+            OnHide?.Invoke();
+
             _parent.focusable = true;
             RemoveFromHierarchy();
         }

@@ -46,8 +46,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color1: {r: 0.37842038, g: 0.0763617, b: 0.49056602, a: 1}
-    - _Color2: {r: 0, g: 0, b: 0, a: 1}
-    - _Color3: {r: 0.497, g: 0.2793946, b: 0.22297837, a: 1}
+    - _Color2: {r: 0.015240695, g: 0.41509432, b: 0, a: 1}
+    - _Color3: {r: 0.5283019, g: 0.46838516, b: 0, a: 1}
     - _EmissionColor1: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor2: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor3: {r: 1, g: 1, b: 1, a: 0}

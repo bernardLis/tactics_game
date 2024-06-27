@@ -15,6 +15,8 @@ namespace Lis.HeroCreation
         const string _ussSetterTitle = _ussClassName + "setter-title";
         const string _ussSetterContainer = _ussClassName + "setter-container";
 
+        CameraManager _cameraManager;
+
         [SerializeField] ItemSetter _itemSetter;
 
         readonly Dictionary<ItemType, List<Item>> _itemDictionary = new();
@@ -41,6 +43,8 @@ namespace Lis.HeroCreation
         void Start()
         {
             _allColors = GameManager.Instance.UnitDatabase.GetAllHeroCustomizationColors();
+            _cameraManager = GetComponent<CameraManager>();
+            _cameraManager.LookAtDefault();
 
             SortItems();
             AddTitle();
@@ -138,18 +142,26 @@ namespace Lis.HeroCreation
         {
             parent.Add(new ColorSelectorElement("Skin", _body,
                 "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Eye", _body,
-                "_Color2", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Eyebrow", _body,
-                "_Color3", _allColors, _visualOptionContainer));
+
+            ColorSelectorElement eyeElement = new("Eye", _body,
+                "_Color2", _allColors, _visualOptionContainer);
+            ColorSelectorElement eyebrowElement = new("Eyebrow", _body,
+                "_Color3", _allColors, _visualOptionContainer);
+
+            eyeElement.OnColorPickerShowed += _cameraManager.LookAtHead;
+            eyebrowElement.OnColorPickerShowed += _cameraManager.LookAtHead;
+
+            eyeElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
+            eyebrowElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
+
+            parent.Add(eyeElement);
+            parent.Add(eyebrowElement);
         }
 
         void AddHairItems(VisualElement parent)
         {
             foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
             {
-                Debug.Log(item.Key);
-
                 if (item.Key is not (ItemType.Hair or ItemType.Beard or ItemType.Mustache)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);

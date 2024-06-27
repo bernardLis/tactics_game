@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,7 +8,6 @@ namespace Lis.HeroCreation
 {
     public class ColorSelectorElement : VisualElement
     {
-
         const string _ussClassName = "color-selector-element__";
         const string _ussMain = _ussClassName + "main";
         const string _ussColorContainer = _ussClassName + "color-container";
@@ -20,6 +20,9 @@ namespace Lis.HeroCreation
         readonly VisualElement _colorContainer;
 
         readonly List<Color> _allColors;
+
+        public event Action OnColorPickerShowed;
+        public event Action OnColorPickerClosed;
 
         public ColorSelectorElement(string title, Material material, string propertyName, List<Color> colors,
             VisualElement pickerParent)
@@ -45,9 +48,11 @@ namespace Lis.HeroCreation
 
         void ShowColorPicker()
         {
+            OnColorPickerShowed?.Invoke();
             ColorPickerPopUpElement colorPickerPopUpElement = new(_pickerParent);
             colorPickerPopUpElement.OnColorSelected += OnColorSelected;
             colorPickerPopUpElement.Initialize(_allColors);
+            colorPickerPopUpElement.OnHide += () => { OnColorPickerClosed?.Invoke(); };
         }
 
         void OnColorSelected(Color c)

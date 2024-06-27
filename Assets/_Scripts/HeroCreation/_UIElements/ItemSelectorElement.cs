@@ -38,6 +38,7 @@ namespace Lis.HeroCreation
             Add(previousButton);
 
             _currentItemLabel = new(_items[_currentItemIndex].name);
+            _currentItemLabel.style.fontSize = 26;
             Add(_currentItemLabel);
 
             Add(nextButton);
