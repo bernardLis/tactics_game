@@ -1,0 +1,27 @@
+.color-selector-element__main {
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    width: 70%;
+    justify-content: space-around;
+}
+
+
+.color-selector-element__color-container {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.color-selector-element__select-color-button {
+    flex-direction: row;
+    width: 300px;
+    height: 50px;
+    border-width: 3px;
+    border-color: black;
+    border-radius: 10px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    align-items: center;
+    justify-content: space-around;
+}

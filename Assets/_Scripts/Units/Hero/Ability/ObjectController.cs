@@ -1,6 +1,7 @@
 using System.Collections;
 using Lis.Battle;
 using Lis.Core;
+using Lis.Core.Utilities;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability

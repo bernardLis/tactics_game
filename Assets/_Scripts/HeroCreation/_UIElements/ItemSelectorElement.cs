@@ -5,11 +5,11 @@ using UnityEngine.UIElements;
 
 namespace Lis.HeroCreation
 {
-    public class ItemSelectorContainer : VisualElement
+    public class ItemSelectorElement : VisualElement
     {
         const string _ussCommonButtonArrow = "common__button-arrow";
 
-        const string _ussClassName = "item-selector-container__";
+        const string _ussClassName = "item-selector-element__";
         const string _ussMain = _ussClassName + "main";
         const string _ussOdd = _ussClassName + "odd";
         const string _ussEven = _ussClassName + "even";
@@ -23,14 +23,12 @@ namespace Lis.HeroCreation
 
         VisualElement _middleContainer;
 
-        public ItemSelectorContainer(ItemSetter itemSetter, ItemType itemType, List<Item> items, bool isOdd = false)
+        public ItemSelectorElement(ItemSetter itemSetter, ItemType itemType, List<Item> items, bool isOdd = false)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
-                .GetStyleSheetByName(StyleSheetType.ItemSelectorContainerStyles);
+                .GetStyleSheetByName(StyleSheetType.ItemSelectorElementStyles);
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussMain);
-
-            AddToClassList(isOdd ? _ussOdd : _ussEven);
 
             _itemSetter = itemSetter;
             _itemType = itemType;

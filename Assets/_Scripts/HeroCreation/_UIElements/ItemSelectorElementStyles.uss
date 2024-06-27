@@ -1,0 +1,15 @@
+.item-selector-element__main {
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    width: 70%;
+    justify-content: space-around;
+}
+
+.item-selector-element__even {
+    background-color: var(--color-metal-primary);
+}
+
+.item-selector-element__odd {
+    background-color: var(--color-metal-secondary);
+}

@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Core;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Core.Utilities
 {
     //https://www.youtube.com/watch?v=BgpqoRFCNOs&
     [RequireComponent(typeof(AudioSource))]

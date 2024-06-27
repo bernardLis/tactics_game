@@ -8,11 +8,15 @@ namespace Lis.HeroCreation
 {
     public class HeroCreationManager : MonoBehaviour
     {
+        const string _ussCommonTextLarge = "common__text-large";
+        const string _ussCommonTextVeryLarge = "common__text-very-large";
+
         [SerializeField] ItemSetter _itemSetter;
 
         readonly Dictionary<ItemType, List<Item>> _itemDictionary = new();
 
         VisualElement _root;
+        VisualElement _visualOptionContainer;
         ScrollView _customizationScrollView;
         VisualElement _colorContainer;
 
@@ -26,6 +30,7 @@ namespace Lis.HeroCreation
         void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
+            _visualOptionContainer = _root.Q<VisualElement>("visualOptionContainer");
             _customizationScrollView = _root.Q<ScrollView>("customizationScrollView");
         }
 
@@ -34,6 +39,7 @@ namespace Lis.HeroCreation
             _allColors = GameManager.Instance.UnitDatabase.GetAllHeroCustomizationColors();
 
             SortItems();
+            AddTitle();
             AddItemSelectors();
             AddColorSetters();
         }
@@ -48,13 +54,22 @@ namespace Lis.HeroCreation
             }
         }
 
+        void AddTitle()
+        {
+            Label title = new("Hero Customization");
+            title.AddToClassList(_ussCommonTextVeryLarge);
+            _visualOptionContainer.Insert(0, title);
+
+            _visualOptionContainer.Insert(1, new HorizontalSpacerElement());
+        }
+
         void AddItemSelectors()
         {
             bool isOdd = false;
             foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
             {
-                ItemSelectorContainer itemSelectorContainer = new(_itemSetter, item.Key, item.Value, isOdd);
-                _customizationScrollView.Add(itemSelectorContainer);
+                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value, isOdd);
+                _customizationScrollView.Add(itemSelectorElement);
                 isOdd = !isOdd;
             }
         }
@@ -71,16 +86,20 @@ namespace Lis.HeroCreation
             AddArmorColorSetter();
         }
 
-        void AddUnderWearColorSetter()
+        void AddHairColorSetter()
         {
-            VisualElement underwearColorSetter = new();
-            _colorContainer.Add(underwearColorSetter);
+            VisualElement hairColorSetter = new();
+            _colorContainer.Add(hairColorSetter);
+            hairColorSetter.Add(new HorizontalSpacerElement());
+            Label title = new("Hair");
+            title.AddToClassList(_ussCommonTextLarge);
+            hairColorSetter.Add(title);
 
-            underwearColorSetter.Add(new HorizontalSpacerElement());
-            underwearColorSetter.Add(new Label("Underwear"));
 
-            underwearColorSetter.Add(CreateColorSwatches("Main: ", _underwear, "_Color1"));
-            underwearColorSetter.Add(CreateColorSwatches("Detail: ", _underwear, "_Color2"));
+            hairColorSetter.Add(new ColorSelectorElement("Main", _hair,
+                "_Color1", _allColors, _visualOptionContainer));
+            hairColorSetter.Add(new ColorSelectorElement("Detail", _hair,
+                "_Color2", _allColors, _visualOptionContainer));
         }
 
         void AddBodyColorSetter()
@@ -89,22 +108,35 @@ namespace Lis.HeroCreation
             _colorContainer.Add(bodyColorSetter);
 
             bodyColorSetter.Add(new HorizontalSpacerElement());
-            bodyColorSetter.Add(new Label("Body"));
+            Label title = new("Body");
+            title.AddToClassList(_ussCommonTextLarge);
 
-            bodyColorSetter.Add(CreateColorSwatches("Skin: ", _body, "_Color1"));
-            bodyColorSetter.Add(CreateColorSwatches("Eye: ", _body, "_Color2"));
-            bodyColorSetter.Add(CreateColorSwatches("Eyebrow: ", _body, "_Color3"));
+            bodyColorSetter.Add(title);
+
+            bodyColorSetter.Add(new ColorSelectorElement("Skin", _body,
+                "_Color1", _allColors, _visualOptionContainer));
+            bodyColorSetter.Add(new ColorSelectorElement("Eye", _body,
+                "_Color2", _allColors, _visualOptionContainer));
+            bodyColorSetter.Add(new ColorSelectorElement("Eyebrow", _body,
+                "_Color3", _allColors, _visualOptionContainer));
         }
 
-        void AddHairColorSetter()
-        {
-            VisualElement hairColorSetter = new();
-            _colorContainer.Add(hairColorSetter);
-            hairColorSetter.Add(new HorizontalSpacerElement());
-            hairColorSetter.Add(new Label("Hair"));
 
-            hairColorSetter.Add(CreateColorSwatches("Main: ", _hair, "_Color1"));
-            hairColorSetter.Add(CreateColorSwatches("Detail: ", _hair, "_Color2"));
+        void AddUnderWearColorSetter()
+        {
+            VisualElement underwearColorSetter = new();
+            _colorContainer.Add(underwearColorSetter);
+
+            underwearColorSetter.Add(new HorizontalSpacerElement());
+            Label title = new("Underwear");
+            title.AddToClassList(_ussCommonTextLarge);
+
+            underwearColorSetter.Add(title);
+
+            underwearColorSetter.Add(new ColorSelectorElement("Main", _underwear,
+                "_Color1", _allColors, _visualOptionContainer));
+            underwearColorSetter.Add(new ColorSelectorElement("Detail", _underwear,
+                "_Color2", _allColors, _visualOptionContainer));
         }
 
         void AddArmorColorSetter()
@@ -112,30 +144,17 @@ namespace Lis.HeroCreation
             VisualElement armorColorSetter = new();
             _colorContainer.Add(armorColorSetter);
             armorColorSetter.Add(new HorizontalSpacerElement());
-            armorColorSetter.Add(new Label("Armor"));
+            Label title = new("Armor");
+            title.AddToClassList(_ussCommonTextLarge);
 
-            armorColorSetter.Add(CreateColorSwatches("Main: ", _armor, "_Color1"));
-            armorColorSetter.Add(CreateColorSwatches("Detail: ", _armor, "_Color2"));
-            armorColorSetter.Add(CreateColorSwatches("Detail: ", _armor, "_Color3"));
-        }
+            armorColorSetter.Add(title);
 
-        VisualElement CreateColorSwatches(string title, Material mat, string colorName)
-        {
-            VisualElement colorContainer = new();
-
-            colorContainer.style.flexDirection = FlexDirection.Row;
-            colorContainer.style.width = Length.Percent(100);
-            colorContainer.style.justifyContent = Justify.FlexEnd;
-            Label titleLabel = new($"{title}: ");
-            colorContainer.Add(titleLabel);
-            foreach (Color c in _allColors)
-            {
-                ColorSwatch colorSwatch = new(c);
-                colorSwatch.OnSelected += color => { mat.SetColor(colorName, color); };
-                colorContainer.Add(colorSwatch);
-            }
-
-            return colorContainer;
+            armorColorSetter.Add(new ColorSelectorElement("Main", _armor,
+                "_Color1", _allColors, _visualOptionContainer));
+            armorColorSetter.Add(new ColorSelectorElement("Detail", _armor,
+                "_Color2", _allColors, _visualOptionContainer));
+            armorColorSetter.Add(new ColorSelectorElement("Detail", _armor,
+                "_Color3", _allColors, _visualOptionContainer));
         }
     }
 }
