@@ -21,6 +21,6 @@
         <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; width: 45%; height: 90%; position: absolute; left: 5%; top: 5%; padding-top: 32px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;); -unity-background-scale-mode: scale-and-crop;">
             <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="customizationScrollView" />
         </ui:VisualElement>
-        <ui:VisualElement name="buttonContainer" style="flex-grow: 1; position: absolute; bottom: 5%; right: 5%;" />
+        <ui:VisualElement name="buttonContainer" style="flex-grow: 1; position: absolute; bottom: 5%; right: 5%; align-items: center;" />
     </ui:VisualElement>
 </ui:UXML>

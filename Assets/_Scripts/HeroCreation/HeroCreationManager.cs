@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Lis.Core;
 using Lis.Units.Hero.Items;
 using UnityEngine;
@@ -8,15 +9,23 @@ namespace Lis.HeroCreation
 {
     public class HeroCreationManager : MonoBehaviour
     {
+        const string _ussCommonButton = "common__button";
         const string _ussCommonTextLarge = "common__text-large";
         const string _ussCommonTextVeryLarge = "common__text-very-large";
 
         const string _ussClassName = "hero-creation__";
         const string _ussSetterTitle = _ussClassName + "setter-title";
         const string _ussSetterContainer = _ussClassName + "setter-container";
+        const string _ussIcon = _ussClassName + "icon";
+        const string _ussRotateLeft = _ussClassName + "icon-rotate-left";
+        const string _ussRotateRight = _ussClassName + "icon-rotate-right";
+        const string _ussFace = _ussClassName + "icon-face";
+        const string _ussBody = _ussClassName + "icon-body";
+
 
         CameraManager _cameraManager;
 
+        [SerializeField] Transform _heroTransform;
         [SerializeField] ItemSetter _itemSetter;
 
         readonly Dictionary<ItemType, List<Item>> _itemDictionary = new();
@@ -24,7 +33,7 @@ namespace Lis.HeroCreation
         VisualElement _root;
         VisualElement _visualOptionContainer;
         ScrollView _customizationScrollView;
-        VisualElement _colorContainer;
+        VisualElement _buttonContainer;
 
         List<Color> _allColors = new();
 
@@ -38,6 +47,7 @@ namespace Lis.HeroCreation
             _root = GetComponent<UIDocument>().rootVisualElement;
             _visualOptionContainer = _root.Q<VisualElement>("visualOptionContainer");
             _customizationScrollView = _root.Q<ScrollView>("customizationScrollView");
+            _buttonContainer = _root.Q<VisualElement>("buttonContainer");
         }
 
         void Start()
@@ -53,7 +63,45 @@ namespace Lis.HeroCreation
             AddHairSetters();
             AddUnderwearSetters();
             AddArmorSetters();
+
+            AddUiButtons();
         }
+
+        void AddUiButtons()
+        {
+            MyButton zoomOnHeadButton = new("", _ussIcon, () => _cameraManager.LookAtHead());
+            MyButton zoomOnBodyButton = new("", _ussIcon, () => _cameraManager.LookAtDefault());
+            MyButton rotateHeroLeft = new("", _ussIcon, RotateLeft);
+            MyButton rotateHeroRight = new("", _ussIcon, RotateRight);
+
+            zoomOnHeadButton.AddToClassList(_ussFace);
+            zoomOnBodyButton.AddToClassList(_ussBody);
+            rotateHeroLeft.AddToClassList(_ussRotateLeft);
+            rotateHeroRight.AddToClassList(_ussRotateRight);
+
+            _buttonContainer.Add(zoomOnHeadButton);
+            _buttonContainer.Add(zoomOnBodyButton);
+
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+
+            container.Add(rotateHeroLeft);
+            container.Add(rotateHeroRight);
+            _buttonContainer.Add(container);
+        }
+
+        void RotateLeft()
+        {
+            Vector3 newRot = _heroTransform.localRotation.eulerAngles + new Vector3(0, 45, 0);
+            _heroTransform.DOLocalRotate(newRot, 0.3f);
+        }
+
+        void RotateRight()
+        {
+            Vector3 newRot = _heroTransform.localRotation.eulerAngles + new Vector3(0, -45, 0);
+            _heroTransform.DOLocalRotate(newRot, 0.3f);
+        }
+
 
         void SortItems()
         {

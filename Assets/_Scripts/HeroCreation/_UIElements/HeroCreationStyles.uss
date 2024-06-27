@@ -17,3 +17,24 @@
     margin-bottom: 16px;
     margin-top: 16px;
 }
+
+.hero-creation__icon {
+    width: 59px;
+    height: 50px;
+}
+
+.hero-creation__icon-rotate-left {
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Hero%20Creator/fightJoy_06.png?fileID=2800000&guid=3ab7a427feba11a44bceb9db29a89f11&type=3#fightJoy_06");
+}
+
+.hero-creation__icon-rotate-right {
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Hero%20Creator/fightJoy_07.png?fileID=2800000&guid=69fe244153fc19c4dbc8af578ec8ffe6&type=3#fightJoy_07");
+}
+
+.hero-creation__icon-face {
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Hero%20Creator/arrowUp.png?fileID=2800000&guid=d57a1553e7fccb6439f8fdfbf4190807&type=3#arrowUp");
+}
+
+.hero-creation__icon-body {
+    background-image: url("project://database/Assets/Art/Core/_Sprites/Hero%20Creator/arrowDown.png?fileID=2800000&guid=8505e5fa02a16a04baf93550b7615223&type=3#arrowDown");
+}

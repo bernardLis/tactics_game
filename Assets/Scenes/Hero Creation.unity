@@ -1083,6 +1083,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &386346331257917800 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7891116793473260633, guid: 0a603fcc8468615449a75cdf8fbad776, type: 3}
+  m_PrefabInstance: {fileID: 8897645765661021670}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &777397659523000154
 Transform:
   m_ObjectHideFlags: 0
@@ -1220,6 +1225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cdc998caa5fe24cac7b5d32f992daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _heroTransform: {fileID: 386346331257917800}
   _itemSetter: {fileID: 386346331257917793}
   _hair: {fileID: 2100000, guid: 8774a357cbddb3242b775c5730a9eb99, type: 2}
   _body: {fileID: 2100000, guid: 926af4c9d06dbae4fb2b8bd36d84aa95, type: 2}
@@ -1237,8 +1243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aaf0c7df5824b0ca481aec787bd5962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultLookAt: {fileID: 0}
-  _headLookAt: {fileID: 0}
   _defaultVirtualCamera: {fileID: 337417809}
   _headVirtualCamera: {fileID: 1654521074}
 --- !u!1001 &8897645765661021670
