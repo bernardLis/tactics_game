@@ -28,11 +28,28 @@ namespace Lis.Core
         public Tablet[] HeroTablets;
         [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
 
+        /* FEMALE */
         [SerializeField] Item[] _allFemaleHeroOutfits;
-        public List<Item> GetAllFemaleHeroOutfits => _allFemaleHeroOutfits.ToList();
+
+        public List<Item> GetAllFemaleHeroOutfits()
+        {
+            return _allFemaleHeroOutfits.ToList();
+        }
 
         [SerializeField] Item[] _allFemaleHeroArmor;
         public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
+
+        /* MALE */
+        [SerializeField] Item[] _allMaleHeroOutfits;
+
+        public List<Item> GetAllMaleHeroOutfits()
+        {
+            return _allMaleHeroOutfits.ToList();
+        }
+
+        [SerializeField] Item[] _allMaleHeroArmor;
+        public List<Item> GetAllMaleHeroArmor => _allMaleHeroArmor.ToList();
+
 
         [SerializeField] Color[] _heroCustomizationColors;
         public List<Color> GetAllHeroCustomizationColors() => _heroCustomizationColors.ToList();

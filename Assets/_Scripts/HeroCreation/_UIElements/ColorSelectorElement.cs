@@ -13,7 +13,6 @@ namespace Lis.HeroCreation
         const string _ussColorContainer = _ussClassName + "color-container";
         const string _ussSelectColorButton = _ussClassName + "select-color-button";
 
-
         readonly VisualElement _pickerParent;
         readonly Material _material;
         readonly string _propertyName;

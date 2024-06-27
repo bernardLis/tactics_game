@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Name: Base No Beard
+  m_EditorClassIdentifier: 
+  Id: b7c77213-710c-4c2d-8b88-a80bb83d73c7
+  ItemType: 6
+  ArmorType: 1
+  ItemMeshRenderer: {fileID: 6459899690996479538, guid: 75371266a2247864aa06da32e585ed69, type: 3}
+  DisableHair: 0
+  DisableBeard: 0
+  DisableMustache: 0

@@ -1,70 +1,106 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
-using Lis.Units.Hero.Items;
+using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.HeroCreation
 {
-    public class HeroCreationManager : MonoBehaviour
+    public class HeroCreationManager : Singleton<HeroCreationManager>
     {
-        const string _ussCommonButton = "common__button";
-        const string _ussCommonTextLarge = "common__text-large";
         const string _ussCommonTextVeryLarge = "common__text-very-large";
+        const string _ussCommonButtonArrow = "common__button-arrow";
 
         const string _ussClassName = "hero-creation__";
-        const string _ussSetterTitle = _ussClassName + "setter-title";
-        const string _ussSetterContainer = _ussClassName + "setter-container";
         const string _ussIcon = _ussClassName + "icon";
         const string _ussRotateLeft = _ussClassName + "icon-rotate-left";
         const string _ussRotateRight = _ussClassName + "icon-rotate-right";
         const string _ussFace = _ussClassName + "icon-face";
         const string _ussBody = _ussClassName + "icon-body";
 
-
+        GameManager _gameManager;
         CameraManager _cameraManager;
 
-        [SerializeField] Transform _heroTransform;
-        [SerializeField] ItemSetter _itemSetter;
+        [SerializeField] ItemDisplayer _femaleHero;
+        [SerializeField] ItemDisplayer _maleHero;
 
-        readonly Dictionary<ItemType, List<Item>> _itemDictionary = new();
+        ItemDisplayer _currentHero;
 
-        VisualElement _root;
+        public VisualElement Root;
         VisualElement _visualOptionContainer;
         ScrollView _customizationScrollView;
         VisualElement _buttonContainer;
 
-        List<Color> _allColors = new();
+        Label _currentBodyLabel;
 
-        [SerializeField] Material _hair;
-        [SerializeField] Material _body;
-        [SerializeField] Material _underwear;
-        [SerializeField] Material _armor;
-
-        void Awake()
+        protected override void Awake()
         {
-            _root = GetComponent<UIDocument>().rootVisualElement;
-            _visualOptionContainer = _root.Q<VisualElement>("visualOptionContainer");
-            _customizationScrollView = _root.Q<ScrollView>("customizationScrollView");
-            _buttonContainer = _root.Q<VisualElement>("buttonContainer");
+            base.Awake();
+
+            Root = GetComponent<UIDocument>().rootVisualElement;
+            _visualOptionContainer = Root.Q<VisualElement>("visualOptionContainer");
+            _customizationScrollView = Root.Q<ScrollView>("customizationScrollView");
+            _buttonContainer = Root.Q<VisualElement>("buttonContainer");
         }
 
         void Start()
         {
-            _allColors = GameManager.Instance.UnitDatabase.GetAllHeroCustomizationColors();
+            _gameManager = GameManager.Instance;
+
             _cameraManager = GetComponent<CameraManager>();
             _cameraManager.LookAtDefault();
 
-            SortItems();
             AddTitle();
 
-            AddBodySetters();
-            AddHairSetters();
-            AddUnderwearSetters();
-            AddArmorSetters();
+            AddBodyItems(_customizationScrollView);
+            InitializeBodies();
 
             AddUiButtons();
+        }
+
+        void InitializeBodies()
+        {
+            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits());
+            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits());
+
+            _currentHero = _femaleHero;
+            _femaleHero.Activate();
+        }
+
+        void AddBodyItems(VisualElement parent)
+        {
+            VisualElement container = new();
+            container.AddToClassList("item-selector-element__main");
+            parent.Add(container);
+
+            MyButton previousButton = new("<", _ussCommonButtonArrow, ChangeBody);
+            MyButton nextButton = new(">", _ussCommonButtonArrow, ChangeBody);
+            container.Add(previousButton);
+
+            _currentBodyLabel = new("Body Type 0");
+            _currentBodyLabel.style.fontSize = 26;
+            container.Add(_currentBodyLabel);
+
+            container.Add(nextButton);
+        }
+
+        void ChangeBody()
+        {
+            if (_currentHero == _femaleHero)
+            {
+                _femaleHero.Deactivate();
+                _maleHero.Activate();
+                _currentBodyLabel.text = "Body Type 1";
+                _currentHero = _maleHero;
+
+                return;
+            }
+
+            _maleHero.Deactivate();
+            _femaleHero.Activate();
+            _currentHero = _femaleHero;
+
+            _currentBodyLabel.text = "Body Type 0";
         }
 
         void AddUiButtons()
@@ -92,25 +128,14 @@ namespace Lis.HeroCreation
 
         void RotateLeft()
         {
-            Vector3 newRot = _heroTransform.localRotation.eulerAngles + new Vector3(0, 45, 0);
-            _heroTransform.DOLocalRotate(newRot, 0.3f);
+            Vector3 newRot = _currentHero.transform.localRotation.eulerAngles + new Vector3(0, 45, 0);
+            _currentHero.transform.DOLocalRotate(newRot, 0.3f);
         }
 
         void RotateRight()
         {
-            Vector3 newRot = _heroTransform.localRotation.eulerAngles + new Vector3(0, -45, 0);
-            _heroTransform.DOLocalRotate(newRot, 0.3f);
-        }
-
-
-        void SortItems()
-        {
-            foreach (Item item in GameManager.Instance.UnitDatabase.GetAllFemaleHeroOutfits)
-            {
-                if (!_itemDictionary.ContainsKey(item.ItemType))
-                    _itemDictionary[item.ItemType] = new();
-                _itemDictionary[item.ItemType].Add(item);
-            }
+            Vector3 newRot = _currentHero.transform.localRotation.eulerAngles + new Vector3(0, -45, 0);
+            _currentHero.transform.DOLocalRotate(newRot, 0.3f);
         }
 
         void AddTitle()
@@ -119,154 +144,6 @@ namespace Lis.HeroCreation
             title.AddToClassList(_ussCommonTextVeryLarge);
             _visualOptionContainer.Insert(0, title);
             _visualOptionContainer.Insert(1, new HorizontalSpacerElement());
-        }
-
-        void AddBodySetters()
-        {
-            VisualElement bodyContainer = new();
-            bodyContainer.AddToClassList(_ussSetterContainer);
-            _customizationScrollView.Add(bodyContainer);
-
-            Label title = new("Body");
-            title.AddToClassList(_ussCommonTextLarge);
-            title.AddToClassList(_ussSetterTitle);
-            bodyContainer.Add(title);
-
-            AddBodyItems(bodyContainer);
-            AddBodyColor(bodyContainer);
-        }
-
-        void AddHairSetters()
-        {
-            VisualElement hairContainer = new();
-            hairContainer.AddToClassList(_ussSetterContainer);
-            _customizationScrollView.Add(hairContainer);
-
-            Label title = new("Hair");
-            title.AddToClassList(_ussCommonTextLarge);
-            title.AddToClassList(_ussSetterTitle);
-            hairContainer.Add(title);
-
-            AddHairItems(hairContainer);
-            AddHairColor(hairContainer);
-        }
-
-        void AddUnderwearSetters()
-        {
-            VisualElement underwearContainer = new();
-            underwearContainer.AddToClassList(_ussSetterContainer);
-            _customizationScrollView.Add(underwearContainer);
-
-            Label title = new("Underwear");
-            title.AddToClassList(_ussCommonTextLarge);
-            title.AddToClassList(_ussSetterTitle);
-            underwearContainer.Add(title);
-
-            AddUnderwearItems(underwearContainer);
-            AddUnderWearColor(underwearContainer);
-        }
-
-        void AddArmorSetters()
-        {
-            VisualElement armorContainer = new();
-            armorContainer.AddToClassList(_ussSetterContainer);
-            _customizationScrollView.Add(armorContainer);
-
-            Label title = new("Armor");
-            title.AddToClassList(_ussCommonTextLarge);
-            title.AddToClassList(_ussSetterTitle);
-            armorContainer.Add(title);
-
-            AddArmorItems(armorContainer);
-            AddArmorColor(armorContainer);
-        }
-
-        void AddBodyItems(VisualElement parent)
-        {
-            // TODO: choose body type
-        }
-
-        void AddBodyColor(VisualElement parent)
-        {
-            parent.Add(new ColorSelectorElement("Skin", _body,
-                "_Color1", _allColors, _visualOptionContainer));
-
-            ColorSelectorElement eyeElement = new("Eye", _body,
-                "_Color2", _allColors, _visualOptionContainer);
-            ColorSelectorElement eyebrowElement = new("Eyebrow", _body,
-                "_Color3", _allColors, _visualOptionContainer);
-
-            eyeElement.OnColorPickerShowed += _cameraManager.LookAtHead;
-            eyebrowElement.OnColorPickerShowed += _cameraManager.LookAtHead;
-
-            eyeElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
-            eyebrowElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
-
-            parent.Add(eyeElement);
-            parent.Add(eyebrowElement);
-        }
-
-        void AddHairItems(VisualElement parent)
-        {
-            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
-            {
-                if (item.Key is not (ItemType.Hair or ItemType.Beard or ItemType.Mustache)) continue;
-
-                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
-                parent.Add(itemSelectorElement);
-            }
-        }
-
-
-        void AddHairColor(VisualElement parent)
-        {
-            parent.Add(new ColorSelectorElement("Main", _hair,
-                "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _hair,
-                "_Color2", _allColors, _visualOptionContainer));
-        }
-
-        void AddUnderwearItems(VisualElement parent)
-        {
-            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
-            {
-                if (item.Key is not (ItemType.Underwear or ItemType.Brassiere)) continue;
-
-                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
-                parent.Add(itemSelectorElement);
-            }
-        }
-
-        void AddUnderWearColor(VisualElement parent)
-        {
-            parent.Add(new ColorSelectorElement("Main", _underwear,
-                "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _underwear,
-                "_Color2", _allColors, _visualOptionContainer));
-        }
-
-
-        void AddArmorItems(VisualElement parent)
-        {
-            foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
-            {
-                if (item.Key is not (ItemType.Helmet or
-                    ItemType.Shoulders or ItemType.Torso or ItemType.Waist
-                    or ItemType.Legs)) continue;
-
-                ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
-                parent.Add(itemSelectorElement);
-            }
-        }
-
-        void AddArmorColor(VisualElement parent)
-        {
-            parent.Add(new ColorSelectorElement("Main", _armor,
-                "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _armor,
-                "_Color2", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _armor,
-                "_Color3", _allColors, _visualOptionContainer));
         }
     }
 }

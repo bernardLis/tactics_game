@@ -14,7 +14,6 @@ namespace Lis.HeroCreation
         const string _ussOdd = _ussClassName + "odd";
         const string _ussEven = _ussClassName + "even";
 
-
         readonly ItemSetter _itemSetter;
         readonly ItemType _itemType;
         readonly List<Item> _items;

@@ -15,6 +15,9 @@ namespace Lis.HeroCreation
 
         [SerializeField] ItemRenderer[] _itemRenderers;
         SkinnedMeshRenderer _hairRenderer;
+        SkinnedMeshRenderer _beardRenderer;
+        SkinnedMeshRenderer _mustacheRenderer;
+
         SkinnedMeshRenderer _brassiereRenderer;
 
         public void Start()
@@ -23,6 +26,10 @@ namespace Lis.HeroCreation
             {
                 if (itemRenderer.ItemType == ItemType.Hair)
                     _hairRenderer = itemRenderer.Renderer;
+                if (itemRenderer.ItemType == ItemType.Beard)
+                    _beardRenderer = itemRenderer.Renderer;
+                if (itemRenderer.ItemType == ItemType.Mustache)
+                    _mustacheRenderer = itemRenderer.Renderer;
                 if (itemRenderer.ItemType == ItemType.Brassiere)
                     _brassiereRenderer = itemRenderer.Renderer;
             }
@@ -36,6 +43,7 @@ namespace Lis.HeroCreation
             foreach (ItemRenderer itemRenderer in _itemRenderers)
             {
                 if (itemRenderer.ItemType != newItem.ItemType) continue;
+                Debug.Log($"Setting item {newItem.ItemType} to {newItem.name}");
                 itemRenderer.Renderer.sharedMesh = newItem.ItemMeshRenderer.sharedMesh;
                 itemRenderer.Renderer.sharedMaterials = newItem.ItemMeshRenderer.sharedMaterials;
             }
@@ -55,8 +63,14 @@ namespace Lis.HeroCreation
 
         void HandleHair(Item newItem)
         {
-            if (_hairRenderer == null) return;
-            _hairRenderer.enabled = !newItem.DisableHair;
+            if (_hairRenderer == null)
+                _hairRenderer.enabled = !newItem.DisableHair;
+
+            if (_beardRenderer == null)
+                _beardRenderer.enabled = !newItem.DisableHair;
+
+            if (_mustacheRenderer != null)
+                _mustacheRenderer.enabled = !newItem.DisableHair;
         }
 
         public void SetColor(ItemType itemType, Color color)

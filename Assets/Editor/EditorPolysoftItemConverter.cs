@@ -11,6 +11,112 @@ namespace Editor
 {
     public class EditorPolysoftItemConverter : MonoBehaviour
     {
+        [MenuItem("Utilities/Polysoft Male Items Converter")]
+        static void ConvertMaleItems()
+        {
+            ConvertMaleArmor();
+            ConvertMaleHair();
+            ConvertMaleUnderwear();
+            ConvertMaleOutfit();
+        }
+
+        static void ConvertMaleArmor()
+        {
+            string itemPath = "Assets/_Scripts/Units/Hero/Items/_ScriptableObjects/Male/Armor";
+
+            string path =
+                "Assets/Plugins/Models/Modular RPG Character Polyart/Modular Character Male/Items/Armor";
+            string[] files = Directory.GetFiles(path, "*.asset", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                polysoft_Item polysoftItem = AssetDatabase.LoadAssetAtPath<polysoft_Item>(file);
+
+                // create a new item
+                Item newItem = ScriptableObject.CreateInstance<Item>();
+
+                newItem.ItemType = (ItemType)(int)polysoftItem.itemType;
+                newItem.ArmorType = (ArmorType)(int)polysoftItem.armorType;
+                newItem.DisableHair = polysoftItem.disableHair;
+                newItem.DisableBeard = polysoftItem.disableBeard;
+                newItem.DisableMustache = polysoftItem.disableMustache;
+
+                newItem.ItemMeshRenderer = polysoftItem.ItemMeshRenderer;
+                AssetDatabase.CreateAsset(newItem, itemPath + "/" + ParseName(polysoftItem.name) + ".asset");
+                EditorUtility.SetDirty(newItem);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        static void ConvertMaleHair()
+        {
+            string itemPath = "Assets/_Scripts/Units/Hero/Items/_ScriptableObjects/Male/Hair";
+
+            string path =
+                "Assets/Plugins/Models/Modular RPG Character Polyart/Modular Character Male/Items/Hair";
+            string[] files = Directory.GetFiles(path, "*.asset", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                polysoft_Hair polysoftItem = AssetDatabase.LoadAssetAtPath<polysoft_Hair>(file);
+
+                // create a new item
+                Item newItem = ScriptableObject.CreateInstance<Item>();
+
+                newItem.ItemType = ParseItemTypeForHair(polysoftItem);
+                newItem.ItemMeshRenderer = polysoftItem.ItemMeshRenderer;
+                AssetDatabase.CreateAsset(newItem, itemPath + "/" + ParseName(polysoftItem.name) + ".asset");
+                EditorUtility.SetDirty(newItem);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        static void ConvertMaleUnderwear()
+        {
+            string itemPath = "Assets/_Scripts/Units/Hero/Items/_ScriptableObjects/Male/Underwear";
+            string path =
+                "Assets/Plugins/Models/Modular RPG Character Polyart/Modular Character Male/Items/Underwear";
+            string[] files = Directory.GetFiles(path, "*.asset", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                polysoft_Underwear polysoftItem = AssetDatabase.LoadAssetAtPath<polysoft_Underwear>(file);
+
+                // create a new item
+                Item newItem = ScriptableObject.CreateInstance<Item>();
+
+                newItem.ItemType = ParseItemTypeForUnderwear(polysoftItem);
+                newItem.ItemMeshRenderer = polysoftItem.ItemMeshRenderer;
+                AssetDatabase.CreateAsset(newItem, itemPath + "/" + ParseName(polysoftItem.name) + ".asset");
+                EditorUtility.SetDirty(newItem);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        static void ConvertMaleOutfit()
+        {
+            string itemPath = "Assets/_Scripts/Units/Hero/Items/_ScriptableObjects/Male/Outfit";
+            string path =
+                "Assets/Plugins/Models/Modular RPG Character Polyart/Modular Character Male/Items/Outfit";
+            string[] files = Directory.GetFiles(path, "*.asset", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                polysoft_Item polysoftItem = AssetDatabase.LoadAssetAtPath<polysoft_Item>(file);
+
+                // create a new item
+                Item newItem = ScriptableObject.CreateInstance<Item>();
+
+                newItem.ItemType = (ItemType)(int)polysoftItem.itemType;
+                newItem.ArmorType = (ArmorType)(int)polysoftItem.armorType;
+                newItem.DisableHair = polysoftItem.disableHair;
+                newItem.DisableBeard = polysoftItem.disableBeard;
+                newItem.DisableMustache = polysoftItem.disableMustache;
+
+                newItem.ItemMeshRenderer = polysoftItem.ItemMeshRenderer;
+                AssetDatabase.CreateAsset(newItem, itemPath + "/" + ParseName(polysoftItem.name) + ".asset");
+                EditorUtility.SetDirty(newItem);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        /*FEM*/
         [MenuItem("Utilities/Polysoft Female Items Converter")]
         static void ConvertFemaleItems()
         {
@@ -45,7 +151,6 @@ namespace Editor
                 EditorUtility.SetDirty(newItem);
                 AssetDatabase.SaveAssets();
             }
-
         }
 
         static void ConvertFemaleArmor()
