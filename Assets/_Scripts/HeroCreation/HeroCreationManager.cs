@@ -9,9 +9,12 @@ namespace Lis.HeroCreation
     public class HeroCreationManager : Singleton<HeroCreationManager>
     {
         const string _ussCommonTextVeryLarge = "common__text-very-large";
+        const string _ussCommonTextLarge = "common__text-large";
+
         const string _ussCommonButtonArrow = "common__button-arrow";
 
         const string _ussClassName = "hero-creation__";
+        const string _ussNameField = _ussClassName + "name-field";
         const string _ussIcon = _ussClassName + "icon";
         const string _ussRotateLeft = _ussClassName + "icon-rotate-left";
         const string _ussRotateRight = _ussClassName + "icon-rotate-right";
@@ -52,19 +55,22 @@ namespace Lis.HeroCreation
 
             AddTitle();
 
+            AddNameField();
             AddBodyItems(_customizationScrollView);
             InitializeBodies();
 
             AddUiButtons();
         }
 
-        void InitializeBodies()
-        {
-            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits());
-            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits());
 
-            _currentHero = _femaleHero;
-            _femaleHero.Activate();
+        void AddNameField()
+        {
+            TextField nameField = new();
+            nameField.value = "Tavski";
+            nameField.maxLength = 20;
+            nameField.AddToClassList(_ussNameField);
+            nameField.AddToClassList(_ussCommonTextLarge);
+            _customizationScrollView.Add(nameField);
         }
 
         void AddBodyItems(VisualElement parent)
@@ -83,6 +89,16 @@ namespace Lis.HeroCreation
 
             container.Add(nextButton);
         }
+
+        void InitializeBodies()
+        {
+            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits());
+            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits());
+
+            _currentHero = _femaleHero;
+            _femaleHero.Activate();
+        }
+
 
         void ChangeBody()
         {

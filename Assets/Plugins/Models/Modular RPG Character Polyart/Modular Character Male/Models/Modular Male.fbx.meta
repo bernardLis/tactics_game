@@ -1,2066 +1,6182 @@
 fileFormatVersion: 2
 guid: 82df85cd9bf9f784a885eccceabe7f90
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: attachBone1
-    100002: attachBone1_end
-    100004: attachBone2
-    100006: attachBone2_end
-    100008: body
-    100010: //RootNode
-    100012: breast.L
-    100014: breast.L_end
-    100016: breast.R
-    100018: breast.R_end
-    100020: f_index.01.L
-    100022: f_index.01.R
-    100024: f_index.02.L
-    100026: f_index.02.R
-    100028: f_index.03.L
-    100030: f_index.03.L_end
-    100032: f_index.03.R
-    100034: f_index.03.R_end
-    100036: f_middle.01.L
-    100038: f_middle.01.R
-    100040: f_middle.02.L
-    100042: f_middle.02.R
-    100044: f_middle.03.L
-    100046: f_middle.03.L_end
-    100048: f_middle.03.R
-    100050: f_middle.03.R_end
-    100052: f_pinky.01.L
-    100054: f_pinky.01.R
-    100056: f_pinky.02.L
-    100058: f_pinky.02.R
-    100060: f_pinky.03.L
-    100062: f_pinky.03.L_end
-    100064: f_pinky.03.R
-    100066: f_pinky.03.R_end
-    100068: f_ring.01.L
-    100070: f_ring.01.R
-    100072: f_ring.02.L
-    100074: f_ring.02.R
-    100076: f_ring.03.L
-    100078: f_ring.03.L_end
-    100080: f_ring.03.R
-    100082: f_ring.03.R_end
-    100084: foot.L
-    100086: foot.R
-    100088: forearm.L
-    100090: forearm.R
-    100092: hair01
-    100094: hair02
-    100096: hand.L
-    100098: hand.R
-    100100: head
-    100102: head 1
-    100104: heel.02.L
-    100106: heel.02.L_end
-    100108: heel.02.R
-    100110: heel.02.R_end
-    100112: legs
-    100114: metarig.001
-    100116: palm.01.L
-    100118: palm.01.R
-    100120: palm.02.L
-    100122: palm.02.R
-    100124: palm.03.L
-    100126: palm.03.R
-    100128: palm.04.L
-    100130: palm.04.R
-    100132: pants01
-    100134: pants02
-    100136: pelvis.L
-    100138: pelvis.L_end
-    100140: pelvis.R
-    100142: pelvis.R_end
-    100144: shin.L
-    100146: shin.R
-    100148: shoulder.L
-    100150: shoulder.R
-    100152: shulder.L
-    100154: shulder.L_end
-    100156: shulder.R
-    100158: shulder.R_end
-    100160: spine
-    100162: spine.001
-    100164: spine.002
-    100166: spine.003
-    100168: spine.004
-    100170: spine.005
-    100172: spine.007
-    100174: spine.008
-    100176: spine.009
-    100178: spine.010
-    100180: spine.011
-    100182: spine.011_end
-    100184: spine.012
-    100186: spine.013
-    100188: spine.014
-    100190: spine.015
-    100192: spine.016
-    100194: spine.016_end
-    100196: spine.017
-    100198: spine.018
-    100200: spine.019
-    100202: spine.019_end
-    100204: spine.020
-    100206: spine.021
-    100208: spine.022
-    100210: spine.023
-    100212: spine.023_end
-    100214: thigh.L
-    100216: thigh.R
-    100218: thighCloth0.L
-    100220: thighCloth0.R
-    100222: thighCloth1.L
-    100224: thighCloth1.R
-    100226: thighCloth2.L
-    100228: thighCloth2.R
-    100230: thighCloth3.L
-    100232: thighCloth3.R
-    100234: thighCloth4.L
-    100236: thighCloth4.L_end
-    100238: thighCloth4.R
-    100240: thighCloth4.R_end
-    100242: thumb.01.L
-    100244: thumb.01.R
-    100246: thumb.02.L
-    100248: thumb.02.R
-    100250: thumb.03.L
-    100252: thumb.03.L_end
-    100254: thumb.03.R
-    100256: thumb.03.R_end
-    100258: toe.L
-    100260: toe.L_end
-    100262: toe.R
-    100264: toe.R_end
-    100266: upper_arm.L
-    100268: upper_arm.R
-    100270: facial hair 02
-    100272: waist
-    100274: tail_1.1
-    100276: tail_1.2
-    100278: tail_1.3
-    100280: tail_1.4
-    100282: tail_1.4_end
-    100284: attachBone_1
-    100286: attachBone_1_end
-    100288: attachBone_2
-    100290: attachBone_2_end
-    100292: back_1.1
-    100294: back_1.2
-    100296: back_1.3
-    100298: back_1.3_end
-    100300: metarig
-    100302: waist_B.1
-    100304: waist_B.2
-    100306: waist_B.3
-    100308: waist_B.4
-    100310: waist_B.5
-    100312: waist_B.5_end
-    100314: waist_F.1
-    100316: waist_F.2
-    100318: waist_F.3
-    100320: waist_F.4
-    100322: waist_F.5
-    100324: waist_F.5_end
-    100326: waist_L.1
-    100328: waist_L.2
-    100330: waist_L.3
-    100332: waist_L.4
-    100334: waist_L.5
-    100336: waist_L.5_end
-    100338: waist_R.1
-    100340: waist_R.2
-    100342: waist_R.3
-    100344: waist_R.4
-    100346: waist_R.5
-    100348: waist_R.5_end
-    100350: facial hair 01
-    100352: facial hair 03
-    100354: facial hair 04
-    100356: facial hair 05
-    100358: hair03
-    100360: hair04
-    100362: hair05
-    100364: hair06
-    100366: hair07
-    100368: hair08
-    100370: cloth Body 01
-    100372: cloth Body 02
-    100374: cloth Body 03
-    100376: cloth Helm 01
-    100378: cloth Helm 02
-    100380: cloth Helm 02_B
-    100382: cloth Helm 03
-    100384: cloth Helm 03_B
-    100386: cloth Legs 01
-    100388: cloth Legs 02
-    100390: cloth Legs 03
-    100392: cloth Shoulders 01
-    100394: cloth Shoulders 02
-    100396: cloth Shoulders 03
-    100398: cloth Waist 01
-    100400: cloth Waist 02
-    100402: cloth Waist 03
-    100404: f Beard 01
-    100406: f Beard 02
-    100408: f Beard 03
-    100410: f Beard 04
-    100412: f Beard 05
-    100414: f Beard 06
-    100416: f mustache 01
-    100418: f mustache 02
-    100420: f mustache 03
-    100422: f mustache 04
-    100424: f mustache 05
-    100426: hair09
-    100428: leather Body 01
-    100430: leather Body 02
-    100432: leather Body 03
-    100434: leather Body 04
-    100436: leather Helm 01
-    100438: leather Helm 02
-    100440: leather Helm 03
-    100442: leather Helm 04
-    100444: leather Legs 01
-    100446: leather Legs 02
-    100448: leather Legs 03
-    100450: leather Legs 04
-    100452: leather Shoulders 01
-    100454: leather Shoulders 02
-    100456: leather Shoulders 03
-    100458: leather Shoulders 04
-    100460: leather Waist 01
-    100462: leather Waist 02
-    100464: leather Waist 03
-    100466: leather Waist 04
-    100468: object01
-    100470: outfit body 1
-    100472: outfit body 2
-    100474: outfit body 3
-    100476: outfit body 4
-    100478: outfit body 5
-    100480: outfit body 5_A
-    100482: outfit head 1
-    100484: outfit head 2
-    100486: outfit head 3
-    100488: outfit head 5
-    100490: outfit legs 1
-    100492: outfit legs 2
-    100494: outfit legs 3
-    100496: outfit legs 4
-    100498: outfit legs 5
-    100500: plate Body 01
-    100502: plate Body 02
-    100504: plate Body 03
-    100506: plate Body 04
-    100508: plate Body 05
-    100510: plate Body 06
-    100512: plate Body 07
-    100514: plate Helm 01
-    100516: plate Helm 02
-    100518: plate Helm 03
-    100520: plate Helm 04
-    100522: plate Helm 05
-    100524: plate Helm 06
-    100526: plate Helm 07
-    100528: plate Legs 01
-    100530: plate Legs 02
-    100532: plate Legs 03
-    100534: plate Legs 04
-    100536: plate Legs 05
-    100538: plate Legs 06
-    100540: plate Legs 07
-    100542: plate Shoulders 01
-    100544: plate Shoulders 02
-    100546: plate Shoulders 03
-    100548: plate Shoulders 04
-    100550: plate Shoulders 05
-    100552: plate Shoulders 06
-    100554: plate Shoulders 07
-    100556: plate Waist 01
-    100558: plate Waist 02
-    100560: plate Waist 03
-    100562: plate Waist 04
-    100564: plate Waist 05
-    100566: plate Waist 06
-    100568: plate Waist 07
-    100570: cloth Body 04
-    100572: cloth Body 05
-    100574: cloth Helm 04
-    100576: cloth Helm 05
-    100578: cloth Legs 04
-    100580: cloth Legs 05
-    100582: cloth Shoulders 04
-    100584: cloth Shoulders 05
-    100586: cloth Shoulders 05 A
-    100588: cloth Waist 04
-    100590: cloth Waist 05
-    100592: f Beard 07
-    100594: f mustache 06
-    100596: f mustache 07
-    100598: hair10
-    100600: hair11
-    100602: hair12
-    100604: leather Body 05
-    100606: leather Helm 05
-    100608: leather Legs 05
-    100610: leather Shoulders 05
-    100612: leather Waist 05
-    100614: full
-    100616: hair00
-    100618: beard_01
-    100620: beard_02
-    100622: beard_03
-    100624: beard_03_end
-    100626: helmet_1
-    100628: helmet_2
-    100630: helmet_3
-    100632: helmet_4
-    100634: helmet_4_end
-    100636: MH_armor_cloth_01_helmet
-    100638: MH_armor_cloth_01_legs
-    100640: MH_armor_cloth_01_shoulders
-    100642: MH_armor_cloth_01_torso
-    100644: MH_armor_cloth_01_waist
-    100646: MH_base_body_head
-    100648: MH_beard_10
-    100650: MH_mustache_08
-    100652: mustache_1.L
-    100654: mustache_1.R
-    100656: mustache_2.L
-    100658: mustache_2.L_end
-    100660: mustache_2.R
-    100662: mustache_2.R_end
-    100664: tail_2.1
-    100666: tail_2.2
-    100668: tail_2.3
-    100670: tail_2.4
-    100672: tail_2.5
-    100674: tail_2.5_end
-    100676: MH_hair_14
-    100678: MH_armor_cloth_03_torso
-    100680: MH_beard_08
-    100682: MH_hair_15
-    100684: MH_mustache_09
-    100686: MH_armor_cloth_03_legs
-    100688: MH_armor_cloth_03_shoulders
-    100690: MH_armor_cloth_03_waist
-    100692: back_1.4
-    100694: MH_base_beard
-    100696: MH_base_body_legs
-    100698: MH_base_body_torso
-    100700: MH_base_hair
-    100702: MH_base_mustache
-    100704: MH_base_pants
-    100706: MH_base_waist
-    100708: MH_base_body_shoulders
-    100710: MH_armor_cloth_02_helmet
-    100712: MH_armor_cloth_02_helmetB
-    100714: MH_armor_cloth_02_legs
-    100716: MH_armor_cloth_02_shoulders
-    100718: MH_armor_cloth_02_torso
-    100720: MH_armor_cloth_02_waist
-    100722: MH_armor_cloth_03_helmet
-    100724: MH_armor_cloth_03_helmetB
-    100726: MH_armor_cloth_04_helmet
-    100728: MH_armor_cloth_04_legs
-    100730: MH_armor_cloth_04_shoulders
-    100732: MH_armor_cloth_04_torso
-    100734: MH_armor_cloth_04_waist
-    100736: MH_armor_cloth_05_helmet
-    100738: MH_armor_cloth_05_legs
-    100740: MH_armor_cloth_05_shoulders
-    100742: MH_armor_cloth_05_shouldersB
-    100744: MH_armor_cloth_05_torso
-    100746: MH_armor_cloth_05_waist
-    100748: MH_armor_leather_01_body
-    100750: MH_armor_leather_01_helmet
-    100752: MH_armor_leather_01_legs
-    100754: MH_armor_leather_01_shoulders
-    100756: MH_armor_leather_01_waist
-    100758: MH_armor_leather_02_body
-    100760: MH_armor_leather_02_helmet
-    100762: MH_armor_leather_02_legs
-    100764: MH_armor_leather_02_shoulders
-    100766: MH_armor_leather_02_waist
-    100768: MH_armor_leather_03_body
-    100770: MH_armor_leather_03_helmet
-    100772: MH_armor_leather_03_legs
-    100774: MH_armor_leather_03_shoulders
-    100776: MH_armor_leather_03_waist
-    100778: MH_armor_leather_04_body
-    100780: MH_armor_leather_04_helmet
-    100782: MH_armor_leather_04_legs
-    100784: MH_armor_leather_04_shoulders
-    100786: MH_armor_leather_04_waist
-    100788: MH_armor_leather_05_body
-    100790: MH_armor_leather_05_helmet
-    100792: MH_armor_leather_05_legs
-    100794: MH_armor_leather_05_shoulders
-    100796: MH_armor_leather_05_waist
-    100798: MH_armor_plate_01_helmet
-    100800: MH_armor_plate_01_legs
-    100802: MH_armor_plate_01_shoulders
-    100804: MH_armor_plate_01_torso
-    100806: MH_armor_plate_01_waist
-    100808: MH_armor_plate_02_helmet
-    100810: MH_armor_plate_02_legs
-    100812: MH_armor_plate_02_shoulders
-    100814: MH_armor_plate_02_torso
-    100816: MH_armor_plate_02_waist
-    100818: MH_armor_plate_03_helmet
-    100820: MH_armor_plate_03_legs
-    100822: MH_armor_plate_03_shoulders
-    100824: MH_armor_plate_03_torso
-    100826: MH_armor_plate_03_waist
-    100828: MH_armor_plate_04_helmet
-    100830: MH_armor_plate_04_legs
-    100832: MH_armor_plate_04_shoulders
-    100834: MH_armor_plate_04_torso
-    100836: MH_armor_plate_04_waist
-    100838: MH_armor_plate_05_helmet
-    100840: MH_armor_plate_05_legs
-    100842: MH_armor_plate_05_shoulders
-    100844: MH_armor_plate_05_torso
-    100846: MH_armor_plate_05_waist
-    100848: MH_armor_plate_06_helmet
-    100850: MH_armor_plate_06_legs
-    100852: MH_armor_plate_06_shoulders
-    100854: MH_armor_plate_06_torso
-    100856: MH_armor_plate_06_waist
-    100858: MH_armor_plate_07_helmet
-    100860: MH_armor_plate_07_legs
-    100862: MH_armor_plate_07_shoulders
-    100864: MH_armor_plate_07_torso
-    100866: MH_armor_plate_07_waist
-    100868: MH_beard_01
-    100870: MH_beard_02
-    100872: MH_beard_03
-    100874: MH_beard_04
-    100876: MH_beard_05
-    100878: MH_beard_06
-    100880: MH_beard_07
-    100882: MH_beard_09
-    100884: MH_hair_01
-    100886: MH_hair_02
-    100888: MH_hair_03
-    100890: MH_hair_04
-    100892: MH_hair_05
-    100894: MH_hair_06
-    100896: MH_hair_07
-    100898: MH_hair_08
-    100900: MH_hair_09
-    100902: MH_hair_10
-    100904: MH_hair_11
-    100906: MH_hair_12
-    100908: MH_hair_13
-    100910: MH_mustache_01
-    100912: MH_mustache_02
-    100914: MH_mustache_03
-    100916: MH_mustache_04
-    100918: MH_mustache_05
-    100920: MH_mustache_06
-    100922: MH_mustache_07
-    100924: MH_mustache_10
-    100926: MH_mustache_11
-    100928: MH_outfit_head_01
-    100930: MH_outfit_head_02
-    100932: MH_outfit_head_03
-    100934: MH_outfit_head_05
-    100936: MH_outfit_legs_01
-    100938: MH_outfit_legs_02
-    100940: MH_outfit_legs_03
-    100942: MH_outfit_legs_04
-    100944: MH_outfit_legs_05
-    100946: MH_outfit_torso_01
-    100948: MH_outfit_torso_02
-    100950: MH_outfit_torso_03
-    100952: MH_outfit_torso_04
-    100954: MH_outfit_torso_05
-    100956: MH_outfit_torso_05B
-    100958: MH_underwear_pants_01
-    100960: MH_underwear_pants_02
-    100962: MH_underwear_pants_03
-    100964: MH_armor_leather_01_torso
-    100966: MH_armor_leather_02_torso
-    100968: MH_armor_leather_03_torso
-    100970: MH_armor_leather_04_torso
-    100972: MH_armor_leather_05_torso
-    100974: MH_armor_cloth_06_torso
-    100976: mustache_1.L.001
-    100978: mustache_1.R.001
-    100980: mustache_2.L.001
-    100982: mustache_2.R.001
-    100984: mustache_1_1.L
-    100986: mustache_1_1.R
-    100988: mustache_1_2.L
-    100990: mustache_1_2.R
-    100992: MH_armor_cloth_06_legs
-    100994: MH_armor_cloth_06_shoulders
-    100996: MH_armor_cloth_06_waist
-    100998: neck
-    101000: MH_armor_cloth_06_helmet
-    101002: MH_armor_leather_06_helmet
-    101004: MH_armor_leather_06_legs
-    101006: MH_armor_leather_06_shoulders
-    101008: MH_armor_leather_06_torso
-    101010: MH_armor_leather_06_waist
-    101012: MH_beard_11
-    101014: MH_beard_12
-    101016: MH_mustache_12
-    101018: MH_armor_leather_07_helmet
-    101020: MH_armor_leather_07_legs
-    101022: MH_armor_leather_07_shoulders
-    101024: MH_armor_leather_07_torso
-    101026: MH_armor_leather_07_waist
-    101028: MH_armor_cloth_07_helmet
-    101030: MH_armor_cloth_07_legs
-    101032: MH_armor_cloth_07_shoulders
-    101034: MH_armor_cloth_07_torso
-    101036: MH_armor_cloth_07_waist
-    101038: MH_beard_13
-    101040: MH_beard_14
-    101042: MH_beard_15
-    101044: MH_hair_16
-    101046: MH_hair_17
-    101048: MH_hair_18
-    101050: MH_hair_19
-    101052: MH_mustache_13
-    101054: MH_mustache_14
-    101056: MH_mustache_15
-    101058: MH_mustache_16
-    400000: attachBone1
-    400002: attachBone1_end
-    400004: attachBone2
-    400006: attachBone2_end
-    400008: //RootNode
-    400010: body
-    400012: breast.L
-    400014: breast.L_end
-    400016: breast.R
-    400018: breast.R_end
-    400020: f_index.01.L
-    400022: f_index.01.R
-    400024: f_index.02.L
-    400026: f_index.02.R
-    400028: f_index.03.L
-    400030: f_index.03.L_end
-    400032: f_index.03.R
-    400034: f_index.03.R_end
-    400036: f_middle.01.L
-    400038: f_middle.01.R
-    400040: f_middle.02.L
-    400042: f_middle.02.R
-    400044: f_middle.03.L
-    400046: f_middle.03.L_end
-    400048: f_middle.03.R
-    400050: f_middle.03.R_end
-    400052: f_pinky.01.L
-    400054: f_pinky.01.R
-    400056: f_pinky.02.L
-    400058: f_pinky.02.R
-    400060: f_pinky.03.L
-    400062: f_pinky.03.L_end
-    400064: f_pinky.03.R
-    400066: f_pinky.03.R_end
-    400068: f_ring.01.L
-    400070: f_ring.01.R
-    400072: f_ring.02.L
-    400074: f_ring.02.R
-    400076: f_ring.03.L
-    400078: f_ring.03.L_end
-    400080: f_ring.03.R
-    400082: f_ring.03.R_end
-    400084: foot.L
-    400086: foot.R
-    400088: forearm.L
-    400090: forearm.R
-    400092: hair01
-    400094: hair02
-    400096: hand.L
-    400098: hand.R
-    400100: head
-    400102: head 1
-    400104: heel.02.L
-    400106: heel.02.L_end
-    400108: heel.02.R
-    400110: heel.02.R_end
-    400112: legs
-    400114: metarig.001
-    400116: palm.01.L
-    400118: palm.01.R
-    400120: palm.02.L
-    400122: palm.02.R
-    400124: palm.03.L
-    400126: palm.03.R
-    400128: palm.04.L
-    400130: palm.04.R
-    400132: pants01
-    400134: pants02
-    400136: pelvis.L
-    400138: pelvis.L_end
-    400140: pelvis.R
-    400142: pelvis.R_end
-    400144: shin.L
-    400146: shin.R
-    400148: shoulder.L
-    400150: shoulder.R
-    400152: shulder.L
-    400154: shulder.L_end
-    400156: shulder.R
-    400158: shulder.R_end
-    400160: spine
-    400162: spine.001
-    400164: spine.002
-    400166: spine.003
-    400168: spine.004
-    400170: spine.005
-    400172: spine.007
-    400174: spine.008
-    400176: spine.009
-    400178: spine.010
-    400180: spine.011
-    400182: spine.011_end
-    400184: spine.012
-    400186: spine.013
-    400188: spine.014
-    400190: spine.015
-    400192: spine.016
-    400194: spine.016_end
-    400196: spine.017
-    400198: spine.018
-    400200: spine.019
-    400202: spine.019_end
-    400204: spine.020
-    400206: spine.021
-    400208: spine.022
-    400210: spine.023
-    400212: spine.023_end
-    400214: thigh.L
-    400216: thigh.R
-    400218: thighCloth0.L
-    400220: thighCloth0.R
-    400222: thighCloth1.L
-    400224: thighCloth1.R
-    400226: thighCloth2.L
-    400228: thighCloth2.R
-    400230: thighCloth3.L
-    400232: thighCloth3.R
-    400234: thighCloth4.L
-    400236: thighCloth4.L_end
-    400238: thighCloth4.R
-    400240: thighCloth4.R_end
-    400242: thumb.01.L
-    400244: thumb.01.R
-    400246: thumb.02.L
-    400248: thumb.02.R
-    400250: thumb.03.L
-    400252: thumb.03.L_end
-    400254: thumb.03.R
-    400256: thumb.03.R_end
-    400258: toe.L
-    400260: toe.L_end
-    400262: toe.R
-    400264: toe.R_end
-    400266: upper_arm.L
-    400268: upper_arm.R
-    400270: facial hair 02
-    400272: waist
-    400274: tail_1.1
-    400276: tail_1.2
-    400278: tail_1.3
-    400280: tail_1.4
-    400282: tail_1.4_end
-    400284: attachBone_1
-    400286: attachBone_1_end
-    400288: attachBone_2
-    400290: attachBone_2_end
-    400292: back_1.1
-    400294: back_1.2
-    400296: back_1.3
-    400298: back_1.3_end
-    400300: metarig
-    400302: waist_B.1
-    400304: waist_B.2
-    400306: waist_B.3
-    400308: waist_B.4
-    400310: waist_B.5
-    400312: waist_B.5_end
-    400314: waist_F.1
-    400316: waist_F.2
-    400318: waist_F.3
-    400320: waist_F.4
-    400322: waist_F.5
-    400324: waist_F.5_end
-    400326: waist_L.1
-    400328: waist_L.2
-    400330: waist_L.3
-    400332: waist_L.4
-    400334: waist_L.5
-    400336: waist_L.5_end
-    400338: waist_R.1
-    400340: waist_R.2
-    400342: waist_R.3
-    400344: waist_R.4
-    400346: waist_R.5
-    400348: waist_R.5_end
-    400350: facial hair 01
-    400352: facial hair 03
-    400354: facial hair 04
-    400356: facial hair 05
-    400358: hair03
-    400360: hair04
-    400362: hair05
-    400364: hair06
-    400366: hair07
-    400368: hair08
-    400370: cloth Body 01
-    400372: cloth Body 02
-    400374: cloth Body 03
-    400376: cloth Helm 01
-    400378: cloth Helm 02
-    400380: cloth Helm 02_B
-    400382: cloth Helm 03
-    400384: cloth Helm 03_B
-    400386: cloth Legs 01
-    400388: cloth Legs 02
-    400390: cloth Legs 03
-    400392: cloth Shoulders 01
-    400394: cloth Shoulders 02
-    400396: cloth Shoulders 03
-    400398: cloth Waist 01
-    400400: cloth Waist 02
-    400402: cloth Waist 03
-    400404: f Beard 01
-    400406: f Beard 02
-    400408: f Beard 03
-    400410: f Beard 04
-    400412: f Beard 05
-    400414: f Beard 06
-    400416: f mustache 01
-    400418: f mustache 02
-    400420: f mustache 03
-    400422: f mustache 04
-    400424: f mustache 05
-    400426: hair09
-    400428: leather Body 01
-    400430: leather Body 02
-    400432: leather Body 03
-    400434: leather Body 04
-    400436: leather Helm 01
-    400438: leather Helm 02
-    400440: leather Helm 03
-    400442: leather Helm 04
-    400444: leather Legs 01
-    400446: leather Legs 02
-    400448: leather Legs 03
-    400450: leather Legs 04
-    400452: leather Shoulders 01
-    400454: leather Shoulders 02
-    400456: leather Shoulders 03
-    400458: leather Shoulders 04
-    400460: leather Waist 01
-    400462: leather Waist 02
-    400464: leather Waist 03
-    400466: leather Waist 04
-    400468: object01
-    400470: outfit body 1
-    400472: outfit body 2
-    400474: outfit body 3
-    400476: outfit body 4
-    400478: outfit body 5
-    400480: outfit body 5_A
-    400482: outfit head 1
-    400484: outfit head 2
-    400486: outfit head 3
-    400488: outfit head 5
-    400490: outfit legs 1
-    400492: outfit legs 2
-    400494: outfit legs 3
-    400496: outfit legs 4
-    400498: outfit legs 5
-    400500: plate Body 01
-    400502: plate Body 02
-    400504: plate Body 03
-    400506: plate Body 04
-    400508: plate Body 05
-    400510: plate Body 06
-    400512: plate Body 07
-    400514: plate Helm 01
-    400516: plate Helm 02
-    400518: plate Helm 03
-    400520: plate Helm 04
-    400522: plate Helm 05
-    400524: plate Helm 06
-    400526: plate Helm 07
-    400528: plate Legs 01
-    400530: plate Legs 02
-    400532: plate Legs 03
-    400534: plate Legs 04
-    400536: plate Legs 05
-    400538: plate Legs 06
-    400540: plate Legs 07
-    400542: plate Shoulders 01
-    400544: plate Shoulders 02
-    400546: plate Shoulders 03
-    400548: plate Shoulders 04
-    400550: plate Shoulders 05
-    400552: plate Shoulders 06
-    400554: plate Shoulders 07
-    400556: plate Waist 01
-    400558: plate Waist 02
-    400560: plate Waist 03
-    400562: plate Waist 04
-    400564: plate Waist 05
-    400566: plate Waist 06
-    400568: plate Waist 07
-    400570: cloth Body 04
-    400572: cloth Body 05
-    400574: cloth Helm 04
-    400576: cloth Helm 05
-    400578: cloth Legs 04
-    400580: cloth Legs 05
-    400582: cloth Shoulders 04
-    400584: cloth Shoulders 05
-    400586: cloth Shoulders 05 A
-    400588: cloth Waist 04
-    400590: cloth Waist 05
-    400592: f Beard 07
-    400594: f mustache 06
-    400596: f mustache 07
-    400598: hair10
-    400600: hair11
-    400602: hair12
-    400604: leather Body 05
-    400606: leather Helm 05
-    400608: leather Legs 05
-    400610: leather Shoulders 05
-    400612: leather Waist 05
-    400614: full
-    400616: hair00
-    400618: beard_01
-    400620: beard_02
-    400622: beard_03
-    400624: beard_03_end
-    400626: helmet_1
-    400628: helmet_2
-    400630: helmet_3
-    400632: helmet_4
-    400634: helmet_4_end
-    400636: MH_armor_cloth_01_helmet
-    400638: MH_armor_cloth_01_legs
-    400640: MH_armor_cloth_01_shoulders
-    400642: MH_armor_cloth_01_torso
-    400644: MH_armor_cloth_01_waist
-    400646: MH_base_body_head
-    400648: MH_beard_10
-    400650: MH_mustache_08
-    400652: mustache_1.L
-    400654: mustache_1.R
-    400656: mustache_2.L
-    400658: mustache_2.L_end
-    400660: mustache_2.R
-    400662: mustache_2.R_end
-    400664: tail_2.1
-    400666: tail_2.2
-    400668: tail_2.3
-    400670: tail_2.4
-    400672: tail_2.5
-    400674: tail_2.5_end
-    400676: MH_hair_14
-    400678: MH_armor_cloth_03_torso
-    400680: MH_beard_08
-    400682: MH_hair_15
-    400684: MH_mustache_09
-    400686: MH_armor_cloth_03_legs
-    400688: MH_armor_cloth_03_shoulders
-    400690: MH_armor_cloth_03_waist
-    400692: back_1.4
-    400694: MH_base_beard
-    400696: MH_base_body_legs
-    400698: MH_base_body_torso
-    400700: MH_base_hair
-    400702: MH_base_mustache
-    400704: MH_base_pants
-    400706: MH_base_waist
-    400708: MH_base_body_shoulders
-    400710: MH_armor_cloth_02_helmet
-    400712: MH_armor_cloth_02_helmetB
-    400714: MH_armor_cloth_02_legs
-    400716: MH_armor_cloth_02_shoulders
-    400718: MH_armor_cloth_02_torso
-    400720: MH_armor_cloth_02_waist
-    400722: MH_armor_cloth_03_helmet
-    400724: MH_armor_cloth_03_helmetB
-    400726: MH_armor_cloth_04_helmet
-    400728: MH_armor_cloth_04_legs
-    400730: MH_armor_cloth_04_shoulders
-    400732: MH_armor_cloth_04_torso
-    400734: MH_armor_cloth_04_waist
-    400736: MH_armor_cloth_05_helmet
-    400738: MH_armor_cloth_05_legs
-    400740: MH_armor_cloth_05_shoulders
-    400742: MH_armor_cloth_05_shouldersB
-    400744: MH_armor_cloth_05_torso
-    400746: MH_armor_cloth_05_waist
-    400748: MH_armor_leather_01_body
-    400750: MH_armor_leather_01_helmet
-    400752: MH_armor_leather_01_legs
-    400754: MH_armor_leather_01_shoulders
-    400756: MH_armor_leather_01_waist
-    400758: MH_armor_leather_02_body
-    400760: MH_armor_leather_02_helmet
-    400762: MH_armor_leather_02_legs
-    400764: MH_armor_leather_02_shoulders
-    400766: MH_armor_leather_02_waist
-    400768: MH_armor_leather_03_body
-    400770: MH_armor_leather_03_helmet
-    400772: MH_armor_leather_03_legs
-    400774: MH_armor_leather_03_shoulders
-    400776: MH_armor_leather_03_waist
-    400778: MH_armor_leather_04_body
-    400780: MH_armor_leather_04_helmet
-    400782: MH_armor_leather_04_legs
-    400784: MH_armor_leather_04_shoulders
-    400786: MH_armor_leather_04_waist
-    400788: MH_armor_leather_05_body
-    400790: MH_armor_leather_05_helmet
-    400792: MH_armor_leather_05_legs
-    400794: MH_armor_leather_05_shoulders
-    400796: MH_armor_leather_05_waist
-    400798: MH_armor_plate_01_helmet
-    400800: MH_armor_plate_01_legs
-    400802: MH_armor_plate_01_shoulders
-    400804: MH_armor_plate_01_torso
-    400806: MH_armor_plate_01_waist
-    400808: MH_armor_plate_02_helmet
-    400810: MH_armor_plate_02_legs
-    400812: MH_armor_plate_02_shoulders
-    400814: MH_armor_plate_02_torso
-    400816: MH_armor_plate_02_waist
-    400818: MH_armor_plate_03_helmet
-    400820: MH_armor_plate_03_legs
-    400822: MH_armor_plate_03_shoulders
-    400824: MH_armor_plate_03_torso
-    400826: MH_armor_plate_03_waist
-    400828: MH_armor_plate_04_helmet
-    400830: MH_armor_plate_04_legs
-    400832: MH_armor_plate_04_shoulders
-    400834: MH_armor_plate_04_torso
-    400836: MH_armor_plate_04_waist
-    400838: MH_armor_plate_05_helmet
-    400840: MH_armor_plate_05_legs
-    400842: MH_armor_plate_05_shoulders
-    400844: MH_armor_plate_05_torso
-    400846: MH_armor_plate_05_waist
-    400848: MH_armor_plate_06_helmet
-    400850: MH_armor_plate_06_legs
-    400852: MH_armor_plate_06_shoulders
-    400854: MH_armor_plate_06_torso
-    400856: MH_armor_plate_06_waist
-    400858: MH_armor_plate_07_helmet
-    400860: MH_armor_plate_07_legs
-    400862: MH_armor_plate_07_shoulders
-    400864: MH_armor_plate_07_torso
-    400866: MH_armor_plate_07_waist
-    400868: MH_beard_01
-    400870: MH_beard_02
-    400872: MH_beard_03
-    400874: MH_beard_04
-    400876: MH_beard_05
-    400878: MH_beard_06
-    400880: MH_beard_07
-    400882: MH_beard_09
-    400884: MH_hair_01
-    400886: MH_hair_02
-    400888: MH_hair_03
-    400890: MH_hair_04
-    400892: MH_hair_05
-    400894: MH_hair_06
-    400896: MH_hair_07
-    400898: MH_hair_08
-    400900: MH_hair_09
-    400902: MH_hair_10
-    400904: MH_hair_11
-    400906: MH_hair_12
-    400908: MH_hair_13
-    400910: MH_mustache_01
-    400912: MH_mustache_02
-    400914: MH_mustache_03
-    400916: MH_mustache_04
-    400918: MH_mustache_05
-    400920: MH_mustache_06
-    400922: MH_mustache_07
-    400924: MH_mustache_10
-    400926: MH_mustache_11
-    400928: MH_outfit_head_01
-    400930: MH_outfit_head_02
-    400932: MH_outfit_head_03
-    400934: MH_outfit_head_05
-    400936: MH_outfit_legs_01
-    400938: MH_outfit_legs_02
-    400940: MH_outfit_legs_03
-    400942: MH_outfit_legs_04
-    400944: MH_outfit_legs_05
-    400946: MH_outfit_torso_01
-    400948: MH_outfit_torso_02
-    400950: MH_outfit_torso_03
-    400952: MH_outfit_torso_04
-    400954: MH_outfit_torso_05
-    400956: MH_outfit_torso_05B
-    400958: MH_underwear_pants_01
-    400960: MH_underwear_pants_02
-    400962: MH_underwear_pants_03
-    400964: MH_armor_leather_01_torso
-    400966: MH_armor_leather_02_torso
-    400968: MH_armor_leather_03_torso
-    400970: MH_armor_leather_04_torso
-    400972: MH_armor_leather_05_torso
-    400974: MH_armor_cloth_06_torso
-    400976: mustache_1.L.001
-    400978: mustache_1.R.001
-    400980: mustache_2.L.001
-    400982: mustache_2.R.001
-    400984: mustache_1_1.L
-    400986: mustache_1_1.R
-    400988: mustache_1_2.L
-    400990: mustache_1_2.R
-    400992: MH_armor_cloth_06_legs
-    400994: MH_armor_cloth_06_shoulders
-    400996: MH_armor_cloth_06_waist
-    400998: neck
-    401000: MH_armor_cloth_06_helmet
-    401002: MH_armor_leather_06_helmet
-    401004: MH_armor_leather_06_legs
-    401006: MH_armor_leather_06_shoulders
-    401008: MH_armor_leather_06_torso
-    401010: MH_armor_leather_06_waist
-    401012: MH_beard_11
-    401014: MH_beard_12
-    401016: MH_mustache_12
-    401018: MH_armor_leather_07_helmet
-    401020: MH_armor_leather_07_legs
-    401022: MH_armor_leather_07_shoulders
-    401024: MH_armor_leather_07_torso
-    401026: MH_armor_leather_07_waist
-    401028: MH_armor_cloth_07_helmet
-    401030: MH_armor_cloth_07_legs
-    401032: MH_armor_cloth_07_shoulders
-    401034: MH_armor_cloth_07_torso
-    401036: MH_armor_cloth_07_waist
-    401038: MH_beard_13
-    401040: MH_beard_14
-    401042: MH_beard_15
-    401044: MH_hair_16
-    401046: MH_hair_17
-    401048: MH_hair_18
-    401050: MH_hair_19
-    401052: MH_mustache_13
-    401054: MH_mustache_14
-    401056: MH_mustache_15
-    401058: MH_mustache_16
-    2100000: colors
-    2100002: body
-    2100004: hair
-    2100006: pants
-    2100008: armor
-    2100010: underwear
-    2300000: object01
-    2300002: MH_armor_cloth_01_helmet
-    2300004: MH_armor_cloth_01_legs
-    2300006: MH_armor_cloth_01_shoulders
-    2300008: MH_armor_cloth_01_torso
-    2300010: MH_armor_cloth_01_waist
-    2300012: MH_base_body_head
-    2300014: MH_beard_10
-    2300016: MH_mustache_08
-    2300018: MH_armor_cloth_03_torso
-    2300020: MH_hair_14
-    2300022: MH_armor_cloth_06_torso
-    2300024: MH_armor_cloth_06_legs
-    2300026: MH_base_beard
-    2300028: MH_base_body_legs
-    2300030: MH_base_body_shoulders
-    2300032: MH_base_body_torso
-    2300034: MH_base_hair
-    2300036: MH_base_mustache
-    2300038: MH_base_pants
-    2300040: MH_base_waist
-    2300042: MH_armor_cloth_02_helmet
-    2300044: MH_armor_cloth_02_helmetB
-    2300046: MH_armor_cloth_02_legs
-    2300048: MH_armor_cloth_02_shoulders
-    2300050: MH_armor_cloth_02_torso
-    2300052: MH_armor_cloth_02_waist
-    2300054: MH_armor_cloth_03_helmet
-    2300056: MH_armor_cloth_03_helmetB
-    2300058: MH_armor_cloth_03_legs
-    2300060: MH_armor_cloth_03_shoulders
-    2300062: MH_armor_cloth_03_waist
-    2300064: MH_armor_cloth_04_helmet
-    2300066: MH_armor_cloth_04_legs
-    2300068: MH_armor_cloth_04_shoulders
-    2300070: MH_armor_cloth_04_torso
-    2300072: MH_armor_cloth_04_waist
-    2300074: MH_armor_cloth_05_helmet
-    2300076: MH_armor_cloth_05_legs
-    2300078: MH_armor_cloth_05_shoulders
-    2300080: MH_armor_cloth_05_shouldersB
-    2300082: MH_armor_cloth_05_torso
-    2300084: MH_armor_cloth_05_waist
-    2300086: MH_armor_cloth_06_helmet
-    2300088: MH_armor_cloth_06_shoulders
-    2300090: MH_armor_cloth_06_waist
-    2300092: MH_armor_leather_01_helmet
-    2300094: MH_armor_leather_01_legs
-    2300096: MH_armor_leather_01_shoulders
-    2300098: MH_armor_leather_01_torso
-    2300100: MH_armor_leather_01_waist
-    2300102: MH_armor_leather_02_helmet
-    2300104: MH_armor_leather_02_legs
-    2300106: MH_armor_leather_02_shoulders
-    2300108: MH_armor_leather_02_torso
-    2300110: MH_armor_leather_02_waist
-    2300112: MH_armor_leather_03_helmet
-    2300114: MH_armor_leather_03_legs
-    2300116: MH_armor_leather_03_shoulders
-    2300118: MH_armor_leather_03_torso
-    2300120: MH_armor_leather_03_waist
-    2300122: MH_armor_leather_04_helmet
-    2300124: MH_armor_leather_04_legs
-    2300126: MH_armor_leather_04_shoulders
-    2300128: MH_armor_leather_04_torso
-    2300130: MH_armor_leather_04_waist
-    2300132: MH_armor_leather_05_helmet
-    2300134: MH_armor_leather_05_legs
-    2300136: MH_armor_leather_05_shoulders
-    2300138: MH_armor_leather_05_torso
-    2300140: MH_armor_leather_05_waist
-    2300142: MH_armor_leather_06_helmet
-    2300144: MH_armor_leather_06_legs
-    2300146: MH_armor_leather_06_shoulders
-    2300148: MH_armor_leather_06_torso
-    2300150: MH_armor_leather_06_waist
-    2300152: MH_armor_plate_01_helmet
-    2300154: MH_armor_plate_01_legs
-    2300156: MH_armor_plate_01_shoulders
-    2300158: MH_armor_plate_01_torso
-    2300160: MH_armor_plate_01_waist
-    2300162: MH_armor_plate_02_helmet
-    2300164: MH_armor_plate_02_legs
-    2300166: MH_armor_plate_02_shoulders
-    2300168: MH_armor_plate_02_torso
-    2300170: MH_armor_plate_02_waist
-    2300172: MH_armor_plate_03_helmet
-    2300174: MH_armor_plate_03_legs
-    2300176: MH_armor_plate_03_shoulders
-    2300178: MH_armor_plate_03_torso
-    2300180: MH_armor_plate_03_waist
-    2300182: MH_armor_plate_04_helmet
-    2300184: MH_armor_plate_04_legs
-    2300186: MH_armor_plate_04_shoulders
-    2300188: MH_armor_plate_04_torso
-    2300190: MH_armor_plate_04_waist
-    2300192: MH_armor_plate_05_helmet
-    2300194: MH_armor_plate_05_legs
-    2300196: MH_armor_plate_05_shoulders
-    2300198: MH_armor_plate_05_torso
-    2300200: MH_armor_plate_05_waist
-    2300202: MH_armor_plate_06_helmet
-    2300204: MH_armor_plate_06_legs
-    2300206: MH_armor_plate_06_shoulders
-    2300208: MH_armor_plate_06_torso
-    2300210: MH_armor_plate_06_waist
-    2300212: MH_armor_plate_07_helmet
-    2300214: MH_armor_plate_07_legs
-    2300216: MH_armor_plate_07_shoulders
-    2300218: MH_armor_plate_07_torso
-    2300220: MH_armor_plate_07_waist
-    2300222: MH_beard_01
-    2300224: MH_beard_02
-    2300226: MH_beard_03
-    2300228: MH_beard_04
-    2300230: MH_beard_05
-    2300232: MH_beard_06
-    2300234: MH_beard_07
-    2300236: MH_beard_08
-    2300238: MH_beard_09
-    2300240: MH_hair_01
-    2300242: MH_hair_02
-    2300244: MH_hair_03
-    2300246: MH_hair_04
-    2300248: MH_hair_05
-    2300250: MH_hair_06
-    2300252: MH_hair_07
-    2300254: MH_hair_08
-    2300256: MH_hair_09
-    2300258: MH_hair_10
-    2300260: MH_hair_11
-    2300262: MH_hair_12
-    2300264: MH_hair_13
-    2300266: MH_hair_15
-    2300268: MH_mustache_01
-    2300270: MH_mustache_02
-    2300272: MH_mustache_03
-    2300274: MH_mustache_04
-    2300276: MH_mustache_05
-    2300278: MH_mustache_06
-    2300280: MH_mustache_07
-    2300282: MH_mustache_09
-    2300284: MH_mustache_10
-    2300286: MH_mustache_11
-    2300288: MH_outfit_head_01
-    2300290: MH_outfit_head_02
-    2300292: MH_outfit_head_03
-    2300294: MH_outfit_head_05
-    2300296: MH_outfit_legs_01
-    2300298: MH_outfit_legs_02
-    2300300: MH_outfit_legs_03
-    2300302: MH_outfit_legs_04
-    2300304: MH_outfit_legs_05
-    2300306: MH_outfit_torso_01
-    2300308: MH_outfit_torso_02
-    2300310: MH_outfit_torso_03
-    2300312: MH_outfit_torso_04
-    2300314: MH_outfit_torso_05
-    2300316: MH_outfit_torso_05B
-    2300318: MH_underwear_pants_01
-    2300320: MH_underwear_pants_02
-    2300322: MH_underwear_pants_03
-    3300000: object01
-    3300002: MH_armor_cloth_01_helmet
-    3300004: MH_armor_cloth_01_legs
-    3300006: MH_armor_cloth_01_shoulders
-    3300008: MH_armor_cloth_01_torso
-    3300010: MH_armor_cloth_01_waist
-    3300012: MH_base_body_head
-    3300014: MH_beard_10
-    3300016: MH_mustache_08
-    3300018: MH_armor_cloth_03_torso
-    3300020: MH_hair_14
-    3300022: MH_armor_cloth_06_torso
-    3300024: MH_armor_cloth_06_legs
-    3300026: MH_base_beard
-    3300028: MH_base_body_legs
-    3300030: MH_base_body_shoulders
-    3300032: MH_base_body_torso
-    3300034: MH_base_hair
-    3300036: MH_base_mustache
-    3300038: MH_base_pants
-    3300040: MH_base_waist
-    3300042: MH_armor_cloth_02_helmet
-    3300044: MH_armor_cloth_02_helmetB
-    3300046: MH_armor_cloth_02_legs
-    3300048: MH_armor_cloth_02_shoulders
-    3300050: MH_armor_cloth_02_torso
-    3300052: MH_armor_cloth_02_waist
-    3300054: MH_armor_cloth_03_helmet
-    3300056: MH_armor_cloth_03_helmetB
-    3300058: MH_armor_cloth_03_legs
-    3300060: MH_armor_cloth_03_shoulders
-    3300062: MH_armor_cloth_03_waist
-    3300064: MH_armor_cloth_04_helmet
-    3300066: MH_armor_cloth_04_legs
-    3300068: MH_armor_cloth_04_shoulders
-    3300070: MH_armor_cloth_04_torso
-    3300072: MH_armor_cloth_04_waist
-    3300074: MH_armor_cloth_05_helmet
-    3300076: MH_armor_cloth_05_legs
-    3300078: MH_armor_cloth_05_shoulders
-    3300080: MH_armor_cloth_05_shouldersB
-    3300082: MH_armor_cloth_05_torso
-    3300084: MH_armor_cloth_05_waist
-    3300086: MH_armor_cloth_06_helmet
-    3300088: MH_armor_cloth_06_shoulders
-    3300090: MH_armor_cloth_06_waist
-    3300092: MH_armor_leather_01_helmet
-    3300094: MH_armor_leather_01_legs
-    3300096: MH_armor_leather_01_shoulders
-    3300098: MH_armor_leather_01_torso
-    3300100: MH_armor_leather_01_waist
-    3300102: MH_armor_leather_02_helmet
-    3300104: MH_armor_leather_02_legs
-    3300106: MH_armor_leather_02_shoulders
-    3300108: MH_armor_leather_02_torso
-    3300110: MH_armor_leather_02_waist
-    3300112: MH_armor_leather_03_helmet
-    3300114: MH_armor_leather_03_legs
-    3300116: MH_armor_leather_03_shoulders
-    3300118: MH_armor_leather_03_torso
-    3300120: MH_armor_leather_03_waist
-    3300122: MH_armor_leather_04_helmet
-    3300124: MH_armor_leather_04_legs
-    3300126: MH_armor_leather_04_shoulders
-    3300128: MH_armor_leather_04_torso
-    3300130: MH_armor_leather_04_waist
-    3300132: MH_armor_leather_05_helmet
-    3300134: MH_armor_leather_05_legs
-    3300136: MH_armor_leather_05_shoulders
-    3300138: MH_armor_leather_05_torso
-    3300140: MH_armor_leather_05_waist
-    3300142: MH_armor_leather_06_helmet
-    3300144: MH_armor_leather_06_legs
-    3300146: MH_armor_leather_06_shoulders
-    3300148: MH_armor_leather_06_torso
-    3300150: MH_armor_leather_06_waist
-    3300152: MH_armor_plate_01_helmet
-    3300154: MH_armor_plate_01_legs
-    3300156: MH_armor_plate_01_shoulders
-    3300158: MH_armor_plate_01_torso
-    3300160: MH_armor_plate_01_waist
-    3300162: MH_armor_plate_02_helmet
-    3300164: MH_armor_plate_02_legs
-    3300166: MH_armor_plate_02_shoulders
-    3300168: MH_armor_plate_02_torso
-    3300170: MH_armor_plate_02_waist
-    3300172: MH_armor_plate_03_helmet
-    3300174: MH_armor_plate_03_legs
-    3300176: MH_armor_plate_03_shoulders
-    3300178: MH_armor_plate_03_torso
-    3300180: MH_armor_plate_03_waist
-    3300182: MH_armor_plate_04_helmet
-    3300184: MH_armor_plate_04_legs
-    3300186: MH_armor_plate_04_shoulders
-    3300188: MH_armor_plate_04_torso
-    3300190: MH_armor_plate_04_waist
-    3300192: MH_armor_plate_05_helmet
-    3300194: MH_armor_plate_05_legs
-    3300196: MH_armor_plate_05_shoulders
-    3300198: MH_armor_plate_05_torso
-    3300200: MH_armor_plate_05_waist
-    3300202: MH_armor_plate_06_helmet
-    3300204: MH_armor_plate_06_legs
-    3300206: MH_armor_plate_06_shoulders
-    3300208: MH_armor_plate_06_torso
-    3300210: MH_armor_plate_06_waist
-    3300212: MH_armor_plate_07_helmet
-    3300214: MH_armor_plate_07_legs
-    3300216: MH_armor_plate_07_shoulders
-    3300218: MH_armor_plate_07_torso
-    3300220: MH_armor_plate_07_waist
-    3300222: MH_beard_01
-    3300224: MH_beard_02
-    3300226: MH_beard_03
-    3300228: MH_beard_04
-    3300230: MH_beard_05
-    3300232: MH_beard_06
-    3300234: MH_beard_07
-    3300236: MH_beard_08
-    3300238: MH_beard_09
-    3300240: MH_hair_01
-    3300242: MH_hair_02
-    3300244: MH_hair_03
-    3300246: MH_hair_04
-    3300248: MH_hair_05
-    3300250: MH_hair_06
-    3300252: MH_hair_07
-    3300254: MH_hair_08
-    3300256: MH_hair_09
-    3300258: MH_hair_10
-    3300260: MH_hair_11
-    3300262: MH_hair_12
-    3300264: MH_hair_13
-    3300266: MH_hair_15
-    3300268: MH_mustache_01
-    3300270: MH_mustache_02
-    3300272: MH_mustache_03
-    3300274: MH_mustache_04
-    3300276: MH_mustache_05
-    3300278: MH_mustache_06
-    3300280: MH_mustache_07
-    3300282: MH_mustache_09
-    3300284: MH_mustache_10
-    3300286: MH_mustache_11
-    3300288: MH_outfit_head_01
-    3300290: MH_outfit_head_02
-    3300292: MH_outfit_head_03
-    3300294: MH_outfit_head_05
-    3300296: MH_outfit_legs_01
-    3300298: MH_outfit_legs_02
-    3300300: MH_outfit_legs_03
-    3300302: MH_outfit_legs_04
-    3300304: MH_outfit_legs_05
-    3300306: MH_outfit_torso_01
-    3300308: MH_outfit_torso_02
-    3300310: MH_outfit_torso_03
-    3300312: MH_outfit_torso_04
-    3300314: MH_outfit_torso_05
-    3300316: MH_outfit_torso_05B
-    3300318: MH_underwear_pants_01
-    3300320: MH_underwear_pants_02
-    3300322: MH_underwear_pants_03
-    4300000: hair01
-    4300002: hair02
-    4300004: head
-    4300006: legs
-    4300008: pants01
-    4300010: pants02
-    4300012: body
-    4300014: facial hair 02
-    4300016: waist
-    4300018: hair03
-    4300020: hair04
-    4300022: hair05
-    4300024: hair06
-    4300026: hair07
-    4300028: hair08
-    4300030: facial hair 01
-    4300032: facial hair 03
-    4300034: facial hair 04
-    4300036: facial hair 05
-    4300038: plate Body 01
-    4300040: plate Legs 01
-    4300042: plate Waist 01
-    4300044: plate Helm 01
-    4300046: leather Body 01
-    4300048: cloth Helm 01
-    4300050: leather Helm 01
-    4300052: leather Legs 01
-    4300054: leather Waist 01
-    4300056: plate Helm 02
-    4300058: plate Body 02
-    4300060: plate Waist 02
-    4300062: plate Legs 02
-    4300064: cloth Body 01
-    4300066: cloth Legs 01
-    4300068: cloth Waist 01
-    4300070: leather Body 02
-    4300072: plate Waist 07
-    4300074: leather Legs 02
-    4300076: leather Helm 02
-    4300078: cloth Body 02
-    4300080: cloth Helm 02_B
-    4300082: cloth Helm 02
-    4300084: cloth Legs 02
-    4300086: cloth Waist 02
-    4300088: plate Body 03
-    4300090: plate Helm 03
-    4300092: plate Legs 03
-    4300094: plate Waist 03
-    4300096: outfit body 1
-    4300098: outfit body 4
-    4300100: outfit body 2
-    4300102: outfit body 3
-    4300104: outfit body 5
-    4300106: outfit legs 3
-    4300108: outfit legs 1
-    4300110: outfit legs 4
-    4300112: outfit legs 2
-    4300114: plate Helm 04
-    4300116: plate Body 04
-    4300118: plate Legs 04
-    4300120: plate Waist 04
-    4300122: plate Helm 05
-    4300124: plate Body 05
-    4300126: plate Legs 05
-    4300128: plate Waist 05
-    4300130: plate Body 06
-    4300132: plate Legs 06
-    4300134: plate Waist 06
-    4300136: plate Helm 06
-    4300138: plate Helm 07
-    4300140: plate Body 07
-    4300142: plate Legs 07
-    4300144: leather Waist 02
-    4300146: leather Body 03
-    4300148: leather Legs 03
-    4300150: leather Helm 03
-    4300152: leather Waist 03
-    4300154: leather Body 04
-    4300156: leather Legs 04
-    4300158: leather Helm 04
-    4300160: leather Waist 04
-    4300162: cloth Body 03
-    4300164: cloth Helm 03
-    4300166: cloth Helm 03_B
-    4300168: cloth Legs 03
-    4300170: cloth Waist 03
-    4300172: outfit legs 5
-    4300174: outfit body 5_A
-    4300176: f Beard 02
-    4300178: f Beard 01
-    4300180: f Beard 03
-    4300182: f mustache 02
-    4300184: f Beard 04
-    4300186: outfit head 1
-    4300188: outfit head 2
-    4300190: outfit head 3
-    4300192: outfit head 5
-    4300194: object01
-    4300196: cloth Shoulders 02
-    4300198: cloth Shoulders 03
-    4300200: leather Shoulders 02
-    4300202: leather Shoulders 03
-    4300204: leather Shoulders 04
-    4300206: plate Shoulders 01
-    4300208: plate Shoulders 02
-    4300210: plate Shoulders 03
-    4300212: plate Shoulders 04
-    4300214: plate Shoulders 05
-    4300216: plate Shoulders 06
-    4300218: plate Shoulders 07
-    4300220: cloth Shoulders 01
-    4300222: leather Shoulders 01
-    4300224: hair09
-    4300226: f mustache 01
-    4300228: f mustache 03
-    4300230: f Beard 05
-    4300232: f mustache 04
-    4300234: f mustache 05
-    4300236: f Beard 06
-    4300238: cloth Body 04
-    4300240: cloth Shoulders 04
-    4300242: cloth Helm 04
-    4300244: cloth Legs 04
-    4300246: cloth Waist 04
-    4300248: cloth Body 05
-    4300250: cloth Helm 05
-    4300252: cloth Legs 05
-    4300254: cloth Shoulders 05
-    4300256: cloth Waist 05
-    4300258: cloth Shoulders 05 A
-    4300260: hair10
-    4300262: hair11
-    4300264: hair12
-    4300266: f Beard 07
-    4300268: f mustache 06
-    4300270: f mustache 07
-    4300272: leather Body 05
-    4300274: leather Shoulders 05
-    4300276: leather Legs 05
-    4300278: leather Waist 05
-    4300280: leather Helm 05
-    4300282: full
-    4300284: hair00
-    4300286: MH_base_body_head
-    4300288: MH_armor_cloth_01_helmet
-    4300290: MH_armor_cloth_01_torso
-    4300292: MH_armor_cloth_01_legs
-    4300294: MH_armor_cloth_01_waist
-    4300296: MH_armor_cloth_01_shoulders
-    4300298: MH_beard_10
-    4300300: MH_mustache_08
-    4300302: MH_hair_14
-    4300304: MH_armor_cloth_03_torso
-    4300306: MH_beard_08
-    4300308: MH_hair_15
-    4300310: MH_mustache_09
-    4300312: MH_armor_cloth_03_legs
-    4300314: MH_armor_cloth_03_waist
-    4300316: MH_armor_cloth_03_shoulders
-    4300318: MH_base_body_legs
-    4300320: MH_base_body_torso
-    4300322: MH_base_waist
-    4300324: MH_base_hair
-    4300326: MH_base_pants
-    4300328: MH_base_beard
-    4300330: MH_base_mustache
-    4300332: MH_base_body_shoulders
-    4300334: MH_hair_01
-    4300336: MH_hair_02
-    4300338: MH_armor_plate_01_torso
-    4300340: MH_armor_plate_01_legs
-    4300342: MH_armor_plate_01_waist
-    4300344: MH_armor_plate_01_helmet
-    4300346: MH_armor_leather_01_body
-    4300348: MH_armor_leather_01_helmet
-    4300350: MH_armor_leather_01_legs
-    4300352: MH_armor_leather_01_waist
-    4300354: MH_armor_plate_02_helmet
-    4300356: MH_armor_plate_02_torso
-    4300358: MH_armor_plate_02_waist
-    4300360: MH_armor_plate_02_legs
-    4300362: MH_underwear_pants_01
-    4300364: MH_underwear_pants_02
-    4300366: MH_armor_leather_02_body
-    4300368: MH_armor_plate_07_waist
-    4300370: MH_armor_leather_02_legs
-    4300372: MH_armor_leather_02_helmet
-    4300374: MH_armor_cloth_02_torso
-    4300376: MH_armor_cloth_02_helmetB
-    4300378: MH_armor_cloth_02_helmet
-    4300380: MH_armor_cloth_02_legs
-    4300382: MH_armor_cloth_02_waist
-    4300384: MH_armor_plate_03_torso
-    4300386: MH_armor_plate_03_helmet
-    4300388: MH_armor_plate_03_legs
-    4300390: MH_armor_plate_03_waist
-    4300392: MH_outfit_torso_01
-    4300394: MH_outfit_torso_04
-    4300396: MH_outfit_torso_02
-    4300398: MH_outfit_torso_03
-    4300400: MH_outfit_torso_05
-    4300402: MH_outfit_legs_03
-    4300404: MH_outfit_legs_01
-    4300406: MH_outfit_legs_04
-    4300408: MH_outfit_legs_02
-    4300410: MH_armor_plate_04_helmet
-    4300412: MH_armor_plate_04_torso
-    4300414: MH_armor_plate_04_legs
-    4300416: MH_armor_plate_04_waist
-    4300418: MH_armor_plate_05_helmet
-    4300420: MH_armor_plate_05_torso
-    4300422: MH_armor_plate_05_legs
-    4300424: MH_armor_plate_05_waist
-    4300426: MH_armor_plate_06_torso
-    4300428: MH_armor_plate_06_legs
-    4300430: MH_armor_plate_06_waist
-    4300432: MH_armor_plate_06_helmet
-    4300434: MH_armor_plate_07_helmet
-    4300436: MH_armor_plate_07_torso
-    4300438: MH_armor_plate_07_legs
-    4300440: MH_armor_leather_02_waist
-    4300442: MH_armor_leather_03_body
-    4300444: MH_armor_leather_03_legs
-    4300446: MH_armor_leather_03_helmet
-    4300448: MH_armor_leather_03_waist
-    4300450: MH_armor_leather_04_body
-    4300452: MH_armor_leather_04_legs
-    4300454: MH_armor_leather_04_helmet
-    4300456: MH_armor_leather_04_waist
-    4300458: MH_armor_cloth_03_helmet
-    4300460: MH_armor_cloth_03_helmetB
-    4300462: MH_outfit_legs_05
-    4300464: MH_outfit_torso_05B
-    4300466: MH_hair_03
-    4300468: MH_hair_04
-    4300470: MH_hair_05
-    4300472: MH_hair_06
-    4300474: MH_hair_07
-    4300476: MH_hair_08
-    4300478: MH_beard_02
-    4300480: MH_beard_01
-    4300482: MH_beard_03
-    4300484: MH_mustache_02
-    4300486: MH_beard_04
-    4300488: MH_outfit_head_01
-    4300490: MH_outfit_head_02
-    4300492: MH_outfit_head_03
-    4300494: MH_outfit_head_05
-    4300496: MH_armor_cloth_02_shoulders
-    4300498: MH_armor_leather_02_shoulders
-    4300500: MH_armor_leather_03_shoulders
-    4300502: MH_armor_leather_04_shoulders
-    4300504: MH_armor_plate_01_shoulders
-    4300506: MH_armor_plate_02_shoulders
-    4300508: MH_armor_plate_03_shoulders
-    4300510: MH_armor_plate_04_shoulders
-    4300512: MH_armor_plate_05_shoulders
-    4300514: MH_armor_plate_06_shoulders
-    4300516: MH_armor_plate_07_shoulders
-    4300518: MH_armor_leather_01_shoulders
-    4300520: MH_hair_09
-    4300522: MH_mustache_01
-    4300524: MH_mustache_03
-    4300526: MH_beard_05
-    4300528: MH_mustache_04
-    4300530: MH_mustache_05
-    4300532: MH_beard_06
-    4300534: MH_armor_cloth_04_torso
-    4300536: MH_armor_cloth_04_shoulders
-    4300538: MH_armor_cloth_04_helmet
-    4300540: MH_armor_cloth_04_legs
-    4300542: MH_armor_cloth_04_waist
-    4300544: MH_armor_cloth_05_torso
-    4300546: MH_armor_cloth_05_helmet
-    4300548: MH_armor_cloth_05_legs
-    4300550: MH_armor_cloth_05_shoulders
-    4300552: MH_armor_cloth_05_waist
-    4300554: MH_armor_cloth_05_shouldersB
-    4300556: MH_hair_10
-    4300558: MH_hair_11
-    4300560: MH_hair_12
-    4300562: MH_beard_07
-    4300564: MH_mustache_06
-    4300566: MH_mustache_07
-    4300568: MH_armor_leather_05_body
-    4300570: MH_armor_leather_05_shoulders
-    4300572: MH_armor_leather_05_legs
-    4300574: MH_armor_leather_05_waist
-    4300576: MH_armor_leather_05_helmet
-    4300578: MH_hair_13
-    4300580: MH_beard_09
-    4300582: MH_underwear_pants_03
-    4300584: MH_mustache_10
-    4300586: MH_mustache_11
-    4300588: MH_armor_leather_01_torso
-    4300590: MH_armor_leather_02_torso
-    4300592: MH_armor_leather_03_torso
-    4300594: MH_armor_leather_04_torso
-    4300596: MH_armor_leather_05_torso
-    4300598: MH_armor_cloth_06_torso
-    4300600: MH_armor_cloth_06_legs
-    4300602: MH_armor_cloth_06_waist
-    4300604: MH_armor_cloth_06_shoulders
-    4300606: MH_armor_cloth_06_helmet
-    4300608: MH_armor_leather_06_torso
-    4300610: MH_armor_leather_06_helmet
-    4300612: MH_armor_leather_06_legs
-    4300614: MH_armor_leather_06_shoulders
-    4300616: MH_armor_leather_06_waist
-    4300618: MH_beard_11
-    4300620: MH_beard_12
-    4300622: MH_mustache_12
-    4300624: MH_armor_leather_07_helmet
-    4300626: MH_armor_leather_07_torso
-    4300628: MH_armor_leather_07_shoulders
-    4300630: MH_armor_leather_07_legs
-    4300632: MH_armor_leather_07_waist
-    4300634: MH_armor_cloth_07_helmet
-    4300636: MH_armor_cloth_07_shoulders
-    4300638: MH_armor_cloth_07_torso
-    4300640: MH_armor_cloth_07_legs
-    4300642: MH_armor_cloth_07_waist
-    4300644: MH_hair_16
-    4300646: MH_hair_17
-    4300648: MH_mustache_13
-    4300650: MH_mustache_14
-    4300652: MH_mustache_15
-    4300654: MH_mustache_16
-    4300656: MH_hair_18
-    4300658: MH_beard_13
-    4300660: MH_beard_14
-    4300662: MH_beard_15
-    4300664: MH_hair_19
-    9500000: //RootNode
-    11100000: //RootNode
-    13700000: body
-    13700002: hair01
-    13700004: hair02
-    13700006: head
-    13700008: legs
-    13700010: pants01
-    13700012: pants02
-    13700014: facial hair 02
-    13700016: waist
-    13700018: facial hair 01
-    13700020: facial hair 03
-    13700022: facial hair 04
-    13700024: facial hair 05
-    13700026: hair03
-    13700028: hair04
-    13700030: hair05
-    13700032: hair06
-    13700034: hair07
-    13700036: hair08
-    13700038: cloth Body 01
-    13700040: cloth Body 02
-    13700042: cloth Body 03
-    13700044: cloth Helm 01
-    13700046: cloth Helm 02
-    13700048: cloth Helm 02_B
-    13700050: cloth Helm 03
-    13700052: cloth Helm 03_B
-    13700054: cloth Legs 01
-    13700056: cloth Legs 02
-    13700058: cloth Legs 03
-    13700060: cloth Shoulders 01
-    13700062: cloth Shoulders 02
-    13700064: cloth Shoulders 03
-    13700066: cloth Waist 01
-    13700068: cloth Waist 02
-    13700070: cloth Waist 03
-    13700072: f Beard 01
-    13700074: f Beard 02
-    13700076: f Beard 03
-    13700078: f Beard 04
-    13700080: f Beard 05
-    13700082: f Beard 06
-    13700084: f mustache 01
-    13700086: f mustache 02
-    13700088: f mustache 03
-    13700090: f mustache 04
-    13700092: f mustache 05
-    13700094: hair09
-    13700096: leather Body 01
-    13700098: leather Body 02
-    13700100: leather Body 03
-    13700102: leather Body 04
-    13700104: leather Helm 01
-    13700106: leather Helm 02
-    13700108: leather Helm 03
-    13700110: leather Helm 04
-    13700112: leather Legs 01
-    13700114: leather Legs 02
-    13700116: leather Legs 03
-    13700118: leather Legs 04
-    13700120: leather Shoulders 01
-    13700122: leather Shoulders 02
-    13700124: leather Shoulders 03
-    13700126: leather Shoulders 04
-    13700128: leather Waist 01
-    13700130: leather Waist 02
-    13700132: leather Waist 03
-    13700134: leather Waist 04
-    13700136: outfit body 1
-    13700138: outfit body 2
-    13700140: outfit body 3
-    13700142: outfit body 4
-    13700144: outfit body 5
-    13700146: outfit body 5_A
-    13700148: outfit head 1
-    13700150: outfit head 2
-    13700152: outfit head 3
-    13700154: outfit head 5
-    13700156: outfit legs 1
-    13700158: outfit legs 2
-    13700160: outfit legs 3
-    13700162: outfit legs 4
-    13700164: outfit legs 5
-    13700166: plate Body 01
-    13700168: plate Body 02
-    13700170: plate Body 03
-    13700172: plate Body 04
-    13700174: plate Body 05
-    13700176: plate Body 06
-    13700178: plate Body 07
-    13700180: plate Helm 01
-    13700182: plate Helm 02
-    13700184: plate Helm 03
-    13700186: plate Helm 04
-    13700188: plate Helm 05
-    13700190: plate Helm 06
-    13700192: plate Helm 07
-    13700194: plate Legs 01
-    13700196: plate Legs 02
-    13700198: plate Legs 03
-    13700200: plate Legs 04
-    13700202: plate Legs 05
-    13700204: plate Legs 06
-    13700206: plate Legs 07
-    13700208: plate Shoulders 01
-    13700210: plate Shoulders 02
-    13700212: plate Shoulders 03
-    13700214: plate Shoulders 04
-    13700216: plate Shoulders 05
-    13700218: plate Shoulders 06
-    13700220: plate Shoulders 07
-    13700222: plate Waist 01
-    13700224: plate Waist 02
-    13700226: plate Waist 03
-    13700228: plate Waist 04
-    13700230: plate Waist 05
-    13700232: plate Waist 06
-    13700234: plate Waist 07
-    13700236: cloth Body 04
-    13700238: cloth Body 05
-    13700240: cloth Helm 04
-    13700242: cloth Helm 05
-    13700244: cloth Legs 04
-    13700246: cloth Legs 05
-    13700248: cloth Shoulders 04
-    13700250: cloth Shoulders 05
-    13700252: cloth Shoulders 05 A
-    13700254: cloth Waist 04
-    13700256: cloth Waist 05
-    13700258: f Beard 07
-    13700260: f mustache 06
-    13700262: f mustache 07
-    13700264: hair10
-    13700266: hair11
-    13700268: hair12
-    13700270: leather Body 05
-    13700272: leather Helm 05
-    13700274: leather Legs 05
-    13700276: leather Shoulders 05
-    13700278: leather Waist 05
-    13700280: full
-    13700282: hair00
-    13700284: MH_armor_cloth_01_helmet
-    13700286: MH_armor_cloth_01_legs
-    13700288: MH_armor_cloth_01_shoulders
-    13700290: MH_armor_cloth_01_torso
-    13700292: MH_armor_cloth_01_waist
-    13700294: MH_base_body_head
-    13700296: MH_beard_10
-    13700298: MH_mustache_08
-    13700300: MH_hair_14
-    13700302: MH_armor_cloth_03_torso
-    13700304: MH_beard_08
-    13700306: MH_hair_15
-    13700308: MH_mustache_09
-    13700310: MH_armor_cloth_03_legs
-    13700312: MH_armor_cloth_03_shoulders
-    13700314: MH_armor_cloth_03_waist
-    13700316: MH_base_beard
-    13700318: MH_base_body_legs
-    13700320: MH_base_body_torso
-    13700322: MH_base_hair
-    13700324: MH_base_mustache
-    13700326: MH_base_pants
-    13700328: MH_base_waist
-    13700330: MH_base_body_shoulders
-    13700332: MH_armor_cloth_02_helmet
-    13700334: MH_armor_cloth_02_helmetB
-    13700336: MH_armor_cloth_02_legs
-    13700338: MH_armor_cloth_02_shoulders
-    13700340: MH_armor_cloth_02_torso
-    13700342: MH_armor_cloth_02_waist
-    13700344: MH_armor_cloth_03_helmet
-    13700346: MH_armor_cloth_03_helmetB
-    13700348: MH_armor_cloth_04_helmet
-    13700350: MH_armor_cloth_04_legs
-    13700352: MH_armor_cloth_04_shoulders
-    13700354: MH_armor_cloth_04_torso
-    13700356: MH_armor_cloth_04_waist
-    13700358: MH_armor_cloth_05_helmet
-    13700360: MH_armor_cloth_05_legs
-    13700362: MH_armor_cloth_05_shoulders
-    13700364: MH_armor_cloth_05_shouldersB
-    13700366: MH_armor_cloth_05_torso
-    13700368: MH_armor_cloth_05_waist
-    13700370: MH_armor_leather_01_body
-    13700372: MH_armor_leather_01_helmet
-    13700374: MH_armor_leather_01_legs
-    13700376: MH_armor_leather_01_shoulders
-    13700378: MH_armor_leather_01_waist
-    13700380: MH_armor_leather_02_body
-    13700382: MH_armor_leather_02_helmet
-    13700384: MH_armor_leather_02_legs
-    13700386: MH_armor_leather_02_shoulders
-    13700388: MH_armor_leather_02_waist
-    13700390: MH_armor_leather_03_body
-    13700392: MH_armor_leather_03_helmet
-    13700394: MH_armor_leather_03_legs
-    13700396: MH_armor_leather_03_shoulders
-    13700398: MH_armor_leather_03_waist
-    13700400: MH_armor_leather_04_body
-    13700402: MH_armor_leather_04_helmet
-    13700404: MH_armor_leather_04_legs
-    13700406: MH_armor_leather_04_shoulders
-    13700408: MH_armor_leather_04_waist
-    13700410: MH_armor_leather_05_body
-    13700412: MH_armor_leather_05_helmet
-    13700414: MH_armor_leather_05_legs
-    13700416: MH_armor_leather_05_shoulders
-    13700418: MH_armor_leather_05_waist
-    13700420: MH_armor_plate_01_helmet
-    13700422: MH_armor_plate_01_legs
-    13700424: MH_armor_plate_01_shoulders
-    13700426: MH_armor_plate_01_torso
-    13700428: MH_armor_plate_01_waist
-    13700430: MH_armor_plate_02_helmet
-    13700432: MH_armor_plate_02_legs
-    13700434: MH_armor_plate_02_shoulders
-    13700436: MH_armor_plate_02_torso
-    13700438: MH_armor_plate_02_waist
-    13700440: MH_armor_plate_03_helmet
-    13700442: MH_armor_plate_03_legs
-    13700444: MH_armor_plate_03_shoulders
-    13700446: MH_armor_plate_03_torso
-    13700448: MH_armor_plate_03_waist
-    13700450: MH_armor_plate_04_helmet
-    13700452: MH_armor_plate_04_legs
-    13700454: MH_armor_plate_04_shoulders
-    13700456: MH_armor_plate_04_torso
-    13700458: MH_armor_plate_04_waist
-    13700460: MH_armor_plate_05_helmet
-    13700462: MH_armor_plate_05_legs
-    13700464: MH_armor_plate_05_shoulders
-    13700466: MH_armor_plate_05_torso
-    13700468: MH_armor_plate_05_waist
-    13700470: MH_armor_plate_06_helmet
-    13700472: MH_armor_plate_06_legs
-    13700474: MH_armor_plate_06_shoulders
-    13700476: MH_armor_plate_06_torso
-    13700478: MH_armor_plate_06_waist
-    13700480: MH_armor_plate_07_helmet
-    13700482: MH_armor_plate_07_legs
-    13700484: MH_armor_plate_07_shoulders
-    13700486: MH_armor_plate_07_torso
-    13700488: MH_armor_plate_07_waist
-    13700490: MH_beard_01
-    13700492: MH_beard_02
-    13700494: MH_beard_03
-    13700496: MH_beard_04
-    13700498: MH_beard_05
-    13700500: MH_beard_06
-    13700502: MH_beard_07
-    13700504: MH_beard_09
-    13700506: MH_hair_01
-    13700508: MH_hair_02
-    13700510: MH_hair_03
-    13700512: MH_hair_04
-    13700514: MH_hair_05
-    13700516: MH_hair_06
-    13700518: MH_hair_07
-    13700520: MH_hair_08
-    13700522: MH_hair_09
-    13700524: MH_hair_10
-    13700526: MH_hair_11
-    13700528: MH_hair_12
-    13700530: MH_hair_13
-    13700532: MH_mustache_01
-    13700534: MH_mustache_02
-    13700536: MH_mustache_03
-    13700538: MH_mustache_04
-    13700540: MH_mustache_05
-    13700542: MH_mustache_06
-    13700544: MH_mustache_07
-    13700546: MH_mustache_10
-    13700548: MH_mustache_11
-    13700550: MH_outfit_head_01
-    13700552: MH_outfit_head_02
-    13700554: MH_outfit_head_03
-    13700556: MH_outfit_head_05
-    13700558: MH_outfit_legs_01
-    13700560: MH_outfit_legs_02
-    13700562: MH_outfit_legs_03
-    13700564: MH_outfit_legs_04
-    13700566: MH_outfit_legs_05
-    13700568: MH_outfit_torso_01
-    13700570: MH_outfit_torso_02
-    13700572: MH_outfit_torso_03
-    13700574: MH_outfit_torso_04
-    13700576: MH_outfit_torso_05
-    13700578: MH_outfit_torso_05B
-    13700580: MH_underwear_pants_01
-    13700582: MH_underwear_pants_02
-    13700584: MH_underwear_pants_03
-    13700586: MH_armor_leather_01_torso
-    13700588: MH_armor_leather_02_torso
-    13700590: MH_armor_leather_03_torso
-    13700592: MH_armor_leather_04_torso
-    13700594: MH_armor_leather_05_torso
-    13700596: MH_armor_cloth_06_torso
-    13700598: MH_armor_cloth_06_legs
-    13700600: MH_armor_cloth_06_shoulders
-    13700602: MH_armor_cloth_06_waist
-    13700604: MH_armor_cloth_06_helmet
-    13700606: MH_armor_leather_06_helmet
-    13700608: MH_armor_leather_06_legs
-    13700610: MH_armor_leather_06_shoulders
-    13700612: MH_armor_leather_06_torso
-    13700614: MH_armor_leather_06_waist
-    13700616: MH_beard_11
-    13700618: MH_beard_12
-    13700620: MH_mustache_12
-    13700622: MH_armor_leather_07_helmet
-    13700624: MH_armor_leather_07_legs
-    13700626: MH_armor_leather_07_shoulders
-    13700628: MH_armor_leather_07_torso
-    13700630: MH_armor_leather_07_waist
-    13700632: MH_armor_cloth_07_helmet
-    13700634: MH_armor_cloth_07_legs
-    13700636: MH_armor_cloth_07_shoulders
-    13700638: MH_armor_cloth_07_torso
-    13700640: MH_armor_cloth_07_waist
-    13700642: MH_beard_13
-    13700644: MH_beard_14
-    13700646: MH_beard_15
-    13700648: MH_hair_16
-    13700650: MH_hair_17
-    13700652: MH_hair_18
-    13700654: MH_hair_19
-    13700656: MH_mustache_13
-    13700658: MH_mustache_14
-    13700660: MH_mustache_15
-    13700662: MH_mustache_16
-    2186277476908879412: ImportLogs
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: attachBone1
+  - first:
+      1: 100002
+    second: attachBone1_end
+  - first:
+      1: 100004
+    second: attachBone2
+  - first:
+      1: 100006
+    second: attachBone2_end
+  - first:
+      1: 100008
+    second: body
+  - first:
+      1: 100010
+    second: //RootNode
+  - first:
+      1: 100012
+    second: breast.L
+  - first:
+      1: 100014
+    second: breast.L_end
+  - first:
+      1: 100016
+    second: breast.R
+  - first:
+      1: 100018
+    second: breast.R_end
+  - first:
+      1: 100020
+    second: f_index.01.L
+  - first:
+      1: 100022
+    second: f_index.01.R
+  - first:
+      1: 100024
+    second: f_index.02.L
+  - first:
+      1: 100026
+    second: f_index.02.R
+  - first:
+      1: 100028
+    second: f_index.03.L
+  - first:
+      1: 100030
+    second: f_index.03.L_end
+  - first:
+      1: 100032
+    second: f_index.03.R
+  - first:
+      1: 100034
+    second: f_index.03.R_end
+  - first:
+      1: 100036
+    second: f_middle.01.L
+  - first:
+      1: 100038
+    second: f_middle.01.R
+  - first:
+      1: 100040
+    second: f_middle.02.L
+  - first:
+      1: 100042
+    second: f_middle.02.R
+  - first:
+      1: 100044
+    second: f_middle.03.L
+  - first:
+      1: 100046
+    second: f_middle.03.L_end
+  - first:
+      1: 100048
+    second: f_middle.03.R
+  - first:
+      1: 100050
+    second: f_middle.03.R_end
+  - first:
+      1: 100052
+    second: f_pinky.01.L
+  - first:
+      1: 100054
+    second: f_pinky.01.R
+  - first:
+      1: 100056
+    second: f_pinky.02.L
+  - first:
+      1: 100058
+    second: f_pinky.02.R
+  - first:
+      1: 100060
+    second: f_pinky.03.L
+  - first:
+      1: 100062
+    second: f_pinky.03.L_end
+  - first:
+      1: 100064
+    second: f_pinky.03.R
+  - first:
+      1: 100066
+    second: f_pinky.03.R_end
+  - first:
+      1: 100068
+    second: f_ring.01.L
+  - first:
+      1: 100070
+    second: f_ring.01.R
+  - first:
+      1: 100072
+    second: f_ring.02.L
+  - first:
+      1: 100074
+    second: f_ring.02.R
+  - first:
+      1: 100076
+    second: f_ring.03.L
+  - first:
+      1: 100078
+    second: f_ring.03.L_end
+  - first:
+      1: 100080
+    second: f_ring.03.R
+  - first:
+      1: 100082
+    second: f_ring.03.R_end
+  - first:
+      1: 100084
+    second: foot.L
+  - first:
+      1: 100086
+    second: foot.R
+  - first:
+      1: 100088
+    second: forearm.L
+  - first:
+      1: 100090
+    second: forearm.R
+  - first:
+      1: 100092
+    second: hair01
+  - first:
+      1: 100094
+    second: hair02
+  - first:
+      1: 100096
+    second: hand.L
+  - first:
+      1: 100098
+    second: hand.R
+  - first:
+      1: 100100
+    second: head
+  - first:
+      1: 100102
+    second: head 1
+  - first:
+      1: 100104
+    second: heel.02.L
+  - first:
+      1: 100106
+    second: heel.02.L_end
+  - first:
+      1: 100108
+    second: heel.02.R
+  - first:
+      1: 100110
+    second: heel.02.R_end
+  - first:
+      1: 100112
+    second: legs
+  - first:
+      1: 100114
+    second: metarig.001
+  - first:
+      1: 100116
+    second: palm.01.L
+  - first:
+      1: 100118
+    second: palm.01.R
+  - first:
+      1: 100120
+    second: palm.02.L
+  - first:
+      1: 100122
+    second: palm.02.R
+  - first:
+      1: 100124
+    second: palm.03.L
+  - first:
+      1: 100126
+    second: palm.03.R
+  - first:
+      1: 100128
+    second: palm.04.L
+  - first:
+      1: 100130
+    second: palm.04.R
+  - first:
+      1: 100132
+    second: pants01
+  - first:
+      1: 100134
+    second: pants02
+  - first:
+      1: 100136
+    second: pelvis.L
+  - first:
+      1: 100138
+    second: pelvis.L_end
+  - first:
+      1: 100140
+    second: pelvis.R
+  - first:
+      1: 100142
+    second: pelvis.R_end
+  - first:
+      1: 100144
+    second: shin.L
+  - first:
+      1: 100146
+    second: shin.R
+  - first:
+      1: 100148
+    second: shoulder.L
+  - first:
+      1: 100150
+    second: shoulder.R
+  - first:
+      1: 100152
+    second: shulder.L
+  - first:
+      1: 100154
+    second: shulder.L_end
+  - first:
+      1: 100156
+    second: shulder.R
+  - first:
+      1: 100158
+    second: shulder.R_end
+  - first:
+      1: 100160
+    second: spine
+  - first:
+      1: 100162
+    second: spine.001
+  - first:
+      1: 100164
+    second: spine.002
+  - first:
+      1: 100166
+    second: spine.003
+  - first:
+      1: 100168
+    second: spine.004
+  - first:
+      1: 100170
+    second: spine.005
+  - first:
+      1: 100172
+    second: spine.007
+  - first:
+      1: 100174
+    second: spine.008
+  - first:
+      1: 100176
+    second: spine.009
+  - first:
+      1: 100178
+    second: spine.010
+  - first:
+      1: 100180
+    second: spine.011
+  - first:
+      1: 100182
+    second: spine.011_end
+  - first:
+      1: 100184
+    second: spine.012
+  - first:
+      1: 100186
+    second: spine.013
+  - first:
+      1: 100188
+    second: spine.014
+  - first:
+      1: 100190
+    second: spine.015
+  - first:
+      1: 100192
+    second: spine.016
+  - first:
+      1: 100194
+    second: spine.016_end
+  - first:
+      1: 100196
+    second: spine.017
+  - first:
+      1: 100198
+    second: spine.018
+  - first:
+      1: 100200
+    second: spine.019
+  - first:
+      1: 100202
+    second: spine.019_end
+  - first:
+      1: 100204
+    second: spine.020
+  - first:
+      1: 100206
+    second: spine.021
+  - first:
+      1: 100208
+    second: spine.022
+  - first:
+      1: 100210
+    second: spine.023
+  - first:
+      1: 100212
+    second: spine.023_end
+  - first:
+      1: 100214
+    second: thigh.L
+  - first:
+      1: 100216
+    second: thigh.R
+  - first:
+      1: 100218
+    second: thighCloth0.L
+  - first:
+      1: 100220
+    second: thighCloth0.R
+  - first:
+      1: 100222
+    second: thighCloth1.L
+  - first:
+      1: 100224
+    second: thighCloth1.R
+  - first:
+      1: 100226
+    second: thighCloth2.L
+  - first:
+      1: 100228
+    second: thighCloth2.R
+  - first:
+      1: 100230
+    second: thighCloth3.L
+  - first:
+      1: 100232
+    second: thighCloth3.R
+  - first:
+      1: 100234
+    second: thighCloth4.L
+  - first:
+      1: 100236
+    second: thighCloth4.L_end
+  - first:
+      1: 100238
+    second: thighCloth4.R
+  - first:
+      1: 100240
+    second: thighCloth4.R_end
+  - first:
+      1: 100242
+    second: thumb.01.L
+  - first:
+      1: 100244
+    second: thumb.01.R
+  - first:
+      1: 100246
+    second: thumb.02.L
+  - first:
+      1: 100248
+    second: thumb.02.R
+  - first:
+      1: 100250
+    second: thumb.03.L
+  - first:
+      1: 100252
+    second: thumb.03.L_end
+  - first:
+      1: 100254
+    second: thumb.03.R
+  - first:
+      1: 100256
+    second: thumb.03.R_end
+  - first:
+      1: 100258
+    second: toe.L
+  - first:
+      1: 100260
+    second: toe.L_end
+  - first:
+      1: 100262
+    second: toe.R
+  - first:
+      1: 100264
+    second: toe.R_end
+  - first:
+      1: 100266
+    second: upper_arm.L
+  - first:
+      1: 100268
+    second: upper_arm.R
+  - first:
+      1: 100270
+    second: facial hair 02
+  - first:
+      1: 100272
+    second: waist
+  - first:
+      1: 100274
+    second: tail_1.1
+  - first:
+      1: 100276
+    second: tail_1.2
+  - first:
+      1: 100278
+    second: tail_1.3
+  - first:
+      1: 100280
+    second: tail_1.4
+  - first:
+      1: 100282
+    second: tail_1.4_end
+  - first:
+      1: 100284
+    second: attachBone_1
+  - first:
+      1: 100286
+    second: attachBone_1_end
+  - first:
+      1: 100288
+    second: attachBone_2
+  - first:
+      1: 100290
+    second: attachBone_2_end
+  - first:
+      1: 100292
+    second: back_1.1
+  - first:
+      1: 100294
+    second: back_1.2
+  - first:
+      1: 100296
+    second: back_1.3
+  - first:
+      1: 100298
+    second: back_1.3_end
+  - first:
+      1: 100300
+    second: metarig
+  - first:
+      1: 100302
+    second: waist_B.1
+  - first:
+      1: 100304
+    second: waist_B.2
+  - first:
+      1: 100306
+    second: waist_B.3
+  - first:
+      1: 100308
+    second: waist_B.4
+  - first:
+      1: 100310
+    second: waist_B.5
+  - first:
+      1: 100312
+    second: waist_B.5_end
+  - first:
+      1: 100314
+    second: waist_F.1
+  - first:
+      1: 100316
+    second: waist_F.2
+  - first:
+      1: 100318
+    second: waist_F.3
+  - first:
+      1: 100320
+    second: waist_F.4
+  - first:
+      1: 100322
+    second: waist_F.5
+  - first:
+      1: 100324
+    second: waist_F.5_end
+  - first:
+      1: 100326
+    second: waist_L.1
+  - first:
+      1: 100328
+    second: waist_L.2
+  - first:
+      1: 100330
+    second: waist_L.3
+  - first:
+      1: 100332
+    second: waist_L.4
+  - first:
+      1: 100334
+    second: waist_L.5
+  - first:
+      1: 100336
+    second: waist_L.5_end
+  - first:
+      1: 100338
+    second: waist_R.1
+  - first:
+      1: 100340
+    second: waist_R.2
+  - first:
+      1: 100342
+    second: waist_R.3
+  - first:
+      1: 100344
+    second: waist_R.4
+  - first:
+      1: 100346
+    second: waist_R.5
+  - first:
+      1: 100348
+    second: waist_R.5_end
+  - first:
+      1: 100350
+    second: facial hair 01
+  - first:
+      1: 100352
+    second: facial hair 03
+  - first:
+      1: 100354
+    second: facial hair 04
+  - first:
+      1: 100356
+    second: facial hair 05
+  - first:
+      1: 100358
+    second: hair03
+  - first:
+      1: 100360
+    second: hair04
+  - first:
+      1: 100362
+    second: hair05
+  - first:
+      1: 100364
+    second: hair06
+  - first:
+      1: 100366
+    second: hair07
+  - first:
+      1: 100368
+    second: hair08
+  - first:
+      1: 100370
+    second: cloth Body 01
+  - first:
+      1: 100372
+    second: cloth Body 02
+  - first:
+      1: 100374
+    second: cloth Body 03
+  - first:
+      1: 100376
+    second: cloth Helm 01
+  - first:
+      1: 100378
+    second: cloth Helm 02
+  - first:
+      1: 100380
+    second: cloth Helm 02_B
+  - first:
+      1: 100382
+    second: cloth Helm 03
+  - first:
+      1: 100384
+    second: cloth Helm 03_B
+  - first:
+      1: 100386
+    second: cloth Legs 01
+  - first:
+      1: 100388
+    second: cloth Legs 02
+  - first:
+      1: 100390
+    second: cloth Legs 03
+  - first:
+      1: 100392
+    second: cloth Shoulders 01
+  - first:
+      1: 100394
+    second: cloth Shoulders 02
+  - first:
+      1: 100396
+    second: cloth Shoulders 03
+  - first:
+      1: 100398
+    second: cloth Waist 01
+  - first:
+      1: 100400
+    second: cloth Waist 02
+  - first:
+      1: 100402
+    second: cloth Waist 03
+  - first:
+      1: 100404
+    second: f Beard 01
+  - first:
+      1: 100406
+    second: f Beard 02
+  - first:
+      1: 100408
+    second: f Beard 03
+  - first:
+      1: 100410
+    second: f Beard 04
+  - first:
+      1: 100412
+    second: f Beard 05
+  - first:
+      1: 100414
+    second: f Beard 06
+  - first:
+      1: 100416
+    second: f mustache 01
+  - first:
+      1: 100418
+    second: f mustache 02
+  - first:
+      1: 100420
+    second: f mustache 03
+  - first:
+      1: 100422
+    second: f mustache 04
+  - first:
+      1: 100424
+    second: f mustache 05
+  - first:
+      1: 100426
+    second: hair09
+  - first:
+      1: 100428
+    second: leather Body 01
+  - first:
+      1: 100430
+    second: leather Body 02
+  - first:
+      1: 100432
+    second: leather Body 03
+  - first:
+      1: 100434
+    second: leather Body 04
+  - first:
+      1: 100436
+    second: leather Helm 01
+  - first:
+      1: 100438
+    second: leather Helm 02
+  - first:
+      1: 100440
+    second: leather Helm 03
+  - first:
+      1: 100442
+    second: leather Helm 04
+  - first:
+      1: 100444
+    second: leather Legs 01
+  - first:
+      1: 100446
+    second: leather Legs 02
+  - first:
+      1: 100448
+    second: leather Legs 03
+  - first:
+      1: 100450
+    second: leather Legs 04
+  - first:
+      1: 100452
+    second: leather Shoulders 01
+  - first:
+      1: 100454
+    second: leather Shoulders 02
+  - first:
+      1: 100456
+    second: leather Shoulders 03
+  - first:
+      1: 100458
+    second: leather Shoulders 04
+  - first:
+      1: 100460
+    second: leather Waist 01
+  - first:
+      1: 100462
+    second: leather Waist 02
+  - first:
+      1: 100464
+    second: leather Waist 03
+  - first:
+      1: 100466
+    second: leather Waist 04
+  - first:
+      1: 100468
+    second: object01
+  - first:
+      1: 100470
+    second: outfit body 1
+  - first:
+      1: 100472
+    second: outfit body 2
+  - first:
+      1: 100474
+    second: outfit body 3
+  - first:
+      1: 100476
+    second: outfit body 4
+  - first:
+      1: 100478
+    second: outfit body 5
+  - first:
+      1: 100480
+    second: outfit body 5_A
+  - first:
+      1: 100482
+    second: outfit head 1
+  - first:
+      1: 100484
+    second: outfit head 2
+  - first:
+      1: 100486
+    second: outfit head 3
+  - first:
+      1: 100488
+    second: outfit head 5
+  - first:
+      1: 100490
+    second: outfit legs 1
+  - first:
+      1: 100492
+    second: outfit legs 2
+  - first:
+      1: 100494
+    second: outfit legs 3
+  - first:
+      1: 100496
+    second: outfit legs 4
+  - first:
+      1: 100498
+    second: outfit legs 5
+  - first:
+      1: 100500
+    second: plate Body 01
+  - first:
+      1: 100502
+    second: plate Body 02
+  - first:
+      1: 100504
+    second: plate Body 03
+  - first:
+      1: 100506
+    second: plate Body 04
+  - first:
+      1: 100508
+    second: plate Body 05
+  - first:
+      1: 100510
+    second: plate Body 06
+  - first:
+      1: 100512
+    second: plate Body 07
+  - first:
+      1: 100514
+    second: plate Helm 01
+  - first:
+      1: 100516
+    second: plate Helm 02
+  - first:
+      1: 100518
+    second: plate Helm 03
+  - first:
+      1: 100520
+    second: plate Helm 04
+  - first:
+      1: 100522
+    second: plate Helm 05
+  - first:
+      1: 100524
+    second: plate Helm 06
+  - first:
+      1: 100526
+    second: plate Helm 07
+  - first:
+      1: 100528
+    second: plate Legs 01
+  - first:
+      1: 100530
+    second: plate Legs 02
+  - first:
+      1: 100532
+    second: plate Legs 03
+  - first:
+      1: 100534
+    second: plate Legs 04
+  - first:
+      1: 100536
+    second: plate Legs 05
+  - first:
+      1: 100538
+    second: plate Legs 06
+  - first:
+      1: 100540
+    second: plate Legs 07
+  - first:
+      1: 100542
+    second: plate Shoulders 01
+  - first:
+      1: 100544
+    second: plate Shoulders 02
+  - first:
+      1: 100546
+    second: plate Shoulders 03
+  - first:
+      1: 100548
+    second: plate Shoulders 04
+  - first:
+      1: 100550
+    second: plate Shoulders 05
+  - first:
+      1: 100552
+    second: plate Shoulders 06
+  - first:
+      1: 100554
+    second: plate Shoulders 07
+  - first:
+      1: 100556
+    second: plate Waist 01
+  - first:
+      1: 100558
+    second: plate Waist 02
+  - first:
+      1: 100560
+    second: plate Waist 03
+  - first:
+      1: 100562
+    second: plate Waist 04
+  - first:
+      1: 100564
+    second: plate Waist 05
+  - first:
+      1: 100566
+    second: plate Waist 06
+  - first:
+      1: 100568
+    second: plate Waist 07
+  - first:
+      1: 100570
+    second: cloth Body 04
+  - first:
+      1: 100572
+    second: cloth Body 05
+  - first:
+      1: 100574
+    second: cloth Helm 04
+  - first:
+      1: 100576
+    second: cloth Helm 05
+  - first:
+      1: 100578
+    second: cloth Legs 04
+  - first:
+      1: 100580
+    second: cloth Legs 05
+  - first:
+      1: 100582
+    second: cloth Shoulders 04
+  - first:
+      1: 100584
+    second: cloth Shoulders 05
+  - first:
+      1: 100586
+    second: cloth Shoulders 05 A
+  - first:
+      1: 100588
+    second: cloth Waist 04
+  - first:
+      1: 100590
+    second: cloth Waist 05
+  - first:
+      1: 100592
+    second: f Beard 07
+  - first:
+      1: 100594
+    second: f mustache 06
+  - first:
+      1: 100596
+    second: f mustache 07
+  - first:
+      1: 100598
+    second: hair10
+  - first:
+      1: 100600
+    second: hair11
+  - first:
+      1: 100602
+    second: hair12
+  - first:
+      1: 100604
+    second: leather Body 05
+  - first:
+      1: 100606
+    second: leather Helm 05
+  - first:
+      1: 100608
+    second: leather Legs 05
+  - first:
+      1: 100610
+    second: leather Shoulders 05
+  - first:
+      1: 100612
+    second: leather Waist 05
+  - first:
+      1: 100614
+    second: full
+  - first:
+      1: 100616
+    second: hair00
+  - first:
+      1: 100618
+    second: beard_01
+  - first:
+      1: 100620
+    second: beard_02
+  - first:
+      1: 100622
+    second: beard_03
+  - first:
+      1: 100624
+    second: beard_03_end
+  - first:
+      1: 100626
+    second: helmet_1
+  - first:
+      1: 100628
+    second: helmet_2
+  - first:
+      1: 100630
+    second: helmet_3
+  - first:
+      1: 100632
+    second: helmet_4
+  - first:
+      1: 100634
+    second: helmet_4_end
+  - first:
+      1: 100636
+    second: MH_armor_cloth_01_helmet
+  - first:
+      1: 100638
+    second: MH_armor_cloth_01_legs
+  - first:
+      1: 100640
+    second: MH_armor_cloth_01_shoulders
+  - first:
+      1: 100642
+    second: MH_armor_cloth_01_torso
+  - first:
+      1: 100644
+    second: MH_armor_cloth_01_waist
+  - first:
+      1: 100646
+    second: MH_base_body_head
+  - first:
+      1: 100648
+    second: MH_beard_10
+  - first:
+      1: 100650
+    second: MH_mustache_08
+  - first:
+      1: 100652
+    second: mustache_1.L
+  - first:
+      1: 100654
+    second: mustache_1.R
+  - first:
+      1: 100656
+    second: mustache_2.L
+  - first:
+      1: 100658
+    second: mustache_2.L_end
+  - first:
+      1: 100660
+    second: mustache_2.R
+  - first:
+      1: 100662
+    second: mustache_2.R_end
+  - first:
+      1: 100664
+    second: tail_2.1
+  - first:
+      1: 100666
+    second: tail_2.2
+  - first:
+      1: 100668
+    second: tail_2.3
+  - first:
+      1: 100670
+    second: tail_2.4
+  - first:
+      1: 100672
+    second: tail_2.5
+  - first:
+      1: 100674
+    second: tail_2.5_end
+  - first:
+      1: 100676
+    second: MH_hair_14
+  - first:
+      1: 100678
+    second: MH_armor_cloth_03_torso
+  - first:
+      1: 100680
+    second: MH_beard_08
+  - first:
+      1: 100682
+    second: MH_hair_15
+  - first:
+      1: 100684
+    second: MH_mustache_09
+  - first:
+      1: 100686
+    second: MH_armor_cloth_03_legs
+  - first:
+      1: 100688
+    second: MH_armor_cloth_03_shoulders
+  - first:
+      1: 100690
+    second: MH_armor_cloth_03_waist
+  - first:
+      1: 100692
+    second: back_1.4
+  - first:
+      1: 100694
+    second: MH_base_beard
+  - first:
+      1: 100696
+    second: MH_base_body_legs
+  - first:
+      1: 100698
+    second: MH_base_body_torso
+  - first:
+      1: 100700
+    second: MH_base_hair
+  - first:
+      1: 100702
+    second: MH_base_mustache
+  - first:
+      1: 100704
+    second: MH_base_pants
+  - first:
+      1: 100706
+    second: MH_base_waist
+  - first:
+      1: 100708
+    second: MH_base_body_shoulders
+  - first:
+      1: 100710
+    second: MH_armor_cloth_02_helmet
+  - first:
+      1: 100712
+    second: MH_armor_cloth_02_helmetB
+  - first:
+      1: 100714
+    second: MH_armor_cloth_02_legs
+  - first:
+      1: 100716
+    second: MH_armor_cloth_02_shoulders
+  - first:
+      1: 100718
+    second: MH_armor_cloth_02_torso
+  - first:
+      1: 100720
+    second: MH_armor_cloth_02_waist
+  - first:
+      1: 100722
+    second: MH_armor_cloth_03_helmet
+  - first:
+      1: 100724
+    second: MH_armor_cloth_03_helmetB
+  - first:
+      1: 100726
+    second: MH_armor_cloth_04_helmet
+  - first:
+      1: 100728
+    second: MH_armor_cloth_04_legs
+  - first:
+      1: 100730
+    second: MH_armor_cloth_04_shoulders
+  - first:
+      1: 100732
+    second: MH_armor_cloth_04_torso
+  - first:
+      1: 100734
+    second: MH_armor_cloth_04_waist
+  - first:
+      1: 100736
+    second: MH_armor_cloth_05_helmet
+  - first:
+      1: 100738
+    second: MH_armor_cloth_05_legs
+  - first:
+      1: 100740
+    second: MH_armor_cloth_05_shoulders
+  - first:
+      1: 100742
+    second: MH_armor_cloth_05_shouldersB
+  - first:
+      1: 100744
+    second: MH_armor_cloth_05_torso
+  - first:
+      1: 100746
+    second: MH_armor_cloth_05_waist
+  - first:
+      1: 100748
+    second: MH_armor_leather_01_body
+  - first:
+      1: 100750
+    second: MH_armor_leather_01_helmet
+  - first:
+      1: 100752
+    second: MH_armor_leather_01_legs
+  - first:
+      1: 100754
+    second: MH_armor_leather_01_shoulders
+  - first:
+      1: 100756
+    second: MH_armor_leather_01_waist
+  - first:
+      1: 100758
+    second: MH_armor_leather_02_body
+  - first:
+      1: 100760
+    second: MH_armor_leather_02_helmet
+  - first:
+      1: 100762
+    second: MH_armor_leather_02_legs
+  - first:
+      1: 100764
+    second: MH_armor_leather_02_shoulders
+  - first:
+      1: 100766
+    second: MH_armor_leather_02_waist
+  - first:
+      1: 100768
+    second: MH_armor_leather_03_body
+  - first:
+      1: 100770
+    second: MH_armor_leather_03_helmet
+  - first:
+      1: 100772
+    second: MH_armor_leather_03_legs
+  - first:
+      1: 100774
+    second: MH_armor_leather_03_shoulders
+  - first:
+      1: 100776
+    second: MH_armor_leather_03_waist
+  - first:
+      1: 100778
+    second: MH_armor_leather_04_body
+  - first:
+      1: 100780
+    second: MH_armor_leather_04_helmet
+  - first:
+      1: 100782
+    second: MH_armor_leather_04_legs
+  - first:
+      1: 100784
+    second: MH_armor_leather_04_shoulders
+  - first:
+      1: 100786
+    second: MH_armor_leather_04_waist
+  - first:
+      1: 100788
+    second: MH_armor_leather_05_body
+  - first:
+      1: 100790
+    second: MH_armor_leather_05_helmet
+  - first:
+      1: 100792
+    second: MH_armor_leather_05_legs
+  - first:
+      1: 100794
+    second: MH_armor_leather_05_shoulders
+  - first:
+      1: 100796
+    second: MH_armor_leather_05_waist
+  - first:
+      1: 100798
+    second: MH_armor_plate_01_helmet
+  - first:
+      1: 100800
+    second: MH_armor_plate_01_legs
+  - first:
+      1: 100802
+    second: MH_armor_plate_01_shoulders
+  - first:
+      1: 100804
+    second: MH_armor_plate_01_torso
+  - first:
+      1: 100806
+    second: MH_armor_plate_01_waist
+  - first:
+      1: 100808
+    second: MH_armor_plate_02_helmet
+  - first:
+      1: 100810
+    second: MH_armor_plate_02_legs
+  - first:
+      1: 100812
+    second: MH_armor_plate_02_shoulders
+  - first:
+      1: 100814
+    second: MH_armor_plate_02_torso
+  - first:
+      1: 100816
+    second: MH_armor_plate_02_waist
+  - first:
+      1: 100818
+    second: MH_armor_plate_03_helmet
+  - first:
+      1: 100820
+    second: MH_armor_plate_03_legs
+  - first:
+      1: 100822
+    second: MH_armor_plate_03_shoulders
+  - first:
+      1: 100824
+    second: MH_armor_plate_03_torso
+  - first:
+      1: 100826
+    second: MH_armor_plate_03_waist
+  - first:
+      1: 100828
+    second: MH_armor_plate_04_helmet
+  - first:
+      1: 100830
+    second: MH_armor_plate_04_legs
+  - first:
+      1: 100832
+    second: MH_armor_plate_04_shoulders
+  - first:
+      1: 100834
+    second: MH_armor_plate_04_torso
+  - first:
+      1: 100836
+    second: MH_armor_plate_04_waist
+  - first:
+      1: 100838
+    second: MH_armor_plate_05_helmet
+  - first:
+      1: 100840
+    second: MH_armor_plate_05_legs
+  - first:
+      1: 100842
+    second: MH_armor_plate_05_shoulders
+  - first:
+      1: 100844
+    second: MH_armor_plate_05_torso
+  - first:
+      1: 100846
+    second: MH_armor_plate_05_waist
+  - first:
+      1: 100848
+    second: MH_armor_plate_06_helmet
+  - first:
+      1: 100850
+    second: MH_armor_plate_06_legs
+  - first:
+      1: 100852
+    second: MH_armor_plate_06_shoulders
+  - first:
+      1: 100854
+    second: MH_armor_plate_06_torso
+  - first:
+      1: 100856
+    second: MH_armor_plate_06_waist
+  - first:
+      1: 100858
+    second: MH_armor_plate_07_helmet
+  - first:
+      1: 100860
+    second: MH_armor_plate_07_legs
+  - first:
+      1: 100862
+    second: MH_armor_plate_07_shoulders
+  - first:
+      1: 100864
+    second: MH_armor_plate_07_torso
+  - first:
+      1: 100866
+    second: MH_armor_plate_07_waist
+  - first:
+      1: 100868
+    second: MH_beard_01
+  - first:
+      1: 100870
+    second: MH_beard_02
+  - first:
+      1: 100872
+    second: MH_beard_03
+  - first:
+      1: 100874
+    second: MH_beard_04
+  - first:
+      1: 100876
+    second: MH_beard_05
+  - first:
+      1: 100878
+    second: MH_beard_06
+  - first:
+      1: 100880
+    second: MH_beard_07
+  - first:
+      1: 100882
+    second: MH_beard_09
+  - first:
+      1: 100884
+    second: MH_hair_01
+  - first:
+      1: 100886
+    second: MH_hair_02
+  - first:
+      1: 100888
+    second: MH_hair_03
+  - first:
+      1: 100890
+    second: MH_hair_04
+  - first:
+      1: 100892
+    second: MH_hair_05
+  - first:
+      1: 100894
+    second: MH_hair_06
+  - first:
+      1: 100896
+    second: MH_hair_07
+  - first:
+      1: 100898
+    second: MH_hair_08
+  - first:
+      1: 100900
+    second: MH_hair_09
+  - first:
+      1: 100902
+    second: MH_hair_10
+  - first:
+      1: 100904
+    second: MH_hair_11
+  - first:
+      1: 100906
+    second: MH_hair_12
+  - first:
+      1: 100908
+    second: MH_hair_13
+  - first:
+      1: 100910
+    second: MH_mustache_01
+  - first:
+      1: 100912
+    second: MH_mustache_02
+  - first:
+      1: 100914
+    second: MH_mustache_03
+  - first:
+      1: 100916
+    second: MH_mustache_04
+  - first:
+      1: 100918
+    second: MH_mustache_05
+  - first:
+      1: 100920
+    second: MH_mustache_06
+  - first:
+      1: 100922
+    second: MH_mustache_07
+  - first:
+      1: 100924
+    second: MH_mustache_10
+  - first:
+      1: 100926
+    second: MH_mustache_11
+  - first:
+      1: 100928
+    second: MH_outfit_head_01
+  - first:
+      1: 100930
+    second: MH_outfit_head_02
+  - first:
+      1: 100932
+    second: MH_outfit_head_03
+  - first:
+      1: 100934
+    second: MH_outfit_head_05
+  - first:
+      1: 100936
+    second: MH_outfit_legs_01
+  - first:
+      1: 100938
+    second: MH_outfit_legs_02
+  - first:
+      1: 100940
+    second: MH_outfit_legs_03
+  - first:
+      1: 100942
+    second: MH_outfit_legs_04
+  - first:
+      1: 100944
+    second: MH_outfit_legs_05
+  - first:
+      1: 100946
+    second: MH_outfit_torso_01
+  - first:
+      1: 100948
+    second: MH_outfit_torso_02
+  - first:
+      1: 100950
+    second: MH_outfit_torso_03
+  - first:
+      1: 100952
+    second: MH_outfit_torso_04
+  - first:
+      1: 100954
+    second: MH_outfit_torso_05
+  - first:
+      1: 100956
+    second: MH_outfit_torso_05B
+  - first:
+      1: 100958
+    second: MH_underwear_pants_01
+  - first:
+      1: 100960
+    second: MH_underwear_pants_02
+  - first:
+      1: 100962
+    second: MH_underwear_pants_03
+  - first:
+      1: 100964
+    second: MH_armor_leather_01_torso
+  - first:
+      1: 100966
+    second: MH_armor_leather_02_torso
+  - first:
+      1: 100968
+    second: MH_armor_leather_03_torso
+  - first:
+      1: 100970
+    second: MH_armor_leather_04_torso
+  - first:
+      1: 100972
+    second: MH_armor_leather_05_torso
+  - first:
+      1: 100974
+    second: MH_armor_cloth_06_torso
+  - first:
+      1: 100976
+    second: mustache_1.L.001
+  - first:
+      1: 100978
+    second: mustache_1.R.001
+  - first:
+      1: 100980
+    second: mustache_2.L.001
+  - first:
+      1: 100982
+    second: mustache_2.R.001
+  - first:
+      1: 100984
+    second: mustache_1_1.L
+  - first:
+      1: 100986
+    second: mustache_1_1.R
+  - first:
+      1: 100988
+    second: mustache_1_2.L
+  - first:
+      1: 100990
+    second: mustache_1_2.R
+  - first:
+      1: 100992
+    second: MH_armor_cloth_06_legs
+  - first:
+      1: 100994
+    second: MH_armor_cloth_06_shoulders
+  - first:
+      1: 100996
+    second: MH_armor_cloth_06_waist
+  - first:
+      1: 100998
+    second: neck
+  - first:
+      1: 101000
+    second: MH_armor_cloth_06_helmet
+  - first:
+      1: 101002
+    second: MH_armor_leather_06_helmet
+  - first:
+      1: 101004
+    second: MH_armor_leather_06_legs
+  - first:
+      1: 101006
+    second: MH_armor_leather_06_shoulders
+  - first:
+      1: 101008
+    second: MH_armor_leather_06_torso
+  - first:
+      1: 101010
+    second: MH_armor_leather_06_waist
+  - first:
+      1: 101012
+    second: MH_beard_11
+  - first:
+      1: 101014
+    second: MH_beard_12
+  - first:
+      1: 101016
+    second: MH_mustache_12
+  - first:
+      1: 101018
+    second: MH_armor_leather_07_helmet
+  - first:
+      1: 101020
+    second: MH_armor_leather_07_legs
+  - first:
+      1: 101022
+    second: MH_armor_leather_07_shoulders
+  - first:
+      1: 101024
+    second: MH_armor_leather_07_torso
+  - first:
+      1: 101026
+    second: MH_armor_leather_07_waist
+  - first:
+      1: 101028
+    second: MH_armor_cloth_07_helmet
+  - first:
+      1: 101030
+    second: MH_armor_cloth_07_legs
+  - first:
+      1: 101032
+    second: MH_armor_cloth_07_shoulders
+  - first:
+      1: 101034
+    second: MH_armor_cloth_07_torso
+  - first:
+      1: 101036
+    second: MH_armor_cloth_07_waist
+  - first:
+      1: 101038
+    second: MH_beard_13
+  - first:
+      1: 101040
+    second: MH_beard_14
+  - first:
+      1: 101042
+    second: MH_beard_15
+  - first:
+      1: 101044
+    second: MH_hair_16
+  - first:
+      1: 101046
+    second: MH_hair_17
+  - first:
+      1: 101048
+    second: MH_hair_18
+  - first:
+      1: 101050
+    second: MH_hair_19
+  - first:
+      1: 101052
+    second: MH_mustache_13
+  - first:
+      1: 101054
+    second: MH_mustache_14
+  - first:
+      1: 101056
+    second: MH_mustache_15
+  - first:
+      1: 101058
+    second: MH_mustache_16
+  - first:
+      4: 400000
+    second: attachBone1
+  - first:
+      4: 400002
+    second: attachBone1_end
+  - first:
+      4: 400004
+    second: attachBone2
+  - first:
+      4: 400006
+    second: attachBone2_end
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: body
+  - first:
+      4: 400012
+    second: breast.L
+  - first:
+      4: 400014
+    second: breast.L_end
+  - first:
+      4: 400016
+    second: breast.R
+  - first:
+      4: 400018
+    second: breast.R_end
+  - first:
+      4: 400020
+    second: f_index.01.L
+  - first:
+      4: 400022
+    second: f_index.01.R
+  - first:
+      4: 400024
+    second: f_index.02.L
+  - first:
+      4: 400026
+    second: f_index.02.R
+  - first:
+      4: 400028
+    second: f_index.03.L
+  - first:
+      4: 400030
+    second: f_index.03.L_end
+  - first:
+      4: 400032
+    second: f_index.03.R
+  - first:
+      4: 400034
+    second: f_index.03.R_end
+  - first:
+      4: 400036
+    second: f_middle.01.L
+  - first:
+      4: 400038
+    second: f_middle.01.R
+  - first:
+      4: 400040
+    second: f_middle.02.L
+  - first:
+      4: 400042
+    second: f_middle.02.R
+  - first:
+      4: 400044
+    second: f_middle.03.L
+  - first:
+      4: 400046
+    second: f_middle.03.L_end
+  - first:
+      4: 400048
+    second: f_middle.03.R
+  - first:
+      4: 400050
+    second: f_middle.03.R_end
+  - first:
+      4: 400052
+    second: f_pinky.01.L
+  - first:
+      4: 400054
+    second: f_pinky.01.R
+  - first:
+      4: 400056
+    second: f_pinky.02.L
+  - first:
+      4: 400058
+    second: f_pinky.02.R
+  - first:
+      4: 400060
+    second: f_pinky.03.L
+  - first:
+      4: 400062
+    second: f_pinky.03.L_end
+  - first:
+      4: 400064
+    second: f_pinky.03.R
+  - first:
+      4: 400066
+    second: f_pinky.03.R_end
+  - first:
+      4: 400068
+    second: f_ring.01.L
+  - first:
+      4: 400070
+    second: f_ring.01.R
+  - first:
+      4: 400072
+    second: f_ring.02.L
+  - first:
+      4: 400074
+    second: f_ring.02.R
+  - first:
+      4: 400076
+    second: f_ring.03.L
+  - first:
+      4: 400078
+    second: f_ring.03.L_end
+  - first:
+      4: 400080
+    second: f_ring.03.R
+  - first:
+      4: 400082
+    second: f_ring.03.R_end
+  - first:
+      4: 400084
+    second: foot.L
+  - first:
+      4: 400086
+    second: foot.R
+  - first:
+      4: 400088
+    second: forearm.L
+  - first:
+      4: 400090
+    second: forearm.R
+  - first:
+      4: 400092
+    second: hair01
+  - first:
+      4: 400094
+    second: hair02
+  - first:
+      4: 400096
+    second: hand.L
+  - first:
+      4: 400098
+    second: hand.R
+  - first:
+      4: 400100
+    second: head
+  - first:
+      4: 400102
+    second: head 1
+  - first:
+      4: 400104
+    second: heel.02.L
+  - first:
+      4: 400106
+    second: heel.02.L_end
+  - first:
+      4: 400108
+    second: heel.02.R
+  - first:
+      4: 400110
+    second: heel.02.R_end
+  - first:
+      4: 400112
+    second: legs
+  - first:
+      4: 400114
+    second: metarig.001
+  - first:
+      4: 400116
+    second: palm.01.L
+  - first:
+      4: 400118
+    second: palm.01.R
+  - first:
+      4: 400120
+    second: palm.02.L
+  - first:
+      4: 400122
+    second: palm.02.R
+  - first:
+      4: 400124
+    second: palm.03.L
+  - first:
+      4: 400126
+    second: palm.03.R
+  - first:
+      4: 400128
+    second: palm.04.L
+  - first:
+      4: 400130
+    second: palm.04.R
+  - first:
+      4: 400132
+    second: pants01
+  - first:
+      4: 400134
+    second: pants02
+  - first:
+      4: 400136
+    second: pelvis.L
+  - first:
+      4: 400138
+    second: pelvis.L_end
+  - first:
+      4: 400140
+    second: pelvis.R
+  - first:
+      4: 400142
+    second: pelvis.R_end
+  - first:
+      4: 400144
+    second: shin.L
+  - first:
+      4: 400146
+    second: shin.R
+  - first:
+      4: 400148
+    second: shoulder.L
+  - first:
+      4: 400150
+    second: shoulder.R
+  - first:
+      4: 400152
+    second: shulder.L
+  - first:
+      4: 400154
+    second: shulder.L_end
+  - first:
+      4: 400156
+    second: shulder.R
+  - first:
+      4: 400158
+    second: shulder.R_end
+  - first:
+      4: 400160
+    second: spine
+  - first:
+      4: 400162
+    second: spine.001
+  - first:
+      4: 400164
+    second: spine.002
+  - first:
+      4: 400166
+    second: spine.003
+  - first:
+      4: 400168
+    second: spine.004
+  - first:
+      4: 400170
+    second: spine.005
+  - first:
+      4: 400172
+    second: spine.007
+  - first:
+      4: 400174
+    second: spine.008
+  - first:
+      4: 400176
+    second: spine.009
+  - first:
+      4: 400178
+    second: spine.010
+  - first:
+      4: 400180
+    second: spine.011
+  - first:
+      4: 400182
+    second: spine.011_end
+  - first:
+      4: 400184
+    second: spine.012
+  - first:
+      4: 400186
+    second: spine.013
+  - first:
+      4: 400188
+    second: spine.014
+  - first:
+      4: 400190
+    second: spine.015
+  - first:
+      4: 400192
+    second: spine.016
+  - first:
+      4: 400194
+    second: spine.016_end
+  - first:
+      4: 400196
+    second: spine.017
+  - first:
+      4: 400198
+    second: spine.018
+  - first:
+      4: 400200
+    second: spine.019
+  - first:
+      4: 400202
+    second: spine.019_end
+  - first:
+      4: 400204
+    second: spine.020
+  - first:
+      4: 400206
+    second: spine.021
+  - first:
+      4: 400208
+    second: spine.022
+  - first:
+      4: 400210
+    second: spine.023
+  - first:
+      4: 400212
+    second: spine.023_end
+  - first:
+      4: 400214
+    second: thigh.L
+  - first:
+      4: 400216
+    second: thigh.R
+  - first:
+      4: 400218
+    second: thighCloth0.L
+  - first:
+      4: 400220
+    second: thighCloth0.R
+  - first:
+      4: 400222
+    second: thighCloth1.L
+  - first:
+      4: 400224
+    second: thighCloth1.R
+  - first:
+      4: 400226
+    second: thighCloth2.L
+  - first:
+      4: 400228
+    second: thighCloth2.R
+  - first:
+      4: 400230
+    second: thighCloth3.L
+  - first:
+      4: 400232
+    second: thighCloth3.R
+  - first:
+      4: 400234
+    second: thighCloth4.L
+  - first:
+      4: 400236
+    second: thighCloth4.L_end
+  - first:
+      4: 400238
+    second: thighCloth4.R
+  - first:
+      4: 400240
+    second: thighCloth4.R_end
+  - first:
+      4: 400242
+    second: thumb.01.L
+  - first:
+      4: 400244
+    second: thumb.01.R
+  - first:
+      4: 400246
+    second: thumb.02.L
+  - first:
+      4: 400248
+    second: thumb.02.R
+  - first:
+      4: 400250
+    second: thumb.03.L
+  - first:
+      4: 400252
+    second: thumb.03.L_end
+  - first:
+      4: 400254
+    second: thumb.03.R
+  - first:
+      4: 400256
+    second: thumb.03.R_end
+  - first:
+      4: 400258
+    second: toe.L
+  - first:
+      4: 400260
+    second: toe.L_end
+  - first:
+      4: 400262
+    second: toe.R
+  - first:
+      4: 400264
+    second: toe.R_end
+  - first:
+      4: 400266
+    second: upper_arm.L
+  - first:
+      4: 400268
+    second: upper_arm.R
+  - first:
+      4: 400270
+    second: facial hair 02
+  - first:
+      4: 400272
+    second: waist
+  - first:
+      4: 400274
+    second: tail_1.1
+  - first:
+      4: 400276
+    second: tail_1.2
+  - first:
+      4: 400278
+    second: tail_1.3
+  - first:
+      4: 400280
+    second: tail_1.4
+  - first:
+      4: 400282
+    second: tail_1.4_end
+  - first:
+      4: 400284
+    second: attachBone_1
+  - first:
+      4: 400286
+    second: attachBone_1_end
+  - first:
+      4: 400288
+    second: attachBone_2
+  - first:
+      4: 400290
+    second: attachBone_2_end
+  - first:
+      4: 400292
+    second: back_1.1
+  - first:
+      4: 400294
+    second: back_1.2
+  - first:
+      4: 400296
+    second: back_1.3
+  - first:
+      4: 400298
+    second: back_1.3_end
+  - first:
+      4: 400300
+    second: metarig
+  - first:
+      4: 400302
+    second: waist_B.1
+  - first:
+      4: 400304
+    second: waist_B.2
+  - first:
+      4: 400306
+    second: waist_B.3
+  - first:
+      4: 400308
+    second: waist_B.4
+  - first:
+      4: 400310
+    second: waist_B.5
+  - first:
+      4: 400312
+    second: waist_B.5_end
+  - first:
+      4: 400314
+    second: waist_F.1
+  - first:
+      4: 400316
+    second: waist_F.2
+  - first:
+      4: 400318
+    second: waist_F.3
+  - first:
+      4: 400320
+    second: waist_F.4
+  - first:
+      4: 400322
+    second: waist_F.5
+  - first:
+      4: 400324
+    second: waist_F.5_end
+  - first:
+      4: 400326
+    second: waist_L.1
+  - first:
+      4: 400328
+    second: waist_L.2
+  - first:
+      4: 400330
+    second: waist_L.3
+  - first:
+      4: 400332
+    second: waist_L.4
+  - first:
+      4: 400334
+    second: waist_L.5
+  - first:
+      4: 400336
+    second: waist_L.5_end
+  - first:
+      4: 400338
+    second: waist_R.1
+  - first:
+      4: 400340
+    second: waist_R.2
+  - first:
+      4: 400342
+    second: waist_R.3
+  - first:
+      4: 400344
+    second: waist_R.4
+  - first:
+      4: 400346
+    second: waist_R.5
+  - first:
+      4: 400348
+    second: waist_R.5_end
+  - first:
+      4: 400350
+    second: facial hair 01
+  - first:
+      4: 400352
+    second: facial hair 03
+  - first:
+      4: 400354
+    second: facial hair 04
+  - first:
+      4: 400356
+    second: facial hair 05
+  - first:
+      4: 400358
+    second: hair03
+  - first:
+      4: 400360
+    second: hair04
+  - first:
+      4: 400362
+    second: hair05
+  - first:
+      4: 400364
+    second: hair06
+  - first:
+      4: 400366
+    second: hair07
+  - first:
+      4: 400368
+    second: hair08
+  - first:
+      4: 400370
+    second: cloth Body 01
+  - first:
+      4: 400372
+    second: cloth Body 02
+  - first:
+      4: 400374
+    second: cloth Body 03
+  - first:
+      4: 400376
+    second: cloth Helm 01
+  - first:
+      4: 400378
+    second: cloth Helm 02
+  - first:
+      4: 400380
+    second: cloth Helm 02_B
+  - first:
+      4: 400382
+    second: cloth Helm 03
+  - first:
+      4: 400384
+    second: cloth Helm 03_B
+  - first:
+      4: 400386
+    second: cloth Legs 01
+  - first:
+      4: 400388
+    second: cloth Legs 02
+  - first:
+      4: 400390
+    second: cloth Legs 03
+  - first:
+      4: 400392
+    second: cloth Shoulders 01
+  - first:
+      4: 400394
+    second: cloth Shoulders 02
+  - first:
+      4: 400396
+    second: cloth Shoulders 03
+  - first:
+      4: 400398
+    second: cloth Waist 01
+  - first:
+      4: 400400
+    second: cloth Waist 02
+  - first:
+      4: 400402
+    second: cloth Waist 03
+  - first:
+      4: 400404
+    second: f Beard 01
+  - first:
+      4: 400406
+    second: f Beard 02
+  - first:
+      4: 400408
+    second: f Beard 03
+  - first:
+      4: 400410
+    second: f Beard 04
+  - first:
+      4: 400412
+    second: f Beard 05
+  - first:
+      4: 400414
+    second: f Beard 06
+  - first:
+      4: 400416
+    second: f mustache 01
+  - first:
+      4: 400418
+    second: f mustache 02
+  - first:
+      4: 400420
+    second: f mustache 03
+  - first:
+      4: 400422
+    second: f mustache 04
+  - first:
+      4: 400424
+    second: f mustache 05
+  - first:
+      4: 400426
+    second: hair09
+  - first:
+      4: 400428
+    second: leather Body 01
+  - first:
+      4: 400430
+    second: leather Body 02
+  - first:
+      4: 400432
+    second: leather Body 03
+  - first:
+      4: 400434
+    second: leather Body 04
+  - first:
+      4: 400436
+    second: leather Helm 01
+  - first:
+      4: 400438
+    second: leather Helm 02
+  - first:
+      4: 400440
+    second: leather Helm 03
+  - first:
+      4: 400442
+    second: leather Helm 04
+  - first:
+      4: 400444
+    second: leather Legs 01
+  - first:
+      4: 400446
+    second: leather Legs 02
+  - first:
+      4: 400448
+    second: leather Legs 03
+  - first:
+      4: 400450
+    second: leather Legs 04
+  - first:
+      4: 400452
+    second: leather Shoulders 01
+  - first:
+      4: 400454
+    second: leather Shoulders 02
+  - first:
+      4: 400456
+    second: leather Shoulders 03
+  - first:
+      4: 400458
+    second: leather Shoulders 04
+  - first:
+      4: 400460
+    second: leather Waist 01
+  - first:
+      4: 400462
+    second: leather Waist 02
+  - first:
+      4: 400464
+    second: leather Waist 03
+  - first:
+      4: 400466
+    second: leather Waist 04
+  - first:
+      4: 400468
+    second: object01
+  - first:
+      4: 400470
+    second: outfit body 1
+  - first:
+      4: 400472
+    second: outfit body 2
+  - first:
+      4: 400474
+    second: outfit body 3
+  - first:
+      4: 400476
+    second: outfit body 4
+  - first:
+      4: 400478
+    second: outfit body 5
+  - first:
+      4: 400480
+    second: outfit body 5_A
+  - first:
+      4: 400482
+    second: outfit head 1
+  - first:
+      4: 400484
+    second: outfit head 2
+  - first:
+      4: 400486
+    second: outfit head 3
+  - first:
+      4: 400488
+    second: outfit head 5
+  - first:
+      4: 400490
+    second: outfit legs 1
+  - first:
+      4: 400492
+    second: outfit legs 2
+  - first:
+      4: 400494
+    second: outfit legs 3
+  - first:
+      4: 400496
+    second: outfit legs 4
+  - first:
+      4: 400498
+    second: outfit legs 5
+  - first:
+      4: 400500
+    second: plate Body 01
+  - first:
+      4: 400502
+    second: plate Body 02
+  - first:
+      4: 400504
+    second: plate Body 03
+  - first:
+      4: 400506
+    second: plate Body 04
+  - first:
+      4: 400508
+    second: plate Body 05
+  - first:
+      4: 400510
+    second: plate Body 06
+  - first:
+      4: 400512
+    second: plate Body 07
+  - first:
+      4: 400514
+    second: plate Helm 01
+  - first:
+      4: 400516
+    second: plate Helm 02
+  - first:
+      4: 400518
+    second: plate Helm 03
+  - first:
+      4: 400520
+    second: plate Helm 04
+  - first:
+      4: 400522
+    second: plate Helm 05
+  - first:
+      4: 400524
+    second: plate Helm 06
+  - first:
+      4: 400526
+    second: plate Helm 07
+  - first:
+      4: 400528
+    second: plate Legs 01
+  - first:
+      4: 400530
+    second: plate Legs 02
+  - first:
+      4: 400532
+    second: plate Legs 03
+  - first:
+      4: 400534
+    second: plate Legs 04
+  - first:
+      4: 400536
+    second: plate Legs 05
+  - first:
+      4: 400538
+    second: plate Legs 06
+  - first:
+      4: 400540
+    second: plate Legs 07
+  - first:
+      4: 400542
+    second: plate Shoulders 01
+  - first:
+      4: 400544
+    second: plate Shoulders 02
+  - first:
+      4: 400546
+    second: plate Shoulders 03
+  - first:
+      4: 400548
+    second: plate Shoulders 04
+  - first:
+      4: 400550
+    second: plate Shoulders 05
+  - first:
+      4: 400552
+    second: plate Shoulders 06
+  - first:
+      4: 400554
+    second: plate Shoulders 07
+  - first:
+      4: 400556
+    second: plate Waist 01
+  - first:
+      4: 400558
+    second: plate Waist 02
+  - first:
+      4: 400560
+    second: plate Waist 03
+  - first:
+      4: 400562
+    second: plate Waist 04
+  - first:
+      4: 400564
+    second: plate Waist 05
+  - first:
+      4: 400566
+    second: plate Waist 06
+  - first:
+      4: 400568
+    second: plate Waist 07
+  - first:
+      4: 400570
+    second: cloth Body 04
+  - first:
+      4: 400572
+    second: cloth Body 05
+  - first:
+      4: 400574
+    second: cloth Helm 04
+  - first:
+      4: 400576
+    second: cloth Helm 05
+  - first:
+      4: 400578
+    second: cloth Legs 04
+  - first:
+      4: 400580
+    second: cloth Legs 05
+  - first:
+      4: 400582
+    second: cloth Shoulders 04
+  - first:
+      4: 400584
+    second: cloth Shoulders 05
+  - first:
+      4: 400586
+    second: cloth Shoulders 05 A
+  - first:
+      4: 400588
+    second: cloth Waist 04
+  - first:
+      4: 400590
+    second: cloth Waist 05
+  - first:
+      4: 400592
+    second: f Beard 07
+  - first:
+      4: 400594
+    second: f mustache 06
+  - first:
+      4: 400596
+    second: f mustache 07
+  - first:
+      4: 400598
+    second: hair10
+  - first:
+      4: 400600
+    second: hair11
+  - first:
+      4: 400602
+    second: hair12
+  - first:
+      4: 400604
+    second: leather Body 05
+  - first:
+      4: 400606
+    second: leather Helm 05
+  - first:
+      4: 400608
+    second: leather Legs 05
+  - first:
+      4: 400610
+    second: leather Shoulders 05
+  - first:
+      4: 400612
+    second: leather Waist 05
+  - first:
+      4: 400614
+    second: full
+  - first:
+      4: 400616
+    second: hair00
+  - first:
+      4: 400618
+    second: beard_01
+  - first:
+      4: 400620
+    second: beard_02
+  - first:
+      4: 400622
+    second: beard_03
+  - first:
+      4: 400624
+    second: beard_03_end
+  - first:
+      4: 400626
+    second: helmet_1
+  - first:
+      4: 400628
+    second: helmet_2
+  - first:
+      4: 400630
+    second: helmet_3
+  - first:
+      4: 400632
+    second: helmet_4
+  - first:
+      4: 400634
+    second: helmet_4_end
+  - first:
+      4: 400636
+    second: MH_armor_cloth_01_helmet
+  - first:
+      4: 400638
+    second: MH_armor_cloth_01_legs
+  - first:
+      4: 400640
+    second: MH_armor_cloth_01_shoulders
+  - first:
+      4: 400642
+    second: MH_armor_cloth_01_torso
+  - first:
+      4: 400644
+    second: MH_armor_cloth_01_waist
+  - first:
+      4: 400646
+    second: MH_base_body_head
+  - first:
+      4: 400648
+    second: MH_beard_10
+  - first:
+      4: 400650
+    second: MH_mustache_08
+  - first:
+      4: 400652
+    second: mustache_1.L
+  - first:
+      4: 400654
+    second: mustache_1.R
+  - first:
+      4: 400656
+    second: mustache_2.L
+  - first:
+      4: 400658
+    second: mustache_2.L_end
+  - first:
+      4: 400660
+    second: mustache_2.R
+  - first:
+      4: 400662
+    second: mustache_2.R_end
+  - first:
+      4: 400664
+    second: tail_2.1
+  - first:
+      4: 400666
+    second: tail_2.2
+  - first:
+      4: 400668
+    second: tail_2.3
+  - first:
+      4: 400670
+    second: tail_2.4
+  - first:
+      4: 400672
+    second: tail_2.5
+  - first:
+      4: 400674
+    second: tail_2.5_end
+  - first:
+      4: 400676
+    second: MH_hair_14
+  - first:
+      4: 400678
+    second: MH_armor_cloth_03_torso
+  - first:
+      4: 400680
+    second: MH_beard_08
+  - first:
+      4: 400682
+    second: MH_hair_15
+  - first:
+      4: 400684
+    second: MH_mustache_09
+  - first:
+      4: 400686
+    second: MH_armor_cloth_03_legs
+  - first:
+      4: 400688
+    second: MH_armor_cloth_03_shoulders
+  - first:
+      4: 400690
+    second: MH_armor_cloth_03_waist
+  - first:
+      4: 400692
+    second: back_1.4
+  - first:
+      4: 400694
+    second: MH_base_beard
+  - first:
+      4: 400696
+    second: MH_base_body_legs
+  - first:
+      4: 400698
+    second: MH_base_body_torso
+  - first:
+      4: 400700
+    second: MH_base_hair
+  - first:
+      4: 400702
+    second: MH_base_mustache
+  - first:
+      4: 400704
+    second: MH_base_pants
+  - first:
+      4: 400706
+    second: MH_base_waist
+  - first:
+      4: 400708
+    second: MH_base_body_shoulders
+  - first:
+      4: 400710
+    second: MH_armor_cloth_02_helmet
+  - first:
+      4: 400712
+    second: MH_armor_cloth_02_helmetB
+  - first:
+      4: 400714
+    second: MH_armor_cloth_02_legs
+  - first:
+      4: 400716
+    second: MH_armor_cloth_02_shoulders
+  - first:
+      4: 400718
+    second: MH_armor_cloth_02_torso
+  - first:
+      4: 400720
+    second: MH_armor_cloth_02_waist
+  - first:
+      4: 400722
+    second: MH_armor_cloth_03_helmet
+  - first:
+      4: 400724
+    second: MH_armor_cloth_03_helmetB
+  - first:
+      4: 400726
+    second: MH_armor_cloth_04_helmet
+  - first:
+      4: 400728
+    second: MH_armor_cloth_04_legs
+  - first:
+      4: 400730
+    second: MH_armor_cloth_04_shoulders
+  - first:
+      4: 400732
+    second: MH_armor_cloth_04_torso
+  - first:
+      4: 400734
+    second: MH_armor_cloth_04_waist
+  - first:
+      4: 400736
+    second: MH_armor_cloth_05_helmet
+  - first:
+      4: 400738
+    second: MH_armor_cloth_05_legs
+  - first:
+      4: 400740
+    second: MH_armor_cloth_05_shoulders
+  - first:
+      4: 400742
+    second: MH_armor_cloth_05_shouldersB
+  - first:
+      4: 400744
+    second: MH_armor_cloth_05_torso
+  - first:
+      4: 400746
+    second: MH_armor_cloth_05_waist
+  - first:
+      4: 400748
+    second: MH_armor_leather_01_body
+  - first:
+      4: 400750
+    second: MH_armor_leather_01_helmet
+  - first:
+      4: 400752
+    second: MH_armor_leather_01_legs
+  - first:
+      4: 400754
+    second: MH_armor_leather_01_shoulders
+  - first:
+      4: 400756
+    second: MH_armor_leather_01_waist
+  - first:
+      4: 400758
+    second: MH_armor_leather_02_body
+  - first:
+      4: 400760
+    second: MH_armor_leather_02_helmet
+  - first:
+      4: 400762
+    second: MH_armor_leather_02_legs
+  - first:
+      4: 400764
+    second: MH_armor_leather_02_shoulders
+  - first:
+      4: 400766
+    second: MH_armor_leather_02_waist
+  - first:
+      4: 400768
+    second: MH_armor_leather_03_body
+  - first:
+      4: 400770
+    second: MH_armor_leather_03_helmet
+  - first:
+      4: 400772
+    second: MH_armor_leather_03_legs
+  - first:
+      4: 400774
+    second: MH_armor_leather_03_shoulders
+  - first:
+      4: 400776
+    second: MH_armor_leather_03_waist
+  - first:
+      4: 400778
+    second: MH_armor_leather_04_body
+  - first:
+      4: 400780
+    second: MH_armor_leather_04_helmet
+  - first:
+      4: 400782
+    second: MH_armor_leather_04_legs
+  - first:
+      4: 400784
+    second: MH_armor_leather_04_shoulders
+  - first:
+      4: 400786
+    second: MH_armor_leather_04_waist
+  - first:
+      4: 400788
+    second: MH_armor_leather_05_body
+  - first:
+      4: 400790
+    second: MH_armor_leather_05_helmet
+  - first:
+      4: 400792
+    second: MH_armor_leather_05_legs
+  - first:
+      4: 400794
+    second: MH_armor_leather_05_shoulders
+  - first:
+      4: 400796
+    second: MH_armor_leather_05_waist
+  - first:
+      4: 400798
+    second: MH_armor_plate_01_helmet
+  - first:
+      4: 400800
+    second: MH_armor_plate_01_legs
+  - first:
+      4: 400802
+    second: MH_armor_plate_01_shoulders
+  - first:
+      4: 400804
+    second: MH_armor_plate_01_torso
+  - first:
+      4: 400806
+    second: MH_armor_plate_01_waist
+  - first:
+      4: 400808
+    second: MH_armor_plate_02_helmet
+  - first:
+      4: 400810
+    second: MH_armor_plate_02_legs
+  - first:
+      4: 400812
+    second: MH_armor_plate_02_shoulders
+  - first:
+      4: 400814
+    second: MH_armor_plate_02_torso
+  - first:
+      4: 400816
+    second: MH_armor_plate_02_waist
+  - first:
+      4: 400818
+    second: MH_armor_plate_03_helmet
+  - first:
+      4: 400820
+    second: MH_armor_plate_03_legs
+  - first:
+      4: 400822
+    second: MH_armor_plate_03_shoulders
+  - first:
+      4: 400824
+    second: MH_armor_plate_03_torso
+  - first:
+      4: 400826
+    second: MH_armor_plate_03_waist
+  - first:
+      4: 400828
+    second: MH_armor_plate_04_helmet
+  - first:
+      4: 400830
+    second: MH_armor_plate_04_legs
+  - first:
+      4: 400832
+    second: MH_armor_plate_04_shoulders
+  - first:
+      4: 400834
+    second: MH_armor_plate_04_torso
+  - first:
+      4: 400836
+    second: MH_armor_plate_04_waist
+  - first:
+      4: 400838
+    second: MH_armor_plate_05_helmet
+  - first:
+      4: 400840
+    second: MH_armor_plate_05_legs
+  - first:
+      4: 400842
+    second: MH_armor_plate_05_shoulders
+  - first:
+      4: 400844
+    second: MH_armor_plate_05_torso
+  - first:
+      4: 400846
+    second: MH_armor_plate_05_waist
+  - first:
+      4: 400848
+    second: MH_armor_plate_06_helmet
+  - first:
+      4: 400850
+    second: MH_armor_plate_06_legs
+  - first:
+      4: 400852
+    second: MH_armor_plate_06_shoulders
+  - first:
+      4: 400854
+    second: MH_armor_plate_06_torso
+  - first:
+      4: 400856
+    second: MH_armor_plate_06_waist
+  - first:
+      4: 400858
+    second: MH_armor_plate_07_helmet
+  - first:
+      4: 400860
+    second: MH_armor_plate_07_legs
+  - first:
+      4: 400862
+    second: MH_armor_plate_07_shoulders
+  - first:
+      4: 400864
+    second: MH_armor_plate_07_torso
+  - first:
+      4: 400866
+    second: MH_armor_plate_07_waist
+  - first:
+      4: 400868
+    second: MH_beard_01
+  - first:
+      4: 400870
+    second: MH_beard_02
+  - first:
+      4: 400872
+    second: MH_beard_03
+  - first:
+      4: 400874
+    second: MH_beard_04
+  - first:
+      4: 400876
+    second: MH_beard_05
+  - first:
+      4: 400878
+    second: MH_beard_06
+  - first:
+      4: 400880
+    second: MH_beard_07
+  - first:
+      4: 400882
+    second: MH_beard_09
+  - first:
+      4: 400884
+    second: MH_hair_01
+  - first:
+      4: 400886
+    second: MH_hair_02
+  - first:
+      4: 400888
+    second: MH_hair_03
+  - first:
+      4: 400890
+    second: MH_hair_04
+  - first:
+      4: 400892
+    second: MH_hair_05
+  - first:
+      4: 400894
+    second: MH_hair_06
+  - first:
+      4: 400896
+    second: MH_hair_07
+  - first:
+      4: 400898
+    second: MH_hair_08
+  - first:
+      4: 400900
+    second: MH_hair_09
+  - first:
+      4: 400902
+    second: MH_hair_10
+  - first:
+      4: 400904
+    second: MH_hair_11
+  - first:
+      4: 400906
+    second: MH_hair_12
+  - first:
+      4: 400908
+    second: MH_hair_13
+  - first:
+      4: 400910
+    second: MH_mustache_01
+  - first:
+      4: 400912
+    second: MH_mustache_02
+  - first:
+      4: 400914
+    second: MH_mustache_03
+  - first:
+      4: 400916
+    second: MH_mustache_04
+  - first:
+      4: 400918
+    second: MH_mustache_05
+  - first:
+      4: 400920
+    second: MH_mustache_06
+  - first:
+      4: 400922
+    second: MH_mustache_07
+  - first:
+      4: 400924
+    second: MH_mustache_10
+  - first:
+      4: 400926
+    second: MH_mustache_11
+  - first:
+      4: 400928
+    second: MH_outfit_head_01
+  - first:
+      4: 400930
+    second: MH_outfit_head_02
+  - first:
+      4: 400932
+    second: MH_outfit_head_03
+  - first:
+      4: 400934
+    second: MH_outfit_head_05
+  - first:
+      4: 400936
+    second: MH_outfit_legs_01
+  - first:
+      4: 400938
+    second: MH_outfit_legs_02
+  - first:
+      4: 400940
+    second: MH_outfit_legs_03
+  - first:
+      4: 400942
+    second: MH_outfit_legs_04
+  - first:
+      4: 400944
+    second: MH_outfit_legs_05
+  - first:
+      4: 400946
+    second: MH_outfit_torso_01
+  - first:
+      4: 400948
+    second: MH_outfit_torso_02
+  - first:
+      4: 400950
+    second: MH_outfit_torso_03
+  - first:
+      4: 400952
+    second: MH_outfit_torso_04
+  - first:
+      4: 400954
+    second: MH_outfit_torso_05
+  - first:
+      4: 400956
+    second: MH_outfit_torso_05B
+  - first:
+      4: 400958
+    second: MH_underwear_pants_01
+  - first:
+      4: 400960
+    second: MH_underwear_pants_02
+  - first:
+      4: 400962
+    second: MH_underwear_pants_03
+  - first:
+      4: 400964
+    second: MH_armor_leather_01_torso
+  - first:
+      4: 400966
+    second: MH_armor_leather_02_torso
+  - first:
+      4: 400968
+    second: MH_armor_leather_03_torso
+  - first:
+      4: 400970
+    second: MH_armor_leather_04_torso
+  - first:
+      4: 400972
+    second: MH_armor_leather_05_torso
+  - first:
+      4: 400974
+    second: MH_armor_cloth_06_torso
+  - first:
+      4: 400976
+    second: mustache_1.L.001
+  - first:
+      4: 400978
+    second: mustache_1.R.001
+  - first:
+      4: 400980
+    second: mustache_2.L.001
+  - first:
+      4: 400982
+    second: mustache_2.R.001
+  - first:
+      4: 400984
+    second: mustache_1_1.L
+  - first:
+      4: 400986
+    second: mustache_1_1.R
+  - first:
+      4: 400988
+    second: mustache_1_2.L
+  - first:
+      4: 400990
+    second: mustache_1_2.R
+  - first:
+      4: 400992
+    second: MH_armor_cloth_06_legs
+  - first:
+      4: 400994
+    second: MH_armor_cloth_06_shoulders
+  - first:
+      4: 400996
+    second: MH_armor_cloth_06_waist
+  - first:
+      4: 400998
+    second: neck
+  - first:
+      4: 401000
+    second: MH_armor_cloth_06_helmet
+  - first:
+      4: 401002
+    second: MH_armor_leather_06_helmet
+  - first:
+      4: 401004
+    second: MH_armor_leather_06_legs
+  - first:
+      4: 401006
+    second: MH_armor_leather_06_shoulders
+  - first:
+      4: 401008
+    second: MH_armor_leather_06_torso
+  - first:
+      4: 401010
+    second: MH_armor_leather_06_waist
+  - first:
+      4: 401012
+    second: MH_beard_11
+  - first:
+      4: 401014
+    second: MH_beard_12
+  - first:
+      4: 401016
+    second: MH_mustache_12
+  - first:
+      4: 401018
+    second: MH_armor_leather_07_helmet
+  - first:
+      4: 401020
+    second: MH_armor_leather_07_legs
+  - first:
+      4: 401022
+    second: MH_armor_leather_07_shoulders
+  - first:
+      4: 401024
+    second: MH_armor_leather_07_torso
+  - first:
+      4: 401026
+    second: MH_armor_leather_07_waist
+  - first:
+      4: 401028
+    second: MH_armor_cloth_07_helmet
+  - first:
+      4: 401030
+    second: MH_armor_cloth_07_legs
+  - first:
+      4: 401032
+    second: MH_armor_cloth_07_shoulders
+  - first:
+      4: 401034
+    second: MH_armor_cloth_07_torso
+  - first:
+      4: 401036
+    second: MH_armor_cloth_07_waist
+  - first:
+      4: 401038
+    second: MH_beard_13
+  - first:
+      4: 401040
+    second: MH_beard_14
+  - first:
+      4: 401042
+    second: MH_beard_15
+  - first:
+      4: 401044
+    second: MH_hair_16
+  - first:
+      4: 401046
+    second: MH_hair_17
+  - first:
+      4: 401048
+    second: MH_hair_18
+  - first:
+      4: 401050
+    second: MH_hair_19
+  - first:
+      4: 401052
+    second: MH_mustache_13
+  - first:
+      4: 401054
+    second: MH_mustache_14
+  - first:
+      4: 401056
+    second: MH_mustache_15
+  - first:
+      4: 401058
+    second: MH_mustache_16
+  - first:
+      21: 2100000
+    second: colors
+  - first:
+      21: 2100002
+    second: body
+  - first:
+      21: 2100004
+    second: hair
+  - first:
+      21: 2100006
+    second: pants
+  - first:
+      21: 2100008
+    second: armor
+  - first:
+      21: 2100010
+    second: underwear
+  - first:
+      23: 2300000
+    second: object01
+  - first:
+      23: 2300002
+    second: MH_armor_cloth_01_helmet
+  - first:
+      23: 2300004
+    second: MH_armor_cloth_01_legs
+  - first:
+      23: 2300006
+    second: MH_armor_cloth_01_shoulders
+  - first:
+      23: 2300008
+    second: MH_armor_cloth_01_torso
+  - first:
+      23: 2300010
+    second: MH_armor_cloth_01_waist
+  - first:
+      23: 2300012
+    second: MH_base_body_head
+  - first:
+      23: 2300014
+    second: MH_beard_10
+  - first:
+      23: 2300016
+    second: MH_mustache_08
+  - first:
+      23: 2300018
+    second: MH_armor_cloth_03_torso
+  - first:
+      23: 2300020
+    second: MH_hair_14
+  - first:
+      23: 2300022
+    second: MH_armor_cloth_06_torso
+  - first:
+      23: 2300024
+    second: MH_armor_cloth_06_legs
+  - first:
+      23: 2300026
+    second: MH_base_beard
+  - first:
+      23: 2300028
+    second: MH_base_body_legs
+  - first:
+      23: 2300030
+    second: MH_base_body_shoulders
+  - first:
+      23: 2300032
+    second: MH_base_body_torso
+  - first:
+      23: 2300034
+    second: MH_base_hair
+  - first:
+      23: 2300036
+    second: MH_base_mustache
+  - first:
+      23: 2300038
+    second: MH_base_pants
+  - first:
+      23: 2300040
+    second: MH_base_waist
+  - first:
+      23: 2300042
+    second: MH_armor_cloth_02_helmet
+  - first:
+      23: 2300044
+    second: MH_armor_cloth_02_helmetB
+  - first:
+      23: 2300046
+    second: MH_armor_cloth_02_legs
+  - first:
+      23: 2300048
+    second: MH_armor_cloth_02_shoulders
+  - first:
+      23: 2300050
+    second: MH_armor_cloth_02_torso
+  - first:
+      23: 2300052
+    second: MH_armor_cloth_02_waist
+  - first:
+      23: 2300054
+    second: MH_armor_cloth_03_helmet
+  - first:
+      23: 2300056
+    second: MH_armor_cloth_03_helmetB
+  - first:
+      23: 2300058
+    second: MH_armor_cloth_03_legs
+  - first:
+      23: 2300060
+    second: MH_armor_cloth_03_shoulders
+  - first:
+      23: 2300062
+    second: MH_armor_cloth_03_waist
+  - first:
+      23: 2300064
+    second: MH_armor_cloth_04_helmet
+  - first:
+      23: 2300066
+    second: MH_armor_cloth_04_legs
+  - first:
+      23: 2300068
+    second: MH_armor_cloth_04_shoulders
+  - first:
+      23: 2300070
+    second: MH_armor_cloth_04_torso
+  - first:
+      23: 2300072
+    second: MH_armor_cloth_04_waist
+  - first:
+      23: 2300074
+    second: MH_armor_cloth_05_helmet
+  - first:
+      23: 2300076
+    second: MH_armor_cloth_05_legs
+  - first:
+      23: 2300078
+    second: MH_armor_cloth_05_shoulders
+  - first:
+      23: 2300080
+    second: MH_armor_cloth_05_shouldersB
+  - first:
+      23: 2300082
+    second: MH_armor_cloth_05_torso
+  - first:
+      23: 2300084
+    second: MH_armor_cloth_05_waist
+  - first:
+      23: 2300086
+    second: MH_armor_cloth_06_helmet
+  - first:
+      23: 2300088
+    second: MH_armor_cloth_06_shoulders
+  - first:
+      23: 2300090
+    second: MH_armor_cloth_06_waist
+  - first:
+      23: 2300092
+    second: MH_armor_leather_01_helmet
+  - first:
+      23: 2300094
+    second: MH_armor_leather_01_legs
+  - first:
+      23: 2300096
+    second: MH_armor_leather_01_shoulders
+  - first:
+      23: 2300098
+    second: MH_armor_leather_01_torso
+  - first:
+      23: 2300100
+    second: MH_armor_leather_01_waist
+  - first:
+      23: 2300102
+    second: MH_armor_leather_02_helmet
+  - first:
+      23: 2300104
+    second: MH_armor_leather_02_legs
+  - first:
+      23: 2300106
+    second: MH_armor_leather_02_shoulders
+  - first:
+      23: 2300108
+    second: MH_armor_leather_02_torso
+  - first:
+      23: 2300110
+    second: MH_armor_leather_02_waist
+  - first:
+      23: 2300112
+    second: MH_armor_leather_03_helmet
+  - first:
+      23: 2300114
+    second: MH_armor_leather_03_legs
+  - first:
+      23: 2300116
+    second: MH_armor_leather_03_shoulders
+  - first:
+      23: 2300118
+    second: MH_armor_leather_03_torso
+  - first:
+      23: 2300120
+    second: MH_armor_leather_03_waist
+  - first:
+      23: 2300122
+    second: MH_armor_leather_04_helmet
+  - first:
+      23: 2300124
+    second: MH_armor_leather_04_legs
+  - first:
+      23: 2300126
+    second: MH_armor_leather_04_shoulders
+  - first:
+      23: 2300128
+    second: MH_armor_leather_04_torso
+  - first:
+      23: 2300130
+    second: MH_armor_leather_04_waist
+  - first:
+      23: 2300132
+    second: MH_armor_leather_05_helmet
+  - first:
+      23: 2300134
+    second: MH_armor_leather_05_legs
+  - first:
+      23: 2300136
+    second: MH_armor_leather_05_shoulders
+  - first:
+      23: 2300138
+    second: MH_armor_leather_05_torso
+  - first:
+      23: 2300140
+    second: MH_armor_leather_05_waist
+  - first:
+      23: 2300142
+    second: MH_armor_leather_06_helmet
+  - first:
+      23: 2300144
+    second: MH_armor_leather_06_legs
+  - first:
+      23: 2300146
+    second: MH_armor_leather_06_shoulders
+  - first:
+      23: 2300148
+    second: MH_armor_leather_06_torso
+  - first:
+      23: 2300150
+    second: MH_armor_leather_06_waist
+  - first:
+      23: 2300152
+    second: MH_armor_plate_01_helmet
+  - first:
+      23: 2300154
+    second: MH_armor_plate_01_legs
+  - first:
+      23: 2300156
+    second: MH_armor_plate_01_shoulders
+  - first:
+      23: 2300158
+    second: MH_armor_plate_01_torso
+  - first:
+      23: 2300160
+    second: MH_armor_plate_01_waist
+  - first:
+      23: 2300162
+    second: MH_armor_plate_02_helmet
+  - first:
+      23: 2300164
+    second: MH_armor_plate_02_legs
+  - first:
+      23: 2300166
+    second: MH_armor_plate_02_shoulders
+  - first:
+      23: 2300168
+    second: MH_armor_plate_02_torso
+  - first:
+      23: 2300170
+    second: MH_armor_plate_02_waist
+  - first:
+      23: 2300172
+    second: MH_armor_plate_03_helmet
+  - first:
+      23: 2300174
+    second: MH_armor_plate_03_legs
+  - first:
+      23: 2300176
+    second: MH_armor_plate_03_shoulders
+  - first:
+      23: 2300178
+    second: MH_armor_plate_03_torso
+  - first:
+      23: 2300180
+    second: MH_armor_plate_03_waist
+  - first:
+      23: 2300182
+    second: MH_armor_plate_04_helmet
+  - first:
+      23: 2300184
+    second: MH_armor_plate_04_legs
+  - first:
+      23: 2300186
+    second: MH_armor_plate_04_shoulders
+  - first:
+      23: 2300188
+    second: MH_armor_plate_04_torso
+  - first:
+      23: 2300190
+    second: MH_armor_plate_04_waist
+  - first:
+      23: 2300192
+    second: MH_armor_plate_05_helmet
+  - first:
+      23: 2300194
+    second: MH_armor_plate_05_legs
+  - first:
+      23: 2300196
+    second: MH_armor_plate_05_shoulders
+  - first:
+      23: 2300198
+    second: MH_armor_plate_05_torso
+  - first:
+      23: 2300200
+    second: MH_armor_plate_05_waist
+  - first:
+      23: 2300202
+    second: MH_armor_plate_06_helmet
+  - first:
+      23: 2300204
+    second: MH_armor_plate_06_legs
+  - first:
+      23: 2300206
+    second: MH_armor_plate_06_shoulders
+  - first:
+      23: 2300208
+    second: MH_armor_plate_06_torso
+  - first:
+      23: 2300210
+    second: MH_armor_plate_06_waist
+  - first:
+      23: 2300212
+    second: MH_armor_plate_07_helmet
+  - first:
+      23: 2300214
+    second: MH_armor_plate_07_legs
+  - first:
+      23: 2300216
+    second: MH_armor_plate_07_shoulders
+  - first:
+      23: 2300218
+    second: MH_armor_plate_07_torso
+  - first:
+      23: 2300220
+    second: MH_armor_plate_07_waist
+  - first:
+      23: 2300222
+    second: MH_beard_01
+  - first:
+      23: 2300224
+    second: MH_beard_02
+  - first:
+      23: 2300226
+    second: MH_beard_03
+  - first:
+      23: 2300228
+    second: MH_beard_04
+  - first:
+      23: 2300230
+    second: MH_beard_05
+  - first:
+      23: 2300232
+    second: MH_beard_06
+  - first:
+      23: 2300234
+    second: MH_beard_07
+  - first:
+      23: 2300236
+    second: MH_beard_08
+  - first:
+      23: 2300238
+    second: MH_beard_09
+  - first:
+      23: 2300240
+    second: MH_hair_01
+  - first:
+      23: 2300242
+    second: MH_hair_02
+  - first:
+      23: 2300244
+    second: MH_hair_03
+  - first:
+      23: 2300246
+    second: MH_hair_04
+  - first:
+      23: 2300248
+    second: MH_hair_05
+  - first:
+      23: 2300250
+    second: MH_hair_06
+  - first:
+      23: 2300252
+    second: MH_hair_07
+  - first:
+      23: 2300254
+    second: MH_hair_08
+  - first:
+      23: 2300256
+    second: MH_hair_09
+  - first:
+      23: 2300258
+    second: MH_hair_10
+  - first:
+      23: 2300260
+    second: MH_hair_11
+  - first:
+      23: 2300262
+    second: MH_hair_12
+  - first:
+      23: 2300264
+    second: MH_hair_13
+  - first:
+      23: 2300266
+    second: MH_hair_15
+  - first:
+      23: 2300268
+    second: MH_mustache_01
+  - first:
+      23: 2300270
+    second: MH_mustache_02
+  - first:
+      23: 2300272
+    second: MH_mustache_03
+  - first:
+      23: 2300274
+    second: MH_mustache_04
+  - first:
+      23: 2300276
+    second: MH_mustache_05
+  - first:
+      23: 2300278
+    second: MH_mustache_06
+  - first:
+      23: 2300280
+    second: MH_mustache_07
+  - first:
+      23: 2300282
+    second: MH_mustache_09
+  - first:
+      23: 2300284
+    second: MH_mustache_10
+  - first:
+      23: 2300286
+    second: MH_mustache_11
+  - first:
+      23: 2300288
+    second: MH_outfit_head_01
+  - first:
+      23: 2300290
+    second: MH_outfit_head_02
+  - first:
+      23: 2300292
+    second: MH_outfit_head_03
+  - first:
+      23: 2300294
+    second: MH_outfit_head_05
+  - first:
+      23: 2300296
+    second: MH_outfit_legs_01
+  - first:
+      23: 2300298
+    second: MH_outfit_legs_02
+  - first:
+      23: 2300300
+    second: MH_outfit_legs_03
+  - first:
+      23: 2300302
+    second: MH_outfit_legs_04
+  - first:
+      23: 2300304
+    second: MH_outfit_legs_05
+  - first:
+      23: 2300306
+    second: MH_outfit_torso_01
+  - first:
+      23: 2300308
+    second: MH_outfit_torso_02
+  - first:
+      23: 2300310
+    second: MH_outfit_torso_03
+  - first:
+      23: 2300312
+    second: MH_outfit_torso_04
+  - first:
+      23: 2300314
+    second: MH_outfit_torso_05
+  - first:
+      23: 2300316
+    second: MH_outfit_torso_05B
+  - first:
+      23: 2300318
+    second: MH_underwear_pants_01
+  - first:
+      23: 2300320
+    second: MH_underwear_pants_02
+  - first:
+      23: 2300322
+    second: MH_underwear_pants_03
+  - first:
+      33: 3300000
+    second: object01
+  - first:
+      33: 3300002
+    second: MH_armor_cloth_01_helmet
+  - first:
+      33: 3300004
+    second: MH_armor_cloth_01_legs
+  - first:
+      33: 3300006
+    second: MH_armor_cloth_01_shoulders
+  - first:
+      33: 3300008
+    second: MH_armor_cloth_01_torso
+  - first:
+      33: 3300010
+    second: MH_armor_cloth_01_waist
+  - first:
+      33: 3300012
+    second: MH_base_body_head
+  - first:
+      33: 3300014
+    second: MH_beard_10
+  - first:
+      33: 3300016
+    second: MH_mustache_08
+  - first:
+      33: 3300018
+    second: MH_armor_cloth_03_torso
+  - first:
+      33: 3300020
+    second: MH_hair_14
+  - first:
+      33: 3300022
+    second: MH_armor_cloth_06_torso
+  - first:
+      33: 3300024
+    second: MH_armor_cloth_06_legs
+  - first:
+      33: 3300026
+    second: MH_base_beard
+  - first:
+      33: 3300028
+    second: MH_base_body_legs
+  - first:
+      33: 3300030
+    second: MH_base_body_shoulders
+  - first:
+      33: 3300032
+    second: MH_base_body_torso
+  - first:
+      33: 3300034
+    second: MH_base_hair
+  - first:
+      33: 3300036
+    second: MH_base_mustache
+  - first:
+      33: 3300038
+    second: MH_base_pants
+  - first:
+      33: 3300040
+    second: MH_base_waist
+  - first:
+      33: 3300042
+    second: MH_armor_cloth_02_helmet
+  - first:
+      33: 3300044
+    second: MH_armor_cloth_02_helmetB
+  - first:
+      33: 3300046
+    second: MH_armor_cloth_02_legs
+  - first:
+      33: 3300048
+    second: MH_armor_cloth_02_shoulders
+  - first:
+      33: 3300050
+    second: MH_armor_cloth_02_torso
+  - first:
+      33: 3300052
+    second: MH_armor_cloth_02_waist
+  - first:
+      33: 3300054
+    second: MH_armor_cloth_03_helmet
+  - first:
+      33: 3300056
+    second: MH_armor_cloth_03_helmetB
+  - first:
+      33: 3300058
+    second: MH_armor_cloth_03_legs
+  - first:
+      33: 3300060
+    second: MH_armor_cloth_03_shoulders
+  - first:
+      33: 3300062
+    second: MH_armor_cloth_03_waist
+  - first:
+      33: 3300064
+    second: MH_armor_cloth_04_helmet
+  - first:
+      33: 3300066
+    second: MH_armor_cloth_04_legs
+  - first:
+      33: 3300068
+    second: MH_armor_cloth_04_shoulders
+  - first:
+      33: 3300070
+    second: MH_armor_cloth_04_torso
+  - first:
+      33: 3300072
+    second: MH_armor_cloth_04_waist
+  - first:
+      33: 3300074
+    second: MH_armor_cloth_05_helmet
+  - first:
+      33: 3300076
+    second: MH_armor_cloth_05_legs
+  - first:
+      33: 3300078
+    second: MH_armor_cloth_05_shoulders
+  - first:
+      33: 3300080
+    second: MH_armor_cloth_05_shouldersB
+  - first:
+      33: 3300082
+    second: MH_armor_cloth_05_torso
+  - first:
+      33: 3300084
+    second: MH_armor_cloth_05_waist
+  - first:
+      33: 3300086
+    second: MH_armor_cloth_06_helmet
+  - first:
+      33: 3300088
+    second: MH_armor_cloth_06_shoulders
+  - first:
+      33: 3300090
+    second: MH_armor_cloth_06_waist
+  - first:
+      33: 3300092
+    second: MH_armor_leather_01_helmet
+  - first:
+      33: 3300094
+    second: MH_armor_leather_01_legs
+  - first:
+      33: 3300096
+    second: MH_armor_leather_01_shoulders
+  - first:
+      33: 3300098
+    second: MH_armor_leather_01_torso
+  - first:
+      33: 3300100
+    second: MH_armor_leather_01_waist
+  - first:
+      33: 3300102
+    second: MH_armor_leather_02_helmet
+  - first:
+      33: 3300104
+    second: MH_armor_leather_02_legs
+  - first:
+      33: 3300106
+    second: MH_armor_leather_02_shoulders
+  - first:
+      33: 3300108
+    second: MH_armor_leather_02_torso
+  - first:
+      33: 3300110
+    second: MH_armor_leather_02_waist
+  - first:
+      33: 3300112
+    second: MH_armor_leather_03_helmet
+  - first:
+      33: 3300114
+    second: MH_armor_leather_03_legs
+  - first:
+      33: 3300116
+    second: MH_armor_leather_03_shoulders
+  - first:
+      33: 3300118
+    second: MH_armor_leather_03_torso
+  - first:
+      33: 3300120
+    second: MH_armor_leather_03_waist
+  - first:
+      33: 3300122
+    second: MH_armor_leather_04_helmet
+  - first:
+      33: 3300124
+    second: MH_armor_leather_04_legs
+  - first:
+      33: 3300126
+    second: MH_armor_leather_04_shoulders
+  - first:
+      33: 3300128
+    second: MH_armor_leather_04_torso
+  - first:
+      33: 3300130
+    second: MH_armor_leather_04_waist
+  - first:
+      33: 3300132
+    second: MH_armor_leather_05_helmet
+  - first:
+      33: 3300134
+    second: MH_armor_leather_05_legs
+  - first:
+      33: 3300136
+    second: MH_armor_leather_05_shoulders
+  - first:
+      33: 3300138
+    second: MH_armor_leather_05_torso
+  - first:
+      33: 3300140
+    second: MH_armor_leather_05_waist
+  - first:
+      33: 3300142
+    second: MH_armor_leather_06_helmet
+  - first:
+      33: 3300144
+    second: MH_armor_leather_06_legs
+  - first:
+      33: 3300146
+    second: MH_armor_leather_06_shoulders
+  - first:
+      33: 3300148
+    second: MH_armor_leather_06_torso
+  - first:
+      33: 3300150
+    second: MH_armor_leather_06_waist
+  - first:
+      33: 3300152
+    second: MH_armor_plate_01_helmet
+  - first:
+      33: 3300154
+    second: MH_armor_plate_01_legs
+  - first:
+      33: 3300156
+    second: MH_armor_plate_01_shoulders
+  - first:
+      33: 3300158
+    second: MH_armor_plate_01_torso
+  - first:
+      33: 3300160
+    second: MH_armor_plate_01_waist
+  - first:
+      33: 3300162
+    second: MH_armor_plate_02_helmet
+  - first:
+      33: 3300164
+    second: MH_armor_plate_02_legs
+  - first:
+      33: 3300166
+    second: MH_armor_plate_02_shoulders
+  - first:
+      33: 3300168
+    second: MH_armor_plate_02_torso
+  - first:
+      33: 3300170
+    second: MH_armor_plate_02_waist
+  - first:
+      33: 3300172
+    second: MH_armor_plate_03_helmet
+  - first:
+      33: 3300174
+    second: MH_armor_plate_03_legs
+  - first:
+      33: 3300176
+    second: MH_armor_plate_03_shoulders
+  - first:
+      33: 3300178
+    second: MH_armor_plate_03_torso
+  - first:
+      33: 3300180
+    second: MH_armor_plate_03_waist
+  - first:
+      33: 3300182
+    second: MH_armor_plate_04_helmet
+  - first:
+      33: 3300184
+    second: MH_armor_plate_04_legs
+  - first:
+      33: 3300186
+    second: MH_armor_plate_04_shoulders
+  - first:
+      33: 3300188
+    second: MH_armor_plate_04_torso
+  - first:
+      33: 3300190
+    second: MH_armor_plate_04_waist
+  - first:
+      33: 3300192
+    second: MH_armor_plate_05_helmet
+  - first:
+      33: 3300194
+    second: MH_armor_plate_05_legs
+  - first:
+      33: 3300196
+    second: MH_armor_plate_05_shoulders
+  - first:
+      33: 3300198
+    second: MH_armor_plate_05_torso
+  - first:
+      33: 3300200
+    second: MH_armor_plate_05_waist
+  - first:
+      33: 3300202
+    second: MH_armor_plate_06_helmet
+  - first:
+      33: 3300204
+    second: MH_armor_plate_06_legs
+  - first:
+      33: 3300206
+    second: MH_armor_plate_06_shoulders
+  - first:
+      33: 3300208
+    second: MH_armor_plate_06_torso
+  - first:
+      33: 3300210
+    second: MH_armor_plate_06_waist
+  - first:
+      33: 3300212
+    second: MH_armor_plate_07_helmet
+  - first:
+      33: 3300214
+    second: MH_armor_plate_07_legs
+  - first:
+      33: 3300216
+    second: MH_armor_plate_07_shoulders
+  - first:
+      33: 3300218
+    second: MH_armor_plate_07_torso
+  - first:
+      33: 3300220
+    second: MH_armor_plate_07_waist
+  - first:
+      33: 3300222
+    second: MH_beard_01
+  - first:
+      33: 3300224
+    second: MH_beard_02
+  - first:
+      33: 3300226
+    second: MH_beard_03
+  - first:
+      33: 3300228
+    second: MH_beard_04
+  - first:
+      33: 3300230
+    second: MH_beard_05
+  - first:
+      33: 3300232
+    second: MH_beard_06
+  - first:
+      33: 3300234
+    second: MH_beard_07
+  - first:
+      33: 3300236
+    second: MH_beard_08
+  - first:
+      33: 3300238
+    second: MH_beard_09
+  - first:
+      33: 3300240
+    second: MH_hair_01
+  - first:
+      33: 3300242
+    second: MH_hair_02
+  - first:
+      33: 3300244
+    second: MH_hair_03
+  - first:
+      33: 3300246
+    second: MH_hair_04
+  - first:
+      33: 3300248
+    second: MH_hair_05
+  - first:
+      33: 3300250
+    second: MH_hair_06
+  - first:
+      33: 3300252
+    second: MH_hair_07
+  - first:
+      33: 3300254
+    second: MH_hair_08
+  - first:
+      33: 3300256
+    second: MH_hair_09
+  - first:
+      33: 3300258
+    second: MH_hair_10
+  - first:
+      33: 3300260
+    second: MH_hair_11
+  - first:
+      33: 3300262
+    second: MH_hair_12
+  - first:
+      33: 3300264
+    second: MH_hair_13
+  - first:
+      33: 3300266
+    second: MH_hair_15
+  - first:
+      33: 3300268
+    second: MH_mustache_01
+  - first:
+      33: 3300270
+    second: MH_mustache_02
+  - first:
+      33: 3300272
+    second: MH_mustache_03
+  - first:
+      33: 3300274
+    second: MH_mustache_04
+  - first:
+      33: 3300276
+    second: MH_mustache_05
+  - first:
+      33: 3300278
+    second: MH_mustache_06
+  - first:
+      33: 3300280
+    second: MH_mustache_07
+  - first:
+      33: 3300282
+    second: MH_mustache_09
+  - first:
+      33: 3300284
+    second: MH_mustache_10
+  - first:
+      33: 3300286
+    second: MH_mustache_11
+  - first:
+      33: 3300288
+    second: MH_outfit_head_01
+  - first:
+      33: 3300290
+    second: MH_outfit_head_02
+  - first:
+      33: 3300292
+    second: MH_outfit_head_03
+  - first:
+      33: 3300294
+    second: MH_outfit_head_05
+  - first:
+      33: 3300296
+    second: MH_outfit_legs_01
+  - first:
+      33: 3300298
+    second: MH_outfit_legs_02
+  - first:
+      33: 3300300
+    second: MH_outfit_legs_03
+  - first:
+      33: 3300302
+    second: MH_outfit_legs_04
+  - first:
+      33: 3300304
+    second: MH_outfit_legs_05
+  - first:
+      33: 3300306
+    second: MH_outfit_torso_01
+  - first:
+      33: 3300308
+    second: MH_outfit_torso_02
+  - first:
+      33: 3300310
+    second: MH_outfit_torso_03
+  - first:
+      33: 3300312
+    second: MH_outfit_torso_04
+  - first:
+      33: 3300314
+    second: MH_outfit_torso_05
+  - first:
+      33: 3300316
+    second: MH_outfit_torso_05B
+  - first:
+      33: 3300318
+    second: MH_underwear_pants_01
+  - first:
+      33: 3300320
+    second: MH_underwear_pants_02
+  - first:
+      33: 3300322
+    second: MH_underwear_pants_03
+  - first:
+      43: 4300000
+    second: hair01
+  - first:
+      43: 4300002
+    second: hair02
+  - first:
+      43: 4300004
+    second: head
+  - first:
+      43: 4300006
+    second: legs
+  - first:
+      43: 4300008
+    second: pants01
+  - first:
+      43: 4300010
+    second: pants02
+  - first:
+      43: 4300012
+    second: body
+  - first:
+      43: 4300014
+    second: facial hair 02
+  - first:
+      43: 4300016
+    second: waist
+  - first:
+      43: 4300018
+    second: hair03
+  - first:
+      43: 4300020
+    second: hair04
+  - first:
+      43: 4300022
+    second: hair05
+  - first:
+      43: 4300024
+    second: hair06
+  - first:
+      43: 4300026
+    second: hair07
+  - first:
+      43: 4300028
+    second: hair08
+  - first:
+      43: 4300030
+    second: facial hair 01
+  - first:
+      43: 4300032
+    second: facial hair 03
+  - first:
+      43: 4300034
+    second: facial hair 04
+  - first:
+      43: 4300036
+    second: facial hair 05
+  - first:
+      43: 4300038
+    second: plate Body 01
+  - first:
+      43: 4300040
+    second: plate Legs 01
+  - first:
+      43: 4300042
+    second: plate Waist 01
+  - first:
+      43: 4300044
+    second: plate Helm 01
+  - first:
+      43: 4300046
+    second: leather Body 01
+  - first:
+      43: 4300048
+    second: cloth Helm 01
+  - first:
+      43: 4300050
+    second: leather Helm 01
+  - first:
+      43: 4300052
+    second: leather Legs 01
+  - first:
+      43: 4300054
+    second: leather Waist 01
+  - first:
+      43: 4300056
+    second: plate Helm 02
+  - first:
+      43: 4300058
+    second: plate Body 02
+  - first:
+      43: 4300060
+    second: plate Waist 02
+  - first:
+      43: 4300062
+    second: plate Legs 02
+  - first:
+      43: 4300064
+    second: cloth Body 01
+  - first:
+      43: 4300066
+    second: cloth Legs 01
+  - first:
+      43: 4300068
+    second: cloth Waist 01
+  - first:
+      43: 4300070
+    second: leather Body 02
+  - first:
+      43: 4300072
+    second: plate Waist 07
+  - first:
+      43: 4300074
+    second: leather Legs 02
+  - first:
+      43: 4300076
+    second: leather Helm 02
+  - first:
+      43: 4300078
+    second: cloth Body 02
+  - first:
+      43: 4300080
+    second: cloth Helm 02_B
+  - first:
+      43: 4300082
+    second: cloth Helm 02
+  - first:
+      43: 4300084
+    second: cloth Legs 02
+  - first:
+      43: 4300086
+    second: cloth Waist 02
+  - first:
+      43: 4300088
+    second: plate Body 03
+  - first:
+      43: 4300090
+    second: plate Helm 03
+  - first:
+      43: 4300092
+    second: plate Legs 03
+  - first:
+      43: 4300094
+    second: plate Waist 03
+  - first:
+      43: 4300096
+    second: outfit body 1
+  - first:
+      43: 4300098
+    second: outfit body 4
+  - first:
+      43: 4300100
+    second: outfit body 2
+  - first:
+      43: 4300102
+    second: outfit body 3
+  - first:
+      43: 4300104
+    second: outfit body 5
+  - first:
+      43: 4300106
+    second: outfit legs 3
+  - first:
+      43: 4300108
+    second: outfit legs 1
+  - first:
+      43: 4300110
+    second: outfit legs 4
+  - first:
+      43: 4300112
+    second: outfit legs 2
+  - first:
+      43: 4300114
+    second: plate Helm 04
+  - first:
+      43: 4300116
+    second: plate Body 04
+  - first:
+      43: 4300118
+    second: plate Legs 04
+  - first:
+      43: 4300120
+    second: plate Waist 04
+  - first:
+      43: 4300122
+    second: plate Helm 05
+  - first:
+      43: 4300124
+    second: plate Body 05
+  - first:
+      43: 4300126
+    second: plate Legs 05
+  - first:
+      43: 4300128
+    second: plate Waist 05
+  - first:
+      43: 4300130
+    second: plate Body 06
+  - first:
+      43: 4300132
+    second: plate Legs 06
+  - first:
+      43: 4300134
+    second: plate Waist 06
+  - first:
+      43: 4300136
+    second: plate Helm 06
+  - first:
+      43: 4300138
+    second: plate Helm 07
+  - first:
+      43: 4300140
+    second: plate Body 07
+  - first:
+      43: 4300142
+    second: plate Legs 07
+  - first:
+      43: 4300144
+    second: leather Waist 02
+  - first:
+      43: 4300146
+    second: leather Body 03
+  - first:
+      43: 4300148
+    second: leather Legs 03
+  - first:
+      43: 4300150
+    second: leather Helm 03
+  - first:
+      43: 4300152
+    second: leather Waist 03
+  - first:
+      43: 4300154
+    second: leather Body 04
+  - first:
+      43: 4300156
+    second: leather Legs 04
+  - first:
+      43: 4300158
+    second: leather Helm 04
+  - first:
+      43: 4300160
+    second: leather Waist 04
+  - first:
+      43: 4300162
+    second: cloth Body 03
+  - first:
+      43: 4300164
+    second: cloth Helm 03
+  - first:
+      43: 4300166
+    second: cloth Helm 03_B
+  - first:
+      43: 4300168
+    second: cloth Legs 03
+  - first:
+      43: 4300170
+    second: cloth Waist 03
+  - first:
+      43: 4300172
+    second: outfit legs 5
+  - first:
+      43: 4300174
+    second: outfit body 5_A
+  - first:
+      43: 4300176
+    second: f Beard 02
+  - first:
+      43: 4300178
+    second: f Beard 01
+  - first:
+      43: 4300180
+    second: f Beard 03
+  - first:
+      43: 4300182
+    second: f mustache 02
+  - first:
+      43: 4300184
+    second: f Beard 04
+  - first:
+      43: 4300186
+    second: outfit head 1
+  - first:
+      43: 4300188
+    second: outfit head 2
+  - first:
+      43: 4300190
+    second: outfit head 3
+  - first:
+      43: 4300192
+    second: outfit head 5
+  - first:
+      43: 4300194
+    second: object01
+  - first:
+      43: 4300196
+    second: cloth Shoulders 02
+  - first:
+      43: 4300198
+    second: cloth Shoulders 03
+  - first:
+      43: 4300200
+    second: leather Shoulders 02
+  - first:
+      43: 4300202
+    second: leather Shoulders 03
+  - first:
+      43: 4300204
+    second: leather Shoulders 04
+  - first:
+      43: 4300206
+    second: plate Shoulders 01
+  - first:
+      43: 4300208
+    second: plate Shoulders 02
+  - first:
+      43: 4300210
+    second: plate Shoulders 03
+  - first:
+      43: 4300212
+    second: plate Shoulders 04
+  - first:
+      43: 4300214
+    second: plate Shoulders 05
+  - first:
+      43: 4300216
+    second: plate Shoulders 06
+  - first:
+      43: 4300218
+    second: plate Shoulders 07
+  - first:
+      43: 4300220
+    second: cloth Shoulders 01
+  - first:
+      43: 4300222
+    second: leather Shoulders 01
+  - first:
+      43: 4300224
+    second: hair09
+  - first:
+      43: 4300226
+    second: f mustache 01
+  - first:
+      43: 4300228
+    second: f mustache 03
+  - first:
+      43: 4300230
+    second: f Beard 05
+  - first:
+      43: 4300232
+    second: f mustache 04
+  - first:
+      43: 4300234
+    second: f mustache 05
+  - first:
+      43: 4300236
+    second: f Beard 06
+  - first:
+      43: 4300238
+    second: cloth Body 04
+  - first:
+      43: 4300240
+    second: cloth Shoulders 04
+  - first:
+      43: 4300242
+    second: cloth Helm 04
+  - first:
+      43: 4300244
+    second: cloth Legs 04
+  - first:
+      43: 4300246
+    second: cloth Waist 04
+  - first:
+      43: 4300248
+    second: cloth Body 05
+  - first:
+      43: 4300250
+    second: cloth Helm 05
+  - first:
+      43: 4300252
+    second: cloth Legs 05
+  - first:
+      43: 4300254
+    second: cloth Shoulders 05
+  - first:
+      43: 4300256
+    second: cloth Waist 05
+  - first:
+      43: 4300258
+    second: cloth Shoulders 05 A
+  - first:
+      43: 4300260
+    second: hair10
+  - first:
+      43: 4300262
+    second: hair11
+  - first:
+      43: 4300264
+    second: hair12
+  - first:
+      43: 4300266
+    second: f Beard 07
+  - first:
+      43: 4300268
+    second: f mustache 06
+  - first:
+      43: 4300270
+    second: f mustache 07
+  - first:
+      43: 4300272
+    second: leather Body 05
+  - first:
+      43: 4300274
+    second: leather Shoulders 05
+  - first:
+      43: 4300276
+    second: leather Legs 05
+  - first:
+      43: 4300278
+    second: leather Waist 05
+  - first:
+      43: 4300280
+    second: leather Helm 05
+  - first:
+      43: 4300282
+    second: full
+  - first:
+      43: 4300284
+    second: hair00
+  - first:
+      43: 4300286
+    second: MH_base_body_head
+  - first:
+      43: 4300288
+    second: MH_armor_cloth_01_helmet
+  - first:
+      43: 4300290
+    second: MH_armor_cloth_01_torso
+  - first:
+      43: 4300292
+    second: MH_armor_cloth_01_legs
+  - first:
+      43: 4300294
+    second: MH_armor_cloth_01_waist
+  - first:
+      43: 4300296
+    second: MH_armor_cloth_01_shoulders
+  - first:
+      43: 4300298
+    second: MH_beard_10
+  - first:
+      43: 4300300
+    second: MH_mustache_08
+  - first:
+      43: 4300302
+    second: MH_hair_14
+  - first:
+      43: 4300304
+    second: MH_armor_cloth_03_torso
+  - first:
+      43: 4300306
+    second: MH_beard_08
+  - first:
+      43: 4300308
+    second: MH_hair_15
+  - first:
+      43: 4300310
+    second: MH_mustache_09
+  - first:
+      43: 4300312
+    second: MH_armor_cloth_03_legs
+  - first:
+      43: 4300314
+    second: MH_armor_cloth_03_waist
+  - first:
+      43: 4300316
+    second: MH_armor_cloth_03_shoulders
+  - first:
+      43: 4300318
+    second: MH_base_body_legs
+  - first:
+      43: 4300320
+    second: MH_base_body_torso
+  - first:
+      43: 4300322
+    second: MH_base_waist
+  - first:
+      43: 4300324
+    second: MH_base_hair
+  - first:
+      43: 4300326
+    second: MH_base_pants
+  - first:
+      43: 4300328
+    second: MH_base_beard
+  - first:
+      43: 4300330
+    second: MH_base_mustache
+  - first:
+      43: 4300332
+    second: MH_base_body_shoulders
+  - first:
+      43: 4300334
+    second: MH_hair_01
+  - first:
+      43: 4300336
+    second: MH_hair_02
+  - first:
+      43: 4300338
+    second: MH_armor_plate_01_torso
+  - first:
+      43: 4300340
+    second: MH_armor_plate_01_legs
+  - first:
+      43: 4300342
+    second: MH_armor_plate_01_waist
+  - first:
+      43: 4300344
+    second: MH_armor_plate_01_helmet
+  - first:
+      43: 4300346
+    second: MH_armor_leather_01_body
+  - first:
+      43: 4300348
+    second: MH_armor_leather_01_helmet
+  - first:
+      43: 4300350
+    second: MH_armor_leather_01_legs
+  - first:
+      43: 4300352
+    second: MH_armor_leather_01_waist
+  - first:
+      43: 4300354
+    second: MH_armor_plate_02_helmet
+  - first:
+      43: 4300356
+    second: MH_armor_plate_02_torso
+  - first:
+      43: 4300358
+    second: MH_armor_plate_02_waist
+  - first:
+      43: 4300360
+    second: MH_armor_plate_02_legs
+  - first:
+      43: 4300362
+    second: MH_underwear_pants_01
+  - first:
+      43: 4300364
+    second: MH_underwear_pants_02
+  - first:
+      43: 4300366
+    second: MH_armor_leather_02_body
+  - first:
+      43: 4300368
+    second: MH_armor_plate_07_waist
+  - first:
+      43: 4300370
+    second: MH_armor_leather_02_legs
+  - first:
+      43: 4300372
+    second: MH_armor_leather_02_helmet
+  - first:
+      43: 4300374
+    second: MH_armor_cloth_02_torso
+  - first:
+      43: 4300376
+    second: MH_armor_cloth_02_helmetB
+  - first:
+      43: 4300378
+    second: MH_armor_cloth_02_helmet
+  - first:
+      43: 4300380
+    second: MH_armor_cloth_02_legs
+  - first:
+      43: 4300382
+    second: MH_armor_cloth_02_waist
+  - first:
+      43: 4300384
+    second: MH_armor_plate_03_torso
+  - first:
+      43: 4300386
+    second: MH_armor_plate_03_helmet
+  - first:
+      43: 4300388
+    second: MH_armor_plate_03_legs
+  - first:
+      43: 4300390
+    second: MH_armor_plate_03_waist
+  - first:
+      43: 4300392
+    second: MH_outfit_torso_01
+  - first:
+      43: 4300394
+    second: MH_outfit_torso_04
+  - first:
+      43: 4300396
+    second: MH_outfit_torso_02
+  - first:
+      43: 4300398
+    second: MH_outfit_torso_03
+  - first:
+      43: 4300400
+    second: MH_outfit_torso_05
+  - first:
+      43: 4300402
+    second: MH_outfit_legs_03
+  - first:
+      43: 4300404
+    second: MH_outfit_legs_01
+  - first:
+      43: 4300406
+    second: MH_outfit_legs_04
+  - first:
+      43: 4300408
+    second: MH_outfit_legs_02
+  - first:
+      43: 4300410
+    second: MH_armor_plate_04_helmet
+  - first:
+      43: 4300412
+    second: MH_armor_plate_04_torso
+  - first:
+      43: 4300414
+    second: MH_armor_plate_04_legs
+  - first:
+      43: 4300416
+    second: MH_armor_plate_04_waist
+  - first:
+      43: 4300418
+    second: MH_armor_plate_05_helmet
+  - first:
+      43: 4300420
+    second: MH_armor_plate_05_torso
+  - first:
+      43: 4300422
+    second: MH_armor_plate_05_legs
+  - first:
+      43: 4300424
+    second: MH_armor_plate_05_waist
+  - first:
+      43: 4300426
+    second: MH_armor_plate_06_torso
+  - first:
+      43: 4300428
+    second: MH_armor_plate_06_legs
+  - first:
+      43: 4300430
+    second: MH_armor_plate_06_waist
+  - first:
+      43: 4300432
+    second: MH_armor_plate_06_helmet
+  - first:
+      43: 4300434
+    second: MH_armor_plate_07_helmet
+  - first:
+      43: 4300436
+    second: MH_armor_plate_07_torso
+  - first:
+      43: 4300438
+    second: MH_armor_plate_07_legs
+  - first:
+      43: 4300440
+    second: MH_armor_leather_02_waist
+  - first:
+      43: 4300442
+    second: MH_armor_leather_03_body
+  - first:
+      43: 4300444
+    second: MH_armor_leather_03_legs
+  - first:
+      43: 4300446
+    second: MH_armor_leather_03_helmet
+  - first:
+      43: 4300448
+    second: MH_armor_leather_03_waist
+  - first:
+      43: 4300450
+    second: MH_armor_leather_04_body
+  - first:
+      43: 4300452
+    second: MH_armor_leather_04_legs
+  - first:
+      43: 4300454
+    second: MH_armor_leather_04_helmet
+  - first:
+      43: 4300456
+    second: MH_armor_leather_04_waist
+  - first:
+      43: 4300458
+    second: MH_armor_cloth_03_helmet
+  - first:
+      43: 4300460
+    second: MH_armor_cloth_03_helmetB
+  - first:
+      43: 4300462
+    second: MH_outfit_legs_05
+  - first:
+      43: 4300464
+    second: MH_outfit_torso_05B
+  - first:
+      43: 4300466
+    second: MH_hair_03
+  - first:
+      43: 4300468
+    second: MH_hair_04
+  - first:
+      43: 4300470
+    second: MH_hair_05
+  - first:
+      43: 4300472
+    second: MH_hair_06
+  - first:
+      43: 4300474
+    second: MH_hair_07
+  - first:
+      43: 4300476
+    second: MH_hair_08
+  - first:
+      43: 4300478
+    second: MH_beard_02
+  - first:
+      43: 4300480
+    second: MH_beard_01
+  - first:
+      43: 4300482
+    second: MH_beard_03
+  - first:
+      43: 4300484
+    second: MH_mustache_02
+  - first:
+      43: 4300486
+    second: MH_beard_04
+  - first:
+      43: 4300488
+    second: MH_outfit_head_01
+  - first:
+      43: 4300490
+    second: MH_outfit_head_02
+  - first:
+      43: 4300492
+    second: MH_outfit_head_03
+  - first:
+      43: 4300494
+    second: MH_outfit_head_05
+  - first:
+      43: 4300496
+    second: MH_armor_cloth_02_shoulders
+  - first:
+      43: 4300498
+    second: MH_armor_leather_02_shoulders
+  - first:
+      43: 4300500
+    second: MH_armor_leather_03_shoulders
+  - first:
+      43: 4300502
+    second: MH_armor_leather_04_shoulders
+  - first:
+      43: 4300504
+    second: MH_armor_plate_01_shoulders
+  - first:
+      43: 4300506
+    second: MH_armor_plate_02_shoulders
+  - first:
+      43: 4300508
+    second: MH_armor_plate_03_shoulders
+  - first:
+      43: 4300510
+    second: MH_armor_plate_04_shoulders
+  - first:
+      43: 4300512
+    second: MH_armor_plate_05_shoulders
+  - first:
+      43: 4300514
+    second: MH_armor_plate_06_shoulders
+  - first:
+      43: 4300516
+    second: MH_armor_plate_07_shoulders
+  - first:
+      43: 4300518
+    second: MH_armor_leather_01_shoulders
+  - first:
+      43: 4300520
+    second: MH_hair_09
+  - first:
+      43: 4300522
+    second: MH_mustache_01
+  - first:
+      43: 4300524
+    second: MH_mustache_03
+  - first:
+      43: 4300526
+    second: MH_beard_05
+  - first:
+      43: 4300528
+    second: MH_mustache_04
+  - first:
+      43: 4300530
+    second: MH_mustache_05
+  - first:
+      43: 4300532
+    second: MH_beard_06
+  - first:
+      43: 4300534
+    second: MH_armor_cloth_04_torso
+  - first:
+      43: 4300536
+    second: MH_armor_cloth_04_shoulders
+  - first:
+      43: 4300538
+    second: MH_armor_cloth_04_helmet
+  - first:
+      43: 4300540
+    second: MH_armor_cloth_04_legs
+  - first:
+      43: 4300542
+    second: MH_armor_cloth_04_waist
+  - first:
+      43: 4300544
+    second: MH_armor_cloth_05_torso
+  - first:
+      43: 4300546
+    second: MH_armor_cloth_05_helmet
+  - first:
+      43: 4300548
+    second: MH_armor_cloth_05_legs
+  - first:
+      43: 4300550
+    second: MH_armor_cloth_05_shoulders
+  - first:
+      43: 4300552
+    second: MH_armor_cloth_05_waist
+  - first:
+      43: 4300554
+    second: MH_armor_cloth_05_shouldersB
+  - first:
+      43: 4300556
+    second: MH_hair_10
+  - first:
+      43: 4300558
+    second: MH_hair_11
+  - first:
+      43: 4300560
+    second: MH_hair_12
+  - first:
+      43: 4300562
+    second: MH_beard_07
+  - first:
+      43: 4300564
+    second: MH_mustache_06
+  - first:
+      43: 4300566
+    second: MH_mustache_07
+  - first:
+      43: 4300568
+    second: MH_armor_leather_05_body
+  - first:
+      43: 4300570
+    second: MH_armor_leather_05_shoulders
+  - first:
+      43: 4300572
+    second: MH_armor_leather_05_legs
+  - first:
+      43: 4300574
+    second: MH_armor_leather_05_waist
+  - first:
+      43: 4300576
+    second: MH_armor_leather_05_helmet
+  - first:
+      43: 4300578
+    second: MH_hair_13
+  - first:
+      43: 4300580
+    second: MH_beard_09
+  - first:
+      43: 4300582
+    second: MH_underwear_pants_03
+  - first:
+      43: 4300584
+    second: MH_mustache_10
+  - first:
+      43: 4300586
+    second: MH_mustache_11
+  - first:
+      43: 4300588
+    second: MH_armor_leather_01_torso
+  - first:
+      43: 4300590
+    second: MH_armor_leather_02_torso
+  - first:
+      43: 4300592
+    second: MH_armor_leather_03_torso
+  - first:
+      43: 4300594
+    second: MH_armor_leather_04_torso
+  - first:
+      43: 4300596
+    second: MH_armor_leather_05_torso
+  - first:
+      43: 4300598
+    second: MH_armor_cloth_06_torso
+  - first:
+      43: 4300600
+    second: MH_armor_cloth_06_legs
+  - first:
+      43: 4300602
+    second: MH_armor_cloth_06_waist
+  - first:
+      43: 4300604
+    second: MH_armor_cloth_06_shoulders
+  - first:
+      43: 4300606
+    second: MH_armor_cloth_06_helmet
+  - first:
+      43: 4300608
+    second: MH_armor_leather_06_torso
+  - first:
+      43: 4300610
+    second: MH_armor_leather_06_helmet
+  - first:
+      43: 4300612
+    second: MH_armor_leather_06_legs
+  - first:
+      43: 4300614
+    second: MH_armor_leather_06_shoulders
+  - first:
+      43: 4300616
+    second: MH_armor_leather_06_waist
+  - first:
+      43: 4300618
+    second: MH_beard_11
+  - first:
+      43: 4300620
+    second: MH_beard_12
+  - first:
+      43: 4300622
+    second: MH_mustache_12
+  - first:
+      43: 4300624
+    second: MH_armor_leather_07_helmet
+  - first:
+      43: 4300626
+    second: MH_armor_leather_07_torso
+  - first:
+      43: 4300628
+    second: MH_armor_leather_07_shoulders
+  - first:
+      43: 4300630
+    second: MH_armor_leather_07_legs
+  - first:
+      43: 4300632
+    second: MH_armor_leather_07_waist
+  - first:
+      43: 4300634
+    second: MH_armor_cloth_07_helmet
+  - first:
+      43: 4300636
+    second: MH_armor_cloth_07_shoulders
+  - first:
+      43: 4300638
+    second: MH_armor_cloth_07_torso
+  - first:
+      43: 4300640
+    second: MH_armor_cloth_07_legs
+  - first:
+      43: 4300642
+    second: MH_armor_cloth_07_waist
+  - first:
+      43: 4300644
+    second: MH_hair_16
+  - first:
+      43: 4300646
+    second: MH_hair_17
+  - first:
+      43: 4300648
+    second: MH_mustache_13
+  - first:
+      43: 4300650
+    second: MH_mustache_14
+  - first:
+      43: 4300652
+    second: MH_mustache_15
+  - first:
+      43: 4300654
+    second: MH_mustache_16
+  - first:
+      43: 4300656
+    second: MH_hair_18
+  - first:
+      43: 4300658
+    second: MH_beard_13
+  - first:
+      43: 4300660
+    second: MH_beard_14
+  - first:
+      43: 4300662
+    second: MH_beard_15
+  - first:
+      43: 4300664
+    second: MH_hair_19
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      111: 11100000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: body
+  - first:
+      137: 13700002
+    second: hair01
+  - first:
+      137: 13700004
+    second: hair02
+  - first:
+      137: 13700006
+    second: head
+  - first:
+      137: 13700008
+    second: legs
+  - first:
+      137: 13700010
+    second: pants01
+  - first:
+      137: 13700012
+    second: pants02
+  - first:
+      137: 13700014
+    second: facial hair 02
+  - first:
+      137: 13700016
+    second: waist
+  - first:
+      137: 13700018
+    second: facial hair 01
+  - first:
+      137: 13700020
+    second: facial hair 03
+  - first:
+      137: 13700022
+    second: facial hair 04
+  - first:
+      137: 13700024
+    second: facial hair 05
+  - first:
+      137: 13700026
+    second: hair03
+  - first:
+      137: 13700028
+    second: hair04
+  - first:
+      137: 13700030
+    second: hair05
+  - first:
+      137: 13700032
+    second: hair06
+  - first:
+      137: 13700034
+    second: hair07
+  - first:
+      137: 13700036
+    second: hair08
+  - first:
+      137: 13700038
+    second: cloth Body 01
+  - first:
+      137: 13700040
+    second: cloth Body 02
+  - first:
+      137: 13700042
+    second: cloth Body 03
+  - first:
+      137: 13700044
+    second: cloth Helm 01
+  - first:
+      137: 13700046
+    second: cloth Helm 02
+  - first:
+      137: 13700048
+    second: cloth Helm 02_B
+  - first:
+      137: 13700050
+    second: cloth Helm 03
+  - first:
+      137: 13700052
+    second: cloth Helm 03_B
+  - first:
+      137: 13700054
+    second: cloth Legs 01
+  - first:
+      137: 13700056
+    second: cloth Legs 02
+  - first:
+      137: 13700058
+    second: cloth Legs 03
+  - first:
+      137: 13700060
+    second: cloth Shoulders 01
+  - first:
+      137: 13700062
+    second: cloth Shoulders 02
+  - first:
+      137: 13700064
+    second: cloth Shoulders 03
+  - first:
+      137: 13700066
+    second: cloth Waist 01
+  - first:
+      137: 13700068
+    second: cloth Waist 02
+  - first:
+      137: 13700070
+    second: cloth Waist 03
+  - first:
+      137: 13700072
+    second: f Beard 01
+  - first:
+      137: 13700074
+    second: f Beard 02
+  - first:
+      137: 13700076
+    second: f Beard 03
+  - first:
+      137: 13700078
+    second: f Beard 04
+  - first:
+      137: 13700080
+    second: f Beard 05
+  - first:
+      137: 13700082
+    second: f Beard 06
+  - first:
+      137: 13700084
+    second: f mustache 01
+  - first:
+      137: 13700086
+    second: f mustache 02
+  - first:
+      137: 13700088
+    second: f mustache 03
+  - first:
+      137: 13700090
+    second: f mustache 04
+  - first:
+      137: 13700092
+    second: f mustache 05
+  - first:
+      137: 13700094
+    second: hair09
+  - first:
+      137: 13700096
+    second: leather Body 01
+  - first:
+      137: 13700098
+    second: leather Body 02
+  - first:
+      137: 13700100
+    second: leather Body 03
+  - first:
+      137: 13700102
+    second: leather Body 04
+  - first:
+      137: 13700104
+    second: leather Helm 01
+  - first:
+      137: 13700106
+    second: leather Helm 02
+  - first:
+      137: 13700108
+    second: leather Helm 03
+  - first:
+      137: 13700110
+    second: leather Helm 04
+  - first:
+      137: 13700112
+    second: leather Legs 01
+  - first:
+      137: 13700114
+    second: leather Legs 02
+  - first:
+      137: 13700116
+    second: leather Legs 03
+  - first:
+      137: 13700118
+    second: leather Legs 04
+  - first:
+      137: 13700120
+    second: leather Shoulders 01
+  - first:
+      137: 13700122
+    second: leather Shoulders 02
+  - first:
+      137: 13700124
+    second: leather Shoulders 03
+  - first:
+      137: 13700126
+    second: leather Shoulders 04
+  - first:
+      137: 13700128
+    second: leather Waist 01
+  - first:
+      137: 13700130
+    second: leather Waist 02
+  - first:
+      137: 13700132
+    second: leather Waist 03
+  - first:
+      137: 13700134
+    second: leather Waist 04
+  - first:
+      137: 13700136
+    second: outfit body 1
+  - first:
+      137: 13700138
+    second: outfit body 2
+  - first:
+      137: 13700140
+    second: outfit body 3
+  - first:
+      137: 13700142
+    second: outfit body 4
+  - first:
+      137: 13700144
+    second: outfit body 5
+  - first:
+      137: 13700146
+    second: outfit body 5_A
+  - first:
+      137: 13700148
+    second: outfit head 1
+  - first:
+      137: 13700150
+    second: outfit head 2
+  - first:
+      137: 13700152
+    second: outfit head 3
+  - first:
+      137: 13700154
+    second: outfit head 5
+  - first:
+      137: 13700156
+    second: outfit legs 1
+  - first:
+      137: 13700158
+    second: outfit legs 2
+  - first:
+      137: 13700160
+    second: outfit legs 3
+  - first:
+      137: 13700162
+    second: outfit legs 4
+  - first:
+      137: 13700164
+    second: outfit legs 5
+  - first:
+      137: 13700166
+    second: plate Body 01
+  - first:
+      137: 13700168
+    second: plate Body 02
+  - first:
+      137: 13700170
+    second: plate Body 03
+  - first:
+      137: 13700172
+    second: plate Body 04
+  - first:
+      137: 13700174
+    second: plate Body 05
+  - first:
+      137: 13700176
+    second: plate Body 06
+  - first:
+      137: 13700178
+    second: plate Body 07
+  - first:
+      137: 13700180
+    second: plate Helm 01
+  - first:
+      137: 13700182
+    second: plate Helm 02
+  - first:
+      137: 13700184
+    second: plate Helm 03
+  - first:
+      137: 13700186
+    second: plate Helm 04
+  - first:
+      137: 13700188
+    second: plate Helm 05
+  - first:
+      137: 13700190
+    second: plate Helm 06
+  - first:
+      137: 13700192
+    second: plate Helm 07
+  - first:
+      137: 13700194
+    second: plate Legs 01
+  - first:
+      137: 13700196
+    second: plate Legs 02
+  - first:
+      137: 13700198
+    second: plate Legs 03
+  - first:
+      137: 13700200
+    second: plate Legs 04
+  - first:
+      137: 13700202
+    second: plate Legs 05
+  - first:
+      137: 13700204
+    second: plate Legs 06
+  - first:
+      137: 13700206
+    second: plate Legs 07
+  - first:
+      137: 13700208
+    second: plate Shoulders 01
+  - first:
+      137: 13700210
+    second: plate Shoulders 02
+  - first:
+      137: 13700212
+    second: plate Shoulders 03
+  - first:
+      137: 13700214
+    second: plate Shoulders 04
+  - first:
+      137: 13700216
+    second: plate Shoulders 05
+  - first:
+      137: 13700218
+    second: plate Shoulders 06
+  - first:
+      137: 13700220
+    second: plate Shoulders 07
+  - first:
+      137: 13700222
+    second: plate Waist 01
+  - first:
+      137: 13700224
+    second: plate Waist 02
+  - first:
+      137: 13700226
+    second: plate Waist 03
+  - first:
+      137: 13700228
+    second: plate Waist 04
+  - first:
+      137: 13700230
+    second: plate Waist 05
+  - first:
+      137: 13700232
+    second: plate Waist 06
+  - first:
+      137: 13700234
+    second: plate Waist 07
+  - first:
+      137: 13700236
+    second: cloth Body 04
+  - first:
+      137: 13700238
+    second: cloth Body 05
+  - first:
+      137: 13700240
+    second: cloth Helm 04
+  - first:
+      137: 13700242
+    second: cloth Helm 05
+  - first:
+      137: 13700244
+    second: cloth Legs 04
+  - first:
+      137: 13700246
+    second: cloth Legs 05
+  - first:
+      137: 13700248
+    second: cloth Shoulders 04
+  - first:
+      137: 13700250
+    second: cloth Shoulders 05
+  - first:
+      137: 13700252
+    second: cloth Shoulders 05 A
+  - first:
+      137: 13700254
+    second: cloth Waist 04
+  - first:
+      137: 13700256
+    second: cloth Waist 05
+  - first:
+      137: 13700258
+    second: f Beard 07
+  - first:
+      137: 13700260
+    second: f mustache 06
+  - first:
+      137: 13700262
+    second: f mustache 07
+  - first:
+      137: 13700264
+    second: hair10
+  - first:
+      137: 13700266
+    second: hair11
+  - first:
+      137: 13700268
+    second: hair12
+  - first:
+      137: 13700270
+    second: leather Body 05
+  - first:
+      137: 13700272
+    second: leather Helm 05
+  - first:
+      137: 13700274
+    second: leather Legs 05
+  - first:
+      137: 13700276
+    second: leather Shoulders 05
+  - first:
+      137: 13700278
+    second: leather Waist 05
+  - first:
+      137: 13700280
+    second: full
+  - first:
+      137: 13700282
+    second: hair00
+  - first:
+      137: 13700284
+    second: MH_armor_cloth_01_helmet
+  - first:
+      137: 13700286
+    second: MH_armor_cloth_01_legs
+  - first:
+      137: 13700288
+    second: MH_armor_cloth_01_shoulders
+  - first:
+      137: 13700290
+    second: MH_armor_cloth_01_torso
+  - first:
+      137: 13700292
+    second: MH_armor_cloth_01_waist
+  - first:
+      137: 13700294
+    second: MH_base_body_head
+  - first:
+      137: 13700296
+    second: MH_beard_10
+  - first:
+      137: 13700298
+    second: MH_mustache_08
+  - first:
+      137: 13700300
+    second: MH_hair_14
+  - first:
+      137: 13700302
+    second: MH_armor_cloth_03_torso
+  - first:
+      137: 13700304
+    second: MH_beard_08
+  - first:
+      137: 13700306
+    second: MH_hair_15
+  - first:
+      137: 13700308
+    second: MH_mustache_09
+  - first:
+      137: 13700310
+    second: MH_armor_cloth_03_legs
+  - first:
+      137: 13700312
+    second: MH_armor_cloth_03_shoulders
+  - first:
+      137: 13700314
+    second: MH_armor_cloth_03_waist
+  - first:
+      137: 13700316
+    second: MH_base_beard
+  - first:
+      137: 13700318
+    second: MH_base_body_legs
+  - first:
+      137: 13700320
+    second: MH_base_body_torso
+  - first:
+      137: 13700322
+    second: MH_base_hair
+  - first:
+      137: 13700324
+    second: MH_base_mustache
+  - first:
+      137: 13700326
+    second: MH_base_pants
+  - first:
+      137: 13700328
+    second: MH_base_waist
+  - first:
+      137: 13700330
+    second: MH_base_body_shoulders
+  - first:
+      137: 13700332
+    second: MH_armor_cloth_02_helmet
+  - first:
+      137: 13700334
+    second: MH_armor_cloth_02_helmetB
+  - first:
+      137: 13700336
+    second: MH_armor_cloth_02_legs
+  - first:
+      137: 13700338
+    second: MH_armor_cloth_02_shoulders
+  - first:
+      137: 13700340
+    second: MH_armor_cloth_02_torso
+  - first:
+      137: 13700342
+    second: MH_armor_cloth_02_waist
+  - first:
+      137: 13700344
+    second: MH_armor_cloth_03_helmet
+  - first:
+      137: 13700346
+    second: MH_armor_cloth_03_helmetB
+  - first:
+      137: 13700348
+    second: MH_armor_cloth_04_helmet
+  - first:
+      137: 13700350
+    second: MH_armor_cloth_04_legs
+  - first:
+      137: 13700352
+    second: MH_armor_cloth_04_shoulders
+  - first:
+      137: 13700354
+    second: MH_armor_cloth_04_torso
+  - first:
+      137: 13700356
+    second: MH_armor_cloth_04_waist
+  - first:
+      137: 13700358
+    second: MH_armor_cloth_05_helmet
+  - first:
+      137: 13700360
+    second: MH_armor_cloth_05_legs
+  - first:
+      137: 13700362
+    second: MH_armor_cloth_05_shoulders
+  - first:
+      137: 13700364
+    second: MH_armor_cloth_05_shouldersB
+  - first:
+      137: 13700366
+    second: MH_armor_cloth_05_torso
+  - first:
+      137: 13700368
+    second: MH_armor_cloth_05_waist
+  - first:
+      137: 13700370
+    second: MH_armor_leather_01_body
+  - first:
+      137: 13700372
+    second: MH_armor_leather_01_helmet
+  - first:
+      137: 13700374
+    second: MH_armor_leather_01_legs
+  - first:
+      137: 13700376
+    second: MH_armor_leather_01_shoulders
+  - first:
+      137: 13700378
+    second: MH_armor_leather_01_waist
+  - first:
+      137: 13700380
+    second: MH_armor_leather_02_body
+  - first:
+      137: 13700382
+    second: MH_armor_leather_02_helmet
+  - first:
+      137: 13700384
+    second: MH_armor_leather_02_legs
+  - first:
+      137: 13700386
+    second: MH_armor_leather_02_shoulders
+  - first:
+      137: 13700388
+    second: MH_armor_leather_02_waist
+  - first:
+      137: 13700390
+    second: MH_armor_leather_03_body
+  - first:
+      137: 13700392
+    second: MH_armor_leather_03_helmet
+  - first:
+      137: 13700394
+    second: MH_armor_leather_03_legs
+  - first:
+      137: 13700396
+    second: MH_armor_leather_03_shoulders
+  - first:
+      137: 13700398
+    second: MH_armor_leather_03_waist
+  - first:
+      137: 13700400
+    second: MH_armor_leather_04_body
+  - first:
+      137: 13700402
+    second: MH_armor_leather_04_helmet
+  - first:
+      137: 13700404
+    second: MH_armor_leather_04_legs
+  - first:
+      137: 13700406
+    second: MH_armor_leather_04_shoulders
+  - first:
+      137: 13700408
+    second: MH_armor_leather_04_waist
+  - first:
+      137: 13700410
+    second: MH_armor_leather_05_body
+  - first:
+      137: 13700412
+    second: MH_armor_leather_05_helmet
+  - first:
+      137: 13700414
+    second: MH_armor_leather_05_legs
+  - first:
+      137: 13700416
+    second: MH_armor_leather_05_shoulders
+  - first:
+      137: 13700418
+    second: MH_armor_leather_05_waist
+  - first:
+      137: 13700420
+    second: MH_armor_plate_01_helmet
+  - first:
+      137: 13700422
+    second: MH_armor_plate_01_legs
+  - first:
+      137: 13700424
+    second: MH_armor_plate_01_shoulders
+  - first:
+      137: 13700426
+    second: MH_armor_plate_01_torso
+  - first:
+      137: 13700428
+    second: MH_armor_plate_01_waist
+  - first:
+      137: 13700430
+    second: MH_armor_plate_02_helmet
+  - first:
+      137: 13700432
+    second: MH_armor_plate_02_legs
+  - first:
+      137: 13700434
+    second: MH_armor_plate_02_shoulders
+  - first:
+      137: 13700436
+    second: MH_armor_plate_02_torso
+  - first:
+      137: 13700438
+    second: MH_armor_plate_02_waist
+  - first:
+      137: 13700440
+    second: MH_armor_plate_03_helmet
+  - first:
+      137: 13700442
+    second: MH_armor_plate_03_legs
+  - first:
+      137: 13700444
+    second: MH_armor_plate_03_shoulders
+  - first:
+      137: 13700446
+    second: MH_armor_plate_03_torso
+  - first:
+      137: 13700448
+    second: MH_armor_plate_03_waist
+  - first:
+      137: 13700450
+    second: MH_armor_plate_04_helmet
+  - first:
+      137: 13700452
+    second: MH_armor_plate_04_legs
+  - first:
+      137: 13700454
+    second: MH_armor_plate_04_shoulders
+  - first:
+      137: 13700456
+    second: MH_armor_plate_04_torso
+  - first:
+      137: 13700458
+    second: MH_armor_plate_04_waist
+  - first:
+      137: 13700460
+    second: MH_armor_plate_05_helmet
+  - first:
+      137: 13700462
+    second: MH_armor_plate_05_legs
+  - first:
+      137: 13700464
+    second: MH_armor_plate_05_shoulders
+  - first:
+      137: 13700466
+    second: MH_armor_plate_05_torso
+  - first:
+      137: 13700468
+    second: MH_armor_plate_05_waist
+  - first:
+      137: 13700470
+    second: MH_armor_plate_06_helmet
+  - first:
+      137: 13700472
+    second: MH_armor_plate_06_legs
+  - first:
+      137: 13700474
+    second: MH_armor_plate_06_shoulders
+  - first:
+      137: 13700476
+    second: MH_armor_plate_06_torso
+  - first:
+      137: 13700478
+    second: MH_armor_plate_06_waist
+  - first:
+      137: 13700480
+    second: MH_armor_plate_07_helmet
+  - first:
+      137: 13700482
+    second: MH_armor_plate_07_legs
+  - first:
+      137: 13700484
+    second: MH_armor_plate_07_shoulders
+  - first:
+      137: 13700486
+    second: MH_armor_plate_07_torso
+  - first:
+      137: 13700488
+    second: MH_armor_plate_07_waist
+  - first:
+      137: 13700490
+    second: MH_beard_01
+  - first:
+      137: 13700492
+    second: MH_beard_02
+  - first:
+      137: 13700494
+    second: MH_beard_03
+  - first:
+      137: 13700496
+    second: MH_beard_04
+  - first:
+      137: 13700498
+    second: MH_beard_05
+  - first:
+      137: 13700500
+    second: MH_beard_06
+  - first:
+      137: 13700502
+    second: MH_beard_07
+  - first:
+      137: 13700504
+    second: MH_beard_09
+  - first:
+      137: 13700506
+    second: MH_hair_01
+  - first:
+      137: 13700508
+    second: MH_hair_02
+  - first:
+      137: 13700510
+    second: MH_hair_03
+  - first:
+      137: 13700512
+    second: MH_hair_04
+  - first:
+      137: 13700514
+    second: MH_hair_05
+  - first:
+      137: 13700516
+    second: MH_hair_06
+  - first:
+      137: 13700518
+    second: MH_hair_07
+  - first:
+      137: 13700520
+    second: MH_hair_08
+  - first:
+      137: 13700522
+    second: MH_hair_09
+  - first:
+      137: 13700524
+    second: MH_hair_10
+  - first:
+      137: 13700526
+    second: MH_hair_11
+  - first:
+      137: 13700528
+    second: MH_hair_12
+  - first:
+      137: 13700530
+    second: MH_hair_13
+  - first:
+      137: 13700532
+    second: MH_mustache_01
+  - first:
+      137: 13700534
+    second: MH_mustache_02
+  - first:
+      137: 13700536
+    second: MH_mustache_03
+  - first:
+      137: 13700538
+    second: MH_mustache_04
+  - first:
+      137: 13700540
+    second: MH_mustache_05
+  - first:
+      137: 13700542
+    second: MH_mustache_06
+  - first:
+      137: 13700544
+    second: MH_mustache_07
+  - first:
+      137: 13700546
+    second: MH_mustache_10
+  - first:
+      137: 13700548
+    second: MH_mustache_11
+  - first:
+      137: 13700550
+    second: MH_outfit_head_01
+  - first:
+      137: 13700552
+    second: MH_outfit_head_02
+  - first:
+      137: 13700554
+    second: MH_outfit_head_03
+  - first:
+      137: 13700556
+    second: MH_outfit_head_05
+  - first:
+      137: 13700558
+    second: MH_outfit_legs_01
+  - first:
+      137: 13700560
+    second: MH_outfit_legs_02
+  - first:
+      137: 13700562
+    second: MH_outfit_legs_03
+  - first:
+      137: 13700564
+    second: MH_outfit_legs_04
+  - first:
+      137: 13700566
+    second: MH_outfit_legs_05
+  - first:
+      137: 13700568
+    second: MH_outfit_torso_01
+  - first:
+      137: 13700570
+    second: MH_outfit_torso_02
+  - first:
+      137: 13700572
+    second: MH_outfit_torso_03
+  - first:
+      137: 13700574
+    second: MH_outfit_torso_04
+  - first:
+      137: 13700576
+    second: MH_outfit_torso_05
+  - first:
+      137: 13700578
+    second: MH_outfit_torso_05B
+  - first:
+      137: 13700580
+    second: MH_underwear_pants_01
+  - first:
+      137: 13700582
+    second: MH_underwear_pants_02
+  - first:
+      137: 13700584
+    second: MH_underwear_pants_03
+  - first:
+      137: 13700586
+    second: MH_armor_leather_01_torso
+  - first:
+      137: 13700588
+    second: MH_armor_leather_02_torso
+  - first:
+      137: 13700590
+    second: MH_armor_leather_03_torso
+  - first:
+      137: 13700592
+    second: MH_armor_leather_04_torso
+  - first:
+      137: 13700594
+    second: MH_armor_leather_05_torso
+  - first:
+      137: 13700596
+    second: MH_armor_cloth_06_torso
+  - first:
+      137: 13700598
+    second: MH_armor_cloth_06_legs
+  - first:
+      137: 13700600
+    second: MH_armor_cloth_06_shoulders
+  - first:
+      137: 13700602
+    second: MH_armor_cloth_06_waist
+  - first:
+      137: 13700604
+    second: MH_armor_cloth_06_helmet
+  - first:
+      137: 13700606
+    second: MH_armor_leather_06_helmet
+  - first:
+      137: 13700608
+    second: MH_armor_leather_06_legs
+  - first:
+      137: 13700610
+    second: MH_armor_leather_06_shoulders
+  - first:
+      137: 13700612
+    second: MH_armor_leather_06_torso
+  - first:
+      137: 13700614
+    second: MH_armor_leather_06_waist
+  - first:
+      137: 13700616
+    second: MH_beard_11
+  - first:
+      137: 13700618
+    second: MH_beard_12
+  - first:
+      137: 13700620
+    second: MH_mustache_12
+  - first:
+      137: 13700622
+    second: MH_armor_leather_07_helmet
+  - first:
+      137: 13700624
+    second: MH_armor_leather_07_legs
+  - first:
+      137: 13700626
+    second: MH_armor_leather_07_shoulders
+  - first:
+      137: 13700628
+    second: MH_armor_leather_07_torso
+  - first:
+      137: 13700630
+    second: MH_armor_leather_07_waist
+  - first:
+      137: 13700632
+    second: MH_armor_cloth_07_helmet
+  - first:
+      137: 13700634
+    second: MH_armor_cloth_07_legs
+  - first:
+      137: 13700636
+    second: MH_armor_cloth_07_shoulders
+  - first:
+      137: 13700638
+    second: MH_armor_cloth_07_torso
+  - first:
+      137: 13700640
+    second: MH_armor_cloth_07_waist
+  - first:
+      137: 13700642
+    second: MH_beard_13
+  - first:
+      137: 13700644
+    second: MH_beard_14
+  - first:
+      137: 13700646
+    second: MH_beard_15
+  - first:
+      137: 13700648
+    second: MH_hair_16
+  - first:
+      137: 13700650
+    second: MH_hair_17
+  - first:
+      137: 13700652
+    second: MH_hair_18
+  - first:
+      137: 13700654
+    second: MH_hair_19
+  - first:
+      137: 13700656
+    second: MH_mustache_13
+  - first:
+      137: 13700658
+    second: MH_mustache_14
+  - first:
+      137: 13700660
+    second: MH_mustache_15
+  - first:
+      137: 13700662
+    second: MH_mustache_16
+  - first:
+      41386430: 2186277476908879412
+    second: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -2093,7 +6209,7 @@ ModelImporter:
       name: underwear
     second: {fileID: 2100000, guid: d11f50406b342fc4e96041fe9dfb7b8d, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -2102,6 +6218,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -2110,7 +6227,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
+    importConstraints: 1
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -2126,25 +6243,36 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -2153,10 +6281,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 0
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: spine
       humanName: Hips
@@ -3967,13 +8095,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

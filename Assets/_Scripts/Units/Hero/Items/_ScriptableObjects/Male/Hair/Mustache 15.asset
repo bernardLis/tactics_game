@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Mustache 15
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 3742b999-1470-4e19-8207-1dd2b4e56d45
   ItemType: 7
   ArmorType: 0
   ItemMeshRenderer: {fileID: 5635254504829026929, guid: d5e25e06c9376904e9b996308f2f16d6, type: 3}

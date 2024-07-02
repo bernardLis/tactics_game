@@ -12,6 +12,19 @@
     margin-bottom: 6px;
 }
 
+.hero-creation__name-field {
+    align-self: center;
+}
+
+.hero-creation__name-field #unity-text-input {
+    width: 350px;
+}
+
+.hero-creation__name-field .unity-text-element {
+    color: black;
+    -unity-text-align: middle-center;
+}
+
 .hero-creation__setter-container {
     align-items: center;
     margin-bottom: 16px;
