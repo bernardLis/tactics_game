@@ -180,14 +180,10 @@ namespace Lis.HeroCreation
             container.Add(rotateHeroRight);
             _buttonContainer.Add(container);
 
-            MyButton saveButton = new("Save", _ussCommonButton, SaveHero);
-            _buttonContainer.Add(saveButton);
             MyButton playButton = new("Play", _ussCommonButton, PlayGame);
             _buttonContainer.Add(playButton);
             MyButton backButton = new("Back", _ussCommonButton, GoBack);
             _buttonContainer.Add(backButton);
-            MyButton removeButton = new("Remove", _ussCommonButton, RemoveHero);
-            _buttonContainer.Add(removeButton);
         }
 
         void RotateLeft()
@@ -210,28 +206,15 @@ namespace Lis.HeroCreation
             _visualOptionContainer.Insert(1, new HorizontalSpacerElement());
         }
 
-        void SaveHero()
-        {
-            _gameManager.AddVisualHero(_currentVisualHero);
-        }
-
         void PlayGame()
         {
-            SaveHero();
-            _gameManager.CurrentVisualHero = _currentVisualHero;
+            _gameManager.AddCurrentVisualHero();
             _gameManager.StartGame();
         }
 
         void GoBack()
         {
-            SaveHero();
             _gameManager.LoadScene(Scenes.MainMenu);
-        }
-
-        void RemoveHero()
-        {
-            _gameManager.RemoveVisualHero(_currentVisualHero);
-            ResetCurrentHero();
         }
     }
 }

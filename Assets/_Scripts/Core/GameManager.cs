@@ -61,9 +61,14 @@ namespace Lis.Core
             CurrentBattle.Initialize(); // necessary for testing
         }
 
-        public void AddVisualHero(VisualHero hero)
+        public void AddCurrentVisualHero()
         {
-            VisualHeroes.Add(hero);
+            VisualHeroes.Add(CurrentVisualHero);
+        }
+
+        public void SelectHero(VisualHero hero)
+        {
+            CurrentVisualHero = hero;
         }
 
         public void RemoveVisualHero(VisualHero hero)
@@ -115,8 +120,8 @@ namespace Lis.Core
             UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
             GameStats.LoadFromData(saveData.GameStats);
 
-            if (VisualHeroes.Count > 0)
-                CurrentVisualHero = VisualHeroes[0];
+            CurrentVisualHero = ScriptableObject.CreateInstance<VisualHero>();
+            CurrentVisualHero.Initialize();
         }
 
         public event Action<int> OnGoldChanged;

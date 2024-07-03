@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.HeroCreation;
 using Lis.MainMenu._UIElements;
 using Lis.Upgrades;
 using UnityEngine;
@@ -46,8 +47,10 @@ namespace Lis.MainMenu
         void Start()
         {
             //    _playButton = new("Play", _ussCommonButton, ShowGlobalUpgradesMenu);
+            // _playButton = new("Play", _ussCommonButton,
+            //     () => GameManager.Instance.LoadScene(Scenes.HeroSelection));
             _playButton = new("Play", _ussCommonButton,
-                () => GameManager.Instance.LoadScene(Scenes.HeroSelection));
+                () => new HeroSelectionScreen());
 
             _statsButton = new("Stats", _ussCommonButton, ShowStatsScreen);
             _settingsButton = new("Settings", _ussCommonButton, Settings);
