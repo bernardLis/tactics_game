@@ -24,13 +24,26 @@ namespace Lis.HeroCreation
         GameManager _gameManager;
         CameraManager _cameraManager;
 
+        [SerializeField] GameObject _femalePillar;
+        [SerializeField] GameObject _malePillar;
+
+        [SerializeField] GameObject _femaleExplosion;
+        [SerializeField] GameObject _maleExplosion;
+
+        [SerializeField] Sound _explosionSound;
+
         [SerializeField] ItemDisplayer _femaleHero;
         [SerializeField] ItemDisplayer _maleHero;
 
+        VisualHero _femaleVisualHero;
+        VisualHero _maleVisualHero;
+
         VisualHero _currentVisualHero;
+
         ItemDisplayer _currentHero;
 
         public VisualElement Root;
+        VisualElement _bodySelectionContainer;
         VisualElement _visualOptionContainer;
         ScrollView _customizationScrollView;
         VisualElement _buttonContainer;
@@ -43,6 +56,7 @@ namespace Lis.HeroCreation
             base.Awake();
 
             Root = GetComponent<UIDocument>().rootVisualElement;
+            _bodySelectionContainer = Root.Q<VisualElement>("bodySelectionContainer");
             _visualOptionContainer = Root.Q<VisualElement>("visualOptionContainer");
             _customizationScrollView = Root.Q<ScrollView>("customizationScrollView");
             _buttonContainer = Root.Q<VisualElement>("buttonContainer");
@@ -53,51 +67,17 @@ namespace Lis.HeroCreation
             _gameManager = GameManager.Instance;
 
             _cameraManager = GetComponent<CameraManager>();
-            _cameraManager.LookAtDefault();
 
             AddTitle();
 
             AddNameField();
-            AddBodyItems(_customizationScrollView);
             InitializeBodies();
 
+            HandleBodySelectionScreen();
+
             AddUiButtons();
-            ResolveCurrentHero();
         }
 
-        void ResolveCurrentHero()
-        {
-            if (_gameManager.CurrentVisualHero != null)
-                LoadHero(_gameManager.CurrentVisualHero);
-            else
-                ResetCurrentHero();
-        }
-
-        void LoadHero(VisualHero hero)
-        {
-            _currentVisualHero = hero;
-            _nameField.value = hero.Name;
-            if (hero.BodyType == 0 && _currentHero == _maleHero)
-                ChangeBody();
-            if (hero.BodyType == 1 && _currentHero == _femaleHero)
-                ChangeBody();
-
-            _currentHero.SetVisualHero(hero);
-        }
-
-        void ResetCurrentHero()
-        {
-            _currentVisualHero = ScriptableObject.CreateInstance<VisualHero>();
-            _currentVisualHero.Initialize();
-            if (_currentVisualHero.BodyType == 0 && _currentHero == _maleHero)
-                ChangeBody();
-            if (_currentVisualHero.BodyType == 1 && _currentHero == _femaleHero)
-                ChangeBody();
-
-            _nameField.value = "Tavski";
-            _femaleHero.SetVisualHero(_currentVisualHero);
-            _maleHero.SetVisualHero(_currentVisualHero);
-        }
 
         void AddNameField()
         {
@@ -111,52 +91,73 @@ namespace Lis.HeroCreation
             _nameField.RegisterValueChangedCallback((_) => _currentVisualHero.Name = _nameField.value);
         }
 
-        void AddBodyItems(VisualElement parent)
-        {
-            VisualElement container = new();
-            container.AddToClassList("item-selector-element__main");
-            parent.Add(container);
-
-            MyButton previousButton = new("<", _ussCommonButtonArrow, ChangeBody);
-            MyButton nextButton = new(">", _ussCommonButtonArrow, ChangeBody);
-            container.Add(previousButton);
-
-            _currentBodyLabel = new("Body Type 0");
-            _currentBodyLabel.style.fontSize = 26;
-            container.Add(_currentBodyLabel);
-
-            container.Add(nextButton);
-        }
-
         void InitializeBodies()
         {
-            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits(), _currentVisualHero);
-            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits(), _currentVisualHero);
+            _femaleVisualHero = ScriptableObject.CreateInstance<VisualHero>();
+            _maleVisualHero = ScriptableObject.CreateInstance<VisualHero>();
+            _femaleVisualHero.Initialize(0);
+            _maleVisualHero.Initialize(1);
+
+            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits(), _femaleVisualHero);
+            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits(), _maleVisualHero);
+
+            _femaleHero.Activate();
+            _maleHero.Activate();
 
             _currentHero = _femaleHero;
-            _femaleHero.Activate();
         }
 
-        void ChangeBody()
+        void HandleBodySelectionScreen()
         {
-            if (_currentHero == _femaleHero)
-            {
-                _femaleHero.Deactivate();
-                _maleHero.Activate();
-                _currentBodyLabel.text = "Body Type 1";
-                _currentHero = _maleHero;
-                _currentVisualHero.BodyType = 1;
+            VisualElement femaleBodyContainer = Root.Q<VisualElement>("femaleBodySelectorContainer");
+            VisualElement maleBodyContainer = Root.Q<VisualElement>("maleBodySelectorContainer");
 
-                return;
-            }
-
-            _maleHero.Deactivate();
-            _femaleHero.Activate();
-            _currentHero = _femaleHero;
-            _currentVisualHero.BodyType = 0;
-
-            _currentBodyLabel.text = "Body Type 0";
+            femaleBodyContainer.RegisterCallback<PointerUpEvent>(SelectFemale);
+            maleBodyContainer.RegisterCallback<PointerUpEvent>(SelectMale);
         }
+
+        void SelectFemale(PointerUpEvent evt)
+        {
+            DefaultSelect();
+            _cameraManager.SelectBodyType(0);
+            _maleExplosion.SetActive(true);
+            AudioManager.Instance.CreateSound()
+                .WithSound(_explosionSound)
+                .WithPosition(_maleHero.transform.position)
+                .Play();
+            _maleHero.Deactivate();
+            _currentHero = _femaleHero;
+        }
+
+        void SelectMale(PointerUpEvent evt)
+        {
+            DefaultSelect();
+            _cameraManager.SelectBodyType(1);
+            _femaleExplosion.SetActive(true);
+            AudioManager.Instance.CreateSound()
+                .WithSound(_explosionSound)
+                .WithPosition(_femaleHero.transform.position)
+                .Play();
+
+            _femaleHero.Deactivate();
+            _currentHero = _maleHero;
+        }
+
+        void DefaultSelect()
+        {
+            _bodySelectionContainer.style.display = DisplayStyle.None;
+
+            _buttonContainer.style.display = DisplayStyle.Flex;
+            _visualOptionContainer.style.display = DisplayStyle.Flex;
+            _buttonContainer.style.opacity = 0;
+            _visualOptionContainer.style.opacity = 0;
+
+            DOTween.To(x => _buttonContainer.style.opacity = x,
+                _buttonContainer.style.opacity.value, 1, 0.5f).SetDelay(0.5f);
+            DOTween.To(x => _visualOptionContainer.style.opacity = x,
+                _visualOptionContainer.style.opacity.value, 1, 0.5f).SetDelay(0.5f);
+        }
+
 
         void AddUiButtons()
         {

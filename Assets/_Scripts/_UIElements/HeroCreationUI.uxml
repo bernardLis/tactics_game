@@ -18,9 +18,14 @@
     <Style src="project://database/Assets/_Scripts/HeroCreation/_UIElements/ColorSelectorElementStyles.uss?fileID=7433441132597879392&amp;guid=4eeb26a07d9a4635a143281d63501511&amp;type=3#ColorSelectorElementStyles" />
     <Style src="project://database/Assets/_Scripts/HeroCreation/_UIElements/HeroCreationStyles.uss?fileID=7433441132597879392&amp;guid=9431fdd1d86049f0951dd7ba8229d369&amp;type=3#HeroCreationStyles" />
     <ui:VisualElement name="main" picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; width: 45%; height: 90%; position: absolute; left: 5%; top: 5%; padding-top: 32px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;); -unity-background-scale-mode: scale-and-crop;">
+        <ui:VisualElement name="visualOptionContainer" class="common__text-primary" style="flex-grow: 1; width: 45%; height: 90%; position: absolute; left: 5%; top: 5%; padding-top: 32px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;); -unity-background-scale-mode: scale-and-crop; display: none;">
             <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="customizationScrollView" />
         </ui:VisualElement>
-        <ui:VisualElement name="buttonContainer" style="flex-grow: 1; position: absolute; bottom: 5%; right: 5%; align-items: center;" />
+        <ui:VisualElement name="buttonContainer" style="flex-grow: 1; position: absolute; bottom: 5%; right: 5%; align-items: center; display: none;" />
+        <ui:VisualElement name="bodySelectionContainer" style="flex-grow: 1; flex-direction: row; align-items: flex-end; justify-content: center;">
+            <ui:VisualElement name="femaleBodySelectorContainer" class="hero-creation__body-type-container" style="height: 100%;" />
+            <ui:VisualElement name="maleBodySelectorContainer" class="hero-creation__body-type-container" style="flex-grow: 1;" />
+            <ui:Label tabindex="-1" text="Select Body Type" parse-escape-sequences="true" display-tooltip-when-elided="true" class="common__text-primary common__text-very-large" style="position: absolute; align-items: center; align-self: center; top: 5%; justify-content: center;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

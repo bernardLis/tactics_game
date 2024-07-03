@@ -10,7 +10,7 @@ namespace Lis.HeroCreation
     public class VisualHero : BaseScriptableObject
     {
         public int TimesPicked;
-        public string Name;
+        public string Name = "Tavski";
 
         public int BodyType;
 
@@ -39,15 +39,17 @@ namespace Lis.HeroCreation
         public Color OutfitDetailColor;
         public Color OutfitDetailSecondaryColor;
 
-        public void Initialize()
+        public void Initialize(int bodyType = 420)
         {
             name = "New Hero";
-            BodyType = Random.Range(0, 2);
 
-            Randomize();
+            BodyType = bodyType == 420 ? Random.Range(0, 2) : bodyType;
+
+            RandomizeColors();
+            InitializeOutfit();
         }
 
-        void Randomize()
+        void RandomizeColors()
         {
             UnitDatabase database = GameManager.Instance.UnitDatabase;
 
@@ -64,7 +66,35 @@ namespace Lis.HeroCreation
             OutfitMainColor = database.GetRandomHeroCustomizationColor();
             OutfitDetailColor = database.GetRandomHeroCustomizationColor();
             OutfitDetailSecondaryColor = database.GetRandomHeroCustomizationColor();
+        }
 
+        void InitializeOutfit()
+        {
+            if (BodyType == 0)
+            {
+                HairId = "6bf69b15-42c3-4480-940d-3021bd4adee9";
+                UnderwearId = "2ec8f3d5-1b58-4396-b26b-6a60f9f56ba9";
+                BrassiereId = "40f7f1c6-be09-4de8-880b-9444505d0c7c";
+                HelmetId = "fd2de552-99c3-4fd3-a974-ad696acf3aa1";
+                TorsoId = "5fd353c0-3da2-4179-89d2-709b7db52c6b";
+                LegsId = "23e75713-7897-460d-b180-44993959afa2";
+            }
+
+            if (BodyType == 1)
+            {
+                HairId = "cb102bfd-50ef-4750-8162-cf461ed62c4e";
+                BeardId = "b7c77213-710c-4c2d-8b88-a80bb83d73c7";
+                MustacheId = "da706c3c-51be-4c34-a237-9c214d806389";
+                UnderwearId = "5e1187a6-8249-4547-9524-d06ca83f4771";
+                HelmetId = "cb102bfd-50ef-4750-8162-cf461ed62c4e";
+                TorsoId = "65bfd62f-8c71-4f27-91ca-c263b8ac863b";
+                LegsId = "2f9b11ba-1ca7-47cb-bf28-c3e0f6801445";
+            }
+        }
+
+        void RandomizeOutfits()
+        {
+            UnitDatabase database = GameManager.Instance.UnitDatabase;
             if (BodyType == 0)
             {
                 HairId = database.GetRandomFemaleItemByType(ItemType.Hair).Id;

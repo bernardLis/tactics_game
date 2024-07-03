@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Pants 01
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 5e1187a6-8249-4547-9524-d06ca83f4771
   ItemType: 8
   ArmorType: 0
   ItemMeshRenderer: {fileID: 7031286034958141447, guid: 6db9f0c99a2b7a44caec54e29605db3a, type: 3}

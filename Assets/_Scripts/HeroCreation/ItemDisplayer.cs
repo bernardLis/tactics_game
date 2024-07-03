@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Hero.Items;
 using UnityEngine;
@@ -73,7 +72,7 @@ namespace Lis.HeroCreation
             gameObject.SetActive(false);
         }
 
-        public void SetVisualHero(VisualHero visualHero)
+        void SetVisualHero(VisualHero visualHero)
         {
             _visualHero = visualHero;
 
@@ -94,10 +93,10 @@ namespace Lis.HeroCreation
 
             // items
             _itemSetter.SetItem(GetItemById(_visualHero.HairId));
-            _itemSetter.SetItem(GetItemById(_visualHero.BeardId));
-            _itemSetter.SetItem(GetItemById(_visualHero.MustacheId));
+            if (_visualHero.BodyType == 1) _itemSetter.SetItem(GetItemById(_visualHero.BeardId));
+            if (_visualHero.BodyType == 1) _itemSetter.SetItem(GetItemById(_visualHero.MustacheId));
             _itemSetter.SetItem(GetItemById(_visualHero.UnderwearId));
-            _itemSetter.SetItem(GetItemById(_visualHero.BrassiereId));
+            if (_visualHero.BodyType == 0) _itemSetter.SetItem(GetItemById(_visualHero.BrassiereId));
             _itemSetter.SetItem(GetItemById(_visualHero.HelmetId));
             _itemSetter.SetItem(GetItemById(_visualHero.TorsoId));
             _itemSetter.SetItem(GetItemById(_visualHero.LegsId));
@@ -128,8 +127,9 @@ namespace Lis.HeroCreation
             AddUnderwearSetters();
             AddOutfitSetters();
 
-            Deactivate();
+            SetVisualHero(_visualHero);
         }
+
 
         void SortItems(List<Item> allItems)
         {

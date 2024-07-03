@@ -36,6 +36,11 @@ namespace Lis.Core
             return _allFemaleHeroOutfits.ToList();
         }
 
+        public Item GetFemaleOutfitById(string id)
+        {
+            return _allFemaleHeroOutfits.FirstOrDefault(x => x.Id == id);
+        }
+
         [SerializeField] Item[] _allFemaleHeroArmor;
         public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
 
