@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: armor
+  m_Name: outfit
   m_Shader: {fileID: -6465566751694194690, guid: db6ff1768a94214499fda8a107b7f2a6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -58,9 +58,9 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.9882353, g: 0.654902, b: 0.5647059, a: 1}
-    - _Color2: {r: 0.91764706, g: 0.30980393, b: 0.21176471, a: 1}
-    - _Color3: {r: 0.7647059, g: 0.14117648, b: 0.32941177, a: 1}
+    - _Color1: {r: 0.24313726, g: 0.20784314, b: 0.27450982, a: 1}
+    - _Color2: {r: 0.05490196, g: 0.6862745, b: 0.60784316, a: 1}
+    - _Color3: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor1: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor2: {r: 1, g: 0.9302627, b: 0.3160377, a: 1}
     - _EmissionColor3: {r: 1, g: 1, b: 1, a: 0}

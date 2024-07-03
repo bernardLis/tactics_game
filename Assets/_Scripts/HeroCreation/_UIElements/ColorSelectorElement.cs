@@ -14,8 +14,6 @@ namespace Lis.HeroCreation
         const string _ussSelectColorButton = _ussClassName + "select-color-button";
 
         readonly VisualElement _pickerParent;
-        readonly Material _material;
-        readonly string _propertyName;
         readonly VisualElement _colorContainer;
 
         readonly List<Color> _allColors;
@@ -24,7 +22,7 @@ namespace Lis.HeroCreation
         public event Action OnColorPickerClosed;
         public event Action<Color> OnColorSelected;
 
-        public ColorSelectorElement(string title, Material material, string propertyName, List<Color> colors,
+        public ColorSelectorElement(string title, Color startColor, List<Color> colors,
             VisualElement pickerParent)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
@@ -32,14 +30,12 @@ namespace Lis.HeroCreation
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussMain);
 
-            _material = material;
-            _propertyName = propertyName;
             _allColors = colors;
             _pickerParent = pickerParent;
 
             _colorContainer = new();
             _colorContainer.AddToClassList(_ussColorContainer);
-            _colorContainer.style.backgroundColor = material.GetColor(propertyName);
+            _colorContainer.style.backgroundColor = startColor;
 
             MyButton selectColorButton = new($"Select {title} Color", _ussSelectColorButton, ShowColorPicker);
             selectColorButton.Insert(0, _colorContainer);
@@ -63,7 +59,6 @@ namespace Lis.HeroCreation
         void ColorSelected(Color c)
         {
             _colorContainer.style.backgroundColor = c;
-            _material.SetColor(_propertyName, c);
             OnColorSelected?.Invoke(c);
         }
     }

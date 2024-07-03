@@ -15,7 +15,7 @@ namespace Lis.HeroCreation
         const string _ussOdd = _ussClassName + "odd";
         const string _ussEven = _ussClassName + "even";
 
-        readonly ItemSetter _itemSetter;
+        readonly ItemDisplayer _itemDisplayer;
         readonly ItemType _itemType;
         readonly List<Item> _items;
         int _currentItemIndex;
@@ -23,14 +23,14 @@ namespace Lis.HeroCreation
 
         public event Action<ItemType, string> OnItemChanged;
 
-        public ItemSelectorElement(ItemSetter itemSetter, ItemType itemType, List<Item> items)
+        public ItemSelectorElement(ItemDisplayer itemDisplayer, ItemType itemType, List<Item> items)
         {
             StyleSheet ss = GameManager.Instance.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.ItemSelectorElementStyles);
             if (ss != null) styleSheets.Add(ss);
             AddToClassList(_ussMain);
 
-            _itemSetter = itemSetter;
+            _itemDisplayer = itemDisplayer;
             _itemType = itemType;
             _items = items;
             _currentItemIndex = 0;
@@ -49,7 +49,7 @@ namespace Lis.HeroCreation
 
         void SetItem()
         {
-            _itemSetter.SetItem(_items[_currentItemIndex]);
+            _itemDisplayer.SetItem(_items[_currentItemIndex]);
             _currentItemLabel.text = _items[_currentItemIndex].name;
             OnItemChanged?.Invoke(_itemType, _items[_currentItemIndex].Id);
         }

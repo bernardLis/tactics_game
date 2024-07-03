@@ -41,6 +41,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51d449ec56cd39441bc83d68df80e76a, type: 2}
   - {fileID: 11400000, guid: 8fe53c0b8106ccf4d945c217454f8e51, type: 2}
   - {fileID: 11400000, guid: 82581fd11790a5e4780ddec88389f1c1, type: 2}
+  FemaleHero: {fileID: 11400000, guid: 402284e5c1505114ea9543154ddbff3c, type: 2}
   _allFemaleHeroOutfits:
   - {fileID: 11400000, guid: 0f37392a4da901e44b88ab8286628844, type: 2}
   - {fileID: 11400000, guid: 4e7a52570d9cecd4187b9e2ca6f1f86d, type: 2}
@@ -231,6 +232,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b68bc50983c9a974d8973440d61fe8fc, type: 2}
   - {fileID: 11400000, guid: e4ed6851632212943ae17e712c7b015b, type: 2}
   - {fileID: 11400000, guid: ae3a2b1c0eec5b5429e3120ccce485ff, type: 2}
+  MaleHero: {fileID: 11400000, guid: fdcd710218d94a54f90d3daa1d93bef5, type: 2}
   _allMaleHeroOutfits:
   - {fileID: 11400000, guid: 91d648a3551d5fa418a0680f51ae1f35, type: 2}
   - {fileID: 11400000, guid: b5865b80cf878ea4e8381b96c1aa168c, type: 2}

@@ -44,7 +44,7 @@ namespace Lis.HeroSelection
             foreach (Hero hero in _gameManager.UnitDatabase.Heroes)
             {
                 Hero instance = Instantiate(hero);
-                instance.InitializeHero();
+                instance.InitializeHero(default);
                 _heroInstances.Add(instance);
 
                 HeroDisplayer h =

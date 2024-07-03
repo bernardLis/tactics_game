@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Lis.Battle.Arena;
 using Lis.Battle.Arena.Building;
 using Lis.Core;
+using Lis.HeroCreation;
 using Lis.Units.Hero;
 using UnityEngine;
 
@@ -26,8 +26,7 @@ namespace Lis.Battle
         public Shop Shop;
         public Architect Architect;
 
-
-        public void Initialize()
+        public void Initialize(VisualHero visualHero)
         {
             Stats = CreateInstance<Stats>();
 
@@ -35,8 +34,7 @@ namespace Lis.Battle
                 arena.Initialize();
 
             SetCurrentArena();
-            // HERE: testing
-            SetRandomHero();
+            ResolveHero(visualHero);
             InstantiateBuildings();
         }
 
@@ -45,10 +43,22 @@ namespace Lis.Battle
             CurrentArena = Arenas[0];
         }
 
-        void SetRandomHero()
+        void ResolveHero(VisualHero visualHero)
         {
-            SelectedHero = Instantiate(GameManager.Instance.UnitDatabase.GetRandomHero());
-            SelectedHero.InitializeHero();
+            Debug.Log("Resolving hero");
+            VisualHero vh = visualHero;
+            if (vh == null)
+            {
+                vh = CreateInstance<VisualHero>();
+                vh.Initialize();
+                vh.RandomizeOutfit();
+            }
+
+            SelectedHero = Instantiate(vh.BodyType == 0
+                ? GameManager.Instance.UnitDatabase.FemaleHero
+                : GameManager.Instance.UnitDatabase.MaleHero);
+
+            SelectedHero.InitializeHero(vh);
         }
 
         void InstantiateBuildings()

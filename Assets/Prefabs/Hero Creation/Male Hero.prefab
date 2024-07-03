@@ -9366,7 +9366,7 @@ GameObject:
   - component: {fileID: 5182676047963187321}
   - component: {fileID: 8393639863973493371}
   m_Layer: 0
-  m_Name: Male Hero Prefab 1
+  m_Name: Male Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9494,6 +9494,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b999c3572e9d48c1835b6b53f13c8480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _body: {fileID: 2100000, guid: df4af3ccccb4e064f918a010c51b884a, type: 2}
+  _hair: {fileID: 2100000, guid: 4c1bad97c757ba842a652a6521b12585, type: 2}
+  _underwear: {fileID: 2100000, guid: d11f50406b342fc4e96041fe9dfb7b8d, type: 2}
+  _outfit: {fileID: 2100000, guid: d8776383e8402e2489d8b1d6ac697697, type: 2}
   _itemRenderers:
   - ItemType: 5
     Renderer: {fileID: 5578698812139997840}
@@ -9537,10 +9541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3511f5cb9b2f4febbc3986142dd4e8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hair: {fileID: 2100000, guid: 4c1bad97c757ba842a652a6521b12585, type: 2}
-  _body: {fileID: 2100000, guid: df4af3ccccb4e064f918a010c51b884a, type: 2}
-  _underwear: {fileID: 2100000, guid: d11f50406b342fc4e96041fe9dfb7b8d, type: 2}
-  _armor: {fileID: 2100000, guid: d8776383e8402e2489d8b1d6ac697697, type: 2}
 --- !u!1 &7676953794951374457
 GameObject:
   m_ObjectHideFlags: 0

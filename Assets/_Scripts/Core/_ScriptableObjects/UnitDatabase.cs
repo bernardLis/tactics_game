@@ -29,6 +29,7 @@ namespace Lis.Core
         [SerializeField] TabletAdvanced[] _heroTabletsAdvanced;
 
         /* FEMALE */
+        public Hero FemaleHero;
         [SerializeField] Item[] _allFemaleHeroOutfits;
 
         public List<Item> GetAllFemaleHeroOutfits()
@@ -45,11 +46,18 @@ namespace Lis.Core
         public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
 
         /* MALE */
+        public Hero MaleHero;
+
         [SerializeField] Item[] _allMaleHeroOutfits;
 
         public List<Item> GetAllMaleHeroOutfits()
         {
             return _allMaleHeroOutfits.ToList();
+        }
+
+        public Item GetMaleOutfitById(string id)
+        {
+            return _allMaleHeroOutfits.FirstOrDefault(x => x.Id == id);
         }
 
         [SerializeField] Item[] _allMaleHeroArmor;
@@ -237,6 +245,11 @@ namespace Lis.Core
         public NatureAdvanced GetRandomAdvancedNature()
         {
             return _advancedNatures[Random.Range(0, _advancedNatures.Length)];
+        }
+
+        public Nature GetRandomNature()
+        {
+            return _natures[Random.Range(0, _natures.Length)];
         }
     }
 }

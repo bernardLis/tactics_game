@@ -3,6 +3,7 @@ using Cinemachine;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.HeroCreation;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace Lis.Battle
 
         void InitializeHeroGameObject(Hero hero)
         {
-            Vector3 pos = Vector3.zero; //GetComponent<ArenaManager>().GetRandomPositionInPlayerLockerRoom();
+            Vector3 pos = Vector3.zero;
             GameObject heroGameObject = Instantiate(hero.Prefab, pos, Quaternion.identity);
             HeroController = heroGameObject.GetComponentInChildren<HeroController>();
             HeroController.InitializeGameObject();
@@ -65,6 +66,9 @@ namespace Lis.Battle
 
             _placeholderAudioListener.enabled = false;
             HeroController.InitializeUnit(hero, 0);
+
+            ItemDisplayer id = heroGameObject.GetComponentInChildren<ItemDisplayer>();
+            id.SetVisualHero(hero.VisualHero);
         }
 
         void OnHeroLevelUp()

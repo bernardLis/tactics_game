@@ -92,8 +92,9 @@ namespace Lis.HeroCreation
             }
         }
 
-        void RandomizeOutfits()
+        public void RandomizeOutfit()
         {
+            Debug.Log("Randomizing outfit");
             UnitDatabase database = GameManager.Instance.UnitDatabase;
             if (BodyType == 0)
             {

@@ -32,15 +32,15 @@ namespace Lis.HeroCreation
 
         [SerializeField] Sound _explosionSound;
 
-        [SerializeField] ItemDisplayer _femaleHero;
-        [SerializeField] ItemDisplayer _maleHero;
+        [SerializeField] ItemSetter _femaleHero;
+        [SerializeField] ItemSetter _maleHero;
 
         VisualHero _femaleVisualHero;
         VisualHero _maleVisualHero;
 
         VisualHero _currentVisualHero;
 
-        ItemDisplayer _currentHero;
+        ItemSetter _currentHero;
 
         public VisualElement Root;
         VisualElement _bodySelectionContainer;

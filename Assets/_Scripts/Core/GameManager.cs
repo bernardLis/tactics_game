@@ -58,7 +58,7 @@ namespace Lis.Core
             UnitDatabase.Initialize();
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
-            CurrentBattle.Initialize(); // necessary for testing
+            CurrentBattle.Initialize(default); // TODO: normally only when starting a new game
         }
 
         public void AddCurrentVisualHero()
@@ -155,16 +155,11 @@ namespace Lis.Core
             CurrentBattle.SelectedHero = hero;
         }
 
-        public void Play()
-        {
-            StartGame();
-        }
-
         public void StartGame()
         {
             Gold = 0;
-            CurrentBattle.Initialize();
-            PlayerPrefs.SetInt(CurrentBattle.SelectedHero.Id, CurrentBattle.SelectedHero.TimesPicked + 1);
+            CurrentBattle.Initialize(CurrentVisualHero);
+
             LoadScene(Scenes.Battle);
         }
 

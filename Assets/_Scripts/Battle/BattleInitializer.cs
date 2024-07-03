@@ -75,7 +75,7 @@ namespace Lis.Battle
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             foreach (ThemeStyleSheet themeStyleSheet in _themeStyleSheets)
             {
-                if (themeStyleSheet.Nature == _gameManager.CurrentBattle.SelectedHero.Nature)
+                if (themeStyleSheet.Nature == _gameManager.UnitDatabase.GetRandomNature())//_gameManager.CurrentBattle.SelectedHero.Nature)
                 {
                     root.styleSheets.Add(themeStyleSheet.StyleSheet);
                     continue;

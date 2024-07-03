@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.HeroCreation;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
@@ -12,6 +13,9 @@ namespace Lis.Units.Hero
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Hero/Hero")]
     public class Hero : Unit
     {
+        [Header("Visuals")]
+        public VisualHero VisualHero;
+
         [Header("Selector")]
         public int TimesPicked;
 
@@ -40,8 +44,11 @@ namespace Lis.Units.Hero
         readonly Dictionary<NatureName, Tablet> _tabletsByElement = new();
         GameManager _gameManager;
 
-        public void InitializeHero()
+        public void InitializeHero(VisualHero visualHero)
         {
+            VisualHero = visualHero;
+            UnitName = visualHero.Name;
+
             _gameManager = GameManager.Instance;
 
             CreateBaseStats();
