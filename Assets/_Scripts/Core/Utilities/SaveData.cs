@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Lis.HeroCreation;
 using Lis.Units.Hero;
 using Lis.Upgrades;
 using UnityEngine;
@@ -14,6 +16,7 @@ namespace Lis.Core.Utilities
         public int Seed;
         public int Gold;
 
+        public List<VisualHeroData> VisualHeroes;
         public HeroData PlayerHero;
 
         public UpgradeBoardData GlobalUpgradeBoard;

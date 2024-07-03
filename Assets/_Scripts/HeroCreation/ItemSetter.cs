@@ -1,4 +1,5 @@
 ﻿using System;
+using Lis.Core;
 using Lis.Units.Hero.Items;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace Lis.HeroCreation
             public SkinnedMeshRenderer Renderer;
         }
 
+        UnitDatabase _unitDatabase;
+
         [SerializeField] ItemRenderer[] _itemRenderers;
         SkinnedMeshRenderer _hairRenderer;
         SkinnedMeshRenderer _beardRenderer;
@@ -22,6 +25,8 @@ namespace Lis.HeroCreation
 
         public void Start()
         {
+            _unitDatabase = GameManager.Instance.UnitDatabase;
+
             foreach (ItemRenderer itemRenderer in _itemRenderers)
             {
                 if (itemRenderer.ItemType == ItemType.Hair)
@@ -43,7 +48,6 @@ namespace Lis.HeroCreation
             foreach (ItemRenderer itemRenderer in _itemRenderers)
             {
                 if (itemRenderer.ItemType != newItem.ItemType) continue;
-                Debug.Log($"Setting item {newItem.ItemType} to {newItem.name}");
                 itemRenderer.Renderer.sharedMesh = newItem.ItemMeshRenderer.sharedMesh;
                 itemRenderer.Renderer.sharedMaterials = newItem.ItemMeshRenderer.sharedMaterials;
             }
@@ -63,10 +67,10 @@ namespace Lis.HeroCreation
 
         void HandleHair(Item newItem)
         {
-            if (_hairRenderer == null)
+            if (_hairRenderer != null)
                 _hairRenderer.enabled = !newItem.DisableHair;
 
-            if (_beardRenderer == null)
+            if (_beardRenderer != null)
                 _beardRenderer.enabled = !newItem.DisableHair;
 
             if (_mustacheRenderer != null)

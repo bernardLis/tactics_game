@@ -10,8 +10,8 @@ namespace Lis.HeroCreation
     {
         const string _ussCommonTextVeryLarge = "common__text-very-large";
         const string _ussCommonTextLarge = "common__text-large";
-
         const string _ussCommonButtonArrow = "common__button-arrow";
+        const string _ussCommonButton = "common__button";
 
         const string _ussClassName = "hero-creation__";
         const string _ussNameField = _ussClassName + "name-field";
@@ -27,6 +27,7 @@ namespace Lis.HeroCreation
         [SerializeField] ItemDisplayer _femaleHero;
         [SerializeField] ItemDisplayer _maleHero;
 
+        VisualHero _currentVisualHero;
         ItemDisplayer _currentHero;
 
         public VisualElement Root;
@@ -34,6 +35,7 @@ namespace Lis.HeroCreation
         ScrollView _customizationScrollView;
         VisualElement _buttonContainer;
 
+        TextField _nameField;
         Label _currentBodyLabel;
 
         protected override void Awake()
@@ -60,17 +62,53 @@ namespace Lis.HeroCreation
             InitializeBodies();
 
             AddUiButtons();
+            ResolveCurrentHero();
         }
 
+        void ResolveCurrentHero()
+        {
+            if (_gameManager.CurrentVisualHero != null)
+                LoadHero(_gameManager.CurrentVisualHero);
+            else
+                ResetCurrentHero();
+        }
+
+        void LoadHero(VisualHero hero)
+        {
+            _currentVisualHero = hero;
+            _nameField.value = hero.Name;
+            if (hero.BodyType == 0 && _currentHero == _maleHero)
+                ChangeBody();
+            if (hero.BodyType == 1 && _currentHero == _femaleHero)
+                ChangeBody();
+
+            _currentHero.SetVisualHero(hero);
+        }
+
+        void ResetCurrentHero()
+        {
+            _currentVisualHero = ScriptableObject.CreateInstance<VisualHero>();
+            _currentVisualHero.Initialize();
+            if (_currentVisualHero.BodyType == 0 && _currentHero == _maleHero)
+                ChangeBody();
+            if (_currentVisualHero.BodyType == 1 && _currentHero == _femaleHero)
+                ChangeBody();
+
+            _nameField.value = "Tavski";
+            _femaleHero.SetVisualHero(_currentVisualHero);
+            _maleHero.SetVisualHero(_currentVisualHero);
+        }
 
         void AddNameField()
         {
-            TextField nameField = new();
-            nameField.value = "Tavski";
-            nameField.maxLength = 20;
-            nameField.AddToClassList(_ussNameField);
-            nameField.AddToClassList(_ussCommonTextLarge);
-            _customizationScrollView.Add(nameField);
+            _nameField = new();
+            _nameField.value = "Tavski";
+            _nameField.maxLength = 20;
+            _nameField.AddToClassList(_ussNameField);
+            _nameField.AddToClassList(_ussCommonTextLarge);
+            _customizationScrollView.Add(_nameField);
+
+            _nameField.RegisterValueChangedCallback((_) => _currentVisualHero.Name = _nameField.value);
         }
 
         void AddBodyItems(VisualElement parent)
@@ -92,13 +130,12 @@ namespace Lis.HeroCreation
 
         void InitializeBodies()
         {
-            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits());
-            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits());
+            _femaleHero.Initialize(_gameManager.UnitDatabase.GetAllFemaleHeroOutfits(), _currentVisualHero);
+            _maleHero.Initialize(_gameManager.UnitDatabase.GetAllMaleHeroOutfits(), _currentVisualHero);
 
             _currentHero = _femaleHero;
             _femaleHero.Activate();
         }
-
 
         void ChangeBody()
         {
@@ -108,6 +145,7 @@ namespace Lis.HeroCreation
                 _maleHero.Activate();
                 _currentBodyLabel.text = "Body Type 1";
                 _currentHero = _maleHero;
+                _currentVisualHero.BodyType = 1;
 
                 return;
             }
@@ -115,6 +153,7 @@ namespace Lis.HeroCreation
             _maleHero.Deactivate();
             _femaleHero.Activate();
             _currentHero = _femaleHero;
+            _currentVisualHero.BodyType = 0;
 
             _currentBodyLabel.text = "Body Type 0";
         }
@@ -140,6 +179,15 @@ namespace Lis.HeroCreation
             container.Add(rotateHeroLeft);
             container.Add(rotateHeroRight);
             _buttonContainer.Add(container);
+
+            MyButton saveButton = new("Save", _ussCommonButton, SaveHero);
+            _buttonContainer.Add(saveButton);
+            MyButton playButton = new("Play", _ussCommonButton, PlayGame);
+            _buttonContainer.Add(playButton);
+            MyButton backButton = new("Back", _ussCommonButton, GoBack);
+            _buttonContainer.Add(backButton);
+            MyButton removeButton = new("Remove", _ussCommonButton, RemoveHero);
+            _buttonContainer.Add(removeButton);
         }
 
         void RotateLeft()
@@ -160,6 +208,30 @@ namespace Lis.HeroCreation
             title.AddToClassList(_ussCommonTextVeryLarge);
             _visualOptionContainer.Insert(0, title);
             _visualOptionContainer.Insert(1, new HorizontalSpacerElement());
+        }
+
+        void SaveHero()
+        {
+            _gameManager.AddVisualHero(_currentVisualHero);
+        }
+
+        void PlayGame()
+        {
+            SaveHero();
+            _gameManager.CurrentVisualHero = _currentVisualHero;
+            _gameManager.StartGame();
+        }
+
+        void GoBack()
+        {
+            SaveHero();
+            _gameManager.LoadScene(Scenes.MainMenu);
+        }
+
+        void RemoveHero()
+        {
+            _gameManager.RemoveVisualHero(_currentVisualHero);
+            ResetCurrentHero();
         }
     }
 }

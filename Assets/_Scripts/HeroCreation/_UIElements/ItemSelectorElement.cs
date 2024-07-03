@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Hero.Items;
 using UnityEngine.UIElements;
@@ -19,6 +20,8 @@ namespace Lis.HeroCreation
         readonly List<Item> _items;
         int _currentItemIndex;
         readonly Label _currentItemLabel;
+
+        public event Action<ItemType, string> OnItemChanged;
 
         public ItemSelectorElement(ItemSetter itemSetter, ItemType itemType, List<Item> items)
         {
@@ -48,6 +51,7 @@ namespace Lis.HeroCreation
         {
             _itemSetter.SetItem(_items[_currentItemIndex]);
             _currentItemLabel.text = _items[_currentItemIndex].name;
+            OnItemChanged?.Invoke(_itemType, _items[_currentItemIndex].Id);
         }
 
         void PreviousItem()

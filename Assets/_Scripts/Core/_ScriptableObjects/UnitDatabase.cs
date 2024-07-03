@@ -51,9 +51,32 @@ namespace Lis.Core
         public List<Item> GetAllMaleHeroArmor => _allMaleHeroArmor.ToList();
 
 
+        readonly Dictionary<ItemType, List<Item>> _femaleOutfitDictionary = new();
+
+        public Item GetRandomFemaleItemByType(ItemType type)
+        {
+            if (!_femaleOutfitDictionary.ContainsKey(type))
+                _femaleOutfitDictionary[type] = _allFemaleHeroOutfits.Where(x => x.ItemType == type).ToList();
+
+            return _femaleOutfitDictionary[type][Random.Range(0, _femaleOutfitDictionary[type].Count)];
+        }
+
+        readonly Dictionary<ItemType, List<Item>> _maleOutfitDictionary = new();
+
+        public Item GetRandomMaleItemByType(ItemType type)
+        {
+            if (!_maleOutfitDictionary.ContainsKey(type))
+                _maleOutfitDictionary[type] = _allMaleHeroOutfits.Where(x => x.ItemType == type).ToList();
+
+            return _maleOutfitDictionary[type][Random.Range(0, _maleOutfitDictionary[type].Count)];
+        }
+
+
         [SerializeField] Color[] _heroCustomizationColors;
         public List<Color> GetAllHeroCustomizationColors() => _heroCustomizationColors.ToList();
 
+        public Color GetRandomHeroCustomizationColor() =>
+            _heroCustomizationColors[Random.Range(0, _heroCustomizationColors.Length)];
 
         [Header("Peasant")]
         public Peasant Peasant;

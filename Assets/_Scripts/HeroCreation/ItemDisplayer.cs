@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Hero.Items;
 using UnityEngine;
@@ -25,12 +26,29 @@ namespace Lis.HeroCreation
 
         readonly Dictionary<ItemType, List<Item>> _itemDictionary = new();
 
+        List<Item> _allItems;
         ItemSetter _itemSetter;
 
         VisualElement _root;
         VisualElement _visualOptionContainer;
         ScrollView _customizationScrollView;
         VisualElement _setterContainer;
+
+        ColorSelectorElement _skinColorElement;
+        ColorSelectorElement _eyeColorElement;
+        ColorSelectorElement _eyebrowColorElement;
+
+        ColorSelectorElement _mainHairColorElement;
+        ColorSelectorElement _detailHairColorElement;
+
+        ColorSelectorElement _mainUnderwearColorElement;
+        ColorSelectorElement _detailUnderwearColorElement;
+
+        ColorSelectorElement _mainOutfitColorElement;
+        ColorSelectorElement _detailOutfitColorElement;
+        ColorSelectorElement _detailOutfitColorSecondaryElement;
+
+        VisualHero _visualHero;
 
         void Start()
         {
@@ -55,8 +73,51 @@ namespace Lis.HeroCreation
             gameObject.SetActive(false);
         }
 
-        public void Initialize(List<Item> allItems)
+        public void SetVisualHero(VisualHero visualHero)
         {
+            _visualHero = visualHero;
+
+            // colors
+            _skinColorElement.SetColor(_visualHero.SkinColor);
+            _eyeColorElement.SetColor(_visualHero.EyeColor);
+            _eyebrowColorElement.SetColor(_visualHero.EyebrowColor);
+
+            _mainHairColorElement.SetColor(_visualHero.HairMainColor);
+            _detailHairColorElement.SetColor(_visualHero.HairDetailColor);
+
+            _mainUnderwearColorElement.SetColor(_visualHero.UnderwearMainColor);
+            _detailUnderwearColorElement.SetColor(_visualHero.UnderwearDetailColor);
+
+            _mainOutfitColorElement.SetColor(_visualHero.OutfitMainColor);
+            _detailOutfitColorElement.SetColor(_visualHero.OutfitDetailColor);
+            _detailOutfitColorSecondaryElement.SetColor(_visualHero.OutfitDetailSecondaryColor);
+
+            // items
+            _itemSetter.SetItem(GetItemById(_visualHero.HairId));
+            _itemSetter.SetItem(GetItemById(_visualHero.BeardId));
+            _itemSetter.SetItem(GetItemById(_visualHero.MustacheId));
+            _itemSetter.SetItem(GetItemById(_visualHero.UnderwearId));
+            _itemSetter.SetItem(GetItemById(_visualHero.BrassiereId));
+            _itemSetter.SetItem(GetItemById(_visualHero.HelmetId));
+            _itemSetter.SetItem(GetItemById(_visualHero.TorsoId));
+            _itemSetter.SetItem(GetItemById(_visualHero.LegsId));
+        }
+
+        Item GetItemById(string id)
+        {
+            foreach (Item item in _allItems)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+
+            return null;
+        }
+
+        public void Initialize(List<Item> allItems, VisualHero visualHero)
+        {
+            _visualHero = visualHero;
+            _allItems = allItems;
             SortItems(allItems);
 
             _setterContainer = new();
@@ -65,7 +126,7 @@ namespace Lis.HeroCreation
             AddBodySetters();
             AddHairSetters();
             AddUnderwearSetters();
-            AddArmorSetters();
+            AddOutfitSetters();
 
             Deactivate();
         }
@@ -124,40 +185,41 @@ namespace Lis.HeroCreation
             AddUnderWearColor(underwearContainer);
         }
 
-        void AddArmorSetters()
+        void AddOutfitSetters()
         {
-            VisualElement armorContainer = new();
-            armorContainer.AddToClassList(_ussSetterContainer);
-            _setterContainer.Add(armorContainer);
+            VisualElement outfitContainer = new();
+            outfitContainer.AddToClassList(_ussSetterContainer);
+            _setterContainer.Add(outfitContainer);
 
-            Label title = new("Armor");
+            Label title = new("Outfit");
             title.AddToClassList(_ussCommonTextLarge);
             title.AddToClassList(_ussSetterTitle);
-            armorContainer.Add(title);
+            outfitContainer.Add(title);
 
-            AddArmorItems(armorContainer);
-            AddArmorColor(armorContainer);
+            AddOutfitItems(outfitContainer);
+            AddOutfitColor(outfitContainer);
         }
 
 
         void AddBodyColor(VisualElement parent)
         {
-            parent.Add(new ColorSelectorElement("Skin", _body,
-                "_Color1", _allColors, _visualOptionContainer));
+            _skinColorElement = new("Skin", _body, "_Color1", _allColors, _visualOptionContainer);
+            _eyeColorElement = new("Eye", _body, "_Color2", _allColors, _visualOptionContainer);
+            _eyebrowColorElement = new("Eyebrow", _body, "_Color3", _allColors, _visualOptionContainer);
 
-            ColorSelectorElement eyeElement = new("Eye", _body,
-                "_Color2", _allColors, _visualOptionContainer);
-            ColorSelectorElement eyebrowElement = new("Eyebrow", _body,
-                "_Color3", _allColors, _visualOptionContainer);
+            _eyeColorElement.OnColorPickerShowed += _cameraManager.LookAtHead;
+            _eyebrowColorElement.OnColorPickerShowed += _cameraManager.LookAtHead;
 
-            eyeElement.OnColorPickerShowed += _cameraManager.LookAtHead;
-            eyebrowElement.OnColorPickerShowed += _cameraManager.LookAtHead;
+            _eyeColorElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
+            _eyebrowColorElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
 
-            eyeElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
-            eyebrowElement.OnColorPickerClosed += _cameraManager.LookAtDefault;
+            _skinColorElement.OnColorSelected += (c) => _visualHero.SkinColor = c;
+            _eyeColorElement.OnColorSelected += (c) => _visualHero.EyeColor = c;
+            _eyebrowColorElement.OnColorSelected += (c) => _visualHero.EyebrowColor = c;
 
-            parent.Add(eyeElement);
-            parent.Add(eyebrowElement);
+            parent.Add(_skinColorElement);
+            parent.Add(_eyeColorElement);
+            parent.Add(_eyebrowColorElement);
         }
 
         void AddHairItems(VisualElement parent)
@@ -167,6 +229,7 @@ namespace Lis.HeroCreation
                 if (item.Key is not (ItemType.Hair or ItemType.Beard or ItemType.Mustache)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
+                itemSelectorElement.OnItemChanged += (type, id) => _visualHero.SetItem(type, id);
                 parent.Add(itemSelectorElement);
             }
         }
@@ -174,10 +237,14 @@ namespace Lis.HeroCreation
 
         void AddHairColor(VisualElement parent)
         {
-            parent.Add(new ColorSelectorElement("Main", _hair,
-                "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _hair,
-                "_Color2", _allColors, _visualOptionContainer));
+            _mainHairColorElement = new("Main", _hair, "_Color1", _allColors, _visualOptionContainer);
+            _detailHairColorElement = new("Detail", _hair, "_Color2", _allColors, _visualOptionContainer);
+
+            _mainHairColorElement.OnColorSelected += (c) => _visualHero.HairMainColor = c;
+            _detailHairColorElement.OnColorSelected += (c) => _visualHero.HairDetailColor = c;
+
+            parent.Add(_mainHairColorElement);
+            parent.Add(_detailHairColorElement);
         }
 
         void AddUnderwearItems(VisualElement parent)
@@ -187,20 +254,24 @@ namespace Lis.HeroCreation
                 if (item.Key is not (ItemType.Underwear or ItemType.Brassiere)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
+                itemSelectorElement.OnItemChanged += (type, id) => _visualHero.SetItem(type, id);
                 parent.Add(itemSelectorElement);
             }
         }
 
         void AddUnderWearColor(VisualElement parent)
         {
-            parent.Add(new ColorSelectorElement("Main", _underwear,
-                "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _underwear,
-                "_Color2", _allColors, _visualOptionContainer));
+            _mainUnderwearColorElement = new("Main", _underwear, "_Color1", _allColors, _visualOptionContainer);
+            _detailUnderwearColorElement = new("Detail", _underwear, "_Color2", _allColors, _visualOptionContainer);
+
+            _mainUnderwearColorElement.OnColorSelected += (c) => _visualHero.UnderwearMainColor = c;
+            _detailUnderwearColorElement.OnColorSelected += (c) => _visualHero.UnderwearDetailColor = c;
+
+            parent.Add(_mainUnderwearColorElement);
+            parent.Add(_detailUnderwearColorElement);
         }
 
-
-        void AddArmorItems(VisualElement parent)
+        void AddOutfitItems(VisualElement parent)
         {
             foreach (KeyValuePair<ItemType, List<Item>> item in _itemDictionary)
             {
@@ -209,18 +280,24 @@ namespace Lis.HeroCreation
                     or ItemType.Legs)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemSetter, item.Key, item.Value);
+                itemSelectorElement.OnItemChanged += (type, id) => _visualHero.SetItem(type, id);
                 parent.Add(itemSelectorElement);
             }
         }
 
-        void AddArmorColor(VisualElement parent)
+        void AddOutfitColor(VisualElement parent)
         {
-            parent.Add(new ColorSelectorElement("Main", _armor,
-                "_Color1", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _armor,
-                "_Color2", _allColors, _visualOptionContainer));
-            parent.Add(new ColorSelectorElement("Detail", _armor,
-                "_Color3", _allColors, _visualOptionContainer));
+            _mainOutfitColorElement = new("Main", _armor, "_Color1", _allColors, _visualOptionContainer);
+            _detailOutfitColorElement = new("Detail", _armor, "_Color2", _allColors, _visualOptionContainer);
+            _detailOutfitColorSecondaryElement = new("Detail", _armor, "_Color3", _allColors, _visualOptionContainer);
+
+            _mainOutfitColorElement.OnColorSelected += (c) => _visualHero.OutfitMainColor = c;
+            _detailOutfitColorElement.OnColorSelected += (c) => _visualHero.OutfitDetailColor = c;
+            _detailOutfitColorSecondaryElement.OnColorSelected += (c) => _visualHero.OutfitDetailSecondaryColor = c;
+
+            parent.Add(_mainOutfitColorElement);
+            parent.Add(_detailOutfitColorElement);
+            parent.Add(_detailOutfitColorSecondaryElement);
         }
     }
 }

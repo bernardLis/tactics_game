@@ -22,6 +22,7 @@ namespace Lis.HeroCreation
 
         public event Action OnColorPickerShowed;
         public event Action OnColorPickerClosed;
+        public event Action<Color> OnColorSelected;
 
         public ColorSelectorElement(string title, Material material, string propertyName, List<Color> colors,
             VisualElement pickerParent)
@@ -49,15 +50,21 @@ namespace Lis.HeroCreation
         {
             OnColorPickerShowed?.Invoke();
             ColorPickerPopUpElement colorPickerPopUpElement = new(_pickerParent);
-            colorPickerPopUpElement.OnColorSelected += OnColorSelected;
+            colorPickerPopUpElement.OnColorSelected += ColorSelected;
             colorPickerPopUpElement.Initialize(_allColors);
             colorPickerPopUpElement.OnHide += () => { OnColorPickerClosed?.Invoke(); };
         }
 
-        void OnColorSelected(Color c)
+        public void SetColor(Color c)
+        {
+            ColorSelected(c);
+        }
+
+        void ColorSelected(Color c)
         {
             _colorContainer.style.backgroundColor = c;
             _material.SetColor(_propertyName, c);
+            OnColorSelected?.Invoke(c);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Lis.Core.Utilities;
+using Lis.HeroCreation;
 using Lis.Units.Hero;
 using Lis.Upgrades;
 using Unity.Services.Analytics;
@@ -21,6 +22,9 @@ namespace Lis.Core
 
         // global data
         int _seed;
+
+        public List<VisualHero> VisualHeroes = new();
+        public VisualHero CurrentVisualHero;
 
         public int Gold { get; private set; }
 
@@ -57,12 +61,45 @@ namespace Lis.Core
             CurrentBattle.Initialize(); // necessary for testing
         }
 
+        public void AddVisualHero(VisualHero hero)
+        {
+            VisualHeroes.Add(hero);
+        }
+
+        public void RemoveVisualHero(VisualHero hero)
+        {
+            VisualHeroes.Remove(hero);
+        }
+
+        List<VisualHeroData> PopulateVisualHeroes()
+        {
+            List<VisualHeroData> visualHeroes = new();
+            foreach (VisualHero h in VisualHeroes)
+                visualHeroes.Add(h.SerializeSelf());
+
+            return visualHeroes;
+        }
+
+        List<VisualHero> DeserializeVisualHeroes(List<VisualHeroData> visualHeroData)
+        {
+            List<VisualHero> visualHeroes = new();
+            foreach (VisualHeroData data in visualHeroData)
+            {
+                VisualHero hero = ScriptableObject.CreateInstance<VisualHero>();
+                hero.LoadFromData(data);
+                visualHeroes.Add(hero);
+            }
+
+            return visualHeroes;
+        }
+
         public void PopulateSaveData(SaveData saveData)
         {
             // global data
             saveData.Seed = _seed;
 
             saveData.Gold = Gold;
+            saveData.VisualHeroes = PopulateVisualHeroes();
             saveData.GlobalUpgradeBoard = UpgradeBoard.SerializeSelf();
             saveData.GameStats = GameStats.SerializeSelf();
         }
@@ -74,8 +111,12 @@ namespace Lis.Core
             _seed = saveData.Seed;
 
             Gold = saveData.Gold;
+            VisualHeroes = DeserializeVisualHeroes(saveData.VisualHeroes);
             UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
             GameStats.LoadFromData(saveData.GameStats);
+
+            if (VisualHeroes.Count > 0)
+                CurrentVisualHero = VisualHeroes[0];
         }
 
         public event Action<int> OnGoldChanged;
