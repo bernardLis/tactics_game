@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Outfit Torso 01
   m_EditorClassIdentifier: 
-  Id: 
+  Id: e7748fb0-7fb8-4b84-81bb-e4aec317f3f3
   ItemType: 2
   ArmorType: 3
   ItemMeshRenderer: {fileID: 836472169160410175, guid: 8d51c81941e582c48b78e521ac8c1eb2, type: 3}

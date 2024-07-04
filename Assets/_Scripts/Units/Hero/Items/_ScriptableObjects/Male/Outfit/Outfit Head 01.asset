@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Outfit Head 01
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 96707a74-652f-4d9a-9a74-ab2f12c98565
   ItemType: 0
   ArmorType: 3
   ItemMeshRenderer: {fileID: 3565843892446727072, guid: 10572636c3c3ce045b09243907359012, type: 3}

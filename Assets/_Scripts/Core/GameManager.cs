@@ -80,7 +80,10 @@ namespace Lis.Core
         {
             List<VisualHeroData> visualHeroes = new();
             foreach (VisualHero h in VisualHeroes)
+            {
+                if (h == null) continue;
                 visualHeroes.Add(h.SerializeSelf());
+            }
 
             return visualHeroes;
         }
@@ -119,9 +122,6 @@ namespace Lis.Core
             VisualHeroes = DeserializeVisualHeroes(saveData.VisualHeroes);
             UpgradeBoard.LoadFromData(saveData.GlobalUpgradeBoard);
             GameStats.LoadFromData(saveData.GameStats);
-
-            CurrentVisualHero = ScriptableObject.CreateInstance<VisualHero>();
-            CurrentVisualHero.Initialize();
         }
 
         public event Action<int> OnGoldChanged;

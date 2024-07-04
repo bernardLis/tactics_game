@@ -45,7 +45,6 @@ namespace Lis.Battle
 
         void ResolveHero(VisualHero visualHero)
         {
-            Debug.Log("Resolving hero");
             VisualHero vh = visualHero;
             if (vh == null)
             {

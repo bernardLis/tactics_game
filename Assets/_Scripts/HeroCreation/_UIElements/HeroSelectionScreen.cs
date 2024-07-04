@@ -39,6 +39,7 @@ namespace Lis.HeroCreation
         {
             VisualElement container = new();
             container.style.flexDirection = FlexDirection.Row;
+            container.style.flexWrap = Wrap.Wrap;
             Content.Add(container);
 
             foreach (VisualHero vh in GameManager.VisualHeroes)

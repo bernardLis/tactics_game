@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Hair 02
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 491222d0-4c1b-499f-bdc9-84392d9ac30f
   ItemType: 5
   ArmorType: 0
   ItemMeshRenderer: {fileID: 4868960647644012093, guid: 6de8d0ac54e1c25479d121dbc88dc433, type: 3}

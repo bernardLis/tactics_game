@@ -65,6 +65,7 @@ namespace Lis.HeroCreation
         void Start()
         {
             _gameManager = GameManager.Instance;
+            _currentVisualHero = _gameManager.CurrentVisualHero;
 
             _cameraManager = GetComponent<CameraManager>();
 
@@ -118,7 +119,11 @@ namespace Lis.HeroCreation
 
         void SelectFemale(PointerUpEvent evt)
         {
+            _currentHero = _femaleHero;
+            _currentVisualHero = _femaleVisualHero;
+
             DefaultSelect();
+
             _cameraManager.SelectBodyType(0);
             _maleExplosion.SetActive(true);
             AudioManager.Instance.CreateSound()
@@ -126,12 +131,17 @@ namespace Lis.HeroCreation
                 .WithPosition(_maleHero.transform.position)
                 .Play();
             _maleHero.Deactivate();
-            _currentHero = _femaleHero;
+
+
         }
 
         void SelectMale(PointerUpEvent evt)
         {
+            _currentVisualHero = _maleVisualHero;
+            _currentHero = _maleHero;
+
             DefaultSelect();
+
             _cameraManager.SelectBodyType(1);
             _femaleExplosion.SetActive(true);
             AudioManager.Instance.CreateSound()
@@ -140,11 +150,12 @@ namespace Lis.HeroCreation
                 .Play();
 
             _femaleHero.Deactivate();
-            _currentHero = _maleHero;
         }
 
         void DefaultSelect()
         {
+            _gameManager.CurrentVisualHero = _currentVisualHero;
+
             _bodySelectionContainer.style.display = DisplayStyle.None;
 
             _buttonContainer.style.display = DisplayStyle.Flex;

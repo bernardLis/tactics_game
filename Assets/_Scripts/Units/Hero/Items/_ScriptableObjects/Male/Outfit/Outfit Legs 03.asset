@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
   m_Name: Outfit Legs 03
   m_EditorClassIdentifier: 
-  Id: 
+  Id: b59fb363-023d-4e5a-ac45-caaa48a849a2
   ItemType: 4
   ArmorType: 3
   ItemMeshRenderer: {fileID: 3456195030348789466, guid: d9eeb4573be498a458462c3b3c085528, type: 3}

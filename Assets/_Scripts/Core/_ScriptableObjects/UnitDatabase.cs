@@ -45,6 +45,16 @@ namespace Lis.Core
         [SerializeField] Item[] _allFemaleHeroArmor;
         public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
 
+        readonly Dictionary<ItemType, List<Item>> _femaleOutfitDictionary = new();
+
+        public Item GetRandomFemaleItemByType(ItemType type)
+        {
+            if (!_femaleOutfitDictionary.ContainsKey(type))
+                _femaleOutfitDictionary[type] = _allFemaleHeroOutfits.Where(x => x.ItemType == type).ToList();
+
+            return _femaleOutfitDictionary[type][Random.Range(0, _femaleOutfitDictionary[type].Count)];
+        }
+
         /* MALE */
         public Hero MaleHero;
 
@@ -62,17 +72,6 @@ namespace Lis.Core
 
         [SerializeField] Item[] _allMaleHeroArmor;
         public List<Item> GetAllMaleHeroArmor => _allMaleHeroArmor.ToList();
-
-
-        readonly Dictionary<ItemType, List<Item>> _femaleOutfitDictionary = new();
-
-        public Item GetRandomFemaleItemByType(ItemType type)
-        {
-            if (!_femaleOutfitDictionary.ContainsKey(type))
-                _femaleOutfitDictionary[type] = _allFemaleHeroOutfits.Where(x => x.ItemType == type).ToList();
-
-            return _femaleOutfitDictionary[type][Random.Range(0, _femaleOutfitDictionary[type].Count)];
-        }
 
         readonly Dictionary<ItemType, List<Item>> _maleOutfitDictionary = new();
 

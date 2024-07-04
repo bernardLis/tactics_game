@@ -36,7 +36,6 @@ namespace Lis.HeroCreation
 
         public void Awake()
         {
-            Debug.Log("ItemDisplayer Awake");
             _unitDatabase = GameManager.Instance.UnitDatabase;
 
             foreach (ItemRenderer itemRenderer in _itemRenderers)
@@ -54,8 +53,6 @@ namespace Lis.HeroCreation
 
         public void SetVisualHero(VisualHero visualHero)
         {
-            Debug.Log("ItemDisplayer SetVisualHero");
-
             _visualHero = visualHero;
 
             SetSkinColor(_visualHero.SkinColor);
@@ -72,14 +69,14 @@ namespace Lis.HeroCreation
             SetDetailOutfitColor(_visualHero.OutfitDetailColor);
             SetDetailSecondaryOutfitColor(_visualHero.OutfitDetailSecondaryColor);
 
-            SetItem(GetItemById(_visualHero.HairId));
-            if (visualHero.BodyType == 1) SetItem(GetItemById(visualHero.BeardId));
-            if (visualHero.BodyType == 1) SetItem(GetItemById(visualHero.MustacheId));
-            SetItem(GetItemById(visualHero.UnderwearId));
-            if (visualHero.BodyType == 0) SetItem(GetItemById(visualHero.BrassiereId));
-            SetItem(GetItemById(_visualHero.HelmetId));
-            SetItem(GetItemById(_visualHero.TorsoId));
-            SetItem(GetItemById(_visualHero.LegsId));
+            SetItem(_visualHero.Hair);
+            if (visualHero.BodyType == 1) SetItem(visualHero.Beard);
+            if (visualHero.BodyType == 1) SetItem(visualHero.Mustache);
+            SetItem(visualHero.Underwear);
+            if (visualHero.BodyType == 0) SetItem(visualHero.Brassiere);
+            SetItem(_visualHero.Helmet);
+            SetItem(_visualHero.Torso);
+            SetItem(_visualHero.Legs);
         }
 
         public void SetSkinColor(Color c)
