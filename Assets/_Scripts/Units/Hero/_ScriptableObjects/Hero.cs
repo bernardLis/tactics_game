@@ -16,11 +16,6 @@ namespace Lis.Units.Hero
         [Header("Visuals")]
         public VisualHero VisualHero;
 
-        [Header("Selector")]
-        public int TimesPicked;
-
-        public GameObject SelectorPrefab;
-
         [FormerlySerializedAs("TeleportStart")] [Header("Hero Sounds")]
         public Sound TeleportStartSound;
 

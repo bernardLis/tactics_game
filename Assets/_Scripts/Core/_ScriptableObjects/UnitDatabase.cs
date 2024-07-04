@@ -19,8 +19,6 @@ namespace Lis.Core
     public class UnitDatabase : ScriptableObject
     {
         [Header("Hero")]
-        public Hero[] Heroes;
-
         [SerializeField] Ability[] _abilities;
         [SerializeField] Ability[] _advancedAbilities;
 
@@ -120,17 +118,6 @@ namespace Lis.Core
         [Header("Natures")] [SerializeField] Nature[] _natures;
 
         [SerializeField] NatureAdvanced[] _advancedNatures;
-
-        public void Initialize()
-        {
-            foreach (Hero h in Heroes)
-                h.TimesPicked = PlayerPrefs.GetInt(h.Id, 0);
-        }
-
-        public Hero GetRandomHero()
-        {
-            return Heroes[Random.Range(0, Heroes.Length)];
-        }
 
 
         public List<Ability> GetAllBasicAbilities()

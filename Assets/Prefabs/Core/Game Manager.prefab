@@ -337,10 +337,6 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  - m_AssetGUID: 89b4ecf86bbb3154381012457ca6a211
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
   - m_AssetGUID: 4c8e8ae342da327439fa8a83920b043f
     m_SubObjectName: 
     m_SubObjectType: 
@@ -434,6 +430,8 @@ MonoBehaviour:
   UnitDatabase: {fileID: 11400000, guid: 2cd7cb33b391b61418239c0a9d4e9f97, type: 2}
   UpgradeBoard: {fileID: 11400000, guid: d1a30c960dc32a74da9f6cfe418f3e9e, type: 2}
   GameStats: {fileID: 11400000, guid: f7a08929f862d8a4da5b4a9818a21518, type: 2}
+  VisualHeroes: []
+  CurrentVisualHero: {fileID: 0}
 --- !u!114 &2154333484900981486
 MonoBehaviour:
   m_ObjectHideFlags: 0

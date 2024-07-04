@@ -56,7 +56,6 @@ namespace Lis.Core
                 LoadFromSaveFile();
 
             UpgradeBoard.Initialize();
-            UnitDatabase.Initialize();
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
             // CurrentBattle.Initialize(CurrentVisualHero); // TODO: normally only when starting a new game
@@ -157,11 +156,6 @@ namespace Lis.Core
             };
 
             AnalyticsService.Instance.CustomData("myGameStart", parameters);
-        }
-
-        public void SetHero(Hero hero)
-        {
-            CurrentBattle.SelectedHero = hero;
         }
 
         public void StartGame()
