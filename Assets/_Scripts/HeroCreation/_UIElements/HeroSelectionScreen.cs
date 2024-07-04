@@ -44,12 +44,9 @@ namespace Lis.HeroCreation
 
             foreach (VisualHero vh in GameManager.VisualHeroes)
             {
-                MyButton heroButton = new(vh.Name, USSCommonButton, () =>
-                {
-                    GameManager.SelectHero(vh);
-                    GameManager.StartGame();
-                    Hide();
-                });
+                HeroButton heroButton = new(vh);
+                heroButton.OnSelected += Hide;
+
                 container.Add(heroButton);
             }
         }

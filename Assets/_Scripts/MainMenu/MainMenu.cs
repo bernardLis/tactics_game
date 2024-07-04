@@ -37,6 +37,7 @@ namespace Lis.MainMenu
             if (_gameManager == null)
                 _gameManager = Instantiate(_gameManagerPrefab).GetComponent<GameManager>();
 
+            _gameManager.ResetCurrentHero();
             _globalUpgradeManager = GetComponent<UpgradeManager>();
 
             _root = GetComponent<UIDocument>().rootVisualElement;

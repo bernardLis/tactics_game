@@ -20,6 +20,7 @@ namespace Lis.Units.Hero.Ability
         {
             yield return base.ExecuteAbilityCoroutine();
             Vector3 dir = GetPositionTowardsCursor();
+            if (dir == Vector3.zero) dir = GetRandomEnemyDirection();
 
             int numberOfLines = 50;
             int half = Mathf.FloorToInt(Ability.GetAmount() * 0.5f); // TODO: only "works" for odd numbers

@@ -36,6 +36,7 @@ namespace Lis.Core
         {
             base.Awake();
             Root = GetComponent<UIDocument>().rootVisualElement;
+            Debug.Log(Application.persistentDataPath);
 
             Debug.Log("Game manager Awake");
             RunServices();
@@ -58,7 +59,14 @@ namespace Lis.Core
             UnitDatabase.Initialize();
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
-            CurrentBattle.Initialize(default); // TODO: normally only when starting a new game
+            // CurrentBattle.Initialize(CurrentVisualHero); // TODO: normally only when starting a new game
+        }
+
+        public void ResetCurrentHero()
+        {
+            CurrentVisualHero = ScriptableObject.CreateInstance<VisualHero>();
+            CurrentVisualHero.Initialize();
+            CurrentVisualHero.RandomizeOutfit();
         }
 
         public void AddCurrentVisualHero()
@@ -74,6 +82,7 @@ namespace Lis.Core
         public void RemoveVisualHero(VisualHero hero)
         {
             VisualHeroes.Remove(hero);
+            SaveJsonData();
         }
 
         List<VisualHeroData> PopulateVisualHeroes()

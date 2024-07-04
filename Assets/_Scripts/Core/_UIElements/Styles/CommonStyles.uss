@@ -85,6 +85,17 @@
     transition-timing-function: ease-in-out-sine;
 }
 
+.common__remove-button {
+    width: 30px;
+    height: 30px;
+    background-color: var(--color-primary-light);
+    justify-content: center;
+    -unity-font-style: bold;
+    font-size: 20px;
+
+}
+
+
 .common__ui-container {
     -unity-background-scale-mode: stretch-to-fill;
     padding: 40px;
@@ -116,6 +127,7 @@
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out-sine;
 }
+
 
 .common__button:hover {
     background-color: var(--color-highlight-secondary);
