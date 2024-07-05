@@ -58,7 +58,7 @@ namespace Lis.Core
             UpgradeBoard.Initialize();
 
             CurrentBattle = Instantiate(GameDatabase.SampleBattle);
-            // CurrentBattle.Initialize(CurrentVisualHero); // TODO: normally only when starting a new game
+            CurrentBattle.Initialize(CurrentVisualHero); // TODO: normally only when starting a new game
         }
 
         public void ResetCurrentHero()

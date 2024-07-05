@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dd4dc07287ed534bba9d7541ebec8d0, type: 3}
-  m_Name: Battle Theme
+  m_Name: Hero Creation Music
   m_EditorClassIdentifier: 
-  Id: 784365c7-63ad-4384-a9b2-d755efbdafca
+  Id: 46672cfd-843f-40c4-b460-2152e4e4fb8e
   Clips:
-  - {fileID: 8300000, guid: 6c7905cd7c2326347b9bfc638e90c833, type: 3}
-  Volume: 0.6
-  Pitch: 1.01
+  - {fileID: 8300000, guid: 4eba781af82f58744a188945c3a23580, type: 3}
+  - {fileID: 8300000, guid: 4eba781af82f58744a188945c3a23580, type: 3}
+  Volume: 0.3
+  Pitch: 1
   IsPitchRandomized: 0
   PitchRange: {x: 0, y: 0}
-  Loop: 0
+  Loop: 1
   PlayOnAwake: 1
+  MaxDistance: 50
+  IsFrequentSound: 0
   MixerGroup: {fileID: 4935840000298973263, guid: ee291077bc0e12a40b82c079dcdb5382, type: 2}

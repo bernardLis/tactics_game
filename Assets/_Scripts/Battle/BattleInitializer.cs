@@ -13,6 +13,7 @@ namespace Lis.Battle
     public class BattleInitializer : Singleton<BattleInitializer>
     {
         [SerializeField] ThemeStyleSheet[] _themeStyleSheets;
+        [SerializeField] Sound _music;
 
         AudioManager _audioManager;
 
@@ -65,9 +66,10 @@ namespace Lis.Battle
 
             OnBattleInitialized?.Invoke();
 
-            // HERE: not testing
+            // HERE: testing
             // _loadingScreen.Hide();
             // _audioManager.UnmuteAll();
+            // _audioManager.PlayMusic(_music);
         }
 
         void SetThemeStyleSheet()

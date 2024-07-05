@@ -19776,6 +19776,7 @@ MonoBehaviour:
   _femaleExplosion: {fileID: 3673439424838054947}
   _maleExplosion: {fileID: 8097280346284970101}
   _explosionSound: {fileID: 11400000, guid: 6c2fb66ab68a565459564db65eee15ea, type: 2}
+  _music: {fileID: 11400000, guid: ae6cb4d1b3980f84385273a746fbad42, type: 2}
   _femaleHero: {fileID: 0}
   _maleHero: {fileID: 0}
 --- !u!114 &648357457878969441

@@ -43,7 +43,7 @@ namespace Lis.HeroCreation
 
         VisualHero _visualHero;
 
-        void Awake()
+        public void Initialize(List<Item> allItems, VisualHero visualHero)
         {
             _cameraManager = HeroCreationManager.Instance.GetComponent<CameraManager>();
 
@@ -52,6 +52,19 @@ namespace Lis.HeroCreation
             _root = HeroCreationManager.Instance.Root;
             _visualOptionContainer = _root.Q<VisualElement>("visualOptionContainer");
             _customizationScrollView = _root.Q<ScrollView>("customizationScrollView");
+
+            _visualHero = visualHero;
+            SortItems(allItems);
+
+            _setterContainer = new();
+            _customizationScrollView.Add(_setterContainer);
+
+            AddBodySetters();
+            AddHairSetters();
+            AddUnderwearSetters();
+            AddOutfitSetters();
+
+            SetVisualHero(_visualHero);
         }
 
         public void Activate()
@@ -86,21 +99,6 @@ namespace Lis.HeroCreation
             _detailOutfitColorSecondaryElement.SetColor(_visualHero.OutfitDetailSecondaryColor);
         }
 
-        public void Initialize(List<Item> allItems, VisualHero visualHero)
-        {
-            _visualHero = visualHero;
-            SortItems(allItems);
-
-            _setterContainer = new();
-            _customizationScrollView.Add(_setterContainer);
-
-            AddBodySetters();
-            AddHairSetters();
-            AddUnderwearSetters();
-            AddOutfitSetters();
-
-            SetVisualHero(_visualHero);
-        }
 
         void SortItems(List<Item> allItems)
         {

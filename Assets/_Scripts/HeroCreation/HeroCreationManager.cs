@@ -31,6 +31,7 @@ namespace Lis.HeroCreation
         [SerializeField] GameObject _maleExplosion;
 
         [SerializeField] Sound _explosionSound;
+        [SerializeField] Sound _music;
 
         [SerializeField] ItemSetter _femaleHero;
         [SerializeField] ItemSetter _maleHero;
@@ -66,6 +67,8 @@ namespace Lis.HeroCreation
         {
             _gameManager = GameManager.Instance;
             _currentVisualHero = _gameManager.CurrentVisualHero;
+
+            AudioManager.Instance.PlayMusic(_music);
 
             _cameraManager = GetComponent<CameraManager>();
 
@@ -131,8 +134,6 @@ namespace Lis.HeroCreation
                 .WithPosition(_maleHero.transform.position)
                 .Play();
             _maleHero.Deactivate();
-
-
         }
 
         void SelectMale(PointerUpEvent evt)

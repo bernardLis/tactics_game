@@ -87,6 +87,7 @@ MonoBehaviour:
     StyleSheet: {fileID: 7433441132597879392, guid: d1571dd51fd344dd86dd958cac9a1a5a, type: 3}
   - Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
     StyleSheet: {fileID: 7433441132597879392, guid: 1afaad5a03ee4113ae63777f62371bc1, type: 3}
+  _music: {fileID: 11400000, guid: bfea5068c7d5b4c4ea4343106436adc5, type: 2}
 --- !u!114 &5119385659013104318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _battleLost: {fileID: 11400000, guid: 7e67c128bba768b499348ec2fb017791, type: 2}
   _battleWon: {fileID: 11400000, guid: d351dd8b29f77524ba1d26895e4e32b9, type: 2}
-  Battle: {fileID: 0}
+  Battle: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
   EntityHolder: {fileID: 0}
   AbilityHolder: {fileID: 0}
   ProjectilePoolHolder: {fileID: 0}
