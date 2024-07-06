@@ -52,7 +52,11 @@ namespace Lis.Core
         }
 
         [SerializeField] Item[] _allFemaleHeroArmor;
-        public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
+
+        public List<Item> GetAllFemaleHeroArmor()
+        {
+            return _allFemaleHeroArmor.ToList();
+        }
 
         public Armor GetRandomFemaleArmor()
         {
@@ -86,7 +90,10 @@ namespace Lis.Core
         }
 
         [SerializeField] Item[] _allMaleHeroArmor;
-        public List<Item> GetAllMaleHeroArmor => _allMaleHeroArmor.ToList();
+        public List<Item> GetAllMaleHeroArmor()
+        {
+            return _allMaleHeroArmor.ToList();
+        }
 
         public Armor GetRandomMaleArmor()
         {

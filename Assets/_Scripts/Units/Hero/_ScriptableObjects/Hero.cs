@@ -89,6 +89,7 @@ namespace Lis.Units.Hero
 
         void RemoveArmor(Armor toRemove)
         {
+            if (toRemove is null) return;
             Stat armorStat = GetStatByType(toRemove.StatType);
             armorStat.ApplyBonusValueChange(-toRemove.Value);
         }

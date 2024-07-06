@@ -23,6 +23,8 @@ namespace Lis.HeroCreation
         public Item Helmet;
         public Item Torso;
         public Item Legs;
+        public Item Shoulders;
+        public Item Waist;
 
         // all colors
         public Color SkinColor;
@@ -150,6 +152,13 @@ namespace Lis.HeroCreation
                 case ItemType.Legs:
                     Legs = item;
                     break;
+                case ItemType.Shoulders:
+                    Shoulders = item;
+                    break;
+                case ItemType.Waist:
+                    Waist = item;
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -182,6 +191,7 @@ namespace Lis.HeroCreation
                 HelmetId = Helmet.Id,
                 TorsoId = Torso.Id,
                 LegsId = Legs.Id,
+
                 SkinColor = new ColorSaver(SkinColor),
                 EyeColor = new ColorSaver(EyeColor),
                 EyebrowColor = new ColorSaver(EyebrowColor),
@@ -204,6 +214,7 @@ namespace Lis.HeroCreation
             Name = data.Name;
             BodyType = data.BodyType;
 
+            // TODO: load armor if it is ever saved (shoulders, waist)
             if (BodyType == 0)
             {
                 Hair = database.GetFemaleOutfitById(data.HairId);
@@ -255,6 +266,8 @@ namespace Lis.HeroCreation
         public string HelmetId;
         public string TorsoId;
         public string LegsId;
+        public string ShouldersId;
+        public string WaistId;
 
         // all colors
         public ColorSaver SkinColor;

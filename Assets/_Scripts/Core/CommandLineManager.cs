@@ -8,6 +8,7 @@ using Lis.Units;
 using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
+using Lis.Units.Hero.Items;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -140,6 +141,7 @@ namespace Lis.Core
             AddHeroButtons();
             AddEnemyButtons();
             AddPickupButtons();
+            AddArmorButtons();
             AddKillPlayerArmyButton();
             AddKillAllOpponentsButton();
             AddGoldButton();
@@ -417,6 +419,44 @@ namespace Lis.Core
                 };
                 pickupFoldout.Add(b);
             }
+        }
+
+        void AddArmorButtons()
+        {
+            UnitDatabase unitDatabase = _gameManager.UnitDatabase;
+
+            Foldout armorFoldout = new()
+            {
+                text = "Armor",
+                value = false
+            };
+            _buttonContainer.Add(armorFoldout);
+
+            List<Item> allArmors;
+            if (HeroManager.Instance == null) return;
+            Hero hero = HeroManager.Instance.Hero;
+
+            if (hero.VisualHero.BodyType == 0)
+                allArmors = new(unitDatabase.GetAllFemaleHeroArmor());
+            else
+                allArmors = new(unitDatabase.GetAllMaleHeroArmor());
+
+            List<string> choices = new()
+            {
+                "-----"
+            };
+            choices.AddRange(allArmors.ConvertAll(x => x.name));
+            DropdownField armorDropDown = new("Armor", choices, 0);
+            armorFoldout.Add(armorDropDown);
+
+            Button b = new() { text = "Add Armor" };
+            b.clickable.clicked += () =>
+            {
+                Armor a = allArmors.Find(x => x.name == armorDropDown.value) as Armor;
+                if (a != null)
+                    hero.AddArmor(a);
+            };
+            armorFoldout.Add(b);
         }
 
         void AddGoldButton()

@@ -1,4 +1,5 @@
-﻿using UnityEngine.UIElements;
+﻿using Lis.Core.Utilities;
+using UnityEngine.UIElements;
 
 namespace Lis.Units.Hero.Rewards
 {
@@ -9,8 +10,8 @@ namespace Lis.Units.Hero.Rewards
             RewardArmor rewardArmor = reward as RewardArmor;
             if (rewardArmor == null) return;
 
-            Label name = new(rewardArmor.Armor.name);
-            ContentContainer.Add(name);
+            Label nameLabel = new(Helpers.ParseScriptableObjectName(rewardArmor.Armor.name));
+            ContentContainer.Add(nameLabel);
 
             // TODO: swap to Item Icon with tooltip and stuff
             VisualElement icon = new();
