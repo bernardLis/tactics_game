@@ -12,8 +12,6 @@ namespace Lis.HeroCreation
 
         const string _ussClassName = "item-selector-element__";
         const string _ussMain = _ussClassName + "main";
-        const string _ussOdd = _ussClassName + "odd";
-        const string _ussEven = _ussClassName + "even";
 
         readonly ItemDisplayer _itemDisplayer;
         readonly ItemType _itemType;
@@ -21,7 +19,7 @@ namespace Lis.HeroCreation
         int _currentItemIndex;
         readonly Label _currentItemLabel;
 
-        public event Action<ItemType, Item> OnItemChanged;
+        public event Action<Item> OnItemChanged;
 
         public ItemSelectorElement(ItemDisplayer itemDisplayer, ItemType itemType, List<Item> items)
         {
@@ -51,7 +49,7 @@ namespace Lis.HeroCreation
         {
             _itemDisplayer.SetItem(_items[_currentItemIndex]);
             _currentItemLabel.text = _items[_currentItemIndex].name;
-            OnItemChanged?.Invoke(_itemType, _items[_currentItemIndex]);
+            OnItemChanged?.Invoke(_items[_currentItemIndex]);
         }
 
         void PreviousItem()

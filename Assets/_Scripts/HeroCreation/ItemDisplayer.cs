@@ -1,5 +1,4 @@
 ﻿using System;
-using Lis.Core;
 using Lis.Units.Hero.Items;
 using UnityEngine;
 
@@ -15,8 +14,6 @@ namespace Lis.HeroCreation
         }
 
         VisualHero _visualHero;
-
-        UnitDatabase _unitDatabase;
 
         [SerializeField] Material _body;
         [SerializeField] Material _hair;
@@ -36,8 +33,6 @@ namespace Lis.HeroCreation
 
         public void Awake()
         {
-            _unitDatabase = GameManager.Instance.UnitDatabase;
-
             foreach (ItemRenderer itemRenderer in _itemRenderers)
             {
                 if (itemRenderer.ItemType == ItemType.Hair)
@@ -54,6 +49,7 @@ namespace Lis.HeroCreation
         public void SetVisualHero(VisualHero visualHero)
         {
             _visualHero = visualHero;
+            _visualHero.OnItemChanged += SetItem;
 
             SetSkinColor(_visualHero.SkinColor);
             SetEyeColor(_visualHero.EyeColor);
@@ -137,14 +133,6 @@ namespace Lis.HeroCreation
         {
             _outfit.SetColor(Color3, c);
             _visualHero.OutfitDetailSecondaryColor = c;
-        }
-
-
-        Item GetItemById(string id)
-        {
-            if (_visualHero.BodyType == 0)
-                return _unitDatabase.GetFemaleOutfitById(id);
-            return _unitDatabase.GetMaleOutfitById(id);
         }
 
         public void SetItem(Item newItem)

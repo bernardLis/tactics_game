@@ -198,7 +198,7 @@ namespace Lis.HeroCreation
                 if (item.Key is not (ItemType.Hair or ItemType.Beard or ItemType.Mustache)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemDisplayer, item.Key, item.Value);
-                itemSelectorElement.OnItemChanged += (type, item) => _visualHero.SetItem(type, item);
+                itemSelectorElement.OnItemChanged += (newItem) => _visualHero.SetItem(newItem);
                 parent.Add(itemSelectorElement);
             }
         }
@@ -222,7 +222,7 @@ namespace Lis.HeroCreation
                 if (item.Key is not (ItemType.Underwear or ItemType.Brassiere)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemDisplayer, item.Key, item.Value);
-                itemSelectorElement.OnItemChanged += (type, id) => _visualHero.SetItem(type, id);
+                itemSelectorElement.OnItemChanged += (newItem) => _visualHero.SetItem(newItem);
                 parent.Add(itemSelectorElement);
             }
         }
@@ -250,7 +250,7 @@ namespace Lis.HeroCreation
                     or ItemType.Legs)) continue;
 
                 ItemSelectorElement itemSelectorElement = new(_itemDisplayer, item.Key, item.Value);
-                itemSelectorElement.OnItemChanged += (type, id) => _visualHero.SetItem(type, id);
+                itemSelectorElement.OnItemChanged += (newItem) => _visualHero.SetItem(newItem);
                 parent.Add(itemSelectorElement);
             }
         }

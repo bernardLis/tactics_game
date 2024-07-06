@@ -75,6 +75,8 @@ namespace Lis.Units.Hero
             slot.PreviousItem = slot.CurrentItem;
             slot.CurrentItem = newArmor;
 
+            VisualHero.SetItem(newArmor);
+
             RemoveArmor(slot.PreviousItem);
             ApplyArmor(newArmor);
         }

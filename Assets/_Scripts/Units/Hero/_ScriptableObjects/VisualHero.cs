@@ -39,6 +39,8 @@ namespace Lis.HeroCreation
         public Color OutfitDetailColor;
         public Color OutfitDetailSecondaryColor;
 
+        public event Action<Item> OnItemChanged;
+
         public void Initialize(int bodyType = 420)
         {
             name = "New Hero";
@@ -119,10 +121,10 @@ namespace Lis.HeroCreation
             }
         }
 
-        public void SetItem(ItemType type, Item item)
+        public void SetItem(Item item)
         {
             // it's a bit shitty, but it'll do.
-            switch (type)
+            switch (item.ItemType)
             {
                 case ItemType.Hair:
                     Hair = item;
@@ -149,8 +151,10 @@ namespace Lis.HeroCreation
                     Legs = item;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                    throw new ArgumentOutOfRangeException();
             }
+
+            OnItemChanged?.Invoke(item);
         }
 
 
