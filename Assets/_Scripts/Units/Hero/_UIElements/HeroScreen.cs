@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Hero.Ability;
+using Lis.Units.Hero.Items;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -22,7 +23,24 @@ namespace Lis.Units.Hero
         public override void Initialize()
         {
             base.Initialize();
+            HandleArmor();
             HandleTablets();
+        }
+
+        void HandleArmor()
+        {
+            VisualElement container = new();
+            container.AddToClassList(_ussRowContainer);
+            OtherContainer.Insert(0, container);
+            OtherContainer.Insert(1, new HorizontalSpacerElement());
+
+            foreach (ArmorSlot armorSlot in _hero.ArmorSlots)
+            {
+                if (armorSlot.CurrentItem == null) continue;
+
+                ArmorIcon armorIcon = new(armorSlot.CurrentItem);
+                container.Add(armorIcon);
+            }
         }
 
         protected override void HandleStats()

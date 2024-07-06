@@ -51,6 +51,8 @@ namespace Lis.Units.Hero
             foreach (Tablet t in Tablets)
                 t.Initialize(this);
 
+            CreateArmorSlots();
+
             Abilities = new();
         }
 
@@ -67,11 +69,27 @@ namespace Lis.Units.Hero
         }
 
         [Header("Armor")]
-        public ArmorSlot[] ArmorSlots;
+        public List<ArmorSlot> ArmorSlots = new();
+
+        void CreateArmorSlots()
+        {
+            foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+            {
+                ArmorSlot slot = CreateInstance<ArmorSlot>();
+                slot.ItemType = type;
+                ArmorSlots.Add(slot);
+            }
+        }
+
+        public Armor GetArmorAtSlot(ItemType type)
+        {
+            ArmorSlot slot = ArmorSlots.Find(s => s.ItemType == type);
+            return slot.CurrentItem;
+        }
 
         public void AddArmor(Armor newArmor)
         {
-            ArmorSlot slot = Array.Find(ArmorSlots, s => s.ItemType == newArmor.ItemType);
+            ArmorSlot slot = ArmorSlots.Find(s => s.ItemType == newArmor.ItemType);
             slot.PreviousItem = slot.CurrentItem;
             slot.CurrentItem = newArmor;
 
@@ -328,13 +346,5 @@ namespace Lis.Units.Hero
         public string Id;
 
         public List<AbilityData> AbilityData;
-    }
-
-    [Serializable]
-    public struct ArmorSlot
-    {
-        public ItemType ItemType;
-        public Armor CurrentItem;
-        public Armor PreviousItem;
     }
 }

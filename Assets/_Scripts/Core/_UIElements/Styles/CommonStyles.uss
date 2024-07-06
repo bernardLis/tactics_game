@@ -92,9 +92,7 @@
     justify-content: center;
     -unity-font-style: bold;
     font-size: 20px;
-
 }
-
 
 .common__ui-container {
     -unity-background-scale-mode: stretch-to-fill;

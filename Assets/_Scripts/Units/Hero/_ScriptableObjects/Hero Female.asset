@@ -52,19 +52,4 @@ MonoBehaviour:
   StartingAbility: {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
   Abilities: []
   AdvancedAbilities: []
-  ArmorSlots:
-  - ItemType: 0
-    CurrentItem: {fileID: 0}
-    PreviousItem: {fileID: 0}
-  - ItemType: 1
-    CurrentItem: {fileID: 0}
-    PreviousItem: {fileID: 0}
-  - ItemType: 2
-    CurrentItem: {fileID: 0}
-    PreviousItem: {fileID: 0}
-  - ItemType: 3
-    CurrentItem: {fileID: 0}
-    PreviousItem: {fileID: 0}
-  - ItemType: 4
-    CurrentItem: {fileID: 0}
-    PreviousItem: {fileID: 0}
+  ArmorSlots: []
