@@ -183,6 +183,14 @@ namespace Lis.Battle.Arena
             return element;
         }
 
+        protected RewardElement CreateRewardCardArmor()
+        {
+            RewardArmor reward = ScriptableObject.CreateInstance<RewardArmor>();
+            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
+            reward.OnRewardSelected += RewardSelected;
+            RewardElementArmor element = new(reward);
+            return element;
+        }
 
         protected virtual void RewardSelected(Reward reward)
         {

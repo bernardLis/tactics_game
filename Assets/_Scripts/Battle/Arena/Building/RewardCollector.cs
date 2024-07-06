@@ -36,6 +36,7 @@ namespace Lis.Battle.Arena.Building
 
         protected override void OnFightEnded()
         {
+            if (FightManager.FightNumber == 1) Building.Unlock();
             if (!Building.IsUnlocked) return;
             AllowInteraction();
             _rewardsAvailable++;

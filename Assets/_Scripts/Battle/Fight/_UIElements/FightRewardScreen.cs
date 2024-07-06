@@ -16,9 +16,7 @@ namespace Lis.Battle.Fight
 
         protected override RewardElement ChooseRewardElement()
         {
-            int v = Random.Range(0, 2);
-            if (v == 1) return CreateRewardCardPawn();
-            return CreateRewardCardCreature();
+            return CreateRewardCardArmor();
         }
     }
 }

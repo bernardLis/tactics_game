@@ -9,5 +9,7 @@ namespace Lis.Units.Hero.Items
 
         public StatType StatType;
         public float Value;
+
+        public int Price;
     }
 }

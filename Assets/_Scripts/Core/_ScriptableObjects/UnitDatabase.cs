@@ -20,6 +20,7 @@ namespace Lis.Core
     {
         [Header("Hero")]
         [SerializeField] Ability[] _abilities;
+
         [SerializeField] Ability[] _advancedAbilities;
 
 
@@ -40,9 +41,6 @@ namespace Lis.Core
             return _allFemaleHeroOutfits.FirstOrDefault(x => x.Id == id);
         }
 
-        [SerializeField] Item[] _allFemaleHeroArmor;
-        public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
-
         readonly Dictionary<ItemType, List<Item>> _femaleOutfitDictionary = new();
 
         public Item GetRandomFemaleItemByType(ItemType type)
@@ -52,6 +50,15 @@ namespace Lis.Core
 
             return _femaleOutfitDictionary[type][Random.Range(0, _femaleOutfitDictionary[type].Count)];
         }
+
+        [SerializeField] Item[] _allFemaleHeroArmor;
+        public List<Item> GetAllFemaleHeroArmor => _allFemaleHeroArmor.ToList();
+
+        public Armor GetRandomFemaleArmor()
+        {
+            return _allFemaleHeroArmor[Random.Range(0, _allFemaleHeroArmor.Length)] as Armor;
+        }
+
 
         /* MALE */
         public Hero MaleHero;
@@ -68,9 +75,6 @@ namespace Lis.Core
             return _allMaleHeroOutfits.FirstOrDefault(x => x.Id == id);
         }
 
-        [SerializeField] Item[] _allMaleHeroArmor;
-        public List<Item> GetAllMaleHeroArmor => _allMaleHeroArmor.ToList();
-
         readonly Dictionary<ItemType, List<Item>> _maleOutfitDictionary = new();
 
         public Item GetRandomMaleItemByType(ItemType type)
@@ -81,6 +85,13 @@ namespace Lis.Core
             return _maleOutfitDictionary[type][Random.Range(0, _maleOutfitDictionary[type].Count)];
         }
 
+        [SerializeField] Item[] _allMaleHeroArmor;
+        public List<Item> GetAllMaleHeroArmor => _allMaleHeroArmor.ToList();
+
+        public Armor GetRandomMaleArmor()
+        {
+            return _allMaleHeroArmor[Random.Range(0, _allMaleHeroArmor.Length)] as Armor;
+        }
 
         [SerializeField] Color[] _heroCustomizationColors;
         public List<Color> GetAllHeroCustomizationColors() => _heroCustomizationColors.ToList();
