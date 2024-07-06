@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cfb7b57e5b7497db515c184ee942e0d, type: 3}
   m_Name: Shoulders Plate 02
   m_EditorClassIdentifier: 
   Id: 9f3dfa4b-f3bc-467a-ace1-09ea611f517a
@@ -19,3 +19,6 @@ MonoBehaviour:
   DisableHair: 0
   DisableBeard: 0
   DisableMustache: 0
+  Icon: {fileID: 0}
+  StatType: 1
+  Value: 57

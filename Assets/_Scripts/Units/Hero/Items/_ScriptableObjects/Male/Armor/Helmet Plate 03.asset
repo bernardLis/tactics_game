@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cfb7b57e5b7497db515c184ee942e0d, type: 3}
   m_Name: Helmet Plate 03
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 59533362-d781-45b7-823c-50ba349e2aab
   ItemType: 0
   ArmorType: 2
   ItemMeshRenderer: {fileID: 5496890338165897735, guid: a01e29981c0fe504e86dd7bb24f3f9f1, type: 3}
   DisableHair: 1
   DisableBeard: 1
   DisableMustache: 1
+  Icon: {fileID: 0}
+  StatType: 0
+  Value: 5.15

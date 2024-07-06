@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54acd84ad5a3d3145834e26567e08549, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cfb7b57e5b7497db515c184ee942e0d, type: 3}
   m_Name: Legs Cloth 07
   m_EditorClassIdentifier: 
-  Id: 
+  Id: 59533362-d781-45b7-823c-50ba349e2aab
   ItemType: 4
   ArmorType: 0
   ItemMeshRenderer: {fileID: 9181846359299687037, guid: ecb73173845d6cc4fac4f81936205151, type: 3}
   DisableHair: 0
   DisableBeard: 0
   DisableMustache: 0
+  Icon: {fileID: 0}
+  StatType: 3
+  Value: 1.12

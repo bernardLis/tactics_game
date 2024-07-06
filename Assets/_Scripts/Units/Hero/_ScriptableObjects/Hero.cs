@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.HeroCreation;
 using Lis.Units.Hero.Ability;
+using Lis.Units.Hero.Items;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero
 {
@@ -16,10 +16,10 @@ namespace Lis.Units.Hero
         [Header("Visuals")]
         public VisualHero VisualHero;
 
-        [FormerlySerializedAs("TeleportStart")] [Header("Hero Sounds")]
+        [Header("Hero Sounds")]
         public Sound TeleportStartSound;
 
-        [FormerlySerializedAs("TeleportEnd")] public Sound TeleportEndSound;
+        public Sound TeleportEndSound;
 
         [Header("Hero Stats")]
         public Stat Pull;
@@ -64,6 +64,31 @@ namespace Lis.Units.Hero
         protected override void CreateStats()
         {
             // Hero handles it through CreateBaseStats() instead
+        }
+
+        [Header("Armor")]
+        public ArmorSlot[] ArmorSlots;
+
+        public void AddArmor(Armor newArmor)
+        {
+            ArmorSlot slot = Array.Find(ArmorSlots, s => s.ItemType == newArmor.ItemType);
+            slot.PreviousItem = slot.CurrentItem;
+            slot.CurrentItem = newArmor;
+
+            RemoveArmor(slot.PreviousItem);
+            ApplyArmor(newArmor);
+        }
+
+        void ApplyArmor(Armor toApply)
+        {
+            Stat armorStat = GetStatByType(toApply.StatType);
+            armorStat.ApplyBonusValueChange(toApply.Value);
+        }
+
+        void RemoveArmor(Armor toRemove)
+        {
+            Stat armorStat = GetStatByType(toRemove.StatType);
+            armorStat.ApplyBonusValueChange(-toRemove.Value);
         }
 
         /* LEVELING */
@@ -300,5 +325,13 @@ namespace Lis.Units.Hero
         public string Id;
 
         public List<AbilityData> AbilityData;
+    }
+
+    [Serializable]
+    public struct ArmorSlot
+    {
+        public ItemType ItemType;
+        public Armor CurrentItem;
+        public Armor PreviousItem;
     }
 }

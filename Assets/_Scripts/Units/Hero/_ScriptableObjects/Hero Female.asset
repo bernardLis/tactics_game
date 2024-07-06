@@ -41,8 +41,7 @@ MonoBehaviour:
   Attacks: []
   CurrentAttack: {fileID: 0}
   Targeting: 0
-  TimesPicked: 0
-  SelectorPrefab: {fileID: 3132514255091843268, guid: 33e427f3245cd8b48b941430cd724800, type: 3}
+  VisualHero: {fileID: 0}
   TeleportStartSound: {fileID: 11400000, guid: 0e491253d0f96f14abb095e61168e48f, type: 2}
   TeleportEndSound: {fileID: 11400000, guid: 2ae987439961b19479798be0093ed8cf, type: 2}
   Pull: {fileID: 11400000, guid: 51ed9e601d6b49e4eab3d17db4dc27a8, type: 2}
@@ -53,3 +52,19 @@ MonoBehaviour:
   StartingAbility: {fileID: 11400000, guid: 1327014e8e279a1498dfebae94f7aff6, type: 2}
   Abilities: []
   AdvancedAbilities: []
+  ArmorSlots:
+  - ItemType: 0
+    CurrentItem: {fileID: 0}
+    PreviousItem: {fileID: 0}
+  - ItemType: 1
+    CurrentItem: {fileID: 0}
+    PreviousItem: {fileID: 0}
+  - ItemType: 2
+    CurrentItem: {fileID: 0}
+    PreviousItem: {fileID: 0}
+  - ItemType: 3
+    CurrentItem: {fileID: 0}
+    PreviousItem: {fileID: 0}
+  - ItemType: 4
+    CurrentItem: {fileID: 0}
+    PreviousItem: {fileID: 0}
