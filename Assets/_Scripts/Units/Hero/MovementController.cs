@@ -2,6 +2,7 @@ using System.Collections;
 using Cinemachine;
 using DG.Tweening;
 using Lis.Battle;
+using Lis.Battle.Fight;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -56,6 +57,12 @@ namespace Lis.Units.Hero
         float _targetRotation;
         float _targetZoom;
 
+        Stat _maxStamina;
+        FloatVariable _currentStamina;
+        bool _staminaDepleted;
+        readonly float _staminaDepletionRate = 1f;
+        readonly float _staminaRefillRate = 1.3f;
+
         void Start()
         {
             _cam = Camera.main;
@@ -78,19 +85,29 @@ namespace Lis.Units.Hero
             _isSprintUnlocked = true; //_gameManager.UpgradeBoard.GetUpgradeByName("Hero Sprint").CurrentLevel != -1;
         }
 
+        public void Initialize(Hero hero)
+        {
+            SetMoveSpeed(hero.Speed.GetValue());
+            hero.Speed.OnValueChanged += SetMoveSpeed;
+
+            _maxStamina = hero.MaxStamina;
+            _currentStamina = hero.CurrentStamina;
+        }
+
         void Update()
         {
             if (_disableUpdate) return;
             SetAnimationBlend();
             Move();
         }
-        
+
         void LateUpdate()
         {
             if (_disableUpdate) return;
 
             RotateTowardsMouse();
             ZoomCameraSmoothly();
+            RefillStamina();
         }
 
         /* INPUT */
@@ -140,9 +157,59 @@ namespace Lis.Units.Hero
 
         void Move()
         {
-            float targetSpeed = MoveSpeed;
-            if (_isSprinting) targetSpeed *= 1.5f;
+            if (_currentStamina.Value >= _maxStamina.GetValue()) _staminaDepleted = false; // idk where to put it
 
+            float targetSpeed = MoveSpeed;
+            if (CanSprint() || !FightManager.IsFightActive) targetSpeed *= 1.5f;
+            SetSpeed(targetSpeed);
+
+            Vector3 moveDir = _inputDirection.normalized;
+            moveDir.y = GetGravity();
+
+            DepleteStamina();
+            _controller.Move(moveDir * (_speed * Time.deltaTime));
+        }
+
+        bool CanSprint()
+        {
+            if (!_isSprinting) return false;
+            if (_staminaDepleted) return false;
+            if (_currentStamina.Value <= 0) return false;
+
+            return true;
+        }
+
+        void DepleteStamina()
+        {
+            if (!FightManager.IsFightActive) return;
+            if (!_isSprinting || _staminaDepleted) return;
+
+            _currentStamina.ApplyChange(-_staminaDepletionRate * Time.deltaTime);
+            if (_currentStamina.Value <= 0)
+            {
+                _staminaDepleted = true;
+                _isSprinting = false;
+                _currentStamina.Value = 0;
+            }
+        }
+
+        void RefillStamina()
+        {
+            if (!CanRefillStamina()) return;
+
+            if (_currentStamina.Value < _maxStamina.GetValue())
+                _currentStamina.ApplyChange(_staminaRefillRate * Time.deltaTime);
+        }
+
+        bool CanRefillStamina()
+        {
+            if (!FightManager.IsFightActive) return true;
+
+            return !_isSprinting;
+        }
+
+        void SetSpeed(float targetSpeed)
+        {
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
             Vector3 velocity = _controller.velocity;
             float currentHorizontalSpeed = new Vector3(velocity.x, 0.0f,
@@ -158,17 +225,16 @@ namespace Lis.Units.Hero
                     Time.deltaTime * SpeedChangeRate);
                 _speed = Mathf.Round(_speed * 1000f) / 1000f; // round speed to 3 decimal places
             }
+        }
 
-            Vector3 moveDir = _inputDirection.normalized;
-            moveDir.y = 0f;
-
+        float GetGravity()
+        {
             _groundedPlayer = IsGrounded();
             if (_groundedPlayer && _playerVelocity.y < 0)
                 _playerVelocity.y = 0f;
             if (!_groundedPlayer)
                 _playerVelocity.y += _gravityValue * Time.deltaTime;
-            moveDir.y = _playerVelocity.y;
-            _controller.Move(moveDir * (_speed * Time.deltaTime));
+            return _playerVelocity.y;
         }
 
         bool IsGrounded()

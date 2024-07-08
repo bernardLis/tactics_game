@@ -7,6 +7,7 @@ using Lis.Units.Hero.Items;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero
 {
@@ -25,6 +26,9 @@ namespace Lis.Units.Hero
         public Stat Pull;
 
         public Stat BonusExp;
+        public Stat MaxStamina;
+
+        public FloatVariable CurrentStamina { get; private set; }
 
         [HideInInspector] public List<Unit> Army = new();
 
@@ -251,6 +255,12 @@ namespace Lis.Units.Hero
 
             BonusExp = Instantiate(BonusExp);
             BonusExp.Initialize();
+
+            MaxStamina = Instantiate(MaxStamina);
+            MaxStamina.Initialize();
+
+            CurrentStamina = CreateInstance<FloatVariable>();
+            CurrentStamina.SetValue(MaxStamina.GetValue());
 
             UpgradeBoard globalUpgradeBoard = _gameManager.UpgradeBoard;
             MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Hero Health").GetValue());

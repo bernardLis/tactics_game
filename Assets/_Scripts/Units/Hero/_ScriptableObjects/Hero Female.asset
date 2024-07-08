@@ -46,6 +46,7 @@ MonoBehaviour:
   TeleportEndSound: {fileID: 11400000, guid: 2ae987439961b19479798be0093ed8cf, type: 2}
   Pull: {fileID: 11400000, guid: 51ed9e601d6b49e4eab3d17db4dc27a8, type: 2}
   BonusExp: {fileID: 11400000, guid: 160f80f80407da741be96d1bb0a7731c, type: 2}
+  MaxStamina: {fileID: 11400000, guid: a2936371f3cb15e45845c35fc070f451, type: 2}
   Army: []
   Tablets: []
   AdvancedTablet: {fileID: 0}

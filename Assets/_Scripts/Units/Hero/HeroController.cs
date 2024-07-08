@@ -11,6 +11,9 @@ namespace Lis.Units.Hero
 {
     public class HeroController : PlayerUnitController
     {
+        [SerializeField] StatBarDisplayer _healthBarDisplayer;
+        [SerializeField] StatBarDisplayer _staminaBarDisplayer;
+
         static readonly int AnimGrounded = Animator.StringToHash("Grounded");
 
         readonly List<Controller> _abilityControllers = new();
@@ -41,10 +44,11 @@ namespace Lis.Units.Hero
 
             Hero.OnLevelUp += () => DisplayFloatingText("Level Up!", Color.yellow);
 
-            _movementController.SetMoveSpeed(Hero.Speed.GetValue());
-            Hero.Speed.OnValueChanged += _movementController.SetMoveSpeed;
+            _movementController.Initialize(Hero);
 
-            GetComponentInChildren<HealthBarDisplayer>().Initialize(Hero);
+            _healthBarDisplayer.Initialize(Hero.MaxHealth, Hero.CurrentHealth,
+                GameManager.GameDatabase.GetColorByName("Health").Primary);
+            _staminaBarDisplayer.Initialize(Hero.MaxStamina, Hero.CurrentStamina, Color.gray);
 
             Animator.enabled = true;
             Animator.SetBool(AnimGrounded, true);
@@ -157,6 +161,7 @@ namespace Lis.Units.Hero
                     .WithPosition(transform.position)
                     .Play();
             }
+
             _movementController.enabled = true;
             _movementController.EnableMovement();
             TeleportEffect.transform.DOScale(0, 1f)

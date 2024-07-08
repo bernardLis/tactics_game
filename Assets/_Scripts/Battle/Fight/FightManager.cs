@@ -15,6 +15,9 @@ namespace Lis.Battle.Fight
 
     public class FightManager : Singleton<FightManager>
     {
+        public static bool IsFightActive { get; private set; }
+        public static int FightNumber { get; private set; }
+
         public Transform PlayerArmyHolder;
         public Transform EnemyArmyHolder;
 
@@ -40,8 +43,6 @@ namespace Lis.Battle.Fight
 
         HeroController _heroController;
         TooltipManager _tooltipManager;
-        public static bool IsFightActive { get; private set; }
-        public static int FightNumber { get; private set; }
         int _currentWaveIndex = 1;
 
         public event Action<UnitController> OnEnemyUnitDeath;

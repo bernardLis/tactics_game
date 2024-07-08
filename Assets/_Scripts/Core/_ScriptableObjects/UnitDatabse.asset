@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9b2cef044eec4ca8d6faa247601cf, type: 3}
   m_Name: UnitDatabse
   m_EditorClassIdentifier: 
-  Heroes:
-  - {fileID: 11400000, guid: 673d6b70424faa2499236d2dde8f3af6, type: 2}
-  - {fileID: 11400000, guid: e16c817be6393fe48ada0d8cfd635545, type: 2}
-  - {fileID: 11400000, guid: 95671308790ff0848b7e66dfe4d99184, type: 2}
-  - {fileID: 11400000, guid: 7929912f91d51a24f9fd2ed8bc067566, type: 2}
   _abilities:
   - {fileID: 11400000, guid: 2992f8f6e4a0be44b9552c1ff9c6af77, type: 2}
   - {fileID: 11400000, guid: ff4fd555f3535c34ca6c784327e676ca, type: 2}
@@ -596,6 +591,9 @@ MonoBehaviour:
   - StatType: 8
     Sprite: {fileID: 21300000, guid: cef658720d4996b41a2ca08c93524c85, type: 3}
     Description: Bonus Exp
+  - StatType: 9
+    Sprite: {fileID: 21300000, guid: e8002bd276290f846a13ad86ac8178f8, type: 3}
+    Description: Stamina
   _natures:
   - {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   - {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}

@@ -81,7 +81,8 @@ namespace Lis.Core
         AttackCooldown,
         Pull,
         None,
-        ExpBonus
+        ExpBonus,
+        Stamina
     }
 
     public enum NatureName
