@@ -49,6 +49,7 @@ namespace Lis.HeroCreation
         public void SetVisualHero(VisualHero visualHero)
         {
             _visualHero = visualHero;
+            _visualHero.OnItemChanged -= SetItem;
             _visualHero.OnItemChanged += SetItem;
 
             SetSkinColor(_visualHero.SkinColor);
@@ -73,6 +74,11 @@ namespace Lis.HeroCreation
             SetItem(_visualHero.Helmet);
             SetItem(_visualHero.Torso);
             SetItem(_visualHero.Legs);
+        }
+
+        void OnDestroy()
+        {
+            _visualHero.OnItemChanged -= SetItem;
         }
 
         public void SetSkinColor(Color c)

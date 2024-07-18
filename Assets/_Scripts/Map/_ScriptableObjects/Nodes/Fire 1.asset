@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bef4c84ff4048a0d5cdde5cc734d5, type: 3}
+  m_Name: Fire 1
+  m_EditorClassIdentifier: 
+  Id: ec8cdea8-240a-407f-a579-88da9b01e253
+  MapPosition: {x: -1.5, y: 0.2}
+  IsUnlocked: 0
+  ConnectedNodes:
+  - {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
+  - {fileID: 11400000, guid: 9417768a317e310498d1eac40059426b, type: 2}
+  - {fileID: 11400000, guid: 48b5ce9f48f53dd45a713e0850d27001, type: 2}
+  Arena: {fileID: 0}
