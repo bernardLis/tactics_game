@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Neutral 0
   m_EditorClassIdentifier: 
   Id: 35978f89-d06d-411d-a574-2423900bcb1a
-  MapPosition: {x: -6, y: -3}
+  Icon: {fileID: 21300000, guid: 478e3c78e8cce4543b3308186af546fe, type: 3}
+  Name: Cromer
+  Nature: {fileID: 11400000, guid: 7386e0800e2b0dd4f85aee9077f912d1, type: 2}
+  NameFramePosition: {x: 65, y: -175, z: 0}
+  MapPosition: {x: 2, y: -6}
   IsUnlocked: 0
   ConnectedNodes:
   - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}

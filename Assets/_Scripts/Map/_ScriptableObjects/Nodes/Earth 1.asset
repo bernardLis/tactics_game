@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Earth 1
   m_EditorClassIdentifier: 
   Id: e6ca5619-2766-4839-a78d-ca82e1a09a56
-  MapPosition: {x: 0.8, y: -0.6}
+  Icon: {fileID: 21300000, guid: fa6b7851431e9784e90e1da653f4f71d, type: 3}
+  Name: Cirrane
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  NameFramePosition: {x: 0, y: -190, z: 0}
+  MapPosition: {x: 7.58, y: 2.3}
   IsUnlocked: 0
   ConnectedNodes:
   - {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
-  - {fileID: 11400000, guid: d9a7223393d3ee64ea5c147de3a9a162, type: 2}
-  - {fileID: 11400000, guid: f5332afc228506b46a2375a3b56cd77d, type: 2}
   Arena: {fileID: 0}

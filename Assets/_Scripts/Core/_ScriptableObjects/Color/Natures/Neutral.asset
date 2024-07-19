@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Neutral
   m_EditorClassIdentifier: 
   Id: 8453ce87-b6aa-4b84-b19f-930e8c314a35
-  Primary: {r: 1, g: 1, b: 1, a: 1}
+  Primary: {r: 0.60784316, g: 0.67058825, b: 0.69803923, a: 1}
   Secondary: {r: 1, g: 1, b: 1, a: 1}

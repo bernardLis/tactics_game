@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Water 1
   m_EditorClassIdentifier: 
   Id: d3c6d399-f3a6-405d-aa7b-e525f8c60f78
-  MapPosition: {x: 1.4, y: -2.5}
+  Icon: {fileID: 21300000, guid: 7b69b204f6969f9468b9e30187e635de, type: 3}
+  Name: Caelkirk
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  NameFramePosition: {x: 96, y: -206, z: 0}
+  MapPosition: {x: 14.72, y: -0.39}
   IsUnlocked: 0
   ConnectedNodes:
   - {fileID: 11400000, guid: 6a92eeb3b29b6e144a176e3a1aed12af, type: 2}
-  - {fileID: 11400000, guid: 9417768a317e310498d1eac40059426b, type: 2}
   Arena: {fileID: 0}

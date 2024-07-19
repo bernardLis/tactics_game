@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Fire 1
   m_EditorClassIdentifier: 
   Id: ec8cdea8-240a-407f-a579-88da9b01e253
-  MapPosition: {x: -1.5, y: 0.2}
+  Icon: {fileID: 21300000, guid: 3a19fbe002259aa40846c44d53b5cb25, type: 3}
+  Name: Forstford
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  NameFramePosition: {x: 0, y: -180, z: 0}
+  MapPosition: {x: 1.76, y: 1.88}
   IsUnlocked: 0
   ConnectedNodes:
   - {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
-  - {fileID: 11400000, guid: 9417768a317e310498d1eac40059426b, type: 2}
-  - {fileID: 11400000, guid: 48b5ce9f48f53dd45a713e0850d27001, type: 2}
   Arena: {fileID: 0}

@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Water 0
   m_EditorClassIdentifier: 
   Id: ab94f571-c138-4406-9559-49da5f13f574
-  MapPosition: {x: -2.5, y: -3.4}
+  Icon: {fileID: 21300000, guid: cdd04e3dd2a2425419afa113dad76ab3, type: 3}
+  Name: Tregaron
+  Nature: {fileID: 11400000, guid: ee89b9710fbafed40a62ca5725c50d6b, type: 2}
+  NameFramePosition: {x: 30, y: -205, z: 0}
+  MapPosition: {x: 11, y: -3}
   IsUnlocked: 0
   ConnectedNodes:
-  - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   - {fileID: 11400000, guid: f5332afc228506b46a2375a3b56cd77d, type: 2}
   - {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
   Arena: {fileID: 0}

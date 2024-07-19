@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Wind 1
   m_EditorClassIdentifier: 
   Id: e7741700-07a5-4fae-8bcc-3832ef78742d
-  MapPosition: {x: -4, y: 1}
+  Icon: {fileID: 21300000, guid: a6f1e445af5e52a46bf32abf56958d8d, type: 3}
+  Name: Orkney
+  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  NameFramePosition: {x: 0, y: -175, z: 0}
+  MapPosition: {x: -8.26, y: 1.2}
   IsUnlocked: 0
   ConnectedNodes:
   - {fileID: 11400000, guid: 15ab11ea7191fd248b41f083cdcd7f54, type: 2}
-  - {fileID: 11400000, guid: d9a7223393d3ee64ea5c147de3a9a162, type: 2}
   Arena: {fileID: 0}

@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Earth 0
   m_EditorClassIdentifier: 
   Id: 1713f714-e04e-419c-9324-3abdb8b61676
-  MapPosition: {x: -2.9, y: -2.6}
+  Icon: {fileID: 21300000, guid: 486017549f55de244a4bb5f3b4d36f3a, type: 3}
+  Name: Nuxvar
+  Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
+  NameFramePosition: {x: 0, y: -210, z: 0}
+  MapPosition: {x: 7, y: -1}
   IsUnlocked: 0
   ConnectedNodes:
   - {fileID: 11400000, guid: 9417768a317e310498d1eac40059426b, type: 2}
-  - {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
   - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   - {fileID: 11400000, guid: 6a92eeb3b29b6e144a176e3a1aed12af, type: 2}
   Arena: {fileID: 0}

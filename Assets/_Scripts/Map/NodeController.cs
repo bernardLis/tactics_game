@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Lis.Map
 {
@@ -15,6 +17,11 @@ namespace Lis.Map
         List<NodeController> _connectedNodes = new();
         List<MapPathDrawer> _paths = new();
 
+        [SerializeField] GameObject _visitedIcon;
+        [SerializeField] RectTransform _nameFrame;
+        [SerializeField] TMP_Text _nameText;
+        [SerializeField] Image _natureIcon;
+
         public void Initialize(MapNode node)
         {
             _mapManager = MapManager.Instance;
@@ -22,6 +29,18 @@ namespace Lis.Map
 
             name = node.name;
             transform.position = new(node.MapPosition.x, node.MapPosition.y, -1);
+
+            _nameFrame.transform.localPosition = Node.NameFramePosition;
+            GetComponent<SpriteRenderer>().sprite = node.Icon;
+            _nameText.text = node.Name;
+            _natureIcon.sprite = node.Nature.Icon;
+
+            if (!node.IsUnlocked)
+            {
+                _visitedIcon.transform.DOLocalMoveY(0, 1f)
+                    .SetEase(Ease.InOutSine)
+                    .SetLoops(-1, LoopType.Yoyo);
+            }
         }
 
         public void ResolveConnections()
@@ -43,11 +62,19 @@ namespace Lis.Map
                 transform.DOShakePosition(0.5f, Vector3.one * 0.1f);
         }
 
+        void Visited()
+        {
+            Node.IsUnlocked = true;
+            _visitedIcon.SetActive(false);
+        }
+
         public void Activate()
         {
+            Visited();
             foreach (MapPathDrawer mpd in _paths)
                 mpd.Activate();
         }
+
 
         public void Deactivate()
         {

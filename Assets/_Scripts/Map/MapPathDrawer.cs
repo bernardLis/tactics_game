@@ -19,6 +19,9 @@ namespace Lis
             _line.End = endNode.transform.position;
             _line.gameObject.SetActive(false);
 
+            _line.ColorStart = startNode.Node.Nature.Color.Primary;
+            _line.ColorEnd = endNode.Node.Nature.Color.Primary;
+
             _tweenId = Guid.NewGuid().ToString();
         }
 

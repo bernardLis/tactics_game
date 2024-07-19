@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Fire 0
   m_EditorClassIdentifier: 
   Id: 3e2015dc-d36a-45a6-af11-f381621c855a
-  MapPosition: {x: -4, y: -2}
+  Icon: {fileID: 21300000, guid: f9b251d195d9f7f45aa2aa0dbed84330, type: 3}
+  Name: Tenby
+  Nature: {fileID: 11400000, guid: 0298e5fd23a789342869294bb5ae3450, type: 2}
+  NameFramePosition: {x: 0, y: -180, z: 0}
+  MapPosition: {x: -1, y: -1.44}
   IsUnlocked: 0
   ConnectedNodes:
-  - {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
   - {fileID: 11400000, guid: d9a7223393d3ee64ea5c147de3a9a162, type: 2}
   - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   - {fileID: 11400000, guid: 15ab11ea7191fd248b41f083cdcd7f54, type: 2}

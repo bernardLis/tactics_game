@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Wind 0
   m_EditorClassIdentifier: 
   Id: 55577e2e-8caa-4082-a6f2-36cd7e7b3961
-  MapPosition: {x: -5.5, y: -1}
+  Icon: {fileID: 21300000, guid: c9c7e87e4360d384085613225836e177, type: 3}
+  Name: Caister
+  Nature: {fileID: 11400000, guid: a4a523590ef6e474d96091a4403fd8d9, type: 2}
+  NameFramePosition: {x: 0, y: -175, z: 0}
+  MapPosition: {x: -8, y: -1.8}
   IsUnlocked: 0
   ConnectedNodes:
-  - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   - {fileID: 11400000, guid: 48b5ce9f48f53dd45a713e0850d27001, type: 2}
   - {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
   Arena: {fileID: 0}
