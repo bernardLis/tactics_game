@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using Lis.Core.Utilities;
 
 namespace Lis.Map
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : Singleton<PlayerController>
     {
         public NodeController CurrentNode;
 

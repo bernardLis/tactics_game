@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cinemachine;
 using Lis.Core.Utilities;
 using NaughtyAttributes;
 using UnityEngine;
@@ -15,8 +16,11 @@ namespace Lis.Map
 
         readonly List<NodeController> _nodeControllers = new();
 
+        CameraController _mainCamera;
+
         public void Start()
         {
+            _mainCamera = CameraController.Instance;
             SetUpMap();
         }
 
@@ -52,6 +56,7 @@ namespace Lis.Map
             if (_player.CurrentNode == nodeController) return false;
             if (!_player.CurrentNode.Node.IsConnectedTo(nodeController.Node)) return false;
 
+            _mainCamera.DefaultCamera();
             _player.MoveTo(nodeController);
             return true;
         }
