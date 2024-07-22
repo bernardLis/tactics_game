@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lis.Battle.Arena.Building;
 using Lis.Core;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Lis.Map
         public bool IsUnlocked;
         public List<MapNode> ConnectedNodes;
 
+        public List<MapNodeConnection> Connections;
+
         public Arena Arena;
 
         // TODO: possibly cutscene
@@ -33,5 +36,12 @@ namespace Lis.Map
 
             return false;
         }
+    }
+
+    [Serializable]
+    public struct MapNodeConnection
+    {
+        public MapNode Node;
+        public GameObject Path;
     }
 }

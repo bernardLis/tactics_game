@@ -23,4 +23,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
   - {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
   - {fileID: 11400000, guid: e14ea5bd0c87b0f469f94b3e72be9d92, type: 2}
+  Connections:
+  - Node: {fileID: 11400000, guid: e14ea5bd0c87b0f469f94b3e72be9d92, type: 2}
+    Path: {fileID: 3029634038174007777, guid: 7376e91009948bf4eb4bffe5b2024a37, type: 3}
+  - Node: {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
+    Path: {fileID: 3029634038174007777, guid: 0469f79a5d48ec844a3bdcec17abfdd6, type: 3}
+  - Node: {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
+    Path: {fileID: 3029634038174007777, guid: 0b3b688dc3305e24e94da23c4ec390dc, type: 3}
   Arena: {fileID: 0}

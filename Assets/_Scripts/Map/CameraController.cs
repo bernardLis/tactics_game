@@ -15,6 +15,7 @@ namespace Lis.Map
         CinemachineVirtualCamera _cinemachineVirtualCamera;
 
         PlayerController _playerController;
+        [SerializeField] CameraFollowController _followTransform;
 
         readonly float _zoomDefault = 4f;
         readonly float _zoomMax = 10f;
@@ -23,6 +24,9 @@ namespace Lis.Map
         readonly float _zoomSpeed = 0.01f;
 
         float _targetZoom;
+
+        Vector2 _inputDirection;
+        readonly float _arrowMoveSpeed = 5f;
 
         void Start()
         {
@@ -62,19 +66,51 @@ namespace Lis.Map
         void SubscribeInputActions()
         {
             _playerInput.actions["ZoomCamera"].performed += ZoomCamera;
+            _playerInput.actions["Space"].performed += DefaultCamera;
+            _playerInput.actions["PlayerMovement"].performed += ArrowMovement;
+            _playerInput.actions["PlayerMovement"].canceled += ResetMovementVector;
         }
+
 
         void UnsubscribeInputActions()
         {
             _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
+            _playerInput.actions["Space"].performed += DefaultCamera;
+            _playerInput.actions["PlayerMovement"].performed += ArrowMovement;
+            _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
         }
 
 
         void LateUpdate()
         {
+            Move();
             ZoomCameraSmoothly();
         }
 
+        /* MOVE */
+        void ArrowMovement(InputAction.CallbackContext context)
+        {
+            _followTransform.StopFollowingPlayer();
+
+            Vector3 inputValue = context.ReadValue<Vector2>();
+            _inputDirection = inputValue.normalized;
+        }
+
+        void ResetMovementVector(InputAction.CallbackContext context)
+        {
+            _inputDirection = Vector3.zero;
+        }
+
+        void Move()
+        {
+            if (_inputDirection == Vector2.zero) return;
+            _cinemachineVirtualCamera.Follow = _followTransform.transform;
+
+            _followTransform.transform.position +=
+                new Vector3(_inputDirection.x, _inputDirection.y, 0) * (Time.deltaTime * _arrowMoveSpeed);
+        }
+
+        /* ZOOM */
         void ZoomCamera(InputAction.CallbackContext ctx)
         {
             // so it is 0,120 and 0,-120 on mouse scroll
@@ -91,8 +127,14 @@ namespace Lis.Map
             _cinemachineVirtualCamera.m_Lens.OrthographicSize = newValue;
         }
 
+        void DefaultCamera(InputAction.CallbackContext obj)
+        {
+            DefaultCamera();
+        }
+
         public void DefaultCamera()
         {
+            _followTransform.FollowPlayer();
             _targetZoom = _zoomDefault;
             _cinemachineVirtualCamera.Follow = _playerController.transform;
         }

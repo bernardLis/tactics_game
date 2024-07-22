@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using Cinemachine;
 using Lis.Core.Utilities;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Lis.Map
@@ -12,15 +10,14 @@ namespace Lis.Map
 
         [SerializeField] Transform _nodeParent;
         [SerializeField] NodeController _mapNodePrefab;
-        [SerializeField] PlayerController _player;
+        PlayerController _playerController;
 
         readonly List<NodeController> _nodeControllers = new();
 
-        CameraController _mainCamera;
 
         public void Start()
         {
-            _mainCamera = CameraController.Instance;
+            _playerController = PlayerController.Instance;
             SetUpMap();
         }
 
@@ -36,8 +33,8 @@ namespace Lis.Map
             foreach (NodeController nc in _nodeControllers)
                 nc.ResolveConnections();
 
-            _player.transform.position = new(_map.AllNodes[0].MapPosition.x, _map.AllNodes[0].MapPosition.y, -1);
-            _player.CurrentNode = _nodeControllers[0];
+            _playerController.transform.position = new(_map.AllNodes[0].MapPosition.x, _map.AllNodes[0].MapPosition.y, -2);
+            _playerController.CurrentNode = _nodeControllers[0];
             _nodeControllers[0].Activate();
         }
 
@@ -49,16 +46,6 @@ namespace Lis.Map
                     connectedNodes.Add(nc);
 
             return connectedNodes;
-        }
-
-        public bool TryMovingPlayerToNode(NodeController nodeController)
-        {
-            if (_player.CurrentNode == nodeController) return false;
-            if (!_player.CurrentNode.Node.IsConnectedTo(nodeController.Node)) return false;
-
-            _mainCamera.DefaultCamera();
-            _player.MoveTo(nodeController);
-            return true;
         }
     }
 }

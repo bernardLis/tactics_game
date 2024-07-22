@@ -1,10 +1,9 @@
 using System;
 using DG.Tweening;
-using Lis.Map;
 using Shapes;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Map
 {
     public class MapPathDrawer : MonoBehaviour
     {
