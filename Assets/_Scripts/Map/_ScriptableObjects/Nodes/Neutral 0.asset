@@ -19,8 +19,6 @@ MonoBehaviour:
   NameFramePosition: {x: 65, y: -175, z: 0}
   MapPosition: {x: 2, y: -6}
   IsUnlocked: 0
-  ConnectedNodes:
-  - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   Connections:
   - Node: {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
     Path: {fileID: 3029634038174007777, guid: 092085d952a61414f8fc3c36f0260eb4, type: 3}

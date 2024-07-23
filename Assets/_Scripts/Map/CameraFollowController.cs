@@ -35,6 +35,7 @@ namespace Lis.Map
 
         public void StopFollowingPlayer()
         {
+            if (this == null) return;
             if (_followPlayerCoroutine != null)
                 StopCoroutine(_followPlayerCoroutine);
         }

@@ -30,7 +30,7 @@ namespace Lis.Battle.Fight
         public List<UnitController> KilledPlayerUnits = new();
         public List<Unit> KilledEnemyUnits = new();
         public bool IsTesting;
-        Arena.Building.Arena _arena;
+        Arena _arena;
 
         ArenaManager _arenaManager;
         EnemyPoolManager _enemyPoolManager;

@@ -9,7 +9,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Other
 {
     public class UnitTestManager : MonoBehaviour
     {

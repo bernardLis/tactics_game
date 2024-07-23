@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using Lis.Battle.Arena.Building;
 using Lis.Core;
-using Lis.HeroCreation;
 using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis.Battle
 {
+    using Arena.Building;
+
     [CreateAssetMenu(menuName = "ScriptableObject/Battle/Battle")]
     public class Battle : BaseScriptableObject
     {
@@ -14,10 +14,11 @@ namespace Lis.Battle
 
         public Hero SelectedHero;
 
-        public List<Arena.Building.Arena> Arenas;
-        public Arena.Building.Arena CurrentArena;
+        public Arena.Arena CurrentArena;
 
+        [Header("Buildings")]
         public Bank Bank;
+
         public Building FightSelector;
         public Building FightStarter;
         public Building HeroLeveler;
@@ -30,17 +31,13 @@ namespace Lis.Battle
         {
             Stats = CreateInstance<Stats>();
 
-            foreach (Arena.Building.Arena arena in Arenas)
-                arena.Initialize();
-
-            SetCurrentArena();
             ResolveHero(visualHero);
             InstantiateBuildings();
         }
 
-        void SetCurrentArena()
+        public void SetCurrentArena(Arena.Arena arena)
         {
-            CurrentArena = Arenas[0];
+            CurrentArena = arena;
         }
 
         void ResolveHero(VisualHero visualHero)

@@ -4,7 +4,7 @@ using Lis.Units.Hero.Items;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Lis.HeroCreation
+namespace Lis.Units.Hero
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Units/Hero/Visual Hero")]
     public class VisualHero : BaseScriptableObject
@@ -284,23 +284,23 @@ namespace Lis.HeroCreation
         public ColorSaver OutfitDetailColor;
         public ColorSaver OutfitDetailSecondaryColor;
     }
-}
 
-[Serializable]
-public class ColorSaver
-{
-    public float R, G, B, A;
-
-    public ColorSaver(Color color)
+    [Serializable]
+    public class ColorSaver
     {
-        R = color.r;
-        G = color.g;
-        B = color.b;
-        A = color.a;
-    }
+        public float R, G, B, A;
 
-    public Color Color()
-    {
-        return new(R, G, B, A);
+        public ColorSaver(Color color)
+        {
+            R = color.r;
+            G = color.g;
+            B = color.b;
+            A = color.a;
+        }
+
+        public Color Color()
+        {
+            return new(R, G, B, A);
+        }
     }
 }

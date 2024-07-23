@@ -6,7 +6,7 @@ using Lis.Units.Pawn;
 using Lis.Units.Peasant;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Other
 {
     public class TestFight : BaseScriptableObject
     {

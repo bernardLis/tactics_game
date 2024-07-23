@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Other
 {
     public class EnemyRankingCamera : MonoBehaviour
     {

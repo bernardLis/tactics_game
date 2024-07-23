@@ -4,10 +4,11 @@ namespace Lis.Core.Utilities
     {
         public static string MainMenu => "Main Menu";
 
+        public static string HeroCreation => "Hero Creation";
+
+        public static string Map => "Map";
+
         public static string Battle => "Battle";
 
-        public static string HeroSelection => "Hero Selection";
-
-        public static string HeroCreation => "Hero Creation";
     }
 }

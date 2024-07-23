@@ -1,5 +1,6 @@
 ﻿using System;
 using Lis.Core;
+using Lis.Units.Hero;
 using UnityEngine.UIElements;
 
 namespace Lis.HeroCreation

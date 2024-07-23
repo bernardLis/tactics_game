@@ -1,7 +1,7 @@
 using Lis.Core;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Units.Peasant
 {
     public class PeasantUpgradeEffectController : MonoBehaviour
     {

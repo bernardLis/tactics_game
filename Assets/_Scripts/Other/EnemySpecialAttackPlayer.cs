@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Other
 {
     public class EnemySpecialAttackPlayer : MonoBehaviour
     {

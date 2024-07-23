@@ -163,7 +163,7 @@ namespace Lis.Core
             Gold = 0;
             CurrentBattle.Initialize(CurrentVisualHero);
 
-            LoadScene(Scenes.Battle);
+            LoadScene(Scenes.Map);
         }
 
         /* RESOURCES */

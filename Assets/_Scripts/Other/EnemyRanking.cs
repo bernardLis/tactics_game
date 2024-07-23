@@ -3,7 +3,7 @@ using DG.Tweening;
 using Lis.Units.Enemy;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Other
 {
     public class EnemyRanking : MonoBehaviour
     {

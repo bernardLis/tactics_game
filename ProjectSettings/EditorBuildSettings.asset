@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Hero Creation.unity
     guid: 57ed86818e4ae85478aeea7cb8a9838c
   - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: 34d99a841ec53fa4890f17237651d2b2
+  - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 94b93fe9ca47dc2409ee943b36f2c8ff
   m_configObjects:

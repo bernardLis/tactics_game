@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d75a305226331b44aba7692684d79a1, type: 3}
+  m_Name: Arena Neutral 1
+  m_EditorClassIdentifier: 
+  Id: 045dd7a3-309a-404f-977e-946ce67c6ec6
+  Prefab: {fileID: 1525327832846669260, guid: 55d7305e40dfe544cb1036998aff14d4, type: 3}
+  Boss: {fileID: 0}
+  Fights:
+  - {fileID: 0}

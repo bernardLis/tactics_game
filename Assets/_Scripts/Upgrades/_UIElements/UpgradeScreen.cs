@@ -161,7 +161,6 @@ namespace Lis.Upgrades
         void Play()
         {
             Hide();
-            OnHide += () => GameManager.LoadScene(Scenes.HeroSelection);
         }
     }
 }

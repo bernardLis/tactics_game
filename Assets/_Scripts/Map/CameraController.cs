@@ -75,8 +75,8 @@ namespace Lis.Map
         void UnsubscribeInputActions()
         {
             _playerInput.actions["ZoomCamera"].performed -= ZoomCamera;
-            _playerInput.actions["Space"].performed += DefaultCamera;
-            _playerInput.actions["PlayerMovement"].performed += ArrowMovement;
+            _playerInput.actions["Space"].performed -= DefaultCamera;
+            _playerInput.actions["PlayerMovement"].performed -= ArrowMovement;
             _playerInput.actions["PlayerMovement"].canceled -= ResetMovementVector;
         }
 

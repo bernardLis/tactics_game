@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Lis.Core;
+using Lis.Core.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -102,6 +104,11 @@ namespace Lis.Map
             if (Node.IsUnlocked) return;
             Node.IsUnlocked = true;
             _visitedIcon.SetActive(false);
+
+            if (Node.Arena == null) return;
+            GameManager gm = GameManager.Instance;
+            gm.CurrentBattle.SetCurrentArena(Node.Arena);
+            gm.LoadScene(Scenes.Battle);
         }
     }
 

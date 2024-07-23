@@ -22,4 +22,4 @@ MonoBehaviour:
   Connections:
   - Node: {fileID: 11400000, guid: 48b5ce9f48f53dd45a713e0850d27001, type: 2}
     Path: {fileID: 3029634038174007777, guid: ffb38fa0fbab24f4991da33be270cdee, type: 3}
-  Arena: {fileID: 0}
+  Arena: {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}

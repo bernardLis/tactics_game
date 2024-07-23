@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lis
+namespace Lis.Other
 {
     public class EnemyRankingCanvas : MonoBehaviour
     {

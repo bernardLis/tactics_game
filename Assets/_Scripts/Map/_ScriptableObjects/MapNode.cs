@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lis.Battle.Arena;
 using Lis.Battle.Arena.Building;
 using Lis.Core;
 using UnityEngine;
