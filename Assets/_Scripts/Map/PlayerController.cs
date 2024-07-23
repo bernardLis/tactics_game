@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using DG.Tweening;
 using Lis.Core.Utilities;
 using UnityEngine.Splines;
 
@@ -13,7 +12,7 @@ namespace Lis.Map
 
         CameraController _mainCamera;
 
-        bool _isMoving = false;
+        bool _isMoving;
 
         void Start()
         {
@@ -23,7 +22,7 @@ namespace Lis.Map
         public bool TryMovingPlayerToNode(NodeController nodeController)
         {
             if (CurrentNode == nodeController) return false;
-            if (!CurrentNode.Node.IsConnectedTo(nodeController.Node)) return false;
+            if (!HasConnection(nodeController)) return false;
             if (_isMoving) return false;
 
             _mainCamera.DefaultCamera();
@@ -31,13 +30,26 @@ namespace Lis.Map
             return true;
         }
 
+        bool HasConnection(NodeController nodeController)
+        {
+            // connection goes both ways
+            return CurrentNode.Node.IsConnectedTo(nodeController.Node) ||
+                   nodeController.Node.IsConnectedTo(CurrentNode.Node);
+        }
+
         void MoveTo(NodeController nodeController)
         {
-            CurrentNode.Deactivate();
-
-            SplinePath path = CurrentNode.GetPathTo(nodeController);
-            StartCoroutine(MoveOnPath(path));
+            SplinePath path = GetPathTo(nodeController);
             CurrentNode = nodeController;
+            StartCoroutine(MoveOnPath(path));
+        }
+
+        SplinePath GetPathTo(NodeController nodeController)
+        {
+            // connection goes both ways
+            return CurrentNode.Node.IsConnectedTo(nodeController.Node)
+                ? CurrentNode.GetPathTo(nodeController).Path
+                : nodeController.GetPathTo(CurrentNode).ReversedPath;
         }
 
 
@@ -51,11 +63,12 @@ namespace Lis.Map
                 pos.z = -2;
                 transform.position = pos;
 
-                t += 0.1f * Time.deltaTime;
+                t += 0.5f * Time.deltaTime;
                 yield return null;
             }
 
             _isMoving = false;
+            CurrentNode.Visited();
         }
     }
 }

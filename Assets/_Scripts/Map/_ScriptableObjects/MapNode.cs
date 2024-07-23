@@ -28,10 +28,8 @@ namespace Lis.Map
 
         public bool IsConnectedTo(MapNode ncNode)
         {
-            if (ConnectedNodes.Contains(ncNode)) return true;
-
-            foreach (MapNode n in ConnectedNodes)
-                if (n.Id == ncNode.Id)
+            foreach (MapNodeConnection mnc in Connections)
+                if (mnc.Node.Id == ncNode.Id)
                     return true;
 
             return false;

@@ -14,7 +14,6 @@ namespace Lis.Map
 
         readonly List<NodeController> _nodeControllers = new();
 
-
         public void Start()
         {
             _playerController = PlayerController.Instance;
@@ -35,7 +34,7 @@ namespace Lis.Map
 
             _playerController.transform.position = new(_map.AllNodes[0].MapPosition.x, _map.AllNodes[0].MapPosition.y, -2);
             _playerController.CurrentNode = _nodeControllers[0];
-            _nodeControllers[0].Activate();
+            _nodeControllers[0].Visited();
         }
 
         public List<NodeController> GetConnectedNodes(MapNode node)

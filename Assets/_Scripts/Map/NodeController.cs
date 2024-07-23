@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Splines;
 using UnityEngine.UI;
-using Unity.Mathematics;
 
 namespace Lis.Map
 {
@@ -14,12 +14,10 @@ namespace Lis.Map
         MapManager _mapManager;
         PlayerController _playerController;
 
-        [SerializeField] MapPathDrawer _pathDrawer;
-
         public MapNode Node { get; private set; }
-        Dictionary<NodeController, SplinePath> _pathsToNodes = new();
+
         List<NodeController> _connectedNodes = new();
-        List<MapPathDrawer> _paths = new();
+        readonly List<MapNodePaths> _pathsToNodes = new();
 
         [SerializeField] GameObject _visitedIcon;
         [SerializeField] RectTransform _nameFrame;
@@ -51,66 +49,69 @@ namespace Lis.Map
         public void ResolveConnections()
         {
             _connectedNodes = _mapManager.GetConnectedNodes(Node);
-            foreach (NodeController n in _connectedNodes)
-            {
-                MapPathDrawer path = Instantiate(_pathDrawer);
-                path.gameObject.SetActive(true);
-                path.Initialize(this, n);
-                _paths.Add(path);
-            }
 
             foreach (MapNodeConnection mnc in Node.Connections)
             {
                 foreach (NodeController n in _connectedNodes)
                 {
-                    if (n.Node.Id == mnc.Node.Id)
+                    if (n.Node.Id != mnc.Node.Id) continue;
+
+                    SplineContainer sc = Instantiate(mnc.Path, transform).GetComponent<SplineContainer>();
+                    SplinePath path = new(new[]
                     {
-                        SplineContainer sc = Instantiate(mnc.Path, transform).GetComponent<SplineContainer>();
-                        SplinePath path = new(new[]
-                        {
-                            new SplineSlice<Spline>(sc.Splines[0], new(0, 99),
-                                sc.transform.localToWorldMatrix),
-                        });
+                        new SplineSlice<Spline>(sc.Splines[0], new(0, sc.Splines[0].Count),
+                            sc.transform.localToWorldMatrix),
+                    });
 
+                    Spline reversedSpline = new() { Knots = sc.Splines[0].Reverse().ToArray() };
+                    SplinePath reversedPath = new(new[]
+                    {
+                        new SplineSlice<Spline>(reversedSpline, new(0, reversedSpline.Count),
+                            sc.transform.localToWorldMatrix),
+                    });
 
-                        _pathsToNodes.Add(n, path);
-                        break;
-                    }
+                    _pathsToNodes.Add(new(n, path, reversedPath));
+                    break;
                 }
             }
         }
 
-
-        public SplinePath GetPathTo(NodeController nodeController)
+        public MapNodePaths GetPathTo(NodeController nodeController)
         {
-            return _pathsToNodes[nodeController];
+            foreach (MapNodePaths mnp in _pathsToNodes)
+                if (nodeController == mnp.Node)
+                    return mnp;
+
+            Debug.LogError("Path not found");
+            return default;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             Debug.Log("Clicked on " + name);
             if (!_playerController.TryMovingPlayerToNode(this))
-                transform.DOShakePosition(0.5f, Vector3.one * 0.1f);
+                transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
         }
 
-        void Visited()
+        public void Visited()
         {
+            if (Node.IsUnlocked) return;
             Node.IsUnlocked = true;
             _visitedIcon.SetActive(false);
         }
+    }
 
-        public void Activate()
+    public struct MapNodePaths
+    {
+        public MapNodePaths(NodeController node, SplinePath path, SplinePath reversedPath)
         {
-            Visited();
-            // foreach (MapPathDrawer mpd in _paths)
-            //     mpd.Activate();
+            Node = node;
+            Path = path;
+            ReversedPath = reversedPath;
         }
 
-
-        public void Deactivate()
-        {
-            // foreach (MapPathDrawer mpd in _paths)
-            //     mpd.Deactivate();
-        }
+        public readonly NodeController Node;
+        public readonly SplinePath Path;
+        public readonly SplinePath ReversedPath;
     }
 }
