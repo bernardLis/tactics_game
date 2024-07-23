@@ -19,7 +19,7 @@ MonoBehaviour:
   NameFramePosition: {x: 30, y: -205, z: 0}
   MapPosition: {x: 11, y: -3}
   IsUnlocked: 0
-  ConnectedNodes:
-  - {fileID: 11400000, guid: f5332afc228506b46a2375a3b56cd77d, type: 2}
-  - {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
+  Connections:
+  - Node: {fileID: 11400000, guid: f5332afc228506b46a2375a3b56cd77d, type: 2}
+    Path: {fileID: 3029634038174007777, guid: 2335cd4712cc5d840aefa62292e6cddb, type: 3}
   Arena: {fileID: 0}

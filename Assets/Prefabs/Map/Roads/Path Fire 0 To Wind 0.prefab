@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Name
-      value: Path Neutral 1 To Fire 0
+      value: Path Fire 0 To Wind 0
       objectReference: {fileID: 0}
     - target: {fileID: 6822344051877108493, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_LocalPosition.x
@@ -86,15 +86,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[1].Position.y
-      value: 0.169
+      value: -2.95
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Position.x
-      value: -4.86
+      value: -7.02
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Position.y
-      value: 1.68
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[0].TangentIn.x

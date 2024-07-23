@@ -17,7 +17,6 @@ namespace Lis.Map
 
         public Vector2 MapPosition;
         public bool IsUnlocked;
-        public List<MapNode> ConnectedNodes;
 
         public List<MapNodeConnection> Connections;
 

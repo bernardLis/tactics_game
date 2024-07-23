@@ -213,7 +213,7 @@ MonoBehaviour:
     Probability: 0
   m_Method: 2
   m_Space: 0
-  m_Spacing: {x: 0.29, y: 0.29}
+  m_Spacing: {x: 0.25, y: 0.25}
   m_Up: 0
   m_Forward: 4
   m_PositionOffset:

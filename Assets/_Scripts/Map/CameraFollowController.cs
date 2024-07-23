@@ -17,6 +17,7 @@ namespace Lis.Map
 
         public void FollowPlayer()
         {
+            StopFollowingPlayer();
             _followPlayerCoroutine = FollowPlayerCoroutine();
             StartCoroutine(_followPlayerCoroutine);
         }
@@ -34,7 +35,8 @@ namespace Lis.Map
 
         public void StopFollowingPlayer()
         {
-            StopCoroutine(_followPlayerCoroutine);
+            if (_followPlayerCoroutine != null)
+                StopCoroutine(_followPlayerCoroutine);
         }
     }
 }

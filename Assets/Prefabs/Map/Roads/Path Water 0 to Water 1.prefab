@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Name
-      value: Path Neutral 1 To Fire 0
+      value: Path Water 0 to Water 1
       objectReference: {fileID: 0}
     - target: {fileID: 6822344051877108493, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_MetaData.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_MetaData.Array.data[0].Mode
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_MetaData.Array.data[1].Mode
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_MetaData.Array.data[2].Mode
@@ -82,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[1].Position.x
-      value: -2.66
+      value: 3.66
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[1].Position.y
-      value: 0.169
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 7642681004540917198, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[2].Position.x

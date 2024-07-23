@@ -24,6 +24,8 @@ namespace Lis.Map
         [SerializeField] TMP_Text _nameText;
         [SerializeField] Image _natureIcon;
 
+        SpriteRenderer _gfx;
+
         public void Initialize(MapNode node)
         {
             _mapManager = MapManager.Instance;
@@ -34,9 +36,11 @@ namespace Lis.Map
             transform.position = new(node.MapPosition.x, node.MapPosition.y, -1);
 
             _nameFrame.transform.localPosition = Node.NameFramePosition;
-            GetComponent<SpriteRenderer>().sprite = node.Icon;
             _nameText.text = node.Name;
             _natureIcon.sprite = node.Nature.Icon;
+
+            _gfx = GetComponentInChildren<SpriteRenderer>();
+            _gfx.sprite = node.Icon;
 
             if (!node.IsUnlocked)
             {
@@ -90,7 +94,7 @@ namespace Lis.Map
         {
             Debug.Log("Clicked on " + name);
             if (!_playerController.TryMovingPlayerToNode(this))
-                transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
+                _gfx.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
         }
 
         public void Visited()
