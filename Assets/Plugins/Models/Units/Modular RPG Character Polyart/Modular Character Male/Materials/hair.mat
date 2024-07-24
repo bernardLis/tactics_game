@@ -58,8 +58,8 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0, g: 0, b: 0, a: 1}
-    - _Color2: {r: 0.05490196, g: 0.6862745, b: 0.60784316, a: 1}
+    - _Color1: {r: 0.99215686, g: 0.79607844, b: 0.6901961, a: 1}
+    - _Color2: {r: 0.40392157, g: 0.4, b: 0.2, a: 1}
     - _Color3: {r: 0, g: 0.57547164, b: 0.32180613, a: 1}
     - _EmissionColor1: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor2: {r: 1, g: 1, b: 1, a: 0}

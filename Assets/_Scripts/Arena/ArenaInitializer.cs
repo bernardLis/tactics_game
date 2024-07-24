@@ -42,7 +42,8 @@ namespace Lis.Arena
         IEnumerator DelayedStart()
         {
             yield return new WaitForSeconds(0.5f);
-            GetComponent<ArenaManager>().Initialize(_gameManager.CurrentCampaign);
+            Instantiate(_gameManager.CurrentCampaign.CurrentArena.Prefab, Vector3.zero, Quaternion.identity);
+            ArenaManager.Instance.Initialize();
             yield return new WaitForSeconds(0.5f);
 
             HeroManager heroManager = GetComponent<HeroManager>();

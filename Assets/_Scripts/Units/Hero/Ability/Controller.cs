@@ -41,7 +41,7 @@ namespace Lis.Units.Hero.Ability
 
             AudioManager = AudioManager.Instance;
             FightManager = FightManager.Instance;
-            ArenaManager = FightManager.GetComponent<ArenaManager>();
+            ArenaManager = ArenaManager.Instance;
             _heroManager = FightManager.GetComponent<HeroManager>();
 
             AbilityObjectParent = FightManager.AbilityHolder;

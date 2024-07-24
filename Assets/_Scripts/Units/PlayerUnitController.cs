@@ -68,22 +68,11 @@ namespace Lis.Units
             AddToLog("Going back to locker room.");
             UnitPathingController.SetStoppingDistance(0);
 
-            CurrentMainCoroutine =
-                UnitPathingController.PathToPositionAndStop(ArenaManager.GetRandomPositionInPlayerLockerRoom());
-
             StartCoroutine(CurrentMainCoroutine);
         }
 
         public virtual void TeleportToMap()
         {
-            if (this == null) return;
-            if (IsDead) return;
-            if (ArenaManager.IsPositionInPlayerBase(transform.position)) return;
-
-            BaseTeleport();
-            AddToLog("Teleporting to Base");
-            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom() + Vector3.up;
-            GoToLocker();
         }
 
         public virtual void TeleportToArena()
@@ -133,7 +122,6 @@ namespace Lis.Units
         void OnReleased()
         {
             if (FightManager.IsFightActive) RunUnit();
-            else if (!ArenaManager.IsPositionInPlayerLockerRoom(transform.position)) GoToLocker();
         }
 
         [Button]

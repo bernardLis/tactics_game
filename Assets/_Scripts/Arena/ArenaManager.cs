@@ -1,65 +1,67 @@
-using Lis.Core;
+using System.Collections.Generic;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
 
 namespace Lis.Arena
 {
     public class ArenaManager : Singleton<ArenaManager>
     {
-        Arena _arena;
-        ArenaController _arenaController;
-        GameObject _arenaObject;
+        [SerializeField] BoxCollider _playerLockerRoom;
+        [SerializeField] BoxCollider _playerBase;
+        [SerializeField] BoxCollider _arena;
 
-        public void Initialize(Campaign campaign)
+        [SerializeField] Transform _rewardSpawnPoint;
+
+        [SerializeField] List<BoxCollider> _enemyLockerRooms;
+        readonly List<BoxCollider> _activeEnemyLockerRooms = new();
+
+        public void Initialize()
         {
-            _arena = campaign.CurrentArena;
-            _arenaObject = Instantiate(_arena.Prefab, Vector3.zero, Quaternion.identity);
-            _arenaController = _arenaObject.GetComponent<ArenaController>();
-            _arenaController.Initialize();
+            _activeEnemyLockerRooms.Clear();
+            SetActiveEnemyLockerRooms(1);
         }
 
-        public void ChooseActiveEnemyLockerRooms(int count)
-        {
-            _arenaController.ChooseActiveEnemyLockerRooms(count);
-        }
-
-        public Vector3 GetRewardSpawnPoint()
-        {
-            return _arenaController.GetRewardSpawnPoint();
-        }
-
-        public bool IsPositionInPlayerBase(Vector3 pos)
-        {
-            if (_arenaController.IsPositionInPlayerLockerRoom(pos)) return true;
-            if (_arenaController.IsPositionInPlayerBase(pos)) return true;
-            return false;
-        }
-
-        public bool IsPositionInPlayerLockerRoom(Vector3 pos)
-        {
-            return _arenaController.IsPositionInPlayerLockerRoom(pos);
-        }
 
         public bool IsPositionInArena(Vector3 pos)
         {
-            return _arenaController.IsPositionInArena(pos);
+            pos.y = _arena.bounds.min.y; // ignoring y axis
+            return _arena.bounds.Contains(pos);
         }
 
-        public Vector3 GetRandomPositionInPlayerLockerRoom()
+        public void SetActiveEnemyLockerRooms(int count)
         {
-            return _arenaController.GetRandomPositionInPlayerLockerRoom();
+            _activeEnemyLockerRooms.Clear();
+
+            if (count >= _enemyLockerRooms.Count)
+            {
+                _activeEnemyLockerRooms.AddRange(_enemyLockerRooms);
+                return;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                BoxCollider lockerRoom = _enemyLockerRooms[Random.Range(0, _enemyLockerRooms.Count)];
+                while (_activeEnemyLockerRooms.Contains(lockerRoom))
+                    lockerRoom = _enemyLockerRooms[Random.Range(0, _enemyLockerRooms.Count)];
+                _activeEnemyLockerRooms.Add(_enemyLockerRooms[Random.Range(0, _enemyLockerRooms.Count)]);
+            }
         }
 
         public Vector3 GetRandomPositionInEnemyLockerRoom()
         {
-            return _arenaController.GetRandomPositionInEnemyLockerRoom();
+            return Helpers.RandomPointInBounds(_activeEnemyLockerRooms[Random.Range(0, _activeEnemyLockerRooms.Count)]
+                .bounds);
         }
 
         public Vector3 GetRandomPositionInArena()
         {
-            return _arenaController.GetRandomPositionInArena();
+            return Helpers.RandomPointInBounds(_arena.bounds);
+        }
+
+        public Vector3 GetRewardSpawnPoint()
+        {
+            return _rewardSpawnPoint.position;
         }
 
         // TODO: need to make sure it is within arena bounds

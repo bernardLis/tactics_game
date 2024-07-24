@@ -64,7 +64,7 @@ namespace Lis.Arena
             _cursorManager = CursorManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
 
-            _arenaManager = GetComponent<ArenaManager>();
+            _arenaManager = ArenaManager.Instance;
 
             _cam = Camera.main;
             _mouse = Mouse.current;
@@ -143,13 +143,6 @@ namespace Lis.Arena
 
         bool IsPositionValid(Vector3 pos)
         {
-            if (!FightManager.IsFightActive)
-            {
-                if (_arenaManager.IsPositionInPlayerLockerRoom(pos)) return true;
-                CancelGrabbing();
-                return false;
-            }
-
             if (!_arenaManager.IsPositionInArena(pos))
             {
                 CancelGrabbing();

@@ -8,13 +8,13 @@ namespace Lis.Units.Attack
     public class AttackControllerTeleport : AttackController
     {
         [SerializeField] GameObject _effect;
-        ArenaController _arenaController;
+        ArenaManager _arenaManager;
         GameObject _effectInstance;
 
         public override void Initialize(UnitController unitController, Attack attack)
         {
             base.Initialize(unitController, attack);
-            _arenaController = ArenaController.Instance;
+            _arenaManager = ArenaManager.Instance;
             _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity,
                 FightManager.Instance.EffectHolder);
         }
@@ -27,7 +27,7 @@ namespace Lis.Units.Attack
             _effectInstance.transform.position = transform.position;
             _effectInstance.SetActive(true);
 
-            UnitController.transform.position = _arenaController.GetRandomPositionInArena();
+            UnitController.transform.position = _arenaManager.GetRandomPositionInArena();
 
             Animator.SetTrigger(AnimSpecialAttack);
             AudioManager.CreateSound()

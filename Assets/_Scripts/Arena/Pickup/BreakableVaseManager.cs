@@ -29,7 +29,7 @@ namespace Lis.Arena.Pickup
 
         public void Initialize()
         {
-            _arenaManager = GetComponent<ArenaManager>();
+            _arenaManager = ArenaManager.Instance;
             _inputManager = GetComponent<InputManager>();
             _fightManager = GetComponent<FightManager>();
 

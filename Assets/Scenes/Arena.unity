@@ -1581,6 +1581,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _arenaWon
+      value: 
+      objectReference: {fileID: 11400000, guid: d351dd8b29f77524ba1d26895e4e32b9, type: 2}
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: _arenaLost
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e67c128bba768b499348ec2fb017791, type: 2}
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: EffectHolder
+      value: 
+      objectReference: {fileID: 843739632}
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: AbilityHolder
+      value: 
+      objectReference: {fileID: 843739632}
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: EnemyArmyHolder
+      value: 
+      objectReference: {fileID: 508511795}
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: PlayerArmyHolder
+      value: 
+      objectReference: {fileID: 1078788522}
+    - target: {fileID: 1399875155033606240, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
+      propertyPath: ProjectilePoolHolder
+      value: 
+      objectReference: {fileID: 309431931}
     - target: {fileID: 1934811644275285325, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: _enemyArmyHolder
       value: 
@@ -1629,18 +1657,6 @@ PrefabInstance:
       propertyPath: HeroFollowCamera
       value: 
       objectReference: {fileID: 1587620957}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: EntityHolder
-      value: 
-      objectReference: {fileID: 1078788522}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: AbilityHolder
-      value: 
-      objectReference: {fileID: 843739632}
-    - target: {fileID: 5119385659013104318, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: ProjectilePoolHolder
-      value: 
-      objectReference: {fileID: 309431931}
     - target: {fileID: 5119385659013104319, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
       propertyPath: m_Name
       value: Arena Manager
@@ -1649,34 +1665,6 @@ PrefabInstance:
       propertyPath: _rangedOpponentHolder
       value: 
       objectReference: {fileID: 1093471360}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _arenaWon
-      value: 
-      objectReference: {fileID: 11400000, guid: d351dd8b29f77524ba1d26895e4e32b9, type: 2}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: _arenaLost
-      value: 
-      objectReference: {fileID: 11400000, guid: 7e67c128bba768b499348ec2fb017791, type: 2}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: EffectHolder
-      value: 
-      objectReference: {fileID: 843739632}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: AbilityHolder
-      value: 
-      objectReference: {fileID: 843739632}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: EnemyArmyHolder
-      value: 
-      objectReference: {fileID: 508511795}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: PlayerArmyHolder
-      value: 
-      objectReference: {fileID: 1078788522}
-    - target: {fileID: 8300005922033865725, guid: 60811e8dc9e5f384bbbabd43f86e3cec, type: 3}
-      propertyPath: ProjectilePoolHolder
-      value: 
-      objectReference: {fileID: 309431931}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

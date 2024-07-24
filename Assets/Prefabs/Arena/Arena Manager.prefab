@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 1771743886305221010}
   - component: {fileID: 4066842339892764640}
   - component: {fileID: 3686241382488041892}
-  - component: {fileID: 8300005922033865725}
-  - component: {fileID: 1803897707696964957}
   - component: {fileID: 892723308641058941}
   - component: {fileID: 8560908320832600270}
   - component: {fileID: 3416259486287488999}
@@ -27,6 +25,7 @@ GameObject:
   - component: {fileID: 5545418216853162528}
   - component: {fileID: 1934811644275285325}
   - component: {fileID: 1813988017654575525}
+  - component: {fileID: 1399875155033606240}
   m_Layer: 0
   m_Name: Arena Manager
   m_TagString: Untagged
@@ -138,45 +137,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 814c1792bbb473e46a1d8ca54e6d6317, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8300005922033865725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerArmyHolder: {fileID: 0}
-  EnemyArmyHolder: {fileID: 0}
-  EffectHolder: {fileID: 0}
-  AbilityHolder: {fileID: 0}
-  ProjectilePoolHolder: {fileID: 0}
-  LastFight: {fileID: 0}
-  CurrentFight: {fileID: 0}
-  PlayerUnits: []
-  EnemyUnits: []
-  KilledPlayerUnits: []
-  KilledEnemyUnits: []
-  IsTesting: 0
-  Campaign: {fileID: 0}
-  _battleLost: {fileID: 11400000, guid: 7e67c128bba768b499348ec2fb017791, type: 2}
-  _battleWon: {fileID: 11400000, guid: d351dd8b29f77524ba1d26895e4e32b9, type: 2}
---- !u!114 &1803897707696964957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5119385659013104319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cef96c7dc29573348920862407aec0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &892723308641058941
@@ -322,3 +282,29 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5119385659013104319}
   m_Enabled: 1
+--- !u!114 &1399875155033606240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5119385659013104319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500a836158df0c14dac1edf33f738346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arenaLost: {fileID: 0}
+  _arenaWon: {fileID: 0}
+  PlayerArmyHolder: {fileID: 0}
+  EnemyArmyHolder: {fileID: 0}
+  EffectHolder: {fileID: 0}
+  AbilityHolder: {fileID: 0}
+  ProjectilePoolHolder: {fileID: 0}
+  PlayerUnits: []
+  EnemyUnits: []
+  KilledPlayerUnits: []
+  KilledEnemyUnits: []
+  IsTesting: 0
+  Campaign: {fileID: 0}
+  CurrentWave: {fileID: 0}

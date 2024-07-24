@@ -26,18 +26,17 @@ namespace Lis.Arena.Fight
         public Transform AbilityHolder;
         public Transform ProjectilePoolHolder;
 
-        public List<UnitController> PlayerUnits = new();
-        public List<UnitController> EnemyUnits = new();
-
-        public List<UnitController> KilledPlayerUnits = new();
-        public List<Unit> KilledEnemyUnits = new();
+        [HideInInspector] public List<UnitController> PlayerUnits = new();
+        [HideInInspector] public List<UnitController> EnemyUnits = new();
+        [HideInInspector] public List<UnitController> KilledPlayerUnits = new();
+        [HideInInspector] public List<Unit> KilledEnemyUnits = new();
         public bool IsTesting;
 
         public VisualElement Root { get; private set; }
         Label _fightInfoLabel;
         Label _timerLabel;
 
-        public Campaign Campaign;
+        [HideInInspector] public Campaign Campaign;
 
         Arena _arena;
         [HideInInspector] public Wave CurrentWave;
@@ -77,7 +76,6 @@ namespace Lis.Arena.Fight
             Campaign = campaign;
             _arena = Campaign.CurrentArena;
 
-            _arenaManager = GetComponent<ArenaManager>();
             _enemyPoolManager = GetComponent<EnemyPoolManager>();
             _tooltipManager = GetComponent<TooltipManager>();
 
@@ -89,6 +87,7 @@ namespace Lis.Arena.Fight
         void StartGame()
         {
             _heroController = GetComponent<HeroManager>().HeroController;
+            _arenaManager = ArenaManager.Instance;
 
             CurrentWave = _arena.Initialize(_heroController.Hero);
 
@@ -141,6 +140,7 @@ namespace Lis.Arena.Fight
                 _tooltipManager.DisplayGameInfo(
                     new Label($"Wave {_currentWaveIndex + 1}/{_arena.Waves.Count}"));
 
+                _arenaManager.SetActiveEnemyLockerRooms(CurrentWave.ActiveLockerRoomCount);
                 SpawnEnemyArmy(CurrentWave);
 
                 _currentWaveIndex++;
@@ -162,7 +162,7 @@ namespace Lis.Arena.Fight
 
         public UnitController SpawnPlayerUnit(Unit u, Vector3 pos = default)
         {
-            if (pos == default) pos = _arenaManager.GetRandomPositionInPlayerLockerRoom();
+            if (pos == default) pos = _arenaManager.GetRandomPositionInArena();
             GameObject g = Instantiate(u.Prefab, pos, Quaternion.identity, PlayerArmyHolder);
             UnitController unitController = g.GetComponent<UnitController>();
             unitController.InitializeGameObject();
@@ -247,9 +247,6 @@ namespace Lis.Arena.Fight
         void EndFight()
         {
             IsFightActive = false;
-
-            _arenaManager.ChooseActiveEnemyLockerRooms(CurrentWave.ActiveLockerRoomCount);
-
             OnFightEnded?.Invoke();
         }
 
