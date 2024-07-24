@@ -12,7 +12,8 @@ namespace Lis.Arena.Pickup
 
         public override void Initialize()
         {
-            Amount = Random.Range(5, 8) * (FightManager.FightNumber + 1);
+            // TODO: balance
+            Amount = Random.Range(5, 8);
             Amount += Mathf.RoundToInt(Amount
                                        * GameManager.Instance.UpgradeBoard.GetUpgradeByName("Gold Bonus").GetValue()
                                        * 0.01f);

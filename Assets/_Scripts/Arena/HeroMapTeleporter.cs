@@ -14,8 +14,6 @@ namespace Lis.Arena
 
         public string InteractionPrompt => "Exit Arena";
 
-        HeroController _heroController;
-
         void Start()
         {
             _collider = GetComponent<SphereCollider>();
@@ -52,7 +50,7 @@ namespace Lis.Arena
 
         public bool Interact(Interactor interactor)
         {
-            _heroController.TeleportToMap();
+            HeroManager.Instance.HeroController.TeleportToMap();
             return true;
         }
     }

@@ -5,21 +5,24 @@ using UnityEngine;
 
 namespace Lis.Core
 {
+    using Map;
+    using Arena;
+
     [CreateAssetMenu(menuName = "ScriptableObject/Campaign/Campaign")]
     public class Campaign : BaseScriptableObject
     {
         public Stats Stats;
 
-        public Hero SelectedHero;
+        public Map Map;
 
-        public Arena.Arena CurrentArena;
+        [HideInInspector] public Hero SelectedHero;
+
+        [HideInInspector] public MapNode CurrentHeroNode;
+        [HideInInspector] public Arena CurrentArena;
 
         [Header("Buildings")]
         public Bank Bank;
 
-        public Building FightSelector;
-        public Building FightStarter;
-        public Building HeroLeveler;
         public Barracks Barracks;
         public Building RewardCollector;
         public Shop Shop;
@@ -30,10 +33,19 @@ namespace Lis.Core
             Stats = CreateInstance<Stats>();
 
             ResolveHero(visualHero);
+
+            Map.Initialize();
+            CurrentHeroNode = Map.Nodes[0];
+
             InstantiateBuildings();
         }
 
-        public void SetCurrentArena(Arena.Arena arena)
+        public void SetCurrentHeroNode(MapNode node)
+        {
+            CurrentHeroNode = node;
+        }
+
+        public void SetCurrentArena(Arena arena)
         {
             CurrentArena = arena;
         }
@@ -60,16 +72,6 @@ namespace Lis.Core
             Bank = Instantiate(Bank);
             Bank.Initialize(this);
 
-            FightSelector = Instantiate(FightSelector);
-            FightSelector.Initialize(this);
-
-            FightStarter = Instantiate(FightStarter);
-            FightStarter.Initialize(this);
-            FightStarter.IsUnlocked = true;
-
-            HeroLeveler = Instantiate(HeroLeveler);
-            HeroLeveler.Initialize(this);
-
             Barracks = Instantiate(Barracks);
             Barracks.Initialize(this);
 
@@ -88,9 +90,6 @@ namespace Lis.Core
             return new List<Building>
             {
                 Bank,
-                FightSelector,
-                FightStarter,
-                HeroLeveler,
                 Barracks,
                 RewardCollector,
                 Shop,

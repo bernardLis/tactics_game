@@ -22,9 +22,6 @@ namespace Lis.Camp.Building
 
         protected override void OnFightEnded()
         {
-            if (FightManager.FightNumber == 6)
-                Building.Unlock();
-
             if (!_architect.IsUnlocked) return;
             AllowInteraction();
         }

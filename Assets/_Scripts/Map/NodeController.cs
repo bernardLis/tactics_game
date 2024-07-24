@@ -44,11 +44,15 @@ namespace Lis.Map
             _gfx = GetComponentInChildren<SpriteRenderer>();
             _gfx.sprite = node.Icon;
 
-            if (!node.IsUnlocked)
+            if (!node.IsVisited)
             {
                 _visitedIcon.transform.DOLocalMoveY(0, 1f)
                     .SetEase(Ease.InOutSine)
                     .SetLoops(-1, LoopType.Yoyo);
+            }
+            else
+            {
+                _visitedIcon.SetActive(false);
             }
         }
 
@@ -101,12 +105,14 @@ namespace Lis.Map
 
         public void Visited()
         {
-            if (Node.IsUnlocked) return;
-            Node.IsUnlocked = true;
+            GameManager gm = GameManager.Instance;
+            gm.CurrentCampaign.SetCurrentHeroNode(Node);
+
+            if (Node.IsVisited) return;
+            Node.IsVisited = true;
             _visitedIcon.SetActive(false);
 
             if (Node.Arena == null) return;
-            GameManager gm = GameManager.Instance;
             gm.CurrentCampaign.SetCurrentArena(Node.Arena);
             gm.LoadScene(Scenes.Arena);
         }

@@ -48,9 +48,6 @@ namespace Lis.Camp.Building
 
         protected override void OnFightEnded()
         {
-            if (FightManager.FightNumber == 3)
-                Building.Unlock();
-
             if (!Building.IsUnlocked) return;
             AllowInteraction();
             StartCoroutine(SpawnFightEndArmy());

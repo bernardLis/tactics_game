@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Lis.Other
 {
-    public class TestFight : BaseScriptableObject
+    public class TestWave : BaseScriptableObject
     {
         public List<Unit> PlayerArmy = new();
         public List<Unit> EnemyArmy = new();

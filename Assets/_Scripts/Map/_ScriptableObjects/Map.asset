@@ -13,14 +13,25 @@ MonoBehaviour:
   m_Name: Map
   m_EditorClassIdentifier: 
   Id: 71d5250e-5679-439e-8259-2ea39ce14669
-  AllNodes:
+  OriginalNodes:
   - {fileID: 11400000, guid: e14ea5bd0c87b0f469f94b3e72be9d92, type: 2}
-  - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   - {fileID: 11400000, guid: 571e9c16d029a5b4b8135014a8f1017c, type: 2}
   - {fileID: 11400000, guid: 9417768a317e310498d1eac40059426b, type: 2}
   - {fileID: 11400000, guid: 9689d653a8c27a145acbe4d56ab1ffed, type: 2}
   - {fileID: 11400000, guid: d9a7223393d3ee64ea5c147de3a9a162, type: 2}
+  - {fileID: 11400000, guid: 861561deff5fa2a4a8856a33352bde8c, type: 2}
   - {fileID: 11400000, guid: 6a92eeb3b29b6e144a176e3a1aed12af, type: 2}
   - {fileID: 11400000, guid: f5332afc228506b46a2375a3b56cd77d, type: 2}
   - {fileID: 11400000, guid: 15ab11ea7191fd248b41f083cdcd7f54, type: 2}
   - {fileID: 11400000, guid: 48b5ce9f48f53dd45a713e0850d27001, type: 2}
+  Nodes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

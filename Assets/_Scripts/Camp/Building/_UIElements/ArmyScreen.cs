@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-using Lis.Arena;
-using Lis.Arena.Fight;
+﻿using Lis.Arena;
 using Lis.Core;
 using Lis.Units;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Camp.Building
 {
     public class ArmyScreen : FullScreenElement
     {
-        readonly FightManager _fightManager;
         readonly HeroManager _heroManager;
 
         readonly VisualElement _mainContainer;
@@ -23,7 +19,6 @@ namespace Lis.Camp.Building
         public ArmyScreen()
         {
             _heroManager = HeroManager.Instance;
-            _fightManager = FightManager.Instance;
             _unitCardFactory = UnitCardFactory.Instance;
 
             _mainContainer = new();
@@ -34,10 +29,8 @@ namespace Lis.Camp.Building
             SetTitle("Army Screen");
 
             AddPlayerContainer();
-            AddEnemyContainer();
 
             AddPlayerArmyIcons();
-            AddEnemyArmyIcons();
 
             AddChangeViewButton();
             AddContinueButton();
@@ -55,18 +48,6 @@ namespace Lis.Camp.Building
             container.Add(_playerArmyScrollView);
         }
 
-        void AddEnemyContainer()
-        {
-            VisualElement container = new();
-            _mainContainer.Add(container);
-
-            Label title = new("Enemy Army");
-            container.Add(title);
-
-            _enemyArmyScrollView = new();
-            container.Add(_enemyArmyScrollView);
-        }
-
         void AddPlayerArmyIcons()
         {
             foreach (Unit u in _heroManager.Hero.Army)
@@ -76,79 +57,12 @@ namespace Lis.Camp.Building
             }
         }
 
-        void AddEnemyArmyIcons()
-        {
-            if (_fightManager.CurrentFight.ChosenOption == null) return;
-            _enemyArmyScrollView.Add(
-                new Label($"Number of waves: {_fightManager.CurrentFight.ChosenOption.NumberOfWaves}"));
-
-            List<VisualElement> aggregated =
-                new(AggregateEnemiesIcons(_fightManager.CurrentFight.ChosenOption.ArmyPerWave));
-            foreach (VisualElement el in aggregated)
-                _enemyArmyScrollView.Add(el);
-        }
-
-        List<VisualElement> AggregateEnemiesIcons(Dictionary<string, int> army)
-        {
-            List<VisualElement> result = new();
-            foreach (var item in army)
-            {
-                VisualElement container = new();
-                container.style.flexDirection = FlexDirection.Row;
-                result.Add(container);
-
-                Label count = new(item.Value + "x");
-                container.Add(count);
-
-                Unit unit = GameManager.UnitDatabase.GetUnitById(item.Key);
-                Unit instance = ScriptableObject.Instantiate(unit);
-                instance.InitializeFight(1);
-                UnitIcon icon = new(instance);
-                container.Add(icon);
-            }
-
-            return result;
-        }
 
 
         void AddPlayerArmyCards()
         {
             foreach (Unit u in _heroManager.Hero.Army)
                 _playerArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
-        }
-
-        void AddEnemyArmyCards()
-        {
-            if (_fightManager.CurrentFight.ChosenOption == null) return;
-            _enemyArmyScrollView.Add(
-                new Label($"Number of waves: {_fightManager.CurrentFight.ChosenOption.NumberOfWaves}"));
-
-            List<VisualElement> aggregated =
-                new(AggregateEnemiesCards(_fightManager.CurrentFight.ChosenOption.ArmyPerWave));
-            foreach (VisualElement el in aggregated)
-                _enemyArmyScrollView.Add(el);
-        }
-
-        List<VisualElement> AggregateEnemiesCards(Dictionary<string, int> army)
-        {
-            List<VisualElement> result = new();
-            foreach (var item in army)
-            {
-                VisualElement container = new();
-                container.style.flexDirection = FlexDirection.Row;
-                result.Add(container);
-
-                Label count = new(item.Value + "x");
-                container.Add(count);
-
-                Unit unit = GameManager.UnitDatabase.GetUnitById(item.Key);
-                Unit instance = ScriptableObject.Instantiate(unit);
-                instance.InitializeFight(1);
-                UnitCard card = new(instance);
-                container.Add(card);
-            }
-
-            return result;
         }
 
 
@@ -164,15 +78,9 @@ namespace Lis.Camp.Building
             _enemyArmyScrollView.Clear();
 
             if (!_isCardView)
-            {
                 AddPlayerArmyCards();
-                AddEnemyArmyCards();
-            }
             else
-            {
                 AddPlayerArmyIcons();
-                AddEnemyArmyIcons();
-            }
 
             _isCardView = !_isCardView;
         }

@@ -15,8 +15,10 @@ namespace Lis.Arena.Fight
     public class FightManager : Singleton<FightManager>
     {
         public static bool IsFightActive { get; private set; }
-        public static int FightNumber { get; private set; }
         public static bool BlockPlayerInput { get; private set; }
+
+        [SerializeField] Sound _arenaLost;
+        [SerializeField] Sound _arenaWon;
 
         public Transform PlayerArmyHolder;
         public Transform EnemyArmyHolder;
@@ -24,47 +26,37 @@ namespace Lis.Arena.Fight
         public Transform AbilityHolder;
         public Transform ProjectilePoolHolder;
 
-        [HideInInspector] public Fight LastFight;
-        [HideInInspector] public Fight CurrentFight;
-
         public List<UnitController> PlayerUnits = new();
         public List<UnitController> EnemyUnits = new();
 
         public List<UnitController> KilledPlayerUnits = new();
         public List<Unit> KilledEnemyUnits = new();
         public bool IsTesting;
-        Arena _arena;
 
-        ArenaManager _arenaManager;
-        EnemyPoolManager _enemyPoolManager;
+        public VisualElement Root { get; private set; }
+        Label _fightInfoLabel;
+        Label _timerLabel;
 
         public Campaign Campaign;
 
-        IEnumerator _fightCoroutine;
-
-        Label _fightInfoLabel;
-
-        HeroController _heroController;
-        TooltipManager _tooltipManager;
-        int _currentWaveIndex = 1;
-
-        AudioManager _audioManager;
+        Arena _arena;
+        [HideInInspector] public Wave CurrentWave;
+        int _currentWaveIndex;
         bool _arenaFinalized;
-        int _fightTime;
-
-        IEnumerator _endFightCoroutine;
-        [SerializeField] Sound _arenaLost;
-        [SerializeField] Sound _arenaWon;
 
         GameManager _gameManager;
+        AudioManager _audioManager;
+        ArenaManager _arenaManager;
+        EnemyPoolManager _enemyPoolManager;
+        HeroController _heroController;
+        TooltipManager _tooltipManager;
 
+        IEnumerator _fightCoroutine;
+        IEnumerator _endFightCoroutine;
+
+        int _fightTime;
         float _lastTimeScale = 1f;
-
         IEnumerator _timerCoroutine;
-        Label _timerLabel;
-
-        public VisualElement Root { get; private set; }
-
         public bool IsTimerOn { get; private set; }
 
         public event Action OnGamePaused;
@@ -89,8 +81,6 @@ namespace Lis.Arena.Fight
             _enemyPoolManager = GetComponent<EnemyPoolManager>();
             _tooltipManager = GetComponent<TooltipManager>();
 
-            _fightInfoLabel = new();
-            Root.Q<VisualElement>("fightInfo").Add(_fightInfoLabel);
             _timerLabel = Root.Q<Label>("timer");
 
             ArenaInitializer.Instance.OnArenaInitialized += StartGame;
@@ -100,27 +90,22 @@ namespace Lis.Arena.Fight
         {
             _heroController = GetComponent<HeroManager>().HeroController;
 
-            CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
-            CurrentFight.ChooseRandomOption();
+            CurrentWave = _arena.Initialize(_heroController.Hero);
 
             StartCoroutine(SpawnAllPlayerUnits());
 
             IsFightActive = false;
-            FightNumber = 0;
 
             _arenaFinalized = false;
             _fightTime = 0;
 
             ResumeTimer();
-            UpdateFightInfoText();
 
             StartFight();
         }
 
-        public void StartFight()
+        void StartFight()
         {
-            if (CurrentFight.ChosenOption == null) return;
-
             _fightCoroutine = StartFightCoroutine();
             StartCoroutine(_fightCoroutine);
         }
@@ -151,14 +136,16 @@ namespace Lis.Arena.Fight
 
         IEnumerator SpawnEnemyWavesCoroutine()
         {
-            for (int i = 0; i < CurrentFight.ChosenOption.NumberOfWaves; i++)
+            for (int i = 0; i < _arena.Waves.Count; i++)
             {
                 _tooltipManager.DisplayGameInfo(
-                    new Label($"Wave {_currentWaveIndex + 1}/{CurrentFight.ChosenOption.NumberOfWaves}"));
-                _currentWaveIndex++;
+                    new Label($"Wave {_currentWaveIndex + 1}/{_arena.Waves.Count}"));
 
-                SpawnEnemyArmy(CurrentFight.ChosenOption);
-                if (_currentWaveIndex == CurrentFight.ChosenOption.NumberOfWaves) yield break;
+                SpawnEnemyArmy(CurrentWave);
+
+                _currentWaveIndex++;
+                if (_currentWaveIndex == _arena.Waves.Count) yield break;
+                CurrentWave = _arena.Waves[_currentWaveIndex];
 
                 yield return new WaitForSeconds(Random.Range(10, 15));
             }
@@ -186,10 +173,9 @@ namespace Lis.Arena.Fight
             return unitController;
         }
 
-        void SpawnEnemyArmy(FightOption option)
+        void SpawnEnemyArmy(Wave wave)
         {
-            CurrentFight.OnOptionChosen -= SpawnEnemyArmy;
-            StartCoroutine(SpawnEnemyUnits(option.ArmyPerWave));
+            StartCoroutine(SpawnEnemyUnits(wave.Army));
         }
 
         IEnumerator SpawnEnemyUnits(Dictionary<string, int> army)
@@ -248,7 +234,7 @@ namespace Lis.Arena.Fight
 
             if (!IsFightActive) return;
             if (EnemyUnits.Count > 0) return;
-            if (_currentWaveIndex != CurrentFight.ChosenOption.NumberOfWaves) return;
+            if (_currentWaveIndex != _arena.Waves.Count) return;
             EndFight();
         }
 
@@ -262,14 +248,7 @@ namespace Lis.Arena.Fight
         {
             IsFightActive = false;
 
-            FightNumber++;
-
-            CurrentFight.GiveReward();
-            LastFight = CurrentFight;
-
-            CurrentFight = _arena.CreateFight(_heroController.Hero.GetHeroPoints());
-            _arenaManager.ChooseActiveEnemyLockerRooms(CurrentFight.ActiveLockerRoomCount);
-            UpdateFightInfoText();
+            _arenaManager.ChooseActiveEnemyLockerRooms(CurrentWave.ActiveLockerRoomCount);
 
             OnFightEnded?.Invoke();
         }
@@ -290,11 +269,6 @@ namespace Lis.Arena.Fight
             return EnemyUnits.Count == 0
                 ? Vector3.zero
                 : EnemyUnits[Random.Range(0, EnemyUnits.Count)].transform.position;
-        }
-
-        void UpdateFightInfoText()
-        {
-            _fightInfoLabel.text = $"Fight {FightNumber} | Hero Points: {_heroController.Hero.GetHeroPoints()}";
         }
 
         /* TIMER */

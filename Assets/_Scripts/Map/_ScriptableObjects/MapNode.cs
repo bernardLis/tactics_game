@@ -15,7 +15,7 @@ namespace Lis.Map
         public Vector3 NameFramePosition;
 
         public Vector2 MapPosition;
-        public bool IsUnlocked;
+        public bool IsVisited;
 
         public List<MapNodeConnection> Connections;
 

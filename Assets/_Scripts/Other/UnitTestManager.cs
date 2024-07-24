@@ -17,7 +17,7 @@ namespace Lis.Other
         public int FightsWon;
         public int FightsLost;
 
-        public List<TestFight> Tests = new();
+        public List<TestWave> Tests = new();
         BreakableVaseManager _breakableVaseManager;
 
         float _currentFightStartTime;
@@ -71,7 +71,7 @@ namespace Lis.Other
             TotalFights++;
 
             int points = Random.Range(100, 10000);
-            TestFight test = ScriptableObject.CreateInstance<TestFight>();
+            TestWave test = ScriptableObject.CreateInstance<TestWave>();
             test.CreateTestFight(points);
             Tests.Add(test);
             yield return new WaitForSeconds(1f);
@@ -91,7 +91,7 @@ namespace Lis.Other
         void OnFightEnded()
         {
             if (Tests.Count == 0) return;
-            TestFight test = Tests.Last();
+            TestWave test = Tests.Last();
             test.FightDuration = (int)(_fightManager.GetTime() - _currentFightStartTime);
             bool pw = _fightManager.PlayerUnits.Count > 0;
             test.PlayerWon = pw;

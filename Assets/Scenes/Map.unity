@@ -659,7 +659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52d40c7023940c5b22a668edda4a596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _map: {fileID: 11400000, guid: 407ed43a9e6c50544a89f7591607a71a, type: 2}
   _nodeParent: {fileID: 1637208451}
   _mapNodePrefab: {fileID: 6273046486787966223, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
 --- !u!1001 &1269810306

@@ -124,10 +124,6 @@ MonoBehaviour:
     m_ActionName: Battle/Interact[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 92a2aced-a717-4e3d-81d7-4447f0dd4b0b
-    m_ActionName: Battle/ThrowBall[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: b9700237-27eb-4342-a7fb-c61afa329c42
     m_ActionName: Battle/DebugSpawnMinionWave[/Keyboard/i]
   - m_PersistentCalls:
@@ -144,11 +140,19 @@ MonoBehaviour:
     m_ActionName: Battle/DebugKillHero[/Keyboard/leftBracket]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: d49de728-4de5-4a58-b21b-727cfddd0280
-    m_ActionName: Battle/RecallCreatures[/Keyboard/b]
+    m_ActionId: 00802c3e-7b85-4ca2-8387-9d330e0a2c85
+    m_ActionName: Map/PlayerMovement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 89894572-8bee-4e12-818a-13a5918ad090
+    m_ActionName: Map/Space[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 36bd0afb-764e-452d-ab8f-291dd35b5b7c
+    m_ActionName: Map/ZoomCamera[/Mouse/scroll]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
-  m_DefaultActionMap: Battle
+  m_DefaultActionMap: Arena
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &434231595863157545
@@ -346,10 +350,6 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   - m_AssetGUID: b62c2aa25d704c1f9fa161ec866d3ab7
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
-  - m_AssetGUID: 491c9cb078f24862a88e855cd8f87350
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

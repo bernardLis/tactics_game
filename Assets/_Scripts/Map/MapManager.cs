@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ namespace Lis.Map
 {
     public class MapManager : Singleton<MapManager>
     {
-        [SerializeField] Map _map;
+        Campaign _campaign;
+        Map _map;
 
         [SerializeField] Transform _nodeParent;
         [SerializeField] NodeController _mapNodePrefab;
@@ -17,24 +19,30 @@ namespace Lis.Map
         public void Start()
         {
             _playerController = PlayerController.Instance;
+
+            _campaign = GameManager.Instance.CurrentCampaign;
+            _map = _campaign.Map;
+
             SetUpMap();
         }
 
         void SetUpMap()
         {
-            foreach (MapNode mn in _map.AllNodes)
+            foreach (MapNode mn in _map.Nodes)
             {
                 NodeController nc = Instantiate(_mapNodePrefab, _nodeParent);
-                nc.Initialize(Instantiate(mn));
+                nc.Initialize(mn);
                 _nodeControllers.Add(nc);
+
+                if (mn == _campaign.CurrentHeroNode)
+                    _playerController.CurrentNode = nc;
             }
 
             foreach (NodeController nc in _nodeControllers)
                 nc.ResolveConnections();
 
-            _playerController.transform.position = new(_map.AllNodes[0].MapPosition.x, _map.AllNodes[0].MapPosition.y, -2);
-            _playerController.CurrentNode = _nodeControllers[0];
-            _nodeControllers[0].Visited();
+            _playerController.transform.position =
+                new(_campaign.CurrentHeroNode.MapPosition.x, _campaign.CurrentHeroNode.MapPosition.y, -2);
         }
 
         public List<NodeController> GetConnectedNodes(MapNode node)

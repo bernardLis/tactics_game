@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units.Boss;
+using Lis.Units.Hero;
 using UnityEngine;
 
 namespace Lis.Arena
@@ -10,38 +11,41 @@ namespace Lis.Arena
     {
         public GameObject Prefab;
 
+        [HideInInspector] public List<Fight.Wave> Waves;
         [HideInInspector] public Boss Boss;
-        [HideInInspector] public List<Fight.Fight> Fights = new();
+        public int GoldReward;
 
-        public void Initialize()
+        public Fight.Wave Initialize(Hero hero)
         {
             Boss = Instantiate(GameManager.Instance.UnitDatabase.GetRandomBoss());
             Boss.InitializeFight(1);
 
-            Fights = new();
+            Waves = new();
+            return CreateFight(hero);
         }
 
-        public Fight.Fight CreateFight(int heroPoints)
+        Fight.Wave CreateFight(Hero hero)
         {
             // TODO: balance
-            const float exponent = 2.5f;
-            const float multiplier = 2f;
+            int heroPoints = hero.GetHeroPoints();
+            GoldReward = heroPoints * 10;
 
-            int result = Mathf.FloorToInt(multiplier * Mathf.Pow(Fights.Count, exponent));
-            result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
-            int points = result + heroPoints;
+            int numberOfWaves = 3;
+            for (int i = 0; i < numberOfWaves; i++)
+            {
+                const float exponent = 2.5f;
+                const float multiplier = 2f;
 
-            Fight.Fight fight = CreateInstance<Fight.Fight>();
-            fight.Initialize(points, Fights.Count);
-            Fights.Add(fight);
+                int result = Mathf.FloorToInt(multiplier * Mathf.Pow(numberOfWaves, exponent));
+                result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
+                int points = result + heroPoints;
 
-            return fight;
-        }
+                Fight.Wave wave = CreateInstance<Fight.Wave>();
+                wave.Initialize(points, hero);
+                Waves.Add(wave);
+            }
 
-        public int GetCurrentFightDifficulty()
-        {
-            // TODO: fight difficulty to spawn better orbs later
-            return 1;
+            return Waves[0];
         }
     }
 }

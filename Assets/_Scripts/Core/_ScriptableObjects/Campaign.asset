@@ -10,18 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60bc889b7c519dc459a5fae488099d8f, type: 3}
-  m_Name: Battle
+  m_Name: Campaign
   m_EditorClassIdentifier: 
   Id: 9ba5a3d0-1bd9-47e4-be85-a50e55caa87e
   Stats: {fileID: 11400000, guid: 6cf74251d6908d64bac571abc668f2c7, type: 2}
+  Map: {fileID: 11400000, guid: 407ed43a9e6c50544a89f7591607a71a, type: 2}
   SelectedHero: {fileID: 0}
-  Arenas:
-  - {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
+  CurrentHeroNode: {fileID: 0}
   CurrentArena: {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
   Bank: {fileID: 11400000, guid: 83c1139d71f92624e8310593a8148d6c, type: 2}
-  FightSelector: {fileID: 11400000, guid: 441e7505d0da38f468b83685811c255a, type: 2}
-  FightStarter: {fileID: 11400000, guid: 39559594aaf189643986cd765c294b1e, type: 2}
-  HeroLeveler: {fileID: 11400000, guid: 3900470b25f99104e970c6a45da90f32, type: 2}
   Barracks: {fileID: 11400000, guid: 988ef55f295ded14c9b378829cdae112, type: 2}
   RewardCollector: {fileID: 11400000, guid: 2ed12a2632c03aa43ae6abfc25df13e9, type: 2}
   Shop: {fileID: 11400000, guid: 91d63af4d3ec4034d9e7bf5af5e4b840, type: 2}

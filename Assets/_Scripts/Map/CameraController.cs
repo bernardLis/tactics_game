@@ -90,6 +90,7 @@ namespace Lis.Map
         /* MOVE */
         void ArrowMovement(InputAction.CallbackContext context)
         {
+            Debug.Log("ArrowMovement");
             _followTransform.StopFollowingPlayer();
 
             Vector3 inputValue = context.ReadValue<Vector2>();

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Lis.Arena.Fight;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Enemy;
@@ -24,30 +23,14 @@ namespace Lis.Arena.Pickup
         [SerializeField] HealthPickup _healthPickup;
 
         [SerializeField] List<ExperienceStone> _expOrbs = new();
-        FightManager _fightManager;
-        ArenaManager _arenaManager;
 
         public event Action<Pickup> OnPickupCollected;
 
         public void Initialize()
         {
             CreatePool(_pickupControllerPrefab.gameObject);
-
-            _fightManager = FightManager.Instance;
-            _fightManager.OnFightEnded += OnFightEnded;
-            _arenaManager = ArenaManager.Instance;
             // HERE: testing
             GetComponent<InputManager>().OnTwoClicked += SpawnBunchExpStones;
-        }
-
-
-        void OnFightEnded()
-        {
-            if (FightManager.FightNumber == 2)
-                SpawnPickup(Instantiate(_mushroom), _arenaManager.GetRewardSpawnPoint());
-
-            if (FightManager.FightNumber == 4)
-                SpawnPickup(Instantiate(_barracksToken), _arenaManager.GetRewardSpawnPoint());
         }
 
 
@@ -114,7 +97,7 @@ namespace Lis.Arena.Pickup
             //     p = Instantiate(_skull);
             if (random == 4)
                 p = Instantiate(_dice);
-            else if (random == 5 && FightManager.FightNumber > 3)
+            else if (random == 5)
                 p = Instantiate(_mushroom);
             else if (random == 6 || random == 7)
                 p = Instantiate(_healthPickup);

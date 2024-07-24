@@ -68,7 +68,6 @@ namespace Lis.Arena
         public void Initialize()
         {
             _fightManager = GetComponent<FightManager>();
-            _fightManager.OnFightStarted += OnFightStarted;
             _fightManager.OnFightEnded += OnFightEnded;
             _fightManager.OnFightFinalized += OnFightFinalized;
 
@@ -84,28 +83,11 @@ namespace Lis.Arena
             StartCoroutine(ShowGameInfoCoroutine());
         }
 
-        void OnFightStarted()
-        {
-            DisplayGameInfo(new Label("Fight started!"));
-            if (CurrentTooltipDisplayer == null) return;
-            HideTooltip();
-        }
-
         void OnFightEnded()
         {
             VisualElement el = new();
             el.style.alignItems = Align.Center;
             el.Add(new Label("Fight won!"));
-            if (_fightManager.LastFight != null)
-            {
-                VisualElement container = new();
-                container.style.flexDirection = FlexDirection.Row;
-                Label l = new("Reward: ");
-                l.AddToClassList("common__text-primary");
-                container.Add(l);
-                container.Add(new GoldElement(_fightManager.LastFight.GetGoldReward()));
-                el.Add(container);
-            }
 
             DisplayGameInfo(el);
         }

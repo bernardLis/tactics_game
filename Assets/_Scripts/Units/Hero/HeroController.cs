@@ -112,9 +112,10 @@ namespace Lis.Units.Hero
         {
             StartTeleport();
             yield return new WaitForSeconds(0.5f);
-            transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
-            yield return new WaitForSeconds(0.5f);
-            EndTeleport();
+            GameManager.LoadScene("Map");
+            // transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
+            // yield return new WaitForSeconds(0.5f);
+            // EndTeleport();
         }
 
         void StartTeleport()
