@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using Lis.Battle.Arena;
 using Lis.Battle.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -41,7 +42,6 @@ namespace Lis.Battle
 
             Hero = hero;
             hero.InitializeBattle(0);
-            hero.OnLevelUp += OnHeroLevelUp;
 
             InitializeHeroGameObject(hero);
 
@@ -51,6 +51,8 @@ namespace Lis.Battle
             OnHeroInitialized?.Invoke(hero);
 
             Hero.OnTabletAdvancedAdded += OnTabletAdvancedAdded;
+            Hero.OnLevelUp += OnHeroLevelUp;
+
             if (hero.StartingAbility == null || _turnOffAbility) return;
             Hero.AddAbility(hero.StartingAbility);
         }
@@ -74,6 +76,9 @@ namespace Lis.Battle
         void OnHeroLevelUp()
         {
             _audioManager.CreateSound().WithSound(_levelUpSound).Play();
+            LevelUpRewardScreen levelUpScreen = new();
+            levelUpScreen.Initialize();
+
         }
 
         void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)

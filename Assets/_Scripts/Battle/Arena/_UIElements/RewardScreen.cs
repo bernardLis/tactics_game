@@ -254,10 +254,6 @@ namespace Lis.Battle.Arena
             VisualElement container = new();
             container.AddToClassList(_ussLevelUpAnimationContainer);
 
-            Label label = new("Fight Won!");
-            container.Add(label);
-            DOTween.To(x => label.style.fontSize = x, 22, 84, 0.5f).SetEase(Ease.OutBack).SetUpdate(true);
-
             AnimationElement anim = new(GameManager.GameDatabase.LevelUpAnimationSprites,
                 50, false);
             container.Add(anim);

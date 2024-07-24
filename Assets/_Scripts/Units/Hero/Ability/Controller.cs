@@ -54,6 +54,8 @@ namespace Lis.Units.Hero.Ability
             Ability = ability;
 
             _fightManager.OnFightEnded += StopAbility;
+            if (FightManager.IsFightActive)
+                StartAbility();
         }
 
         public void StartAbility()

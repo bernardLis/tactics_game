@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d75a305226331b44aba7692684d79a1, type: 3}
   m_Name: Arena Fire 0
   m_EditorClassIdentifier: 
-  Id: 045dd7a3-309a-404f-977e-946ce67c6ec6
-  Prefab: {fileID: 1525327832846669260, guid: 2ae4512e8fcbcb9408de9ab9bc1e520d, type: 3}
+  Id: 91918235-3211-4df7-9075-ec24f29854e2
+  Prefab: {fileID: 1525327832846669260, guid: dcc57fc048da8d7429c8414c871259ac, type: 3}
   Boss: {fileID: 0}
   Fights:
   - {fileID: 0}
