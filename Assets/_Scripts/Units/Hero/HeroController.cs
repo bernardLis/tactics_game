@@ -112,10 +112,10 @@ namespace Lis.Units.Hero
         {
             StartTeleport();
             yield return new WaitForSeconds(0.5f);
+            EndTeleport();
+            yield return new WaitForSeconds(0.5f);
+            Hero.FinishArena();
             GameManager.LoadScene("Map");
-            // transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
-            // yield return new WaitForSeconds(0.5f);
-            // EndTeleport();
         }
 
         void StartTeleport()
@@ -144,11 +144,9 @@ namespace Lis.Units.Hero
                     .WithPosition(transform.position)
                     .Play();
             }
-
-            _movementController.enabled = true;
-            _movementController.EnableMovement();
             TeleportEffect.transform.DOScale(0, 1f)
                 .OnComplete(() => TeleportEffect.SetActive(false));
+
         }
 
         [Button("Stop All Abilities")]

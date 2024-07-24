@@ -42,6 +42,7 @@ MonoBehaviour:
   CurrentAttack: {fileID: 0}
   Targeting: 0
   VisualHero: {fileID: 0}
+  CampPrefab: {fileID: 6752351998372094272, guid: 772d225704448f44da77c628e6544a1e, type: 3}
   TeleportStartSound: {fileID: 11400000, guid: 0e491253d0f96f14abb095e61168e48f, type: 2}
   TeleportEndSound: {fileID: 11400000, guid: 2ae987439961b19479798be0093ed8cf, type: 2}
   Pull: {fileID: 11400000, guid: 51ed9e601d6b49e4eab3d17db4dc27a8, type: 2}

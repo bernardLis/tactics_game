@@ -87,7 +87,6 @@ namespace Lis.Camp.Building
 
         void BuyPeasant()
         {
-            _barracksController.SpawnPeasant();
         }
 
         void AddUnlockNaturesButtons()

@@ -10,36 +10,16 @@ namespace Lis.Camp.Building
         Architect _architect;
         public new string InteractionPrompt => "Access Architect";
 
-
-        protected override void OnArenaInitialized()
+        protected override void Initialize()
         {
-            base.OnArenaInitialized();
-            Building = FightManager.Campaign.Architect;
+            base.Initialize();
+            Building = GameManager.Campaign.Architect;
             _architect = (Architect)Building;
-            OnFightEnded();
-            Initialize();
         }
 
-        protected override void OnFightEnded()
-        {
-            if (!_architect.IsUnlocked) return;
-            AllowInteraction();
-        }
-
-        protected override void OnFightStarted()
-        {
-            if (!_architect.IsUnlocked) return;
-            ForbidInteraction();
-        }
 
         public override bool Interact(Interactor interactor)
         {
-            if (FightManager.IsFightActive)
-            {
-                Debug.Log("Fight instead of shopping!");
-                return false;
-            }
-
             ArchitectScreen architectScreen = new();
             architectScreen.InitializeBuilding(_architect);
             return true;

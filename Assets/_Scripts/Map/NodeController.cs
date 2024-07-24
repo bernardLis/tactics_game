@@ -106,14 +106,14 @@ namespace Lis.Map
         public void Visited()
         {
             GameManager gm = GameManager.Instance;
-            gm.CurrentCampaign.SetCurrentHeroNode(Node);
+            gm.Campaign.SetCurrentHeroNode(Node);
 
             if (Node.IsVisited) return;
             Node.IsVisited = true;
             _visitedIcon.SetActive(false);
 
             if (Node.Arena == null) return;
-            gm.CurrentCampaign.SetCurrentArena(Node.Arena);
+            gm.Campaign.SetCurrentArena(Node.Arena);
             gm.LoadScene(Scenes.Arena);
         }
     }

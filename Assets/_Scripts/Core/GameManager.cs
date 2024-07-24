@@ -28,7 +28,7 @@ namespace Lis.Core
 
         public int Gold { get; private set; }
 
-        public Campaign CurrentCampaign { get; private set; }
+        public Campaign Campaign { get; private set; }
 
         public VisualElement Root { get; private set; }
 
@@ -57,8 +57,8 @@ namespace Lis.Core
 
             UpgradeBoard.Initialize();
 
-            CurrentCampaign = Instantiate(GameDatabase.SampleCampaign);
-            CurrentCampaign.Initialize(CurrentVisualHero); // TODO: normally only when starting a new game
+            Campaign = Instantiate(GameDatabase.SampleCampaign);
+            Campaign.Initialize(CurrentVisualHero); // TODO: normally only when starting a new game
         }
 
         public void ResetCurrentHero()
@@ -161,7 +161,7 @@ namespace Lis.Core
         public void StartGame()
         {
             Gold = 0;
-            CurrentCampaign.Initialize(CurrentVisualHero);
+            Campaign.Initialize(CurrentVisualHero);
 
             LoadScene(Scenes.Map);
         }

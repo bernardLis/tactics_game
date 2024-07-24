@@ -32,7 +32,7 @@ namespace Lis.Arena
 
             _loadingScreen = new();
             _fightManager = FightManager.Instance;
-            _fightManager.Initialize(_gameManager.CurrentCampaign);
+            _fightManager.Initialize(_gameManager.Campaign);
             Time.timeScale = 1;
 
             StartCoroutine(DelayedStart());
@@ -42,13 +42,13 @@ namespace Lis.Arena
         IEnumerator DelayedStart()
         {
             yield return new WaitForSeconds(0.5f);
-            Instantiate(_gameManager.CurrentCampaign.CurrentArena.Prefab, Vector3.zero, Quaternion.identity);
+            Instantiate(_gameManager.Campaign.CurrentArena.Prefab, Vector3.zero, Quaternion.identity);
             ArenaManager.Instance.Initialize();
             yield return new WaitForSeconds(0.5f);
 
             HeroManager heroManager = GetComponent<HeroManager>();
             heroManager.enabled = true;
-            heroManager.Initialize(_gameManager.CurrentCampaign.SelectedHero);
+            heroManager.Initialize(_gameManager.Campaign.Hero);
             SetThemeStyleSheet();
 
             yield return new WaitForSeconds(0.5f);

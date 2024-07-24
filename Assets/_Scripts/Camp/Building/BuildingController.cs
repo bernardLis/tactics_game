@@ -1,6 +1,4 @@
 using System;
-using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
@@ -11,27 +9,20 @@ namespace Lis.Camp.Building
 {
     public class BuildingController : MonoBehaviour, IInteractable
     {
+        protected GameManager GameManager;
         [SerializeField] GameObject _unlockedGfx;
         [SerializeField] GameObject _unlockedEffect;
 
         [SerializeField] protected GameObject InteractionAvailableEffect;
-        TooltipManager _tooltipManager;
 
         protected Building Building;
-        protected FightManager FightManager;
 
         protected bool IsInteractionAvailable;
 
         protected virtual void Start()
         {
-            FightManager = FightManager.Instance;
-            FightManager.OnFightEnded += OnFightEnded;
-            FightManager.OnFightStarted += OnFightStarted;
-
-            _tooltipManager = TooltipManager.Instance;
-
-            ArenaInitializer.Instance.OnArenaInitialized += OnArenaInitialized;
-            if (FightManager.IsTimerOn) OnArenaInitialized();
+            GameManager = GameManager.Instance;
+            Initialize();
         }
 
         public string InteractionPrompt => "Something";
@@ -46,23 +37,8 @@ namespace Lis.Camp.Building
             throw new NotImplementedException();
         }
 
-        protected virtual void OnArenaInitialized()
+        protected virtual void Initialize()
         {
-        }
-
-        protected virtual void OnFightEnded()
-        {
-        }
-
-        protected virtual void OnFightStarted()
-        {
-        }
-
-        protected void Initialize()
-        {
-            _unlockedGfx.SetActive(Building.IsUnlocked);
-
-            Building.OnUnlocked += Unlock;
         }
 
         protected virtual void AllowInteraction()
@@ -80,9 +56,7 @@ namespace Lis.Camp.Building
         protected virtual void Unlock()
         {
             if (this == null) return;
-            _tooltipManager.DisplayGameInfo(
-                new Label($" {Helpers.ParseScriptableObjectName(Building.name)} unlocked!"));
-            _unlockedEffect.SetActive(true);
+            if (_unlockedEffect != null) _unlockedEffect.SetActive(true);
             _unlockedGfx.SetActive(true);
         }
     }

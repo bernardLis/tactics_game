@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Map.unity
     guid: 34d99a841ec53fa4890f17237651d2b2
   - enabled: 1
+    path: Assets/Scenes/Camp.unity
+    guid: dbab913d855212947b47f2e6614d8fea
+  - enabled: 1
     path: Assets/Scenes/Arena.unity
     guid: 94b93fe9ca47dc2409ee943b36f2c8ff
   m_configObjects:

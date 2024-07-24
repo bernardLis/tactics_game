@@ -10,6 +10,16 @@ namespace Lis.Camp.Building
         Shop _shop;
         public new string InteractionPrompt => "Shop";
 
+        protected override void Initialize()
+        {
+            base.Initialize();
+            Building = GameManager.Campaign.Shop;
+            _shop = (Shop)Building;
+            AllowInteraction();
+            _shop.ShouldReset = true;
+
+        }
+
         public override bool Interact(Interactor interactor)
         {
             if (FightManager.IsFightActive)
@@ -21,34 +31,6 @@ namespace Lis.Camp.Building
             ShopScreen shopScreen = new();
             shopScreen.InitializeShop(_shop);
             return true;
-        }
-
-        protected override void OnArenaInitialized()
-        {
-            base.OnArenaInitialized();
-            Building = FightManager.Campaign.Shop;
-            _shop = (Shop)Building;
-            OnFightEnded();
-            Initialize();
-        }
-
-        protected override void OnFightEnded()
-        {
-            if (!_shop.IsUnlocked) return;
-            AllowInteraction();
-            _shop.ShouldReset = true;
-        }
-
-        protected override void OnFightStarted()
-        {
-            if (!_shop.IsUnlocked) return;
-            ForbidInteraction();
-        }
-
-        protected override void Unlock()
-        {
-            base.Unlock();
-            OnFightEnded();
         }
     }
 }

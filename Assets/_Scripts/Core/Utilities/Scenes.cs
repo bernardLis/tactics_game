@@ -9,6 +9,6 @@ namespace Lis.Core.Utilities
         public static string Map => "Map";
 
         public static string Arena => "Arena";
-
+        public static string Camp => "Camp";
     }
 }

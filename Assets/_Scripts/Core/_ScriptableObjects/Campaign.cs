@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Lis.Camp.Building;
 using Lis.Units.Hero;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Lis.Core
 {
@@ -15,7 +16,7 @@ namespace Lis.Core
 
         public Map Map;
 
-        [HideInInspector] public Hero SelectedHero;
+        [HideInInspector] public Hero Hero;
 
         [HideInInspector] public MapNode CurrentHeroNode;
         [HideInInspector] public Arena CurrentArena;
@@ -60,11 +61,11 @@ namespace Lis.Core
                 vh.RandomizeOutfit();
             }
 
-            SelectedHero = Instantiate(vh.BodyType == 0
+            Hero = Instantiate(vh.BodyType == 0
                 ? GameManager.Instance.UnitDatabase.FemaleHero
                 : GameManager.Instance.UnitDatabase.MaleHero);
 
-            SelectedHero.InitializeHero(vh);
+            Hero.InitializeHero(vh);
         }
 
         void InstantiateBuildings()

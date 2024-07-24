@@ -489,173 +489,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Map"",
-            ""id"": ""52689efb-2f61-459e-be0d-c3295741552a"",
-            ""actions"": [
-                {
-                    ""name"": ""PlayerMovement"",
-                    ""type"": ""Value"",
-                    ""id"": ""00802c3e-7b85-4ca2-8387-9d330e0a2c85"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Space"",
-                    ""type"": ""Button"",
-                    ""id"": ""89894572-8bee-4e12-818a-13a5918ad090"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ZoomCamera"",
-                    ""type"": ""Value"",
-                    ""id"": ""36bd0afb-764e-452d-ab8f-291dd35b5b7c"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""bd59a1c3-ec47-4cf2-b8ff-54a866bd458b"",
-                    ""path"": ""2DVector(mode=1)"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""b284713d-741a-48ce-9e67-9afd56c66600"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""acdee3e3-0e9c-40de-a8bb-4983191614ef"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""40ec8937-9516-4707-8101-fcdd2ac3057e"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""07d2ffd0-c443-4322-ad9f-140ebffcd6a0"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""d5a155fd-fea8-4fa0-abf2-eddfa21d51b5"",
-                    ""path"": ""2DVector(mode=1)"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""ad512bd2-5c70-49c5-90d4-c5a71d9f720a"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""80957381-f53c-47ad-8e01-ee1522791b8f"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""6a8c58cd-0669-4546-ba1e-68c53a0ad670"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""ece628e4-4fff-489b-89ac-e8e45da1d5a9"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerMovement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""278fb874-7762-42c5-bdc5-57396eacf587"",
-                    ""path"": ""<Mouse>/scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""ZoomCamera"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c597d1ca-4222-46ec-a7e6-e9aad827f34d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Space"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -697,11 +530,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Arena__2 = m_Arena.FindAction("2", throwIfNotFound: true);
         m_Arena__3 = m_Arena.FindAction("3", throwIfNotFound: true);
         m_Arena__4 = m_Arena.FindAction("4", throwIfNotFound: true);
-        // Map
-        m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
-        m_Map_PlayerMovement = m_Map.FindAction("PlayerMovement", throwIfNotFound: true);
-        m_Map_Space = m_Map.FindAction("Space", throwIfNotFound: true);
-        m_Map_ZoomCamera = m_Map.FindAction("ZoomCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -941,68 +769,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         }
     }
     public ArenaActions @Arena => new ArenaActions(this);
-
-    // Map
-    private readonly InputActionMap m_Map;
-    private List<IMapActions> m_MapActionsCallbackInterfaces = new List<IMapActions>();
-    private readonly InputAction m_Map_PlayerMovement;
-    private readonly InputAction m_Map_Space;
-    private readonly InputAction m_Map_ZoomCamera;
-    public struct MapActions
-    {
-        private @InputMaster m_Wrapper;
-        public MapActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PlayerMovement => m_Wrapper.m_Map_PlayerMovement;
-        public InputAction @Space => m_Wrapper.m_Map_Space;
-        public InputAction @ZoomCamera => m_Wrapper.m_Map_ZoomCamera;
-        public InputActionMap Get() { return m_Wrapper.m_Map; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MapActions set) { return set.Get(); }
-        public void AddCallbacks(IMapActions instance)
-        {
-            if (instance == null || m_Wrapper.m_MapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_MapActionsCallbackInterfaces.Add(instance);
-            @PlayerMovement.started += instance.OnPlayerMovement;
-            @PlayerMovement.performed += instance.OnPlayerMovement;
-            @PlayerMovement.canceled += instance.OnPlayerMovement;
-            @Space.started += instance.OnSpace;
-            @Space.performed += instance.OnSpace;
-            @Space.canceled += instance.OnSpace;
-            @ZoomCamera.started += instance.OnZoomCamera;
-            @ZoomCamera.performed += instance.OnZoomCamera;
-            @ZoomCamera.canceled += instance.OnZoomCamera;
-        }
-
-        private void UnregisterCallbacks(IMapActions instance)
-        {
-            @PlayerMovement.started -= instance.OnPlayerMovement;
-            @PlayerMovement.performed -= instance.OnPlayerMovement;
-            @PlayerMovement.canceled -= instance.OnPlayerMovement;
-            @Space.started -= instance.OnSpace;
-            @Space.performed -= instance.OnSpace;
-            @Space.canceled -= instance.OnSpace;
-            @ZoomCamera.started -= instance.OnZoomCamera;
-            @ZoomCamera.performed -= instance.OnZoomCamera;
-            @ZoomCamera.canceled -= instance.OnZoomCamera;
-        }
-
-        public void RemoveCallbacks(IMapActions instance)
-        {
-            if (m_Wrapper.m_MapActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IMapActions instance)
-        {
-            foreach (var item in m_Wrapper.m_MapActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_MapActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public MapActions @Map => new MapActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1032,11 +798,5 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);
         void On_4(InputAction.CallbackContext context);
-    }
-    public interface IMapActions
-    {
-        void OnPlayerMovement(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
-        void OnZoomCamera(InputAction.CallbackContext context);
     }
 }

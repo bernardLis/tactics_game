@@ -27,7 +27,7 @@ namespace Lis.Map
         void Start()
         {
             _mainCamera = CameraController.Instance;
-            InitializeHeroGameObject(GameManager.Instance.CurrentCampaign.SelectedHero);
+            InitializeHeroGameObject(GameManager.Instance.Campaign.Hero);
         }
 
         void InitializeHeroGameObject(Hero hero)

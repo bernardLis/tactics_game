@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Lis.Core;
-using Lis.HeroCreation;
 using Lis.Units.Hero.Ability;
 using Lis.Units.Hero.Items;
 using Lis.Units.Hero.Tablets;
 using Lis.Upgrades;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Units.Hero
 {
@@ -16,6 +14,8 @@ namespace Lis.Units.Hero
     {
         [Header("Visuals")]
         public VisualHero VisualHero;
+
+        public GameObject CampPrefab;
 
         [Header("Hero Sounds")]
         public Sound TeleportStartSound;
@@ -29,6 +29,7 @@ namespace Lis.Units.Hero
         public Stat MaxStamina;
 
         public FloatVariable CurrentStamina { get; private set; }
+
 
         [HideInInspector] public List<Unit> Army = new();
 
@@ -323,6 +324,17 @@ namespace Lis.Units.Hero
             // TODO: price hero tablets
             return points;
         }
+
+        public void FinishArena()
+        {
+            Abilities.Clear();
+            AdvancedAbilities.Clear();
+
+            Experience.SetValue(0);
+            Level.SetValue(1);
+            ExpForNextLevel.SetValue(GetExpForNextLevel());
+        }
+
 
         /* SERIALIZATION */
         public new HeroData SerializeSelf()

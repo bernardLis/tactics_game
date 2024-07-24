@@ -10,6 +10,14 @@ namespace Lis.Camp.Building
         int _rewardsAvailable;
         public new string InteractionPrompt => "Collect Reward";
 
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            _rewardsAvailable = 0;
+            Building = GameManager.Instance.Campaign.RewardCollector;
+        }
+
         public override bool Interact(Interactor interactor)
         {
             if (!IsInteractionAvailable)
@@ -24,21 +32,6 @@ namespace Lis.Camp.Building
             if (_rewardsAvailable == 0)
                 ForbidInteraction();
             return true;
-        }
-
-        protected override void OnArenaInitialized()
-        {
-            base.OnArenaInitialized();
-            _rewardsAvailable = 0;
-            Building = FightManager.Campaign.RewardCollector;
-            Initialize();
-        }
-
-        protected override void OnFightEnded()
-        {
-            if (!Building.IsUnlocked) return;
-            AllowInteraction();
-            _rewardsAvailable++;
         }
     }
 }

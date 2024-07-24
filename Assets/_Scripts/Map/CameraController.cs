@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using Cinemachine;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -43,7 +43,8 @@ namespace Lis.Map
                 _gameManager = GameManager.Instance;
 
             _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _playerInput.SwitchCurrentActionMap("Map");
+            _playerInput.SwitchCurrentActionMap("Arena");
+
             UnsubscribeInputActions();
             SubscribeInputActions();
         }
@@ -90,7 +91,6 @@ namespace Lis.Map
         /* MOVE */
         void ArrowMovement(InputAction.CallbackContext context)
         {
-            Debug.Log("ArrowMovement");
             _followTransform.StopFollowingPlayer();
 
             Vector3 inputValue = context.ReadValue<Vector2>();

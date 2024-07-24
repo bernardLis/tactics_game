@@ -19,11 +19,6 @@ namespace Lis.Camp.Building
             CreateInvestments();
         }
 
-        public void InitializeFight()
-        {
-            FightManager.Instance.OnFightEnded += CreateInvestments;
-        }
-
         void CreateInvestments()
         {
             AvailableInvestments.Clear();

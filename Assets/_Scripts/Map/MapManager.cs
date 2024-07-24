@@ -2,6 +2,7 @@
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Lis.Map
 {
@@ -20,10 +21,16 @@ namespace Lis.Map
         {
             _playerController = PlayerController.Instance;
 
-            _campaign = GameManager.Instance.CurrentCampaign;
+            _campaign = GameManager.Instance.Campaign;
             _map = _campaign.Map;
 
             SetUpMap();
+
+            VisualElement container =
+                GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("campButtonContainer");
+
+            container.Add(
+                new MyButton("Go To Camp", "common__button", () => GameManager.Instance.LoadScene(Scenes.Camp)));
         }
 
         void SetUpMap()
