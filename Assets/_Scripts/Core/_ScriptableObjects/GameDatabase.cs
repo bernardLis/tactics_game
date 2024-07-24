@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,7 +9,7 @@ namespace Lis.Core
 {
     public class GameDatabase : BaseScriptableObject
     {
-        [Header("Battle")] public Battle.Battle SampleBattle;
+        [FormerlySerializedAs("SampleBattle")] [Header("Battle")] public Campaign SampleCampaign;
 
         [Header("Shaders")] public Shader LitShader;
         public Shader ParticlesUnlitShader;

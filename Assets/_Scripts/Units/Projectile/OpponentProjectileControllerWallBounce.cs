@@ -1,4 +1,4 @@
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -9,8 +9,8 @@ namespace Lis.Units.Projectile
         protected override void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.layer == Tags.UnpassableLayer ||
-                collision.gameObject.layer == Tags.BattleFloorLayer ||
-                collision.gameObject.layer == Tags.BattleInteractableLayer)
+                collision.gameObject.layer == Tags.ArenaFloorLayer ||
+                collision.gameObject.layer == Tags.ArenaInteractableLayer)
             {
                 Bounce(collision.contacts[0].normal);
                 return;

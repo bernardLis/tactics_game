@@ -8,7 +8,7 @@ namespace Lis.Core.Utilities
 
         public static string Map => "Map";
 
-        public static string Battle => "Battle";
+        public static string Arena => "Arena";
 
     }
 }

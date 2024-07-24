@@ -43,7 +43,7 @@ namespace Lis.Map
                 _gameManager = GameManager.Instance;
 
             _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _playerInput.SwitchCurrentActionMap("Battle");
+            _playerInput.SwitchCurrentActionMap("Map");
             UnsubscribeInputActions();
             SubscribeInputActions();
         }

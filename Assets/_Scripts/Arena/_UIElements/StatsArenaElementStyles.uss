@@ -1,0 +1,31 @@
+.stats-arena-element__main {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    background-image: none;
+}
+
+.stats-arena-element__panel {
+    height: 100%;
+    align-items: flex-start;
+}
+
+.stats-arena-element__creature-container {
+    max-width: 300px;
+    align-items: flex-start;
+}
+
+.stats-arena-element__creature-label {
+    -unity-text-align: middle-left;
+}
+
+.stats-arena-element__creature-icon {
+    flex-grow: 1;
+    width: 25px;
+    height: 25px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}

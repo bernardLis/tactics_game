@@ -1,7 +1,7 @@
 ﻿using System;
 using DG.Tweening;
-using Lis.Battle;
-using Lis.Battle.Fight;
+using Lis.Arena;
+using Lis.Arena.Fight;
 using Lis.Units.Hero;
 using NaughtyAttributes;
 using UnityEngine;
@@ -36,7 +36,6 @@ namespace Lis.Units
             grab.OnReleased += OnReleased;
 
             HeroController = HeroManager.Instance.HeroController;
-            HeroController.OnTeleportedToBase += TeleportToBase;
         }
 
         public override void OnFightStarted()
@@ -75,7 +74,7 @@ namespace Lis.Units
             StartCoroutine(CurrentMainCoroutine);
         }
 
-        public virtual void TeleportToBase()
+        public virtual void TeleportToMap()
         {
             if (this == null) return;
             if (IsDead) return;

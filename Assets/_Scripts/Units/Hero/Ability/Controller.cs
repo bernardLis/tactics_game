@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle;
-using Lis.Battle.Arena;
-using Lis.Battle.Fight;
+using Lis.Arena;
+using Lis.Arena.Fight;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,7 +18,6 @@ namespace Lis.Units.Hero.Ability
         public Ability Ability;
 
         readonly List<ObjectController> _abilityObjectPool = new();
-        FightManager _fightManager;
         IEnumerator _fireAbilityCoroutine;
         HeroManager _heroManager;
         IEnumerator _runAbilityCoroutine;
@@ -28,9 +26,10 @@ namespace Lis.Units.Hero.Ability
 
         Camera _cam;
         Mouse _mouse;
+
+        protected FightManager FightManager;
         protected ArenaManager ArenaManager;
         protected AudioManager AudioManager;
-        protected BattleManager BattleManager;
 
         protected HeroController HeroController;
         protected OpponentTracker OpponentTracker;
@@ -41,19 +40,18 @@ namespace Lis.Units.Hero.Ability
             _mouse = Mouse.current;
 
             AudioManager = AudioManager.Instance;
-            BattleManager = BattleManager.Instance;
-            ArenaManager = BattleManager.GetComponent<ArenaManager>();
-            _heroManager = BattleManager.GetComponent<HeroManager>();
-            _fightManager = BattleManager.GetComponent<FightManager>();
+            FightManager = FightManager.Instance;
+            ArenaManager = FightManager.GetComponent<ArenaManager>();
+            _heroManager = FightManager.GetComponent<HeroManager>();
 
-            AbilityObjectParent = BattleManager.AbilityHolder;
+            AbilityObjectParent = FightManager.AbilityHolder;
 
             HeroController = _heroManager.HeroController;
             OpponentTracker = HeroController.GetComponentInChildren<OpponentTracker>();
 
             Ability = ability;
 
-            _fightManager.OnFightEnded += StopAbility;
+            FightManager.OnFightEnded += StopAbility;
             if (FightManager.IsFightActive)
                 StartAbility();
         }
@@ -93,14 +91,14 @@ namespace Lis.Units.Hero.Ability
         protected Vector3 GetRandomEnemyDirection()
         {
             Vector3 rand;
-            if (_fightManager.EnemyUnits.Count == 0)
+            if (FightManager.EnemyUnits.Count == 0)
             {
                 rand = Random.insideUnitCircle;
                 rand = new(rand.x, 0, rand.y);
                 return rand.normalized;
             }
 
-            rand = _fightManager.GetRandomEnemyPosition() - transform.position;
+            rand = FightManager.GetRandomEnemyPosition() - transform.position;
             rand.y = 0;
             return rand.normalized;
         }

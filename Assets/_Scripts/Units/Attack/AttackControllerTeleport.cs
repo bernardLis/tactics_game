@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using Lis.Battle;
-using Lis.Battle.Arena;
+using Lis.Arena;
+using Lis.Arena.Fight;
 using UnityEngine;
 
 namespace Lis.Units.Attack
@@ -16,7 +16,7 @@ namespace Lis.Units.Attack
             base.Initialize(unitController, attack);
             _arenaController = ArenaController.Instance;
             _effectInstance = Instantiate(_effect, transform.position, Quaternion.identity,
-                BattleManager.Instance.EntityHolder);
+                FightManager.Instance.EffectHolder);
         }
 
         public override IEnumerator AttackCoroutine()

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle;
+using Lis.Arena;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
@@ -55,7 +55,7 @@ namespace Lis.Units.Boss
             if (newSpeed <= 0) newSpeed = 1f;
             UnitPathingController.SetSpeed(newSpeed);
 
-            BattleManager.GetComponent<TooltipManager>().ShowBossHealthBar(this);
+            TooltipManager.Instance.ShowBossHealthBar(this);
 
             InitializeAttacks();
             RunUnit();
@@ -221,7 +221,7 @@ namespace Lis.Units.Boss
         protected override IEnumerator DieCoroutine(Attack.Attack attack = null, bool hasLoot = true)
         {
             StopUnit();
-            BattleManager.WinBattle();
+            FightManager.WinArena();
 
             yield return null;
         }

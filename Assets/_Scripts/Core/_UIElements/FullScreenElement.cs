@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Lis.Battle;
+using Lis.Arena.Fight;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,7 +17,7 @@ namespace Lis.Core
         const string _ussCommonFullScreenUtilityContainer = "common__full-screen-utility-container";
 
         readonly Label _titleLabel;
-        protected readonly BattleManager BattleManager;
+        protected readonly FightManager FightManager;
         protected readonly VisualElement Content;
         protected readonly VisualElement UtilityContainer;
 
@@ -31,7 +31,7 @@ namespace Lis.Core
         protected FullScreenElement()
         {
             GameManager = GameManager.Instance;
-            BattleManager = BattleManager.Instance;
+            FightManager = FightManager.Instance;
 
             StyleSheet commonStyles = GameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.CommonStyles);
@@ -40,7 +40,7 @@ namespace Lis.Core
             ResolveRoot();
 
             GameManager.OpenFullScreens.Add(this);
-            if (BattleManager != null) BattleManager.PauseGame();
+            if (FightManager != null) FightManager.PauseGame();
 
             AddToClassList(_ussCommonFullScreenMain);
             AddToClassList(_ussCommonTextPrimary);
@@ -76,7 +76,7 @@ namespace Lis.Core
         void ResolveRoot()
         {
             _root = GameManager.Root;
-            if (BattleManager != null) _root = BattleManager.Root;
+            if (FightManager != null) _root = FightManager.Root;
 
             _root.Add(this);
         }
@@ -138,7 +138,7 @@ namespace Lis.Core
 
                     GameManager.OpenFullScreens.Remove(this);
                     if (GameManager.OpenFullScreens.Count > 0) GameManager.OpenFullScreens[^1].Focus();
-                    else if (BattleManager != null) BattleManager.ResumeGame();
+                    else if (FightManager != null) FightManager.ResumeGame();
 
                     SetEnabled(false);
                     RemoveFromHierarchy();

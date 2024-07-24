@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Lis.Battle;
-using Lis.Battle.Arena;
-using Lis.Battle.Fight;
-using Lis.Battle.Pickup;
+using Lis.Arena;
+using Lis.Arena.Fight;
+using Lis.Arena.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Attack;
@@ -47,7 +46,6 @@ namespace Lis.Units
         protected PickupManager PickupManager;
         Color _shieldColor;
         protected AudioManager AudioManager;
-        protected BattleManager BattleManager;
         protected FightManager FightManager;
 
         protected GameManager GameManager;
@@ -73,10 +71,9 @@ namespace Lis.Units
         {
             GameManager = GameManager.Instance;
             AudioManager = AudioManager.Instance;
-            BattleManager = BattleManager.Instance;
-            PickupManager = BattleManager.GetComponent<PickupManager>();
-            FightManager = BattleManager.GetComponent<FightManager>();
-            ArenaManager = BattleManager.GetComponent<ArenaManager>();
+            FightManager = FightManager.Instance;
+            ArenaManager = ArenaManager.Instance;
+            PickupManager = FightManager.GetComponent<PickupManager>();
 
             _healthColor = GameManager.GameDatabase.GetColorByName("Health").Primary;
             _shieldColor = GameManager.GameDatabase.GetColorByName("Water").Primary;
@@ -317,7 +314,6 @@ namespace Lis.Units
         public IEnumerator GetHit(Attack.Attack attack)
         {
             if (IsDead) yield break;
-            if (BattleManager == null) yield break;
 
             AddToLog($"Unit gets attacked by {attack.name}");
 
@@ -454,8 +450,8 @@ namespace Lis.Units
 
         public void AddToLog(string s)
         {
-            if (BattleManager == null) return;
-            UnitLog.Add($"{BattleManager.GetTime()}: {s}.");
+            if (FightManager == null) return;
+            UnitLog.Add($"{FightManager.GetTime()}: {s}.");
         }
 
         public void DisableSelf()

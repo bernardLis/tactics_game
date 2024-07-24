@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Lis.Battle;
-using Lis.Battle.Fight;
-using Lis.Battle.Pickup;
+using Lis.Arena;
+using Lis.Arena.Fight;
+using Lis.Arena.Pickup;
 using Lis.Units;
 using NaughtyAttributes;
 using UnityEngine;
@@ -18,7 +18,6 @@ namespace Lis.Other
         public int FightsLost;
 
         public List<TestFight> Tests = new();
-        BattleManager _battleManager;
         BreakableVaseManager _breakableVaseManager;
 
         float _currentFightStartTime;
@@ -27,14 +26,13 @@ namespace Lis.Other
 
         void Start()
         {
-            _battleManager = BattleManager.Instance;
             _tooltipManager = TooltipManager.Instance;
             _fightManager = FightManager.Instance;
-            _breakableVaseManager = _battleManager.GetComponent<BreakableVaseManager>();
-            BattleInitializer.Instance.OnBattleInitialized += OnBattleInitialized;
+            _breakableVaseManager = _fightManager.GetComponent<BreakableVaseManager>();
+            ArenaInitializer.Instance.OnArenaInitialized += OnArenaInitialized;
         }
 
-        void OnBattleInitialized()
+        void OnArenaInitialized()
         {
             _tooltipManager.DisplayGameInfo(new Label("Unit tests engaged..."));
             Time.timeScale = 3f;
@@ -85,7 +83,7 @@ namespace Lis.Other
 
             yield return new WaitForSeconds(1f);
 
-            _currentFightStartTime = _battleManager.GetTime();
+            _currentFightStartTime = _fightManager.GetTime();
             _fightManager.DebugStartFight();
         }
 
@@ -94,7 +92,7 @@ namespace Lis.Other
         {
             if (Tests.Count == 0) return;
             TestFight test = Tests.Last();
-            test.FightDuration = (int)(_battleManager.GetTime() - _currentFightStartTime);
+            test.FightDuration = (int)(_fightManager.GetTime() - _currentFightStartTime);
             bool pw = _fightManager.PlayerUnits.Count > 0;
             test.PlayerWon = pw;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using Lis.Battle;
-using Lis.Battle.Pickup;
+using Lis.Arena;
+using Lis.Arena.Pickup;
 using Lis.Core;
 using Lis.Units.Pawn;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace Lis.Units.Peasant
         {
             base.InitializeUnit(unit, team);
             _peasant = (Peasant)unit;
-            _breakableVaseManager = BattleManager.GetComponent<BreakableVaseManager>();
+            _breakableVaseManager = FightManager.GetComponent<BreakableVaseManager>();
 
             _peasant.OnUpgraded += OnPeasantUpgraded;
         }
@@ -59,7 +59,7 @@ namespace Lis.Units.Peasant
         IEnumerator PeasantUpgradeCoroutine(Nature nature)
         {
             Pawn.Pawn p = Instantiate(GameManager.UnitDatabase.GetPawnByNature(nature));
-            p.InitializeBattle(0);
+            p.InitializeFight(0);
 
             _upgradeEffect.gameObject.SetActive(true);
             _upgradeEffect.Play(nature);

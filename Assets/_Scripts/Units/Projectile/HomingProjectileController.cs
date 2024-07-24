@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle;
-using Lis.Battle.Fight;
+using Lis.Arena.Fight;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 
@@ -12,7 +11,6 @@ namespace Lis.Units.Projectile
         [SerializeField] float _rotateSpeed = 0.5f;
 
         Ability _ability;
-        BattleManager _battleManager;
 
         float _endTime;
         FightManager _fightManager;
@@ -27,8 +25,7 @@ namespace Lis.Units.Projectile
         {
             base.Initialize(team, attack);
 
-            _battleManager = BattleManager.Instance;
-            _fightManager = _battleManager.GetComponent<FightManager>();
+            _fightManager = _fightManager.GetComponent<FightManager>();
             _rb = GetComponent<Rigidbody>();
         }
 
@@ -87,22 +84,22 @@ namespace Lis.Units.Projectile
             yield return new WaitForSeconds(timeInSeconds);
         }
 
-        UnitController GetClosestEntity(List<UnitController> battleEntities)
+        UnitController GetClosestEntity(List<UnitController> units)
         {
             float minDistance = Mathf.Infinity;
-            UnitController closestEntity = null;
-            foreach (UnitController entity in battleEntities)
+            UnitController closestUnit = null;
+            foreach (UnitController unit in units)
             {
-                Vector3 delta = entity.transform.position - transform.position;
+                Vector3 delta = unit.transform.position - transform.position;
                 float sqrDistance = delta.sqrMagnitude;
                 if (sqrDistance < minDistance)
                 {
                     minDistance = sqrDistance;
-                    closestEntity = entity;
+                    closestUnit = unit;
                 }
             }
 
-            return closestEntity;
+            return closestUnit;
         }
     }
 }

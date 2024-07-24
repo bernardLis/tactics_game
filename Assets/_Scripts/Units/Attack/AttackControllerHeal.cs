@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle.Fight;
+using Lis.Arena.Fight;
 using UnityEngine;
 
 namespace Lis.Units.Attack

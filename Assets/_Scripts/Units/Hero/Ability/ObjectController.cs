@@ -1,5 +1,5 @@
 using System.Collections;
-using Lis.Battle;
+using Lis.Arena.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace Lis.Units.Hero.Ability
         protected AudioManager AudioManager;
 
         protected SoundEmitter SoundEmitter;
-        protected BattleManager BattleManager;
+        protected FightManager FightManager;
 
         void OnDestroy()
         {
@@ -26,9 +26,9 @@ namespace Lis.Units.Hero.Ability
             Ability = ability;
             Ability.OnLevelUp += OnAbilityLevelUp;
 
-            BattleManager = BattleManager.Instance;
-            BattleManager.OnGamePaused += OnGamePaused;
-            BattleManager.OnGameResumed += OnGameResumed;
+            FightManager = FightManager.Instance;
+            FightManager.OnGamePaused += OnGamePaused;
+            FightManager.OnGameResumed += OnGameResumed;
         }
 
         protected virtual void OnGamePaused()

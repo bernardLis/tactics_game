@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
@@ -40,8 +40,8 @@ namespace Lis.Units.Projectile
             if (IsHitConnected) return;
 
             if (collision.gameObject.layer == Tags.UnpassableLayer ||
-                collision.gameObject.layer == Tags.BattleInteractableLayer ||
-                collision.gameObject.layer == Tags.BattleFloorLayer)
+                collision.gameObject.layer == Tags.ArenaInteractableLayer ||
+                collision.gameObject.layer == Tags.ArenaFloorLayer)
             {
                 CollideWithUnpassable(collision);
                 return;

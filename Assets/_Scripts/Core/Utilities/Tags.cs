@@ -15,7 +15,7 @@ namespace Lis.Core.Utilities
         }
 
 
-        public static int BattleFloorLayer
+        public static int ArenaFloorLayer
         {
             get => 6;
             private set { }
@@ -27,7 +27,7 @@ namespace Lis.Core.Utilities
             private set { }
         }
 
-        public static int BattleInteractableLayer
+        public static int ArenaInteractableLayer
         {
             get => 9;
             private set { }

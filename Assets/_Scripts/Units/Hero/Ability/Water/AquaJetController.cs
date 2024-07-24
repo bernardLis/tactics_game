@@ -40,7 +40,7 @@ namespace Lis.Units.Hero.Ability
         HomingProjectileController InitializeProjectile()
         {
             GameObject instance = Instantiate(_projectilePrefab, Vector3.zero, Quaternion.identity,
-                BattleManager.AbilityHolder);
+                FightManager.AbilityHolder);
             instance.SetActive(true);
 
             HomingProjectileController homingProjectileController = instance.GetComponent<HomingProjectileController>();

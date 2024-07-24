@@ -49,7 +49,7 @@ namespace Lis.Other
                 if (random == 0)
                 {
                     Peasant instance = Instantiate(peasant);
-                    instance.InitializeBattle(0);
+                    instance.InitializeFight(0);
                     pointsLeft -= 100;
                     PlayerArmy.Add(instance);
                     continue;
@@ -63,7 +63,7 @@ namespace Lis.Other
 
                 pointsLeft -= upgrade.Price;
                 Pawn newPawn = Instantiate(pawn);
-                newPawn.InitializeBattle(0);
+                newPawn.InitializeFight(0);
                 newPawn.SetUpgrade(upgradeIndex);
                 PlayerArmy.Add(newPawn);
             }
@@ -85,7 +85,7 @@ namespace Lis.Other
 
                 pointsLeft -= enemy.Price;
                 Enemy newEnemy = Instantiate(enemy);
-                newEnemy.InitializeBattle(1);
+                newEnemy.InitializeFight(1);
                 EnemyArmy.Add(newEnemy);
             }
         }

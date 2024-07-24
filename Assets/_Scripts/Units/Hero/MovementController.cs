@@ -1,8 +1,8 @@
 using System.Collections;
 using Cinemachine;
 using DG.Tweening;
-using Lis.Battle;
-using Lis.Battle.Fight;
+using Lis.Arena;
+using Lis.Arena.Fight;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,7 +31,7 @@ namespace Lis.Units.Hero
         // animation IDs
         int _animVelocityX;
         int _animVelocityZ;
-        BattleManager _battleManager;
+        FightManager _fightManager;
         Camera _cam;
         CinemachineVirtualCamera _cinemachineVirtualCamera;
         CharacterController _controller;
@@ -69,11 +69,11 @@ namespace Lis.Units.Hero
             _mouse = Mouse.current;
             _gameManager = GameManager.Instance;
 
-            _battleManager = BattleManager.Instance;
-            _battleManager.OnGamePaused += () => _disableUpdate = true;
-            _battleManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
+            _fightManager = FightManager.Instance;
+            _fightManager.OnGamePaused += () => _disableUpdate = true;
+            _fightManager.OnGameResumed += () => StartCoroutine(DelayedStart(0.1f));
 
-            _cinemachineVirtualCamera = _battleManager.GetComponent<HeroManager>().HeroFollowCamera;
+            _cinemachineVirtualCamera = HeroManager.Instance.HeroFollowCamera;
             _targetZoom = _cinemachineVirtualCamera.m_Lens.FieldOfView;
 
             _animator = GetComponentInChildren<Animator>();
@@ -117,7 +117,7 @@ namespace Lis.Units.Hero
                 _gameManager = GameManager.Instance;
 
             _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _playerInput.SwitchCurrentActionMap("Battle");
+            _playerInput.SwitchCurrentActionMap("Arena");
             UnsubscribeInputActions();
             SubscribeInputActions();
         }
@@ -342,7 +342,7 @@ namespace Lis.Units.Hero
         void ZoomCamera(InputAction.CallbackContext ctx)
         {
             // check if mouse is over UI
-            if (!_battleManager.IsTimerOn) return;
+            if (!_fightManager.IsTimerOn) return;
             // so it is 0,120 and 0,-120 on mouse scroll
             Vector2 scrollValue = ctx.ReadValue<Vector2>();
 

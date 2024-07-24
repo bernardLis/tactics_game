@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Lis.Battle;
+using Lis.Arena.Fight;
 using Lis.Core;
 using Lis.Units.Attack;
 using Lis.Units.Hero.Tablets;
@@ -31,13 +31,13 @@ namespace Lis.Units.Hero.Ability
 
         public bool IsAdvanced;
 
-        [Header("Battle GameObjects")]
+        [Header("Arena GameObjects")]
         public GameObject AbilityManagerPrefab;
 
         [Header("Sounds")]
         public Sound ExecuteSound;
 
-        public int BattleTimeActivated;
+        public int FightTimeActivated;
 
         float _cooldownMultiplier = 1f;
 
@@ -47,7 +47,7 @@ namespace Lis.Units.Hero.Ability
         public event Action OnCooldownStarted;
         public event Action OnLevelUp;
 
-        public void InitializeBattle(Hero hero)
+        public void InitializeFight(Hero hero)
         {
             _hero = hero;
 
@@ -58,7 +58,7 @@ namespace Lis.Units.Hero.Ability
             _cooldownMultiplier = 1 - cooldownUpgrade * 0.01f;
             _scaleMultiplier = 1 + scaleUpgrade * 0.01f;
 
-            BattleTimeActivated = Mathf.FloorToInt(BattleManager.Instance.GetTime());
+            FightTimeActivated = Mathf.FloorToInt(FightManager.Instance.GetTime());
 
             Levels.ForEach(l => l.InitializeAttack(hero));
         }
@@ -73,7 +73,7 @@ namespace Lis.Units.Hero.Ability
 
         public float GetDpsSinceActive()
         {
-            return GetTotalDamageDealt() / (BattleManager.Instance.GetTime() - BattleTimeActivated);
+            return GetTotalDamageDealt() / (FightManager.Instance.GetTime() - FightTimeActivated);
         }
 
         public AttackHeroAbility GetCurrentLevel()

@@ -51,7 +51,7 @@ namespace Lis.Units
             AddElement();
             AddOtherBasicInfo();
             HandleStats();
-            AddBattleData();
+            AddFightData();
             AddAttacks();
 
             AddContinueButton();
@@ -128,7 +128,7 @@ namespace Lis.Units
             OtherContainer.Add(price);
         }
 
-        protected virtual void AddBattleData()
+        protected virtual void AddFightData()
         {
             Label killCount = new($"Kill Count: {Unit.TotalKillCount}");
             Label damageDealt = new($"Damage Dealt: {Unit.GetDamageDealt()}");

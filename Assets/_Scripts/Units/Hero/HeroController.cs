@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -20,8 +19,6 @@ namespace Lis.Units.Hero
 
         MovementController _movementController;
         public Hero Hero { get; private set; }
-
-        public event Action OnTeleportedToBase;
 
 
         void OnDestroy()
@@ -67,7 +64,7 @@ namespace Lis.Units.Hero
 
         void AddAbility(Ability.Ability ability)
         {
-            UnitLog.Add($"{BattleManager.GetTime()}: Hero adds an ability {ability.name}");
+            UnitLog.Add($"{FightManager.GetTime()}: Hero adds an ability {ability.name}");
             GameObject abilityPrefab = Instantiate(ability.AbilityManagerPrefab, transform);
             Controller abilityController = abilityPrefab.GetComponent<Controller>();
             abilityController.Initialize(ability);
@@ -76,7 +73,7 @@ namespace Lis.Units.Hero
 
         void RemoveAbility(Ability.Ability ability)
         {
-            UnitLog.Add($"{BattleManager.GetTime()}: Hero removes an ability {ability.name}");
+            UnitLog.Add($"{FightManager.GetTime()}: Hero removes an ability {ability.name}");
             Controller abilityController = _abilityControllers.Find(a => a.Ability == ability);
             abilityController.StopAbility();
             _abilityControllers.Remove(abilityController);
@@ -90,7 +87,7 @@ namespace Lis.Units.Hero
             _movementController.DisableMovement();
 
             yield return new WaitForSeconds(5f);
-            BattleManager.LoseBattle();
+            FightManager.LoseArena();
         }
 
         /* OVERRIDES */
@@ -106,31 +103,16 @@ namespace Lis.Units.Hero
         {
         }
 
-        public override void TeleportToBase()
+        public override void TeleportToMap()
         {
-            StartCoroutine(TeleportToBaseCoroutine());
+            StartCoroutine(TeleportToMapCoroutine());
         }
 
-        IEnumerator TeleportToBaseCoroutine()
+        IEnumerator TeleportToMapCoroutine()
         {
             StartTeleport();
             yield return new WaitForSeconds(0.5f);
             transform.position = ArenaManager.GetRandomPositionInPlayerLockerRoom();
-            yield return new WaitForSeconds(0.5f);
-            EndTeleport();
-            OnTeleportedToBase?.Invoke();
-        }
-
-        public override void TeleportToArena()
-        {
-            StartCoroutine(TeleportToArenaCoroutine());
-        }
-
-        IEnumerator TeleportToArenaCoroutine()
-        {
-            StartTeleport();
-            yield return new WaitForSeconds(0.5f);
-            transform.position = Vector3.zero;
             yield return new WaitForSeconds(0.5f);
             EndTeleport();
         }

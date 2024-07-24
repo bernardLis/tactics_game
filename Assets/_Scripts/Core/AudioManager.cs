@@ -128,7 +128,7 @@ namespace Lis.Core
         }
 
         // TODO: not the right way to do it
-        public void BattleSfxCleanup()
+        public void ArenaSfxCleanup()
         {
             _soundEmitterPool.Clear();
         }

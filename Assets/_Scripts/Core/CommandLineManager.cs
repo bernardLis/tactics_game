@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using DG.Tweening;
-using Lis.Battle;
-using Lis.Battle.Fight;
-using Lis.Battle.Pickup;
+using Lis.Arena;
+using Lis.Arena.Fight;
+using Lis.Arena.Pickup;
 using Lis.Core.Utilities;
 using Lis.Units;
 using Lis.Units.Enemy;
@@ -92,10 +92,10 @@ namespace Lis.Core
 
         void TryAddingButtons(Scene scene, LoadSceneMode mode)
         {
-            if (BattleManager.Instance == null) return;
+            if (FightManager.Instance == null) return;
             if (_buttonsAdded) return;
             _buttonsAdded = true;
-            BattleManager.Instance.GetComponent<BattleInitializer>().OnBattleInitialized += AddButtons;
+            ArenaInitializer.Instance.OnArenaInitialized += AddButtons;
         }
 
         void SubscribeInputActions()
@@ -165,7 +165,7 @@ namespace Lis.Core
                 b.clickable.clicked += () =>
                 {
                     Unit p = Instantiate(u);
-                    p.InitializeBattle(0);
+                    p.InitializeFight(0);
                     HeroManager.Instance.Hero.AddArmy(p);
                     FightManager.Instance.SpawnPlayerUnit(p);
                 };
@@ -283,19 +283,19 @@ namespace Lis.Core
             Button spawnExpOrbButton = new() { text = "Spawn Exp Orb" };
             spawnExpOrbButton.clickable.clicked += () =>
             {
-                BattleManager.Instance.GetComponent<PickupManager>().SpawnBunchExpStones();
+                FightManager.Instance.GetComponent<PickupManager>().SpawnBunchExpStones();
             };
             _otherFoldout.Add(spawnExpOrbButton);
 
             Button spawnVasesButton = new() { text = "Spawn Vases" };
             spawnVasesButton.clickable.clicked += () =>
             {
-                BattleManager.Instance.GetComponent<BreakableVaseManager>().SpawnVases();
+                FightManager.Instance.GetComponent<BreakableVaseManager>().SpawnVases();
             };
             _otherFoldout.Add(spawnVasesButton);
 
             Button unlockBarracks = new() { text = "Unlock Barracks" };
-            unlockBarracks.clickable.clicked += () => { BattleManager.Instance.Battle.Barracks.Unlock(); };
+            unlockBarracks.clickable.clicked += () => { FightManager.Instance.Campaign.Barracks.Unlock(); };
             _otherFoldout.Add(unlockBarracks);
         }
 
@@ -415,7 +415,7 @@ namespace Lis.Core
                 b.clickable.clicked += () =>
                 {
                     Pickup instance = Instantiate(p);
-                    BattleManager.Instance.GetComponent<PickupManager>().SpawnPickup(instance, Vector3.zero);
+                    FightManager.Instance.GetComponent<PickupManager>().SpawnPickup(instance, Vector3.zero);
                 };
                 pickupFoldout.Add(b);
             }

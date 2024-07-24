@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lis.Battle.Arena;
-using Lis.Battle.Arena.Building;
 using Lis.Core;
 using UnityEngine;
 
@@ -21,7 +19,7 @@ namespace Lis.Map
 
         public List<MapNodeConnection> Connections;
 
-        public Arena Arena;
+        public Arena.Arena Arena;
 
         // TODO: possibly cutscene
 

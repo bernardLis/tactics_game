@@ -1,4 +1,4 @@
-using Lis.Battle;
+using Lis.Arena;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

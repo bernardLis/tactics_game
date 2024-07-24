@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Lis.Battle;
+using Lis.Arena;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,7 +27,7 @@ namespace Lis.Units.Hero
                 _gameManager = GameManager.Instance;
 
             _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _playerInput.SwitchCurrentActionMap("Battle");
+            _playerInput.SwitchCurrentActionMap("Arena");
             UnsubscribeInputActions();
             SubscribeInputActions();
         }

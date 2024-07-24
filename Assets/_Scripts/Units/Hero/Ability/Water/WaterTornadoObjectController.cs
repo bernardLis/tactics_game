@@ -36,7 +36,7 @@ namespace Lis.Units.Hero.Ability
                     .Play();
             }
 
-            BattleManager.OnGamePaused += () =>
+            FightManager.OnGamePaused += () =>
             {
                 if (SoundEmitter != null)
                     SoundEmitter.Pause();

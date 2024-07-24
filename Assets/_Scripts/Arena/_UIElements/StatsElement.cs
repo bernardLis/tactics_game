@@ -1,0 +1,203 @@
+using System.Collections.Generic;
+using Lis.Arena.Fight;
+using Lis.Arena.Pickup;
+using Lis.Core;
+using Lis.Units;
+using Lis.Units.Hero.Ability;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace Lis.Arena
+{
+    public class StatsElement : VisualElement
+    {
+        const string _ussCommonTextPrimary = "common__text-primary";
+
+        const string _ussClassName = "stats-arena-element__";
+        const string _ussMain = _ussClassName + "main";
+        const string _ussPanel = _ussClassName + "panel";
+
+        const string _ussCreatureContainer = _ussClassName + "creature-container";
+        const string _ussCreatureLabel = _ussClassName + "creature-label";
+        const string _ussCreatureIcon = _ussClassName + "creature-icon";
+        readonly FightManager _fightManager;
+
+        readonly GameManager _gameManager;
+        readonly HeroManager _heroManager;
+
+        readonly VisualElement _leftPanel;
+        readonly VisualElement _middlePanel;
+        readonly VisualElement _rightPanel;
+
+        readonly Stats _stats;
+
+        public StatsElement()
+        {
+            _gameManager = GameManager.Instance;
+            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+                .GetStyleSheetByName(StyleSheetType.StatsArenaElementStyles);
+            if (ss != null) styleSheets.Add(ss);
+
+            _heroManager = HeroManager.Instance;
+            _fightManager = FightManager.Instance;
+
+            _stats = _fightManager.Campaign.Stats;
+
+            AddToClassList(_ussMain);
+            AddToClassList(_ussCommonTextPrimary);
+
+            _leftPanel = new();
+            _middlePanel = new();
+            _rightPanel = new();
+            _leftPanel.AddToClassList(_ussPanel);
+            _middlePanel.AddToClassList(_ussPanel);
+            _rightPanel.AddToClassList(_ussPanel);
+            Add(_leftPanel);
+            Add(_middlePanel);
+            Add(_rightPanel);
+
+            PopulateLeftPanel();
+            PopulateMiddlePanel();
+            PopulateRightPanel();
+        }
+
+        void PopulateLeftPanel()
+        {
+            AddAbilityStats();
+        }
+
+        void PopulateMiddlePanel()
+        {
+            _middlePanel.Add(new PickupStatsElement(_stats));
+            AddTotalGold();
+            AddTimeSurvived();
+            AddTilesUnlocked();
+        }
+
+        void PopulateRightPanel()
+        {
+            AddRerollCount();
+            // AddMinionsKilled();
+            AddCreatureKills();
+        }
+
+        void AddAbilityStats()
+        {
+            foreach (Ability a in _heroManager.Hero.GetAllAbilities())
+                _leftPanel.Add(new AbilityStatsElement(a));
+        }
+
+        void AddTotalGold()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+
+            Label text = new("Gold: ");
+            container.Add(text);
+
+            GoldElement el = new(_gameManager.Gold);
+            container.Add(el);
+            _middlePanel.Add(container);
+        }
+
+        void AddTimeSurvived()
+        {
+            VisualElement container = new();
+            _middlePanel.Add(container);
+
+            int minutes = Mathf.FloorToInt(_fightManager.GetTime() / 60f);
+            int seconds = Mathf.FloorToInt(_fightManager.GetTime() - minutes * 60);
+
+            string timerText = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+            Label text = new($"Time survived: {timerText}");
+            container.Add(text);
+        }
+
+        void AddTilesUnlocked()
+        {
+            VisualElement container = new();
+            _middlePanel.Add(container);
+
+            Label text = new($"Tiles unlocked: {_stats.TilesUnlocked}");
+            container.Add(text);
+        }
+
+        void AddRerollCount()
+        {
+            VisualElement container = new();
+            container.style.flexDirection = FlexDirection.Row;
+            _rightPanel.Add(container);
+
+            Label text = new($"Rerolls Available: {_heroManager.RewardRerollsAvailable}");
+            container.Add(text);
+        }
+
+        // void AddMinionsKilled()
+        // {
+        //     VisualElement container = new();
+        //     container.AddToClassList(_ussCreatureContainer);
+        //     // container.style.flexDirection = FlexDirection.Row;
+        //     _rightPanel.Add(container);
+        //
+        //     Label text = new($"Minions defeated: ");
+        //     text.AddToClassList(_ussCreatureLabel);
+        //     container.Add(text);
+        //
+        //     VisualElement iconContainer = new();
+        //     iconContainer.style.flexWrap = Wrap.Wrap;
+        //     iconContainer.style.flexDirection = FlexDirection.Row;
+        //     container.Add(iconContainer);
+        //
+        //     Dictionary<Sprite, int> minionKillCount = new();
+        //
+        //     // int minionKillCount = 0;
+        //     foreach (Unit e in _battleManager.KilledOpponentEntities)
+        //         if (e is not Minion)
+        //             minionKillCount++;
+        //
+        //     ChangingValueElement minionCount = new();
+        //     minionCount.Initialize(minionKillCount, 18);
+        //     container.Add(minionCount);
+        // }
+
+        void AddCreatureKills()
+        {
+            VisualElement container = new();
+            container.AddToClassList(_ussCreatureContainer);
+            _rightPanel.Add(container);
+
+            Label text = new("Opponents defeated:");
+            text.AddToClassList(_ussCreatureLabel);
+            container.Add(text);
+
+            VisualElement iconContainer = new();
+            iconContainer.style.flexWrap = Wrap.Wrap;
+            iconContainer.style.flexDirection = FlexDirection.Row;
+            container.Add(iconContainer);
+
+            Dictionary<Sprite, int> creatureKillCount = new();
+
+            foreach (Unit e in _fightManager.KilledEnemyUnits)
+                // if (e is not Creature) continue;
+                if (creatureKillCount.ContainsKey(e.Icon))
+                    creatureKillCount[e.Icon]++;
+                else
+                    creatureKillCount.Add(e.Icon, 1);
+
+            foreach (var entry in creatureKillCount)
+            {
+                VisualElement c = new();
+                c.style.flexDirection = FlexDirection.Row;
+                iconContainer.Add(c);
+                Label txt = new($"{entry.Value} x ");
+                c.Add(txt);
+
+                VisualElement icon = new();
+                icon.AddToClassList(_ussCreatureIcon);
+                icon.style.backgroundImage = new(entry.Key);
+                c.Add(icon);
+            }
+        }
+    }
+}

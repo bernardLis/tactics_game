@@ -1,5 +1,5 @@
 using System;
-using Lis.Battle;
+using Lis.Arena;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;

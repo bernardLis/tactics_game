@@ -56,7 +56,7 @@ namespace Lis.Units.Hero
         {
         }
 
-        protected override void AddBattleData()
+        protected override void AddFightData()
         {
         }
 

@@ -1,6 +1,6 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle;
+using Lis.Arena;
 using UnityEngine;
 
 namespace Lis.Units.Enemy

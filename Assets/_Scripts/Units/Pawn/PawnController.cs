@@ -1,6 +1,6 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -55,10 +55,10 @@ namespace Lis.Units.Pawn
             yield return base.RunUnitCoroutine();
         }
 
-        public override void TeleportToBase()
+        public override void TeleportToMap()
         {
             DropPickup();
-            base.TeleportToBase();
+            base.TeleportToMap();
         }
 
         void OnPawnUpgraded()

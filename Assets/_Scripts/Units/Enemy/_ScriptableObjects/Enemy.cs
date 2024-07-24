@@ -22,9 +22,9 @@ namespace Lis.Units.Enemy
             IsMiniBoss = true;
         }
 
-        public override void InitializeBattle(int team)
+        public override void InitializeFight(int team)
         {
-            base.InitializeBattle(team);
+            base.InitializeFight(team);
 
             if (!IsMiniBoss) return;
             // Set mini boss stats

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Lis.Battle;
-using Lis.Battle.Fight;
+using Lis.Arena;
+using Lis.Arena.Fight;
 using Lis.Core;
 
 namespace Lis.Units.Peasant
@@ -22,7 +22,7 @@ namespace Lis.Units.Peasant
         void AddUpgradeButtons()
         {
             List<Nature> availableNatures = new();
-            BattleManager.Instance.Battle.Barracks.UnlockableNatures.ForEach(un =>
+            FightManager.Instance.Campaign.Barracks.UnlockableNatures.ForEach(un =>
             {
                 if (un.CurrentLevel > 0) availableNatures.Add(un.Nature);
             });

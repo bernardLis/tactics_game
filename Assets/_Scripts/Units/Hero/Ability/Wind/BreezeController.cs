@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
@@ -18,20 +18,20 @@ namespace Lis.Units.Hero.Ability
             if (other.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
-            if (other.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (other.gameObject.TryGetComponent(out UnitController uc))
             {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                _entitiesInCollider.Add(battleEntity);
+                if (uc.Team == 0) return; // TODO: hardcoded team number
+                _entitiesInCollider.Add(uc);
             }
         }
 
         void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (other.gameObject.TryGetComponent(out UnitController uc))
             {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                if (_entitiesInCollider.Contains(battleEntity))
-                    _entitiesInCollider.Remove(battleEntity);
+                if (uc.Team == 0) return; // TODO: hardcoded team number
+                if (_entitiesInCollider.Contains(uc))
+                    _entitiesInCollider.Remove(uc);
             }
         }
 

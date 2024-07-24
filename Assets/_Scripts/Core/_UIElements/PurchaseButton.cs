@@ -1,5 +1,5 @@
 ﻿using System;
-using Lis.Battle;
+using Lis.Arena.Fight;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -30,7 +30,7 @@ namespace Lis.Core
         {
             if (GameManager.Gold < _goldElement.Amount)
             {
-                Helpers.DisplayTextOnElement(BattleManager.Instance.Root, this, "Not enough gold", Color.red);
+                Helpers.DisplayTextOnElement(FightManager.Instance.Root, this, "Not enough gold", Color.red);
                 return;
             }
 

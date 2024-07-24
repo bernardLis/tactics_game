@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using Lis.Core.Utilities;
 using UnityEngine;
 
@@ -18,20 +18,20 @@ namespace Lis.Units.Hero.Ability
             if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (col.gameObject.TryGetComponent(out UnitController uc))
             {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                battleEntity.OnDeath += RemoveEntityFromList;
-                UnitsInCollider.Add(battleEntity);
+                if (uc.Team == 0) return; // TODO: hardcoded team number
+                uc.OnDeath += RemoveEntityFromList;
+                UnitsInCollider.Add(uc);
             }
         }
 
         void OnTriggerExit(Collider col)
         {
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (col.gameObject.TryGetComponent(out UnitController uc))
             {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                RemoveEntityFromList(battleEntity, null);
+                if (uc.Team == 0) return; // TODO: hardcoded team number
+                RemoveEntityFromList(uc, null);
             }
         }
 

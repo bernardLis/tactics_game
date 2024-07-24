@@ -1,6 +1,6 @@
 using System.Collections;
-using Lis.Battle;
-using Lis.Battle.Fight;
+using Lis.Arena;
+using Lis.Arena.Fight;
 using Lis.Core;
 using Lis.Units.Attack;
 using Lis.Units.Hero;
@@ -15,7 +15,6 @@ namespace Lis.Units.Boss
         RangedOpponentManager _rangedOpponentManager;
 
         protected AttackBoss Attack;
-        protected BattleManager BattleManager;
 
         protected HeroController HeroController;
 
@@ -24,11 +23,8 @@ namespace Lis.Units.Boss
             Attack = attack;
             _bossController = bossController;
 
-            BattleManager = BattleManager.Instance;
-
-            HeroController = BattleManager.GetComponent<HeroManager>().HeroController;
-
-            _rangedOpponentManager = BattleManager.GetComponent<RangedOpponentManager>();
+            HeroController = HeroManager.Instance.HeroController;
+            _rangedOpponentManager = RangedOpponentManager.Instance;
         }
 
         public virtual IEnumerator Execute()

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Lis.Battle.Fight;
+using Lis.Arena.Fight;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
@@ -15,7 +15,7 @@ namespace Lis.Units.Hero.Rewards
             base.CreateRandom(hero, otherRewardCards);
             _original = ChoosePawn(otherRewardCards);
             Pawn = Instantiate(_original);
-            Pawn.InitializeBattle(0);
+            Pawn.InitializeFight(0);
 
             Count = Random.Range(1, 4); // TODO: balance
             SetPrice();
@@ -50,7 +50,7 @@ namespace Lis.Units.Hero.Rewards
             for (int i = 0; i < Count; i++)
             {
                 Pawn.Pawn instance = Instantiate(_original);
-                instance.InitializeBattle(0);
+                instance.InitializeFight(0);
                 Hero.AddArmy(Instantiate(instance));
                 FightManager.Instance.SpawnPlayerUnit(instance);
             }

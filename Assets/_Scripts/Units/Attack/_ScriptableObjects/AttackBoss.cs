@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Lis.Units.Attack
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Battle/Attacks/Attack Boss")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Arena/Attacks/Attack Boss")]
     public class AttackBoss : Attack
     {
         [Header("Attack Params")]
@@ -19,7 +19,7 @@ namespace Lis.Units.Attack
         public int ProjectilePower = 5;
 
 
-        [FormerlySerializedAs("BossAttackManagerPrefab")] [Header("Battle GameObjects")]
+        [FormerlySerializedAs("BossAttackManagerPrefab")] [Header("Arena GameObjects")]
         public GameObject Prefab;
 
         public bool UseElementalProjectile;

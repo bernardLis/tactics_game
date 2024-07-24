@@ -13,9 +13,9 @@ namespace Lis.Units.Creature
 
         public Attack.Attack SpecialAttack;
 
-        public override void InitializeBattle(int team)
+        public override void InitializeFight(int team)
         {
-            base.InitializeBattle(team);
+            base.InitializeFight(team);
             UpgradeBoard globalUpgradeBoard = GameManager.Instance.UpgradeBoard;
             MaxHealth.ApplyBaseValueChange(globalUpgradeBoard.GetUpgradeByName("Creature Health").GetValue());
             CurrentHealth.SetValue(MaxHealth.GetValue());

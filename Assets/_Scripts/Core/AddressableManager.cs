@@ -51,7 +51,7 @@ namespace Lis.Core
         ConfirmPopupStyles,
         MenuStyles,
         SettingsScreenStyles,
-        FinishedBattleStyles,
+        FinishedArenaStyles,
         TimerElementStyles,
         StarRankElementStyles,
         GoldElementStyles,
@@ -72,7 +72,7 @@ namespace Lis.Core
         UpgradeStyles,
         UpgradeScreenStyles,
 
-        StatsBattleElementStyles,
+        StatsArenaElementStyles,
         TextPrintingStyles,
         HeroElementStyles,
         TooltipCardStyles,

@@ -107,8 +107,8 @@ namespace Lis.Map
 
             if (Node.Arena == null) return;
             GameManager gm = GameManager.Instance;
-            gm.CurrentBattle.SetCurrentArena(Node.Arena);
-            gm.LoadScene(Scenes.Battle);
+            gm.CurrentCampaign.SetCurrentArena(Node.Arena);
+            gm.LoadScene(Scenes.Arena);
         }
     }
 

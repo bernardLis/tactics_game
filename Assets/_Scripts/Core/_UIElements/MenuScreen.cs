@@ -1,5 +1,5 @@
 using System;
-using Lis.Battle;
+using Lis.Arena;
 using Lis.Core.Utilities;
 using UnityEngine.UIElements;
 
@@ -54,7 +54,7 @@ namespace Lis.Core
 
         void GoToMainMenu()
         {
-            GameManager.GameStats.AddStats(BattleManager.Battle.Stats);
+            GameManager.GameStats.AddStats(FightManager.Campaign.Stats);
             GameManager.LoadScene(Scenes.MainMenu);
             Hide();
         }

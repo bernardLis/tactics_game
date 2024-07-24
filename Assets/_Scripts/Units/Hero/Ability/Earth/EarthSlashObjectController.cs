@@ -1,6 +1,6 @@
 using System.Collections;
 using DG.Tweening;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using UnityEngine;
 
 namespace Lis.Units.Hero.Ability
@@ -15,10 +15,10 @@ namespace Lis.Units.Hero.Ability
             if (col.gameObject.TryGetComponent(out BreakableVaseController bbv))
                 bbv.TriggerBreak();
 
-            if (col.gameObject.TryGetComponent(out UnitController battleEntity))
+            if (col.gameObject.TryGetComponent(out UnitController uc))
             {
-                if (battleEntity.Team == 0) return; // TODO: hardcoded team number
-                StartCoroutine(battleEntity.GetHit(Ability.GetCurrentLevel()));
+                if (uc.Team == 0) return; // TODO: hardcoded team number
+                StartCoroutine(uc.GetHit(Ability.GetCurrentLevel()));
             }
         }
 

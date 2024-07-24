@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Lis.Battle.Pickup;
+using Lis.Arena.Pickup;
 using Lis.Core;
 using UnityEngine;
 

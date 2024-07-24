@@ -1,4 +1,4 @@
-using Lis.Battle.Fight;
+using Lis.Arena.Fight;
 using UnityEngine;
 
 namespace Lis.Units.Pawn

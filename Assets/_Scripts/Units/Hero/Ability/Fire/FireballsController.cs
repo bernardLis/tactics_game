@@ -47,7 +47,7 @@ namespace Lis.Units.Hero.Ability
         ProjectileController InitializeFireball()
         {
             GameObject instance = Instantiate(_fireballPrefab, Vector3.zero, Quaternion.identity,
-                BattleManager.AbilityHolder);
+                FightManager.AbilityHolder);
             instance.SetActive(true);
 
             ProjectileController projectileController = instance.GetComponent<ProjectileController>();

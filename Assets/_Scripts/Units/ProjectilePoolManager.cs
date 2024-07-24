@@ -1,4 +1,4 @@
-using Lis.Battle;
+using Lis.Arena.Fight;
 using Lis.Core.Utilities;
 using Lis.Units.Projectile;
 using UnityEngine;
@@ -15,7 +15,7 @@ namespace Lis.Units
             _isInitialized = true;
 
             CreatePool(prefab, 5);
-            PoolHolder.parent = BattleManager.Instance.ProjectilePoolHolder;
+            PoolHolder.parent = FightManager.Instance.ProjectilePoolHolder;
             PoolHolder.localPosition = Vector3.zero;
         }
     }

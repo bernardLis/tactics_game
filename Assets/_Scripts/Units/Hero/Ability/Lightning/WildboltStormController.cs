@@ -39,7 +39,7 @@ namespace Lis.Units.Hero.Ability
             pos.y = 0.1f;
             _effect.transform.position = pos;
             yield return new WaitForSeconds(0.6f);
-            _effect.transform.parent = BattleManager.AbilityHolder;
+            _effect.transform.parent = FightManager.AbilityHolder;
 
             int projectileCount = Ability.GetAmount();
             for (int i = 0; i < projectileCount; i++)
@@ -57,7 +57,7 @@ namespace Lis.Units.Hero.Ability
         WildboltProjectileController InitializeProjectile()
         {
             GameObject instance = Instantiate(_wildboltPrefab, Vector3.zero, Quaternion.identity,
-                BattleManager.AbilityHolder);
+                FightManager.AbilityHolder);
             instance.SetActive(true);
 
             WildboltProjectileController projectile = instance.GetComponent<WildboltProjectileController>();

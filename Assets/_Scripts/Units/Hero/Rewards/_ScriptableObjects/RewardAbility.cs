@@ -27,7 +27,7 @@ namespace Lis.Units.Hero.Rewards
                     Ability.Level = heroAbility.Level + 1;
                 }
 
-            Ability.InitializeBattle(hero);
+            Ability.InitializeFight(hero);
             SetPrice();
 
             return true;

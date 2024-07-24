@@ -62,7 +62,7 @@ namespace Lis.Units
 
         public event Action OnKilled;
 
-        public virtual void InitializeBattle(int team)
+        public virtual void InitializeFight(int team)
         {
             Team = team;
 

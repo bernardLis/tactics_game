@@ -197,7 +197,7 @@ namespace Lis.Units.Hero
         public void AddAbility(Ability.Ability ability)
         {
             Ability.Ability instance = Instantiate(ability);
-            instance.InitializeBattle(this);
+            instance.InitializeFight(this);
 
             if (ability.IsAdvanced)
                 AdvancedAbilities.Add(instance);

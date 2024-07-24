@@ -1,5 +1,5 @@
 using System;
-using Lis.Battle;
+using Lis.Arena.Fight;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,9 +14,8 @@ namespace Lis.Core
         const string _ussLabelWrapper = UssClassName + "label-wrapper";
         const string _ussLabel = UssClassName + "label";
         const string _ussSecondsLeftLabel = UssClassName + "seconds-left-label";
-        readonly BattleManager _battleManager;
+        readonly FightManager _fightManager;
 
-        readonly GameManager _gameManager;
         readonly bool _isLooping;
         readonly string _text;
 
@@ -31,9 +30,9 @@ namespace Lis.Core
 
         protected TimerElement(float timeLeft, float totalTime, bool isLooping, string text)
         {
-            _gameManager = GameManager.Instance;
-            _battleManager = BattleManager.Instance;
-            StyleSheet ss = _gameManager.GetComponent<AddressableManager>()
+            GameManager gameManager = GameManager.Instance;
+            _fightManager = FightManager.Instance;
+            StyleSheet ss = gameManager.GetComponent<AddressableManager>()
                 .GetStyleSheetByName(StyleSheetType.TimerElementStyles);
             if (ss != null)
                 styleSheets.Add(ss);
@@ -45,11 +44,11 @@ namespace Lis.Core
             _isLooping = isLooping;
 
             _timer = schedule.Execute(UpdateTimer).Every(100);
-            if (!_battleManager.IsTimerOn)
+            if (!_fightManager.IsTimerOn)
                 _timer.Pause();
 
-            _battleManager.OnGamePaused += Pause;
-            _battleManager.OnGameResumed += Resume;
+            _fightManager.OnGamePaused += Pause;
+            _fightManager.OnGameResumed += Resume;
 
             AddLabelWrapper();
         }
