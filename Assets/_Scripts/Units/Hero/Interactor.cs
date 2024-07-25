@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Lis.Arena;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,13 +10,13 @@ namespace Lis.Units.Hero
         readonly List<IInteractable> _interactables = new();
         GameManager _gameManager;
         PlayerInput _playerInput;
-        TooltipManager _tooltipManager;
+        InteractionPromptManager _interactionPromptManager;
 
         void Start()
         {
             _gameManager = GameManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _tooltipManager = TooltipManager.Instance;
+            _interactionPromptManager = InteractionPromptManager.Instance;
         }
 
         /* INPUT */
@@ -78,12 +77,12 @@ namespace Lis.Units.Hero
 
         void ShowInteractionPrompt(IInteractable interactable)
         {
-            _tooltipManager.ShowInteractionPrompt(interactable.InteractionPrompt);
+            _interactionPromptManager.ShowInteractionPrompt(interactable.InteractionPrompt);
         }
 
         void HideInteractionPrompt()
         {
-            _tooltipManager.HideInteractionPrompt();
+            _interactionPromptManager.HideInteractionPrompt();
         }
 
         void SubscribeInputActions()

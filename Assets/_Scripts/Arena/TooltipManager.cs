@@ -34,11 +34,6 @@ namespace Lis.Arena
         public GameObject CurrentTooltipDisplayer { get; private set; }
         public UnitController CurrentEntityInfo { get; private set; }
 
-        readonly string _interactionPromptTweenID = "_interactionPromptTweenID";
-        VisualElement _interactionPromptContainer;
-        VisualElement _interactionPromptButton;
-        Label _interactionPromptLabel;
-
         /* INPUT */
         void OnEnable()
         {
@@ -75,9 +70,6 @@ namespace Lis.Arena
             _tooltipCardContainer = _root.Q<VisualElement>("tooltipCardContainer");
             _entityInfoContainer = _root.Q<VisualElement>("entityInfoContainer");
             _gameInfoContainer = _root.Q<VisualElement>("gameInfoContainer");
-            _interactionPromptContainer = _root.Q<VisualElement>("interactionPromptContainer");
-            _interactionPromptButton = _root.Q<VisualElement>("interactionPromptButton");
-            _interactionPromptLabel = _root.Q<Label>("interactionPromptLabel");
 
             SetUpEntityInfo();
             StartCoroutine(ShowGameInfoCoroutine());
@@ -244,28 +236,5 @@ namespace Lis.Arena
                 });
         }
 
-        /* INTERACTION PROMPT */
-        public void ShowInteractionPrompt(string txt)
-        {
-            _interactionPromptLabel.text = txt;
-            _interactionPromptContainer.style.display = DisplayStyle.Flex;
-            _interactionPromptContainer.style.opacity = 0;
-            DOTween.Kill(_interactionPromptTweenID);
-            DOTween.To(x => _interactionPromptContainer.style.opacity = x, 0, 1, 0.5f)
-                .SetEase(Ease.InOutSine);
-
-            DOTween.To(x => _interactionPromptButton.transform.scale = x * Vector3.one,
-                    1, 1.1f, 0.5f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine).SetId(_interactionPromptTweenID);
-        }
-
-        public void HideInteractionPrompt()
-        {
-            DOTween.Kill(_interactionPromptTweenID);
-            DOTween.To(x => _interactionPromptContainer.style.opacity = x, 1, 0, 0.5f)
-                .SetEase(Ease.InOutSine)
-                .OnComplete(() => _interactionPromptContainer.style.display = DisplayStyle.None);
-        }
     }
 }

@@ -1,31 +1,22 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
-         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
-         noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles"/>
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Upgrades/UpgradeStyles.uss?fileID=7433441132597879392&amp;guid=2bc0f58d0e54039498a8e2f58e009d0e&amp;type=3#UpgradeStyles"/>
-    <Style src="project://database/Assets/_Scripts/_UIElements/Styles/Upgrades/UpgradeScreenStyles.uss?fileID=7433441132597879392&amp;guid=bbef9e2b47a771d428ced2f3cf5865e2&amp;type=3#UpgradeScreenStyles"/>
-    <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="fpsLabel"
-              style="position: absolute; -unity-font-style: bold; color: rgb(8, 245, 13);"/>
-    <ui:VisualElement name="conversationContainer" class="uiContainer"
-                      style="width: 50%; height: 20%; align-items: stretch; background-color: rgba(0, 0, 0, 0.49); display: none; flex-wrap: wrap; position: absolute; justify-content: flex-end;">
-        <ui:VisualElement name="conversationPortrait"
-                          style="width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;"/>
-        <ui:Label name="conversationText"
-                  text="asdasdasdasda msdasdasdasd liogn long text longer text, event looonger this thext is so looong"
-                  class="textPrimary"
-                  style="width: 70%; height: 100%; -unity-text-align: middle-left; font-size: 48px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); white-space: normal; flex-direction: column-reverse; justify-content: space-between; align-items: flex-end;"/>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/CommonStyles.uss?fileID=7433441132597879392&amp;guid=d9a86c5788d7b6f4e9a3577d65d2967f&amp;type=3#CommonStyles" />
+    <Style src="project://database/Assets/_Scripts/Upgrades/_UIElements/UpgradeStyles.uss?fileID=7433441132597879392&amp;guid=2bc0f58d0e54039498a8e2f58e009d0e&amp;type=3#UpgradeStyles" />
+    <Style src="project://database/Assets/_Scripts/Upgrades/_UIElements/UpgradeScreenStyles.uss?fileID=7433441132597879392&amp;guid=bbef9e2b47a771d428ced2f3cf5865e2&amp;type=3#UpgradeScreenStyles" />
+    <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="fpsLabel" style="position: absolute; -unity-font-style: bold; color: rgb(8, 245, 13);" />
+    <ui:VisualElement name="conversationContainer" class="uiContainer" style="width: 50%; height: 20%; align-items: stretch; background-color: rgba(0, 0, 0, 0.49); display: none; flex-wrap: wrap; position: absolute; justify-content: flex-end;">
+        <ui:VisualElement name="conversationPortrait" style="width: 20%; height: 100%; -unity-background-scale-mode: scale-to-fit;" />
+        <ui:Label name="conversationText" text="asdasdasdasda msdasdasdasd liogn long text longer text, event looonger this thext is so looong" class="textPrimary" style="width: 70%; height: 100%; -unity-text-align: middle-left; font-size: 48px; -unity-font-style: normal; margin-left: 20px; color: rgb(255, 255, 255); white-space: normal; flex-direction: column-reverse; justify-content: space-between; align-items: flex-end;" />
     </ui:VisualElement>
-    <ui:VisualElement name="crossfade"
-                      style="width: 100%; height: 100%; background-color: rgb(0, 0, 0); display: none;"/>
-    <ui:VisualElement name="commandLineContainer" class="common__text-primary-black"
-                      style="display: none; width: 60%; position: absolute; top: 70%; height: 30%; opacity: 0.66;">
-        <ui:TextField picking-mode="Ignore" label="Command:" value="filler text" name="commandLineTextField"
-                      style="background-color: rgb(255, 255, 255); -unity-text-align: middle-center;"/>
-        <ui:Button text="Submit" display-tooltip-when-elided="true" name="commandLineButton"/>
-        <ui:ScrollView name="logContainer" mode="VerticalAndHorizontal"
-                       style="background-color: rgba(74, 74, 74, 0.74); opacity: 1; color: rgb(255, 255, 255);"/>
+    <ui:VisualElement name="crossfade" style="width: 100%; height: 100%; background-color: rgb(0, 0, 0); display: none;" />
+    <ui:VisualElement name="commandLineContainer" class="common__text-primary-black" style="display: none; width: 60%; position: absolute; top: 70%; height: 30%; opacity: 0.66;">
+        <ui:TextField picking-mode="Ignore" label="Command:" value="filler text" name="commandLineTextField" style="background-color: rgb(255, 255, 255); -unity-text-align: middle-center;" />
+        <ui:Button text="Submit" display-tooltip-when-elided="true" name="commandLineButton" />
+        <ui:ScrollView name="logContainer" mode="VerticalAndHorizontal" style="background-color: rgba(74, 74, 74, 0.74); opacity: 1; color: rgb(255, 255, 255);" />
     </ui:VisualElement>
-    <ui:VisualElement name="commandButtonsContainer"
-                      style="flex-grow: 1; position: absolute; left: auto; right: 10px; top: 20%; width: 300px; background-color: rgba(178, 178, 178, 0.53); display: none;"/>
-    <ui:VisualElement name="tooltipContainer" style="flex-grow: 1; position: absolute;"/>
+    <ui:VisualElement name="commandButtonsContainer" style="flex-grow: 1; position: absolute; left: auto; right: 10px; top: 20%; width: 300px; background-color: rgba(178, 178, 178, 0.53); display: none;" />
+    <ui:VisualElement name="tooltipContainer" style="flex-grow: 1; position: absolute;" />
+    <ui:VisualElement name="interactionPromptContainer" class="common__text-primary" style="flex-grow: 1; position: absolute; top: 70%; align-items: center; align-self: center; flex-direction: row; background-image: url(&quot;project://database/Assets/Art/UI/long_shadow.png?fileID=2800000&amp;guid=b764c73bf47635548a80bafe4627b037&amp;type=3#long_shadow&quot;); display: none;">
+        <ui:VisualElement name="interactionPromptButton" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/Core/_Sprites/Key%20Guide/Keyboard%20and%20Mouse/F_Key_Light.png?fileID=2800000&amp;guid=b5104534557b52649b65a9679389e330&amp;type=3#F_Key_Light&quot;); width: 50px; height: 50px;" />
+        <ui:Label tabindex="-1" text="Teleport to base" parse-escape-sequences="true" display-tooltip-when-elided="true" name="interactionPromptLabel" />
+    </ui:VisualElement>
 </ui:UXML>

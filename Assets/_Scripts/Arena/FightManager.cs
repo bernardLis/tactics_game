@@ -147,7 +147,7 @@ namespace Lis.Arena.Fight
                 if (_currentWaveIndex == _arena.Waves.Count) yield break;
                 CurrentWave = _arena.Waves[_currentWaveIndex];
 
-                yield return new WaitForSeconds(Random.Range(10, 15));
+                yield return new WaitForSeconds(Random.Range(20, 40));
             }
         }
 

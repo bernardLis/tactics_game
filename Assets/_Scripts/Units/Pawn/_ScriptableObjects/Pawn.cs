@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Lis.Arena.Fight;
 using Lis.Camp.Building;
+using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -29,7 +29,7 @@ namespace Lis.Units.Pawn
             SetPawnStats();
             SetPawnAttacks();
 
-            _barracksNatureUpgrade = FightManager.Instance.Campaign.Barracks.GetNatureUpgrade(Nature);
+            _barracksNatureUpgrade = GameManager.Instance.Campaign.Barracks.GetNatureUpgrade(Nature);
         }
 
         public void SetUpgrade(int upgrade)

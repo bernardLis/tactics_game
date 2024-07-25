@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2154333484900981486}
   - component: {fileID: 3609328160265785649}
   - component: {fileID: 9006272408855850639}
+  - component: {fileID: 9155902690685304191}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -138,18 +139,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 77c90cfd-3296-4dd9-b49b-7b450be68c53
     m_ActionName: Battle/DebugKillHero[/Keyboard/leftBracket]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 00802c3e-7b85-4ca2-8387-9d330e0a2c85
-    m_ActionName: Map/PlayerMovement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 89894572-8bee-4e12-818a-13a5918ad090
-    m_ActionName: Map/Space[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 36bd0afb-764e-452d-ab8f-291dd35b5b7c
-    m_ActionName: Map/ZoomCamera[/Mouse/scroll]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard & Mouse
   m_DefaultActionMap: Arena
@@ -475,3 +464,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 249fbfad3b55d7a4e8be6bb03ed9a6ee, type: 2}
   - {fileID: 11400000, guid: 4c37d8800e592cb48a62f60ac7478201, type: 2}
   _defaultCursor: {fileID: 11400000, guid: d58650271eda4284cbc6393ac51dbe19, type: 2}
+--- !u!114 &9155902690685304191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2154333484900981485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfb0e268f5158e4fab5cd5150cef8fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
