@@ -20,7 +20,6 @@ namespace Lis.Map
         public void Start()
         {
             _playerController = PlayerController.Instance;
-
             _campaign = GameManager.Instance.Campaign;
             _map = _campaign.Map;
 
@@ -28,25 +27,27 @@ namespace Lis.Map
 
             VisualElement container =
                 GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("campButtonContainer");
-
             container.Add(
                 new MyButton("Go To Camp", "common__button", () => GameManager.Instance.LoadScene(Scenes.Camp)));
         }
 
         void SetUpMap()
         {
-            foreach (MapNode mn in _map.Nodes)
+            foreach (MapRow mapRow in _map.MapRows)
             {
-                NodeController nc = Instantiate(_mapNodePrefab, _nodeParent);
-                nc.Initialize(mn);
-                _nodeControllers.Add(nc);
+                foreach (MapNode mn in mapRow.Nodes)
+                {
+                    NodeController nc = Instantiate(_mapNodePrefab, _nodeParent);
+                    nc.Initialize(mn);
+                    _nodeControllers.Add(nc);
 
-                if (mn == _campaign.CurrentHeroNode)
-                    _playerController.CurrentNode = nc;
+                    if (mn == _campaign.CurrentHeroNode)
+                        _playerController.CurrentNode = nc;
+                }
             }
 
-            foreach (NodeController nc in _nodeControllers)
-                nc.ResolveConnections();
+            // foreach (NodeController nc in _nodeControllers)
+            //     nc.ResolveConnections();
 
             _playerController.transform.position =
                 new(_campaign.CurrentHeroNode.MapPosition.x, _campaign.CurrentHeroNode.MapPosition.y, -2);

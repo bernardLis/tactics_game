@@ -8,13 +8,7 @@ namespace Lis.Map
     [CreateAssetMenu(menuName = "ScriptableObject/Map/MapNode")]
     public class MapNode : BaseScriptableObject
     {
-        public Sprite Icon;
-        public string Name;
-        public Nature Nature;
-
-        public Vector3 NameFramePosition;
-
-        public Vector2 MapPosition;
+        public Vector3 MapPosition;
         public bool IsVisited;
 
         public List<MapNodeConnection> Connections;
@@ -23,6 +17,9 @@ namespace Lis.Map
 
         // TODO: possibly cutscene
 
+        public void Initialize()
+        {
+        }
 
         public bool IsConnectedTo(MapNode ncNode)
         {

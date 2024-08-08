@@ -35,14 +35,7 @@ namespace Lis.Map
             Node = node;
 
             name = node.name;
-            transform.position = new(node.MapPosition.x, node.MapPosition.y, -1);
-
-            _nameFrame.transform.localPosition = Node.NameFramePosition;
-            _nameText.text = node.Name;
-            _natureIcon.sprite = node.Nature.Icon;
-
-            _gfx = GetComponentInChildren<SpriteRenderer>();
-            _gfx.sprite = node.Icon;
+            transform.position = node.MapPosition;
 
             if (!node.IsVisited)
             {

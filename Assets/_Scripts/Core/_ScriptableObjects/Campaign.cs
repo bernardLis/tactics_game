@@ -36,7 +36,8 @@ namespace Lis.Core
             ResolveHero(visualHero);
 
             Map.Initialize();
-            CurrentHeroNode = Map.Nodes[0];
+            Debug.Log($"Map initialized {Map.MapRows.Count}");
+            CurrentHeroNode = Map.MapRows[0].Nodes[0];
 
             InstantiateBuildings();
         }

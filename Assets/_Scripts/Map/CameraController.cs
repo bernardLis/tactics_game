@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Cinemachine;
+﻿using Cinemachine;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;
@@ -14,7 +13,7 @@ namespace Lis.Map
 
         CinemachineVirtualCamera _cinemachineVirtualCamera;
 
-        PlayerController _playerController;
+        [SerializeField] Transform _playerCameraTransform;
         [SerializeField] CameraFollowController _followTransform;
 
         readonly float _zoomDefault = 4f;
@@ -32,8 +31,6 @@ namespace Lis.Map
         {
             _cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
             _targetZoom = _zoomDefault;
-
-            _playerController = PlayerController.Instance;
         }
 
         /* INPUT */
@@ -108,7 +105,7 @@ namespace Lis.Map
             _cinemachineVirtualCamera.Follow = _followTransform.transform;
 
             _followTransform.transform.position +=
-                new Vector3(_inputDirection.x, _inputDirection.y, 0) * (Time.deltaTime * _arrowMoveSpeed);
+                new Vector3(_inputDirection.x, 0, _inputDirection.y) * (Time.deltaTime * _arrowMoveSpeed);
         }
 
         /* ZOOM */
@@ -137,7 +134,7 @@ namespace Lis.Map
         {
             _followTransform.FollowPlayer();
             _targetZoom = _zoomDefault;
-            _cinemachineVirtualCamera.Follow = _playerController.transform;
+            _cinemachineVirtualCamera.Follow = _playerCameraTransform;
         }
     }
 }
