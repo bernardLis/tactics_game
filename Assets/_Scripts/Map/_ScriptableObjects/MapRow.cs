@@ -10,15 +10,15 @@ namespace Lis.Map
 
         public void Initialize(int nodeCount, int rowNumber)
         {
-            Debug.Log($"Initializing row {rowNumber} with {nodeCount} nodes");
             for (int i = 0; i < nodeCount; i++)
             {
                 MapNode mn = CreateInstance<MapNode>();
+                mn.name = $"MapNode_{rowNumber}_{i}";
 
                 float x = GetNodeXPosition(i, nodeCount);
 
-                int z = rowNumber * Random.Range(7, 12);
-                mn.MapPosition = new(x, 0.5f, z);
+                float z = rowNumber * 10 + Random.Range(-1, 1);
+                mn.Initialize(new(x, 0, z), rowNumber);
                 Nodes.Add(mn);
             }
         }

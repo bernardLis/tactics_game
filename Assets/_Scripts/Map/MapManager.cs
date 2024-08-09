@@ -16,6 +16,7 @@ namespace Lis.Map
         PlayerController _playerController;
 
         readonly List<NodeController> _nodeControllers = new();
+        NodeControllerGrid _mapGrid;
 
         public void Start()
         {
@@ -33,34 +34,106 @@ namespace Lis.Map
 
         void SetUpMap()
         {
-            foreach (MapRow mapRow in _map.MapRows)
+            GenerateNodes();
+            CreateConnections();
+
+            _playerController.transform.position = _campaign.CurrentHeroNode.MapPosition;
+        }
+
+        void GenerateNodes()
+        {
+            // also create a grid
+            _mapGrid = new();
+            _mapGrid.Rows = new();
+
+            foreach (MapRow r in _map.MapRows)
             {
-                foreach (MapNode mn in mapRow.Nodes)
+                NodeControllerRow currentRow = new();
+                currentRow.Nodes = new();
+                _mapGrid.Rows.Add(currentRow);
+                foreach (MapNode mn in r.Nodes)
                 {
                     NodeController nc = Instantiate(_mapNodePrefab, _nodeParent);
                     nc.Initialize(mn);
                     _nodeControllers.Add(nc);
 
+                    // add node to map grid
+                    currentRow.Nodes.Add(nc);
+
                     if (mn == _campaign.CurrentHeroNode)
                         _playerController.CurrentNode = nc;
                 }
             }
-
-            // foreach (NodeController nc in _nodeControllers)
-            //     nc.ResolveConnections();
-
-            _playerController.transform.position =
-                new(_campaign.CurrentHeroNode.MapPosition.x, _campaign.CurrentHeroNode.MapPosition.y, -2);
         }
 
-        public List<NodeController> GetConnectedNodes(MapNode node)
+        void CreateConnections()
         {
-            List<NodeController> connectedNodes = new();
-            foreach (NodeController nc in _nodeControllers)
-                if (node.IsConnectedTo(nc.Node))
-                    connectedNodes.Add(nc);
-
-            return connectedNodes;
+            for (int i = _mapGrid.Rows.Count - 1; i > 0; i--)
+            {
+                for (int j = 0; j < _mapGrid.Rows[i].Nodes.Count; j++)
+                {
+                    for (int k = 0; k < _mapGrid.Rows[i - 1].Nodes.Count; k++)
+                    {
+                        if (CanConnect(_mapGrid.Rows[i].Nodes.Count, _mapGrid.Rows[i - 1].Nodes.Count,
+                                j, k))
+                            _mapGrid.Rows[i].Nodes[j].ConnectTo(_mapGrid.Rows[i - 1].Nodes[k]);
+                    }
+                }
+            }
         }
+
+        bool CanConnect(int thisRowCount, int nextRowCount, int thisNodePosition, int nextNodePosition)
+        {
+            // HERE: ask Jacek for help
+            if (nextRowCount == 1 || thisRowCount == 1) return true;
+
+            if (thisRowCount == 2 && nextRowCount == 3)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0 or 1;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 1 or 2;
+            }
+
+            if (thisRowCount == 2 && nextRowCount == 2)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 1;
+            }
+
+            if (thisRowCount == 3 && nextRowCount == 2)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 0 or 1;
+                if (thisNodePosition == 2)
+                    return nextNodePosition is 1;
+            }
+
+            if (thisRowCount == 3 && nextRowCount == 3)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0 or 1;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 1;
+                if (thisNodePosition == 2)
+                    return nextNodePosition is 1 or 2;
+            }
+
+            return true;
+        }
+    }
+
+    public struct NodeControllerGrid
+    {
+        public List<NodeControllerRow> Rows;
+    }
+
+    public struct NodeControllerRow
+    {
+        public List<NodeController> Nodes;
     }
 }

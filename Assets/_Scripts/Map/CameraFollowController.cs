@@ -27,7 +27,6 @@ namespace Lis.Map
             while (this != null && _playerController != null)
             {
                 Vector3 targetPosition = _playerController.transform.position;
-                targetPosition.z = -2;
                 transform.position = targetPosition;
                 yield return new WaitForSeconds(0.1f);
             }

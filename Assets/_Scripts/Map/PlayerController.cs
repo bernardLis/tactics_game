@@ -54,7 +54,7 @@ namespace Lis.Map
         public bool TryMovingPlayerToNode(NodeController nodeController)
         {
             if (CurrentNode == nodeController) return false;
-            if (!HasConnection(nodeController)) return false;
+            if (!nodeController.IsConnectedTo(CurrentNode)) return false;
             if (_isMoving) return false;
 
             _mainCamera.DefaultCamera();
@@ -62,29 +62,14 @@ namespace Lis.Map
             return true;
         }
 
-        bool HasConnection(NodeController nodeController)
-        {
-            // connection goes both ways
-            return CurrentNode.Node.IsConnectedTo(nodeController.Node) ||
-                   nodeController.Node.IsConnectedTo(CurrentNode.Node);
-        }
 
         void MoveTo(NodeController nodeController)
         {
-            SplinePath path = GetPathTo(nodeController);
+            SplinePath path = nodeController.GetPathTo(CurrentNode);
             CurrentNode = nodeController;
             StartCoroutine(MoveOnPath(path));
             SetAnimationDirection(nodeController);
         }
-
-        SplinePath GetPathTo(NodeController nodeController)
-        {
-            // connection goes both ways
-            return CurrentNode.Node.IsConnectedTo(nodeController.Node)
-                ? CurrentNode.GetPathTo(nodeController).Path
-                : nodeController.GetPathTo(CurrentNode).ReversedPath;
-        }
-
 
         void SetAnimationDirection(NodeController target)
         {
@@ -93,8 +78,6 @@ namespace Lis.Map
         IEnumerator MoveOnPath(SplinePath path)
         {
             _isMoving = true;
-            _animator.SetFloat(_animVelocityX, 5);
-            // _animator.SetFloat(_animVelocityX, rightDot * blend * _animationBlend);
 
             float t = 0f;
             while (t < 1f)
@@ -102,10 +85,19 @@ namespace Lis.Map
                 Vector3 pos = path.EvaluatePosition(t);
                 Vector3 direction = path.EvaluateTangent(t);
 
-                _animator.SetFloat(_animVelocityX, direction.x * 5);
-                _animator.SetFloat(_animVelocityZ, direction.y * 5);
+                // _animator.SetFloat(_animVelocityX, direction.x * 5);
+                // _animator.SetFloat(_animVelocityZ, direction.y * 5);
 
-                pos.z = -2;
+                Vector3 forward = transform.forward;
+                Vector3 right = transform.right;
+                float forwardDot = Vector3.Dot(direction, forward);
+                float rightDot = Vector3.Dot(direction, right);
+                float forwardBlend = Mathf.Abs(forwardDot);
+                float rightBlend = Mathf.Abs(rightDot);
+                float blend = Mathf.Max(forwardBlend, rightBlend);
+                _animator.SetFloat(_animVelocityZ, forwardDot * blend);
+                _animator.SetFloat(_animVelocityX, rightDot * blend);
+
                 transform.position = pos;
 
                 t += 0.5f * Time.deltaTime;
@@ -118,5 +110,6 @@ namespace Lis.Map
             _isMoving = false;
             CurrentNode.Visited();
         }
+
     }
 }

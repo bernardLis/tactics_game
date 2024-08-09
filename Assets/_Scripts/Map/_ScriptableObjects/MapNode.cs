@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Lis.Core;
+﻿using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Map
@@ -11,30 +9,14 @@ namespace Lis.Map
         public Vector3 MapPosition;
         public bool IsVisited;
 
-        public List<MapNodeConnection> Connections;
-
         public Arena.Arena Arena;
 
         // TODO: possibly cutscene
 
-        public void Initialize()
+        public void Initialize(Vector3 pos, int row)
         {
+            MapPosition = pos;
+            if (row == 0) IsVisited = true;
         }
-
-        public bool IsConnectedTo(MapNode ncNode)
-        {
-            foreach (MapNodeConnection mnc in Connections)
-                if (mnc.Node.Id == ncNode.Id)
-                    return true;
-
-            return false;
-        }
-    }
-
-    [Serializable]
-    public struct MapNodeConnection
-    {
-        public MapNode Node;
-        public GameObject Path;
     }
 }

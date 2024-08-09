@@ -13,8 +13,8 @@ namespace Lis.Map
         {
             MapRows.Clear();
 
-            int rowCount = Random.Range(3, 6);
-            for (int i = 0; i < 5; i++)
+            int rowCount = Random.Range(8, 11);
+            for (int i = 0; i < rowCount; i++)
             {
                 MapRow mr = CreateInstance<MapRow>();
 
