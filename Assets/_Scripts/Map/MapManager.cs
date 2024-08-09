@@ -12,6 +12,8 @@ namespace Lis.Map
         Map _map;
 
         [SerializeField] Transform _nodeParent;
+        public Transform PathsParent;
+
         [SerializeField] NodeController _mapNodePrefab;
         PlayerController _playerController;
 
@@ -87,6 +89,14 @@ namespace Lis.Map
             // HERE: ask Jacek for help
             if (nextRowCount == 1 || thisRowCount == 1) return true;
 
+            if (thisRowCount == 2 && nextRowCount == 2)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 1;
+            }
+
             if (thisRowCount == 2 && nextRowCount == 3)
             {
                 if (thisNodePosition == 0)
@@ -95,12 +105,12 @@ namespace Lis.Map
                     return nextNodePosition is 1 or 2;
             }
 
-            if (thisRowCount == 2 && nextRowCount == 2)
+            if (thisRowCount == 2 && nextRowCount == 4)
             {
                 if (thisNodePosition == 0)
-                    return nextNodePosition is 0;
+                    return nextNodePosition is 0 or 1;
                 if (thisNodePosition == 1)
-                    return nextNodePosition is 1;
+                    return nextNodePosition is 2 or 3;
             }
 
             if (thisRowCount == 3 && nextRowCount == 2)
@@ -121,6 +131,52 @@ namespace Lis.Map
                     return nextNodePosition is 1;
                 if (thisNodePosition == 2)
                     return nextNodePosition is 1 or 2;
+            }
+
+            if (thisRowCount == 3 && nextRowCount == 4)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0 or 1;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 1 or 2;
+                if (thisNodePosition == 2)
+                    return nextNodePosition is 2 or 3;
+            }
+
+            if (thisRowCount == 4 && nextRowCount == 2)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 2)
+                    return nextNodePosition is 1;
+                if (thisNodePosition == 3)
+                    return nextNodePosition is 1;
+            }
+
+            if (thisRowCount == 4 && nextRowCount == 3)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 0 or 1;
+                if (thisNodePosition == 2)
+                    return nextNodePosition is 1 or 2;
+                if (thisNodePosition == 3)
+                    return nextNodePosition is 2;
+            }
+
+            if (thisRowCount == 4 && nextRowCount == 4)
+            {
+                if (thisNodePosition == 0)
+                    return nextNodePosition is 0;
+                if (thisNodePosition == 1)
+                    return nextNodePosition is 1;
+                if (thisNodePosition == 2)
+                    return nextNodePosition is 2;
+                if (thisNodePosition == 3)
+                    return nextNodePosition is 3;
             }
 
             return true;

@@ -25,18 +25,15 @@ namespace Lis.Map
 
         float GetNodeXPosition(int currentNode, int nodeCount)
         {
-            // TODO: there must be a better way xD
-            if (nodeCount == 2 && currentNode == 0)
-                return -2.5f + Random.Range(-0.5f, 0.5f);
-            if (nodeCount == 2 && currentNode == 1)
-                return 2.5f + Random.Range(-0.5f, 0.5f);
+            if (nodeCount == 2)
+                return -2.5f + (5 * currentNode) + Random.Range(-0.5f, 0.5f);
 
-            if (nodeCount == 3 && currentNode == 0)
-                return -5 + Random.Range(-0.5f, 0.5f);
-            if (nodeCount == 3 && currentNode == 1)
-                return 0 + Random.Range(-0.5f, 0.5f);
-            if (nodeCount == 3 && currentNode == 2)
-                return 5 + Random.Range(-0.5f, 0.5f);
+            if (nodeCount == 3)
+                return -5 + (5 * currentNode) + Random.Range(-0.5f, 0.5f);
+
+            if (nodeCount == 4)
+                return -7.5f + (5 * currentNode) + Random.Range(-0.5f, 0.5f);
+
 
             return 0;
         }

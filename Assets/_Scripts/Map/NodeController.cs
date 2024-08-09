@@ -12,9 +12,10 @@ namespace Lis.Map
 {
     public class NodeController : MonoBehaviour, IPointerClickHandler
     {
+        MapManager _mapManager;
         PlayerController _playerController;
 
-        public MapNode Node { get; private set; }
+        MapNode _node;
 
         readonly List<MapNodePaths> _pathsToNodes = new();
 
@@ -29,8 +30,9 @@ namespace Lis.Map
 
         public void Initialize(MapNode node)
         {
+            _mapManager = MapManager.Instance;
             _playerController = PlayerController.Instance;
-            Node = node;
+            _node = node;
 
             name = node.name;
             transform.position = node.MapPosition;
@@ -49,9 +51,7 @@ namespace Lis.Map
 
         public void ConnectTo(NodeController node)
         {
-            // TODO: create a spline path to connection
-
-            GameObject splineGameObject = Instantiate(_splinePrefab);
+            GameObject splineGameObject = Instantiate(_splinePrefab, _mapManager.PathsParent);
             SplineContainer sc = splineGameObject.GetComponent<SplineContainer>();
             sc.Splines[0].Clear();
             sc.Splines[0].Add(node.transform.position);
@@ -94,14 +94,14 @@ namespace Lis.Map
         public void Visited()
         {
             GameManager gm = GameManager.Instance;
-            gm.Campaign.SetCurrentHeroNode(Node);
+            gm.Campaign.SetCurrentHeroNode(_node);
 
-            if (Node.IsVisited) return;
-            Node.IsVisited = true;
+            if (_node.IsVisited) return;
+            _node.IsVisited = true;
             _visitedIcon.SetActive(false);
 
-            if (Node.Arena == null) return;
-            gm.Campaign.SetCurrentArena(Node.Arena);
+            if (_node.Arena == null) return;
+            gm.Campaign.SetCurrentArena(_node.Arena);
             gm.LoadScene(Scenes.Arena);
         }
     }

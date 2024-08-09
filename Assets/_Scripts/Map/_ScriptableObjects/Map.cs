@@ -18,7 +18,7 @@ namespace Lis.Map
             {
                 MapRow mr = CreateInstance<MapRow>();
 
-                int count = Random.Range(2, 4);
+                int count = Random.Range(2, 5);
                 if (i == 0) count = 1;
                 if (i == rowCount - 1) count = 1;
 
