@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Lis.Camp.Building;
 using Lis.Units.Hero;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Lis.Core
 {
@@ -26,7 +25,6 @@ namespace Lis.Core
 
         public Barracks Barracks;
         public Building RewardCollector;
-        public Shop Shop;
         public Architect Architect;
 
         public void Initialize(VisualHero visualHero)
@@ -80,9 +78,6 @@ namespace Lis.Core
             RewardCollector = Instantiate(RewardCollector);
             RewardCollector.Initialize(this);
 
-            Shop = Instantiate(Shop);
-            Shop.Initialize(this);
-
             Architect = Instantiate(Architect);
             Architect.Initialize(this);
         }
@@ -94,7 +89,6 @@ namespace Lis.Core
                 Bank,
                 Barracks,
                 RewardCollector,
-                Shop,
                 Architect
             };
         }

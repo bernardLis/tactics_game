@@ -2,7 +2,7 @@
 using DG.Tweening;
 using Lis.Core;
 using Lis.Core.Utilities;
-using TMPro;
+using Shapes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Splines;
@@ -10,42 +10,37 @@ using UnityEngine.UI;
 
 namespace Lis.Map
 {
-    public class NodeController : MonoBehaviour, IPointerClickHandler
+    public class NodeController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        GameManager _gameManager;
         MapManager _mapManager;
         PlayerController _playerController;
 
-        MapNode _node;
+        public MapNode Node;
 
         readonly List<MapNodePaths> _pathsToNodes = new();
 
+        bool _isUnavailable;
+
         [SerializeField] GameObject _splinePrefab;
-
-        [SerializeField] GameObject _visitedIcon;
-        [SerializeField] RectTransform _nameFrame;
-        [SerializeField] TMP_Text _nameText;
-        [SerializeField] Image _natureIcon;
-
+        [SerializeField] Image _icon;
         [SerializeField] Transform _gfx;
+        [SerializeField] Disc _disc;
 
         public void Initialize(MapNode node)
         {
+            _gameManager = GameManager.Instance;
             _mapManager = MapManager.Instance;
             _playerController = PlayerController.Instance;
-            _node = node;
+            Node = node;
 
             name = node.name;
             transform.position = node.MapPosition;
 
-            if (!node.IsVisited)
+            if (node.IsVisited)
             {
-                _visitedIcon.transform.DOLocalMoveY(0, 1f)
-                    .SetEase(Ease.InOutSine)
-                    .SetLoops(-1, LoopType.Yoyo);
-            }
-            else
-            {
-                _visitedIcon.SetActive(false);
+                _disc.gameObject.SetActive(true);
+                SetUnavailable();
             }
         }
 
@@ -88,21 +83,69 @@ namespace Lis.Map
         {
             Debug.Log("Clicked on " + name);
             if (!_playerController.TryMovingPlayerToNode(this))
-                _gfx.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
+                _icon.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
         }
 
-        public void Visited()
+        public void SetCurrentNode()
         {
-            GameManager gm = GameManager.Instance;
-            gm.Campaign.SetCurrentHeroNode(_node);
+            _gameManager.Campaign.SetCurrentHeroNode(Node);
 
-            if (_node.IsVisited) return;
-            _node.IsVisited = true;
-            _visitedIcon.SetActive(false);
+            _disc.gameObject.SetActive(true);
+            DOTween.To(x => _disc.DashOffset = x, 0, 1, 0.5f)
+                .SetLoops(-1, LoopType.Restart)
+                .SetId("current node disc tween");
 
-            if (_node.Arena == null) return;
-            gm.Campaign.SetCurrentArena(_node.Arena);
-            gm.LoadScene(Scenes.Arena);
+            if (Node.IsVisited) return;
+
+            Node.IsVisited = true;
+            ResolveNode();
+        }
+
+        void ResolveNode()
+        {
+            if (Node is MapNodeFight mapNodeFight)
+            {
+                _gameManager.Campaign.SetCurrentArena(mapNodeFight.Arena);
+                _gameManager.LoadScene(Scenes.Arena);
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (Node.IsVisited) return;
+            if (_isUnavailable) return;
+
+            _icon.color = new(1, 1, 1, 1);
+            _icon.transform.DOScale(1.1f, 0.2f);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (Node.IsVisited) return;
+            if (_isUnavailable) return;
+
+            _icon.color = new(1, 1, 1, 0.8f);
+            _icon.transform.DOScale(0.9f, 0.2f);
+        }
+
+        public void SetUnavailable()
+        {
+            _icon.transform.DOKill();
+
+            _isUnavailable = true;
+
+            _icon.transform.DOLocalMoveY(-94, 0.2f);
+            _icon.transform.DOLocalRotate(new(90f, 0f, 0f), 0.2f);
+
+            _icon.color = new(1, 1, 1, 0.5f);
+            _icon.transform.DOScale(0.8f, 0.2f);
+        }
+
+        public void SetAvailable()
+        {
+            _icon.transform.DOLocalMoveY(50, 1f)
+                .SetEase(Ease.InOutSine)
+                .SetLoops(-1, LoopType.Yoyo);
         }
     }
 

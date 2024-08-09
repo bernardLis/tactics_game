@@ -9,7 +9,14 @@ namespace Lis.Core
 {
     public class GameDatabase : BaseScriptableObject
     {
-        [FormerlySerializedAs("SampleBattle")] [Header("Battle")] public Campaign SampleCampaign;
+        [Header("Battle")] public Campaign SampleCampaign;
+
+        [Header("Arenas")] public Arena.Arena[] Arenas;
+
+        public Arena.Arena GetArena()
+        {
+            return Arenas[UnityEngine.Random.Range(0, Arenas.Length)];
+        }
 
         [Header("Shaders")] public Shader LitShader;
         public Shader ParticlesUnlitShader;
@@ -22,7 +29,6 @@ namespace Lis.Core
         [Header("Colors")]
         [SerializeField]
         ColorVariable[] _colors;
-
 
         [Header("Pickups")]
         [SerializeField]

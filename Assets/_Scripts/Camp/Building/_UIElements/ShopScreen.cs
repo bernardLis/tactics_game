@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lis.Core.Utilities;
+using Lis.Map;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,9 +9,9 @@ namespace Lis.Camp.Building
 {
     public class ShopScreen : RewardScreen
     {
-        Shop _shop;
+        MapNodeShop _shop;
 
-        public void InitializeShop(Shop shop)
+        public void InitializeShop(MapNodeShop shop)
         {
             _shop = shop;
             Initialize();
@@ -34,8 +35,6 @@ namespace Lis.Camp.Building
             HeroManager.RewardRerollsAvailable--;
             RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
             AudioManager.CreateSound().WithSound(AudioManager.GetSound("Dice Roll")).Play();
-
-            _shop.ShouldReset = true;
             CreateRewardCards();
 
             if (HeroManager.RewardRerollsAvailable <= 0)
@@ -48,10 +47,7 @@ namespace Lis.Camp.Building
             AllRewardElements.Clear();
             RewardContainer.Clear();
 
-            if (_shop.ShouldReset)
-                CreateNewRewardCards();
-            else
-                ParseRewardCards(_shop.GetRewards());
+            ParseRewardCards(_shop.GetRewards());
 
             AddShopItems();
         }
@@ -88,7 +84,6 @@ namespace Lis.Camp.Building
             foreach (RewardElement el in AllRewardElements)
                 rewards.Add(el.Reward);
             _shop.SetRewards(rewards);
-            _shop.ShouldReset = false;
         }
 
         void AddShopItems()

@@ -6,16 +6,17 @@ using UnityEngine;
 
 namespace Lis.Arena
 {
+    using Fight;
     [CreateAssetMenu(menuName = "ScriptableObject/Arena/Arena")]
     public class Arena : BaseScriptableObject
     {
         public GameObject Prefab;
 
-        [HideInInspector] public List<Fight.Wave> Waves;
+        [HideInInspector] public List<Wave> Waves;
         [HideInInspector] public Boss Boss;
         public int GoldReward;
 
-        public Fight.Wave Initialize(Hero hero)
+        public Wave Initialize(Hero hero)
         {
             Boss = Instantiate(GameManager.Instance.UnitDatabase.GetRandomBoss());
             Boss.InitializeFight(1);
@@ -24,7 +25,7 @@ namespace Lis.Arena
             return CreateFight(hero);
         }
 
-        Fight.Wave CreateFight(Hero hero)
+        Wave CreateFight(Hero hero)
         {
             // TODO: balance
             int heroPoints = hero.GetHeroPoints();
@@ -40,7 +41,7 @@ namespace Lis.Arena
                 result = Mathf.RoundToInt(result * 0.1f) * 10; // rounding to tens
                 int points = result + heroPoints;
 
-                Fight.Wave wave = CreateInstance<Fight.Wave>();
+                Wave wave = CreateInstance<Wave>();
                 wave.Initialize(points, hero);
                 Waves.Add(wave);
             }

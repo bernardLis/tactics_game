@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: GameDatabase
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
-  SampleBattle: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
+  SampleCampaign: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
+  Arenas:
+  - {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
   LitShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   ParticlesUnlitShader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   DissolveShader: {fileID: -6465566751694194690, guid: 2c6e52535f17dfc4b8e0bb3d1e91aea4, type: 3}

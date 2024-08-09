@@ -44,7 +44,6 @@ namespace Lis.Map
 
         void GenerateNodes()
         {
-            // also create a grid
             _mapGrid = new();
             _mapGrid.Rows = new();
 
@@ -57,9 +56,9 @@ namespace Lis.Map
                 {
                     NodeController nc = Instantiate(_mapNodePrefab, _nodeParent);
                     nc.Initialize(mn);
+                    if (_campaign.CurrentHeroNode == mn) nc.SetCurrentNode();
                     _nodeControllers.Add(nc);
 
-                    // add node to map grid
                     currentRow.Nodes.Add(nc);
 
                     if (mn == _campaign.CurrentHeroNode)
@@ -87,15 +86,9 @@ namespace Lis.Map
         bool CanConnect(int thisRowCount, int nextRowCount, int thisNodePosition, int nextNodePosition)
         {
             // HERE: ask Jacek for help
-            if (nextRowCount == 1 || thisRowCount == 1) return true;
-
-            if (thisRowCount == 2 && nextRowCount == 2)
-            {
-                if (thisNodePosition == 0)
-                    return nextNodePosition is 0;
-                if (thisNodePosition == 1)
-                    return nextNodePosition is 1;
-            }
+            if (thisRowCount == 1 || nextRowCount == 1) return true;
+            if (thisRowCount % 2 == 0 && thisRowCount == nextRowCount)
+                return thisNodePosition == nextNodePosition;
 
             if (thisRowCount == 2 && nextRowCount == 3)
             {
@@ -167,19 +160,19 @@ namespace Lis.Map
                     return nextNodePosition is 2;
             }
 
-            if (thisRowCount == 4 && nextRowCount == 4)
-            {
-                if (thisNodePosition == 0)
-                    return nextNodePosition is 0;
-                if (thisNodePosition == 1)
-                    return nextNodePosition is 1;
-                if (thisNodePosition == 2)
-                    return nextNodePosition is 2;
-                if (thisNodePosition == 3)
-                    return nextNodePosition is 3;
-            }
-
             return true;
+        }
+
+        public void ResolveNodes(NodeController currentNode)
+        {
+            for (int i = 0; i < _mapGrid.Rows.Count; i++)
+                foreach (NodeController nc in _mapGrid.Rows[i].Nodes)
+                    if (i <= currentNode.Node.Row)
+                        nc.SetUnavailable();
+
+            foreach (NodeController nc in _nodeControllers)
+                if (nc.IsConnectedTo(currentNode))
+                    nc.SetAvailable();
         }
     }
 

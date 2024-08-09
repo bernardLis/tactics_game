@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using Lis.Core;
 using UnityEngine;
 using Lis.Core.Utilities;
@@ -10,6 +11,8 @@ namespace Lis.Map
 {
     public class PlayerController : Singleton<PlayerController>
     {
+        MapManager _mapManager;
+
         [SerializeField] GameObject _maleHero;
         [SerializeField] GameObject _femaleHero;
 
@@ -26,6 +29,7 @@ namespace Lis.Map
 
         void Start()
         {
+            _mapManager = MapManager.Instance;
             _mainCamera = CameraController.Instance;
             InitializeHeroGameObject(GameManager.Instance.Campaign.Hero);
         }
@@ -59,24 +63,21 @@ namespace Lis.Map
 
             _mainCamera.DefaultCamera();
             MoveTo(nodeController);
+            _mapManager.ResolveNodes(nodeController);
             return true;
         }
-
 
         void MoveTo(NodeController nodeController)
         {
             SplinePath path = nodeController.GetPathTo(CurrentNode);
             CurrentNode = nodeController;
             StartCoroutine(MoveOnPath(path));
-            SetAnimationDirection(nodeController);
-        }
-
-        void SetAnimationDirection(NodeController target)
-        {
         }
 
         IEnumerator MoveOnPath(SplinePath path)
         {
+            DOTween.Kill("current node disc tween");
+
             _isMoving = true;
 
             float t = 0f;
@@ -85,13 +86,8 @@ namespace Lis.Map
                 Vector3 pos = path.EvaluatePosition(t);
                 Vector3 direction = path.EvaluateTangent(t);
 
-                // _animator.SetFloat(_animVelocityX, direction.x * 5);
-                // _animator.SetFloat(_animVelocityZ, direction.y * 5);
-
-                Vector3 forward = transform.forward;
-                Vector3 right = transform.right;
-                float forwardDot = Vector3.Dot(direction, forward);
-                float rightDot = Vector3.Dot(direction, right);
+                float forwardDot = Vector3.Dot(direction, transform.forward);
+                float rightDot = Vector3.Dot(direction, transform.right);
                 float forwardBlend = Mathf.Abs(forwardDot);
                 float rightBlend = Mathf.Abs(rightDot);
                 float blend = Mathf.Max(forwardBlend, rightBlend);
@@ -108,8 +104,7 @@ namespace Lis.Map
             _animator.SetFloat(_animVelocityZ, 0);
 
             _isMoving = false;
-            CurrentNode.Visited();
+            CurrentNode.SetCurrentNode();
         }
-
     }
 }
