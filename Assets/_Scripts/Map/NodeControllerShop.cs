@@ -13,6 +13,7 @@ namespace Lis.Map
         {
             base.ResolveNode();
             _showShopButton = new("Shop", "common__button", ShowShop);
+
             MapManager.ButtonContainer.Insert(0, _showShopButton);
             if (!Node.IsVisited) ShowShop();
         }

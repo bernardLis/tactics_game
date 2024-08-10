@@ -29,12 +29,13 @@ namespace Lis.Map
 
             // HERE: testing
             GameManager.Instance.ChangeGoldValue(1000);
-            SetUpMap();
 
             ButtonContainer =
                 GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("campButtonContainer");
             ButtonContainer.Add(
                 new MyButton("Go To Camp", "common__button", () => GameManager.Instance.LoadScene(Scenes.Camp)));
+
+            SetUpMap();
         }
 
         void SetUpMap()
@@ -44,6 +45,7 @@ namespace Lis.Map
 
             _playerController.transform.position = _campaign.CurrentHeroNode.MapPosition;
             ResolveNodes(_playerController.CurrentNode);
+            _playerController.CurrentNode.SetCurrentNode();
         }
 
         void GenerateNodes()
@@ -60,7 +62,6 @@ namespace Lis.Map
                 {
                     NodeController nc = Instantiate(mn.NodePrefab, _nodeParent).GetComponent<NodeController>();
                     nc.Initialize(mn);
-                    if (_campaign.CurrentHeroNode == mn) nc.SetCurrentNode();
                     _nodeControllers.Add(nc);
 
                     currentRow.Nodes.Add(nc);
