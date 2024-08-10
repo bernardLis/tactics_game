@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Lis.Arena.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units;

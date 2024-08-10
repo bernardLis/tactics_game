@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lis.Arena.Fight;
+using Lis.Arena;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 

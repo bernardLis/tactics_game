@@ -6,7 +6,7 @@ using Lis.Units.Hero;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Camp
 {
     public class CampManager : Singleton<CampManager>
     {

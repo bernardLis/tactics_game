@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Lis.Arena;
-using Lis.Arena.Fight;
 using UnityEngine;
 
 namespace Lis.Units.Attack

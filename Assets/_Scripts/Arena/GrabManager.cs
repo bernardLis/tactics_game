@@ -1,5 +1,4 @@
 using System.Collections;
-using Lis.Arena.Fight;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;

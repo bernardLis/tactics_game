@@ -4,7 +4,7 @@ using Lis.Units.Enemy;
 using Lis.Units.Hero;
 using Random = UnityEngine.Random;
 
-namespace Lis.Arena.Fight
+namespace Lis.Arena
 {
     public class Wave : BaseScriptableObject
     {

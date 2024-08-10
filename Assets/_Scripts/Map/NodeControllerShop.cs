@@ -1,5 +1,6 @@
 ﻿using Lis.Camp.Building;
 using Lis.Core;
+using Lis.Map.MapNodes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

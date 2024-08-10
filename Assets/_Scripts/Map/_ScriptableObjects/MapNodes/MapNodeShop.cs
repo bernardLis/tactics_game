@@ -2,7 +2,7 @@
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 
-namespace Lis.Map
+namespace Lis.Map.MapNodes
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Map/Map Node Shop")]
     public class MapNodeShop : MapNode

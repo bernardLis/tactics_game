@@ -2,7 +2,6 @@ using System.Collections;
 using Cinemachine;
 using DG.Tweening;
 using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lis.Core.Utilities;
 using Lis.Map;
+using Lis.Map.MapNodes;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;

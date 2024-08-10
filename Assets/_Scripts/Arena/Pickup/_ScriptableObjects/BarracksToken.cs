@@ -1,4 +1,3 @@
-using Lis.Arena.Fight;
 using Lis.Units.Hero;
 using UnityEngine;
 

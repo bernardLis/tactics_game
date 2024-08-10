@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Core
 {
     public class InteractionPromptManager : Singleton<InteractionPromptManager>
     {

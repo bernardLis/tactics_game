@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lis.Camp.Building;
+using Lis.Map.MapNodes;
 using Lis.Units.Hero;
 using UnityEngine;
 

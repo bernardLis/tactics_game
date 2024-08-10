@@ -100,13 +100,7 @@ MonoBehaviour:
   Node: {fileID: 0}
   _splinePrefab: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
   _icon: {fileID: 507493339478200751}
-  _gfx: {fileID: 7473615685577984021}
   _disc: {fileID: 7495467489849874681}
---- !u!4 &7473615685577984021 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6383540372455681961, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
-  m_PrefabInstance: {fileID: 4549051220974380988}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7495467489849874681 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6279220763165835077, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}

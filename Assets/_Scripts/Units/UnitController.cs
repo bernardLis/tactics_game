@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Arena.Pickup;
 using Lis.Core;
 using Lis.Core.Utilities;

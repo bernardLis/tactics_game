@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Lis.Arena.Fight;
+using Lis.Arena;
 using Lis.Core;
 using Lis.Units.Attack;
 using Lis.Units.Hero.Tablets;

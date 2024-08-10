@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Map.MapNodes;
 using UnityEngine;
 using UnityEngine.UIElements;
 

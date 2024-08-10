@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Lis.Arena.Fight;
 using Lis.Arena.Pickup;
 using Lis.Core;
 using Lis.Units;

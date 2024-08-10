@@ -4,7 +4,7 @@ using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Lis
+namespace Lis.Camp
 {
     public class HeroMovementController : MonoBehaviour
     {

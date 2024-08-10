@@ -1,7 +1,7 @@
 ﻿using Lis.Core;
 using UnityEngine;
 
-namespace Lis.Map
+namespace Lis.Map.MapNodes
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Map/Map Node Fight")]
     public class MapNodeFight : MapNode

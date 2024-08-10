@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Arena.Pickup;
 using Lis.Units;
 using NaughtyAttributes;

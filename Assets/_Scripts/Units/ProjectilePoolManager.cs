@@ -1,4 +1,4 @@
-using Lis.Arena.Fight;
+using Lis.Arena;
 using Lis.Core.Utilities;
 using Lis.Units.Projectile;
 using UnityEngine;

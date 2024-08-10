@@ -4,7 +4,7 @@ using Lis.Units;
 using Lis.Units.Boss;
 using UnityEngine;
 
-namespace Lis.Arena.Fight
+namespace Lis.Arena
 {
     public class BossManager : MonoBehaviour
     {

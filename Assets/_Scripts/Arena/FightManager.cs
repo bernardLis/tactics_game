@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-namespace Lis.Arena.Fight
+namespace Lis.Arena
 {
     public class FightManager : Singleton<FightManager>
     {

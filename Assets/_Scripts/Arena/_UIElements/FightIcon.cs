@@ -1,7 +1,7 @@
 using Lis.Core;
 using UnityEngine.UIElements;
 
-namespace Lis.Arena.Fight
+namespace Lis.Arena
 {
     public class FightIcon : ElementWithTooltip
     {

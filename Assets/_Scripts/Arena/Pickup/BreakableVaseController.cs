@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using DG.Tweening;
-using Lis.Arena.Fight;
 using Lis.Core;
 using UnityEngine;
 

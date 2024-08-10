@@ -1,5 +1,5 @@
 ﻿using System;
-using Lis.Arena.Fight;
+using Lis.Arena;
 using Lis.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;

@@ -1,10 +1,9 @@
 ﻿using Lis.Camp.Building;
-using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis.Arena
+namespace Lis.Core
 {
     public class HeroUIManager : MonoBehaviour
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lis.Core;
+using Lis.Map.MapNodes;
 using UnityEngine;
 
 namespace Lis.Map
@@ -31,7 +32,7 @@ namespace Lis.Map
             if (rowNumber == 0)
                 return Instantiate(_gameDatabase.MapNode);
             if (rowNumber == 1)
-                return Instantiate(_gameDatabase.MapNodeShop); // HERE: testing
+                return Instantiate(_gameDatabase.MapNodeChest); // HERE: testing
 
             // TODO: last row is a boss fight
 

@@ -1,5 +1,4 @@
 ﻿using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Core;
 
 namespace Lis.Units.Pawn

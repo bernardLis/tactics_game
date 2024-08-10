@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
+using Lis.Map.MapNodes;
 using Shapes;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,7 +16,7 @@ namespace Lis.Map
         protected MapManager MapManager;
         protected PlayerController PlayerController;
 
-        public MapNode Node;
+        [HideInInspector] public MapNode Node;
 
         readonly List<MapNodePaths> _pathsToNodes = new();
 
@@ -23,7 +24,6 @@ namespace Lis.Map
 
         [SerializeField] GameObject _splinePrefab;
         [SerializeField] Image _icon;
-        [SerializeField] Transform _gfx;
         [SerializeField] Disc _disc;
 
         public void Initialize(MapNode node)

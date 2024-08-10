@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Lis.Arena.Fight;
+using Lis.Arena;
 using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards

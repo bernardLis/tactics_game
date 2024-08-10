@@ -1,7 +1,6 @@
 ﻿using System;
 using DG.Tweening;
 using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Units.Hero;
 using NaughtyAttributes;
 using UnityEngine;

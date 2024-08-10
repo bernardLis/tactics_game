@@ -1,7 +1,7 @@
 using Lis.Camp.Building;
 using Lis.Units.Hero.Rewards;
 
-namespace Lis.Arena.Fight
+namespace Lis.Arena
 {
     public class FightRewardScreen : RewardScreen
     {

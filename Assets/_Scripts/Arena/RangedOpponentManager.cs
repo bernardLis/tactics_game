@@ -5,7 +5,7 @@ using Lis.Units;
 using Lis.Units.Projectile;
 using UnityEngine;
 
-namespace Lis.Arena.Fight
+namespace Lis.Arena
 {
     public class RangedOpponentManager : Singleton<RangedOpponentManager>
     {

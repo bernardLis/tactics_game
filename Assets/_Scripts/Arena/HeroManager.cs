@@ -1,6 +1,5 @@
 using System;
 using Cinemachine;
-using Lis.Arena.Fight;
 using Lis.Camp.Building;
 using Lis.Core;
 using Lis.Core.Utilities;

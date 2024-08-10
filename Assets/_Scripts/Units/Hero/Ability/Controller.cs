@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lis.Arena;
-using Lis.Arena.Fight;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;

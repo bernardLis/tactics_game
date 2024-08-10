@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Lis.Arena.Pickup;
 using Lis.Map;
+using Lis.Map.MapNodes;
 using UnityEngine;
 using UnityEngine.Serialization;
 

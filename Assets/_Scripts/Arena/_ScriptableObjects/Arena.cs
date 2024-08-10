@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Lis.Arena
 {
-    using Fight;
     [CreateAssetMenu(menuName = "ScriptableObject/Arena/Arena")]
     public class Arena : BaseScriptableObject
     {
