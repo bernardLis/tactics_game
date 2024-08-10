@@ -7,9 +7,9 @@ namespace Lis.Units.Hero.Rewards
     {
         public int Gold { get; private set; }
 
-        public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
+        public override bool CreateRandom(Hero hero, List<Reward> otherRewards)
         {
-            base.CreateRandom(hero, otherRewardCards);
+            base.CreateRandom(hero, otherRewards);
             Gold = Random.Range(100, 200);
             SetPrice();
             return true;

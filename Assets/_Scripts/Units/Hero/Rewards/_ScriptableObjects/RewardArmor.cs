@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using Lis.Units.Hero.Items;
-using Lis.Units.Hero.Tablets;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Lis.Units.Hero.Rewards
 {
@@ -10,14 +7,15 @@ namespace Lis.Units.Hero.Rewards
     {
         public Armor Armor;
 
-        public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardElements)
+        public override bool CreateRandom(Hero hero, List<Reward> otherRewards)
         {
-            base.CreateRandom(hero, otherRewardElements);
+            base.CreateRandom(hero, otherRewards);
             if (hero.VisualHero.BodyType == 0)
                 Armor = Instantiate(GameManager.UnitDatabase.GetRandomFemaleArmor());
             if (hero.VisualHero.BodyType == 1)
                 Armor = Instantiate(GameManager.UnitDatabase.GetRandomMaleArmor());
 
+            SetPrice();
             return true;
         }
 

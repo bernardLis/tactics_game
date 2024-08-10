@@ -30,6 +30,7 @@ namespace Lis.Units.Hero
 
         public FloatVariable CurrentStamina { get; private set; }
 
+        public int RewardRerolls = 3;
 
         [HideInInspector] public List<Unit> Army = new();
 

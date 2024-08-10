@@ -13,8 +13,12 @@ namespace Lis.Map
         public bool IsVisited;
         public int Row;
 
+       protected GameManager GameManager;
+
         public virtual void Initialize(Vector3 pos, int row)
         {
+            GameManager = GameManager.Instance;
+
             MapPosition = pos;
             Row = row;
             if (row == 0) IsVisited = true;

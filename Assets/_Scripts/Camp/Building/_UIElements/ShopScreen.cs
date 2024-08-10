@@ -26,24 +26,26 @@ namespace Lis.Camp.Building
 
         protected override void RerollReward()
         {
-            if (HeroManager.RewardRerollsAvailable <= 0)
+            if (Hero.RewardRerolls <= 0)
             {
                 Helpers.DisplayTextOnElement(FightManager.Root, RerollButton, "Not More Rerolls!", Color.red);
                 return;
             }
 
-            HeroManager.RewardRerollsAvailable--;
-            RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
+            Hero.RewardRerolls--;
+            RerollsLeft.text = $"Rerolls left: {Hero.RewardRerolls}";
             AudioManager.CreateSound().WithSound(AudioManager.GetSound("Dice Roll")).Play();
+            _shop.SelectItems();
             CreateRewardCards();
 
-            if (HeroManager.RewardRerollsAvailable <= 0)
+            if (Hero.RewardRerolls <= 0)
                 RerollButton.SetEnabled(false);
         }
 
-
         protected override void CreateRewardCards()
         {
+            Debug.Log("CreateRewardCards");
+
             AllRewardElements.Clear();
             RewardContainer.Clear();
 
@@ -52,46 +54,29 @@ namespace Lis.Camp.Building
             AddShopItems();
         }
 
-        void ParseRewardCards(List<Reward> cards)
+        void ParseRewardCards(List<Reward> rewards)
         {
-            foreach (Reward r in cards)
+            foreach (Reward r in rewards)
             {
                 RewardElement el = null;
                 if (r is RewardAbility abilityReward)
                     el = (RewardElementAbility)new(abilityReward);
-                if (r is RewardTablet tabletReward)
-                    el = (RewardElementTablet)new(tabletReward);
-                if (r is RewardCreature creatureReward)
-                    el = (RewardElementCreature)new(creatureReward);
                 if (r is RewardPawn pawnReward)
                     el = (RewardElementPawn)new(pawnReward);
                 if (r is RewardGold goldReward)
                     el = (RewardElementGold)new(goldReward);
+                if (r is RewardArmor armorReward)
+                    el = (RewardElementArmor)new(armorReward);
 
                 AllRewardElements.Add(el);
             }
-        }
-
-        void CreateNewRewardCards()
-        {
-            for (int i = 0; i < NumberOfRewards; i++)
-            {
-                RewardElement el = ChooseRewardElement();
-                AllRewardElements.Add(el);
-            }
-
-            List<Reward> rewards = new();
-            foreach (RewardElement el in AllRewardElements)
-                rewards.Add(el.Reward);
-            _shop.SetRewards(rewards);
         }
 
         void AddShopItems()
         {
             for (int i = 0; i < NumberOfRewards; i++)
             {
-                bool isMystery = i == NumberOfRewards - 1;
-                ShopItemElement shopItemElement = new(AllRewardElements[i], isMystery);
+                ShopItemElement shopItemElement = new(AllRewardElements[i]);
 
                 shopItemElement.style.position = Position.Absolute;
                 float endLeft = LeftPositions[i];
@@ -102,15 +87,6 @@ namespace Lis.Camp.Building
 
                 RewardContainer.Add(shopItemElement);
             }
-        }
-
-        protected override RewardElement ChooseRewardElement()
-        {
-            int v = Random.Range(0, 4);
-            if (v == 0) return CreateRewardCardAbility();
-            if (v == 1) return CreateRewardTablet();
-            if (v == 2) return CreateRewardCardPawn();
-            return CreateRewardCardCreature();
         }
 
         protected override void RewardSelected(Reward reward)

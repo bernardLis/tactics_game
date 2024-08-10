@@ -11,11 +11,11 @@ namespace Lis.Units.Hero.Rewards
 
         public Ability.Ability Ability { get; private set; }
 
-        public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
+        public override bool CreateRandom(Hero hero, List<Reward> otherRewards)
         {
-            base.CreateRandom(hero, otherRewardCards);
+            base.CreateRandom(hero, otherRewards);
 
-            Ability = GetValidAbility(otherRewardCards);
+            Ability = GetValidAbility(otherRewards);
             if (Ability == null) return false;
             Ability.Level = 0;
 
@@ -38,7 +38,7 @@ namespace Lis.Units.Hero.Rewards
             Price = Ability.Levels[Ability.Level].Price;
         }
 
-        Ability.Ability GetValidAbility(List<RewardElement> otherRewardCards)
+        Ability.Ability GetValidAbility(List<Reward> otherRewards)
         {
             List<Ability.Ability> validAbilities = new();
             foreach (Ability.Ability a in GameManager.UnitDatabase.GetAllBasicAbilities())
@@ -59,11 +59,10 @@ namespace Lis.Units.Hero.Rewards
             }
 
             // remove abilities that are already in the reward pool
-            foreach (RewardElement rc in otherRewardCards)
+            foreach (Reward r in otherRewards)
             {
-                if (rc is not RewardElementAbility) continue;
-                RewardAbility ra = (RewardAbility)rc.Reward;
-                validAbilities.RemoveAll(a => a.Id == ra.Ability.Id);
+                if (r is not RewardAbility) continue;
+                validAbilities.RemoveAll(a => a.Id == r.Id);
             }
 
             // remove abilities that are max level

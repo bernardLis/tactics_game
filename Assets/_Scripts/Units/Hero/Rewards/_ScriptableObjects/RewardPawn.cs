@@ -10,10 +10,10 @@ namespace Lis.Units.Hero.Rewards
         public int Count;
         Pawn.Pawn _original;
 
-        public override bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
+        public override bool CreateRandom(Hero hero, List<Reward> otherRewards)
         {
-            base.CreateRandom(hero, otherRewardCards);
-            _original = ChoosePawn(otherRewardCards);
+            base.CreateRandom(hero, otherRewards);
+            _original = ChoosePawn(otherRewards);
             Pawn = Instantiate(_original);
             Pawn.InitializeFight(0);
 
@@ -22,13 +22,13 @@ namespace Lis.Units.Hero.Rewards
             return true;
         }
 
-        Pawn.Pawn ChoosePawn(List<RewardElement> otherRewardCards)
+        Pawn.Pawn ChoosePawn(List<Reward> otherRewards)
         {
             // make sure no duplicate pawns in the rewards
             List<Pawn.Pawn> pawns = new(GameManager.UnitDatabase.GetAllPawns());
             List<Pawn.Pawn> pawnsToRemove = new();
-            foreach (RewardElement el in otherRewardCards)
-                if (el.Reward is RewardPawn rewardPawn)
+            foreach (Reward r in otherRewards)
+                if (r is RewardPawn rewardPawn)
                     foreach (Pawn.Pawn p in pawns)
                         if (p.Id == rewardPawn.Pawn.Id)
                             pawnsToRemove.Add(p);

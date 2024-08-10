@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
-using Lis.Core.Utilities;
 using Shapes;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,8 +12,8 @@ namespace Lis.Map
     public class NodeController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         GameManager _gameManager;
-        MapManager _mapManager;
-        PlayerController _playerController;
+        protected MapManager MapManager;
+        protected PlayerController PlayerController;
 
         public MapNode Node;
 
@@ -30,8 +29,8 @@ namespace Lis.Map
         public void Initialize(MapNode node)
         {
             _gameManager = GameManager.Instance;
-            _mapManager = MapManager.Instance;
-            _playerController = PlayerController.Instance;
+            MapManager = MapManager.Instance;
+            PlayerController = PlayerController.Instance;
             Node = node;
 
             name = node.name;
@@ -46,7 +45,7 @@ namespace Lis.Map
 
         public void ConnectTo(NodeController node)
         {
-            GameObject splineGameObject = Instantiate(_splinePrefab, _mapManager.PathsParent);
+            GameObject splineGameObject = Instantiate(_splinePrefab, MapManager.PathsParent);
             SplineContainer sc = splineGameObject.GetComponent<SplineContainer>();
             sc.Splines[0].Clear();
             sc.Splines[0].Add(node.transform.position);
@@ -79,9 +78,11 @@ namespace Lis.Map
             return default;
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public virtual void OnPointerClick(PointerEventData eventData)
         {
-            if (!_playerController.TryMovingPlayerToNode(this))
+            if (this == PlayerController.CurrentNode) return;
+
+            if (!PlayerController.TryMovingPlayerToNode(this))
                 _icon.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
         }
 
@@ -94,28 +95,16 @@ namespace Lis.Map
                 .SetLoops(-1, LoopType.Restart)
                 .SetId("current node disc tween");
 
-            if (Node.IsVisited) return;
-
-            Node.IsVisited = true;
             ResolveNode();
+            Node.IsVisited = true;
         }
 
-        void ResolveNode()
+        public virtual void LeaveNode()
         {
-            if (Node is MapNodeFight mapNodeFight)
-            {
-                Debug.Log($"Fight node");
-                // _gameManager.Campaign.SetCurrentArena(mapNodeFight.Arena);
-                // _gameManager.LoadScene(Scenes.Arena);
-            }
-            if (Node is MapNodeShop mapNodeShop)
-            {
-                Debug.Log("Shop node");
-            }
-            if (Node is MapNodeChest mapNodeChest)
-            {
-                Debug.Log("Chest node");
-            }
+        }
+
+        protected virtual void ResolveNode()
+        {
         }
 
         public void OnPointerEnter(PointerEventData eventData)

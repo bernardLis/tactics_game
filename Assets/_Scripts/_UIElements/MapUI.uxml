@@ -9,7 +9,7 @@
     <Style src="project://database/Assets/_Scripts/Units/_UIElements/UnitCardStyles.uss?fileID=7433441132597879392&amp;guid=2c5d53665b9fb84498cbab8dbbbe1aa7&amp;type=3#UnitCardStyles" />
     <Style src="project://database/Assets/_Scripts/Arena/_UIElements/TooltipCardStyles.uss?fileID=7433441132597879392&amp;guid=7b6b9302b282d604bb6b1bc7d2284bb8&amp;type=3#TooltipCardStyles" />
     <Style src="project://database/Assets/_Scripts/Camp/Building/_UIElements/InvestmentElementStyles.uss?fileID=7433441132597879392&amp;guid=a4aecaf72db847f59de2bb326a926ed5&amp;type=3#InvestmentElementStyles" />
-    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/EarthTheme.uss?fileID=7433441132597879392&amp;guid=8b1720c336464932b8be1312ec65c838&amp;type=3#EarthTheme" />
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/WaterTheme.uss?fileID=7433441132597879392&amp;guid=d1571dd51fd344dd86dd958cac9a1a5a&amp;type=3#WaterTheme" />
+    <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/GoldElementStyles.uss?fileID=7433441132597879392&amp;guid=6210ce5dd6c012b4da866162ac0c703d&amp;type=3#GoldElementStyles" />
     <ui:VisualElement name="campButtonContainer" style="flex-grow: 1; bottom: 100px; position: absolute; left: auto; right: 100px;" />
 </ui:UXML>

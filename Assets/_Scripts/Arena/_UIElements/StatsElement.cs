@@ -3,6 +3,7 @@ using Lis.Arena.Fight;
 using Lis.Arena.Pickup;
 using Lis.Core;
 using Lis.Units;
+using Lis.Units.Hero;
 using Lis.Units.Hero.Ability;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,7 +24,7 @@ namespace Lis.Arena
         readonly FightManager _fightManager;
 
         readonly GameManager _gameManager;
-        readonly HeroManager _heroManager;
+        Hero _hero;
 
         readonly VisualElement _leftPanel;
         readonly VisualElement _middlePanel;
@@ -38,7 +39,7 @@ namespace Lis.Arena
                 .GetStyleSheetByName(StyleSheetType.StatsArenaElementStyles);
             if (ss != null) styleSheets.Add(ss);
 
-            _heroManager = HeroManager.Instance;
+            _hero = _gameManager.Campaign.Hero;
             _fightManager = FightManager.Instance;
 
             _stats = _fightManager.Campaign.Stats;
@@ -83,7 +84,7 @@ namespace Lis.Arena
 
         void AddAbilityStats()
         {
-            foreach (Ability a in _heroManager.Hero.GetAllAbilities())
+            foreach (Ability a in _hero.GetAllAbilities())
                 _leftPanel.Add(new AbilityStatsElement(a));
         }
 
@@ -129,7 +130,7 @@ namespace Lis.Arena
             container.style.flexDirection = FlexDirection.Row;
             _rightPanel.Add(container);
 
-            Label text = new($"Rerolls Available: {_heroManager.RewardRerollsAvailable}");
+            Label text = new($"Rerolls Available: {_hero.RewardRerolls}");
             container.Add(text);
         }
 

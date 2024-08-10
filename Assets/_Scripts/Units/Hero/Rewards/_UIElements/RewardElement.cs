@@ -1,5 +1,4 @@
 using Lis.Core;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Units.Hero.Rewards
@@ -17,7 +16,7 @@ namespace Lis.Units.Hero.Rewards
         public readonly Reward Reward;
         Label _mysteryLabel;
 
-        protected VisualElement ContentContainer;
+        protected readonly VisualElement ContentContainer;
 
         protected RewardElement(Reward reward)
         {
@@ -70,24 +69,6 @@ namespace Lis.Units.Hero.Rewards
         {
             UnregisterCallback<ClickEvent>(OnClick);
             UnregisterCallback<MouseOverEvent>(OnMouseOver);
-        }
-
-        public void SetMystery()
-        {
-            Reward.Price += Random.Range(-50, 50);
-            if (Reward.Price < 10) Reward.Price = 10;
-
-            ContentContainer.style.visibility = Visibility.Hidden;
-            _mysteryLabel = new("???");
-            _mysteryLabel.style.position = Position.Absolute;
-            _mysteryLabel.style.left = Length.Percent(50);
-            Add(_mysteryLabel);
-        }
-
-        public void RevealMystery()
-        {
-            _mysteryLabel?.RemoveFromHierarchy();
-            ContentContainer.style.visibility = Visibility.Visible;
         }
     }
 }

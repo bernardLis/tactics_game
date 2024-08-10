@@ -63,18 +63,17 @@ namespace Lis.Map
 
             _mainCamera.DefaultCamera();
             MoveTo(nodeController);
-            _mapManager.ResolveNodes(nodeController);
             return true;
         }
 
         void MoveTo(NodeController nodeController)
         {
             SplinePath path = nodeController.GetPathTo(CurrentNode);
-            CurrentNode = nodeController;
-            StartCoroutine(MoveOnPath(path));
+            CurrentNode.LeaveNode();
+            StartCoroutine(MoveOnPath(path, nodeController));
         }
 
-        IEnumerator MoveOnPath(SplinePath path)
+        IEnumerator MoveOnPath(SplinePath path, NodeController targetNode)
         {
             DOTween.Kill("current node disc tween");
 
@@ -104,7 +103,9 @@ namespace Lis.Map
             _animator.SetFloat(_animVelocityZ, 0);
 
             _isMoving = false;
+            CurrentNode = targetNode;
             CurrentNode.SetCurrentNode();
+            _mapManager.ResolveNodes(CurrentNode);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Lis.Arena;
 using Lis.Core;
 using Lis.Core.Utilities;
+using Lis.Units.Hero;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,10 +23,10 @@ namespace Lis.Camp.Building
         protected readonly List<RewardElement> AllRewardElements = new();
 
         protected readonly AudioManager AudioManager;
-        protected readonly HeroManager HeroManager;
         protected readonly List<float> LeftPositions = new();
 
         protected readonly int NumberOfRewards;
+        protected Hero Hero;
 
         VisualElement _rerollContainer;
         Label _titleLabel;
@@ -45,7 +45,7 @@ namespace Lis.Camp.Building
             if (ss != null) styleSheets.Add(ss);
 
             NumberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel().Value;
-            HeroManager = FightManager.GetComponent<HeroManager>();
+            Hero = GameManager.Campaign.Hero;
 
             Content.AddToClassList(_ussMain);
 
@@ -93,12 +93,12 @@ namespace Lis.Camp.Building
             _rerollContainer.AddToClassList(_ussRerollContainer);
             UtilityContainer.Add(_rerollContainer);
 
-            if (HeroManager.RewardRerollsAvailable <= 0) return;
+            if (Hero.RewardRerolls <= 0) return;
 
             RerollButton = new(callback: RerollReward);
             _rerollContainer.Add(RerollButton);
 
-            RerollsLeft = new($"Rerolls left: {HeroManager.RewardRerollsAvailable}");
+            RerollsLeft = new($"Rerolls left: {Hero.RewardRerolls}");
             _rerollContainer.Add(RerollsLeft);
 
             DOTween.To(x => _rerollContainer.style.opacity = x, 0, 1, 0.5f)
@@ -139,19 +139,10 @@ namespace Lis.Camp.Building
         }
 
         /* REWARDS */
-        protected RewardElement CreateRewardTablet()
-        {
-            RewardTablet reward = ScriptableObject.CreateInstance<RewardTablet>();
-            if (!reward.CreateRandom(HeroManager.Hero, AllRewardElements)) return null;
-            reward.OnRewardSelected += RewardSelected;
-            RewardElementTablet element = new(reward);
-            return element;
-        }
-
         protected RewardElement CreateRewardCardAbility()
         {
             RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-            if (!reward.CreateRandom(HeroManager.Hero, AllRewardElements)) return null;
+            if (!reward.CreateRandom(Hero, null)) return null;
             reward.OnRewardSelected += RewardSelected;
             RewardElementAbility element = new(reward);
             return element;
@@ -160,25 +151,16 @@ namespace Lis.Camp.Building
         RewardElement CreateRewardCardGold()
         {
             RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
+            reward.CreateRandom(Hero, null);
             reward.OnRewardSelected += RewardSelected;
             RewardElementGold element = new(reward);
-            return element;
-        }
-
-        protected RewardElement CreateRewardCardCreature()
-        {
-            RewardCreature reward = ScriptableObject.CreateInstance<RewardCreature>();
-            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
-            reward.OnRewardSelected += RewardSelected;
-            RewardElementCreature element = new(reward);
             return element;
         }
 
         protected RewardElement CreateRewardCardPawn()
         {
             RewardPawn reward = ScriptableObject.CreateInstance<RewardPawn>();
-            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
+            reward.CreateRandom(Hero, null);
             reward.OnRewardSelected += RewardSelected;
             RewardElementPawn element = new(reward);
             return element;
@@ -187,7 +169,7 @@ namespace Lis.Camp.Building
         protected RewardElement CreateRewardCardArmor()
         {
             RewardArmor reward = ScriptableObject.CreateInstance<RewardArmor>();
-            reward.CreateRandom(HeroManager.Hero, AllRewardElements);
+            reward.CreateRandom(Hero, null);
             reward.OnRewardSelected += RewardSelected;
             RewardElementArmor element = new(reward);
             return element;
@@ -212,19 +194,19 @@ namespace Lis.Camp.Building
 
         protected virtual void RerollReward()
         {
-            if (HeroManager.RewardRerollsAvailable <= 0)
+            if (Hero.RewardRerolls <= 0)
             {
                 Helpers.DisplayTextOnElement(FightManager.Root, RerollButton, "Not More Rerolls!", Color.red);
                 return;
             }
 
-            HeroManager.RewardRerollsAvailable--;
-            RerollsLeft.text = $"Rerolls left: {HeroManager.RewardRerollsAvailable}";
+            Hero.RewardRerolls--;
+            RerollsLeft.text = $"Rerolls left: {Hero.RewardRerolls}";
             AudioManager.CreateSound().WithSound(AudioManager.GetSound("Dice Roll")).Play();
 
             PopulateRewards();
 
-            if (HeroManager.RewardRerollsAvailable <= 0)
+            if (Hero.RewardRerolls <= 0)
                 RerollButton.SetEnabled(false);
         }
 

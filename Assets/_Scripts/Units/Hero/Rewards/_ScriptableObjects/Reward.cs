@@ -7,12 +7,13 @@ namespace Lis.Units.Hero.Rewards
     public class Reward : BaseScriptableObject
     {
         public int Price;
+        public bool IsUnavailable;
         protected GameManager GameManager;
         protected Hero Hero;
 
         public event Action<Reward> OnRewardSelected;
 
-        public virtual bool CreateRandom(Hero hero, List<RewardElement> otherRewardCards)
+        public virtual bool CreateRandom(Hero hero, List<Reward> otherRewards)
         {
             GameManager = GameManager.Instance;
             Hero = hero;

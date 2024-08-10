@@ -12,13 +12,13 @@
     flex-shrink: 0;
     width: 30px;
     height: 30px;
-    padding-right: 0px;
-    margin-right: 0px;
+    padding-right: 0;
+    margin-right: 0;
 }
 
 .gold-element__value {
     flex-shrink: 0;
-    padding-left: 0px;
+    padding-left: 0;
     margin-left: 10px;
 }
 

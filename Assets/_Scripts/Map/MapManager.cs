@@ -19,17 +19,21 @@ namespace Lis.Map
         readonly List<NodeController> _nodeControllers = new();
         NodeControllerGrid _mapGrid;
 
+        public VisualElement ButtonContainer;
+
         public void Start()
         {
             _playerController = PlayerController.Instance;
             _campaign = GameManager.Instance.Campaign;
             _map = _campaign.Map;
 
+            // HERE: testing
+            GameManager.Instance.ChangeGoldValue(1000);
             SetUpMap();
 
-            VisualElement container =
+            ButtonContainer =
                 GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("campButtonContainer");
-            container.Add(
+            ButtonContainer.Add(
                 new MyButton("Go To Camp", "common__button", () => GameManager.Instance.LoadScene(Scenes.Camp)));
         }
 

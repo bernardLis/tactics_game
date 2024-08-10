@@ -22,8 +22,6 @@ namespace Lis.Arena
 
         [SerializeField] Sound _levelUpSound;
 
-        public int RewardRerollsAvailable;
-
         // HERE: testing
         readonly bool _turnOffAbility = false;
         AudioManager _audioManager;
@@ -47,9 +45,6 @@ namespace Lis.Arena
             GetComponent<UIDocument>().rootVisualElement.Add(new HeroElement(GameManager.Instance.Campaign.Hero));
 
             InitializeHeroGameObject(hero);
-
-            RewardRerollsAvailable = _gameManager.UpgradeBoard.GetUpgradeByName("Reward Reroll").GetCurrentLevel()
-                .Value;
 
             OnHeroInitialized?.Invoke(hero);
 
@@ -91,7 +86,7 @@ namespace Lis.Arena
 
         public void DiceCollected()
         {
-            RewardRerollsAvailable++;
+            Hero.RewardRerolls++;
         }
     }
 }
