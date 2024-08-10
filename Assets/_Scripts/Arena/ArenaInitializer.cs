@@ -60,7 +60,6 @@ namespace Lis.Arena
             GetComponent<RangedOpponentManager>().Initialize();
             GetComponent<BossManager>().Initialize();
             GetComponent<StatsTracker>().Initialize();
-            GetComponent<ArenaUIManager>().Initialize();
             yield return new WaitForSeconds(0.1f);
 
             OnArenaInitialized?.Invoke();

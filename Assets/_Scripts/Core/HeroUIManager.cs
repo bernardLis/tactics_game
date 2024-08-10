@@ -6,18 +6,19 @@ using UnityEngine.UIElements;
 
 namespace Lis.Arena
 {
-    public class ArenaUIManager : MonoBehaviour
+    public class HeroUIManager : MonoBehaviour
     {
+        GameManager _gameManager;
+
         VisualElement _root;
         MyButton _viewArmyButton;
 
         MyButton _viewHeroButton;
 
-        public void Initialize()
+        public void Start()
         {
+            _gameManager = GameManager.Instance;
             _root = GetComponent<UIDocument>().rootVisualElement;
-
-            _root.Add(new HeroElement(HeroManager.Instance.Hero));
 
             AddHeroUI();
         }
@@ -33,8 +34,8 @@ namespace Lis.Arena
             container.style.backgroundColor = new(new Color(0, 0, 0, 0.5f));
             _root.Add(container);
 
-            GoldElement goldElement = new(GameManager.Instance.Gold);
-            GameManager.Instance.OnGoldChanged += goldElement.ChangeAmount;
+            GoldElement goldElement = new(_gameManager.Gold);
+            _gameManager.OnGoldChanged += goldElement.ChangeAmount;
             container.Add(goldElement);
 
             _viewHeroButton = new("", "common__hero-button", ViewHero);
@@ -46,7 +47,7 @@ namespace Lis.Arena
 
         void ViewHero()
         {
-            HeroScreen heroScreen = new(HeroManager.Instance.Hero);
+            HeroScreen heroScreen = new(_gameManager.Campaign.Hero);
             heroScreen.Initialize();
             _viewHeroButton.SetEnabled(false);
             heroScreen.OnHide += () => _viewHeroButton.SetEnabled(true);

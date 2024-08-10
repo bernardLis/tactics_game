@@ -81,7 +81,6 @@ namespace Lis.Map
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Clicked on " + name);
             if (!_playerController.TryMovingPlayerToNode(this))
                 _icon.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
         }

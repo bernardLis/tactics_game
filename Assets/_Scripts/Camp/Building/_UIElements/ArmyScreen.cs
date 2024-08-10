@@ -7,7 +7,7 @@ namespace Lis.Camp.Building
 {
     public class ArmyScreen : FullScreenElement
     {
-        readonly HeroManager _heroManager;
+        GameManager _gameManager;
 
         readonly VisualElement _mainContainer;
         readonly UnitCardFactory _unitCardFactory;
@@ -18,7 +18,7 @@ namespace Lis.Camp.Building
 
         public ArmyScreen()
         {
-            _heroManager = HeroManager.Instance;
+            _gameManager = GameManager.Instance;
             _unitCardFactory = UnitCardFactory.Instance;
 
             _mainContainer = new();
@@ -50,7 +50,7 @@ namespace Lis.Camp.Building
 
         void AddPlayerArmyIcons()
         {
-            foreach (Unit u in _heroManager.Hero.Army)
+            foreach (Unit u in _gameManager.Campaign.Hero.Army)
             {
                 UnitIcon icon = new(u);
                 _playerArmyScrollView.Add(icon);
@@ -58,10 +58,9 @@ namespace Lis.Camp.Building
         }
 
 
-
         void AddPlayerArmyCards()
         {
-            foreach (Unit u in _heroManager.Hero.Army)
+            foreach (Unit u in _gameManager.Campaign.Hero.Army)
                 _playerArmyScrollView.Add(_unitCardFactory.CreateUnitCard(u));
         }
 

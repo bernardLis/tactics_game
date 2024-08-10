@@ -8,6 +8,7 @@ using Lis.HeroCreation;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Tablets;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Lis.Arena
 {
@@ -42,6 +43,8 @@ namespace Lis.Arena
 
             Hero = hero;
             hero.InitializeFight(0);
+
+            GetComponent<UIDocument>().rootVisualElement.Add(new HeroElement(GameManager.Instance.Campaign.Hero));
 
             InitializeHeroGameObject(hero);
 
@@ -78,7 +81,6 @@ namespace Lis.Arena
             _audioManager.CreateSound().WithSound(_levelUpSound).Play();
             LevelUpRewardScreen levelUpScreen = new();
             levelUpScreen.Initialize();
-
         }
 
         void OnTabletAdvancedAdded(TabletAdvanced tabletAdvanced)

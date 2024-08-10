@@ -40,6 +40,8 @@ namespace Lis.Map
             CreateConnections();
 
             _playerController.transform.position = _campaign.CurrentHeroNode.MapPosition;
+            ResolveNodes(_playerController.CurrentNode);
+
         }
 
         void GenerateNodes()
