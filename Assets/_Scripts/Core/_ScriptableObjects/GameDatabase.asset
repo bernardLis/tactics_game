@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 187af887-5c46-462d-ab48-4ead66fea4bc
   SampleCampaign: {fileID: 11400000, guid: 20a6d38b6ac90ff47943081fa77bda69, type: 2}
+  MapNode: {fileID: 11400000, guid: 231ee6212e737bd41bbac90886b623d4, type: 2}
+  MapNodeFight: {fileID: 11400000, guid: 75c9993dd77d24c47b204102f62c39ef, type: 2}
+  MapNodeChest: {fileID: 11400000, guid: 557c24778d6ac784da8813c85b2c9477, type: 2}
+  MapNodeShop: {fileID: 11400000, guid: b46715bd3897a204887286cc0491bf0d, type: 2}
   Arenas:
   - {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
   LitShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}

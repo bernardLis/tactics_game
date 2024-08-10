@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lis.Arena.Pickup;
+using Lis.Map;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,7 +10,14 @@ namespace Lis.Core
 {
     public class GameDatabase : BaseScriptableObject
     {
-        [Header("Battle")] public Campaign SampleCampaign;
+        [Header("Campaign")] public Campaign SampleCampaign;
+
+        [Header("Map")]
+        public MapNode MapNode;
+
+        public MapNode MapNodeFight;
+        public MapNode MapNodeChest;
+        public MapNode MapNodeShop;
 
         [Header("Arenas")] public Arena.Arena[] Arenas;
 

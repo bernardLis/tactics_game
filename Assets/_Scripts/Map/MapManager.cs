@@ -14,7 +14,6 @@ namespace Lis.Map
         [SerializeField] Transform _nodeParent;
         public Transform PathsParent;
 
-        [SerializeField] NodeController _mapNodePrefab;
         PlayerController _playerController;
 
         readonly List<NodeController> _nodeControllers = new();
@@ -41,7 +40,6 @@ namespace Lis.Map
 
             _playerController.transform.position = _campaign.CurrentHeroNode.MapPosition;
             ResolveNodes(_playerController.CurrentNode);
-
         }
 
         void GenerateNodes()
@@ -56,7 +54,7 @@ namespace Lis.Map
                 _mapGrid.Rows.Add(currentRow);
                 foreach (MapNode mn in r.Nodes)
                 {
-                    NodeController nc = Instantiate(_mapNodePrefab, _nodeParent);
+                    NodeController nc = Instantiate(mn.NodePrefab, _nodeParent).GetComponent<NodeController>();
                     nc.Initialize(mn);
                     if (_campaign.CurrentHeroNode == mn) nc.SetCurrentNode();
                     _nodeControllers.Add(nc);

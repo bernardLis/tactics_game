@@ -104,8 +104,17 @@ namespace Lis.Map
         {
             if (Node is MapNodeFight mapNodeFight)
             {
-                _gameManager.Campaign.SetCurrentArena(mapNodeFight.Arena);
-                _gameManager.LoadScene(Scenes.Arena);
+                Debug.Log($"Fight node");
+                // _gameManager.Campaign.SetCurrentArena(mapNodeFight.Arena);
+                // _gameManager.LoadScene(Scenes.Arena);
+            }
+            if (Node is MapNodeShop mapNodeShop)
+            {
+                Debug.Log("Shop node");
+            }
+            if (Node is MapNodeChest mapNodeChest)
+            {
+                Debug.Log("Chest node");
             }
         }
 

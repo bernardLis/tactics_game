@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5585340748196933108
+--- !u!1001 &9063117611797372194
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1531182591920725117, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e448539648c9a740ae45b92a656d045, type: 2}
+    - target: {fileID: 4047473255135950355, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9689c028080e45e4e9a03924e4b6db0c, type: 3}
     - target: {fileID: 4965529186677508759, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8387998812797388980, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
       propertyPath: m_Name
-      value: Map Node Prefab
+      value: Map Node Prefab Chest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
