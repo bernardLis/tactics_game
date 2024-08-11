@@ -25,7 +25,7 @@ namespace Lis.Map
 
         CameraController _mainCamera;
 
-        bool _isMoving;
+        public bool IsMoving;
 
         void Start()
         {
@@ -59,7 +59,7 @@ namespace Lis.Map
         {
             if (CurrentNode == nodeController) return false;
             if (!nodeController.IsConnectedTo(CurrentNode)) return false;
-            if (_isMoving) return false;
+            if (IsMoving) return false;
 
             _mainCamera.DefaultCamera();
             MoveTo(nodeController);
@@ -77,7 +77,7 @@ namespace Lis.Map
         {
             DOTween.Kill("current node disc tween");
 
-            _isMoving = true;
+            IsMoving = true;
 
             float t = 0f;
             while (t < 1f)
@@ -102,7 +102,7 @@ namespace Lis.Map
             _animator.SetFloat(_animVelocityX, 0);
             _animator.SetFloat(_animVelocityZ, 0);
 
-            _isMoving = false;
+            IsMoving = false;
             CurrentNode = targetNode;
             CurrentNode.SetCurrentNode();
             _mapManager.ResolveNodes(CurrentNode);

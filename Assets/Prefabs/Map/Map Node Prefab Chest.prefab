@@ -91,6 +91,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2688734012076274315}
     m_Modifications:
+    - target: {fileID: 890172546649100421, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
+      propertyPath: _particleSystem
+      value: 
+      objectReference: {fileID: 5365225517716173185}
     - target: {fileID: 1012167875997599541, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
       propertyPath: m_Name
       value: Chest
@@ -105,6 +109,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1657482674453934824, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043320055119305792, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6346271948144563783, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
@@ -164,6 +172,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
+--- !u!1 &5365225517716173185 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5043320055119305792, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
+  m_PrefabInstance: {fileID: 1119255490273488321}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6312384517907086214 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6346271948144563783, guid: 38838356ea5c7c646874b1eb70c8f1de, type: 3}
@@ -268,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Node: {fileID: 0}
   _splinePrefab: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
-  _icon: {fileID: 5038729772927118129}
+  Icon: {fileID: 5038729772927118129}
   _disc: {fileID: 3090295562906722919}
   _chestOpenSound: {fileID: 11400000, guid: 09812b976f3474745be851ad425381ef, type: 2}
   _chest: {fileID: 6312384517907086214}

@@ -354,7 +354,7 @@ Material:
     - _Smoothness: 0
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
-    - _SnowLevel: 0
+    - _SnowLevel: -13.57
     - _SpecSource: 0
     - _SpecularHighlights: 0
     - _SrcBlend: 1

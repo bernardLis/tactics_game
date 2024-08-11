@@ -88,6 +88,9 @@ namespace Lis.Map
         /* MOVE */
         void ArrowMovement(InputAction.CallbackContext context)
         {
+            if (Time.timeScale == 0) return;
+            if (PlayerController.Instance.IsMoving) return;
+
             _followTransform.StopFollowingPlayer();
 
             Vector3 inputValue = context.ReadValue<Vector2>();

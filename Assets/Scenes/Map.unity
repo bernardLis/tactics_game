@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 1379688998}
   - component: {fileID: 1379688997}
   - component: {fileID: 1379688996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +852,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379688995}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d7bbd6a5ebd4a6d458d8fece356e3f57, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

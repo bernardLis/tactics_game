@@ -414,7 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Node: {fileID: 0}
   _splinePrefab: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
-  _icon: {fileID: 4047473255135950355}
+  Icon: {fileID: 4047473255135950355}
   _disc: {fileID: 6279220763165835077}
 --- !u!1 &8913909188669591340
 GameObject:

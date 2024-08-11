@@ -5,6 +5,7 @@ using Lis.Map.MapNodes;
 using Shapes;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.Splines;
 using UnityEngine.UI;
 
@@ -20,10 +21,13 @@ namespace Lis.Map
 
         readonly List<MapNodePaths> _pathsToNodes = new();
 
-        bool _isUnavailable;
+        protected bool IsUnavailable;
 
         [SerializeField] GameObject _splinePrefab;
-        [SerializeField] Image _icon;
+
+        [FormerlySerializedAs("_icon")] [SerializeField]
+        protected Image Icon;
+
         [SerializeField] Disc _disc;
 
         public void Initialize(MapNode node)
@@ -83,7 +87,7 @@ namespace Lis.Map
             if (this == PlayerController.CurrentNode) return;
 
             if (!PlayerController.TryMovingPlayerToNode(this))
-                _icon.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
+                Icon.transform.DOShakePosition(0.5f, Vector2.one * 0.1f);
         }
 
         public void SetCurrentNode()
@@ -107,40 +111,40 @@ namespace Lis.Map
         {
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             if (Node.IsVisited) return;
-            if (_isUnavailable) return;
+            if (IsUnavailable) return;
 
-            _icon.color = new(1, 1, 1, 1);
-            _icon.transform.DOScale(1.1f, 0.2f);
+            Icon.color = new(1, 1, 1, 1);
+            Icon.transform.DOScale(1.1f, 0.2f);
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             if (Node.IsVisited) return;
-            if (_isUnavailable) return;
+            if (IsUnavailable) return;
 
-            _icon.color = new(1, 1, 1, 0.8f);
-            _icon.transform.DOScale(0.9f, 0.2f);
+            Icon.color = new(1, 1, 1, 0.8f);
+            Icon.transform.DOScale(0.9f, 0.2f);
         }
 
-        public void SetUnavailable()
+        public virtual void SetUnavailable()
         {
-            _icon.transform.DOKill();
+            Icon.transform.DOKill();
 
-            _isUnavailable = true;
+            IsUnavailable = true;
 
-            _icon.transform.DOLocalMoveY(-94, 0.2f);
-            _icon.transform.DOLocalRotate(new(90f, 0f, 0f), 0.2f);
+            Icon.transform.DOLocalMoveY(-94, 0.2f);
+            Icon.transform.DOLocalRotate(new(90f, 0f, 0f), 0.2f);
 
-            _icon.color = new(1, 1, 1, 0.5f);
-            _icon.transform.DOScale(0.8f, 0.2f);
+            Icon.color = new(1, 1, 1, 0.5f);
+            Icon.transform.DOScale(0.8f, 0.2f);
         }
 
-        public void SetAvailable()
+        public virtual void SetAvailable()
         {
-            _icon.transform.DOLocalMoveY(50, 1f)
+            Icon.transform.DOLocalMoveY(50, 1f)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(-1, LoopType.Yoyo);
         }

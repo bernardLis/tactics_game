@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Node: {fileID: 0}
   _splinePrefab: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
-  _icon: {fileID: 507493339478200751}
+  Icon: {fileID: 507493339478200751}
   _disc: {fileID: 7495467489849874681}
 --- !u!114 &7495467489849874681 stripped
 MonoBehaviour:
