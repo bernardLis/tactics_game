@@ -5,7 +5,6 @@ using Lis.Map.MapNodes;
 using Shapes;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.Splines;
 using UnityEngine.UI;
 
@@ -21,14 +20,12 @@ namespace Lis.Map
 
         readonly List<MapNodePaths> _pathsToNodes = new();
 
-        protected bool IsUnavailable;
+        bool _isUnavailable;
 
         [SerializeField] GameObject _splinePrefab;
-
-        [FormerlySerializedAs("_icon")] [SerializeField]
-        protected Image Icon;
-
+        [SerializeField] protected Image Icon;
         [SerializeField] Disc _disc;
+        [SerializeField] protected Transform Gfx;
 
         public void Initialize(MapNode node)
         {
@@ -114,32 +111,18 @@ namespace Lis.Map
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             if (Node.IsVisited) return;
-            if (IsUnavailable) return;
-
-            Icon.color = new(1, 1, 1, 1);
-            Icon.transform.DOScale(1.1f, 0.2f);
+            if (_isUnavailable) return;
+            Gfx.DOScale(1.2f, 0.5f)
+                .SetEase(Ease.InOutBack);
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
         {
             if (Node.IsVisited) return;
-            if (IsUnavailable) return;
+            if (_isUnavailable) return;
 
-            Icon.color = new(1, 1, 1, 0.8f);
-            Icon.transform.DOScale(0.9f, 0.2f);
-        }
-
-        public virtual void SetUnavailable()
-        {
-            Icon.transform.DOKill();
-
-            IsUnavailable = true;
-
-            Icon.transform.DOLocalMoveY(-94, 0.2f);
-            Icon.transform.DOLocalRotate(new(90f, 0f, 0f), 0.2f);
-
-            Icon.color = new(1, 1, 1, 0.5f);
-            Icon.transform.DOScale(0.8f, 0.2f);
+            Gfx.DOScale(1f, 0.5f)
+                .SetEase(Ease.InOutBack);
         }
 
         public virtual void SetAvailable()
@@ -147,6 +130,22 @@ namespace Lis.Map
             Icon.transform.DOLocalMoveY(50, 1f)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(-1, LoopType.Yoyo);
+        }
+
+        public virtual void SetUnavailable()
+        {
+            Icon.transform.DOKill();
+
+            _isUnavailable = true;
+
+            Icon.transform.DOLocalMoveY(-94, 0.2f);
+            Icon.transform.DOLocalRotate(new(90f, 0f, 0f), 0.2f);
+
+            Icon.color = new(1, 1, 1, 0.5f);
+            Icon.transform.DOScale(0.8f, 0.2f);
+
+            if (this == PlayerController.CurrentNode) return;
+            Gfx.DOScale(0f, 0.5f).SetEase(Ease.InOutBack);
         }
     }
 

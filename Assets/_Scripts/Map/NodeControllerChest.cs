@@ -3,7 +3,6 @@ using UnityEngine;
 using DG.Tweening;
 using Lis.Core;
 using Lis.Map.MapNodes;
-using UnityEngine.EventSystems;
 
 namespace Lis.Map
 {
@@ -50,22 +49,6 @@ namespace Lis.Map
             };
         }
 
-        public override void OnPointerEnter(PointerEventData eventData)
-        {
-            base.OnPointerEnter(eventData);
-            if (IsUnavailable) return;
-            _chest.DOScale(1f, 0.5f)
-                .SetEase(Ease.InOutBack);
-        }
-
-        public override void OnPointerExit(PointerEventData eventData)
-        {
-            base.OnPointerExit(eventData);
-            if (IsUnavailable) return;
-            _chest.DOScale(0.8f, 0.5f)
-                .SetEase(Ease.InOutBack);
-        }
-
         public override void SetAvailable()
         {
             base.SetAvailable();
@@ -89,7 +72,7 @@ namespace Lis.Map
             _chest.DOKill();
             _chestJumpSequence.Kill();
             Icon.gameObject.SetActive(true);
-            _chest.DOScale(0f, 0.5f).SetEase(Ease.InOutBack);
+            Gfx.DOScale(0f, 0.5f).SetEase(Ease.InOutBack);
         }
     }
 }

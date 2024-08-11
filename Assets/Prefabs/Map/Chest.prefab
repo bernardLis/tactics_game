@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lid: {fileID: 1657482674453934824}
-  _particleSystem: {fileID: 0}
+  _particleSystem: {fileID: 5043320055119305792}
 --- !u!1 &2776080970992570947
 GameObject:
   m_ObjectHideFlags: 0

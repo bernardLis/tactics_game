@@ -642,6 +642,7 @@ MonoBehaviour:
   _maleHero: {fileID: 1674263300}
   _femaleHero: {fileID: 1822692493}
   CurrentNode: {fileID: 0}
+  IsMoving: 0
 --- !u!81 &1058342134
 AudioListener:
   m_ObjectHideFlags: 0
