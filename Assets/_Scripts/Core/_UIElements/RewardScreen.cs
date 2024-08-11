@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
 using Lis.Units.Hero.Rewards;
@@ -9,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-namespace Lis.Camp.Building
+namespace Lis.Core
 {
     public class RewardScreen : FullScreenElement
     {
@@ -68,7 +67,7 @@ namespace Lis.Camp.Building
             List<RewardElement> hiddenCards = new();
             for (int i = 0; i < NumberOfRewards; i++)
             {
-                RewardElement card = CreateRewardCardGold();
+                RewardElementGold card = new(ScriptableObject.CreateInstance<RewardGold>());
                 card.style.width = Length.Percent(100 / NumberOfRewards);
                 card.style.height = Length.Percent(100);
                 hiddenCards.Add(card);
@@ -106,73 +105,45 @@ namespace Lis.Camp.Building
                 .SetUpdate(true);
         }
 
-        void PopulateRewards()
+         void PopulateRewards()
         {
             RewardContainer.Clear();
             CreateRewardCards();
         }
 
-        protected virtual void CreateRewardCards()
+        protected void ParseRewardCards(List<Reward> rewards)
         {
-            AllRewardElements.Clear();
-            for (int i = 0; i < NumberOfRewards; i++)
+            foreach (Reward r in rewards)
             {
-                RewardElement el = ChooseRewardElement();
-                el ??= CreateRewardCardGold(); // backup
+                r.OnRewardSelected += RewardSelected;
 
-                el.style.position = Position.Absolute;
-                float endLeft = LeftPositions[i];
-                el.style.left = endLeft;
+                RewardElement el = null;
+                if (r is RewardAbility abilityReward)
+                    el = (RewardElementAbility)new(abilityReward);
+                if (r is RewardPawn pawnReward)
+                    el = (RewardElementPawn)new(pawnReward);
+                if (r is RewardGold goldReward)
+                    el = (RewardElementGold)new(goldReward);
+                if (r is RewardArmor armorReward)
+                    el = (RewardElementArmor)new(armorReward);
 
-                el.style.width = RewardElementWidth;
-                el.style.height = RewardElementHeight;
-
-                RewardContainer.Add(el);
                 AllRewardElements.Add(el);
             }
         }
 
-        protected virtual RewardElement ChooseRewardElement()
+        protected virtual void CreateRewardCards()
         {
-            // meant to be overwritten
-            return null;
-        }
+            for (int i = 0; i < AllRewardElements.Count; i++)
+            {
+                AllRewardElements[i].style.position = Position.Absolute;
+                float endLeft = LeftPositions[i];
+                AllRewardElements[i].style.left = endLeft;
 
-        /* REWARDS */
-        protected RewardElement CreateRewardCardAbility()
-        {
-            RewardAbility reward = ScriptableObject.CreateInstance<RewardAbility>();
-            if (!reward.CreateRandom(Hero, null)) return null;
-            reward.OnRewardSelected += RewardSelected;
-            RewardElementAbility element = new(reward);
-            return element;
-        }
+                AllRewardElements[i].style.width = RewardElementWidth;
+                AllRewardElements[i].style.height = RewardElementHeight;
 
-        RewardElement CreateRewardCardGold()
-        {
-            RewardGold reward = ScriptableObject.CreateInstance<RewardGold>();
-            reward.CreateRandom(Hero, null);
-            reward.OnRewardSelected += RewardSelected;
-            RewardElementGold element = new(reward);
-            return element;
-        }
-
-        protected RewardElement CreateRewardCardPawn()
-        {
-            RewardPawn reward = ScriptableObject.CreateInstance<RewardPawn>();
-            reward.CreateRandom(Hero, null);
-            reward.OnRewardSelected += RewardSelected;
-            RewardElementPawn element = new(reward);
-            return element;
-        }
-
-        protected RewardElement CreateRewardCardArmor()
-        {
-            RewardArmor reward = ScriptableObject.CreateInstance<RewardArmor>();
-            reward.CreateRandom(Hero, null);
-            reward.OnRewardSelected += RewardSelected;
-            RewardElementArmor element = new(reward);
-            return element;
+                RewardContainer.Add(AllRewardElements[i]);
+            }
         }
 
         protected virtual void RewardSelected(Reward reward)
@@ -196,7 +167,7 @@ namespace Lis.Camp.Building
         {
             if (Hero.RewardRerolls <= 0)
             {
-                Helpers.DisplayTextOnElement(FightManager.Root, RerollButton, "Not More Rerolls!", Color.red);
+                Helpers.DisplayTextOnElement(FightManager.Root, RerollButton, "No More Rerolls!", Color.red);
                 return;
             }
 

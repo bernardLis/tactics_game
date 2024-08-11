@@ -1,6 +1,7 @@
+using Lis.Core;
 using Lis.Units.Hero.Rewards;
 
-namespace Lis.Camp.Building
+namespace Lis.Arena
 {
     public class LevelUpRewardScreen : RewardScreen
     {
@@ -12,9 +13,5 @@ namespace Lis.Camp.Building
             SetTitle("Choose A Reward:");
         }
 
-        protected override RewardElement ChooseRewardElement()
-        {
-            return CreateRewardCardAbility();
-        }
     }
 }

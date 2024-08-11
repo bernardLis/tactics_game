@@ -1,9 +1,8 @@
 ﻿using Lis.Arena;
-using Lis.Core;
 using Lis.Units;
 using UnityEngine.UIElements;
 
-namespace Lis.Camp.Building
+namespace Lis.Core
 {
     public class ArmyScreen : FullScreenElement
     {

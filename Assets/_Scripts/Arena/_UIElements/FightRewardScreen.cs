@@ -1,4 +1,5 @@
 using Lis.Camp.Building;
+using Lis.Core;
 using Lis.Units.Hero.Rewards;
 
 namespace Lis.Arena
@@ -11,11 +12,6 @@ namespace Lis.Arena
             MakeItRain();
             PlayLevelUpAnimation();
             SetTitle("Choose A Reward:");
-        }
-
-        protected override RewardElement ChooseRewardElement()
-        {
-            return CreateRewardCardArmor();
         }
     }
 }

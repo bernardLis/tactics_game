@@ -2,7 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 using Lis.Core;
-using Lis.Units.Hero;
+using Lis.Map.MapNodes;
 using UnityEngine.EventSystems;
 
 namespace Lis.Map
@@ -41,13 +41,12 @@ namespace Lis.Map
         {
             yield return new WaitForSeconds(3f);
 
-            HeroScreen hsb = new(GameManager.Instance.Campaign.Hero);
-            hsb.OnHide += () =>
+            ChestScreen chestScreen = new();
+            chestScreen.InitializeChest((MapNodeChest)Node);
+            chestScreen.OnHide += () =>
             {
-                _chest.DOScale(0f, 0.5f).SetEase(Ease.InOutBack).SetDelay(2f).OnComplete(() =>
-                {
-                    Icon.gameObject.SetActive(true);
-                });
+                _chest.DOScale(0f, 0.5f).SetEase(Ease.InOutBack)
+                    .OnComplete(() => { Icon.gameObject.SetActive(true); });
             };
         }
 

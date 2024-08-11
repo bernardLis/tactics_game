@@ -15,7 +15,6 @@ namespace Lis.Map.MapNodes
             base.Initialize(pos, row);
             _numberOfRewards = GameManager.UpgradeBoard.GetUpgradeByName("Reward Count").GetCurrentLevel()
                 .Value;
-
             SelectItems();
         }
 

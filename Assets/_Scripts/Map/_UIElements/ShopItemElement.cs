@@ -2,7 +2,7 @@
 using Lis.Units.Hero.Rewards;
 using UnityEngine.UIElements;
 
-namespace Lis.Camp.Building
+namespace Lis.Map
 {
     public class ShopItemElement : VisualElement
     {

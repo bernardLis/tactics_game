@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Lis.Core;
 using Lis.Core.Utilities;
-using Lis.Map;
 using Lis.Map.MapNodes;
 using Lis.Units.Hero.Rewards;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Lis.Camp.Building
+namespace Lis.Map
 {
     public class ShopScreen : RewardScreen
     {
@@ -45,32 +44,12 @@ namespace Lis.Camp.Building
 
         protected override void CreateRewardCards()
         {
-            Debug.Log("CreateRewardCards");
-
             AllRewardElements.Clear();
             RewardContainer.Clear();
 
             ParseRewardCards(_shop.GetRewards());
 
             AddShopItems();
-        }
-
-        void ParseRewardCards(List<Reward> rewards)
-        {
-            foreach (Reward r in rewards)
-            {
-                RewardElement el = null;
-                if (r is RewardAbility abilityReward)
-                    el = (RewardElementAbility)new(abilityReward);
-                if (r is RewardPawn pawnReward)
-                    el = (RewardElementPawn)new(pawnReward);
-                if (r is RewardGold goldReward)
-                    el = (RewardElementGold)new(goldReward);
-                if (r is RewardArmor armorReward)
-                    el = (RewardElementArmor)new(armorReward);
-
-                AllRewardElements.Add(el);
-            }
         }
 
         void AddShopItems()
