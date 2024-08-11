@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Map Node Fight
   m_EditorClassIdentifier: 
   Id: 82299651-cc72-4555-8df0-083b487a740d
+  NodeName: Fight
   NodePrefab: {fileID: 4173488492017689920, guid: bba5ece4d5e823947a591f93b646e620, type: 3}
   MapPosition: {x: 0, y: 0, z: 0}
   IsVisited: 0

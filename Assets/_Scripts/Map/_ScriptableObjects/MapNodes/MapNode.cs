@@ -7,6 +7,8 @@ namespace Lis.Map.MapNodes
 
     public class MapNode : BaseScriptableObject
     {
+        public string NodeName;
+
         public GameObject NodePrefab;
 
         public Vector3 MapPosition;

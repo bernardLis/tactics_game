@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using Lis.Core;
+using Lis.Core.Utilities;
 using Lis.Map.MapNodes;
 using Shapes;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Lis.Map
     {
         GameManager _gameManager;
         protected MapManager MapManager;
+        MapTooltipManager _mapTooltipManager;
         protected PlayerController PlayerController;
 
         [HideInInspector] public MapNode Node;
@@ -33,6 +35,7 @@ namespace Lis.Map
         {
             _gameManager = GameManager.Instance;
             MapManager = MapManager.Instance;
+            _mapTooltipManager = MapTooltipManager.Instance;
             PlayerController = PlayerController.Instance;
             Node = node;
 
@@ -114,6 +117,8 @@ namespace Lis.Map
         {
             if (Node.IsVisited) return;
             if (_isUnavailable) return;
+
+            _mapTooltipManager.DisplayTooltip(Node.NodeName);
             Gfx.DOScale(1.2f, 0.5f)
                 .SetEase(Ease.InOutBack);
             _selectionDisc.SetActive(true);
@@ -123,6 +128,8 @@ namespace Lis.Map
         {
             if (Node.IsVisited) return;
             if (_isUnavailable) return;
+
+            _mapTooltipManager.HideTooltip();
 
             Gfx.DOScale(1f, 0.5f)
                 .SetEase(Ease.InOutBack);
@@ -138,6 +145,8 @@ namespace Lis.Map
 
         public virtual void SetUnavailable()
         {
+            _mapTooltipManager.HideTooltip();
+
             Icon.transform.DOKill();
 
             _isUnavailable = true;

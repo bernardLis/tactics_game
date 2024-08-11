@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Map Node
   m_EditorClassIdentifier: 
   Id: 116c0e5a-3a03-4463-a1fe-7bd74e34ee25
+  NodeName: Node
   NodePrefab: {fileID: 8387998812797388980, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
   MapPosition: {x: 0, y: 0, z: 0}
   IsVisited: 0

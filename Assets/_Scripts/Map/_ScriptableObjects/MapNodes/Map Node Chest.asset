@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Map Node Chest
   m_EditorClassIdentifier: 
   Id: 7311c6ce-09a1-4dcc-82c6-2731dd5c1de2
+  NodeName: Chest
   NodePrefab: {fileID: 697636870593123734, guid: 65896833a332d00438f68373061ac7ec, type: 3}
   MapPosition: {x: 0, y: 0, z: 0}
   IsVisited: 0
