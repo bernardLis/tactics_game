@@ -25,6 +25,8 @@ namespace Lis.Map
         [SerializeField] GameObject _splinePrefab;
         [SerializeField] protected Image Icon;
         [SerializeField] Disc _disc;
+        [SerializeField] GameObject _selectionDisc;
+
         [SerializeField] protected Transform Gfx;
 
         public void Initialize(MapNode node)
@@ -114,6 +116,7 @@ namespace Lis.Map
             if (_isUnavailable) return;
             Gfx.DOScale(1.2f, 0.5f)
                 .SetEase(Ease.InOutBack);
+            _selectionDisc.SetActive(true);
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
@@ -123,6 +126,7 @@ namespace Lis.Map
 
             Gfx.DOScale(1f, 0.5f)
                 .SetEase(Ease.InOutBack);
+            _selectionDisc.SetActive(false);
         }
 
         public virtual void SetAvailable()
@@ -143,6 +147,8 @@ namespace Lis.Map
 
             Icon.color = new(1, 1, 1, 0.5f);
             Icon.transform.DOScale(0.8f, 0.2f);
+
+            _selectionDisc.SetActive(false);
 
             if (this == PlayerController.CurrentNode) return;
             Gfx.DOScale(0f, 0.5f).SetEase(Ease.InOutBack);

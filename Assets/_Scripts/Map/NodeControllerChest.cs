@@ -11,7 +11,7 @@ namespace Lis.Map
         [SerializeField] Sound _chestOpenSound;
         [SerializeField] Transform _chest;
 
-        Sequence _chestJumpSequence;
+        // Sequence _chestJumpSequence;
 
         protected override void ResolveNode()
         {
@@ -22,7 +22,7 @@ namespace Lis.Map
         void ShowChest()
         {
             _chest.DOKill();
-            _chestJumpSequence.Kill();
+            // _chestJumpSequence.Kill();
 
             _chest.DOMoveY(1.5f, 0.5f).SetEase(Ease.InOutSine);
             _chest.DOLocalRotate(new(0, -180, 0), 0.5f).OnComplete(() =>
@@ -58,10 +58,10 @@ namespace Lis.Map
                 .SetEase(Ease.InOutBack)
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetDelay(Random.Range(0.1f, 0.5f));
-            _chestJumpSequence = DOTween.Sequence().SetLoops(-1);
-            _chestJumpSequence.Append(_chest.DOLocalJump(0.2f * Vector3.up, 1f, 1, 0.5f));
-            _chestJumpSequence.PrependInterval(2);
-            _chestJumpSequence.Play();
+            // _chestJumpSequence = DOTween.Sequence().SetLoops(-1);
+            // _chestJumpSequence.Append(_chest.DOLocalJump(0.2f * Vector3.up, 1f, 1, 0.5f));
+            // _chestJumpSequence.PrependInterval(2);
+            // _chestJumpSequence.Play();
         }
 
         public override void SetUnavailable()
@@ -70,7 +70,7 @@ namespace Lis.Map
             if (this == PlayerController.CurrentNode) return;
 
             _chest.DOKill();
-            _chestJumpSequence.Kill();
+            // _chestJumpSequence.Kill();
             Icon.gameObject.SetActive(true);
             Gfx.DOScale(0f, 0.5f).SetEase(Ease.InOutBack);
         }

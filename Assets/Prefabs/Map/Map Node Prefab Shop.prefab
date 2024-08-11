@@ -80,6 +80,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3559793764348367254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1028954225660311082, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
+  m_PrefabInstance: {fileID: 4549051220974380988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5424956841812815624 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8387998812797388980, guid: 817f845f727dbcf4b95225fec45c5cd6, type: 3}
@@ -101,6 +106,7 @@ MonoBehaviour:
   _splinePrefab: {fileID: 2383269602581781872, guid: 878565c8ee9ac24408fbe564cf9bb490, type: 3}
   Icon: {fileID: 507493339478200751}
   _disc: {fileID: 7495467489849874681}
+  _selectionDisc: {fileID: 3559793764348367254}
   Gfx: {fileID: 7473615685577984021}
 --- !u!4 &7473615685577984021 stripped
 Transform:
