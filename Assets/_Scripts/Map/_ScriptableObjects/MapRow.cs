@@ -32,7 +32,7 @@ namespace Lis.Map
             if (rowNumber == 0)
                 return Instantiate(_gameDatabase.MapNode);
             if (rowNumber == 1)
-                return Instantiate(_gameDatabase.MapNodeFight); // HERE: testing
+                return Instantiate(_gameDatabase.MapNodeFight);
 
             // TODO: last row is a boss fight
 
