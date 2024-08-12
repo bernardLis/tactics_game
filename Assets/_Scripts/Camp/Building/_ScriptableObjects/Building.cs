@@ -30,6 +30,7 @@ namespace Lis.Camp.Building
 
         public void Unlock()
         {
+            Debug.Log("Unlocking building");
             IsUnlocked = true;
             OnUnlocked?.Invoke();
         }

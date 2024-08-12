@@ -11,9 +11,7 @@ namespace Lis.Camp.Building
         [SerializeField] GameObject _unlockedGfx;
         [SerializeField] GameObject _unlockedEffect;
 
-        [SerializeField] protected GameObject InteractionAvailableEffect;
-
-        protected Building Building;
+        public Building Building;
 
         protected bool IsInteractionAvailable;
 
@@ -37,22 +35,29 @@ namespace Lis.Camp.Building
 
         protected virtual void Initialize()
         {
+            if (Building.IsUnlocked) return;
+
+            Building.OnUnlocked += Unlock;
+            _unlockedGfx.SetActive(false);
+            ForbidInteraction();
+            BuildingUnlocker unlocker = GetComponentInChildren<BuildingUnlocker>();
+            unlocker.gameObject.SetActive(true);
+            unlocker.Initialize(Building);
         }
 
         protected virtual void AllowInteraction()
         {
-            InteractionAvailableEffect.SetActive(true);
             IsInteractionAvailable = true;
         }
 
         protected void ForbidInteraction()
         {
-            InteractionAvailableEffect.SetActive(false);
             IsInteractionAvailable = false;
         }
 
         protected virtual void Unlock()
         {
+            Debug.Log("Building controller unlocked");
             if (this == null) return;
             if (_unlockedEffect != null) _unlockedEffect.SetActive(true);
             _unlockedGfx.SetActive(true);

@@ -22,6 +22,7 @@ namespace Lis.Camp
             _hero.InitializeFight(0);
 
             // HERE: testing
+            GameManager.Instance.ChangeGoldValue(1000);
             for (int i = 0; i < 5; i++)
                 _hero.AddArmy(Instantiate(GameManager.Instance.UnitDatabase.Peasant));
 
