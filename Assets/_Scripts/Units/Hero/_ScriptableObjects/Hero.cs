@@ -15,8 +15,6 @@ namespace Lis.Units.Hero
         [Header("Visuals")]
         public VisualHero VisualHero;
 
-        public GameObject CampPrefab;
-
         [Header("Hero Sounds")]
         public Sound TeleportStartSound;
 

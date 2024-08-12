@@ -15,6 +15,7 @@ namespace Lis.Units
         public int Price;
         public Nature Nature;
         public GameObject Prefab;
+        public GameObject CampPrefab;
 
         [Header("Sounds")]
         public Sound SpawnSound;

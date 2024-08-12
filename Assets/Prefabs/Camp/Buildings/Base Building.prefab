@@ -50,8 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 0}
   _unlockedEffect: {fileID: 0}
-  _tooltipCanvas: {fileID: 0}
-  TooltipText: {fileID: 0}
   InteractionAvailableEffect: {fileID: 0}
 --- !u!135 &5921763130888011080
 SphereCollider:

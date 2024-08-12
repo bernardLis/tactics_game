@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2744164624383545215
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135271281905096480, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908145842352631359, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      propertyPath: m_Name
+      value: Hero Female Camp
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8947717344442058657, guid: a981c38c9411499418d91a97e392607e, type: 3}
+    - {fileID: 3355412292259221537, guid: a981c38c9411499418d91a97e392607e, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 3351122072864138794, guid: a981c38c9411499418d91a97e392607e, type: 3}
+    - {fileID: 8229130681671369433, guid: a981c38c9411499418d91a97e392607e, type: 3}
+    - {fileID: 7361923943407701692, guid: a981c38c9411499418d91a97e392607e, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8908145842352631359, guid: a981c38c9411499418d91a97e392607e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7209611011632894067}
+  m_SourcePrefab: {fileID: 100100000, guid: a981c38c9411499418d91a97e392607e, type: 3}
+--- !u!1 &6752351998372094272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8908145842352631359, guid: a981c38c9411499418d91a97e392607e, type: 3}
+  m_PrefabInstance: {fileID: 2744164624383545215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7209611011632894067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6752351998372094272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c3d6b1e64120e84987744522c301265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

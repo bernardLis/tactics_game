@@ -30,7 +30,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8039299703184105728}
-  - {fileID: 633741010540265769}
   - {fileID: 1298115602601750402}
   - {fileID: 815677280516681042}
   - {fileID: 8964903822392827093}
@@ -602,6 +601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5e90e1a65f86c4282a68b4177e5398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeroFollowCamera: {fileID: 0}
+  _armyHolder: {fileID: 0}
 --- !u!1 &2900503898316748804
 GameObject:
   m_ObjectHideFlags: 0
@@ -3318,80 +3319,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1124281581328143608, guid: e9c70514aa8270741968341c5d4f1b8e, type: 3}
   m_PrefabInstance: {fileID: 5889716023670641780}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &5926722242011433696
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2183910558654524289}
-    m_Modifications:
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -11.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6821445576941469663, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_Name
-      value: Shop Displayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138237947701665383, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138237947701665383, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138237947701665383, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
---- !u!4 &633741010540265769 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6553989171175099337, guid: ce6cce34d6df77745b3f8d0862d9c720, type: 3}
-  m_PrefabInstance: {fileID: 5926722242011433696}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6713045725235069375
 PrefabInstance:
