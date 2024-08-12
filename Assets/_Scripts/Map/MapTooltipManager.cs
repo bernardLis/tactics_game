@@ -19,6 +19,8 @@ namespace Lis
 
         public void DisplayTooltip(string tooltipText)
         {
+            if (_mapTooltipContainer == null) return;
+
             _mapTooltipContainer.style.display = DisplayStyle.Flex;
             _mapTooltipContainer.Clear();
             _mapTooltipContainer.Add(new Label(tooltipText));
@@ -30,6 +32,8 @@ namespace Lis
 
         public void HideTooltip()
         {
+            if (_mapTooltipContainer == null) return;
+
             DOTween.To(x => _mapTooltipContainer.style.opacity = x,
                     _mapTooltipContainer.style.opacity.value, 0, 0.5f)
                 .SetId(_tooltipHideId)

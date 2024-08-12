@@ -105,14 +105,10 @@ namespace Lis.Core
                 .SetUpdate(true);
         }
 
-         void PopulateRewards()
-        {
-            RewardContainer.Clear();
-            CreateRewardCards();
-        }
 
         protected void ParseRewardCards(List<Reward> rewards)
         {
+            AllRewardElements.Clear();
             foreach (Reward r in rewards)
             {
                 r.OnRewardSelected += RewardSelected;
@@ -129,6 +125,12 @@ namespace Lis.Core
 
                 AllRewardElements.Add(el);
             }
+        }
+
+        void PopulateRewards()
+        {
+            RewardContainer.Clear();
+            CreateRewardCards();
         }
 
         protected virtual void CreateRewardCards()

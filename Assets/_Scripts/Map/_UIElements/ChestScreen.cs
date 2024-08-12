@@ -32,7 +32,7 @@ namespace Lis.Map
             }
 
             _chest.SelectItems();
-
+            ParseRewardCards(_chest.GetRewards());
             base.RerollReward();
         }
     }
