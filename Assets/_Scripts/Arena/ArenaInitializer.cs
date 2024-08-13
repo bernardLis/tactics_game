@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Lis.Arena.Pickup;
+using Lis.Camp;
 using Lis.Core;
 using Lis.Core.Utilities;
 using UnityEngine;

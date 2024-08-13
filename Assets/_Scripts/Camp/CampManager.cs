@@ -34,6 +34,8 @@ namespace Lis.Camp
                 new MyButton("Back To Map", "common__button", () => GameManager.Instance.LoadScene(Scenes.Map)));
 
             InitializeHeroArmy();
+
+            GrabManager.Instance.Initialize();
         }
 
         void InitializeHeroGameObject(Hero hero)

@@ -28,12 +28,6 @@ namespace Lis.Units
         protected override void InitializeControllers()
         {
             base.InitializeControllers();
-
-            if (!TryGetComponent(out UnitGrabController grab)) return;
-            grab.Initialize(this);
-            grab.OnGrabbed += OnGrabbed;
-            grab.OnReleased += OnReleased;
-
             HeroController = HeroManager.Instance.HeroController;
         }
 
@@ -109,18 +103,6 @@ namespace Lis.Units
             EnableSelf();
             OnFightEnded();
             OnRevived?.Invoke();
-        }
-
-        /* GRAB */
-        void OnGrabbed()
-        {
-            ResetOpponent(default, default);
-            StopUnit();
-        }
-
-        void OnReleased()
-        {
-            if (FightManager.IsFightActive) RunUnit();
         }
 
         [Button]

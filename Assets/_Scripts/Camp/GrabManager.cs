@@ -4,11 +4,10 @@ using Lis.Core.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Lis.Arena
+namespace Lis.Camp
 {
     public class GrabManager : Singleton<GrabManager>
     {
-        ArenaManager _arenaManager;
         AudioManager _audioManager;
 
         Camera _cam;
@@ -18,7 +17,6 @@ namespace Lis.Arena
         GameObject _grabbedObject;
         bool _isGrabbingEnabled;
 
-        bool _isGrabbingUnlocked;
         Mouse _mouse;
         float _objectYPosition;
         PlayerInput _playerInput;
@@ -27,31 +25,6 @@ namespace Lis.Arena
 
         bool _wasInitialized;
 
-        /* INPUT */
-        void OnEnable()
-        {
-            if (_gameManager == null)
-                _gameManager = GameManager.Instance;
-
-            _playerInput = _gameManager.GetComponent<PlayerInput>();
-            _playerInput.SwitchCurrentActionMap("Arena");
-            UnsubscribeInputActions();
-            SubscribeInputActions();
-        }
-
-        void OnDisable()
-        {
-            if (_playerInput == null) return;
-
-            UnsubscribeInputActions();
-        }
-
-        void OnDestroy()
-        {
-            if (_playerInput == null) return;
-
-            UnsubscribeInputActions();
-        }
 
         public void Initialize()
         {
@@ -63,32 +36,16 @@ namespace Lis.Arena
             _cursorManager = CursorManager.Instance;
             _playerInput = _gameManager.GetComponent<PlayerInput>();
 
-            _arenaManager = ArenaManager.Instance;
-
             _cam = Camera.main;
             _mouse = Mouse.current;
 
-            _isGrabbingUnlocked = true; // _gameManager.UpgradeBoard.GetUpgradeByName("Hero Grab").CurrentLevel != -1;
             EnableGrabbing();
         }
 
         void EnableGrabbing()
         {
-            if (FightManager.BlockPlayerInput) return;
             if (this == null) return;
-            if (!_isGrabbingUnlocked) return;
-
             _isGrabbingEnabled = true;
-        }
-
-        void SubscribeInputActions()
-        {
-            _playerInput.actions["LeftMouseClick"].canceled += OnPointerUp;
-        }
-
-        void UnsubscribeInputActions()
-        {
-            _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
         }
 
         public void TryGrabbing(GameObject obj, float yPosition = 0f)
@@ -142,12 +99,6 @@ namespace Lis.Arena
 
         bool IsPositionValid(Vector3 pos)
         {
-            if (!_arenaManager.IsPositionInArena(pos))
-            {
-                CancelGrabbing();
-                return false;
-            }
-
             return true;
         }
 
@@ -184,6 +135,40 @@ namespace Lis.Arena
         public void CancelGrabbing()
         {
             OnPointerUp(default);
+        }
+
+        /* INPUT */
+        void OnEnable()
+        {
+            if (_gameManager == null)
+                _gameManager = GameManager.Instance;
+
+            _playerInput = _gameManager.GetComponent<PlayerInput>();
+            _playerInput.SwitchCurrentActionMap("Arena");
+            UnsubscribeInputActions();
+            SubscribeInputActions();
+        }
+
+        void OnDisable()
+        {
+            if (_playerInput == null) return;
+            UnsubscribeInputActions();
+        }
+
+        void OnDestroy()
+        {
+            if (_playerInput == null) return;
+            UnsubscribeInputActions();
+        }
+
+        void SubscribeInputActions()
+        {
+            _playerInput.actions["LeftMouseClick"].canceled += OnPointerUp;
+        }
+
+        void UnsubscribeInputActions()
+        {
+            _playerInput.actions["LeftMouseClick"].canceled -= OnPointerUp;
         }
     }
 }

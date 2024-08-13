@@ -1,35 +1,37 @@
 using System;
-using Lis.Arena;
 using Lis.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Lis.Units
+namespace Lis.Camp
 {
     public class UnitGrabController : MonoBehaviour, IGrabbable, IPointerDownHandler
     {
         Animator _animator;
         GrabManager _grabManager;
-        UnitController _unitController;
 
+        public event Action OnGrabbed;
+        public event Action OnReleased;
+
+        public void Initialize()
+        {
+            _grabManager = GrabManager.Instance;
+            _animator = GetComponentInChildren<Animator>();
+        }
 
         public bool CanBeGrabbed()
         {
-            if (_unitController.IsDead) return false;
-            if (_unitController.Team == 1) return false;
             return _grabManager != null;
         }
 
         public void Grabbed()
         {
-            _unitController.AddToLog("Grabbed");
             _animator.enabled = false;
             OnGrabbed?.Invoke();
         }
 
         public void Released()
         {
-            _unitController.AddToLog("Released");
             _animator.enabled = true;
             OnReleased?.Invoke();
         }
@@ -40,16 +42,6 @@ namespace Lis.Units
 
             if (!CanBeGrabbed()) return;
             _grabManager.TryGrabbing(gameObject);
-        }
-
-        public event Action OnGrabbed;
-        public event Action OnReleased;
-
-        public void Initialize(UnitController unitController)
-        {
-            _unitController = unitController;
-            _grabManager = GrabManager.Instance;
-            _animator = GetComponentInChildren<Animator>();
         }
     }
 }

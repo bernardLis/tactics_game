@@ -1,8 +1,8 @@
+using DG.Tweening;
 using Lis.Core.Utilities;
 using UnityEngine.UIElements;
-using DG.Tweening;
 
-namespace Lis
+namespace Lis.Map
 {
     public class MapTooltipManager : Singleton<MapTooltipManager>
     {
