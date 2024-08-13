@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Lis.Core;
 using Lis.Map.MapNodes;
+using Lis.Units;
 using UnityEngine;
 
 namespace Lis.Camp.Building
@@ -15,6 +17,8 @@ namespace Lis.Camp.Building
 
         public int Level;
         public int MaxLevel;
+
+        protected List<Unit> AssignedUnits = new();
 
         public event Action OnUnlocked;
 
@@ -42,6 +46,26 @@ namespace Lis.Camp.Building
             Debug.Log("Unlocking building");
             IsUnlocked = true;
             OnUnlocked?.Invoke();
+        }
+
+        public void AssignUnit(Unit unit)
+        {
+            AssignedUnits.Add(unit);
+        }
+
+        public void ReleaseUnits()
+        {
+            AssignedUnits.Clear();
+        }
+
+        public List<Unit> GetAssignedUnits()
+        {
+            return AssignedUnits;
+        }
+
+        public int GetAssignedUnitCount()
+        {
+            return AssignedUnits.Count;
         }
     }
 }

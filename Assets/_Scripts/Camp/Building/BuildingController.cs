@@ -8,6 +8,7 @@ namespace Lis.Camp.Building
     public class BuildingController : MonoBehaviour, IInteractable
     {
         protected GameManager GameManager;
+        protected CampManager CampManager;
         [SerializeField] GameObject _unlockedGfx;
         [SerializeField] GameObject _unlockedEffect;
         [SerializeField] GameObject _buildingUnlocker;
@@ -19,6 +20,7 @@ namespace Lis.Camp.Building
         protected virtual void Start()
         {
             GameManager = GameManager.Instance;
+            CampManager = CampManager.Instance;
             Initialize();
         }
 
@@ -60,13 +62,18 @@ namespace Lis.Camp.Building
             IsInteractionAvailable = false;
         }
 
-        void Unlock()
+        protected virtual void Unlock()
         {
             Debug.Log("Building controller unlocked");
             if (this == null) return;
             if (_unlockedEffect != null) _unlockedEffect.SetActive(true);
             _unlockedGfx.SetActive(true);
             AllowInteraction();
+        }
+
+        public virtual void AssignUnit(UnitCampController ucc)
+        {
+            // meant to be overwritten
         }
     }
 }

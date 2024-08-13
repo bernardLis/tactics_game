@@ -1,4 +1,6 @@
-﻿using Lis.Core;
+﻿using System.Collections.Generic;
+using Lis.Core;
+using Lis.Units;
 using UnityEngine;
 
 namespace Lis.Camp.Building
@@ -9,7 +11,6 @@ namespace Lis.Camp.Building
         [Header("Gold Mine")]
         public int GoldPerPeasantPerNode;
 
-        [HideInInspector] public int AssignedPeasantCount;
         [HideInInspector] public int GoldAvailable;
 
         protected override void NodeCompleted()
@@ -17,7 +18,7 @@ namespace Lis.Camp.Building
             base.NodeCompleted();
             if (!IsUnlocked) return;
 
-            GoldAvailable += GoldPerPeasantPerNode * AssignedPeasantCount;
+            GoldAvailable += GoldPerPeasantPerNode * AssignedUnits.Count;
         }
 
         public void CollectGold()

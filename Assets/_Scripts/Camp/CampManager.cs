@@ -52,11 +52,19 @@ namespace Lis.Camp
         {
             foreach (Unit u in _hero.Army)
             {
-                GameObject unitGameObject = Instantiate(u.CampPrefab,
-                    new(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)),
-                    Quaternion.identity, _armyHolder);
-                unitGameObject.GetComponent<UnitCampController>().Initialize(u);
+                UnitCampController ucc = SpawnUnit(u, new(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)));
+                ucc.StartCampCoroutine();
             }
+        }
+
+        public UnitCampController SpawnUnit(Unit unit, Vector3 pos)
+        {
+            GameObject unitGameObject = Instantiate(unit.CampPrefab,
+                pos,
+                Quaternion.identity, _armyHolder);
+            UnitCampController ucc = unitGameObject.GetComponent<UnitCampController>();
+            ucc.Initialize(unit);
+            return ucc;
         }
     }
 }
