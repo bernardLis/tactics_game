@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
-using UnityEngine;
 
 namespace Lis.Camp.Building
 {
@@ -44,9 +43,15 @@ namespace Lis.Camp.Building
             }
         }
 
+        public override bool CanInteract()
+        {
+            if (_goldMine.GoldAvailable <= 0) return false;
+            return base.CanInteract();
+        }
+
         public override bool Interact(Interactor interactor)
         {
-            Debug.Log("Interacting with Gold Mine");
+            CampConsoleManager.ShowMessage($"Collected {_goldMine.GoldAvailable} gold from Gold Mine.");
             _goldMine.CollectGold();
             return true;
         }
@@ -56,10 +61,11 @@ namespace Lis.Camp.Building
             base.AssignUnit(ucc);
             if (_goldMine.GetAssignedUnitCount() >= 2)
             {
-                Debug.Log("2 peasants are already assigned to the Gold Mine");
+                CampConsoleManager.ShowMessage($"Gold Mine is full.");
                 return;
             }
 
+            CampConsoleManager.ShowMessage($"Unit assigned to Gold Mine.");
             _assignedUnits.Add(ucc);
             _goldMine.AssignUnit(ucc.Unit);
             ucc.StartGoldMineCoroutine(this);
@@ -67,6 +73,8 @@ namespace Lis.Camp.Building
 
         void ReleaseUnits()
         {
+            CampConsoleManager.ShowMessage($"Releasing {_goldMine.GetAssignedUnitCount()} units from Gold Mine.");
+
             foreach (UnitCampController ucc in _assignedUnits)
             {
                 ucc.ReleaseFromBuildingAssignment();

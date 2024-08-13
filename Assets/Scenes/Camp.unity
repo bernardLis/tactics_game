@@ -5411,6 +5411,7 @@ GameObject:
   - component: {fileID: 2096705335}
   - component: {fileID: 2096705338}
   - component: {fileID: 2096705339}
+  - component: {fileID: 2096705340}
   m_Layer: 0
   m_Name: Camp Manager
   m_TagString: Untagged
@@ -5485,6 +5486,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 796afca0ad479f34f8de55fede3b83d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2096705340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096705334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0025a138de50bd84a90f37f366dd70d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2113960214

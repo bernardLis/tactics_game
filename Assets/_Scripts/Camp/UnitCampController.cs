@@ -15,8 +15,6 @@ namespace Lis.Camp
         Animator _animator;
         static readonly int AnimAttack = Animator.StringToHash("Attack");
 
-        public bool IsGrabbed { get; private set; }
-
         UnitPathingController _unitPathingController;
 
         IEnumerator _campCoroutine;
@@ -59,8 +57,6 @@ namespace Lis.Camp
 
         void OnReleased()
         {
-            IsGrabbed = false;
-
             int maxColliders = 10;
             Collider[] results = new Collider[maxColliders];
             Physics.OverlapSphereNonAlloc(transform.position, 1.5f, results);
@@ -68,7 +64,6 @@ namespace Lis.Camp
             {
                 if (!col.TryGetComponent(out UnitDropZoneController zone))
                     continue;
-
                 zone.DropOff(this);
                 return;
             }
@@ -78,7 +73,6 @@ namespace Lis.Camp
 
         void OnGrabbed()
         {
-            IsGrabbed = true;
             if (_campCoroutine != null) StopCoroutine(_campCoroutine);
         }
 
@@ -108,7 +102,7 @@ namespace Lis.Camp
             {
                 if (this == null) yield break;
 
-                yield return new WaitForSeconds(Random.Range(5f, 12f));
+                yield return new WaitForSeconds(Random.Range(1f, 3f));
                 Vector3 pos = goldMine.transform.position +
                               new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
                 yield return _unitPathingController.PathToPositionAndStop(pos);

@@ -9,7 +9,7 @@ namespace Lis.Camp
     {
         public event Action OnUnitsReleased;
 
-        public new string InteractionPrompt => "Release Units";
+        public string InteractionPrompt => "Release Units";
 
         public bool CanInteract()
         {

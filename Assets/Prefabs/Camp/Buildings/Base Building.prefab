@@ -34,7 +34,7 @@ RectTransform:
   m_Children:
   - {fileID: 4216940833512421079}
   - {fileID: 2354349272432591792}
-  m_Father: {fileID: 357638559044937865}
+  m_Father: {fileID: 4024868396709029832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -149,6 +149,7 @@ Transform:
   m_Children:
   - {fileID: 1513237373731214694}
   - {fileID: 7586914136215233513}
+  - {fileID: 8956207259265744635}
   - {fileID: 357638559044937865}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -167,6 +168,7 @@ MonoBehaviour:
   _unlockedGfx: {fileID: 4233238883490006018}
   _unlockedEffect: {fileID: 3725414938989099695}
   _buildingUnlocker: {fileID: 6606121611641012495}
+  _nameText: {fileID: 4954955232370893193}
   Building: {fileID: 11400000, guid: 83c1139d71f92624e8310593a8148d6c, type: 2}
 --- !u!135 &5921763130888011080
 SphereCollider:
@@ -358,7 +360,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8540928167759654774}
-  - {fileID: 8956207259265744635}
   m_Father: {fileID: 4024868396709029832}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4408807412354882072
@@ -373,7 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ac3015d4ac4c8f925753f0f6d1a8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 4954955232370893193}
   _priceText: {fileID: 764610701060486465}
 --- !u!135 &1651606429606407783
 SphereCollider:
@@ -413,7 +413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2354349272432591792
 RectTransform:
   m_ObjectHideFlags: 0

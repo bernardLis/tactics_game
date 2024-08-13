@@ -215,6 +215,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -3179252409251934175}
   m_SourcePrefab: {fileID: 100100000, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+--- !u!114 &1149249391910994513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4954955232370893193, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 5418250037213684696}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1197065974130057943 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6606121611641012495, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -255,4 +266,5 @@ MonoBehaviour:
   _unlockedGfx: {fileID: 8182479661936502746}
   _unlockedEffect: {fileID: 8683547655080417655}
   _buildingUnlocker: {fileID: 1197065974130057943}
+  _nameText: {fileID: 1149249391910994513}
   Building: {fileID: 0}

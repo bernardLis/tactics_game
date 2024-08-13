@@ -18,7 +18,7 @@
 .common__text-primary {
     color: var(--color-white);
     font-size: 16px;
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-left;
 }
 
 .common__text-primary-black {

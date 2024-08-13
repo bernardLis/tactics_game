@@ -12,4 +12,5 @@
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/WaterTheme.uss?fileID=7433441132597879392&amp;guid=d1571dd51fd344dd86dd958cac9a1a5a&amp;type=3#WaterTheme" />
     <Style src="project://database/Assets/_Scripts/Core/_UIElements/Styles/GoldElementStyles.uss?fileID=7433441132597879392&amp;guid=6210ce5dd6c012b4da866162ac0c703d&amp;type=3#GoldElementStyles" />
     <ui:VisualElement name="mapButtonContainer" style="flex-grow: 1; position: absolute; left: auto; right: 100px; bottom: 100px;" />
+    <ui:VisualElement name="campConsoleContainer" class="common__text-primary" style="flex-grow: 1; position: absolute; width: 500px; height: 10%; left: 2%; bottom: 2%; border-left-color: rgb(232, 59, 59); border-right-color: rgb(232, 59, 59); border-top-color: rgb(232, 59, 59); border-bottom-color: rgb(232, 59, 59); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(0, 0, 0, 0.51);" />
 </ui:UXML>

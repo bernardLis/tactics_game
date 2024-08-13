@@ -1,6 +1,8 @@
 using System;
 using Lis.Core;
+using Lis.Core.Utilities;
 using Lis.Units.Hero;
+using TMPro;
 using UnityEngine;
 
 namespace Lis.Camp.Building
@@ -9,9 +11,12 @@ namespace Lis.Camp.Building
     {
         protected GameManager GameManager;
         protected CampManager CampManager;
+        protected CampConsoleManager CampConsoleManager;
+
         [SerializeField] GameObject _unlockedGfx;
         [SerializeField] GameObject _unlockedEffect;
         [SerializeField] GameObject _buildingUnlocker;
+        [SerializeField] TMP_Text _nameText;
 
         [HideInInspector] public Building Building;
 
@@ -21,6 +26,7 @@ namespace Lis.Camp.Building
         {
             GameManager = GameManager.Instance;
             CampManager = CampManager.Instance;
+            CampConsoleManager = CampConsoleManager.Instance;
             Initialize();
         }
 
@@ -38,6 +44,8 @@ namespace Lis.Camp.Building
 
         protected virtual void Initialize()
         {
+            _nameText.text = Helpers.ParseScriptableObjectName(Building.name);
+
             if (Building.IsUnlocked)
             {
                 AllowInteraction();
@@ -64,9 +72,9 @@ namespace Lis.Camp.Building
 
         protected virtual void Unlock()
         {
-            Debug.Log("Building controller unlocked");
             if (this == null) return;
             if (_unlockedEffect != null) _unlockedEffect.SetActive(true);
+            CampConsoleManager.ShowMessage($"{Helpers.ParseScriptableObjectName(Building.name)} unlocked.");
             _unlockedGfx.SetActive(true);
             AllowInteraction();
         }
