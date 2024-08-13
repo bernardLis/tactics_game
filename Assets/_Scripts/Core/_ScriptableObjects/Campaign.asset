@@ -15,11 +15,11 @@ MonoBehaviour:
   Id: 9ba5a3d0-1bd9-47e4-be85-a50e55caa87e
   Stats: {fileID: 11400000, guid: 6cf74251d6908d64bac571abc668f2c7, type: 2}
   Map: {fileID: 11400000, guid: 407ed43a9e6c50544a89f7591607a71a, type: 2}
-  SelectedHero: {fileID: 0}
+  Hero: {fileID: 0}
   CurrentHeroNode: {fileID: 0}
   CurrentArena: {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
   Bank: {fileID: 11400000, guid: 83c1139d71f92624e8310593a8148d6c, type: 2}
+  GoldMine: {fileID: 11400000, guid: 34b141be40ab24d44aed15811d7546cb, type: 2}
   Barracks: {fileID: 11400000, guid: 988ef55f295ded14c9b378829cdae112, type: 2}
   RewardCollector: {fileID: 11400000, guid: 2ed12a2632c03aa43ae6abfc25df13e9, type: 2}
-  Shop: {fileID: 11400000, guid: 91d63af4d3ec4034d9e7bf5af5e4b840, type: 2}
   Architect: {fileID: 11400000, guid: 9f34ecb1c93b36943ab7badfca3234cb, type: 2}

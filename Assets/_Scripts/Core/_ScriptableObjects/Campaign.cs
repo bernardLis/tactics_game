@@ -24,6 +24,8 @@ namespace Lis.Core
         [Header("Buildings")]
         public Bank Bank;
 
+        public Building GoldMine;
+
         public Barracks Barracks;
         public Building RewardCollector;
         public Architect Architect;
@@ -72,6 +74,9 @@ namespace Lis.Core
             Bank = Instantiate(Bank);
             Bank.Initialize(this);
 
+            GoldMine = Instantiate(GoldMine);
+            GoldMine.Initialize(this);
+
             Barracks = Instantiate(Barracks);
             Barracks.Initialize(this);
 
@@ -87,6 +92,7 @@ namespace Lis.Core
             return new List<Building>
             {
                 Bank,
+                GoldMine,
                 Barracks,
                 RewardCollector,
                 Architect
