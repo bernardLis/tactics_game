@@ -11,11 +11,13 @@ namespace Lis.Map
         [SerializeField] Transform _rightSword;
         [SerializeField] GameObject _hitEffect;
 
-
         protected override void ResolveNode()
         {
             base.ResolveNode();
-            if (!Node.IsVisited) StartCoroutine(AnimateSwords());
+
+            if (Node.IsVisited) return;
+            Node.NodeCompleted();
+            StartCoroutine(AnimateSwords());
         }
 
         IEnumerator AnimateSwords()
@@ -53,23 +55,6 @@ namespace Lis.Map
             _swords.DOLocalRotate(new(0, 360, 0), 4f, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Incremental)
                 .SetEase(Ease.InOutSine);
-            // _swords.DOLocalMoveY(Random.Range(0.9f, 1.2f), Random.Range(4f, 5f))
-            //     .SetLoops(-1, LoopType.Yoyo)
-            //     .SetEase(Ease.InOutSine);
-            //
-            // _leftSword.DOLocalRotate(new(0, 0, Random.Range(135, 150)), 1f)
-            //     .SetLoops(-1, LoopType.Yoyo)
-            //     .SetEase(Ease.InOutSine);
-            // _rightSword.DOLocalRotate(new(0, 0, Random.Range(-135, -150)), 1f)
-            //     .SetLoops(-1, LoopType.Yoyo)
-            //     .SetEase(Ease.InOutSine);
-            //
-            // _leftSword.DOLocalMove(new(Random.Range(-0.4f, -0.2f), Random.Range(0.3f, 0.4f), 0), 1f)
-            //     .SetLoops(-1, LoopType.Yoyo)
-            //     .SetEase(Ease.InOutSine);
-            // _rightSword.DOLocalMove(new(Random.Range(0.2f, 0.4f), Random.Range(0.3f, 0.4f), 0), 1f)
-            //     .SetLoops(-1, LoopType.Yoyo)
-            //     .SetEase(Ease.InOutSine);
         }
 
         public override void SetUnavailable()

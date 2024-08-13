@@ -41,13 +41,11 @@
 }
 
 .reward-screen__investment-container {
-    height: 100%;
-    width: 50%;
     flex-wrap: wrap;
 }
 
 .reward-screen__investment-title {
     width: 100%;
-    font-size: 30;
+    font-size: 30px;
 }
 

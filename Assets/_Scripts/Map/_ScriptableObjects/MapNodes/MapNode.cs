@@ -1,10 +1,10 @@
-﻿using Lis.Core;
+﻿using System;
+using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Map.MapNodes
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Map/Map Node")]
-
     public class MapNode : BaseScriptableObject
     {
         public string NodeName;
@@ -15,7 +15,9 @@ namespace Lis.Map.MapNodes
         public bool IsVisited;
         public int Row;
 
-       protected GameManager GameManager;
+        protected GameManager GameManager;
+
+        public event Action OnNodeCompleted;
 
         public virtual void Initialize(Vector3 pos, int row)
         {
@@ -24,6 +26,11 @@ namespace Lis.Map.MapNodes
             MapPosition = pos;
             Row = row;
             if (row == 0) IsVisited = true;
+        }
+
+        public void NodeCompleted()
+        {
+            OnNodeCompleted?.Invoke();
         }
     }
 }

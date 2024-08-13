@@ -15,7 +15,6 @@ namespace Lis.Camp.Building
 
         readonly Investment _investment;
 
-
         readonly VisualElement _leftContainer;
         readonly VisualElement _rightContainer;
 
@@ -58,7 +57,7 @@ namespace Lis.Camp.Building
 
             _firstLineContainer.Add(new Label("Invest "));
             _firstLineContainer.Add(new GoldElement(_investment.GoldToInvest));
-            _firstLineContainer.Add(new Label($"for {_investment.FightCount}"));
+            _firstLineContainer.Add(new Label($"for {_investment.NodeCount}"));
             _firstLineContainer.Add(new FightIcon());
         }
 
@@ -83,7 +82,7 @@ namespace Lis.Camp.Building
             container.style.alignItems = Align.Center;
             _leftContainer.Add(container);
             container.Add(new FightIcon());
-            container.Add(new Label($" remaining: {_investment.FightsRemaining}."));
+            container.Add(new Label($" remaining: {_investment.NodesRemaining}."));
 
             _collectButton = new("Collect", _ussCommonButton, Collect);
             _collectButton.style.width = 140;
@@ -91,7 +90,7 @@ namespace Lis.Camp.Building
 
             _rightContainer.Add(_collectButton);
 
-            if (_investment.FightsRemaining <= 0) return;
+            if (_investment.NodesRemaining <= 0) return;
             _collectButton.SetEnabled(false);
         }
 

@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 4233238883490006018}
   _unlockedEffect: {fileID: 3725414938989099695}
+  _buildingUnlocker: {fileID: 6606121611641012495}
   Building: {fileID: 11400000, guid: 83c1139d71f92624e8310593a8148d6c, type: 2}
 --- !u!135 &5921763130888011080
 SphereCollider:
@@ -203,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1513237373731214694
 Transform:
   m_ObjectHideFlags: 0
@@ -342,7 +343,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &357638559044937865
 Transform:
   m_ObjectHideFlags: 0

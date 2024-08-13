@@ -7,9 +7,9 @@ namespace Lis.Camp.Building
     {
         const string _ussInvestmentContainer = USSClassName + "investment-container";
         const string _ussInvestmentTitle = USSClassName + "investment-title";
-        VisualElement _activeInvestmentContainer;
 
-        VisualElement _availableInvestmentContainer;
+        ScrollView _activeInvestmentContainer;
+        ScrollView _availableInvestmentContainer;
 
         Bank _bank;
 
@@ -22,13 +22,16 @@ namespace Lis.Camp.Building
             _investmentContainer = new();
             _investmentContainer.style.width = Length.Percent(100);
             _investmentContainer.style.flexDirection = FlexDirection.Row;
+            _investmentContainer.style.justifyContent = Justify.SpaceAround;
             Content.Add(_investmentContainer);
 
             _availableInvestmentContainer = new();
+            _availableInvestmentContainer.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
             _availableInvestmentContainer.AddToClassList(_ussInvestmentContainer);
             _investmentContainer.Add(_availableInvestmentContainer);
 
             _activeInvestmentContainer = new();
+            _activeInvestmentContainer.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
             _activeInvestmentContainer.AddToClassList(_ussInvestmentContainer);
             _investmentContainer.Add(_activeInvestmentContainer);
 

@@ -1,7 +1,5 @@
-using Lis.Arena;
 using Lis.Core;
 using Lis.Units.Hero;
-using UnityEngine;
 
 namespace Lis.Camp.Building
 {
@@ -12,20 +10,14 @@ namespace Lis.Camp.Building
 
         protected override void Initialize()
         {
-            base.Initialize();
             Building = GameManager.Campaign.Bank;
             _bank = (Bank)Building;
-            AllowInteraction();
+
+            base.Initialize();
         }
 
         public override bool Interact(Interactor interactor)
         {
-            if (FightManager.IsFightActive)
-            {
-                Debug.Log("Fight instead of shopping!");
-                return false;
-            }
-
             BankScreen bankScreen = new();
             bankScreen.InitializeBank(_bank);
             return true;

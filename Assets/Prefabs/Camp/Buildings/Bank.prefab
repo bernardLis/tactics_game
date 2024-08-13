@@ -108,7 +108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3712622550177469406, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       propertyPath: m_Name
-      value: Bank Displayer
+      value: Bank
       objectReference: {fileID: 0}
     - target: {fileID: 3918982685751938637, guid: aea1d639b695b174682a7398202ab95d, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -215,9 +215,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: -3179252409251934175}
   m_SourcePrefab: {fileID: 100100000, guid: aea1d639b695b174682a7398202ab95d, type: 3}
---- !u!1 &2185073953707974911 stripped
+--- !u!1 &1197065974130057943 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6152916120629576487, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6606121611641012495, guid: aea1d639b695b174682a7398202ab95d, type: 3}
   m_PrefabInstance: {fileID: 5418250037213684696}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6787317078707041982 stripped
@@ -254,4 +254,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unlockedGfx: {fileID: 8182479661936502746}
   _unlockedEffect: {fileID: 8683547655080417655}
-  InteractionAvailableEffect: {fileID: 2185073953707974911}
+  _buildingUnlocker: {fileID: 1197065974130057943}
+  Building: {fileID: 0}

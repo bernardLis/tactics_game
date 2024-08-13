@@ -1,5 +1,4 @@
 ﻿using System;
-using Lis.Arena;
 using Lis.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,11 +9,11 @@ namespace Lis.Camp.Building
     {
         public int GoldToInvest;
         public float Interest;
-        public int FightCount;
+        public int NodeCount;
         public int GoldToReturn;
 
         public bool IsActive;
-        public int FightsRemaining;
+        public int NodesRemaining;
 
         public event Action OnStarted;
         public event Action OnCollected;
@@ -23,9 +22,9 @@ namespace Lis.Camp.Building
         {
             GoldToInvest = Random.Range(100, 200);
             Interest = Random.Range(0.1f, 0.2f);
-            FightCount = Random.Range(1, 5);
+            NodeCount = Random.Range(1, 5);
             // compound interest
-            GoldToReturn = Mathf.RoundToInt(GoldToInvest * Mathf.Pow(1f + Interest, FightCount));
+            GoldToReturn = Mathf.RoundToInt(GoldToInvest * Mathf.Pow(1f + Interest, NodeCount));
         }
 
         public void StartInvestment()
@@ -33,14 +32,13 @@ namespace Lis.Camp.Building
             GameManager.Instance.ChangeGoldValue(-GoldToInvest);
 
             IsActive = true;
-            FightManager.Instance.OnFightEnded += OnFightEnded;
-            FightsRemaining = FightCount;
+            NodesRemaining = NodeCount;
             OnStarted?.Invoke();
         }
 
-        void OnFightEnded()
+        public void NodeCompleted()
         {
-            FightsRemaining--;
+            NodesRemaining--;
         }
 
         public void Collect()

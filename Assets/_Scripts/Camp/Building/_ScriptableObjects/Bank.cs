@@ -15,13 +15,23 @@ namespace Lis.Camp.Building
             base.Initialize(campaign);
             AvailableInvestments = new();
             ActiveInvestments = new();
-            CreateInvestments();
+            CreateInvestments(3);
         }
 
-        void CreateInvestments()
+        protected override void NodeCompleted()
         {
-            AvailableInvestments.Clear();
-            for (int i = 0; i < 3; i++)
+            base.NodeCompleted();
+            if (!IsUnlocked) return;
+            foreach (Investment i in ActiveInvestments)
+                i.NodeCompleted();
+
+            if (AvailableInvestments.Count < 5)
+                CreateInvestments(2);
+        }
+
+        void CreateInvestments(int count)
+        {
+            for (int i = 0; i < count; i++)
             {
                 Investment investment = CreateInstance<Investment>();
                 investment.CreateRandom();

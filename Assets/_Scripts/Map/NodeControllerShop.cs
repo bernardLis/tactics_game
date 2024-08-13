@@ -18,7 +18,10 @@ namespace Lis.Map
             _showShopButton = new("Shop", "common__button", () => ShowShop());
 
             MapManager.ButtonContainer.Insert(0, _showShopButton);
-            if (!Node.IsVisited) StartCoroutine(ShowShopCoroutine());
+
+            if (Node.IsVisited) return;
+            StartCoroutine(ShowShopCoroutine());
+            Node.NodeCompleted();
         }
 
         IEnumerator ShowShopCoroutine()

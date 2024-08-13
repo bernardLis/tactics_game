@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lis.Core;
+using Lis.Map.MapNodes;
 using UnityEngine;
 
 namespace Lis.Map
@@ -25,6 +26,19 @@ namespace Lis.Map
                 mr.Initialize(count, i);
                 MapRows.Add(mr);
             }
+        }
+
+        public List<MapNode> GetAllNodes()
+        {
+            List<MapNode> nodes = new();
+
+            foreach (MapRow row in MapRows)
+            {
+                foreach (MapNode node in row.Nodes)
+                    nodes.Add(node);
+            }
+
+            return nodes;
         }
     }
 }

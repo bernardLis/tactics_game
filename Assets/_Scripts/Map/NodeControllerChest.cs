@@ -42,6 +42,7 @@ namespace Lis.Map
             chestScreen.InitializeChest((MapNodeChest)Node);
             chestScreen.OnHide += () =>
             {
+                Node.NodeCompleted();
                 _chest.DOScale(0f, 0.5f).SetEase(Ease.InOutBack)
                     .OnComplete(() => { Icon.gameObject.SetActive(true); });
             };
