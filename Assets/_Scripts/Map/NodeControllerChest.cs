@@ -45,6 +45,8 @@ namespace Lis.Map
                 Node.NodeCompleted();
                 _chest.DOScale(0f, 0.5f).SetEase(Ease.InOutBack)
                     .OnComplete(() => { Icon.gameObject.SetActive(true); });
+                MapManager.EnableCampButton();
+                PlayerController.IsMoving = false;
             };
         }
 

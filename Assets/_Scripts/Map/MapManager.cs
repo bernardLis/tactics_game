@@ -21,6 +21,7 @@ namespace Lis.Map
         NodeControllerGrid _mapGrid;
 
         public VisualElement ButtonContainer;
+        MyButton _campButton;
 
         public void Start()
         {
@@ -33,8 +34,9 @@ namespace Lis.Map
 
             ButtonContainer =
                 GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("campButtonContainer");
-            ButtonContainer.Add(
-                new MyButton("Go To Camp", "common__button", () => GameManager.Instance.LoadScene(Scenes.Camp)));
+            _campButton = new("Go To Camp", "common__button",
+                () => GameManager.Instance.LoadScene(Scenes.Camp));
+            ButtonContainer.Add(_campButton);
 
             SetUpMap();
         }
@@ -180,7 +182,18 @@ namespace Lis.Map
                 if (nc.IsConnectedTo(currentNode))
                     nc.SetAvailable();
         }
+
+        public void DisableCampButton()
+        {
+            _campButton.SetEnabled(false);
+        }
+
+        public void EnableCampButton()
+        {
+            _campButton.SetEnabled(true);
+        }
     }
+
 
     public struct NodeControllerGrid
     {

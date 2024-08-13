@@ -12,10 +12,12 @@ namespace Lis.Map
         [SerializeField] Transform _coin;
         MyButton _showShopButton;
 
+        ShopScreen _shopScreen;
+
         protected override void ResolveNode()
         {
             base.ResolveNode();
-            _showShopButton = new("Shop", "common__button", () => ShowShop());
+            _showShopButton = new("Shop", "common__button", ShopButtonClick);
 
             MapManager.ButtonContainer.Insert(0, _showShopButton);
 
@@ -26,6 +28,8 @@ namespace Lis.Map
 
         IEnumerator ShowShopCoroutine()
         {
+            _showShopButton.SetEnabled(false);
+
             _coin.DOKill();
 
             _coin.DOMoveY(1.5f, 1f).SetEase(Ease.InOutSine);
@@ -33,19 +37,34 @@ namespace Lis.Map
 
             yield return new WaitForSeconds(1f);
 
-            ShopScreen ss = ShowShop();
-            ss.OnHide += () =>
+            _shopScreen = ShowShop();
+            _shopScreen.OnHide += () =>
             {
                 _coin.DOScale(0f, 0.5f).SetEase(Ease.InOutBack)
                     .OnComplete(() => { Icon.gameObject.SetActive(true); });
+                MapManager.EnableCampButton();
+                PlayerController.IsMoving = false;
             };
         }
 
         ShopScreen ShowShop()
         {
-            ShopScreen shop = new();
-            shop.InitializeShop((MapNodeShop)Node);
-            return shop;
+            _showShopButton.SetEnabled(false);
+            _shopScreen = new();
+            _shopScreen.InitializeShop((MapNodeShop)Node);
+            _shopScreen.OnHide += () =>
+            {
+                _showShopButton.SetEnabled(true);
+                _shopScreen = null;
+            };
+            return _shopScreen;
+        }
+
+        void ShopButtonClick()
+        {
+            if (_shopScreen != null) return;
+
+            _shopScreen = ShowShop();
         }
 
         public override void LeaveNode()

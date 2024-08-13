@@ -78,6 +78,7 @@ namespace Lis.Map
             DOTween.Kill("current node disc tween");
 
             IsMoving = true;
+            _mapManager.DisableCampButton();
 
             float t = 0f;
             while (t < 1f)
@@ -102,7 +103,6 @@ namespace Lis.Map
             _animator.SetFloat(_animVelocityX, 0);
             _animator.SetFloat(_animVelocityZ, 0);
 
-            IsMoving = false;
             CurrentNode = targetNode;
             CurrentNode.SetCurrentNode();
             _mapManager.ResolveNodes(CurrentNode);

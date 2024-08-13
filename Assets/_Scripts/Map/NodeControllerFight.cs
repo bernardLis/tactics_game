@@ -46,6 +46,9 @@ namespace Lis.Map
             yield return new WaitForSeconds(0.15f);
 
             _hitEffect.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            MapManager.EnableCampButton();
+            PlayerController.IsMoving = false;
         }
 
 
