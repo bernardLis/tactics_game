@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using Lis.Camp.Building;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lis.Camp
 {
@@ -19,6 +21,8 @@ namespace Lis.Camp
 
         IEnumerator _campCoroutine;
 
+        public event Action<UnitCampController> OnGrabbed;
+
         public void Initialize(Unit unit)
         {
             Unit = unit;
@@ -32,8 +36,8 @@ namespace Lis.Camp
 
             if (!TryGetComponent(out UnitGrabController grab)) return;
             grab.Initialize();
-            grab.OnGrabbed += OnGrabbed;
-            grab.OnReleased += OnReleased;
+            grab.OnGrabbed += Grabbed;
+            grab.OnReleased += Released;
         }
 
         public void StartCampCoroutine()
@@ -55,13 +59,14 @@ namespace Lis.Camp
             }
         }
 
-        void OnReleased()
+        void Released()
         {
             int maxColliders = 10;
             Collider[] results = new Collider[maxColliders];
             Physics.OverlapSphereNonAlloc(transform.position, 1.5f, results);
             foreach (Collider col in results)
             {
+                if (col == null) continue;
                 if (!col.TryGetComponent(out UnitDropZoneController zone))
                     continue;
                 zone.DropOff(this);
@@ -71,8 +76,9 @@ namespace Lis.Camp
             StartCampCoroutine();
         }
 
-        void OnGrabbed()
+        void Grabbed()
         {
+            OnGrabbed?.Invoke(this);
             if (_campCoroutine != null) StopCoroutine(_campCoroutine);
         }
 
@@ -80,12 +86,6 @@ namespace Lis.Camp
         void BaseBuildingAssignment()
         {
             _hero.Army.Remove(Unit);
-        }
-
-        public void ReleaseFromBuildingAssignment()
-        {
-            _hero.Army.Add(Unit);
-            StartCampCoroutine();
         }
 
         public void StartGoldMineCoroutine(BuildingController goldMine)

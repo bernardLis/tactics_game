@@ -12,6 +12,7 @@ namespace Lis.Camp.Building
         protected GameManager GameManager;
         protected CampManager CampManager;
         protected CampConsoleManager CampConsoleManager;
+        Hero _hero;
 
         [SerializeField] GameObject _unlockedGfx;
         [SerializeField] GameObject _unlockedEffect;
@@ -27,6 +28,8 @@ namespace Lis.Camp.Building
             GameManager = GameManager.Instance;
             CampManager = CampManager.Instance;
             CampConsoleManager = CampConsoleManager.Instance;
+
+            _hero = GameManager.Campaign.Hero;
             Initialize();
         }
 
@@ -81,7 +84,15 @@ namespace Lis.Camp.Building
 
         public virtual void AssignUnit(UnitCampController ucc)
         {
-            // meant to be overwritten
+            ucc.OnGrabbed += ReleaseUnit;
+        }
+
+        void ReleaseUnit(UnitCampController ucc)
+        {
+            CampConsoleManager.ShowMessage($"Releasing unit from Gold Mine.");
+            _hero.AddArmy(ucc.Unit);
+
+            Building.ReleaseUnit(ucc.Unit);
         }
     }
 }

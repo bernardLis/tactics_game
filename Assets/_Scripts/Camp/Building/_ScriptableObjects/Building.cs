@@ -67,5 +67,10 @@ namespace Lis.Camp.Building
         {
             return AssignedUnits.Count;
         }
+
+        public void ReleaseUnit(Unit unit)
+        {
+            AssignedUnits.Remove(unit);
+        }
     }
 }
