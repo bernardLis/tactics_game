@@ -1,7 +1,7 @@
 using Lis.Core.Utilities;
 using UnityEngine.UIElements;
 
-namespace Lis
+namespace Lis.Camp
 {
     public class CampConsoleManager : Singleton<CampConsoleManager>
     {

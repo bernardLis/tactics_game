@@ -109,5 +109,11 @@ namespace Lis.Units
             if (!_agent.enabled) return false;
             return true;
         }
+
+        public void Stop()
+        {
+            DisableAgent();
+            EnableAgent();
+        }
     }
 }

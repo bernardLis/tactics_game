@@ -18,5 +18,6 @@ MonoBehaviour:
   UnlockCost: 456
   Level: 0
   MaxLevel: 0
+  MaxWorkers: 0
   AvailableInvestments: []
   ActiveInvestments: []

@@ -7,8 +7,8 @@ namespace Lis.Camp.Building
     [CreateAssetMenu(menuName = "ScriptableObject/Camp/Building/Bank")]
     public class Bank : Building
     {
-        public List<Investment> AvailableInvestments = new();
-        public List<Investment> ActiveInvestments = new();
+        [HideInInspector] public List<Investment> AvailableInvestments = new();
+        [HideInInspector] public List<Investment> ActiveInvestments = new();
 
         public override void Initialize(Campaign campaign)
         {

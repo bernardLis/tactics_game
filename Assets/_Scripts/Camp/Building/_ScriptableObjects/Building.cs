@@ -18,7 +18,8 @@ namespace Lis.Camp.Building
         public int Level;
         public int MaxLevel;
 
-        protected List<Unit> AssignedUnits = new();
+        protected readonly List<Unit> AssignedWorkers = new();
+        public int MaxWorkers = 2;
 
         public event Action OnUnlocked;
 
@@ -48,29 +49,24 @@ namespace Lis.Camp.Building
             OnUnlocked?.Invoke();
         }
 
-        public void AssignUnit(Unit unit)
+        public void AssignWorker(Unit unit)
         {
-            AssignedUnits.Add(unit);
+            AssignedWorkers.Add(unit);
         }
 
-        public void ReleaseUnits()
+        public List<Unit> GetAssignedWorkers()
         {
-            AssignedUnits.Clear();
+            return AssignedWorkers;
         }
 
-        public List<Unit> GetAssignedUnits()
+        public int GetAssignedWorkerCount()
         {
-            return AssignedUnits;
+            return AssignedWorkers.Count;
         }
 
-        public int GetAssignedUnitCount()
+        public void ReleaseWorker(Unit unit)
         {
-            return AssignedUnits.Count;
-        }
-
-        public void ReleaseUnit(Unit unit)
-        {
-            AssignedUnits.Remove(unit);
+            AssignedWorkers.Remove(unit);
         }
     }
 }

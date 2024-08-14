@@ -231,6 +231,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6606121611641012495, guid: aea1d639b695b174682a7398202ab95d, type: 3}
   m_PrefabInstance: {fileID: 5418250037213684696}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1271921743602250469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6527892504822387005, guid: aea1d639b695b174682a7398202ab95d, type: 3}
+  m_PrefabInstance: {fileID: 5418250037213684696}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6787317078707041982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1513237373731214694, guid: aea1d639b695b174682a7398202ab95d, type: 3}
@@ -267,4 +272,6 @@ MonoBehaviour:
   _unlockedEffect: {fileID: 8683547655080417655}
   _buildingUnlocker: {fileID: 1197065974130057943}
   _nameText: {fileID: 1149249391910994513}
+  _workerSlotGroup: {fileID: 1271921743602250469}
+  _workerSlot: {fileID: 1225100232647296130, guid: 5b892b661a2ea4943ae52d32d74df3cd, type: 3}
   Building: {fileID: 0}

@@ -18,7 +18,7 @@ namespace Lis.Camp.Building
             base.NodeCompleted();
             if (!IsUnlocked) return;
 
-            GoldAvailable += GoldPerPeasantPerNode * AssignedUnits.Count;
+            GoldAvailable += GoldPerPeasantPerNode * AssignedWorkers.Count;
         }
 
         public void CollectGold()

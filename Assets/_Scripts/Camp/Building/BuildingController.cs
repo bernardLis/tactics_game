@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Lis.Core;
 using Lis.Core.Utilities;
 using Lis.Units.Hero;
@@ -18,6 +19,10 @@ namespace Lis.Camp.Building
         [SerializeField] GameObject _unlockedEffect;
         [SerializeField] GameObject _buildingUnlocker;
         [SerializeField] TMP_Text _nameText;
+
+        [SerializeField] GameObject _workerSlotGroup;
+        [SerializeField] WorkerSlot _workerSlot;
+        readonly List<WorkerSlot> _workerSlots = new();
 
         [HideInInspector] public Building Building;
 
@@ -49,6 +54,12 @@ namespace Lis.Camp.Building
         {
             _nameText.text = Helpers.ParseScriptableObjectName(Building.name);
 
+            for (int i = 0; i < Building.MaxWorkers; i++)
+            {
+                WorkerSlot slot = Instantiate(_workerSlot, _workerSlotGroup.transform);
+                _workerSlots.Add(slot);
+            }
+
             if (Building.IsUnlocked)
             {
                 AllowInteraction();
@@ -57,6 +68,7 @@ namespace Lis.Camp.Building
 
             Building.OnUnlocked += Unlock;
             _unlockedGfx.SetActive(false);
+            _workerSlotGroup.SetActive(false);
             ForbidInteraction();
             _buildingUnlocker.SetActive(true);
             BuildingUnlocker unlocker = _buildingUnlocker.GetComponent<BuildingUnlocker>();
@@ -80,11 +92,37 @@ namespace Lis.Camp.Building
             CampConsoleManager.ShowMessage($"{Helpers.ParseScriptableObjectName(Building.name)} unlocked.");
             _unlockedGfx.SetActive(true);
             AllowInteraction();
+            _workerSlotGroup.SetActive(true);
         }
 
-        public virtual void AssignUnit(UnitCampController ucc)
+        public bool AssignUnit(UnitCampController ucc)
+        {
+            if (Building.GetAssignedWorkerCount() >= Building.MaxWorkers)
+            {
+                HeroCampController.Instance.DisplayFloatingText("Building is full", Color.black);
+                return false;
+            }
+
+            SetWorker(ucc);
+            return true;
+        }
+
+        protected virtual void SetWorker(UnitCampController ucc)
         {
             ucc.OnGrabbed += ReleaseUnit;
+            SetWorkerSlot(ucc);
+        }
+
+        void SetWorkerSlot(UnitCampController ucc)
+        {
+            foreach (WorkerSlot slot in _workerSlots)
+            {
+                if (slot.Unit == null)
+                {
+                    slot.AssignWorker(ucc.Unit);
+                    return;
+                }
+            }
         }
 
         void ReleaseUnit(UnitCampController ucc)
@@ -92,7 +130,11 @@ namespace Lis.Camp.Building
             CampConsoleManager.ShowMessage($"Releasing unit from Gold Mine.");
             _hero.AddArmy(ucc.Unit);
 
-            Building.ReleaseUnit(ucc.Unit);
+            Building.ReleaseWorker(ucc.Unit);
+
+            foreach (WorkerSlot slot in _workerSlots)
+                if (slot.Unit == ucc.Unit)
+                    slot.UnassignWorker();
         }
     }
 }

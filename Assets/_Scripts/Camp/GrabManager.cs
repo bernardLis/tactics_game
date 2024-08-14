@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Lis.Core;
 using Lis.Core.Utilities;
@@ -25,6 +26,8 @@ namespace Lis.Camp
 
         bool _wasInitialized;
 
+        public event Action OnGrabbed;
+        public event Action OnReleased;
 
         public void Initialize()
         {
@@ -56,6 +59,7 @@ namespace Lis.Camp
             _cursorManager.SetCursorByName("Grab");
 
             StartCoroutine(GrabCoroutine(obj, yPosition));
+            OnGrabbed?.Invoke();
         }
 
         IEnumerator GrabCoroutine(GameObject obj, float yPosition = 0f)
@@ -129,6 +133,7 @@ namespace Lis.Camp
                 g.Released();
             _grabbedObject = null;
 
+            OnReleased?.Invoke();
             StopAllCoroutines();
         }
 

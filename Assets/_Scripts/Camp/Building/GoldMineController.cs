@@ -1,13 +1,23 @@
+using System.Collections.Generic;
 using Lis.Core;
-using Lis.Units;
 using Lis.Units.Hero;
+using UnityEngine;
 
 namespace Lis.Camp.Building
 {
     public class GoldMineController : BuildingController, IInteractable
     {
+        [Header("Gold Mine")]
+        [SerializeField] Transform _goldBagHolder;
+
+        [SerializeField] GoldBagController[] _goldBagPrefabs;
+        readonly List<GoldBagController> _goldBags = new();
+
+        [SerializeField] Transform[] _minePoints;
+        [SerializeField] Transform _emptyBagPoint;
+
         GoldMine _goldMine;
-        public new string InteractionPrompt => "Gold Mine";
+        public new string InteractionPrompt => "Collect gold";
 
         protected override void Initialize()
         {
@@ -31,12 +41,26 @@ namespace Lis.Camp.Building
         {
             GetComponentInChildren<UnitDropZoneController>().Initialize(this);
 
-            foreach (Unit u in _goldMine.GetAssignedUnits())
+            for (int i = 0; i < _goldMine.GetAssignedWorkers().Count; i++)
             {
-                UnitCampController ucc = CampManager.SpawnUnit(u, transform.position);
+                UnitCampController ucc = CampManager.SpawnUnit(_goldMine.GetAssignedWorkers()[i], transform.position);
                 AssignUnit(ucc);
-                ucc.StartGoldMineCoroutine(this);
+                ucc.StartGoldMineCoroutine(_minePoints[i].position, _emptyBagPoint.position);
             }
+
+            int goldBagsToSpawn = _goldMine.GoldAvailable / 200;
+            goldBagsToSpawn = Mathf.Clamp(goldBagsToSpawn, 0, 6);
+            for (int i = 0; i < goldBagsToSpawn; i++)
+                SpawnGoldBag();
+        }
+
+        void SpawnGoldBag()
+        {
+            GoldBagController goldBag =
+                Instantiate(_goldBagPrefabs[Random.Range(0, _goldBagPrefabs.Length)], _goldBagHolder);
+            goldBag.transform.localPosition = new(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+            goldBag.gameObject.SetActive(true);
+            _goldBags.Add(goldBag);
         }
 
         public override bool CanInteract()
@@ -48,22 +72,25 @@ namespace Lis.Camp.Building
         public override bool Interact(Interactor interactor)
         {
             CampConsoleManager.ShowMessage($"Collected {_goldMine.GoldAvailable} gold from Gold Mine.");
+            HeroCampController.Instance.DisplayFloatingText(+_goldMine.GoldAvailable + " Gold",
+                GameManager.Instance.GameDatabase.GetColorByName("Gold").Primary);
+
             _goldMine.CollectGold();
+
+            for (int i = _goldBags.Count - 1; i >= 0; i--)
+                _goldBags[i].DestroySelf();
+            _goldBags.Clear();
+
             return true;
         }
 
-        public override void AssignUnit(UnitCampController ucc)
+        protected override void SetWorker(UnitCampController ucc)
         {
-            base.AssignUnit(ucc);
-            if (_goldMine.GetAssignedUnitCount() >= 2)
-            {
-                CampConsoleManager.ShowMessage($"Gold Mine is full.");
-                return;
-            }
-
+            base.SetWorker(ucc);
             CampConsoleManager.ShowMessage($"Unit assigned to Gold Mine.");
-            _goldMine.AssignUnit(ucc.Unit);
-            ucc.StartGoldMineCoroutine(this);
+            _goldMine.AssignWorker(ucc.Unit);
+            ucc.StartGoldMineCoroutine(_minePoints[_goldMine.GetAssignedWorkerCount() - 1].position,
+                _emptyBagPoint.position);
         }
     }
 }

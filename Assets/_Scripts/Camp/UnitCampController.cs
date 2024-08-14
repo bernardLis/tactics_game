@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Lis.Camp.Building;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
@@ -31,8 +30,9 @@ namespace Lis.Camp
             _animator = GetComponentInChildren<Animator>();
 
             _unitPathingController = GetComponent<UnitPathingController>();
-            _unitPathingController.Initialize(default);
+            _unitPathingController.Initialize(new(1, 99));
             _unitPathingController.InitializeUnit(unit);
+            _unitPathingController.SetStoppingDistance(0.2f);
 
             if (!TryGetComponent(out UnitGrabController grab)) return;
             grab.Initialize();
@@ -67,12 +67,12 @@ namespace Lis.Camp
             foreach (Collider col in results)
             {
                 if (col == null) continue;
-                if (!col.TryGetComponent(out UnitDropZoneController zone))
-                    continue;
-                zone.DropOff(this);
-                return;
+                if (col.TryGetComponent(out UnitDropZoneController zone))
+                    if (zone.DropOff(this))
+                        return;
             }
 
+            Debug.Log("No drop zone found");
             StartCampCoroutine();
         }
 
@@ -85,28 +85,36 @@ namespace Lis.Camp
         // TODO: building coroutines - probably a bad idea to handle it like that
         void BaseBuildingAssignment()
         {
+            _unitPathingController.Stop();
             _hero.Army.Remove(Unit);
         }
 
-        public void StartGoldMineCoroutine(BuildingController goldMine)
+
+        public void StartGoldMineCoroutine(Vector3 minePosition, Vector3 dropOffPosition)
         {
             BaseBuildingAssignment();
             if (_campCoroutine != null) StopCoroutine(_campCoroutine);
-            _campCoroutine = GoldMineCoroutine(goldMine);
+            _campCoroutine = GoldMineCoroutine(minePosition, dropOffPosition);
             StartCoroutine(_campCoroutine);
         }
 
-        IEnumerator GoldMineCoroutine(BuildingController goldMine)
+        IEnumerator GoldMineCoroutine(Vector3 minePosition, Vector3 dropOffPosition)
         {
             while (true)
             {
                 if (this == null) yield break;
 
                 yield return new WaitForSeconds(Random.Range(1f, 3f));
-                Vector3 pos = goldMine.transform.position +
-                              new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-                yield return _unitPathingController.PathToPositionAndStop(pos);
-                _animator.SetTrigger(AnimAttack);
+                // mine
+                yield return _unitPathingController.PathToPositionAndStop(minePosition);
+                for (int i = 0; i < Random.Range(4, 8); i++)
+                {
+                    _animator.SetTrigger(AnimAttack);
+                    yield return new WaitForSeconds(Random.Range(1f, 3f));
+                }
+
+                // drop off
+                yield return _unitPathingController.PathToPositionAndStop(dropOffPosition);
             }
         }
     }
