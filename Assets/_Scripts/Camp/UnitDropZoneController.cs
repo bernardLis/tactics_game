@@ -23,7 +23,15 @@ namespace Lis.Camp
 
         public bool DropOff(UnitCampController ucc)
         {
-            return _buildingController.AssignUnit(ucc);
+            if (_buildingController.Building.GetAssignedWorkerCount() >= _buildingController.Building.MaxWorkers)
+            {
+                HeroCampController.Instance.DisplayFloatingText("Building is full", Color.black);
+                return false;
+            }
+
+            _buildingController.Building.AssignWorker(ucc.Unit);
+            _buildingController.SetWorker(ucc);
+            return true;
         }
 
         void OnGrabbed()

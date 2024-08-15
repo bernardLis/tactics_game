@@ -43,8 +43,9 @@ namespace Lis.Camp.Building
 
             for (int i = 0; i < _goldMine.GetAssignedWorkers().Count; i++)
             {
+                Debug.Log("Gold Mine: " + _goldMine.GetAssignedWorkers()[i].name);
                 UnitCampController ucc = CampManager.SpawnUnit(_goldMine.GetAssignedWorkers()[i], transform.position);
-                AssignUnit(ucc);
+                SetWorker(ucc);
                 ucc.StartGoldMineCoroutine(_minePoints[i].position, _emptyBagPoint.position);
             }
 
@@ -84,11 +85,10 @@ namespace Lis.Camp.Building
             return true;
         }
 
-        protected override void SetWorker(UnitCampController ucc)
+        public override void SetWorker(UnitCampController ucc)
         {
             base.SetWorker(ucc);
             CampConsoleManager.ShowMessage($"Unit assigned to Gold Mine.");
-            _goldMine.AssignWorker(ucc.Unit);
             ucc.StartGoldMineCoroutine(_minePoints[_goldMine.GetAssignedWorkerCount() - 1].position,
                 _emptyBagPoint.position);
         }

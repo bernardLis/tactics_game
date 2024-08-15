@@ -44,7 +44,7 @@ namespace Lis.Camp.Building
             for (int i = 0; i < _blacksmith.GetAssignedWorkers().Count; i++)
             {
                 UnitCampController ucc = CampManager.SpawnUnit(_blacksmith.GetAssignedWorkers()[i], transform.position);
-                AssignUnit(ucc);
+                SetWorker(ucc);
                 ucc.StartBlacksmithCoroutine(_anvil.position);
             }
 
@@ -87,7 +87,7 @@ namespace Lis.Camp.Building
             return true;
         }
 
-        protected override void SetWorker(UnitCampController ucc)
+        public override void SetWorker(UnitCampController ucc)
         {
             base.SetWorker(ucc);
             CampConsoleManager.ShowMessage($"Unit assigned to Blacksmith.");

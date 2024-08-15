@@ -75,6 +75,11 @@ namespace Lis.Camp.Building
             unlocker.Initialize(Building);
         }
 
+        void OnDestroy()
+        {
+            Building.OnUnlocked -= Unlock;
+        }
+
         protected void AllowInteraction()
         {
             IsInteractionAvailable = true;
@@ -95,19 +100,7 @@ namespace Lis.Camp.Building
             _workerSlotGroup.SetActive(true);
         }
 
-        public bool AssignUnit(UnitCampController ucc)
-        {
-            if (Building.GetAssignedWorkerCount() >= Building.MaxWorkers)
-            {
-                HeroCampController.Instance.DisplayFloatingText("Building is full", Color.black);
-                return false;
-            }
-
-            SetWorker(ucc);
-            return true;
-        }
-
-        protected virtual void SetWorker(UnitCampController ucc)
+        public virtual void SetWorker(UnitCampController ucc)
         {
             ucc.OnGrabbed += ReleaseUnit;
             SetWorkerSlot(ucc);

@@ -17,6 +17,7 @@ namespace Lis.Camp
         static readonly int AnimAttack = Animator.StringToHash("Attack");
 
         UnitPathingController _unitPathingController;
+        UnitGrabController _unitGrabController;
 
         IEnumerator _campCoroutine;
 
@@ -34,10 +35,16 @@ namespace Lis.Camp
             _unitPathingController.InitializeUnit(unit);
             _unitPathingController.SetStoppingDistance(0.2f);
 
-            if (!TryGetComponent(out UnitGrabController grab)) return;
-            grab.Initialize();
-            grab.OnGrabbed += Grabbed;
-            grab.OnReleased += Released;
+            if (!TryGetComponent(out _unitGrabController)) return;
+            _unitGrabController.Initialize();
+            _unitGrabController.OnGrabbed += Grabbed;
+            _unitGrabController.OnReleased += Released;
+        }
+
+        void OnDestroy()
+        {
+            _unitGrabController.OnGrabbed -= Grabbed;
+            _unitGrabController.OnReleased -= Released;
         }
 
         public void StartCampCoroutine()

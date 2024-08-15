@@ -24,15 +24,11 @@ namespace Lis.Camp
 
         bool _pointerDown;
 
-        bool _wasInitialized;
-
         public event Action OnGrabbed;
         public event Action OnReleased;
 
         public void Initialize()
         {
-            if (_wasInitialized) return;
-            _wasInitialized = true;
 
             _gameManager = GameManager.Instance;
             _audioManager = AudioManager.Instance;
@@ -90,6 +86,7 @@ namespace Lis.Camp
             {
                 Vector3 mousePosition = _mouse.position.ReadValue();
                 Ray ray = _cam.ScreenPointToRay(mousePosition);
+
                 if (!Physics.Raycast(ray, out RaycastHit hit, 100, 1 << LayerMask.NameToLayer("Floor")))
                     yield return new WaitForSeconds(0.2f);
 
@@ -108,7 +105,6 @@ namespace Lis.Camp
 
         bool IsGrabbingAllowed()
         {
-            if (!_wasInitialized) return false;
             if (_grabbedObject != null) return false;
             if (!_isGrabbingEnabled) return false;
 
@@ -117,7 +113,6 @@ namespace Lis.Camp
 
         void OnPointerUp(InputAction.CallbackContext context)
         {
-            if (!_wasInitialized) return;
             if (this == null) return;
 
             _pointerDown = false;
