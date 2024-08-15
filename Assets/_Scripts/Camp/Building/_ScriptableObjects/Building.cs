@@ -21,11 +21,14 @@ namespace Lis.Camp.Building
         protected readonly List<Unit> AssignedWorkers = new();
         public int MaxWorkers = 2;
 
+        protected Campaign Campaign;
+
         public event Action OnUnlocked;
 
         public virtual void Initialize(Campaign campaign)
         {
             IsUnlocked = false;
+            Campaign = campaign;
 
             foreach (MapNode node in campaign.Map.GetAllNodes())
                 node.OnNodeCompleted += NodeCompleted;

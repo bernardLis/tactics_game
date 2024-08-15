@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Lis.Core;
-using Lis.Units;
+﻿using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Camp.Building

@@ -117,5 +117,26 @@ namespace Lis.Camp
                 yield return _unitPathingController.PathToPositionAndStop(dropOffPosition);
             }
         }
+
+        public void StartBlacksmithCoroutine(Vector3 anvilPosition)
+        {
+            BaseBuildingAssignment();
+            if (_campCoroutine != null) StopCoroutine(_campCoroutine);
+            _campCoroutine = BlacksmithCoroutine(anvilPosition);
+            StartCoroutine(_campCoroutine);
+        }
+
+        IEnumerator BlacksmithCoroutine(Vector3 anvilPosition)
+        {
+            yield return _unitPathingController.PathToPositionAndStop(anvilPosition);
+
+            while (true)
+            {
+                if (this == null) yield break;
+
+                _animator.SetTrigger(AnimAttack);
+                yield return new WaitForSeconds(Random.Range(1f, 3f));
+            }
+        }
     }
 }

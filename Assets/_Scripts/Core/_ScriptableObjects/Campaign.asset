@@ -19,6 +19,7 @@ MonoBehaviour:
   CurrentHeroNode: {fileID: 0}
   CurrentArena: {fileID: 11400000, guid: e3e6c2f47e936ab42bd7515d176bac20, type: 2}
   Bank: {fileID: 11400000, guid: 83c1139d71f92624e8310593a8148d6c, type: 2}
+  Blacksmith: {fileID: 11400000, guid: bb5afc3116dccd3459944beb63260baf, type: 2}
   GoldMine: {fileID: 11400000, guid: 34b141be40ab24d44aed15811d7546cb, type: 2}
   Barracks: {fileID: 11400000, guid: 988ef55f295ded14c9b378829cdae112, type: 2}
   RewardCollector: {fileID: 11400000, guid: 2ed12a2632c03aa43ae6abfc25df13e9, type: 2}
