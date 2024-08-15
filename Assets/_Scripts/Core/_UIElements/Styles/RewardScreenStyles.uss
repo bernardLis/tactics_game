@@ -49,3 +49,23 @@
     font-size: 30px;
 }
 
+
+.reward-screen__color-picker {
+    width: 300px;
+    height: 300px;
+    font-size: 30px;
+}
+
+.reward-screen__color-selected {
+    border-width: 10px;
+    border-color: black;
+}
+
+.reward-screen__bet-amount-container {
+    width: 20%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+

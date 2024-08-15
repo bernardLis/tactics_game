@@ -25,6 +25,7 @@ namespace Lis.Core
         public Bank Bank;
 
         public Blacksmith Blacksmith;
+        public Casino Casino;
         public Building GoldMine;
 
         public Barracks Barracks;
@@ -77,6 +78,9 @@ namespace Lis.Core
 
             Blacksmith = Instantiate(Blacksmith);
             Blacksmith.Initialize(this);
+
+            Casino = Instantiate(Casino);
+            Casino.Initialize(this);
 
             GoldMine = Instantiate(GoldMine);
             GoldMine.Initialize(this);
