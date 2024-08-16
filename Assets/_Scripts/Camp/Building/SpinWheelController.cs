@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -25,7 +24,7 @@ namespace Lis
 
         IEnumerator SpinCoroutine()
         {
-            float genSpeed = Random.Range(4, 7);
+            float genSpeed = Random.Range(3, 5);
             float subSpeed = Random.Range(0.001f, 0.004f);
             while (genSpeed > 0)
             {

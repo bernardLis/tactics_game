@@ -45,10 +45,11 @@ namespace Lis.Units.Hero
             UnsubscribeInputActions();
         }
 
-        void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out IInteractable interactable)) return;
             if (!interactable.CanInteract()) return;
+
             _interactables.Add(interactable);
             ShowInteractionPrompt(interactable);
         }
@@ -67,10 +68,10 @@ namespace Lis.Units.Hero
             foreach (IInteractable interactable in _interactables)
             {
                 if (!interactable.CanInteract()) continue;
+                HideInteractionPrompt();
                 if (!interactable.Interact(this)) continue;
                 _interactables.Remove(interactable);
 
-                HideInteractionPrompt();
                 break;
             }
         }

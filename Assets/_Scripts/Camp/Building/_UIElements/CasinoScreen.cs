@@ -1,4 +1,6 @@
 ﻿using Lis.Core;
+using Lis.Core.Utilities;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Lis.Camp.Building
@@ -72,11 +74,16 @@ namespace Lis.Camp.Building
             container.AddToClassList(_ussBetAmountContainer);
             Content.Add(container);
 
+            int betAmount = 100;
+            if (GameManager.Gold < betAmount)
+                betAmount = GameManager.Gold;
+
             _betAmountSlider = new(0, GameManager.Gold);
+            _betAmountSlider.value = betAmount;
             _betAmountSlider.style.flexGrow = 1;
             container.Add(_betAmountSlider);
 
-            Label betAmountLabel = new("Bet Amount: 0");
+            Label betAmountLabel = new($"Bet Amount: {betAmount}");
             container.Add(betAmountLabel);
 
             _betAmountSlider.RegisterCallback<ChangeEvent<int>>((evt) =>
@@ -93,6 +100,12 @@ namespace Lis.Camp.Building
 
         void Spin()
         {
+            if (_betAmountSlider.value == 0)
+            {
+                Helpers.DisplayTextOnElement(Root, _spinButton, "Place a bet first!", Color.red);
+                return;
+            }
+
             _casino.PlaceBet(_betAmountSlider.value, _isGreenSelected);
             Hide();
         }

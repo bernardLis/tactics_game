@@ -669,7 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549043150222876548}
-  - component: {fileID: 2600745829270576815}
+  - component: {fileID: 2691536963380603320}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -694,7 +694,7 @@ Transform:
   - {fileID: 1018582000287160955}
   m_Father: {fileID: 5331211058390846738}
   m_LocalEulerAnglesHint: {x: -15, y: 180, z: 0}
---- !u!114 &2600745829270576815
+--- !u!114 &2691536963380603320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1892,4 +1892,4 @@ MonoBehaviour:
   _workerSlotGroup: {fileID: 462717150814193993}
   _workerSlot: {fileID: 1225100232647296130, guid: 5b892b661a2ea4943ae52d32d74df3cd, type: 3}
   Building: {fileID: 0}
-  _spinWheelController: {fileID: 2600745829270576815}
+  _spinWheelController: {fileID: 2691536963380603320}

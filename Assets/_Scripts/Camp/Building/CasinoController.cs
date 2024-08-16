@@ -11,6 +11,8 @@ namespace Lis.Camp.Building
         Casino _casino;
         public new string InteractionPrompt => "Access Casino";
 
+        bool _isSpinning;
+
         protected override void Initialize()
         {
             Building = GameManager.Campaign.Casino;
@@ -20,6 +22,23 @@ namespace Lis.Camp.Building
             base.Initialize();
         }
 
+        void OnDisable()
+        {
+            _spinWheelController.OnSpinCompleted -= SpinCompleted;
+        }
+
+        void OnDestroy()
+        {
+            _spinWheelController.OnSpinCompleted -= SpinCompleted;
+        }
+
+        public override bool CanInteract()
+        {
+            if (_isSpinning) return false;
+            return base.CanInteract();
+        }
+
+
         public override bool Interact(Interactor interactor)
         {
             CasinoScreen casinoScreen = new();
@@ -28,13 +47,18 @@ namespace Lis.Camp.Building
             casinoScreen.OnHide += () =>
             {
                 if (_casino.IsBetPlaced)
+                {
+                    _isSpinning = true;
                     _spinWheelController.Spin();
+                }
             };
             return true;
         }
 
         void SpinCompleted(float angle)
         {
+            if (_spinWheelController == null) return;
+
             // seems like a bad code, but meh
             if (angle is > 0 and < 180)
             {
@@ -50,6 +74,9 @@ namespace Lis.Camp.Building
                 else
                     Won();
             }
+
+            _isSpinning = false;
+            LookForInteractor();
         }
 
         void Won()

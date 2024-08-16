@@ -23,7 +23,7 @@ namespace Lis.Core
 
         bool _isNavigationDisabled;
 
-        VisualElement _root;
+        protected VisualElement Root;
         protected ContinueButton ContinueButton;
 
         protected GameManager GameManager;
@@ -75,10 +75,10 @@ namespace Lis.Core
 
         void ResolveRoot()
         {
-            _root = GameManager.Root;
-            if (FightManager != null) _root = FightManager.Root;
+            Root = GameManager.Root;
+            if (FightManager != null) Root = FightManager.Root;
 
-            _root.Add(this);
+            Root.Add(this);
         }
 
         protected void SetTitle(string txt)
@@ -125,7 +125,7 @@ namespace Lis.Core
 
         public void Hide()
         {
-            VisualElement tt = _root.Q<VisualElement>("tooltipContainer");
+            VisualElement tt = Root.Q<VisualElement>("tooltipContainer");
             if (tt != null) tt.style.display = DisplayStyle.None;
 
             DOTween.To(x => style.opacity = x, style.opacity.value, 0, 0.5f)

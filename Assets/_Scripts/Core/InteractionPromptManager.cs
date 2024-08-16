@@ -43,7 +43,8 @@ namespace Lis.Core
             DOTween.Kill(_interactionPromptTweenID);
             DOTween.To(x => _interactionPromptContainer.style.opacity = x, 1, 0, 0.5f)
                 .SetEase(Ease.InOutSine)
-                .OnComplete(() => _interactionPromptContainer.style.display = DisplayStyle.None);
+                .OnComplete(() => _interactionPromptContainer.style.display = DisplayStyle.None)
+                .SetId(_interactionPromptTweenID);
         }
     }
 }

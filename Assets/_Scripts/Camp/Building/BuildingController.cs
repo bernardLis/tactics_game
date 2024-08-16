@@ -98,6 +98,18 @@ namespace Lis.Camp.Building
             _unlockedGfx.SetActive(true);
             AllowInteraction();
             _workerSlotGroup.SetActive(true);
+
+            LookForInteractor();
+        }
+
+        protected void LookForInteractor()
+        {
+            // naive way to do it
+            HeroCampController heroController = HeroCampController.Instance;
+            if (Vector3.Distance(heroController.transform.position, transform.position) > 5) return;
+
+            Interactor interactor = heroController.GetComponentInChildren<Interactor>();
+            interactor.OnTriggerEnter(GetComponent<SphereCollider>());
         }
 
         public virtual void SetWorker(UnitCampController ucc)
