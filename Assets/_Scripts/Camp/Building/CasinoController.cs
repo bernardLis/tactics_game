@@ -9,6 +9,8 @@ namespace Lis.Camp.Building
     {
         [SerializeField] SpinWheelController _spinWheelController;
         [SerializeField] CasinoSkeletonController _casinoSkeletonController;
+        [SerializeField] GameObject _wonParticles;
+
         Casino _casino;
         public new string InteractionPrompt => "Access Casino";
 
@@ -53,6 +55,7 @@ namespace Lis.Camp.Building
             {
                 if (_casino.IsBetPlaced)
                 {
+                    _wonParticles.SetActive(false);
                     _isSpinning = true;
                     _spinWheelController.Spin();
                     OnSpin?.Invoke();
@@ -87,6 +90,7 @@ namespace Lis.Camp.Building
 
         void Won()
         {
+            _wonParticles.SetActive(true);
             GameManager.ChangeGoldValue(_casino.BetAmount * 2);
             CampConsoleManager.ShowMessage($"You won! +{_casino.BetAmount * 2} Gold");
             HeroCampController.Instance.DisplayFloatingText($"You won! +{_casino.BetAmount * 2} Gold", Color.black);

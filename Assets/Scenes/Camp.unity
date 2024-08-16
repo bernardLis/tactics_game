@@ -1451,7 +1451,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 40
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -3750,6 +3750,10 @@ PrefabInstance:
     - target: {fileID: 8112583467354781403, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9192097542255010049, guid: fd4a23aaca7b4144a9822c6d90595949, type: 3}
+      propertyPath: field of view
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
