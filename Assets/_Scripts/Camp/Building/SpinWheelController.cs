@@ -24,6 +24,7 @@ namespace Lis
 
         IEnumerator SpinCoroutine()
         {
+            yield return new WaitForSeconds(1f);
             float genSpeed = Random.Range(3, 5);
             float subSpeed = Random.Range(0.001f, 0.004f);
             while (genSpeed > 0)

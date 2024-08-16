@@ -1,3 +1,4 @@
+using System;
 using Lis.Core;
 using Lis.Units.Hero;
 using UnityEngine;
@@ -7,11 +8,14 @@ namespace Lis.Camp.Building
     public class CasinoController : BuildingController, IInteractable
     {
         [SerializeField] SpinWheelController _spinWheelController;
-
+        [SerializeField] CasinoSkeletonController _casinoSkeletonController;
         Casino _casino;
         public new string InteractionPrompt => "Access Casino";
 
         bool _isSpinning;
+
+        public event Action OnSpin;
+        public event Action<bool> OnSpinCompleted;
 
         protected override void Initialize()
         {
@@ -19,6 +23,7 @@ namespace Lis.Camp.Building
             _casino = (Casino)Building;
 
             _spinWheelController.OnSpinCompleted += SpinCompleted;
+            _casinoSkeletonController.Initialize(this);
             base.Initialize();
         }
 
@@ -50,6 +55,7 @@ namespace Lis.Camp.Building
                 {
                     _isSpinning = true;
                     _spinWheelController.Spin();
+                    OnSpin?.Invoke();
                 }
             };
             return true;
@@ -84,12 +90,14 @@ namespace Lis.Camp.Building
             GameManager.ChangeGoldValue(_casino.BetAmount * 2);
             CampConsoleManager.ShowMessage($"You won! +{_casino.BetAmount * 2} Gold");
             HeroCampController.Instance.DisplayFloatingText($"You won! +{_casino.BetAmount * 2} Gold", Color.black);
+            OnSpinCompleted?.Invoke(true);
         }
 
         void Lost()
         {
             CampConsoleManager.ShowMessage($"You lost {_casino.BetAmount} Gold");
             HeroCampController.Instance.DisplayFloatingText($"You lost!", Color.black);
+            OnSpinCompleted?.Invoke(false);
         }
     }
 }
