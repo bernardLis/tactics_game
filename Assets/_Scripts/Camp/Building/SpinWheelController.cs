@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Lis
+namespace Lis.Camp.Building
 {
     public class SpinWheelController : MonoBehaviour
     {

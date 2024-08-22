@@ -293,9 +293,6 @@ namespace Lis.Core
             };
             _otherFoldout.Add(spawnVasesButton);
 
-            Button unlockBarracks = new() { text = "Unlock Barracks" };
-            unlockBarracks.clickable.clicked += () => { FightManager.Instance.Campaign.Barracks.Unlock(); };
-            _otherFoldout.Add(unlockBarracks);
         }
 
         void AddHeroButtons()

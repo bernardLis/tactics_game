@@ -19,7 +19,6 @@ namespace Lis.Arena.Pickup
         [SerializeField] Skull _skull;
         [SerializeField] Dice _dice;
         [SerializeField] Mushroom _mushroom;
-        [SerializeField] BarracksToken _barracksToken;
         [SerializeField] HealthPickup _healthPickup;
 
         [SerializeField] List<ExperienceStone> _expOrbs = new();

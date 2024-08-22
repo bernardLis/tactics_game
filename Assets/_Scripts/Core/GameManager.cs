@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Lis.Core.Utilities;
-using Lis.HeroCreation;
 using Lis.Units.Hero;
 using Lis.Upgrades;
 using Unity.Services.Analytics;

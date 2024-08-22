@@ -2,7 +2,7 @@ using Lis.Units;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Lis
+namespace Lis.Camp
 {
     public class WorkerSlot : MonoBehaviour
     {

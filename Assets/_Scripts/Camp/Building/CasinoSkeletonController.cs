@@ -1,8 +1,7 @@
 using DG.Tweening;
-using Lis.Camp.Building;
 using UnityEngine;
 
-namespace Lis
+namespace Lis.Camp.Building
 {
     public class CasinoSkeletonController : MonoBehaviour
     {

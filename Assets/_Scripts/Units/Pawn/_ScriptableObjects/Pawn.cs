@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Lis.Camp.Building;
-using Lis.Core;
 using UnityEngine;
 
 namespace Lis.Units.Pawn
@@ -15,8 +13,6 @@ namespace Lis.Units.Pawn
         [HideInInspector] public int CurrentUpgrade;
         [HideInInspector] public PawnMission CurrentMission;
 
-        BarracksNatureUpgrade _barracksNatureUpgrade;
-
         public event Action OnUpgraded;
 
         public override void InitializeFight(int team)
@@ -28,8 +24,6 @@ namespace Lis.Units.Pawn
             SetUnitBasics();
             SetPawnStats();
             SetPawnAttacks();
-
-            _barracksNatureUpgrade = GameManager.Instance.Campaign.Barracks.GetNatureUpgrade(Nature);
         }
 
         public void SetUpgrade(int upgrade)
@@ -110,9 +104,6 @@ namespace Lis.Units.Pawn
             // if barracks are level 1, you can upgrade pawn to level 1
             // if barracks are level 2, you can upgrade pawn to level 2
             // if barracks are level 3, you can upgrade pawn to level 3
-            if (_barracksNatureUpgrade.CurrentLevel < CurrentUpgrade + 2)
-                return null;
-
             return CurrentUpgrade < Upgrades.Length - 1 ? Upgrades[CurrentUpgrade + 1] : null;
         }
     }

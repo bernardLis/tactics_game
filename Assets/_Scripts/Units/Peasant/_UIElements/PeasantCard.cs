@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Lis.Arena;
+﻿using Lis.Arena;
 using Lis.Core;
 
 namespace Lis.Units.Peasant
@@ -15,29 +14,6 @@ namespace Lis.Units.Peasant
             _peasant = peasant;
             if (FightManager.IsFightActive) return;
             if (_peasant.CurrentHealth.Value <= 0) return;
-            AddUpgradeButtons();
-        }
-
-        void AddUpgradeButtons()
-        {
-            List<Nature> availableNatures = new();
-            FightManager.Instance.Campaign.Barracks.UnlockableNatures.ForEach(un =>
-            {
-                if (un.CurrentLevel > 0) availableNatures.Add(un.Nature);
-            });
-
-            foreach (Nature n in availableNatures)
-            {
-                // HERE: balance price
-                PurchaseButton b = new("", _ussCommonButton, () => Upgrade(n), 100);
-                b.Add(new NatureElement(n));
-                BottomContainer.Add(b);
-            }
-        }
-
-        void Upgrade(Nature n)
-        {
-            _peasant.Upgrade(n);
         }
     }
 }

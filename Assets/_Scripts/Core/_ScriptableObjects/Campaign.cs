@@ -25,12 +25,14 @@ namespace Lis.Core
         public Bank Bank;
 
         public Blacksmith Blacksmith;
+        public BoastingPlatform BoastingPlatform;
         public Casino Casino;
         public Building GoldMine;
+        public House House;
 
-        public Barracks Barracks;
-        public Building RewardCollector;
-        public Architect Architect;
+
+        [Header("Other")]
+        [HideInInspector] public List<Boast> ActiveBoasts = new();
 
         public void Initialize(VisualHero visualHero)
         {
@@ -79,20 +81,15 @@ namespace Lis.Core
             Blacksmith = Instantiate(Blacksmith);
             Blacksmith.Initialize(this);
 
+            BoastingPlatform = Instantiate(BoastingPlatform);
+            BoastingPlatform.Initialize(this);
+
             Casino = Instantiate(Casino);
             Casino.Initialize(this);
 
             GoldMine = Instantiate(GoldMine);
             GoldMine.Initialize(this);
 
-            Barracks = Instantiate(Barracks);
-            Barracks.Initialize(this);
-
-            RewardCollector = Instantiate(RewardCollector);
-            RewardCollector.Initialize(this);
-
-            Architect = Instantiate(Architect);
-            Architect.Initialize(this);
         }
 
         public List<Building> GetAllBuildings()
@@ -102,9 +99,7 @@ namespace Lis.Core
                 Bank,
                 Blacksmith,
                 GoldMine,
-                Barracks,
-                RewardCollector,
-                Architect
+                House,
             };
         }
     }
