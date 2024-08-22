@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using Lis.Core;
 using Lis.Units;
 using Lis.Units.Hero;
@@ -96,7 +97,6 @@ namespace Lis.Camp
             _hero.Army.Remove(Unit);
         }
 
-
         public void StartGoldMineCoroutine(Vector3 minePosition, Vector3 dropOffPosition)
         {
             BaseBuildingAssignment();
@@ -144,6 +144,20 @@ namespace Lis.Camp
                 _animator.SetTrigger(AnimAttack);
                 yield return new WaitForSeconds(Random.Range(1f, 3f));
             }
+        }
+
+        public void StartHouseCoroutine(Transform standPoint)
+        {
+            BaseBuildingAssignment();
+            if (_campCoroutine != null) StopCoroutine(_campCoroutine);
+            _campCoroutine = HouseCoroutine(standPoint);
+            StartCoroutine(_campCoroutine);
+        }
+
+        IEnumerator HouseCoroutine(Transform housePosition)
+        {
+            yield return _unitPathingController.PathToPositionAndStop(housePosition.position);
+            transform.DORotate(housePosition.rotation.eulerAngles, 0.5f);
         }
     }
 }

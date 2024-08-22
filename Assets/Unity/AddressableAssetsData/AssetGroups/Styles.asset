@@ -17,33 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 51fd2d5db23249745a9b2cf4316f1044
   m_SerializeEntries:
-  - m_GUID: d9a86c5788d7b6f4e9a3577d65d2967f
-    m_Address: CommonStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fd3c461a5e9409b40a91dec9c08cf28a
-    m_Address: ResourceBarStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 00c44fd568fbaa74f8d441924bb2f493
     m_Address: StatElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1dcb0d843bcae2d4cb844a89c93bd82d
-    m_Address: AbilityButtonStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6210ce5dd6c012b4da866162ac0c703d
-    m_Address: GoldElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 345bbfaec402d074496719d46520316d
-    m_Address: TooltipElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -52,33 +27,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 27b95a083abeef74588b14faf61ce37e
-    m_Address: AbilityTooltipElement
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
-    m_Address: SettingsMenuStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5e55454fed2ddfb4f90604f7fee33a32
-    m_Address: MenuStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 325d4af6710d7534d8c7e736fce169c7
-    m_Address: ConfirmPopupStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 55a2dab2e6ce8254ca54368106c488d6
-    m_Address: TimerElementStyles
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 29783fdbff911524d91b668919352943
-    m_Address: RewardCardStyles
+  - m_GUID: 0cfda26da3a422c468ffa95fac6cb66d
+    m_Address: Assets/_Scripts/_UIElements/Styles/TextPrintingStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -92,8 +42,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1dcb0d843bcae2d4cb844a89c93bd82d
+    m_Address: AbilityButtonStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2011cd210d470a14298a10c23ccd0898
     m_Address: BattleEntityInfoStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27b95a083abeef74588b14faf61ce37e
+    m_Address: AbilityTooltipElement
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29783fdbff911524d91b668919352943
+    m_Address: RewardCardStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -107,43 +72,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cea2238035ac76f46842572405990147
-    m_Address: EntityCardFullStyles
+  - m_GUID: 325d4af6710d7534d8c7e736fce169c7
+    m_Address: ConfirmPopupStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fc6b8e71b22b0d54fb6719bf94998476
-    m_Address: Assets/_Scripts/_UIElements/Styles/BattleFinishedStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e08b85dd0f53b34f80b86917c0bf5f9
-    m_Address: Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0cfda26da3a422c468ffa95fac6cb66d
-    m_Address: Assets/_Scripts/_UIElements/Styles/TextPrintingStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8f45396fe25429f42bf53e3c09280bb3
-    m_Address: Assets/_Scripts/_UIElements/Styles/Hero/HeroBattleStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7b6b9302b282d604bb6b1bc7d2284bb8
-    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleTooltipCardStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bbef9e2b47a771d428ced2f3cf5865e2
-    m_Address: Assets/_Scripts/_UIElements/Styles/Global Upgrades/GlobalUpgradeScreenStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 887804fd4f2a09c4c9b851bd59c00844
-    m_Address: Assets/_Scripts/_UIElements/Styles/Hero/TabletElementStyles.uss
+  - m_GUID: 345bbfaec402d074496719d46520316d
+    m_Address: TooltipElementStyles
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -152,38 +87,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a4f27463d6299c24e9a381f5a849df7f
-    m_Address: Assets/_Scripts/_UIElements/Styles/Hero/TabletAdvancedScreenStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c8e8ae342da327439fa8a83920b043f
     m_Address: Assets/_Scripts/MainMenu/_UIElements/GameStatsStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a4aecaf72db847f59de2bb326a926ed5
-    m_Address: Assets/_Scripts/Battle/_UIElements/InvestmentElementStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b62c2aa25d704c1f9fa161ec866d3ab7
-    m_Address: Assets/_Scripts/Units/Attack/_UIElements/AttackElementStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d75836c84077466da3ce8941eed74024
-    m_Address: Assets/_Scripts/Battle/Arena/_UIElements/UnlockableNatureElementStyles.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c35274c7922d4e719b81275fe15c59da
-    m_Address: Assets/_Scripts/Battle/Arena/_UIElements/UnlockableBuildingElement.uss
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 823c7148025565d4aaabc0d0af03f082
-    m_Address: Assets/_Scripts/HeroCreation/_UIElements/ItemSelectorContainerStyles.uss
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -192,9 +97,99 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55a2dab2e6ce8254ca54368106c488d6
+    m_Address: TimerElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e55454fed2ddfb4f90604f7fee33a32
+    m_Address: MenuStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6210ce5dd6c012b4da866162ac0c703d
+    m_Address: GoldElementStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 75cc4cb1b795ae34ba2022af2dfc4bbb
+    m_Address: SettingsMenuStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b6b9302b282d604bb6b1bc7d2284bb8
+    m_Address: Assets/_Scripts/_UIElements/Styles/Battle/BattleTooltipCardStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e08b85dd0f53b34f80b86917c0bf5f9
+    m_Address: Assets/_Scripts/_UIElements/Styles/BattleStatsStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 823c7148025565d4aaabc0d0af03f082
+    m_Address: Assets/_Scripts/HeroCreation/_UIElements/ItemSelectorContainerStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 887804fd4f2a09c4c9b851bd59c00844
+    m_Address: Assets/_Scripts/_UIElements/Styles/Hero/TabletElementStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f45396fe25429f42bf53e3c09280bb3
+    m_Address: Assets/_Scripts/_UIElements/Styles/Hero/HeroBattleStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4aecaf72db847f59de2bb326a926ed5
+    m_Address: Assets/_Scripts/Battle/_UIElements/InvestmentElementStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4f27463d6299c24e9a381f5a849df7f
+    m_Address: Assets/_Scripts/_UIElements/Styles/Hero/TabletAdvancedScreenStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b62c2aa25d704c1f9fa161ec866d3ab7
+    m_Address: Assets/_Scripts/Units/Attack/_UIElements/AttackElementStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbef9e2b47a771d428ced2f3cf5865e2
+    m_Address: Assets/_Scripts/_UIElements/Styles/Global Upgrades/GlobalUpgradeScreenStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c35274c7922d4e719b81275fe15c59da
+    m_Address: Assets/_Scripts/Battle/Arena/_UIElements/UnlockableBuildingElement.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cea2238035ac76f46842572405990147
+    m_Address: EntityCardFullStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9a86c5788d7b6f4e9a3577d65d2967f
+    m_Address: CommonStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc6b8e71b22b0d54fb6719bf94998476
+    m_Address: Assets/_Scripts/_UIElements/Styles/BattleFinishedStyles.uss
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd3c461a5e9409b40a91dec9c08cf28a
+    m_Address: ResourceBarStyles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cf6f8e90d4806104b8be8e1539a517bb, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: b949a3b7703ee3e459b733f63653c4ec, type: 2}
     - {fileID: 11400000, guid: 15e6c94b7aa6f2143afaafe561914ec1, type: 2}
+    - {fileID: 11400000, guid: b949a3b7703ee3e459b733f63653c4ec, type: 2}

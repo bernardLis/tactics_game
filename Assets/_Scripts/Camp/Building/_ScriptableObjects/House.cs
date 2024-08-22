@@ -11,7 +11,7 @@ namespace Lis.Camp.Building
         {
             base.NodeCompleted();
             if (!IsUnlocked) return;
-            if (GetAssignedWorkerCount() == 0) return;
+            if (GetAssignedWorkerCount() <= 1) return;
             AvailablePeasantCount++;
         }
     }

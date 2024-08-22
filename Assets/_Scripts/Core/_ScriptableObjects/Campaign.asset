@@ -23,7 +23,5 @@ MonoBehaviour:
   BoastingPlatform: {fileID: 11400000, guid: fd6d21b5dba68d64b80364e8f3fec9b6, type: 2}
   Casino: {fileID: 11400000, guid: c061c32df43a1f348889959c24cd206b, type: 2}
   GoldMine: {fileID: 11400000, guid: 34b141be40ab24d44aed15811d7546cb, type: 2}
-  Barracks: {fileID: 11400000, guid: 988ef55f295ded14c9b378829cdae112, type: 2}
-  RewardCollector: {fileID: 11400000, guid: 2ed12a2632c03aa43ae6abfc25df13e9, type: 2}
-  Architect: {fileID: 11400000, guid: 9f34ecb1c93b36943ab7badfca3234cb, type: 2}
+  House: {fileID: 11400000, guid: 86e50db0ad26315489880300ab5fdf71, type: 2}
   ActiveBoasts: []

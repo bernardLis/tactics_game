@@ -54,6 +54,7 @@ namespace Lis.Camp.Building
 
         public void AssignWorker(Unit unit)
         {
+            Debug.Log("Assigning worker");
             AssignedWorkers.Add(unit);
         }
 

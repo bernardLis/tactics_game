@@ -90,6 +90,8 @@ namespace Lis.Core
             GoldMine = Instantiate(GoldMine);
             GoldMine.Initialize(this);
 
+            House = Instantiate(House);
+            House.Initialize(this);
         }
 
         public List<Building> GetAllBuildings()

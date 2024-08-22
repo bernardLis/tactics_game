@@ -17,7 +17,7 @@ namespace Lis.Camp.Building
         readonly List<CrateController> _crates = new();
 
         Blacksmith _blacksmith;
-        public new string InteractionPrompt => "Collect gold";
+        public new string InteractionPrompt => "Collect Armor";
 
         protected override void Initialize()
         {
@@ -91,7 +91,6 @@ namespace Lis.Camp.Building
         {
             base.SetWorker(ucc);
             CampConsoleManager.ShowMessage($"Unit assigned to Blacksmith.");
-            _blacksmith.AssignWorker(ucc.Unit);
             ucc.StartBlacksmithCoroutine(_anvil.position);
         }
     }
