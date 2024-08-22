@@ -18,6 +18,7 @@ MonoBehaviour:
   Price: 300
   Nature: {fileID: 11400000, guid: e524e1a514dd1d7408aa5ff432a9753d, type: 2}
   Prefab: {fileID: 5715125434178922530, guid: 7b6ba5ece65643748b8b3ffcce2843d7, type: 3}
+  CampPrefab: {fileID: 5967993458274324049, guid: 503e065131611c947a37f74a1142f8f9, type: 3}
   SpawnSound: {fileID: 0}
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}

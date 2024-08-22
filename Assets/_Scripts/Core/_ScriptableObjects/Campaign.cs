@@ -29,7 +29,10 @@ namespace Lis.Core
         public Casino Casino;
         public Building GoldMine;
         public House House;
-
+        public TrainingBuilding EarthTrainingBuilding;
+        public TrainingBuilding FireTrainingBuilding;
+        public TrainingBuilding WaterTrainingBuilding;
+        public TrainingBuilding WindTrainingBuilding;
 
         [Header("Other")]
         [HideInInspector] public List<Boast> ActiveBoasts = new();
@@ -92,6 +95,18 @@ namespace Lis.Core
 
             House = Instantiate(House);
             House.Initialize(this);
+
+            EarthTrainingBuilding = Instantiate(EarthTrainingBuilding);
+            EarthTrainingBuilding.Initialize(this);
+
+            FireTrainingBuilding = Instantiate(FireTrainingBuilding);
+            FireTrainingBuilding.Initialize(this);
+
+            WaterTrainingBuilding = Instantiate(WaterTrainingBuilding);
+            WaterTrainingBuilding.Initialize(this);
+
+            WindTrainingBuilding = Instantiate(WindTrainingBuilding);
+            WindTrainingBuilding.Initialize(this);
         }
 
         public List<Building> GetAllBuildings()
@@ -102,6 +117,10 @@ namespace Lis.Core
                 Blacksmith,
                 GoldMine,
                 House,
+                EarthTrainingBuilding,
+                FireTrainingBuilding,
+                WaterTrainingBuilding,
+                WindTrainingBuilding
             };
         }
     }

@@ -1,55 +1,54 @@
 using System.Collections.Generic;
 using Lis.Core;
+using Lis.Units;
 using Lis.Units.Hero;
-using Lis.Units.Peasant;
 using UnityEngine;
 
 namespace Lis.Camp.Building
 {
-    public class HouseController : BuildingController, IInteractable
+    public class EarthTrainingController : BuildingController, IInteractable
     {
-        [Header("House")]
-        [SerializeField] Transform _standPointLeft;
-        [SerializeField] Transform _standPointRight;
+        [Header("Earth Training")]
+        [SerializeField] Transform _standPoint;
 
         [SerializeField] CrateController[] _cratePrefabs;
         [SerializeField] Transform _crateHolder;
         readonly List<CrateController> _crates = new();
 
-        House _house;
-        public new string InteractionPrompt => "Collect Peasants";
+        TrainingBuilding _trainingBuilding;
+        public new string InteractionPrompt => "Collect Pawns";
 
         protected override void Initialize()
         {
-            Building = GameManager.Campaign.House;
-            _house = (House)Building;
+            Building = GameManager.Campaign.EarthTrainingBuilding;
+            _trainingBuilding = (TrainingBuilding)Building;
 
             base.Initialize();
 
-            if (!_house.IsUnlocked) return;
+            if (!_trainingBuilding.IsUnlocked) return;
 
-            InitializeHouse();
+            InitializeEarthTraining();
         }
 
         protected override void Unlock()
         {
             base.Unlock();
-            InitializeHouse();
+            InitializeEarthTraining();
         }
 
-        void InitializeHouse()
+        void InitializeEarthTraining()
         {
             GetComponentInChildren<UnitDropZoneController>().Initialize(this);
 
-            for (int i = 0; i < _house.GetAssignedWorkers().Count; i++)
+            for (int i = 0; i < _trainingBuilding.GetAssignedWorkers().Count; i++)
             {
-                UnitCampController ucc = CampManager.SpawnUnit(_house.GetAssignedWorkers()[i], transform.position);
+                UnitCampController ucc =
+                    CampManager.SpawnUnit(_trainingBuilding.GetAssignedWorkers()[i], transform.position);
                 SetWorker(ucc);
-                Transform standPoint = i == 0 ? _standPointRight : _standPointLeft;
-                ucc.StartHouseCoroutine(standPoint);
+                ucc.StartHouseCoroutine(_standPoint);
             }
 
-            int cratesToSpawn = _house.AvailablePeasantCount;
+            int cratesToSpawn = _trainingBuilding.AvailablePawnCount;
             cratesToSpawn = Mathf.Clamp(cratesToSpawn, 0, 4);
             for (int i = 0; i < cratesToSpawn; i++)
                 SpawnCrate();
@@ -66,18 +65,20 @@ namespace Lis.Camp.Building
 
         public override bool CanInteract()
         {
-            if (_house.AvailablePeasantCount <= 0) return false;
+            if (_trainingBuilding.AvailablePawnCount <= 0) return false;
             return base.CanInteract();
         }
 
         public override bool Interact(Interactor interactor)
         {
-            CampConsoleManager.ShowMessage($"Collected {_house.AvailablePeasantCount} Peasants from House.");
+            CampConsoleManager.ShowMessage(
+                $"Collected {_trainingBuilding.AvailablePawnCount} Pawns from Training Building.");
 
-            for (int i = 0; i < _house.AvailablePeasantCount; i++)
+            for (int i = 0; i < _trainingBuilding.AvailablePawnCount; i++)
             {
-                HeroCampController.Instance.DisplayFloatingText("+Peasant", Color.black);
-                Peasant p = Instantiate(GameManager.UnitDatabase.Peasant);
+                HeroCampController.Instance.DisplayFloatingText($"+{_trainingBuilding.UnitToTrain.UnitName}",
+                    Color.black);
+                Unit p = Instantiate(_trainingBuilding.UnitToTrain);
                 GameManager.Campaign.Hero.AddArmy(Instantiate(p));
                 UnitCampController ucc = CampManager.SpawnUnit(p, _crateHolder.position);
                 ucc.StartCampCoroutine();
@@ -93,11 +94,8 @@ namespace Lis.Camp.Building
         public override void SetWorker(UnitCampController ucc)
         {
             base.SetWorker(ucc);
-            CampConsoleManager.ShowMessage($"Unit assigned to House.");
-            Transform standPoint = _standPointRight;
-            if (_house.GetAssignedWorkers().Count > 1)
-                standPoint = _standPointLeft;
-            ucc.StartHouseCoroutine(standPoint);
+            CampConsoleManager.ShowMessage($"Unit assigned to Earth Training Building.");
+            ucc.StartHouseCoroutine(_standPoint);
         }
     }
 }

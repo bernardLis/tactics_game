@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb50364cd6a427c89c79c1ebada1044, type: 3}
+  m_Name: Wind Training Building
+  m_EditorClassIdentifier: 
+  Id: 65cf3dc7-6060-4f5c-b3f1-92831e7e79ed
+  Icon: {fileID: 0}
+  IsUnlocked: 0
+  UnlockCost: 0
+  Level: 0
+  MaxLevel: 0
+  MaxWorkers: 1
+  UnitToTrain: {fileID: 11400000, guid: 29e49c76852bc424b8e8b8cbf9217f81, type: 2}
+  AvailablePawnCount: 0

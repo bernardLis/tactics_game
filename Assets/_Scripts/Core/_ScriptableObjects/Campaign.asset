@@ -24,4 +24,8 @@ MonoBehaviour:
   Casino: {fileID: 11400000, guid: c061c32df43a1f348889959c24cd206b, type: 2}
   GoldMine: {fileID: 11400000, guid: 34b141be40ab24d44aed15811d7546cb, type: 2}
   House: {fileID: 11400000, guid: 86e50db0ad26315489880300ab5fdf71, type: 2}
+  EarthTrainingBuilding: {fileID: 11400000, guid: 51b941f9ae86e9b43951e54abeaf2aa6, type: 2}
+  FireTrainingBuilding: {fileID: 11400000, guid: 5f5fc5cc7c4aaf142be1e641ee547e27, type: 2}
+  WaterTrainingBuilding: {fileID: 11400000, guid: e35c94f3a82aa13498613f0abf377d04, type: 2}
+  WindTrainingBuilding: {fileID: 11400000, guid: 1868eb566116f17419c4d4678a912f42, type: 2}
   ActiveBoasts: []
